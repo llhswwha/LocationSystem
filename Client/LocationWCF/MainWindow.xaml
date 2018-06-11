@@ -1,0 +1,37 @@
+﻿<Window x:Class="LocationWCFClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationWCFClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="600" Loaded="MainWindow_OnLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Host:</TextBlock>
+                <TextBox Name="TbHost">192.168.1.197</TextBox>
+                <TextBlock>Port:</TextBlock>
+                <TextBox Name="TbPort">8733</TextBox>
+                <Button Name="BtnConnect" Content="设置" Click="BtnConnect_OnClick"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Address:</TextBlock>
+                <TextBlock Name="LbAddress">http://localhost:8733/Design_Time_Addresses/LocationWCFServices/LocationService/</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BtnHello" Click="BtnHello_Click" Content="Hello"></Button>
+                <Button x:Name="BtnGetMaps" Click="BtnGetMaps_Click" Content="地图"></Button>
+                <Button x:Name="BtnGetAreas" Click="BtnGetAreas_Click" Content="区域"></Button>
+                <TextBox Name="TbResult" Width="auto"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        
+        <DataGrid Name="DataGrid1" Grid.Row="1"></DataGrid>
+       
+    </Grid>
+</Window>
