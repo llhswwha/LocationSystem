@@ -1,0 +1,141 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@model PagedList<DbModel.Location.AreaAndDev.KKSCode>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("导入", "Import")
+
+    @Ajax.ActionLink("Create New", "Create", "KKSCode", new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "modalContent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "onBegin",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+        OnComplete = "onComplete"
+    })
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/KKSCode/Search"> 主类:@Html.DropDownList("MainType", ViewBag.MainType as IEnumerable<SelectListItem>, " ", 1)     子类:@Html.DropDownList("SubType", ViewBag.SubType as IEnumerable<SelectListItem>, " ", 1)   所属系统:@Html.DropDownList("System", ViewBag.System as IEnumerable<SelectListItem>, " ", 1)<input type="submit" value="查询"></form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Serial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesinCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MainType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.System)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Serial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DesinCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.System)
+            </td>
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", "KKSCode", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "Get",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Details", "Details", "KKSCode", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Delete", "Delete", "KKSCode", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c2d4415e-a7f8-44fb-ac71-ada671a6ab6e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="ab80228a-4559-4427-a5ef-e50cd91d6216" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="bed47f89-ebec-4f49-83c8-b9ddc6bac4d2" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="b5ac487d-0656-4685-9fbb-a69cb953e894" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.Model.xsd" MetadataType="Schema" ID="9147bb23-6f67-4aec-81d0-2ad94f43393c" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="6dfa3b45-e7e2-4b78-a70c-68aface87f70" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

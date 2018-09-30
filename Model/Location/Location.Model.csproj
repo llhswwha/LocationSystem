@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\Server\WCFServer\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\Server\WCFServer\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -50,18 +50,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alarm.cs" />
+    <Compile Include="DeviceAlarm.cs" />
+    <Compile Include="LocationAlarm.cs" />
     <Compile Include="AnchorClassifyProbability.cs" />
     <Compile Include="Archor.cs" />
     <Compile Include="Area.cs" />
-    <Compile Include="Base\BaseEntity.cs" />
+    <Compile Include="Base\Entity.cs" />
     <Compile Include="Base\Bound.cs" />
+    <Compile Include="Base\Point.cs" />
+    <Compile Include="Base\Vector2Info.cs" />
+    <Compile Include="Base\Vector3Info.cs" />
+    <Compile Include="InitInfos\DevInfoBackup.cs" />
+    <Compile Include="InitInfos\LocationDevices.cs" />
+    <Compile Include="FuncArgs\AlarmSearchArg.cs" />
+    <Compile Include="Locations\ConfigArg.cs" />
+    <Compile Include="DataObjects\ObjectAddList\DeviceInfoService.cs" />
+    <Compile Include="DataObjects\ObjectAddList\ModelTypeItem.cs" />
+    <Compile Include="DataObjects\ObjectAddList\ObjectAddList.cs" />
+    <Compile Include="DataObjects\ObjectAddList\ObjectAddListService.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="InitInfos\BoundInfo.cs" />
+    <Compile Include="InitInfos\InitInfo.cs" />
+    <Compile Include="InitInfos\PointInfo.cs" />
+    <Compile Include="InitInfos\TopoInfo.cs" />
+    <Compile Include="JurisDiction.cs" />
+    <Compile Include="JurisDictionRecord.cs" />
+    <Compile Include="Locations\TransferOfAxesConfig.cs" />
+    <Compile Include="LocationTables\DevInfo.cs" />
+    <Compile Include="LocationTables\DevPos.cs" />
+    <Compile Include="LocationTables\Dev_DoorAccess.cs" />
     <Compile Include="Manage\Icon.cs" />
+    <Compile Include="Manage\KKSCode.cs" />
+    <Compile Include="Manage\UserExpand.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Manage\Menu.cs" />
     <Compile Include="Manage\Function.cs" />
+    <Compile Include="Meterial.cs" />
+    <Compile Include="NodeKKS.cs" />
+    <Compile Include="Personnel.cs" />
+    <Compile Include="PhysicalTopology.cs" />
     <Compile Include="Position.cs" />
+    <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Tag.cs" />
@@ -69,13 +98,45 @@
     <Compile Include="Authority.cs" />
     <Compile Include="TagPosition.cs" />
     <Compile Include="Target.cs" />
+    <Compile Include="Tools\CloneHelper.cs" />
+    <Compile Include="Tools\ConvertHelper.cs" />
+    <Compile Include="Tools\ListExtension.cs" />
+    <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\TreeHelper.cs" />
+    <Compile Include="Tools\XmlSerializeHelper.cs" />
+    <Compile Include="topviewxp\t_KKSCode.cs" />
+    <Compile Include="topviewxp\t_SetModel.cs" />
+    <Compile Include="topviewxp\t_Template_TypeProperty.cs" />
+    <Compile Include="TransformM.cs" />
+    <Compile Include="U3DPosition.cs" />
+    <Compile Include="Work\MobileInspection\MobileInspection.cs" />
+    <Compile Include="Work\MobileInspection\MobileInspectionContent.cs" />
+    <Compile Include="Work\MobileInspection\MobileInspectionDev.cs" />
+    <Compile Include="Work\MobileInspection\MobileInspectionItem.cs" />
+    <Compile Include="Work\OperationTicket\OperationItem.cs" />
+    <Compile Include="Work\OperationTicket\OperationItemHistory.cs" />
+    <Compile Include="Work\OperationTicket\OperationTicket.cs" />
+    <Compile Include="Work\OperationTicket\OperationTicketHistory.cs" />
+    <Compile Include="Work\PersonnelMobileInspection\PersonnelMobileInspection.cs" />
+    <Compile Include="Work\PersonnelMobileInspection\PersonnelMobileInspectionHistory.cs" />
+    <Compile Include="Work\PersonnelMobileInspection\PersonnelMobileInspectionItem.cs" />
+    <Compile Include="Work\PersonnelMobileInspection\PersonnelMobileInspectionItemHistory.cs" />
+    <Compile Include="Work\WorkTicket\SafetyMeasures.cs" />
+    <Compile Include="Work\WorkTicket\SafetyMeasuresHistory.cs" />
+    <Compile Include="Work\WorkTicket\WorkTicket.cs" />
+    <Compile Include="Work\WorkTicket\WorkTicketHistory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tools\" />
+    <ProjectReference Include="..\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

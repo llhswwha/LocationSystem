@@ -1,0 +1,94 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant
+@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.Models.zones
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetSingleZonesInfo</title>
+</head>
+<body>
+    <h2>GetSingleZonesInfo</h2>
+    <table class="table">
+        <caption style="text-align:left">区域信息</caption>
+        <tr>
+            <th>标识</th>
+            <th>名称</th>
+            <th>KKS编码</th>
+            <th>说明</th>
+            <th>x坐标</th>
+            <th>y坐标</th>
+            <th>z坐标</th>
+            <th>父ID</th>
+            <th>级联关系</th>
+        </tr>
+        <tr>
+            <td>@Model.id</td>
+            <td>@Model.name</td>
+            <td>@Model.kks</td>
+            <td>@Model.description</td>
+            <td>@Model.x</td>
+            <td>@Model.y</td>
+            <td>@Model.z</td>
+            <td>@Model.parent_id</td>
+            <td>@Model.path</td>
+        </tr>
+    </table>
+    <table class="table">
+        <caption style="text-align:left">子区域列表</caption>
+        <tr>
+            <th>标识</th>
+            <th>名称</th>
+            <th>KKS编码</th>
+            <th>说明</th>
+            <th>x坐标</th>
+            <th>y坐标</th>
+            <th>z坐标</th>
+            <th>父ID</th>
+            <th>级联关系</th>
+        </tr>
+        @foreach (zones item in Model.lstzon)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.kks</td>
+                <td>@item.description</td>
+                <td>@item.x</td>
+                <td>@item.y</td>
+                <td>@item.z</td>
+                <td>@item.parent_id</td>
+                <td>@item.path</td>
+            </tr>
+        }
+    </table>
+    <table class="table">
+        <caption style="text-align:left">关联设备列表</caption>
+        <tr>
+            <th>标识</th>
+            <th>名称</th>
+            <th>KKS编码</th>
+        </tr>
+        @foreach (devices item in Model.lstdev)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.kks</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+
+
+

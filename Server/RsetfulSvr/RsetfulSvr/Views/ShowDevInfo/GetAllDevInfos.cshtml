@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Location.Model.LocationTables.DevInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifyTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parent.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.PosX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.PosY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.PosZ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.RotationX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.RotationY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.RotationZ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.ScaleX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.ScaleY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pos.ScaleZ)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parent.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.PosX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.PosY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.PosZ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.RotationX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.RotationY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.RotationZ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.ScaleX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.ScaleY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pos.ScaleZ)
+            </td>
+        </tr>
+    }
+
+</table>

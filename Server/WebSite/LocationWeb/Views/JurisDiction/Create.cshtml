@@ -1,0 +1,143 @@
+﻿@model DbModel.Location.Work.JurisDiction
+@using Location.Model;
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Create</h2>
+</div>
+
+<div class="modal-body" style="height:600px; overflow-y:scroll;">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "creatSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>JurisDiction</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Describe, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nFlag, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.nFlag, ViewBag.EnumList as IEnumerable<SelectListItem>)
+                    @Html.ValidationMessageFor(model => model.nFlag, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
+                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.nTimeLength, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nTimeLength, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nTimeLength, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DelayTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DelayTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DelayTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ErrorDistance, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ErrorDistance, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ErrorDistance, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RepeatType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="checkbox" name="RepeatType" value="星期一" /> <span>星期一</span>
+                    <input type="checkbox" name="RepeatType" value="星期二" /> <span>星期二</span>
+                    <input type="checkbox" name="RepeatType" value="星期三" /> <span>星期三</span>
+                    <input type="checkbox" name="RepeatType" value="星期四" /> <span>星期四</span>
+                    <input type="checkbox" name="RepeatType" value="星期五" /> <span>星期五</span>
+                    <input type="checkbox" name="RepeatType" value="星期六" /> <span>星期六</span>
+                    <input type="checkbox" name="RepeatType" value="星期天" /> <span>星期天</span>
+                    <input type="checkbox" name="RepeatType" value="一次" /> <span>一次</span>
+
+
+                    @*@Html.EditorFor(model => model.RepeatType, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.RepeatType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.AreaId, ViewBag.PtList as IEnumerable<SelectListItem>, "", 1)
+                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LocationCardId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.LocationCardId, ViewBag.TagList as IEnumerable<SelectListItem>, "", 1)
+                    @Html.ValidationMessageFor(model => model.TagId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("返 回", "Index")
+        </div>
+    }
+</div>   
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.js"></script>
+
+<script src="~/Scripts/createmodal.js"></script>

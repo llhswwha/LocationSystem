@@ -31,11 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -47,30 +47,101 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.15.9.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Z.EntityFramework.Extensions.3.15.9\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaBll.cs" />
-    <Compile Include="BaseBll.cs" />
-    <Compile Include="LocationBll.cs" />
-    <Compile Include="MapBll.cs" />
-    <Compile Include="PositionBll.cs" />
+    <Compile Include="Blls\ArchorBll.cs" />
+    <Compile Include="Blls\AreaBll.cs" />
+    <Compile Include="Blls\BaseBll.cs" />
+    <Compile Include="Blls\BoundBll.cs" />
+    <Compile Include="Blls\ConfigArgBll.cs" />
+    <Compile Include="Blls\DepartmentBll.cs" />
+    <Compile Include="Blls\DevInfoBll.cs" />
+    <Compile Include="Blls\DevPosBll.cs" />
+    <Compile Include="Blls\KKSCodeBll.cs" />
+    <Compile Include="Blls\JurisDictionBll.cs" />
+    <Compile Include="Blls\JurisDictionRecordBll.cs" />
+    <Compile Include="Blls\MenuBll.cs" />
+    <Compile Include="Blls\MeterialBll.cs" />
+    <Compile Include="Blls\MobileInspectionBll.cs" />
+    <Compile Include="Blls\MobileInspectionContentBll.cs" />
+    <Compile Include="Blls\MobileInspectionDevBll.cs" />
+    <Compile Include="Blls\MobileInspectionItemBll.cs" />
+    <Compile Include="Blls\NodeKKSBll.cs" />
+    <Compile Include="Blls\OperationItemBll.cs" />
+    <Compile Include="Blls\OperationItemHistoryBll.cs" />
+    <Compile Include="Blls\OperationTicketBll.cs" />
+    <Compile Include="Blls\OperationTicketHistoryBll.cs" />
+    <Compile Include="Blls\PersonnelBll.cs" />
+    <Compile Include="Blls\PersonnelMobileInspectionBll.cs" />
+    <Compile Include="Blls\PersonnelMobileInspectionHistoryBll.cs" />
+    <Compile Include="Blls\PersonnelMobileInspectionItemBll.cs" />
+    <Compile Include="Blls\PersonnelMobileInspectionItemHistoryBll.cs" />
+    <Compile Include="Blls\PhysicalTopologyBll.cs" />
+    <Compile Include="Blls\PointBll.cs" />
+    <Compile Include="Blls\PostBll.cs" />
+    <Compile Include="Blls\RoleBll.cs" />
+    <Compile Include="Blls\SafetyMeasuresBll.cs" />
+    <Compile Include="Blls\SafetyMeasuresHistoryBll.cs" />
+    <Compile Include="Blls\TagBll.cs" />
+    <Compile Include="Blls\TargetBll.cs" />
+    <Compile Include="Blls\TransformMBll.cs" />
+    <Compile Include="Blls\U3DPositionBll.cs" />
+    <Compile Include="Blls\WorkTicketBll.cs" />
+    <Compile Include="Blls\WorkTicketHistoryBll.cs" />
+    <Compile Include="TestBll.cs" />
+    <Compile Include="Blls\MapBll.cs" />
+    <Compile Include="Blls\PositionBll.cs" />
+    <Compile Include="ServiceHelpers\LocationSP.cs" />
+    <Compile Include="LocationBll_Init.cs" />
+    <Compile Include="LocationBll_InitTopo.cs" />
+    <Compile Include="LocationBll_InsertPos.cs" />
+    <Compile Include="LocationTestBll.cs" />
+    <Compile Include="PositionMocker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TagPositionBll.cs" />
+    <Compile Include="Blls\TagPositionBll.cs" />
+    <Compile Include="Blls\UserBll.cs" />
+    <Compile Include="ServiceHelpers\PhysicalTopologySP.cs" />
+    <Compile Include="ServiceHelpers\U3DPositionSP.cs" />
+    <Compile Include="Tool\DevInfoHelper.cs" />
+    <Compile Include="Tool\KKSCodeHelper.cs" />
+    <Compile Include="Tool\LocationDeviceHelper.cs" />
+    <Compile Include="Tool\Log.cs" />
+    <Compile Include="topviewxpBlls\t_KKSCodeBll.cs" />
+    <Compile Include="topviewxpBlls\t_SetModelBll.cs" />
+    <Compile Include="topviewxpBlls\t_Template_TypePropertyBll.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Location.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DAL\Location\Location.DAL.csproj">
       <Project>{1186a8c7-2c6f-480e-8f3a-509d47f09344}</Project>
       <Name>Location.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\IModel\IModel.csproj">
+      <Project>{6D2404C0-7F69-4A66-8326-253AED706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Location\Location.Model.csproj">
       <Project>{18d3e2c1-9a5b-4558-b8d2-894ddcf77370}</Project>
       <Name>Location.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
+      <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
+      <Name>ExcelLib</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

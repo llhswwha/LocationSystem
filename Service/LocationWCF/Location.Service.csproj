@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39D91B65-547F-401A-A2C7-9DF2EE514225}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LocationServices</RootNamespace>
+    <AssemblyName>LocationServices</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WCFServer\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WCFServer\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WCFServer\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.14.33.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WCFServer\packages\Z.EntityFramework.Extensions.3.14.33\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\ModelConvertHelper.cs" />
+    <Compile Include="Converters\ModelConvertHelperOfBaseData.cs" />
+    <Compile Include="LocationCallbacks\AlarmSubscriber.cs" />
+    <Compile Include="LocationCallbacks\ILocationAlarmService.cs" />
+    <Compile Include="LocationCallbacks\ILocationAlarmServiceCallback.cs" />
+    <Compile Include="LocationCallbacks\ILocationInfoService.cs" />
+    <Compile Include="LocationCallbacks\ILocationInfoServiceCallback.cs" />
+    <Compile Include="Locations\Interfaces\IBaseDataService.cs" />
+    <Compile Include="Locations\Interfaces\IConfigArgService.cs" />
+    <Compile Include="Locations\Interfaces\IDevDataService.cs" />
+    <Compile Include="Locations\Interfaces\IDevService.cs" />
+    <Compile Include="Locations\Interfaces\IKKSService.cs" />
+    <Compile Include="Locations\ILocationService.cs" />
+    <Compile Include="LocationCallbacks\LocationCallbackService.cs" />
+    <Compile Include="Locations\Interfaces\IAlarmService.cs" />
+    <Compile Include="Locations\Interfaces\IPersonalService.cs" />
+    <Compile Include="Locations\Interfaces\IPostService.cs" />
+    <Compile Include="Locations\Interfaces\ITagService.cs" />
+    <Compile Include="Locations\Interfaces\IPhysicalTopologyService.cs" />
+    <Compile Include="Locations\Interfaces\IPositionService.cs" />
+    <Compile Include="Locations\Interfaces\IUserService.cs" />
+    <Compile Include="Locations\Interfaces\IWorkService.cs" />
+    <Compile Include="Locations\LocationService.cs" />
+    <Compile Include="Locations\LocationService_Dev.cs" />
+    <Compile Include="Locations\LocationService_BaseData.cs" />
+    <Compile Include="Locations\LocationService_Manage.cs" />
+    <Compile Include="Locations\LocationService_Person.cs" />
+    <Compile Include="Locations\LocationService_ConfigArg.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceHostHelper.cs" />
+    <Compile Include="Tools\ConvertHelper.cs" />
+    <Compile Include="Tools\DeviceInfoService.cs" />
+    <Compile Include="Tools\ObjectAddListService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BLL\BLL\BLL.csproj">
+      <Project>{c3d77c78-c78f-4e18-8ae1-bb29d3e30a9b}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DAL\DAL.csproj">
+      <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\DbModel\DbModel.csproj">
+      <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
+      <Name>DbModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\TModel\TModel.csproj">
+      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
+      <Name>TModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
+      <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
+      <Name>WebApiCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApi\WebApiLib\WebApiLib.csproj">
+      <Project>{78dc1103-e23b-423a-a1b3-f7022934dd1c}</Project>
+      <Name>WebApiLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

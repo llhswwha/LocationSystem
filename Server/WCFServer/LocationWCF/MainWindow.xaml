@@ -5,16 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="服务端" Height="500" Width="1000" Loaded="MainWindow_OnLoaded">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务"></Button>
-            <Button Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>
-        </StackPanel>
-        <TextBox Name="TbResult" Grid.Row="1"></TextBox>
+        <TabControl>
+            <TabItem Header="服务" Height="21" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务"></Button>
+                        <TextBox Name="TbResult1" Grid.Row="1" Height="100"></TextBox>
+                        <Button Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
+                        <Button Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>
+                        <Button Name="BtnOpenU3D" Content="打开三维定位程序" Click="BtnOpenU3D_OnClick"></Button>
+                        
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer>
+                            <TextBox Name="TbResult2"></TextBox>
+                        </ScrollViewer>
+                        <ScrollViewer  Grid.Column="1" Grid.Row="0">
+                            <TextBox Name="TbResult3"></TextBox>
+                        </ScrollViewer>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="定位" Height="21" VerticalAlignment="Top" Visibility="Hidden">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="模拟标签倍数"></TextBox>
+                            <TextBox Name="TbMockTagPowerCount0" Text="0"></TextBox>
+
+                            <Button Name="BtnStopConnectEngine" Content="停止" Click="BtnStopConnectEngine_OnClick"></Button>
+                            <Button Name="BtnNewDb" Content="新建Db" Click="BtnNewDb_OnClick"></Button>
+
+                            <TextBox Name="TbTimer" Text="0:0:0:0"></TextBox>
+                            <TextBox x:Name="textBox_U3DTEST" Height="23" TextWrapping="Wrap" Width="256"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="模拟位置数量"></TextBox>
+                            <TextBox Name="TbMockCount1" Text="500"></TextBox>
+                            <Button Name="BtnTestInsertData" Click="BtnTestInsertData_OnClick" Content="测试插入大量数据1"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="标签倍数"></TextBox>
+                            <TextBox Name="TbMockTagPowerCount" Text="100"></TextBox>
+                            <TextBox Text="位置倍数"></TextBox>
+                            <TextBox Name="TbMockPosPowerCount" Text="100"></TextBox>
+                            <Button Name="BtnTestInsertData2" Click="BtnTestInsertData2_OnClick" Content="一次测试插入大量数据"></Button>
+                            <Button Name="BtnTestInsertData3" Content="持续测试插入大量数据" Click="BtnTestInsertData3_OnClick"></Button>
+                        </StackPanel>
+                        <Button Name="BtnGeneratePosition" Content="开始产生位置信息" Click="BtnGeneratePosition_OnClick"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="告警">
+                <StackPanel>
+                    <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+
     </Grid>
 </Window>

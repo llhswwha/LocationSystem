@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using log4net.Config;
 
 namespace LocationWCFServer
 {
@@ -13,5 +14,9 @@ namespace LocationWCFServer
     /// </summary>
     public partial class App : Application
     {
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            XmlConfigurator.Configure();
+        }
     }
 }

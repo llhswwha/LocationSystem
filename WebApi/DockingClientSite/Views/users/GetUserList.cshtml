@@ -1,0 +1,51 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant
+@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<users>
+
+<!DOCTYPE html>
+<html>
+ <head>
+     <style>
+         span {
+             display: inline-block;
+             width: 200px;
+             text-align: right;
+         }
+     </style>
+     <title>GetUserList</title>
+ </head>
+ <body>
+     <h2>GetUserList</h2>
+     <form>
+         <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+         <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+     </form>
+     <table class="table">
+         <caption style="text-align:left">人员列表</caption>
+         <tr>
+             <th>标识</th>
+             <th>姓名</th>
+             <th>性别</th>
+             <th>邮箱</th>
+             <th>电话</th>
+             <th>手机</th>
+             <th>是否启用</th>
+             <th>部门</th>
+         </tr>
+         @foreach (users item in Model.data)
+         {
+             <tr>
+                 <td>@item.id</td>
+                 <td>@item.name</td>
+                 <td>@item.gender</td>
+                 <td>@item.email</td>
+                 <td>@item.phone</td>
+                 <td>@item.mobile</td>
+                 <td>@item.enabled</td>
+                 <td>@item.dept_name</td>
+             </tr>
+         }
+     </table>
+ </body>
+</html>
+

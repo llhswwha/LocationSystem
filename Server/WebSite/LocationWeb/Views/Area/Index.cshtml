@@ -1,0 +1,138 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model PagedList<DbModel.Location.AreaAndDev.Area>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Ajax.ActionLink("Create New", "Create", "Area", new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "modalContent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "onBegin",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+        OnComplete = "onComplete"
+    })
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KKS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Describe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InitBoundId)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.KKS)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Describe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitBoundId)
+            </td>
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", "Area", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Details", "Details", "Area", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Delete", "Delete", "Area", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

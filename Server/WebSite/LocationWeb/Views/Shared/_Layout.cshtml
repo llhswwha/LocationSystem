@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - 定位管理系统</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,15 +22,27 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            监控
+                            定位监控
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("地图", "Index", "Map")</li>
-                            <li>@Html.ActionLink("区域", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("基站", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("终端", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("监控目标", "Index", "Areas")</li>
+                            <li>@Html.ActionLink("基站", "Index", "Archors")</li>
+                            <li>@Html.ActionLink("定位卡", "Index", "LocationCard")</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            拓扑
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("区域列表", "Index", "Area")</li>
+                            <li>@Html.ActionLink("区域树", "Tree", "Area")</li>
+                            <li>@Html.ActionLink("部门列表", "Index", "Departments")</li>
+                            <li>@Html.ActionLink("部门树", "Tree", "Departments")</li>
+                            <li>@Html.ActionLink("人员信息", "Index", "Personnel")</li>
+                            <li>@Html.ActionLink("岗位", "Index", "Post")</li>
+                            <li>@Html.ActionLink("权限", "Index", "JurisDiction")</li>
                         </ul>
                     </li>
                     <li>
@@ -40,9 +51,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("位置", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("轨迹", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("告警", "Index", "Map")</li>
+                            <li>@Html.ActionLink("位置", "Index", "LocationCardPosition")</li>
+                            <li>@Html.ActionLink("轨迹", "Index", "Positions")</li>
+                            <li>@Html.ActionLink("告警", "Index", "Alarms")</li>
                         </ul>
                     </li>
                     <li>
@@ -51,10 +62,17 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("机构", "Index", "Map")</li>
-                            <li>@Html.ActionLink("用户", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("角色", "Index", "Areas")</li>
-                            <li>@Html.ActionLink("菜单", "Index", "Areas")</li>
+                            <li>@Html.ActionLink("用户", "Index", "Users")</li>
+                            <li>@Html.ActionLink("角色", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("菜单", "Index", "Menus")</li>
+                            <li>@Html.ActionLink("KKS码", "Index", "KKSCode")</li>
+                            @*<li>@Html.ActionLink("Rsetful添加", "Create", "RsetfulClient")</li>
+                            <li>@Html.ActionLink("Rsetful获取", "Query", "RsetfulClient")</li>*@
+                            <li>@Html.ActionLink("设备模型", "Index", "DevModel")</li>
+                            <li>@Html.ActionLink("设备类型", "Index", "DevType")</li>
+                            <li>@Html.ActionLink("操作票", "Index", "OperationTicket")</li>
+                            <li>@Html.ActionLink("工作票", "Index", "WorkTicket")</li>
+                            <li>@Html.ActionLink("巡检轨迹", "Index", "MobileInspection")</li>
                         </ul>
                     </li>
                     <li>
@@ -83,6 +101,21 @@
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            测试
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("ClearTopoTable", "ClearTopoTable", "DataInit")</li>
+                            <li>@Html.ActionLink("InitTopo", "InitTopo", "DataInit")</li>
+                            <li>@Html.ActionLink("ClearTest", "ClearTest", "DataInit")</li>
+                            <li>@Html.ActionLink("重建数据库", "InitDb", "DataInit")</li>
+                            <li>@Html.ActionLink("初始化内容", "InitDbData", "DataInit")</li>
+                            <li>@Html.ActionLink("保存初始数据", "SaveInitInfoXml", "DataInit")</li>
+                            <li>@Html.ActionLink("读取初始数据", "LoadInitInfoXml", "DataInit")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -98,6 +131,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryajax")
     @RenderSection("scripts", required: false)
 </body>
 </html>

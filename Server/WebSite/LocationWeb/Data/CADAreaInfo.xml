@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CADArea Id="1" Name="Root">
+  <Bound></Bound>
+  <Areas>
+    <CADArea Id="2" Name="主厂房">
+      <Bound MinX="" MinY="" MaxX="" MaxY="" IsRectange="True" IsRelative="False">
+        <Points>
+          <Point X="" Y="" Z="" Index="0"/>
+        </Points>
+      </Bound>
+    </CADArea>
+  </Areas>
+
+</CADArea>

@@ -1,0 +1,46 @@
+﻿@model IList<WebLocation.Models.Rsetful.User>
+
+
+@{
+    ViewBag.Title = "RsetfulQuery";
+}
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <h2>@ViewBag.Message</h2>
+    <p>
+        To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">
+            http://asp.net/mvc
+        </a>
+    </p>
+    <table>
+        <tr>
+            <td style="width: 200px">
+                ID
+            </td>
+            <td style="width: 200px">
+                Name
+            </td>
+            <td style="width: 200px">
+                Mail
+            </td>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @user.Id.ToString();
+                </td>
+                <td>
+                    @user.Name
+                </td>
+                <td>
+                    @user.Mail
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

@@ -1,24 +1,19 @@
-﻿using Location.BLL;
-using Location.Model;
+﻿using LocationWCFService.ServiceHelper;
 using LocationWCFServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Diagnostics;
+using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Web.Sockets.Core;
+using System.Windows.Threading;
+using DbModel.Tools;
+using log4net.Util;
+using LocationServices.LocationCallbacks;
+using LocationServices.Locations;
+using LocationWCFService;
 
 namespace LocationWCFServer
 {
@@ -27,77 +22,217 @@ namespace LocationWCFServer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DispatcherTimer LogTimer;
         public MainWindow()
         {
             InitializeComponent();
+            this.Closed += MainWindow_Closed;
+            LogTimer = new DispatcherTimer();
+            LogTimer.Interval = TimeSpan.FromMilliseconds(200);
+            LogTimer.Tick += LogTimer_Tick;
+            LogTimer.Start();
+
+            LogEvent.InfoEvent += LogEvent_InfoEvent;
+        }
+
+        private void LogEvent_InfoEvent(string obj)
+        {
+            Log.Info(obj);
+        }
+
+        private void LogTimer_Tick(object sender, EventArgs e)
+        {
+            TbResult2.Text = LogLeft;
+            TbResult3.Text = LogRight;
         }
 
 
-        ServiceHost host;
+        public string LogLeft = "";
+        public string LogRight = "";
+
+
+        //public void WriteLine(TextBox tb, string txt)
+        //{
+        //    tb.Dispatcher.BeginInvoke(new Action<string>((t) =>
+        //    {
+        //        tb.Text = txt + "\n" + tb.Text;
+        //    }), txt);
+        //}
+
+
+        public void WriteLogLeft(string txt)
+        {
+            LogLeft = txt + "\n" + LogLeft;
+            if (LogLeft.Length > 1000)
+            {
+                LogLeft = txt;
+            }
+        }
+
+        public void WriteLogRight(string txt)
+        {
+            LogRight = txt + "\n" + LogRight;
+            if (LogRight.Length > 1000)
+            {
+                LogRight = txt;
+            }
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            if (insertThread != null)
+            {
+                insertThread.Abort();
+                insertThread = null;
+            }
+            if (engineDa != null)
+            {
+                engineDa.Stop();
+            }
+
+            if (LocationService.u3dositionSP != null)
+            {
+                LocationService.u3dositionSP.Stop();
+            }
+        }
+
+
+
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
+        {
+            StartService();
+        }
+
+        private void StartService()
         {
             try
             {
-                host = new ServiceHost(typeof(LocationWCFServices.LocationService));
-                host.SetProxyDataContractResolver();
-                host.Open();
+                Log.Info("启动服务");
 
-                //Uri tcpBaseAddress = new Uri("net.tcp://localhost:7001/LocationService");
-                //host = new ServiceHost(typeof(LocationWCFServices.LocationService),tcpBaseAddress);
-                //ServiceMetadataBehavior metadataBehavior = new ServiceMetadataBehavior();
-                //metadataBehavior.HttpGetEnabled = true;
-                //metadataBehavior.HttpGetUrl=new Uri("http://localhost:7001/LocationService");
-                //host.Description.Behaviors.Add(metadataBehavior);
-                //host.Open();
-                TbResult.AppendText("启动服务");
+                StartLocationService();
+                StartLocationAlarmService();
+
+                TbResult1.AppendText("启动服务");
+                //LocationService.ShowLog_Action += ShowTest;
+                U3DPositionSP.ShowLog_Action += ShowTest;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                TbResult.AppendText(ex.ToString());
+                TbResult1.AppendText(ex.ToString());
             }
         }
 
+        private ServiceHost locationServiceHost;
+        private void StartLocationService()
+        {
+            locationServiceHost = new ServiceHost(typeof(LocationService));
+            locationServiceHost.SetProxyDataContractResolver();
+            locationServiceHost.Open();
 
-        UDPClientSocket client;
+            //Uri tcpBaseAddress = new Uri("net.tcp://localhost:7001/LocationService");
+            //host = new ServiceHost(typeof(LocationWCFServices.LocationService),tcpBaseAddress);
+            //ServiceMetadataBehavior metadataBehavior = new ServiceMetadataBehavior();
+            //metadataBehavior.HttpGetEnabled = true;
+            //metadataBehavior.HttpGetUrl=new Uri("http://localhost:7001/LocationService");
+            //host.Description.Behaviors.Add(metadataBehavior);
+            //host.Open();
+        }
+
+        private ServiceHost locationAlarmServiceHost;
+        private void StartLocationAlarmService()
+        {
+            locationAlarmServiceHost = new ServiceHost(typeof(LocationCallbackService));
+            locationAlarmServiceHost.SetProxyDataContractResolver();
+
+            locationAlarmServiceHost.Open();
+            
+        }
+
+        public void ShowTest(string str)
+        {
+            //textBox_U3DTEST.Text = str;
+            //textBox_U3DTEST.AppendText( str);
+        }
+
+
         private void BtnConnectEngine_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (client == null)
-            {
-                IPAddress ip2 = IPAddress.Parse("192.168.10.100");
-                IPEndPoint ipEndPort2 = new System.Net.IPEndPoint(ip2, 3456);
-
-                client = new UDPClientSocket(ipEndPort2);
-
-                IPAddress ip1 = IPAddress.Parse("192.168.10.100");
-                IPEndPoint ipEndPort1 = new System.Net.IPEndPoint(ip1, 1000);
-                client.Listen(ipEndPort1);
-
-                client.MessageReceived += Client_MessageReceived;
-                client.Start();
-            }
-           
-            client.SendMsg("1");
+            StartConnectEngine();
         }
 
-        PositionBll positionBll = new PositionBll();
 
-        private void Client_MessageReceived(byte[] arg1, object arg2)
+        private void BtnTestInsertData_OnClick(object sender, RoutedEventArgs e)
         {
-            string msg = Encoding.UTF8.GetString(arg1);
-
-            Position pos = new Position();
-            if (pos.Parse(msg))
-            {
-                positionBll.Create(pos);
-            }
-            Console.WriteLine(msg);
-
-            TbResult.Dispatcher.Invoke(new Action<string>(c =>
-            {
-                TbResult.AppendText(c+"\n");
-            }), msg);
+            TestInsertData();
         }
+
+        private void BtnGeneratePosition_OnClick(object sender, RoutedEventArgs e)
+        {
+            GeneratePosition();
+        }
+
+        private void BtnTestInsertData2_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TestInsertData2();
+            TestInsertData2Async(); //异步方式
+        }
+
+
+        private void BtnNewDb_OnClick(object sender, RoutedEventArgs e)
+        {
+            StopConnectEngine();
+
+            Thread.Sleep(1000);
+
+            //if (positionBll != null)
+            //{
+            //    positionBll.Dispose();
+            //}
+            //positionBll = new LocationBll();
+            WriteLogLeft("重新生成");
+        }
+
+        private void BtnStopConnectEngine_OnClick(object sender, RoutedEventArgs e)
+        {
+            StopConnectEngine();
+        }
+
+        private void BtnTestInsertData3_OnClick(object sender, RoutedEventArgs e)
+        {
+            StartTestInsertPositions();
+        }
+
+        private void BtnOpenSimulator_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Simulator\\Simulator.exe";
+            if (File.Exists(path))
+            {
+                Process.Start(path);
+            }
+            else
+            {
+                MessageBox.Show("未找到文件:" + path);
+            }
+        }
+
+        private void BtnOpenU3D_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Location\\Location.exe";
+            if (File.Exists(path))
+            {
+                Process.Start(path);
+            }
+            else
+            {
+                MessageBox.Show("未找到文件:" + path);
+            }
+        }
+
+        private void BtnPushAlarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            LocationCallbackService.NotifyServiceStop();
+        }
+        
     }
 }

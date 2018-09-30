@@ -1,0 +1,32 @@
+﻿@model DbModel.Location.Work.MobileInspectionItem
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Edit</title>
+</head>
+<body>
+    <h2>Edit</h2>
+    <form action="/MobileInspectionItem/Edit2">
+        <input type="hidden" name="Id" value=@Model.Id />
+        <input type="hidden" name="PID" value=@Model.PID />
+        <input type="hidden" name="DevID" value=@Model.DevID />
+        <span>巡检项顺序：</span><input type="number" name="nOrder" min="1" max="100" value=@Model.nOrder /><br />
+        <span>巡检项名称：</span><input type="text" name="ItemName" value=@Model.ItemName /><br />
+        <span>巡检设备：</span><input type="text" name="DevName" value=@Model.DevName readonly="readonly" /><br />
+        <h6><input type="submit" value="Edit" /></h6>
+    </form>
+    <p>
+        <a href="/MobileInspection/Edit/@Model.PID">BackToList</a>
+    </p>
+</body>
+</html>

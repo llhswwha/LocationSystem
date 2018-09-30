@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ed3bd1d4-b275-4451-87d5-6ca9229f98e4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="aa267e05-125f-405f-9cb1-8a2791455e06" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9f11fd4f-bb82-479c-89d9-824b4e90ff6f" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="e56c3aa4-89f9-458f-9e56-f0704ba2f971" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="dbe81f72-23a4-4522-b64c-1ca4c4a23c89" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" />
+    <MetadataFile FileName="Location.Model.xsd" MetadataType="Schema" ID="2a8d2c0e-89d6-4abf-b232-a6c7e5c0df1e" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

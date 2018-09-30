@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            人员
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="/users/GetUserList/">获取人员列表</a></li>
+                            <li><a href="/users/Delete/1">删除</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            部门
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/org/GetorgList/">获取部门列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            区域
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/zones/GetzonesList/">获取区域列表</a></li>
+                            <li><a href="/zones/GetSingleZonesInfo/1?view=3">获取单个区域信息</a></li>
+                            <li><a href="/zones/GetZoneDevList/1">获取指定区域下设备列表</a></li>
+                            <li><a href="/zones/Delete/">删除</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            设备
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/devices/GetDeviceList?types=100,200">获取设备列表</a></li>
+                            <li><a href="/devices/GetSingleDeviceInfo/1">获取单个设备信息</a></li>
+                            <li><a href="/devices/GetSingleDeviceActionHistory/5?begin_date=20180906&end_date=20180907">获取单个设备操作历史</a></li>
+                            <li><a href="/devices/Delete/">删除</a></li>
+                            <li><a href="/devices/Delete2/">删除操作历史</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            门禁卡
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/cards/GetCardList">获取门禁卡列表</a></li>
+                            <li><a href="/cards/GetSingleCardActionHistory/5?begin_date=20180906&end_date=20180907">获取单张门禁卡操作历史</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            两票
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/tickets/GetList?type=1&begin_date=20180906&end_date=20180907">操作票列表</a></li>
+                            <li><a href="/tickets/GetList?type=2&begin_date=20180906&end_date=20180907">工作票列表</a></li>
+                            <li><a href="/tickets/GetDetail/1">获取指定两票详情</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            告警
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/events/GeteventsList?src=2&level=1&begin_t=1536163200&end_t=1536249600">告警列表</a></li>
+                            <li><a href="/events/Delete">删除</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            sis
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/sis/GetSomesisList?kks=SCSB1,SXA1,SXB1">部分sis列表</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

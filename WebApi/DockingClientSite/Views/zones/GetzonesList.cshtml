@@ -1,0 +1,57 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant
+@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<zones>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetzonesList</title>
+</head>
+<body>
+    <h2>GetzonesList</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">区域列表</caption>
+        <tr>
+            <th>标识</th>
+            <th>名称</th>
+            <th>KKS编码</th>
+            <th>说明</th>
+            <th>X坐标</th>
+            <th>y坐标</th>
+            <th>z坐标</th>
+            <th>父ID</th>
+            <th>级联关系</th>
+        </tr>
+        @foreach (zones item in Model.data)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.kks</td>
+                <td>@item.description</td>
+                <td>@item.x</td>
+                <td>@item.y</td>
+                <td>@item.z</td>
+                <td>@item.parent_id</td>
+                <td>@item.path</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A72A90C4-C195-49EC-850E-EE6205680256}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DbModel</RootNamespace>
+    <AssemblyName>DbModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
+    <Compile Include="Tools\CloneHelper.cs" />
+    <Compile Include="Tools\EnumToList.cs" />
+    <Compile Include="Tools\InitInfos\BoundInfo.cs" />
+    <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
+    <Compile Include="Tools\InitInfos\InitInfo.cs" />
+    <Compile Include="Tools\InitInfos\LocationDevices.cs" />
+    <Compile Include="Tools\InitInfos\PointInfo.cs" />
+    <Compile Include="Tools\InitInfos\TopoInfo.cs" />
+    <Compile Include="LocationHistory\Alarm\DevAlarmHistory.cs" />
+    <Compile Include="LocationHistory\Alarm\LocationAlarmHistory.cs" />
+    <Compile Include="LocationHistory\AreaAndDev\DevInfoHistory.cs" />
+    <Compile Include="LocationHistory\Data\DevInstantDataHistory.cs" />
+    <Compile Include="LocationHistory\AreaAndDev\EntranceGuardCardHistory.cs" />
+    <Compile Include="LocationHistory\AreaAndDev\LocationCardHistory.cs" />
+    <Compile Include="LocationHistory\Data\Position.cs" />
+    <Compile Include="LocationHistory\Data\U3DPosition.cs" />
+    <Compile Include="LocationHistory\Person\PersonnelHistory.cs" />
+    <Compile Include="LocationHistory\Relation\EntranceGuardCardToPersonnelHistory.cs" />
+    <Compile Include="LocationHistory\Relation\LocationCardToPersonnelHistory.cs" />
+    <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
+    <Compile Include="LocationHistory\Work\OperationTicketHistory.cs" />
+    <Compile Include="LocationHistory\Work\PersonnelMobileInspectionHistory.cs" />
+    <Compile Include="LocationHistory\Work\PersonnelMobileInspectionItemHistory.cs" />
+    <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
+    <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
+    <Compile Include="Location\Alarm\DevAlarm.cs" />
+    <Compile Include="Location\Alarm\LocationAlarm.cs" />
+    <Compile Include="Location\AreaAndDev\Archor.cs" />
+    <Compile Include="Location\AreaAndDev\Area.cs" />
+    <Compile Include="Location\AreaAndDev\Bound.cs" />
+    <Compile Include="Location\AreaAndDev\ConfigArg.cs" />
+    <Compile Include="Location\Person\Department.cs" />
+    <Compile Include="Location\AreaAndDev\DevInfo.cs" />
+    <Compile Include="LocationHistory\AreaAndDev\DevEntranceGuardCardAction.cs" />
+    <Compile Include="Location\AreaAndDev\KKSCode.cs" />
+    <Compile Include="Location\AreaAndDev\NodeKKS.cs" />
+    <Compile Include="Location\AreaAndDev\Post.cs" />
+    <Compile Include="Location\AreaAndDev\DevModel.cs" />
+    <Compile Include="Location\AreaAndDev\DevType.cs" />
+    <Compile Include="Location\Data\DevInstantData.cs" />
+    <Compile Include="Location\AreaAndDev\EntranceGuardCard.cs" />
+    <Compile Include="Location\AreaAndDev\LocationCard.cs" />
+    <Compile Include="Location\AreaAndDev\Point.cs" />
+    <Compile Include="Location\Data\LocationCardPosition.cs" />
+    <Compile Include="Location\Person\Personnel.cs" />
+    <Compile Include="Location\Person\Role.cs" />
+    <Compile Include="Location\Relation\EntranceGuardCardToPersonnel.cs" />
+    <Compile Include="Location\Relation\LocationCardToPersonnel.cs" />
+    <Compile Include="Location\Work\JurisDiction.cs" />
+    <Compile Include="Location\Work\JurisDictionRecord.cs" />
+    <Compile Include="Location\Work\MobileInspection.cs" />
+    <Compile Include="Location\Work\MobileInspectionContent.cs" />
+    <Compile Include="Location\Work\MobileInspectionDev.cs" />
+    <Compile Include="Location\Work\MobileInspectionItem.cs" />
+    <Compile Include="Location\Work\OperationItem.cs" />
+    <Compile Include="Location\Work\OperationTicket.cs" />
+    <Compile Include="Location\Work\PersonnelMobileInspection.cs" />
+    <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
+    <Compile Include="Location\Work\SafetyMeasures.cs" />
+    <Compile Include="Location\Work\WorkTicket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\InitInfos\TransformM.cs" />
+    <Compile Include="Tools\ListExtension.cs" />
+    <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\TreeHelper.cs" />
+    <Compile Include="Tools\XmlSerializeHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TModel\TModel.csproj">
+      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
+      <Name>TModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

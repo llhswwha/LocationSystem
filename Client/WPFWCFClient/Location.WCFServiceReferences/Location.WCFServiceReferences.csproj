@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FDE7772-7DC6-443A-A9C4-ACBAD53F9C6C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Location.WCFServiceReferences</RootNamespace>
+    <AssemblyName>Location.WCFServiceReferences</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\LocationProject\Assets\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\LocationCallbackServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\LocationServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Location.TModel.DataObjects.ObjectAddList.ObjectAddList_Type.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.Alarm.DeviceAlarm.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.Alarm.LocationAlarm.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.ConfigArg.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.DevInfo.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.KKSCode.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.ObjectAddList_Type.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.PhysicalTopology.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.Post.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.AreaAndDev.Tag.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.Data.TagPosition.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.Person.Department.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.Person.Personnel.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.Location.TransferOfAxesConfig.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.Position.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.U3DPosition.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.TPost.datasource" />
+    <None Include="Service References\LocationCallbackServices\DbModel.Tools.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.Model.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.Model1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.TModel.Location.Alarm.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.TModel.Location.AreaAndDev.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.TModel.Location.Person.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\service.wsdl" />
+    <None Include="Service References\LocationCallbackServices\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\service1.wsdl" />
+    <None Include="Service References\LocationCallbackServices\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\service2.wsdl" />
+    <None Include="Service References\LocationCallbackServices\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\DbModel.Tools.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.FuncArgs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.Location.Alarm.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.Location.AreaAndDev.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.Location.Data.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.Location.Person.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.Location.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.TModel.LocationHistory.Data.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.ConfigArg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Department.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DeviceAlarm.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DevInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.DevPos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Dev_DoorAccess.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.KKSCode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.LocationAlarm.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.MobileInspection.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.MobileInspectionDev.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.ObjectAddList_Type.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.OperationItemHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.OperationTicket.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Personnel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.PersonnelMobileInspection.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.PhysicalTopology.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Position.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Post.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Tag.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.TagPosition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.Ticket.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.TransferOfAxesConfig.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.U3DPosition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.WorkTicket.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.WorkTicketHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\service.wsdl" />
+    <None Include="Service References\LocationServices\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.BaseData1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.Location.Work.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.LocationHistory.Work.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\LocationCallbackServices\" />
+    <WCFMetadataStorage Include="Service References\LocationServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationCallbackServices\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationCallbackServices\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationCallbackServices\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationServices\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationServices\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LocationServices\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

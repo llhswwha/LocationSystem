@@ -1,0 +1,101 @@
+﻿@model DbModel.Location.AreaAndDev.Area
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>PhysicalTopology</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.KKS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.KKS)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ParentId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Number)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Number)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Describe)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Describe)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.InitBoundId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.InitBoundId)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "PhysicalTopology", new { id = Model.Id }, new AjaxOptions
+           {
+               HttpMethod = "Get",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           }) |
+
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>

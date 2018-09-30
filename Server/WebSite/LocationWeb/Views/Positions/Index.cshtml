@@ -1,0 +1,90 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model PagedList<DbModel.LocationHistory.Data.Position>
+
+@{
+    ViewBag.Title = "历史标签位置";
+}
+
+<h2>历史标签位置</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonnelID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopoNodeId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonnelID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Z)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Power)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flag)
+        </td>
+        <th>
+            @Html.DisplayFor(modelItem => item.TopoNodeId)
+        </th>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })

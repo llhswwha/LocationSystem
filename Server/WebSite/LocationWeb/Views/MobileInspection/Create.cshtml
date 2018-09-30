@@ -1,0 +1,24 @@
+﻿@model DbModel.Location.Work.MobileInspection
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form action="/MobileInspection/Create2">
+        <fieldset>
+            <legend>基本信息</legend>
+            <span>@Html.DisplayNameFor(model => model.nOrder)：</span><input type="number" name="nOrder" min="1" max="100" value=@Model.nOrder /><br />
+            <span>@Html.DisplayNameFor(model => model.Name)：</span><input type="text" name="Name" value=@Model.Name /><br />
+        </fieldset>
+        <input type="submit" value="Create" />
+    </form>
+    <p>
+        @Html.ActionLink("BackToList", "Index")
+    </p>
+</body>
+</html>

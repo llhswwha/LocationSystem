@@ -1,0 +1,37 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<sis>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GeteventsList</title>
+</head>
+<body>
+    <h2>GeteventsList</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">设备信息</caption>
+        <tr>
+            <th>KKS编码</th>
+            <th>值</th>
+        </tr>
+        @foreach (sis item in Model.data)
+        {
+            <tr>
+                <td>@item.kks</td>
+                <td>@item.value</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

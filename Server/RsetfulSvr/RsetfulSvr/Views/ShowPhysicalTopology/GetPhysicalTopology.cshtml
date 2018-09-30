@@ -1,0 +1,141 @@
+﻿@model Location.Model.PhysicalTopology
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhysicalTopology</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Describe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Describe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nodekks.KKS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nodekks.KKS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.X)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.X)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.Y)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.Y)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.Z)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.Z)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.RX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.RX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.RY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.RY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.RZ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.RZ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.SX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.SX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.SY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.SY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfrom.SZ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfrom.SZ)
+        </dd>
+    </dl>
+</div>

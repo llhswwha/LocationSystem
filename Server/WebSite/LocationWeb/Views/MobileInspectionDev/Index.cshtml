@@ -1,0 +1,46 @@
+﻿@model List<DbModel.Location.Work.MobileInspectionDev>
+@using DbModel.Location.AreaAndDev
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IndexContentDev</title>
+</head>
+<body>
+    <h2>IndexContentDev</h2>
+    <form action="/MobileInspectionDev/Create">
+        <span>巡检设备：</span><select name="DevID">
+            @foreach (DevInfo item in ViewBag.devList)
+            {
+                <option value=@item.Local_DevID>@item.Name</option>
+            }
+        </select>
+        <h6><input type="submit" value="添加巡检设备" /></h6>
+    </form>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>设备名称</th>
+            <th>巡检内容数量</th>
+        </tr>
+        @foreach (MobileInspectionDev dev in Model)
+        {
+            <tr>
+                <td>@dev.Name</td>
+                <td>@dev.MobileInspectionContents.Count</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = dev.DevID }) |
+                    @Html.ActionLink("Details", "Detail", new { id = dev.DevID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = dev.DevID })
+                </td>
+            </tr>
+        }
+    </table>
+    <p>
+        <a href="/MobileInspection/Index">BackToList</a>
+    </p>
+</body>
+</html>

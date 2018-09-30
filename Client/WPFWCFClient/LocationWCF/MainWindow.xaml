@@ -1,0 +1,121 @@
+﻿<Window x:Class="LocationWCFClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationWCFClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="700" Loaded="MainWindow_OnLoaded" Unloaded="MainWindow_OnUnloaded" Closed="MainWindow_OnClosed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Host:</TextBlock>
+                <TextBox Name="TbHost">localhost</TextBox>
+                <!--<TextBlock>Port:</TextBlock>
+                <TextBox Name="TbPort">8733</TextBox>-->
+                <Button Name="BtnConnect" Content="设置" Click="BtnConnect_OnClick"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Address:</TextBlock>
+                <TextBlock Name="LbAddress">http://localhost:8733/Design_Time_Addresses/LocationWCFServices/LocationService/</TextBlock>
+            </StackPanel>
+        </StackPanel>
+        
+        <TabControl Grid.Row="1">
+            <TabItem Header="数据测试">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="BtnHello" Click="BtnHello_Click" Content="Hello"></Button>
+                            <Button x:Name="BtnGetMaps" Click="BtnGetMaps_Click" Content="地图"></Button>
+                            <Button x:Name="BtnGetAreas" Click="BtnGetAreas_Click" Content="区域"></Button>
+                            <Button x:Name="BtnGetDeps" Click="BtnGetDeps_Click" Content="机构列表"></Button>
+                            <Button x:Name="BtnGetDepRoot" Click="BtnGetDepRoot_Click" Content="机构树"></Button>
+                            <Button x:Name="BtnGetTopoTree" Click="BtnGetTopoTree_OnClick" Content="拓扑树"></Button>
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Name="TbResult" Width="auto"></TextBox>
+                            <Button Name="FindAreas" Click="FindAreas_Click" Content="FindAreas"></Button>
+                            <Button Name="GetArea" Click="GetArea_Click" Content="GetArea"></Button>
+                            <Button Name="AddArea" Click="AddArea_Click" Content="AddArea"></Button>
+                            <Button Name="EditArea" Click="EditArea_Click" Content="EditArea"></Button>
+                            <Button Name="DeleteArea" Click="DeleteArea_Click" Content="DeleteArea"></Button>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="GetLocationHistory" Click="GetLocationHistory_Click" Content="获取历史轨迹"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="BtnGetTicketList" Click="BtnGetTicketList_OnClick">两票列表</Button>
+                            <Button Name="BtnGetTicketDetail" Click="BtnGetTicketDetail_OnClick">两票列表</Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="TestWork" Click="TestWork_Click">TestWork</Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <DataGrid Name="DataGrid1" Grid.Row="1"></DataGrid>
+
+                    <TreeView Name="TreeView1" Grid.Row="2">
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded}"></Setter>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Path=Children}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Name="nodeName" Text="{Binding Name}"></TextBlock>
+                                    <StackPanel.ToolTip>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" TextWrapping="Wrap" MaxWidth="200" ></TextBlock>
+                                    </StackPanel.ToolTip>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="位置数据">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <Button Content="开始获取位置" Name="BtnGetPositions" Click="BtnGetPositions_OnClick"></Button>
+                    </StackPanel>
+                    <DataGrid Grid.Row="1" Name="DataGridRealPosition"></DataGrid>
+                    <DataGrid Grid.Row="2" Name="DataGridHistoryPosition"></DataGrid>
+                </Grid>
+ 
+            </TabItem>
+        <TabItem Header="接口测试">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Button Content="保存3D位置" Name="BtnSavePosition3D" Click="BtnSavePosition3D_OnClick"></Button>
+                    </StackPanel>
+                    <TextBox Name="Tb3DPosResult" Height="100"></TextBox>
+            </StackPanel>
+        </TabItem>
+            <TabItem Header="获取数据">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="获取DevInfo" Name="GetDevInfo" Click="GetDevInfo_OnClick"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+  
+    </Grid>
+</Window>

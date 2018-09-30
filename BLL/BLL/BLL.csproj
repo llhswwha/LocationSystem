@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C3D77C78-C78F-4E18-8AE1-BB29D3E30A9B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Z.EntityFramework.Extensions, Version=3.15.9.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\..\Server\WebSite\packages\Z.EntityFramework.Extensions.3.15.9\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bll.cs" />
+    <Compile Include="Blls\BaseBll.cs" />
+    <Compile Include="Blls\LocationHistory\DevAlarmHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\DevEntranceGuardCardActionBll.cs" />
+    <Compile Include="Blls\LocationHistory\DevInfoHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\DevInstantDataHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\EntranceGuardCardHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\EntranceGuardCardToPersonnelHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\LocationAlarmHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\LocationCardHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\LocationCardToPersonnelHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\OperationItemHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\OperationTicketHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PersonnelHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PersonnelMobileInspectionHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PersonnelMobileInspectionItemHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PositionBll.cs" />
+    <Compile Include="Blls\LocationHistory\SafetyMeasuresHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\U3DPositionBll.cs" />
+    <Compile Include="Blls\LocationHistory\WorkTicketHistoryBll.cs" />
+    <Compile Include="Blls\Location\ArchorBll.cs" />
+    <Compile Include="Blls\Location\AreaBll.cs" />
+    <Compile Include="Blls\Location\BoundBll.cs" />
+    <Compile Include="Blls\Location\ConfigArgBll.cs" />
+    <Compile Include="Blls\Location\DepartmentBll.cs" />
+    <Compile Include="Blls\Location\DevAlarmBll.cs" />
+    <Compile Include="Blls\Location\DevInfoBll.cs" />
+    <Compile Include="Blls\Location\DevInstantDataBll.cs" />
+    <Compile Include="Blls\Location\DevModelBll.cs" />
+    <Compile Include="Blls\Location\DevTypeBll.cs" />
+    <Compile Include="Blls\Location\Dev_DoorAccessBll.cs" />
+    <Compile Include="Blls\Location\EntranceGuardCardBll.cs" />
+    <Compile Include="Blls\Location\EntranceGuardCardToPersonnelBll.cs" />
+    <Compile Include="Blls\Location\JurisDictionBll.cs" />
+    <Compile Include="Blls\Location\JurisDictionRecordBll.cs" />
+    <Compile Include="Blls\Location\KKSCodeBll.cs" />
+    <Compile Include="Blls\Location\LocationAlarmBll.cs" />
+    <Compile Include="Blls\Location\LocationCardBll.cs" />
+    <Compile Include="Blls\Location\LocationCardPositionBll.cs" />
+    <Compile Include="Blls\Location\LocationCardToPersonnelBll.cs" />
+    <Compile Include="Blls\Location\MobileInspectionBll.cs" />
+    <Compile Include="Blls\Location\MobileInspectionContentBll.cs" />
+    <Compile Include="Blls\Location\MobileInspectionDevBll.cs" />
+    <Compile Include="Blls\Location\MobileInspectionItemBll.cs" />
+    <Compile Include="Blls\Location\NodeKKSBll.cs" />
+    <Compile Include="Blls\Location\OperationItemBll.cs" />
+    <Compile Include="Blls\Location\OperationTicketBll.cs" />
+    <Compile Include="Blls\Location\PersonnelBll.cs" />
+    <Compile Include="Blls\Location\PersonnelMobileInspectionBll.cs" />
+    <Compile Include="Blls\Location\PersonnelMobileInspectionItemBll.cs" />
+    <Compile Include="Blls\Location\PointBll.cs" />
+    <Compile Include="Blls\Location\PostBll.cs" />
+    <Compile Include="Blls\Location\RoleBll.cs" />
+    <Compile Include="Blls\Location\SafetyMeasuresBll.cs" />
+    <Compile Include="Blls\Location\WorkTicketBll.cs" />
+    <Compile Include="Bll_Init.cs" />
+    <Compile Include="Bll_InitTopo.cs" />
+    <Compile Include="Bll_InsertPos.cs" />
+    <Compile Include="ServiceHelpers\LocationSP.cs" />
+    <Compile Include="ServiceHelpers\PhysicalTopologySP.cs" />
+    <Compile Include="ServiceHelpers\U3DPositionSP.cs" />
+    <Compile Include="TestBll.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\DevInfoHelper.cs" />
+    <Compile Include="Tools\KKSCodeHelper.cs" />
+    <Compile Include="Tools\LocationDeviceHelper.cs" />
+    <Compile Include="Tools\Log.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\DAL\DAL\DAL.csproj">
+      <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\DbModel\DbModel.csproj">
+      <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
+      <Name>DbModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\TModel\TModel.csproj">
+      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
+      <Name>TModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
+      <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
+      <Name>ExcelLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

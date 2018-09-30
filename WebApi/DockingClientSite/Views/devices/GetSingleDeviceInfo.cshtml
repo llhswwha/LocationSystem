@@ -1,0 +1,43 @@
+﻿@model CommunicationClass.SihuiThermalPowerPlant.Models.devices
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetSingleDeviceInfo</title>
+</head>
+<body>
+    <h2>GetSingleDeviceInfo</h2>
+    <table class="table">
+        <caption style="text-align:left">设备信息</caption>
+        <tr>
+            <th>标识</th>
+            <th>编码</th>
+            <th>KKS编码</th>
+            <th>名称</th>
+            <th>分类</th>
+            <th>状态</th>
+            <th>运行状态</th>
+            <th>是否已指定点位</th>
+            <th>原始ID</th>
+        </tr>
+        <tr>
+            <td>@Model.id</td>
+            <td>@Model.code</td>
+            <td>@Model.kks</td>
+            <td>@Model.name</td>
+            <td>@Model.type</td>
+            <td>@Model.state</td>
+            <td>@Model.running_state</td>
+            <td>@Model.placed</td>
+            <td>@Model.raw_id</td>
+        </tr>
+    </table>
+</body>
+</html>

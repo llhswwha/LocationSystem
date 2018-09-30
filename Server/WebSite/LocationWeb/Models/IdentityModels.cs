@@ -31,6 +31,5 @@ namespace WebLocation.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<Map> Maps { get; set; }
     }
 }

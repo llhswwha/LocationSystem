@@ -52,13 +52,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocationDb.cs" />
+    <Compile Include="LocationHistoryDb.cs" />
+    <Compile Include="Migrations\201808010640573_InitialCreate.cs" />
+    <Compile Include="Migrations\201808010640573_InitialCreate.Designer.cs">
+      <DependentUpon>201808010640573_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808080212596_FirstMigration.cs" />
+    <Compile Include="Migrations\201808080212596_FirstMigration.Designer.cs">
+      <DependentUpon>201808080212596_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808080303471_Migration2.cs" />
+    <Compile Include="Migrations\201808080303471_Migration2.Designer.cs">
+      <DependentUpon>201808080303471_Migration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808080305109_Migration3.cs" />
+    <Compile Include="Migrations\201808080305109_Migration3.Designer.cs">
+      <DependentUpon>201808080305109_Migration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="topviewxpDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808010640573_InitialCreate.resx">
+      <DependentUpon>201808010640573_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080212596_FirstMigration.resx">
+      <DependentUpon>201808080212596_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080303471_Migration2.resx">
+      <DependentUpon>201808080303471_Migration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808080305109_Migration3.resx">
+      <DependentUpon>201808080305109_Migration3.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Model\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Location\Location.Model.csproj">
       <Project>{18d3e2c1-9a5b-4558-b8d2-894ddcf77370}</Project>
       <Name>Location.Model</Name>

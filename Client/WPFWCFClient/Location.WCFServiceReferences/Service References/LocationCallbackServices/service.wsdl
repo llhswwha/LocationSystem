@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LocationCallbackService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_ILocationAlarmService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ILocationInfoService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.Model" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILocationAlarmService_Connect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Connect" />
+  </wsdl:message>
+  <wsdl:message name="ILocationAlarmService_Connect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationAlarmService_DisConnect_InputMessage">
+    <wsdl:part name="parameters" element="tns:DisConnect" />
+  </wsdl:message>
+  <wsdl:message name="ILocationAlarmService_DisConnect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisConnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationAlarmService_AlarmInfo_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:AlarmInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_InfoConnect_InputMessage">
+    <wsdl:part name="parameters" element="tns:InfoConnect" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_InfoConnect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InfoConnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_DisInfoConnect_InputMessage">
+    <wsdl:part name="parameters" element="tns:DisInfoConnect" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_DisInfoConnect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisInfoConnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_GetInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_GetInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_GetInfoFromRsetful_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoFromRsetful" />
+  </wsdl:message>
+  <wsdl:message name="ILocationInfoService_GetInfoFromRsetful_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GetInfoFromRsetfulResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILocationAlarmService">
+    <wsdl:operation name="Connect">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationAlarmService/Connect" message="tns:ILocationAlarmService_Connect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationAlarmService/ConnectResponse" message="tns:ILocationAlarmService_Connect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DisConnect">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationAlarmService/DisConnect" message="tns:ILocationAlarmService_DisConnect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationAlarmService/DisConnectResponse" message="tns:ILocationAlarmService_DisConnect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AlarmInfo">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationAlarmService/AlarmInfo" message="tns:ILocationAlarmService_AlarmInfo_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ILocationInfoService">
+    <wsdl:operation name="InfoConnect">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationInfoService/InfoConnect" message="tns:ILocationInfoService_InfoConnect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationInfoService/InfoConnectResponse" message="tns:ILocationInfoService_InfoConnect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DisInfoConnect">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationInfoService/DisInfoConnect" message="tns:ILocationInfoService_DisInfoConnect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationInfoService/DisInfoConnectResponse" message="tns:ILocationInfoService_DisInfoConnect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationInfoService/GetInfo" message="tns:ILocationInfoService_GetInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationInfoService/GetInfoResponse" message="tns:ILocationInfoService_GetInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoFromRsetful">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationInfoService/GetInfoFromRsetful" message="tns:ILocationInfoService_GetInfoFromRsetful_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILocationInfoService/GetInfoFromRsetfulResponse" message="tns:ILocationInfoService_GetInfoFromRsetful_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_ILocationAlarmService" type="tns:ILocationAlarmService">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILocationAlarmService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="Connect">
+      <soap12:operation soapAction="http://tempuri.org/ILocationAlarmService/Connect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisConnect">
+      <soap12:operation soapAction="http://tempuri.org/ILocationAlarmService/DisConnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AlarmInfo">
+      <soap12:operation soapAction="http://tempuri.org/ILocationAlarmService/AlarmInfo" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILocationInfoService" type="tns:ILocationInfoService">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILocationInfoService_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="InfoConnect">
+      <soap12:operation soapAction="http://tempuri.org/ILocationInfoService/InfoConnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisInfoConnect">
+      <soap12:operation soapAction="http://tempuri.org/ILocationInfoService/DisInfoConnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfo">
+      <soap12:operation soapAction="http://tempuri.org/ILocationInfoService/GetInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoFromRsetful">
+      <soap12:operation soapAction="http://tempuri.org/ILocationInfoService/GetInfoFromRsetful" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LocationCallbackService">
+    <wsdl:port name="NetTcpBinding_ILocationAlarmService" binding="tns:NetTcpBinding_ILocationAlarmService">
+      <soap12:address location="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DESKTOP-CLV0P90\caiwanwei</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_ILocationInfoService" binding="tns:NetTcpBinding_ILocationInfoService">
+      <soap12:address location="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DESKTOP-CLV0P90\caiwanwei</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

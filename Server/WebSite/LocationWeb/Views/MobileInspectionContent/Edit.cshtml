@@ -1,0 +1,30 @@
+﻿@model DbModel.Location.Work.MobileInspectionContent
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>EditContent</title>
+</head>
+<body>
+    <h2>EditContent</h2>
+    <form action="/MobileInspectionContent/Edit2">
+        <input type="hidden" name="Id" value=@Model.Id />
+        <input type="hidden" name="ParentDevID" value=@Model.ParentDevID />
+        <span>顺序：</span><input type="number" name="nOrder" min="1" max="100" value=@Model.nOrder /><br />
+        <span>内容：</span><input type="text" name="Content" value=@Model.Content /><br />
+        <input type="submit" value="Edit" />
+    </form>
+    <p>
+        <a href="/MobileInspectionDev/Edit/@Model.ParentDevID">BackToList</a>
+    </p>
+</body>
+</html>

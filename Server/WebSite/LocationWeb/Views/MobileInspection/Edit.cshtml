@@ -1,0 +1,57 @@
+﻿@model DbModel.Location.Work.MobileInspection
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Edit</title>
+</head>
+<body>
+    <h2>Edit</h2>
+    <form action="/MobileInspection/Edit2" method="post">
+        <fieldset>
+            <legend>基本信息</legend>
+            <input type="hidden" name="Id" value=@Model.Id />
+            <span>@Html.DisplayNameFor(model => model.nOrder)：</span><input type="number" name="nOrder" value=@Model.nOrder /><br />
+            <span>@Html.DisplayNameFor(model => model.Name)：</span><input type="text" name="Name" value=@Model.Name /><br />
+        </fieldset>
+        <fieldset>
+            <table class="table">
+                <caption><h2 style="text-align:left">操作项</h2></caption>
+                <caption><h4 style="text-align:left"><a href="/MobileInspectionItem/Create/@Model.Id">Create Item</a></h4></caption>
+                <tr>
+                    <th>巡检项顺序</th>
+                    <th>巡检项名称</th>
+                    <th>巡检设备</th>
+                </tr>
+                @foreach (MobileInspectionItem item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.nOrder</td>
+                        <td>@item.ItemName</td>
+                        <td>@item.DevName</td>
+                        <td>
+                            <a href="/MobileInspectionItem/Edit/@item.Id">Edit</a> |
+                            <a href="/MobileInspectionItem/Detail/@item.Id?backTarget=Edit">Detail</a> | 
+                            <a href="/MobileInspectionItem/Delete/@item.Id?pid=@item.PID">Delete</a>
+                            
+                        </td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+        <hr />
+        <input type="submit" value="Save" />
+    </form>
+    <p><a href="/MobileInspection/Index">Back To List</a></p>
+</body>
+</html>
+

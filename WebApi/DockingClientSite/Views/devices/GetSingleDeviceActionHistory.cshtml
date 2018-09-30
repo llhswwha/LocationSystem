@@ -1,0 +1,47 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<devices_actions>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetSingleDeviceActionHistory</title>
+</head>
+<body>
+    <h2>GetSingleDeviceActionHistory</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">设备操作历史</caption>
+        <tr>
+            <th>标识</th>
+            <th>设备标识</th>
+            <th>门禁卡号</th>
+            <th>操作时间</th>
+            <th>结果码</th>
+            <th>说明</th>
+        </tr>
+        @foreach (devices_actions item in Model.data)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.device_id</td>
+                <td>@item.card_code</td>
+                <td>@item.t</td>
+                <td>@item.code</td>
+                <td>@item.description</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model DbModel.Location.Work.MobileInspectionItem
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form action="/MobileInspectionItem/Create2">
+        <input type="hidden" name="PID" value=@Model.PID />
+        <span>巡检项顺序：</span><input type="number" name="nOrder" min="1" max="100" value=@Model.nOrder /><br />
+        <span>巡检项名称：</span><input type="text" name="ItemName" /><br />
+        <span>巡检设备：</span><select name="DevID">
+            @foreach (MobileInspectionDev item in ViewBag.selList)
+            {
+                <option value=@item.DevID>@item.Name</option>
+            }
+        </select>
+        <h6><input type="submit" value="Create" /></h6>
+    </form>
+    <p>
+        <a href="/MobileInspection/Edit/@Model.PID">BackToList</a>
+    </p>
+</body>
+</html>

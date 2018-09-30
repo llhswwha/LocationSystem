@@ -1,0 +1,114 @@
+﻿@model DbModel.Location.Person.Personnel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>Personnel</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sex)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sex)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Photo)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BirthDay)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BirthDay)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nation)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Nation)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.WorkNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.WorkNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Phone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Mobile)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Mobile)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Enabled)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Enabled)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ParentId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Pst)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Pst)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "Personnel", new { id = Model.Id }, new AjaxOptions
+           {
+               HttpMethod = "Get",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           }) |
+
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>

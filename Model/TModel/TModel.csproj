@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89C37F37-52F9-42FA-8A8E-C145CD6ABB64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TModel</RootNamespace>
+    <AssemblyName>TModel</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseData\Ticket.cs" />
+    <Compile Include="ConvertCodes\ByNameAttribute.cs" />
+    <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
+    <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
+    <Compile Include="LocationHistory\Work\OperationTicketHistory.cs" />
+    <Compile Include="LocationHistory\Work\PersonnelMobileInspectionHistory.cs" />
+    <Compile Include="LocationHistory\Work\PersonnelMobileInspectionItemHistory.cs" />
+    <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
+    <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
+    <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
+    <Compile Include="Location\AreaAndDev\ModelTypeItem.cs" />
+    <Compile Include="Location\AreaAndDev\ObjectAddList.cs" />
+    <Compile Include="FuncArgs\AlarmSearchArg.cs" />
+    <Compile Include="LocationHistory\Data\Position.cs" />
+    <Compile Include="LocationHistory\Data\U3DPosition.cs" />
+    <Compile Include="Location\Alarm\DeviceAlarm.cs" />
+    <Compile Include="Location\Alarm\LocationAlarm.cs" />
+    <Compile Include="Location\AreaAndDev\Bound.cs" />
+    <Compile Include="Location\AreaAndDev\ConfigArg.cs" />
+    <Compile Include="Location\AreaAndDev\DevInfo.cs" />
+    <Compile Include="Location\AreaAndDev\DevPos.cs" />
+    <Compile Include="Location\AreaAndDev\KKSCode.cs" />
+    <Compile Include="Location\AreaAndDev\PhysicalTopology.cs" />
+    <Compile Include="Location\AreaAndDev\Point.cs" />
+    <Compile Include="Location\AreaAndDev\Post.cs" />
+    <Compile Include="Location\AreaAndDev\Tag.cs" />
+    <Compile Include="Location\AreaAndDev\TransformM.cs" />
+    <Compile Include="Location\Data\TagPosition.cs" />
+    <Compile Include="Location\Manage\LoginInfo.cs" />
+    <Compile Include="Location\Obsolete\User.cs" />
+    <Compile Include="Location\Obsolete\Map.cs" />
+    <Compile Include="Location\Person\Department.cs" />
+    <Compile Include="Location\Person\Personnel.cs" />
+    <Compile Include="Location\TransferOfAxesConfig.cs" />
+    <Compile Include="Location\Work\JurisDiction.cs" />
+    <Compile Include="Location\Work\JurisDictionRecord.cs" />
+    <Compile Include="Location\Work\MobileInspection.cs" />
+    <Compile Include="Location\Work\MobileInspectionContent.cs" />
+    <Compile Include="Location\Work\MobileInspectionDev.cs" />
+    <Compile Include="Location\Work\MobileInspectionItem.cs" />
+    <Compile Include="Location\Work\OperationItem.cs" />
+    <Compile Include="Location\Work\OperationTicket.cs" />
+    <Compile Include="Location\Work\PersonnelMobileInspection.cs" />
+    <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
+    <Compile Include="Location\Work\SafetyMeasures.cs" />
+    <Compile Include="Location\Work\WorkTicket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ConvertHelper.cs" />
+    <Compile Include="Tools\TimeConvert.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

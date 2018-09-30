@@ -1,0 +1,181 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model PagedList<DbModel.Location.Work.JurisDiction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+       
+<p>
+    @Ajax.ActionLink("Create New", "Create", "JurisDiction", new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "modalContent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "onBegin",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+        OnComplete = "onComplete"
+    })
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Describe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nFlag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nTimeLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DelayTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ErrorDistance)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.RepeatType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationCardId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifyTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeleteTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Describe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nTimeLength)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.DelayTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorDistance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepeatType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationCard.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteTime)
+            </td>
+
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", "JurisDiction", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "Get",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Details", "Details", "JurisDiction", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("Delete", "Delete", "JurisDiction", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

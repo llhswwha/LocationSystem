@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Location.Model.Archor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAutoIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerPort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliveTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enable)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.X)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Z)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAutoIp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServerIp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServerPort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Power)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AliveTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enable)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+
+</table>

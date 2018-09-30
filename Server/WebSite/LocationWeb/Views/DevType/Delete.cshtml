@@ -1,0 +1,56 @@
+﻿@model DbModel.Location.AreaAndDev.DevType
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DevType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrontElevation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrontElevation)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

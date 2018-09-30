@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2AF2A331-0905-40AF-BE77-1D6B0481C875}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Web.Sockets.Core</RootNamespace>
+    <AssemblyName>Web.Sockets.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\..\SVN\Client\Unity3d5\Assets\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\Cmds\ChangeDir.cs" />
+    <Compile Include="Commands\Cmds\Date.cs" />
+    <Compile Include="Commands\Cmds\Dir.cs" />
+    <Compile Include="Commands\Cmds\Move.cs" />
+    <Compile Include="Commands\Cmds\Time.cs" />
+    <Compile Include="Commands\CommandResult.cs" />
+    <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Interfaces\IDataProtocol.cs" />
+    <Compile Include="Others\Log.cs" />
+    <Compile Include="Others\SocketDataBuffer.cs" />
+    <Compile Include="Tansfers\SocketTransfer.cs" />
+    <Compile Include="TCPs\TCPClientSocket.cs" />
+    <Compile Include="Others\ConnectType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IReceiver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TCPs\TCPServerSocket.cs" />
+    <Compile Include="Others\SocketEventArg.cs" />
+    <Compile Include="SocketEntity.cs" />
+    <Compile Include="Others\SocketHelper.cs" />
+    <Compile Include="Others\SocketMode.cs" />
+    <Compile Include="Tansfers\TCPSocketTransfer.cs" />
+    <Compile Include="TCPs\TCPSocketEntity.cs" />
+    <Compile Include="UDPs\UDPClientSocket.cs" />
+    <Compile Include="UDPs\UDPServerSocket.cs" />
+    <Compile Include="UDPs\UDPSocketEntity.cs" />
+    <Compile Include="Tansfers\UDPSocketTransfer.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

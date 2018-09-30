@@ -1,0 +1,55 @@
+﻿@model DbModel.Location.Work.MobileInspectionDev
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>EditContentDev</title>
+</head>
+<body>
+    <h2>EditContentDev</h2>
+    <form action="/MobileInspectionDev/Edit2">
+        <fieldset>
+            <legend>基本信息</legend>
+            <input type="hidden" name="DevID" value=@Model.DevID />
+            <span>设备名称：</span><input type="text" name="Name" value=@Model.Name readonly="readonly" /><br />
+            <span>设备数量：</span><input type="number" value=@Model.MobileInspectionContents.Count readonly="readonly" /><br />
+        </fieldset>
+        <fieldset>
+            <table class="table">
+                <caption><h2 style="text-align:left">巡检内容</h2></caption>
+                <caption><h4 style="text-align:left"><a href="/MobileInspectionContent/Create/@Model.DevID">Create Content</a></h4></caption>
+                <tr>
+                    <th>顺序</th>
+                    <th>内容</th>
+                </tr>
+                @foreach (MobileInspectionContent item in Model.MobileInspectionContents)
+                {
+                    <tr>
+                        <td>@item.nOrder</td>
+                        <td>@item.Content</td>
+                        <td>
+                            <a href="/MobileInspectionContent/Edit/@item.Id">Edit</a> |
+                            <a href="/MobileInspectionContent/Delete/@item.Id?pid=@item.ParentDevID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+        <hr />
+        <input type="submit" value="Edit" />
+    </form>
+    <p>
+        @Html.ActionLink("BackToList", "Index")
+    </p>
+</body>
+</html>

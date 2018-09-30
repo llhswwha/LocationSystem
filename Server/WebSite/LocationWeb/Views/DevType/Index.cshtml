@@ -1,0 +1,59 @@
+﻿@using Webdiyer.WebControls.Mvc;
+
+@model PagedList<DbModel.Location.AreaAndDev.DevType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form action="/DevType/SearchByClass"> 按大类搜索:<input name="Class" type="text" /><input type="submit" value="查询"></form>
+<form action="/DevType/SearchByTypeName"> 按模型名称搜索:<input name="TypeName" type="text" /><input type="submit" value="查询"></form>
+<form action="/DevType/SearchByTypeCode"> 按类型编号搜索:<input name="Typecode" type="text" /><input type="submit" value="查询"></form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FrontElevation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FrontElevation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })

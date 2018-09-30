@@ -1,0 +1,26 @@
+﻿@model DbModel.Location.Work.SafetyMeasures
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form action="/WorkTicket/CreateSafetyMeasures2">
+        <input type="hidden" name="WorkTicketId" value=@Model.WorkTicketId />
+        <span>签发人填写的安全措施：</span><input type="text" name="LssuerContent" value=@Model.LssuerContent /><br />
+        <span>许可人填写的安全措施：</span><input type="text" name="LicensorContent" value=@Model.LicensorContent /><br />
+        <h6><input type="submit" value="Create" /></h6>
+    </form>
+</body>
+</html>

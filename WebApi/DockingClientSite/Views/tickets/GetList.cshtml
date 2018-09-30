@@ -1,0 +1,47 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<tickets>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetTicketsList</title>
+</head>
+<body>
+    <h2>GetTicketsList</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">两票列表</caption>
+        <tr>
+            <th>标识</th>
+            <th>票号</th>
+            <th>类型</th>
+            <th>状态</th>
+            <th>设计人员标识列表</th>
+            <th>设计区域标识列表</th>
+            <th>原始信息</th>
+        </tr>
+        @foreach (tickets item in Model.data)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.code</td>
+                <td>@item.type</td>
+                <td>@item.state</td>
+                <td>@item.worker_ids</td>
+                <td>@item.zone_ids</td>
+                <td>@item.detail</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

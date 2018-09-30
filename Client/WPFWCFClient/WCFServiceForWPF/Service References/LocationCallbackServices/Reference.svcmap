@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9b264b0b-0dea-4f99-b7c3-15ad4447c932" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="74705fea-df01-4bf6-a20e-a7e6f854eb65" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="3984a54c-c83c-4c83-b6f7-96e84b76d65f" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="ec0b49eb-e94d-4fba-8730-4d37c3421ac4" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Alarm.xsd" MetadataType="Schema" ID="54b72a72-fd7c-4ad8-bd8c-b10270c094ab" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="DbModel.Tools.xsd" MetadataType="Schema" ID="8a6c888b-c3a1-4b2e-9b43-e7629e2c4df2" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Person.xsd" MetadataType="Schema" ID="2bb3bb71-294e-426d-8d5c-93f45838391d" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.AreaAndDev.xsd" MetadataType="Schema" ID="91ed4b56-adcd-4a63-a92a-ddbb76eb5e7f" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

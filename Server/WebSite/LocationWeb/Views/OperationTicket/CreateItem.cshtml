@@ -1,0 +1,28 @@
+﻿@model DbModel.Location.Work.OperationItem
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form action="/OperationTicket/CreateItem2">
+        <input type="hidden" name="TicketId" value=@Model.TicketId />
+        <span>操作时间：</span><input type="time" name="OperationTime" value=@Model.OperationTime.ToString("yyyy-MM-ddThh:mm:ss") /><br/>
+        <span>记号：</span><input type="checkbox" name="Mark" value="true" /><br />
+        <span>顺序：</span><input type="text" name="OrderNum" value=@Model.OrderNum /><br />
+        <span>操作项目：</span><input type="text" name="Item" value=@Model.Item /><br />
+        <h6><input type="submit" value="Create"/></h6>
+    </form>
+</body>
+</html>

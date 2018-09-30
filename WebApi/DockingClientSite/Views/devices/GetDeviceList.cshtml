@@ -1,0 +1,51 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<devices>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetDeviceList</title>
+</head>
+<body>
+    <h2>GetDeviceList</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">设备信息</caption>
+        <tr>
+            <th>标识</th>
+            <th>编码</th>
+            <th>KKS编码</th>
+            <th>名称</th>
+            <th>分类</th>
+            <th>状态</th>
+            <th>运行状态</th>
+            <th>是否已指定点位</th>
+            <th>原始ID</th>
+        </tr>
+        @foreach (devices item in Model.data)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.code</td>
+                <td>@item.kks</td>
+                <td>@item.name</td>
+                <td>@item.type</td>
+                <td>@item.state</td>
+                <td>@item.running_state</td>
+                <td>@item.placed</td>
+                <td>@item.raw_id</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

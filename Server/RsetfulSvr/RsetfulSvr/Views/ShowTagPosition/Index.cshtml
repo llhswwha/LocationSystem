@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Location.Model.TagPosition>
+
+@{
+    ViewBag.Title = "实时标签位置";
+}
+
+<h2>实时标签位置</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Flag)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.X)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Z)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Power)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flag)
+            </td>
+           
+        </tr>
+    }
+
+</table>

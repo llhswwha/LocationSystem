@@ -1,0 +1,28 @@
+﻿<Window x:Class="ModelConvertCodeGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ModelConvertCodeGenerator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="900" Loaded="MainWindow_OnLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="16*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Height="33" VerticalAlignment="Top" Width="517" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button x:Name="BtnGenerateOne" Content="GenerateOne" Click="BtnGenerateOne_OnClick"/>
+            <Button x:Name="BtnGenerateAll" Content="GenerateAll" Click="BtnGenerateAll_OnClick"/>
+        </StackPanel>
+        <TextBox x:Name="TbCode" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" Grid.ColumnSpan="2"/>
+        <local:AssemblyTypeInfoControl x:Name="AssemblyTypeInfo1" Grid.Row="1" SelectedTypeChanged="AssemblyTypeInfo1_OnSelectedTypeChanged"/>
+        <local:AssemblyTypeInfoControl x:Name="AssemblyTypeInfo2" Grid.Column="1"  Grid.Row="1"/>
+
+    </Grid>
+</Window>

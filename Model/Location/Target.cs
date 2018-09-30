@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,31 +14,31 @@ namespace Location.Model
     {
         public int Id { get; set; }
 
+        [Display(Name = "目标名称")]
         public string Name { get; set; }
 
-        /// <summary>
-        /// 编号
-        /// </summary>
+        [Display(Name = "目标编号")]
         public string Code { get; set; }
 
-        /// <summary>
-        /// 标签
-        /// </summary>
-        public Tag Tag { get; set; }
+        public int? TagId { get; set; }
 
-        /// <summary>
-        /// 类型：人员，物资
-        /// </summary>
+        [Display(Name = "目标标签")]
+        public virtual Tag Tag { get; set; }
+
+        [Display(Name = "目标类型")]
         public int Type { get; set; }
 
-        /// <summary>
-        /// 所属机构
-        /// </summary>
-        public Department Dep { get; set; }
+        public int? DepId { get; set; }
 
-        /// <summary>
-        /// 图片
-        /// </summary>
+        [Display(Name = "所属机构")]
+        public virtual Department Dep { get; set; }
+
+        [Display(Name = "目标图片")]
         public string ImageFile { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

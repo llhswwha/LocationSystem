@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DbModel.Location.Work.OperationTicket>
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h2>Index</h2>
+    <p>
+      @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationTask)
+            </th>
+        </tr>
+        @foreach (OperationTicket item in Model)
+            {
+            <tr>
+                <td>@item.No</td>
+                <td>@item.OperationTask</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("完成", "Finish", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    
+</body>
+</html>

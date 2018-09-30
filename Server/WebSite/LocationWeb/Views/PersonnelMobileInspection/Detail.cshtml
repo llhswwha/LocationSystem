@@ -1,0 +1,51 @@
+﻿@model DbModel.Location.Work.PersonnelMobileInspectionItem
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>DetailItem</title>
+</head>
+<body>
+    <h2>DetailItem</h2>
+    <form>
+        <fieldset>
+            <legend>基本信息</legend>
+            <span>巡检项顺序：</span><input type="number" value=@Model.nOrder readonly="readonly" /><br />
+            <span>巡检项名称：</span><input type="text" value=@Model.ItemName readonly="readonly" /><br />
+            <span>巡检设备名称：</span><input type="text" value=@Model.DevName readonly="readonly" /><br />
+            <br /><br />
+        </fieldset>
+        <fieldset>
+            <legend>具体的操作内容</legend>
+            <table class="table">
+                <tr>
+                    <th>顺序</th>
+                    <th>内容</th>
+                </tr>
+                @foreach (MobileInspectionContent MobileInspectionContent in ViewBag.Dev.MobileInspectionContents)
+                {
+                    <tr>
+                        <td>@MobileInspectionContent.nOrder</td>
+                        <td>@MobileInspectionContent.Content</td>
+                    </tr>
+                }
+                <tr></tr>
+            </table>
+        </fieldset>
+    </form>
+    <hr />
+    <p>
+        <a href="/PersonnelMobileInspection/Begin/@Model.PID">BackToList</a>
+    </p>
+</body>
+</html>

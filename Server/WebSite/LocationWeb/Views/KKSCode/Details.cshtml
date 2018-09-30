@@ -1,0 +1,85 @@
+﻿@model DbModel.Location.AreaAndDev.KKSCode
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>KKSDev</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Serial)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Serial)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Code)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Code)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ParentCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ParentCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DesinCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DesinCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MainType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MainType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SubType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SubType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.System)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.System)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "KKSCode", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>

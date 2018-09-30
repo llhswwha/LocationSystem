@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Location.Model.PhysicalTopology>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Describe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th>
+                @Html.DisplayNameFor(model => model.Nodekks.KKS)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.Z)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.RX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.RY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.RZ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.SX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.SY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transfrom.SZ)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parent.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Describe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Nodekks.KKS)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.X)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.Y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.Z)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.RX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.RY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.RZ)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.SX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.SY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transfrom.SZ)
+            </td>
+            
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,69 @@
+﻿@model DbModel.Location.Work.PersonnelMobileInspection
+@using Location.Model
+@using DbModel.Location.Work
+@using DbModel.Location.Person
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Index</title>
+</head>
+<body>
+    <h2>Index</h2>
+    <form action="/PersonnelMobileInspection/Create">
+        <span>巡检轨迹：</span><select name="MobileInspectionId">
+            @foreach (MobileInspection item in ViewBag.mList)
+            {
+                <option value=@item.Id>@item.Name</option>
+            }
+        </select><br/>
+        <span>巡检人员：</span><select name="PersonnelId">
+            @foreach (Personnel item in ViewBag.pList)
+            {
+                <option value=@item.Id>@item.Name</option>
+            }
+        </select><br />
+        <span>计划巡检开始时间：</span><input type="datetime-local" name="PlanStartTime" value=@Model.PlanStartTime.ToString("yyyy-MM-ddThh:mm:ss") /><br/>
+        <span>计划巡检结束时间：</span><input type="datetime-local" name="PlanEndTime" value=@Model.PlanEndTime.ToString("yyyy-MM-ddThh:mm:ss") /><br />
+        <h6><input type="submit" value="添加人员巡检信息" /></h6>
+    </form>
+    <table class="table">
+        <caption><h2 style="text-align:left">人员巡检列表</h2></caption>
+        <tr>
+            <th>巡检人员</th>
+            <th>巡检轨迹</th>
+            <th>计划巡检开始时间</th>
+            <th>计划巡检结束时间</th>
+            <th>巡检开始时间</th>
+            <th>巡检是否超时</th>
+        </tr>
+        @foreach (PersonnelMobileInspection item in ViewBag.pmList)
+        {
+            <tr>
+                <td>@item.PersonnelName</td>
+                <td>@item.MobileInspectionName</td>
+                <td>@item.PlanStartTime</td>
+                <td>@item.PlanEndTime</td>
+                <td>@item.StartTime</td>
+                <td>@item.bOverTime</td>
+                <td>
+                    <a href="/PersonnelMobileInspection/Begin/@item.Id">开始</a>
+                    <a href="/PersonnelMobileInspection/End/@item.Id">结束</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <p>
+        <a href="/MobileInspection/Index">BackToList</a>
+    </p>
+</body>
+</html>

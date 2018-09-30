@@ -1,0 +1,51 @@
+﻿@model DbModel.Location.Work.MobileInspection
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Detail</title>
+</head>
+<body>
+    <h2>Detail</h2>
+    <form>
+        <fieldset>
+            <legend>基本信息</legend>
+            <input type="hidden" name="Id" value=@Model.Id />
+            <span>@Html.DisplayNameFor(model => model.nOrder)：</span><input type="number" name="nOrder" value=@Model.nOrder readonly="readonly" /><br />
+            <span>@Html.DisplayNameFor(model => model.Name)：</span><input type="text" name="Name" value=@Model.Name readonly="readonly"/><br />
+        </fieldset>
+        <fieldset>
+            <table class="table">
+                <caption><h2 style="text-align:left">操作项</h2></caption>
+                <tr>
+                    <th>巡检项顺序</th>
+                    <th>巡检项名称</th>
+                    <th>巡检设备</th>
+                </tr>
+                @foreach (MobileInspectionItem item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.nOrder</td>
+                        <td>@item.ItemName</td>
+                        <td>@item.DevName</td>
+                        <td>
+                            <a href="/MobileInspectionItem/Detail/@item.Id?backTarget=Detail">Detail</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </form>
+    <p><a href="/MobileInspection/Index">Back To List</a></p>
+</body>
+</html>
+

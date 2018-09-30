@@ -1,0 +1,58 @@
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.OperationTicket
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Create</title>
+</head>
+<body>
+    <h2>Create</h2>
+    <form action="/OperationTicket/CreateTicket">
+        <fieldset>
+            <legend>基本信息</legend>
+            <span>@Html.DisplayNameFor(model => model.No)：</span><input type="text" name="No" value=@Model.No /><br />
+            <span>@Html.DisplayNameFor(model => model.OperationTask)：</span><input type="text" name="OperationTask" value=@Model.OperationTask /><br />
+            <span>@Html.DisplayNameFor(model => model.OperationStartTime)：</span><input type="datetime-local" name="OperationStartTime" value=@Model.OperationStartTime.ToString("yyyy-MM-ddThh:mm:ss") />
+            <span>@Html.DisplayNameFor(model => model.OperationEndTime)：</span><input type="datetime-local" name="OperationEndTime" value=@Model.OperationEndTime.ToString("yyyy-MM-ddThh:mm:ss") /><br />
+            <span>@Html.DisplayNameFor(model => model.Guardian)：</span><input type="text" name="Guardian" value=@Model.Guardian /><br />
+            <span>@Html.DisplayNameFor(model => model.Operator)：</span><input type="text" name="Operator" value=@Model.Operator /><br />
+            <span>@Html.DisplayNameFor(model => model.DutyOfficer)：</span><input type="text" name="DutyOfficer" value=@Model.DutyOfficer /><br />
+            <span>@Html.DisplayNameFor(model => model.Dispatch)：</span><input type="text" name="Dispatch" value=@Model.Dispatch /><br />
+            <span>@Html.DisplayNameFor(model => model.Remark)：</span><input type="text" name="Remark" value=@Model.Remark /><br />
+        </fieldset>
+        <fieldset>
+            <table class="table">
+                <caption><h2 style="text-align:left">操作项</h2></caption>
+                <caption><h4 style="text-align:left"><a href="" id="BtnOpenCreateItemDialog">Create Item</a></h4></caption>
+                <tr>
+                    <th>操作时间</th>
+                    <th>记号</th>
+                    <th>顺序</th>
+                    <th>操作项目</th>
+                </tr>
+                @foreach (OperationItem item in Model.OperationItems)
+                {
+                    <tr>
+                        <td>@item.OperationTime</td>
+                        <td>@item.Mark</td>
+                        <td>@item.OrderNum</td>
+                        <td>@item.Item</td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+        <input type="submit" value="Create"/>
+    </form>
+</body>
+</html>
+

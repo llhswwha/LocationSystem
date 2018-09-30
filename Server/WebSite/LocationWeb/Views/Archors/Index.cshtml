@@ -1,0 +1,138 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using DbModel.Location.AreaAndDev;
+@model PagedList<DbModel.Location.AreaAndDev.Archor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Ajax.ActionLink("Create New", "Create", "Archors", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "modalContent",
+    InsertionMode = InsertionMode.Replace, OnBegin = "onBegin", OnSuccess = "onSuccess", OnFailure = "onFailure", OnComplete = "onComplete" })
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Z)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAutoIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServerPort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Power)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AliveTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enable)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Z)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAutoIp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerIp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServerPort)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Power)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AliveTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enable)
+        </td>
+        <td>
+            @Ajax.ActionLink("Edit", "Edit", "Archors", new { id = item.Id }, new AjaxOptions{ HttpMethod = "GET", UpdateTargetId = "modalContent",
+            InsertionMode = InsertionMode.Replace, OnBegin = "onBegin", OnSuccess = "onSuccess", OnFailure = "onFailure", OnComplete = "onComplete" }) |
+            
+            @Ajax.ActionLink("Details", "Details", "Archors", new { id = item.Id }, new AjaxOptions{ HttpMethod = "GET", UpdateTargetId = "modalContent",
+            InsertionMode = InsertionMode.Replace, OnBegin = "onBegin", OnSuccess = "onSuccess", OnFailure = "onFailure", OnComplete = "onComplete" }) |
+           
+            @Ajax.ActionLink("Delete", "Delete", "Archors", new { id = item.Id }, new AjaxOptions{ HttpMethod = "GET", UpdateTargetId = "modalContent",
+            InsertionMode = InsertionMode.Replace, OnBegin = "onBegin", OnSuccess = "onSuccess", OnFailure = "onFailure", OnComplete = "onComplete" })
+        </td>
+    </tr>
+}
+
+</table>
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

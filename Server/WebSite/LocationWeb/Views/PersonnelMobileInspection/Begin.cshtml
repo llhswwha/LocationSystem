@@ -1,0 +1,60 @@
+﻿@model DbModel.Location.Work.PersonnelMobileInspection
+@using DbModel.Location.Work
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>Begin</title>
+</head>
+<body>
+    <h2>Begin</h2>
+    <form>
+        <fieldset>
+            <legend>基本信息</legend>
+            <span>巡检人员：</span><input type="text" value=@Model.PersonnelName readonly="readonly"/><br />
+            <span>巡检轨迹：</span><input type="text" value=@Model.MobileInspectionName readonly="readonly"/><br />
+            <span>计划巡检开始时间：</span><input type="text" value=@Model.PlanStartTime readonly="readonly"/><br />
+            <span>计划巡检结束时间：</span><input type="text" value=@Model.PlanEndTime readonly="readonly"/><br />
+            <span>巡检开始时间：</span><input type="text" value=@Model.StartTime readonly="readonly"/><br />
+            <span>巡检是否超时：</span><input type="text" value=@ViewBag.bOverTime readonly="readonly"/><br />
+            <hr/>
+        </fieldset>
+        <fieldset>
+            <legend>巡检项</legend>
+            <table class="table">
+                <tr>
+                    <th>顺序</th>
+                    <th>巡检项名称</th>
+                    <th>巡检设备名称</th>
+                    <th>打卡时间</th>
+                </tr>
+                @foreach (PersonnelMobileInspectionItem item in Model.list)
+                {
+                    <tr>
+                        <td>@item.nOrder</td>
+                        <td>@item.ItemName</td>
+                        <td>@item.DevName</td>
+                        <td>@item.PunchTime</td>
+                        <td>
+                            <a href="/PersonnelMobileInspection/Punch/@item.Id?pid=@item.PID">打卡</a> |
+                            <a href="/PersonnelMobileInspection/Detail/@item.Id">Detail</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </form>
+    <p>
+        <a href="/PersonnelMobileInspection/Index">BackToList</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿@model DbModel.Location.AreaAndDev.Archor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Delete</h2>
+    <h3>Are you sure you want to delete this?</h3>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "deleteSuccess(data)" }))
+    {
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Archor</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Code)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Code)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.X)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.X)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Y)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Y)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Z)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Z)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsAutoIp)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsAutoIp)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Ip)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ip)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ServerIp)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ServerIp)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ServerPort)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ServerPort)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Power)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Power)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AliveTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AliveTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Enable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Enable)
+            </dd>
+
+            @*<dt>
+                 @Html.DisplayNameFor(model => model.Mp)
+             </dt>
+
+             <dd>
+                 @Html.DisplayFor(model => model.Mp.Name)
+             </dd>*@
+        </dl>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("返 回", "Index")
+        </div>
+
+    </div>
+    }
+</div>
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/toastr.js"></script>
+
+    <script src="~/Scripts/deletemodal.js"></script>

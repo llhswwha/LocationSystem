@@ -1,0 +1,50 @@
+﻿@model DbModel.Location.AreaAndDev.DevType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DevType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrontElevation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrontElevation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

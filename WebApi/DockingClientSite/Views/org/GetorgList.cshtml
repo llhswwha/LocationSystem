@@ -1,0 +1,49 @@
+﻿@using CommunicationClass.SihuiThermalPowerPlant
+@using CommunicationClass.SihuiThermalPowerPlant.Models
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<org>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: right;
+        }
+    </style>
+    <title>GetorgList</title>
+</head>
+<body>
+    <h2>GetorgList</h2>
+    <form>
+        <span>@Html.DisplayNameFor(model => model.total)：</span><input type="text" value=@Model.total readonly="readonly" /><br />
+        <span>@Html.DisplayNameFor(model => model.msg)：</span><input type="text" value=@Model.msg readonly="readonly" /><br />
+    </form>
+    <table class="table">
+        <caption style="text-align:left">部门列表</caption>
+        <tr>
+            <th>标识</th>
+            <th>名称</th>
+            <th>父部门ID</th>
+            <th>类型</th>
+            <th>说明</th>
+        </tr>
+        @foreach (org item in Model.data)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.parent_id</td>
+                <td>@item.type</td>
+                <td>@item.description</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
+
+
+
+
+

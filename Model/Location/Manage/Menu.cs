@@ -26,8 +26,10 @@ namespace Location.Model
         [Display(Name = "排序")]
         public int Order { get; set; }
 
+        public int? PMenuId { get; set; }
+
         [Display(Name = "上级菜单")]
-        public Menu PMenu { get; set; }
+        public virtual Menu PMenu { get; set; }
 
         public List<Function> Funcs { get; set; }
     }

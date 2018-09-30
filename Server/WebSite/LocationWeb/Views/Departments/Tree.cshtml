@@ -1,0 +1,77 @@
+﻿@model DbModel.Location.Person.Department
+
+@{
+    ViewBag.Title = "Tree";
+}
+
+<h2>Tree</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div>
+    @Html.TreeEx(Model)
+</div>
+
+<style type="text/css">
+    .collapse {
+        display: none;
+    }
+
+    .body-content div ul li {
+        list-style: none;
+        list-style-position: outside;
+        background: url(../Img/TreeIcon/icon.png) left center no-repeat;
+        padding-left: 15px;
+    }
+</style>
+
+<script type="text/javascript">
+    window.onload = function () {
+        console.log("onload");
+        //displayTreeDataList();
+        //displayOrHide(event);
+    };
+
+    function displayTreeDataList() {
+        var oLi = document.getElementsByTagName("li");
+        //console.log(oLi);
+
+        for (var i = 0; i < oLi.length; i++) {
+            var li = oLi[i];
+            console.log(li);
+            var nextSibling = li.nextSibling;
+            console.log(nextSibling);
+            if (nextSibling.nextSibling && nextSibling.nextSibling.nodeName.toUpperCase() == 'UL'
+                     && nextSibling.nextSibling.innerHTML != "") {
+                li.style.listStyleImage = "url(../Img/TreeIcon/open.png)";
+                li.onclick = function (event) {
+                    displayOrHide(event);
+                };
+            } else {
+                li.style.listStyleImage = null;
+            }
+        }
+    }
+
+    //列表默认隐藏的
+    //var hide = true;
+    //显示或者隐藏的函数
+    function displayOrHide(event) {
+        var e = event || window.event;
+        //console.log(e.target.nextElementSibling.id);
+        var id = e.target.nextElementSibling.id;
+        var List = document.getElementById(id);
+        var hide = getComputedStyle(List, null).display;
+        //console.log(hide);
+        if (hide == "none") {
+            //显示
+            List.style.display = "block";
+            e.target.style.listStyleImage = "url(../Img/TreeIcon/close.png)";
+        } else {
+            //隐藏
+            List.style.display = "none";
+            e.target.style.listStyleImage = "url(../Img/TreeIcon/open.png)";
+        }
+    }
+</script>

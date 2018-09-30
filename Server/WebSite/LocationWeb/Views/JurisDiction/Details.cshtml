@@ -1,0 +1,158 @@
+﻿@model DbModel.Location.Work.JurisDiction
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>JurisDiction</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Describe)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Describe)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.nFlag)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nFlag)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.StartTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.nTimeLength)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.nTimeLength)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DelayTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DelayTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ErrorDistance)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ErrorDistance)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RepeatType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RepeatType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AreaId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Area.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LocationCardId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LocationCard.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifyTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModifyTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DeleteTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DeleteTime)
+                </dd>
+
+
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "JurisDiction", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>
