@@ -23,7 +23,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-[Pp]ackages/
+# [Pp]ackages/
 [Tt]emp/
 [Ll]ibrary/
 Logs_*.txt
