@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WCFServiceForWPF.LocationServices;
 
 namespace WPFClientControlLib
 {
@@ -25,9 +26,9 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData()
+        public void LoadData(PhysicalTopology root)
         {
-            
+            TreeView1.ItemsSource = root.Children;
         }
     }
 }

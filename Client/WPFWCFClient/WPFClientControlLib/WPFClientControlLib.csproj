@@ -53,9 +53,30 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DepTreeView.xaml.cs">
+      <DependentUpon>DepTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceListBox.xaml.cs">
+      <DependentUpon>DeviceListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceTreeView.xaml.cs">
+      <DependentUpon>ResourceTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="DepTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeviceListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TopoTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

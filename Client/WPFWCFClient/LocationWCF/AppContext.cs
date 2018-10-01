@@ -32,7 +32,7 @@ namespace LocationWCFClient
 
         public LoginInfo LoginInfo { get; set; }
 
-        public bool Login(string port, string ip, string user, string pass)
+        public bool Login(string ip, string port,  string user, string pass)
         {
             LocationClient client = new LocationClient(ip, port);
             LoginInfo = client.InnerClient.Login(new LoginInfo() {UserName = user, Password = pass});

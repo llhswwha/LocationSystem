@@ -34,7 +34,9 @@ namespace LocationWCFClient.Windows
             string pass = TbPass.Text;
             if (AppContext.Instance.Login(ip, port, user, pass))
             {
-
+                ClientWindow clientWindow = new ClientWindow();
+                clientWindow.Show();
+                this.Close();
             }
             else
             {

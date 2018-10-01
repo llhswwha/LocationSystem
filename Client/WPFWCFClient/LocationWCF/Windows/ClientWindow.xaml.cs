@@ -23,5 +23,16 @@ namespace LocationWCFClient.Windows
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            var treeRoot1= client.GetPhysicalTopologyTree();
+            var treeRoot2 = client.GetDepartmentTree();
+            ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
+
+            var devList = client.GetDevInfos(null);
+            DeviceListBox1.LoadData(devList);
+        }
     }
 }

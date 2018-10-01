@@ -1,13 +1,19 @@
-﻿<Window x:Class="LocationWCFClient.Windows.ClientWindow"
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationWCFClient.Windows.ClientWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFClient.Windows"
         mc:Ignorable="d"
-        Title="ClientWindow" Height="300" Width="300">
+        Title="ClientWindow" Height="800" Width="800" Loaded="Window_Loaded">
     <DockPanel>
-        <Menu DockPanel.Dock="Top"></Menu>
-        
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open"></MenuItem>
+                <MenuItem Header="Save"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>
+        <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
     </DockPanel>
 </Window>
