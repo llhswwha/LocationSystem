@@ -11,6 +11,7 @@
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
   <xs:element name="GetTags">
     <xs:complexType>
       <xs:sequence />
@@ -1022,6 +1023,34 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Login">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q78:LoginInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LoginResult" nillable="true" type="q79:LoginInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Logout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q80:LoginInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogoutResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LogoutResult" nillable="true" type="q81:LoginInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Hello">
     <xs:complexType>
       <xs:sequence>
@@ -1044,7 +1073,7 @@
   <xs:element name="GetDepartmentListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetDepartmentListResult" nillable="true" type="q78:ArrayOfDepartment" />
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetDepartmentListResult" nillable="true" type="q82:ArrayOfDepartment" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1056,7 +1085,7 @@
   <xs:element name="GetDepartmentTreeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetDepartmentTreeResult" nillable="true" type="q79:Department" />
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetDepartmentTreeResult" nillable="true" type="q83:Department" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

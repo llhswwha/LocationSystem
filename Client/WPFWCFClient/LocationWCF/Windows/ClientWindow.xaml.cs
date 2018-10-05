@@ -33,6 +33,13 @@ namespace LocationWCFClient.Windows
 
             var devList = client.GetDevInfos(null);
             DeviceListBox1.LoadData(devList);
+
+            AppContext.Instance.CallbackClient.LocAlarmsReceved += CallbackClient_LocAlarmsReceved;
+        }
+
+        private void CallbackClient_LocAlarmsReceved(Location.TModel.Location.Alarm.LocationAlarm[] obj)
+        {
+            MessageBox.Show("告警推送");
         }
     }
 }

@@ -15,6 +15,7 @@ using LocationServices.LocationCallbacks;
 using System.Linq;
 using BLL;
 using DbModel.LocationHistory.Data;
+using LocationServices.Locations;
 //using Web.Sockets.Core;
 
 namespace LocationWCFServer
@@ -441,8 +442,18 @@ namespace LocationWCFServer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //
+            LocationService service = new LocationService();
+            var devlist = service.GetAllDevInfos();
+            DeviceListBox1.LoadData(devlist.ToArray());
 
+            DeviceListBox1.AddMenu("告警", (se, arg) =>
+            {
+                MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
+            });
+            DeviceListBox1.AddMenu("消警", (se, arg) =>
+            {
+                MessageBox.Show("消警" + DeviceListBox1.CurrentDev.Name);
+            });
         }
     }
 }

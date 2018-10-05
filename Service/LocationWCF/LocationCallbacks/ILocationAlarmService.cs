@@ -4,6 +4,7 @@ using System.ServiceModel;
 namespace LocationServices.LocationCallbacks
 {
     [ServiceContract(CallbackContract = typeof(ILocationAlarmServiceCallback))]
+    //[ServiceContract]
     public interface ILocationAlarmService
     {
         /// <summary>

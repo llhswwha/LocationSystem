@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\LocationProject\Assets\Plugins\</OutputPath>
+    <OutputPath>..\..\UnityWCFClient\Assets\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>1</WarningLevel>
@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LocationCallbackClient.cs" />
+    <Compile Include="LocationClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\LocationCallbackServices\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -52,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="WCFClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -161,6 +164,9 @@
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.LocationAlarm.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.LoginInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\Location.WCFServiceReferences.LocationServices.MobileInspection.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -225,10 +231,13 @@
     <None Include="Service References\LocationServices\TModel.BaseData1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Work.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Manage.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.LocationHistory.Work.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.LocationHistory.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

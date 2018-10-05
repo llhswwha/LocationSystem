@@ -6771,6 +6771,99 @@ namespace Location.WCFServiceReferences.LocationServices {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LoginInfo", Namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage")]
+    [System.SerializableAttribute()]
+    public partial class LoginInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuthorityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SessionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Authority {
+            get {
+                return this.AuthorityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuthorityField, value) != true)) {
+                    this.AuthorityField = value;
+                    this.RaisePropertyChanged("Authority");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Session {
+            get {
+                return this.SessionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SessionField, value) != true)) {
+                    this.SessionField = value;
+                    this.RaisePropertyChanged("Session");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LocationServices.ILocationService")]
     public interface ILocationService {
@@ -7000,6 +7093,12 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse")]
         Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] GetPersonnelMobileInspectionHistoryList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
+        Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Logout", ReplyAction="http://tempuri.org/IUserService/LogoutResponse")]
+        Location.WCFServiceReferences.LocationServices.LoginInfo Logout(Location.WCFServiceReferences.LocationServices.LoginInfo info);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/Hello", ReplyAction="http://tempuri.org/ILocationService/HelloResponse")]
         string Hello(string msg);
@@ -7336,6 +7435,14 @@ namespace Location.WCFServiceReferences.LocationServices {
         
         public Location.WCFServiceReferences.LocationServices.PersonnelMobileInspectionHistory[] GetPersonnelMobileInspectionHistoryList() {
             return base.Channel.GetPersonnelMobileInspectionHistoryList();
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.LoginInfo Login(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
+            return base.Channel.Login(info);
+        }
+        
+        public Location.WCFServiceReferences.LocationServices.LoginInfo Logout(Location.WCFServiceReferences.LocationServices.LoginInfo info) {
+            return base.Channel.Logout(info);
         }
         
         public string Hello(string msg) {

@@ -107,9 +107,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WCFServiceForWPF\WCFServiceForWPF.csproj">
-      <Project>{eb02eb44-2672-4f88-b97c-0b6fdf4759fd}</Project>
-      <Name>WCFServiceForWPF</Name>
+    <ProjectReference Include="..\..\..\Model\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\TModel\TModel.csproj">
+      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
+      <Name>TModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

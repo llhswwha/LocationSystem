@@ -7,6 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListBox Name="ListBox1"></ListBox>
+        <!--<ListBox Name="ListBox1"></ListBox>-->
+        <DataGrid Name="DataGrid1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path}" Header="Path"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding TypeCode}" Header="TypeCode"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding ModelName}" Header="ModelName"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
     </Grid>
 </UserControl>

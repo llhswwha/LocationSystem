@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Location.TModel.Location.Alarm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using WCFServiceForWPF.LocationCallbackServices;
 
 namespace WCFClientLib
 {
-    public class LocationCallbackClient:WCFClient,ILocationAlarmServiceCallback
+    public class LocationCallbackClient:WCFClient
+        //,ILocationAlarmServiceCallback
     {
         public LocationAlarmServiceClient InnerClient { get; set; }
 
@@ -28,7 +28,9 @@ namespace WCFClientLib
             Binding = wsBinding;
             EndpointAddress = new EndpointAddress(Url);
 
-            InnerClient = new LocationAlarmServiceClient(new InstanceContext(this), Binding, EndpointAddress);
+            InnerClient = new LocationAlarmServiceClient(
+                //new InstanceContext(this), 
+                Binding, EndpointAddress);
         }
 
         public bool Connect()

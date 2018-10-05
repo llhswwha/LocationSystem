@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TModel.Location.Manage;
 using WCFClientLib;
 using WCFServiceForWPF.LocationServices;
 
@@ -30,14 +31,30 @@ namespace LocationWCFClient
 
         public LocationClient Client { get; set; }
 
+        public LocationCallbackClient CallbackClient { get; set; }
+
         public LoginInfo LoginInfo { get; set; }
 
         public bool Login(string ip, string port,  string user, string pass)
         {
-            LocationClient client = new LocationClient(ip, port);
-            LoginInfo = client.InnerClient.Login(new LoginInfo() {UserName = user, Password = pass});
-            Client = client;
-            return LoginInfo != null && !string.IsNullOrEmpty(LoginInfo.Session);
+            try
+            {
+                LocationClient client = new LocationClient(ip, port);
+                LoginInfo = client.InnerClient.Login(new LoginInfo() { UserName = user, Password = pass });
+                Client = client;
+                bool isSuccess= LoginInfo != null && !string.IsNullOrEmpty(LoginInfo.Session);
+                if (isSuccess)
+                {
+                    CallbackClient = new LocationCallbackClient(ip, "8734");
+                    CallbackClient.Connect();
+                }
+                return isSuccess;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+           
         }
     }
 }

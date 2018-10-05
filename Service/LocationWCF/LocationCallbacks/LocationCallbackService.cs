@@ -6,7 +6,8 @@ using Location.TModel.Location.Alarm;
 namespace LocationServices.LocationCallbacks
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public class LocationCallbackService : ILocationAlarmService, ILocationInfoService
+    public class LocationCallbackService : ILocationAlarmService
+        //, ILocationInfoService
     {
         static List<ILocationAlarmServiceCallback> m_Callbacks = new List<ILocationAlarmServiceCallback>();
 
@@ -20,24 +21,24 @@ namespace LocationServices.LocationCallbacks
 
         public void Connect()
         {
-            ILocationAlarmServiceCallback callback = OperationContext.Current.GetCallbackChannel<ILocationAlarmServiceCallback>();
-            if (m_Callbacks.Contains(callback) == false)
-            {
-                m_Callbacks.Add(callback);
-            }
+            //ILocationAlarmServiceCallback callback = OperationContext.Current.GetCallbackChannel<ILocationAlarmServiceCallback>();
+            //if (m_Callbacks.Contains(callback) == false)
+            //{
+            //    m_Callbacks.Add(callback);
+            //}
         }
 
         public void DisConnect()
         {
-            ILocationAlarmServiceCallback callback = OperationContext.Current.GetCallbackChannel<ILocationAlarmServiceCallback>();
-            if (m_Callbacks.Contains(callback))
-            {
-                m_Callbacks.Remove(callback);
-            }
-            else
-            {
-                throw new InvalidOperationException("Cannot find callback");
-            }
+            //ILocationAlarmServiceCallback callback = OperationContext.Current.GetCallbackChannel<ILocationAlarmServiceCallback>();
+            //if (m_Callbacks.Contains(callback))
+            //{
+            //    m_Callbacks.Remove(callback);
+            //}
+            //else
+            //{
+            //    throw new InvalidOperationException("Cannot find callback");
+            //}
         }
 
         public static void ActiveAlarmReport(List<LocationAlarm> localAlarms)

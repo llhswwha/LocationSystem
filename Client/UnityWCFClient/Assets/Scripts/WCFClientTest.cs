@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Text;
+using Location.WCFServiceReferences;
 using Location.WCFServiceReferences.LocationServices;
 using UnityEngine;
 
@@ -13,7 +15,7 @@ public class WCFClientTest : MonoBehaviour {
         //GetTags();
         //GetDepList();
         //GetDepTree();
-	    //GetTopoList();
+	    GetTopoList();
 	    GetTopoTree();
 	    //GetRealPositons();
 	    //GetHistoryPositons();
@@ -73,6 +75,8 @@ public class WCFClientTest : MonoBehaviour {
 		
 	}
 
+    LocationCallbackClient callBack;
+
     public LocationServiceClient GetLocationServiceClient()
     {
         
@@ -81,23 +85,47 @@ public class WCFClientTest : MonoBehaviour {
         {
             string hostName = "localhost";
             string port = "8733";
-            System.ServiceModel.Channels.Binding wsBinding = new BasicHttpBinding();
-            string url =
-                string.Format("http://{0}:{1}/LocationServices/Locations/LocationService",
-                    hostName, port);
-            EndpointAddress endpointAddress = new EndpointAddress(url);
+            //System.ServiceModel.Channels.Binding wsBinding = new BasicHttpBinding();
+            //string url =
+            //    string.Format("http://{0}:{1}/LocationServices/Locations/LocationService",
+            //        hostName, port);
+            //EndpointAddress endpointAddress = new EndpointAddress(url);
 
-            if (client != null)
+            //if (client != null)
+            //{
+            //    if (client.State == CommunicationState.Opened)
+            //    {
+            //        client.Close();
+            //    }
+            //}
+
+            //client = new LocationServiceClient(wsBinding, endpointAddress);
+
+            LocationClient locClient = new LocationClient(hostName, port);
+            client = locClient.InnerClient;
+
+            Debug.Log("LocationCallbackClient");
+            callBack = new LocationCallbackClient(hostName, "8734");
+            callBack.LocAlarmsReceved += CallBack_LocAlarmsReceved;
+
+            bool r=callBack.Connect();
+            Debug.Log("Connect:"+r);
+            if (r == false)
             {
-                if (client.State == CommunicationState.Opened)
-                {
-                    client.Close();
-                }
+                Debug.LogError(callBack.Exception.ToString());
             }
+            else
+            {
 
-            client = new LocationServiceClient(wsBinding, endpointAddress);
+            }
+            
         }
         return client;
+    }
+
+    private void CallBack_LocAlarmsReceved(Location.WCFServiceReferences.LocationCallbackServices.LocationAlarm[] obj)
+    {
+        Debug.LogError("CallBack_LocAlarmsReceved!!");
     }
 
     private LocationServiceClient client;

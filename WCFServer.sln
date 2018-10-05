@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLib", "WebApi\WebApiLib\WebApiLib.csproj", "{78DC1103-E23B-423A-A1B3-F7022934DD1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFClientControlLib", "Client\WPFWCFClient\WPFClientControlLib\WPFClientControlLib.csproj", "{2F461217-F714-4546-9302-D17C3F730DED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{78DC1103-E23B-423A-A1B3-F7022934DD1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78DC1103-E23B-423A-A1B3-F7022934DD1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78DC1103-E23B-423A-A1B3-F7022934DD1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F461217-F714-4546-9302-D17C3F730DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F461217-F714-4546-9302-D17C3F730DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F461217-F714-4546-9302-D17C3F730DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F461217-F714-4546-9302-D17C3F730DED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

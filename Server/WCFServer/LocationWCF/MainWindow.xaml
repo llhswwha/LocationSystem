@@ -1,4 +1,4 @@
-﻿<Window x:Class="LocationWCFServer.MainWindow"
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationWCFServer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -74,10 +74,14 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="告警">
+            <TabItem Header="定位告警">
                 <StackPanel>
                     <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
                 </StackPanel>
+            </TabItem>
+            <TabItem Header="设备告警">
+                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1" >
+                </WPFClientControlLib:DeviceListBox>
             </TabItem>
         </TabControl>
 

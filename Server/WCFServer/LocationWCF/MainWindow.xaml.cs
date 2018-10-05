@@ -233,6 +233,15 @@ namespace LocationWCFServer
         {
             LocationCallbackService.NotifyServiceStop();
         }
-        
+
+        private void MenuFireAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            LocationService service = new LocationService();
+        }
+
+        private void MenuRecoverAlarm_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

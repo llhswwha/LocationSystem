@@ -16,6 +16,7 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ILocationService_GetTags_InputMessage">
@@ -468,6 +469,18 @@
   <wsdl:message name="ILocationService_GetPersonnelMobileInspectionHistoryList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPersonnelMobileInspectionHistoryListResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_Hello_InputMessage">
     <wsdl:part name="parameters" element="tns:Hello" />
   </wsdl:message>
@@ -786,6 +799,14 @@
     <wsdl:operation name="GetPersonnelMobileInspectionHistoryList">
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList" message="tns:ILocationService_GetPersonnelMobileInspectionHistoryList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse" message="tns:ILocationService_GetPersonnelMobileInspectionHistoryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Login" message="tns:ILocationService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/LoginResponse" message="tns:ILocationService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Logout" message="tns:ILocationService_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserService/LogoutResponse" message="tns:ILocationService_Logout_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Hello">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/Hello" message="tns:ILocationService_Hello_InputMessage" />
@@ -1470,6 +1491,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPersonnelMobileInspectionHistoryList">
       <soap:operation soapAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IUserService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/IUserService/Logout" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
