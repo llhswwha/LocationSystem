@@ -242,6 +242,9 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Best HTTP (Pro)\BestHTTP\Authentication\Credentials.cs" />
@@ -1071,12 +1074,18 @@
     <Compile Include="Assets\Best HTTP (Pro)\Examples\SocketIO\SocketIOChatSample.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\Examples\SocketIO\SocketIOWePlaySample.cs" />
     <Compile Include="Assets\Best HTTP (Pro)\Examples\Websocket\WebSocketSample.cs" />
+    <Compile Include="Assets\Scripts\EchoHub.cs" />
+    <Compile Include="Assets\Scripts\EchoHubClient.cs" />
     <Compile Include="Assets\Scripts\SignalrHelper.cs" />
     <Compile Include="Assets\Scripts\WCFClientTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Best HTTP (Pro)\ReleaseNotes.txt" />
     <None Include="Assets\Best HTTP (Pro)\link.xml" />
+    <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

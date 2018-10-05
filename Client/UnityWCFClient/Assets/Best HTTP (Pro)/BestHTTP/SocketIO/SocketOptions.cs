@@ -154,7 +154,7 @@ namespace BestHTTP.SocketIO
         /// <summary>
         /// This event will be called when the AdditonalQueryPrams dictionary changed. We have to reset the cached values.
         /// </summary>
-        private void AdditionalQueryParams_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void AdditionalQueryParams_CollectionChanged(object sender, NotifyCollectionChangedEventArgsEx e)
         {
             BuiltQueryParams = null;
         }

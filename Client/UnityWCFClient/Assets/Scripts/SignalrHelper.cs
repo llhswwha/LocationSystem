@@ -19,7 +19,13 @@ public class SignalrHelper : MonoBehaviour {
         _connection = new Connection(uri);
         _connection.OnStateChanged += _connection_OnStateChanged;
         _connection.OnNonHubMessage += _connection_OnNonHubMessage;
+        _connection.OnConnected += _connection_OnConnected;
         _connection.Open();
+    }
+
+    private void _connection_OnConnected(Connection connection)
+    {
+        connection.Send("123456");
     }
 
     private void _connection_OnNonHubMessage(Connection connection, object data)

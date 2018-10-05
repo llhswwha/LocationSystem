@@ -27,7 +27,7 @@ using System.Collections;
 namespace PlatformSupport.Collections.ObjectModel
 {
     #if !NETFX_CORE
-    public delegate void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e);
+    public delegate void NotifyCollectionChangedEventHandler(object sender, NotifyCollectionChangedEventArgsEx e);
 
     public interface INotifyCollectionChanged
     {
@@ -221,7 +221,7 @@ namespace PlatformSupport.Collections.ObjectModel
                 else
                     _Dictionary = new Dictionary<TKey, TValue>(items);
 
-                OnCollectionChanged(NotifyCollectionChangedAction.Add, items.ToArray());
+                OnCollectionChanged(NotifyCollectionChangedActionEx.Add, items.ToArray());
             }
         }
 
@@ -236,13 +236,13 @@ namespace PlatformSupport.Collections.ObjectModel
                 if (Equals(item, value)) return;
                 Dictionary[key] = value;
 
-                OnCollectionChanged(NotifyCollectionChangedAction.Replace, new KeyValuePair<TKey, TValue>(key, value), new KeyValuePair<TKey, TValue>(key, item));
+                OnCollectionChanged(NotifyCollectionChangedActionEx.Replace, new KeyValuePair<TKey, TValue>(key, value), new KeyValuePair<TKey, TValue>(key, item));
             }
             else
             {
                 Dictionary[key] = value;
 
-                OnCollectionChanged(NotifyCollectionChangedAction.Add, new KeyValuePair<TKey, TValue>(key, value));
+                OnCollectionChanged(NotifyCollectionChangedActionEx.Add, new KeyValuePair<TKey, TValue>(key, value));
             }
         }
 
@@ -262,25 +262,25 @@ namespace PlatformSupport.Collections.ObjectModel
         private void OnCollectionChanged()
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgsEx(NotifyCollectionChangedActionEx.Reset));
         }
 
-        private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue> changedItem)
+        private void OnCollectionChanged(NotifyCollectionChangedActionEx action, KeyValuePair<TKey, TValue> changedItem)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, changedItem));
+            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgsEx(action, changedItem));
         }
 
-        private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue> newItem, KeyValuePair<TKey, TValue> oldItem)
+        private void OnCollectionChanged(NotifyCollectionChangedActionEx action, KeyValuePair<TKey, TValue> newItem, KeyValuePair<TKey, TValue> oldItem)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem));
+            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgsEx(action, newItem, oldItem));
         }
 
-        private void OnCollectionChanged(NotifyCollectionChangedAction action, IList newItems)
+        private void OnCollectionChanged(NotifyCollectionChangedActionEx action, IList newItems)
         {
             OnPropertyChanged();
-            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgs(action, newItems));
+            if (CollectionChanged != null) CollectionChanged(this, new NotifyCollectionChangedEventArgsEx(action, newItems));
         }
     }
 }
