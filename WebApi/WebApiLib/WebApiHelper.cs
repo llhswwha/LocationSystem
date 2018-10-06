@@ -4,18 +4,32 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using Location.BLL.Tool;
 
 namespace WebApiLib
 {
     public static class WebApiHelper
     {
-        public static string GetString(string uri)
+        public static string GetString(string uri, string accept = "")
         {
-            if (uri == null) return null;
-            var client = new HttpClient();
-            var resMsg = client.GetAsync(uri).Result;
-            var result = resMsg.Content.ReadAsStringAsync().Result;
-            return result;
+            try
+            {
+                if (uri == null) return null;
+                var client = new HttpClient();
+                if (!string.IsNullOrEmpty(accept))
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(accept));
+                }
+                var resMsg = client.GetAsync(uri).Result;
+                var result = resMsg.Content.ReadAsStringAsync().Result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+                return "";
+            }
         }
 
         public static T GetEntity<T>(string uri)

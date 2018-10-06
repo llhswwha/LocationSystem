@@ -14,6 +14,8 @@ using log4net.Util;
 using LocationServices.LocationCallbacks;
 using LocationServices.Locations;
 using LocationWCFService;
+using System.Web.Http.SelfHost;
+using WebApiService;
 
 namespace LocationWCFServer
 {
@@ -94,6 +96,11 @@ namespace LocationWCFServer
             {
                 LocationService.u3dositionSP.Stop();
             }
+
+            if (httpHost != null)
+            {
+                httpHost.CloseAsync();
+            }
         }
 
 
@@ -107,20 +114,38 @@ namespace LocationWCFServer
         {
             try
             {
-                Log.Info("启动服务");
-
+                WriteLog("启动服务");
                 StartLocationService();
                 StartLocationAlarmService();
+                StartWebApiService();
 
-                TbResult1.AppendText("启动服务");
+
                 //LocationService.ShowLog_Action += ShowTest;
                 U3DPositionSP.ShowLog_Action += ShowTest;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                TbResult1.AppendText(ex.ToString());
+                WriteLog(ex.ToString());
             }
+        }
+
+        private void WriteLog(string txt)
+        {
+            Log.Info(txt);
+            TbResult1.AppendText(txt+"\n");
+        }
+
+        HttpSelfHostServer httpHost;
+
+        private void StartWebApiService()
+        {
+            string path = "http://localhost:8222";
+            var config = new HttpSelfHostConfiguration(path);
+            WebApiConfiguration.Configure(config);
+            httpHost = new HttpSelfHostServer(config);
+            httpHost.OpenAsync().Wait();
+
+            WriteLog("WebApiService: " + path);
         }
 
         private ServiceHost locationServiceHost;
@@ -129,6 +154,8 @@ namespace LocationWCFServer
             locationServiceHost = new ServiceHost(typeof(LocationService));
             locationServiceHost.SetProxyDataContractResolver();
             locationServiceHost.Open();
+
+            WriteLog("LocationService: " + locationServiceHost.BaseAddresses[0]);
 
             //Uri tcpBaseAddress = new Uri("net.tcp://localhost:7001/LocationService");
             //host = new ServiceHost(typeof(LocationWCFServices.LocationService),tcpBaseAddress);
@@ -146,7 +173,8 @@ namespace LocationWCFServer
             locationAlarmServiceHost.SetProxyDataContractResolver();
 
             locationAlarmServiceHost.Open();
-            
+
+            WriteLog("LocationAlarmService: " + locationAlarmServiceHost.BaseAddresses[0]);
         }
 
         public void ShowTest(string str)

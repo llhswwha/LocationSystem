@@ -10,7 +10,7 @@ namespace LocationServices
     {
         public static Dictionary<string, ClientAlarms> Dicts = new Dictionary<string, ClientAlarms>();
 
-        public static void 
+        //public static void 
     }
 
     public class ClientAlarms

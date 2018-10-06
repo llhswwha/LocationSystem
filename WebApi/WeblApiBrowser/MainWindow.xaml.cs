@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MarkedNet;
-using System.IO;
-using System.Net.Http;
-using WebApiLib;
-using WebApiLib.ApiDocs;
+using System.Xml;
 using WebApiLib.Clients;
 
-namespace RestFulApiBrowser
+namespace WebApiBrowser
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -31,86 +27,42 @@ namespace RestFulApiBrowser
             InitializeComponent();
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void MenuRestuFulApi_Click(object sender, RoutedEventArgs e)
         {
-            //LoadMdPaths();
-
-            LoadApiDoc();
+            RestFulApiBrowser.RestFulApiWindow window = new RestFulApiBrowser.RestFulApiWindow();
+            window.ShowDialog();
         }
 
-        private ApiDocument _apiDoc;
-        private void LoadApiDoc()
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "/Data/BaseData.html";
-            _apiDoc=new ApiDocument();
-            _apiDoc.LoadDoc(path);
-            LbUrls.ItemsSource = _apiDoc.Paths;
-            LbUrls.DisplayMemberPath = "Name";
+            string uri = TbUri.Text;
+            string accept = CbContentType.Text;
+            WebApiClient client = new WebApiClient(uri);
+            client.Accept = accept;
+            string content = client.GetString();
+            //content = content.Replace(">", ">\n");
+            TbContent.Text = content;
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.LoadXml(content);
+            //TbContent.Text=doc.InnerXml;
+            //string filePath = AppDomain.CurrentDomain.BaseDirectory + "a.tmp";
+            //File.WriteAllText(filePath, content);
+            //WbContent.NavigateToString(content);
         }
 
-        private void LoadMdPaths()
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Marked marked = new Marked();
-            string path = AppDomain.CurrentDomain.BaseDirectory + "api.md";
-            string txt = File.ReadAllText(path);
-            string[] lines = File.ReadAllLines(path);
-            List<string> urls = new List<string>();
-            foreach (string line in lines)
-            {
-                if (line.Trim().StartsWith("http:"))
-                {
-                    urls.Add(line.Trim());
-                }
-            }
-            string result = marked.Parse(txt);
-            LbUrls.ItemsSource = urls;
+            Test();
         }
 
-        private void LbUrls_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Test()
         {
-            
+            WebApiClient client = new WebApiClient("localhost", "8080");
+            string str1 = client.GetString("");
+            string str2 = client.GetString("issue");
+            string str3 = client.GetString("issue/1");
 
-            if (LbUrls.SelectedItem is ApiPath)
-            {
-                _apiDoc.BaseUri = TbBaseUri.Text;
-                ApiPath apiPath = LbUrls.SelectedItem as ApiPath;
-                //string resMsg = WebApiHelper.GetString(path.GetUrl());
-                //TbResult.Text = string.Format("path:\n{0}\nResult:\n{1}\n", path, resMsg);
-
-                string url = apiPath.GetUrl();
-                if (string.IsNullOrEmpty(url))
-                {
-                    TbResult.Text = string.Format("path:\n{0}\nStatus:{1}\nResult:\n{2}\n", apiPath, "NoUri", "");
-                    apiPath.SetResultState("NoUri");
-                }
-                else
-                {
-                    var client = new HttpClient();
-                    HttpResponseMessage resMsg = client.GetAsync(url).Result;
-                    var result = resMsg.Content.ReadAsStringAsync().Result;
-                    //string resMsg=WebApiHelper.GetString(url);
-                    TbResult.Text = string.Format("path:\n{0}\nStatus:{1}\nResult:\n{2}\n", apiPath, resMsg.StatusCode, result);
-                    apiPath.SetResultState(resMsg.StatusCode.ToString());
-                }
-            }
-            else
-            {
-                string url = LbUrls.SelectedItem as string;
-                TbResult.Text = url;
-            }
-        }
-
-        private void MenuItemTestAllPath_OnClick(object sender, RoutedEventArgs e)
-        {
-
-            if (_apiDoc != null)
-            {
-                _apiDoc.BaseUri = TbBaseUri.Text;
-                ApiDocClient client = new ApiDocClient(_apiDoc);
-                TbResult.Text = client.TestApis();
-
-                LbUrls.DisplayMemberPath = "Result";
-            }
         }
     }
 }

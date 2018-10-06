@@ -1,41 +1,30 @@
-﻿<Window x:Class="RestFulApiBrowser.MainWindow"
+﻿<Window x:Class="WebApiBrowser.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RestFulApiBrowser"
+        xmlns:local="clr-namespace:WebApiBrowser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="800" Loaded="MainWindow_OnLoaded">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="Test">
-                <MenuItem Name="MenuItemTestAllPath" Header="TestAllPath" Click="MenuItemTestAllPath_OnClick"></MenuItem>
+        Title="MainWindow" Height="600" Width="600" Loaded="Window_Loaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File"></MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="RestuFulApi" Name="MenuRestuFulApi" Click="MenuRestuFulApi_Click"></MenuItem>
             </MenuItem>
-            
         </Menu>
-        <StackPanel Grid.Row="1">
-            <TextBox Name="TbBaseUri">Http://localhost:9347</TextBox>
-        </StackPanel>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <ListBox Name="LbUrls" Grid.Column="0" SelectionChanged="LbUrls_OnSelectionChanged">
-
-            </ListBox>
-            <ScrollViewer Grid.Column="1">
-                <TextBox Name="TbResult" Grid.Column="1">
-
-                </TextBox>
-            </ScrollViewer>
-            
-        </Grid>
-       
-    </Grid>
+        <DockPanel DockPanel.Dock="Top">
+            <Button DockPanel.Dock="Right" Name="BtnSubmit" Click="BtnSubmit_Click">Submit</Button>
+            <ComboBox DockPanel.Dock="Right" Name="CbContentType" IsReadOnly="True">
+                <ComboBoxItem IsSelected="True"></ComboBoxItem>
+                <ComboBoxItem>application/json</ComboBoxItem>
+                <ComboBoxItem>application/xml</ComboBoxItem>
+                <ComboBoxItem>text/html</ComboBoxItem>
+                <ComboBoxItem>application/xhtml+xml</ComboBoxItem>
+            </ComboBox>
+            <TextBox Name="TbUri" Text="http://localhost:8080/"></TextBox>
+        </DockPanel>
+        <TextBox Name="TbContent" TextWrapping="Wrap" Visibility="Visible"></TextBox>
+        <WebBrowser Name="WbContent" Visibility="Hidden"></WebBrowser>
+    </DockPanel>
 </Window>

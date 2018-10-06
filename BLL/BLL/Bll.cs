@@ -129,17 +129,17 @@ namespace BLL
 
         public WorkTicketHistoryBll WorkTicketHistorys { get; set; }
 
-        public Bll() : this(false, true, true)
+        public Bll() : this(false, true, true,true)
         {
 
         }
 
-        public Bll(bool autoDetectChangesEnabled, bool lazyLoadingEnabled, bool isCreateDb)
+        public Bll(bool autoDetectChangesEnabled, bool lazyLoadingEnabled, bool isCreateDb,bool useProxy=true)
         {
             Db = new LocationDb(isCreateDb);
             Db.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
             Db.Configuration.LazyLoadingEnabled = lazyLoadingEnabled; //关闭延迟加载
-
+            Db.Configuration.ProxyCreationEnabled = useProxy;
             Archors = new ArchorBll(Db);
             Areas = new AreaBll(Db);
             Bounds = new BoundBll(Db);

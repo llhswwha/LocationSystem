@@ -58,6 +58,7 @@
     <Compile Include="Clients\BaseDataClient.cs" />
     <Compile Include="Clients\LocationClient.cs" />
     <Compile Include="Clients\ApiDocClient.cs" />
+    <Compile Include="Clients\WebApiClient.cs" />
     <Compile Include="WebApiHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -38,6 +38,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLib", "WebApi\WebApiL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFClientControlLib", "Client\WPFWCFClient\WPFClientControlLib\WPFClientControlLib.csproj", "{2F461217-F714-4546-9302-D17C3F730DED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiService", "Service\WebApiService\WebApiService.csproj", "{905F4BF7-3D5D-4A15-850D-874C4056AA01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.WebSite", "Server\WebSite\LocationWeb\Location.WebSite.csproj", "{82CA49B0-D760-44BD-9B99-3F5F460CF688}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiService.SelfHost", "Service\WebApiService.SelfHost\WebApiService.SelfHost.csproj", "{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +98,18 @@ Global
 		{2F461217-F714-4546-9302-D17C3F730DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F461217-F714-4546-9302-D17C3F730DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F461217-F714-4546-9302-D17C3F730DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905F4BF7-3D5D-4A15-850D-874C4056AA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905F4BF7-3D5D-4A15-850D-874C4056AA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905F4BF7-3D5D-4A15-850D-874C4056AA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905F4BF7-3D5D-4A15-850D-874C4056AA01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
