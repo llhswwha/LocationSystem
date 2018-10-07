@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EchoHubClient.cs" />
+    <Compile Include="ChatHub.cs" />
+    <Compile Include="EchoHub.cs" />
     <Compile Include="HubClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

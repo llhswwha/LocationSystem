@@ -47,5 +47,11 @@ namespace LocationWCFClient.Windows
             EchoHubWindow window = new EchoHubWindow();
             window.Show();
         }
+
+        private void MenuChatHubMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ChatHubWindow window = new ChatHubWindow();
+            window.Show();
+        }
     }
 }

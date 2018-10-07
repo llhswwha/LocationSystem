@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace EchoHub
+namespace SignalRService.Hubs
 {
     public class EchoHub: Hub
     {

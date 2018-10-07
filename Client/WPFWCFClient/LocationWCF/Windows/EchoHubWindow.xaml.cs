@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
-using SignalRService.HubClients;
+using SignalRClientLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,15 +37,14 @@ namespace LocationWCFClient.Windows
         {
             //ConnectAsync();
         }
-        EchoHubClient client;
+        EchoHub client;
         /// <summary>
         /// Creates and connects the hub connection and hub proxy. This method
         /// is called asynchronously from SignInButton_Click.
         /// </summary>
         private async void ConnectAsync()
         {
-            client = new EchoHubClient(ServerURI);
-            //Connection = new HubConnection(ServerURI);
+            client = new EchoHub(ServerURI);
             client.Connection.Closed += Connection_Closed;
             client.Message += message =>
             {
@@ -59,11 +58,6 @@ namespace LocationWCFClient.Windows
                 StatusText.Content = "Unable to connect to server: Start server before connecting clients.";
                 return;
             }
-            ////Show chat UI; hide login UI
-            //SignInPanel.Visibility = Visibility.Collapsed;
-            //ChatPanel.Visibility = Visibility.Visible;
-            //ButtonSend.IsEnabled = true;
-            //TextBoxMessage.Focus();
             RichTextBoxConsole.AppendText("Connected to server at " + ServerURI + "\r");
         }
 

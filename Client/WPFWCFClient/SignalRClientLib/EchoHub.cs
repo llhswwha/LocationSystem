@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalRService.HubClients
+namespace SignalRClientLib
 {
-    public class EchoHubClient:HubClient
+    public class EchoHub:HubClient
     {
-        public EchoHubClient(string uri) : base(uri, "EchoHub")
+        public EchoHub(string uri) : base(uri, "EchoHub")
         {
             HubProxy.On<string>("Message", msg=>
             {
