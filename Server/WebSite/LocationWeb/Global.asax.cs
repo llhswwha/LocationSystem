@@ -13,6 +13,8 @@ using BLL;
 using Location.BLL.Tool;
 
 using WebLocation.Controllers;
+using WebApiService;
+using System.Web.Http;
 
 namespace WebLocation
 {
@@ -22,11 +24,13 @@ namespace WebLocation
         {
             Log.Info("== Application_Start ==");
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);//WebApi
+            //WebApiConfiguration.Configure(GlobalConfiguration.Configuration);//WebApi 这两种写法都行
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             XmlConfigurator.Configure();
-
+            
             InitData();
         }
 

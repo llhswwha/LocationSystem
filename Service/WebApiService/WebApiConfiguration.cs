@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using WebApiContrib.Formatting.CollectionJson.Client;
 
 namespace WebApiService
@@ -13,16 +14,17 @@ namespace WebApiService
     {
         public static void Configure(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute("Root", "", new { controller = "Home" });
-            config.Routes.MapHttpRoute("DefaultApi", "{controller}/{id}", new { id = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("Root", "api", new { controller = "Home" });
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
             ConfigureFormatters(config);
             ConfigureAutofac(config);
             EnableCors(config);
         }
 
-        private static void EnableCors(HttpConfiguration config)
+        public static void EnableCors(HttpConfiguration config)
         {
-            //throw new NotImplementedException();
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
         }
 
         private static void ConfigureAutofac(HttpConfiguration config)

@@ -73,8 +73,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebApiContrib.CollectionJson, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\WebApiContrib.CollectionJson.0.1.0\lib\4.0\WebApiContrib.CollectionJson.dll</HintPath>
+    <Reference Include="WebApiContrib.CollectionJson, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebApiContrib.CollectionJson.0.6.2\lib\portable-net40+sl5+win8+wp8+monotouch+monoandroid\WebApiContrib.CollectionJson.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebApiContrib.Formatting.CollectionJson.Client, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
