@@ -13,7 +13,7 @@ namespace WCFClientLib
     {
         public LocationAlarmServiceClient InnerClient { get; set; }
 
-        public LocationCallbackClient(string host, string port):base(host,port)
+        public LocationCallbackClient(string host, string port):base(host,port,WCFClientHostType.Self)
         {
            
         }

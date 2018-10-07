@@ -118,6 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StopwatchTextBox.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,8 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow_InsertPosition.cs" />
-    <Compile Include="PositionEngineDA.cs" />
-    <Compile Include="PositionMocker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,10 +200,6 @@
     <ProjectReference Include="..\..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Third\Projects\Sockets-master\01.Coldairarrow.Util.Sockets\01.Coldairarrow.Util.Sockets.csproj">
-      <Project>{5df7afdf-6b88-42ad-b855-4eb9bf0e2495}</Project>
-      <Name>01.Coldairarrow.Util.Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>

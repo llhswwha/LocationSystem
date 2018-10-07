@@ -9,20 +9,42 @@ namespace WCFClientLib
 {
     public class LocationClient:WCFClient
     {
+
+
         public LocationServiceClient InnerClient { get; set; }
 
-        public LocationClient(string host, string port):base(host,port)
+        public LocationClient(string host, string port,WCFClientHostType hostType):base(host,port, hostType)
         {
             SetConnectInfo();
         }
 
+        public LocationClient(string url):base(url)
+        {
+            InitClient();
+        }
+
         protected void SetConnectInfo()
+        {
+            string servicePath = "";
+            if (HostType == WCFClientHostType.Self)
+            {
+                servicePath = "LocationServices/Locations/LocationService/";
+            }
+            else
+            {
+                servicePath = "Services/LocationService.svc";
+            }
+            Url =
+    string.Format("http://{0}:{1}/{2}",
+        Host, Port, servicePath);
+
+            InitClient();
+        }
+
+        private void InitClient()
         {
             BasicHttpBinding wsBinding = new BasicHttpBinding();
             wsBinding.MaxReceivedMessageSize = int.MaxValue;
-            Url =
-                string.Format("http://{0}:{1}/LocationServices/Locations/LocationService/",
-                    Host, Port);
 
             EndpointAddress endpointAddress = new EndpointAddress(Url);
             if (InnerClient != null)

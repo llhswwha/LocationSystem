@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Service", "Service
 		{A1B87D98-60DF-4F13-976C-B776F6415626} = {A1B87D98-60DF-4F13-976C-B776F6415626}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.Coldairarrow.Util.Sockets", "Third\Projects\Sockets-master\01.Coldairarrow.Util.Sockets\01.Coldairarrow.Util.Sockets.csproj", "{5DF7AFDF-6B88-42AD-B855-4EB9BF0E2495}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelLib", "Third\Projects\ExcelLib\ExcelLib.csproj", "{A1B87D98-60DF-4F13-976C-B776F6415626}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbModel", "Model\DbModel\DbModel.csproj", "{A72A90C4-C195-49EC-850E-EE6205680256}"
@@ -58,10 +56,6 @@ Global
 		{39D91B65-547F-401A-A2C7-9DF2EE514225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39D91B65-547F-401A-A2C7-9DF2EE514225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D91B65-547F-401A-A2C7-9DF2EE514225}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DF7AFDF-6B88-42AD-B855-4EB9BF0E2495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DF7AFDF-6B88-42AD-B855-4EB9BF0E2495}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DF7AFDF-6B88-42AD-B855-4EB9BF0E2495}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DF7AFDF-6B88-42AD-B855-4EB9BF0E2495}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1B87D98-60DF-4F13-976C-B776F6415626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1B87D98-60DF-4F13-976C-B776F6415626}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B87D98-60DF-4F13-976C-B776F6415626}.Release|Any CPU.ActiveCfg = Release|Any CPU

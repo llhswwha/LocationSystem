@@ -4,9 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Coldairarrow.Util.Sockets;
-using Location.Model;
 using DbModel.LocationHistory.Data;
 
 namespace LocationWCFServer

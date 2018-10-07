@@ -35,11 +35,12 @@ namespace LocationWCFClient
 
         public LoginInfo LoginInfo { get; set; }
 
-        public bool Login(string ip, string port,  string user, string pass)
+        public bool Login(string ip, string port, WCFClientHostType hostType,  string user, string pass)
         {
             try
             {
-                LocationClient client = new LocationClient(ip, port);
+                LocationClient client = new LocationClient(ip, port, hostType);
+
                 LoginInfo = client.InnerClient.Login(new LoginInfo() { UserName = user, Password = pass });
                 Client = client;
                 bool isSuccess= LoginInfo != null && !string.IsNullOrEmpty(LoginInfo.Session);

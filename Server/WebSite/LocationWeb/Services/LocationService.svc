@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WebLocation.Services.LocationService" CodeBehind="LocationService.svc.cs" %>

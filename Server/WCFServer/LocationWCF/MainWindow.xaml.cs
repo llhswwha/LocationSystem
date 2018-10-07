@@ -16,6 +16,7 @@ using LocationServices.Locations;
 using LocationWCFService;
 using System.Web.Http.SelfHost;
 using WebApiService;
+using LocationServices.Tools;
 
 namespace LocationWCFServer
 {
@@ -42,15 +43,13 @@ namespace LocationWCFServer
             Log.Info(obj);
         }
 
+        private PositionEngineLog Logs = new PositionEngineLog();
+
         private void LogTimer_Tick(object sender, EventArgs e)
         {
-            TbResult2.Text = LogLeft;
-            TbResult3.Text = LogRight;
+            TbResult2.Text = Logs.LogLeft;
+            TbResult3.Text = Logs.LogRight;
         }
-
-
-        public string LogLeft = "";
-        public string LogRight = "";
 
 
         //public void WriteLine(TextBox tb, string txt)
@@ -62,36 +61,13 @@ namespace LocationWCFServer
         //}
 
 
-        public void WriteLogLeft(string txt)
-        {
-            LogLeft = txt + "\n" + LogLeft;
-            if (LogLeft.Length > 1000)
-            {
-                LogLeft = txt;
-            }
-        }
-
-        public void WriteLogRight(string txt)
-        {
-            LogRight = txt + "\n" + LogRight;
-            if (LogRight.Length > 1000)
-            {
-                LogRight = txt;
-            }
-        }
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            if (insertThread != null)
+            if (engineClient != null)
             {
-                insertThread.Abort();
-                insertThread = null;
+                engineClient.Stop();
             }
-            if (engineDa != null)
-            {
-                engineDa.Stop();
-            }
-
             if (LocationService.u3dositionSP != null)
             {
                 LocationService.u3dositionSP.Stop();
@@ -102,8 +78,6 @@ namespace LocationWCFServer
                 httpHost.CloseAsync();
             }
         }
-
-
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {
@@ -197,7 +171,7 @@ namespace LocationWCFServer
 
         private void BtnGeneratePosition_OnClick(object sender, RoutedEventArgs e)
         {
-            GeneratePosition();
+            //GeneratePosition();
         }
 
         private void BtnTestInsertData2_OnClick(object sender, RoutedEventArgs e)
@@ -218,7 +192,7 @@ namespace LocationWCFServer
             //    positionBll.Dispose();
             //}
             //positionBll = new LocationBll();
-            WriteLogLeft("重新生成");
+            Logs.WriteLogLeft("重新生成");
         }
 
         private void BtnStopConnectEngine_OnClick(object sender, RoutedEventArgs e)
