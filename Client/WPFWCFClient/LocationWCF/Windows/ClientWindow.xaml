@@ -12,6 +12,9 @@
                 <MenuItem Header="Open"></MenuItem>
                 <MenuItem Header="Save"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="EchuHub" Name="EchuHub" Click="MenuSignalR_Click"></MenuItem>
+            </MenuItem>
         </Menu>
         <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>
         <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>

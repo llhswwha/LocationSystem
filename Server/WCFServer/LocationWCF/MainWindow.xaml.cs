@@ -17,6 +17,8 @@ using LocationWCFService;
 using System.Web.Http.SelfHost;
 using WebApiService;
 using LocationServices.Tools;
+using Microsoft.Owin.Hosting;
+using System.Reflection;
 
 namespace LocationWCFServer
 {
@@ -92,13 +94,30 @@ namespace LocationWCFServer
                 StartLocationService();
                 StartLocationAlarmService();
                 StartWebApiService();
-
+                StartSignalRService();
 
                 //LocationService.ShowLog_Action += ShowTest;
                 U3DPositionSP.ShowLog_Action += ShowTest;
             }
             catch (Exception ex)
             {
+                WriteLog(ex.ToString());
+            }
+        }
+
+        private void StartSignalRService()
+        {
+            string ServerURI = "http://localhost:4444/";
+            try
+            {
+                IDisposable SignalR = WebApp.Start(ServerURI);
+                WriteLog("SiganlR: " + ServerURI + "realtime");
+            }
+            catch (Exception ex)
+            {
+                //WriteToConsole("A server is already running at " + ServerURI);
+                //this.Dispatcher.Invoke(() => ButtonStart.IsEnabled = true);
+                //return;
                 WriteLog(ex.ToString());
             }
         }

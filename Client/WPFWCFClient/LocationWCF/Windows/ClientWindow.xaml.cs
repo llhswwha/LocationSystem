@@ -41,5 +41,11 @@ namespace LocationWCFClient.Windows
         {
             MessageBox.Show("告警推送");
         }
+
+        private void MenuSignalR_Click(object sender, RoutedEventArgs e)
+        {
+            EchoHubWindow window = new EchoHubWindow();
+            window.Show();
+        }
     }
 }

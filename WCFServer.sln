@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.WebSite", "Server\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiService.SelfHost", "Service\WebApiService.SelfHost\WebApiService.SelfHost.csproj", "{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRService", "Service\SignalRService\SignalRService.csproj", "{0167A6E9-B1C4-493F-80BB-40747EDB1FFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,10 @@ Global
 		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CEBF614-6907-4A74-8733-61AA4E4CC8D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0167A6E9-B1C4-493F-80BB-40747EDB1FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0167A6E9-B1C4-493F-80BB-40747EDB1FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0167A6E9-B1C4-493F-80BB-40747EDB1FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0167A6E9-B1C4-493F-80BB-40747EDB1FFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
