@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebApi\WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockingServerSite", "DockingServerSite\DockingServerSite.csproj", "{42B7B4C0-6A3D-4607-AAC7-E8502E2D5EFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockingServerSite", "WebApi\DockingServerSite\DockingServerSite.csproj", "{42B7B4C0-6A3D-4607-AAC7-E8502E2D5EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsqSharp", "NsqSharp\NsqSharp.csproj", "{7327244D-E163-4C35-9C1A-8DBDF06B9408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NsqSharp", "WebApi\NsqSharp\NsqSharp.csproj", "{7327244D-E163-4C35-9C1A-8DBDF06B9408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
