@@ -15,6 +15,10 @@
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="2">
             <Label>NickName:</Label>
             <Label Name="LbName" MinWidth="100"></Label>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="2">
+            <Label>NewNickName:</Label>
+            <TextBox Name="TbNewName" MinWidth="150"></TextBox>
             <Button Content="ChangeNick" Name="BtnChangeNick" Click="BtnChangeNick_Click"></Button>
         </StackPanel>
         <DockPanel DockPanel.Dock="Top" Margin="2">

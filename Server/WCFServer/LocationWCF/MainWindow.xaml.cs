@@ -79,6 +79,10 @@ namespace LocationWCFServer
             {
                 httpHost.CloseAsync();
             }
+            if (SignalR != null)
+            {
+                SignalR.Dispose();
+            }
         }
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
@@ -105,12 +109,14 @@ namespace LocationWCFServer
             }
         }
 
+        private IDisposable SignalR;
+
         private void StartSignalRService()
         {
-            string ServerURI = "http://localhost:4444/";
+            string ServerURI = "http://localhost:4955/";
             try
             {
-                IDisposable SignalR = WebApp.Start(ServerURI);
+                SignalR = WebApp.Start(ServerURI);
                 WriteLog("SiganlR: " + ServerURI + "realtime");
             }
             catch (Exception ex)

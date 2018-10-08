@@ -39,10 +39,11 @@ namespace Location.Model.DataObjects.ObjectAddList
                 Console.WriteLine("DevInfoList is null");
                 return;
             }
-            foreach (PhysicalTopology node in nodeList)
-            {
-                node.Parent = nodeList.Find(i => i.Id == node.ParentId);
-            }
+            if(nodeList!=null)
+                foreach (PhysicalTopology node in nodeList)
+                {
+                    node.Parent = nodeList.Find(i => i.Id == node.ParentId);
+                }
             foreach (var item in devInfoList)
             {
                 PhysicalTopology node = nodeList.Find(o => o.Id == item.ParentId);

@@ -29,7 +29,8 @@ namespace LocationWCFClient.Windows
 
         private void BtnChangeNick_Click(object sender, RoutedEventArgs e)
         {
-
+            string newName = TbNewName.Text;
+            client.ChangeNickname(newName);
         }
 
         private void BtnConnect_Click(object sender, RoutedEventArgs e)
@@ -53,18 +54,11 @@ namespace LocationWCFClient.Windows
         {
             client = new ChatHub(ServerURI);
             //client.Connection.Closed += Connection_Closed;
-            client.Message += message =>
-            {
-                this.Dispatcher.Invoke(() =>
-                    RichTextBoxConsole.AppendText(String.Format("{0}\r", message))
-                );
-            };
-            client.Welcome += (name, userList) =>
-            {
-                LbName.Content = name;
-                LbUserList.ItemsSource = userList;
-                LbUserList.DisplayMemberPath = "Name";
-            };
+            client.Message += Client_Message;
+            client.Welcome += Client_Welcome;
+            client.NewUserNotification += Client_NewUserNotification;
+            client.NicknameChangedNotification += Client_NicknameChangedNotification;
+            client.UserDisconnectedNotification += Client_UserDisconnectedNotification;
             bool r = await client.Start();
             if (r == false)
             {
@@ -72,6 +66,85 @@ namespace LocationWCFClient.Windows
                 return;
             }
             RichTextBoxConsole.AppendText("Connected to server at " + ServerURI + "\r");
+        }
+
+        private void Client_UserDisconnectedNotification(UserData user)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                UserData u = Users.Find(i => i.Id == user.Id);
+                if (u != null)
+                {
+                    Users.Remove(u);
+
+                    ShowUserList();
+
+                    RichTextBoxConsole.AppendText(user.Name + " left the chat.\r");
+                }
+            });
+        }
+
+        private void ShowUserList()
+        {
+            LbUserList.ItemsSource = null;
+            LbUserList.ItemsSource = Users;
+            LbUserList.DisplayMemberPath = "Name";
+        }
+
+        private void Client_NicknameChangedNotification(UserData user, string oldName)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                if (user.Id == client.Connection.ConnectionId)
+                {
+                    LbName.Content = user.Name;
+                }
+
+                UserData u = Users.Find(i => i.Id == user.Id);
+                if (u != null)
+                {
+                    u.Name = user.Name;
+                    ShowUserList();
+                    RichTextBoxConsole.AppendText(oldName + " is now " + user.Name + ".\r");
+                }
+            });
+        }
+
+        private void Client_NewUserNotification(UserData user)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                if (Users.Find(i => i.Id == user.Id) == null)
+                {
+                    Users.Add(user);
+
+                    ShowUserList();
+
+                    RichTextBoxConsole.AppendText("New user arrived: " + user.Name + ". Welcome!\r");
+                }
+            });
+        }
+
+        public List<UserData> Users=new List<UserData>();
+
+        private void Client_Welcome(string name, UserData[] userList)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                LbName.Content = name;
+
+                Users = new List<UserData>();
+                Users.AddRange(userList);
+
+                ShowUserList();
+            });
+        }
+
+        private void Client_Message(string message)
+        {
+            this.Dispatcher.Invoke(() =>
+                   RichTextBoxConsole.AppendText(String.Format("{0}\r", message))
+               );
         }
 
         private void BtnSend_Click(object sender, RoutedEventArgs e)
