@@ -30,22 +30,22 @@ namespace SihuiThermalPowerPlant
             sisController.Init();
             orgController.Init();
 
-            cardsController cards = new cardsController();
-            WebServiceHost cardsHost = new WebServiceHost(cards, new Uri("http://localhost:9347/api/cards"));
-            cardsHost.Open();
+            //cardsController cards = new cardsController();
+            //WebServiceHost cardsHost = new WebServiceHost(cards, new Uri("http://localhost:9347/api/cards"));
+            //cardsHost.Open();
 
 
-            devicesController devices = new devicesController();
-            WebServiceHost devicesHost = new WebServiceHost(devices, new Uri("http://localhost:9347/api/devices"));
-            devicesHost.Open();
+            //devicesController devices = new devicesController();
+            //WebServiceHost devicesHost = new WebServiceHost(devices, new Uri("http://localhost:9347/api/devices"));
+            //devicesHost.Open();
 
-            sisController sis = new sisController();
-            WebServiceHost sisHost = new WebServiceHost(sis, new Uri("http://localhost:9347/api/rt/sis"));
-            sisHost.Open();
+            //sisController sis = new sisController();
+            //WebServiceHost sisHost = new WebServiceHost(sis, new Uri("http://localhost:9347/api/rt/sis"));
+            //sisHost.Open();
 
-            zonesController zones = new zonesController();
-            WebServiceHost zonesHost = new WebServiceHost(zones, new Uri("http://localhost:9347/api/zones"));
-            zonesHost.Open();
+            //zonesController zones = new zonesController();
+            //WebServiceHost zonesHost = new WebServiceHost(zones, new Uri("http://localhost:9347/api/zones"));
+            //zonesHost.Open();
 
             Thread th = new Thread(ProductRealTimeAlarm.ProductRealTimeAlarmInfo);
             th.Start();

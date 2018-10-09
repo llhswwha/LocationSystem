@@ -28,7 +28,7 @@ bld/
 [Ll]ibrary/
 Logs_*.txt
 *.rar
-*.zip
+# *.zip
 
 # Visual Studio 2015 cache/options directory
 .vs/
