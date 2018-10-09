@@ -83,6 +83,17 @@
                 <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1" >
                 </WPFClientControlLib:DeviceListBox>
             </TabItem>
+            <TabItem Header="SignalRClients">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Label>Message:</Label>
+                        <TextBox Name="TbMessage" Width="200"></TextBox>
+                        <Button Name="BtnSendMessage" Click="BtnSendMessage_OnClick">SendMessage</Button>
+                    </StackPanel>
+                    <RichTextBox></RichTextBox>
+                </DockPanel>
+                
+            </TabItem>
         </TabControl>
 
 

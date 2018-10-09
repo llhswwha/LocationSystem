@@ -20,7 +20,7 @@ namespace LocationWCFClient.Windows
     /// </summary>
     public partial class ChatHubWindow : Window
     {
-        string ServerURI = "http://localhost:3333/signalr";
+        private string ServerURI = SignalRAppContext.ServerUrl;
 
         public ChatHubWindow()
         {

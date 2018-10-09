@@ -26,7 +26,7 @@ namespace LocationWCFClient.Windows
         //HubConnection Connection;
         //IHubProxy HubProxy;
 
-        string ServerURI = "http://localhost:3333/signalr";
+        private string ServerURI = SignalRAppContext.ServerUrl;
 
         public EchoHubWindow()
         {

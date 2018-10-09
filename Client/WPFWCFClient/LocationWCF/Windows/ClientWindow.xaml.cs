@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Location.TModel.FuncArgs;
+using Location.TModel.Location.Alarm;
+using SignalRClientLib;
 
 namespace LocationWCFClient.Windows
 {
@@ -19,6 +22,10 @@ namespace LocationWCFClient.Windows
     /// </summary>
     public partial class ClientWindow : Window
     {
+        private string SignalRServerURI = SignalRAppContext.ServerUrl;
+
+        private AlarmHub alarmHub;
+
         public ClientWindow()
         {
             InitializeComponent();
@@ -34,7 +41,63 @@ namespace LocationWCFClient.Windows
             var devList = client.GetDevInfos(null);
             DeviceListBox1.LoadData(devList);
 
+            var personList = client.GetPersonList();
+            PersonListBox1.LoadData(personList);
+
+            var tagList = client.GetTags();
+            TagListBox1.LoadData(tagList);
+
+            var archorList = client.GetArchors();
+            AchorListBox1.LoadData(archorList);
+
             AppContext.Instance.CallbackClient.LocAlarmsReceved += CallbackClient_LocAlarmsReceved;
+
+            DeviceAlarm[] devAlarms= client.GetDeviceAlarms(new AlarmSearchArg());
+            ShowDeviceAlarms(devAlarms);
+
+            LocationAlarm[] locAlarms = client.GetLocationAlarms(new AlarmSearchArg());
+            ShowLocationAlarms(locAlarms);
+
+            InitAlarmHub();
+        }
+
+        protected List<LocationAlarm> LocationAlarms = new List<LocationAlarm>();
+
+        private void ShowLocationAlarms(LocationAlarm[] locAlarms)
+        {
+            LocationAlarms.AddRange(locAlarms);
+            DataGridLocationAlarms.ItemsSource = null;
+            DataGridLocationAlarms.ItemsSource = LocationAlarms;
+        }
+
+        private void ShowDeviceAlarms(DeviceAlarm[] devAlarms)
+        {
+            DeviceAlarms.AddRange(devAlarms);
+            DeviceAlarmListBox1.LoadData(DeviceAlarms.ToArray());
+        }
+
+        protected List<DeviceAlarm> DeviceAlarms = new List<DeviceAlarm>();
+
+        private async void InitAlarmHub()
+        {
+            alarmHub = new AlarmHub(SignalRServerURI);
+            alarmHub.GetDeviceAlarms += AlarmHub_GetDeviceAlarms;
+            alarmHub.GetLocationAlarms += AlarmHub_GetLocationAlarms;
+            await alarmHub.Start();
+        }
+
+        private void AlarmHub_GetLocationAlarms(LocationAlarm[] obj)
+        {
+            this.Dispatcher.Invoke(() =>
+                    ShowLocationAlarms(obj)
+                );
+        }
+
+        private void AlarmHub_GetDeviceAlarms(DeviceAlarm[] obj)
+        {
+            this.Dispatcher.Invoke(() =>
+                    ShowDeviceAlarms(obj)
+                );
         }
 
         private void CallbackClient_LocAlarmsReceved(Location.TModel.Location.Alarm.LocationAlarm[] obj)
@@ -44,13 +107,19 @@ namespace LocationWCFClient.Windows
 
         private void MenuSignalR_Click(object sender, RoutedEventArgs e)
         {
-            EchoHubWindow window = new EchoHubWindow();
+            var window = new EchoHubWindow();
             window.Show();
         }
 
         private void MenuChatHubMenu_Click(object sender, RoutedEventArgs e)
         {
-            ChatHubWindow window = new ChatHubWindow();
+            var window = new ChatHubWindow();
+            window.Show();
+        }
+
+        private void MenuAlarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new AlarmWindow();
             window.Show();
         }
     }

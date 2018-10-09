@@ -93,6 +93,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Windows\AlarmWindow.xaml.cs">
+      <DependentUpon>AlarmWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ChatHubWindow.xaml.cs">
       <DependentUpon>ChatHubWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +112,10 @@
     <Compile Include="Windows\EchoHubWindow.xaml.cs">
       <DependentUpon>EchoHubWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\AlarmWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ChatHubWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

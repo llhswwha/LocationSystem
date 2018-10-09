@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using Location.TModel.Location.AreaAndDev;
+using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
+using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
+using TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -144,5 +147,8 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids);
         #endregion
+
+        [OperationContract]
+        List<Archor> GetArchors();
     }
 }

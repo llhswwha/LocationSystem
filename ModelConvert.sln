@@ -3,31 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.DAL", "..\..\DAL\Location\Location.DAL.csproj", "{1186A8C7-2C6F-480E-8F3A-509D47F09344}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.DAL", "DAL\Location\Location.DAL.csproj", "{1186A8C7-2C6F-480E-8F3A-509D47F09344}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6D2404C0-7F69-4A66-8326-253AED706620} = {6D2404C0-7F69-4A66-8326-253AED706620}
 		{18D3E2C1-9A5B-4558-B8D2-894DDCF77370} = {18D3E2C1-9A5B-4558-B8D2-894DDCF77370}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Model", "..\..\Model\Location\Location.Model.csproj", "{18D3E2C1-9A5B-4558-B8D2-894DDCF77370}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Model", "Model\Location\Location.Model.csproj", "{18D3E2C1-9A5B-4558-B8D2-894DDCF77370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.BLL", "..\..\BLL\Location\Location.BLL.csproj", "{00B7D2AF-A6F9-42A4-BC0F-7C0E3F410B7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.BLL", "BLL\Location\Location.BLL.csproj", "{00B7D2AF-A6F9-42A4-BC0F-7C0E3F410B7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelLib", "..\..\Third\Projects\ExcelLib\ExcelLib.csproj", "{A1B87D98-60DF-4F13-976C-B776F6415626}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelLib", "Third\Projects\ExcelLib\ExcelLib.csproj", "{A1B87D98-60DF-4F13-976C-B776F6415626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbModel", "..\..\Model\DbModel\DbModel.csproj", "{A72A90C4-C195-49EC-850E-EE6205680256}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbModel", "Model\DbModel\DbModel.csproj", "{A72A90C4-C195-49EC-850E-EE6205680256}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TModel", "..\..\Model\TModel\TModel.csproj", "{89C37F37-52F9-42FA-8A8E-C145CD6ABB64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TModel", "Model\TModel\TModel.csproj", "{89C37F37-52F9-42FA-8A8E-C145CD6ABB64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IModel", "..\..\Model\IModel\IModel.csproj", "{6D2404C0-7F69-4A66-8326-253AED706620}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IModel", "Model\IModel\IModel.csproj", "{6D2404C0-7F69-4A66-8326-253AED706620}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "..\..\BLL\BLL\BLL.csproj", "{C3D77C78-C78F-4E18-8AE1-BB29D3E30A9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL\BLL.csproj", "{C3D77C78-C78F-4E18-8AE1-BB29D3E30A9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\..\DAL\DAL\DAL.csproj", "{3D7F7707-A518-4FC2-ABDC-CAD0A1712680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL\DAL.csproj", "{3D7F7707-A518-4FC2-ABDC-CAD0A1712680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelConvertCodeGenerator", "..\..\Tools\ModelConvertCodeGenerator\ModelConvertCodeGenerator.csproj", "{5444E2DB-D491-4894-B796-3339F82199D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelConvertCodeGenerator", "Tools\ModelConvertCodeGenerator\ModelConvertCodeGenerator.csproj", "{5444E2DB-D491-4894-B796-3339F82199D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "..\..\WebApi\WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebApi\WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

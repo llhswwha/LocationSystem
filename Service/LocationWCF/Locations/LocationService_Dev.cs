@@ -5,7 +5,6 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using BLL;
 using BLL.ServiceHelpers;
-using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using Location.BLL.ServiceHelpers;
 using Location.Model.DataObjects.ObjectAddList;
@@ -26,14 +25,13 @@ using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
 using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
+using TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations
 {
-    //设备相关的接口
+    //设备信息、位置信息相关的接口
     public partial class LocationService : ILocationService, IDisposable
     {
-
-        #region 设备信息、位置信息
         /// <summary>
         /// 获取所有设备位置信息
         /// </summary>
@@ -277,6 +275,58 @@ namespace LocationServices.Locations
             }
             return devInfoList.ToWCFList();
         }
-        #endregion
+
+        public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
+        {
+            List<Personnel> ps = GetPersonList();
+            List<LocationAlarm> alarms = new List<LocationAlarm>();
+            alarms.Add(new LocationAlarm() { Id = 0, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "进入无权限区域", CreateTime = new DateTime(2018, 9, 1, 10, 5, 34) }.SetPerson(ps[0]));
+            alarms.Add(new LocationAlarm() { Id = 1, TagId = 2, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)3, Content = "靠近高风险区域", CreateTime = new DateTime(2018, 9, 4, 15, 5, 11) }.SetPerson(ps[1]));
+            alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
+            alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
+            return alarms;
+        }
+
+        public List<LocationAlarm> GetLocationAlarms(int count)
+        {
+            List<Personnel> ps = GetPersonList();
+            List<LocationAlarm> alarms = new List<LocationAlarm>();
+            for (int i = 0; i < count; i++)
+            {
+                alarms.Add(new LocationAlarm() { Id = i, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "定位告警"+i,
+                    CreateTime = new DateTime(2018, 9, 1, 10, 5, 34),
+                }.SetPerson(ps[0]));
+            }
+            return alarms;
+        }
+
+        public List<DeviceAlarm> GetDeviceAlarms(int count)
+        {
+            var devs = db.DevInfos.ToList();
+            List<DeviceAlarm> alarms = new List<DeviceAlarm>();
+            for (int i = 0; i < count; i++)
+            {
+                alarms.Add(new DeviceAlarm() { Id = i, Level = Abutment_DevAlarmLevel.低, Title = "告警"+ i, Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
+            }
+            return alarms;
+        }
+
+        public List<DeviceAlarm> GetDeviceAlarms(AlarmSearchArg arg)
+        {
+            var devs = db.DevInfos.ToList();
+            List<DeviceAlarm> alarms = new List<DeviceAlarm>();
+            alarms.Add(new DeviceAlarm() { Id = 0, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 1, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 2, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 3, Level = Abutment_DevAlarmLevel.中, Title = "告警4", Message = "设备告警4", CreateTime = new DateTime(2018, 9, 2, 14, 55, 20) }.SetDev(devs[2].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 4, Level = Abutment_DevAlarmLevel.低, Title = "告警5", Message = "设备告警5", CreateTime = new DateTime(2018, 9, 2, 13, 22, 44) }.SetDev(devs[3].ToTModel()));
+            return alarms;
+        }
+
+
+        public List<Archor> GetArchors()
+        {
+            return db.Archors.ToList().ToWcfModelList();
+        }
     }
 }

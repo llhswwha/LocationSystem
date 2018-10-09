@@ -9,6 +9,7 @@
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" />
@@ -222,6 +223,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetDoorAccessInfoByParent_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDoorAccessInfoByParentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchors" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchorsResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
@@ -635,6 +642,10 @@
     <wsdl:operation name="GetDoorAccessInfoByParent">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParent" message="tns:ILocationService_GetDoorAccessInfoByParent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParentResponse" message="tns:ILocationService_GetDoorAccessInfoByParent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArchors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchors" message="tns:ILocationService_GetArchors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorsResponse" message="tns:ILocationService_GetArchors_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
@@ -1122,6 +1133,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDoorAccessInfoByParent">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetDoorAccessInfoByParent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArchors">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetArchors" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

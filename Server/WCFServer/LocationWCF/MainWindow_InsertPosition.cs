@@ -8,9 +8,14 @@ using LocationWCFService;
 using System.Linq;
 using BLL;
 using DbModel.LocationHistory.Data;
+using DbModel.Tools;
+using Location.TModel.Location.Alarm;
 using LocationServices.Locations;
 using LocationServices.Tools;
 using LocationServer;
+using Microsoft.AspNet.SignalR;
+using SignalRService.Hubs;
+
 //using Web.Sockets.Core;
 
 namespace LocationWCFServer
@@ -182,14 +187,39 @@ namespace LocationWCFServer
 
             DeviceListBox1.AddMenu("告警", (se, arg) =>
             {
-                MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
+                //MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
                 //todo:告警事件推送
+                var dev=DeviceListBox1.CurrentDev;
+                DeviceAlarm alarm = new DeviceAlarm()
+                {
+                    Id = dev.Id,
+                    Level = Abutment_DevAlarmLevel.低,
+                    Title = "告警" + dev.Id,
+                    Message = "设备告警1",
+                    CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
+                }.SetDev(dev);
+                AlarmHub.SendDeviceAlarms(alarm);
             });
             DeviceListBox1.AddMenu("消警", (se, arg) =>
             {
-                MessageBox.Show("消警" + DeviceListBox1.CurrentDev.Name);
-                //todo:告警事件推送
+                //MessageBox.Show("消警" + DeviceListBox1.CurrentDev.Name);
+                var dev = DeviceListBox1.CurrentDev;
+                DeviceAlarm alarm = new DeviceAlarm()
+                {
+                    Id = dev.Id,
+                    Level = Abutment_DevAlarmLevel.低,
+                    Title = "消警" + dev.Id,
+                    Message = "设备消警1",
+                    CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
+                }.SetDev(dev);
+                AlarmHub.SendDeviceAlarms(alarm);
             });
+        }
+
+        private void BtnSendMessage_OnClick(object sender, RoutedEventArgs e)
+        {
+            string msg = TbMessage.Text;
+            ChatHub.SendToAll(msg);
         }
     }
 }

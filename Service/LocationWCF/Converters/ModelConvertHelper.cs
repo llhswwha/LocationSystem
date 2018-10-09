@@ -16,70 +16,14 @@ namespace LocationServices.Converters
         //未找到TModel的类(37):
         //JurisDiction; JurisDictionRecord; MobileInspection; MobileInspectionContent; MobileInspectionDev; MobileInspectionItem; OperationItem; OperationTicket; PersonnelMobileInspection; PersonnelMobileInspectionItem; SafetyMeasures; WorkTicket; EntranceGuardCardToPersonnel; LocationCardToPersonnel; Role; DevInstantData; Archor; NodeKKS; DevModel; DevType; EntranceGuardCard; OperationItemHistory; OperationTicketHistory; PersonnelMobileInspectionHistory; PersonnelMobileInspectionItemHistory; SafetyMeasuresHistory; WorkTicketHistory; EntranceGuardCardToPersonnelHistory; LocationCardToPersonnelHistory; PersonnelHistory; DevInstantDataHistory; DevInfoHistory; EntranceGuardCardHistory; LocationCardHistory; DevEntranceGuardCardAction; DevAlarmHistory; LocationAlarmHistory; 
 
-        #region Location.TModel.Location.Person.Department <=> DbModel.Location.AreaAndDev.Department
-        public static List<Location.TModel.Location.Person.Department> ToWcfModelList(this List<Department> list1)
-        {
-            return list1.ToTModel().ToWCFList();
-        }
-        public static Location.TModel.Location.Person.Department ToTModel(this Department item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Location.TModel.Location.Person.Department();
-            item2.Id = item1.Id;
-            item2.Abutment_Id = item1.Abutment_Id;
-            item2.Name = item1.Name;
-            item2.Parent = item1.Parent.ToTModel();
-            item2.ParentId = item1.ParentId;
-            item2.ShowOrder = item1.ShowOrder;
-            item2.Type = (int)item1.Type;
-            item2.Description = item1.Description;
-            item2.Children = item1.Children.ToTModel();
-            item2.LeafNodes = item1.LeafNodes.ToTModel();
-            return item2;
-        }
-        public static List<Location.TModel.Location.Person.Department> ToTModel(this List<Department> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Location.TModel.Location.Person.Department>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
-            }
-            return list2;
-        }
-        public static Department ToDbModel(this Location.TModel.Location.Person.Department item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Department();
-            item2.Id = item1.Id;
-            item2.Abutment_Id = item1.Abutment_Id;
-            item2.Name = item1.Name;
-            item2.Parent = item1.Parent.ToDbModel();
-            item2.ParentId = item1.ParentId;
-            item2.ShowOrder = item1.ShowOrder;
-            item2.Type = (DepartType)item1.Type;
-            item2.Description = item1.Description;
-            item2.Children = item1.Children.ToDbModel();
-            item2.LeafNodes = item1.LeafNodes.ToDbModel();
-            return item2;
-        }
-        public static List<Department> ToDbModel(this List<Location.TModel.Location.Person.Department> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Department>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToDbModel());
-            }
-            return list2;
-        }
-        #endregion
-
         #region Location.TModel.Location.Person.Personnel <=> DbModel.Location.Person.Personnel
-        public static List<Location.TModel.Location.Person.Personnel> ToWcfModelList(this List<DbModel.Location.Person.Personnel> list1)
+
+        public static List<Location.TModel.Location.Person.Personnel> ToWcfModelList(
+            this List<DbModel.Location.Person.Personnel> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static Location.TModel.Location.Person.Personnel ToTModel(this DbModel.Location.Person.Personnel item1)
         {
             if (item1 == null) return null;
@@ -102,7 +46,9 @@ namespace LocationServices.Converters
             item2.Pst = item1.Pst;
             return item2;
         }
-        public static List<Location.TModel.Location.Person.Personnel> ToTModel(this List<DbModel.Location.Person.Personnel> list1)
+
+        public static List<Location.TModel.Location.Person.Personnel> ToTModel(
+            this List<DbModel.Location.Person.Personnel> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.Person.Personnel>();
@@ -112,6 +58,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Person.Personnel ToDbModel(this Location.TModel.Location.Person.Personnel item1)
         {
             if (item1 == null) return null;
@@ -119,10 +66,10 @@ namespace LocationServices.Converters
             item2.Id = item1.Id;
             item2.Abutment_Id = item1.Abutment_Id;
             item2.Name = item1.Name;
-            item2.Sex = item1.Sex == "男" ? Sexs.男 : item1.Sex == "女" ? Sexs.女:Sexs.未知;
+            item2.Sex = item1.Sex == "男" ? Sexs.男 : item1.Sex == "女" ? Sexs.女 : Sexs.未知;
             item2.Photo = item1.Photo;
-            item2.BirthDay = (DateTime)item1.BirthDay;
-            item2.BirthTimeStamp = TimeConvert.DateTimeToTimeStamp((DateTime)item1.BirthTimeStamp);
+            item2.BirthDay = (DateTime) item1.BirthDay;
+            item2.BirthTimeStamp = TimeConvert.DateTimeToTimeStamp((DateTime) item1.BirthTimeStamp);
             item2.Nation = item1.Nation;
             item2.Address = item1.Address;
             item2.WorkNumber = item1.WorkNumber;
@@ -134,7 +81,9 @@ namespace LocationServices.Converters
             item2.Pst = item1.Pst;
             return item2;
         }
-        public static List<DbModel.Location.Person.Personnel> ToDbModel(this List<Location.TModel.Location.Person.Personnel> list1)
+
+        public static List<DbModel.Location.Person.Personnel> ToDbModel(
+            this List<Location.TModel.Location.Person.Personnel> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Person.Personnel>();
@@ -144,14 +93,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.Data.TagPosition <=> DbModel.Location.Data.LocationCardPosition
-        public static List<Location.TModel.Location.Data.TagPosition> ToWcfModelList(this List<DbModel.Location.Data.LocationCardPosition> list1)
+
+        public static List<Location.TModel.Location.Data.TagPosition> ToWcfModelList(
+            this List<DbModel.Location.Data.LocationCardPosition> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.Data.TagPosition ToTModel(this DbModel.Location.Data.LocationCardPosition item1)
+
+        public static Location.TModel.Location.Data.TagPosition ToTModel(
+            this DbModel.Location.Data.LocationCardPosition item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.Data.TagPosition();
@@ -167,7 +121,9 @@ namespace LocationServices.Converters
             item2.TopoNodes = item1.TopoNodes;
             return item2;
         }
-        public static List<Location.TModel.Location.Data.TagPosition> ToTModel(this List<DbModel.Location.Data.LocationCardPosition> list1)
+
+        public static List<Location.TModel.Location.Data.TagPosition> ToTModel(
+            this List<DbModel.Location.Data.LocationCardPosition> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.Data.TagPosition>();
@@ -177,7 +133,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Data.LocationCardPosition ToDbModel(this Location.TModel.Location.Data.TagPosition item1)
+
+        public static DbModel.Location.Data.LocationCardPosition ToDbModel(
+            this Location.TModel.Location.Data.TagPosition item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Data.LocationCardPosition();
@@ -194,7 +152,9 @@ namespace LocationServices.Converters
             item2.TopoNodes = item1.TopoNodes;
             return item2;
         }
-        public static List<DbModel.Location.Data.LocationCardPosition> ToDbModel(this List<Location.TModel.Location.Data.TagPosition> list1)
+
+        public static List<DbModel.Location.Data.LocationCardPosition> ToDbModel(
+            this List<Location.TModel.Location.Data.TagPosition> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Data.LocationCardPosition>();
@@ -204,13 +164,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.Bound <=> DbModel.Location.AreaAndDev.Bound
-        public static List<Location.TModel.Location.AreaAndDev.Bound> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Bound> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Bound> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Bound> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static Location.TModel.Location.AreaAndDev.Bound ToTModel(this DbModel.Location.AreaAndDev.Bound item1)
         {
             if (item1 == null) return null;
@@ -227,7 +191,9 @@ namespace LocationServices.Converters
             item2.Points = item1.Points.ToTModel();
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.Bound> ToTModel(this List<DbModel.Location.AreaAndDev.Bound> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Bound> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Bound> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.Bound>();
@@ -237,6 +203,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.AreaAndDev.Bound ToDbModel(this Location.TModel.Location.AreaAndDev.Bound item1)
         {
             if (item1 == null) return null;
@@ -253,7 +220,9 @@ namespace LocationServices.Converters
             item2.Points = item1.Points.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.Bound> ToDbModel(this List<Location.TModel.Location.AreaAndDev.Bound> list1)
+
+        public static List<DbModel.Location.AreaAndDev.Bound> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.Bound> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.Bound>();
@@ -263,14 +232,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.ConfigArg <=> DbModel.Location.AreaAndDev.ConfigArg
-        public static List<Location.TModel.Location.AreaAndDev.ConfigArg> ToWcfModelList(this List<DbModel.Location.AreaAndDev.ConfigArg> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.ConfigArg> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.ConfigArg> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.ConfigArg ToTModel(this DbModel.Location.AreaAndDev.ConfigArg item1)
+
+        public static Location.TModel.Location.AreaAndDev.ConfigArg ToTModel(
+            this DbModel.Location.AreaAndDev.ConfigArg item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.ConfigArg();
@@ -283,7 +257,9 @@ namespace LocationServices.Converters
             item2.Classify = item1.Classify;
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.ConfigArg> ToTModel(this List<DbModel.Location.AreaAndDev.ConfigArg> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.ConfigArg> ToTModel(
+            this List<DbModel.Location.AreaAndDev.ConfigArg> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.ConfigArg>();
@@ -293,7 +269,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.ConfigArg ToDbModel(this Location.TModel.Location.AreaAndDev.ConfigArg item1)
+
+        public static DbModel.Location.AreaAndDev.ConfigArg ToDbModel(
+            this Location.TModel.Location.AreaAndDev.ConfigArg item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.ConfigArg();
@@ -306,7 +284,9 @@ namespace LocationServices.Converters
             item2.Classify = item1.Classify;
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.ConfigArg> ToDbModel(this List<Location.TModel.Location.AreaAndDev.ConfigArg> list1)
+
+        public static List<DbModel.Location.AreaAndDev.ConfigArg> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.ConfigArg> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.ConfigArg>();
@@ -316,14 +296,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.DevInfo <=> DbModel.Location.AreaAndDev.DevInfo
-        public static List<Location.TModel.Location.AreaAndDev.DevInfo> ToWcfModelList(this List<DbModel.Location.AreaAndDev.DevInfo> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.DevInfo> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.DevInfo> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.DevInfo ToTModel(this DbModel.Location.AreaAndDev.DevInfo item1)
+
+        public static Location.TModel.Location.AreaAndDev.DevInfo ToTModel(
+            this DbModel.Location.AreaAndDev.DevInfo item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.DevInfo();
@@ -360,7 +345,9 @@ namespace LocationServices.Converters
             item2.SetPos(item1.GetPos());
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.DevInfo> ToTModel(this List<DbModel.Location.AreaAndDev.DevInfo> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.DevInfo> ToTModel(
+            this List<DbModel.Location.AreaAndDev.DevInfo> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.DevInfo>();
@@ -370,7 +357,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.DevInfo ToDbModel(this Location.TModel.Location.AreaAndDev.DevInfo item1)
+
+        public static DbModel.Location.AreaAndDev.DevInfo ToDbModel(
+            this Location.TModel.Location.AreaAndDev.DevInfo item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.DevInfo();
@@ -407,7 +396,9 @@ namespace LocationServices.Converters
             item2.SetPos(item1.Pos);
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.DevInfo> ToDbModel(this List<Location.TModel.Location.AreaAndDev.DevInfo> list1)
+
+        public static List<DbModel.Location.AreaAndDev.DevInfo> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.DevInfo> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.DevInfo>();
@@ -417,14 +408,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.KKSCode <=> DbModel.Location.AreaAndDev.KKSCode
-        public static List<Location.TModel.Location.AreaAndDev.KKSCode> ToWcfModelList(this List<DbModel.Location.AreaAndDev.KKSCode> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.KKSCode> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.KKSCode> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.KKSCode ToTModel(this DbModel.Location.AreaAndDev.KKSCode item1)
+
+        public static Location.TModel.Location.AreaAndDev.KKSCode ToTModel(
+            this DbModel.Location.AreaAndDev.KKSCode item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.KKSCode();
@@ -439,7 +435,9 @@ namespace LocationServices.Converters
             item2.System = item1.System;
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.KKSCode> ToTModel(this List<DbModel.Location.AreaAndDev.KKSCode> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.KKSCode> ToTModel(
+            this List<DbModel.Location.AreaAndDev.KKSCode> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.KKSCode>();
@@ -449,7 +447,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.KKSCode ToDbModel(this Location.TModel.Location.AreaAndDev.KKSCode item1)
+
+        public static DbModel.Location.AreaAndDev.KKSCode ToDbModel(
+            this Location.TModel.Location.AreaAndDev.KKSCode item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.KKSCode();
@@ -464,7 +464,9 @@ namespace LocationServices.Converters
             item2.System = item1.System;
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.KKSCode> ToDbModel(this List<Location.TModel.Location.AreaAndDev.KKSCode> list1)
+
+        public static List<DbModel.Location.AreaAndDev.KKSCode> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.KKSCode> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.KKSCode>();
@@ -474,14 +476,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.PhysicalTopology <=> DbModel.Location.AreaAndDev.Area
-        public static List<Location.TModel.Location.AreaAndDev.PhysicalTopology> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Area> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.PhysicalTopology> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Area> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.PhysicalTopology ToTModel(this DbModel.Location.AreaAndDev.Area item1)
+
+        public static Location.TModel.Location.AreaAndDev.PhysicalTopology ToTModel(
+            this DbModel.Location.AreaAndDev.Area item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.PhysicalTopology();
@@ -506,7 +513,9 @@ namespace LocationServices.Converters
             item2.EditBound = item1.EditBound.ToTModel();
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.PhysicalTopology> ToTModel(this List<DbModel.Location.AreaAndDev.Area> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.PhysicalTopology> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Area> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.PhysicalTopology>();
@@ -516,7 +525,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.Area ToDbModel(this Location.TModel.Location.AreaAndDev.PhysicalTopology item1)
+
+        public static DbModel.Location.AreaAndDev.Area ToDbModel(
+            this Location.TModel.Location.AreaAndDev.PhysicalTopology item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.Area();
@@ -551,7 +562,9 @@ namespace LocationServices.Converters
             item2.EditBound = item1.EditBound.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.Area> ToDbModel(this List<Location.TModel.Location.AreaAndDev.PhysicalTopology> list1)
+
+        public static List<DbModel.Location.AreaAndDev.Area> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.PhysicalTopology> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.Area>();
@@ -561,13 +574,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
+
         #region Location.TModel.Location.AreaAndDev.TransformM <=> DbModel.Tools.InitInfos.TransformM
-        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToWcfModelList(this List<DbModel.Tools.InitInfos.TransformM> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToWcfModelList(
+            this List<DbModel.Tools.InitInfos.TransformM> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.TransformM ToTModel(this DbModel.Tools.InitInfos.TransformM item1)
+
+        public static Location.TModel.Location.AreaAndDev.TransformM ToTModel(
+            this DbModel.Tools.InitInfos.TransformM item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.TransformM();
@@ -587,7 +606,9 @@ namespace LocationServices.Converters
             item2.IsRelative = item1.IsRelative;
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToTModel(this List<DbModel.Tools.InitInfos.TransformM> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToTModel(
+            this List<DbModel.Tools.InitInfos.TransformM> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.TransformM>();
@@ -597,7 +618,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Tools.InitInfos.TransformM ToDbModel(this Location.TModel.Location.AreaAndDev.TransformM item1)
+
+        public static DbModel.Tools.InitInfos.TransformM ToDbModel(
+            this Location.TModel.Location.AreaAndDev.TransformM item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Tools.InitInfos.TransformM();
@@ -617,7 +640,9 @@ namespace LocationServices.Converters
             item2.IsRelative = item1.IsRelative;
             return item2;
         }
-        public static List<DbModel.Tools.InitInfos.TransformM> ToDbModel(this List<Location.TModel.Location.AreaAndDev.TransformM> list1)
+
+        public static List<DbModel.Tools.InitInfos.TransformM> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.TransformM> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Tools.InitInfos.TransformM>();
@@ -627,12 +652,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
+
         #region Location.TModel.Location.AreaAndDev.Point <=> DbModel.Location.AreaAndDev.Point
-        public static List<Location.TModel.Location.AreaAndDev.Point> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Point> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Point> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Point> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static Location.TModel.Location.AreaAndDev.Point ToTModel(this DbModel.Location.AreaAndDev.Point item1)
         {
             if (item1 == null) return null;
@@ -646,7 +676,9 @@ namespace LocationServices.Converters
             item2.Bound = item1.Bound.ToTModel();
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.Point> ToTModel(this List<DbModel.Location.AreaAndDev.Point> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Point> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Point> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.Point>();
@@ -656,6 +688,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.AreaAndDev.Point ToDbModel(this Location.TModel.Location.AreaAndDev.Point item1)
         {
             if (item1 == null) return null;
@@ -669,7 +702,9 @@ namespace LocationServices.Converters
             item2.Bound = item1.Bound.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.Point> ToDbModel(this List<Location.TModel.Location.AreaAndDev.Point> list1)
+
+        public static List<DbModel.Location.AreaAndDev.Point> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.Point> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.Point>();
@@ -679,13 +714,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.Post <=> DbModel.Location.AreaAndDev.Post
-        public static List<Location.TModel.Location.AreaAndDev.Post> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Post> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Post> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Post> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static Location.TModel.Location.AreaAndDev.Post ToTModel(this DbModel.Location.AreaAndDev.Post item1)
         {
             if (item1 == null) return null;
@@ -694,7 +733,9 @@ namespace LocationServices.Converters
             item2.Name = item1.Name;
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.Post> ToTModel(this List<DbModel.Location.AreaAndDev.Post> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Post> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Post> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.Post>();
@@ -704,6 +745,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.AreaAndDev.Post ToDbModel(this Location.TModel.Location.AreaAndDev.Post item1)
         {
             if (item1 == null) return null;
@@ -712,7 +754,9 @@ namespace LocationServices.Converters
             item2.Name = item1.Name;
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.Post> ToDbModel(this List<Location.TModel.Location.AreaAndDev.Post> list1)
+
+        public static List<DbModel.Location.AreaAndDev.Post> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.Post> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.Post>();
@@ -722,14 +766,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.Tag <=> DbModel.Location.AreaAndDev.LocationCard
-        public static List<Location.TModel.Location.AreaAndDev.Tag> ToWcfModelList(this List<DbModel.Location.AreaAndDev.LocationCard> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Tag> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.LocationCard> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.Tag ToTModel(this DbModel.Location.AreaAndDev.LocationCard item1)
+
+        public static Location.TModel.Location.AreaAndDev.Tag ToTModel(
+            this DbModel.Location.AreaAndDev.LocationCard item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.Tag();
@@ -739,7 +788,9 @@ namespace LocationServices.Converters
             item2.Describe = item1.Describe;
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.Tag> ToTModel(this List<DbModel.Location.AreaAndDev.LocationCard> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Tag> ToTModel(
+            this List<DbModel.Location.AreaAndDev.LocationCard> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.Tag>();
@@ -749,7 +800,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.LocationCard ToDbModel(this Location.TModel.Location.AreaAndDev.Tag item1)
+
+        public static DbModel.Location.AreaAndDev.LocationCard ToDbModel(
+            this Location.TModel.Location.AreaAndDev.Tag item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.LocationCard();
@@ -760,7 +813,9 @@ namespace LocationServices.Converters
             item2.Describe = item1.Describe;
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.LocationCard> ToDbModel(this List<Location.TModel.Location.AreaAndDev.Tag> list1)
+
+        public static List<DbModel.Location.AreaAndDev.LocationCard> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.Tag> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.LocationCard>();
@@ -770,13 +825,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.Alarm.DeviceAlarm <=> DbModel.Location.Alarm.DevAlarm
-        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToWcfModelList(this List<DbModel.Location.Alarm.DevAlarm> list1)
+
+        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToWcfModelList(
+            this List<DbModel.Location.Alarm.DevAlarm> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static Location.TModel.Location.Alarm.DeviceAlarm ToTModel(this DbModel.Location.Alarm.DevAlarm item1)
         {
             if (item1 == null) return null;
@@ -795,7 +854,9 @@ namespace LocationServices.Converters
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;
             return item2;
         }
-        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToTModel(this List<DbModel.Location.Alarm.DevAlarm> list1)
+
+        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToTModel(
+            this List<DbModel.Location.Alarm.DevAlarm> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.Alarm.DeviceAlarm>();
@@ -805,6 +866,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Alarm.DevAlarm ToDbModel(this Location.TModel.Location.Alarm.DeviceAlarm item1)
         {
             if (item1 == null) return null;
@@ -823,7 +885,9 @@ namespace LocationServices.Converters
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;
             return item2;
         }
-        public static List<DbModel.Location.Alarm.DevAlarm> ToDbModel(this List<Location.TModel.Location.Alarm.DeviceAlarm> list1)
+
+        public static List<DbModel.Location.Alarm.DevAlarm> ToDbModel(
+            this List<Location.TModel.Location.Alarm.DeviceAlarm> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Alarm.DevAlarm>();
@@ -833,14 +897,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.Alarm.LocationAlarm <=> DbModel.Location.Alarm.LocationAlarm
-        public static List<Location.TModel.Location.Alarm.LocationAlarm> ToWcfModelList(this List<DbModel.Location.Alarm.LocationAlarm> list1)
+
+        public static List<Location.TModel.Location.Alarm.LocationAlarm> ToWcfModelList(
+            this List<DbModel.Location.Alarm.LocationAlarm> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.Alarm.LocationAlarm ToTModel(this DbModel.Location.Alarm.LocationAlarm item1)
+
+        public static Location.TModel.Location.Alarm.LocationAlarm ToTModel(
+            this DbModel.Location.Alarm.LocationAlarm item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.Alarm.LocationAlarm();
@@ -860,7 +929,9 @@ namespace LocationServices.Converters
             item2.HandleType = item1.HandleType;
             return item2;
         }
-        public static List<Location.TModel.Location.Alarm.LocationAlarm> ToTModel(this List<DbModel.Location.Alarm.LocationAlarm> list1)
+
+        public static List<Location.TModel.Location.Alarm.LocationAlarm> ToTModel(
+            this List<DbModel.Location.Alarm.LocationAlarm> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.Alarm.LocationAlarm>();
@@ -870,7 +941,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Alarm.LocationAlarm ToDbModel(this Location.TModel.Location.Alarm.LocationAlarm item1)
+
+        public static DbModel.Location.Alarm.LocationAlarm ToDbModel(
+            this Location.TModel.Location.Alarm.LocationAlarm item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Alarm.LocationAlarm();
@@ -890,7 +963,9 @@ namespace LocationServices.Converters
             item2.HandleType = item1.HandleType;
             return item2;
         }
-        public static List<DbModel.Location.Alarm.LocationAlarm> ToDbModel(this List<Location.TModel.Location.Alarm.LocationAlarm> list1)
+
+        public static List<DbModel.Location.Alarm.LocationAlarm> ToDbModel(
+            this List<Location.TModel.Location.Alarm.LocationAlarm> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Alarm.LocationAlarm>();
@@ -900,14 +975,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.LocationHistory.Data.Position <=> DbModel.LocationHistory.Data.Position
-        public static List<Location.TModel.LocationHistory.Data.Position> ToWcfModelList(this List<DbModel.LocationHistory.Data.Position> list1)
+
+        public static List<Location.TModel.LocationHistory.Data.Position> ToWcfModelList(
+            this List<DbModel.LocationHistory.Data.Position> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.LocationHistory.Data.Position ToTModel(this DbModel.LocationHistory.Data.Position item1)
+
+        public static Location.TModel.LocationHistory.Data.Position ToTModel(
+            this DbModel.LocationHistory.Data.Position item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.LocationHistory.Data.Position();
@@ -926,7 +1006,9 @@ namespace LocationServices.Converters
             item2.TopoNodeId = item1.TopoNodeId;
             return item2;
         }
-        public static List<Location.TModel.LocationHistory.Data.Position> ToTModel(this List<DbModel.LocationHistory.Data.Position> list1)
+
+        public static List<Location.TModel.LocationHistory.Data.Position> ToTModel(
+            this List<DbModel.LocationHistory.Data.Position> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.LocationHistory.Data.Position>();
@@ -936,7 +1018,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Data.Position ToDbModel(this Location.TModel.LocationHistory.Data.Position item1)
+
+        public static DbModel.LocationHistory.Data.Position ToDbModel(
+            this Location.TModel.LocationHistory.Data.Position item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Data.Position();
@@ -955,7 +1039,9 @@ namespace LocationServices.Converters
             item2.TopoNodeId = item1.TopoNodeId;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Data.Position> ToDbModel(this List<Location.TModel.LocationHistory.Data.Position> list1)
+
+        public static List<DbModel.LocationHistory.Data.Position> ToDbModel(
+            this List<Location.TModel.LocationHistory.Data.Position> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Data.Position>();
@@ -965,14 +1051,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.LocationHistory.Data.U3DPosition <=> DbModel.LocationHistory.Data.U3DPosition
-        public static List<Location.TModel.LocationHistory.Data.U3DPosition> ToWcfModelList(this List<DbModel.LocationHistory.Data.U3DPosition> list1)
+
+        public static List<Location.TModel.LocationHistory.Data.U3DPosition> ToWcfModelList(
+            this List<DbModel.LocationHistory.Data.U3DPosition> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.LocationHistory.Data.U3DPosition ToTModel(this DbModel.LocationHistory.Data.U3DPosition item1)
+
+        public static Location.TModel.LocationHistory.Data.U3DPosition ToTModel(
+            this DbModel.LocationHistory.Data.U3DPosition item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.LocationHistory.Data.U3DPosition();
@@ -988,7 +1079,9 @@ namespace LocationServices.Converters
             item2.Flag = item1.Flag;
             return item2;
         }
-        public static List<Location.TModel.LocationHistory.Data.U3DPosition> ToTModel(this List<DbModel.LocationHistory.Data.U3DPosition> list1)
+
+        public static List<Location.TModel.LocationHistory.Data.U3DPosition> ToTModel(
+            this List<DbModel.LocationHistory.Data.U3DPosition> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.LocationHistory.Data.U3DPosition>();
@@ -998,7 +1091,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Data.U3DPosition ToDbModel(this Location.TModel.LocationHistory.Data.U3DPosition item1)
+
+        public static DbModel.LocationHistory.Data.U3DPosition ToDbModel(
+            this Location.TModel.LocationHistory.Data.U3DPosition item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Data.U3DPosition();
@@ -1014,7 +1109,9 @@ namespace LocationServices.Converters
             item2.Flag = item1.Flag;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Data.U3DPosition> ToDbModel(this List<Location.TModel.LocationHistory.Data.U3DPosition> list1)
+
+        public static List<DbModel.LocationHistory.Data.U3DPosition> ToDbModel(
+            this List<Location.TModel.LocationHistory.Data.U3DPosition> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Data.U3DPosition>();
@@ -1024,14 +1121,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region Location.TModel.Location.AreaAndDev.Dev_DoorAccess <=> DbModel.Location.AreaAndDev.Dev_DoorAccess
-        public static List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Dev_DoorAccess> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Dev_DoorAccess> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static Location.TModel.Location.AreaAndDev.Dev_DoorAccess ToTModel(this DbModel.Location.AreaAndDev.Dev_DoorAccess item1)
+
+        public static Location.TModel.Location.AreaAndDev.Dev_DoorAccess ToTModel(
+            this DbModel.Location.AreaAndDev.Dev_DoorAccess item1)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.Dev_DoorAccess();
@@ -1043,7 +1145,9 @@ namespace LocationServices.Converters
             item2.DevInfo = item1.DevInfo.ToTModel();
             return item2;
         }
-        public static List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> ToTModel(this List<DbModel.Location.AreaAndDev.Dev_DoorAccess> list1)
+
+        public static List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Dev_DoorAccess> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess>();
@@ -1053,7 +1157,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.AreaAndDev.Dev_DoorAccess ToDbModel(this Location.TModel.Location.AreaAndDev.Dev_DoorAccess item1)
+
+        public static DbModel.Location.AreaAndDev.Dev_DoorAccess ToDbModel(
+            this Location.TModel.Location.AreaAndDev.Dev_DoorAccess item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.Dev_DoorAccess();
@@ -1065,7 +1171,9 @@ namespace LocationServices.Converters
             item2.DevInfo = item1.DevInfo.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.AreaAndDev.Dev_DoorAccess> ToDbModel(this List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> list1)
+
+        public static List<DbModel.Location.AreaAndDev.Dev_DoorAccess> ToDbModel(
+            this List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.AreaAndDev.Dev_DoorAccess>();
@@ -1075,14 +1183,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
+
         #endregion
 
         #region TModel.Location.Work.OperationItem <=> DbModel.Location.Work.OperationItem
-        public static List<TModel.Location.Work.OperationItem> ToWcfModelList(this List<DbModel.Location.Work.OperationItem> list1)
+
+        public static List<TModel.Location.Work.OperationItem> ToWcfModelList(
+            this List<DbModel.Location.Work.OperationItem> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static TModel.Location.Work.OperationItem ToTModel(this DbModel.Location.Work.OperationItem item1)
         {
             if (item1 == null) return null;
@@ -1095,7 +1208,9 @@ namespace LocationServices.Converters
             item2.Item = item1.Item;
             return item2;
         }
-        public static List<TModel.Location.Work.OperationItem> ToTModel(this List<DbModel.Location.Work.OperationItem> list1)
+
+        public static List<TModel.Location.Work.OperationItem> ToTModel(
+            this List<DbModel.Location.Work.OperationItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.OperationItem>();
@@ -1105,6 +1220,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Work.OperationItem ToDbModel(this TModel.Location.Work.OperationItem item1)
         {
             if (item1 == null) return null;
@@ -1117,7 +1233,9 @@ namespace LocationServices.Converters
             item2.Item = item1.Item;
             return item2;
         }
-        public static List<DbModel.Location.Work.OperationItem> ToDbModel(this List<TModel.Location.Work.OperationItem> list1)
+
+        public static List<DbModel.Location.Work.OperationItem> ToDbModel(
+            this List<TModel.Location.Work.OperationItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.OperationItem>();
@@ -1127,13 +1245,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.OperationTicket <=> DbModel.Location.Work.OperationTicket
-        public static List<TModel.Location.Work.OperationTicket> ToWcfModelList(this List<DbModel.Location.Work.OperationTicket> list1)
+
+        public static List<TModel.Location.Work.OperationTicket> ToWcfModelList(
+            this List<DbModel.Location.Work.OperationTicket> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static TModel.Location.Work.OperationTicket ToTModel(this DbModel.Location.Work.OperationTicket item1)
         {
             if (item1 == null) return null;
@@ -1152,7 +1274,9 @@ namespace LocationServices.Converters
             item2.Remark = item1.Remark;
             return item2;
         }
-        public static List<TModel.Location.Work.OperationTicket> ToTModel(this List<DbModel.Location.Work.OperationTicket> list1)
+
+        public static List<TModel.Location.Work.OperationTicket> ToTModel(
+            this List<DbModel.Location.Work.OperationTicket> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.OperationTicket>();
@@ -1162,6 +1286,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Work.OperationTicket ToDbModel(this TModel.Location.Work.OperationTicket item1)
         {
             if (item1 == null) return null;
@@ -1180,7 +1305,9 @@ namespace LocationServices.Converters
             item2.Remark = item1.Remark;
             return item2;
         }
-        public static List<DbModel.Location.Work.OperationTicket> ToDbModel(this List<TModel.Location.Work.OperationTicket> list1)
+
+        public static List<DbModel.Location.Work.OperationTicket> ToDbModel(
+            this List<TModel.Location.Work.OperationTicket> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.OperationTicket>();
@@ -1190,13 +1317,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.SafetyMeasures <=> DbModel.Location.Work.SafetyMeasures
-        public static List<TModel.Location.Work.SafetyMeasures> ToWcfModelList(this List<DbModel.Location.Work.SafetyMeasures> list1)
+
+        public static List<TModel.Location.Work.SafetyMeasures> ToWcfModelList(
+            this List<DbModel.Location.Work.SafetyMeasures> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static TModel.Location.Work.SafetyMeasures ToTModel(this DbModel.Location.Work.SafetyMeasures item1)
         {
             if (item1 == null) return null;
@@ -1208,7 +1339,9 @@ namespace LocationServices.Converters
             item2.WorkTicketId = item1.WorkTicketId;
             return item2;
         }
-        public static List<TModel.Location.Work.SafetyMeasures> ToTModel(this List<DbModel.Location.Work.SafetyMeasures> list1)
+
+        public static List<TModel.Location.Work.SafetyMeasures> ToTModel(
+            this List<DbModel.Location.Work.SafetyMeasures> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.SafetyMeasures>();
@@ -1218,6 +1351,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Work.SafetyMeasures ToDbModel(this TModel.Location.Work.SafetyMeasures item1)
         {
             if (item1 == null) return null;
@@ -1229,7 +1363,9 @@ namespace LocationServices.Converters
             item2.WorkTicketId = item1.WorkTicketId;
             return item2;
         }
-        public static List<DbModel.Location.Work.SafetyMeasures> ToDbModel(this List<TModel.Location.Work.SafetyMeasures> list1)
+
+        public static List<DbModel.Location.Work.SafetyMeasures> ToDbModel(
+            this List<TModel.Location.Work.SafetyMeasures> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.SafetyMeasures>();
@@ -1239,13 +1375,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.WorkTicket <=> DbModel.Location.Work.WorkTicket
-        public static List<TModel.Location.Work.WorkTicket> ToWcfModelList(this List<DbModel.Location.Work.WorkTicket> list1)
+
+        public static List<TModel.Location.Work.WorkTicket> ToWcfModelList(
+            this List<DbModel.Location.Work.WorkTicket> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static TModel.Location.Work.WorkTicket ToTModel(this DbModel.Location.Work.WorkTicket item1)
         {
             if (item1 == null) return null;
@@ -1267,6 +1407,7 @@ namespace LocationServices.Converters
             item2.Comment = item1.Comment;
             return item2;
         }
+
         public static List<TModel.Location.Work.WorkTicket> ToTModel(this List<DbModel.Location.Work.WorkTicket> list1)
         {
             if (list1 == null) return null;
@@ -1277,6 +1418,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Work.WorkTicket ToDbModel(this TModel.Location.Work.WorkTicket item1)
         {
             if (item1 == null) return null;
@@ -1298,6 +1440,7 @@ namespace LocationServices.Converters
             item2.Comment = item1.Comment;
             return item2;
         }
+
         public static List<DbModel.Location.Work.WorkTicket> ToDbModel(this List<TModel.Location.Work.WorkTicket> list1)
         {
             if (list1 == null) return null;
@@ -1308,14 +1451,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.MobileInspectionContent <=> DbModel.Location.Work.MobileInspectionContent
-        public static List<TModel.Location.Work.MobileInspectionContent> ToWcfModelList(this List<DbModel.Location.Work.MobileInspectionContent> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionContent> ToWcfModelList(
+            this List<DbModel.Location.Work.MobileInspectionContent> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.MobileInspectionContent ToTModel(this DbModel.Location.Work.MobileInspectionContent item1)
+
+        public static TModel.Location.Work.MobileInspectionContent ToTModel(
+            this DbModel.Location.Work.MobileInspectionContent item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.MobileInspectionContent();
@@ -1325,7 +1473,9 @@ namespace LocationServices.Converters
             item2.nOrder = item1.nOrder;
             return item2;
         }
-        public static List<TModel.Location.Work.MobileInspectionContent> ToTModel(this List<DbModel.Location.Work.MobileInspectionContent> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionContent> ToTModel(
+            this List<DbModel.Location.Work.MobileInspectionContent> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.MobileInspectionContent>();
@@ -1335,7 +1485,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Work.MobileInspectionContent ToDbModel(this TModel.Location.Work.MobileInspectionContent item1)
+
+        public static DbModel.Location.Work.MobileInspectionContent ToDbModel(
+            this TModel.Location.Work.MobileInspectionContent item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Work.MobileInspectionContent();
@@ -1345,7 +1497,9 @@ namespace LocationServices.Converters
             item2.nOrder = item1.nOrder;
             return item2;
         }
-        public static List<DbModel.Location.Work.MobileInspectionContent> ToDbModel(this List<TModel.Location.Work.MobileInspectionContent> list1)
+
+        public static List<DbModel.Location.Work.MobileInspectionContent> ToDbModel(
+            this List<TModel.Location.Work.MobileInspectionContent> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.MobileInspectionContent>();
@@ -1355,14 +1509,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.MobileInspectionDev <=> DbModel.Location.Work.MobileInspectionDev
-        public static List<TModel.Location.Work.MobileInspectionDev> ToWcfModelList(this List<DbModel.Location.Work.MobileInspectionDev> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionDev> ToWcfModelList(
+            this List<DbModel.Location.Work.MobileInspectionDev> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.MobileInspectionDev ToTModel(this DbModel.Location.Work.MobileInspectionDev item1)
+
+        public static TModel.Location.Work.MobileInspectionDev ToTModel(
+            this DbModel.Location.Work.MobileInspectionDev item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.MobileInspectionDev();
@@ -1371,7 +1530,9 @@ namespace LocationServices.Converters
             item2.MobileInspectionContents = item1.MobileInspectionContents.ToTModel();
             return item2;
         }
-        public static List<TModel.Location.Work.MobileInspectionDev> ToTModel(this List<DbModel.Location.Work.MobileInspectionDev> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionDev> ToTModel(
+            this List<DbModel.Location.Work.MobileInspectionDev> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.MobileInspectionDev>();
@@ -1381,7 +1542,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Work.MobileInspectionDev ToDbModel(this TModel.Location.Work.MobileInspectionDev item1)
+
+        public static DbModel.Location.Work.MobileInspectionDev ToDbModel(
+            this TModel.Location.Work.MobileInspectionDev item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Work.MobileInspectionDev();
@@ -1390,7 +1553,9 @@ namespace LocationServices.Converters
             item2.MobileInspectionContents = item1.MobileInspectionContents.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.Work.MobileInspectionDev> ToDbModel(this List<TModel.Location.Work.MobileInspectionDev> list1)
+
+        public static List<DbModel.Location.Work.MobileInspectionDev> ToDbModel(
+            this List<TModel.Location.Work.MobileInspectionDev> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.MobileInspectionDev>();
@@ -1400,14 +1565,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.MobileInspectionItem <=> DbModel.Location.Work.MobileInspectionItem
-        public static List<TModel.Location.Work.MobileInspectionItem> ToWcfModelList(this List<DbModel.Location.Work.MobileInspectionItem> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionItem> ToWcfModelList(
+            this List<DbModel.Location.Work.MobileInspectionItem> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.MobileInspectionItem ToTModel(this DbModel.Location.Work.MobileInspectionItem item1)
+
+        public static TModel.Location.Work.MobileInspectionItem ToTModel(
+            this DbModel.Location.Work.MobileInspectionItem item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.MobileInspectionItem();
@@ -1419,7 +1589,9 @@ namespace LocationServices.Converters
             item2.DevName = item1.DevName;
             return item2;
         }
-        public static List<TModel.Location.Work.MobileInspectionItem> ToTModel(this List<DbModel.Location.Work.MobileInspectionItem> list1)
+
+        public static List<TModel.Location.Work.MobileInspectionItem> ToTModel(
+            this List<DbModel.Location.Work.MobileInspectionItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.MobileInspectionItem>();
@@ -1429,7 +1601,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Work.MobileInspectionItem ToDbModel(this TModel.Location.Work.MobileInspectionItem item1)
+
+        public static DbModel.Location.Work.MobileInspectionItem ToDbModel(
+            this TModel.Location.Work.MobileInspectionItem item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Work.MobileInspectionItem();
@@ -1441,7 +1615,9 @@ namespace LocationServices.Converters
             item2.DevName = item1.DevName;
             return item2;
         }
-        public static List<DbModel.Location.Work.MobileInspectionItem> ToDbModel(this List<TModel.Location.Work.MobileInspectionItem> list1)
+
+        public static List<DbModel.Location.Work.MobileInspectionItem> ToDbModel(
+            this List<TModel.Location.Work.MobileInspectionItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.MobileInspectionItem>();
@@ -1451,13 +1627,17 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.MobileInspection <=> DbModel.Location.Work.MobileInspection
-        public static List<TModel.Location.Work.MobileInspection> ToWcfModelList(this List<DbModel.Location.Work.MobileInspection> list1)
+
+        public static List<TModel.Location.Work.MobileInspection> ToWcfModelList(
+            this List<DbModel.Location.Work.MobileInspection> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
+
         public static TModel.Location.Work.MobileInspection ToTModel(this DbModel.Location.Work.MobileInspection item1)
         {
             if (item1 == null) return null;
@@ -1468,7 +1648,9 @@ namespace LocationServices.Converters
             item2.Items = item1.Items.ToTModel();
             return item2;
         }
-        public static List<TModel.Location.Work.MobileInspection> ToTModel(this List<DbModel.Location.Work.MobileInspection> list1)
+
+        public static List<TModel.Location.Work.MobileInspection> ToTModel(
+            this List<DbModel.Location.Work.MobileInspection> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.MobileInspection>();
@@ -1478,6 +1660,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         public static DbModel.Location.Work.MobileInspection ToDbModel(this TModel.Location.Work.MobileInspection item1)
         {
             if (item1 == null) return null;
@@ -1488,7 +1671,9 @@ namespace LocationServices.Converters
             item2.Items = item1.Items.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.Work.MobileInspection> ToDbModel(this List<TModel.Location.Work.MobileInspection> list1)
+
+        public static List<DbModel.Location.Work.MobileInspection> ToDbModel(
+            this List<TModel.Location.Work.MobileInspection> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.MobileInspection>();
@@ -1498,14 +1683,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.PersonnelMobileInspectionItem <=> DbModel.Location.Work.PersonnelMobileInspectionItem
-        public static List<TModel.Location.Work.PersonnelMobileInspectionItem> ToWcfModelList(this List<DbModel.Location.Work.PersonnelMobileInspectionItem> list1)
+
+        public static List<TModel.Location.Work.PersonnelMobileInspectionItem> ToWcfModelList(
+            this List<DbModel.Location.Work.PersonnelMobileInspectionItem> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.PersonnelMobileInspectionItem ToTModel(this DbModel.Location.Work.PersonnelMobileInspectionItem item1)
+
+        public static TModel.Location.Work.PersonnelMobileInspectionItem ToTModel(
+            this DbModel.Location.Work.PersonnelMobileInspectionItem item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.PersonnelMobileInspectionItem();
@@ -1519,7 +1709,9 @@ namespace LocationServices.Converters
             item2.PunchTime = item1.PunchTime;
             return item2;
         }
-        public static List<TModel.Location.Work.PersonnelMobileInspectionItem> ToTModel(this List<DbModel.Location.Work.PersonnelMobileInspectionItem> list1)
+
+        public static List<TModel.Location.Work.PersonnelMobileInspectionItem> ToTModel(
+            this List<DbModel.Location.Work.PersonnelMobileInspectionItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.PersonnelMobileInspectionItem>();
@@ -1529,7 +1721,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Work.PersonnelMobileInspectionItem ToDbModel(this TModel.Location.Work.PersonnelMobileInspectionItem item1)
+
+        public static DbModel.Location.Work.PersonnelMobileInspectionItem ToDbModel(
+            this TModel.Location.Work.PersonnelMobileInspectionItem item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Work.PersonnelMobileInspectionItem();
@@ -1543,7 +1737,9 @@ namespace LocationServices.Converters
             item2.PunchTime = item1.PunchTime;
             return item2;
         }
-        public static List<DbModel.Location.Work.PersonnelMobileInspectionItem> ToDbModel(this List<TModel.Location.Work.PersonnelMobileInspectionItem> list1)
+
+        public static List<DbModel.Location.Work.PersonnelMobileInspectionItem> ToDbModel(
+            this List<TModel.Location.Work.PersonnelMobileInspectionItem> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.PersonnelMobileInspectionItem>();
@@ -1553,14 +1749,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.Location.Work.PersonnelMobileInspection <=> DbModel.Location.Work.PersonnelMobileInspection
-        public static List<TModel.Location.Work.PersonnelMobileInspection> ToWcfModelList(this List<DbModel.Location.Work.PersonnelMobileInspection> list1)
+
+        public static List<TModel.Location.Work.PersonnelMobileInspection> ToWcfModelList(
+            this List<DbModel.Location.Work.PersonnelMobileInspection> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.PersonnelMobileInspection ToTModel(this DbModel.Location.Work.PersonnelMobileInspection item1)
+
+        public static TModel.Location.Work.PersonnelMobileInspection ToTModel(
+            this DbModel.Location.Work.PersonnelMobileInspection item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.PersonnelMobileInspection();
@@ -1577,7 +1778,9 @@ namespace LocationServices.Converters
             item2.list = item1.list.ToTModel();
             return item2;
         }
-        public static List<TModel.Location.Work.PersonnelMobileInspection> ToTModel(this List<DbModel.Location.Work.PersonnelMobileInspection> list1)
+
+        public static List<TModel.Location.Work.PersonnelMobileInspection> ToTModel(
+            this List<DbModel.Location.Work.PersonnelMobileInspection> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.PersonnelMobileInspection>();
@@ -1587,7 +1790,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.Location.Work.PersonnelMobileInspection ToDbModel(this TModel.Location.Work.PersonnelMobileInspection item1)
+
+        public static DbModel.Location.Work.PersonnelMobileInspection ToDbModel(
+            this TModel.Location.Work.PersonnelMobileInspection item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Work.PersonnelMobileInspection();
@@ -1604,7 +1809,9 @@ namespace LocationServices.Converters
             item2.list = item1.list.ToDbModel();
             return item2;
         }
-        public static List<DbModel.Location.Work.PersonnelMobileInspection> ToDbModel(this List<TModel.Location.Work.PersonnelMobileInspection> list1)
+
+        public static List<DbModel.Location.Work.PersonnelMobileInspection> ToDbModel(
+            this List<TModel.Location.Work.PersonnelMobileInspection> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.Location.Work.PersonnelMobileInspection>();
@@ -1614,14 +1821,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.OperationItemHistory <=> DbModel.LocationHistory.Work.OperationItemHistory
-        public static List<TModel.LocationHistory.Work.OperationItemHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.OperationItemHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.OperationItemHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.OperationItemHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.OperationItemHistory ToTModel(this DbModel.LocationHistory.Work.OperationItemHistory item1)
+
+        public static TModel.LocationHistory.Work.OperationItemHistory ToTModel(
+            this DbModel.LocationHistory.Work.OperationItemHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.OperationItemHistory();
@@ -1633,7 +1845,9 @@ namespace LocationServices.Converters
             item2.Item = item1.Item;
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.OperationItemHistory> ToTModel(this List<DbModel.LocationHistory.Work.OperationItemHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.OperationItemHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.OperationItemHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.OperationItemHistory>();
@@ -1643,7 +1857,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.OperationItemHistory ToDbModel(this TModel.LocationHistory.Work.OperationItemHistory item1)
+
+        public static DbModel.LocationHistory.Work.OperationItemHistory ToDbModel(
+            this TModel.LocationHistory.Work.OperationItemHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.OperationItemHistory();
@@ -1655,7 +1871,9 @@ namespace LocationServices.Converters
             item2.Item = item1.Item;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.OperationItemHistory> ToDbModel(this List<TModel.LocationHistory.Work.OperationItemHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.OperationItemHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.OperationItemHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.OperationItemHistory>();
@@ -1665,14 +1883,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.OperationTicketHistory <=> DbModel.LocationHistory.Work.OperationTicketHistory
-        public static List<TModel.LocationHistory.Work.OperationTicketHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.OperationTicketHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.OperationTicketHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.OperationTicketHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.OperationTicketHistory ToTModel(this DbModel.LocationHistory.Work.OperationTicketHistory item1)
+
+        public static TModel.LocationHistory.Work.OperationTicketHistory ToTModel(
+            this DbModel.LocationHistory.Work.OperationTicketHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.OperationTicketHistory();
@@ -1689,7 +1912,9 @@ namespace LocationServices.Converters
             item2.Remark = item1.Remark;
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.OperationTicketHistory> ToTModel(this List<DbModel.LocationHistory.Work.OperationTicketHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.OperationTicketHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.OperationTicketHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.OperationTicketHistory>();
@@ -1699,7 +1924,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.OperationTicketHistory ToDbModel(this TModel.LocationHistory.Work.OperationTicketHistory item1)
+
+        public static DbModel.LocationHistory.Work.OperationTicketHistory ToDbModel(
+            this TModel.LocationHistory.Work.OperationTicketHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.OperationTicketHistory();
@@ -1716,7 +1943,9 @@ namespace LocationServices.Converters
             item2.Remark = item1.Remark;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.OperationTicketHistory> ToDbModel(this List<TModel.LocationHistory.Work.OperationTicketHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.OperationTicketHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.OperationTicketHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.OperationTicketHistory>();
@@ -1726,14 +1955,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory <=> DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory
-        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory ToTModel(this DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory item1)
+
+        public static TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory ToTModel(
+            this DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory();
@@ -1747,7 +1981,9 @@ namespace LocationServices.Converters
             item2.PunchTime = item1.PunchTime;
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToTModel(this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory>();
@@ -1757,7 +1993,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory ToDbModel(this TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory item1)
+
+        public static DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory ToDbModel(
+            this TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory();
@@ -1771,7 +2009,9 @@ namespace LocationServices.Converters
             item2.PunchTime = item1.PunchTime;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToDbModel(this List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory>();
@@ -1781,14 +2021,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.PersonnelMobileInspectionHistory <=> DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory
-        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.PersonnelMobileInspectionHistory ToTModel(this DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory item1)
+
+        public static TModel.LocationHistory.Work.PersonnelMobileInspectionHistory ToTModel(
+            this DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.PersonnelMobileInspectionHistory();
@@ -1806,7 +2051,9 @@ namespace LocationServices.Converters
             item2.list = item1.list.ToTModel();
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToTModel(this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory>();
@@ -1816,7 +2063,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory ToDbModel(this TModel.LocationHistory.Work.PersonnelMobileInspectionHistory item1)
+
+        public static DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory ToDbModel(
+            this TModel.LocationHistory.Work.PersonnelMobileInspectionHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory();
@@ -1834,7 +2083,9 @@ namespace LocationServices.Converters
             item2.list = item1.list.ToDbModel();
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToDbModel(this List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.PersonnelMobileInspectionHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory>();
@@ -1844,14 +2095,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.SafetyMeasuresHistory <=> DbModel.LocationHistory.Work.SafetyMeasuresHistory
-        public static List<TModel.LocationHistory.Work.SafetyMeasuresHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.SafetyMeasuresHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.SafetyMeasuresHistory ToTModel(this DbModel.LocationHistory.Work.SafetyMeasuresHistory item1)
+
+        public static TModel.LocationHistory.Work.SafetyMeasuresHistory ToTModel(
+            this DbModel.LocationHistory.Work.SafetyMeasuresHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.SafetyMeasuresHistory();
@@ -1862,7 +2118,9 @@ namespace LocationServices.Converters
             item2.WorkTicketId = item1.WorkTicketId;
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.SafetyMeasuresHistory> ToTModel(this List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.SafetyMeasuresHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.SafetyMeasuresHistory>();
@@ -1872,7 +2130,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.SafetyMeasuresHistory ToDbModel(this TModel.LocationHistory.Work.SafetyMeasuresHistory item1)
+
+        public static DbModel.LocationHistory.Work.SafetyMeasuresHistory ToDbModel(
+            this TModel.LocationHistory.Work.SafetyMeasuresHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.SafetyMeasuresHistory();
@@ -1883,7 +2143,9 @@ namespace LocationServices.Converters
             item2.WorkTicketId = item1.WorkTicketId;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> ToDbModel(this List<TModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.SafetyMeasuresHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.SafetyMeasuresHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.SafetyMeasuresHistory>();
@@ -1893,14 +2155,19 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
         #region TModel.LocationHistory.Work.WorkTicketHistory <=> DbModel.LocationHistory.Work.WorkTicketHistory
-        public static List<TModel.LocationHistory.Work.WorkTicketHistory> ToWcfModelList(this List<DbModel.LocationHistory.Work.WorkTicketHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.WorkTicketHistory> ToWcfModelList(
+            this List<DbModel.LocationHistory.Work.WorkTicketHistory> list1)
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.LocationHistory.Work.WorkTicketHistory ToTModel(this DbModel.LocationHistory.Work.WorkTicketHistory item1)
+
+        public static TModel.LocationHistory.Work.WorkTicketHistory ToTModel(
+            this DbModel.LocationHistory.Work.WorkTicketHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new TModel.LocationHistory.Work.WorkTicketHistory();
@@ -1920,7 +2187,9 @@ namespace LocationServices.Converters
             item2.Comment = item1.Comment;
             return item2;
         }
-        public static List<TModel.LocationHistory.Work.WorkTicketHistory> ToTModel(this List<DbModel.LocationHistory.Work.WorkTicketHistory> list1)
+
+        public static List<TModel.LocationHistory.Work.WorkTicketHistory> ToTModel(
+            this List<DbModel.LocationHistory.Work.WorkTicketHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.LocationHistory.Work.WorkTicketHistory>();
@@ -1930,7 +2199,9 @@ namespace LocationServices.Converters
             }
             return list2;
         }
-        public static DbModel.LocationHistory.Work.WorkTicketHistory ToDbModel(this TModel.LocationHistory.Work.WorkTicketHistory item1)
+
+        public static DbModel.LocationHistory.Work.WorkTicketHistory ToDbModel(
+            this TModel.LocationHistory.Work.WorkTicketHistory item1)
         {
             if (item1 == null) return null;
             var item2 = new DbModel.LocationHistory.Work.WorkTicketHistory();
@@ -1950,7 +2221,9 @@ namespace LocationServices.Converters
             item2.Comment = item1.Comment;
             return item2;
         }
-        public static List<DbModel.LocationHistory.Work.WorkTicketHistory> ToDbModel(this List<TModel.LocationHistory.Work.WorkTicketHistory> list1)
+
+        public static List<DbModel.LocationHistory.Work.WorkTicketHistory> ToDbModel(
+            this List<TModel.LocationHistory.Work.WorkTicketHistory> list1)
         {
             if (list1 == null) return null;
             var list2 = new List<DbModel.LocationHistory.Work.WorkTicketHistory>();
@@ -1960,6 +2233,7 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
         #endregion
 
     }

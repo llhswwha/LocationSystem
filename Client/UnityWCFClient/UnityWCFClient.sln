@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityWCFClient", "UnityWCFClient.csproj", "{A5758BE5-864E-C464-A752-72B9BF957F36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.WCFServiceReferences", "..\WPFWCFClient\Location.WCFServiceReferences\Location.WCFServiceReferences.csproj", "{3FDE7772-7DC6-443A-A9C4-ACBAD53F9C6C}"

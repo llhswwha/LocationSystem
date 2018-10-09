@@ -28,7 +28,7 @@ namespace LocationServices.Locations.Interfaces
         List<PersonnelMobileInspection> GetPersonnelMobileInspectionList();
 
         [OperationContract]
-        List<OperationItemHistory> GetOperationItemHistoryList();
+        List<OperationTicketHistory> GetOperationTicketHistoryList();
 
         [OperationContract]
         List<WorkTicketHistory> GetWorkTicketHistoryList();

@@ -76,6 +76,7 @@
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.Position.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.U3DPosition.datasource" />
     <None Include="Properties\DataSources\TModel.BaseData.Ticket.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Archor.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Manage.LoginInfo.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspectionDev.datasource" />
@@ -127,6 +128,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.BaseData.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.Location.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Manage.xsd">

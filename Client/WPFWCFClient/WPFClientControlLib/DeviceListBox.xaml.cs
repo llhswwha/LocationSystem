@@ -26,9 +26,9 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData(DevInfo[] devList)
+        public void LoadData(DevInfo[] list)
         {
-            DataGrid1.ItemsSource = devList;
+            DataGrid1.ItemsSource = list;
         }
 
         private void MenuDelete_Click(object sender, RoutedEventArgs e)

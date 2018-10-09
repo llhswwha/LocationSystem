@@ -53,19 +53,42 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AchorListBox.xaml.cs">
+      <DependentUpon>AchorListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DepTreeView.xaml.cs">
       <DependentUpon>DepTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceAlarmListBox.xaml.cs">
+      <DependentUpon>DeviceAlarmListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceListBox.xaml.cs">
       <DependentUpon>DeviceListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LocationAlarmListBox.xaml.cs">
+      <DependentUpon>LocationAlarmListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonListBox.xaml.cs">
+      <DependentUpon>PersonListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceTreeView.xaml.cs">
       <DependentUpon>ResourceTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TagListBox.xaml.cs">
+      <DependentUpon>TagListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="AchorListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DepTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeviceAlarmListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -73,7 +96,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LocationAlarmListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TagListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

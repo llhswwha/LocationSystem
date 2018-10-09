@@ -156,6 +156,20 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Abutment_Status" nillable="true" type="tns:Abutment_Status" />
+  <xs:simpleType name="IsStart">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="否" />
+      <xs:enumeration value="是" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="IsStart" nillable="true" type="tns:IsStart" />
+  <xs:simpleType name="ArchorTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="副基站" />
+      <xs:enumeration value="主基站" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ArchorTypes" nillable="true" type="tns:ArchorTypes" />
   <xs:simpleType name="AreaTypes">
     <xs:restriction base="xs:string">
       <xs:enumeration value="区域" />

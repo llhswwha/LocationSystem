@@ -19,6 +19,9 @@ using WebApiService;
 using LocationServices.Tools;
 using Microsoft.Owin.Hosting;
 using System.Reflection;
+using Location.TModel.Location.Alarm;
+using SignalRService.Hubs;
+using System.Collections.Generic;
 
 namespace LocationWCFServer
 {
@@ -258,12 +261,17 @@ namespace LocationWCFServer
 
         private void BtnPushAlarm_OnClick(object sender, RoutedEventArgs e)
         {
-            LocationCallbackService.NotifyServiceStop();
+            //LocationCallbackService.NotifyServiceStop();
+            var service=new LocationService();
+            var alarms = service.GetLocationAlarms(2);
+            AlarmHub.SendLocationAlarms(alarms.ToArray());
         }
 
         private void MenuFireAlarm_Click(object sender, RoutedEventArgs e)
         {
-            LocationService service = new LocationService();
+            //var service = new LocationService();
+            //var alarms = service.GetDeviceAlarms(2);
+            //AlarmHub.SendDeviceAlarms(alarms);
         }
 
         private void MenuRecoverAlarm_Click(object sender, RoutedEventArgs e)

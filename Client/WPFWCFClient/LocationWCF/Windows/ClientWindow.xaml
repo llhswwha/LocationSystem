@@ -15,9 +15,30 @@
             <MenuItem Header="Window">
                 <MenuItem Header="EchuHub" Name="MenuEchuHub" Click="MenuSignalR_Click"></MenuItem>
                 <MenuItem Header="ChatHub" Name="MenuChatHubMenu" Click="MenuChatHubMenu_Click"></MenuItem>
+                <MenuItem Header="Alarm" Name="MenuAlarm" Click="MenuAlarm_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>
-        <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
+        <TabControl>
+            <TabItem Header="设备列表">
+                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
+            </TabItem>
+            <TabItem Header="人员列表">
+                <WPFClientControlLib:PersonListBox x:Name="PersonListBox1"/>
+            </TabItem>
+            <TabItem Header="标签列表">
+                <WPFClientControlLib:TagListBox x:Name="TagListBox1"/>
+            </TabItem>
+            <TabItem Header="基站列表">
+                <WPFClientControlLib:AchorListBox x:Name="AchorListBox1"/>
+            </TabItem>
+            <TabItem Header="设备告警">
+                <WPFClientControlLib:DeviceAlarmListBox x:Name="DeviceAlarmListBox1"/>
+            </TabItem>
+            <TabItem Header="定位告警">
+                <DataGrid Name="DataGridLocationAlarms"></DataGrid>
+            </TabItem>
+        </TabControl>
+        
     </DockPanel>
 </Window>
