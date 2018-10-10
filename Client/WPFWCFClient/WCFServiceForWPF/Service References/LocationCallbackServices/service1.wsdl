@@ -37,6 +37,10 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ILocationAlarmService_Connect_InputMessage">
@@ -57,6 +61,9 @@
   <wsdl:message name="ILocationAlarmService_AddAlarmInfo_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddAlarmInfoResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationAlarmService_AlarmInfo_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:AlarmInfo" />
+  </wsdl:message>
   <wsdl:portType name="ILocationAlarmService">
     <wsdl:operation name="Connect">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationAlarmService/Connect" message="tns:ILocationAlarmService_Connect_InputMessage" />
@@ -69,6 +76,9 @@
     <wsdl:operation name="AddAlarmInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationAlarmService/AddAlarmInfo" message="tns:ILocationAlarmService_AddAlarmInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILocationAlarmService/AddAlarmInfoResponse" message="tns:ILocationAlarmService_AddAlarmInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AlarmInfo">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILocationAlarmService/AlarmInfo" message="tns:ILocationAlarmService_AlarmInfo_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_ILocationAlarmService" type="tns:ILocationAlarmService">
@@ -102,14 +112,20 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AlarmInfo">
+      <soap12:operation soapAction="http://tempuri.org/ILocationAlarmService/AlarmInfo" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="LocationCallbackService">
     <wsdl:port name="NetTcpBinding_ILocationAlarmService" binding="tns:NetTcpBinding_ILocationAlarmService">
-      <soap12:address location="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/" />
+      <soap12:address location="net.tcp://localhost:8734/LocationCallbackService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8734/LocationCallbackService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-OR3HDKD\cww</Upn>
+          <Upn>DESKTOP-CLV0P90\caiwanwei</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

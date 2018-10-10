@@ -16,6 +16,7 @@
                 <MenuItem Header="EchuHub" Name="MenuEchuHub" Click="MenuSignalR_Click"></MenuItem>
                 <MenuItem Header="ChatHub" Name="MenuChatHubMenu" Click="MenuChatHubMenu_Click"></MenuItem>
                 <MenuItem Header="Alarm" Name="MenuAlarm" Click="MenuAlarm_OnClick"></MenuItem>
+                <MenuItem Header="WebApi" Name="MenuWebApi" Click="MenuWebApi_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>

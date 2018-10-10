@@ -1000,15 +1000,15 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetOperationItemHistoryList">
+  <xs:element name="GetOperationTicketHistoryList">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetOperationItemHistoryListResponse">
+  <xs:element name="GetOperationTicketHistoryListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetOperationItemHistoryListResult" nillable="true" type="q76:ArrayOfOperationItemHistory" />
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetOperationTicketHistoryListResult" nillable="true" type="q76:ArrayOfOperationTicketHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

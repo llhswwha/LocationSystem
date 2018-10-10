@@ -18,12 +18,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="net.tcp://localhost:8734/LocationCallbackService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="dbf033d1-0513-4006-9d12-ce404cd7d8b0" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="37bec164-f16a-4404-a841-00027a852ecd" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="800ebb4d-4cff-4a7e-81f3-2ee43f48c6f1" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationServices/LocationCallbacks/LocationCallbackService/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="358ef856-9382-4970-bb89-d8f1346f1d4c" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="f08c77fc-ed01-4b15-ad96-e2e83e0ead1e" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="8ea5891f-a46c-43c0-9fde-b4d67c628a6a" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Alarm.xsd" MetadataType="Schema" ID="29ff271b-d25f-426b-9a84-881080ae1613" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="DbModel.Tools.xsd" MetadataType="Schema" ID="4d4a99fe-1a6a-4f95-9f8e-1feace190664" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.Person.xsd" MetadataType="Schema" ID="24d547db-03ba-41f6-86b7-d37af7874fe3" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
+    <MetadataFile FileName="Location.TModel.Location.AreaAndDev.xsd" MetadataType="Schema" ID="3c774654-2b54-488f-b853-c8344136b6b8" SourceId="1" SourceUrl="net.tcp://localhost:8734/LocationCallbackService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

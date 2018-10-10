@@ -235,8 +235,8 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionListResponse")]
         TModel.Location.Work.PersonnelMobileInspection[] GetPersonnelMobileInspectionList();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationItemHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetOperationItemHistoryListResponse")]
-        TModel.LocationHistory.Work.OperationItemHistory[] GetOperationItemHistoryList();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketHistoryListResponse")]
+        TModel.LocationHistory.Work.OperationTicketHistory[] GetOperationTicketHistoryList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetWorkTicketHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetWorkTicketHistoryListResponse")]
         TModel.LocationHistory.Work.WorkTicketHistory[] GetWorkTicketHistoryList();
@@ -579,8 +579,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetPersonnelMobileInspectionList();
         }
         
-        public TModel.LocationHistory.Work.OperationItemHistory[] GetOperationItemHistoryList() {
-            return base.Channel.GetOperationItemHistoryList();
+        public TModel.LocationHistory.Work.OperationTicketHistory[] GetOperationTicketHistoryList() {
+            return base.Channel.GetOperationTicketHistoryList();
         }
         
         public TModel.LocationHistory.Work.WorkTicketHistory[] GetWorkTicketHistoryList() {

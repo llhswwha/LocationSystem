@@ -28,7 +28,7 @@ namespace WCFClientLib
             string servicePath = "";
             if (HostType == WCFClientHostType.Self)
             {
-                servicePath = "LocationServices/Locations/LocationService/";
+                servicePath = "LocationService";
             }
             else
             {

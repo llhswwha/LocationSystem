@@ -21,7 +21,7 @@ namespace WCFClientLib
         protected void SetConnectInfo()
         {
             Url =
-    string.Format("net.tcp://{0}:{1}/LocationServices/LocationCallbacks/LocationCallbackService",
+    string.Format("net.tcp://{0}:{1}/LocationCallbackService",
         Host, Port);
             NetTcpBinding wsBinding = new NetTcpBinding();
             wsBinding.MaxReceivedMessageSize = int.MaxValue;
@@ -29,7 +29,7 @@ namespace WCFClientLib
             EndpointAddress = new EndpointAddress(Url);
 
             InnerClient = new LocationAlarmServiceClient(
-                //new InstanceContext(this), 
+                new InstanceContext(this), 
                 Binding, EndpointAddress);
         }
 

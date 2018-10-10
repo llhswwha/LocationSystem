@@ -7,10 +7,8 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using DbModel.Tools;
-using log4net.Util;
 using LocationServices.LocationCallbacks;
 using LocationServices.Locations;
 using LocationWCFService;
@@ -18,10 +16,9 @@ using System.Web.Http.SelfHost;
 using WebApiService;
 using LocationServices.Tools;
 using Microsoft.Owin.Hosting;
-using System.Reflection;
-using Location.TModel.Location.Alarm;
 using SignalRService.Hubs;
-using System.Collections.Generic;
+
+using System.ServiceModel.Channels;
 
 namespace LocationWCFServer
 {
@@ -90,18 +87,20 @@ namespace LocationWCFServer
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {
-            StartService();
+            string host = TbHost.Text;
+            string port = TbPort.Text;
+            StartService(host, port);
         }
 
-        private void StartService()
+        private void StartService(string host,string port)
         {
             try
             {
                 WriteLog("启动服务");
-                StartLocationService();
+                StartLocationService(host, port);
                 StartLocationAlarmService();
-                StartWebApiService();
-                StartSignalRService();
+                StartWebApiService(host, port);
+                StartSignalRService(host, port);
 
                 //LocationService.ShowLog_Action += ShowTest;
                 U3DPositionSP.ShowLog_Action += ShowTest;
@@ -114,9 +113,9 @@ namespace LocationWCFServer
 
         private IDisposable SignalR;
 
-        private void StartSignalRService()
+        private void StartSignalRService(string host, string port)
         {
-            string ServerURI = "http://localhost:4955/";
+            string ServerURI = string.Format("http://{0}:{1}/", host,port);
             try
             {
                 SignalR = WebApp.Start(ServerURI);
@@ -139,33 +138,49 @@ namespace LocationWCFServer
 
         HttpSelfHostServer httpHost;
 
-        private void StartWebApiService()
+        private void StartWebApiService(string host, string port)
         {
-            string path = "http://localhost:8222";
+            string path = string.Format("http://{0}:{1}/",host, port);
             var config = new HttpSelfHostConfiguration(path);
             WebApiConfiguration.Configure(config);
             httpHost = new HttpSelfHostServer(config);
             httpHost.OpenAsync().Wait();
 
-            WriteLog("WebApiService: " + path);
+            WriteLog("WebApiService: " + path+"api");
         }
 
         private ServiceHost locationServiceHost;
-        private void StartLocationService()
+
+        private void StartLocationService(string host, string port)
         {
-            locationServiceHost = new ServiceHost(typeof(LocationService));
-            locationServiceHost.SetProxyDataContractResolver();
+            //1.配置方式启动服务
+            //locationServiceHost = new ServiceHost(typeof(LocationService));
+            //locationServiceHost.SetProxyDataContractResolver();
+            //locationServiceHost.Open();
+
+            //2.编程方式启动服务
+            string url = string.Format("http://{0}:{1}/LocationService", host, port);
+            Uri baseAddres = new Uri(url);
+            locationServiceHost = new ServiceHost(typeof (LocationService), baseAddres);
+            //ServiceMetadataBehavior metadataBehavior =
+            //    locationServiceHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
+            //if (metadataBehavior == null)
+            //{
+            //    metadataBehavior = new ServiceMetadataBehavior();
+            //    metadataBehavior.HttpGetEnabled = true;
+            //    metadataBehavior.HttpGetUrl = httpGetUrl;
+            //    locationServiceHost.Description.Behaviors.Add(metadataBehavior);
+            //}
+            BasicHttpBinding httpBinding = new BasicHttpBinding();
+            locationServiceHost.AddServiceEndpoint(typeof (ILocationService), httpBinding, baseAddres);
+
+            Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
+            locationServiceHost.AddServiceEndpoint(typeof (IMetadataExchange), binding, "MEX");
+            //开放数据交付终结点，客户端才能添加/更新服务引用。
+
             locationServiceHost.Open();
 
             WriteLog("LocationService: " + locationServiceHost.BaseAddresses[0]);
-
-            //Uri tcpBaseAddress = new Uri("net.tcp://localhost:7001/LocationService");
-            //host = new ServiceHost(typeof(LocationWCFServices.LocationService),tcpBaseAddress);
-            //ServiceMetadataBehavior metadataBehavior = new ServiceMetadataBehavior();
-            //metadataBehavior.HttpGetEnabled = true;
-            //metadataBehavior.HttpGetUrl=new Uri("http://localhost:7001/LocationService");
-            //host.Description.Behaviors.Add(metadataBehavior);
-            //host.Open();
         }
 
         private ServiceHost locationAlarmServiceHost;

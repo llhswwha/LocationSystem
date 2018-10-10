@@ -26,10 +26,9 @@ namespace LocationWCFClient
 
         private AppContext()
         {
-            
         }
 
-        public LocationClient Client { get; set; }
+        public WCFClientLib.LocationClient Client { get; set; }
 
         public LocationCallbackClient CallbackClient { get; set; }
 
@@ -39,6 +38,11 @@ namespace LocationWCFClient
 
         public string Port { get; set; }
 
+        public string GetWebApiUrl()
+        {
+            return string.Format("http://{0}:{1}/api", Ip, Port);
+        }
+
         public bool Login(string ip, string port, WCFClientHostType hostType,  string user, string pass)
         {
             this.Ip = ip;
@@ -46,7 +50,7 @@ namespace LocationWCFClient
             SignalRClientLib.SignalRAppContext.SetUrl(ip, port);
             try
             {
-                LocationClient client = new LocationClient(ip, port, hostType);
+                WCFClientLib.LocationClient client = new WCFClientLib.LocationClient(ip, port, hostType);
 
                 LoginInfo = client.InnerClient.Login(new LoginInfo() { UserName = user, Password = pass });
                 Client = client;

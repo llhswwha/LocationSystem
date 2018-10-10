@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Location.TModel.FuncArgs;
 using Location.TModel.Location.Alarm;
+using LocationClient.WebApi;
 using SignalRClientLib;
 
 namespace LocationWCFClient.Windows
@@ -120,6 +121,13 @@ namespace LocationWCFClient.Windows
         private void MenuAlarm_OnClick(object sender, RoutedEventArgs e)
         {
             var window = new AlarmWindow();
+            window.Show();
+        }
+
+        private void MenuWebApi_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new WebApiWindow();
+            window.SetUrl(AppContext.Instance.GetWebApiUrl());
             window.Show();
         }
     }

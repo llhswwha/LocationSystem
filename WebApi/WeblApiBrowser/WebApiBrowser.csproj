@@ -54,7 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="WebApiWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -66,8 +66,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="WebApiWindow.xaml.cs">
+      <DependentUpon>WebApiWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RestFulApiWindow.xaml.cs">
       <DependentUpon>RestFulApiWindow.xaml</DependentUpon>

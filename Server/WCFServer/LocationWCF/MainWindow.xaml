@@ -14,8 +14,15 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <StackPanel>
-                        <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务"></Button>
+                    <StackPanel Margin="1">
+                        <StackPanel Orientation="Horizontal" Margin="2">
+                            <Label>Host:</Label>
+                            <TextBox Width="200" Name="TbHost" VerticalContentAlignment="Center">localhost</TextBox>
+                            <Label>Port:</Label>
+                            <TextBox Width="50" Name="TbPort" VerticalContentAlignment="Center">8733</TextBox>
+                            <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务" Margin="2"></Button>
+                        </StackPanel>
+                       
                         <TextBox Name="TbResult1" Grid.Row="1" Height="100"></TextBox>
                         <Button Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
                         <Button Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>

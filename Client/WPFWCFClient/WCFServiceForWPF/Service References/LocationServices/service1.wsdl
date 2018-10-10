@@ -458,11 +458,11 @@
   <wsdl:message name="ILocationService_GetPersonnelMobileInspectionList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPersonnelMobileInspectionListResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetOperationItemHistoryList_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOperationItemHistoryList" />
+  <wsdl:message name="ILocationService_GetOperationTicketHistoryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOperationTicketHistoryList" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetOperationItemHistoryList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOperationItemHistoryListResponse" />
+  <wsdl:message name="ILocationService_GetOperationTicketHistoryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOperationTicketHistoryListResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetWorkTicketHistoryList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetWorkTicketHistoryList" />
@@ -799,9 +799,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionList" message="tns:ILocationService_GetPersonnelMobileInspectionList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionListResponse" message="tns:ILocationService_GetPersonnelMobileInspectionList_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOperationItemHistoryList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetOperationItemHistoryList" message="tns:ILocationService_GetOperationItemHistoryList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetOperationItemHistoryListResponse" message="tns:ILocationService_GetOperationItemHistoryList_OutputMessage" />
+    <wsdl:operation name="GetOperationTicketHistoryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketHistoryList" message="tns:ILocationService_GetOperationTicketHistoryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketHistoryListResponse" message="tns:ILocationService_GetOperationTicketHistoryList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetWorkTicketHistoryList">
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetWorkTicketHistoryList" message="tns:ILocationService_GetWorkTicketHistoryList_InputMessage" />
@@ -1491,8 +1491,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOperationItemHistoryList">
-      <soap:operation soapAction="http://tempuri.org/IWorkService/GetOperationItemHistoryList" style="document" />
+    <wsdl:operation name="GetOperationTicketHistoryList">
+      <soap:operation soapAction="http://tempuri.org/IWorkService/GetOperationTicketHistoryList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1566,7 +1566,7 @@
   </wsdl:binding>
   <wsdl:service name="LocationService">
     <wsdl:port name="BasicHttpBinding_ILocationService" binding="tns:BasicHttpBinding_ILocationService">
-      <soap:address location="http://localhost:8733/LocationServices/Locations/LocationService/" />
+      <soap:address location="http://localhost:8733/LocationService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
