@@ -9,9 +9,6 @@
         Title="AlarmWindow" Height="300" Width="300" Loaded="AlarmWindow_OnLoaded">
     <Grid>
         <TabControl>
-            <!--<TabItem Header="设备列表">
-                <wpfClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
-            </TabItem>-->
             <TabItem Header="设备告警">
                 <DataGrid Name="DataGridDeviceAlarms"></DataGrid>
             </TabItem>

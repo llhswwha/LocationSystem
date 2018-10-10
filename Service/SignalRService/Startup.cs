@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNet.SignalR;
-using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(WebLocation.Startup))]
-namespace WebLocation
+namespace SignalRService
 {
-    public partial class Startup
+    class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            //app.UseCors(CorsOptions.AllowAll);
+            //app.MapSignalR();
+
+            //app.UseCors(CorsOptions.AllowAll);
+            //app.MapSignalR("/realtime", new HubConfiguration() { });
 
             app.Map("/realtime", map =>
             {

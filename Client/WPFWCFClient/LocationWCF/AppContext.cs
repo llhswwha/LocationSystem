@@ -35,8 +35,15 @@ namespace LocationWCFClient
 
         public LoginInfo LoginInfo { get; set; }
 
+        public string Ip { get; set; }
+
+        public string Port { get; set; }
+
         public bool Login(string ip, string port, WCFClientHostType hostType,  string user, string pass)
         {
+            this.Ip = ip;
+            this.Port = port;
+            SignalRClientLib.SignalRAppContext.SetUrl(ip, port);
             try
             {
                 LocationClient client = new LocationClient(ip, port, hostType);

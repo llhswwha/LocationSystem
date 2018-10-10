@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFClient.Windows"
         mc:Ignorable="d"
-        Title="ChatHubWindow" Height="600" Width="500" Closing="Window_Closing">
+        Title="ChatHubWindow" Height="600" Width="500" Closing="Window_Closing" Loaded="ChatHubWindow_OnLoaded">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" Margin="2">
             <Button DockPanel.Dock="Right" Name="BtnConnect" Click="BtnConnect_Click" Width="100">Connect</Button>

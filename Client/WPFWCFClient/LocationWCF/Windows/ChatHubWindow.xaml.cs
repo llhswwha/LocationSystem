@@ -167,5 +167,10 @@ namespace LocationWCFClient.Windows
         {
             Disconnect();
         }
+
+        private void ChatHubWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            TbUrl.Text = ServerURI;
+        }
     }
 }
