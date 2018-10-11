@@ -229,6 +229,7 @@ namespace DbModel.Location.AreaAndDev
 
         public void SetPos(DevPos pos)
         {
+            if (pos == null) return;
             this.PosX = pos.PosX;
             this.PosY = pos.PosY;
             this.PosZ = pos.PosZ;

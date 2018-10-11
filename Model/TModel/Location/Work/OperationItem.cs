@@ -51,6 +51,12 @@ namespace TModel.Location.Work
         //[Display(Name = "操作项目")]
         public string Item { get; set; }
 
+        /// <summary>
+        /// 关联设备Id
+        /// </summary>
+        [DataMember]
+        public string DevId;
+
         public OperationItem Clone()
         {
             OperationItem copy = new OperationItem();

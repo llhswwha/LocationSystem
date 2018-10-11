@@ -17,10 +17,11 @@ namespace WebNSQLib
 {
     public class RealAlarm
     {
+        public MessageHandler MessageHandler = new MessageHandler();
         public void ReceiveRealAlarmInfo()
         {
             var consumer = new Consumer("test-topic-name", "channel-name");
-            consumer.AddHandler(new MessageHandler());
+            consumer.AddHandler(MessageHandler);
             consumer.ConnectToNsqLookupd("127.0.0.1:4161");
 
             while (true) { Thread.Sleep(6000); }

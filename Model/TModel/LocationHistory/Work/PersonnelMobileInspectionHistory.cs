@@ -6,6 +6,7 @@ using Location.TModel.Tools;
 
 namespace TModel.LocationHistory.Work
 {
+    [DataContract]
     public class PersonnelMobileInspectionHistory
     {
         /// <summary>

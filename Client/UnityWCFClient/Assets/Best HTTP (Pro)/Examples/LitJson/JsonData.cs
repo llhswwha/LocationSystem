@@ -1,17 +1,3 @@
-/*
-http://www.cgsoso.com/forum-211-1.html
-
-CG搜搜 Unity3d 每日Unity3d插件免费更新 更有VIP资源！
-
-CGSOSO 主打游戏开发，影视设计等CG资源素材。
-
-插件如若商用，请务必官网购买！
-
-daily assets update for try.
-
-U should buy the asset from home store if u use it in your project!
-*/
-
 #region Header
 /**
  * JsonData.cs
@@ -87,6 +73,16 @@ namespace LitJson
         public ICollection<string> Keys {
             get { EnsureDictionary (); return inst_object.Keys; }
         }
+        
+        /// <summary>
+        /// Determines whether the json contains an element that has the specified key.
+        /// </summary>
+        /// <param name="key">The key to locate in the json.</param>
+        /// <returns>true if the json contains an element that has the specified key; otherwise, false.</returns>
+        public Boolean ContainsKey(String key) {
+            EnsureDictionary();
+            return this.inst_object.Keys.Contains(key);
+        }
         #endregion
 
 
@@ -129,9 +125,9 @@ namespace LitJson
                 EnsureDictionary ();
                 IList<string> keys = new List<string> ();
 
-                foreach (KeyValuePair<string, JsonData> entity in
+                foreach (KeyValuePair<string, JsonData> entry in
                          object_list) {
-                    keys.Add (entity.Key);
+                    keys.Add (entry.Key);
                 }
 
                 return (ICollection) keys;
@@ -143,9 +139,9 @@ namespace LitJson
                 EnsureDictionary ();
                 IList<JsonData> values = new List<JsonData> ();
 
-                foreach (KeyValuePair<string, JsonData> entity in
+                foreach (KeyValuePair<string, JsonData> entry in
                          object_list) {
-                    values.Add (entity.Value);
+                    values.Add (entry.Value);
                 }
 
                 return (ICollection) values;
@@ -231,14 +227,14 @@ namespace LitJson
                 EnsureDictionary ();
                 JsonData data = ToJsonData (value);
 
-                KeyValuePair<string, JsonData> old_entity = object_list[idx];
+                KeyValuePair<string, JsonData> old_entry = object_list[idx];
 
-                inst_object[old_entity.Key] = data;
+                inst_object[old_entry.Key] = data;
 
-                KeyValuePair<string, JsonData> entity =
-                    new KeyValuePair<string, JsonData> (old_entity.Key, data);
+                KeyValuePair<string, JsonData> entry =
+                    new KeyValuePair<string, JsonData> (old_entry.Key, data);
 
-                object_list[idx] = entity;
+                object_list[idx] = entry;
             }
         }
         #endregion
@@ -270,18 +266,18 @@ namespace LitJson
             set {
                 EnsureDictionary ();
 
-                KeyValuePair<string, JsonData> entity =
+                KeyValuePair<string, JsonData> entry =
                     new KeyValuePair<string, JsonData> (prop_name, value);
 
                 if (inst_object.ContainsKey (prop_name)) {
                     for (int i = 0; i < object_list.Count; i++) {
                         if (object_list[i].Key == prop_name) {
-                            object_list[i] = entity;
+                            object_list[i] = entry;
                             break;
                         }
                     }
                 } else
-                    object_list.Add (entity);
+                    object_list.Add (entry);
 
                 inst_object[prop_name] = value;
 
@@ -305,12 +301,12 @@ namespace LitJson
                 if (type == JsonType.Array)
                     inst_array[index] = value;
                 else {
-                    KeyValuePair<string, JsonData> entity = object_list[index];
-                    KeyValuePair<string, JsonData> new_entity =
-                        new KeyValuePair<string, JsonData> (entity.Key, value);
+                    KeyValuePair<string, JsonData> entry = object_list[index];
+                    KeyValuePair<string, JsonData> new_entry =
+                        new KeyValuePair<string, JsonData> (entry.Key, value);
 
-                    object_list[index] = new_entity;
-                    inst_object[entity.Key] = value;
+                    object_list[index] = new_entry;
+                    inst_object[entry.Key] = value;
                 }
 
                 json = null;
@@ -439,22 +435,27 @@ namespace LitJson
             return data.inst_double;
         }
 
-        public static explicit operator Int32 (JsonData data)
+       public static explicit operator Int32(JsonData data)
         {
-            if (data.type != JsonType.Int)
-                throw new InvalidCastException (
+            if (data.type != JsonType.Int && data.type != JsonType.Long)
+            {
+                throw new InvalidCastException(
                     "Instance of JsonData doesn't hold an int");
+            }
 
-            return data.inst_int;
+            // cast may truncate data... but that's up to the user to consider
+            return data.type == JsonType.Int ? data.inst_int : (int)data.inst_long;
         }
 
-        public static explicit operator Int64 (JsonData data)
+        public static explicit operator Int64(JsonData data)
         {
-            if (data.type != JsonType.Long)
-                throw new InvalidCastException (
-                    "Instance of JsonData doesn't hold an int");
+            if (data.type != JsonType.Long && data.type != JsonType.Int)
+            {
+                throw new InvalidCastException(
+                    "Instance of JsonData doesn't hold a long");
+            }
 
-            return data.inst_long;
+            return data.type == JsonType.Long ? data.inst_long : data.inst_int;
         }
 
         public static explicit operator String (JsonData data)
@@ -483,9 +484,9 @@ namespace LitJson
 
             EnsureDictionary ().Add (key, data);
 
-            KeyValuePair<string, JsonData> entity =
+            KeyValuePair<string, JsonData> entry =
                 new KeyValuePair<string, JsonData> ((string) key, data);
-            object_list.Add (entity);
+            object_list.Add (entry);
 
             json = null;
         }
@@ -682,10 +683,10 @@ namespace LitJson
 
             this[property] = data;
 
-            KeyValuePair<string, JsonData> entity =
+            KeyValuePair<string, JsonData> entry =
                 new KeyValuePair<string, JsonData> (property, data);
 
-            object_list.Insert (idx, entity);
+            object_list.Insert (idx, entry);
         }
 
         void IOrderedDictionary.RemoveAt (int idx)
@@ -797,10 +798,9 @@ namespace LitJson
             if (obj.IsObject) {
                 writer.WriteObjectStart ();
 
-                foreach (DictionaryEntry entity in ((IDictionary)obj))
-                {
-                    writer.WritePropertyName ((string) entity.Key);
-                    WriteJson ((JsonData) entity.Value, writer);
+                foreach (DictionaryEntry entry in ((IDictionary) obj)) {
+                    writer.WritePropertyName ((string) entry.Key);
+                    WriteJson ((JsonData) entry.Value, writer);
                 }
                 writer.WriteObjectEnd ();
 
@@ -838,7 +838,14 @@ namespace LitJson
                 return false;
 
             if (x.type != this.type)
-                return false;
+            {
+                // further check to see if this is a long to int comparison
+                if ((x.type != JsonType.Int && x.type != JsonType.Long)
+                    || (this.type != JsonType.Int && this.type != JsonType.Long))
+                {
+                    return false;
+                }
+            }
 
             switch (this.type) {
             case JsonType.None:
@@ -854,10 +861,26 @@ namespace LitJson
                 return this.inst_string.Equals (x.inst_string);
 
             case JsonType.Int:
-                return this.inst_int.Equals (x.inst_int);
+            {
+                if (x.IsLong)
+                {
+                    if (x.inst_long < Int32.MinValue || x.inst_long > Int32.MaxValue)
+                        return false;
+                    return this.inst_int.Equals((int)x.inst_long);
+                }
+                return this.inst_int.Equals(x.inst_int);
+            }
 
             case JsonType.Long:
-                return this.inst_long.Equals (x.inst_long);
+            {
+                if (x.IsInt)
+                {
+                    if (this.inst_long < Int32.MinValue || this.inst_long > Int32.MaxValue)
+                        return false;
+                    return x.inst_int.Equals((int)this.inst_long);
+                }
+                return this.inst_long.Equals(x.inst_long);
+            }
 
             case JsonType.Double:
                 return this.inst_double.Equals (x.inst_double);
@@ -981,11 +1004,10 @@ namespace LitJson
             get { return Entry; }
         }
 
-        public DictionaryEntry Entry
-        {
+        public DictionaryEntry Entry {
             get {
                 KeyValuePair<string, JsonData> curr = list_enumerator.Current;
-                return new DictionaryEntry(curr.Key, curr.Value);
+                return new DictionaryEntry (curr.Key, curr.Value);
             }
         }
 

@@ -15,6 +15,9 @@ using LocationServices.Tools;
 using LocationServer;
 using Microsoft.AspNet.SignalR;
 using SignalRService.Hubs;
+using WebNSQLib;
+using LocationServices.Converters;
+using System.Threading;
 
 //using Web.Sockets.Core;
 
@@ -214,6 +217,17 @@ namespace LocationWCFServer
                 }.SetDev(dev);
                 AlarmHub.SendDeviceAlarms(alarm);
             });
+
+            RealAlarm ra = new RealAlarm();
+            Thread th = new Thread(ra.ReceiveRealAlarmInfo);
+            th.Start();
+            ra.MessageHandler.DevAlarmReceived += Mh_DevAlarmReceived;
+
+        }
+
+        private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
+        {
+            AlarmHub.SendDeviceAlarms(obj.ToTModel());
         }
 
         private void BtnSendMessage_OnClick(object sender, RoutedEventArgs e)

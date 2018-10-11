@@ -9,6 +9,7 @@ namespace TModel.Location.Work
     /// <summary>
     /// 操作票
     /// </summary>
+    [DataContract]
     public class OperationTicket
     {
         /// <summary>
@@ -74,6 +75,12 @@ namespace TModel.Location.Work
         public string Operator { get; set; }
 
         /// <summary>
+        /// 操作人PersonelId
+        /// </summary>
+        [DataMember]
+        public int OperatorPersonelId;
+
+        /// <summary>
         /// 值班负责人
         /// </summary>
         [DataMember]
@@ -81,7 +88,7 @@ namespace TModel.Location.Work
         public string DutyOfficer { get; set; }
 
         /// <summary>
-        /// 调度
+        /// 调度人
         /// </summary>
         [DataMember]
         //[Display(Name = "调度")]

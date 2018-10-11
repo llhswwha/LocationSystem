@@ -46,7 +46,6 @@ namespace LocationServices.Locations
             }
             return posList.ToWCFList();
         }
-
         /// <summary>
         /// 添加一条设备位置信息
         /// </summary>
@@ -215,6 +214,17 @@ namespace LocationServices.Locations
                 //BindingDev(devInfoList);
             }
             return devInfoList.ToWCFList();
+        }
+        /// <summary>
+        /// 通过设备Id,获取设备
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        public DevInfo GetDevByID(string devId)
+        {
+            List<DevInfo> devInfo = db.DevInfos.DbSet.Where(item => item.Local_DevID == devId).ToList().ToTModel();
+            if (devInfo != null && devInfo.Count != 0) return devInfo[0];
+            else return null;
         }
         /// <summary>
         /// 添加门禁设备

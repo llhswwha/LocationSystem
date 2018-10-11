@@ -9,6 +9,7 @@ namespace TModel.Location.Work
     /// <summary>
     /// 人员巡检轨迹表
     /// </summary>
+    [DataContract]
     public class PersonnelMobileInspection
     {
         /// <summary>

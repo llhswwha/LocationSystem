@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.TModel.Location.AreaAndDev;
 
 namespace TModel.Location.Work
 {
     /// <summary>
     /// 工作票
     /// </summary>
+    [DataContract]
     public class WorkTicket
     {
         /// <summary>
@@ -40,6 +42,12 @@ namespace TModel.Location.Work
         public string PersonInCharge { get; set; }
 
         /// <summary>
+        /// 工作票负责人PersonelId
+        /// </summary>
+        [DataMember]
+        public int PersonInChargePersonelId;
+
+        /// <summary>
         /// 工作班负责人
         /// </summary>
         [DataMember]
@@ -52,6 +60,12 @@ namespace TModel.Location.Work
         [DataMember]
         //[Display(Name = "工作地点")]
         public string WorkPlace { get; set; }
+
+        /// <summary>
+        /// 关联区域Id,(PhysicalTopology)
+        /// </summary>
+        [DataMember]
+        public int AreaId;
 
         /// <summary>
         /// 工作内容

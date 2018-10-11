@@ -1,17 +1,3 @@
-/*
-http://www.cgsoso.com/forum-211-1.html
-
-CG搜搜 Unity3d 每日Unity3d插件免费更新 更有VIP资源！
-
-CGSOSO 主打游戏开发，影视设计等CG资源素材。
-
-插件如若商用，请务必官网购买！
-
-daily assets update for try.
-
-U should buy the asset from home store if u use it in your project!
-*/
-
 #region Header
 /**
  * Lexer.cs
@@ -45,8 +31,8 @@ namespace LitJson
         #region Fields
         private delegate bool StateHandler (FsmContext ctx);
 
-        private static int[]          fsm_return_table;
-        private static StateHandler[] fsm_handler_table;
+        private static readonly int[]          fsm_return_table;
+        private static readonly StateHandler[] fsm_handler_table;
 
         private bool          allow_comments;
         private bool          allow_single_quoted_strings;
@@ -91,7 +77,7 @@ namespace LitJson
         #region Constructors
         static Lexer ()
         {
-            PopulateFsmTables ();
+            PopulateFsmTables (out fsm_handler_table, out fsm_return_table);
         }
 
         public Lexer (TextReader reader)
@@ -144,7 +130,7 @@ namespace LitJson
             }
         }
 
-        private static void PopulateFsmTables ()
+        private static void PopulateFsmTables (out StateHandler[] fsm_handler_table, out int[] fsm_return_table)
         {
             // See section A.1. of the manual for details of the finite
             // state machine.

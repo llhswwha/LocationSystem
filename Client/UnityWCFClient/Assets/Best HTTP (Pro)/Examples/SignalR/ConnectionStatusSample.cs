@@ -36,6 +36,7 @@ sealed class ConnectionStatusSample : MonoBehaviour
 
     void Start()
     {
+        
         // Connect to the StatusHub hub
         signalRConnection = new Connection(URI, "StatusHub");
 

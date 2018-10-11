@@ -8,6 +8,7 @@ namespace TModel.Location.Work
     /// <summary>
     /// 需要移动巡检的设备
     /// </summary>
+    [DataContract]
     public class MobileInspectionDev
     {
         /// <summary>

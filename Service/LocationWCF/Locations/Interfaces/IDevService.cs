@@ -109,6 +109,14 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         IList<DevInfo> GetDevInfoByParent(int[] pids);
 
+        /// <summary>
+        /// 通过设备ID,获取设备信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        DevInfo GetDevByID(string devId);
+
         //门禁设备的增删改查
 
         /// <summary>
