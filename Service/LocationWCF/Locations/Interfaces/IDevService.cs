@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using Location.TModel.Location.AreaAndDev;
 using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
@@ -157,6 +158,11 @@ namespace LocationServices.Locations.Interfaces
         #endregion
 
         [OperationContract]
+        [WebGet(UriTemplate = "/archor", ResponseFormat = WebMessageFormat.Json)]
         List<Archor> GetArchors();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/archor/{id}", ResponseFormat = WebMessageFormat.Json)]
+        Archor GetArchor(string id);
     }
 }

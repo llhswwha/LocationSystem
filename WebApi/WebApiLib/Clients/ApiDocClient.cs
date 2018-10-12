@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using WebApiLib.ApiDocs;
 
 namespace WebApiLib.Clients
@@ -31,12 +32,20 @@ namespace WebApiLib.Clients
                 }
                 else
                 {
-                    var client = new HttpClient();
-                    HttpResponseMessage resMsg = client.GetAsync(url).Result;
-                    var result = resMsg.Content.ReadAsStringAsync().Result;
-                    //string resMsg=WebApiHelper.GetString(url);
-                    testResult += string.Format("path:\n{0}\nStatus:{1}\nResult:\n{2}\n", apiPath, resMsg.StatusCode, result);
-                    apiPath.SetResultState(resMsg.StatusCode.ToString());
+                    try
+                    {
+                        var client = new HttpClient();
+                        HttpResponseMessage resMsg = client.GetAsync(url).Result;
+                        var result = resMsg.Content.ReadAsStringAsync().Result;
+                        //string resMsg=WebApiHelper.GetString(url);
+                        testResult += string.Format("url:\n{0}\npath:\n{1}\nStatus:{2}\nResult:\n{3}\n", url, apiPath, resMsg.StatusCode, result);
+                        apiPath.SetResultState(string.Format("[{0}]{1}", (int)resMsg.StatusCode,resMsg.StatusCode));
+                    }
+                    catch (Exception ex)
+                    {
+                        testResult += string.Format("url:\n{0}\npath:\n{1}\nStatus:{2}\nResult:\n{3}\n", url, apiPath, "Error", ex);
+                        apiPath.SetResultState("Error");
+                    }
                 }
 
             }

@@ -22,7 +22,7 @@ namespace WebApiLib.ApiDocs
 
         public void SetResultState(string result)
         {
-            Result = string.Format("{0}[{1}]",Name,result);
+            Result = result;
         }
 
 

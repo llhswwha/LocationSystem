@@ -26,6 +26,7 @@ using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
 using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.AreaAndDev;
+using TModel.Tools;
 
 namespace LocationServices.Locations
 {
@@ -195,7 +196,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool DeleteDevInfo(DevInfo devInfo)
         {
-            bool devResult = db.DevInfos.DeleteById(devInfo.Id);
+            bool devResult = db.DevInfos.DeleteById(devInfo.Id)!=null;
             //bool posResult = db.DevPos.DeleteById(devInfo.Local_DevID);
             bool value = devResult;
             return value;
@@ -254,10 +255,10 @@ namespace LocationServices.Locations
             bool value = true;
             foreach (Dev_DoorAccess item in doorAccessList)
             {
-                bool accessResult = db.Dev_DoorAccess.DeleteById(item.Id);
-                bool devResult = db.DevInfos.DeleteById(item.DevID);
+                var doorAccess = db.Dev_DoorAccess.DeleteById(item.Id);
+                var dev = db.DevInfos.DeleteById(item.DevID);
                 //bool posResult = db.DevPos.DeleteById(item.DevID);
-                bool valueTemp = devResult && accessResult ? true : false;
+                bool valueTemp = doorAccess!=null && dev!=null;
                 if (!valueTemp) value = valueTemp;
             }
             return value;
@@ -337,6 +338,12 @@ namespace LocationServices.Locations
         public List<Archor> GetArchors()
         {
             return db.Archors.ToList().ToWcfModelList();
+        }
+
+        public Archor GetArchor(string id)
+        {
+            int id2 = id.ToInt();
+            return db.Archors.Find(id2).ToTModel();
         }
     }
 }

@@ -4,7 +4,7 @@ using BestHTTP.SignalR.JsonEncoders;
 using BestHTTP.SignalR.Messages;
 using LitJson;
 using Location.WCFServiceReferences.LocationServices;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,18 @@ using UnityEngine;
 
 public class CommunicationCallbackClient : MonoBehaviour {
 
-    readonly Uri URI = new Uri("http://localhost:8735/realtime");
+    /// <summary>
+    /// IP地址
+    /// </summary>
+    public string Ip;
+    /// <summary>
+    /// 端口
+    /// </summary>
+    public int Port;
+    /// <summary>
+    /// SignalR服务地址
+    /// </summary>
+    Uri URI;
 
     /// <summary>
     /// The SignalR connection instance
@@ -21,20 +32,20 @@ public class CommunicationCallbackClient : MonoBehaviour {
     Connection signalRConnection;
 
     /// <summary>
-    /// DemoHub client side implementation
+    /// 告警Hub
     /// </summary>
     AlarmHub alarmHub;
 
     /// <summary>
-    /// TypedDemoHub client side implementation
+    /// EchoHub
     /// </summary>
     EchoHubT echoHub;
     // Use this for initialization
     void Start () {
         RegisterImporter();
-        alarmHub = new AlarmHub();
-        echoHub = new EchoHubT();
-
+        if(alarmHub==null)alarmHub = new AlarmHub();
+        if(echoHub==null) echoHub = new EchoHubT();
+        URI = new Uri(string.Format("http://{0}:{1}/realtime",Ip,Port));
         // Create the SignalR connection, passing all the three hubs to it
         signalRConnection = new Connection(URI, alarmHub, echoHub);
 
@@ -46,7 +57,7 @@ public class CommunicationCallbackClient : MonoBehaviour {
         signalRConnection.OnConnected += (connection) =>
         {
             // Call the demo functions
-            echoHub.Send();
+            echoHub.Send("Start Connect...");
         };
 
         // Start opening the signalR connection
@@ -55,7 +66,7 @@ public class CommunicationCallbackClient : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    
+
 	}
     /// <summary>
     /// Display state changes
@@ -99,22 +110,44 @@ public class CommunicationCallbackClient : MonoBehaviour {
 }
 public class AlarmHub:Hub
 {
-    public event Action<DeviceAlarm[]> DeviceAlarmEvent;
-
+    /// <summary>
+    /// 设备告警
+    /// </summary>
+    public event Action<List<DeviceAlarm>> OnDeviceAlarmRecieved;
+    /// <summary>
+    /// 定位告警
+    /// </summary>
+    public event Action<List<LocationAlarm>> OnLocationAlarmRecieved;
     public AlarmHub()
         : base("alarmHub")
     {
         // Setup server-called functions     
-        base.On("GetDeviceAlarms", GetDeviceAlarms);        
+        base.On("GetDeviceAlarms", GetDeviceAlarms);
+        base.On("GetLocationAlarms",GetLocationAlarms);     
     }
+    /// <summary>
+    /// 设备告警回调
+    /// </summary>
+    /// <param name="hub"></param>
+    /// <param name="methodCall"></param>
     private void GetDeviceAlarms(Hub hub, MethodCallMessage methodCall)
     {      
         string arg0 = JsonMapper.ToJson(methodCall.Arguments[0]);
-        DeviceAlarm[] alarm = JsonMapper.ToObject<DeviceAlarm[]>(arg0);
-        Debug.Log(alarm[0].Abutment_Id);
-        Debug.Log(alarm[0].DevId);
-        //string arg0 = methodCall.Arguments[0].ToString();
-        //Debug.Log("AlarmMessage:" + arg0);
+        List<DeviceAlarm> alarm = JsonMapper.ToObject<List<DeviceAlarm>>(arg0);
+        //Debug.Log("OnAlarmRecieved:"+methodCall.Arguments.Length);
+        if (OnDeviceAlarmRecieved != null) OnDeviceAlarmRecieved(alarm);
+    }
+    /// <summary>
+    /// 定位告警回调
+    /// </summary>
+    /// <param name="hub"></param>
+    /// <param name="methodCall"></param>
+    private void GetLocationAlarms(Hub hub,MethodCallMessage methodCall)
+    {
+        string arg0 = JsonMapper.ToJson(methodCall.Arguments[0]);
+        List<LocationAlarm> alarm = JsonMapper.ToObject<List<LocationAlarm>>(arg0);
+        //Debug.Log("OnAlarmRecieved:"+methodCall.Arguments.Length);
+        if (OnLocationAlarmRecieved != null) OnLocationAlarmRecieved(alarm);
     }
 }
 public class EchoHubT:Hub
@@ -131,9 +164,12 @@ public class EchoHubT:Hub
         //ItemValueModel item
         Debug.Log("EchoMessage:" + arg0);
     }
-    public void Send()
-    {
-        string msg = DateTime.Now.ToShortTimeString();
+    /// <summary>
+    /// 发送消息
+    /// </summary>
+    /// <param name="msg"></param>
+    public void Send(string msg)
+    {      
         base.Call("Broadcast", msg);
     }
 }

@@ -172,21 +172,29 @@ namespace BLL.Blls
             }
         }
 
-        public virtual bool DeleteById(object id)
+        public virtual T DeleteById(object id)
         {
-            if (id == null) return false;
-            if (DbSet == null) return false;
+            if (id == null) return null;
+            if (DbSet == null) return null;
             try
             {
                 T obj = DbSet.Find(id);
-                if (obj == null) return false;
+                if (obj == null) return null;
                 DbSet.Remove(obj);
-                return Save();
+                bool r= Save();
+                if (r)
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
                 Log.Error("BaseBll.DeleteById", ex);
-                return false;
+                return null;
             }
             
         }

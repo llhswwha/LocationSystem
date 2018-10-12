@@ -19,6 +19,8 @@ using Microsoft.Owin.Hosting;
 using SignalRService.Hubs;
 
 using System.ServiceModel.Channels;
+using System.ServiceModel.Web;
+using LocationServices.Locations.Interfaces;
 
 namespace LocationWCFServer
 {
@@ -83,6 +85,11 @@ namespace LocationWCFServer
             {
                 SignalR.Dispose();
             }
+
+            if (wcfApiHost != null)
+            {
+                wcfApiHost.Close();
+            }
         }
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
@@ -98,6 +105,7 @@ namespace LocationWCFServer
             {
                 WriteLog("启动服务");
                 StartLocationService(host, port);
+                StartLocationServiceApi(host, port);
                 StartLocationAlarmService();
                 StartWebApiService(host, port);
                 StartSignalRService(host, port);
@@ -115,6 +123,8 @@ namespace LocationWCFServer
 
         private void StartSignalRService(string host, string port)
         {
+            //端口和主服务器(8733)一致的情况下，2D和3D无法连接SignalR服务器
+            port = "8735";
             string ServerURI = string.Format("http://{0}:{1}/", host,port);
             try
             {
@@ -181,6 +191,21 @@ namespace LocationWCFServer
             locationServiceHost.Open();
 
             WriteLog("LocationService: " + locationServiceHost.BaseAddresses[0]);
+        }
+
+        private WebServiceHost wcfApiHost;
+
+        private void StartLocationServiceApi(string host, string port)
+        {
+            string path = string.Format("http://{0}:{1}/LocationService/api", host, port);
+            //LocationService demoServices = new LocationService();
+            wcfApiHost = new WebServiceHost(typeof(LocationService));
+            WebHttpBinding httpBinding = new WebHttpBinding();
+            wcfApiHost.AddServiceEndpoint(typeof(ITestService), httpBinding, new Uri(path+"/test"));//不能是相同的地址，不同的地址的话可以有多个。
+            //wcfApiHost.AddServiceEndpoint(typeof(IDevService), httpBinding, new Uri(path));
+            wcfApiHost.AddServiceEndpoint(typeof(IPhysicalTopologyService), httpBinding, new Uri(path));
+            wcfApiHost.Open();
+            WriteLog("LocationService: " + path);
         }
 
         private ServiceHost locationAlarmServiceHost;

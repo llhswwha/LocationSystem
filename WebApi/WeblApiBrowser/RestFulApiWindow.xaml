@@ -16,26 +16,38 @@
             <MenuItem Header="Test">
                 <MenuItem Name="MenuItemTestAllPath" Header="TestAllPath" Click="MenuItemTestAllPath_OnClick"></MenuItem>
             </MenuItem>
-            
+
         </Menu>
         <StackPanel Grid.Row="1">
-            <TextBox Name="TbBaseUri">Http://localhost:9347</TextBox>
+            <ComboBox Name="TbBaseUri">
+                <ComboBoxItem IsSelected="True">Http://localhost:9347</ComboBoxItem>
+                <ComboBoxItem>https://ipms.datacase.io/api</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="82.516"/>
+                <ColumnDefinition Width="53*"/>
+                <ColumnDefinition Width="193*"/>
             </Grid.ColumnDefinitions>
-            <ListBox Name="LbUrls" Grid.Column="0" SelectionChanged="LbUrls_OnSelectionChanged">
+            <!--<ListBox Name="LbUrls" Grid.Column="0" SelectionChanged="LbUrls_OnSelectionChanged">
 
-            </ListBox>
-            <ScrollViewer Grid.Column="1">
-                <TextBox Name="TbResult" Grid.Column="1">
+            </ListBox>-->
+            <DataGrid Name="DataGrid1" SelectionChanged="DataGrid1_OnSelectionChanged" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Uri" Binding="{Binding Uri}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Result" Binding="{Binding Result}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <ScrollViewer Grid.Column="2" Grid.ColumnSpan="2">
+                <TextBox Name="TbResult" Grid.Column="1" TextWrapping="Wrap">
 
                 </TextBox>
             </ScrollViewer>
-            
+
         </Grid>
-       
+
     </Grid>
 </Window>

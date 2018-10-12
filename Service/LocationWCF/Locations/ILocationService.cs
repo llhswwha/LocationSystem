@@ -5,7 +5,8 @@ using Location.TModel.Location.Person;
 namespace LocationServices.Locations
 {
     [ServiceContract]
-    public interface ILocationService: 
+    public interface ILocationService:
+        ITestService,
         //IAreaService,
         ITagService, 
         IPositionService, 
@@ -20,9 +21,6 @@ namespace LocationServices.Locations
         IWorkService,
         IUserService
     {
-        [OperationContract]
-        string Hello(string msg);
-
         ///// <summary>
         ///// 获取地图列表
         ///// </summary>

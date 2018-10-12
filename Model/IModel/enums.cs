@@ -12,7 +12,7 @@ namespace DbModel.Tools
     public enum Abutment_RunStatus { 正常, 离线, 报警 }
 
     //对接方设备告警级别
-    public enum Abutment_DevAlarmLevel { 未定, 低, 中, 高 }
+    public enum Abutment_DevAlarmLevel { 无, 低, 中, 高 }
 
     //对接方设备告警级别
     public enum Abutment_DevAlarmSrc { 未知, 视频监控, 门禁, 消防, SIS = 11, 人员定位 }

@@ -89,6 +89,7 @@
     <Compile Include="Location\Work\WorkTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />
+    <Compile Include="Tools\ExtensionBase.cs" />
     <Compile Include="Tools\TimeConvert.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -45,9 +45,11 @@ namespace RestFulApiBrowser
             string path = AppDomain.CurrentDomain.BaseDirectory + "/Data/BaseData.html";
             _apiDoc=new ApiDocument();
             _apiDoc.LoadDoc(path);
-            LbUrls.ItemsSource = _apiDoc.Paths;
-            LbUrls.DisplayMemberPath = "Name";
+            //LbUrls.ItemsSource = _apiDoc.Paths;
+            //LbUrls.DisplayMemberPath = "Name";
+            DataGrid1.ItemsSource = _apiDoc.Paths;
         }
+
 
         private void LoadMdPaths()
         {
@@ -64,17 +66,33 @@ namespace RestFulApiBrowser
                 }
             }
             string result = marked.Parse(txt);
-            LbUrls.ItemsSource = urls;
+            DataGrid1.ItemsSource = urls;
         }
 
-        private void LbUrls_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
 
-            if (LbUrls.SelectedItem is ApiPath)
+        private void MenuItemTestAllPath_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            if (_apiDoc != null)
             {
                 _apiDoc.BaseUri = TbBaseUri.Text;
-                ApiPath apiPath = LbUrls.SelectedItem as ApiPath;
+                ApiDocClient client = new ApiDocClient(_apiDoc);
+                TbResult.Text = client.TestApis();
+
+                //LbUrls.DisplayMemberPath = "Result";
+
+                DataGrid1.ItemsSource = null;
+                DataGrid1.ItemsSource = _apiDoc.Paths;
+            }
+
+        }
+
+        private void DataGrid1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid1.SelectedItem is ApiPath)
+            {
+                _apiDoc.BaseUri = TbBaseUri.Text;
+                ApiPath apiPath = DataGrid1.SelectedItem as ApiPath;
                 //string resMsg = WebApiHelper.GetString(path.GetUrl());
                 //TbResult.Text = string.Format("path:\n{0}\nResult:\n{1}\n", path, resMsg);
 
@@ -86,31 +104,25 @@ namespace RestFulApiBrowser
                 }
                 else
                 {
-                    var client = new HttpClient();
-                    HttpResponseMessage resMsg = client.GetAsync(url).Result;
-                    var result = resMsg.Content.ReadAsStringAsync().Result;
-                    //string resMsg=WebApiHelper.GetString(url);
-                    TbResult.Text = string.Format("path:\n{0}\nStatus:{1}\nResult:\n{2}\n", apiPath, resMsg.StatusCode, result);
-                    apiPath.SetResultState(resMsg.StatusCode.ToString());
+                    try
+                    {
+                        var client = new HttpClient();
+                        HttpResponseMessage resMsg = client.GetAsync(url).Result;
+                        var result = resMsg.Content.ReadAsStringAsync().Result;
+                        //string resMsg=WebApiHelper.GetString(url);
+                        TbResult.Text = string.Format("url:\n{0}\npath:\n{1}\nStatus:{2}\nResult:\n{3}\n", url, apiPath, resMsg.StatusCode, result);
+                        apiPath.SetResultState(resMsg.StatusCode.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        TbResult.Text = string.Format("url:\n{0}\npath:\n{1}\nStatus:{2}\nResult:\n{3}\n", url, apiPath, "Error", ex);
+                    }
                 }
             }
             else
             {
-                string url = LbUrls.SelectedItem as string;
+                string url = DataGrid1.SelectedItem as string;
                 TbResult.Text = url;
-            }
-        }
-
-        private void MenuItemTestAllPath_OnClick(object sender, RoutedEventArgs e)
-        {
-
-            if (_apiDoc != null)
-            {
-                _apiDoc.BaseUri = TbBaseUri.Text;
-                ApiDocClient client = new ApiDocClient(_apiDoc);
-                TbResult.Text = client.TestApis();
-
-                LbUrls.DisplayMemberPath = "Result";
             }
         }
     }

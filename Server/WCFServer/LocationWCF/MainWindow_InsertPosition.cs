@@ -210,7 +210,7 @@ namespace LocationWCFServer
                 DeviceAlarm alarm = new DeviceAlarm()
                 {
                     Id = dev.Id,
-                    Level = Abutment_DevAlarmLevel.低,
+                    Level = Abutment_DevAlarmLevel.无,
                     Title = "消警" + dev.Id,
                     Message = "设备消警1",
                     CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
