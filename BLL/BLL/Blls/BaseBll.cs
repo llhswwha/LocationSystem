@@ -52,7 +52,7 @@ namespace BLL.Blls
         public virtual bool Add(T item,bool isSave=true)
         {
             if (DbSet == null) return false;
-
+            if (item == null) return false;
             DbSet.Add(item);
             if (isSave)
             {

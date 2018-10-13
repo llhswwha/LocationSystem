@@ -593,9 +593,9 @@
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
       <Name>WebApiCommunication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\WebApi\WebApiLib\WebApiLib.csproj">
+    <ProjectReference Include="..\..\..\WebApi\WebApiLib\WebApiClients.csproj">
       <Project>{78dc1103-e23b-423a-a1b3-f7022934dd1c}</Project>
-      <Name>WebApiLib</Name>
+      <Name>WebApiClients</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

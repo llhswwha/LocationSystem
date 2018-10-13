@@ -89,15 +89,15 @@ namespace LocationServices.Locations
         public PhysicalTopology AddPhysicalTopology(PhysicalTopology item)
         {
             var dbItem = item.ToDbModel();
-            db.Areas.Add(dbItem);
-            return dbItem.ToTModel();
+            var result = db.Areas.Add(dbItem);
+            return result ? dbItem.ToTModel() : null;
         }
 
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
             var dbItem = item.ToDbModel();
-            db.Areas.Edit(dbItem);
-            return dbItem.ToTModel();
+            var result=db.Areas.Edit(dbItem);
+            return result ? dbItem.ToTModel() : null;
         }
 
         public PhysicalTopology RemovePhysicalTopology(string id)

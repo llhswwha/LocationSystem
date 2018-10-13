@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Server", "Server\WCFServer\LocationWCF\Location.Server.csproj", "{3236F096-0351-411A-AD3E-9316B03AAD05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7327244D-E163-4C35-9C1A-8DBDF06B9408} = {7327244D-E163-4C35-9C1A-8DBDF06B9408}
+		{13CCC157-451B-4249-BD65-A4DB04A5C143} = {13CCC157-451B-4249-BD65-A4DB04A5C143}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Service", "Service\LocationWCF\Location.Service.csproj", "{39D91B65-547F-401A-A2C7-9DF2EE514225}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL\DAL.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebApi\WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLib", "WebApi\WebApiLib\WebApiLib.csproj", "{78DC1103-E23B-423A-A1B3-F7022934DD1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClients", "WebApi\WebApiLib\WebApiClients.csproj", "{78DC1103-E23B-423A-A1B3-F7022934DD1C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFClientControlLib", "Client\WPFWCFClient\WPFClientControlLib\WPFClientControlLib.csproj", "{2F461217-F714-4546-9302-D17C3F730DED}"
 EndProject

@@ -19,7 +19,7 @@ namespace LocationServices.Locations.Interfaces
         [WebGet(UriTemplate = "/area/{id}", ResponseFormat = WebMessageFormat.Json)]
         PhysicalTopology GetPhysicalTopology(string id);
 
-        [WebGet(UriTemplate = "/area?name={name}", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "/area/search?name={name}", ResponseFormat = WebMessageFormat.Json)]
         IList<PhysicalTopology> GetPhysicalTopologyListByName(string name);
 
         [WebGet(UriTemplate = "/area/{id}/children", ResponseFormat = WebMessageFormat.Json)]

@@ -14,6 +14,8 @@ namespace WebApiService
     {
         public static void Configure(HttpConfiguration config)
         {
+            config.MapHttpAttributeRoutes();
+
             config.Routes.MapHttpRoute("Root", "api", new { controller = "Home" });
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
             ConfigureFormatters(config);
