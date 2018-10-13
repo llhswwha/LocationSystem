@@ -33,7 +33,12 @@ namespace BLL.Blls.Location
 
         public List<Area> FindListByName(string name)
         {
-            return DbSet.Where(i => i.Name.Contains(name)).ToList();
+            var list = DbSet.Where(i => i.Name.Contains(name)).ToList();
+            foreach(var item in list)
+            {
+                item.Children = null;//todo:Find一个不会获取Children，但是用Contains查找会有，为什么呢？要再看看EF的书。
+            }
+            return list;
         }
 
         public List<Area> FindListByPid(int pid)

@@ -35,8 +35,8 @@ namespace WebApiService.Controllers
             return service.GetPhysicalTopologyTreeById(id);
         }
 
-        
-        [Route("search/{name}")]
+        [Route("")]//search/?name=主
+        [Route("search/{name}")]//search/1,直接中文不行
         public IList<PhysicalTopology> GetListByName(string name)
         {
             return service.GetPhysicalTopologyListByName(name);
@@ -48,16 +48,30 @@ namespace WebApiService.Controllers
             return service.GetPhysicalTopologyListByPid(pid);
         }
 
+        [Route("")]//area/?id=1
         [Route("{id}")]
         public PhysicalTopology GetEntity(string id)
         {
-            return service.GetPhysicalTopology(id);
+            return GetEntity(id, false);
+        }
+
+        [Route("")]
+        [Route("{id}")]
+        public PhysicalTopology GetEntity(string id,bool getChildren)
+        {
+            return service.GetPhysicalTopology(id, getChildren);
         }
 
         [Route]
         public PhysicalTopology Post(PhysicalTopology item)
         {
             return service.AddPhysicalTopology(item);
+        }
+
+        [Route("{id}")]
+        public PhysicalTopology Post(string id,PhysicalTopology item)
+        {
+            return service.AddPhysicalTopology(id,item);
         }
 
         [Route]
@@ -71,6 +85,13 @@ namespace WebApiService.Controllers
         public PhysicalTopology Delete(string id)
         {
             return service.RemovePhysicalTopology(id);
+        }
+
+        [Route("{id}/children")]
+        [HttpDelete]
+        public List<PhysicalTopology> DeleteChildren(string id)
+        {
+            return service.RemovePhysicalTopologyChildren(id);
         }
     }
 }

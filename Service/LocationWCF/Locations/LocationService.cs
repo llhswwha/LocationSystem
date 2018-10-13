@@ -36,7 +36,7 @@ namespace LocationServices.Locations
     //[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public partial class LocationService : ILocationService, IDisposable
     {
-        private Bll db = new Bll(false, false, false);
+        private Bll db = new Bll(false, false, false,false);
 
         public static U3DPositionSP u3dositionSP;
 
