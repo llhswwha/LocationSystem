@@ -6,16 +6,27 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IAreaService : ITreeEntityService<PhysicalTopology>
+    {
+
+    }
     public class AreaService : IAreaService
     {
-        private Bll db = new Bll(false, false, false, false);
+        private Bll db;
+
+        public AreaService()
+        {
+            db = new Bll(false, false, false, false);
+        }
+
+        public AreaService(Bll bll)
+        {
+            this.db = bll;
+        }
 
         LocationService service = new LocationService();
 

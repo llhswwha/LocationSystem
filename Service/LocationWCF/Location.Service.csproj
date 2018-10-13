@@ -97,7 +97,7 @@
     <Compile Include="Locations\LocationService_Person.cs" />
     <Compile Include="Locations\LocationService_ConfigArg.cs" />
     <Compile Include="Locations\Services\AreaService.cs" />
-    <Compile Include="Locations\Services\IAreaService.cs" />
+    <Compile Include="Locations\Services\DeviceService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\ITreeEntityService.cs" />
     <Compile Include="Log.cs" />

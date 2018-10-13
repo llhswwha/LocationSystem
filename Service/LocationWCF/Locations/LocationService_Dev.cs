@@ -1,32 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using BLL;
-using BLL.ServiceHelpers;
 using DbModel.Tools;
-using Location.BLL.ServiceHelpers;
 using Location.Model.DataObjects.ObjectAddList;
 using Location.TModel.FuncArgs;
-using Location.TModel.Location;
 using Location.TModel.Location.AreaAndDev;
-using Location.TModel.Location.Data;
-using Location.TModel.Location.Obsolete;
 using Location.TModel.Location.Alarm;
 using Location.TModel.Location.Person;
-using Location.TModel.LocationHistory.Data;
 using LocationServices.Converters;
-using LocationServices.Tools;
-using LocationWCFService;
-using LocationWCFService.ServiceHelper;
-using ConfigArg = Location.TModel.Location.AreaAndDev.ConfigArg;
-using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
-using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
-using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.AreaAndDev;
 using TModel.Tools;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -107,9 +92,9 @@ namespace LocationServices.Locations
 
         private void BindingDev(List<DevInfo> devInfoList)
         {
-            DeviceInfoService service = new DeviceInfoService();
-            //service.BindingDevPos(devInfoList, db.DevPos.ToList());
-            service.BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());
+            //DeviceInfoService service = new DeviceInfoService();
+            ////service.BindingDevPos(devInfoList, db.DevPos.ToList());
+            DeviceInfoService.BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());
         }
 
         /// <summary>
@@ -118,12 +103,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> GetAllDevInfos()
         {
-            //List<DevInfo> devInfoList = db.DevInfos.ToList();
-            //return devInfoList.ToWcfModelList(); 
-
-            var devInfoList = db.DevInfos.DbSet.ToList().ToTModel();
-            BindingDev(devInfoList);
-            return devInfoList.ToWCFList();
+            return new DeviceService(db).GetList();
         }
 
         /// <summary>
@@ -132,21 +112,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> GetDevInfos(int[] typeList)
         {
-            //List<DevInfo> devInfoList = db.DevInfos.ToList();
-            //return devInfoList.ToWcfModelList(); 
-
-            List<DevInfo> devInfoList = null;
-            if (typeList == null || typeList.Length == 0)
-            {
-                devInfoList = db.DevInfos.ToList().ToTModel();
-            }
-            else
-            {
-                devInfoList = db.DevInfos.DbSet.Where(i => typeList.Contains(i.Local_TypeCode)).ToList().ToTModel();
-            }
-
-            BindingDev(devInfoList);
-            return devInfoList.ToWCFList();
+            return new DeviceService(db).GetListByTypes(typeList);
         }
 
         /// <summary>
@@ -155,11 +121,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> FindDevInfos(string key)
         {
-            //List<DevInfo> devInfoList = db.DevInfos.ToList();
-            //return devInfoList.ToWcfModelList();           
-            var devInfoList = db.DevInfos.DbSet.Where(i => i.Name.Contains(key)).ToList().ToTModel();
-            BindingDev(devInfoList);
-            return devInfoList.ToWCFList();
+            return new DeviceService(db).GetListByName(key);
         }
 
         /// <summary>
@@ -168,9 +130,7 @@ namespace LocationServices.Locations
         /// <param name="devInfo"></param>
         public DevInfo AddDevInfo(DevInfo devInfo)
         {
-            DbModel.Location.AreaAndDev.DevInfo DbDevInfo = devInfo.ToDbModel();
-            bool r = db.DevInfos.Add(DbDevInfo);
-            return DbDevInfo.ToTModel();
+            return new DeviceService(db).Post(devInfo);
         }
         /// <summary>
         /// 添加设备基本信息（列表形式）
@@ -187,7 +147,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool ModifyDevInfo(DevInfo devInfo)
         {
-            return db.DevInfos.Edit(devInfo.ToDbModel());
+            return new DeviceService(db).Put(devInfo)!=null;
         }
         /// <summary>
         /// 删除设备信息
@@ -196,10 +156,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool DeleteDevInfo(DevInfo devInfo)
         {
-            bool devResult = db.DevInfos.DeleteById(devInfo.Id)!=null;
-            //bool posResult = db.DevPos.DeleteById(devInfo.Local_DevID);
-            bool value = devResult;
-            return value;
+            return new DeviceService(db).Delete(devInfo.Id+"") != null;
         }
         /// <summary>
         /// 通过区域ID,获取区域下所有设备
@@ -208,13 +165,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> GetDevInfoByParent(int[] pidList)
         {
-            List<DevInfo> devInfoList = new List<DevInfo>();
-            foreach (var pid in pidList)
-            {
-                devInfoList.AddRange(db.DevInfos.DbSet.Where(item => item.ParentId == pid).ToList().ToTModel());
-                //BindingDev(devInfoList);
-            }
-            return devInfoList.ToWCFList();
+            return new DeviceService(db).GetListByPids(pidList);
         }
         /// <summary>
         /// 通过设备Id,获取设备
@@ -223,9 +174,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public DevInfo GetDevByID(string devId)
         {
-            List<DevInfo> devInfo = db.DevInfos.DbSet.Where(item => item.Local_DevID == devId).ToList().ToTModel();
-            if (devInfo != null && devInfo.Count != 0) return devInfo[0];
-            else return null;
+            return new DeviceService(db).GetEntityByDevId(devId);
         }
         /// <summary>
         /// 添加门禁设备

@@ -1,32 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using BLL;
-using BLL.ServiceHelpers;
-using DbModel.Location.AreaAndDev;
-using DbModel.Tools;
 using Location.BLL.ServiceHelpers;
-using Location.Model.DataObjects.ObjectAddList;
-using Location.TModel.FuncArgs;
-using Location.TModel.Location;
 using Location.TModel.Location.AreaAndDev;
-using Location.TModel.Location.Data;
-using Location.TModel.Location.Obsolete;
-using Location.TModel.Location.Alarm;
-using Location.TModel.Location.Person;
-using Location.TModel.LocationHistory.Data;
 using LocationServices.Converters;
-using LocationServices.Tools;
-using LocationWCFService;
-using LocationWCFService.ServiceHelper;
-using TModel.Tools;
-using ConfigArg = Location.TModel.Location.AreaAndDev.ConfigArg;
-using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
-using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
-using Post = Location.TModel.Location.AreaAndDev.Post;
-using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
@@ -40,22 +16,22 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<PhysicalTopology> GetPhysicalTopologyList()
         {
-            return new AreaService().GetList();
+            return new AreaService(db).GetList();
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
         {
-            return new AreaService().GetEntity(id, getChildren);
+            return new AreaService(db).GetEntity(id, getChildren);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByName(string name)
         {
-            return new AreaService().GetListByName(name);
+            return new AreaService(db).GetListByName(name);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByPid(string pid)
         {
-            return new AreaService().GetListByPid(pid);
+            return new AreaService(db).GetListByPid(pid);
         }
 
         /// <summary>
@@ -64,67 +40,37 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public PhysicalTopology GetPhysicalTopologyTree()
         {
-            return new AreaService().GetTree();
+            return new AreaService(db).GetTree();
         }
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
         {
-            var item = db.Areas.Find(id.ToInt());
-            GetChildrenTree(item);
-            return item.ToTModel();
-        }
-
-        private List<Area> GetChildren(Area area)
-        {
-            if (area != null)
-            {
-                var list = db.Areas.FindListByPid(area.Id);
-                area.Children = list;
-                return list;
-            }
-            else
-            {
-                return new List<Area>();
-            }
-        }
-
-        private void GetChildrenTree(Area area)
-        {
-            if (area == null) return;
-            var list=GetChildren(area);
-            if (list != null)
-            {
-                foreach (var item in list)
-                {
-                    GetChildrenTree(item);
-                }
-            }
-
+            return new AreaService(db).GetTree(id);
         }
 
         public PhysicalTopology AddPhysicalTopology(string pid,PhysicalTopology item)
         {
-            return new AreaService().Post(pid, item);
+            return new AreaService(db).Post(pid, item);
         }
 
         public PhysicalTopology AddPhysicalTopology(PhysicalTopology item)
         {
-            return new AreaService().Post(item);
+            return new AreaService(db).Post(item);
         }
 
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
-            return new AreaService().Put(item);
+            return new AreaService(db).Put(item);
         }
 
         public PhysicalTopology RemovePhysicalTopology(string id)
         {
-            return new AreaService().Delete(id);
+            return new AreaService(db).Delete(id);
         }
 
         public List<PhysicalTopology> RemovePhysicalTopologyChildren(string id)
         {
-            return new AreaService().DeleteChildren(id);
+            return new AreaService(db).DeleteChildren(id);
         }
 
         /// <summary>

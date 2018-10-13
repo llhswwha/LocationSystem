@@ -8,7 +8,7 @@ namespace Location.Model.DataObjects.ObjectAddList
     {
         //public static bool IsBindingPos;
 
-        public void BindingDevPos(List<DevInfo> devInfoList, List<DevPos> devPosList)
+        public static void BindingDevPos(List<DevInfo> devInfoList, List<DevPos> devPosList)
         {
             //if(IsBindingPos==true)return;
             //IsBindingPos = true;
@@ -30,7 +30,7 @@ namespace Location.Model.DataObjects.ObjectAddList
                 }
             }
         }
-        public void BindingDevParent(List<DevInfo> devInfoList, List<PhysicalTopology> nodeList)
+        public static void BindingDevParent(List<DevInfo> devInfoList, List<PhysicalTopology> nodeList)
         {
             //if(IsBindingPos==true)return;
             //IsBindingPos = true;

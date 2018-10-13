@@ -14,7 +14,7 @@ namespace WebApiService.Controllers
 {
 
     [RoutePrefix("api/areas")]
-    public class AreaController:ApiController, IAreaService
+    public class AreaController: ApiController, IAreaService
     {
         IAreaService service;
 
