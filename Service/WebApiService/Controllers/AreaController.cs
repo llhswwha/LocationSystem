@@ -8,90 +8,95 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
 
-    [RoutePrefix("api/area")]
-    public class AreaController:ApiController
+    [RoutePrefix("api/areas")]
+    public class AreaController:ApiController, IAreaService
     {
-        LocationService service=new LocationService();
+        IAreaService service;
+
+        public AreaController()
+        {
+            service = new AreaService();
+        }
+
         [Route("")]
         [Route("list")]
         public IList<PhysicalTopology> GetList()
         {
-            return service.GetPhysicalTopologyList();
+            return service.GetList();
         }
 
         [Route("tree")]
         public PhysicalTopology GetTree()
         {
-            return service.GetPhysicalTopologyTree();
+            return service.GetTree();
         }
 
         [Route("tree/{id}")]
         public PhysicalTopology GetTree(string id)
         {
-            return service.GetPhysicalTopologyTreeById(id);
+            return service.GetTree(id);
         }
 
         [Route("")]//search/?name=主
         [Route("search/{name}")]//search/1,直接中文不行
         public IList<PhysicalTopology> GetListByName(string name)
         {
-            return service.GetPhysicalTopologyListByName(name);
+            return service.GetListByName(name);
         }
 
         [Route("{pid}/children")]
         public IList<PhysicalTopology> GetListByPid(string pid)
         {
-            return service.GetPhysicalTopologyListByPid(pid);
+            return service.GetListByPid(pid);
         }
 
         [Route("")]//area/?id=1
         [Route("{id}")]
         public PhysicalTopology GetEntity(string id)
         {
-            return GetEntity(id, false);
+            return service.GetEntity(id);
         }
 
         [Route("")]
         [Route("{id}")]
         public PhysicalTopology GetEntity(string id,bool getChildren)
         {
-            return service.GetPhysicalTopology(id, getChildren);
+            return service.GetEntity(id, getChildren);
         }
 
         [Route]
         public PhysicalTopology Post(PhysicalTopology item)
         {
-            return service.AddPhysicalTopology(item);
+            return service.Post(item);
         }
 
-        [Route("{id}")]
-        public PhysicalTopology Post(string id,PhysicalTopology item)
+        [Route("{pid}")]
+        public PhysicalTopology Post(string pid,PhysicalTopology item)
         {
-            return service.AddPhysicalTopology(id,item);
+            return service.Post(pid, item);
         }
 
         [Route]
         public PhysicalTopology Put(PhysicalTopology item)
         {
-            return service.EditPhysicalTopology(item);
+            return service.Put(item);
         }
 
         [Route("{id}")]
-        [HttpDelete]
         public PhysicalTopology Delete(string id)
         {
-            return service.RemovePhysicalTopology(id);
+            return service.Delete(id);
         }
 
         [Route("{id}/children")]
-        [HttpDelete]
         public List<PhysicalTopology> DeleteChildren(string id)
         {
-            return service.RemovePhysicalTopologyChildren(id);
+            return service.DeleteChildren(id);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace BLL.ServiceHelpers
         {
             try
             {
-                using (Bll db = new Bll(false, false, false))
+                using (Bll db = new Bll(false, false, false,false))
                 {
                     Log.InfoStart("GetPhysicalTopologyTree");
 

@@ -27,6 +27,7 @@ using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
 using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -39,28 +40,22 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<PhysicalTopology> GetPhysicalTopologyList()
         {
-            var list = db.Areas.ToList();
-            return list.ToWcfModelList();
+            return new AreaService().GetList();
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
         {
-            var item = db.Areas.Find(id.ToInt());
-            if(getChildren)
-                GetChildren(item);
-            return item.ToTModel();
+            return new AreaService().GetEntity(id, getChildren);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByName(string name)
         {
-            var list = db.Areas.FindListByName(name);
-            return list.ToWcfModelList();
+            return new AreaService().GetListByName(name);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByPid(string pid)
         {
-            var list = db.Areas.FindListByPid(pid.ToInt());
-            return list.ToWcfModelList();
+            return new AreaService().GetListByPid(pid);
         }
 
         /// <summary>
@@ -69,19 +64,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public PhysicalTopology GetPhysicalTopologyTree()
         {
-            try
-            {
-                Area root0 = LocationSP.GetPhysicalTopologyTree();
-                PhysicalTopology root = root0.ToTModel();
-                //string xml = XmlSerializeHelper.GetXmlText(root, Encoding.UTF8);
-                //PhysicalTopology obj = XmlSerializeHelper.LoadFromText<PhysicalTopology>(xml);
-                return root;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-                return null;
-            }
+            return new AreaService().GetTree();
         }
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
@@ -119,60 +102,29 @@ namespace LocationServices.Locations
 
         }
 
-        public PhysicalTopology AddPhysicalTopology(string id,PhysicalTopology item)
+        public PhysicalTopology AddPhysicalTopology(string pid,PhysicalTopology item)
         {
-            item.ParentId = id.ToInt();
-            var dbItem = item.ToDbModel();
-            var result = db.Areas.Add(dbItem);
-            return result ? dbItem.ToTModel() : null;
+            return new AreaService().Post(pid, item);
         }
 
         public PhysicalTopology AddPhysicalTopology(PhysicalTopology item)
         {
-            var dbItem = item.ToDbModel();
-            var result = db.Areas.Add(dbItem);
-            return result ? dbItem.ToTModel() : null;
+            return new AreaService().Post(item);
         }
 
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
-            var dbItem = item.ToDbModel();
-            var result=db.Areas.Edit(dbItem);
-            return result ? dbItem.ToTModel() : null;
+            return new AreaService().Put(item);
         }
 
         public PhysicalTopology RemovePhysicalTopology(string id)
         {
-            var item = db.Areas.Find(id.ToInt());
-            GetChildren(item);
-            if (item.Children != null && item.Children.Count > 0)//不能删除有子物体的节点
-            {
-                //throw new Exception("Have Children !");
-            }
-            else
-            {
-                db.Areas.Remove(item);
-            }
-            return item.ToTModel();
+            return new AreaService().Delete(id);
         }
 
         public List<PhysicalTopology> RemovePhysicalTopologyChildren(string id)
         {
-            var list2 = new List<Area>();
-            var list = db.Areas.FindListByPid(id.ToInt());
-            foreach (var item in list)
-            {
-                GetChildren(item);
-                if (item.Children == null || item.Children.Count == 0)
-                {
-                    bool r=db.Areas.Remove(item);//只删除无子物体的节点
-                    if (r)
-                    {
-                        list2.Add(item);
-                    }
-                }
-            }
-            return list2.ToWcfModelList();
+            return new AreaService().DeleteChildren(id);
         }
 
         /// <summary>
