@@ -1,0 +1,3046 @@
+{
+	"info": {
+		"_postman_id": "d126f3c0-649b-4bea-bbb1-a71e367d0d33",
+		"name": "location/apiController/api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "root",
+			"item": [
+				{
+					"name": "root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "help",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/help",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"help"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postman",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/postman",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"postman"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "areas",
+			"item": [
+				{
+					"name": "areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/295",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"295"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "areas/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreateareasByData\": false,\n    \"isOnAlarmareas\": false,\n    \"isOnLocationareas\": false,\n    \"type\": 0\n}"
+						},
+						{
+							"name": "areas/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreateareasByData\": false,\n    \"isOnAlarmareas\": false,\n    \"isOnLocationareas\": false,\n    \"type\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "areas/{id}/parent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/295",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"295"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "areas/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreateareasByData\": false,\n    \"isOnAlarmareas\": false,\n    \"isOnLocationareas\": false,\n    \"type\": 0\n}"
+						},
+						{
+							"name": "areas/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreateareasByData\": false,\n    \"isOnAlarmareas\": false,\n    \"isOnLocationareas\": false,\n    \"type\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "areas/{id}/children",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/2/children",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"2",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}{?getChildren}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/2?getChildren=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"2"
+							],
+							"query": [
+								{
+									"key": "getChildren",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{?id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "areas/{?id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/?id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:53:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreateareasByData\": true,\n        \"isOnAlarmareas\": false,\n        \"isOnLocationareas\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						},
+						{
+							"name": "areas{?id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas?id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:53:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreateareasByData\": true,\n        \"isOnAlarmareas\": false,\n        \"isOnLocationareas\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						},
+						{
+							"name": "areas/{?id}{?getChildren}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/areas/?id=2?getChildren=true",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"areas",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2?getChildren=true"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:54:24 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreateareasByData\": true,\n        \"isOnAlarmareas\": false,\n        \"isOnLocationareas\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "areas/tree",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/tree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/tree/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/tree/279",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"tree",
+								"279"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/?name=主",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "主"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/search/{name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/search/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"search",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/ post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "parentId",
+									"value": "285",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/ put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "277",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/ delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/279",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"279"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id} post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/279",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"279"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}/children delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/279/children",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"279",
+								"children"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "devices",
+			"item": [
+				{
+					"name": "devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices/776",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices",
+								"776"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices/?name=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "773",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices/{id} delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices/773",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices",
+								"773"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}/devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/295/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"295",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}/devices",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/295/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"295",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "areas/{id}/devices",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/areas/295/devices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"areas",
+								"295",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices/{?pid}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices/?pid=295",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices",
+								""
+							],
+							"query": [
+								{
+									"key": "pid",
+									"value": "295"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devices/{id}/parent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/devices/776/parent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"devices",
+								"776",
+								"parent"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "deps",
+			"item": [
+				{
+					"name": "deps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deps/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreatedepsByData\": false,\n    \"isOnAlarmdeps\": false,\n    \"isOnLocationdeps\": false,\n    \"type\": 0\n}"
+						},
+						{
+							"name": "deps/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreatedepsByData\": false,\n    \"isOnAlarmdeps\": false,\n    \"isOnLocationdeps\": false,\n    \"type\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "deps/{id}/parent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/2/parent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"2",
+								"parent"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deps/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreatedepsByData\": false,\n    \"isOnAlarmdeps\": false,\n    \"isOnLocationdeps\": false,\n    \"type\": 0\n}"
+						},
+						{
+							"name": "deps/{id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "166"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 Oct 2018 02:53:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"根节点\",\n    \"isRelative\": false,\n    \"isCreatedepsByData\": false,\n    \"isOnAlarmdeps\": false,\n    \"isOnLocationdeps\": false,\n    \"type\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "deps/{id}/children",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/2/children",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"2",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}{?getChildren}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/2?getChildren=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"2"
+							],
+							"query": [
+								{
+									"key": "getChildren",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{?id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/?id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "deps/{?id}{?getChildren}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/?id=2?getChildren=true",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2?getChildren=true"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:54:24 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreatedepsByData\": true,\n        \"isOnAlarmdeps\": false,\n        \"isOnLocationdeps\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						},
+						{
+							"name": "deps{?id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps?id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:53:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreatedepsByData\": true,\n        \"isOnAlarmdeps\": false,\n        \"isOnLocationdeps\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						},
+						{
+							"name": "deps/{?id}",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8733/api/deps/?id=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8733",
+									"path": [
+										"api",
+										"deps",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "450"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-HTTPAPI/2.0"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 13 Oct 2018 06:53:31 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"name\": \"四会热电厂\",\n    \"parentId\": 1,\n    \"type\": 0,\n    \"transfromId\": 0,\n    \"transfrom\": {\n        \"id\": 0,\n        \"x\": 2315,\n        \"y\": 10,\n        \"z\": 1693.75,\n        \"rx\": 0,\n        \"ry\": 0,\n        \"rz\": 0,\n        \"sx\": 496,\n        \"sy\": 20,\n        \"sz\": 237.5,\n        \"isRelative\": false,\n        \"isCreatedepsByData\": true,\n        \"isOnAlarmdeps\": false,\n        \"isOnLocationdeps\": true\n    },\n    \"initBoundId\": 1,\n    \"editBoundId\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "deps/tree",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/tree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"tree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/tree/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/tree/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"tree",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/?name=电",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "电"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/search/{name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/search/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"search",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/ post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "parentId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id} post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "33",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/ put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "277",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/ delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}/children delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/10/children",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"10",
+								"children"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "persons",
+			"item": [
+				{
+					"name": "persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons/?name=蔡",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "蔡"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "112",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "666",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons/112",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons",
+								"112"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}/persons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "222",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/6/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"6",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}/persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/6/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"6",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deps/{id}/persons",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/deps/6/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"deps",
+								"6",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons/{?pid}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons/?pid=295",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons",
+								""
+							],
+							"query": [
+								{
+									"key": "pid",
+									"value": "295"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "persons/{id}/parent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/persons/776/parent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"persons",
+								"776",
+								"parent"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "archors",
+			"item": [
+				{
+					"name": "archors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archors/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archors/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors/?name=空调",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "空调"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试基站",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archors",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试基站New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "682",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archors/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试基站New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "682",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/archors/682",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"archors",
+								"682"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tags",
+			"item": [
+				{
+					"name": "tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tags/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tags/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags/?name=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tags",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试标签",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "00123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tags",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试标签New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tags/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试基站New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "682",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/tags/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"tags",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pos",
+			"item": [
+				{
+					"name": "pos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pos/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pos/{?name}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos/?name=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试标签",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "00123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pos",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试标签New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pos/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试基站New",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "682",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8733/api/pos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8733",
+							"path": [
+								"api",
+								"pos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
