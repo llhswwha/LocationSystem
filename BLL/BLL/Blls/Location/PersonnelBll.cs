@@ -24,14 +24,28 @@ namespace BLL.Blls.Location
             DbSet = Db.Personnels;
         }
 
-        public List<Personnel> FindListByName(string name)
+        public List<Personnel> GetListByName(string name)
         {
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
         }
 
-        public List<Personnel> FindListByPid(int pid)
+        public List<Personnel> GetListByPid(int pid)
         {
             return DbSet.Where(i => i.ParentId == pid).ToList();
+        }
+
+        public List<Personnel> DeleteListByPid(int pid)
+        {
+            var list = GetListByPid(pid);
+            foreach (var item in list)
+            {
+                Remove(item, false);
+            }
+            bool r = Save();
+            if (r)
+                return list;
+            else
+                return null;
         }
     }
 }

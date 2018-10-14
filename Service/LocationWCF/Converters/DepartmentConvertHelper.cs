@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DbModel.Location.Person;
+﻿using System.Collections.Generic;
 using DbModel.Tools;
 using TEntity = Location.TModel.Location.Person.Department;
 using DbEntity = DbModel.Location.Person.Department;

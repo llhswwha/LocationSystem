@@ -99,10 +99,10 @@ namespace WebApiService.Controllers
             return service.Delete(id);
         }
 
-        [Route("{id}/children")]
-        public List<PhysicalTopology> DeleteChildren(string id)
+        [Route("{pid}/children")]
+        public IList<PhysicalTopology> DeleteListByPid(string pid)
         {
-            return service.DeleteChildren(id);
+            return service.DeleteListByPid(pid);
         }
     }
 }

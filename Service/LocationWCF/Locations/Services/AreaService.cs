@@ -8,10 +8,12 @@ using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
 using TModel.Tools;
+using DbEntity = DbModel.Location.AreaAndDev.Area;
+using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IAreaService : ITreeEntityService<PhysicalTopology>
+    public interface IAreaService : ITreeEntityService<TEntity>
     {
 
     }
@@ -36,18 +38,18 @@ namespace LocationServices.Locations.Services
         LocationService service = new LocationService();
 
 
-        public IList<PhysicalTopology> GetList()
+        public IList<TEntity> GetList()
         {
             var list = dbSet.ToList();
             return list.ToWcfModelList();
         }
 
-        public PhysicalTopology GetTree()
+        public TEntity GetTree()
         {
             try
             {
-                Area root0 = LocationSP.GetPhysicalTopologyTree();
-                PhysicalTopology root = root0.ToTModel();
+                var root0 = LocationSP.GetPhysicalTopologyTree();
+                var root = root0.ToTModel();
                 return root;
             }
             catch (Exception ex)
@@ -57,14 +59,14 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public PhysicalTopology GetTree(string id)
+        public TEntity GetTree(string id)
         {
             var item = dbSet.Find(id.ToInt());
             GetChildrenTree(item);
             return item.ToTModel();
         }
 
-        private List<Area> GetChildren(Area item)
+        private List<DbEntity> GetChildren(DbEntity item)
         {
             if (item != null)
             {
@@ -74,15 +76,15 @@ namespace LocationServices.Locations.Services
             }
             else
             {
-                return new List<Area>();
+                return new List<DbEntity>();
             }
         }
 
-        private List<DbModel.Location.AreaAndDev.DevInfo> GetLeafNodes(Area area)
+        private List<DbModel.Location.AreaAndDev.DevInfo> GetLeafNodes(DbEntity area)
         {
             if (area != null)
             {
-                var list = db.DevInfos.FindListByPid(area.Id);
+                var list = db.DevInfos.GetListByPid(area.Id);
                 area.LeafNodes = list;
                 return list;
             }
@@ -92,7 +94,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private void GetChildrenTree(Area entity)
+        private void GetChildrenTree(DbEntity entity)
         {
             if (entity == null) return;
             var list = GetChildren(entity);
@@ -106,24 +108,24 @@ namespace LocationServices.Locations.Services
 
         }
 
-        public IList<PhysicalTopology> GetListByName(string name)
+        public IList<TEntity> GetListByName(string name)
         {
             var list = dbSet.FindListByName(name);
             return list.ToWcfModelList();
         }
 
-        public IList<PhysicalTopology> GetListByPid(string pid)
+        public IList<TEntity> GetListByPid(string pid)
         {
             var list = dbSet.FindListByPid(pid.ToInt());
             return list.ToWcfModelList();
         }
 
-        public PhysicalTopology GetEntity(string id)
+        public TEntity GetEntity(string id)
         {
             return GetEntity(id, true);
         }
 
-        public PhysicalTopology GetEntity(string id, bool getChildren)
+        public TEntity GetEntity(string id, bool getChildren)
         {
             var item = dbSet.Find(id.ToInt());
             if (getChildren)
@@ -134,21 +136,21 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
-        public PhysicalTopology GetParent(string id)
+        public TEntity GetParent(string id)
         {
             var item = dbSet.Find(id.ToInt());
             if (item == null) return null;
             return GetEntity(item.ParentId + "");
         }
 
-        public PhysicalTopology Post(PhysicalTopology item)
+        public TEntity Post(TEntity item)
         {
             var dbItem = item.ToDbModel();
             var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
-        public PhysicalTopology Post(string pid, PhysicalTopology item)
+        public TEntity Post(string pid, TEntity item)
         {
             item.ParentId = pid.ToInt();
             var dbItem = item.ToDbModel();
@@ -156,14 +158,14 @@ namespace LocationServices.Locations.Services
             return result ? dbItem.ToTModel() : null;
         }
 
-        public PhysicalTopology Put(PhysicalTopology item)
+        public TEntity Put(TEntity item)
         {
             var dbItem = item.ToDbModel();
             var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
-        public PhysicalTopology Delete(string id)
+        public TEntity Delete(string id)
         {
             var item = dbSet.Find(id.ToInt());
             GetChildren(item);
@@ -178,10 +180,10 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
-        public List<PhysicalTopology> DeleteChildren(string id)
+        public IList<TEntity> DeleteListByPid(string pid)
         {
-            var list2 = new List<Area>();
-            var list = dbSet.FindListByPid(id.ToInt());
+            var list2 = new List<DbEntity>();
+            var list = dbSet.FindListByPid(pid.ToInt());
             foreach (var item in list)
             {
                 GetChildren(item);

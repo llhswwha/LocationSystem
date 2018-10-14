@@ -1,97 +1,100 @@
 ﻿using BLL;
+using BLL.Blls.Location;
 using DbModel.Tools;
-using Location.Model.DataObjects.ObjectAddList;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Tools;
 using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TModel.Tools;
+using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
+using TPEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IDeviceService:IEntityService<DevInfo>
+    public interface IDeviceService : ILeafEntityService<TEntity, TPEntity>
     {
-
+        
     }
     public class DeviceService : IDeviceService
     {
         private Bll db;
+        private DevInfoBll dbSet;
 
         public DeviceService()
         {
             db = new Bll(false, false, false, false);
+            dbSet = db.DevInfos;
         }
 
         public DeviceService(Bll bll)
         {
             this.db = bll;
+            dbSet = db.DevInfos;
         }
 
-        public DevInfo Delete(string id)
+        public TEntity Delete(string id)
         {
-            var item= db.DevInfos.DeleteById(id.ToInt());
+            var item= dbSet.DeleteById(id.ToInt());
             return item.ToTModel();
         }
 
-        public DevInfo GetEntity(string id)
+        public TEntity GetEntity(string id)
         {
-            var item = db.DevInfos.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             return item.ToTModel();
         }
 
-        public PhysicalTopology GetParent(string id)
+        public TPEntity GetParent(string id)
         {
-            var item = db.DevInfos.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             if (item == null) return null;
             return new AreaService(db).GetEntity(item.ParentId+"");
         }
 
-        public DevInfo GetEntityByDevId(string id)
+        public TEntity GetEntityByDevId(string id)
         {
-            List<DevInfo> devInfo = db.DevInfos.DbSet.Where(item => item.Local_DevID == id).ToList().ToTModel();
+            List<TEntity> devInfo = dbSet.DbSet.Where(item => item.Local_DevID == id).ToList().ToTModel();
             if (devInfo != null && devInfo.Count != 0) return devInfo[0];
             else return null;
         }
 
-        public IList<DevInfo> GetList()
+        public IList<TEntity> GetList()
         {
-            var devInfoList = db.DevInfos.DbSet.ToList().ToTModel();
+            var devInfoList = dbSet.DbSet.ToList().ToTModel();
             BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }
 
-        public IList<DevInfo> GetListByName(string name)
+        public IList<TEntity> GetListByName(string name)
         {          
-            var devInfoList = db.DevInfos.GetListByName(name).ToTModel();
+            var devInfoList = dbSet.GetListByName(name).ToTModel();
             BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }
 
-        public DevInfo Post(DevInfo item)
+        public TEntity Post(TEntity item)
         {
             var dbItem = item.ToDbModel();
-            var result = db.DevInfos.Add(dbItem);
+            var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
-        public DevInfo Post(string pid, DevInfo item)
+        public TEntity Post(string pid, TEntity item)
         {
             item.ParentId = pid.ToInt();
             var dbItem = item.ToDbModel();
-            var result = db.DevInfos.Add(dbItem);
+            var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
-        public DevInfo Put(DevInfo item)
+        public TEntity Put(TEntity item)
         {
             var dbItem = item.ToDbModel();
             dbItem.ModifyTime = DateTime.Now;
             dbItem.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(dbItem.ModifyTime);
-            var result = db.DevInfos.Edit(dbItem);
+            var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
@@ -99,16 +102,16 @@ namespace LocationServices.Locations.Services
         /// 获取所有的设备基本信息
         /// </summary>
         /// <returns></returns>
-        public IList<DevInfo> GetListByTypes(int[] types)
+        public IList<TEntity> GetListByTypes(int[] types)
         {
-            List<DevInfo> devInfoList = null;
+            List<TEntity> devInfoList = null;
             if (types == null || types.Length == 0)
             {
-                devInfoList = db.DevInfos.ToList().ToTModel();
+                devInfoList = dbSet.ToList().ToTModel();
             }
             else
             {
-                devInfoList = db.DevInfos.DbSet.Where(i => types.Contains(i.Local_TypeCode)).ToList().ToTModel();
+                devInfoList = dbSet.DbSet.Where(i => types.Contains(i.Local_TypeCode)).ToList().ToTModel();
             }
 
             BindingDev(devInfoList);
@@ -120,12 +123,12 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public IList<DevInfo> GetListByPids(int[] pidList)
+        public IList<TEntity> GetListByPids(int[] pidList)
         {
-            List<DevInfo> devInfoList = new List<DevInfo>();
+            List<TEntity> devInfoList = new List<TEntity>();
             foreach (var pid in pidList)
             {
-                devInfoList.AddRange(db.DevInfos.DbSet.Where(item => item.ParentId == pid).ToList().ToTModel());
+                devInfoList.AddRange(dbSet.DbSet.Where(item => item.ParentId == pid).ToList().ToTModel());
                 //BindingDev(devInfoList);
             }
             return devInfoList.ToWCFList();
@@ -136,13 +139,19 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public IList<DevInfo> GetListByPid(int pid)
+        public IList<TEntity> GetListByPid(string pid)
         {
-            return db.DevInfos.DbSet.Where(item => item.ParentId == pid).ToList().ToWcfModelList();
+            return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
         }
 
 
-        private void BindingDev(List<DevInfo> devInfoList)
+        public IList<TEntity> DeleteListByPid(string pid)
+        {
+            return dbSet.DeleteListByPid(pid.ToInt()).ToWcfModelList();
+        }
+
+
+        private void BindingDev(List<TEntity> devInfoList)
         {
             BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());
         }
@@ -150,7 +159,7 @@ namespace LocationServices.Locations.Services
         #region static 
         //public static bool IsBindingPos;
 
-        public static void BindingDevPos(List<DevInfo> devInfoList, List<DevPos> devPosList)
+        public static void BindingDevPos(List<TEntity> devInfoList, List<DevPos> devPosList)
         {
             //if(IsBindingPos==true)return;
             //IsBindingPos = true;
@@ -172,7 +181,7 @@ namespace LocationServices.Locations.Services
                 }
             }
         }
-        public static void BindingDevParent(List<DevInfo> devInfoList, List<PhysicalTopology> nodeList)
+        public static void BindingDevParent(List<TEntity> devInfoList, List<TPEntity> nodeList)
         {
             //if(IsBindingPos==true)return;
             //IsBindingPos = true;
@@ -219,6 +228,7 @@ namespace LocationServices.Locations.Services
                 }
             }
         }
+
         #endregion
     }
 }

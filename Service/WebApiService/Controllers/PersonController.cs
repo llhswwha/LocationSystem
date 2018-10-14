@@ -1,19 +1,23 @@
 ﻿using LocationServices.Locations.Services;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
-using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
-using TPEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
-
+using Location.TModel.Location.Person;
+using TEntity = Location.TModel.Location.Person.Personnel;
+using TPEntity = Location.TModel.Location.Person.Department;
 namespace WebApiService.Controllers
 {
-    [RoutePrefix("api/devices")]
-    public class DeviceController : ApiController, IDeviceService
+    [RoutePrefix("api/persons")]
+    public class PersonController : ApiController, IPersonServie
     {
-        protected IDeviceService service;
+        protected IPersonServie service;
 
-        public DeviceController()
+        public PersonController()
         {
-            service = new DeviceService();
+            service = new PersonService();
         }
 
         [Route("{id}")]
@@ -49,35 +53,35 @@ namespace WebApiService.Controllers
             return service.GetListByName(name);
         }
 
-        [Route("")]//search/?pid=主
-        [Route("~/api/areas/{pid}/devices")]
-        public IList<TEntity> GetListByPid(string pid)
-        {
-            return service.GetListByPid(pid);
-        }
-
-        [Route("~/api/areas/{pid}/devices")]
-        public IList<TEntity> DeleteListByPid(string pid)
-        {
-            return service.DeleteListByPid(pid);
-        }
-
         [Route]
         public TEntity Post(TEntity item)
         {
             return service.Post(item);
         }
 
-        [Route("~/api/areas/{pid}/devices")]
+        [Route]
+        public TEntity Put(TEntity item)
+        {
+            return service.Put(item);
+        }
+
+        [Route("")]//search/?pid=主
+        [Route("~/api/deps/{pid}/persons")]
+        public IList<TEntity> GetListByPid(string pid)
+        {
+            return service.GetListByPid(pid);
+        }
+
+        [Route("~/api/deps/{pid}/persons")]
         public TEntity Post(string pid, TEntity item)
         {
             return service.Post(pid, item);
         }
 
-        [Route]
-        public TEntity Put(TEntity item)
+        [Route("~/api/deps/{pid}/persons")]
+        public IList<TEntity> DeleteListByPid(string pid)
         {
-            return service.Put(item);
+            return service.DeleteListByPid(pid);
         }
     }
 }

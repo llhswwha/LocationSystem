@@ -68,9 +68,9 @@ namespace LocationServices.Locations
             return new AreaService(db).Delete(id);
         }
 
-        public List<PhysicalTopology> RemovePhysicalTopologyChildren(string id)
+        public IList<PhysicalTopology> RemovePhysicalTopologyChildren(string pid)
         {
-            return new AreaService(db).DeleteChildren(id);
+            return new AreaService(db).DeleteListByPid(pid);
         }
 
         /// <summary>

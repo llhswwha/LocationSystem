@@ -14,6 +14,12 @@ namespace Location.TModel.Location.Person
     [DataContract] [Serializable]
     public class Personnel:INode
     {
+        public Personnel()
+        {
+            BirthDay = new DateTime(2000, 1, 1);
+            BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(BirthDay);
+        }
+
         /// <summary>
         /// 主键Id
         /// </summary>
@@ -48,13 +54,13 @@ namespace Location.TModel.Location.Person
         /// 出生日期
         /// </summary>
         [DataMember]
-        public DateTime? BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
 
         /// <summary>
         /// 出生日期时间戳
         /// </summary>
         [DataMember]
-        public DateTime? BirthTimeStamp { get; set; }
+        public long BirthTimeStamp { get; set; }
 
         /// <summary>
         /// Nation

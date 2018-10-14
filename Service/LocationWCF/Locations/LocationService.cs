@@ -534,7 +534,7 @@ namespace LocationServices.Locations
 
         public List<Personnel> FindPersonList(string name)
         {
-            return db.Personnels.FindListByName(name).ToWcfModelList();
+            return db.Personnels.GetListByName(name).ToWcfModelList();
         }
 
         public Personnel GetPerson(int id)

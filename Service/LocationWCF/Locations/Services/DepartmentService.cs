@@ -5,16 +5,13 @@ using Location.TModel.Location.Person;
 using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TModel.Tools;
 using DbEntity = DbModel.Location.Person.Department;
 using TEntity = Location.TModel.Location.Person.Department;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IDepartmentService : ITreeEntityService<Department>
+    public interface IDepartmentService : ITreeEntityService<TEntity>
     {
 
     }
@@ -37,7 +34,7 @@ namespace LocationServices.Locations.Services
             dbSet = db.Departments;
         }
 
-        public Department Delete(string id)
+        public TEntity Delete(string id)
         {
             var item = dbSet.Find(id.ToInt());
             GetChildren(item);
@@ -52,10 +49,10 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
-        public List<Department> DeleteChildren(string id)
+        public IList<TEntity> DeleteListByPid(string pid)
         {
             var list2 = new List<DbEntity>();
-            var list = dbSet.FindListByPid(id.ToInt());
+            var list = dbSet.FindListByPid(pid.ToInt());
             foreach (var item in list)
             {
                 GetChildren(item);
@@ -71,12 +68,12 @@ namespace LocationServices.Locations.Services
             return list2.ToWcfModelList();
         }
 
-        public Department GetEntity(string id)
+        public TEntity GetEntity(string id)
         {
             return dbSet.Find(id.ToInt()).ToTModel();
         }
 
-        public Department GetEntity(string id, bool getChildren)
+        public TEntity GetEntity(string id, bool getChildren)
         {
             var item = dbSet.Find(id.ToInt());
             if (getChildren)
@@ -87,12 +84,12 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
-        private List<DbModel.Location.Person.Personnel> GetLeafNodes(DbModel.Location.Person.Department area)
+        private List<DbModel.Location.Person.Personnel> GetLeafNodes(DbEntity entity)
         {
-            if (area != null)
+            if (entity != null)
             {
-                var list = db.Personnels.FindListByPid(area.Id);
-                area.LeafNodes = list;
+                var list = db.Personnels.GetListByPid(entity.Id);
+                entity.LeafNodes = list;
                 return list;
             }
             else
@@ -101,7 +98,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private List<DbModel.Location.Person.Department> GetChildren(DbModel.Location.Person.Department item)
+        private List<DbEntity> GetChildren(DbEntity item)
         {
             if (item != null)
             {
@@ -111,37 +108,37 @@ namespace LocationServices.Locations.Services
             }
             else
             {
-                return new List<DbModel.Location.Person.Department>();
+                return new List<DbEntity>();
             }
         }
 
-        public IList<Department> GetList()
+        public IList<TEntity> GetList()
         {
             var list = dbSet.ToList();
             var list2 = list.ToTModel();
             return list2.ToWCFList();
         }
 
-        public IList<Department> GetListByName(string name)
+        public IList<TEntity> GetListByName(string name)
         {
             var list = dbSet.FindListByName(name);
             return list.ToWcfModelList();
         }
 
-        public IList<Department> GetListByPid(string pid)
+        public IList<TEntity> GetListByPid(string pid)
         {
             var list = dbSet.FindListByPid(pid.ToInt());
             return list.ToWcfModelList();
         }
 
-        public Department GetParent(string id)
+        public TEntity GetParent(string id)
         {
             var item = dbSet.Find(id.ToInt());
             if (item == null) return null;
             return GetEntity(item.ParentId + "");
         }
 
-        public Department GetTree()
+        public TEntity GetTree()
         {
             try
             {
@@ -164,7 +161,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public Department GetTree(string id)
+        public TEntity GetTree(string id)
         {
             var item = dbSet.Find(id.ToInt());
             GetChildrenTree(item);
@@ -185,14 +182,14 @@ namespace LocationServices.Locations.Services
 
         }
 
-        public Department Post(Department item)
+        public TEntity Post(TEntity item)
         {
             var dbItem = item.ToDbModel();
             var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
-        public Department Post(string pid, Department item)
+        public TEntity Post(string pid, TEntity item)
         {
             item.ParentId = pid.ToInt();
             var dbItem = item.ToDbModel();
@@ -200,7 +197,7 @@ namespace LocationServices.Locations.Services
             return result ? dbItem.ToTModel() : null;
         }
 
-        public Department Put(Department item)
+        public TEntity Put(TEntity item)
         {
             var dbItem = item.ToDbModel();
             var result = dbSet.Edit(dbItem);

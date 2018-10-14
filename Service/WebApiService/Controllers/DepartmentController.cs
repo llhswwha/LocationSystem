@@ -97,9 +97,9 @@ namespace WebApiService.Controllers
         }
 
         [Route("{id}/children")]
-        public List<Department> DeleteChildren(string id)
+        public IList<Department> DeleteListByPid(string id)
         {
-            return service.DeleteChildren(id);
+            return service.DeleteListByPid(id);
         }
     }
 }
