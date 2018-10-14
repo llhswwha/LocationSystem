@@ -75,6 +75,7 @@
     <Compile Include="LocationCallbacks\ILocationInfoServiceCallback.cs" />
     <Compile Include="Locations\Interfaces\IBaseDataService.cs" />
     <Compile Include="Locations\Interfaces\IConfigArgService.cs" />
+    <Compile Include="Locations\Interfaces\IDepartmentService.cs" />
     <Compile Include="Locations\Interfaces\IDevDataService.cs" />
     <Compile Include="Locations\Interfaces\IDevService.cs" />
     <Compile Include="Locations\Interfaces\IKKSService.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Locations\LocationService_Person.cs" />
     <Compile Include="Locations\LocationService_ConfigArg.cs" />
     <Compile Include="Locations\Services\AreaService.cs" />
+    <Compile Include="Locations\Services\DepartmentService.cs" />
     <Compile Include="Locations\Services\DeviceService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\ITreeEntityService.cs" />

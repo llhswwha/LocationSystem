@@ -28,5 +28,10 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
         }
+
+        public List<Personnel> FindListByPid(int pid)
+        {
+            return DbSet.Where(i => i.ParentId == pid).ToList();
+        }
     }
 }

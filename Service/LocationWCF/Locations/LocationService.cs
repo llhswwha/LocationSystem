@@ -29,6 +29,7 @@ using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.Work;
 using TModel.LocationHistory.Work;
 using TModel.Tools;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -174,33 +175,12 @@ namespace LocationServices.Locations
 
         public IList<Department> GetDepartmentList()
         {
-            var list = db.Departments.ToList();
-            var list2 = list.ToTModel();
-            return list2.ToWCFList();
+            return new DepartmentService(db).GetList();
         }
 
         public Department GetDepartmentTree()
         {
-            try
-            {
-                var list = db.Departments.ToList().ToTModel();
-                var leafNodes = GetPersonList();
-                var roots = TreeHelper.CreateTree(list, leafNodes);
-                if (roots.Count > 0)
-                {
-                    return roots[0];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-            //return null;
+            return new DepartmentService(db).GetTree();
         }
 
         //public IList<Map> GetMaps(int? depId)

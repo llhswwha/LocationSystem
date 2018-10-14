@@ -1,4 +1,5 @@
 ﻿using BLL;
+using BLL.Blls.Location;
 using BLL.ServiceHelpers;
 using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
@@ -18,21 +19,26 @@ namespace LocationServices.Locations.Services
     {
         private Bll db;
 
+        private AreaBll dbSet;
+
         public AreaService()
         {
             db = new Bll(false, false, false, false);
+            dbSet = db.Areas;
         }
 
         public AreaService(Bll bll)
         {
             this.db = bll;
+            dbSet = db.Areas;
         }
 
         LocationService service = new LocationService();
 
+
         public IList<PhysicalTopology> GetList()
         {
-            var list = db.Areas.ToList();
+            var list = dbSet.ToList();
             return list.ToWcfModelList();
         }
 
@@ -42,8 +48,6 @@ namespace LocationServices.Locations.Services
             {
                 Area root0 = LocationSP.GetPhysicalTopologyTree();
                 PhysicalTopology root = root0.ToTModel();
-                //string xml = XmlSerializeHelper.GetXmlText(root, Encoding.UTF8);
-                //PhysicalTopology obj = XmlSerializeHelper.LoadFromText<PhysicalTopology>(xml);
                 return root;
             }
             catch (Exception ex)
@@ -55,17 +59,17 @@ namespace LocationServices.Locations.Services
 
         public PhysicalTopology GetTree(string id)
         {
-            var item = db.Areas.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             GetChildrenTree(item);
             return item.ToTModel();
         }
 
-        private List<Area> GetChildren(Area area)
+        private List<Area> GetChildren(Area item)
         {
-            if (area != null)
+            if (item != null)
             {
-                var list = db.Areas.FindListByPid(area.Id);
-                area.Children = list;
+                var list = dbSet.FindListByPid(item.Id);
+                item.Children = list;
                 return list;
             }
             else
@@ -74,7 +78,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private List<DbModel.Location.AreaAndDev.DevInfo> GetDevices(Area area)
+        private List<DbModel.Location.AreaAndDev.DevInfo> GetLeafNodes(Area area)
         {
             if (area != null)
             {
@@ -88,10 +92,10 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private void GetChildrenTree(Area area)
+        private void GetChildrenTree(Area entity)
         {
-            if (area == null) return;
-            var list = GetChildren(area);
+            if (entity == null) return;
+            var list = GetChildren(entity);
             if (list != null)
             {
                 foreach (var item in list)
@@ -104,13 +108,13 @@ namespace LocationServices.Locations.Services
 
         public IList<PhysicalTopology> GetListByName(string name)
         {
-            var list = db.Areas.FindListByName(name);
+            var list = dbSet.FindListByName(name);
             return list.ToWcfModelList();
         }
 
         public IList<PhysicalTopology> GetListByPid(string pid)
         {
-            var list = db.Areas.FindListByPid(pid.ToInt());
+            var list = dbSet.FindListByPid(pid.ToInt());
             return list.ToWcfModelList();
         }
 
@@ -121,18 +125,18 @@ namespace LocationServices.Locations.Services
 
         public PhysicalTopology GetEntity(string id, bool getChildren)
         {
-            var item = db.Areas.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             if (getChildren)
             {
                 GetChildren(item);
-                GetDevices(item);
+                GetLeafNodes(item);
             }
             return item.ToTModel();
         }
 
         public PhysicalTopology GetParent(string id)
         {
-            var item = db.Areas.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             if (item == null) return null;
             return GetEntity(item.ParentId + "");
         }
@@ -140,7 +144,7 @@ namespace LocationServices.Locations.Services
         public PhysicalTopology Post(PhysicalTopology item)
         {
             var dbItem = item.ToDbModel();
-            var result = db.Areas.Add(dbItem);
+            var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
@@ -148,20 +152,20 @@ namespace LocationServices.Locations.Services
         {
             item.ParentId = pid.ToInt();
             var dbItem = item.ToDbModel();
-            var result = db.Areas.Add(dbItem);
+            var result = dbSet.Add(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
         public PhysicalTopology Put(PhysicalTopology item)
         {
             var dbItem = item.ToDbModel();
-            var result = db.Areas.Edit(dbItem);
+            var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
 
         public PhysicalTopology Delete(string id)
         {
-            var item = db.Areas.Find(id.ToInt());
+            var item = dbSet.Find(id.ToInt());
             GetChildren(item);
             if (item.Children != null && item.Children.Count > 0)//不能删除有子物体的节点
             {
@@ -169,7 +173,7 @@ namespace LocationServices.Locations.Services
             }
             else
             {
-                db.Areas.Remove(item);
+                dbSet.Remove(item);
             }
             return item.ToTModel();
         }
@@ -177,13 +181,13 @@ namespace LocationServices.Locations.Services
         public List<PhysicalTopology> DeleteChildren(string id)
         {
             var list2 = new List<Area>();
-            var list = db.Areas.FindListByPid(id.ToInt());
+            var list = dbSet.FindListByPid(id.ToInt());
             foreach (var item in list)
             {
                 GetChildren(item);
                 if (item.Children == null || item.Children.Count == 0)
                 {
-                    bool r = db.Areas.Remove(item);//只删除无子物体的节点
+                    bool r = dbSet.Remove(item);//只删除无子物体的节点
                     if (r)
                     {
                         list2.Add(item);
