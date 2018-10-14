@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseData\EntityList.cs" />
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />

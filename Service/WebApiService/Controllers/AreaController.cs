@@ -49,10 +49,16 @@ namespace WebApiService.Controllers
             return service.GetListByName(name);
         }
 
-        [Route("{pid}/children")]
-        public IList<PhysicalTopology> GetListByPid(string pid)
+        [Route("{id}/children")]
+        public IList<PhysicalTopology> GetListByPid(string id)
         {
-            return service.GetListByPid(pid);
+            return service.GetListByPid(id);
+        }
+
+        [Route("{id}/parent")]
+        public PhysicalTopology GetParent(string id)
+        {
+            return service.GetParent(id);
         }
 
         [Route("")]//area/?id=1

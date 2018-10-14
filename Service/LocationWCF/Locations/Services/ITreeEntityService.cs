@@ -14,5 +14,7 @@ namespace LocationServices.Locations.Services
         T GetTree();
         T GetTree(string id);
         T Post(string pid, T item);
+
+        T GetParent(string id);
     }
 }

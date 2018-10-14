@@ -74,6 +74,20 @@ namespace LocationServices.Locations.Services
             }
         }
 
+        private List<DbModel.Location.AreaAndDev.DevInfo> GetDevices(Area area)
+        {
+            if (area != null)
+            {
+                var list = db.DevInfos.FindListByPid(area.Id);
+                area.LeafNodes = list;
+                return list;
+            }
+            else
+            {
+                return new List<DbModel.Location.AreaAndDev.DevInfo>();
+            }
+        }
+
         private void GetChildrenTree(Area area)
         {
             if (area == null) return;
@@ -102,15 +116,25 @@ namespace LocationServices.Locations.Services
 
         public PhysicalTopology GetEntity(string id)
         {
-            return GetEntity(id, false);
+            return GetEntity(id, true);
         }
 
         public PhysicalTopology GetEntity(string id, bool getChildren)
         {
             var item = db.Areas.Find(id.ToInt());
             if (getChildren)
+            {
                 GetChildren(item);
+                GetDevices(item);
+            }
             return item.ToTModel();
+        }
+
+        public PhysicalTopology GetParent(string id)
+        {
+            var item = db.Areas.Find(id.ToInt());
+            if (item == null) return null;
+            return GetEntity(item.ParentId + "");
         }
 
         public PhysicalTopology Post(PhysicalTopology item)

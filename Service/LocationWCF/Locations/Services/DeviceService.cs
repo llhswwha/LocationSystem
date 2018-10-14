@@ -43,6 +43,13 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
+        public PhysicalTopology GetParent(string id)
+        {
+            var item = db.DevInfos.Find(id.ToInt());
+            if (item == null) return null;
+            return new AreaService(db).GetEntity(item.ParentId+"");
+        }
+
         public DevInfo GetEntityByDevId(string id)
         {
             List<DevInfo> devInfo = db.DevInfos.DbSet.Where(item => item.Local_DevID == id).ToList().ToTModel();
@@ -59,7 +66,7 @@ namespace LocationServices.Locations.Services
 
         public IList<DevInfo> GetListByName(string name)
         {          
-            var devInfoList = db.DevInfos.DbSet.Where(i => i.Name.Contains(name)).ToList().ToTModel();
+            var devInfoList = db.DevInfos.GetListByName(name).ToTModel();
             BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }
@@ -122,6 +129,16 @@ namespace LocationServices.Locations.Services
                 //BindingDev(devInfoList);
             }
             return devInfoList.ToWCFList();
+        }
+
+        /// <summary>
+        /// 通过区域ID,获取区域下所有设备
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public IList<DevInfo> GetListByPid(int pid)
+        {
+            return db.DevInfos.DbSet.Where(item => item.ParentId == pid).ToList().ToWcfModelList();
         }
 
 

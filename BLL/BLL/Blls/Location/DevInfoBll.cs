@@ -23,5 +23,15 @@ namespace BLL.Blls.Location
         {
             DbSet = Db.DevInfos;
         }
+
+        public List<DevInfo> FindListByPid(int pid)
+        {
+            return DbSet.Where(i => i.ParentId == pid).ToList();
+        }
+
+        public List<DevInfo> GetListByName(string name)
+        {
+            return DbSet.Where(i => i.Name.Contains(name)).ToList();
+        }
     }
 }
