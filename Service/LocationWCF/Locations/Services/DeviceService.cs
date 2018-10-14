@@ -62,7 +62,7 @@ namespace LocationServices.Locations.Services
 
         public IList<TEntity> GetList()
         {
-            var devInfoList = dbSet.DbSet.ToList().ToTModel();
+            var devInfoList = dbSet.ToList().ToTModel();
             BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }

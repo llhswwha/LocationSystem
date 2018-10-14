@@ -23,5 +23,10 @@ namespace BLL.Blls.Location
         {
             DbSet = Db.LocationCards;
         }
+
+        public List<LocationCard> GetListByName(string name)
+        {
+            return DbSet.Where(i => i.Name.Contains(name)).ToList();
+        }
     }
 }

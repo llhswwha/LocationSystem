@@ -66,8 +66,7 @@ namespace LocationServices.Locations
 
         public IList<Tag> GetTags()
         {
-            var tags = db.LocationCards.ToList();
-            return tags.ToWcfModelList();
+            return new TagService(db).GetList();
         }
 
         /// <summary>
@@ -76,10 +75,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool AddTags(List<Tag> tags)
         {
-            var list = tags.ToDbModel();
-            bool r = db.LocationCards.AddRange(list);
-            db.AddTagPositionsByTags(list);
-            return r;
+            return new TagService(db).AddList(tags);
         }
 
         /// <summary>
@@ -89,7 +85,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool DeleteTag(int id)
         {
-            return db.LocationCards.DeleteById(id) != null;
+            return new TagService(db).Delete(id + "") != null;
         }
 
         /// <summary>
@@ -99,20 +95,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool DeleteAllTags()
         {
-            bool r = true;
-            try
-            {
-                string sql = "delete from Tags";
-                //if (!string.IsNullOrEmpty(sql))
-                db.Db.Database.ExecuteSqlCommand(sql);
-            }
-            catch (Exception ex)
-            {
-                r = false;
-            }
-            return r;
-
-            //return db.Areas.Delete(id);
+            return new TagService(db).DeleteAll();
         }
 
         /// <summary>
@@ -442,8 +425,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositons()
         {
-            var list = db.Positions.ToList();
-            return list.ToWcfModelList();
+            return new PosService(db).GetHistory();
         }
 
         /// <summary>
@@ -455,7 +437,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPersonnelID(int personnelID, DateTime start, DateTime end)
         {
-            return LocationSP.GetHistoryPositonsByPersonnelID(personnelID, start, end).ToTModel();
+            return new PosService(db).GetHistoryByPerson(personnelID, start, end);
         }
 
         /// <summary>
@@ -467,14 +449,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, List<int> topoNodeIds, DateTime start, DateTime end)
         {
-            if (topoNodeIds == null || topoNodeIds.Count == 0)
-            {
-                return LocationSP.GetHistoryPositonsByPersonnelID(personnelID, start, end).ToTModel();
-            }
-            else
-            {
-                return LocationSP.GetHistoryPositonsByPidAndTopoNodeIds(personnelID, topoNodeIds, start, end).ToTModel();
-            }
+            return new PosService(db).GetHistoryByPersonAndArea(personnelID, topoNodeIds, start, end);
         }
 
         /// <summary>
@@ -486,7 +461,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return LocationSP.GetHistoryPositonsByTime(tagcode, start, end).ToTModel();
+            return new PosService(db).GetHistoryPositonsByTime(tagcode, start, end);
         }
 
         /// <summary>
@@ -498,7 +473,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<U3DPosition> GetHistoryU3DPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return LocationSP.GetHistoryU3DPositonsByTime(tagcode, start, end).ToTModel();
+            return new PosService(db).GetHistoryU3DPositonsByTime(tagcode, start, end);
         }
 
         #endregion

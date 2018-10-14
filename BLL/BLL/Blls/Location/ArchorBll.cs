@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DAL;
 using DbModel.Location.AreaAndDev;
@@ -7,7 +8,7 @@ namespace BLL.Blls.Location
 {
     public class ArchorBll : BaseBll<Archor, LocationDb>
     {
-        public ArchorBll():base()
+        public ArchorBll() : base()
         {
 
         }
@@ -30,5 +31,11 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => codes.Contains(i.Code)).ToList();
         }
+
+        public List<Archor> GetListByName(string name)
+        {
+            return DbSet.Where(i => i.Name.Contains(name)).ToList();
+        }
+
     }
 }

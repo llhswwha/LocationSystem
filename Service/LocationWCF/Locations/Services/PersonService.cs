@@ -57,14 +57,12 @@ namespace LocationServices.Locations.Services
         public IList<TEntity> GetList()
         {
             var devInfoList = dbSet.DbSet.ToList().ToTModel();
-            //BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }
 
         public IList<TEntity> GetListByName(string name)
         {
             var devInfoList = dbSet.GetListByName(name).ToTModel();
-            //BindingDev(devInfoList);
             return devInfoList.ToWCFList();
         }
 
