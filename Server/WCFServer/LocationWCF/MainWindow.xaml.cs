@@ -68,35 +68,55 @@ namespace LocationWCFServer
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            StopServices();
+        }
+
+        private void StopServices()
+        {
+            WriteLog("停止服务");
             if (engineClient != null)
             {
                 engineClient.Stop();
+                engineClient = null;
             }
             if (LocationService.u3dositionSP != null)
             {
                 LocationService.u3dositionSP.Stop();
+                LocationService.u3dositionSP = null;
             }
 
             if (httpHost != null)
             {
                 httpHost.CloseAsync();
+                httpHost = null;
             }
             if (SignalR != null)
             {
                 SignalR.Dispose();
+                SignalR = null;
             }
 
             if (wcfApiHost != null)
             {
                 wcfApiHost.Close();
+                wcfApiHost = null;
             }
         }
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {
-            string host = TbHost.Text;
-            string port = TbPort.Text;
-            StartService(host, port);
+            if (BtnStartService.Content.ToString() == "启动服务")
+            {
+                string host = TbHost.Text;
+                string port = TbPort.Text;
+                StartService(host, port);
+                BtnStartService.Content = "停止服务";
+            }
+            else
+            {
+                StopServices();
+                BtnStartService.Content = "启动服务";
+            }
         }
 
         private void StartService(string host,string port)

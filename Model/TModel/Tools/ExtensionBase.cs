@@ -134,5 +134,14 @@ namespace TModel.Tools
         //    }
         //    return Color.Transparent;
         //}
+
+        public static DateTime ToDateTime(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return DateTime.Now;
+            DateTime rec;
+            DateTime.TryParse(input, out rec);
+            return rec;
+        }
     }
 }

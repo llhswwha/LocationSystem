@@ -104,22 +104,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositons()
         {
-            try
-            {
-                var list = db.LocationCardPositions.ToList();
-                foreach (var item in list)
-                {
-                    if (item.Archors != null && item.Archors.Count == 0)
-                    {
-                        item.Archors = null;
-                    }
-                }
-                return list.ToWcfModelList();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return new PosService(db).GetList();
         }
 
         /// <summary>
@@ -128,15 +113,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositonsByTags(List<string> tagCodes)
         {
-            try
-            {
-                var list = db.LocationCardPositions.DbSet.Where(tag => tagCodes.Contains(tag.Code)).ToList();
-                return list.ToWcfModelList();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return new PosService(db).GetRealPositonsByTags(tagCodes);
         }
 
 
@@ -425,7 +402,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositons()
         {
-            return new PosService(db).GetHistory();
+            return new PosHistoryService(db).GetHistory();
         }
 
         /// <summary>
@@ -437,7 +414,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPersonnelID(int personnelID, DateTime start, DateTime end)
         {
-            return new PosService(db).GetHistoryByPerson(personnelID, start, end);
+            return new PosHistoryService(db).GetHistoryByPerson(personnelID, start, end);
         }
 
         /// <summary>
@@ -449,7 +426,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, List<int> topoNodeIds, DateTime start, DateTime end)
         {
-            return new PosService(db).GetHistoryByPersonAndArea(personnelID, topoNodeIds, start, end);
+            return new PosHistoryService(db).GetHistoryByPersonAndArea(personnelID, topoNodeIds, start, end);
         }
 
         /// <summary>
@@ -461,7 +438,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return new PosService(db).GetHistoryPositonsByTime(tagcode, start, end);
+            return new PosHistoryService(db).GetHistoryByTag(tagcode, start, end);
         }
 
         /// <summary>
@@ -473,7 +450,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<U3DPosition> GetHistoryU3DPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return new PosService(db).GetHistoryU3DPositonsByTime(tagcode, start, end);
+            return new PosHistoryService(db).GetHistoryU3DPositonsByTime(tagcode, start, end);
         }
 
         #endregion

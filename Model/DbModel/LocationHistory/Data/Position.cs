@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,6 +14,8 @@ namespace DbModel.LocationHistory.Data
     [DataContract]
     public class Position
     {
+        private DateTime _dateTime;
+
         /// <summary>
         /// 主键Id
         /// </summary>
@@ -61,7 +64,15 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "时间")]
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime
+        {
+            get { return _dateTime; }
+            set
+            {
+                _dateTime = value;
+                DateTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+            }
+        }
 
         /// <summary>
         /// 时间戳（毫秒）

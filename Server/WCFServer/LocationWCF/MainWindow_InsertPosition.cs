@@ -186,7 +186,7 @@ namespace LocationWCFServer
         {
             LocationService service = new LocationService();
             var devlist = service.GetAllDevInfos();
-            DeviceListBox1.LoadData(devlist.ToArray());
+            DeviceListBox1.LoadData(devlist);
 
             DeviceListBox1.AddMenu("告警", (se, arg) =>
             {
@@ -234,6 +234,23 @@ namespace LocationWCFServer
         {
             string msg = TbMessage.Text;
             ChatHub.SendToAll(msg);
+        }
+
+        private void BtnCreateHistoryPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            Bll bll = GetLocationBll();
+
+            Position pos = PositionMocker.GetRandomPosition("223");
+            pos.PersonnelID = 112;
+            bll.Positions.Add(pos);
+
+            DataGridHistoryPosList.ItemsSource = bll.Positions.ToList();
+        }
+
+        private void BtnGetHistoryList_OnClick(object sender, RoutedEventArgs e)
+        {
+            Bll bll = GetLocationBll();
+            DataGridHistoryPosList.ItemsSource = bll.Positions.ToList();
         }
     }
 }

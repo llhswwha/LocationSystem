@@ -103,6 +103,7 @@
     <Compile Include="Locations\Services\DepartmentService.cs" />
     <Compile Include="Locations\Services\DeviceService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
+    <Compile Include="Locations\Services\PosHistoryService.cs" />
     <Compile Include="Locations\Services\PosService.cs" />
     <Compile Include="Locations\Services\PersonService.cs" />
     <Compile Include="Locations\Services\TagService.cs" />

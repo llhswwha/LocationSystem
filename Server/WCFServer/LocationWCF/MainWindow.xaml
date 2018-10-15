@@ -47,7 +47,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="定位" Height="21" VerticalAlignment="Top" Visibility="Hidden">
+            <TabItem Header="定位" Height="21" VerticalAlignment="Top" Visibility="Visible">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -98,6 +98,16 @@
                         <Button Name="BtnSendMessage" Click="BtnSendMessage_OnClick">SendMessage</Button>
                     </StackPanel>
                     <RichTextBox></RichTextBox>
+                </DockPanel>
+                
+            </TabItem>
+            <TabItem Header="定位数据">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <Button Name="BtnGetHistoryList" Click="BtnGetHistoryList_OnClick">获取历史轨迹</Button>
+                        <Button Name="BtnCreateHistoryPos" Click="BtnCreateHistoryPos_OnClick">创建模拟历史数据</Button>
+                    </StackPanel>
+                    <DataGrid Name="DataGridHistoryPosList"></DataGrid>
                 </DockPanel>
                 
             </TabItem>

@@ -40,38 +40,6 @@ namespace WebApiService.Controllers
             return service.GetList();
         }
 
-        [Route("history")]
-        public IList<Position> GetHistoryList()
-        {
-            return service.GetHistoryList(null,null,null,null);
-        }
-
-        [Route("history")]
-        public IList<Position> GetHistoryList(string start, string end)
-        {
-            return service.GetHistoryList(start, end,null,null);
-        }
-
-        [Route("history")]
-        public IList<Position> GetHistoryList(string start, string end, string tag, string person)
-        {
-            return service.GetHistoryList(start, end, tag, person);
-        }
-
-
-        [Route("history")]
-        public IList<Position> GetHistoryListByTag(string start, string end,string tag)
-        {
-            return service.GetHistoryList(start, end, tag, null);
-        }
-
-        [Route("history")]
-        public IList<Position> GetHistoryListByPerson(string start, string end, string person)
-        {
-            return service.GetHistoryList(start, end, null, person);
-        }
-
-
         [Route("")]//search/?name=主
         [Route("search/{name}")]//search/1,直接中文不行
         public IList<TEntity> GetListByName(string name)

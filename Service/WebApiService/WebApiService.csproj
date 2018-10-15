@@ -163,6 +163,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
+    <Compile Include="Controllers\PositionHistoryController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TreeEntityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -26,7 +26,7 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData(DevInfo[] list)
+        public void LoadData(IEnumerable<DevInfo> list)
         {
             DataGrid1.ItemsSource = list;
         }

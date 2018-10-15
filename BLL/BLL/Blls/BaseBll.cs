@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace BLL.Blls
             catch (DbUpdateException ex)
             {
                 Exception innerEx = ex.InnerException;
-                while (innerEx is DbUpdateException)
+                while (innerEx is DbUpdateException || innerEx is UpdateException)
                 {
                     innerEx = ex.InnerException;
                 }

@@ -13,6 +13,8 @@ namespace DbModel.Location.Data
     [DataContract]
     public class LocationCardPosition
     {
+        private DateTime _dateTime;
+
         /// <summary>
         /// 定位卡编号
         /// </summary>
@@ -47,7 +49,15 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "时间")]
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime
+        {
+            get { return _dateTime; }
+            set
+            {
+                _dateTime = value;
+                DateTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+            }
+        }
 
         /// <summary>
         /// 时间戳（毫秒）

@@ -45,7 +45,7 @@ namespace Location.BLL
                 tag = string.Format("{0:0000}", number);
             }
 
-            Position pos = new Position() { Code = tag, DateTimeStamp = DateTime.Now.Ticks, X = x, Y = y, Z = z, Flag = "模拟数据" };
+            Position pos = new Position() { Code = tag, DateTime = DateTime.Now, X = x, Y = y, Z = z, Flag = "模拟数据" };
             return pos;
         }
     }
