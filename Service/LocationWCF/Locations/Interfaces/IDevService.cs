@@ -155,6 +155,12 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids);
+        /// <summary>
+        /// 获取所有的门禁信息
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        IList<Dev_DoorAccess> GetAllDoorAccessInfo();
         #endregion
 
         [OperationContract]

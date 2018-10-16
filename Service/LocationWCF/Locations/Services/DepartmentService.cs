@@ -13,7 +13,7 @@ namespace LocationServices.Locations.Services
 {
     public interface IDepartmentService : ITreeEntityService<TEntity>
     {
-
+        TEntity GetTree(List<Personnel> leafNodes);
     }
 
     public class DepartmentService : IDepartmentService
@@ -140,11 +140,16 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetTree()
         {
+            return GetTree(new List<Personnel>());
+        }
+
+        public TEntity GetTree(List<Personnel> leafNodes)
+        {
             try
             {
                 var list = dbSet.ToList().ToTModel();
                 //var leafNodes = GetPersonList();
-                var roots = TreeHelper.CreateTree<Department, Personnel>(list, null);
+                var roots = TreeHelper.CreateTree<Department, Personnel>(list, leafNodes);
                 if (roots.Count > 0)
                 {
                     return roots[0];

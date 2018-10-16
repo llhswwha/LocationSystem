@@ -24,7 +24,7 @@ namespace DAL
             }
             else
             {
-                Database.SetInitializer<LocationDb>(null);
+                Database.SetInitializer<LocationDb>(null); 
             }
         }
 

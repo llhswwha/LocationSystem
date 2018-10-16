@@ -65,6 +65,9 @@
     <Compile Include="DeviceListBox.xaml.cs">
       <DependentUpon>DeviceListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DoorAccessListBox.xaml.cs">
+      <DependentUpon>DoorAccessListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocationAlarmListBox.xaml.cs">
       <DependentUpon>LocationAlarmListBox.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeviceListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DoorAccessListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

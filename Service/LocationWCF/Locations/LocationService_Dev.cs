@@ -235,7 +235,15 @@ namespace LocationServices.Locations
             }
             return devInfoList.ToWCFList();
         }
-
+        /// <summary>
+        /// 获取所有的门禁信息
+        /// </summary>
+        /// <returns></returns>
+        public IList<Dev_DoorAccess> GetAllDoorAccessInfo()
+        {
+            List<Dev_DoorAccess> doorAccessList= db.Dev_DoorAccess.DbSet.ToList().ToTModel();
+            return doorAccessList.ToWCFList();
+        }
         public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
             List<Personnel> ps = GetPersonList();

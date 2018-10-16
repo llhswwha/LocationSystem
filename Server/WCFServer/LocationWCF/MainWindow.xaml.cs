@@ -338,5 +338,10 @@ namespace LocationWCFServer
         {
 
         }
+
+        private void DeviceListBox1_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

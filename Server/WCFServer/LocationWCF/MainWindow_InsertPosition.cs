@@ -18,6 +18,8 @@ using SignalRService.Hubs;
 using WebNSQLib;
 using LocationServices.Converters;
 using System.Threading;
+using Location.TModel.Location.AreaAndDev;
+using TModel.Location.Data;
 
 //using Web.Sockets.Core;
 
@@ -223,8 +225,59 @@ namespace LocationWCFServer
             th.Start();
             ra.MessageHandler.DevAlarmReceived += Mh_DevAlarmReceived;
 
+            SetDoorAccessInfo();
         }
 
+        /// <summary>
+        /// 设置门禁信息
+        /// </summary>
+        private void SetDoorAccessInfo()
+        {
+            LocationService service = new LocationService();
+            var devlist = service.GetAllDevInfos();
+            var doorAccessList = service.GetAllDoorAccessInfo();
+            if (devlist == null || doorAccessList == null) return;
+            BindingDevInfo(devlist.ToList(),doorAccessList.ToList());
+            DoorAccessListBox1.LoadData(doorAccessList.ToArray());
+
+            DoorAccessListBox1.AddMenu("开门", (se, arg) =>
+            {
+                var dev = DoorAccessListBox1.CurrentDev;
+                DoorAccessState doorAccessState = new DoorAccessState()
+                {
+                    DoorId = dev.DoorId,
+                    Abutment_CardId = dev.Id.ToString(),
+                    Abutment_CardState = "开",
+                    Dev = dev.DevInfo
+                };
+                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+            });
+            DoorAccessListBox1.AddMenu("关门", (se, arg) =>
+            {
+                var dev = DoorAccessListBox1.CurrentDev;
+                DoorAccessState doorAccessState = new DoorAccessState()
+                {
+                    DoorId = dev.DoorId,
+                    Abutment_CardId = dev.Id.ToString(),
+                    Abutment_CardState = "关",
+                    Dev = dev.DevInfo
+                };
+                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+            });
+        }
+        /// <summary>
+        /// 门禁设备，绑定设备信息（For: DevInfo.Path）
+        /// </summary>
+        /// <param name="devList"></param>
+        /// <param name="doorAccessList"></param>
+        private void BindingDevInfo(List<DevInfo>devList,List<Dev_DoorAccess>doorAccessList)
+        {
+            foreach(var door in doorAccessList)
+            {
+                DevInfo info = devList.Find(i=>i.DevID==door.DevID);
+                if (info != null) door.DevInfo = info;
+            }
+        }
         private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
         {
             AlarmHub.SendDeviceAlarms(obj.ToTModel());

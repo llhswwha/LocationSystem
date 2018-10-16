@@ -26,7 +26,10 @@ namespace WebApiService.Controllers
         {
             return service.GetList();
         }
-
+        public Department GetTree(List<Personnel> leafNodes)
+        {
+            return service.GetTree(leafNodes);
+        }
         [Route("tree")]
         public Department GetTree()
         {

@@ -336,6 +336,15 @@ namespace BLL
             var tag8 = new LocationCard() { Name = "标签8", Code = "0009" };
             List<LocationCard> tags = new List<LocationCard>() { tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8 };
             LocationCards.AddRange(tags);
+            List<LocationCard> tagsT = new List<LocationCard>();
+            for (int i = 0; i < 100; i++)
+            {
+                var tagT = new LocationCard() { Name = "标签T"+ i.ToString(), Code = "0000" + i.ToString() };
+                tagsT.Add(tagT);
+            }
+
+            LocationCards.AddRange(tagsT);
+
 
             var tagposition1 = new LocationCardPosition() { Code = "0002", X = 2293.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
             var tagposition2 = new LocationCardPosition() { Code = "0003", X = 2294.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };

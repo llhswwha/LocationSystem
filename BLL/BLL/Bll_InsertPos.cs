@@ -128,10 +128,12 @@ namespace BLL
                 }
                 //1.批量插入历史数据数据
                 DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
-                //2.获取并修改列表
-                List<LocationCardPosition> tagPosList = EditTagPositionList(positions);
-                //3.更新列表
-                LocationCardPositions.Db.BulkUpdate(tagPosList);//插件Z.EntityFramework.Extensions功能
+                ////2.获取并修改列表
+                //List<LocationCardPosition> tagPosList = EditTagPositionList(positions);
+                ////3.更新列表
+                //LocationCardPositions.Db.BulkUpdate(tagPosList);//插件Z.EntityFramework.Extensions功能
+
+                EditTagPositionListOP(positions);
             }
             catch (Exception ex)
             {
@@ -208,6 +210,37 @@ namespace BLL
                 }
             }
             return changedTagPosList;
+        }
+
+        private void EditTagPositionListOP(List<Position> positions)
+        {
+            //1.获取列表
+            List<LocationCardPosition> tagPosList = LocationCardPositions.ToList();
+            List<LocationCardPosition> changedTagPosList = new List<LocationCardPosition>();
+            List<LocationCardPosition> newTagPosList = new List<LocationCardPosition>();
+            //2.修改数据
+            for (int i = 0; i < positions.Count; i++)
+            {
+                Position position = positions[i];
+                if (position == null) continue;//位置信息可能有null
+                var tagPos = tagPosList.Find(item => item.Code == position.Code);
+                if (tagPos != null)
+                {
+                    tagPos.Edit(position);
+                    if (!changedTagPosList.Contains(tagPos))
+                    {
+                        changedTagPosList.Add(tagPos);
+                    }
+                }
+                else
+                {
+                    LocationCardPosition newTagPos = new LocationCardPosition(position);
+                    newTagPosList.Add(newTagPos);
+                }
+            }
+
+            LocationCardPositions.Db.BulkUpdate(changedTagPosList);//插件Z.EntityFramework.Extensions功能
+            LocationCardPositions.Db.BulkInsert(newTagPosList);//插件Z.EntityFramework.Extensions功能
         }
 
         public bool EditTagPositionEx(Position position)

@@ -87,7 +87,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="设备告警">
-                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1" >
+                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1" Loaded="DeviceListBox1_Loaded" >
                 </WPFClientControlLib:DeviceListBox>
             </TabItem>
             <TabItem Header="SignalRClients">
@@ -99,7 +99,7 @@
                     </StackPanel>
                     <RichTextBox></RichTextBox>
                 </DockPanel>
-                
+
             </TabItem>
             <TabItem Header="定位数据">
                 <DockPanel>
@@ -110,6 +110,10 @@
                     <DataGrid Name="DataGridHistoryPosList"></DataGrid>
                 </DockPanel>
                 
+            </TabItem>
+            <TabItem Header="门禁信息推送">
+                <WPFClientControlLib:DoorAccessListBox x:Name="DoorAccessListBox1"   Margin="0,20,0,0">
+                </WPFClientControlLib:DoorAccessListBox>
             </TabItem>
         </TabControl>
 
