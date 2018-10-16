@@ -39,6 +39,12 @@
             <TabItem Header="定位告警">
                 <DataGrid Name="DataGridLocationAlarms"></DataGrid>
             </TabItem>
+            <TabItem Header="Sqlite修改测试">
+                <StackPanel>
+                    <Button Name="BtnModifyArchor" Click="BtnModifyArchor_OnClick">修改基站</Button>
+                    <Button Name="BtnModifyTag" Click="BtnModifyArchor_OnClick">修改标签</Button>
+                </StackPanel>
+            </TabItem>
         </TabControl>
         
     </DockPanel>

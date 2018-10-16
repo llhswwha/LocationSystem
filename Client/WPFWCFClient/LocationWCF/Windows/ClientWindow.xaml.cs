@@ -130,5 +130,10 @@ namespace LocationWCFClient.Windows
             window.SetUrl(AppContext.Instance.GetWebApiUrl());
             window.Show();
         }
+
+        private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

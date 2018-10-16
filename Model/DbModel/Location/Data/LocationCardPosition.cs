@@ -101,16 +101,23 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层")]
-        public int? TopoNodes { get; set; }
+        public int? AreaId { get; set; }
+
+        /// <summary>
+        /// 关联人员的Id
+        /// </summary>
+        [DataMember]
+        [Display(Name = "关联人员")]
+        public int? PersonId { get; set; }
 
         public LocationCardPosition()
         {
             Archors = new List<string>();
         }
 
-        public LocationCardPosition(string Code)
+        public LocationCardPosition(string code)
         {
-            this.Code = Code;
+            this.Code = code;
         }
 
         public LocationCardPosition(Position pos)
@@ -130,14 +137,12 @@ namespace DbModel.Location.Data
             this.Number = pos.Number;
             this.Flag = pos.Flag;
             this.Archors = pos.Archors;
-            this.TopoNodes = pos.TopoNodeId;
+            this.AreaId = pos.TopoNodeId;
         }
 
         public LocationCardPosition Clone()
         {
-            LocationCardPosition copy = new LocationCardPosition();
-            copy = this.CloneObjectByBinary();
-
+            LocationCardPosition copy = this.CloneObjectByBinary();
             return copy;
         }
 

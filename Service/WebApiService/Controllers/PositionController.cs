@@ -41,10 +41,24 @@ namespace WebApiService.Controllers
         }
 
         [Route("")]//search/?name=主
-        [Route("search/{name}")]//search/1,直接中文不行
-        public IList<TEntity> GetListByName(string name)
+        [Route("search/{tag}")]//search/1,直接中文不行
+        public IList<TEntity> GetListByName(string tag)
         {
-            return service.GetListByName(name);
+            return service.GetListByName(tag);
+        }
+
+        [Route("")]//search/?name=主
+        [Route("search/{person}")]//search/1,直接中文不行
+        public IList<TEntity> GetListByPerson(string person)
+        {
+            return service.GetListByPerson(person);
+        }
+
+        [Route("")]//search/?name=主
+        [Route("search/{area}")]//search/1,直接中文不行
+        public IList<TEntity> GetListByArea(string area)
+        {
+            return service.GetListByArea(area);
         }
 
         [Route]

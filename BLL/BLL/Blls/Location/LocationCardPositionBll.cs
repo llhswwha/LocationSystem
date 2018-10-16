@@ -33,5 +33,15 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.Code.Contains(name)).ToList();
         }
+
+        public List<LocationCardPosition> GetListByPerson(int person)
+        {
+            return DbSet.Where(i => i.PersonId==person).ToList();
+        }
+
+        public List<LocationCardPosition> GetListByArea(int area)
+        {
+            return DbSet.Where(i => i.AreaId==area).ToList();
+        }
     }
 }

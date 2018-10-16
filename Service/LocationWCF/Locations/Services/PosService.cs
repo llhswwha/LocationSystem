@@ -14,7 +14,9 @@ namespace LocationServices.Locations.Services
 {
     public interface IPosService : IEntityService<TEntity>
     {
-        
+        IList<TEntity> GetListByPerson(string person);
+
+        IList<TEntity> GetListByArea(string area);
     }
     public class PosService : IPosService
     {
@@ -69,6 +71,18 @@ namespace LocationServices.Locations.Services
         public IList<TEntity> GetListByName(string name)
         {
             var devInfoList = dbSet.GetListByName(name).ToTModel();
+            return devInfoList.ToWCFList();
+        }
+
+        public IList<TEntity> GetListByPerson(string person)
+        {
+            var devInfoList = dbSet.GetListByPerson(person.ToInt()).ToTModel();
+            return devInfoList.ToWCFList();
+        }
+
+        public IList<TEntity> GetListByArea(string area)
+        {
+            var devInfoList = dbSet.GetListByArea(area.ToInt()).ToTModel();
             return devInfoList.ToWCFList();
         }
 

@@ -2,6 +2,8 @@
 using System.Runtime.Serialization;
 using Location.TModel.ConvertCodes;
 using System;
+using Location.TModel.Location.AreaAndDev;
+using Location.TModel.Location.Person;
 
 namespace Location.TModel.Location.Data
 {
@@ -17,7 +19,7 @@ namespace Location.TModel.Location.Data
         /// </summary>
         //[Key]
         [DataMember]
-        public string Tag { get; set; }
+        public string TagCode { get; set; }
 
         [DataMember]
         public float X { get; set; }
@@ -66,7 +68,31 @@ namespace Location.TModel.Location.Data
         /// 基站所在的区域、建筑、楼层
         /// </summary>
         [DataMember]
-        public int? TopoNodes { get; set; }
+        public int? AreaId { get; set; }
+
+        /// <summary>
+        /// 关联人员的Id
+        /// </summary>
+        [DataMember]
+        public int? PersonId { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        [DataMember]
+        public Tag Tag { get; set; }
+
+        /// <summary>
+        /// 人员
+        /// </summary>
+        [DataMember]
+        public Personnel Person { get; set; }
+
+        /// <summary>
+        /// 区域
+        /// </summary>
+        [DataMember]
+        public PhysicalTopology Area { get; set; }
 
         public TagPosition()
         {
@@ -75,7 +101,7 @@ namespace Location.TModel.Location.Data
 
         public TagPosition(string tag)
         {
-            this.Tag = tag;
+            this.TagCode = tag;
         }
 
         //public TagPosition(Position pos)

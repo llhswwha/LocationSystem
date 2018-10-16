@@ -3,6 +3,7 @@ using LocationWCFServices;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Threading;
@@ -20,7 +21,10 @@ using SignalRService.Hubs;
 
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
+using Location.TModel.Location.Alarm;
 using LocationServices.Locations.Interfaces;
+using TModel.Location.Data;
+using WebNSQLib;
 
 namespace LocationWCFServer
 {
@@ -64,12 +68,122 @@ namespace LocationWCFServer
         //    }), txt);
         //}
 
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            //InitData();
+        }
 
+        private void InitData()
+        {
+            LoadDevList();
+
+            StartReceiveAlarm();
+
+            SetDoorAccessInfo();
+        }
+
+        private void LoadDevList()
+        {
+            LocationService service = new LocationService();
+            var devlist = service.GetAllDevInfos();
+            DeviceListBox1.LoadData(devlist);
+
+            DeviceListBox1.AddMenu("告警", (se, arg) =>
+            {
+                //MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
+                //todo:告警事件推送
+                var dev = DeviceListBox1.CurrentDev;
+                DeviceAlarm alarm = new DeviceAlarm()
+                {
+                    Id = dev.Id,
+                    Level = Abutment_DevAlarmLevel.低,
+                    Title = "告警" + dev.Id,
+                    Message = "设备告警1",
+                    CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
+                }.SetDev(dev);
+                AlarmHub.SendDeviceAlarms(alarm);
+            });
+            DeviceListBox1.AddMenu("消警", (se, arg) =>
+            {
+                //MessageBox.Show("消警" + DeviceListBox1.CurrentDev.Name);
+                var dev = DeviceListBox1.CurrentDev;
+                DeviceAlarm alarm = new DeviceAlarm()
+                {
+                    Id = dev.Id,
+                    Level = Abutment_DevAlarmLevel.无,
+                    Title = "消警" + dev.Id,
+                    Message = "设备消警1",
+                    CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
+                }.SetDev(dev);
+                AlarmHub.SendDeviceAlarms(alarm);
+            });
+        }
+
+        private void StartReceiveAlarm()
+        {
+            RealAlarm ra = new RealAlarm();
+            ra.MessageHandler.DevAlarmReceived += Mh_DevAlarmReceived;
+            if (alarmReceiveThread == null)
+            {
+                alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
+                alarmReceiveThread.Start();
+            }
+        }
+
+        private void StopReceiveAlarm()
+        {
+            if (alarmReceiveThread != null)
+            {
+                alarmReceiveThread.Abort();
+                alarmReceiveThread = null;
+            }
+        }
+
+        private Thread alarmReceiveThread;
+
+        /// <summary>
+        /// 设置门禁信息
+        /// </summary>
+        private void SetDoorAccessInfo()
+        {
+            LocationService service = new LocationService();
+            var devlist = service.GetAllDevInfos();
+            var doorAccessList = service.GetAllDoorAccessInfo();
+            if (devlist == null || doorAccessList == null) return;
+            BindingDevInfo(devlist.ToList(), doorAccessList.ToList());
+            DoorAccessListBox1.LoadData(doorAccessList.ToArray());
+
+            DoorAccessListBox1.AddMenu("开门", (se, arg) =>
+            {
+                var dev = DoorAccessListBox1.CurrentDev;
+                DoorAccessState doorAccessState = new DoorAccessState()
+                {
+                    DoorId = dev.DoorId,
+                    Abutment_CardId = dev.Id.ToString(),
+                    Abutment_CardState = "开",
+                    Dev = dev.DevInfo
+                };
+                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+            });
+            DoorAccessListBox1.AddMenu("关门", (se, arg) =>
+            {
+                var dev = DoorAccessListBox1.CurrentDev;
+                DoorAccessState doorAccessState = new DoorAccessState()
+                {
+                    DoorId = dev.DoorId,
+                    Abutment_CardId = dev.Id.ToString(),
+                    Abutment_CardState = "关",
+                    Dev = dev.DevInfo
+                };
+                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+            });
+        }
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             StopServices();
         }
+
 
         private void StopServices()
         {
@@ -101,6 +215,8 @@ namespace LocationWCFServer
                 wcfApiHost.Close();
                 wcfApiHost = null;
             }
+
+            StopReceiveAlarm();
         }
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
