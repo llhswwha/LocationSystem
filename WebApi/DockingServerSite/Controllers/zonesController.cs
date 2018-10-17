@@ -38,24 +38,24 @@ namespace SihuiThermalPowerPlant.Controllers
         {
             dict = new Dictionary<int, zones>();
 
-            dict.Add(1, new zones() { id = 1, name = "莘科楼房", kks = "SHENKE", description = "莘科楼房", x = 0, y = 0, z = 0, parent_id = null, path = "", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(2, new zones() { id = 2, name = "一楼", kks = "FIRSTFLOOR", description = "一楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(3, new zones() { id = 3, name = "一楼A房间", kks = "FIRSTFLOORA", description = "一楼A房间", x = 0.5f, y = 0.5f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(4, new zones() { id = 4, name = "一楼B房间", kks = "FIRSTFLOORB", description = "一楼B房间", x = 1.0f, y = 1.0f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(5, new zones() { id = 5, name = "一楼C房间", kks = "FIRSTFLOORC", description = "一楼C房间", x = 1.5f, y = 1.5f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(6, new zones() { id = 6, name = "二楼", kks = "SECONDFLOOR", description = "二楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(7, new zones() { id = 7, name = "二楼A房间", kks = "SECONDFLOORA", description = "二楼A房间", x = 0.5f, y = 0.5f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(8, new zones() { id = 8, name = "二楼B房间", kks = "SECONDFLOORB", description = "二楼B房间", x = 1.0f, y = 1.0f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
-            dict.Add(9, new zones() { id = 9, name = "二楼C房间", kks = "SECONDFLOORC", description = "二楼C房间", x = 1.5f, y = 1.5f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(1, new zones() { id = 1, name = "莘科楼房", kksCode = "SHENKE", description = "莘科楼房", x = 0, y = 0, z = 0, parent_id = null, path = "", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(2, new zones() { id = 2, name = "一楼", kksCode = "FIRSTFLOOR", description = "一楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(3, new zones() { id = 3, name = "一楼A房间", kksCode = "FIRSTFLOORA", description = "一楼A房间", x = 0.5f, y = 0.5f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(4, new zones() { id = 4, name = "一楼B房间", kksCode = "FIRSTFLOORB", description = "一楼B房间", x = 1.0f, y = 1.0f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(5, new zones() { id = 5, name = "一楼C房间", kksCode = "FIRSTFLOORC", description = "一楼C房间", x = 1.5f, y = 1.5f, z = 0f, parent_id = 2, path = "[1/]2", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(6, new zones() { id = 6, name = "二楼", kksCode = "SECONDFLOOR", description = "二楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(7, new zones() { id = 7, name = "二楼A房间", kksCode = "SECONDFLOORA", description = "二楼A房间", x = 0.5f, y = 0.5f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(8, new zones() { id = 8, name = "二楼B房间", kksCode = "SECONDFLOORB", description = "二楼B房间", x = 1.0f, y = 1.0f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
+            dict.Add(9, new zones() { id = 9, name = "二楼C房间", kksCode = "SECONDFLOORC", description = "二楼C房间", x = 1.5f, y = 1.5f, z = 1.0f, parent_id = 6, path = "[1/]6", lstzon = new List<zones>(), lstdev = new List<devices>() });
 
-            dict[1].lstzon.Add(new zones() { id = 2, name = "一楼", kks = "FIRSTFLOOR", description = "一楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1" });
-            dict[1].lstzon.Add(new zones() { id = 6, name = "二楼", kks = "SECONDFLOOR", description = "二楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1" });
-            dict[2].lstzon.Add(new zones() { id = 3, name = "一楼A房间", kks = "FIRSTFLOORA", description = "一楼A房间", x = 0.5f, y = 0.5f, z = 0f, parent_id = 2, path = "[1/]2" });
-            dict[2].lstzon.Add(new zones() { id = 4, name = "一楼B房间", kks = "FIRSTFLOORB", description = "一楼B房间", x = 1.0f, y = 1.0f, z = 0f, parent_id = 2, path = "[1/]2" });
-            dict[2].lstzon.Add(new zones() { id = 5, name = "一楼C房间", kks = "FIRSTFLOORC", description = "一楼C房间", x = 1.5f, y = 1.5f, z = 0f, parent_id = 2, path = "[1/]2" });
-            dict[6].lstzon.Add(new zones() { id = 7, name = "二楼A房间", kks = "SECONDFLOORA", description = "二楼A房间", x = 0.5f, y = 0.5f, z = 1.0f, parent_id = 6, path = "[1/]6" });
-            dict[6].lstzon.Add(new zones() { id = 8, name = "二楼B房间", kks = "SECONDFLOORB", description = "二楼B房间", x = 1.0f, y = 1.0f, z = 1.0f, parent_id = 6, path = "[1/]6" });
-            dict[6].lstzon.Add(new zones() { id = 9, name = "二楼C房间", kks = "SECONDFLOORC", description = "二楼C房间", x = 1.5f, y = 1.5f, z = 1.0f, parent_id = 6, path = "[1/]6" });
+            dict[1].lstzon.Add(new zones() { id = 2, name = "一楼", kksCode = "FIRSTFLOOR", description = "一楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1" });
+            dict[1].lstzon.Add(new zones() { id = 6, name = "二楼", kksCode = "SECONDFLOOR", description = "二楼", x = 0, y = 0, z = 0, parent_id = 1, path = "1" });
+            dict[2].lstzon.Add(new zones() { id = 3, name = "一楼A房间", kksCode = "FIRSTFLOORA", description = "一楼A房间", x = 0.5f, y = 0.5f, z = 0f, parent_id = 2, path = "[1/]2" });
+            dict[2].lstzon.Add(new zones() { id = 4, name = "一楼B房间", kksCode = "FIRSTFLOORB", description = "一楼B房间", x = 1.0f, y = 1.0f, z = 0f, parent_id = 2, path = "[1/]2" });
+            dict[2].lstzon.Add(new zones() { id = 5, name = "一楼C房间", kksCode = "FIRSTFLOORC", description = "一楼C房间", x = 1.5f, y = 1.5f, z = 0f, parent_id = 2, path = "[1/]2" });
+            dict[6].lstzon.Add(new zones() { id = 7, name = "二楼A房间", kksCode = "SECONDFLOORA", description = "二楼A房间", x = 0.5f, y = 0.5f, z = 1.0f, parent_id = 6, path = "[1/]6" });
+            dict[6].lstzon.Add(new zones() { id = 8, name = "二楼B房间", kksCode = "SECONDFLOORB", description = "二楼B房间", x = 1.0f, y = 1.0f, z = 1.0f, parent_id = 6, path = "[1/]6" });
+            dict[6].lstzon.Add(new zones() { id = 9, name = "二楼C房间", kksCode = "SECONDFLOORC", description = "二楼C房间", x = 1.5f, y = 1.5f, z = 1.0f, parent_id = 6, path = "[1/]6" });
 
 
 

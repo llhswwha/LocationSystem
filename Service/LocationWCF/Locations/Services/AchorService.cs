@@ -26,7 +26,7 @@ namespace LocationServices.Locations.Services
 
         public ArchorService()
         {
-            db = new Bll(false, true, false, true);
+            db = new Bll(false, false, false, false);
             dbSet = db.Archors;
         }
 

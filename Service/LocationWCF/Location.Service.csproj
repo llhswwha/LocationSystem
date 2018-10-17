@@ -75,6 +75,8 @@
     <Compile Include="LocationCallbacks\ILocationInfoService.cs" />
     <Compile Include="LocationCallbacks\ILocationInfoServiceCallback.cs" />
     <Compile Include="Locations\Interfaces\IBaseDataService.cs" />
+    <Compile Include="Locations\Interfaces\Ibus_anchor.cs" />
+    <Compile Include="Locations\Interfaces\Ibus_tag.cs" />
     <Compile Include="Locations\Interfaces\IConfigArgService.cs" />
     <Compile Include="Locations\Interfaces\IDepartmentService.cs" />
     <Compile Include="Locations\Interfaces\IDevDataService.cs" />

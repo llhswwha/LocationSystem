@@ -17,7 +17,7 @@ namespace Rsetful.Controllers
     {
         private Bll bll = Bll.Instance();
 
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://localhost:9347/");
         // 获取告警事件列表
         public ActionResult GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {

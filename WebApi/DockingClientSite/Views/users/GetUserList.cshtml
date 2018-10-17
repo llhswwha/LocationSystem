@@ -1,6 +1,6 @@
 ﻿@using CommunicationClass.SihuiThermalPowerPlant
 @using CommunicationClass.SihuiThermalPowerPlant.Models
-@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<users>
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<user>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
              <th>是否启用</th>
              <th>部门</th>
          </tr>
-         @foreach (users item in Model.data)
+         @foreach (user item in Model.data)
          {
              <tr>
                  <td>@item.id</td>

@@ -19,12 +19,12 @@ namespace Rsetful.Controllers
     public class usersController : Controller
     {
         private Bll bll = Bll.Instance();
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://ipms.datacase.io/api/");
 
         // GET: users
         public ActionResult GetUserList()
         {
-            BaseTran<users> recv = client.GetUserList();
+            BaseTran<user> recv = client.GetUserList();
             
             return View(recv);
         }

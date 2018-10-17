@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
+  <xs:complexType name="ArrayOfDepartment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Department" nillable="true" type="tns:Department" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDepartment" nillable="true" type="tns:ArrayOfDepartment" />
+  <xs:complexType name="Department">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Children" nillable="true" type="tns:ArrayOfDepartment" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LeafNodes" nillable="true" type="tns:ArrayOfPersonnel" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ShowOrder" type="xs:int" />
+      <xs:element minOccurs="0" name="Type" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Department" nillable="true" type="tns:Department" />
   <xs:complexType name="ArrayOfPersonnel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Personnel" nillable="true" type="tns:Personnel" />
@@ -11,8 +31,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="BirthDay" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="BirthTimeStamp" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BirthDay" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BirthTimeStamp" type="xs:long" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
@@ -31,24 +51,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Personnel" nillable="true" type="tns:Personnel" />
-  <xs:complexType name="Department">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Children" nillable="true" type="tns:ArrayOfDepartment" />
-      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="LeafNodes" nillable="true" type="tns:ArrayOfPersonnel" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="ShowOrder" type="xs:int" />
-      <xs:element minOccurs="0" name="Type" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Department" nillable="true" type="tns:Department" />
-  <xs:complexType name="ArrayOfDepartment">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Department" nillable="true" type="tns:Department" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfDepartment" nillable="true" type="tns:ArrayOfDepartment" />
 </xs:schema>

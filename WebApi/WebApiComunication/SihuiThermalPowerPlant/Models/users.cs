@@ -10,7 +10,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
     /// <summary>
     /// 获取人员列表
     /// </summary>
-    public class users
+    public class user
     {
         /// <summary>
         /// 标识
@@ -59,5 +59,14 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// </summary>
         [Display(Name = "部门名称")]
         public string dept_name { get; set; }
+    }
+
+    public class users
+    {
+        public string _links { get; set; }
+
+        public int totalCount { get; set; }
+
+        public List<user> data { get; set; }
     }
 }

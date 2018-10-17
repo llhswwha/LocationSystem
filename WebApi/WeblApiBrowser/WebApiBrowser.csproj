@@ -109,7 +109,7 @@
       <Project>{e1e70422-cf68-4fde-930a-b1a0753fe9be}</Project>
       <Name>MarkedNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebApiLib\WebApiLib.csproj">
+    <ProjectReference Include="..\WebApiLib\WebApiClients.csproj">
       <Project>{78dc1103-e23b-423a-a1b3-f7022934dd1c}</Project>
       <Name>WebApiLib</Name>
     </ProjectReference>

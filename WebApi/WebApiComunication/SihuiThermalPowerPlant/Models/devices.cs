@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationClass.SihuiThermalPowerPlant.Models
 {
-    public class devices
+    public class device
     {
         /// <summary>
         /// 标识
@@ -21,7 +21,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// KKS编码
         /// </summary>
-        public string kks { get; set; }
+        public string kksCode { get; set; }
 
         /// <summary>
         /// 名称
@@ -53,12 +53,12 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// </summary>
         public string raw_id { get; set; }
 
-        public devices Clone()
+        public device Clone()
         {
-            devices copy = new devices();
+            device copy = new device();
             copy.id = this.id;
             copy.code = this.code;
-            copy.kks = this.kks;
+            copy.kksCode = this.kksCode;
             copy.name = this.name;
             copy.type = this.type;
             copy.state = this.state;

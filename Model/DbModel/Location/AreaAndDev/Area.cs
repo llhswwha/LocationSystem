@@ -224,14 +224,16 @@ namespace DbModel.Location.AreaAndDev
         public string Describe { get; set; }
 
         [DataMember]
-        [ForeignKey("ParentId")]
+        //[ForeignKey("ParentId")]
+        [NotMapped]
         public virtual List<Area> Children { get; set; }
 
         /// <summary>
         /// 叶子节点：区域中的设备
         /// </summary>
         [DataMember]
-        [ForeignKey("ParentId")]
+        //[ForeignKey("ParentId")]
+        [NotMapped]
         public virtual List<DevInfo> LeafNodes { get; set; }
 
 

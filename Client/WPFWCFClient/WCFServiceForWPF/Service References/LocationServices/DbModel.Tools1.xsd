@@ -214,7 +214,7 @@
   <xs:element name="LocationAlarmHandleType" nillable="true" type="tns:LocationAlarmHandleType" />
   <xs:simpleType name="Abutment_DevAlarmLevel">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="未定" />
+      <xs:enumeration value="无" />
       <xs:enumeration value="低" />
       <xs:enumeration value="中" />
       <xs:enumeration value="高" />

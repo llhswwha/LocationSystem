@@ -18,12 +18,12 @@ namespace Rsetful.Controllers
     public class zonesController : Controller
     {
         private Bll bll = Bll.Instance();
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://ipms.datacase.io/api/");
 
         //获取区域列表
         public ActionResult GetzonesList()
         {
-            BaseTran<zones> recv = client.GetzonesList();
+            BaseTran<zone> recv = client.GetzonesList();
             
             return View(recv);
         }
@@ -31,7 +31,7 @@ namespace Rsetful.Controllers
         //获取单个区域信息
         public ActionResult GetSingleZonesInfo(int id, int view)
         {
-            zones data = client.GetSingleZonesInfo(id, view);
+            zone data = client.GetSingleZonesInfo(id, view);
 
             return View(data);
         }
@@ -39,7 +39,7 @@ namespace Rsetful.Controllers
         //获取指定区域下设备列表
         public ActionResult GetZoneDevList(int id)
         {
-            BaseTran<devices> recv = client.GetZoneDevList(id);
+            BaseTran<device> recv = client.GetZoneDevList(id);
 
             return View(recv);
         }

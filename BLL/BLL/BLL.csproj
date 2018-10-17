@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Bll.cs" />
     <Compile Include="Blls\BaseBll.cs" />
+    <Compile Include="Blls\Engine\bus_archorBll.cs" />
+    <Compile Include="Blls\Engine\bus_tagBll.cs" />
     <Compile Include="Blls\LocationHistory\DevAlarmHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\DevEntranceGuardCardActionBll.cs" />
     <Compile Include="Blls\LocationHistory\DevInfoHistoryBll.cs" />

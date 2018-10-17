@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\bus_anchor.cs" />
+    <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Tools\CloneHelper.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />

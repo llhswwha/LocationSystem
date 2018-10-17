@@ -14,7 +14,7 @@ namespace Rsetful.Controllers
     public class ticketsController : Controller
     {
         private Bll bll = Bll.Instance();
-        BaseDataClient client=new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client=new BaseDataClient("https://ipms.datacase.io/api/");
         //获取两票列表
         public ActionResult GetList(string type,string begin_date,string end_date)
         {

@@ -29,7 +29,7 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.Data.TagPosition();
-            item2.TagCode = item1.Code;
+            item2.Tag = item1.Code;
             item2.X = item1.X;
             item2.Y = item1.Y;
             item2.Z = item1.Z;
@@ -39,7 +39,7 @@ namespace LocationServices.Converters
             item2.Flag = item1.Flag;
             item2.Archors = item1.Archors;
             item2.AreaId = item1.AreaId;
-            item2.PersonId = item1.PersonId;
+            //item2.PersonId = item1.PersonId;
             return item2;
         }
 

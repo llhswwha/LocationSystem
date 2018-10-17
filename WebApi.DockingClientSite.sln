@@ -17,9 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelLib", "Third\Projects\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCommunication", "WebApi\WebApiComunication\WebApiCommunication.csproj", "{474692D2-FC7E-4835-87A0-089BC2F88AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLib", "WebApi\WebApiLib\WebApiLib.csproj", "{78DC1103-E23B-423A-A1B3-F7022934DD1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiLib", "WebApi\WebApiLib\WebApiClients.csproj", "{78DC1103-E23B-423A-A1B3-F7022934DD1C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockingClientSite", "WebApi\DockingClientSite\DockingClientSite.csproj", "{C477F817-C905-416D-9105-1C06432D0025}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E1E70422-CF68-4FDE-930A-B1A0753FE9BE} = {E1E70422-CF68-4FDE-930A-B1A0753FE9BE}
+		{7327244D-E163-4C35-9C1A-8DBDF06B9408} = {7327244D-E163-4C35-9C1A-8DBDF06B9408}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiBrowser", "WebApi\WeblApiBrowser\WebApiBrowser.csproj", "{B8AD3D7E-A90E-4733-990E-3D5FD5765186}"
 EndProject

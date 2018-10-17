@@ -20,9 +20,9 @@ namespace WebNSQLib
         public MessageHandler MessageHandler = new MessageHandler();
         public void ReceiveRealAlarmInfo()
         {
-            var consumer = new Consumer("test-topic-name", "channel-name");
+            var consumer = new Consumer("honeywell", "channel-name");
             consumer.AddHandler(MessageHandler);
-            consumer.ConnectToNsqLookupd("127.0.0.1:4161");
+            consumer.ConnectToNsqLookupd("ipms.datacase.io:4161");
 
             while (true) { Thread.Sleep(6000); }
 
@@ -66,7 +66,7 @@ namespace WebNSQLib
             da.Src = (Abutment_DevAlarmSrc)recv.src;
             da.DevInfoId = di.Id;
             da.Device_desc = recv.device_desc;
-            da.AlarmTime = TimeConvert.TimeStampToDateTime(recv.t);
+            da.AlarmTime = TimeConvert.TimeStampToDateTime(recv.t/1000);
             da.AlarmTimeStamp = recv.t;
 
             if (nFlag == 1)

@@ -12,6 +12,8 @@ using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.AreaAndDev;
 using TModel.Tools;
 using LocationServices.Locations.Services;
+using DAL;
+using BLL.Tools;
 
 namespace LocationServices.Locations
 {
@@ -301,6 +303,158 @@ namespace LocationServices.Locations
         {
             int id2 = id.ToInt();
             return db.Archors.Find(id2).ToTModel();
+        }
+
+        public bool EditArchor(Archor Archor, int ParentId)
+        {
+            bool bReturn = false;
+            
+            DbModel.Location.AreaAndDev.Archor Archor2 = db.Archors.DbSet.Where(p => p.Code == Archor.Code).FirstOrDefault();
+            if (Archor2 == null)
+            {
+                Archor2 = Archor.ToDbModel();
+
+                DbModel.Location.AreaAndDev.DevInfo dev = new DbModel.Location.AreaAndDev.DevInfo();
+                dev.Local_DevID = Guid.NewGuid().ToString();
+                dev.IP = "";
+                dev.KKS = "";
+                dev.Name = Archor2.Name;
+                dev.ModelName = LocationDeviceHelper.LocationDevModelName;
+                dev.Status = 0;
+                dev.ParentId = ParentId;
+                dev.Local_TypeCode = int.Parse(LocationDeviceHelper.LocationDevTypeCode);
+                dev.UserName = "admin";
+                Archor2.DevInfo = dev;
+                
+                bReturn = db.Archors.Add(Archor2);
+            }
+            else
+            {
+                Archor2.Name = Archor.Name;
+                Archor2.X = Archor.X;
+                Archor2.Y = Archor.Y;
+                Archor2.Z = Archor.Z;
+                Archor2.Type = Archor.Type;
+                Archor2.IsAutoIp = Archor.IsAutoIp;
+                Archor2.Ip = Archor.Ip;
+                Archor2.ServerIp = Archor.ServerIp;
+                Archor2.ServerPort = Archor.ServerPort;
+                Archor2.Power = Archor.Power;
+                Archor2.AliveTime = Archor.AliveTime;
+                Archor2.Enable = Archor.Enable;
+
+                bReturn = db.Archors.Edit(Archor2);
+            }
+
+            return bReturn;
+        }
+
+        public bool EditBusAnchor(Archor Archor, int ParentId)
+        {
+            bool bDeal = false;
+
+            try
+            {
+                int nFlag = 0;
+                DbModel.Engine.bus_anchor bac = db.bus_anchors.DbSet.Where(p => p.anchor_id == Archor.Code).FirstOrDefault();
+                if (bac == null)
+                {
+                    bac = new DbModel.Engine.bus_anchor();
+                    nFlag = 1;
+                }
+
+                bac.anchor_id = Archor.Code;
+                bac.anchor_x = (int)Archor.X;
+                bac.anchor_y = (int)Archor.Y;
+                bac.anchor_z = (int)Archor.Z;
+                bac.anchor_type = (int)Archor.Type;
+                bac.anchor_bno = 0;
+                bac.syn_anchor_id = null;
+                bac.offset = 0;
+                bac.min_x = 90000000;
+                bac.max_x = 90000000;
+                bac.min_y = 90000000;
+                bac.max_y = 90000000;
+                bac.min_z = 90000000;
+                bac.max_z = 90000000;
+                bac.enabled = 1;
+
+                if (nFlag == 0)
+                {
+                    bDeal = db.bus_anchors.Edit(bac);
+                }
+                else
+                {
+                    bDeal = db.bus_anchors.Add(bac);
+                }
+
+                if (!bDeal)
+                {
+                    return bDeal;
+                }
+
+                bDeal = EditArchor(Archor, ParentId);
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+            }
+            
+            return bDeal;
+        }
+
+        public bool EditTag(Tag Tag, int? id)
+        {
+            bool bReturn = false;
+            DbModel.Location.AreaAndDev.LocationCard lc = db.LocationCards.DbSet.Where(p => p.Code == Tag.Code).FirstOrDefault();
+            if (lc == null)
+            {
+                lc = Tag.ToDbModel();
+                lc.Abutment_Id = id;
+                bReturn = db.LocationCards.Add(lc);
+            }
+            else
+            {
+                lc.Name = Tag.Name;
+                lc.Describe = Tag.Describe;
+                lc.Abutment_Id = id;
+                bReturn = db.LocationCards.Edit(lc);
+            }
+            
+            return bReturn;
+        }
+
+        public bool EditBusTag(Tag Tag)
+        {
+            bool bDeal = false;
+            int nFlag = 0;
+            DbModel.Engine.bus_tag btag = db.bus_tags.DbSet.Where(p => p.tag_id == Tag.Code).FirstOrDefault();
+            if (btag == null)
+            {
+                btag = new DbModel.Engine.bus_tag();
+                nFlag = 1;
+            }
+
+            btag.tag_id = Tag.Code;
+            
+            if (nFlag == 0)
+            {
+                bDeal = db.bus_tags.Edit(btag);
+                
+            }
+            else
+            {
+                bDeal = db.bus_tags.Add(btag);
+            }
+
+            if (!bDeal)
+            {
+                return bDeal;
+            }
+
+            bDeal = EditTag(Tag, btag.id);
+
+            return bDeal;
         }
     }
 }

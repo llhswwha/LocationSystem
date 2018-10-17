@@ -4,6 +4,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
@@ -11,7 +12,6 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
@@ -20,6 +20,24 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ILocationService_Hello_InputMessage">
+    <wsdl:part name="parameters" element="tns:Hello" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Hello_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HelloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartmentList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentList" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartmentList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartmentTree_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentTree" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartmentTree_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentTreeResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetTags_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTags" />
   </wsdl:message>
@@ -43,6 +61,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_DeleteAllTags_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAllTagsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditTag_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditTag" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditTag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditTagResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetRealPositons_InputMessage">
     <wsdl:part name="parameters" element="tns:GetRealPositons" />
@@ -194,6 +218,12 @@
   <wsdl:message name="ILocationService_GetDevInfoByParent_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDevInfoByParentResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByID" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByIDResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_AddDoorAccessByList_InputMessage">
     <wsdl:part name="parameters" element="tns:AddDoorAccessByList" />
   </wsdl:message>
@@ -224,11 +254,29 @@
   <wsdl:message name="ILocationService_GetDoorAccessInfoByParent_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDoorAccessInfoByParentResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllDoorAccessInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDoorAccessInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllDoorAccessInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDoorAccessInfoResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetArchors_InputMessage">
     <wsdl:part name="parameters" element="tns:GetArchors" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetArchors_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetArchorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchor" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditArchor_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditArchor" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditArchor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditArchorResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
@@ -266,11 +314,53 @@
   <wsdl:message name="ILocationService_GetPhysicalTopologyList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPhysicalTopologyListResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopology_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopology" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopology_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyListByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyListByName" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyListByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyListByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyListByPid_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyListByPid" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyListByPid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyListByPidResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetPhysicalTopologyTree_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTree" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetPhysicalTopologyTree_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyTreeById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeById" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyTreeById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddPhysicalTopology_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPhysicalTopology" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddPhysicalTopology_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPhysicalTopologyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPhysicalTopology_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPhysicalTopology" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPhysicalTopology_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPhysicalTopologyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_RemovePhysicalTopology_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemovePhysicalTopology" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_RemovePhysicalTopology_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemovePhysicalTopologyResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetParkMonitorRange_InputMessage">
     <wsdl:part name="parameters" element="tns:GetParkMonitorRange" />
@@ -488,25 +578,31 @@
   <wsdl:message name="ILocationService_Logout_OutputMessage">
     <wsdl:part name="parameters" element="tns:LogoutResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_Hello_InputMessage">
-    <wsdl:part name="parameters" element="tns:Hello" />
+  <wsdl:message name="ILocationService_EditBusAnchor_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditBusAnchor" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_Hello_OutputMessage">
-    <wsdl:part name="parameters" element="tns:HelloResponse" />
+  <wsdl:message name="ILocationService_EditBusAnchor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditBusAnchorResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDepartmentList_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDepartmentList" />
+  <wsdl:message name="ILocationService_EditBusTag_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditBusTag" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDepartmentList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDepartmentListResponse" />
-  </wsdl:message>
-  <wsdl:message name="ILocationService_GetDepartmentTree_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDepartmentTree" />
-  </wsdl:message>
-  <wsdl:message name="ILocationService_GetDepartmentTree_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDepartmentTreeResponse" />
+  <wsdl:message name="ILocationService_EditBusTag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditBusTagResponse" />
   </wsdl:message>
   <wsdl:portType name="ILocationService">
+    <wsdl:operation name="Hello">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITestService/Hello" message="tns:ILocationService_Hello_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITestService/HelloResponse" message="tns:ILocationService_Hello_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentList" message="tns:ILocationService_GetDepartmentList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentListResponse" message="tns:ILocationService_GetDepartmentList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentTree">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentTree" message="tns:ILocationService_GetDepartmentTree_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse" message="tns:ILocationService_GetDepartmentTree_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetTags">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/GetTags" message="tns:ILocationService_GetTags_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITagService/GetTagsResponse" message="tns:ILocationService_GetTags_OutputMessage" />
@@ -522,6 +618,10 @@
     <wsdl:operation name="DeleteAllTags">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/DeleteAllTags" message="tns:ILocationService_DeleteAllTags_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITagService/DeleteAllTagsResponse" message="tns:ILocationService_DeleteAllTags_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditTag">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITagService/EditTag" message="tns:ILocationService_EditTag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITagService/EditTagResponse" message="tns:ILocationService_EditTag_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetRealPositons">
       <wsdl:input wsaw:Action="http://tempuri.org/IPositionService/GetRealPositons" message="tns:ILocationService_GetRealPositons_InputMessage" />
@@ -623,6 +723,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevInfoByParent" message="tns:ILocationService_GetDevInfoByParent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevInfoByParentResponse" message="tns:ILocationService_GetDevInfoByParent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDevByID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByID" message="tns:ILocationService_GetDevByID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByIDResponse" message="tns:ILocationService_GetDevByID_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="AddDoorAccessByList">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddDoorAccessByList" message="tns:ILocationService_AddDoorAccessByList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/AddDoorAccessByListResponse" message="tns:ILocationService_AddDoorAccessByList_OutputMessage" />
@@ -643,9 +747,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParent" message="tns:ILocationService_GetDoorAccessInfoByParent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDoorAccessInfoByParentResponse" message="tns:ILocationService_GetDoorAccessInfoByParent_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllDoorAccessInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetAllDoorAccessInfo" message="tns:ILocationService_GetAllDoorAccessInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetAllDoorAccessInfoResponse" message="tns:ILocationService_GetAllDoorAccessInfo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetArchors">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchors" message="tns:ILocationService_GetArchors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorsResponse" message="tns:ILocationService_GetArchors_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArchor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchor" message="tns:ILocationService_GetArchor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorResponse" message="tns:ILocationService_GetArchor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditArchor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/EditArchor" message="tns:ILocationService_EditArchor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/EditArchorResponse" message="tns:ILocationService_EditArchor_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
@@ -671,9 +787,37 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyList" message="tns:ILocationService_GetPhysicalTopologyList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListResponse" message="tns:ILocationService_GetPhysicalTopologyList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopology">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopology" message="tns:ILocationService_GetPhysicalTopology_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyResponse" message="tns:ILocationService_GetPhysicalTopology_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyListByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByName" message="tns:ILocationService_GetPhysicalTopologyListByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByNameResponse" message="tns:ILocationService_GetPhysicalTopologyListByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyListByPid">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPid" message="tns:ILocationService_GetPhysicalTopologyListByPid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPidResponse" message="tns:ILocationService_GetPhysicalTopologyListByPid_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPhysicalTopologyTree">
       <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree" message="tns:ILocationService_GetPhysicalTopologyTree_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeResponse" message="tns:ILocationService_GetPhysicalTopologyTree_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyTreeById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById" message="tns:ILocationService_GetPhysicalTopologyTreeById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeByIdResponse" message="tns:ILocationService_GetPhysicalTopologyTreeById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPhysicalTopology">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopology" message="tns:ILocationService_AddPhysicalTopology_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopologyResponse" message="tns:ILocationService_AddPhysicalTopology_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPhysicalTopology">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopology" message="tns:ILocationService_EditPhysicalTopology_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopologyResponse" message="tns:ILocationService_EditPhysicalTopology_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemovePhysicalTopology">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopology" message="tns:ILocationService_RemovePhysicalTopology_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopologyResponse" message="tns:ILocationService_RemovePhysicalTopology_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetParkMonitorRange">
       <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetParkMonitorRange" message="tns:ILocationService_GetParkMonitorRange_InputMessage" />
@@ -819,21 +963,44 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUserService/Logout" message="tns:ILocationService_Logout_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserService/LogoutResponse" message="tns:ILocationService_Logout_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Hello">
-      <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/Hello" message="tns:ILocationService_Hello_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ILocationService/HelloResponse" message="tns:ILocationService_Hello_OutputMessage" />
+    <wsdl:operation name="EditBusAnchor">
+      <wsdl:input wsaw:Action="http://tempuri.org/Ibus_anchor/EditBusAnchor" message="tns:ILocationService_EditBusAnchor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse" message="tns:ILocationService_EditBusAnchor_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDepartmentList">
-      <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetDepartmentList" message="tns:ILocationService_GetDepartmentList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ILocationService/GetDepartmentListResponse" message="tns:ILocationService_GetDepartmentList_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDepartmentTree">
-      <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetDepartmentTree" message="tns:ILocationService_GetDepartmentTree_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ILocationService/GetDepartmentTreeResponse" message="tns:ILocationService_GetDepartmentTree_OutputMessage" />
+    <wsdl:operation name="EditBusTag">
+      <wsdl:input wsaw:Action="http://tempuri.org/Ibus_tag/EditBusTag" message="tns:ILocationService_EditBusTag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/Ibus_tag/EditBusTagResponse" message="tns:ILocationService_EditBusTag_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ILocationService" type="tns:ILocationService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Hello">
+      <soap:operation soapAction="http://tempuri.org/ITestService/Hello" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentList">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/GetDepartmentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepartmentTree">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/GetDepartmentTree" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTags">
       <soap:operation soapAction="http://tempuri.org/ITagService/GetTags" style="document" />
       <wsdl:input>
@@ -863,6 +1030,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteAllTags">
       <soap:operation soapAction="http://tempuri.org/ITagService/DeleteAllTags" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditTag">
+      <soap:operation soapAction="http://tempuri.org/ITagService/EditTag" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1095,6 +1271,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDevByID">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddDoorAccessByList">
       <soap:operation soapAction="http://tempuri.org/IDevService/AddDoorAccessByList" style="document" />
       <wsdl:input>
@@ -1140,8 +1325,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllDoorAccessInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetAllDoorAccessInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetArchors">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetArchors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArchor">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetArchor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditArchor">
+      <soap:operation soapAction="http://tempuri.org/IDevService/EditArchor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1203,8 +1415,71 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopology">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopology" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyListByName">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyListByPid">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListByPid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPhysicalTopologyTree">
       <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyTreeById">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPhysicalTopology">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/AddPhysicalTopology" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditPhysicalTopology">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/EditPhysicalTopology" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemovePhysicalTopology">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/RemovePhysicalTopology" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1536,8 +1811,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="Hello">
-      <soap:operation soapAction="http://tempuri.org/ILocationService/Hello" style="document" />
+    <wsdl:operation name="EditBusAnchor">
+      <soap:operation soapAction="http://tempuri.org/Ibus_anchor/EditBusAnchor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1545,17 +1820,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDepartmentList">
-      <soap:operation soapAction="http://tempuri.org/ILocationService/GetDepartmentList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDepartmentTree">
-      <soap:operation soapAction="http://tempuri.org/ILocationService/GetDepartmentTree" style="document" />
+    <wsdl:operation name="EditBusTag">
+      <soap:operation soapAction="http://tempuri.org/Ibus_tag/EditBusTag" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

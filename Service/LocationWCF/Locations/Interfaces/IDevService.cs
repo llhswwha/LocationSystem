@@ -170,5 +170,9 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         [WebGet(UriTemplate = "/archor/{id}", ResponseFormat = WebMessageFormat.Json)]
         Archor GetArchor(string id);
+
+        [OperationContract]
+        bool EditArchor(Archor Archor, int ParentId);
+        
     }
 }

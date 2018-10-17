@@ -17,12 +17,12 @@ namespace Rsetful.Controllers
     {
         private Bll bll = Bll.Instance();
 
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://ipms.datacase.io/api/");
 
         //获取设备列表
         public ActionResult GetDeviceList(string types, string code, string name)
         {
-            BaseTran<devices> recv = client.GetDeviceList(types, code, name);
+            BaseTran<device> recv = client.GetDeviceList(types, code, name);
             
             return View(recv);
         }
@@ -30,7 +30,7 @@ namespace Rsetful.Controllers
         // 获取单个设备信息
         public ActionResult GetSingleDeviceInfo(int id)
         {
-            devices data = client.GetSingleDeviceInfo(id);
+            device data = client.GetSingleDeviceInfo(id);
             
             return View(data);
         }

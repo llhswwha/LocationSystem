@@ -19,6 +19,7 @@
       <xs:element minOccurs="0" name="OperationStartTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="OperationTask" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Operator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperatorPersonelId" type="xs:int" />
       <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -31,6 +32,7 @@
   <xs:element name="ArrayOfOperationItem" nillable="true" type="tns:ArrayOfOperationItem" />
   <xs:complexType name="OperationItem">
     <xs:sequence>
+      <xs:element minOccurs="0" name="DevId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Item" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Mark" type="xs:boolean" />
@@ -50,6 +52,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Approver" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AreaId" type="xs:int" />
       <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EndTimeOfPlannedWork" type="xs:dateTime" />
       <xs:element minOccurs="0" name="HeadOfWorkClass" nillable="true" type="xs:string" />
@@ -59,6 +62,7 @@
       <xs:element minOccurs="0" name="Lssuer" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PersonInCharge" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonInChargePersonelId" type="xs:int" />
       <xs:element minOccurs="0" name="SafetyMeasuress" nillable="true" type="tns:ArrayOfSafetyMeasures" />
       <xs:element minOccurs="0" name="StartTimeOfPlannedWork" type="xs:dateTime" />
       <xs:element minOccurs="0" name="WorkCondition" nillable="true" type="xs:string" />

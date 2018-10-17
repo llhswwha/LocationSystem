@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DbModel.Location.AreaAndDev;
 
 namespace LocationServices.Tools
 {
@@ -125,7 +127,31 @@ namespace LocationServices.Tools
             }
         }
 
-        private bool InsertPostions(List<Position> posList2)
+        /// <summary>
+        /// 删除重复的数据
+        /// </summary>
+        /// <param name="list1"></param>
+        /// <returns></returns>
+        private List<Position> RemoveRepeatPosition(List<Position> list1)
+        {
+            Dictionary<string, Position> dict = new Dictionary<string, Position>();
+            foreach (Position pos in list1)
+            {
+                if (pos == null) continue;
+                try
+                {
+                    dict[pos.Code] = pos;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("RemoveRepeatPosition", ex);
+                }
+                
+            }
+            return dict.Values.ToList();
+        } 
+
+        private bool InsertPostions(List<Position> list1)
         {
             bool r = false;
             Stopwatch watch1 = new Stopwatch();
@@ -136,24 +162,47 @@ namespace LocationServices.Tools
                 var personnels = positionBll.Personnels.ToList();
                 var tagToPersons = positionBll.LocationCardToPersonnels.ToList();
                 var tags = positionBll.LocationCards.ToList();
-                //List<Tag> tagList = positionBll.Db.Tags.ToList();
+                var archors = positionBll.Archors.ToList();//基站
+                var tagPositions = positionBll.LocationCardPositions.ToList();//实时位置
 
-                //foreach (Personnel item in personnels)
-                //{
-                //    item.Tag = tagList.Find(i => i.Id == item.TagId);
-                //}
+                list1 = RemoveRepeatPosition(list1);
 
-                foreach (Position pos in posList2)
+                //剔除位置信息不变的部分
+                List<Position> list2 = new List<Position>();
+                foreach (var pos in list1)
+                {
+                    var tagPos = tagPositions.Find(i => i.Code == pos.Code);
+                    if (tagPos != null)
+                    {
+                        double distance = (tagPos.X - pos.X)*(tagPos.X - pos.X) + (tagPos.Z - pos.Z)*(tagPos.Z - pos.Z);
+                        if (distance > 1)
+                        {
+                            list2.Add(pos);
+                        }
+                    }
+                }
+
+                //处理定位引擎位置信息，添加关联人员信息
+                foreach (Position pos in list1)
                 {
                     if (pos == null) continue;
                     try
                     {
-                        var tag = tags.Find(i => i.Code == pos.Code);
-                        var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id);
-                        var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId);
+                        var tag = tags.Find(i => i.Code == pos.Code);//板块
+                        var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id);//关系
+                        var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId);//人员
                         if (personnelT != null)
                         {
                             pos.PersonnelID = personnelT.Id;
+                        }
+
+                        if (pos.IsSimulate)//是模拟程序数据
+                        {
+                            var relativeArchors=archors.FindAll(i => ((i.X - pos.X)*(i.X - pos.X) + (i.Z - pos.Z)*(i.Z - pos.Z)) < 100);
+                            foreach (var archor in relativeArchors)
+                            {
+                                pos.AddArchor(archor.Code);
+                            }
                         }
                     }
                     catch
@@ -162,10 +211,10 @@ namespace LocationServices.Tools
                     }
                 }
 
-                r = positionBll.AddPositions(posList2);
+                r = positionBll.AddPositions(list1);
                 if (r)
                 {
-                    foreach (Position p in posList2)
+                    foreach (Position p in list1)
                     {
                         if (p == null) continue;
                         if (p.X >= 10 && p.X <= 30 && p.Y >= 50 && p.Y <= 70 && p.Z >= 80 && p.Z <= 100)
@@ -178,7 +227,7 @@ namespace LocationServices.Tools
             }
 
             watch1.Stop();
-            WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", posList2.Count, watch1.Elapsed)));
+            WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
             return r;
         }
 

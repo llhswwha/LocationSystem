@@ -18,6 +18,9 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         bool DeleteAllTags();
+
+        [OperationContract]
+        bool EditTag(Tag Tag, int? id);
     }
 
 }

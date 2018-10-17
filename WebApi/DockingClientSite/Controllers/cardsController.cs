@@ -18,7 +18,7 @@ namespace Rsetful.Controllers
     public class cardsController : Controller
     {
         private Bll bll = Bll.Instance();
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://localhost:9347/");
         //获取门禁卡列表
         public ActionResult GetCardList()
         {

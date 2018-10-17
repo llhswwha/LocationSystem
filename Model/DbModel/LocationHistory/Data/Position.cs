@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
@@ -118,9 +119,24 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
         public int? TopoNodeId { get; set; }
 
+        /// <summary>
+        /// 模拟数据
+        /// </summary>
+        [NotMapped]
+        public bool IsSimulate { get; set; }
+
         public Position()
         {
             //Archors = new List<string>();
+        }
+
+        public void AddArchor(string archor)
+        {
+            if (Archors == null)
+            {
+                Archors = new List<string>();
+            }
+            Archors.Add(archor);
         }
 
         public bool Parse(string info)
@@ -144,7 +160,10 @@ namespace DbModel.LocationHistory.Data
                 if (length > 7)
                     Flag = parts[7];
                 if (length > 8)
+                {
                     Archors = parts[8].Split('@').ToList();
+                    IsSimulate = parts[8] == "@0000";
+                }
                 return true;
             }
             catch (Exception ex)

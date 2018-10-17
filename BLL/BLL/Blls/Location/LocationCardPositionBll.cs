@@ -29,15 +29,15 @@ namespace BLL.Blls.Location
             return DbSet.Find(code);
         }
 
-        public List<LocationCardPosition> GetListByName(string name)
+        public List<LocationCardPosition> GetListByTagCode(string name)
         {
             return DbSet.Where(i => i.Code.Contains(name)).ToList();
         }
 
-        public List<LocationCardPosition> GetListByPerson(int person)
-        {
-            return DbSet.Where(i => i.PersonId==person).ToList();
-        }
+        //public List<LocationCardPosition> GetListByPerson(int person)
+        //{
+        //    return DbSet.Where(i => i.PersonId==person).ToList();
+        //}
 
         public List<LocationCardPosition> GetListByArea(int area)
         {

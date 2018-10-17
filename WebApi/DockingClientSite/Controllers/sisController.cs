@@ -19,7 +19,7 @@ namespace Rsetful.Controllers
     {
         private Bll bll = Bll.Instance();
 
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://localhost:9347/");
 
         // GET: sis
         public ActionResult GetSomesisList(string kks)

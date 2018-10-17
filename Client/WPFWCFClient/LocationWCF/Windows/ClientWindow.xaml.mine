@@ -1,0 +1,51 @@
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationWCFClient.Windows.ClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationWCFClient.Windows"
+        mc:Ignorable="d"
+        Title="ClientWindow" Height="800" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open"></MenuItem>
+                <MenuItem Header="Save"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="EchuHub" Name="MenuEchuHub" Click="MenuSignalR_Click"></MenuItem>
+                <MenuItem Header="ChatHub" Name="MenuChatHubMenu" Click="MenuChatHubMenu_Click"></MenuItem>
+                <MenuItem Header="Alarm" Name="MenuAlarm" Click="MenuAlarm_OnClick"></MenuItem>
+                <MenuItem Header="WebApi" Name="MenuWebApi" Click="MenuWebApi_OnClick"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>
+        <TabControl>
+            <TabItem Header="设备列表">
+                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
+            </TabItem>
+            <TabItem Header="人员列表">
+                <WPFClientControlLib:PersonListBox x:Name="PersonListBox1"/>
+            </TabItem>
+            <TabItem Header="标签列表">
+                <WPFClientControlLib:TagListBox x:Name="TagListBox1"/>
+            </TabItem>
+            <TabItem Header="基站列表">
+                <WPFClientControlLib:AchorListBox x:Name="AchorListBox1"/>
+            </TabItem>
+            <TabItem Header="设备告警">
+                <WPFClientControlLib:DeviceAlarmListBox x:Name="DeviceAlarmListBox1"/>
+            </TabItem>
+            <TabItem Header="定位告警">
+                <DataGrid Name="DataGridLocationAlarms"></DataGrid>
+            </TabItem>
+            <TabItem Header="Sqlite修改测试">
+                <StackPanel>
+                    <Button Name="BtnModifyArchor" Click="BtnModifyArchor_OnClick">修改基站</Button>
+                    <Button Name="BtnModifyTag" Click="BtnModifyArchor_OnClick">修改标签</Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+    </DockPanel>
+</Window>

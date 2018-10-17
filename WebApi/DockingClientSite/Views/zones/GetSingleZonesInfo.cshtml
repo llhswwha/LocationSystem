@@ -1,6 +1,6 @@
 ﻿@using CommunicationClass.SihuiThermalPowerPlant
 @using CommunicationClass.SihuiThermalPowerPlant.Models
-@model CommunicationClass.SihuiThermalPowerPlant.Models.zones
+@model CommunicationClass.SihuiThermalPowerPlant.Models.zone
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
         <tr>
             <td>@Model.id</td>
             <td>@Model.name</td>
-            <td>@Model.kks</td>
+            <td>@Model.kksCode</td>
             <td>@Model.description</td>
             <td>@Model.x</td>
             <td>@Model.y</td>
@@ -54,12 +54,12 @@
             <th>父ID</th>
             <th>级联关系</th>
         </tr>
-        @foreach (zones item in Model.lstzon)
+        @foreach (zone item in Model.zones)
         {
             <tr>
                 <td>@item.id</td>
                 <td>@item.name</td>
-                <td>@item.kks</td>
+                <td>@item.kksCode</td>
                 <td>@item.description</td>
                 <td>@item.x</td>
                 <td>@item.y</td>
@@ -76,12 +76,12 @@
             <th>名称</th>
             <th>KKS编码</th>
         </tr>
-        @foreach (devices item in Model.lstdev)
+        @foreach (device item in Model.devices)
         {
             <tr>
                 <td>@item.id</td>
                 <td>@item.name</td>
-                <td>@item.kks</td>
+                <td>@item.kksCode</td>
             </tr>
         }
     </table>

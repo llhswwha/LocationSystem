@@ -1,5 +1,5 @@
 ﻿@using CommunicationClass.SihuiThermalPowerPlant.Models
-@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<devices>
+@model CommunicationClass.SihuiThermalPowerPlant.BaseTran<device>
 
 <!DOCTYPE html>
 <html>
@@ -32,12 +32,12 @@
             <th>是否已指定点位</th>
             <th>原始ID</th>
         </tr>
-        @foreach (devices item in Model.data)
+        @foreach (device item in Model.data)
         {
             <tr>
                 <td>@item.id</td>
                 <td>@item.code</td>
-                <td>@item.kks</td>
+                <td>@item.kksCode</td>
                 <td>@item.name</td>
                 <td>@item.type</td>
                 <td>@item.state</td>

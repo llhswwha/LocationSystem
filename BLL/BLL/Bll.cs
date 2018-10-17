@@ -1,4 +1,5 @@
-﻿using BLL.Blls.Location;
+﻿using BLL.Blls.Engine;
+using BLL.Blls.Location;
 using BLL.Blls.LocationHistory;
 using DAL;
 using System;
@@ -16,6 +17,8 @@ namespace BLL
         public LocationDb Db;
 
         public LocationHistoryDb DbHistory = new LocationHistoryDb();
+
+        public EngineDb DbE = new EngineDb();
 
         /*******************Location****************************************/
 
@@ -129,6 +132,12 @@ namespace BLL
 
         public WorkTicketHistoryBll WorkTicketHistorys { get; set; }
 
+
+        /********************Engine********************************/
+        public bus_anchorBll bus_anchors { get; set; }
+
+        public bus_tagBll bus_tags { get; set; }
+
         public Bll() : this(false, true, true,true)
         {
 
@@ -197,8 +206,14 @@ namespace BLL
             U3DPositions = new U3DPositionBll(DbHistory);
             WorkTicketHistorys = new WorkTicketHistoryBll(DbHistory);
 
+
+            bus_anchors = new bus_anchorBll(DbE);
+            bus_tags = new bus_tagBll(DbE);
+
+
             LocationCards.ToList();
             DevEntranceGuardCardActions.ToList();
+            //bus_archors.ToList();
 
             Z.EntityFramework.Extensions.LicenseManager.AddLicense("34;100-LLHSWWHA", "384799A60700037CBFC0EB5E03A62474");
         }

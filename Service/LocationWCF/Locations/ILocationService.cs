@@ -20,7 +20,9 @@ namespace LocationServices.Locations
         IPostService,
         IBaseDataService,
         IWorkService,
-        IUserService
+        IUserService,
+        Ibus_anchor,
+        Ibus_tag
     {
 
     }

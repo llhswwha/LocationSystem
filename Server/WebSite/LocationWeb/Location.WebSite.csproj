@@ -593,6 +593,10 @@
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
       <Name>WebApiCommunication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\WebApi\WebNSQLib\WebNSQLib.csproj">
+      <Project>{13ccc157-451b-4249-bd65-a4db04a5c143}</Project>
+      <Name>WebNSQLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

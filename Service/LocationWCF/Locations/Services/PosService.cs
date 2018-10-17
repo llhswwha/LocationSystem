@@ -8,6 +8,7 @@ using TModel.Tools;
 using System;
 using Location.TModel.LocationHistory.Data;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using Location.TModel.Tools;
 
 namespace LocationServices.Locations.Services
@@ -44,8 +45,18 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetEntity(string id)
         {
-            var item = dbSet.Find(id.ToInt());
-            return item.ToTModel();
+            var item = dbSet.Find(id);
+
+            var tItem = item.ToTModel();
+            tItem.Area = db.Areas.Find(item.AreaId).ToTModel();
+            var tag = db.LocationCards.FirstOrDefault(i=>i.Code==item.Code);
+            var tagToPerson = db.LocationCardToPersonnels.FirstOrDefault(i => i.LocationCardId == tag.Id);
+            if (tagToPerson != null)
+            {
+                tItem.Person = tagToPerson.Personnel.ToTModel();
+                tItem.PersonId = tagToPerson.PersonnelId;
+            }
+            return tItem;
         }
 
         public IList<TEntity> GetList()
@@ -68,15 +79,18 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public IList<TEntity> GetListByName(string name)
+        public IList<TEntity> GetListByName(string tagCode)
         {
-            var devInfoList = dbSet.GetListByName(name).ToTModel();
+            var devInfoList = dbSet.GetListByTagCode(tagCode).ToTModel();
             return devInfoList.ToWCFList();
         }
 
         public IList<TEntity> GetListByPerson(string person)
         {
-            var devInfoList = dbSet.GetListByPerson(person.ToInt()).ToTModel();
+            var relation=db.LocationCardToPersonnels.DbSet.FirstOrDefault(i => i.PersonnelId+"" == person);
+            if (relation == null) return null;
+            var tag = db.LocationCards.Find(relation.LocationCardId);
+            var devInfoList = dbSet.GetListByTagCode(tag.Code).ToTModel();
             return devInfoList.ToWCFList();
         }
 

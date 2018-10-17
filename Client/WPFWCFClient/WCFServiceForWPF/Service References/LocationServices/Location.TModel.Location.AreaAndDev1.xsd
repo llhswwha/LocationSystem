@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
-  <xs:complexType name="ArrayOfTag">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tag" nillable="true" type="tns:Tag" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTag" nillable="true" type="tns:ArrayOfTag" />
   <xs:complexType name="Tag">
     <xs:sequence>
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
@@ -16,6 +10,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Tag" nillable="true" type="tns:Tag" />
+  <xs:complexType name="ArrayOfTag">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tag" nillable="true" type="tns:Tag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTag" nillable="true" type="tns:ArrayOfTag" />
   <xs:complexType name="ArrayOfObjectAddList_Type">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ObjectAddList_Type" nillable="true" type="tns:ObjectAddList_Type" />

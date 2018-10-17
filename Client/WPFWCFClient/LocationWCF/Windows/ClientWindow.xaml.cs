@@ -15,6 +15,8 @@ using Location.TModel.FuncArgs;
 using Location.TModel.Location.Alarm;
 using LocationClient.WebApi;
 using SignalRClientLib;
+using Location.TModel.Location.AreaAndDev;
+using TModel.Location.AreaAndDev;
 
 namespace LocationWCFClient.Windows
 {
@@ -130,10 +132,48 @@ namespace LocationWCFClient.Windows
             window.SetUrl(AppContext.Instance.GetWebApiUrl());
             window.Show();
         }
+<<<<<<< .mine
 
         private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
         {
             
         }
+||||||| .r13713
+=======
+
+        private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            Archor Archor = new Archor();
+            Archor.Code = "85G8";
+            Archor.Name = "测试";
+            Archor.X = 1000;
+            Archor.Y = 1000;
+            Archor.Z = 1000;
+            Archor.Type = 0;
+            Archor.IsAutoIp = true;
+            Archor.Ip = "127.0.0.1";
+            Archor.ServerIp = "127.0.0.1";
+            Archor.ServerPort = 40010;
+            Archor.Power = 100;
+            Archor.AliveTime = 100;
+            Archor.Enable = 0;
+            Archor.DevInfoId = 10;
+
+            client.EditBusAnchor(Archor,1);
+        }
+
+        private void BtnModifyTag_OnClick(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            Tag Tag = new Tag();
+
+            Tag.Code = "0004";
+            Tag.Name = "卡3";
+            Tag.Describe = "测试";
+
+            client.EditBusTag(Tag);
+        }
+>>>>>>> .r13761
     }
 }

@@ -15,7 +15,7 @@ namespace Rsetful.Controllers
     public class orgController : Controller
     {
         private Bll bll = Bll.Instance();
-        BaseDataClient client = new BaseDataClient("http://localhost:9347/");
+        BaseDataClient client = new BaseDataClient("https://localhost:9347/");
 
         //获取部门列表
         public ActionResult GetorgList()

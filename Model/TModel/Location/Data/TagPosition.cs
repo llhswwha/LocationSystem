@@ -19,7 +19,7 @@ namespace Location.TModel.Location.Data
         /// </summary>
         //[Key]
         [DataMember]
-        public string TagCode { get; set; }
+        public string Tag { get; set; }
 
         [DataMember]
         public float X { get; set; }
@@ -80,7 +80,7 @@ namespace Location.TModel.Location.Data
         /// 标签
         /// </summary>
         [DataMember]
-        public Tag Tag { get; set; }
+        public Tag TagEntity { get; set; }
 
         /// <summary>
         /// 人员
@@ -101,7 +101,7 @@ namespace Location.TModel.Location.Data
 
         public TagPosition(string tag)
         {
-            this.TagCode = tag;
+            this.Tag = tag;
         }
 
         //public TagPosition(Position pos)

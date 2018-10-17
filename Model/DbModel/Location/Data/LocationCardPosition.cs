@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 
@@ -94,6 +95,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "参与计算的基站编号")]
+        [NotMapped]
         public List<string> Archors { get; set; }
 
         /// <summary>
@@ -103,13 +105,6 @@ namespace DbModel.Location.Data
         [Display(Name = "基站所在的区域、建筑、楼层")]
         public int? AreaId { get; set; }
 
-        /// <summary>
-        /// 关联人员的Id
-        /// </summary>
-        [DataMember]
-        [Display(Name = "关联人员")]
-        public int? PersonId { get; set; }
-
         public LocationCardPosition()
         {
             Archors = new List<string>();
@@ -117,6 +112,7 @@ namespace DbModel.Location.Data
 
         public LocationCardPosition(string code)
         {
+            DateTime = DateTime.Now;
             this.Code = code;
         }
 

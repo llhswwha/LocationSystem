@@ -81,22 +81,20 @@ namespace WebApiLib.Clients
         /// 获取人员列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<users> GetUserList()
+        public BaseTran<user> GetUserList()
         {
-            BaseTran<users> recv = new BaseTran<users>();
+            //users recv = new users();
+            //BaseTran<user> recv2 = new BaseTran<user>();
+            BaseTran<user> recv = new BaseTran<user>();
+
 
             try
             {
                 string path = "api/users";
                 string url = BaseUri + path;
-                recv = GetEntityList<users>(url);
-
-                if (recv.data == null)
-                {
-                    recv.data = new List<users>();
-                }
-
-                foreach (users item in recv.data)
+                recv = GetEntityList<user>(url);
+                
+                foreach (user item in recv.data)
                 {
                     List<Personnel> PeList = bll.Personnels.DbSet.Where(p => p.Name == item.name).ToList();
                     Personnel Personnel = null;
@@ -248,36 +246,36 @@ namespace WebApiLib.Clients
         /// 获取区域列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<zones> GetzonesList()
+        public BaseTran<zone> GetzonesList()
         {
-            BaseTran<zones> recv = new BaseTran<zones>();
+            BaseTran<zone> recv = new BaseTran<zone>();
 
             try
             {
-                string path = "api/zones?struc=LIST";
+                string path = "api/zones?struct=LIST";
                 string url = BaseUri + path;
-                recv = GetEntityList<zones>(url);
+                recv = GetEntityList<zone>(url);
 
                 if (recv.data == null)
                 {
-                    recv.data = new List<zones>();
+                    recv.data = new List<zone>();
                 }
 
-                foreach (zones item in recv.data)
+                foreach (zone item in recv.data)
                 {
-                    Area area = bll.Areas.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    Area area = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
                     int nFlag = 0;
                     if (area == null)
                     {
                         area = new Area();
+                        area.Abutment_Id = item.id;
                         area.IsRelative = false;
                         area.Type = 0;
                         nFlag = 1;
                     }
 
-                    area.Abutment_Id = item.id;
                     area.Name = item.name;
-                    area.KKS = item.kks;
+                    area.KKS = item.kksCode;
                     area.Abutment_ParentId = item.parent_id;
                     area.Describe = item.description;
 
@@ -291,7 +289,7 @@ namespace WebApiLib.Clients
                     }
                 }
 
-                foreach (zones item in recv.data)
+                foreach (zone item in recv.data)
                 {
                     if (item.parent_id == null)
                     {
@@ -322,9 +320,9 @@ namespace WebApiLib.Clients
         /// <param name="id"></param>
         /// <param name="view"></param>
         /// <returns></returns>
-        public zones GetSingleZonesInfo(int id, int view)
+        public zone GetSingleZonesInfo(int id, int view)
         {
-            zones recv = new zones();
+            zone recv = new zone();
             
             string strId = Convert.ToString(id);
             string strView = Convert.ToString(view);
@@ -332,24 +330,24 @@ namespace WebApiLib.Clients
             {
                 string path = "api/zones/" + strId + "?view=" + strView;
                 string url = BaseUri + path;
-                recv = GetEntityDetail<zones>(url);
+                recv = GetEntityDetail<zone>(url);
 
                 if (recv == null)
                 {
-                    recv = new zones();
+                    recv = new zone();
                 }
                 
-                if (recv.lstzon == null)
+                if (recv.zones == null)
                 {
-                    recv.lstzon = new List<zones>();
+                    recv.zones = new List<zone>();
                 }
 
-                if (recv.lstdev == null)
+                if (recv.devices == null)
                 {
-                    recv.lstdev = new List<devices>();
+                    recv.devices = new List<device>();
                 }
 
-                Area area = bll.Areas.DbSet.Where(p => p.KKS == recv.kks).FirstOrDefault();
+                Area area = bll.Areas.DbSet.Where(p => p.Abutment_Id == recv.id).FirstOrDefault();
 
                 int nFlag = 0;
                 if (area == null)
@@ -362,7 +360,7 @@ namespace WebApiLib.Clients
 
                 area.Abutment_Id = recv.id;
                 area.Name = recv.name;
-                area.KKS = recv.kks;
+                area.KKS = recv.kksCode;
                 area.Abutment_ParentId = recv.parent_id;
                 area.Describe = recv.description;
 
@@ -381,22 +379,22 @@ namespace WebApiLib.Clients
                     bll.Areas.Edit(area);
                 }
 
-                foreach (zones item2 in recv.lstzon)
+                foreach (zone item2 in recv.zones)
                 {
-                    Area area2 = bll.Areas.DbSet.Where(p => p.KKS == item2.kks).FirstOrDefault();
+                    Area area2 = bll.Areas.DbSet.Where(p => p.Abutment_Id == item2.id).FirstOrDefault();
                     nFlag = 0;
                     if (area2 == null)
                     {
                         area2 = new Area();
+                        area2.Abutment_Id = item2.id;
                         area2.IsRelative = false;
                         area2.Type = 0;
                         nFlag = 1;
                     }
 
                     area2.ParentId = area.Id;
-                    area2.Abutment_Id = item2.id;
                     area2.Name = item2.name;
-                    area2.KKS = item2.kks;
+                    area2.KKS = item2.kksCode;
                     area2.Abutment_ParentId = item2.parent_id;
                     area2.Describe = item2.description;
 
@@ -410,9 +408,9 @@ namespace WebApiLib.Clients
                     }
                 }
 
-                foreach (devices item3 in recv.lstdev)
+                foreach (device item3 in recv.devices)
                 {
-                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item3.kks).FirstOrDefault();
+                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item3.kksCode).FirstOrDefault();
                     nFlag = 0;
                     if (devinfo == null)
                     {
@@ -423,7 +421,7 @@ namespace WebApiLib.Clients
                     devinfo.ParentId = area.Id;
                     devinfo.Abutment_Id = item3.id;
                     devinfo.Code = item3.code;
-                    devinfo.KKS = item3.kks;
+                    devinfo.KKS = item3.kksCode;
                     devinfo.Name = item3.name;
                     devinfo.Abutment_Type = (Abutment_DevTypes)item3.type;
                     devinfo.Status = (Abutment_Status)item3.state;
@@ -454,28 +452,28 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public BaseTran<devices> GetZoneDevList(int id)
+        public BaseTran<device> GetZoneDevList(int id)
         {
-            BaseTran<devices> recv = new BaseTran<devices>();
+            BaseTran<device> recv = new BaseTran<device>();
             string strId = Convert.ToString(id);
 
             try
             {
                 string path = "api/zones/" + strId + "/devices";
                 string url = BaseUri + path;
-                recv = GetEntityList<devices>(url);
+                recv = GetEntityList<device>(url);
 
                 if (recv.data == null)
                 {
-                    recv.data = new List<devices>();
+                    recv.data = new List<device>();
                 }
 
                 Area area = bll.Areas.DbSet.Where(p => p.Abutment_Id == id).FirstOrDefault();
                 if (area != null)
                 {
-                    foreach (devices item in recv.data)
+                    foreach (device item in recv.data)
                     {
-                        DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                        DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kksCode).FirstOrDefault();
                         int nFlag = 0;
                         if (devinfo == null)
                         {
@@ -486,7 +484,7 @@ namespace WebApiLib.Clients
                         devinfo.ParentId = area.Id;
                         devinfo.Abutment_Id = item.id;
                         devinfo.Code = item.code;
-                        devinfo.KKS = item.kks;
+                        devinfo.KKS = item.kksCode;
                         devinfo.Name = item.name;
                         devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
                         devinfo.Status = (Abutment_Status)item.state;
@@ -532,9 +530,9 @@ namespace WebApiLib.Clients
         /// <param name="code"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public BaseTran<devices> GetDeviceList(string types, string code, string name)
+        public BaseTran<device> GetDeviceList(string types, string code, string name)
         {
-            BaseTran<devices> recv = new BaseTran<devices>();
+            BaseTran<device> recv = new BaseTran<device>();
 
             try
             {
@@ -568,16 +566,16 @@ namespace WebApiLib.Clients
                     url += "&name";
                 }
 
-                recv = GetEntityList<devices>(url);
+                recv = GetEntityList<device>(url);
 
                 if (recv.data == null)
                 {
-                    recv.data = new List<devices>();
+                    recv.data = new List<device>();
                 }
 
-                foreach (devices item in recv.data)
+                foreach (device item in recv.data)
                 {
-                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kksCode).FirstOrDefault();
                     int nFlag = 0;
                     if (devinfo == null)
                     {
@@ -587,7 +585,7 @@ namespace WebApiLib.Clients
 
                     devinfo.Abutment_Id = item.id;
                     devinfo.Code = item.code;
-                    devinfo.KKS = item.kks;
+                    devinfo.KKS = item.kksCode;
                     devinfo.Name = item.name;
                     devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
                     devinfo.Status = (Abutment_Status)item.state;
@@ -627,18 +625,18 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public devices GetSingleDeviceInfo(int id)
+        public device GetSingleDeviceInfo(int id)
         {
-            devices recv = new devices();
+            device recv = new device();
             string strId = Convert.ToString(id);
 
             try
             {
                 string path = "api/devices/" + strId;
                 string url = BaseUri + path;
-                recv = GetEntityDetail<devices>(url);
+                recv = GetEntityDetail<device>(url);
                 
-                DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == recv.kks).FirstOrDefault();
+                DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == recv.kksCode).FirstOrDefault();
                 int nFlag = 0;
                 if (devinfo == null)
                 {
@@ -648,7 +646,7 @@ namespace WebApiLib.Clients
 
                 devinfo.Abutment_Id = recv.id;
                 devinfo.Code = recv.code;
-                devinfo.KKS = recv.kks;
+                devinfo.KKS = recv.kksCode;
                 devinfo.Name = recv.name;
                 devinfo.Abutment_Type = (Abutment_DevTypes)recv.type;
                 devinfo.Status = (Abutment_Status)recv.state;

@@ -10,7 +10,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
     /// <summary>
     /// 获取区域列表
     /// </summary>
-    public class zones
+    public class zone
     {
         /// <summary>
         /// 标识
@@ -28,7 +28,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// KKS编码
         /// </summary>
         [Display(Name = "KKS编码")]
-        public string kks { get; set; }
+        public string kksCode { get; set; }
 
         /// <summary>
         /// 说明
@@ -66,24 +66,25 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         [Display(Name = "级联关系")]
         public string path { get; set; }
 
-        public List<zones> lstzon { get; set; }
+        public List<zone> zones { get; set; }
 
-        public List<devices> lstdev { get; set; }
+        public List<device> devices { get; set; }
 
-        public zones Clone()
+        public zone Clone()
         {
-            zones copy = new zones();
+            zone copy = new zone();
             copy.id = this.id;
             copy.name = this.name;
-            copy.kks = this.kks;
+            copy.kksCode = this.kksCode;
             copy.description = this.description;
             copy.x = this.x;
             copy.y = this.y;
             copy.z = this.z;
             copy.parent_id = this.parent_id;
             copy.path = this.path;
-            copy.lstzon = this.lstzon;
-            copy.lstdev = this.lstdev;
+            copy.zones = this.zones;
+            copy.devices = this.devices;
+            
 
 
             return copy;
