@@ -200,7 +200,7 @@ namespace LocationServices.Locations.Services
             }
             var info = from u in dbSet.DbSet
                 where
-                    personnelID == u.PersonnelID && topoNodeIds.Contains((int) u.TopoNodeId) && u.DateTimeStamp >= startStamp &&
+                    personnelID == u.PersonnelID && topoNodeIds.Contains((int) u.AreaId) && u.DateTimeStamp >= startStamp &&
                     u.DateTimeStamp <= endStamp
                 select u;
             var tempList = info.ToList();
@@ -217,7 +217,7 @@ namespace LocationServices.Locations.Services
             }
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds.Contains((int)u.TopoNodeId) && u.DateTimeStamp >= startStamp &&
+                           topoNodeIds.Contains((int)u.AreaId) && u.DateTimeStamp >= startStamp &&
                            u.DateTimeStamp <= endStamp
                        select u;
             var tempList = info.ToList();
@@ -228,7 +228,7 @@ namespace LocationServices.Locations.Services
         {
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds.Contains((int)u.TopoNodeId) 
+                           topoNodeIds.Contains((int)u.AreaId) 
                        select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
@@ -238,7 +238,7 @@ namespace LocationServices.Locations.Services
         {
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds==u.TopoNodeId
+                           topoNodeIds==u.AreaId
                        select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
@@ -254,7 +254,7 @@ namespace LocationServices.Locations.Services
             }
             var info = from u in dbSet.DbSet
                 where
-                    topoNode == u.TopoNodeId && u.DateTimeStamp >= startStamp &&
+                    topoNode == u.AreaId && u.DateTimeStamp >= startStamp &&
                     u.DateTimeStamp <= endStamp
                 select u;
             var tempList = info.ToList();

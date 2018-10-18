@@ -110,6 +110,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "参与计算的基站编号")]
+        [NotMapped]
         public List<string> Archors { get; set; }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
-        public int? TopoNodeId { get; set; }
+        public int? AreaId { get; set; }
 
         /// <summary>
         /// 模拟数据
@@ -180,9 +181,7 @@ namespace DbModel.LocationHistory.Data
 
         public Position Clone()
         {
-            Position copy = new Position();
-            copy = this.CloneObjectByBinary();
-
+            Position copy = this.CloneObjectByBinary();
             return copy;
         }
     }

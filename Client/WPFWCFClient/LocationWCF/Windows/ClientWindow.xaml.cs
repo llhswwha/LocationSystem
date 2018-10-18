@@ -132,14 +132,6 @@ namespace LocationWCFClient.Windows
             window.SetUrl(AppContext.Instance.GetWebApiUrl());
             window.Show();
         }
-<<<<<<< .mine
-
-        private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-||||||| .r13713
-=======
 
         private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
         {
@@ -174,6 +166,5 @@ namespace LocationWCFClient.Windows
 
             client.EditBusTag(Tag);
         }
->>>>>>> .r13761
     }
 }

@@ -188,11 +188,7 @@ namespace LocationWCFServer
         private void StopServices()
         {
             WriteLog("停止服务");
-            if (engineClient != null)
-            {
-                engineClient.Stop();
-                engineClient = null;
-            }
+            StopConnectEngine();
             if (LocationService.u3dositionSP != null)
             {
                 LocationService.u3dositionSP.Stop();
@@ -308,15 +304,6 @@ namespace LocationWCFServer
             string url = string.Format("http://{0}:{1}/LocationService", host, port);
             Uri baseAddres = new Uri(url);
             locationServiceHost = new ServiceHost(typeof (LocationService), baseAddres);
-            //ServiceMetadataBehavior metadataBehavior =
-            //    locationServiceHost.Description.Behaviors.Find<ServiceMetadataBehavior>();
-            //if (metadataBehavior == null)
-            //{
-            //    metadataBehavior = new ServiceMetadataBehavior();
-            //    metadataBehavior.HttpGetEnabled = true;
-            //    metadataBehavior.HttpGetUrl = httpGetUrl;
-            //    locationServiceHost.Description.Behaviors.Add(metadataBehavior);
-            //}
             BasicHttpBinding httpBinding = new BasicHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof (ILocationService), httpBinding, baseAddres);
 
@@ -364,7 +351,17 @@ namespace LocationWCFServer
 
         private void BtnConnectEngine_Click(object sender, RoutedEventArgs e)
         {
-            StartConnectEngine();
+            if (BtnConnectEngine.Content.ToString() == "连接定位引擎")
+            {
+                StartConnectEngine();
+                BtnConnectEngine.Content = "断开定位引擎";
+            }
+            else
+            {
+                StopConnectEngine();
+                BtnConnectEngine.Content = "连接定位引擎";
+            }
+            
         }
 
 

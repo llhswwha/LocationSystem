@@ -7,6 +7,7 @@ using TModel.Tools;
 using TEntity = Location.TModel.Location.AreaAndDev.Tag;
 using DbEntity = DbModel.Location.AreaAndDev.LocationCard;
 using System;
+using System.Linq;
 
 namespace LocationServices.Locations.Services
 {
@@ -15,6 +16,8 @@ namespace LocationServices.Locations.Services
         bool DeleteAll();
 
         bool AddList(List<TEntity> entities);
+
+        IList<TEntity> GetList(bool detail);
     }
     public class TagService : ITagService
     {
@@ -42,14 +45,49 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetEntity(string id)
         {
-            var item = dbSet.Find(id.ToInt());
-            return item.ToTModel();
+            //var item = dbSet.Find(id.ToInt()).ToTModel();
+
+            var query = from tag in dbSet.DbSet where tag.Id + "" == id
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
+                        join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
+                        select new { Tag = tag, Person = p, Pos = pos };
+            var result = query.FirstOrDefault();
+            if (result == null) return null;
+            var item = result.Tag.ToTModel();
+            item.Person = result.Person.ToTModel();
+            item.Pos = result.Pos.ToTModel();
+            return item;
         }
 
         public IList<TEntity> GetList()
         {
-            var devInfoList = dbSet.ToList().ToTModel();
-            return devInfoList.ToWCFList();
+            return GetList(false);
+        }
+
+        public IList<TEntity> GetList(bool detail)
+        {
+            if (detail)
+            {
+                var list = new List<TEntity>();
+                var query = from tag in dbSet.DbSet
+                    join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                    join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
+                    join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
+                    select new {Tag = tag, Person = p, Pos = pos};
+                foreach (var item in query)
+                {
+                    var entity = item.Tag.ToTModel();
+                    entity.Person = item.Person.ToTModel();
+                    entity.Pos = item.Pos.ToTModel();
+                    list.Add(entity);
+                }
+                return list;
+            }
+            else
+            {
+                return dbSet.ToList().ToWcfModelList();
+            }
         }
 
         public IList<TEntity> GetListByName(string name)

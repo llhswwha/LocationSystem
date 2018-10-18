@@ -105,6 +105,13 @@ namespace DbModel.Location.Data
         [Display(Name = "基站所在的区域、建筑、楼层")]
         public int? AreaId { get; set; }
 
+        /// <summary>
+        /// 关联的人员
+        /// </summary>
+        [DataMember]
+        [Display(Name = "关联的人员")]
+        public int? PersonId { get; set; }
+
         public LocationCardPosition()
         {
             Archors = new List<string>();
@@ -133,7 +140,7 @@ namespace DbModel.Location.Data
             this.Number = pos.Number;
             this.Flag = pos.Flag;
             this.Archors = pos.Archors;
-            this.AreaId = pos.TopoNodeId;
+            this.AreaId = pos.AreaId;
         }
 
         public LocationCardPosition Clone()

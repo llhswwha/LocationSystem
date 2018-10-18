@@ -7,6 +7,7 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TModel.Tools;
 using DbEntity = DbModel.Location.AreaAndDev.Area;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -15,7 +16,7 @@ namespace LocationServices.Locations.Services
 {
     public interface IAreaService : ITreeEntityService<TEntity>
     {
-
+        IList<TEntity> GetListWithPerson();
     }
     public class AreaService : IAreaService
     {
@@ -40,8 +41,28 @@ namespace LocationServices.Locations.Services
 
         public IList<TEntity> GetList()
         {
-            var list = dbSet.ToList();
-            return list.ToWcfModelList();
+            return dbSet.ToList().ToWcfModelList();
+        }
+
+        public IList<TEntity> GetListWithPerson()
+        {
+            var query = from p in db.Personnels.DbSet
+                join r in db.LocationCardToPersonnels.DbSet on p.ParentId equals r.PersonnelId
+                join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                select new {Person = p, Area = pos.AreaId};
+            var pList = query.ToList();
+            IList<TEntity> list = GetList();
+            foreach (var item in pList)
+            {
+                var entity = list.First(i => i.Id == item.Area);
+                if (entity != null)
+                {
+                    entity.AddPerson(item.Person.ToTModel());
+                }
+            }
+            //todo:有必要的话做一个简化版的 只有区域和人员人员基本信息的列表
+            return list;
         }
 
         public TEntity GetTree()

@@ -2,6 +2,8 @@
 using Location.IModel.Locations;
 using Location.TModel.ConvertCodes;
 using System;
+using Location.TModel.Location.Data;
+using Location.TModel.Location.Person;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -24,6 +26,12 @@ namespace Location.TModel.Location.AreaAndDev
 
         [DataMember]
         public string Describe { get; set; }
+
+        [DataMember]
+        public Personnel Person { get; set; }
+
+        [DataMember]
+        public TagPosition Pos { get; set; }
 
         public override string ToString()
         {

@@ -19,6 +19,7 @@ using WebNSQLib;
 using System.Threading;
 using SignalRService.Hubs;
 using LocationServices.Converters;
+using LocationServices.Tools;
 
 namespace WebLocation
 {
@@ -37,12 +38,27 @@ namespace WebLocation
             
             InitData();
 
-            RealAlarm ra = new RealAlarm();
-            Thread th = new Thread(ra.ReceiveRealAlarmInfo);
-            th.Start();
-            ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
+            if (receiveAlarmThread != null)
+            {
+                RealAlarm ra = new RealAlarm();
+                receiveAlarmThread = new Thread(ra.ReceiveRealAlarmInfo);
+                receiveAlarmThread.Start();
+                ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
+            }
 
+            if (engineClient == null)
+            {
+                engineClient = new PositionEngineClient();
+                engineClient.Logs = Logs;
+                engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+            }
         }
+
+        private PositionEngineLog Logs = new PositionEngineLog();
+
+        private PositionEngineClient engineClient;
+
+        private Thread receiveAlarmThread;
 
         private void InitData()
         {

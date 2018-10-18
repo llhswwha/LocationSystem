@@ -120,6 +120,12 @@ namespace LocationWCFServer
                 aliveThread.Abort();
                 aliveThread = null;
             }
+
+            if (ludp2 != null)
+            {
+                ludp2.Close();
+                ludp2 = null;
+            }
         }
     }
 }

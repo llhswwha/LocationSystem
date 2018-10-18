@@ -105,7 +105,7 @@ namespace BLL
                             if (Math.Abs(archor.Y - position.Y) < 0.1f)
                             {
                                 //找到对应ID,不往后找
-                                position.TopoNodeId = archor.DevInfo.ParentId;
+                                position.AreaId = archor.DevInfo.ParentId;
                                 break;
                             }
                             //if (!position.TopoNodes.Contains(archor.Dev.ParentId))
@@ -114,7 +114,7 @@ namespace BLL
                     }
                     else
                     {
-                        position.TopoNodeId = null;
+                        position.AreaId = null;
                     }
                     //Todo:找不到合适的ID,需要处理一下
 

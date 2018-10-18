@@ -24,6 +24,13 @@ namespace WebApiService.Controllers
             return service.GetList();
         }
 
+        [Route("persons")]
+        [Route("list/persons")]
+        public IList<TEntity> GetListWithPerson()
+        {
+            return service.GetListWithPerson();
+        }
+
         [Route("tree")]
         public TEntity GetTree()
         {

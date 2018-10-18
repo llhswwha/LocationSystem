@@ -39,7 +39,6 @@ namespace LocationWCFServer
                 engineClient.Logs = Logs;
                 engineClient.StartConnectEngine(mockCount, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
             }
-
             StartInsertPositionTimer();
 
         }
@@ -118,10 +117,12 @@ namespace LocationWCFServer
             if (engineClient != null)
             {
                 engineClient.Stop();
+                engineClient = null;
             }
             if (_stopwatchTextBox != null)
             {
                 _stopwatchTextBox.Stop();
+                _stopwatchTextBox = null;
             }
         }
 

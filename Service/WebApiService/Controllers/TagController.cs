@@ -49,6 +49,20 @@ namespace WebApiService.Controllers
             return service.GetList();
         }
 
+        [Route("")]
+        [Route("list")]
+        public IList<TEntity> GetList(bool detail)
+        {
+            return service.GetList(detail);
+        }
+
+        [Route("detail")]
+        [Route("list/detail")]
+        public IList<TEntity> GetListWithDetail()
+        {
+            return service.GetList(true);
+        }
+
         [Route("")]//search/?name=主
         [Route("search/{name}")]//search/1,直接中文不行
         public IList<TEntity> GetListByName(string name)

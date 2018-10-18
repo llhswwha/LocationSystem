@@ -163,24 +163,26 @@ namespace LocationServices.Tools
                 var tagToPersons = positionBll.LocationCardToPersonnels.ToList();
                 var tags = positionBll.LocationCards.ToList();
                 var archors = positionBll.Archors.ToList();//基站
-                var tagPositions = positionBll.LocationCardPositions.ToList();//实时位置
+                
 
                 list1 = RemoveRepeatPosition(list1);
 
-                //剔除位置信息不变的部分
-                List<Position> list2 = new List<Position>();
-                foreach (var pos in list1)
-                {
-                    var tagPos = tagPositions.Find(i => i.Code == pos.Code);
-                    if (tagPos != null)
-                    {
-                        double distance = (tagPos.X - pos.X)*(tagPos.X - pos.X) + (tagPos.Z - pos.Z)*(tagPos.Z - pos.Z);
-                        if (distance > 1)
-                        {
-                            list2.Add(pos);
-                        }
-                    }
-                }
+                //var tagPositions = positionBll.LocationCardPositions.ToList();//实时位置
+                ////剔除位置信息不变的部分
+                //List<Position> list2 = new List<Position>();
+                //foreach (var pos in list1)
+                //{
+                //    var tagPos = tagPositions.Find(i => i.Code == pos.Code);
+                //    if (tagPos != null)
+                //    {
+                //        double distance = (tagPos.X - pos.X)*(tagPos.X - pos.X) + (tagPos.Z - pos.Z)*(tagPos.Z - pos.Z);
+                //        if (distance > 1)
+                //        {
+                //            list2.Add(pos);
+                //        }
+                //    }
+                //}
+                ////todo:怎么利用能够判断位置信息不变的部分呢
 
                 //处理定位引擎位置信息，添加关联人员信息
                 foreach (Position pos in list1)
@@ -188,8 +190,10 @@ namespace LocationServices.Tools
                     if (pos == null) continue;
                     try
                     {
-                        var tag = tags.Find(i => i.Code == pos.Code);//板块
+                        var tag = tags.Find(i => i.Code == pos.Code);//标签
+                        if (tag == null) continue;
                         var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id);//关系
+                        if (ttp == null) continue;
                         var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId);//人员
                         if (personnelT != null)
                         {
@@ -198,14 +202,15 @@ namespace LocationServices.Tools
 
                         if (pos.IsSimulate)//是模拟程序数据
                         {
-                            var relativeArchors=archors.FindAll(i => ((i.X - pos.X)*(i.X - pos.X) + (i.Z - pos.Z)*(i.Z - pos.Z)) < 100);
+                            var relativeArchors=archors.FindAll(i => ((i.X - pos.X)*(i.X - pos.X) + (i.Z - pos.Z)*(i.Z - pos.Z)) < 100).ToList();
+                            if (relativeArchors == null) continue;
                             foreach (var archor in relativeArchors)
                             {
                                 pos.AddArchor(archor.Code);
                             }
                         }
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         int i = 0;
                     }

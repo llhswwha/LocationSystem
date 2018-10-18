@@ -4,6 +4,7 @@ using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Location.AreaAndDev;
+using Location.TModel.Location.Data;
 using Location.TModel.Tools;
 
 namespace Location.TModel.Location.Person
@@ -14,6 +15,8 @@ namespace Location.TModel.Location.Person
     [DataContract] [Serializable]
     public class Personnel:INode
     {
+        private Tag _tag;
+
         public Personnel()
         {
             BirthDay = new DateTime(2000, 1, 1);
@@ -120,10 +123,26 @@ namespace Location.TModel.Location.Person
 
         [DataMember]
         public int? TagId { get; set; }
+
         [DataMember]
-        public virtual Tag Tag { get; set; }
+        public virtual Tag Tag
+        {
+            get { return _tag; }
+            set
+            {
+                _tag = value;
+                if (value != null)
+                {
+                    TagId = value.Id;
+                }
+            }
+        }
+
         [DataMember]
         public string Pst { get; set; }
+
+        [DataMember]
+        public TagPosition Pos { get; set; }
 
         public Personnel Clone()
         {

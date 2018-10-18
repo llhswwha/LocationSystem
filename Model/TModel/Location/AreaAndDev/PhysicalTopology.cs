@@ -4,6 +4,7 @@ using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.ConvertCodes;
 using System;
+using Location.TModel.Location.Person;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -71,15 +72,28 @@ namespace Location.TModel.Location.AreaAndDev
         public string Tag { get; set; }
 
         [DataMember]
-        //[ForeignKey("ParentId")]
-        public virtual List<PhysicalTopology> Children { get; set; }
+        public List<PhysicalTopology> Children { get; set; }
 
         /// <summary>
         /// 叶子节点：区域中的设备
         /// </summary>
         [DataMember]
-        //[ForeignKey("ParentId")]
-        public virtual List<DevInfo> LeafNodes { get; set; }
+        public List<DevInfo> LeafNodes { get; set; }
+
+        /// <summary>
+        /// 区域内人员
+        /// </summary>
+        [DataMember]
+        public List<Personnel> Persons { get; set; }
+
+        public void AddPerson(Personnel p)
+        {
+            if (Persons == null)
+            {
+                Persons=new List<Personnel>();
+            }
+            Persons.Add(p);
+        }
 
         [DataMember]
         public string KKS { get; set; }

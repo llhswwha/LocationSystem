@@ -924,7 +924,7 @@ namespace LocationServices.Converters
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
             item2.Archors = item1.Archors;
-            item2.TopoNodeId = item1.TopoNodeId;
+            item2.TopoNodeId = item1.AreaId;
             return item2;
         }
 
@@ -957,7 +957,7 @@ namespace LocationServices.Converters
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
             item2.Archors = item1.Archors;
-            item2.TopoNodeId = item1.TopoNodeId;
+            item2.AreaId = item1.TopoNodeId;
             return item2;
         }
 
