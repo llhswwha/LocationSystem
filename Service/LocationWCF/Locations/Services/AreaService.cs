@@ -8,6 +8,10 @@ using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DbModel.Location.Person;
+using DbModel.Tools;
+using Location.IModel;
+using TModel.Location.Nodes;
 using TModel.Tools;
 using DbEntity = DbModel.Location.AreaAndDev.Area;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -17,6 +21,23 @@ namespace LocationServices.Locations.Services
     public interface IAreaService : ITreeEntityService<TEntity>
     {
         IList<TEntity> GetListWithPerson();
+
+        TEntity GetTreeWithDev();
+        TEntity GetTreeWithPerson();
+
+        /// <summary>
+        /// 获取树节点
+        /// </summary>
+        /// <param name="view">0:基本数据;1:设备信息;2:人员信息;3:设备信息+人员信息</param>
+        /// <returns></returns>
+        TEntity GetTree(int view);
+
+        /// <summary>
+        /// 获取树节点基本数据
+        /// </summary>
+        /// <param name="view">0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息</param>
+        /// <returns></returns>
+        AreaNode GetBasicTree(int view);
     }
     public class AreaService : IAreaService
     {
@@ -36,22 +57,15 @@ namespace LocationServices.Locations.Services
             dbSet = db.Areas;
         }
 
-        LocationService service = new LocationService();
-
-
         public IList<TEntity> GetList()
         {
-            return dbSet.ToList().ToWcfModelList();
+            var list1 = dbSet.ToList();
+            return list1.ToWcfModelList();
         }
 
         public IList<TEntity> GetListWithPerson()
         {
-            var query = from p in db.Personnels.DbSet
-                join r in db.LocationCardToPersonnels.DbSet on p.ParentId equals r.PersonnelId
-                join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
-                select new {Person = p, Area = pos.AreaId};
-            var pList = query.ToList();
+            var pList = GetPersonAreaList();
             IList<TEntity> list = GetList();
             foreach (var item in pList)
             {
@@ -65,17 +79,137 @@ namespace LocationServices.Locations.Services
             return list;
         }
 
+        private List<PersonArea> GetPersonAreaList()
+        {
+            var query = from p in db.Personnels.DbSet
+                        join r in db.LocationCardToPersonnels.DbSet on p.ParentId equals r.PersonnelId
+                        join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        select new PersonArea { Person = p, Area = pos.AreaId };
+            var pList = query.ToList();
+            return pList;
+        } 
+
+        class PersonArea
+        {
+            public Personnel Person { get; set; }
+
+            public int? Area { get; set; }
+        }
+
         public TEntity GetTree()
         {
-            try
+            var root0 = LocationSP.GetPhysicalTopologyTree(db, false);
+            var root = root0.ToTModel();
+            return root;
+        }
+
+        /// <summary>
+        /// 获取树节点
+        /// </summary>
+        /// <param name="view">0:基本数据;1:设备信息;2:人员信息;3:设备信息+人员信息</param>
+        /// <returns></returns>
+        public TEntity GetTree(int view)
+        {
+            TEntity tree = null;
+            if (view == 0)
             {
-                var root0 = LocationSP.GetPhysicalTopologyTree();
-                var root = root0.ToTModel();
-                return root;
+                tree = GetTree();
             }
-            catch (Exception ex)
+            else if (view == 1)
             {
-                Log.Error(ex);
+                tree = GetTreeWithDev();
+            }
+            else if (view == 2)
+            {
+                tree = GetTreeWithPerson();
+            }
+            else if (view == 3)
+            {
+                var leafNodes = db.DevInfos.ToList();
+                tree = GetTreeWithPerson(leafNodes.ToTModel());
+            }
+            return tree;
+        }
+
+        /// <summary>
+        /// 获取树节点基本数据
+        /// </summary>
+        /// <param name="view">0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息</param>
+        /// <returns></returns>
+        public AreaNode GetBasicTree(int view)
+        {
+            var areaList = dbSet.ToList();
+            var list = areaList.ToTModelS();
+
+            List<DevNode> devs = null;
+            if (view == 0)
+            {
+
+            }
+            else if (view == 1)
+            {
+                devs = db.DevInfos.ToList().ToTModelS();
+            }
+            else if (view == 2)
+            {
+                var personList = GetPersonAreaList();
+                foreach (var item in personList)
+                {
+                    var entity = list.First(i => i.Id == item.Area);
+                    if (entity != null)
+                    {
+                        entity.AddPerson(item.Person.ToTModelS());
+                    }
+                }
+            }
+            else if (view == 3)
+            {
+                var personList = GetPersonAreaList();
+                foreach (var item in personList)
+                {
+                    var entity = list.First(i => i.Id == item.Area);
+                    if (entity != null)
+                    {
+                        entity.AddPerson(item.Person.ToTModelS());
+                    }
+                }
+                devs = db.DevInfos.ToList().ToTModelS();
+            }
+
+            var roots = TreeHelper.CreateTree(list, devs);
+            if (roots.Count > 0)
+            {
+                return roots[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public TEntity GetTreeWithDev()
+        {
+            var root0 = LocationSP.GetPhysicalTopologyTree(db, true);
+            var root = root0.ToTModel();
+            return root;
+        }
+
+        public TEntity GetTreeWithPerson()
+        {
+            return GetTreeWithPerson(null);
+        }
+
+        private TEntity GetTreeWithPerson(List<Location.TModel.Location.AreaAndDev.DevInfo> devs)
+        {
+            List<TEntity> list = GetListWithPerson().ToList();
+            List<TEntity> roots = TreeHelper.CreateTree<TEntity, Location.TModel.Location.AreaAndDev.DevInfo>(list, devs);
+            if (roots.Count > 0)
+            {
+                return roots[0];
+            }
+            else
+            {
                 return null;
             }
         }

@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations.Services;
+using TModel.Location.Nodes;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 
 namespace WebApiService.Controllers
@@ -31,10 +32,40 @@ namespace WebApiService.Controllers
             return service.GetListWithPerson();
         }
 
-        [Route("tree")]
+        [Route("tree/detail")]
+        public TEntity GetTree(int view)
+        {
+            return service.GetTree(view);
+        }
+
+        [Route("tree/detail")]
         public TEntity GetTree()
         {
             return service.GetTree();
+        }
+
+        [Route("tree")]
+        public AreaNode GetBasicTree()
+        {
+            return service.GetBasicTree(0);
+        }
+
+        [Route("tree")]
+        public AreaNode GetBasicTree(int view)
+        {
+            return service.GetBasicTree(view);
+        }
+
+        [Route("tree/withDev")]
+        public TEntity GetTreeWithDev()
+        {
+            return service.GetTreeWithDev();
+        }
+
+        [Route("tree/withPerson")]
+        public TEntity GetTreeWithPerson()
+        {
+            return service.GetTreeWithPerson();
         }
 
         [Route("tree/{id}")]

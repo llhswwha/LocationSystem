@@ -211,8 +211,8 @@ namespace BLL
             bus_tags = new bus_tagBll(DbE);
 
 
-            LocationCards.ToList();
-            DevEntranceGuardCardActions.ToList();
+            //LocationCards.ToList();
+            //DevEntranceGuardCardActions.ToList();
             //bus_archors.ToList();
 
             Z.EntityFramework.Extensions.LicenseManager.AddLicense("34;100-LLHSWWHA", "384799A60700037CBFC0EB5E03A62474");

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Location.AreaAndDev;
@@ -146,36 +145,9 @@ namespace Location.TModel.Location.Person
 
         public Personnel Clone()
         {
-            Personnel copy = new Personnel();
-            copy = this.CloneObjectByBinary();
-
+            Personnel copy = this.CloneObjectByBinary();
             return copy;
         }
-
-        //public PersonnelHistory RemoveToHistory()
-        //{
-        //    PersonnelHistory history = new PersonnelHistory();
-        //    history.Id = this.Id;
-        //    history.Abutment_Id = this.Abutment_Id;
-        //    history.Name = this.Name;
-        //    history.Sex = this.Sex;
-        //    history.Photo = this.Photo;
-        //    history.BirthDay = this.BirthDay;
-        //    history.BirthTimeStamp = this.BirthTimeStamp;
-        //    history.Nation = this.Nation;
-        //    history.Address = this.Address;
-        //    history.WorkNumber = this.WorkNumber;
-        //    history.Email = this.Email;
-        //    history.Phone = this.Phone;
-        //    history.Mobile = this.Mobile;
-        //    history.Enabled = this.Enabled;
-        //    history.ParentId = this.ParentId;
-            
-        //    history.HistoryTime = DateTime.Now;
-        //    history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
-
-        //    return history;
-        //}
 
         public override string ToString()
         {

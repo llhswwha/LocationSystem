@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="AlarmEventManager.cs" />
     <Compile Include="Converters\ArchorConvertHelper.cs" />
+    <Compile Include="Converters\AreaConvertHelper.cs" />
     <Compile Include="Converters\DepartmentConvertHelper.cs" />
+    <Compile Include="Converters\DevConverHelper.cs" />
     <Compile Include="Converters\ModelConvertHelper.cs" />
     <Compile Include="Converters\ModelConvertHelperOfBaseData.cs" />
     <Compile Include="Converters\PersonConvertHelper.cs" />

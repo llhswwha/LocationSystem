@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Location.TModel.Location.AreaAndDev;
+using TModel.Location.Nodes;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -30,8 +31,12 @@ namespace LocationServices.Locations.Interfaces
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        [WebGet(UriTemplate = "/area/tree", ResponseFormat = WebMessageFormat.Json)]
-        PhysicalTopology GetPhysicalTopologyTree();
+        [WebGet(UriTemplate = "/area/tree?view={view}", ResponseFormat = WebMessageFormat.Json)]
+        PhysicalTopology GetPhysicalTopologyTree(int view);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/area/tree/detail?view={view}", ResponseFormat = WebMessageFormat.Json)]
+        AreaNode GetPhysicalTopologyTreeNode(int view);
 
         /// <summary>
         /// 获取物理逻辑拓扑

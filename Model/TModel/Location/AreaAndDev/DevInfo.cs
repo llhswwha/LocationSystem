@@ -7,6 +7,7 @@ using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Tools;
+using TModel.Tools;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -82,16 +83,11 @@ namespace Location.TModel.Location.AreaAndDev
         {
             get
             {
-                if (TypeCode == 20180821)
+                if (_typeName == "")
                 {
-                    return "摄像头";
-                }
-                else
-                {
-                    return "生产设备";
+                    _typeName = DevTypeHelper.GetTypeName(TypeCode);
                 }
                 return _typeName;
-                //todo:这里改成设备类型表中获取的设备类型信息
             }
             set
             {

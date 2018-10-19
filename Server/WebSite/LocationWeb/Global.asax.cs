@@ -46,12 +46,12 @@ namespace WebLocation
                 ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
             }
 
-            if (engineClient == null)
-            {
-                engineClient = new PositionEngineClient();
-                engineClient.Logs = Logs;
-                engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
-            }
+            //if (engineClient == null)
+            //{
+            //    engineClient = new PositionEngineClient();
+            //    engineClient.Logs = Logs;
+            //    engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+            //}
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();

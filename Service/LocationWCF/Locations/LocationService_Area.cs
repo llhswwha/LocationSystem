@@ -4,6 +4,7 @@ using Location.BLL.ServiceHelpers;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
 using LocationServices.Locations.Services;
+using TModel.Location.Nodes;
 
 namespace LocationServices.Locations
 {
@@ -38,9 +39,14 @@ namespace LocationServices.Locations
         /// 获取物理逻辑拓扑
         /// </summary>
         /// <returns></returns>
-        public PhysicalTopology GetPhysicalTopologyTree()
+        public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
-            return new AreaService(db).GetTree();
+            return new AreaService(db).GetTree(view);
+        }
+
+        public AreaNode GetPhysicalTopologyTreeNode(int view)
+        {
+            return new AreaService(db).GetBasicTree(view);
         }
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
