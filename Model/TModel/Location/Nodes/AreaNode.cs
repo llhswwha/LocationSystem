@@ -26,7 +26,7 @@ namespace TModel.Location.Nodes
         [DataMember]
         public int? ParentId { get; set; }
 
-        [DataMember]
+        //[DataMember]
         public virtual AreaNode Parent { get; set; }
 
         [DataMember]
@@ -50,6 +50,23 @@ namespace TModel.Location.Nodes
         /// </summary>
         [DataMember]
         public List<PersonNode> Persons { get; set; }
+
+        public bool IsSelftEmpty()
+        {
+            if (LeafNodes != null && LeafNodes.Count > 0)
+            {
+                return false;
+            }
+            if (Persons != null && Persons.Count > 0)
+            {
+                return false;
+            }
+            if (Children != null && Children.Count > 0)
+            {
+                return false;
+            }
+            return true;
+        }
 
         public void AddPerson(PersonNode p)
         {

@@ -35,7 +35,7 @@ namespace LocationServices.Locations.Services
         /// <summary>
         /// 获取树节点基本数据
         /// </summary>
-        /// <param name="view">0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息</param>
+        /// <param name="view">0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息;4:只显示设备的节点;5:只显示人员的节点;6:只显示人员或设备的节点</param>
         /// <returns></returns>
         AreaNode GetBasicTree(int view);
     }
@@ -147,44 +147,69 @@ namespace LocationServices.Locations.Services
             {
 
             }
-            else if (view == 1)
+            else if (view == 1 || view == 4)
             {
                 devs = db.DevInfos.ToList().ToTModelS();
             }
-            else if (view == 2)
+            else if (view == 2 || view == 5)
             {
-                var personList = GetPersonAreaList();
-                foreach (var item in personList)
-                {
-                    var entity = list.First(i => i.Id == item.Area);
-                    if (entity != null)
-                    {
-                        entity.AddPerson(item.Person.ToTModelS());
-                    }
-                }
+                BindPerson(list);
             }
-            else if (view == 3)
+            else if (view == 3 || view == 6)
             {
-                var personList = GetPersonAreaList();
-                foreach (var item in personList)
-                {
-                    var entity = list.First(i => i.Id == item.Area);
-                    if (entity != null)
-                    {
-                        entity.AddPerson(item.Person.ToTModelS());
-                    }
-                }
+                BindPerson(list);
                 devs = db.DevInfos.ToList().ToTModelS();
             }
 
+            
+
             var roots = TreeHelper.CreateTree(list, devs);
+            AreaNode root = null;
             if (roots.Count > 0)
             {
-                return roots[0];
+                root= roots[0];
             }
-            else
+            if (view == 4 || view == 5 || view == 6)
             {
-                return null;
+                RemoveEmptyNodes(root);
+            }
+            return root;
+        }
+
+        private void RemoveEmptyNodes(AreaNode node)
+        {
+            if (node == null) return;
+            if(node.Children!=null)
+                for (int i = 0; i < node.Children.Count; i++)
+                {
+                    AreaNode subNode = node.Children[i];
+                    if (subNode.IsSelftEmpty())
+                    {
+                        node.Children.RemoveAt(i);
+                        i--;
+                    }
+                    else
+                    {
+                        RemoveEmptyNodes(subNode);
+                        if (subNode.IsSelftEmpty())
+                        {
+                            node.Children.RemoveAt(i);
+                            i--;
+                        }
+                    }
+                }
+        }
+
+        private void BindPerson(List<AreaNode> list)
+        {
+            var personList = GetPersonAreaList();
+            foreach (var item in personList)
+            {
+                var entity = list.First(i => i.Id == item.Area);
+                if (entity != null)
+                {
+                    entity.AddPerson(item.Person.ToTModelS());
+                }
             }
         }
 

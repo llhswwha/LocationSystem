@@ -22,7 +22,7 @@
       <publishTime>10/07/2018 21:17:13</publishTime>
     </File>
     <File Include="bin/BLL.dll">
-      <publishTime>10/18/2018 08:18:01</publishTime>
+      <publishTime>10/19/2018 13:12:04</publishTime>
     </File>
     <File Include="bin/CollectionJson.Client.dll">
       <publishTime>10/07/2018 21:17:15</publishTime>
@@ -31,10 +31,10 @@
       <publishTime>10/07/2018 21:17:15</publishTime>
     </File>
     <File Include="bin/CommunicationClass.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/19/2018 13:12:04</publishTime>
     </File>
     <File Include="bin/DAL.dll">
-      <publishTime>10/18/2018 08:18:01</publishTime>
+      <publishTime>10/19/2018 13:12:04</publishTime>
     </File>
     <File Include="bin/Data/InitInfo.xml">
       <publishTime>08/20/2018 14:02:54</publishTime>
@@ -43,7 +43,7 @@
       <publishTime>09/19/2018 22:28:49</publishTime>
     </File>
     <File Include="bin/DbModel.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/19/2018 13:12:03</publishTime>
     </File>
     <File Include="bin/de/Microsoft.Data.Edm.resources.dll">
       <publishTime>08/16/2013 10:43:10</publishTime>
@@ -73,7 +73,7 @@
       <publishTime>08/16/2013 10:57:12</publishTime>
     </File>
     <File Include="bin/ExcelLib.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/18/2018 19:44:21</publishTime>
     </File>
     <File Include="bin/fr/Microsoft.Data.Edm.resources.dll">
       <publishTime>08/16/2013 10:43:10</publishTime>
@@ -88,7 +88,7 @@
       <publishTime>10/11/2017 17:43:57</publishTime>
     </File>
     <File Include="bin/IModel.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/18/2018 19:44:20</publishTime>
     </File>
     <File Include="bin/it/Microsoft.Data.Edm.resources.dll">
       <publishTime>08/16/2013 10:43:10</publishTime>
@@ -139,7 +139,7 @@
       <publishTime>09/24/2018 08:55:44</publishTime>
     </File>
     <File Include="bin/LocationServices.dll">
-      <publishTime>10/18/2018 08:18:02</publishTime>
+      <publishTime>10/19/2018 13:12:09</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>03/08/2017 19:26:22</publishTime>
@@ -238,7 +238,7 @@
       <publishTime>10/11/2017 17:43:57</publishTime>
     </File>
     <File Include="bin/NsqSharp.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/18/2018 19:44:21</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>11/13/2012 12:19:34</publishTime>
@@ -400,7 +400,7 @@
       <publishTime>08/16/2013 10:57:12</publishTime>
     </File>
     <File Include="bin/SignalRService.dll">
-      <publishTime>10/18/2018 08:18:02</publishTime>
+      <publishTime>10/19/2018 13:12:08</publishTime>
     </File>
     <File Include="bin/System.Diagnostics.DiagnosticSource.dll">
       <publishTime>10/07/2018 21:17:27</publishTime>
@@ -466,7 +466,7 @@
       <publishTime>10/07/2018 21:17:27</publishTime>
     </File>
     <File Include="bin/TModel.dll">
-      <publishTime>10/18/2018 08:18:00</publishTime>
+      <publishTime>10/19/2018 13:12:02</publishTime>
     </File>
     <File Include="bin/WebApiContrib.CollectionJson.dll">
       <publishTime>10/07/2018 21:17:27</publishTime>
@@ -475,10 +475,10 @@
       <publishTime>10/07/2018 21:17:27</publishTime>
     </File>
     <File Include="bin/WebApiLib.dll">
-      <publishTime>10/18/2018 08:18:02</publishTime>
+      <publishTime>10/19/2018 13:12:05</publishTime>
     </File>
     <File Include="bin/WebApiService.dll">
-      <publishTime>10/18/2018 08:18:03</publishTime>
+      <publishTime>10/19/2018 13:12:18</publishTime>
     </File>
     <File Include="bin/Webdiyer.MvcPager.dll">
       <publishTime>10/07/2018 21:17:27</publishTime>
@@ -487,10 +487,10 @@
       <publishTime>07/17/2013 17:03:52</publishTime>
     </File>
     <File Include="bin/WebLocation.dll">
-      <publishTime>10/18/2018 08:18:07</publishTime>
+      <publishTime>10/19/2018 13:31:20</publishTime>
     </File>
     <File Include="bin/WebNSQLib.dll">
-      <publishTime>10/18/2018 08:18:02</publishTime>
+      <publishTime>10/19/2018 13:12:09</publishTime>
     </File>
     <File Include="bin/Z.EntityFramework.Extensions.dll">
       <publishTime>07/20/2018 04:09:40</publishTime>
@@ -677,6 +677,9 @@
     </File>
     <File Include="Img/TreeIcon/open.png">
       <publishTime>08/21/2018 13:40:09</publishTime>
+    </File>
+    <File Include="LocationService.svc">
+      <publishTime>10/07/2018 21:17:14</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>10/10/2018 08:13:26</publishTime>
@@ -1342,7 +1345,7 @@
       <publishTime>05/28/2018 14:15:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/18/2018 08:18:45</publishTime>
+      <publishTime>10/19/2018 13:32:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

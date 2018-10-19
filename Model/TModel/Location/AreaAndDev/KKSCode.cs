@@ -2,6 +2,7 @@
 using Location.IModel;
 using Location.TModel.Tools;
 using System;
+using System.Collections.Generic;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -79,6 +80,9 @@ namespace Location.TModel.Location.AreaAndDev
         //[Display(Name = "所属系统")]
         //[Required]
         public string System { get; set; }
+
+        [DataMember]
+        public virtual List<KKSCode> Children { get; set; }
 
         public KKSCode Clone()
         {

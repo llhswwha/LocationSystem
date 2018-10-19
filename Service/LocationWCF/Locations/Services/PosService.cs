@@ -75,6 +75,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex)
             {
+                LogEvent.Info("GetList:" + ex);
                 return null;
             }
         }
