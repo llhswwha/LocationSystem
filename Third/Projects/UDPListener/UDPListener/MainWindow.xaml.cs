@@ -34,12 +34,32 @@ namespace WpfReceivers_UDP
         int _num = 0;
         private void ClinetBTN_Click(object sender, RoutedEventArgs e)
         {
+            if (ClinetBTN.Content.ToString() == "开始监听")
+            {
+                StartListen();
+                ClinetBTN.Content = "停止监听";
+            }
+            else
+            {
+                StopListen();
+                ClinetBTN.Content = "开始监听";
+            }
+        }
+
+        private void StopListen()
+        {
+            if (ludp2 != null)
+            {
+                ludp2.Close();
+                ludp2 = null;
+            }
+        }
+
+        private void StartListen()
+        {
             string ipStr = IPtb.Text;
-            
-           
-            
             IPAddress ip;
-            if (!string.IsNullOrEmpty(ipStr)&& !string.IsNullOrEmpty(Porttb.Text))
+            if (!string.IsNullOrEmpty(ipStr) && !string.IsNullOrEmpty(Porttb.Text))
             {
                 try
                 {
@@ -47,6 +67,7 @@ namespace WpfReceivers_UDP
                     if (IPAddress.TryParse(ipStr, out ip))
                     {
                         ludp2 = new LightUDP(ip, portStr);  //建立UDP  监听端口
+                        ludp2.AutoEcho = true;
                         ludp2.DGramRecieved += new DGramRecievedHandle(ludp2_DGramRecieved);
                         // SendMessage("发送") ; //暂时不需要发送功能；
                     }
@@ -58,11 +79,10 @@ namespace WpfReceivers_UDP
                 catch (Exception ex)
                 {
 
-                     MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message);
                 }
-               
+
             }
-          
         }
 
         private  void SendMessage(string Info)
@@ -78,14 +98,32 @@ namespace WpfReceivers_UDP
 
         void ludp2_DGramRecieved(object sender, BUDPGram dgram)
         {
-            ShowInfo = ShowInfo+(dgram.iep.Address.ToString() + " " + dgram.iep.Port.ToString() + " " + Encoding.Default.GetString(dgram.data) + System.Environment.NewLine);
+            string msg = dgram.iep.Address.ToString() + " " + dgram.iep.Port.ToString() + " " + Encoding.Default.GetString(dgram.data);
+            msg = GetLogText(msg);
+            ShowInfo = ShowInfo+ msg + System.Environment.NewLine;
 
             ReceiverTB.Text = ShowInfo;  //监听收到数据 可获得数据的来源和信息
+        }
+
+        private string GetLogText(string msg)
+        {
+            return DateTime.Now.ToString("HH:mm:ss.fff") + ":" + msg;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void BtnSend_Click(object sender, RoutedEventArgs e)
+        {
+            string msg = TbMessage.Text;
+            if (string.IsNullOrEmpty(msg)) return;
+            if (ludp2 != null)
+            {
+                var bytes = Encoding.UTF8.GetBytes(msg);
+                ludp2.SendAll(bytes);
+            }
         }
     }
 }

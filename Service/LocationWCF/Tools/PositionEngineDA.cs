@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Coldairarrow.Util.Sockets;
 using DbModel.LocationHistory.Data;
+using Location.BLL.Tool;
 
 namespace LocationWCFServer
 {
@@ -33,6 +34,7 @@ namespace LocationWCFServer
         
         public void Start()
         {
+            Log.Info("PositionEngineDA.Start");
             Stop();
             if (aliveThread == null)
             {
@@ -51,17 +53,27 @@ namespace LocationWCFServer
 
         private void SendAlive()
         {
+            //Log.Info("PositionEngineDA.SendAlive");
             byte[] data = Encoding.UTF8.GetBytes("1");
             IPAddress ip = IPAddress.Parse(EngineIp);
-            int port = 3456;
+            int port = EnginePort;
             ludp2.Send(data, new IPEndPoint(ip, port));
+
+            if (ludp2.IsReceiving == false)//假如是后启动的定位引擎 虽然定位引擎能收到数据 但是这里无法收到定位数据
+            {
+                ludp2.InitReceive();
+            }
         }
+
+        public int EnginePort = 3456;
+        public int LocalPort = 2323;
 
         private void InitUdp()
         {
             if (ludp2 == null)
             {
-                ludp2 = new LightUDP(IPAddress.Parse(LocalIp), Convert.ToInt32("2323")); //建立UDP  监听端口
+                Log.Info("PositionEngineDA.InitUdp");
+                ludp2 = new LightUDP(IPAddress.Parse(LocalIp), LocalPort); //建立UDP  监听端口
                 ludp2.DGramRecieved += Ludp2_DGramRecieved;
             }
         }
@@ -115,17 +127,25 @@ namespace LocationWCFServer
 
         public void Stop()
         {
-            if (aliveThread != null)
+            try
             {
-                aliveThread.Abort();
-                aliveThread = null;
+                if (aliveThread != null)
+                {
+                    aliveThread.Abort();
+                    aliveThread = null;
+                }
+
+                if (ludp2 != null)
+                {
+                    ludp2.Close();
+                    ludp2 = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("PositionEngineDA.Stop", ex);
             }
 
-            if (ludp2 != null)
-            {
-                ludp2.Close();
-                ludp2 = null;
-            }
         }
     }
 }

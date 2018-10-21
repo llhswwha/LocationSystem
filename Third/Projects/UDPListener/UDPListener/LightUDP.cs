@@ -118,6 +118,12 @@ namespace BUDP
                     {
                         BUDPGram budpg = new BUDPGram();
                         budpg.data = udpc.Receive(ref budpg.iep);
+                        if(!Clients.Contains(budpg.iep))
+                            Clients.Add(budpg.iep);
+                        if (AutoEcho)
+                        {
+                            Send(budpg.data, budpg.iep);
+                        }
                         recieveBW.ReportProgress(1, budpg);
                     }
                     System.Threading.Thread.Sleep(recvInterval);
@@ -130,9 +136,21 @@ namespace BUDP
             
         }
 
+        public bool AutoEcho { get; set; }
+
+        public List<IPEndPoint> Clients = new List<IPEndPoint>();
+
         public int Send(Byte[] sendData, IPEndPoint remoteEp)
         {
             return udpc.Send(sendData, sendData.Length, remoteEp);
+        }
+
+        public void SendAll(Byte[] sendData)
+        {
+            foreach (var item in Clients)
+            {
+                Send(sendData, item);
+            }
         }
 
         //所有局域网内监听指定port的UDPClient都可以收到
@@ -142,11 +160,21 @@ namespace BUDP
             return udpc.Send(sendData, sendData.Length, broadCastEp);
         }
 
-        public void Close()
-        { 
-            //停止接收线程
-            recieveBW.CancelAsync();
-            udpc.Close();
+        public bool Close()
+        {
+            try
+            {
+                //停止接收线程
+                recieveBW.CancelAsync();
+                udpc.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+
         }
     }
 }

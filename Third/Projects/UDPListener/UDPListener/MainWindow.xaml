@@ -6,11 +6,19 @@
         xmlns:local="clr-namespace:WpfReceivers_UDP"
         mc:Ignorable="d"
         Title="MainWindow"   Height="600" Width="700" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <!--VerticalContentAlignment="Center" Margin="20,0,0,0" Foreground="#a5b0ff"-->
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="20,0,0,0"></Setter>
+            <Setter Property="Foreground" Value="#a5b0ff"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#F21E2158">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition  />
         </Grid.RowDefinitions>
         <Grid  Height="50"  VerticalAlignment="Top"  Background="Transparent"    >
@@ -29,13 +37,21 @@
             <Button   x:Name="BtnClose"    HorizontalAlignment="Right" Margin="0,10,5,5"  Template="{DynamicResource CloseButton1}" Width="30"   Click="BtnClose_Click"></Button>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="IP地址：" FontSize="14" VerticalContentAlignment="Center" Margin="20,0,0,0" Foreground="#a5b0ff"/>
-                <TextBox  Text="127.0.0.1" Name="IPtb" CaretBrush="White" Style="{DynamicResource TextBoxStyle02}"  FontSize="14" VerticalContentAlignment="Center" Margin="5,0,0,0" Foreground="#a5b0ff" Height="26" Width="180"/>
-                <Label Content="端口地址：" FontSize="14" VerticalContentAlignment="Center" Margin="20,0,0,0" Foreground="#a5b0ff"/>
-                <TextBox  Text="488"  Name="Porttb" CaretBrush="White" Style="{DynamicResource TextBoxStyle02}"  FontSize="14" VerticalContentAlignment="Center" Margin="5,0,0,0" Foreground="#a5b0ff" Height="26" Width="180"/>
-                <Button  Name="ClinetBTN"  Content="连接监听" Width="100" Height="30"   Style="{DynamicResource NormalButtonStyle2}" Margin="20,0,0,0" Foreground="White" Click="ClinetBTN_Click"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="IP地址：" Style="{StaticResource LabelStyle}"/>
+                    <TextBox  Text="127.0.0.1" Name="IPtb" CaretBrush="White" Style="{DynamicResource TextBoxStyle02}"  FontSize="14" VerticalContentAlignment="Center" Margin="5,0,0,0" Foreground="#a5b0ff" Height="26" Width="180"/>
+                    <Label Content="端口地址：" Style="{StaticResource LabelStyle}"/>
+                    <TextBox  Text="3456"  Name="Porttb" CaretBrush="White" Style="{DynamicResource TextBoxStyle02}"  FontSize="14" VerticalContentAlignment="Center" Margin="5,0,0,0" Foreground="#a5b0ff" Height="26" Width="180"/>
+                    <Button  Name="ClinetBTN"  Content="开始监听" Width="100" Height="30"   Style="{DynamicResource NormalButtonStyle2}" Margin="20,0,0,0" Foreground="White" Click="ClinetBTN_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Height="30">
+                    <Label Content="发送:" Style="{StaticResource LabelStyle}"></Label>
+                    <TextBox Width="200" Name="TbMessage" Style="{DynamicResource TextBoxStyle02}"></TextBox>
+                    <Button Name="BtnSend" Click="BtnSend_Click" Style="{DynamicResource NormalButtonStyle2}">发送</Button>
+                </StackPanel>
             </StackPanel>
+            
         </Grid>
         <Grid Grid.Row="2">
             <Label Content="展示接收内容：" FontSize="15" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,0,0,0"/>

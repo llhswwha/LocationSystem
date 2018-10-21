@@ -44,7 +44,7 @@ namespace LocationServices.Tools
 
         public void StartConnectEngine(int mockCount,string engineIp, string localIp)
         {
-            Log.Info("开始连接定位引擎");
+            Log.Info("StartConnectEngine:"+engineIp);
             //int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineDa == null)
             {

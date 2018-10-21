@@ -27,31 +27,39 @@ namespace WebLocation
     {
         protected void Application_Start()
         {
+            XmlConfigurator.Configure();//这个没有的话，Log4Net无效
+
             Log.Info("== Application_Start ==");
             AreaRegistration.RegisterAllAreas();
+            Log.Info("AreaRegistration");
             GlobalConfiguration.Configure(WebApiConfig.Register);//WebApi
+            Log.Info("GlobalConfiguration");
             //WebApiConfiguration.Configure(GlobalConfiguration.Configuration);//WebApi 这两种写法都行
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            Log.Info("FilterConfig");
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Log.Info("RouteConfig");
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Log.Info("BundleConfig");
             XmlConfigurator.Configure();
-            
+            Log.Info("XmlConfigurator");
             InitData();
 
-            if (receiveAlarmThread != null)
-            {
-                RealAlarm ra = new RealAlarm();
-                receiveAlarmThread = new Thread(ra.ReceiveRealAlarmInfo);
-                receiveAlarmThread.Start();
-                ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
-            }
-
-            //if (engineClient == null)
+            //if (receiveAlarmThread != null)
             //{
-            //    engineClient = new PositionEngineClient();
-            //    engineClient.Logs = Logs;
-            //    engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+            //    RealAlarm ra = new RealAlarm();
+            //    receiveAlarmThread = new Thread(ra.ReceiveRealAlarmInfo);
+            //    receiveAlarmThread.Start();
+            //    ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
             //}
+
+            if (engineClient == null)
+            {
+                Log.Info("StartConnectEngine");
+                engineClient = new PositionEngineClient();
+                engineClient.Logs = Logs;
+                engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+            }
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();

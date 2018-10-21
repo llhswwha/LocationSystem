@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Location.BLL.Tool;
+using System;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Sockets;
@@ -42,7 +43,7 @@ namespace Coldairarrow.Util.Sockets
         private IPEndPoint broadCastEp = null;
 
         //接收间隔（毫秒）
-        public int recvInterval = 10;
+        public int recvInterval = 100;
 
         //所有的IP包都有一个“生存时间”（time-to-live）,TTL
         //TTL指定一个包到达目的地之前跳过网络（路由）的最大次数
@@ -84,13 +85,25 @@ namespace Coldairarrow.Util.Sockets
             udpc = new UdpClient(localEp);
             broadCastEp = new IPEndPoint(IPAddress.Broadcast, 0);
 
+            InitReceive();
+        }
+
+        public void InitReceive()
+        {
             recieveBW = new BackgroundWorker();
             recieveBW.WorkerSupportsCancellation = true;
             recieveBW.WorkerReportsProgress = true;
             recieveBW.DoWork += new DoWorkEventHandler(recieveBW_DoWork);
 
             recieveBW.ProgressChanged += new ProgressChangedEventHandler(recieveBW_ProgressChanged);
+            recieveBW.RunWorkerCompleted += RecieveBW_RunWorkerCompleted;
             recieveBW.RunWorkerAsync();
+        }
+
+        private void RecieveBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //Log.Info("RecieveBW_RunWorkerCompleted");
+            IsReceiving = false;
         }
 
         //收到信息触发事件
@@ -105,11 +118,14 @@ namespace Coldairarrow.Util.Sockets
             }
         }
 
+        public bool IsReceiving { get; set; }
+
         //后台接收信息线程
         void recieveBW_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
+                IsReceiving = true;
                 while (udpc.Client != null && !recieveBW.CancellationPending)
                 {
                     if (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
@@ -123,6 +139,7 @@ namespace Coldairarrow.Util.Sockets
             }
             catch (Exception  EX )
             {
+                IsReceiving = false;
                 //MessageBox.Show(EX.Message);
             }
             
