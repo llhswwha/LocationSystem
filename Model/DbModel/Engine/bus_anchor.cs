@@ -42,6 +42,23 @@ namespace DbModel.Engine
 
         public int enabled { get; set; }
 
-
+        public bus_anchor()
+        {
+            anchor_id = "";
+            anchor_x = 0;
+            anchor_y = 0;
+            anchor_z = 0;
+            anchor_type = 0;
+            anchor_bno = 0;
+            syn_anchor_id = null;
+            offset = 0;
+            min_x = 90000000;
+            max_x = 90000000;
+            min_y = 90000000;
+            max_y = 90000000;
+            min_z = 90000000;
+            max_z = 90000000;
+            enabled = 1;
+        }
     }
 }

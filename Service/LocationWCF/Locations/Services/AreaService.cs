@@ -205,6 +205,7 @@ namespace LocationServices.Locations.Services
             var personList = GetPersonAreaList();
             foreach (var item in personList)
             {
+                if (item.Area == null) continue;
                 var entity = list.First(i => i.Id == item.Area);
                 if (entity != null)
                 {

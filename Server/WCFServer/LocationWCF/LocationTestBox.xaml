@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="LocationServer.LocationTestBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LocationServer"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="模拟标签倍数"></TextBox>
+                <TextBox Name="TbMockTagPowerCount0" Text="0"></TextBox>
+
+                <Button Name="BtnStopConnectEngine" Content="停止" Click="BtnStopConnectEngine_OnClick"></Button>
+                <Button Name="BtnNewDb" Content="新建Db" Click="BtnNewDb_OnClick"></Button>
+
+                <TextBox Name="TbTimer" Text="0:0:0:0"></TextBox>
+                <TextBox x:Name="textBox_U3DTEST" Height="23" TextWrapping="Wrap" Width="256"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="模拟位置数量"></TextBox>
+                <TextBox Name="TbMockCount1" Text="500"></TextBox>
+                <Button Name="BtnTestInsertData" Click="BtnTestInsertData_OnClick" Content="测试插入大量数据1"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="标签倍数"></TextBox>
+                <TextBox Name="TbMockTagPowerCount" Text="100"></TextBox>
+                <TextBox Text="位置倍数"></TextBox>
+                <TextBox Name="TbMockPosPowerCount" Text="100"></TextBox>
+                <Button Name="BtnTestInsertData2" Click="BtnTestInsertData2_OnClick" Content="一次测试插入大量数据"></Button>
+                <Button Name="BtnTestInsertData3" Content="持续测试插入大量数据" Click="BtnTestInsertData3_OnClick"></Button>
+            </StackPanel>
+            <Button Name="BtnGeneratePosition" Content="开始产生位置信息" Click="BtnGeneratePosition_OnClick"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

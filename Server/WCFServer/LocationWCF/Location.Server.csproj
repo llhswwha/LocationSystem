@@ -173,8 +173,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppContext.cs" />
+    <Compile Include="LocationEngineSettingBox.xaml.cs">
+      <DependentUpon>LocationEngineSettingBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocationTestBox.xaml.cs">
+      <DependentUpon>LocationTestBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="StopwatchTextBox.cs" />
+    <Page Include="LocationEngineSettingBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocationTestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,7 +204,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow_InsertPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

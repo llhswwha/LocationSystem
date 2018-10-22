@@ -24,10 +24,10 @@ namespace BLL.ServiceHelpers
                 Log.InfoStart("GetPhysicalTopologyTree");
                 List<Area> list = db.Areas.ToList();
 
-                //List<Bound> bounds = db.Bounds.ToList();
-                ////List<Point> points = db.Points.ToList();
-                ////BindBoundWithPoint(points, bounds);
-                //BindAreaWithBound(list, bounds);
+                List<Bound> bounds = db.Bounds.ToList();
+                List<Point> points = db.Points.ToList();
+                BindBoundWithPoint(points, bounds);
+                BindAreaWithBound(list, bounds);
 
                 List<DevInfo> leafNodes = new List<DevInfo>();
                 if (isWithDev)

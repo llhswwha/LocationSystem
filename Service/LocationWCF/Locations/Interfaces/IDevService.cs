@@ -171,8 +171,25 @@ namespace LocationServices.Locations.Interfaces
         [WebGet(UriTemplate = "/archor/{id}", ResponseFormat = WebMessageFormat.Json)]
         Archor GetArchor(string id);
 
+        /// <summary>
+        /// 通过设备Id,获取Archor信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        Archor GetArchorByDevId(int devId);
+
         [OperationContract]
         bool EditArchor(Archor Archor, int ParentId);
-        
+
+        /// <summary>
+        /// 添加基站信息，内含设备信息
+        /// </summary>
+        /// <param name="archor"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool AddArchor(Archor archor);
+        [OperationContract]
+        void DeleteArchor(int archorId);
     }
 }

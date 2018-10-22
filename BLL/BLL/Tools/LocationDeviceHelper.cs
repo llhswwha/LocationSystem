@@ -19,7 +19,7 @@ namespace BLL.Tools
         /// <summary>
         /// 基站设备模型名称
         /// </summary>
-        public static string LocationDevModelName = "初灵_警笛_3D";
+        public static string LocationDevModelName = "定位设备1_3D";
         /// <summary>
         /// 默认基站高度
         /// </summary>

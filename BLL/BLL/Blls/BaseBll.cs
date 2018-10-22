@@ -324,18 +324,21 @@ namespace BLL.Blls
             return true;
         }
 
-        public virtual bool EditRange(TDb Db, List<T> list)
+        public virtual bool EditRange(List<T> list)
+        {
+            return this.EditRange(Db, list);
+        }
+
+        public virtual bool EditRange(TDb db, List<T> list)
         {
             try
             {
-                if (Db == null)
+                if (db == null)
                 {
                     return false;
                 }
-
-                Db.BulkUpdate(list);
-                Db.BulkSaveChanges();
-
+                db.BulkUpdate(list);
+                db.BulkSaveChanges();
                 return true;
             }
             catch (Exception ex)

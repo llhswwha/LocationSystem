@@ -305,11 +305,28 @@ namespace LocationServices.Locations
             return db.Archors.Find(id2).ToTModel();
         }
 
+        public Archor GetArchorByDevId(int devId)
+        {
+            return db.Archors.Find(i=>i.DevInfoId==devId).ToTModel();
+        }
+
+        public bool AddArchor(Archor archor)
+        {
+            return db.Archors.Add(archor.ToDbModel());
+        }
+        public void DeleteArchor(int archorId)
+        {
+            db.Archors.DeleteById(archorId);
+        }
         public bool EditArchor(Archor Archor, int ParentId)
         {
             bool bReturn = false;
-            
-            DbModel.Location.AreaAndDev.Archor Archor2 = db.Archors.DbSet.Where(p => p.Code == Archor.Code).FirstOrDefault();
+            DbModel.Location.AreaAndDev.Archor Archor2;
+            Archor2 = db.Archors.DbSet.Where(p => p.Code == Archor.Code).FirstOrDefault();
+            if (Archor2 == null)
+            {
+                Archor2 = db.Archors.DbSet.Where(p => p.DevInfoId == Archor.DevInfoId).FirstOrDefault();
+            }         
             if (Archor2 == null)
             {
                 Archor2 = Archor.ToDbModel();
@@ -342,6 +359,7 @@ namespace LocationServices.Locations
                 Archor2.Power = Archor.Power;
                 Archor2.AliveTime = Archor.AliveTime;
                 Archor2.Enable = Archor.Enable;
+                if (!string.IsNullOrEmpty(Archor.Code)) Archor2.Code = Archor.Code;
 
                 bReturn = db.Archors.Edit(Archor2);
             }

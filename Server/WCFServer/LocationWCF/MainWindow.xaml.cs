@@ -1,6 +1,7 @@
 ﻿using LocationWCFService.ServiceHelper;
 using LocationWCFServices;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,13 @@ using SignalRService.Hubs;
 
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
+using BLL;
+using DbModel.LocationHistory.Data;
+using Location.BLL;
 using Location.TModel.Location.Alarm;
+using Location.TModel.Location.AreaAndDev;
+using LocationServer;
+using LocationServices.Converters;
 using LocationServices.Locations.Interfaces;
 using TModel.Location.Data;
 using WebNSQLib;
@@ -70,16 +77,18 @@ namespace LocationWCFServer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //InitData();
+            InitData();
         }
 
         private void InitData()
         {
-            LoadDevList();
+            //LoadDevList();
 
-            StartReceiveAlarm();
+            //StartReceiveAlarm();
 
-            SetDoorAccessInfo();
+            //SetDoorAccessInfo();
+
+            LocationEngineSettingBox1.LoadData();
         }
 
         private void LoadDevList()
@@ -361,49 +370,16 @@ namespace LocationWCFServer
                 StopConnectEngine();
                 BtnConnectEngine.Content = "连接定位引擎";
             }
-            
         }
 
-
-        private void BtnTestInsertData_OnClick(object sender, RoutedEventArgs e)
+        public void StartConnectEngine()
         {
-            TestInsertData();
+            LocationTestBox1.StartConnectEngine();
         }
 
-        private void BtnGeneratePosition_OnClick(object sender, RoutedEventArgs e)
+        public void StopConnectEngine()
         {
-            //GeneratePosition();
-        }
-
-        private void BtnTestInsertData2_OnClick(object sender, RoutedEventArgs e)
-        {
-            //TestInsertData2();
-            TestInsertData2Async(); //异步方式
-        }
-
-
-        private void BtnNewDb_OnClick(object sender, RoutedEventArgs e)
-        {
-            StopConnectEngine();
-
-            Thread.Sleep(1000);
-
-            //if (positionBll != null)
-            //{
-            //    positionBll.Dispose();
-            //}
-            //positionBll = new LocationBll();
-            Logs.WriteLogLeft("重新生成");
-        }
-
-        private void BtnStopConnectEngine_OnClick(object sender, RoutedEventArgs e)
-        {
-            StopConnectEngine();
-        }
-
-        private void BtnTestInsertData3_OnClick(object sender, RoutedEventArgs e)
-        {
-            StartTestInsertPositions();
+            LocationTestBox1.StopConnectEngine();
         }
 
         private void BtnOpenSimulator_OnClick(object sender, RoutedEventArgs e)
@@ -455,6 +431,48 @@ namespace LocationWCFServer
         private void DeviceListBox1_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        /// <summary>
+        /// 门禁设备，绑定设备信息（For: DevInfo.Path）
+        /// </summary>
+        /// <param name="devList"></param>
+        /// <param name="doorAccessList"></param>
+        private void BindingDevInfo(List<DevInfo> devList, List<Dev_DoorAccess> doorAccessList)
+        {
+            foreach (var door in doorAccessList)
+            {
+                DevInfo info = devList.Find(i => i.DevID == door.DevID);
+                if (info != null) door.DevInfo = info;
+            }
+        }
+        private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
+        {
+            AlarmHub.SendDeviceAlarms(obj.ToTModel());
+        }
+
+        private void BtnSendMessage_OnClick(object sender, RoutedEventArgs e)
+        {
+            string msg = TbMessage.Text;
+            ChatHub.SendToAll(msg);
+        }
+
+        private void BtnCreateHistoryPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            Bll bll = AppContext.GetLocationBll();
+
+            Position pos = PositionMocker.GetRandomPosition("223");
+            pos.PersonnelID = 112;
+            bll.Positions.Add(pos);
+
+            DataGridHistoryPosList.ItemsSource = bll.Positions.ToList();
+        }
+
+        private void BtnGetHistoryList_OnClick(object sender, RoutedEventArgs e)
+        {
+            Bll bll = AppContext.GetLocationBll();
+            DataGridHistoryPosList.ItemsSource = bll.Positions.ToList();
         }
     }
 }

@@ -337,11 +337,11 @@ namespace BLL
             List<LocationCard> tags = new List<LocationCard>() { tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8 };
             LocationCards.AddRange(tags);
             List<LocationCard> tagsT = new List<LocationCard>();
-            for (int i = 0; i < 100; i++)
-            {
-                var tagT = new LocationCard() { Name = "标签T"+ i.ToString(), Code = "0000" + i.ToString() };
-                tagsT.Add(tagT);
-            }
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    var tagT = new LocationCard() { Name = "标签T"+ i.ToString(), Code = "0000" + i.ToString() };
+            //    tagsT.Add(tagT);
+            //}
 
             LocationCards.AddRange(tagsT);
 
