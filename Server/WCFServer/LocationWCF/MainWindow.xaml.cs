@@ -87,8 +87,6 @@ namespace LocationWCFServer
             //StartReceiveAlarm();
 
             //SetDoorAccessInfo();
-
-            LocationEngineSettingBox1.LoadData();
         }
 
         private void LoadDevList()
@@ -473,6 +471,12 @@ namespace LocationWCFServer
         {
             Bll bll = AppContext.GetLocationBll();
             DataGridHistoryPosList.ItemsSource = bll.Positions.ToList();
+        }
+
+        private void MenuLocationEngionTool_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new LocationEngineToolWindow();
+            win.ShowDialog();
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DbModel.Location.AreaAndDev;
 
 namespace WPFClientControlLib
 {
@@ -29,6 +30,29 @@ namespace WPFClientControlLib
         public void LoadData(PhysicalTopology root)
         {
             TreeView1.ItemsSource = root.Children;
+        }
+
+        public void LoadData(Area root)
+        {
+            TreeView1.ItemsSource = root.Children;
+        }
+
+        private void TreeView1_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            
+        }
+
+        public TreeView Tree
+        {
+            get
+            {
+                return TreeView1;
+            }
+        }
+
+        public object SelectedItem
+        {
+            get { return TreeView1.SelectedItem; }
         }
     }
 }

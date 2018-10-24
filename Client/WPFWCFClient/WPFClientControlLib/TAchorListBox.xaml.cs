@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,9 @@ namespace WPFClientControlLib
     /// <summary>
     /// Interaction logic for AchorListBox.xaml
     /// </summary>
-    public partial class AchorListBox : UserControl
+    public partial class TAchorListBox : UserControl
     {
-        public AchorListBox()
+        public TAchorListBox()
         {
             InitializeComponent();
         }
@@ -29,6 +30,27 @@ namespace WPFClientControlLib
         public void LoadData(Archor[] list)
         {
             DataGrid1.ItemsSource = list;
+        }
+
+        private void DataGrid1_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var archor2 = DataGrid1.SelectedItem as Archor;
+            if (archor2 == null) return;
+            ChangedArchors.Add(archor2);
+        }
+
+
+        public List<Archor> ChangedArchors = new List<Archor>();
+
+        public object SelectedItem
+        {
+            get { return DataGrid1.SelectedItem; }
+        }
+
+        public IEnumerable ItemsSource
+        {
+            get { return DataGrid1.ItemsSource; }
+            set { DataGrid1.ItemsSource = value; }
         }
     }
 }

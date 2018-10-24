@@ -386,7 +386,7 @@ namespace LocationServices.Converters
             item2.Z = item1.Z;
             item2.Index = item1.Index;
             item2.BoundId = item1.BoundId;
-            item2.Bound = item1.Bound.ToTModel();
+            //item2.Bound = item1.Bound.ToTModel();
             return item2;
         }
 
@@ -412,7 +412,7 @@ namespace LocationServices.Converters
             item2.Z = item1.Z;
             item2.Index = item1.Index;
             item2.BoundId = item1.BoundId;
-            item2.Bound = item1.Bound.ToDbModel();
+            //item2.Bound = item1.Bound.ToDbModel();
             return item2;
         }
 

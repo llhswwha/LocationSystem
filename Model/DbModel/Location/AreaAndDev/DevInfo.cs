@@ -36,6 +36,8 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "区域ID")]
         public int? ParentId { get; set; }
 
+        public virtual Area Parent { get; set; }
+
         /// <summary>
         /// 编码
         /// </summary>

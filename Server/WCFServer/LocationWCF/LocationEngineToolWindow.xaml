@@ -1,0 +1,62 @@
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.LocationEngineToolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer"
+        mc:Ignorable="d"
+        Title="LocationEngineToolWindow" Height="600" Width="1200" Loaded="LocationEngineToolWindow_OnLoaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_OnClick"></MenuItem>
+        </Menu>
+        <TabControl>
+            <TabItem Header="基站列表">
+                <DockPanel>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Top">
+                                <Button Name="BtnModifyArchor1FromArchor2" Click="BtnModifyArchor1FromArchor2_OnClick" ToolTip="根据列表2更新列表1">列表2 => 更新列表1</Button>
+                                <Button Name="BtnSave1" Click="BtnSave1_OnClick">保存修改</Button>
+                            </StackPanel>
+                            <GroupBox Header="列表1" Name="Group1">
+                                <DataGrid Name="DataGridArchor1" CellEditEnding="DataGridArchor1_OnCellEditEnding"></DataGrid>
+                            </GroupBox>
+                        </DockPanel>
+                        <DockPanel Grid.Column="1">
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                <Button Name="BtnClearCode" Click="BtnClearCode_OnClick">清空Code</Button>
+                                <Button Name="BtnGenerateCode" Click="BtnGenerateCode_OnClick">生成Code</Button>
+                                <Button Name="BtnSetCodeFromArchor1" Click="BtnSetCodeFromArchor1_OnClick">列表1 => 设置选中的Code </Button>
+                                <Button Name="BtnSave2" Click="BtnSave2_OnClick">保存修改</Button>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                <CheckBox Name="CbOnlyShowEmptyCode" Checked="CbOnlyShowEmptyCode_OnChecked" Unchecked="CbOnlyShowEmptyCode_OnUnchecked">只显示无Code</CheckBox>
+                                <CheckBox Name="CbOnlyShowListOfDep" Unchecked="CbOnlyShowListOfDep_OnUnchecked">只显示区域下列表</CheckBox>
+                            </StackPanel>
+                            <WPFClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>
+                            <GroupBox Header="列表2" Name="Group2">
+                                <WPFClientControlLib:DbAchorListBox x:Name="DataGridArchor2"/>
+                            </GroupBox>
+                        </DockPanel>
+                        
+                    </Grid>
+                </DockPanel>
+                
+            </TabItem>
+            <TabItem Header="标签列表">
+                <DataGrid Name="DataGrid2">
+
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="基站扫描">
+                
+                
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="WPFClientControlLib.DbAchorListBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFClientControlLib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <DataGrid Name="DataGrid1" AutoGenerateColumns="False" CellEditEnding="DataGrid1_OnCellEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Code" Binding="{Binding Code}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Dev" Binding="{Binding DevInfo.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Area" Binding="{Binding DevInfo.Parent.Name}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="X" Binding="{Binding X}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Y" Binding="{Binding Y}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Z" Binding="{Binding Z}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="IsAutoIp" Binding="{Binding IsAutoIp}"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Ip" Binding="{Binding Ip}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ServerIp" Binding="{Binding ServerIp}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ServerPort" Binding="{Binding ServerPort}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Power" Binding="{Binding Power}"></DataGridTextColumn>
+                <DataGridTextColumn Header="AliveTime" Binding="{Binding AliveTime}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Enable" Binding="{Binding Enable}"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

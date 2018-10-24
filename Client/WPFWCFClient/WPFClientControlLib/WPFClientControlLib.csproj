@@ -53,8 +53,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AchorListBox.xaml.cs">
-      <DependentUpon>AchorListBox.xaml</DependentUpon>
+    <Compile Include="DbAchorListBox.xaml.cs">
+      <DependentUpon>DbAchorListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TAchorListBox.xaml.cs">
+      <DependentUpon>TAchorListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="DepTreeView.xaml.cs">
       <DependentUpon>DepTreeView.xaml</DependentUpon>
@@ -83,7 +86,11 @@
     <Compile Include="TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AchorListBox.xaml">
+    <Page Include="DbAchorListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TAchorListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,6 +156,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Model\DbModel\DbModel.csproj">
+      <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
+      <Name>DbModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\IModel\IModel.csproj">
       <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
       <Name>IModel</Name>

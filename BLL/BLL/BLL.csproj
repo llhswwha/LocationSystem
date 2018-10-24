@@ -113,10 +113,10 @@
     <Compile Include="Blls\Location\RoleBll.cs" />
     <Compile Include="Blls\Location\SafetyMeasuresBll.cs" />
     <Compile Include="Blls\Location\WorkTicketBll.cs" />
+    <Compile Include="Bll_Business.cs" />
     <Compile Include="Bll_Init.cs" />
     <Compile Include="Bll_InitTopo.cs" />
     <Compile Include="Bll_InsertPos.cs" />
-    <Compile Include="ServiceHelpers\LocationSP.cs" />
     <Compile Include="ServiceHelpers\PhysicalTopologySP.cs" />
     <Compile Include="ServiceHelpers\U3DPositionSP.cs" />
     <Compile Include="TestBll.cs" />

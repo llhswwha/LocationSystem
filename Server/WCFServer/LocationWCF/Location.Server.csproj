@@ -174,15 +174,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
-    <Compile Include="LocationEngineSettingBox.xaml.cs">
-      <DependentUpon>LocationEngineSettingBox.xaml</DependentUpon>
+    <Compile Include="ArchorConfigureBox.xaml.cs">
+      <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocationEngineToolWindow.xaml.cs">
+      <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocationTestBox.xaml.cs">
       <DependentUpon>LocationTestBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="StopwatchTextBox.cs" />
-    <Page Include="LocationEngineSettingBox.xaml">
+    <Page Include="ArchorConfigureBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocationEngineToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

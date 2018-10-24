@@ -37,5 +37,26 @@ namespace BLL.Blls.Location
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
         }
 
+        public void ClearCode()
+        {
+            var list = ToList();
+            foreach (var item in list)
+            {
+                item.Code = "";
+            }
+            EditRange(list);
+        }
+
+        public void GenerateCode()
+        {
+            var list = ToList();
+            foreach (var item in list)
+            {
+                if(string.IsNullOrEmpty(item.Code))
+                    item.Code = item.Id+"";
+            }
+            EditRange(list);
+        }
+
     }
 }

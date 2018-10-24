@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
         Title="服务端" Height="500" Width="1000" Loaded="MainWindow_OnLoaded">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="工具">
+                <MenuItem Header="定位引擎数据库工具" Name="MenuLocationEngionTool" Click="MenuLocationEngionTool_OnClick"></MenuItem>
+            </MenuItem>
+        </Menu>
         <TabControl>
             <TabItem Header="服务" Height="21" VerticalAlignment="Top">
                 <Grid>
@@ -22,12 +27,12 @@
                             <TextBox Width="50" Name="TbPort" VerticalContentAlignment="Center">8733</TextBox>
                             <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务" Margin="2"></Button>
                         </StackPanel>
-                       
+
                         <TextBox Name="TbResult1" Grid.Row="1" Height="100"></TextBox>
                         <Button Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
                         <Button Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>
                         <Button Name="BtnOpenU3D" Content="打开三维定位程序" Click="BtnOpenU3D_OnClick"></Button>
-                        
+
                     </StackPanel>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -78,17 +83,12 @@
                     </StackPanel>
                     <DataGrid Name="DataGridHistoryPosList"></DataGrid>
                 </DockPanel>
-                
+
             </TabItem>
             <TabItem Header="门禁信息推送">
                 <WPFClientControlLib:DoorAccessListBox x:Name="DoorAccessListBox1"   Margin="0,20,0,0">
                 </WPFClientControlLib:DoorAccessListBox>
             </TabItem>
-            <TabItem Header="定位引擎设置">
-                <LocationServer:LocationEngineSettingBox x:Name="LocationEngineSettingBox1"/>
-            </TabItem>
         </TabControl>
-
-
-    </Grid>
+    </DockPanel>
 </Window>

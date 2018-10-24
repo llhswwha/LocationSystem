@@ -1,6 +1,5 @@
 ﻿using BLL;
 using BLL.Blls.Location;
-using BLL.ServiceHelpers;
 using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
 using Location.TModel.Location.AreaAndDev;
@@ -99,7 +98,7 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetTree()
         {
-            var root0 = LocationSP.GetPhysicalTopologyTree(db, false);
+            var root0 = db.GetAreaTree(false);
             var root = root0.ToTModel();
             return root;
         }
@@ -216,7 +215,7 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetTreeWithDev()
         {
-            var root0 = LocationSP.GetPhysicalTopologyTree(db, true);
+            var root0 = db.GetAreaTree(true);
             var root = root0.ToTModel();
             return root;
         }

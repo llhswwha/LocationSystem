@@ -10,18 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LocationServer
 {
     /// <summary>
-    /// Interaction logic for ArchorBindingWindow.xaml
+    /// Interaction logic for ArchorConfigureBox.xaml
     /// </summary>
-    public partial class ArchorBindingWindow : Window
+    public partial class ArchorConfigureBox : UserControl
     {
-        public ArchorBindingWindow()
+        public ArchorConfigureBox()
         {
             InitializeComponent();
+        }
+
+        private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

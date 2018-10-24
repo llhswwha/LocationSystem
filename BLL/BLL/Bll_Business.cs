@@ -1,40 +1,42 @@
-﻿using System;
+﻿using BLL.Blls.Engine;
+using BLL.Blls.Location;
+using BLL.Blls.LocationHistory;
+using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
-using DbModel.LocationHistory.Data;
 using DbModel.Tools;
 using Location.BLL.Tool;
 
-namespace BLL.ServiceHelpers
+namespace BLL
 {
-    /// <summary>
-    /// LocationService的复杂的函数内容，使之在服务和网站中都能复用
-    /// </summary>
-    public static class LocationSP
+    public partial class Bll : IDisposable
     {
         /// <summary>
         /// 获取物理逻辑拓扑
         /// </summary>
         /// <returns></returns>
-        public static Area GetPhysicalTopologyTree(Bll db,bool isWithDev=true)
+        public Area GetAreaTree(bool isWithDev = true)
         {
             try
             {
                 Log.InfoStart("GetPhysicalTopologyTree");
-                List<Area> list = db.Areas.ToList();
+                List<Area> list = Areas.ToList();
 
-                List<Bound> bounds = db.Bounds.ToList();
-                List<Point> points = db.Points.ToList();
+                List<Bound> bounds = Bounds.ToList();
+                List<Point> points = Points.ToList();
                 BindBoundWithPoint(points, bounds);
                 BindAreaWithBound(list, bounds);
 
                 List<DevInfo> leafNodes = new List<DevInfo>();
                 if (isWithDev)
                 {
-                    leafNodes = db.DevInfos.ToList();
+                    leafNodes = DevInfos.ToList();
                 }
-                
+
                 List<Area> roots = TreeHelper.CreateTree(list, leafNodes);
 
                 Log.InfoEnd("GetPhysicalTopologyTree");
@@ -52,18 +54,6 @@ namespace BLL.ServiceHelpers
             {
                 Log.Error("GetPhysicalTopologyTree", ex);
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// 获取物理逻辑拓扑
-        /// </summary>
-        /// <returns></returns>
-        public static Area GetPhysicalTopologyTree()
-        {
-            using (Bll db = new Bll(false, false, false, false))
-            {
-                return GetPhysicalTopologyTree(db);
             }
         }
 
