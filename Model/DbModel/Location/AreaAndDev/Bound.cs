@@ -223,11 +223,38 @@ namespace DbModel.Location.AreaAndDev
             Points.Add(point);
         }
 
+        public List<Point> GetPoints2D()
+        {
+            List<Point> points = new List<Point>();
+            if (Points != null && Points.Count > 0)
+            {
+                points.AddRange(Points);
+            }
+            else
+            {
+                points.Add(new Point(MinX, MinY,0,0));
+                points.Add(new Point(MinX, MaxY, 0, 1));
+                points.Add(new Point(MaxX, MaxY, 0, 2));
+                points.Add(new Point(MaxY, MinY, 0, 3));
+            }
+            return points;
+        } 
+
         public Bound Clone()
         {
             Bound copy = new Bound();
             copy = this.CloneObjectByBinary();
             return copy;
+        }
+
+        public double GetWidth()
+        {
+            return MaxX - MinX;
+        }
+
+        public double GetHeight()
+        {
+            return MaxY - MinY;
         }
     }
 }

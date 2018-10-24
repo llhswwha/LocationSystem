@@ -143,6 +143,16 @@ namespace BLL.Blls
             return DbSet.FirstOrDefault(predicate);
         }
 
+        public List<T> FindAll(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet.Where(predicate).ToList();
+        }
+
+        public List<T> Where(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet.Where(predicate).ToList();
+        }
+
         public virtual T Find(object id)
         {
             if (DbSet == null) return default(T);
@@ -213,6 +223,28 @@ namespace BLL.Blls
             
         }
 
+        public bool RemoveList(List<T> list)
+        {
+            //foreach (T item in list)
+            //{
+            //    DbSet.Remove(item);
+            //}
+            //return Save();
+
+            Db.BulkDelete(list);
+
+            try
+            {
+                Db.BulkDelete(list);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("BaseBll.Clear", ex);
+                return false;
+            }
+        }
+
         public bool Remove(T obj,bool isSave=true)
         {
             try
@@ -236,23 +268,8 @@ namespace BLL.Blls
 
         public bool Clear()
         {
-            try
-            {
-                List<T> list = ToList(true);
-                //foreach (T item in list)
-                //{
-                //    Remove(item, false);
-                //}
-                //return Save();
-                Db.BulkDelete(list);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("BaseBll.Clear", ex);
-                return false;
-            }
-            
+            List<T> list = ToList(true);
+            return RemoveList(list);
         }
 
         public virtual bool Edit(T entity,bool isSave=true)

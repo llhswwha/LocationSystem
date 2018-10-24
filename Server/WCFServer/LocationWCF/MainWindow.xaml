@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
-        Title="服务端" Height="500" Width="1000" Loaded="MainWindow_OnLoaded">
+        Title="服务端" Height="500" Width="1000" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="工具">
                 <MenuItem Header="定位引擎数据库工具" Name="MenuLocationEngionTool" Click="MenuLocationEngionTool_OnClick"></MenuItem>
+                <MenuItem Header="基站坐标表格导出" Name="MenuExportArchorPosition" Click="MenuExportArchorPosition_OnClick"></MenuItem>
+                <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
+                <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuAreaCanvas_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>
@@ -58,6 +61,7 @@
             <TabItem Header="定位告警">
                 <StackPanel>
                     <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
+                    <Button Content="消除告警" Name="BtnRemoveAlarm" Click="BtnRemoveAlarm_Click"></Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="设备告警">

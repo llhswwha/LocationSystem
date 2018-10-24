@@ -224,7 +224,7 @@ namespace DbModel.Location.AreaAndDev
         public string Describe { get; set; }
 
         [DataMember]
-        //[ForeignKey("ParentId")]
+        [ForeignKey("ParentId")]
         [NotMapped]
         public virtual List<Area> Children { get; set; }
 
@@ -232,7 +232,7 @@ namespace DbModel.Location.AreaAndDev
         /// 叶子节点：区域中的设备
         /// </summary>
         [DataMember]
-        //[ForeignKey("ParentId")]
+        [ForeignKey("ParentId")]
         [NotMapped]
         public virtual List<DevInfo> LeafNodes { get; set; }
 
@@ -324,6 +324,26 @@ namespace DbModel.Location.AreaAndDev
             this.SetTransform(transfrom);
         }
 
-
+        /// <summary>
+        /// 获取建筑物
+        /// </summary>
+        /// <returns></returns>
+        public List<Area> GetBuildings()
+        {
+            var buildings=new List<Area>();
+            foreach (var child in Children)
+            {
+                if (child.Type == AreaTypes.分组)
+                {
+                    if(child.Children!=null)
+                        buildings.AddRange(child.Children);
+                }
+                else
+                {
+                    buildings.Add(child);
+                }
+            }
+            return buildings;
+        } 
     }
 }

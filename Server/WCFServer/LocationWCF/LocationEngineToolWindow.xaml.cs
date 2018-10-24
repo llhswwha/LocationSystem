@@ -35,7 +35,6 @@ namespace LocationServer
         public void LoadData()
         {
             changedArchor1.Clear();
-            
 
             var archors1 = bll.bus_anchors.ToList();
             Group1.Header = "列表1 ["+archors1.Count+"]";
@@ -69,11 +68,11 @@ namespace LocationServer
 
         private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Area area = TopoTreeView1.SelectedItem as Area;
+            Area area = TopoTreeView1.SelectedObject as Area;
             if (area == null) return;
             if (CbOnlyShowListOfDep.IsChecked==true)
             {
-                var archors2 = bll.Archors.DbSet.Where(i => i.DevInfo.ParentId==area.Id).ToList();
+                var archors2 = bll.Archors.FindAll(i => i.DevInfo.ParentId==area.Id);
                 Group2.Header = "列表2 [" + archors2.Count + "]";
                 DataGridArchor2.ItemsSource = archors2;
             }
@@ -104,7 +103,14 @@ namespace LocationServer
             if (archor2 == null) return;
             archor2.Code = archor1.anchor_id;
             bll.Archors.Edit(archor2);
-            LoadData();
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            var data = DataGridArchor2.ItemsSource;
+            DataGridArchor2.ItemsSource = null;
+            DataGridArchor2.ItemsSource = data;
         }
 
         private void MenuRefresh_OnClick(object sender, RoutedEventArgs e)
@@ -140,7 +146,7 @@ namespace LocationServer
 
         private void CbOnlyShowEmptyCode_OnChecked(object sender, RoutedEventArgs e)
         {
-            var archors2 = bll.Archors.DbSet.Where(i => string.IsNullOrEmpty(i.Code)).ToList();
+            var archors2 = bll.Archors.FindAll(i => string.IsNullOrEmpty(i.Code));
             Group2.Header = "列表2 [" + archors2.Count + "]";
             DataGridArchor2.ItemsSource = archors2;
         }
@@ -152,6 +158,13 @@ namespace LocationServer
 
         private void CbOnlyShowListOfDep_OnUnchecked(object sender, RoutedEventArgs e)
         {
+            LoadData();
+        }
+
+        private void BtnDeleteDataFromList2_OnClick(object sender, RoutedEventArgs e)
+        {
+            var list = bll.bus_anchors.FindAll(i => i.anchor_id.StartsWith("Code_"));
+            bll.bus_anchors.RemoveList(list);
             LoadData();
         }
     }

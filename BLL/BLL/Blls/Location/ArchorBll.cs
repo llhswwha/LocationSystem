@@ -53,7 +53,7 @@ namespace BLL.Blls.Location
             foreach (var item in list)
             {
                 if(string.IsNullOrEmpty(item.Code))
-                    item.Code = item.Id+"";
+                    item.Code = "Code_"+item.Id;
             }
             EditRange(list);
         }

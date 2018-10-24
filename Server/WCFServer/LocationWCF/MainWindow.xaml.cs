@@ -413,7 +413,12 @@ namespace LocationWCFServer
             var alarms = service.GetLocationAlarms(2);
             AlarmHub.SendLocationAlarms(alarms.ToArray());
         }
-
+        private void BtnRemoveAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            var service = new LocationService();
+            var alarms = service.GetLocationAlarms(2,false);
+            AlarmHub.SendLocationAlarms(alarms.ToArray());
+        }
         private void MenuFireAlarm_Click(object sender, RoutedEventArgs e)
         {
             //var service = new LocationService();
@@ -477,6 +482,23 @@ namespace LocationWCFServer
         {
             var win = new LocationEngineToolWindow();
             win.ShowDialog();
+        }
+
+        private void MenuExportArchorPosition_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorListWindow();
+            win.ShowDialog();
+        }
+
+        private void MenuAreaCanvas_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new AreaCanvasWindow();
+            win.ShowDialog();
+        }
+
+        private void MenuArchorSettingExport_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

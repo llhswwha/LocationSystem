@@ -53,6 +53,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaCanvas.xaml.cs">
+      <DependentUpon>AreaCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AreaListBox.xaml.cs">
+      <DependentUpon>AreaListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DbDeviceListBox.xaml.cs">
+      <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ItemInfoWindow.xaml.cs">
+      <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DbAchorListBox.xaml.cs">
       <DependentUpon>DbAchorListBox.xaml</DependentUpon>
     </Compile>
@@ -86,6 +98,22 @@
     <Compile Include="TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="AreaCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AreaListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DbDeviceListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ItemInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DbAchorListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

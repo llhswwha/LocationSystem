@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label>Remote IP</Label>
             <TextBox Width="100" Name="TbRemoteIp" Text="192.168.10.255"></TextBox>
             <Label>Port</Label>

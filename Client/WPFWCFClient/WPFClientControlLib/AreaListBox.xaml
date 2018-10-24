@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="WPFClientControlLib.AreaListBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFClientControlLib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <CheckBox Name="CbOnlyShowAbsoluteArea" Checked="CbOnlyShowAbsoluteArea_OnChecked" Unchecked="CbOnlyShowAbsoluteArea_OnUnchecked">只显示绝对坐标的区域</CheckBox>
+            <CheckBox Name="CbOnlyShowBuilding" Checked="CbOnlyShowBuilding_OnChecked" Unchecked="CbOnlyShowBuilding_OnUnchecked">只显示建筑物</CheckBox>
+        </StackPanel>
+        <DataGrid Name="DataGrid1">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="ItemProperty" Name="MenuItemProperty" Click="MenuItemProperty_OnClick"></MenuItem>
+                    <MenuItem Header="InitBound" Name="MenuInitBound" Click="MenuInitBound_OnClick"></MenuItem>
+                    <MenuItem Header="EditBound" Name="MenuEditBound" Click="MenuEditBound_OnClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

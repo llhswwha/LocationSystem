@@ -12,6 +12,6 @@ namespace LocationServices.Locations.Interfaces
     public interface Ibus_anchor
     {
         [OperationContract]
-        bool EditBusAnchor(Archor archor, int ParentId);
+        bool EditBusAnchor(Archor archor, int parentId);
     }
 }

@@ -177,6 +177,15 @@
     <Compile Include="ArchorConfigureBox.xaml.cs">
       <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ArchorListExportWindow.xaml.cs">
+      <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ArchorListWindow.xaml.cs">
+      <DependentUpon>ArchorListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AreaCanvasWindow.xaml.cs">
+      <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocationEngineToolWindow.xaml.cs">
       <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
     </Compile>
@@ -186,6 +195,18 @@
     <Compile Include="Startup.cs" />
     <Compile Include="StopwatchTextBox.cs" />
     <Page Include="ArchorConfigureBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ArchorListExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ArchorListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AreaCanvasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

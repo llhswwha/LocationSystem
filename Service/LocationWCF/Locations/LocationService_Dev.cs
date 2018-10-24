@@ -257,15 +257,42 @@ namespace LocationServices.Locations
             return alarms;
         }
 
-        public List<LocationAlarm> GetLocationAlarms(int count)
+        /// <summary>
+        /// 生成定位 告警/消警 信息
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="isAlarm"></param>
+        /// <returns></returns>
+        public List<LocationAlarm> GetLocationAlarms(int count,bool isAlarm=true)
         {
             List<Personnel> ps = GetPersonList();
             List<LocationAlarm> alarms = new List<LocationAlarm>();
             for (int i = 0; i < count; i++)
             {
-                alarms.Add(new LocationAlarm() { Id = i, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "定位告警"+i,
-                    CreateTime = new DateTime(2018, 9, 1, 10, 5, 34),
-                }.SetPerson(ps[0]));
+                if(isAlarm)
+                {
+                    alarms.Add(new LocationAlarm()
+                    {
+                        Id = i,
+                        TagId = 1,
+                        AlarmType = 0,
+                        AlarmLevel = (LocationAlarmLevel)4,
+                        Content = "定位告警" + i,
+                        CreateTime = new DateTime(2018, 9, 1, 10, 5, 34),
+                    }.SetPerson(ps[0]));
+                }
+                else
+                {
+                    alarms.Add(new LocationAlarm()
+                    {
+                        Id = i,
+                        TagId = 1,
+                        AlarmType = 0,
+                        AlarmLevel = (LocationAlarmLevel)0,
+                        Content = "定位消警" + i,
+                        CreateTime = new DateTime(2018, 9, 1, 11, 5, 34),
+                    }.SetPerson(ps[0]));
+                }         
             }
             return alarms;
         }
@@ -322,10 +349,10 @@ namespace LocationServices.Locations
         {
             bool bReturn = false;
             DbModel.Location.AreaAndDev.Archor Archor2;
-            Archor2 = db.Archors.DbSet.Where(p => p.Code == Archor.Code).FirstOrDefault();
+            Archor2 = db.Archors.FirstOrDefault(p => p.Code == Archor.Code);
             if (Archor2 == null)
             {
-                Archor2 = db.Archors.DbSet.Where(p => p.DevInfoId == Archor.DevInfoId).FirstOrDefault();
+                Archor2 = db.Archors.FirstOrDefault(p => p.DevInfoId == Archor.DevInfoId);
             }         
             if (Archor2 == null)
             {
@@ -360,32 +387,31 @@ namespace LocationServices.Locations
                 Archor2.AliveTime = Archor.AliveTime;
                 Archor2.Enable = Archor.Enable;
                 if (!string.IsNullOrEmpty(Archor.Code)) Archor2.Code = Archor.Code;
-
                 bReturn = db.Archors.Edit(Archor2);
             }
-
+            EditBusAnchor(Archor, ParentId);
             return bReturn;
         }
 
-        public bool EditBusAnchor(Archor Archor, int ParentId)
+        public bool EditBusAnchor(Archor archor, int ParentId)
         {
             bool bDeal = false;
 
             try
             {
                 int nFlag = 0;
-                DbModel.Engine.bus_anchor bac = db.bus_anchors.DbSet.Where(p => p.anchor_id == Archor.Code).FirstOrDefault();
+                var bac = db.bus_anchors.FirstOrDefault(p => p.anchor_id == archor.Code);
                 if (bac == null)
                 {
                     bac = new DbModel.Engine.bus_anchor();
                     nFlag = 1;
                 }
 
-                bac.anchor_id = Archor.Code;
-                bac.anchor_x = (int)Archor.X;
-                bac.anchor_y = (int)Archor.Y;
-                bac.anchor_z = (int)Archor.Z;
-                bac.anchor_type = (int)Archor.Type;
+                bac.anchor_id = archor.Code;
+                bac.anchor_x = (int)archor.X;
+                bac.anchor_y = (int)archor.Y;
+                bac.anchor_z = (int)archor.Z;
+                bac.anchor_type = (int)archor.Type;
                 bac.anchor_bno = 0;
                 bac.syn_anchor_id = null;
                 bac.offset = 0;
@@ -406,12 +432,12 @@ namespace LocationServices.Locations
                     bDeal = db.bus_anchors.Add(bac);
                 }
 
-                if (!bDeal)
-                {
-                    return bDeal;
-                }
+                //if (!bDeal)
+                //{
+                //    return bDeal;
+                //}
 
-                bDeal = EditArchor(Archor, ParentId);
+                //bDeal = EditArchor(Archor, ParentId);
             }
             catch (Exception ex)
             {
@@ -424,7 +450,7 @@ namespace LocationServices.Locations
         public bool EditTag(Tag Tag, int? id)
         {
             bool bReturn = false;
-            DbModel.Location.AreaAndDev.LocationCard lc = db.LocationCards.DbSet.Where(p => p.Code == Tag.Code).FirstOrDefault();
+            var lc = db.LocationCards.FirstOrDefault(p => p.Code == Tag.Code);
             if (lc == null)
             {
                 lc = Tag.ToDbModel();
@@ -446,7 +472,7 @@ namespace LocationServices.Locations
         {
             bool bDeal = false;
             int nFlag = 0;
-            DbModel.Engine.bus_tag btag = db.bus_tags.DbSet.Where(p => p.tag_id == Tag.Code).FirstOrDefault();
+            var btag = db.bus_tags.FirstOrDefault(p => p.tag_id == Tag.Code);
             if (btag == null)
             {
                 btag = new DbModel.Engine.bus_tag();

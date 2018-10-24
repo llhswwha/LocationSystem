@@ -1,0 +1,26 @@
+﻿<Window xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.AreaCanvasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer"
+        mc:Ignorable="d"
+        Title="AreaCanvas" Height="900" Width="1400" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"></Menu>
+        <StackPanel DockPanel.Dock="Top">
+
+        </StackPanel>
+        <wpfClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>
+        <TabControl DockPanel.Dock="Top" Height="300">
+            <TabItem Header="子区域列表">
+                <wpfClientControlLib:AreaListBox x:Name="AreaListBox1"/>
+            </TabItem>
+            <TabItem Header="设备列表">
+                <wpfClientControlLib:DbDeviceListBox x:Name="DeviceListBox1"/>
+            </TabItem>
+        </TabControl>
+        
+        <wpfClientControlLib:AreaCanvas x:Name="AreaCanvas1"/>
+    </DockPanel>
+</Window>

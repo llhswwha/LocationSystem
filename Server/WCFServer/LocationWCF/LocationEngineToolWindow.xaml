@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer"
         mc:Ignorable="d"
-        Title="LocationEngineToolWindow" Height="600" Width="1200" Loaded="LocationEngineToolWindow_OnLoaded">
+        Title="LocationEngineToolWindow" Height="600" Width="1200" Loaded="LocationEngineToolWindow_OnLoaded"  WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_OnClick"></MenuItem>
@@ -21,6 +21,7 @@
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Top">
                                 <Button Name="BtnModifyArchor1FromArchor2" Click="BtnModifyArchor1FromArchor2_OnClick" ToolTip="根据列表2更新列表1">列表2 => 更新列表1</Button>
+                                <Button Name="BtnDeleteDataFromList2" Click="BtnDeleteDataFromList2_OnClick">删除列表2生成数据</Button>
                                 <Button Name="BtnSave1" Click="BtnSave1_OnClick">保存修改</Button>
                             </StackPanel>
                             <GroupBox Header="列表1" Name="Group1">
