@@ -115,6 +115,7 @@
     <Compile Include="Tools\InitInfos\TransformM.cs" />
     <Compile Include="Tools\ListExtension.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\MathTool.cs" />
     <Compile Include="Tools\TreeHelper.cs" />
     <Compile Include="Tools\XmlSerializeHelper.cs" />
   </ItemGroup>

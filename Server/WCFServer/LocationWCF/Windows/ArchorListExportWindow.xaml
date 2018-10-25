@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer"
+        xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"
         mc:Ignorable="d"
-        Title="ArchorListExportWindow" Height="300" Width="300">
+        Title="ArchorListExportWindow" Height="600" Width="1300" Loaded="ArchorListExportWindow_OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="导出" Name="MenuExport" Click="MenuExport_OnClick"></MenuItem>
+            <MenuItem Header="计算绝对坐标" Name="MenuCalculate" Click="MenuCalculate_OnClick"></MenuItem>
         </Menu>
+        <wpfClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBar1" Height="30"></wpfClientControlLib:ProgressBarEx>
         <DataGrid Name="DataGrid1">
             
         </DataGrid>

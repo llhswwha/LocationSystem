@@ -256,5 +256,14 @@ namespace DbModel.Location.AreaAndDev
         {
             return MaxY - MinY;
         }
+
+        public bool Contains(double x, double y)
+        {
+            if (Points.Count > 4)//不规则多边形
+            {
+                return MathTool.IsInRegion(new Point(x, y,0,0), Points);
+            }
+            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+        }
     }
 }

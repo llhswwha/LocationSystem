@@ -4,7 +4,9 @@ namespace DAL
 {
     public class LocationHistoryDb : DbContext
     {
-        public LocationHistoryDb():base("LocationHistoryConnection")
+        public static string Name = "LocationHistoryConnection";
+
+        public LocationHistoryDb():base(Name)
         {
             Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
         }

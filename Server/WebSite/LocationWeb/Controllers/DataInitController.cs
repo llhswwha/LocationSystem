@@ -7,7 +7,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BLL;
-using BLL.ServiceHelpers;
 using Location.BLL.Tool;
 using DAL;
 using Location.Model.InitInfos;
@@ -35,7 +34,8 @@ namespace WebLocation.Controllers
         public ActionResult SaveInitInfoXml()
         {
             Log.InfoStart("SaveInitInfoXml");
-            var root= LocationSP.GetPhysicalTopologyTree();
+            Bll bll = new Bll(false, false, false, false);
+            var root = bll.GetAreaTree(false);
             InitInfo initInfo=new InitInfo();
             initInfo.TopoInfo = new TopoInfo(root);
             string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";

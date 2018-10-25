@@ -12,7 +12,9 @@ namespace DAL
 {
     public class EngineDb:DbContext
     {
-        public EngineDb() : base("Sqlite") { }
+        public static string Name = "EngineLite";
+
+        public EngineDb() : base(Name) { }
         
         public DbSet<bus_anchor> bus_anchors { get; set; }
 

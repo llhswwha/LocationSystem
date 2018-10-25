@@ -54,6 +54,12 @@ namespace DbModel.Location.AreaAndDev
         public int? ParentId { get; set; }
 
         /// <summary>
+        /// 父ID
+        /// </summary>
+        [DataMember]
+        public virtual Area Parent { get; set; }
+
+        /// <summary>
         /// 对接父ID
         /// </summary>
         [DataMember]
@@ -344,6 +350,16 @@ namespace DbModel.Location.AreaAndDev
                 }
             }
             return buildings;
-        } 
+        }
+
+        public string GetPath()
+        {
+            if (this.Id == 2) return Name;
+            if (Parent != null)
+            {
+                return Parent.GetPath() + "." + Name;
+            }
+            return Name;
+        }
     }
 }

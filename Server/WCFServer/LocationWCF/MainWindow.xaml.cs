@@ -481,24 +481,25 @@ namespace LocationWCFServer
         private void MenuLocationEngionTool_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new LocationEngineToolWindow();
-            win.ShowDialog();
+            win.Show();
         }
 
         private void MenuExportArchorPosition_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new ArchorListWindow();
-            win.ShowDialog();
+            win.Show();
         }
 
         private void MenuAreaCanvas_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new AreaCanvasWindow();
-            win.ShowDialog();
+            win.Show();
         }
 
         private void MenuArchorSettingExport_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var win = new ArchorListExportWindow();
+            win.Show();
         }
     }
 }

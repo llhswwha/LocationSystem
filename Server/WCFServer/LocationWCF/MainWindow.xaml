@@ -12,7 +12,7 @@
                 <MenuItem Header="定位引擎数据库工具" Name="MenuLocationEngionTool" Click="MenuLocationEngionTool_OnClick"></MenuItem>
                 <MenuItem Header="基站坐标表格导出" Name="MenuExportArchorPosition" Click="MenuExportArchorPosition_OnClick"></MenuItem>
                 <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
-                <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuAreaCanvas_OnClick"></MenuItem>
+                <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuArchorSettingExport_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>

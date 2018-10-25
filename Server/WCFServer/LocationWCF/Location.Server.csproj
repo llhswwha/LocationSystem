@@ -100,8 +100,13 @@
       <HintPath>..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SQLite.CodeFirst, Version=1.5.1.25, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SQLite.CodeFirst.1.5.1.25\lib\net45\SQLite.CodeFirst.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net45\System.Data.SQLite.dll</HintPath>
@@ -174,47 +179,48 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
-    <Compile Include="ArchorConfigureBox.xaml.cs">
+    <Compile Include="Controls\ArchorConfigureBox.xaml.cs">
       <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ArchorListExportWindow.xaml.cs">
+    <Compile Include="Models\ArchorSetting.cs" />
+    <Compile Include="Windows\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ArchorListWindow.xaml.cs">
+    <Compile Include="Windows\ArchorListWindow.xaml.cs">
       <DependentUpon>ArchorListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AreaCanvasWindow.xaml.cs">
+    <Compile Include="Windows\AreaCanvasWindow.xaml.cs">
       <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocationEngineToolWindow.xaml.cs">
+    <Compile Include="Windows\LocationEngineToolWindow.xaml.cs">
       <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LocationTestBox.xaml.cs">
+    <Compile Include="Controls\LocationTestBox.xaml.cs">
       <DependentUpon>LocationTestBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="StopwatchTextBox.cs" />
-    <Page Include="ArchorConfigureBox.xaml">
+    <Compile Include="Controls\StopwatchTextBox.cs" />
+    <Page Include="Controls\ArchorConfigureBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ArchorListExportWindow.xaml">
+    <Page Include="Windows\ArchorListExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ArchorListWindow.xaml">
+    <Page Include="Windows\ArchorListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AreaCanvasWindow.xaml">
+    <Page Include="Windows\AreaCanvasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LocationEngineToolWindow.xaml">
+    <Page Include="Windows\LocationEngineToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LocationTestBox.xaml">
+    <Page Include="Controls\LocationTestBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

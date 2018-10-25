@@ -1,36 +1,25 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using DbModel.Location.Person;
-using DAL.Migrations;
-
+using SQLite.CodeFirst;
 namespace DAL
 {
-    public class LocationDb : DbContext
+    public class LocationDbLite : DbContext
     {
-        public static bool IsSqlite = false;
+        public static string Name = "LocationLite";
 
-        public static string Name = "LocationConnection";
-
-        public LocationDb() : base(Name)
+        public LocationDbLite() : base(Name)
         {
-            //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());
-            //this.Configuration.ProxyCreationEnabled = false;
-
-            //Database.SetInitializer<LocationDb>(null);
-            Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+            Configure();
         }
 
-        public LocationDb(bool isCreateDb) : base(Name)
+        private void Configure()
         {
-            if (isCreateDb)
-            {
-                //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
-            }
-            else
-            {
-                Database.SetInitializer<LocationDb>(null); 
-            }
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
         }
+
+        public DbSet<Book> Books { get; set; }
 
         public DbSet<DbModel.Location.Alarm.DevAlarm> DevAlarms { get; set; }
 
@@ -67,7 +56,7 @@ namespace DAL
         public DbSet<DbModel.Location.Data.DevInstantData> DevInstantDatas { get; set; }
 
         public DbSet<DbModel.Location.Data.LocationCardPosition> LocationCardPositions { get; set; }
-        
+
         public DbSet<DbModel.Location.Person.Personnel> Personnels { get; set; }
 
         public DbSet<DbModel.Location.Person.Role> Roles { get; set; }
@@ -102,5 +91,17 @@ namespace DAL
 
         public DbSet<DbModel.Location.AreaAndDev.Dev_DoorAccess> Dev_DoorAccess { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            var initializer = new SqliteDropCreateDatabaseWhenModelChanges<LocationDbLite>(modelBuilder);
+            Database.SetInitializer(initializer);
+        }
+    }
+
+    public class Book
+    {
+        public int Id { get; set; }
+        
+        public string Name { get; set; }
     }
 }
