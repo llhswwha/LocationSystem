@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -252,8 +253,18 @@ namespace ExcelLib
         public static DataTable LoadTable(FileInfo file, string tableName, bool isFirtRowHeader)
         {
             IWorkbook hssfworkbook = Open(file.FullName);
-            ISheet  ISheet1 = hssfworkbook.GetSheet(tableName);
-            DataTable dt = GetDataTable(ISheet1, tableName, isFirtRowHeader);
+            ISheet sheet1 = null;
+            if (hssfworkbook == null) return null;
+            if (string.IsNullOrEmpty(tableName))
+            {
+                sheet1 = hssfworkbook.GetSheetAt(0);
+            }
+            else
+            {
+                sheet1 = hssfworkbook.GetSheet(tableName);
+            }
+            
+            DataTable dt = GetDataTable(sheet1, tableName, isFirtRowHeader);
             return dt;
         }
         #endregion
@@ -286,6 +297,50 @@ namespace ExcelLib
 
             excelFileStream.Close();
             fileStream.Close();
+        }
+
+        public static DataTable ToTable<T>(List<T> list)
+        {
+            if (list.Count == 0) return null;
+            var type = typeof(T);
+            if (type == typeof (object) && list.Count>0)
+            {
+                type = list[0].GetType();
+            }
+            var ps = type.GetProperties();
+            var dt = new DataTable();
+            dt.TableName = type.Name;
+            foreach (var p in ps)
+            {
+                dt.Columns.Add(p.Name);
+            }
+            foreach (var item in list)
+            {
+                var values = new List<object>();
+                foreach (var p in ps)
+                {
+                    object value = p.GetValue(item, null);
+                    values.Add(value);
+                }
+                dt.Rows.Add(values.ToArray());
+            }
+            dt.Columns.Add();
+            return dt;
+        }
+
+        public static bool ExportList<T>(List<T> list,FileInfo file)
+        {
+            try
+            {
+                DataTable dt = ToTable(list);
+                Save(dt, file, "");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }

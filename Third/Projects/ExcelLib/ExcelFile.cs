@@ -150,6 +150,10 @@ namespace ExcelLib
         {
             try
             {
+                if (file.Directory.Exists == false)
+                {
+                    file.Directory.Create();
+                }
                 WriteToFile(hssfworkbook, file.FullName);
                 if (openFile)
                 {

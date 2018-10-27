@@ -87,7 +87,7 @@ namespace LocationServices.Locations.Services
                         select new PersonArea { Person = p, Area = pos.AreaId };
             var pList = query.ToList();
             return pList;
-        } 
+        }
 
         class PersonArea
         {
@@ -160,25 +160,31 @@ namespace LocationServices.Locations.Services
                 devs = db.DevInfos.ToList().ToTModelS();
             }
 
-            
+
 
             var roots = TreeHelper.CreateTree(list, devs);
             AreaNode root = null;
             if (roots.Count > 0)
             {
-                root= roots[0];
+                root = roots[0];
             }
             if (view == 4 || view == 5 || view == 6)
             {
                 RemoveEmptyNodes(root);
             }
+
+            if (root.Children.Count == 0)
+            {
+                root.Children = null;
+            }
+
             return root;
         }
 
         private void RemoveEmptyNodes(AreaNode node)
         {
             if (node == null) return;
-            if(node.Children!=null)
+            if (node.Children != null)
                 for (int i = 0; i < node.Children.Count; i++)
                 {
                     AreaNode subNode = node.Children[i];

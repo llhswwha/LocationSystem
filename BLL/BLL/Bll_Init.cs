@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using BLL.Tools;
@@ -9,6 +10,7 @@ using DbModel.Location.Person;
 using DbModel.Location.Relation;
 using DbModel.LocationHistory.Data;
 using DbModel.Tools;
+using ExcelLib;
 using Location.BLL.Tool;
 using Location.TModel.Tools;
 
@@ -89,27 +91,56 @@ namespace BLL
         /// <summary>
         /// 初始化设备模型和类型表
         /// </summary>
-        private void InitDevModelAndType()
+        public void InitDevModelAndType()
         {
-            //设备模型信息\\DevTypeModel.sql
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备模型信息\\DevTypeModel.sql";
-            if (File.Exists(initFile))
-            {
-                try
-                {
-                    string txt = File.ReadAllText(initFile);
-                    int count = Db.Database.ExecuteNonQuery(txt);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("执行sql语句失败", ex);
-                }
-            }
-            else
-            {
-                Log.Info("sql文件不存在:" + initFile);
-            }
+            ////设备模型信息\\DevTypeModel.sql
+            //string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备模型信息\\DevTypeModel.sql";
+            //if (File.Exists(initFile))
+            //{
+            //    try
+            //    {
+            //        string txt = File.ReadAllText(initFile);
+            //        int count = Db.Database.ExecuteNonQuery(txt);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Log.Error("执行sql语句失败", ex);
+            //    }
+            //}
+            //else
+            //{
+            //    Log.Info("sql文件不存在:" + initFile);
+            //}
+            //因为sqlite不支持改成从表格导入
+
+            var list = LoadExcelToList<DevModel>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\DevModel.xls");
+            DevModels.AddRange(list);
+
+            var list2 = LoadExcelToList<DevType>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\DevType.xls");
+            DevTypes.AddRange(list2);
         }
+
+        public static List<T> LoadExcelToList<T>(string filePath) where T :class,new()
+        {
+            DataTable dt = ExcelHelper.LoadTable(new FileInfo(filePath), "", true);
+            List<T> list = new List<T>();
+            Type type = typeof(T);
+            foreach (DataRow row in dt.Rows)
+            {
+                T item = new T();
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    var column = dt.Columns[i];
+                    var value = row.ItemArray[i];
+                    var pt = type.GetProperty(column.ColumnName);
+                    if (pt == null) continue;
+                    pt.SetValueEx(item, value);
+                }
+                list.Add(item);
+            }
+            return list;
+        } 
+
         private void InitConfigArgs()
         {
             ConfigArgs.Add(new ConfigArg()

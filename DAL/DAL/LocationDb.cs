@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using DbModel.Location.Person;
 using DAL.Migrations;
+using SQLite.CodeFirst;
 
 namespace DAL
 {
@@ -12,23 +13,34 @@ namespace DAL
 
         public LocationDb() : base(Name)
         {
-            //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());
-            //this.Configuration.ProxyCreationEnabled = false;
-
-            //Database.SetInitializer<LocationDb>(null);
-            Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+            IsCreateDb = true;
         }
 
         public LocationDb(bool isCreateDb) : base(Name)
         {
-            if (isCreateDb)
+            IsCreateDb = isCreateDb;
+        }
+
+        public bool IsCreateDb { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            if (IsSqlite)
             {
-                //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+                Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationDb>(modelBuilder));
             }
             else
             {
-                Database.SetInitializer<LocationDb>(null); 
+                if (IsCreateDb)
+                {
+                    //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
+                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+                }
+                else
+                {
+                    Database.SetInitializer<LocationDb>(null);
+                }
             }
         }
 

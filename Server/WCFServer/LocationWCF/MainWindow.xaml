@@ -13,6 +13,8 @@
                 <MenuItem Header="基站坐标表格导出" Name="MenuExportArchorPosition" Click="MenuExportArchorPosition_OnClick"></MenuItem>
                 <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
                 <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuArchorSettingExport_OnClick"></MenuItem>
+                <MenuItem Header="数据库表导出Excel" Name="MenuDbExport" Click="MenuDbExport_OnClick"></MenuItem>
+                <MenuItem Header="数据库配置" Name="MenuDbConfigure" Click="MenuDbInit_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>

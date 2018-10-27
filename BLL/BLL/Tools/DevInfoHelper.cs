@@ -21,12 +21,16 @@ namespace BLL.Tools
         {
             if (!File.Exists(filePath) || devBll == null)
             {
+                Log.Error("文件不存在:" + filePath);
                 return false;
             }
             DevInfoBackupList initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
             foreach (var devInfo in initInfo.DevList)
             {
-                if (devInfo.TypeCode == LocationDeviceHelper.LocationDevTypeCode) continue;
+                if (devInfo.TypeCode == LocationDeviceHelper.LocationDevTypeCode)
+                {
+                    continue;
+                }
                 AddDevInfo(devInfo,devBll);
             }
             return true;

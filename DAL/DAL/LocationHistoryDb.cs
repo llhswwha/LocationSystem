@@ -1,14 +1,30 @@
 ﻿using System.Data.Entity;
+using DAL.Migrations;
+using SQLite.CodeFirst;
 
 namespace DAL
 {
     public class LocationHistoryDb : DbContext
     {
+        public static bool IsSqlite = false;
+
         public static string Name = "LocationHistoryConnection";
 
         public LocationHistoryDb():base(Name)
         {
-            Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
+           
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            if (IsSqlite)
+            {
+                Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationHistoryDb>(modelBuilder));
+            }
+            else
+            {
+                Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
+            }
         }
 
         public DbSet<DbModel.LocationHistory.Alarm.DevAlarmHistory> DevAlarmHistorys { get; set; }

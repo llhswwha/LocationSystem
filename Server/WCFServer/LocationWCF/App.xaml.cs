@@ -21,23 +21,34 @@ namespace LocationWCFServer
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             XmlConfigurator.Configure();
-
+            Log.AppStart();
             Log.Info("App_OnStartup");
 
-            LocationDbLite db = new LocationDbLite();
-            //db.Database.Create();
-            var list = db.Books.ToList();
-            if (list.Count == 0)
+            //LocationDbLite db = new LocationDbLite();
+            ////db.Database.Create();
+            //var list = db.Books.ToList();
+            //if (list.Count == 0)
+            //{
+            //    db.Books.Add(new Book() { Name = "Book1" });
+            //    db.Books.Add(new Book() { Name = "Book2" });
+            //    db.Books.Add(new Book() { Name = "Book3" });
+            //    db.SaveChanges();
+            //}
+
+            //Bll db = new Bll();
+            ////bll.InitDevModelAndType();
+
+            //var devs = db.DevInfos.ToList();
+
+            int mode = ConfigurationManager.AppSettings["ShowSqlLog"].ToInt();
+            if (mode == 1)
             {
-                db.Books.Add(new Book() { Name = "Book1" });
-                db.Books.Add(new Book() { Name = "Book2" });
-                db.Books.Add(new Book() { Name = "Book3" });
-                db.SaveChanges();
+                BLL.Bll.ShowLog = true;
             }
 
-            //InitDbContext();
+            InitDbContext();
 
-            //InitData();
+            InitData();
         }
 
         private static void InitDbContext()
@@ -49,7 +60,9 @@ namespace LocationWCFServer
             }
             else if (mode == 1)
             {
+                LocationDb.IsSqlite = true;
                 LocationDb.Name = "LocationLite";
+                LocationHistoryDb.IsSqlite = true;
                 LocationHistoryDb.Name = "LocationHisLite";
             }
         }

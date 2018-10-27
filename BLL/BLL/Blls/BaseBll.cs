@@ -319,6 +319,7 @@ namespace BLL.Blls
                 {
                     Thread.Sleep(100);
                     Db.BulkInsert(list);
+                    return true;//有一定概率先失败后成功
                 }
                 catch (Exception ex2)
                 {

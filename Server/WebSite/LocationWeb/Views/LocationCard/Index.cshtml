@@ -9,7 +9,6 @@
 }
 
 <h2>Index</h2>
-
 <p>
     @Ajax.ActionLink("Create New", "Create", "LocationCard", new AjaxOptions
     {
@@ -22,6 +21,9 @@
         OnComplete = "onComplete"
     })
 </p>
+<p>
+    @Html.ActionLink("跳转到实时定位页面", "Position")
+</p>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
     <div class="modal-dialog">
@@ -32,76 +34,113 @@
     </div>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Describe)
-        </th>
-        <th></th>
-    </tr>
+<div id="freshTable">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Describe)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Describe)
-        </td>
-        <td>           
-            @Ajax.ActionLink("Edit", "Edit", "LocationCard", new { id = item.Id }, new AjaxOptions
-           {
-               HttpMethod = "Get",
-               UpdateTargetId = "modalContent",
-               InsertionMode = InsertionMode.Replace,
-               OnBegin = "onBegin",
-               OnSuccess = "onSuccess",
-               OnFailure = "onFailure",
-               OnComplete = "onComplete"
-           }) |
-            
-            @Ajax.ActionLink("Details", "Details", "LocationCard", new { id = item.Id }, new AjaxOptions
-           {
-               HttpMethod = "GET",
-               UpdateTargetId = "modalContent",
-               InsertionMode = InsertionMode.Replace,
-               OnBegin = "onBegin",
-               OnSuccess = "onSuccess",
-               OnFailure = "onFailure",
-               OnComplete = "onComplete"
-           }) |
-            
-            @Ajax.ActionLink("Delete", "Delete", "LocationCard", new { id = item.Id }, new AjaxOptions
-           {
-               HttpMethod = "GET",
-               UpdateTargetId = "modalContent",
-               InsertionMode = InsertionMode.Replace,
-               OnBegin = "onBegin",
-               OnSuccess = "onSuccess",
-               OnFailure = "onFailure",
-               OnComplete = "onComplete"
-           })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Describe)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", "LocationCard", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "Get",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
 
-</table>
-@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+                    @Ajax.ActionLink("Details", "Details", "LocationCard", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                    @Ajax.ActionLink("Delete", "Delete", "LocationCard", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })   
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-
 <script src="~/Scripts/jqueryui-1.12.1.js"></script>
-<script src="~/Scripts/indexmodal.js"></script>
+<script src="~/Scripts/indexmodal.js"></script> 
+ 
+    @*<script type="text/javascript">
+            function onBegin() {
+                //alert('begin');
+                $('#myModal').modal({
+                    //点击背景空白处不被关闭
+                    backdrop: 'static',
+                    //触发键盘esc事件时不关闭
+                    keyboard: false
+                });
+            }
+
+            function onSuccess() {
+                //alert('success');
+            }
+
+            function onComplete() {
+                //alert('complete');
+                $('#myModal').modal('show');
+            }
+
+            function onFailure() {
+                //alert('fail');
+            }
+
+            $("#myModal").each(function () {
+                $(this).draggable({
+                    handle: ".modal-header"   // 只能点击头部拖动
+                });
+                $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+            });
+    </script>*@
+
+

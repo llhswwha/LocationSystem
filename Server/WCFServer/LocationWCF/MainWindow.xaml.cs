@@ -2,6 +2,7 @@
 using LocationWCFServices;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -28,9 +29,11 @@ using Location.BLL;
 using Location.TModel.Location.Alarm;
 using Location.TModel.Location.AreaAndDev;
 using LocationServer;
+using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Interfaces;
 using TModel.Location.Data;
+using TModel.Tools;
 using WebNSQLib;
 
 namespace LocationWCFServer
@@ -264,7 +267,8 @@ namespace LocationWCFServer
         {
             //端口和主服务器(8733)一致的情况下，2D和3D无法连接SignalR服务器
             port = "8735";
-            string ServerURI = string.Format("http://{0}:{1}/", host,port);
+            //string ServerURI = string.Format("http://{0}:{1}/", host,port);
+            string ServerURI = string.Format("http://{0}:{1}/", "*", port);
             try
             {
                 SignalR = WebApp.Start(ServerURI);
@@ -500,6 +504,27 @@ namespace LocationWCFServer
         {
             var win = new ArchorListExportWindow();
             win.Show();
+        }
+
+        private void MenuDbExport_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new DbBrowserWindow();
+            win.Show();
+        }
+
+        private void MenuDbInit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Log.InfoStart("InitData");
+            Bll bll = new Bll();
+            bll.Init(0);
+            Log.InfoEnd("InitData");
+
+            MessageBox.Show("初始化完成");
+        }
+
+        private void MenuDbConfigure_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

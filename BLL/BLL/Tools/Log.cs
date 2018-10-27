@@ -182,6 +182,13 @@ namespace Location.BLL.Tool
             Logger.FatalFormat(GetBefore() + format + GetAfter(), format, args);
         }
 
+        public static void AppStart()
+        {
+            Info("");
+            Info("");
+            Info("====================================");
+        }
+
         public static void Info(object message)
         {
             Logger.Info(GetBefore() + message + GetAfter());

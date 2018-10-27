@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
+using ExcelLib;
 using LocationServer.Models;
 
 namespace LocationServer
@@ -31,25 +32,7 @@ namespace LocationServer
 
         private void MenuExport_OnClick(object sender, RoutedEventArgs e)
         {
-            var type = typeof (ArchorSetting);
-            var ps=type.GetProperties();
-            var dt = new DataTable();
-            foreach (var p in ps)
-            {
-                dt.Columns.Add(p.Name);
-            }
-            foreach (var item in list)
-            {
-                var values = new List<object>();
-                foreach (var p in ps)
-                {
-                    object value = p.GetValue(item);
-                    values.Add(value);
-                }
-                dt.Rows.Add(values.ToArray());
-            }
-            dt.Columns.Add();
-            ExcelLib.ExcelHelper.Save(dt, new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "//Archors.xls"), "");
+            ExcelHelper.ExportList(list, new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "//Archors.xls"));
         }
 
         private List<ArchorSetting> list;

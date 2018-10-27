@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Location.BLL.Tool;
 
 namespace BLL
 {
@@ -143,12 +144,19 @@ namespace BLL
 
         }
 
+        public static bool ShowLog { get; set; }
+
         public Bll(bool autoDetectChangesEnabled, bool lazyLoadingEnabled, bool isCreateDb,bool useProxy=true)
         {
             Db = new LocationDb(isCreateDb);
             Db.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
             Db.Configuration.LazyLoadingEnabled = lazyLoadingEnabled; //关闭延迟加载
             Db.Configuration.ProxyCreationEnabled = useProxy;
+
+            if(ShowLog)
+                Db.Database.Log = Log.Debug;
+
+
             Archors = new ArchorBll(Db);
             Areas = new AreaBll(Db);
             Bounds = new BoundBll(Db);
