@@ -44,6 +44,7 @@
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
+    <Compile Include="FuncArgs\ArchorSetting.cs" />
     <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationTicketHistory.cs" />
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionHistory.cs" />

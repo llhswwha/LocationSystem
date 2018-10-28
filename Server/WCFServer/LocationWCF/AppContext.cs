@@ -77,7 +77,9 @@ namespace LocationServer
                 bll = new Bll();
                 if (isForce)
                 {
-                    bll.Db.Database.Create();
+                    //bll.Db.Database.Delete();
+                    //bll.Db.Database.Create();
+                    bll.DbHistory.Database.Delete();
                     bll.DbHistory.Database.Create();
                 }
             }

@@ -63,6 +63,7 @@ namespace LocationServer
             AreaCanvas1.ShowArea(area);
             AreaListBox1.LoadData(area.Children);
             DeviceListBox1.LoadData(area.LeafNodes);
+            ArchorListExportControl1.LoadData(area);
         }
 
         private void AreaListBox1_SelectedItemChanged(Area obj)

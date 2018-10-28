@@ -124,7 +124,7 @@ namespace Location.BLL.Tool
                         //string line =ev.ToString();
                         //%d{yyyy-MM-dd HH:mm:ss,fff} %-5level [%c:%line] - %message%newline
                         //%d [%t] %-5p %c - %m%n
-                        string line = string.Format("{0} [{1}] {2} {3} - {4}",ev.TimeStamp,ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject);
+                        string line = string.Format("{0} [{1}] {2} {3} - {4} {5}",ev.TimeStamp,ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject,ev.ExceptionObject);
                         //string line = ev.LoggerName + ": " + ev.RenderedMessage + "\r\n";
                         if (NewLogEvent != null)
                         {

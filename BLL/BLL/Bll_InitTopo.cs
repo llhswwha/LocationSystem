@@ -53,7 +53,9 @@ namespace BLL
             //TransformMs.Clear();
             NodeKKSs.Clear();
             Points.Clear();
+            Areas.Clear();
             Bounds.Clear();
+
             Log.InfoEnd("ClearTopoTable");
         }
 
@@ -64,17 +66,23 @@ namespace BLL
 
             Area root = new Area() { Name = topoInfo.Name, Type = topoInfo.Type };
             Areas.Add(root);
-            InitTopoChildren(root, topoInfo);
+            Log.InfoStart("InitTopoChildren");
+            InitTopoChildren(root, topoInfo, 0);
+            Log.InfoStart("InitTopoChildren");
             Log.InfoEnd("InitTopo");
         }
 
-        private void InitTopoChildren(Area root, TopoInfo topoInfo)
+        private void InitTopoChildren(Area root, TopoInfo topoInfo, int level)
         {
             foreach (TopoInfo childInfo in topoInfo.Children)
             {
+                if (level < 3)
+                {
+                    Log.Info("InitNode:" + childInfo.Name);
+                }
                 var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
                 SetInitBound(childInfo.BoundInfo, childNode);
-                InitTopoChildren(childNode, childInfo);
+                InitTopoChildren(childNode, childInfo, level++);
             }
         }
 
@@ -110,16 +118,19 @@ namespace BLL
             }
         }
 
-        public void InitAreas()
+        public void InitAreaAndDev()
         {
-            Log.InfoStart("InitAreas");
+            Log.InfoStart("InitAreaAndDev");
 
             if (!InitTopoFromXml())
             {
                 InitTopoByEntities();
             }
 
-            Log.InfoEnd("InitAreas");
+            InitLocationDevice();//基站设备
+            InitDevInfo();//设备信息（不包含基站设备）  
+
+            Log.InfoEnd("InitAreaAndDev");
         }
 
         private void InitTopoByEntities()

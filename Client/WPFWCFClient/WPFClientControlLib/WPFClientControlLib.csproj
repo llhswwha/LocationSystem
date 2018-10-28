@@ -57,6 +57,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchorSettingListBox.xaml.cs">
+      <DependentUpon>ArchorSettingListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AreaCanvas.xaml.cs">
       <DependentUpon>AreaCanvas.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,19 @@
     <Compile Include="TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ArchorInfoWindow.xaml.cs">
+      <DependentUpon>ArchorInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ArchorSettingWindow.xaml.cs">
+      <DependentUpon>ArchorSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DevInfoWindow.xaml.cs">
+      <DependentUpon>DevInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ArchorSettingListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AreaCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +182,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TopoTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ArchorInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DevInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

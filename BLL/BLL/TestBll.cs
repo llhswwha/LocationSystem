@@ -13,7 +13,7 @@ namespace BLL
 
         public void InitTopo()
         {
-            db.InitAreas();
+            db.InitAreaAndDev();
         }
 
         public void InitTopo(TopoInfo topoInfo)

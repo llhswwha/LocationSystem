@@ -6,6 +6,7 @@ using Location.BLL.Tool;
 using Location.Model.InitInfos;
 using Location.TModel.Location.AreaAndDev;
 using DevInfo = DbModel.Location.AreaAndDev.DevInfo;
+using TModel.Tools;
 
 namespace BLL.Tools
 {
@@ -17,23 +18,52 @@ namespace BLL.Tools
         /// <param name="filePath"></param>
         /// <param name="devBll"></param>
         /// <returns></returns>
-        public static bool ImportDevInfoFromFile(string filePath, DevInfoBll devBll)
+        public static bool ImportDevInfoFromFile(string filePath, Bll bll)
         {
-            if (!File.Exists(filePath) || devBll == null)
+            if (!File.Exists(filePath) || bll == null)
             {
                 Log.Error("文件不存在:" + filePath);
                 return false;
             }
-            DevInfoBackupList initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+            var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+            //for (int i = 0; i < initInfo.DevList.Count; i++)
+            //{
+            //    if (initInfo.DevList[i].TypeCode == LocationDeviceHelper.LocationDevTypeCode)
+            //    {
+            //        initInfo.DevList.RemoveAt(i);
+            //        i--;
+            //    }
+            //}
+            var areas = bll.Areas.ToList();
             foreach (var devInfo in initInfo.DevList)
             {
                 if (devInfo.TypeCode == LocationDeviceHelper.LocationDevTypeCode)
                 {
                     continue;
                 }
-                AddDevInfo(devInfo,devBll);
+                var area= areas.Find(i => i.Name == devInfo.ParentName);
+                if (area != null)
+                    devInfo.ParentId = area.Id;
+                AddDevInfo(devInfo, bll.DevInfos);
             }
             return true;
+        }
+
+        public static void RemoveArchorDev()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
+            var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+            for (int i = 0; i < initInfo.DevList.Count; i++)
+            {
+                if (initInfo.DevList[i].TypeCode == LocationDeviceHelper.LocationDevTypeCode)
+                {
+                    initInfo.DevList.RemoveAt(i);
+                    i--;
+                }
+            }
+            initInfo.DevList.Sort();
+            XmlSerializeHelper.Save(initInfo, filePath);
         }
         /// <summary>
         /// 添加设备信息
@@ -64,10 +94,10 @@ namespace BLL.Tools
             DevInfo devInfo = new DevInfo
             {
                 Name = dev.Name,
-                ParentId = TryParseInt(dev.ParentId),
+                ParentId = dev.ParentId,
                 KKS = dev.KKSCode,
                 Local_DevID = dev.DevId,
-                Local_TypeCode = TryParseInt(dev.TypeCode),
+                Local_TypeCode = dev.TypeCode.ToInt(),
                 Status = Abutment_Status.正常,
                 ModelName = dev.ModelName,
                 IP = "",
@@ -96,17 +126,6 @@ namespace BLL.Tools
                 ScaleZ = TryParseFloat(dev.ScaleZ)
             };
             return pos;
-        }
-        private static int TryParseInt(string num)
-        {
-            try
-            {
-                return int.Parse(num);
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
         }
         /// <summary>
         /// 字符转Float

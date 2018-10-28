@@ -1,10 +1,12 @@
 ﻿using BLL;
+using BLL.Tools;
 using Location.BLL.Tool;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,6 +63,28 @@ namespace LocationServer.Windows
             {
                 MessageBox.Show("初始化完成");
             });
+        }
+
+        private void MenuInitTopo_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(()=>
+            {
+                Bll bll = new Bll();
+                bll.InitAreaAndDev();
+                MessageBox.Show("完成");
+            });
+            thread.Start();
+        }
+
+        private void MenuRemoveArchor_Click(object sender, RoutedEventArgs e)
+        {
+            DevInfoHelper.RemoveArchorDev();
+            MessageBox.Show("完成");
+        }
+
+        private void MenuImportDevs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

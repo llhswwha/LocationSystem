@@ -98,10 +98,8 @@ namespace BLL
             InitTagPositions(); //定位标签
             InitDepartments(); //机构、地图、区域、标签
             InitUsers(); //登录人员
-            InitAreas(); //物理拓扑树
+            InitAreaAndDev(); //区域、设备
             InitConfigArgs();//配置信息
-            InitLocationDevice();//基站设备
-            InitDevInfo();//设备信息（不包含基站设备）  
             InitDevModelAndType();
         }
         /// <summary>
@@ -241,7 +239,7 @@ namespace BLL
             Log.Info("导入设备信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
-            bool value = DevInfoHelper.ImportDevInfoFromFile(filePath,DevInfos);
+            bool value = DevInfoHelper.ImportDevInfoFromFile(filePath,this);
             Log.Info(string.Format("导入设备信息信息结果:{0}", value));
         }
 

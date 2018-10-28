@@ -1,4 +1,4 @@
-﻿<Window xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.AreaCanvasWindow"
+﻿<Window xmlns:Controls="clr-namespace:LocationServer.Controls"  xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.AreaCanvasWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,6 +18,9 @@
             </TabItem>
             <TabItem Header="设备列表">
                 <wpfClientControlLib:DbDeviceListBox x:Name="DeviceListBox1" SelectedItemChanged="DeviceListBox1_SelectedItemChanged"/>
+            </TabItem>
+            <TabItem Header="基站设置列表">
+                <Controls:ArchorListExportControl x:Name="ArchorListExportControl1"/>
             </TabItem>
         </TabControl>
         

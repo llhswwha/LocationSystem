@@ -21,7 +21,12 @@
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="ScrollViewer1">
             <Border BorderBrush="Black" BorderThickness="1">
-                <Canvas Name="Canvas1" Background="LightBlue"></Canvas>
+                <Canvas Name="Canvas1" Background="LightBlue">
+                    <Canvas.LayoutTransform>
+                        <ScaleTransform  ScaleX="1" ScaleY="-1" x:Name="ScaleTransform1"></ScaleTransform>
+                    </Canvas.LayoutTransform>
+                    <Polygon Fill="AliceBlue" StrokeThickness="5" Stroke="Green" Points="40,10 70,80 10,50"/>
+                </Canvas>
             </Border>
             
         </ScrollViewer>

@@ -2,35 +2,15 @@
 <InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TopoInfo Name="根节点" KKS="" Type="区域">
     <TopoInfo Name="四会热电厂" KKS="" Type="区域">
-          <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
-            <Points>
-              <PointInfo X="2067" Y="1575" />
-              <PointInfo X="2067" Y="1812.5" />
-              <PointInfo X="2563" Y="1812.5" />
-              <PointInfo X="2563" Y="1575" />
-            </Points>
-          </BoundInfo>
-           <TopoInfo Name="#测试范围1" KKS="J1UMA00 R001" Type="范围">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="false"  IsCreateAreaByData="true">
-                <Points>
-              <PointInfo X="2200" Y="1650" />
-              <PointInfo X="2200" Y="1700" />
-              <PointInfo X="2400" Y="1700" />
-              <PointInfo X="2400" Y="1650" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-           <TopoInfo Name="#测试范围2" KKS="J1UMA00 R001" Type="范围">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="false"  IsCreateAreaByData="true">
-                <Points>
-              <PointInfo X="2400" Y="1700" />
-              <PointInfo X="2400" Y="1750" />
-              <PointInfo X="2500" Y="1750" />
-              <PointInfo X="2500" Y="1700" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-      <TopoInfo Name="主机装置建筑物" KKS="J1UM" Type="分组">
+      <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
+        <Points>
+          <PointInfo X="2067" Y="1575" />
+          <PointInfo X="2067" Y="1812.5" />
+          <PointInfo X="2563" Y="1812.5" />
+          <PointInfo X="2563" Y="1575" />
+        </Points>
+      </BoundInfo>
+      <TopoInfo Name="主厂房区域建筑物" KKS="" Type="分组">
         <TopoInfo Name="主厂房" KKS="J1UMA" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
@@ -240,34 +220,16 @@
           <TopoInfo Name="主厂房11.0m层" KKS="J1UMA11" Type="楼层">
             <BoundInfo BottomHeight="11.0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="44.95" Y="152.85" />
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="44.95" Y="152.85" />
               </Points>
             </BoundInfo>
           </TopoInfo>
         </TopoInfo>
-        <TopoInfo Name="#2燃气轮机房" KKS="11UMB" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
+        <!--<TopoInfo Name="#2燃气轮机房" KKS="11UMB" Type="大楼">
         </TopoInfo>
         <TopoInfo Name="#4燃气轮机房" KKS="21UMB" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="常规燃料供应建筑物" KKS="J1UE" Type="分组">
-        <TopoInfo Name="调压站控制室" KKS="J1UER" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-              <PointInfo X="2510" Y="1796.5" />
-              <PointInfo X="2525" Y="1810" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="仪表与控制建筑物" KKS="" Type="分组">
+        </TopoInfo>-->
         <TopoInfo Name="集控楼" KKS="J1UCA" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="19" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
@@ -438,7 +400,7 @@
                 <PointInfo X="-4.3" Y="23.75" />
               </Points>
             </BoundInfo>
-           <TopoInfo Name="集控楼4.5m层测试范围1" KKS="J1UMA00 R001" Type="范围">
+            <TopoInfo Name="集控楼4.5m层测试范围1" KKS="J1UMA00 R001" Type="范围">
               <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
                 <Points>
                   <PointInfo X="15.3" Y="4" />
@@ -446,7 +408,7 @@
                 </Points>
               </BoundInfo>
             </TopoInfo>
-           <TopoInfo Name="集控楼4.5m层测试范围2" KKS="J1UMA00 R001" Type="范围">
+            <TopoInfo Name="集控楼4.5m层测试范围2" KKS="J1UMA00 R001" Type="范围">
               <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
                 <Points>
                   <PointInfo X="18.3" Y="4" />
@@ -576,7 +538,7 @@
                 <PointInfo X="-4.3" Y="23.75" />
               </Points>
             </BoundInfo>
-           <TopoInfo Name="集控楼8.8m层测试范围1" KKS="J1UMA00 R001" Type="范围">
+            <TopoInfo Name="集控楼8.8m层测试范围1" KKS="J1UMA00 R001" Type="范围">
               <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
                 <Points>
                   <PointInfo X="15.3" Y="4" />
@@ -696,9 +658,9 @@
           <TopoInfo Name="联合车间0m层" KKS="J2UCA00" Type="楼层">
             <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="23.7" Y="44" />
-                </Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="44" Y="23.7" />
+              </Points>
             </BoundInfo>
             <TopoInfo Name="电子设备间" KKS="J1UMA04 R005" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
@@ -736,9 +698,9 @@
           <TopoInfo Name="联合车间4.5m层" KKS="J2UCA04" Type="楼层">
             <BoundInfo BottomHeight="4.5" Thickness="3.3" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="48.3" Y="23.7" />
-                </Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="48.3" Y="23.7" />
+              </Points>
             </BoundInfo>
             <TopoInfo Name="消防气瓶间" KKS="J1UCA04 R002" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="3.3" IsRelative="true"  IsCreateAreaByData="true">
@@ -784,9 +746,9 @@
           <TopoInfo Name="联合车间7.8m层" KKS="J2UCA07" Type="楼层">
             <BoundInfo BottomHeight="7.8" Thickness="12.2" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="48.3" Y="23.7" />
-                </Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="48.3" Y="23.7" />
+              </Points>
             </BoundInfo>
             <TopoInfo Name="空调机房" KKS="J1UCA00 R002" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="12.2" IsRelative="true"  IsCreateAreaByData="true">
@@ -822,94 +784,10 @@
             </TopoInfo>
           </TopoInfo>
         </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="常规产热建筑物" KKS="" Type="分组">
-        <TopoInfo Name="#1锅炉房" KKS="11UHA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-          <TopoInfo Name="#1锅炉房0m层" KKS="11UHA00" Type="楼层">
-            <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
-              <Points />
-            </BoundInfo>
-            <TopoInfo Name="设备区域" KKS="11UHA00 R001" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
-                <Points />
-              </BoundInfo>
-            </TopoInfo>
-          </TopoInfo>
-          <TopoInfo Name="#1锅炉房13m层" KKS="11UHA13" Type="楼层">
-              <BoundInfo BottomHeight="13" Thickness="12.5" IsRelative="true"  IsCreateAreaByData="false">
-                <Points />
-              </BoundInfo>
-          </TopoInfo>
-          <TopoInfo Name="#1锅炉房25.5m层" KKS="11UHA25" Type="楼层">
-              <BoundInfo BottomHeight="25.5" Thickness="1.5" IsRelative="true"  IsCreateAreaByData="false">
-                <Points />
-              </BoundInfo>
-          </TopoInfo>
-          <TopoInfo Name="#1锅炉房27m层" KKS="11UHA27" Type="楼层">
-              <BoundInfo BottomHeight="27" Thickness="1" IsRelative="true"  IsCreateAreaByData="false">
-                <Points />
-              </BoundInfo>
-            </TopoInfo>
-        </TopoInfo>
-        <TopoInfo Name="#3锅炉房" KKS="21UHA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-          <TopoInfo Name="#3锅炉房0m层" KKS="21UHA00" Type="楼层">
-            <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
-              <Points />
-            </BoundInfo>
-            <TopoInfo Name="设备区域" KKS="21UHA00 R001" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
-                <Points />
-              </BoundInfo>
-            </TopoInfo>
-          </TopoInfo>
-          <TopoInfo Name="#3锅炉房13m层" KKS="21UHA13" Type="楼层">
-            <BoundInfo BottomHeight="13" Thickness="12.5" IsRelative="true"  IsCreateAreaByData="false">
-              <Points />
-            </BoundInfo>
-          </TopoInfo>
-          <TopoInfo Name="#3锅炉房25.5m层" KKS="21UHA25" Type="楼层">
-            <BoundInfo BottomHeight="25.5" Thickness="1.5" IsRelative="true"  IsCreateAreaByData="false">
-              <Points />
-            </BoundInfo>
-          </TopoInfo>
-          <TopoInfo Name="#3锅炉房27m层" KKS="21UHA27" Type="楼层">
-            <BoundInfo BottomHeight="27" Thickness="1" IsRelative="true"  IsCreateAreaByData="false">
-              <Points />
-            </BoundInfo>
-          </TopoInfo>
-        </TopoInfo>
-        <TopoInfo Name="#1烟囱" KKS="11UHN" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-              <PointInfo X="2297.494" Y="1743.5501" />
-              <PointInfo X="2304.994" Y="1743.5501" />
-              <PointInfo X="2297.494" Y="1751.0501" />
-              <PointInfo X="2304.994" Y="1751.0501" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="#3烟囱" KKS="21UHN" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-              <PointInfo X="2297.494" Y="1666.9501" />
-              <PointInfo X="2304.994" Y="1666.9501" />
-              <PointInfo X="2297.494" Y="1674.4501" />
-              <PointInfo X="2304.994" Y="1674.4501" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="辅助系统建筑物" KKS="" Type="分组">
         <TopoInfo Name="#1锅炉辅助间" KKS="11UTD" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
-	            <PointInfo X="2269.843" Y="1757.7001" />
+              <PointInfo X="2269.843" Y="1757.7001" />
               <PointInfo X="2301.243" Y="1767.7001" />
             </Points>
           </BoundInfo>
@@ -997,7 +875,7 @@
         <TopoInfo Name="#3锅炉辅助间" KKS="21UTD" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
-	            <PointInfo X="2269.843" Y="1681.1001" />
+              <PointInfo X="2269.843" Y="1681.1001" />
               <PointInfo X="2301.243" Y="1691.1001" />
             </Points>
           </BoundInfo>
@@ -1090,20 +968,20 @@
             </Points>
           </BoundInfo>
           <TopoInfo Name="启动锅炉房" KKS="J1UTH00 R001" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="10.5" Y="20.4" />
-                </Points>
-              </BoundInfo>
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="10.5" Y="20.4" />
+              </Points>
+            </BoundInfo>
           </TopoInfo>
           <TopoInfo Name="控制室" KKS="J1UTH00 R002" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="0.2" Y="0.2" />
-                  <PointInfo X="3.25" Y="4.9" />
-                </Points>
-              </BoundInfo>
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0.2" Y="0.2" />
+                <PointInfo X="3.25" Y="4.9" />
+              </Points>
+            </BoundInfo>
           </TopoInfo>
         </TopoInfo>
       </TopoInfo>
@@ -1116,7 +994,7 @@
               <PointInfo X="2106" Y="1638.5" />
             </Points>
           </BoundInfo>
-          <TopoInfo Name="GIS配电装置楼﹣1.5m层" KKS="J1UBA98" Type="机房">
+          <TopoInfo Name="GIS配电装置楼﹣1.5m层" KKS="J1UBA98" Type="楼层">
             <BoundInfo BottomHeight="-1.5" Thickness="3" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
                 <PointInfo X="0" Y="0" />
@@ -1126,13 +1004,13 @@
             <TopoInfo Name="电缆夹层" KKS="J1UBA98 R001" Type="机房">
               <BoundInfo BottomHeight="-1.5" Thickness="3" IsRelative="true"  IsCreateAreaByData="true">
                 <Points>
-                <PointInfo X="5.4" Y="36" />
-                <PointInfo X="0.3" Y="0.25" />
-              </Points>
+                  <PointInfo X="5.4" Y="36" />
+                  <PointInfo X="0.3" Y="0.25" />
+                </Points>
               </BoundInfo>
             </TopoInfo>
           </TopoInfo>
-          <TopoInfo Name="GIS配电装置楼1.5m层" KKS="J1UBA01" Type="机房">
+          <TopoInfo Name="GIS配电装置楼1.5m层" KKS="J1UBA01" Type="楼层">
             <BoundInfo BottomHeight="1.5" Thickness="4" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
                 <PointInfo X="0" Y="0" />
@@ -1142,9 +1020,9 @@
             <TopoInfo Name="低压配电间" KKS="J1UBA01 R001" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="4" IsRelative="true"  IsCreateAreaByData="true">
                 <Points>
-                <PointInfo X="7.31" Y="4.65" />
-                <PointInfo X="1.31" Y="1.05" />
-              </Points>
+                  <PointInfo X="7.31" Y="4.65" />
+                  <PointInfo X="1.31" Y="1.05" />
+                </Points>
               </BoundInfo>
             </TopoInfo>
             <TopoInfo Name="通信蓄电池室" KKS="J1UBA01 R002" Type="机房">
@@ -1180,7 +1058,7 @@
               </BoundInfo>
             </TopoInfo>
           </TopoInfo>
-          <TopoInfo Name="GIS配电装置楼5.5m层" KKS="J1UBA05" Type="机房">
+          <TopoInfo Name="GIS配电装置楼5.5m层" KKS="J1UBA05" Type="楼层">
             <BoundInfo BottomHeight="5.5" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
                 <PointInfo X="0" Y="0" />
@@ -1189,6 +1067,8 @@
             </BoundInfo>
           </TopoInfo>
         </TopoInfo>
+        <!--<TopoInfo Name="220kV升压站" KKS="Y1UAA" Type="大楼">
+        </TopoInfo>-->
         <TopoInfo Name="#1启备变区域" KKS="Y1UBG" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
@@ -1246,295 +1126,93 @@
           </BoundInfo>
         </TopoInfo>
       </TopoInfo>
+      <TopoInfo Name="常规产热建筑物" KKS="" Type="分组">
+        <TopoInfo Name="#1锅炉房" KKS="11UHA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points />
+          </BoundInfo>
+          <TopoInfo Name="#1锅炉房0m层" KKS="11UHA00" Type="楼层">
+            <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+            <TopoInfo Name="设备区域" KKS="11UHA00 R001" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="#1锅炉房13m层" KKS="11UHA13" Type="楼层">
+            <BoundInfo BottomHeight="13" Thickness="12.5" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="#1锅炉房25.5m层" KKS="11UHA25" Type="楼层">
+            <BoundInfo BottomHeight="25.5" Thickness="1.5" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="#1锅炉房27m层" KKS="11UHA27" Type="楼层">
+            <BoundInfo BottomHeight="27" Thickness="1" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+        </TopoInfo>
+        <TopoInfo Name="#3锅炉房" KKS="21UHA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points />
+          </BoundInfo>
+          <TopoInfo Name="#3锅炉房0m层" KKS="21UHA00" Type="楼层">
+            <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+            <TopoInfo Name="设备区域" KKS="21UHA00 R001" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="13" IsRelative="true"  IsCreateAreaByData="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="#3锅炉房13m层" KKS="21UHA13" Type="楼层">
+            <BoundInfo BottomHeight="13" Thickness="12.5" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="#3锅炉房25.5m层" KKS="21UHA25" Type="楼层">
+            <BoundInfo BottomHeight="25.5" Thickness="1.5" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="#3锅炉房27m层" KKS="21UHA27" Type="楼层">
+            <BoundInfo BottomHeight="27" Thickness="1" IsRelative="true"  IsCreateAreaByData="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+        </TopoInfo>
+        <TopoInfo Name="#1烟囱" KKS="11UHN" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2297.494" Y="1743.5501" />
+              <PointInfo X="2304.994" Y="1743.5501" />
+              <PointInfo X="2297.494" Y="1751.0501" />
+              <PointInfo X="2304.994" Y="1751.0501" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#3烟囱" KKS="21UHN" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2297.494" Y="1666.9501" />
+              <PointInfo X="2304.994" Y="1666.9501" />
+              <PointInfo X="2297.494" Y="1674.4501" />
+              <PointInfo X="2304.994" Y="1674.4501" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
       <TopoInfo Name="供水与水处理建筑物" KKS="J1UG" Type="分组">
-        <TopoInfo Name="循环水泵房配电间" KKS="J2UBA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2410.62" Y="1727" />
-              <PointInfo X="2415.72" Y="1719.5" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="补给水泵房" KKS="J1UGA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="净水站" KKS="J2UGA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2518" Y="1615.95" />
-              <PointInfo X="2509" Y="1678.95" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="综合泵房" KKS="J1UGB" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="雨水泵房" KKS="J1UGH" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2074.7" Y="1650.7" />
-              <PointInfo X="2093.5" Y="1675" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="锅炉补给水处理车间" KKS="J1UGD" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="false" IsOnAlarmArea="true"  IsOnLocationArea="false">
-            <Points>
-              <PointInfo X="2325" Y="1650" />
-              <PointInfo X="2362" Y="1650" />
-              <PointInfo X="2362" Y="1720" />
-              <PointInfo X="2325" Y="1720" />
-            </Points>
-          </BoundInfo>
-          <TopoInfo Name="锅炉补给水处理车间0m层" KKS="J1UGD00" Type="楼层">
-            <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-              <Points>
-                <PointInfo X="0" Y="0" />
-                <PointInfo X="35.4" Y="65.3" />
-              </Points>
-            </BoundInfo>
-            <TopoInfo Name="配电间" KKS="J1UMA00 R005" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="1.75" Y="45.57" />
-                  <PointInfo X="11.9" Y="60.55" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="电子设备间" KKS="J1UMA04 R005" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="1.75" Y="39.75" />
-                  <PointInfo X="11.9" Y="45.55" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="水系统控制室" KKS="J1UGD00 R003" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="6.85" Y="33.75" />
-                  <PointInfo X="11.9" Y="39.55" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="运行化验室" KKS="J1UGD00 R004" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.1" Y="33.75" />
-                  <PointInfo X="6.65" Y="39.95" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="男卫生间" KKS="J1UCA00 R007" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.51" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="1.75" Y="30.75" />
-                  <PointInfo X="6.15" Y="33.55" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="女卫生间" KKS="J1UCA00 R008" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="8.75" Y="30.75" />
-                  <PointInfo X="11.75" Y="33.55" />
-                </Points> 
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="加药及化学清洗间" KKS="J1UGD00 R007" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="1.75" Y="14.9" />
-                  <PointInfo X="7.6" Y="23.15" />
-                </Points> 
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="贮存区域" KKS="J1UGD00 R008" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="1.75" Y="1.65" />
-                  <PointInfo X="6.11" Y="14.65" />
-                </Points> 
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="除盐间" KKS="J1UGD00 R009" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="12.1" Y="1.6" />
-                  <PointInfo X="25.25" Y="63.65" />
-                </Points> 
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="水泵间" KKS="J1UGD00 R010" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="25.55" Y="1.6" />
-                  <PointInfo X="33.75" Y="63.7" />
-                </Points> 
-              </BoundInfo>
-            </TopoInfo>
-          </TopoInfo>
-          <TopoInfo Name="锅炉补给水处理车间4.5m层" KKS="J1UGD04" Type="楼层">
-            <BoundInfo BottomHeight="4.5" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-              <Points>
-                <PointInfo X="0" Y="0" />
-                <PointInfo X="32.6" Y="62.5" />
-              </Points>
-            </BoundInfo>
-            <TopoInfo Name="药品仓库" KKS="J1UGD04 R001" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="56.35" />
-                  <PointInfo X="10.5" Y="59.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="色谱仪室" KKS="J1UGD04 R002" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="5.95" Y="50.35" />
-                  <PointInfo X="10.35" Y="56.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="气瓶间" KKS="J1UCA04 R002" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="50.35" />
-                  <PointInfo X="5.75" Y="56.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="精密仪器室" KKS="J1UGD04 R004" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="42.85" />
-                  <PointInfo X="10.35" Y="50.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="会议室" KKS="J1UCA04 R013" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="36.85" />
-                  <PointInfo X="10.35" Y="42.65" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="办公室" KKS="J1UCA08 R009" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="29.35" />
-                  <PointInfo X="10.35" Y="36.65" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="天平室" KKS="J1UGD04 R007" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="6.8" Y="19.85" />
-                  <PointInfo X="10.35" Y="26.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="油分析室" KKS="J1UGD04 R008" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="2.95" Y="9.35" />
-                  <PointInfo X="10.35" Y="19.65" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-            <TopoInfo Name="水分析/环保实验室" KKS="J1UGD04 R009" Type="机房">
-              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
-                <Points>
-                  <PointInfo X="0.35" Y="0.2" />
-                  <PointInfo X="10.35" Y="9.15" />
-                </Points>
-              </BoundInfo>
-            </TopoInfo>
-          </TopoInfo>
-          <TopoInfo Name="锅炉补给水处理车间7m层" KKS="" Type="楼层">
-            <BoundInfo BottomHeight="7" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-              <Points>
-                <PointInfo X="0" Y="0" />
-                <PointInfo X="32.6" Y="62.5" />
-              </Points>
-            </BoundInfo>
-          </TopoInfo>
-        </TopoInfo>
-        <TopoInfo Name="废水集中处理站" KKS="J1UGU" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2386" Y="1752" />
-              <PointInfo X="2395" Y="1797" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="生活污水处理站" KKS="J1UGV" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2364.075" Y="1737.5" />
-              <PointInfo X="2372.075" Y="1750" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="循环水加药间" KKS="J1UPQ" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-              <PointInfo X="2486" Y="1712" />
-              <PointInfo X="2494" Y="1696" />
-            </Points>
-          </BoundInfo>
-          <TopoInfo Name="杀菌剂加药间" KKS="J1UPQ00 R001" Type="机房">
-            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-              <Points>
-                <PointInfo X="0.18" Y="0.18" />
-                <PointInfo X="8.32" Y="10.1" />
-              </Points>
-            </BoundInfo>
-          </TopoInfo>
-          <TopoInfo Name="稳定剂加药间" KKS="J1UPQ00 R002" Type="机房">
-            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-              <Points>
-                <PointInfo X="0.18" Y="10.3" />
-                <PointInfo X="8.25" Y="16.22" />
-              </Points>
-            </BoundInfo>
-          </TopoInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="循环冷却水系统建筑物" KKS="" Type="分组">
-        <TopoInfo Name="循环水泵房" KKS="J2UBA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-	            <PointInfo X="2413.7197" Y="1686.1001" />
-              <PointInfo X="2435.82" Y="1723.3001" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="冷却塔系统建筑物" KKS="" Type="分组">
-        <TopoInfo Name="自然通风冷却塔" KKS="J1URA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points>
-              <PointInfo X="2417.172" Y="1724.172" />
-              <PointInfo X="2490.828" Y="1724.172" />
-              <PointInfo X="2490.828" Y="1797.828" />
-              <PointInfo X="2417.172" Y="1797.828" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-      </TopoInfo>
-      <TopoInfo Name="一般服务类建筑物" KKS="" Type="分组">
         <TopoInfo Name="检修间及材料库" KKS="Y1UYA" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
             <Points>
-	            <PointInfo X="2331" Y="1798" />
+              <PointInfo X="2331" Y="1798" />
               <PointInfo X="2349.5" Y="1738" />
             </Points>
           </BoundInfo>
@@ -1629,9 +1307,9 @@
           <TopoInfo Name="检修间及材料库4m层" KKS="Y1UYA04" Type="楼层">
             <BoundInfo BottomHeight="4" Thickness="4" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="19.1051" Y="60.5106" />
-                </Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="19.1051" Y="60.5106" />
+              </Points>
             </BoundInfo>
             <TopoInfo Name="管理人员用房" KKS="Y1UYA04 R001" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="4" IsRelative="true"  IsCreateAreaByData="true">
@@ -1781,9 +1459,9 @@
           <TopoInfo Name="检修间及材料库12.1m层" KKS="Y1UYA12" Type="楼层">
             <BoundInfo BottomHeight="12.1" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
               <Points>
-                  <PointInfo X="0" Y="0" />
-                  <PointInfo X="19.3" Y="60.708" />
-                </Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="19.3" Y="60.708" />
+              </Points>
             </BoundInfo>
             <TopoInfo Name="办公室1" KKS="Y1UYA12 R001" Type="机房">
               <BoundInfo BottomHeight="12.1" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
@@ -1875,53 +1553,335 @@
             </TopoInfo>
           </TopoInfo>
         </TopoInfo>
+        <TopoInfo Name="生活污水处理站" KKS="J1UGV" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2364.075" Y="1737.5" />
+              <PointInfo X="2372.075" Y="1750" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="废水集中处理站" KKS="J1UGU" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2386" Y="1752" />
+              <PointInfo X="2395" Y="1797" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="循环水泵房配电间" KKS="J2UBA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2410.62" Y="1727" />
+              <PointInfo X="2415.72" Y="1719.5" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <!--<TopoInfo Name="补给水泵房" KKS="J1UGA" Type="大楼">
+        </TopoInfo>
+        <TopoInfo Name="综合泵房" KKS="J1UGB" Type="大楼">
+        </TopoInfo>-->
+        <TopoInfo Name="雨水泵房" KKS="J1UGH" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2074.7" Y="1650.7" />
+              <PointInfo X="2093.5" Y="1675" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="锅炉补给水处理车间" KKS="J1UGD" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="false" IsOnAlarmArea="true"  IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2325" Y="1650" />
+              <PointInfo X="2362" Y="1650" />
+              <PointInfo X="2362" Y="1720" />
+              <PointInfo X="2325" Y="1720" />
+            </Points>
+          </BoundInfo>
+          <TopoInfo Name="锅炉补给水处理车间0m层" KKS="J1UGD00" Type="楼层">
+            <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="35.4" Y="65.3" />
+              </Points>
+            </BoundInfo>
+            <TopoInfo Name="配电间" KKS="J1UMA00 R005" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="1.75" Y="45.57" />
+                  <PointInfo X="11.9" Y="60.55" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="电子设备间" KKS="J1UMA04 R005" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="1.75" Y="39.75" />
+                  <PointInfo X="11.9" Y="45.55" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="水系统控制室" KKS="J1UGD00 R003" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="6.85" Y="33.75" />
+                  <PointInfo X="11.9" Y="39.55" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="运行化验室" KKS="J1UGD00 R004" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.1" Y="33.75" />
+                  <PointInfo X="6.65" Y="39.95" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="男卫生间" KKS="J1UCA00 R007" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.51" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="1.75" Y="30.75" />
+                  <PointInfo X="6.15" Y="33.55" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="女卫生间" KKS="J1UCA00 R008" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="8.75" Y="30.75" />
+                  <PointInfo X="11.75" Y="33.55" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="加药及化学清洗间" KKS="J1UGD00 R007" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="1.75" Y="14.9" />
+                  <PointInfo X="7.6" Y="23.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="贮存区域" KKS="J1UGD00 R008" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="1.75" Y="1.65" />
+                  <PointInfo X="6.11" Y="14.65" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="除盐间" KKS="J1UGD00 R009" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="12.1" Y="1.6" />
+                  <PointInfo X="25.25" Y="63.65" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="水泵间" KKS="J1UGD00 R010" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="25.55" Y="1.6" />
+                  <PointInfo X="33.75" Y="63.7" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="锅炉补给水处理车间4.5m层" KKS="J1UGD04" Type="楼层">
+            <BoundInfo BottomHeight="4.5" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="32.6" Y="62.5" />
+              </Points>
+            </BoundInfo>
+            <TopoInfo Name="药品仓库" KKS="J1UGD04 R001" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="56.35" />
+                  <PointInfo X="10.5" Y="59.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="色谱仪室" KKS="J1UGD04 R002" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="5.95" Y="50.35" />
+                  <PointInfo X="10.35" Y="56.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="气瓶间" KKS="J1UCA04 R002" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="50.35" />
+                  <PointInfo X="5.75" Y="56.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="精密仪器室" KKS="J1UGD04 R004" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="42.85" />
+                  <PointInfo X="10.35" Y="50.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="会议室" KKS="J1UCA04 R013" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="36.85" />
+                  <PointInfo X="10.35" Y="42.65" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="办公室" KKS="J1UCA08 R009" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="29.35" />
+                  <PointInfo X="10.35" Y="36.65" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="天平室" KKS="J1UGD04 R007" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="6.8" Y="19.85" />
+                  <PointInfo X="10.35" Y="26.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="油分析室" KKS="J1UGD04 R008" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.95" Y="9.35" />
+                  <PointInfo X="10.35" Y="19.65" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="水分析/环保实验室" KKS="J1UGD04 R009" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="2.5" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="0.35" Y="0.2" />
+                  <PointInfo X="10.35" Y="9.15" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="锅炉补给水处理车间7m层" KKS="" Type="楼层">
+            <BoundInfo BottomHeight="7" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="32.6" Y="62.5" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+        </TopoInfo>
+        <TopoInfo Name="循环水泵房" KKS="J2UBA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2413.7197" Y="1686.1001" />
+              <PointInfo X="2435.82" Y="1723.3001" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="自然通风冷却塔" KKS="J1URA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2417.172" Y="1724.172" />
+              <PointInfo X="2490.828" Y="1724.172" />
+              <PointInfo X="2490.828" Y="1797.828" />
+              <PointInfo X="2417.172" Y="1797.828" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="循环水加药间" KKS="J1UPQ" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2486" Y="1712" />
+              <PointInfo X="2494" Y="1696" />
+            </Points>
+          </BoundInfo>
+          <TopoInfo Name="杀菌剂加药间" KKS="J1UPQ00 R001" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0.18" Y="0.18" />
+                <PointInfo X="8.32" Y="10.1" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="稳定剂加药间" KKS="J1UPQ00 R002" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0.18" Y="10.3" />
+                <PointInfo X="8.25" Y="16.22" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+        </TopoInfo>
+        <TopoInfo Name="净水站" KKS="J2UGA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2518" Y="1615.95" />
+              <PointInfo X="2509" Y="1678.95" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
       </TopoInfo>
-      <TopoInfo Name="供氢站" KKS="J1UTA" Type="大楼">
-        <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-          <Points>
-	            <PointInfo X="2516" Y="1701.5" />
+      <TopoInfo Name="常规燃料供应建筑物" KKS="J1UE" Type="分组">
+        <TopoInfo Name="调压站控制室" KKS="J1UER" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2510" Y="1796.5" />
+              <PointInfo X="2525" Y="1810" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="供氢站" KKS="J1UTA" Type="大楼">
+          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
+            <Points>
+              <PointInfo X="2516" Y="1701.5" />
               <PointInfo X="2553" Y="1703" />
             </Points>
-        </BoundInfo>
-        <TopoInfo Name="高压氢瓶装卸区" KKS="J1UTA00 R001" Type="机房">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-            <Points>
-	            <PointInfo X="0.2" Y="0.25" />
-              <PointInfo X="4.5" Y="9.25" />
-            </Points>
           </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="空瓶间" KKS="J1UTA00 R002" Type="机房">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-            <Points>
-	            <PointInfo X="5" Y="0.25" />
-              <PointInfo X="9.61" Y="9.25" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="实瓶间" KKS="J1UTA00 R003" Type="机房">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-            <Points>
-	            <PointInfo X="9.79" Y="0.25" />
-              <PointInfo X="19.72" Y="9.25" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="化验室" KKS="J1UTA00 R004" Type="机房">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-            <Points>
-	            <PointInfo X="19.9" Y="4.95" />
-              <PointInfo X="24.7" Y="9.25" />
-            </Points>
-          </BoundInfo>
-        </TopoInfo>
-        <TopoInfo Name="汇流排间" KKS="J1UTA00 R005" Type="机房">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
-            <Points>
-	            <PointInfo X="19.9" Y="0.25" />
-              <PointInfo X="24.7" Y="4.75" />
-            </Points>
-          </BoundInfo>
+          <TopoInfo Name="高压氢瓶装卸区" KKS="J1UTA00 R001" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="0.2" Y="0.25" />
+                <PointInfo X="4.5" Y="9.25" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="空瓶间" KKS="J1UTA00 R002" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="5" Y="0.25" />
+                <PointInfo X="9.61" Y="9.25" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="实瓶间" KKS="J1UTA00 R003" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="9.79" Y="0.25" />
+                <PointInfo X="19.72" Y="9.25" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="化验室" KKS="J1UTA00 R004" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="19.9" Y="4.95" />
+                <PointInfo X="24.7" Y="9.25" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="汇流排间" KKS="J1UTA00 R005" Type="机房">
+            <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true">
+              <Points>
+                <PointInfo X="19.9" Y="0.25" />
+                <PointInfo X="24.7" Y="4.75" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
         </TopoInfo>
       </TopoInfo>
       <TopoInfo Name="非生产类建筑物" KKS="" Type="分组">
@@ -1977,14 +1937,26 @@
           </BoundInfo>
         </TopoInfo>
       </TopoInfo>
-      <TopoInfo Name="电网和配电系统的建筑物" KKS="Y1UA" Type="分组">
-        <TopoInfo Name="220kV升压站" KKS="Y1UAA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="1" IsRelative="false"  IsCreateAreaByData="false">
-            <Points />
-          </BoundInfo>
-        </TopoInfo>
+      <TopoInfo Name="#测试范围1" KKS="J1UMA00 R001" Type="范围">
+        <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="false"  IsCreateAreaByData="true">
+          <Points>
+            <PointInfo X="2200" Y="1650" />
+            <PointInfo X="2200" Y="1700" />
+            <PointInfo X="2400" Y="1700" />
+            <PointInfo X="2400" Y="1650" />
+          </Points>
+        </BoundInfo>
       </TopoInfo>
-      <TopoInfo Name="电力送出与厂用电建筑物" KKS="J1UB" Type="分组" />
+      <TopoInfo Name="#测试范围2" KKS="J1UMA00 R001" Type="范围">
+        <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="false"  IsCreateAreaByData="true">
+          <Points>
+            <PointInfo X="2400" Y="1700" />
+            <PointInfo X="2400" Y="1750" />
+            <PointInfo X="2500" Y="1750" />
+            <PointInfo X="2500" Y="1700" />
+          </Points>
+        </BoundInfo>
+      </TopoInfo>
     </TopoInfo>
     <TopoInfo Name="高新软件园" KKS="" Type="分组">
       <TopoInfo Name="左侧区域" KKS="" Type="分组">
@@ -2000,10 +1972,10 @@
           <TopoInfo Name="初灵大楼一层" KKS="" Type="楼层">
             <BoundInfo BottomHeight="0" Thickness="4.6" IsRelative="true"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="false">
               <Points>
-              <PointInfo X="0" Y="0" />
-              <PointInfo X="0" Y="20.08" />
-              <PointInfo X="59.68" Y="20.08" />
-              <PointInfo X="59.68" Y="0" />
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="0" Y="20.08" />
+                <PointInfo X="59.68" Y="20.08" />
+                <PointInfo X="59.68" Y="0" />
               </Points>
             </BoundInfo>
             <TopoInfo Name="莘科机房" KKS="" Type="机房">
@@ -2017,14 +1989,14 @@
               </BoundInfo>
             </TopoInfo>
             <TopoInfo Name="莘科办公室" KKS="" Type="机房">
-            <BoundInfo BottomHeight="0" Thickness="4.6" IsRelative="true"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
-              <Points>
-                <PointInfo X="35.50" Y="8.28" />
-                <PointInfo X="35.50" Y="20.08" />
-                <PointInfo X="50.48" Y="20.08" />
-                <PointInfo X="50.48" Y="8.28" />
-              </Points>
-            </BoundInfo>
+              <BoundInfo BottomHeight="0" Thickness="4.6" IsRelative="true"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
+                <Points>
+                  <PointInfo X="35.50" Y="8.28" />
+                  <PointInfo X="35.50" Y="20.08" />
+                  <PointInfo X="50.48" Y="20.08" />
+                  <PointInfo X="50.48" Y="8.28" />
+                </Points>
+              </BoundInfo>
             </TopoInfo>
             <TopoInfo Name="莘科办公室(小)" KKS="" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="false">
@@ -2039,10 +2011,10 @@
             <TopoInfo Name="范围3" KKS="" Type="范围">
               <BoundInfo BottomHeight="0" Thickness="1" IsRelative="true"  IsCreateAreaByData="true" IsOnAlarmArea="true"  IsOnLocationArea="false">
                 <Points>
-                <PointInfo X="43.50" Y="16.28" />
-                <PointInfo X="43.50" Y="20.08" />
-                <PointInfo X="47.48" Y="20.08" />
-                <PointInfo X="47.48" Y="16.28" />
+                  <PointInfo X="43.50" Y="16.28" />
+                  <PointInfo X="43.50" Y="20.08" />
+                  <PointInfo X="47.48" Y="20.08" />
+                  <PointInfo X="47.48" Y="16.28" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -2058,10 +2030,10 @@
           <TopoInfo Name="初灵大楼二层" KKS="" Type="楼层">
             <BoundInfo BottomHeight="4.6" Thickness="4.6" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false"  IsOnLocationArea="false">
               <Points>
-               <PointInfo X="0" Y="0" />
-              <PointInfo X="0" Y="20.08" />
-              <PointInfo X="59.68" Y="20.08" />
-              <PointInfo X="59.68" Y="0" />
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="0" Y="20.08" />
+                <PointInfo X="59.68" Y="20.08" />
+                <PointInfo X="59.68" Y="0" />
               </Points>
             </BoundInfo>
             <TopoInfo Name="财务室" KKS="" Type="机房">
@@ -2076,12 +2048,12 @@
             </TopoInfo>
             <TopoInfo Name="监控区域2" KKS="" Type="机房">
               <BoundInfo BottomHeight="0" Thickness="4.6" IsRelative="true"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
-              <Points>
-               <PointInfo X="49.68" Y="16" />
-              <PointInfo X="49.68" Y="20.08" />
-              <PointInfo X="54.68" Y="20.08" />
-              <PointInfo X="54.68" Y="16" />
-              </Points>
+                <Points>
+                  <PointInfo X="49.68" Y="16" />
+                  <PointInfo X="49.68" Y="20.08" />
+                  <PointInfo X="54.68" Y="20.08" />
+                  <PointInfo X="54.68" Y="16" />
+                </Points>
               </BoundInfo>
             </TopoInfo>
             <TopoInfo Name="范围5" KKS="" Type="范围">

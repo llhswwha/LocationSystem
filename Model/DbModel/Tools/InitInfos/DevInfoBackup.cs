@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -11,7 +12,7 @@ namespace Location.Model.InitInfos
         public List<DevInfoBackup> DevList;
     }
 
-    public class DevInfoBackup
+    public class DevInfoBackup:IComparable<DevInfoBackup>
     {
         //设备信息
         [XmlAttribute("DevId")]
@@ -20,8 +21,10 @@ namespace Location.Model.InitInfos
         public string TypeCode;
         [XmlAttribute("Name")]
         public string Name;
+        [XmlAttribute("ParentName")]
+        public string ParentName;
         [XmlAttribute("ParentId")]
-        public string ParentId;
+        public int ParentId;
         [XmlAttribute("ModelName")]
         public string ModelName;
         [XmlAttribute("KKSCode")]
@@ -48,5 +51,10 @@ namespace Location.Model.InitInfos
         public string ScaleY;
         [XmlAttribute("ScaleZ")]
         public string ScaleZ;
+
+        public int CompareTo(DevInfoBackup other)
+        {
+            return (this.ParentId + Name).CompareTo(other.ParentId + other.Name);
+        }
     }
 }

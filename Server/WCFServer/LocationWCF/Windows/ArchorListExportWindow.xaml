@@ -1,4 +1,4 @@
-﻿<Window x:Class="LocationServer.ArchorListExportWindow"
+﻿<Window xmlns:Controls="clr-namespace:LocationServer.Controls"  x:Class="LocationServer.ArchorListExportWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,15 +6,6 @@
         xmlns:local="clr-namespace:LocationServer"
         xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"
         mc:Ignorable="d"
-        Title="ArchorListExportWindow" Height="600" Width="1300" Loaded="ArchorListExportWindow_OnLoaded" WindowStartupLocation="CenterScreen">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="导出" Name="MenuExport" Click="MenuExport_OnClick"></MenuItem>
-            <MenuItem Header="计算绝对坐标" Name="MenuCalculate" Click="MenuCalculate_OnClick"></MenuItem>
-        </Menu>
-        <wpfClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBar1" Height="30"></wpfClientControlLib:ProgressBarEx>
-        <DataGrid Name="DataGrid1">
-            
-        </DataGrid>
-    </DockPanel>
+        Title="ArchorListExportWindow" Height="600" Width="1200" Loaded="ArchorListExportWindow_OnLoaded" WindowStartupLocation="CenterScreen">
+    <Controls:ArchorListExportControl x:Name="ArchorListExportControl1"/>
 </Window>
