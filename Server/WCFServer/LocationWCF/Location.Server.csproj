@@ -191,6 +191,15 @@
     <Compile Include="Windows\ArchorListWindow.xaml.cs">
       <DependentUpon>ArchorListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ParkArchorSettingWindow.xaml.cs">
+      <DependentUpon>ParkArchorSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RoomArchorSettingWindow.xaml.cs">
+      <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ArchorSettingWindowEx.xaml.cs">
+      <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AreaCanvasWindow.xaml.cs">
       <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
     </Compile>
@@ -199,6 +208,12 @@
     </Compile>
     <Compile Include="Windows\DbConfigureWindow.xaml.cs">
       <DependentUpon>DbConfigureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DevInfoWindow.xaml.cs">
+      <DependentUpon>DevInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ItemInfoWindow.xaml.cs">
+      <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\LocationEngineToolWindow.xaml.cs">
       <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
@@ -224,6 +239,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ParkArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RoomArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ArchorSettingWindowEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AreaCanvasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -235,6 +262,14 @@
     <Page Include="Windows\DbConfigureWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DevInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ItemInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LocationEngineToolWindow.xaml">
       <SubType>Designer</SubType>
@@ -432,6 +467,10 @@
     <ProjectReference Include="..\..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Third\Projects\wpftoolkit-master\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.Toolkit\Xceed.Wpf.Toolkit.csproj">
+      <Project>{72e591d6-8f83-4d8c-8f67-9c325e623234}</Project>
+      <Name>Xceed.Wpf.Toolkit</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WebApi\NsqSharp\NsqSharp.csproj">
       <Project>{7327244d-e163-4c35-9c1a-8dbdf06b9408}</Project>

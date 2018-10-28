@@ -311,11 +311,11 @@ namespace WPFClientControlLib
 
             if (DevSelected != null)
             {
-                DevSelected(dev);
+                DevSelected(rect,dev);
             }
         }
 
-        public event Action<DevInfo> DevSelected;
+        public event Action<Rectangle,DevInfo> DevSelected;
 
         
 

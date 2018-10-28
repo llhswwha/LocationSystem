@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace LocationServer.Windows
 {
     /// <summary>
-    /// ArchorSettingWindow.xaml 的交互逻辑
+    /// DevInfoWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ArchorSettingWindow : Window
+    public partial class DevInfoWindow : Window
     {
-        public ArchorSettingWindow()
+        public DevInfoWindow()
         {
             InitializeComponent();
         }

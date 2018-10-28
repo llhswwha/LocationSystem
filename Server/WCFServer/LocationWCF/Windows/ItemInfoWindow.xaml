@@ -1,12 +1,12 @@
-﻿<Window x:Class="LocationServer.Windows.ArchorSettingWindow"
+﻿<Window xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  x:Class="LocationServer.Windows.ItemInfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="ArchorSettingWindow" Height="300" Width="300">
+        Title="ItemInfoWindow" Height="500" Width="500" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <xctk:PropertyGrid x:Name="PropertyGrid1"/>
     </Grid>
 </Window>

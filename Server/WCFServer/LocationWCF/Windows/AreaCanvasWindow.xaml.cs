@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL;
 using DbModel.Location.AreaAndDev;
+using LocationServer.Windows;
 
 namespace LocationServer
 {
@@ -74,6 +75,16 @@ namespace LocationServer
         private void DeviceListBox1_SelectedItemChanged(DevInfo obj)
         {
             AreaCanvas1.SelectDev(obj);
+        }
+
+        private void AreaCanvas1_DevSelected(Rectangle rect,DevInfo obj)
+        {
+
+
+            var archor = new Bll().Archors.Find(i => i.DevInfoId == obj.Id);
+            var win2 = new RoomArchorSettingWindow();
+            win2.Show();
+            win2.ShowInfo(rect,archor);
         }
     }
 }

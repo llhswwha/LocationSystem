@@ -75,6 +75,9 @@
     <Compile Include="DbAchorListBox.xaml.cs">
       <DependentUpon>DbAchorListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PointControl.xaml.cs">
+      <DependentUpon>PointControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProgressBarEx.xaml.cs">
       <DependentUpon>ProgressBarEx.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Page Include="DbAchorListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PointControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProgressBarEx.xaml">
       <SubType>Designer</SubType>

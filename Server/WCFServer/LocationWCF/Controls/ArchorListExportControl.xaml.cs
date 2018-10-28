@@ -108,7 +108,7 @@ namespace LocationServer.Controls
                     var area = areas.Find(j => j.Id == dev.ParentId);
                     if (dev.ParentId == 2) //电厂
                     {
-                        item.RelativeMode = (int)RelativeMode.Absolute;
+                        item.RelativeMode = (int)RelativeMode.CAD坐标;
 
                         item.AbsoluteX = archor.X.ToString("F2");
                         item.AbsoluteY = archor.Z.ToString("F2");
@@ -124,12 +124,10 @@ namespace LocationServer.Controls
 
                         item.RelativeX = (archor.X - floor.InitBound.MinX).ToString("F2");
                         item.RelativeY = (archor.Z - floor.InitBound.MinY).ToString("F2");
-
-
                     }
                     else
                     {
-                        item.RelativeMode = (int)RelativeMode.Floor;
+                        item.RelativeMode = RelativeMode.相对楼层;
 
                         item.RelativeX = archor.X.ToString("F2");
                         item.RelativeY = archor.Z.ToString("F2");

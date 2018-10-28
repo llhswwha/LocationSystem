@@ -115,6 +115,7 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "基站对应的设备主键Id")]
         public int DevInfoId { get; set; }
 
+        [Display(Name = "基站对应的设备")]
         public virtual DevInfo DevInfo { get; set; }
 
         public override string ToString()

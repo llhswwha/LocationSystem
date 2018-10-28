@@ -24,6 +24,6 @@
             </TabItem>
         </TabControl>
         
-        <wpfClientControlLib:AreaCanvas x:Name="AreaCanvas1"/>
+        <wpfClientControlLib:AreaCanvas x:Name="AreaCanvas1" DevSelected="AreaCanvas1_DevSelected"/>
     </DockPanel>
 </Window>

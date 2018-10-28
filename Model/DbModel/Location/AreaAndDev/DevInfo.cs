@@ -36,6 +36,7 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "区域ID")]
         public int? ParentId { get; set; }
 
+        [Display(Name = "区域")]
         public virtual Area Parent { get; set; }
 
         /// <summary>
@@ -170,63 +171,63 @@ namespace DbModel.Location.AreaAndDev
         /// PosX
         /// </summary>
         [DataMember]
-        [Display(Name = "PosX")]
+        [Display(Name = "位置信息X")]
         public float PosX { get; set; }
 
         /// <summary>
         /// PosY
         /// </summary>
         [DataMember]
-        [Display(Name = "PosY")]
+        [Display(Name = "位置信息Y")]
         public float PosY { get; set; }
 
         /// <summary>
         /// PosZ
         /// </summary>
         [DataMember]
-        [Display(Name = "PosZ")]
+        [Display(Name = "位置信息Z")]
         public float PosZ { get; set; }
 
         /// <summary>
         /// RotationX
         /// </summary>
         [DataMember]
-        [Display(Name = "RotationX")]
+        [Display(Name = "角度信息X")]
         public float RotationX { get; set; }
 
         /// <summary>
         /// RotationY
         /// </summary>
         [DataMember]
-        [Display(Name = "RotationY")]
+        [Display(Name = "角度信息Y")]
         public float RotationY { get; set; }
 
         /// <summary>
         /// RotationZ
         /// </summary>
         [DataMember]
-        [Display(Name = "RotationZ")]
+        [Display(Name = "角度信息Z")]
         public float RotationZ { get; set; }
 
         /// <summary>
         /// ScaleX
         /// </summary>
         [DataMember]
-        [Display(Name = "ScaleX")]
+        [Display(Name = "比例信息X")]
         public float ScaleX { get; set; }
 
         /// <summary>
         /// ScaleY
         /// </summary>
         [DataMember]
-        [Display(Name = "ScaleY")]
+        [Display(Name = "比例信息Y")]
         public float ScaleY { get; set; }
 
         /// <summary>
         /// ScaleZ
         /// </summary>
         [DataMember]
-        [Display(Name = "ScaleZ")]
+        [Display(Name = "比例信息Z")]
         public float ScaleZ { get; set; }
 
         public void SetPos(DevPos pos)

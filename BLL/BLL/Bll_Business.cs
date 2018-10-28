@@ -77,5 +77,26 @@ namespace BLL
                 }
             }
         }
+
+        public static Area GetArchorRoom(List<Area> rooms,Archor archor)
+        {
+            var inRooms = rooms.FindAll(j => j.InitBound != null && j.InitBound.Contains(archor.X, archor.Z));
+            if (inRooms.Count > 0)
+            {
+                if (inRooms.Count == 1)
+                {
+                    return inRooms[0];
+                }
+                else
+                {
+                    Log.Warn("Archor有多个机房:" + archor.Name);
+                    return inRooms[0];
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
