@@ -13,6 +13,7 @@ using DbModel.Tools;
 using ExcelLib;
 using Location.BLL.Tool;
 using Location.TModel.Tools;
+using System.Threading;
 
 namespace BLL
 {
@@ -26,6 +27,21 @@ namespace BLL
         {
             InitDb();
             InitDbData(mode);
+        }
+
+        public void InitAsync(int mode,Action callBack)
+        {
+            Thread thread = new Thread(() =>
+              {
+                  InitDb();
+                  InitDbData(mode);
+                  if (callBack != null)
+                  {
+                      callBack();
+                  }
+              });
+            thread.Start();
+
         }
 
         public void InitDb()

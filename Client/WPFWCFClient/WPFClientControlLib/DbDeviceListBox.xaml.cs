@@ -28,5 +28,17 @@ namespace WPFClientControlLib
         {
             DataGrid1.ItemsSource = list;
         }
+
+        private void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DevInfo item = DataGrid1.SelectedItem as DevInfo;
+            //if (item == null) return;
+            if (SelectedItemChanged != null)
+            {
+                SelectedItemChanged(item);
+            }
+        }
+
+        public event Action<DevInfo> SelectedItemChanged;
     }
 }

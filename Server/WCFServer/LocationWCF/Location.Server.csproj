@@ -195,6 +195,9 @@
     <Compile Include="Windows\DbBrowserWindow.xaml.cs">
       <DependentUpon>DbBrowserWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DbConfigureWindow.xaml.cs">
+      <DependentUpon>DbConfigureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LocationEngineToolWindow.xaml.cs">
       <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
     <Page Include="Windows\DbBrowserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DbConfigureWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\LocationEngineToolWindow.xaml">
       <SubType>Designer</SubType>

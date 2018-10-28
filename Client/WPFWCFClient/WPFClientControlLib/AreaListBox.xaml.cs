@@ -81,5 +81,17 @@ namespace WPFClientControlLib
         {
             DataGrid1.ItemsSource = Data;
         }
+
+        private void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Area item = DataGrid1.SelectedItem as Area;
+            //if (item == null) return;
+            if (SelectedItemChanged != null)
+            {
+                SelectedItemChanged(item);
+            }
+        }
+
+        public event Action<Area> SelectedItemChanged;
     }
 }

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid Name="DataGrid1" AutoGenerateColumns="true">
+        <DataGrid Name="DataGrid1" AutoGenerateColumns="true" SelectionChanged="DataGrid1_SelectionChanged">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Path}" Header="Path"></DataGridTextColumn>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using log4net.Core;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Location.BLL.Tool
 {
@@ -8,6 +10,10 @@ namespace Location.BLL.Tool
 
 
        public   static log4net.ILog Logger=log4net.LogManager.GetLogger("Logger");
+
+        private static bool logWatching = true;
+        private static log4net.Appender.MemoryAppender logger;
+        private static Thread logWatcher;
 
         #region LogInfoStart->End
         public class LogInfo
@@ -76,6 +82,61 @@ namespace Location.BLL.Tool
             
         }
         #endregion
+
+        //static Log()
+        //{
+
+        //}
+
+        public static void StartWatch()
+        {
+            if (logger == null)
+            {
+                logger = new log4net.Appender.MemoryAppender();
+                log4net.Config.BasicConfigurator.Configure(logger);
+            }
+
+            logWatcher = new Thread(new ThreadStart(LogWatcher));
+            logWatcher.Start();
+        }
+
+
+        public static void StopWatch()
+        {
+            if (logWatcher != null)
+            {
+                logWatcher.Abort();
+                logWatcher = null;
+            }
+        }
+
+        private static void LogWatcher()
+        {
+            while (logWatching)
+            {
+                LoggingEvent[] events = logger.GetEvents();
+                if (events != null && events.Length > 0)
+                {
+                    logger.Clear();
+                    foreach (LoggingEvent ev in events)
+                    {
+                        //2018-10-27 12:46:53,954 [10] INFO  Logger - 0 App_OnStartup
+                        //string line =ev.ToString();
+                        //%d{yyyy-MM-dd HH:mm:ss,fff} %-5level [%c:%line] - %message%newline
+                        //%d [%t] %-5p %c - %m%n
+                        string line = string.Format("{0} [{1}] {2} {3} - {4}",ev.TimeStamp,ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject);
+                        //string line = ev.LoggerName + ": " + ev.RenderedMessage + "\r\n";
+                        if (NewLogEvent != null)
+                        {
+                            NewLogEvent(line);
+                        }
+                    }
+                }
+                Thread.Sleep(250);
+            }
+        }
+
+        public static event Action<string> NewLogEvent;
 
         public static void Debug(object message)
         {

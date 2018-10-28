@@ -64,5 +64,15 @@ namespace LocationServer
             AreaListBox1.LoadData(area.Children);
             DeviceListBox1.LoadData(area.LeafNodes);
         }
+
+        private void AreaListBox1_SelectedItemChanged(Area obj)
+        {
+            AreaCanvas1.SelectArea(obj);
+        }
+
+        private void DeviceListBox1_SelectedItemChanged(DevInfo obj)
+        {
+            AreaCanvas1.SelectDev(obj);
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
+using Location.IModel;
 
 namespace WPFClientControlLib
 {
@@ -20,14 +21,13 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void Select(Area area)
+        public void SelectArea(Area area)
         {
+            if (area == null) return;
             if (AreaDict.ContainsKey(area.Id))
             {
                 ClearSelect();
-                SelectedRect = AreaDict[area.Id];
-                SelectedRect.Stroke = Brushes.Red;
-                SelectedRect.Focus();
+                FocusRectangle(AreaDict[area.Id]);
                 LbState.Content = "";
             }
             else
@@ -35,6 +35,32 @@ namespace WPFClientControlLib
                 ClearSelect();
                 LbState.Content = "未找到区域:" + area.Name;
             }
+        }
+
+        public void SelectDev(DevInfo dev)
+        {
+            if (dev == null) return;
+            if (DevDict.ContainsKey(dev.Id))
+            {
+                ClearSelect();
+                FocusRectangle(DevDict[dev.Id]);
+                LbState.Content = "";
+            }
+            else
+            {
+                ClearSelect();
+                LbState.Content = "未找到设备:" + dev.Name;
+            }
+        }
+
+        public void FocusRectangle(Rectangle rect)
+        {
+            SelectedRect = rect;
+            SelectedRect.Stroke = Brushes.Red;
+            SelectedRect.Focus();
+            //VisualTreeHelper.sc
+            ScrollViewer1.ScrollToHorizontalOffset(SelectedRect.Margin.Left);
+            ScrollViewer1.ScrollToVerticalOffset(SelectedRect.Margin.Top);
         }
 
         public Rectangle SelectedRect { get; set; }
@@ -63,11 +89,12 @@ namespace WPFClientControlLib
                 CbView.SelectionChanged -= CbView_OnSelectionChanged;
                 CbView.SelectionChanged += CbView_OnSelectionChanged;
 
-                Current = area;
+                
                 if (area == null) return;
 
                 if (area.ParentId == 1) //电厂
                 {
+                    Current = area;
                     int scale = 2;
                     DevSize = 2;
                     DrawPark(area, scale, DevSize);
@@ -77,6 +104,7 @@ namespace WPFClientControlLib
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
+                    Current = area;
                     int scale = 20;
                     DevSize = 0.2;
                     DrawFloor(area, scale, DevSize);
@@ -86,7 +114,7 @@ namespace WPFClientControlLib
                 }
                 else
                 {
-                    Select(area);
+                    SelectArea(area);
                 }
             }
             catch (Exception ex)
@@ -149,18 +177,26 @@ namespace WPFClientControlLib
         public double OffsetX = 0;
         public double OffsetY = 0;
 
+        public double Margin = 20;
+
         private void DrawPark(Area area,int scale,double devSize)
         {
             Clear();
 
             Bound bound = area.InitBound;
+            if (bound == null)
+            {
+                bound=area.CreateBoundByChildren();
+            }
             if (bound == null) return;
 
-            OffsetX = bound.MinX;
-            OffsetY = bound.MinY;
+            bound=area.SetBoundByDevs();
 
-            Canvas1.Width = (bound.MaxX - OffsetX)* scale;
-            Canvas1.Height =(bound.MaxY - OffsetY)*scale;
+            OffsetX = bound.MinX - Margin;
+            OffsetY = bound.MinY - Margin;
+
+            Canvas1.Width = (bound.MaxX - OffsetX + Margin) * scale;
+            Canvas1.Height =(bound.MaxY - OffsetY + Margin) *scale;
 
             AddAreaRect(area,null, scale);
 
@@ -201,7 +237,20 @@ namespace WPFClientControlLib
             };
             DevDict[dev.Id] = devRect;
             devRect.MouseDown += DevRect_MouseDown;
+            devRect.MouseEnter += DevRect_MouseEnter;
+            devRect.MouseLeave += DevRect_MouseLeave;
             Canvas1.Children.Add(devRect);
+            
+        }
+
+        private void DevRect_MouseLeave(object sender, MouseEventArgs e)
+        {
+            UnSelectRectangle(sender as Rectangle);
+        }
+
+        private void DevRect_MouseEnter(object sender, MouseEventArgs e)
+        {
+            SelectRectangle(sender as Rectangle);
         }
 
         private void DevRect_MouseDown(object sender, MouseButtonEventArgs e)
@@ -247,9 +296,21 @@ namespace WPFClientControlLib
 
         private void AreaRect_MouseLeave(object sender, MouseEventArgs e)
         {
-            Rectangle rect = sender as Rectangle;
-            Area area = rect.Tag as Area;
-            LbState.Content = "" + area.Name;
+            UnSelectRectangle(sender as Rectangle);
+        }
+
+        private void SelectRectangle(Rectangle rect)
+        {
+            IName entity = rect.Tag as IName;
+            LbState.Content = "" + entity.Name;
+            rect.Stroke = Brushes.Red;
+            SelectedRect = rect;
+        }
+
+        private void UnSelectRectangle(Rectangle rect)
+        {
+            IName entity = rect.Tag as IName;
+            LbState.Content = "" + entity.Name;
 
             rect.Stroke = Brushes.Black;
             SelectedRect = null;
@@ -257,11 +318,7 @@ namespace WPFClientControlLib
 
         private void AreaRect_MouseEnter(object sender, MouseEventArgs e)
         {
-            Rectangle rect = sender as Rectangle;
-            Area area = rect.Tag as Area;
-            LbState.Content = "" + area.Name;
-            rect.Stroke = Brushes.Red;
-            SelectedRect = rect;
+            SelectRectangle(sender as Rectangle);
         }
 
         private void CbScale_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -286,7 +343,7 @@ namespace WPFClientControlLib
                 }
                 else
                 {
-                    Select(area);
+                    SelectArea(area);
                 }
             }
             catch (Exception ex)

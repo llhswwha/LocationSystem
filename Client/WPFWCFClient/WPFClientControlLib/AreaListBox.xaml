@@ -11,7 +11,7 @@
             <CheckBox Name="CbOnlyShowAbsoluteArea" Checked="CbOnlyShowAbsoluteArea_OnChecked" Unchecked="CbOnlyShowAbsoluteArea_OnUnchecked">只显示绝对坐标的区域</CheckBox>
             <CheckBox Name="CbOnlyShowBuilding" Checked="CbOnlyShowBuilding_OnChecked" Unchecked="CbOnlyShowBuilding_OnUnchecked">只显示建筑物</CheckBox>
         </StackPanel>
-        <DataGrid Name="DataGrid1">
+        <DataGrid Name="DataGrid1" SelectionChanged="DataGrid1_SelectionChanged">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="ItemProperty" Name="MenuItemProperty" Click="MenuItemProperty_OnClick"></MenuItem>

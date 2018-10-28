@@ -10,6 +10,7 @@ using DAL;
 using log4net.Config;
 using Location.BLL.Tool;
 using TModel.Tools;
+using LocationServer;
 
 namespace LocationWCFServer
 {
@@ -21,8 +22,9 @@ namespace LocationWCFServer
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             XmlConfigurator.Configure();
-            Log.AppStart();
-            Log.Info("App_OnStartup");
+            //Log.StartWatch();
+            //Log.AppStart();
+            //Log.Info("App_OnStartup");
 
             //LocationDbLite db = new LocationDbLite();
             ////db.Database.Create();
@@ -54,17 +56,7 @@ namespace LocationWCFServer
         private static void InitDbContext()
         {
             int mode = ConfigurationManager.AppSettings["DbSource"].ToInt();
-            Log.Info("DbSource:" + mode);
-            if (mode == 0)
-            {
-            }
-            else if (mode == 1)
-            {
-                LocationDb.IsSqlite = true;
-                LocationDb.Name = "LocationLite";
-                LocationHistoryDb.IsSqlite = true;
-                LocationHistoryDb.Name = "LocationHisLite";
-            }
+            AppContext.InitDbContext(mode);
         }
 
         private void InitData()
@@ -74,10 +66,7 @@ namespace LocationWCFServer
             Log.Info("DataInitMode:" + mode);
             if (mode >= 0)
             {
-                Log.InfoStart("MvcApplication.InitData");
-                Bll bll = new Bll();
-                bll.Init(mode);
-                Log.InfoEnd("MvcApplication.InitData");
+                AppContext.InitDb(mode);
             }
         }
     }

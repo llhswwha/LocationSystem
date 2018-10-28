@@ -170,6 +170,17 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         public void SetInitBound(Point[] points, float bottomHeightT, float thicknessT)
         {
+            Init(bottomHeightT, thicknessT);
+
+            SetInitBound(points);
+
+            //double pX = (MinX + MaxX)/2.0;
+            //double pY = (MinY + MaxY)/2.0;
+            //double pZ = (MinZ + MaxZ)/2.0;
+        }
+
+        private void Init(float bottomHeightT, float thicknessT)
+        {
             Points = new List<Point>();
 
             MinX = float.MaxValue;
@@ -178,7 +189,10 @@ namespace DbModel.Location.AreaAndDev
             MaxY = float.MinValue;
             MinZ = 0 + bottomHeightT;
             MaxZ = thicknessT + bottomHeightT;
+        }
 
+        public void SetInitBound(Point[] points)
+        {
             for (int i = 0; i < points.Length; i++)
             {
                 Point point = points[i];
@@ -208,10 +222,19 @@ namespace DbModel.Location.AreaAndDev
                 //point.Y -= MinY;
                 Points.Add(new Point(point));
             }
+        }
 
-            //double pX = (MinX + MaxX)/2.0;
-            //double pY = (MinY + MaxY)/2.0;
-            //double pZ = (MinZ + MaxZ)/2.0;
+        private List<Bound> childrenBounds = new List<Bound>();
+
+        public void Combine(Bound bound)
+        {
+            if (bound == null) return;
+            if (Points == null)
+            {
+                Init(0, 0);
+            }
+            childrenBounds.Add(bound);
+            SetInitBound(bound.GetPoints2D().ToArray());
         }
 
         public void AddPoint(Point point)

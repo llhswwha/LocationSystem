@@ -514,12 +514,9 @@ namespace LocationWCFServer
 
         private void MenuDbInit_OnClick(object sender, RoutedEventArgs e)
         {
-            Log.InfoStart("InitData");
-            Bll bll = new Bll();
-            bll.Init(0);
-            Log.InfoEnd("InitData");
+            var win = new DbConfigureWindow();
+            win.Show();
 
-            MessageBox.Show("初始化完成");
         }
 
         private void MenuDbConfigure_OnClick(object sender, RoutedEventArgs e)

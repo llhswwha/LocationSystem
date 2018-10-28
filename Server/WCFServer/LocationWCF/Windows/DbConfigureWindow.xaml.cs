@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BLL;
+using Location.BLL.Tool;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +25,42 @@ namespace LocationServer.Windows
         public DbConfigureWindow()
         {
             InitializeComponent();
+            //Debug.Listeners.Add(new TraceListener());
+            Log.NewLogEvent += Log_NewLogEvent;
+            Log.StartWatch();
+            this.Closing += DbConfigureWindow_Closing   ;
+        }
+
+        private void DbConfigureWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Log.StopWatch();
+            Log.NewLogEvent -= Log_NewLogEvent;
+        }
+
+        private void Log_NewLogEvent(string obj)
+        {
+            this.Dispatcher.Invoke(new Action(() => {
+                TbConsole.Text = obj + "\n" + TbConsole.Text;
+                //TbConsole.AppendText(obj);
+            }));
+        }
+
+        private void MenuInitMSSql_Click(object sender, RoutedEventArgs e)
+        {
+
+            AppContext.InitDbAsync(0, 0,()=>
+            {
+                MessageBox.Show("初始化完成");
+            });
+        }
+
+        private void MenuInitSqlite_Click(object sender, RoutedEventArgs e)
+        {
+
+            AppContext.InitDbAsync(1, 0, () =>
+            {
+                MessageBox.Show("初始化完成");
+            });
         }
     }
 }

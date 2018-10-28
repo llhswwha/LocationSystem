@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using DbModel.Tools.InitInfos;
 using Location.TModel.Tools;
+using System;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -176,6 +177,7 @@ namespace DbModel.Location.AreaAndDev
             this.IsOnAlarmArea = transform.IsOnAlarmArea;
             this.IsOnLocationArea = transform.IsOnLocationArea;
         }
+
         /// <summary>
         /// 获取TransfromM信息
         /// </summary>
@@ -360,6 +362,33 @@ namespace DbModel.Location.AreaAndDev
                 return Parent.GetPath() + "." + Name;
             }
             return Name;
+        }
+
+        public Bound CreateBoundByChildren()
+        {
+            InitBound = new Bound();
+            if (Children != null)
+                foreach (var level1Item in Children) //建筑群
+                {
+                    InitBound.Combine(level1Item.InitBound);
+                    if (level1Item.Children != null)
+                        foreach (var level2Item in level1Item.Children) //建筑
+                        {
+                            InitBound.Combine(level2Item.InitBound);
+                        }
+                }
+            return InitBound;
+        }
+
+        public Bound SetBoundByDevs()
+        {
+            List<Point> ps = new List<Point>();
+            foreach (var item in LeafNodes)
+            {
+                ps.Add(new Point(item.PosX,item.PosZ,0));
+            }
+            InitBound.SetInitBound(ps.ToArray());
+            return InitBound;
         }
     }
 }

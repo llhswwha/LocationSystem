@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer"
         mc:Ignorable="d"
-        Title="AreaCanvas" Height="900" Width="1400" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
+        Title="AreaCanvas" Height="700" Width="1200" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top"></Menu>
         <StackPanel DockPanel.Dock="Top">
@@ -14,10 +14,10 @@
         <wpfClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>
         <TabControl DockPanel.Dock="Top" Height="300">
             <TabItem Header="子区域列表">
-                <wpfClientControlLib:AreaListBox x:Name="AreaListBox1"/>
+                <wpfClientControlLib:AreaListBox x:Name="AreaListBox1" SelectedItemChanged="AreaListBox1_SelectedItemChanged"/>
             </TabItem>
             <TabItem Header="设备列表">
-                <wpfClientControlLib:DbDeviceListBox x:Name="DeviceListBox1"/>
+                <wpfClientControlLib:DbDeviceListBox x:Name="DeviceListBox1" SelectedItemChanged="DeviceListBox1_SelectedItemChanged"/>
             </TabItem>
         </TabControl>
         

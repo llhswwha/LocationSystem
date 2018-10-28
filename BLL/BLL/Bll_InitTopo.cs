@@ -26,6 +26,7 @@ namespace BLL
                 string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
                 if (!File.Exists(initFile))
                 {
+                    Log.Warn("InitTopoFromXml找不到文件:" + initFile);
                     return false;
                 }
                 InitInfo initInfo = XmlSerializeHelper.LoadFromFile<InitInfo>(initFile);
