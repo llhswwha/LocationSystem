@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRClientLib", "Client\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiBrowser", "WebApi\WeblApiBrowser\WebApiBrowser.csproj", "{B8AD3D7E-A90E-4733-990E-3D5FD5765186}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.Wpf.Toolkit", "Third\Projects\wpftoolkit-master\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.Toolkit\Xceed.Wpf.Toolkit.csproj", "{72E591D6-8F83-4D8C-8F67-9C325E623234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbModel", "Model\DbModel\DbModel.csproj", "{A72A90C4-C195-49EC-850E-EE6205680256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{B8AD3D7E-A90E-4733-990E-3D5FD5765186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8AD3D7E-A90E-4733-990E-3D5FD5765186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8AD3D7E-A90E-4733-990E-3D5FD5765186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E591D6-8F83-4D8C-8F67-9C325E623234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72A90C4-C195-49EC-850E-EE6205680256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72A90C4-C195-49EC-850E-EE6205680256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72A90C4-C195-49EC-850E-EE6205680256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72A90C4-C195-49EC-850E-EE6205680256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,7 +22,9 @@ namespace LocationServices.Locations
         IWorkService,
         IUserService,
         Ibus_anchor,
-        Ibus_tag
+        Ibus_tag,
+        IPictureService,
+        IAreaService
     {
 
     }

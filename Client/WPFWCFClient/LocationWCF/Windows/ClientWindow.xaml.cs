@@ -17,6 +17,7 @@ using LocationClient.WebApi;
 using SignalRClientLib;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
+using TModel.Location.Person;
 
 namespace LocationWCFClient.Windows
 {
@@ -37,7 +38,7 @@ namespace LocationWCFClient.Windows
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var client = AppContext.Instance.Client.InnerClient;
-            var treeRoot1= client.GetPhysicalTopologyTree();
+            var treeRoot1= client.GetPhysicalTopologyTree(0);
             var treeRoot2 = client.GetDepartmentTree();
             ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
 
@@ -165,6 +166,54 @@ namespace LocationWCFClient.Windows
             Tag.Describe = "测试";
 
             client.EditBusTag(Tag);
+        }
+
+        private void BtnModifyPicture_OnClick(object sender, RoutedEventArgs e)
+        {
+            string strName = "测试图片";
+            string strInfo = "还贷款萨丹哈";
+            byte[] byteArray = System.Text.Encoding.Default.GetBytes(strInfo);
+            var client = AppContext.Instance.Client.InnerClient;
+
+            Picture pc = new Picture();
+            pc.Name = strName;
+            pc.Info = byteArray;
+            bool bReturn = client.EditPictureInfo(pc);
+
+        }
+
+        private void BtnGetPicture_OnClick(object sender, RoutedEventArgs e)
+        {
+            string strName = "测试图片";
+            var client = AppContext.Instance.Client.InnerClient;
+            Picture pc = client.GetPictureInfo(strName);
+            byte[] byteArray = pc.Info;
+            string strInfo = System.Text.Encoding.Default.GetString(byteArray);
+            int n = 0;
+        }
+
+        private void BtnGetAreaStatistics_OnClick(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            AreaStatistics recv = client.GetAreaStatistics(1);
+            int PersonNum = recv.PersonNum;
+            int DevNum = recv.DevNum;
+            int LocationAlarmNum = recv.LocationAlarmNum;
+            int DevAlarmNum = recv.DevAlarmNum;
+        }
+
+        private void GetNearbyPerson_Currency_OnClick(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            NearbyPerson_Currency[] lst = client.GetNearbyPerson_Currency(1);
+            int nn = 0;
+        }
+
+        private void GetNearbyPerson_Alarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            var client = AppContext.Instance.Client.InnerClient;
+            NearbyPerson_Currency[] lst = client.GetNearbyPerson_Alarm(1);
+            int nn = 0;
         }
     }
 }

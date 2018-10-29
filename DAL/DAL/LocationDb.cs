@@ -114,5 +114,7 @@ namespace DAL
 
         public DbSet<DbModel.Location.AreaAndDev.Dev_DoorAccess> Dev_DoorAccess { get; set; }
 
+        public DbSet<DbModel.Location.AreaAndDev.Picture> Pictures { get; set; }
+
     }
 }

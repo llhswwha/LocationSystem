@@ -29,4 +29,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Archor" nillable="true" type="tns:Archor" />
+  <xs:complexType name="Picture">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Info" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Picture" nillable="true" type="tns:Picture" />
+  <xs:complexType name="AreaStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevAlarmNum" type="xs:int" />
+      <xs:element minOccurs="0" name="DevNum" type="xs:int" />
+      <xs:element minOccurs="0" name="LocationAlarmNum" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonNum" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AreaStatistics" nillable="true" type="tns:AreaStatistics" />
 </xs:schema>

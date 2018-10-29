@@ -54,7 +54,14 @@ namespace DbModel.Location.Alarm
         public int PersonnelId { get; set; }
         [DataMember]
         public virtual Personnel Personnel { get; set; }
-        
+
+        /// <summary>
+        /// 区域Id
+        /// </summary>
+        [DataMember]
+        [Display(Name = "告警")]
+        public int? AreadId  { get; set; }
+
         /// <summary>
         /// 告警内容
         /// </summary>
@@ -145,6 +152,7 @@ namespace DbModel.Location.Alarm
             history.AlarmLevel = this.AlarmLevel;
             history.LocationCardId = this.LocationCardId;
             history.PersonnelId = this.PersonnelId;
+            history.AreadId = this.AreadId;
             history.Content = this.Content;
             history.AlarmTime = this.AlarmTime;
             history.AlarmTimeStamp = this.AlarmTimeStamp;

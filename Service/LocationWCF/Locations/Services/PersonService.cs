@@ -16,6 +16,7 @@ using LocationServices.Converters;
 using DbModel.Tools;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Location.Data;
+using TModel.Location.Person;
 
 namespace LocationServices.Locations.Services
 {
@@ -246,6 +247,110 @@ namespace LocationServices.Locations.Services
                 }
             }
             return result ? dbItem.ToTModel() : null;
+        }
+
+        public List<NearbyPerson_Currency> GetNearbyPerson_Currency(int id)
+        {
+            List<NearbyPerson_Currency> lst = new List<NearbyPerson_Currency>();
+            DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
+            if (dev == null || dev.ParentId == null)
+            {
+                return lst;
+            }
+
+            int? AreadId = dev.ParentId;
+            float PosX = dev.PosX;
+            float PosY = dev.PosY;
+            float PosZ = dev.PosZ;
+
+            float PosX2 = 0;
+            float PosY2 = 0;
+            float PosZ2 = 0;
+
+            float sqrtDistance = 0;
+            float Distance = 0;
+
+            var query = from t1 in db.LocationCardPositions.DbSet
+                        join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
+                        join t3 in db.Departments.DbSet on t2.ParentId equals t3.Id
+                        where t1.AreaId == AreadId
+                        select new NearbyPerson_Currency { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
+            if (query != null)
+            {
+                lst = query.ToList();
+            }
+
+            foreach (NearbyPerson_Currency item in lst)
+            {
+                PosX2 = item.X - PosX;
+                PosY2 = item.Y - PosY;
+                PosZ2 = item.Z - PosZ;
+
+                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                Distance = (float)System.Math.Sqrt(sqrtDistance);
+                item.Distance = Distance;
+
+                PosX2 = 0;
+                PosY2 = 0;
+                PosZ2 = 0;
+                sqrtDistance = 0;
+                Distance = 0;
+            }
+
+            return lst;
+        }
+
+        public List<NearbyPerson_Currency> GetNearbyPerson_Alarm(int id)
+        {
+            List<NearbyPerson_Currency> lst = new List<NearbyPerson_Currency>();
+            DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
+            if (dev == null || dev.ParentId == null)
+            {
+                return lst;
+            }
+
+            int? AreadId = dev.ParentId;
+            float PosX = dev.PosX;
+            float PosY = dev.PosY;
+            float PosZ = dev.PosZ;
+
+            float PosX2 = 0;
+            float PosY2 = 0;
+            float PosZ2 = 0;
+
+            float sqrtDistance = 0;
+            float Distance = 0;
+
+            var query = from t1 in db.LocationAlarms.DbSet
+                        join t2 in db.LocationCardPositions.DbSet on t1.LocationCardId equals t2.CardId
+                        join t3 in db.Personnels.DbSet on t1.PersonnelId equals t3.Id
+                        join t4 in db.Departments.DbSet on t3.ParentId equals t4.Id
+                        where t1.LocationCardId == AreadId
+                        select new NearbyPerson_Currency { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
+            if (query != null)
+            {
+                lst = query.ToList();
+            }
+
+            foreach (NearbyPerson_Currency item in lst)
+            {
+                PosX2 = item.X - PosX;
+                PosY2 = item.Y - PosY;
+                PosZ2 = item.Z - PosZ;
+
+                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                Distance = (float)System.Math.Sqrt(sqrtDistance);
+                item.Distance = Distance;
+
+                PosX2 = 0;
+                PosY2 = 0;
+                PosZ2 = 0;
+                sqrtDistance = 0;
+                Distance = 0;
+            }
+
+            return lst;
+
         }
     }
 }

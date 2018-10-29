@@ -1949,5 +1949,48 @@ namespace LocationServices.Converters
 
         #endregion
 
+        #region TModel.Location.AreaAndDev.Picture <=> DbModel.Location.AreaAndDev.Picture
+        public static List<TModel.Location.AreaAndDev.Picture> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Picture> list1)
+        {
+            return list1.ToTModel().ToWCFList();
+        }
+        public static TModel.Location.AreaAndDev.Picture ToTModel(this DbModel.Location.AreaAndDev.Picture item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new TModel.Location.AreaAndDev.Picture();
+            item2.Name = item1.Name;
+            item2.Info = item1.Info;
+            return item2;
+        }
+        public static List<TModel.Location.AreaAndDev.Picture> ToTModel(this List<DbModel.Location.AreaAndDev.Picture> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<TModel.Location.AreaAndDev.Picture>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToTModel());
+            }
+            return list2;
+        }
+        public static DbModel.Location.AreaAndDev.Picture ToDbModel(this TModel.Location.AreaAndDev.Picture item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new DbModel.Location.AreaAndDev.Picture();
+            item2.Name = item1.Name;
+            item2.Info = item1.Info;
+            return item2;
+        }
+        public static List<DbModel.Location.AreaAndDev.Picture> ToDbModel(this List<TModel.Location.AreaAndDev.Picture> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<DbModel.Location.AreaAndDev.Picture>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToDbModel());
+            }
+            return list2;
+        }
+        #endregion
+
     }
 }

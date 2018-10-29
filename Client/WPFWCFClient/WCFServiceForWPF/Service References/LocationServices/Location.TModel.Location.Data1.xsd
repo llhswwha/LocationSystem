@@ -1,25 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:complexType name="ArrayOfTagPosition">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagPosition" nillable="true" type="tns:TagPosition" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTagPosition" nillable="true" type="tns:ArrayOfTagPosition" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
   <xs:complexType name="TagPosition">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Archors" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Area" nillable="true" type="q2:PhysicalTopology" />
+      <xs:element minOccurs="0" name="AreaId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Flag" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Number" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q3:Personnel" />
+      <xs:element minOccurs="0" name="PersonId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Power" type="xs:int" />
       <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="TagEntity" nillable="true" type="q4:Tag" />
       <xs:element minOccurs="0" name="Time" type="xs:long" />
-      <xs:element minOccurs="0" name="TopoNodes" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="X" type="xs:float" />
       <xs:element minOccurs="0" name="Y" type="xs:float" />
       <xs:element minOccurs="0" name="Z" type="xs:float" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TagPosition" nillable="true" type="tns:TagPosition" />
+  <xs:complexType name="ArrayOfTagPosition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TagPosition" nillable="true" type="tns:TagPosition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTagPosition" nillable="true" type="tns:ArrayOfTagPosition" />
 </xs:schema>

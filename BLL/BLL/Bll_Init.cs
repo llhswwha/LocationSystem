@@ -391,14 +391,14 @@ namespace BLL
             LocationCards.AddRange(tagsT);
 
 
-            var tagposition1 = new LocationCardPosition() { Code = "0002", X = 2293.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition2 = new LocationCardPosition() { Code = "0003", X = 2294.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition3 = new LocationCardPosition() { Code = "0004", X = 2295.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition4 = new LocationCardPosition() { Code = "0005", X = 2296.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition5 = new LocationCardPosition() { Code = "0006", X = 2297.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition6 = new LocationCardPosition() { Code = "0007", X = 2298.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition7 = new LocationCardPosition() { Code = "0008", X = 2299.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
-            var tagposition8 = new LocationCardPosition() { Code = "0009", X = 2300.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0" };
+            var tagposition1 = new LocationCardPosition() { CardId = 1,Code = "0002", X = 2293.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId =2, PersonId =1};
+            var tagposition2 = new LocationCardPosition() { CardId = 2, Code = "0003", X = 2294.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 2 };
+            var tagposition3 = new LocationCardPosition() { CardId = 3, Code = "0004", X = 2295.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 3 };
+            var tagposition4 = new LocationCardPosition() { CardId = 4, Code = "0005", X = 2296.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 4 };
+            var tagposition5 = new LocationCardPosition() { CardId = 5, Code = "0006", X = 2297.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 5 };
+            var tagposition6 = new LocationCardPosition() { CardId = 6, Code = "0007", X = 2298.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 6 };
+            var tagposition7 = new LocationCardPosition() { CardId = 7, Code = "0008", X = 2299.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 7 };
+            var tagposition8 = new LocationCardPosition() { CardId = 8, Code = "0009", X = 2300.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 8 };
 
             List<LocationCardPosition> tagpositions = new List<LocationCardPosition>() { tagposition1, tagposition2, tagposition3, tagposition4, tagposition5, tagposition6, tagposition7, tagposition8 };
             LocationCardPositions.AddRange(tagpositions);

@@ -5,13 +5,15 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Person" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
@@ -338,6 +340,12 @@
   <wsdl:message name="ILocationService_GetPhysicalTopologyTree_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyTreeNode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeNode" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPhysicalTopologyTreeNode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeNodeResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetPhysicalTopologyTreeById_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPhysicalTopologyTreeById" />
   </wsdl:message>
@@ -488,6 +496,18 @@
   <wsdl:message name="ILocationService_DeletePerson_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeletePersonResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyPerson_Currency_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyPerson_Currency" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyPerson_Currency_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyPerson_CurrencyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyPerson_Alarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyPerson_Alarm" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyPerson_Alarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyPerson_AlarmResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetLocationAlarms_InputMessage">
     <wsdl:part name="parameters" element="tns:GetLocationAlarms" />
   </wsdl:message>
@@ -589,6 +609,24 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_EditBusTag_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditBusTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPictureInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPictureInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPictureInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPictureInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPictureInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPictureInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPictureInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPictureInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaStatistics" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaStatisticsResponse" />
   </wsdl:message>
   <wsdl:portType name="ILocationService">
     <wsdl:operation name="Hello">
@@ -803,6 +841,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree" message="tns:ILocationService_GetPhysicalTopologyTree_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeResponse" message="tns:ILocationService_GetPhysicalTopologyTree_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyTreeNode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNode" message="tns:ILocationService_GetPhysicalTopologyTreeNode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNodeResponse" message="tns:ILocationService_GetPhysicalTopologyTreeNode_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPhysicalTopologyTreeById">
       <wsdl:input wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById" message="tns:ILocationService_GetPhysicalTopologyTreeById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeByIdResponse" message="tns:ILocationService_GetPhysicalTopologyTreeById_OutputMessage" />
@@ -903,6 +945,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPersonalService/DeletePerson" message="tns:ILocationService_DeletePerson_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPersonalService/DeletePersonResponse" message="tns:ILocationService_DeletePerson_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetNearbyPerson_Currency">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency" message="tns:ILocationService_GetNearbyPerson_Currency_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse" message="tns:ILocationService_GetNearbyPerson_Currency_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyPerson_Alarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm" message="tns:ILocationService_GetNearbyPerson_Alarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse" message="tns:ILocationService_GetNearbyPerson_Alarm_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetLocationAlarms">
       <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/GetLocationAlarms" message="tns:ILocationService_GetLocationAlarms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse" message="tns:ILocationService_GetLocationAlarms_OutputMessage" />
@@ -970,6 +1020,18 @@
     <wsdl:operation name="EditBusTag">
       <wsdl:input wsaw:Action="http://tempuri.org/Ibus_tag/EditBusTag" message="tns:ILocationService_EditBusTag_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/Ibus_tag/EditBusTagResponse" message="tns:ILocationService_EditBusTag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPictureInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPictureService/EditPictureInfo" message="tns:ILocationService_EditPictureInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPictureService/EditPictureInfoResponse" message="tns:ILocationService_EditPictureInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPictureInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPictureService/GetPictureInfo" message="tns:ILocationService_GetPictureInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPictureService/GetPictureInfoResponse" message="tns:ILocationService_GetPictureInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatistics" message="tns:ILocationService_GetAreaStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatisticsResponse" message="tns:ILocationService_GetAreaStatistics_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ILocationService" type="tns:ILocationService">
@@ -1451,6 +1513,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPhysicalTopologyTreeNode">
+      <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPhysicalTopologyTreeById">
       <soap:operation soapAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById" style="document" />
       <wsdl:input>
@@ -1676,6 +1747,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetNearbyPerson_Currency">
+      <soap:operation soapAction="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyPerson_Alarm">
+      <soap:operation soapAction="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLocationAlarms">
       <soap:operation soapAction="http://tempuri.org/IAlarmService/GetLocationAlarms" style="document" />
       <wsdl:input>
@@ -1822,6 +1911,33 @@
     </wsdl:operation>
     <wsdl:operation name="EditBusTag">
       <soap:operation soapAction="http://tempuri.org/Ibus_tag/EditBusTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditPictureInfo">
+      <soap:operation soapAction="http://tempuri.org/IPictureService/EditPictureInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPictureInfo">
+      <soap:operation soapAction="http://tempuri.org/IPictureService/GetPictureInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaStatistics">
+      <soap:operation soapAction="http://tempuri.org/IAreaService/GetAreaStatistics" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

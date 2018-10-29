@@ -108,6 +108,7 @@
     <Compile Include="Blls\Location\PersonnelBll.cs" />
     <Compile Include="Blls\Location\PersonnelMobileInspectionBll.cs" />
     <Compile Include="Blls\Location\PersonnelMobileInspectionItemBll.cs" />
+    <Compile Include="Blls\Location\PictureBll.cs" />
     <Compile Include="Blls\Location\PointBll.cs" />
     <Compile Include="Blls\Location\PostBll.cs" />
     <Compile Include="Blls\Location\RoleBll.cs" />

@@ -62,6 +62,40 @@ namespace LocationServices.Locations.Services
             return list1.ToWcfModelList();
         }
 
+        public void GetAreaStatisticsCount(int id, ref int PersonNum, ref int DevNum, ref int LocationAlarmNum, ref int DevAlarmNum)
+        {
+            var query = from t1 in db.LocationCardPositions.DbSet
+                        join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
+                        where t1.AreaId == id
+                        select t2;
+            
+
+            var query2 = from t1 in db.DevInfos.DbSet
+                         join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
+                         where t1.ParentId == id
+                         select t2;
+
+            List<Personnel> pList = new List<Personnel>();
+            List<DbModel.Location.Alarm.DevAlarm> dList = new List<DbModel.Location.Alarm.DevAlarm>();
+
+            if (query != null)
+            {
+                pList = query.ToList();
+            }
+
+            if (query2 != null)
+            {
+                dList = query2.ToList();
+            }
+
+            PersonNum = pList.Count;
+            DevNum = db.DevInfos.DbSet.Where(p => p.ParentId == id).Count();
+            LocationAlarmNum = db.LocationAlarms.DbSet.Where(p => p.AreadId == id).Count();
+            DevAlarmNum = dList.Count;
+            
+            return ;
+        }
+
         public IList<TEntity> GetListWithPerson()
         {
             var pList = GetPersonAreaList();
@@ -173,12 +207,29 @@ namespace LocationServices.Locations.Services
                 RemoveEmptyNodes(root);
             }
 
-            if (root.Children.Count == 0)
-            {
-                root.Children = null;
-            }
+            //if (root.Children.Count == 0)
+            //{
+            //    root.Children = null;
+            //}
+
+            SetChildrenNull(root);
 
             return root;
+        }
+
+        private void SetChildrenNull(AreaNode node)
+        {
+            if (node.Children != null)
+            {
+                foreach (var subNode in node.Children)
+                {
+                    SetChildrenNull(subNode);
+                }
+                if (node.Children.Count == 0)
+                {
+                    node.Children = null;
+                }
+            }
         }
 
         private void RemoveEmptyNodes(AreaNode node)

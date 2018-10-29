@@ -500,5 +500,37 @@ namespace LocationServices.Locations
 
             return bDeal;
         }
+
+        public bool EditPictureInfo(Picture pc)
+        {
+            bool bReturn = false;
+            DbModel.Location.AreaAndDev.Picture pc2 = db.Pictures.DbSet.Where(p => p.Name == pc.Name).FirstOrDefault();
+            if (pc2 == null)
+            {
+                pc2 = new DbModel.Location.AreaAndDev.Picture();
+                pc2.Name = pc.Name;
+                pc2.Info = pc.Info;
+
+                bReturn = db.Pictures.Add(pc2);
+            }
+            else
+            {
+                pc2.Info = pc.Info;
+                bReturn = db.Pictures.Edit(pc2);
+            }
+
+            return bReturn;
+        }
+
+        public Picture GetPictureInfo(string strPictureName)
+        {
+            DbModel.Location.AreaAndDev.Picture pc2 = db.Pictures.DbSet.Where(p => p.Name == strPictureName).FirstOrDefault();
+            if (pc2 == null)
+            {
+                pc2 = new DbModel.Location.AreaAndDev.Picture();
+            }
+
+            return pc2.ToTModel();
+        }
     }
 }

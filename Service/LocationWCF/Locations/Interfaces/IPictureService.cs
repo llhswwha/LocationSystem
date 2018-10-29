@@ -4,21 +4,27 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Location.Model;
 using TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations.Interfaces
 {
     [ServiceContract]
-    public interface IAreaService
+    public interface IPictureService
     {
         /// <summary>
-        /// 园区统计
+        /// 添加图片信息
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
         [OperationContract]
-        AreaStatistics GetAreaStatistics(int id);
+        bool EditPictureInfo(Picture pc);
 
+        /// <summary>
+        /// 获取图片信息
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        [OperationContract]
+        Picture GetPictureInfo(string strPictureName);
     }
 }

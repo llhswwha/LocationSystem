@@ -156,6 +156,19 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Abutment_Status" nillable="true" type="tns:Abutment_Status" />
+  <xs:simpleType name="AreaTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="区域" />
+      <xs:enumeration value="分组" />
+      <xs:enumeration value="大楼" />
+      <xs:enumeration value="楼层" />
+      <xs:enumeration value="机房" />
+      <xs:enumeration value="设备" />
+      <xs:enumeration value="部件" />
+      <xs:enumeration value="范围" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AreaTypes" nillable="true" type="tns:AreaTypes" />
   <xs:simpleType name="IsStart">
     <xs:restriction base="xs:string">
       <xs:enumeration value="否" />
@@ -170,19 +183,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="ArchorTypes" nillable="true" type="tns:ArchorTypes" />
-  <xs:simpleType name="AreaTypes">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="区域" />
-      <xs:enumeration value="分组" />
-      <xs:enumeration value="大楼" />
-      <xs:enumeration value="楼层" />
-      <xs:enumeration value="机房" />
-      <xs:enumeration value="设备" />
-      <xs:enumeration value="部件" />
-      <xs:enumeration value="范围" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="AreaTypes" nillable="true" type="tns:AreaTypes" />
   <xs:simpleType name="LocationAlarmLevel">
     <xs:restriction base="xs:string">
       <xs:enumeration value="正常" />

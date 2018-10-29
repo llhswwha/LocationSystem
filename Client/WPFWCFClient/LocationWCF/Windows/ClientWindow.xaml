@@ -31,7 +31,7 @@
                 <WPFClientControlLib:TagListBox x:Name="TagListBox1"/>
             </TabItem>
             <TabItem Header="基站列表">
-                <WPFClientControlLib:AchorListBox x:Name="AchorListBox1"/>
+                <WPFClientControlLib:TAchorListBox x:Name="AchorListBox1"/>
             </TabItem>
             <TabItem Header="设备告警">
                 <WPFClientControlLib:DeviceAlarmListBox x:Name="DeviceAlarmListBox1"/>
@@ -43,6 +43,19 @@
                 <StackPanel>
                     <Button Name="BtnModifyArchor" Click="BtnModifyArchor_OnClick">修改基站</Button>
                     <Button Name="BtnModifyTag" Click="BtnModifyTag_OnClick">修改标签</Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="图片修改测试">
+                <StackPanel>
+                    <Button Name="BtnModifyPicture" Click="BtnModifyPicture_OnClick">修改图片</Button>
+                    <Button Name="BtnGetPicture" Click="BtnGetPicture_OnClick">获取图片</Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="部分界面信息">
+                <StackPanel>
+                    <Button Name="BtnGetAreaStatistics" Click="BtnGetAreaStatistics_OnClick">获取园区统计信息</Button>
+                    <Button Name="GetNearbyPerson_Currency" Click="GetNearbyPerson_Currency_OnClick">获取附近人员（通用）</Button>
+                    <Button Name="GetNearbyPerson_Alarm" Click="GetNearbyPerson_Alarm_OnClick">获取附近人员（告警）</Button>
                 </StackPanel>
             </TabItem>
         </TabControl>

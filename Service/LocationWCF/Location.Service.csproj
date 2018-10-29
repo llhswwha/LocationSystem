@@ -76,6 +76,7 @@
     <Compile Include="LocationCallbacks\ILocationAlarmServiceCallback.cs" />
     <Compile Include="LocationCallbacks\ILocationInfoService.cs" />
     <Compile Include="LocationCallbacks\ILocationInfoServiceCallback.cs" />
+    <Compile Include="Locations\Interfaces\IAreaService.cs" />
     <Compile Include="Locations\Interfaces\IBaseDataService.cs" />
     <Compile Include="Locations\Interfaces\Ibus_anchor.cs" />
     <Compile Include="Locations\Interfaces\Ibus_tag.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="LocationCallbacks\LocationCallbackService.cs" />
     <Compile Include="Locations\Interfaces\IAlarmService.cs" />
     <Compile Include="Locations\Interfaces\IPersonalService.cs" />
+    <Compile Include="Locations\Interfaces\IPictureService.cs" />
     <Compile Include="Locations\Interfaces\IPostService.cs" />
     <Compile Include="Locations\Interfaces\ITagService.cs" />
     <Compile Include="Locations\Interfaces\IPhysicalTopologyService.cs" />

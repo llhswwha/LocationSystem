@@ -50,6 +50,13 @@ namespace DbModel.LocationHistory.Alarm
         public int PersonnelId { get; set; }
 
         /// <summary>
+        /// 区域Id
+        /// </summary>
+        [DataMember]
+        [Display(Name = "告警")]
+        public int? AreadId { get; set; }
+
+        /// <summary>
         /// 告警内容
         /// </summary>
         [DataMember]

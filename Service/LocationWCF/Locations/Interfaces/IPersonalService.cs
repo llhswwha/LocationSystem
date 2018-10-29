@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using Location.TModel.Location.Person;
+using TModel.Location.Person;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -34,5 +35,21 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         bool DeletePerson(int id);
+
+        /// <summary>
+        /// 附近人员（通用）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OperationContract]
+        List<NearbyPerson_Currency> GetNearbyPerson_Currency(int id);
+
+        /// <summary>
+        /// 附近人员（告警）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OperationContract]
+        List<NearbyPerson_Currency> GetNearbyPerson_Alarm(int id);
     }
 }

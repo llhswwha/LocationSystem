@@ -192,6 +192,7 @@ namespace LocationServices.Tools
                     {
                         var tag = tags.Find(i => i.Code == pos.Code);//标签
                         if (tag == null) continue;
+                        pos.CardId = tag.Id;
                         var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id);//关系
                         if (ttp == null) continue;
                         var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId);//人员

@@ -24,6 +24,10 @@ namespace DbModel.Location.Data
         [Key]
         public string Code { get; set; }
 
+        [DataMember]
+        [Display(Name = "标签卡Id")]
+        public int? CardId { get; set; }
+
         /// <summary>
         /// X
         /// </summary>
@@ -131,6 +135,7 @@ namespace DbModel.Location.Data
 
         public void Edit(Position pos)
         {
+            this.CardId = pos.CardId;
             this.X = pos.X;
             this.Y = pos.Y;
             this.Z = pos.Z;

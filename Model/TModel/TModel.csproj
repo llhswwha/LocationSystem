@@ -67,7 +67,9 @@
     <Compile Include="Location\AreaAndDev\DevInfo.cs" />
     <Compile Include="Location\AreaAndDev\DevPos.cs" />
     <Compile Include="Location\AreaAndDev\KKSCode.cs" />
+    <Compile Include="Location\AreaAndDev\AreaStatistics.cs" />
     <Compile Include="Location\AreaAndDev\PhysicalTopology.cs" />
+    <Compile Include="Location\AreaAndDev\Picture.cs" />
     <Compile Include="Location\AreaAndDev\Point.cs" />
     <Compile Include="Location\AreaAndDev\Post.cs" />
     <Compile Include="Location\AreaAndDev\Tag.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Location\Obsolete\User.cs" />
     <Compile Include="Location\Obsolete\Map.cs" />
     <Compile Include="Location\Person\Department.cs" />
+    <Compile Include="Location\Person\NearbyPerson_Currency.cs" />
     <Compile Include="Location\Person\Personnel.cs" />
     <Compile Include="Location\TransferOfAxesConfig.cs" />
     <Compile Include="Location\Work\JurisDiction.cs" />

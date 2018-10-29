@@ -93,6 +93,7 @@ namespace BLL
 
         public WorkTicketBll WorkTickets { get; set; }
 
+        public PictureBll Pictures { get; set; }
 
 
         /********************LocationHistory********************************/
@@ -192,7 +193,7 @@ namespace BLL
             Roles = new RoleBll(Db);
             SafetyMeasuress = new SafetyMeasuresBll(Db);
             WorkTickets = new WorkTicketBll(Db);
-
+            Pictures = new PictureBll(Db);
 
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);

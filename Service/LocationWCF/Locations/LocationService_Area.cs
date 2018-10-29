@@ -5,6 +5,8 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
 using LocationServices.Locations.Services;
 using TModel.Location.Nodes;
+using TModel.Location.AreaAndDev;
+using TModel.Location.Person;
 
 namespace LocationServices.Locations
 {
@@ -129,5 +131,73 @@ namespace LocationServices.Locations
             return db.Areas.Add(pt.ToDbModel());
         }
 
+        public AreaStatistics GetAreaStatistics(int id)
+        {
+            int PersonNum = 0;
+            int DevNum = 0;
+            int LocationAlarmNum = 0;
+            int DevAlarmNum = 0;
+
+            AreaStatistics ast = new AreaStatistics();
+            AreaService asr = new AreaService();
+
+            List<DbModel.Location.AreaAndDev.Area> AreaList = db.Areas.ToList();
+            DbModel.Location.AreaAndDev.Area a1 = AreaList.Find(p => p.Id == id);
+            if (a1 != null)
+            {
+                asr.GetAreaStatisticsCount(id, ref PersonNum, ref DevNum, ref LocationAlarmNum, ref DevAlarmNum);
+
+                List<DbModel.Location.AreaAndDev.Area> AreaChildernList = AreaList.FindAll(p => p.ParentId == id);
+                if (AreaChildernList == null)
+                {
+                    return ast;
+                }
+
+                foreach (DbModel.Location.AreaAndDev.Area item in AreaChildernList)
+                {
+                    AreaStatistics ast2 = GetAreaStatistics(item.Id);
+                    if (ast2 == null)
+                    {
+                        continue;
+                    }
+
+                    PersonNum += ast2.PersonNum;
+                    DevNum += ast2.DevNum;
+                    LocationAlarmNum += ast2.LocationAlarmNum;
+                    DevAlarmNum += ast2.DevAlarmNum;
+                }
+            }
+
+            ast.PersonNum = PersonNum;
+            ast.DevNum = DevNum;
+            ast.LocationAlarmNum = LocationAlarmNum;
+            ast.DevAlarmNum = DevAlarmNum;
+            
+            return ast;
+        }
+
+        public List<NearbyPerson_Currency> GetNearbyPerson_Currency(int id)
+        {
+            PersonService ps = new PersonService();
+            List<NearbyPerson_Currency> lst = ps.GetNearbyPerson_Currency(id);
+            if (lst == null)
+            {
+                lst = new List<NearbyPerson_Currency>();
+            }
+            
+            return lst;
+        }
+
+        public List<NearbyPerson_Currency> GetNearbyPerson_Alarm(int id)
+        {
+            PersonService ps = new PersonService();
+            List<NearbyPerson_Currency> lst = ps.GetNearbyPerson_Alarm(id);
+            if (lst == null)
+            {
+                lst = new List<NearbyPerson_Currency>();
+            }
+
+            return lst;
+        }
     }
 }

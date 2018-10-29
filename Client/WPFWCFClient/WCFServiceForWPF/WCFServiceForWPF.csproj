@@ -77,7 +77,11 @@
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.U3DPosition.datasource" />
     <None Include="Properties\DataSources\TModel.BaseData.Ticket.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Archor.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.AreaStatistics.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Picture.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Manage.LoginInfo.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Nodes.AreaNode.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Person.NearbyPerson_Currency.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspectionDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.OperationTicket.datasource" />
@@ -147,6 +151,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Manage1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.Location.Nodes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.Location.Person.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">

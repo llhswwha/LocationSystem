@@ -174,7 +174,10 @@ namespace WCFServiceForWPF.LocationServices {
         Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetPhysicalTopologyListByPid(string id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTree", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeResponse")]
-        Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTree();
+        Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTree(int view);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNode", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeNodeResponse")]
+        TModel.Location.Nodes.AreaNode GetPhysicalTopologyTreeNode(int view);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeById", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyTreeByIdResponse")]
         Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTreeById(string id);
@@ -251,6 +254,12 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/DeletePerson", ReplyAction="http://tempuri.org/IPersonalService/DeletePersonResponse")]
         bool DeletePerson(int id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse")]
+        TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Currency(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
+        TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Alarm(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetLocationAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse")]
         Location.TModel.Location.Alarm.LocationAlarm[] GetLocationAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg);
         
@@ -301,6 +310,15 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_tag/EditBusTag", ReplyAction="http://tempuri.org/Ibus_tag/EditBusTagResponse")]
         bool EditBusTag(Location.TModel.Location.AreaAndDev.Tag Tag);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/EditPictureInfo", ReplyAction="http://tempuri.org/IPictureService/EditPictureInfoResponse")]
+        bool EditPictureInfo(TModel.Location.AreaAndDev.Picture pc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/GetPictureInfo", ReplyAction="http://tempuri.org/IPictureService/GetPictureInfoResponse")]
+        TModel.Location.AreaAndDev.Picture GetPictureInfo(string strPictureName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAreaService/GetAreaStatistics", ReplyAction="http://tempuri.org/IAreaService/GetAreaStatisticsResponse")]
+        TModel.Location.AreaAndDev.AreaStatistics GetAreaStatistics(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -538,8 +556,12 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetPhysicalTopologyListByPid(id);
         }
         
-        public Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTree() {
-            return base.Channel.GetPhysicalTopologyTree();
+        public Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTree(int view) {
+            return base.Channel.GetPhysicalTopologyTree(view);
+        }
+        
+        public TModel.Location.Nodes.AreaNode GetPhysicalTopologyTreeNode(int view) {
+            return base.Channel.GetPhysicalTopologyTreeNode(view);
         }
         
         public Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopologyTreeById(string id) {
@@ -642,6 +664,14 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.DeletePerson(id);
         }
         
+        public TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Currency(int id) {
+            return base.Channel.GetNearbyPerson_Currency(id);
+        }
+        
+        public TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Alarm(int id) {
+            return base.Channel.GetNearbyPerson_Alarm(id);
+        }
+        
         public Location.TModel.Location.Alarm.LocationAlarm[] GetLocationAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg) {
             return base.Channel.GetLocationAlarms(arg);
         }
@@ -708,6 +738,18 @@ namespace WCFServiceForWPF.LocationServices {
         
         public bool EditBusTag(Location.TModel.Location.AreaAndDev.Tag Tag) {
             return base.Channel.EditBusTag(Tag);
+        }
+        
+        public bool EditPictureInfo(TModel.Location.AreaAndDev.Picture pc) {
+            return base.Channel.EditPictureInfo(pc);
+        }
+        
+        public TModel.Location.AreaAndDev.Picture GetPictureInfo(string strPictureName) {
+            return base.Channel.GetPictureInfo(strPictureName);
+        }
+        
+        public TModel.Location.AreaAndDev.AreaStatistics GetAreaStatistics(int id) {
+            return base.Channel.GetAreaStatistics(id);
         }
     }
 }
