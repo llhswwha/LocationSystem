@@ -42,30 +42,30 @@ namespace BLL.Blls.Engine
                     archor.Code = archor.Id.ToString();
                 }
                 bac.anchor_id = archor.Code;
-                bac.anchor_x = (int)archor.X;
-                bac.anchor_y = (int)archor.Y;
-                bac.anchor_z = (int)archor.Z;
+                bac.anchor_x = (int)(archor.X * 100);
+                bac.anchor_y = (int)(archor.Z * 100);
+                bac.anchor_z = (int)(archor.Y * 100);
                 bac.anchor_type = (int)archor.Type;
             }
             AddRange(addList);
             EditRange(editList);
         }
 
-        public bool Update(DbModel.Location.AreaAndDev.Archor archor)
+        public bool Update(string code,DbModel.Location.AreaAndDev.Archor archor)
         {
             bool result = false;
 
             int nFlag = 0;
-            var bac = FirstOrDefault(p => p.anchor_id == archor.Code);
+            var bac = FirstOrDefault(p => p.anchor_id == code);
             if (bac == null)
             {
                 bac = new bus_anchor();
                 nFlag = 1;
             }
             bac.anchor_id = archor.Code;
-            bac.anchor_x = (int)archor.X;
-            bac.anchor_y = (int)archor.Y;
-            bac.anchor_z = (int)archor.Z;
+            bac.anchor_x = (int)(archor.X * 100);
+            bac.anchor_y = (int)(archor.Z * 100);
+            bac.anchor_z = (int)(archor.Y * 100);
             bac.anchor_type = (int)archor.Type;
 
             if (nFlag == 0)
@@ -91,9 +91,9 @@ namespace BLL.Blls.Engine
                 nFlag = 1;
             }
             bac.anchor_id = archor.Code;
-            bac.anchor_x = (int)archor.X;
-            bac.anchor_y = (int)archor.Y;
-            bac.anchor_z = (int)archor.Z;
+            bac.anchor_x = (int)(archor.X * 100);
+            bac.anchor_y = (int)(archor.Z * 100);
+            bac.anchor_z = (int)(archor.Y * 100);
             bac.anchor_type = (int)archor.Type;
             if (nFlag == 0)
             {

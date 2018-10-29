@@ -455,7 +455,7 @@ namespace WPFClientControlLib
 
 
 
-        private void Refresh()
+        public void Refresh()
         {
             try
             {

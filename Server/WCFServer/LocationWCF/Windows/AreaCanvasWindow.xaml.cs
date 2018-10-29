@@ -85,6 +85,10 @@ namespace LocationServer
             var win2 = new RoomArchorSettingWindow();
             win2.Show();
             win2.ShowInfo(rect,archor);
+            win2.RefreshDev += (ac) =>
+            {
+                AreaCanvas1.Refresh();
+            };
         }
     }
 }

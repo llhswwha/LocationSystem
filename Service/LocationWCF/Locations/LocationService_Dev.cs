@@ -408,9 +408,9 @@ namespace LocationServices.Locations
                 }
 
                 bac.anchor_id = archor.Code;
-                bac.anchor_x = (int)archor.X;
-                bac.anchor_y = (int)archor.Y;
-                bac.anchor_z = (int)archor.Z;
+                bac.anchor_x = (int)(archor.X * 100);
+                bac.anchor_y = (int)(archor.Z * 100);
+                bac.anchor_z = (int)(archor.Y * 100);
                 bac.anchor_type = (int)archor.Type;
                 bac.anchor_bno = 0;
                 bac.syn_anchor_id = null;

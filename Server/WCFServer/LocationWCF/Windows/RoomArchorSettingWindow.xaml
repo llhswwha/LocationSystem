@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="机房基站设置" Height="300" Width="300" Topmost="True">
+        Title="机房基站设置" Height="350" Width="300" Topmost="True">
     <Grid>
         <StackPanel>
             <Menu>
@@ -20,6 +20,10 @@
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">编号 *</Label>
                 <TextBox Name="TbCode"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">高度</Label>
+                <TextBox Name="TbHeight" ></TextBox>
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">建筑</Label>
@@ -48,11 +52,12 @@
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">绝对坐标(CAD)</Label>
-                <WPFClientControlLib:PointControl x:Name="PcAbsolute" IsEnabled="False"/>
+                <WPFClientControlLib:PointControl x:Name="PcAbsolute"/>
             </DockPanel>
-            <DockPanel>
+            <StackPanel>
                 <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>
-            </DockPanel>
+                <Button Name="BtnRefresh" Click="BtnRefresh_Click">刷新视图</Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
