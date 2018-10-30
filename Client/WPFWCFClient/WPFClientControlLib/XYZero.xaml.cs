@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BLL;
 
-namespace LocationServer
+namespace WPFClientControlLib
 {
     /// <summary>
-    /// Interaction logic for ArchorListWindow.xaml
+    /// Interaction logic for XYZero.xaml
     /// </summary>
-    public partial class ArchorListWindow : Window
+    public partial class XYZero : UserControl
     {
-        public ArchorListWindow()
+        public XYZero()
         {
             InitializeComponent();
-        }
-
-        private void ArchorListWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            DataGrid1.ItemsSource = new Bll(false,false,false,false).bus_anchors.ToList();
         }
     }
 }

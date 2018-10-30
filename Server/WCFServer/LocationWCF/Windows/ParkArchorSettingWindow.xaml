@@ -1,12 +1,55 @@
-﻿<Window x:Class="LocationServer.Windows.ParkArchorSettingWindow"
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.Windows.ParkArchorSettingWindow"
+       
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="园区基站设置" Height="300" Width="300">
+        Title="园区基站设置" Height="350" Width="350" Topmost="True">
     <Grid>
-        
+        <StackPanel>
+            <Menu>
+                <MenuItem Header="详情" Name="MenuDetail" Click="MenuDetail_Click" Loaded="MenuDetail_Loaded"></MenuItem>
+                <MenuItem Header="基站信息" Name="MenuArchorInfo" Click="MenuArchorInfo_OnClick"></MenuItem>
+                <MenuItem Header="基站列表" Name="MenuArchorList" Click="MenuArchorList_OnClick"></MenuItem>
+            </Menu>
+            <DockPanel>
+                <Label Width="50" DockPanel.Dock="Left">Id</Label>
+                <TextBox Name="LbId" Width="50" IsEnabled="False"></TextBox>
+                <Label Width="100" DockPanel.Dock="Left">Name *</Label>
+                <TextBox Name="TbName"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">编号 *</Label>
+                <TextBox Name="TbCode"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left" >基站高度 *</Label>
+                <TextBox Name="TbHeight" ></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">基站坐标</Label>
+                <WPFClientControlLib:PointControl x:Name="PcArchor" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">园区参考点坐标</Label>
+                <Button DockPanel.Dock="Right" Name="BtnShowPoint" Click="BtnShowPoint_OnClick">显示</Button>
+                <WPFClientControlLib:PointControl x:Name="PcZero"/>
+                
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">相对参考点坐标</Label>
+                <WPFClientControlLib:PointControl x:Name="PcRelative"/>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">绝对坐标(CAD)*</Label>
+                <WPFClientControlLib:PointControl x:Name="PcAbsolute"/>
+            </DockPanel>
+            <StackPanel>
+                <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>
+                <!--<Button Name="BtnRefresh" Click="BtnRefresh_Click">刷新视图</Button>-->
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

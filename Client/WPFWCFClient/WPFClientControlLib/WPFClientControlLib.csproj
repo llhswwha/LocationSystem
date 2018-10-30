@@ -120,6 +120,9 @@
     <Compile Include="Windows\DevInfoWindow.xaml.cs">
       <DependentUpon>DevInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XYZero.xaml.cs">
+      <DependentUpon>XYZero.xaml</DependentUpon>
+    </Compile>
     <Page Include="ArchorSettingListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -201,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\DevInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XYZero.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

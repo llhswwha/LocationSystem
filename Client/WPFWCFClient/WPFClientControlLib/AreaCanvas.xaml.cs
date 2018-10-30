@@ -102,22 +102,22 @@ namespace WPFClientControlLib
                 if (area.Parent.Name == "根节点") //电厂
                 {
                     Current = area;
-                    int scale = 2;
-                    DevSize = 2;
+                    int scale = 3;
+                    DevSize = 3;
                     DrawPark(area, scale, DevSize);
                     InitCbScale(scale);
 
-                    InitCbDevSize(new double[] { 0.5, 1, 2, 3 }, DevSize);
+                    InitCbDevSize(new double[] { 0.5, 1, 2, 3,4,5 }, DevSize);
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
                     Current = area;
                     int scale = 20;
-                    DevSize = 0.2;
+                    DevSize = 0.3;
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
 
-                    InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5 }, DevSize);
+                    InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5,0.6 }, DevSize);
                 }
                 else
                 {
@@ -134,8 +134,10 @@ namespace WPFClientControlLib
 
         private void ClearSelect()
         {
-            foreach (Shape shape in Canvas1.Children)
+            foreach (var item in Canvas1.Children)
             {
+                Shape shape = item as Shape;
+                if (shape == null) continue;
                 shape.StrokeDashArray = null;
             }
             if (SelectedRect != null)
@@ -150,22 +152,73 @@ namespace WPFClientControlLib
 
         public double Scale = 1;
 
-        private void AddZeroPoint()
+        public Shape zeroPoint;
+        public Shape ShowPoint(double x, double y)
         {
+            if (zeroPoint != null)
+            {
+                Canvas1.Children.Remove(zeroPoint);
+            }
+            zeroPoint=AddPoint(Scale,new Vector(x,y));
+            return zeroPoint;
+        }
+
+        public double ZeroX;
+        public double ZeroY;
+
+        private void AddZeroPoint(double scale, Vector vec)
+        {
+            ZeroX = vec.X;
+            ZeroY = vec.Y;
             /*
              * <Ellipse Canvas.Left="60" Canvas.Top="80" Width="100" Height="100"
 
 　　Fill="Blue" Opacity="0.5" Stroke="Black" StrokeThickness="3"/>
              */
-            Ellipse ellipse = new Ellipse();
-            ellipse.Margin = new Thickness(Margin/2, Margin/2, 0, 0);
-            ellipse.Width = 5;
-            ellipse.Height = 5;
-            ellipse.Fill = Brushes.Orange;
-            ellipse.Stroke = Brushes.Blue;
-            ellipse.StrokeThickness = 1;
+            double size = 20;
+            var ellipse = new XYZero();
+            ellipse.Tag = vec;
             Canvas1.Children.Add(ellipse);
 
+            double left = (vec.X - OffsetX) * scale - size / 2;
+            double top = (vec.Y - OffsetY) * scale - size / 2;
+
+            Canvas.SetLeft(ellipse, left);
+            Canvas.SetTop(ellipse, top);
+
+            ellipse.ToolTip = string.Format("坐标({0:F2},{1:F2})", vec.X, vec.Y);
+        }
+
+        private Ellipse AddPoint(double scale,Vector vec)
+        {
+            ZeroX = vec.X;
+            ZeroY = vec.Y;
+            /*
+             * <Ellipse Canvas.Left="60" Canvas.Top="80" Width="100" Height="100"
+
+　　Fill="Blue" Opacity="0.5" Stroke="Black" StrokeThickness="3"/>
+             */
+            double size = 10;
+            Ellipse ellipse = new Ellipse();
+            //ellipse.Margin = new Thickness(Margin/2, Margin/2, 0, 0);
+            ellipse.Width = size;
+            ellipse.Height = size;
+            ellipse.Fill = Brushes.Transparent;
+            ellipse.Stroke = Brushes.Red;
+            ellipse.StrokeThickness = 2;
+            //SetShapeStrokeDash(ellipse);
+            ellipse.Tag = vec;
+            Canvas1.Children.Add(ellipse);
+
+            double left = (vec.X - OffsetX) * scale- size/2;
+            double top = (vec.Y - OffsetY) * scale- size / 2;
+
+            Canvas.SetLeft(ellipse, left);
+            Canvas.SetTop(ellipse, top);
+
+            ellipse.ToolTip = string.Format("坐标({0:F2},{1:F2})", vec.X, vec.Y);
+
+            return ellipse;
         }
 
         private void DrawFloor(Area area,double scale,double devSize)
@@ -199,7 +252,7 @@ namespace WPFClientControlLib
                     AddDevRect(dev, scale, devSize);
                 }
 
-            AddZeroPoint();
+            AddZeroPoint(scale,new Vector(0,0));
         }
 
         private void Clear()
@@ -229,6 +282,8 @@ namespace WPFClientControlLib
 
             //bound=area.SetBoundByDevs();
 
+            Scale = scale;
+
             Margin = 20;
 
             OffsetX = bound.MinX - Margin;
@@ -255,48 +310,85 @@ namespace WPFClientControlLib
                 {
                     AddDevRect(dev, scale, devSize);
                 }
+
+            AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
 
-        private void AddDevRect(DevInfo dev,double scale, double size = 2)
+        private Rectangle AddDevRect(DevInfo dev,double scale, double size = 2)
         {
-            double x = (dev.PosX - OffsetX) * scale;
-            double y = (dev.PosZ - OffsetY) * scale;
+            if (DevDict.ContainsKey(dev.Id))
+            {
+                Canvas1.Children.Remove(DevDict[dev.Id]);
+            }
+
+            double x = (dev.PosX - OffsetX) * scale-size*scale/2;
+            double y = (dev.PosZ - OffsetY) * scale - size * scale / 2;
             //if (ViewMode == 0)
             //    y = Canvas1.Height - size * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
             Rectangle devRect = new Rectangle()
             {
-                Margin = new Thickness(x, y, 0, 0),
+                //Margin = new Thickness(x, y, 0, 0),
                 Width = size * scale,
                 Height = size * scale,
-                Fill = Brushes.Blue,
+                Fill = Brushes.DeepSkyBlue,
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
                 Tag = dev,
                 ToolTip = dev.Name
             };
+
+            Canvas.SetLeft(devRect, x );
+            Canvas.SetTop(devRect, y);
+
             DevDict[dev.Id] = devRect;
             devRect.MouseDown += DevRect_MouseDown;
             devRect.MouseEnter += DevRect_MouseEnter;
             devRect.MouseLeave += DevRect_MouseLeave;
             Canvas1.Children.Add(devRect);
-            
+            return devRect;
         }
 
         private void DevRect_MouseLeave(object sender, MouseEventArgs e)
         {
-            UnSelectRectangle(sender as Rectangle);
+            //UnSelectRectangle(sender as Rectangle);
+
+            Rectangle rect = sender as Rectangle;
+            if (SelectedDev == rect) return;
+            DevInfo dev = rect.Tag as DevInfo;
+            LbState.Content = GetDevText(dev);
+
+            rect.Fill = Brushes.DeepSkyBlue;
+            rect.Stroke = Brushes.Black;
+            //rect.Width = DevSize;
+            //rect.Height = DevSize;
+            //SelectedRect = rect;
         }
 
         private void DevRect_MouseEnter(object sender, MouseEventArgs e)
         {
             //SelectRectangle(sender as Rectangle);
             Rectangle rect = sender as Rectangle;
+            SelectDev(rect);
+        }
+
+        private void SelectDev(Rectangle rect)
+        {
             DevInfo dev = rect.Tag as DevInfo;
             LbState.Content = GetDevText(dev);
 
+            rect.Fill = Brushes.Blue;
             rect.Stroke = Brushes.Red;
-            SelectedRect = rect;
+            //rect.Width = DevSize*5;
+            //rect.Height = DevSize*5;
+            //double x = Canvas.GetLeft(rect);
+            //Canvas.SetLeft(rect, x - rect.Width / 2);
+            //double y = Canvas.GetTop(rect);
+            //Canvas.SetTop(rect, y - rect.Width / 2);
+
+            //SelectedRect = rect;
         }
+
+        private Rectangle SelectedDev;
 
         private string GetDevText(DevInfo dev)
         {
@@ -305,9 +397,15 @@ namespace WPFClientControlLib
 
         private void DevRect_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (SelectedDev != null)
+            {
+                SelectedDev.Fill = Brushes.DeepSkyBlue;
+                SelectedDev.Stroke = Brushes.Black;
+            }
             Rectangle rect = sender as Rectangle;
             DevInfo dev = rect.Tag as DevInfo;
             LbState.Content = GetDevText(dev);
+            SelectedDev = rect;
 
             if (DevSelected != null)
             {
@@ -445,6 +543,7 @@ namespace WPFClientControlLib
 
             rect.Stroke = Brushes.Black;
             rect.StrokeThickness = 1;
+
             SelectedRect = null;
         }
 
@@ -479,7 +578,13 @@ namespace WPFClientControlLib
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
 
+        public void RefreshDev(DevInfo dev)
+        {
+            int scale = (int)CbScale.SelectedItem;
+            var rect=AddDevRect(dev, scale, DevSize);
+            SelectDev(rect);
         }
 
 

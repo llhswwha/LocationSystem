@@ -204,7 +204,7 @@ namespace LocationServices.Locations.Services
             }
             if (view == 4 || view == 5 || view == 6)
             {
-                RemoveEmptyNodes(root);
+                //RemoveEmptyNodes(root);
             }
 
             //if (root.Children.Count == 0)

@@ -67,9 +67,17 @@ namespace WPFClientControlLib
         public void Stop()
         {
             IsBusy = false;
-            Stopwatch.Stop();
-            timer.Stop();
-            timer = null;
+            if (Stopwatch != null)
+            {
+                Stopwatch.Stop();
+            }
+            
+            if (timer != null)
+            {
+                timer.Stop();
+                timer = null;
+            }
+            
         }
     }
 }

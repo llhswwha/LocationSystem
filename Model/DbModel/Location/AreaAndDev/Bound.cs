@@ -275,9 +275,14 @@ namespace DbModel.Location.AreaAndDev
             return MaxX - MinX;
         }
 
-        public double GetHeight()
+        public double GetLength()
         {
             return MaxY - MinY;
+        }
+
+        public double GetHeight()
+        {
+            return MaxZ - MinZ;
         }
 
         public bool Contains(double x, double y)

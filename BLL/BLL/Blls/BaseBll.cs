@@ -291,6 +291,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Edit", ex);
+                ErrorMessage = ex.ToString();
                 return false;
             }
 

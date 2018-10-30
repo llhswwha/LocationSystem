@@ -79,16 +79,45 @@ namespace LocationServer
 
         private void AreaCanvas1_DevSelected(Rectangle rect,DevInfo obj)
         {
-
-
-            var archor = new Bll().Archors.Find(i => i.DevInfoId == obj.Id);
-            var win2 = new RoomArchorSettingWindow();
-            win2.Show();
-            win2.ShowInfo(rect,archor);
-            win2.RefreshDev += (ac) =>
+            if (obj.Parent.Name=="四会热电厂")//电厂
             {
-                AreaCanvas1.Refresh();
-            };
+                var win2 = new ParkArchorSettingWindow();
+                ParkArchorSettingWindow.ZeroX = AreaCanvas1.ZeroX;
+                ParkArchorSettingWindow.ZeroY = AreaCanvas1.ZeroY;
+                win2.Show();
+                if (win2.ShowInfo(rect, obj) == false)
+                {
+                    win2.Close();
+                    return;
+                }
+                win2.RefreshDev += (dev) =>
+                {
+                    AreaCanvas1.RefreshDev(dev);
+                };
+                win2.ShowPointEvent += (x, y) =>
+                {
+                    AreaCanvas1.ShowPoint(x, y);
+                };
+            }
+            else
+            {
+                var win2 = new RoomArchorSettingWindow();
+                win2.Show();
+                if (win2.ShowInfo(rect, obj) == false)
+                {
+                    win2.Close();
+                    return;
+                }
+                win2.RefreshDev += (dev) =>
+                {
+                    AreaCanvas1.RefreshDev(dev);
+                };
+                win2.ShowPointEvent += (x, y) =>
+                {
+                    AreaCanvas1.ShowPoint(x, y);
+                };
+            }
+           
         }
     }
 }

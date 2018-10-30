@@ -78,9 +78,28 @@ namespace BLL
             }
         }
 
-        public static Area GetArchorRoom(List<Area> rooms,Archor archor)
+        /// <summary>
+        /// 获取设备所在的机房
+        /// </summary>
+        /// <param name="floor">楼层</param>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        public static Area GetDevRoom(Area floor, DevInfo dev)
         {
-            var inRooms = rooms.FindAll(j => j.InitBound != null && j.InitBound.Contains(archor.X, archor.Z));
+            Bll bll = new Bll();
+            var rooms = bll.Areas.FindAll(j => j.ParentId == floor.Id);
+            return GetDevRoom(rooms, dev);
+        }
+
+        /// <summary>
+        /// 获取设备所在的机房
+        /// </summary>
+        /// <param name="rooms"></param>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        public static Area GetDevRoom(List<Area> rooms, DevInfo dev)
+        {
+            var inRooms = rooms.FindAll(j => j.InitBound != null && j.InitBound.Contains(dev.PosX, dev.PosZ));
             if (inRooms.Count > 0)
             {
                 if (inRooms.Count == 1)
@@ -89,7 +108,7 @@ namespace BLL
                 }
                 else
                 {
-                    Log.Warn("Archor有多个机房:" + archor.Name);
+                    Log.Warn("设备有多个机房:" + dev.Name);
                     return inRooms[0];
                 }
             }

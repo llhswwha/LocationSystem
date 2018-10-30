@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer"
         mc:Ignorable="d"
-        Title="ArchorListWindow" Height="300" Width="300"  WindowStartupLocation="CenterScreen">
+        Title="ArchorListWindow" Height="400" Width="600"  WindowStartupLocation="CenterScreen" Loaded="ArchorListWindow_OnLoaded">
     <Grid>
-        
+        <DataGrid Name="DataGrid1">
+            
+        </DataGrid>
     </Grid>
 </Window>

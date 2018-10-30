@@ -29,78 +29,103 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
-        Archor archor;
-        DevInfo dev;
-        ArchorSetting item;
-        Rectangle rect;
-        Area building;
-        Area floor;
-        Area room;
+        Archor _archor;
+        DevInfo _dev;
+        ArchorSetting _item;
+        Rectangle _rect;
+        Area _building;
+        Area _floor;
+        Area _room;
+        double floorHeight = 0;
 
-        public void ShowInfo(Rectangle rect,Archor archor)
+        public bool ShowInfo(Rectangle rect,DevInfo dev)
         {
-            this.rect = rect;
-            this.archor = archor;
-            BLL.Bll bll = new BLL.Bll();
+            Bll bll = new Bll();
+            this._dev = dev;
+            this._rect = rect;
+            _archor = bll.Archors.Find(i => i.DevInfoId == dev.Id);
+            if (_archor == null)
+            {
+                return false;
+            }
 
-            dev = archor.DevInfo;
-
-            item = new ArchorSetting();
-            item.Id = archor.Id;
-            item.Code = archor.Code;
-            item.Name = archor.Name;
+            _item = new ArchorSetting();
+            _item.Id = _archor.Id;
+            _item.Code = _archor.Code;
+            _item.Name = _archor.Name;
 
             var area = dev.Parent;
 
-            item.RelativeMode = RelativeMode.相对楼层;
+            _item.RelativeMode = RelativeMode.相对楼层;
 
             double x = dev.PosX;
             double z = dev.PosZ;
 
-            item.RelativeX = x.ToString("F2");
-            item.RelativeY = z.ToString("F2");
-            item.Height = dev.PosZ;
+            _item.RelativeX = x.ToString("F2");
+            _item.RelativeY = z.ToString("F2");
+            _item.Height = dev.PosY;
 
-            floor = area;
+            _floor = area;
 
-            item.AreaName = floor.Name;
+            _item.AreaName = _floor.Name;
 
-            building = floor.Parent;
+            _building = _floor.Parent;
+
+            if (_building.Children == null)
+            {
+                _building.Children = bll.Areas.Where(i => i.ParentId == _building.Id);
+            }
+
+
+            int floorIndex = _building.Children.FindIndex(i => i.Id == _floor.Id);
+            
+            for (int i = 0; i < floorIndex; i++)
+            {
+                floorHeight += _building.Children[i].InitBound.GetHeight();
+            }
+            TbFloorHeight.Text = floorHeight.ToString("F2");
+
             //var building = areas.Find(j => j.Id == floor.ParentId);
 
-            var minX = floor.InitBound.MinX + building.InitBound.MinX;
-            var minY = floor.InitBound.MinY + building.InitBound.MinY;
-            item.AreaMinX = minX.ToString("F2");
-            item.AreaMinY = minY.ToString("F2");
+            var minX = _floor.InitBound.MinX + _building.InitBound.MinX;
+            var minY = _floor.InitBound.MinY + _building.InitBound.MinY;
+            _item.AreaMinX = minX.ToString("F2");
+            _item.AreaMinY = minY.ToString("F2");
 
-            item.AbsoluteX = (x + minX).ToString("F2");
-            item.AbsoluteY = (z + minY).ToString("F2");
+            _item.AbsoluteX = (x + minX).ToString("F2");
+            _item.AbsoluteY = (z + minY).ToString("F2");
 
             //var rooms = areas.FindAll(j => j.ParentId == floor.Id);
-            var rooms = bll.Areas.FindAll(j => j.ParentId == floor.Id);
-            room = BLL.Bll.GetArchorRoom(rooms, archor);
+            _room = Bll.GetDevRoom(_floor,dev);
             //PropertyGrid3.SelectedObject = item;
 
-            LbId.Text = archor.Id + "";
-            TbName.Text = archor.Name;
-            TbCode.Text = archor.Code;
+            LbId.Text = _archor.Id + "";
+            TbName.Text = _archor.Name;
+            TbCode.Text = _archor.Code;
             if (string.IsNullOrEmpty(TbCode.Text))
             {
-                TbCode.Text = "Code_"+archor.Id;
+                TbCode.Text = "Code_"+_archor.Id;
             }
-            TbHeight.Text = item.Height.ToString();
+            TbHeight.Text = _item.Height.ToString("F2");
+            TbHeight2.Text = (floorHeight + _item.Height).ToString("F2");
             PcArchor.X = x;
             PcArchor.Y = z;
-            TbBuildingName.Text = building.Name;
-            TbFloorName.Text = floor.Name;
-            if (room != null)
+            TbBuildingName.Text = _building.Name;
+            TbFloorName.Text = _floor.Name;
+
+            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + x;
+            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + z;
+
+            if (_room != null)
             {
-                TbRoomName.Text = room.Name;
+                TbRoomName.Text = _room.Name;
                 PcArchor.IsEnabled = false;
-                PcZero.X = room.InitBound.MinX;
-                PcZero.Y = room.InitBound.MinY;
-                PcRelative.X = x - room.InitBound.MinX;
-                PcRelative.Y = z - room.InitBound.MinY;
+                PcZero.X = _room.InitBound.MinX;
+                PcZero.Y = _room.InitBound.MinY;
+                PcRelative.X = x - _room.InitBound.MinX;
+                PcRelative.Y = z - _room.InitBound.MinY;
+
+                PcRelative.ValueChanged += PcRelative_ValueChanged;
             }
             else
             {
@@ -109,22 +134,26 @@ namespace LocationServer.Windows
                 //PcZero.Y = room.InitBound.MinY;
                 //PcRelative.X = archor.X - room.InitBound.MinX;
                 //PcRelative.Y = archor.Z - room.InitBound.MinY;
+
+                PcArchor.ValueChanged += PcArchor_ValueChanged;
             }
 
-            PcAbsolute.X = building.InitBound.MinX + floor.InitBound.MinX + x;
-            PcAbsolute.Y = building.InitBound.MinY + floor.InitBound.MinY + z;
-
-            PcRelative.ValueChanged += PcRelative_ValueChanged;
+            return true;
         }
 
+        private void PcArchor_ValueChanged(WPFClientControlLib.PointControl obj)
+        {
+            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
+            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+        }
 
         private void PcRelative_ValueChanged(WPFClientControlLib.PointControl obj)
         {
-            PcAbsolute.X = building.InitBound.MinX + floor.InitBound.MinX + room.InitBound.MinX+obj.X;
-            PcAbsolute.Y = building.InitBound.MinY + floor.InitBound.MinY + room.InitBound.MinY + obj.Y ;
+            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + _room.InitBound.MinX+obj.X;
+            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + _room.InitBound.MinY + obj.Y ;
 
-            PcArchor.X = room.InitBound.MinX+obj.X;
-            PcArchor.Y = room.InitBound.MinY+obj.Y;
+            PcArchor.X = _room.InitBound.MinX+obj.X;
+            PcArchor.Y = _room.InitBound.MinY+obj.Y;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -136,23 +165,58 @@ namespace LocationServer.Windows
                 MessageBox.Show("编号不能为空");
                 return;
             }
-            archor.X = PcAbsolute.X;
-            archor.Z = PcAbsolute.Y;
-            archor.Y = TbHeight.Text.ToDouble();
-            archor.Name = TbName.Text;
-            string code = archor.Code;
-            archor.Code = TbCode.Text;
-            
-
-            dev.Name = TbName.Text;
-            dev.PosX = (float)PcArchor.X;
-            dev.PosZ = (float)PcArchor.Y;
-            dev.PosY = TbHeight.Text.ToFloat();
-
             Bll bll = new Bll();
-            bll.bus_anchors.Update(code,archor);
-            bll.Archors.Edit(archor);
-            bll.DevInfos.Edit(dev);
+
+            var archorNew = bll.Archors.Find(_archor.Id);
+
+            string code = _archor.Code;
+
+            _archor.X = PcAbsolute.X;
+            _archor.Z = PcAbsolute.Y;
+            _archor.Y = TbHeight2.Text.ToDouble();
+            _archor.Name = TbName.Text;
+            _archor.Code = TbCode.Text;
+
+            archorNew.X = PcAbsolute.X;
+            archorNew.Z = PcAbsolute.Y;
+            archorNew.Y = TbHeight2.Text.ToDouble();
+            archorNew.Name = TbName.Text;
+            archorNew.Code = TbCode.Text;
+
+            var devNew = bll.DevInfos.Find(_dev.Id);
+
+            devNew.Name = TbName.Text;
+            devNew.PosX = (float)PcArchor.X;
+            devNew.PosZ = (float)PcArchor.Y;
+            devNew.PosY = TbHeight.Text.ToFloat();
+
+            _dev.Name = TbName.Text;
+            _dev.PosX = (float)PcArchor.X;
+            _dev.PosZ = (float)PcArchor.Y;
+            _dev.PosY = TbHeight.Text.ToFloat();
+
+            
+            if (bll.bus_anchors.Update(code, _archor) == false)
+            {
+                MessageBox.Show("保存失败1");
+                return;
+            }
+            
+            if (bll.Archors.Edit(archorNew) == false)
+            {
+                MessageBox.Show("保存失败2");
+                return;
+            }
+            if (bll.DevInfos.Edit(devNew) == false)
+            {
+                MessageBox.Show("保存失败3");
+                return;
+            }
+
+            if (RefreshDev != null)
+            {
+                RefreshDev(devNew);
+            }
 
             MessageBox.Show("保存完成");
         }
@@ -211,7 +275,7 @@ namespace LocationServer.Windows
         {
             var win = new ArchorSettingWindowEx();
             win.Show();
-            win.ShowInfo(archor);
+            win.ShowInfo(_archor);
         }
 
         private void MenuDetail_Loaded(object sender, RoutedEventArgs e)
@@ -223,11 +287,40 @@ namespace LocationServer.Windows
         {
             if (RefreshDev != null)
             {
-                RefreshDev(archor);
+                RefreshDev(_dev);
             }
         }
 
-        public event Action<Archor> RefreshDev;
+        public event Action<DevInfo> RefreshDev;
 
+        private void MenuArchorInfo_OnClick(object sender, RoutedEventArgs e)
+        {
+            var busArchor = new Bll().bus_anchors.Find(i => i.anchor_id == _archor.Code);
+            var wnd = new ItemInfoWindow();
+            wnd.ShowInfo(busArchor);
+            wnd.Show();
+        }
+
+        private void TbHeight_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double height = TbHeight.Text.ToDouble();
+            TbHeight2.Text = (height + floorHeight).ToString("F2");
+        }
+
+        private void MenuArchorList_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorListWindow();
+            win.Show();
+        }
+
+        private void BtnShowPoint_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ShowPointEvent != null)
+            {
+                ShowPointEvent(PcZero.X, PcZero.Y);
+            }
+        }
+
+        public event Action<double, double> ShowPointEvent;
     }
 }

@@ -106,7 +106,7 @@ namespace LocationServer.Controls
                     var dev = devs.Find(j => j.Id == archor.DevInfoId);//应该采用全部事先获取并从列表中搜索的方式，具体680多个，从35s变为1s
                     //var area = dev.Parent; 
                     var area = areas.Find(j => j.Id == dev.ParentId);
-                    if (dev.ParentId == 2) //电厂
+                    if (dev.Parent.Name=="四会热电厂") //电厂
                     {
                         item.RelativeMode = (int)RelativeMode.CAD坐标;
 
@@ -125,7 +125,7 @@ namespace LocationServer.Controls
                         item.RelativeX = (archor.X - floor.InitBound.MinX).ToString("F2");
                         item.RelativeY = (archor.Z - floor.InitBound.MinY).ToString("F2");
                     }
-                    else
+                    else //机房
                     {
                         item.RelativeMode = RelativeMode.相对楼层;
 
