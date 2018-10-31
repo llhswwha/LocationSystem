@@ -10,7 +10,7 @@
     <Grid>
         <StackPanel>
             <Menu>
-                <MenuItem Header="详情" Name="MenuDetail" Click="MenuDetail_Click" Loaded="MenuDetail_Loaded"></MenuItem>
+                <MenuItem Header="详情" Name="MenuDetail" Click="MenuDetail_Click"></MenuItem>
                 <MenuItem Header="基站信息" Name="MenuArchorInfo" Click="MenuArchorInfo_OnClick"></MenuItem>
                 <MenuItem Header="基站列表" Name="MenuArchorList" Click="MenuArchorList_OnClick"></MenuItem>
             </Menu>

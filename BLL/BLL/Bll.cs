@@ -95,6 +95,8 @@ namespace BLL
 
         public PictureBll Pictures { get; set; }
 
+        public ArchorSettingBll ArchorSettings { get; set; }
+
 
         /********************LocationHistory********************************/
 
@@ -194,7 +196,7 @@ namespace BLL
             SafetyMeasuress = new SafetyMeasuresBll(Db);
             WorkTickets = new WorkTicketBll(Db);
             Pictures = new PictureBll(Db);
-
+            ArchorSettings = new ArchorSettingBll(Db);
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);

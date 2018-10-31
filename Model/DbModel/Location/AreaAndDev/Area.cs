@@ -390,5 +390,30 @@ namespace DbModel.Location.AreaAndDev
             InitBound.SetInitBound(ps.ToArray());
             return InitBound;
         }
+
+        /// <summary>
+        /// 获取某一个楼层的高度
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public double GetFloorHeight(int id)
+        {
+            double floorHeight = 0;
+            int floorIndex = Children.FindIndex(i => i.Id == id);
+            for (int i = 0; i < floorIndex; i++)
+            {
+                floorHeight += Children[i].InitBound.GetHeight();
+            }
+            return floorHeight;
+        }
+
+        /// <summary>
+        /// 是否电厂园区
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPark()
+        {
+            return Name == "四会热电厂";
+        }
     }
 }

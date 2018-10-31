@@ -179,22 +179,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
-    <Compile Include="Controls\ArchorConfigureBox.xaml.cs">
+    <Compile Include="Models\EngineTool\ArchorConfigureBox.xaml.cs">
       <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ArchorListExportControl.xaml.cs">
+    <Compile Include="Models\EngineTool\ArchorListExportControl.xaml.cs">
       <DependentUpon>ArchorListExportControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ArchorListExportWindow.xaml.cs">
+    <Compile Include="Models\EngineTool\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ArchorListWindow.xaml.cs">
       <DependentUpon>ArchorListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ParkArchorSettingWindow.xaml.cs">
+    <Compile Include="Models\EngineTool\ParkArchorSettingWindow.xaml.cs">
       <DependentUpon>ParkArchorSettingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\RoomArchorSettingWindow.xaml.cs">
+    <Compile Include="Models\EngineTool\RoomArchorSettingWindow.xaml.cs">
       <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ArchorSettingWindowEx.xaml.cs">
@@ -212,10 +212,13 @@
     <Compile Include="Windows\DevInfoWindow.xaml.cs">
       <DependentUpon>DevInfoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EventSendTestWindow.xaml.cs">
+      <DependentUpon>EventSendTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ItemInfoWindow.xaml.cs">
       <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\LocationEngineToolWindow.xaml.cs">
+    <Compile Include="Models\EngineTool\LocationEngineToolWindow.xaml.cs">
       <DependentUpon>LocationEngineToolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LocationTestBox.xaml.cs">
@@ -223,15 +226,18 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Controls\StopwatchTextBox.cs" />
-    <Page Include="Controls\ArchorConfigureBox.xaml">
+    <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
+      <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Models\EngineTool\ArchorConfigureBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ArchorListExportControl.xaml">
+    <Page Include="Models\EngineTool\ArchorListExportControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ArchorListExportWindow.xaml">
+    <Page Include="Models\EngineTool\ArchorListExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,11 +245,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ParkArchorSettingWindow.xaml">
+    <Page Include="Models\EngineTool\ParkArchorSettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\RoomArchorSettingWindow.xaml">
+    <Page Include="Models\EngineTool\RoomArchorSettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -267,11 +273,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\EventSendTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ItemInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\LocationEngineToolWindow.xaml">
+    <Page Include="Models\EngineTool\LocationEngineToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,6 +301,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\LocationHistoryTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

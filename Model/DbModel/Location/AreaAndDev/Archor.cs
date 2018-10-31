@@ -24,6 +24,15 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "基站编号")]
         public string Code { get; set; }
 
+        public string GetCode()
+        {
+            if (string.IsNullOrEmpty(Code))
+            {
+                return "Code_" + Id;
+            }
+            return Code;
+        }
+
         /// <summary>
         /// 基站名
         /// </summary>

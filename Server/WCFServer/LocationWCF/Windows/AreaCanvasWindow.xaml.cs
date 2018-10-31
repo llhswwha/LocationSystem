@@ -57,14 +57,16 @@ namespace LocationServer
             TopoTreeView1.SelectFirst();
         }
 
+        private Area area;
+
         private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            Area area = TopoTreeView1.SelectedObject as Area;
+            area = TopoTreeView1.SelectedObject as Area;
             if (area == null) return;
             AreaCanvas1.ShowArea(area);
             AreaListBox1.LoadData(area.Children);
             DeviceListBox1.LoadData(area.LeafNodes);
-            ArchorListExportControl1.LoadData(area);
+          
         }
 
         private void AreaListBox1_SelectedItemChanged(Area obj)
@@ -79,12 +81,21 @@ namespace LocationServer
 
         private void AreaCanvas1_DevSelected(Rectangle rect,DevInfo obj)
         {
-            if (obj.Parent.Name=="四会热电厂")//电厂
+            if (obj.Parent.IsPark())//电厂
             {
+                var bound = obj.Parent.InitBound;
+                if (bound.Points == null)
+                {
+                    bound.Points = new Bll().Points.FindAll(i => i.BoundId == bound.Id);
+                }
+                var leftBottom= bound.GetLeftBottomPoint();
+
                 var win2 = new ParkArchorSettingWindow();
-                ParkArchorSettingWindow.ZeroX = AreaCanvas1.ZeroX;
-                ParkArchorSettingWindow.ZeroY = AreaCanvas1.ZeroY;
+                ParkArchorSettingWindow.ZeroX = leftBottom.X;
+                ParkArchorSettingWindow.ZeroY = leftBottom.Y;
+                win2.Owner = this;
                 win2.Show();
+                
                 if (win2.ShowInfo(rect, obj) == false)
                 {
                     win2.Close();
@@ -102,6 +113,7 @@ namespace LocationServer
             else
             {
                 var win2 = new RoomArchorSettingWindow();
+                win2.Owner = this;
                 win2.Show();
                 if (win2.ShowInfo(rect, obj) == false)
                 {
@@ -118,6 +130,21 @@ namespace LocationServer
                 };
             }
            
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            
+        }
+
+        private void TabControl1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (TabControl1.SelectedIndex == 2)
+            {
+                ArchorListExportControl1.LoadData(area);
+                TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+            }
         }
     }
 }

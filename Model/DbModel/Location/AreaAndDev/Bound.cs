@@ -293,5 +293,22 @@ namespace DbModel.Location.AreaAndDev
             }
             return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
         }
+
+
+        public Point GetLeftBottomPoint()
+        {
+            Point leftBottom = null;
+            var minLenth = double.MaxValue;
+            foreach (var point in GetPoints2D())
+            {
+                var length = (point.X - MinX)*(point.X - MinX) + (point.Y - MinY)*(point.Y - MinY);
+                if (length < minLenth)
+                {
+                    minLenth = length;
+                    leftBottom = point;
+                }
+            }
+            return leftBottom;
+        }
     }
 }

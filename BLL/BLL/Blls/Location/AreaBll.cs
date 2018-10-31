@@ -45,5 +45,10 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.ParentId==pid).ToList();
         }
+
+        public List<Area> GetWithBoundPoints()
+        {
+            return ToList();
+        } 
     }
 }

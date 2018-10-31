@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
@@ -56,6 +57,21 @@ namespace BLL.Blls
             if (DbSet == null) return false;
             if (item == null) return false;
             DbSet.Add(item);
+            if (isSave)
+            {
+                return Save();
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public virtual bool AddOrUpdate(T item, bool isSave = true)
+        {
+            if (DbSet == null) return false;
+            if (item == null) return false;
+            DbSet.AddOrUpdate(item);
             if (isSave)
             {
                 return Save();

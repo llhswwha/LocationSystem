@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using DbModel.Location.Person;
 using DAL.Migrations;
+using DbModel.Location.Settings;
 using SQLite.CodeFirst;
 
 namespace DAL
@@ -116,5 +117,6 @@ namespace DAL
 
         public DbSet<DbModel.Location.AreaAndDev.Picture> Pictures { get; set; }
 
+        public DbSet<ArchorSetting> ArchorSettings { get; set; }
     }
 }

@@ -9,12 +9,17 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="工具">
+                <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="数据库配置" Name="MenuDbConfigure" Click="MenuDbInit_OnClick"></MenuItem>
+                <MenuItem Header="数据库表导出Excel" Name="MenuDbExport" Click="MenuDbExport_OnClick"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="定位引擎数据库工具" Name="MenuLocationEngionTool" Click="MenuLocationEngionTool_OnClick"></MenuItem>
                 <MenuItem Header="基站坐标表格导出" Name="MenuExportArchorPosition" Click="MenuExportArchorPosition_OnClick"></MenuItem>
-                <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
                 <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuArchorSettingExport_OnClick"></MenuItem>
-                <MenuItem Header="数据库表导出Excel" Name="MenuDbExport" Click="MenuDbExport_OnClick"></MenuItem>
-                <MenuItem Header="数据库配置" Name="MenuDbConfigure" Click="MenuDbInit_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="定位历史数据" Name="MenuLocationHistoryTest" Click="MenuLocationHistoryTest_OnClick"></MenuItem>
+                <MenuItem Header="事件发送测试" Name="MenuEventSendTest" Click="MenuEventSendTest_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>
@@ -59,41 +64,6 @@
             </TabItem>
             <TabItem Header="定位" Height="21" VerticalAlignment="Top" Visibility="Visible">
                 <LocationServer:LocationTestBox x:Name="LocationTestBox1"/>
-            </TabItem>
-            <TabItem Header="定位告警">
-                <StackPanel>
-                    <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
-                    <Button Content="消除告警" Name="BtnRemoveAlarm" Click="BtnRemoveAlarm_Click"></Button>
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="设备告警">
-                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1" Loaded="DeviceListBox1_Loaded" >
-                </WPFClientControlLib:DeviceListBox>
-            </TabItem>
-            <TabItem Header="SignalRClients">
-                <DockPanel>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                        <Label>Message:</Label>
-                        <TextBox Name="TbMessage" Width="200"></TextBox>
-                        <Button Name="BtnSendMessage" Click="BtnSendMessage_OnClick">SendMessage</Button>
-                    </StackPanel>
-                    <RichTextBox></RichTextBox>
-                </DockPanel>
-
-            </TabItem>
-            <TabItem Header="定位数据">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top">
-                        <Button Name="BtnGetHistoryList" Click="BtnGetHistoryList_OnClick">获取历史轨迹</Button>
-                        <Button Name="BtnCreateHistoryPos" Click="BtnCreateHistoryPos_OnClick">创建模拟历史数据</Button>
-                    </StackPanel>
-                    <DataGrid Name="DataGridHistoryPosList"></DataGrid>
-                </DockPanel>
-
-            </TabItem>
-            <TabItem Header="门禁信息推送">
-                <WPFClientControlLib:DoorAccessListBox x:Name="DoorAccessListBox1"   Margin="0,20,0,0">
-                </WPFClientControlLib:DoorAccessListBox>
             </TabItem>
         </TabControl>
     </DockPanel>

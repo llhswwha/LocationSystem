@@ -79,6 +79,7 @@
     <Compile Include="Blls\LocationHistory\U3DPositionBll.cs" />
     <Compile Include="Blls\LocationHistory\WorkTicketHistoryBll.cs" />
     <Compile Include="Blls\Location\ArchorBll.cs" />
+    <Compile Include="Blls\Location\ArchorSettingBll.cs" />
     <Compile Include="Blls\Location\AreaBll.cs" />
     <Compile Include="Blls\Location\BoundBll.cs" />
     <Compile Include="Blls\Location\ConfigArgBll.cs" />

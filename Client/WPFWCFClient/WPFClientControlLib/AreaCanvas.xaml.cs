@@ -55,8 +55,10 @@ namespace WPFClientControlLib
 
         public void FocusRectangle(Shape rect)
         {
-            foreach(Shape shape in Canvas1.Children)
+            foreach(var item in Canvas1.Children)
             {
+                Shape shape = item as Shape;
+                if (shape == null) continue;
                 if(shape!= rect)
                     SetShapeStrokeDash(shape);
             }
