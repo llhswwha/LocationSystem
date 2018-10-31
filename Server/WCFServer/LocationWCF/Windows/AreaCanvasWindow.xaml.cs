@@ -66,7 +66,16 @@ namespace LocationServer
             AreaCanvas1.ShowArea(area);
             AreaListBox1.LoadData(area.Children);
             DeviceListBox1.LoadData(area.LeafNodes);
-          
+
+            ArchorListExportControl1.Clear();
+            TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+            TabControl1.SelectionChanged += TabControl1_OnSelectionChanged;
+
+            if (TabControl1.SelectedIndex == 2)
+            {
+                ArchorListExportControl1.LoadData(area);
+                TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+            }
         }
 
         private void AreaListBox1_SelectedItemChanged(Area obj)

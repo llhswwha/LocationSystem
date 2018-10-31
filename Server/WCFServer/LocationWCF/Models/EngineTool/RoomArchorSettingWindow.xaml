@@ -52,11 +52,6 @@
                 <Label Width="100" DockPanel.Dock="Left" Grid.Column="2">绝对高度</Label>
                 <TextBox Name="TbHeight2"  Grid.Column="3"></TextBox>
             </Grid>
-
-            <DockPanel>
-                <Label Width="100" DockPanel.Dock="Left">(相对楼层)坐标</Label>
-                <WPFClientControlLib:PointControl x:Name="PcArchor" />
-            </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">房间</Label>
                 <TextBox Name="TbRoomName" IsEnabled="False"></TextBox>
@@ -71,6 +66,10 @@
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">相对参考点坐标</Label>
                 <WPFClientControlLib:PointControl x:Name="PcRelative"/>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">(相对楼层)坐标</Label>
+                <WPFClientControlLib:PointControl x:Name="PcArchor" />
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">绝对坐标(CAD)*</Label>

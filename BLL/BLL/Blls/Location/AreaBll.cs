@@ -48,7 +48,24 @@ namespace BLL.Blls.Location
 
         public List<Area> GetWithBoundPoints()
         {
-            return ToList();
+            var bounds = Db.Bounds.ToList();
+            var points = Db.Points.ToList();
+            List<Area> list = ToList();
+            foreach (var area in list)
+            {
+                if (area.InitBound == null)
+                    area.InitBound = bounds.Find(i => i.Id == area.InitBoundId);
+                if (area.EditBound == null)
+                    area.EditBound = bounds.Find(i => i.Id == area.EditBoundId);
+                if(area.Children==null)
+                    area.Children = list.FindAll(i => i.ParentId == area.Id);
+            }
+            foreach (var bound in bounds)
+            {
+                if (bound.Points == null)
+                    bound.Points = points.FindAll(i => i.BoundId == bound.Id);
+            }
+            return list;
         } 
     }
 }

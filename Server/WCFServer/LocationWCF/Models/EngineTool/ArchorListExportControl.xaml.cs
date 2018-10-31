@@ -19,7 +19,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL;
+using DbModel.Engine;
 using DbModel.Location.Settings;
+using TModel.Tools;
 
 namespace LocationServer.Controls
 {
@@ -69,6 +71,11 @@ namespace LocationServer.Controls
             LoadData();
         }
 
+        public void Clear()
+        {
+            worker = null;
+        }
+
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             DataGrid1.ItemsSource = list;
@@ -104,16 +111,15 @@ namespace LocationServer.Controls
             }
 
             var devs = bll.DevInfos.ToList();
-            var areas = bll.Areas.ToList();
-            var bounds = bll.Bounds.ToList();
-            var points = bll.Points.ToList();
+            var areas = bll.Areas.GetWithBoundPoints();
             list = new List<ArchorSetting>();
+            var list2 = bll.ArchorSettings.ToList();
             for (int i = 0; i < archors.Count; i++)
             {
                 try
                 {
                     var archor = archors[i];
-                    ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(archor.Code);
+                    ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(archor.GetCode());
                     if (archorSetting == null)
                     {
                         archorSetting = new ArchorSetting();
@@ -203,6 +209,40 @@ namespace LocationServer.Controls
             else
             {
                 MessageBox.Show("保存成功");
+            }
+        }
+
+        private void MenuSave2_OnClick(object sender, RoutedEventArgs e)
+        {
+            var bll = AppContext.GetLocationBll();
+
+            var list0 = bll.bus_anchors.ToList();
+            var list1 = new List<bus_anchor>();
+            var list2 = new List<bus_anchor>();
+            foreach (var setting in list)
+            {
+                var item = list0.Find(i => i.anchor_id == setting.Code);
+                if (item == null)
+                {
+                    item = new bus_anchor();
+                    list1.Add(item);
+                }
+                else
+                {
+                    list2.Add(item);
+                }
+                item.anchor_x = (int) (setting.AbsoluteX.ToDouble()*100);
+                item.anchor_y = (int) (setting.AbsoluteY.ToDouble()*100);
+                item.anchor_z = (int) (setting.AbsoluteHeight*100);
+            }
+
+            if (bll.bus_anchors.AddRange(list1) && bll.bus_anchors.EditRange(list2))
+            {
+                MessageBox.Show("保存成功");
+            }
+            else
+            {
+                MessageBox.Show("保存失败");
             }
         }
     }

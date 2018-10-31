@@ -9,7 +9,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="导出" Name="MenuExport" Click="MenuExport_OnClick"></MenuItem>
-            <MenuItem Header="保存" Name="MenuSave" Click="MenuSave_OnClick"></MenuItem>
+            <MenuItem Header="保存(Location.db)" Name="MenuSave" Click="MenuSave_OnClick"></MenuItem>
+            <MenuItem Header="保存(Engine.db)" Name="MenuSave2" Click="MenuSave2_OnClick"></MenuItem>
         </Menu>
         <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBar1" Height="30"/>
         <DataGrid Name="DataGrid1">

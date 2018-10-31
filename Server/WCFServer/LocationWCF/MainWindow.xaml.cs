@@ -80,6 +80,8 @@ namespace LocationWCFServer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+
+            LocationTestBox1.Logs = Logs;
             InitData();
         }
 
@@ -238,6 +240,8 @@ namespace LocationWCFServer
             locationServiceHost = new ServiceHost(typeof (LocationService), baseAddres);
             BasicHttpBinding httpBinding = new BasicHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof (ILocationService), httpBinding, baseAddres);
+            httpBinding.MaxReceivedMessageSize= 2147483647;
+            httpBinding.MaxBufferPoolSize= 2147483647; 
 
             Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof (IMetadataExchange), binding, "MEX");
@@ -370,7 +374,6 @@ namespace LocationWCFServer
         {
             var win = new DbConfigureWindow();
             win.Show();
-
         }
 
         private void MenuLocationHistoryTest_OnClick(object sender, RoutedEventArgs e)

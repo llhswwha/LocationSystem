@@ -27,7 +27,12 @@ namespace BLL.Blls.Location
 
         public ArchorSetting GetByCode(string code)
         {
-            return Find(i => i.Code == code);
+            ArchorSetting item= Find(i => i.Code == code);
+            if (item != null)
+            {
+                item.IsNew = false;
+            }
+            return item;
         }
 
         

@@ -91,6 +91,16 @@ namespace LocationServer.Windows
 
             PcZero.ValueChanged += PcZero_OnValueChanged;
             PcRelative.ValueChanged += PcRelative_OnValueChanged;
+
+            var setting = bll.ArchorSettings.GetByCode(_code);
+            if (setting != null)
+            {
+                PcZero.X = setting.ZeroX.ToDouble();
+                PcZero.Y = setting.ZeroY.ToDouble();
+
+                Title += " [已配置]";
+            }
+
             return true;
         }
 
@@ -175,11 +185,11 @@ namespace LocationServer.Windows
 
             var x = _dev.PosX;
             var y = _dev.PosZ;
-            var leftBottom = park.InitBound.GetLeftBottomPoint();
+            //var leftBottom = park.InitBound.GetLeftBottomPoint();
 
-            archorSetting.SetZero(leftBottom.X, leftBottom.Y);
-            archorSetting.SetRelative((x - leftBottom.X), (y - leftBottom.Y));
-            archorSetting.SetAbsolute(x, y);
+            archorSetting.SetZero(PcZero.X, PcZero.Y);
+            archorSetting.SetRelative(PcRelative.X, PcRelative.Y);
+            archorSetting.SetAbsolute(PcAbsolute.X, PcAbsolute.Y);
 
             if (isAdd)
             {

@@ -8,14 +8,14 @@
              d:DesignHeight="300" d:DesignWidth="400" Loaded="AreaCanvas_OnLoaded">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Label>Scale:</Label>
+            <Label>比例:</Label>
             <ComboBox Name="CbScale" Width="50"></ComboBox>
-            <Label>View:</Label>
+            <Label>朝向:</Label>
             <ComboBox Name="CbView" Width="60">
                 <ComboBoxItem IsSelected="True">上 北</ComboBoxItem>
                 <ComboBoxItem>上 南</ComboBoxItem>
             </ComboBox>
-            <Label>DevSize</Label>
+            <Label>设备大小:</Label>
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
             <Label Name="LbState">State</Label>
         </StackPanel>

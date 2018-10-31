@@ -54,7 +54,7 @@ namespace LocationServices.Tools
                 //engineDa.MessageReceived += EngineDa_MessageReceived;
                 engineDa.MessageReceived += (obj) =>
                 {
-                    Logs.WriteLogLeft(GetLogText(obj));
+                    WriteLogLeft(GetLogText(obj));
                 };
                 //engineDa.PositionRecived += EngineDa_PositionRecived;
                 engineDa.PositionListRecived += EngineDa_PositionListRecived;

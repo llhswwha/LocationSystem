@@ -41,7 +41,7 @@ namespace LocationServer.Windows
         double floorHeight = 0;
         private string _code;
 
-        public bool ShowInfo(Rectangle rect,DevInfo dev)
+        public bool ShowInfo(Rectangle rect, DevInfo dev)
         {
             Bll bll = new Bll();
             this._dev = dev;
@@ -51,16 +51,13 @@ namespace LocationServer.Windows
             {
                 return false;
             }
+            _code = _archor.GetCode();
 
             _item = new ArchorSetting();
             _item.Id = _archor.Id;
-            _code = _archor.Code;
-            _item.Code = _archor.Code;
+            _item.Code = _code;
             _item.Name = _archor.Name;
-
             var area = dev.Parent;
-
-            _item.RelativeMode = RelativeMode.相对楼层;
 
             double x = dev.PosX;
             double z = dev.PosZ;
@@ -88,7 +85,7 @@ namespace LocationServer.Windows
             _item.AbsoluteY = (z + minY).ToString("F2");
 
             //var rooms = areas.FindAll(j => j.ParentId == floor.Id);
-            _room = Bll.GetDevRoom(_floor,dev);
+            _room = Bll.GetDevRoom(_floor, dev);
             //PropertyGrid3.SelectedObject = item;
 
             LbId.Text = _archor.Id + "";
@@ -112,36 +109,70 @@ namespace LocationServer.Windows
                 PcZero.Y = _room.InitBound.MinY;
                 PcRelative.X = x - _room.InitBound.MinX;
                 PcRelative.Y = z - _room.InitBound.MinY;
-
-                PcRelative.ValueChanged += PcRelative_ValueChanged;
             }
             else
             {
                 PcArchor.IsEnabled = true;
-                //PcZero.X = room.InitBound.MinX;
-                //PcZero.Y = room.InitBound.MinY;
-                //PcRelative.X = archor.X - room.InitBound.MinX;
-                //PcRelative.Y = archor.Z - room.InitBound.MinY;
+                PcRelative.X = PcArchor.X;
+                PcRelative.Y = PcArchor.Y;
 
-                PcArchor.ValueChanged += PcArchor_ValueChanged;
+            }
+
+            PcZero.ValueChanged += PcZero_ValueChanged;
+            PcRelative.ValueChanged += PcRelative_ValueChanged;
+            PcArchor.ValueChanged += PcArchor_ValueChanged;
+
+            var setting = bll.ArchorSettings.GetByCode(_code);
+            if (setting != null)
+            {
+                PcZero.X = setting.ZeroX.ToDouble();
+                PcZero.Y = setting.ZeroY.ToDouble();
+
+                Title += " [已配置]";
             }
 
             return true;
+        }
+
+        private void PcZero_ValueChanged(WPFClientControlLib.PointControl obj)
+        {
+            PcRelative.ValueChanged -= PcRelative_ValueChanged;
+            PcRelative.X = _dev.PosX - obj.X;
+            PcRelative.Y = _dev.PosZ - obj.Y;
+            PcRelative.ValueChanged += PcRelative_ValueChanged;
         }
 
         private void PcArchor_ValueChanged(WPFClientControlLib.PointControl obj)
         {
             PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
             PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+
+            PcRelative.ValueChanged -= PcRelative_ValueChanged;
+            PcRelative.X = obj.X - PcZero.X;
+            PcRelative.Y = obj.Y - PcZero.Y;
+            PcRelative.ValueChanged += PcRelative_ValueChanged;
         }
 
         private void PcRelative_ValueChanged(WPFClientControlLib.PointControl obj)
         {
-            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + _room.InitBound.MinX+obj.X;
-            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + _room.InitBound.MinY + obj.Y ;
+            PcZero.ValueChanged -= PcZero_ValueChanged;
+            if (_room != null)
+            {
+                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + _room.InitBound.MinX + obj.X;
+                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + _room.InitBound.MinY + obj.Y;
 
-            PcArchor.X = _room.InitBound.MinX+obj.X;
-            PcArchor.Y = _room.InitBound.MinY+obj.Y;
+                PcArchor.X = PcZero.X + obj.X;
+                PcArchor.Y = PcZero.Y + obj.Y;
+            }
+            else
+            {
+                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
+                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+
+                PcArchor.X = PcZero.X + obj.X;
+                PcArchor.Y = PcZero.Y + obj.Y;
+            }
+            PcZero.ValueChanged += PcZero_ValueChanged;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -225,7 +256,7 @@ namespace LocationServer.Windows
             {
                 archorSetting.RelativeMode = RelativeMode.相对楼层;
                 archorSetting.SetPath(null, _floor, _building);
-                //archorSetting.SetZero(PcZero.X, PcZero.Y);
+                archorSetting.SetZero(PcZero.X, PcZero.Y);
                 archorSetting.SetRelative(PcArchor.X, PcArchor.Y);
                 archorSetting.SetAbsolute(PcAbsolute.X, PcAbsolute.Y);
             }

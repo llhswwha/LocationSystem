@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using DbModel.Location.AreaAndDev;
 
 namespace DbModel.Location.Settings
@@ -11,6 +12,9 @@ namespace DbModel.Location.Settings
 
     public class ArchorSetting
     {
+        [NotMapped]
+        public bool IsNew { get; set; }
+
         public int Id { get; set; }
 
         [Display(Name="基站编号(Id)")]
@@ -122,6 +126,7 @@ namespace DbModel.Location.Settings
 
         public ArchorSetting()
         {
+            IsNew = true;
             ZeroX = "0";
             ZeroY = "0";
             RelativeX = "0";
