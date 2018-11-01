@@ -10,6 +10,43 @@ using Location.BLL.Tool;
 
 namespace LocationWCFServer
 {
+    public class EngineLogin
+    {
+        public string EngineIp { get; set; }
+
+        public string LocalIp { get; set; }
+
+        public int EnginePort { get; set; }
+        public int LocalPort { get; set; }
+
+        public EngineLogin(string localIp, int localPort,string engineIp,int enginePort)
+        {
+            EngineIp = engineIp;
+            EnginePort = enginePort;
+            LocalIp = localIp;
+            LocalPort = localPort;
+        }
+
+        public EngineLogin()
+        {
+            EngineIp = "127.0.0.1";
+            EnginePort = 3456;
+            LocalIp = "127.0.0.1";
+            LocalPort = 2323;
+        }
+
+        public bool Valid()
+        {
+            string[] parts1 = EngineIp.Split('.');
+            string[] parts2= LocalIp.Split('.');
+            if (parts1.Length == 4 && parts2.Length == 4)
+            {
+                return parts1[0] == parts2[0] && parts1[1] == parts2[1] && parts1[2] == parts2[2];
+            }
+            return true;
+        }
+    }
+
     /// <summary>
     /// 定位引擎对接获取定位信息
     /// </summary>
@@ -21,14 +58,14 @@ namespace LocationWCFServer
 
         public int MockCount = 100;
 
-        public string EngineIp { get; set; }
-
-        public string LocalIp { get; set; }
-
-        public PositionEngineDA(string engineIp,string localIp)
+        public EngineLogin Login { get; set; }
+        public PositionEngineDA()
         {
-            EngineIp = engineIp;
-            LocalIp = localIp;
+            Login = new EngineLogin();
+        }
+        public PositionEngineDA(EngineLogin login)
+        {
+            Login = login;
         }
 
         
@@ -38,16 +75,27 @@ namespace LocationWCFServer
             Stop();
             if (aliveThread == null)
             {
-                aliveThread = new Thread(() =>
-                {
-                    while (true)
-                    {
-                        InitUdp();
-                        SendAlive();
-                        Thread.Sleep(500);
-                    }
-                });
+                aliveThread = new Thread(KeepAlive);
                 aliveThread.Start();
+            }
+        }
+
+        private void KeepAlive()
+        {
+            Log.Info("PositionEngineDA.KeepAlive");
+            while (true)
+            {
+                try
+                {
+                    InitUdp();
+                    SendAlive();
+                    Thread.Sleep(500);
+                }
+                catch (Exception ex)
+                {
+                    //Log.Error("PositionEngineDA.KeepAlive", ex);
+                    //break;
+                }
             }
         }
 
@@ -55,9 +103,8 @@ namespace LocationWCFServer
         {
             //Log.Info("PositionEngineDA.SendAlive");
             byte[] data = Encoding.UTF8.GetBytes("1");
-            IPAddress ip = IPAddress.Parse(EngineIp);
-            int port = EnginePort;
-            ludp2.Send(data, new IPEndPoint(ip, port));
+            IPAddress ip = IPAddress.Parse(Login.EngineIp);
+            ludp2.Send(data, new IPEndPoint(ip, Login.EnginePort));
 
             if (ludp2.IsReceiving == false)//假如是后启动的定位引擎 虽然定位引擎能收到数据 但是这里无法收到定位数据
             {
@@ -65,15 +112,12 @@ namespace LocationWCFServer
             }
         }
 
-        public int EnginePort = 3456;
-        public int LocalPort = 2323;
-
         private void InitUdp()
         {
             if (ludp2 == null)
             {
                 Log.Info("PositionEngineDA.InitUdp");
-                ludp2 = new LightUDP(IPAddress.Parse(LocalIp), LocalPort); //建立UDP  监听端口
+                ludp2 = new LightUDP(IPAddress.Parse(Login.LocalIp), Login.LocalPort); //建立UDP  监听端口
                 ludp2.DGramRecieved += Ludp2_DGramRecieved;
             }
         }

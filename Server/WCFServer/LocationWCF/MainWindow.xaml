@@ -8,6 +8,9 @@
         Title="服务端" Height="500" Width="1000" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
+            <MenuItem Header="窗口">
+                <MenuItem Header="定位引擎客户端" Name="MenuEngineClient" Click="MenuEngineClient_OnClick"></MenuItem>
+            </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="区域范围显示" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
                 <Separator></Separator>
@@ -44,22 +47,7 @@
                         <Button Name="BtnOpenU3D" Content="打开三维定位程序" Click="BtnOpenU3D_OnClick"></Button>
 
                     </StackPanel>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <ScrollViewer>
-                            <TextBox Name="TbResult2"></TextBox>
-                        </ScrollViewer>
-                        <ScrollViewer  Grid.Column="1" Grid.Row="0">
-                            <TextBox Name="TbResult3"></TextBox>
-                        </ScrollViewer>
-
-                    </Grid>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="定位" Height="21" VerticalAlignment="Top" Visibility="Visible">

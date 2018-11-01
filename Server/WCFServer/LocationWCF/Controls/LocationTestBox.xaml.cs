@@ -19,6 +19,7 @@ using BLL;
 using DbModel.LocationHistory.Data;
 using Location.BLL;
 using LocationServices.Tools;
+using LocationWCFServer;
 using LocationWCFService;
 
 namespace LocationServer
@@ -57,9 +58,11 @@ namespace LocationServer
             int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineClient == null)
             {
+                EngineLogin login=new EngineLogin("127.0.0.1",2323, "192.168.10.155",3456);
                 engineClient = new PositionEngineClient();
                 engineClient.Logs = Logs;
-                engineClient.StartConnectEngine(mockCount, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+                engineClient.MockCount = mockCount;
+                engineClient.StartConnectEngine(login);//todo:ip写到配置文件中
             }
             StartInsertPositionTimer();
         }

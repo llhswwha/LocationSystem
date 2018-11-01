@@ -1,0 +1,49 @@
+﻿<Window x:Class="EngineClient.EngineClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EngineClient"
+        mc:Ignorable="d"
+        Title="定位引擎客户端" Height="400" Width="525" Loaded="EngineClientWindow_OnLoaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="工具">
+                <MenuItem Header="三维模拟程序"></MenuItem>
+                <MenuItem Header="二维模拟程序"></MenuItem>
+                <MenuItem Header="数据写入测试"></MenuItem>
+                <MenuItem Header="历史数据查询" Name="MenuHistory" Click="MenuHistory_OnClick"></MenuItem>
+                <MenuItem Header="实时数据查询" Name="MenuReal" Click="MenuReal_OnClick"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label Width="80">Local IP</Label>
+            <ComboBox Width="130" Name="TbLocalIp"></ComboBox>
+            <Label Width="80">Local Port</Label>
+            <TextBox Width="50" Name="TbLocalPort">2323</TextBox>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label Width="80">Engine IP</Label>
+            <TextBox Width="130" Name="TbEngineIp">192.168.10.155</TextBox>
+            <Label Width="80">Engine Port</Label>
+            <TextBox Width="50" Name="TbEnginePort">3456</TextBox>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" >
+            <CheckBox Name="CbWriteToDb" IsChecked="True">写入数据库</CheckBox>
+            <Button Name="BtnStart" Click="BtnStart_OnClick">启动</Button>
+        </StackPanel>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer>
+                <TextBox Name="TbResult2"></TextBox>
+            </ScrollViewer>
+            <ScrollViewer  Grid.Column="1" Grid.Row="0">
+                <TextBox Name="TbResult3"></TextBox>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</Window>

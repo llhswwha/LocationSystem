@@ -25,6 +25,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using BLL;
 using DbModel.LocationHistory.Data;
+using EngineClient;
 using Location.BLL;
 using Location.TModel.Location.Alarm;
 using Location.TModel.Location.AreaAndDev;
@@ -43,16 +44,11 @@ namespace LocationWCFServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public DispatcherTimer LogTimer;
+        
         public MainWindow()
         {
             InitializeComponent();
             this.Closed += MainWindow_Closed;
-            LogTimer = new DispatcherTimer();
-            LogTimer.Interval = TimeSpan.FromMilliseconds(200);
-            LogTimer.Tick += LogTimer_Tick;
-            LogTimer.Start();
-
             LogEvent.InfoEvent += LogEvent_InfoEvent;
         }
 
@@ -62,21 +58,6 @@ namespace LocationWCFServer
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();
-
-        private void LogTimer_Tick(object sender, EventArgs e)
-        {
-            TbResult2.Text = Logs.LogLeft;
-            TbResult3.Text = Logs.LogRight;
-        }
-
-
-        //public void WriteLine(TextBox tb, string txt)
-        //{
-        //    tb.Dispatcher.BeginInvoke(new Action<string>((t) =>
-        //    {
-        //        tb.Text = txt + "\n" + tb.Text;
-        //    }), txt);
-        //}
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -385,6 +366,12 @@ namespace LocationWCFServer
         private void MenuEventSendTest_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new EventSendTestWindow();
+            win.Show();
+        }
+
+        private void MenuEngineClient_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new EngineClientWindow();
             win.Show();
         }
     }

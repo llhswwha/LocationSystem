@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
+using DbModel.Tools;
 
 namespace LocationServices.Tools
 {
@@ -42,15 +43,19 @@ namespace LocationServices.Tools
 
         public List<Position> Positions = new List<Position>();
 
-        public void StartConnectEngine(int mockCount,string engineIp, string localIp)
+        public int MockCount = 0;
+
+        public bool IsWriteToDb = true;
+
+        public void StartConnectEngine(EngineLogin login)
         {
-            Log.Info("StartConnectEngine:"+engineIp);
+            Log.Info("StartConnectEngine:"+ login.EngineIp);
             //int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineDa == null)
             {
                 //engineDa = new PositionEngineDA("192.168.10.155", "192.168.10.19");//todo:ip写到配置文件中
-                engineDa = new PositionEngineDA(engineIp, localIp);//todo:ip写到配置文件中
-                engineDa.MockCount = mockCount;
+                engineDa = new PositionEngineDA(login);//todo:ip写到配置文件中
+                engineDa.MockCount = MockCount;
                 //engineDa.MessageReceived += EngineDa_MessageReceived;
                 engineDa.MessageReceived += (obj) =>
                 {
@@ -59,15 +64,32 @@ namespace LocationServices.Tools
                 //engineDa.PositionRecived += EngineDa_PositionRecived;
                 engineDa.PositionListRecived += EngineDa_PositionListRecived;
             }
-
-            using (var positionBll = GetLocationBll())
-            {
-                positionBll.InitTagPosition(mockCount);
-            }
-
             engineDa.Start();
 
-            StartInsertPositionTimer();
+            if (IsWriteToDb)
+            {
+                InitTagPosition(MockCount);
+                StartInsertPositionTimer();
+            }
+        }
+
+        private void InitTagPosition(int mockCount)
+        {
+            ThreadTool.Start(() =>
+            {
+                try
+                {
+                    using (var positionBll = GetLocationBll())
+                    {
+                        positionBll.InitTagPosition(mockCount);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("PositionEngineClient.InitTagPosition", ex);
+                }
+
+            });
         }
 
         private Thread insertThread;
@@ -76,7 +98,7 @@ namespace LocationServices.Tools
 
         public void StartInsertPositionTimer()
         {
-            insertThread = new Thread(() =>
+            insertThread = ThreadTool.Start(() =>
             {
                 while (true)
                 {
@@ -84,7 +106,6 @@ namespace LocationServices.Tools
                     InsertPostions();
                 }
             });
-            insertThread.Start();
         }
 
 

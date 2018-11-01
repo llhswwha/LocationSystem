@@ -226,6 +226,9 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Controls\StopwatchTextBox.cs" />
+    <Compile Include="Windows\LocationEngineClientWindow.xaml.cs">
+      <DependentUpon>LocationEngineClientWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
       <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
     </Compile>
@@ -301,6 +304,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\LocationEngineClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LocationHistoryTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -501,6 +508,10 @@
     <ProjectReference Include="..\..\..\WebApi\WebNSQLib\WebNSQLib.csproj">
       <Project>{13ccc157-451b-4249-bd65-a4db04a5c143}</Project>
       <Name>WebNSQLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\EngineClient\EngineClient.csproj">
+      <Project>{0629d8f9-cf59-4576-8d31-47d87db57c17}</Project>
+      <Name>EngineClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -84,7 +84,6 @@ namespace Coldairarrow.Util.Sockets
             IPEndPoint localEp = new IPEndPoint(localIP, localPort);
             udpc = new UdpClient(localEp);
             broadCastEp = new IPEndPoint(IPAddress.Broadcast, 0);
-
             InitReceive();
         }
 
