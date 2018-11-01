@@ -62,7 +62,7 @@ namespace LocationWCFServer
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            LocationTestBox1.Logs = Logs;
+            //LocationTestBox1.Logs = Logs;
             InitData();
         }
 
@@ -71,224 +71,35 @@ namespace LocationWCFServer
             //StartReceiveAlarm();
         }
 
-        private void StartReceiveAlarm()
-        {
-            RealAlarm ra = new RealAlarm();
-            ra.MessageHandler.DevAlarmReceived += Mh_DevAlarmReceived;
-            if (alarmReceiveThread == null)
-            {
-                alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
-                alarmReceiveThread.Start();
-            }
-        }
-
-        private void StopReceiveAlarm()
-        {
-            if (alarmReceiveThread != null)
-            {
-                alarmReceiveThread.Abort();
-                alarmReceiveThread = null;
-            }
-        }
-
-        private Thread alarmReceiveThread;
-
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            StopServices();
+            ServerManagerBox1.StopServices();
         }
 
 
-        private void StopServices()
-        {
-            WriteLog("停止服务");
-            StopConnectEngine();
-            if (LocationService.u3dositionSP != null)
-            {
-                LocationService.u3dositionSP.Stop();
-                LocationService.u3dositionSP = null;
-            }
+        //private void BtnConnectEngine_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (BtnConnectEngine.Content.ToString() == "连接定位引擎")
+        //    {
+        //        StartConnectEngine();
+        //        BtnConnectEngine.Content = "断开定位引擎";
+        //    }
+        //    else
+        //    {
+        //        StopConnectEngine();
+        //        BtnConnectEngine.Content = "连接定位引擎";
+        //    }
+        //}
 
-            if (httpHost != null)
-            {
-                httpHost.CloseAsync();
-                httpHost = null;
-            }
-            if (SignalR != null)
-            {
-                SignalR.Dispose();
-                SignalR = null;
-            }
+        //public void StartConnectEngine()
+        //{
+        //    LocationTestBox1.StartConnectEngine();
+        //}
 
-            if (wcfApiHost != null)
-            {
-                wcfApiHost.Close();
-                wcfApiHost = null;
-            }
-
-            StopReceiveAlarm();
-        }
-
-        private void BtnStartService_Click(object sender, RoutedEventArgs e)
-        {
-            if (BtnStartService.Content.ToString() == "启动服务")
-            {
-                string host = TbHost.Text;
-                string port = TbPort.Text;
-                StartService(host, port);
-                BtnStartService.Content = "停止服务";
-            }
-            else
-            {
-                StopServices();
-                BtnStartService.Content = "启动服务";
-            }
-        }
-
-        private void StartService(string host,string port)
-        {
-            try
-            {
-                WriteLog("启动服务");
-                StartLocationService(host, port);
-                StartLocationServiceApi(host, port);
-                StartLocationAlarmService();
-                StartWebApiService(host, port);
-                StartSignalRService(host, port);
-
-                //LocationService.ShowLog_Action += ShowTest;
-                U3DPositionSP.ShowLog_Action += ShowTest;
-            }
-            catch (Exception ex)
-            {
-                WriteLog(ex.ToString());
-            }
-        }
-
-        private IDisposable SignalR;
-
-        private void StartSignalRService(string host, string port)
-        {
-            //端口和主服务器(8733)一致的情况下，2D和3D无法连接SignalR服务器
-            port = "8735";
-            //string ServerURI = string.Format("http://{0}:{1}/", host,port);
-            string ServerURI = string.Format("http://{0}:{1}/", "*", port);
-            try
-            {
-                SignalR = WebApp.Start(ServerURI);
-                WriteLog("SiganlR: " + ServerURI + "realtime");
-            }
-            catch (Exception ex)
-            {
-                //WriteToConsole("A server is already running at " + ServerURI);
-                //this.Dispatcher.Invoke(() => ButtonStart.IsEnabled = true);
-                //return;
-                WriteLog(ex.ToString());
-            }
-        }
-
-        private void WriteLog(string txt)
-        {
-            Log.Info(txt);
-            TbResult1.AppendText(txt+"\n");
-        }
-
-        HttpSelfHostServer httpHost;
-
-        private void StartWebApiService(string host, string port)
-        {
-            string path = string.Format("http://{0}:{1}/",host, port);
-            var config = new HttpSelfHostConfiguration(path);
-            WebApiConfiguration.Configure(config);
-            httpHost = new HttpSelfHostServer(config);
-            httpHost.OpenAsync().Wait();
-
-            WriteLog("WebApiService: " + path+"api");
-        }
-
-        private ServiceHost locationServiceHost;
-
-        private void StartLocationService(string host, string port)
-        {
-            //1.配置方式启动服务
-            //locationServiceHost = new ServiceHost(typeof(LocationService));
-            //locationServiceHost.SetProxyDataContractResolver();
-            //locationServiceHost.Open();
-
-            //2.编程方式启动服务
-            string url = string.Format("http://{0}:{1}/LocationService", host, port);
-            Uri baseAddres = new Uri(url);
-            locationServiceHost = new ServiceHost(typeof (LocationService), baseAddres);
-            BasicHttpBinding httpBinding = new BasicHttpBinding();
-            locationServiceHost.AddServiceEndpoint(typeof (ILocationService), httpBinding, baseAddres);
-            httpBinding.MaxReceivedMessageSize= 2147483647;
-            httpBinding.MaxBufferPoolSize= 2147483647; 
-
-            Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
-            locationServiceHost.AddServiceEndpoint(typeof (IMetadataExchange), binding, "MEX");
-            //开放数据交付终结点，客户端才能添加/更新服务引用。
-
-            locationServiceHost.Open();
-
-            WriteLog("LocationService: " + locationServiceHost.BaseAddresses[0]);
-        }
-
-        private WebServiceHost wcfApiHost;
-
-        private void StartLocationServiceApi(string host, string port)
-        {
-            string path = string.Format("http://{0}:{1}/LocationService/api", host, port);
-            //LocationService demoServices = new LocationService();
-            wcfApiHost = new WebServiceHost(typeof(LocationService));
-            WebHttpBinding httpBinding = new WebHttpBinding();
-            wcfApiHost.AddServiceEndpoint(typeof(ITestService), httpBinding, new Uri(path+"/test"));//不能是相同的地址，不同的地址的话可以有多个。
-            //wcfApiHost.AddServiceEndpoint(typeof(IDevService), httpBinding, new Uri(path));
-            wcfApiHost.AddServiceEndpoint(typeof(IPhysicalTopologyService), httpBinding, new Uri(path));
-            wcfApiHost.Open();
-            WriteLog("LocationService: " + path);
-        }
-
-        private ServiceHost locationAlarmServiceHost;
-        private void StartLocationAlarmService()
-        {
-            locationAlarmServiceHost = new ServiceHost(typeof(LocationCallbackService));
-            locationAlarmServiceHost.SetProxyDataContractResolver();
-
-            locationAlarmServiceHost.Open();
-
-            WriteLog("LocationAlarmService: " + locationAlarmServiceHost.BaseAddresses[0]);
-        }
-
-        public void ShowTest(string str)
-        {
-            //textBox_U3DTEST.Text = str;
-            //textBox_U3DTEST.AppendText( str);
-        }
-
-
-        private void BtnConnectEngine_Click(object sender, RoutedEventArgs e)
-        {
-            if (BtnConnectEngine.Content.ToString() == "连接定位引擎")
-            {
-                StartConnectEngine();
-                BtnConnectEngine.Content = "断开定位引擎";
-            }
-            else
-            {
-                StopConnectEngine();
-                BtnConnectEngine.Content = "连接定位引擎";
-            }
-        }
-
-        public void StartConnectEngine()
-        {
-            LocationTestBox1.StartConnectEngine();
-        }
-
-        public void StopConnectEngine()
-        {
-            LocationTestBox1.StopConnectEngine();
-        }
+        //public void StopConnectEngine()
+        //{
+        //    LocationTestBox1.StopConnectEngine();
+        //}
 
         private void BtnOpenSimulator_OnClick(object sender, RoutedEventArgs e)
         {
@@ -314,11 +125,6 @@ namespace LocationWCFServer
             {
                 MessageBox.Show("未找到文件:" + path);
             }
-        }
-
-        private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
-        {
-            AlarmHub.SendDeviceAlarms(obj.ToTModel());
         }
 
         private void MenuLocationEngionTool_OnClick(object sender, RoutedEventArgs e)
@@ -373,6 +179,19 @@ namespace LocationWCFServer
         {
             var win = new EngineClientWindow();
             win.Show();
+        }
+
+        private void MenuOpen3D_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Location\\Location.exe";
+            if (File.Exists(path))
+            {
+                Process.Start(path);
+            }
+            else
+            {
+                MessageBox.Show("未找到文件:" + path);
+            }
         }
     }
 }

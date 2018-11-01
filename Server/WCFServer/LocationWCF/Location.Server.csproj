@@ -179,6 +179,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Controls\ServerManagerBox.xaml.cs">
+      <DependentUpon>ServerManagerBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\EngineTool\ArchorConfigureBox.xaml.cs">
       <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
     </Compile>
@@ -232,6 +235,10 @@
     <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
       <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\ServerManagerBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Models\EngineTool\ArchorConfigureBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

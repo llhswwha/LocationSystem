@@ -141,14 +141,18 @@ namespace DbModel.LocationHistory.Data
             {
                 Archors = new List<string>();
             }
+            if (string.IsNullOrEmpty(archor)) return;
             Archors.Add(archor);
         }
+
+        public string _info;
 
         public bool Parse(string info)
         {
             try
             {
-                string[] parts = info.Split(',');
+                _info = info;
+                string[] parts = info.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
@@ -166,7 +170,11 @@ namespace DbModel.LocationHistory.Data
                     Flag = parts[7];
                 if (length > 8)
                 {
-                    Archors = parts[8].Split('@').ToList();
+                    Archors = parts[8].Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
+                    if (Archors.Count > 1)
+                    {
+                        Console.Write("Archors.Count > 1");
+                    }
                     IsSimulate = parts[8] == "@0000";
                 }
                 return true;

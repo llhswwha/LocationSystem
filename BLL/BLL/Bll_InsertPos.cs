@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Data;
+using DbModel.Location.Person;
+using DbModel.Location.Relation;
 using DbModel.LocationHistory.Data;
+using Location.BLL.Tool;
 
 namespace BLL
 {
@@ -77,62 +81,95 @@ namespace BLL
             return mockTags;
         }
 
+        public bool AddPositionsBySql(List<Position> positions)
+        {
+            try
+            {
+                string sql = GetInsertSql(positions);
+                if (!string.IsNullOrEmpty(sql))
+                    DbHistory.Database.ExecuteSqlCommand(sql);
+
+                List<LocationCardPosition> tagPosList = EditTagPositionList(positions);
+                string sql2 = GetUpdateSql(tagPosList);
+                if (!string.IsNullOrEmpty(sql2))
+                    Db.Database.ExecuteSqlCommand(sql2);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("AddPositionsBySql", ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除重复的数据
+        /// </summary>
+        /// <param name="list1"></param>
+        /// <returns></returns>
+        private List<Position> RemoveRepeatPosition(List<Position> list1)
+        {
+            //var tagPositions = positionBll.LocationCardPositions.ToList();//实时位置
+            ////剔除位置信息不变的部分
+            //List<Position> list2 = new List<Position>();
+            //foreach (var pos in list1)
+            //{
+            //    var tagPos = tagPositions.Find(i => i.Code == pos.Code);
+            //    if (tagPos != null)
+            //    {
+            //        double distance = (tagPos.X - pos.X)*(tagPos.X - pos.X) + (tagPos.Z - pos.Z)*(tagPos.Z - pos.Z);
+            //        if (distance > 1)
+            //        {
+            //            list2.Add(pos);
+            //        }
+            //    }
+            //}
+
+            Dictionary<string, Position> dict = new Dictionary<string, Position>();
+            foreach (Position pos in list1)
+            {
+                if (pos == null) continue;
+                try
+                {
+                    dict[pos.Code] = pos;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("RemoveRepeatPosition", ex);
+                }
+            }
+            return dict.Values.ToList();
+        }
+
+        public bool AddPositionsEx(List<Position> positions)
+        {
+            //1.删除重复的位置信息，只留最新的部分
+            positions = RemoveRepeatPosition(positions);
+            //2.处理定位引擎位置信息，添加关联人员信息
+            var tagRelation = new TagRelationBuffer(this);
+            tagRelation.SetPositionInfo(positions);
+            //3.写入数据库
+            return AddPositions(positions);
+        }
+
+        /// <summary>
+        /// 写入位置信息
+        /// </summary>
+        /// <param name="positions"></param>
+        /// <returns></returns>
         public bool AddPositions(List<Position> positions)
         {
             bool r = true;
             try
             {
-                if (positions == null || positions.Count == 0) return false;              
+                if (positions == null || positions.Count == 0) return false;
 
-                //string sql = GetInsertSql(positions);
-                //if (!string.IsNullOrEmpty(sql))
-                //    DbHistory.Database.ExecuteSqlCommand(sql);
+                //AddPositionsBySql(positions);
 
-                //List<TagPosition> tagPosList = EditTagPositionList(positions);
-                //string sql2 = GetUpdateSql(tagPosList);
-                //if (!string.IsNullOrEmpty(sql2))
-                //    Db.Database.ExecuteSqlCommand(sql2);
-
-                //todo:获取位置信息参与计算的基站
-                foreach (Position position in positions)
-                {
-                    if (position.Archors != null)
-                    {
-                        List<Archor> archorList = Archors.FindByCodes(position.Archors);
-                        foreach (Archor archor in archorList)
-                        {
-                            //基站位置和Position位置相等（0.1是为了应对Double类型比较，可能出现的误差）
-                            if (Math.Abs(archor.Y - position.Y) < 0.1f)
-                            {
-                                //找到对应ID,不往后找
-                                position.AreaId = archor.DevInfo.ParentId;
-                                break;
-                            }
-                            //if (!position.TopoNodes.Contains(archor.Dev.ParentId))
-                            //    position.TopoNodes.Add(archor.Dev.ParentId);
-                        }
-                    }
-                    else
-                    {
-                        position.AreaId = null;
-                    }
-                    //Todo:找不到合适的ID,需要处理一下
-
-
-                    //foreach (string code in position.Archors)
-                    //{
-                    //    Archor archor=Archors.FindByCode(code);
-                    //    if(!position.TopoNodes.Contains(archor.Dev.ParentId))
-                    //        position.TopoNodes.Add(archor.Dev.ParentId);
-                    //}
-                }
                 //1.批量插入历史数据数据
                 DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
-                ////2.获取并修改列表
-                //List<LocationCardPosition> tagPosList = EditTagPositionList(positions);
-                ////3.更新列表
-                //LocationCardPositions.Db.BulkUpdate(tagPosList);//插件Z.EntityFramework.Extensions功能
 
+                //修改实时数据
                 EditTagPositionListOP(positions);
             }
             catch (Exception ex)

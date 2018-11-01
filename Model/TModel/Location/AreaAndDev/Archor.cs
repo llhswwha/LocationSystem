@@ -102,6 +102,9 @@ namespace TModel.Location.AreaAndDev
 
         public virtual DevInfo DevInfo { get; set; }
 
+        [DataMember]
+        public int ParentId { get; set; }
+
         public override string ToString()
         {
             return Name;

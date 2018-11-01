@@ -107,7 +107,7 @@ namespace LocationServer.Controls
             }
             else
             {
-                archors = bll.Archors.Where(i => i.DevInfo.ParentId == area.Id);
+                archors = bll.Archors.Where(i => i.ParentId == area.Id);
             }
 
             var devs = bll.DevInfos.ToList();

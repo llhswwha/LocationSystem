@@ -129,6 +129,10 @@ namespace LocationWCFServer
             {
                 MessageReceived(msg);
             }
+            if (msg.Contains("002"))
+            {
+                Log.Info("002");
+            }
             Position pos = new Position();
             if (pos.Parse(msg))
             {

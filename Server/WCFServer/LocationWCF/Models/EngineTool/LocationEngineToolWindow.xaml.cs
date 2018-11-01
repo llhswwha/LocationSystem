@@ -72,7 +72,7 @@ namespace LocationServer
             if (area == null) return;
             if (CbOnlyShowListOfDep.IsChecked==true)
             {
-                var archors2 = bll.Archors.FindAll(i => i.DevInfo.ParentId==area.Id);
+                var archors2 = bll.Archors.FindAll(i => i.ParentId==area.Id);
                 Group2.Header = "列表2 [" + archors2.Count + "]";
                 DataGridArchor2.ItemsSource = archors2;
             }

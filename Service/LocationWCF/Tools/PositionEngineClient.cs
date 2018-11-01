@@ -148,109 +148,26 @@ namespace LocationServices.Tools
             }
         }
 
-        /// <summary>
-        /// 删除重复的数据
-        /// </summary>
-        /// <param name="list1"></param>
-        /// <returns></returns>
-        private List<Position> RemoveRepeatPosition(List<Position> list1)
-        {
-            Dictionary<string, Position> dict = new Dictionary<string, Position>();
-            foreach (Position pos in list1)
-            {
-                if (pos == null) continue;
-                try
-                {
-                    dict[pos.Code] = pos;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("RemoveRepeatPosition", ex);
-                }
-                
-            }
-            return dict.Values.ToList();
-        } 
-
         private bool InsertPostions(List<Position> list1)
         {
             bool r = false;
             Stopwatch watch1 = new Stopwatch();
             watch1.Start();
-
-            using (var positionBll = GetLocationBll())
+            using (var bll = GetLocationBll())
             {
-                var personnels = positionBll.Personnels.ToList();
-                var tagToPersons = positionBll.LocationCardToPersonnels.ToList();
-                var tags = positionBll.LocationCards.ToList();
-                var archors = positionBll.Archors.ToList();//基站
-                
-
-                list1 = RemoveRepeatPosition(list1);
-
-                //var tagPositions = positionBll.LocationCardPositions.ToList();//实时位置
-                ////剔除位置信息不变的部分
-                //List<Position> list2 = new List<Position>();
-                //foreach (var pos in list1)
+                r = bll.AddPositionsEx(list1);
+                //todo:添加定位权限判断
+                //if (r)
                 //{
-                //    var tagPos = tagPositions.Find(i => i.Code == pos.Code);
-                //    if (tagPos != null)
+                //    foreach (Position p in list1)
                 //    {
-                //        double distance = (tagPos.X - pos.X)*(tagPos.X - pos.X) + (tagPos.Z - pos.Z)*(tagPos.Z - pos.Z);
-                //        if (distance > 1)
+                //        if (p == null) continue;
+                //        if (p.X >= 10 && p.X <= 30 && p.Y >= 50 && p.Y <= 70 && p.Z >= 80 && p.Z <= 100)
                 //        {
-                //            list2.Add(pos);
+                //            LocationCallbackService.NotifyServiceStop();
                 //        }
                 //    }
                 //}
-                ////todo:怎么利用能够判断位置信息不变的部分呢
-
-                //处理定位引擎位置信息，添加关联人员信息
-                foreach (Position pos in list1)
-                {
-                    if (pos == null) continue;
-                    try
-                    {
-                        var tag = tags.Find(i => i.Code == pos.Code);//标签
-                        if (tag == null) continue;
-                        pos.CardId = tag.Id;
-                        var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id);//关系
-                        if (ttp == null) continue;
-                        var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId);//人员
-                        if (personnelT != null)
-                        {
-                            pos.PersonnelID = personnelT.Id;
-                        }
-
-                        if (pos.IsSimulate)//是模拟程序数据
-                        {
-                            var relativeArchors=archors.FindAll(i => ((i.X - pos.X)*(i.X - pos.X) + (i.Z - pos.Z)*(i.Z - pos.Z)) < 100).ToList();
-                            if (relativeArchors == null) continue;
-                            foreach (var archor in relativeArchors)
-                            {
-                                pos.AddArchor(archor.Code);
-                            }
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        int i = 0;
-                    }
-                }
-
-                r = positionBll.AddPositions(list1);
-                if (r)
-                {
-                    foreach (Position p in list1)
-                    {
-                        if (p == null) continue;
-                        if (p.X >= 10 && p.X <= 30 && p.Y >= 50 && p.Y <= 70 && p.Z >= 80 && p.Z <= 100)
-                        {
-                            LocationCallbackService.NotifyServiceStop();
-                        }
-                    }
-
-                }
             }
 
             watch1.Stop();
@@ -317,15 +234,25 @@ namespace LocationServices.Tools
 
         private void EngineDa_PositionListRecived(List<Position> posList)
         {
-            foreach (var item in posList)
+            lock (Positions)
             {
-                if (item != null)
+                try
                 {
-                    Positions.Add(item);
+                    foreach (var item in posList)
+                    {
+                        if (item != null)
+                        {
+                            Positions.Add(item);
+                        }
+                        else
+                        {
+                            Log.Warn("EngineDa_PositionListRecived item==null");
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Log.Warn("EngineDa_PositionListRecived item==null");
+                    Log.Error("EngineDa_PositionListRecived", ex);
                 }
             }
         }

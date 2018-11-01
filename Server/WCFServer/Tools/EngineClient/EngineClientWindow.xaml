@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineClient"
         mc:Ignorable="d"
-        Title="定位引擎客户端" Height="400" Width="525" Loaded="EngineClientWindow_OnLoaded">
+        Title="定位引擎客户端" Height="400" Width="1000" Loaded="EngineClientWindow_OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="工具">
@@ -24,7 +24,7 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label Width="80">Engine IP</Label>
-            <TextBox Width="130" Name="TbEngineIp">192.168.10.155</TextBox>
+            <ComboBox Width="130" Name="TbEngineIp" IsEditable="True"></ComboBox>
             <Label Width="80">Engine Port</Label>
             <TextBox Width="50" Name="TbEnginePort">3456</TextBox>
         </StackPanel>

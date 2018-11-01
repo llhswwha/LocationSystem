@@ -30,6 +30,7 @@ namespace LocationServices.Converters
             item2.Enable = item1.Enable;
             item2.DevInfoId = item1.DevInfoId;
             item2.DevInfo = item1.DevInfo.ToTModel();
+            item2.ParentId = item1.ParentId ?? 0;
             return item2;
         }
 
@@ -48,6 +49,7 @@ namespace LocationServices.Converters
             item2.Power = item1.Power;
             item2.AliveTime = item1.AliveTime;
             item2.Enable = item1.Enable;
+            item2.ParentId = item1.ParentId ?? 0;
         }
 
         public static List<TModel.Location.AreaAndDev.Archor> ToTModel(this List<DbModel.Location.AreaAndDev.Archor> list1)

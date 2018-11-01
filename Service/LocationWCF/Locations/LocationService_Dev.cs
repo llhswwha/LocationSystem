@@ -339,6 +339,10 @@ namespace LocationServices.Locations
 
         public bool AddArchor(Archor archor)
         {
+            if (archor.DevInfo != null)
+            {
+                archor.ParentId = archor.ParentId;
+            }
             return db.Archors.Add(archor.ToDbModel());
         }
         public void DeleteArchor(int archorId)
@@ -369,7 +373,8 @@ namespace LocationServices.Locations
                 dev.Local_TypeCode = int.Parse(LocationDeviceHelper.LocationDevTypeCode);
                 dev.UserName = "admin";
                 Archor2.DevInfo = dev;
-                
+                Archor2.ParentId = ParentId;
+
                 bReturn = db.Archors.Add(Archor2);
             }
             else

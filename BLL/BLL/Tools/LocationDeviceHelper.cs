@@ -59,6 +59,7 @@ namespace BLL.Tools
                 DevInfo devInfo = GetDevInfo(locationDev,areaId);
                 DevPos devPos = GetDevPos(locationDev,devInfo.Local_DevID);
                 Archor archor = GetAnchorInfo(locationDev,devInfo.Id);
+                archor.ParentId = areaId;
                 devInfo.SetPos(devPos);
                 archor.DevInfo = devInfo;
                 archorBll.Add(archor);

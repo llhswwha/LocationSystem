@@ -127,6 +127,12 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "基站对应的设备")]
         public virtual DevInfo DevInfo { get; set; }
 
+        /// <summary>
+        /// 所在区域的Id,要和DevInfo.ParentId相同
+        /// </summary>
+        [DataMember]
+        public int? ParentId { get; set; }
+
         public override string ToString()
         {
             return Name;

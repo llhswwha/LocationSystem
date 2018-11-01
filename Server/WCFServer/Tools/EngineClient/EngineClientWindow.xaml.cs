@@ -123,7 +123,12 @@ namespace EngineClient
             //    if (ipa.AddressFamily == AddressFamily.InterNetwork)
             //        Console.Writeline(ipa.ToString());
             //}
-            TbLocalIp.ItemsSource = ipadrlist;
+            var list = new List<IPAddress>();
+            list.Add(IPAddress.Parse("127.0.0.1"));
+            list.AddRange(ipadrlist);
+            TbLocalIp.ItemsSource = list;
+
+            TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155"};
         }
     }
 }
