@@ -83,6 +83,7 @@
     <Compile Include="Blls\Location\ArchorSettingBll.cs" />
     <Compile Include="Blls\Location\AreaBll.cs" />
     <Compile Include="Blls\Location\BoundBll.cs" />
+    <Compile Include="Blls\Location\CardRoleBll.cs" />
     <Compile Include="Blls\Location\ConfigArgBll.cs" />
     <Compile Include="Blls\Location\DepartmentBll.cs" />
     <Compile Include="Blls\Location\DevAlarmBll.cs" />
@@ -93,8 +94,8 @@
     <Compile Include="Blls\Location\Dev_DoorAccessBll.cs" />
     <Compile Include="Blls\Location\EntranceGuardCardBll.cs" />
     <Compile Include="Blls\Location\EntranceGuardCardToPersonnelBll.cs" />
-    <Compile Include="Blls\Location\JurisDictionBll.cs" />
-    <Compile Include="Blls\Location\JurisDictionRecordBll.cs" />
+    <Compile Include="Blls\Location\AreaAuthorizationBll.cs" />
+    <Compile Include="Blls\Location\AreaAuthorizationRecordBll.cs" />
     <Compile Include="Blls\Location\KKSCodeBll.cs" />
     <Compile Include="Blls\Location\LocationAlarmBll.cs" />
     <Compile Include="Blls\Location\LocationCardBll.cs" />

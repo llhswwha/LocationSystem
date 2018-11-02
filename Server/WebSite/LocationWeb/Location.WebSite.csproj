@@ -302,7 +302,7 @@
     <Compile Include="Controllers\DevModelController.cs" />
     <Compile Include="Controllers\DevTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JurisDictionController.cs" />
+    <Compile Include="Controllers\AreaAuthorizationController.cs" />
     <Compile Include="Controllers\KKSCodeController.cs" />
     <Compile Include="Controllers\LocationCardController.cs" />
     <Compile Include="Controllers\LocationCardPositionController.cs" />
@@ -517,11 +517,11 @@
     <Content Include="Views\DevType\Details.cshtml" />
     <Content Include="Views\DevType\Edit.cshtml" />
     <Content Include="Views\DevType\Index.cshtml" />
-    <Content Include="Views\JurisDiction\Create.cshtml" />
-    <Content Include="Views\JurisDiction\Delete.cshtml" />
-    <Content Include="Views\JurisDiction\Details.cshtml" />
-    <Content Include="Views\JurisDiction\Edit.cshtml" />
-    <Content Include="Views\JurisDiction\Index.cshtml" />
+    <Content Include="Views\AreaAuthorization\Create.cshtml" />
+    <Content Include="Views\AreaAuthorization\Delete.cshtml" />
+    <Content Include="Views\AreaAuthorization\Details.cshtml" />
+    <Content Include="Views\AreaAuthorization\Edit.cshtml" />
+    <Content Include="Views\AreaAuthorization\Index.cshtml" />
     <Content Include="Views\KKSCode\Create.cshtml" />
     <Content Include="Views\KKSCode\Delete.cshtml" />
     <Content Include="Views\KKSCode\Details.cshtml" />

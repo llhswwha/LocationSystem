@@ -53,6 +53,7 @@
     <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Picture.cs" />
+    <Compile Include="Location\Authorizations\CardRole.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
     <Compile Include="Tools\CloneHelper.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
@@ -101,8 +102,8 @@
     <Compile Include="Location\Person\Role.cs" />
     <Compile Include="Location\Relation\EntranceGuardCardToPersonnel.cs" />
     <Compile Include="Location\Relation\LocationCardToPersonnel.cs" />
-    <Compile Include="Location\Work\JurisDiction.cs" />
-    <Compile Include="Location\Work\JurisDictionRecord.cs" />
+    <Compile Include="Location\Authorizations\AreaAuthorization.cs" />
+    <Compile Include="Location\Authorizations\AreaAuthorizationRecord.cs" />
     <Compile Include="Location\Work\MobileInspection.cs" />
     <Compile Include="Location\Work\MobileInspectionContent.cs" />
     <Compile Include="Location\Work\MobileInspectionDev.cs" />

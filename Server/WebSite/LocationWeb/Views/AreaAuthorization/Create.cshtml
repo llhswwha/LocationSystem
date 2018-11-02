@@ -1,4 +1,4 @@
-﻿@model DbModel.Location.Work.JurisDiction
+﻿@model DbModel.Location.Work.AreaAuthorization
 @using Location.Model;
 
 @{
@@ -16,7 +16,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>JurisDiction</h4>
+            <h4>区域权限信息</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -53,18 +53,18 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
-                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.EndTime, new {htmlAttributes = new {@class = "form-control", @type = "datetime-local"}})
+                    @Html.ValidationMessageFor(model => model.EndTime, "", new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.nTimeLength, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.TimeSpan, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.nTimeLength, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.nTimeLength, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.TimeSpan, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeSpan, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -116,7 +116,7 @@
                 @Html.LabelFor(model => model.LocationCardId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.LocationCardId, ViewBag.TagList as IEnumerable<SelectListItem>, "", 1)
-                    @Html.ValidationMessageFor(model => model.TagId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.LocationCardId, "", new { @class = "text-danger" })
                 </div>
             </div>
 

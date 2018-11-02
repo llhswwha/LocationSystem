@@ -49,9 +49,9 @@ namespace BLL
 
         public EntranceGuardCardToPersonnelBll EntranceGuardCardToPersonnels { get; set; }
 
-        public JurisDictionBll JurisDictions { get; set; }
+        public AreaAuthorizationBll AreaAuthorizations { get; set; }
 
-        public JurisDictionRecordBll JurisDictionRecords { get; set; }
+        public AreaAuthorizationRecordBll AreaAuthorizationRecords { get; set; }
 
         public KKSCodeBll KKSCodes { get; set; }
 
@@ -96,6 +96,8 @@ namespace BLL
         public PictureBll Pictures { get; set; }
 
         public ArchorSettingBll ArchorSettings { get; set; }
+
+        public CardRoleBll CardRoles { get; set; }
 
 
         /********************LocationHistory********************************/
@@ -173,8 +175,8 @@ namespace BLL
             DevTypes = new DevTypeBll(Db);
             EntranceGuardCards = new EntranceGuardCardBll(Db);
             EntranceGuardCardToPersonnels = new EntranceGuardCardToPersonnelBll(Db);
-            JurisDictions = new JurisDictionBll(Db);
-            JurisDictionRecords = new JurisDictionRecordBll(Db);
+            AreaAuthorizations = new AreaAuthorizationBll(Db);
+            AreaAuthorizationRecords = new AreaAuthorizationRecordBll(Db);
             KKSCodes = new KKSCodeBll(Db);
             LocationAlarms = new LocationAlarmBll(Db);
             LocationCards = new LocationCardBll(Db);
@@ -197,6 +199,7 @@ namespace BLL
             WorkTickets = new WorkTicketBll(Db);
             Pictures = new PictureBll(Db);
             ArchorSettings = new ArchorSettingBll(Db);
+            CardRoles = new CardRoleBll(Db);
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);

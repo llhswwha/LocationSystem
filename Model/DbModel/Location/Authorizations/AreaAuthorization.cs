@@ -1,4 +1,5 @@
-﻿using DbModel.Tools;
+﻿using DbModel.Location.AreaAndDev;
+using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -7,9 +8,9 @@ using Location.TModel.Tools;
 namespace DbModel.Location.Work
 {
     /// <summary>
-    /// 具体权限分配记录
+    /// 权限
     /// </summary>
-    public class JurisDictionRecord
+    public class AreaAuthorization
     {
         /// <summary>
         /// 主键Id
@@ -37,39 +38,49 @@ namespace DbModel.Location.Work
         /// 0 表示按时间长度设置权限，1 表示按时间点范围设置权限
         /// </summary>
         [DataMember]
-        [Display(Name = "权限种类")]
+        [Display(Name = "种类")]
         public JurisDictionType nFlag { get; set; }
 
         /// <summary>
         /// 权限起始时间点
         /// </summary>
         [DataMember]
-        [Display(Name = "权限起始时间点")]
+        [Display(Name = "起始时间点")]
         public DateTime? StartTime { get; set; }
 
         /// <summary>
         /// 权限结束时间点
         /// </summary>
         [DataMember]
-        [Display(Name = "权限结束时间点")]
+        [Display(Name = "结束时间点")]
         public DateTime? EndTime { get; set; }
 
         /// <summary>
-        /// 权限时长
+        /// 权限时长,单位是 分钟
         /// </summary>
         [DataMember]
-        [Display(Name = "权限时长")]
-        public int? nTimeLength { get; set; }
+        [Display(Name = "时长")]
+        public int? TimeSpan { get; set; }
+
+        public void SetTimeSpane()
+        {
+            if (StartTime == null) return;
+            if (EndTime == null) return;
+            DateTime start = (DateTime)StartTime;
+            DateTime end = (DateTime) EndTime;
+            var span = end - start;
+            TimeSpan = (int)span.TotalMinutes;
+        }
 
         /// <summary>
-        /// 延迟时间
+        /// 延迟时间，单位是 分钟
         /// </summary>
         [DataMember]
         [Display(Name = "延迟时间")]
         public int DelayTime { get; set; }
 
         /// <summary>
-        /// 误差距离
+        /// 误差距离，单位是 米
         /// </summary>
         [DataMember]
         [Display(Name = "误差距离")]
@@ -81,7 +92,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "重复天数")]
         [Required]
-        public string RepeatType { get; set;}
+        public string RepeatType { get; set; }
 
         /// <summary>
         /// 区域
@@ -89,17 +100,43 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "区域")]
         public int AreaId { get; set; }
+        public virtual Area Area { get; set; }
+
+        ///// <summary>
+        ///// 定位卡
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "定位卡")]
+        //public int LocationCardId { get; set; }
+        //public virtual LocationCard LocationCard { get; set; }
+
+        [Display(Name = "标签角色")]
+        public int? CardRoleId { get; set; }
 
         /// <summary>
-        /// 定位卡
+        /// 创建时间
         /// </summary>
         [DataMember]
-        [Display(Name = "定位卡")]
-        public int LocationCardId { get; set; }
+        [Display(Name = "创建时间")]
+        public DateTime? CreateTime { get; set; }
 
-        public JurisDictionRecord Clone()
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        [DataMember]
+        [Display(Name = "修改时间")]
+        public DateTime? ModifyTime { get; set; }
+
+        /// <summary>
+        /// 删除时间
+        /// </summary>
+        [DataMember]
+        [Display(Name = "删除时间")]
+        public DateTime? DeleteTime { get; set; }
+
+        public AreaAuthorization Clone()
         {
-            JurisDictionRecord copy = new JurisDictionRecord();
+            AreaAuthorization copy = new AreaAuthorization();
             copy = this.CloneObjectByBinary();
 
             return copy;

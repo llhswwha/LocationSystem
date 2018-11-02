@@ -1,6 +1,6 @@
 ﻿@using Webdiyer.WebControls.Mvc;
 @using Location.Model;
-@model PagedList<DbModel.Location.Work.JurisDiction>
+@model PagedList<DbModel.Location.Work.AreaAuthorization>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
 <h2>Index</h2>
        
 <p>
-    @Ajax.ActionLink("Create New", "Create", "JurisDiction", new AjaxOptions
+    @Ajax.ActionLink("Create New", "Create", "AreaAuthorization", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -51,7 +51,7 @@
             @Html.DisplayNameFor(model => model.EndTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nTimeLength)
+            @Html.DisplayNameFor(model => model.TimeSpan)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DelayTime)
@@ -103,7 +103,7 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nTimeLength)
+                @Html.DisplayFor(modelItem => item.TimeSpan)
             </td>
             
             <td>
@@ -132,7 +132,7 @@
             </td>
 
             <td>
-                @Ajax.ActionLink("Edit", "Edit", "JurisDiction", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("Edit", "Edit", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "Get",
                    UpdateTargetId = "modalContent",
@@ -143,7 +143,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Details", "Details", "JurisDiction", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("Details", "Details", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",
@@ -154,7 +154,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Delete", "Delete", "JurisDiction", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("Delete", "Delete", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",

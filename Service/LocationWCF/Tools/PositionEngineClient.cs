@@ -157,17 +157,20 @@ namespace LocationServices.Tools
             {
                 r = bll.AddPositionsEx(list1);
                 //todo:添加定位权限判断
-                //if (r)
-                //{
-                //    foreach (Position p in list1)
-                //    {
-                //        if (p == null) continue;
-                //        if (p.X >= 10 && p.X <= 30 && p.Y >= 50 && p.Y <= 70 && p.Z >= 80 && p.Z <= 100)
-                //        {
-                //            LocationCallbackService.NotifyServiceStop();
-                //        }
-                //    }
-                //}
+                if (r)
+                {
+                    foreach (Position p in list1)
+                    {
+                        if (p == null) continue;
+                        //1.找出区域相关的所有权限
+                        //2.判断当前定位卡是否有权限进入该区域
+                        //  2.1找的卡所在的标签角色
+                        //  2.2判断该组是否是在权限内
+                        //  2.3不在则发出警告，进入非法区域
+                        //  2.4默认标签角色CardRole 1.超级管理员、巡检人员、管理人员、施工人员、参观人员
+                        //p.AreaId
+                    }
+                }
             }
 
             watch1.Stop();

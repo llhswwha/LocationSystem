@@ -13,7 +13,7 @@ using WebLocation.Tools;
 
 namespace WebLocation.Controllers
 {
-    public class JurisDictionController : Controller
+    public class AreaAuthorizationController : Controller
     {
         private Bll bll = new Bll();
         private int pageSize = StaticArgs.DefaultPageSize;
@@ -22,7 +22,7 @@ namespace WebLocation.Controllers
         // GET: JurisDiction
         public ActionResult Index(int pageIndex = 1)
         {
-            PagedList<JurisDiction> lst = bll.JurisDictions.ToList().ToPagedList<JurisDiction>(pageIndex, pageSize);
+            PagedList<AreaAuthorization> lst = bll.JurisDictions.ToList().ToPagedList<AreaAuthorization>(pageIndex, pageSize);
             return View("Index", lst);
         }
 
@@ -33,7 +33,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            JurisDiction jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.JurisDictions.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();
@@ -69,7 +69,7 @@ namespace WebLocation.Controllers
 
         public ActionResult Create()
         {
-            JurisDiction jd = new JurisDiction();
+            AreaAuthorization jd = new AreaAuthorization();
             GetListToViewBag();
             return PartialView(jd);
         }
@@ -79,18 +79,19 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId")] JurisDiction jd, FormCollection col)
+        public ActionResult Create([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId")] AreaAuthorization aa, FormCollection col)
         {
             if (ModelState.IsValid)
             {
-                jd.RepeatType = col["RepeatType"];
-                jd.CreateTime = DateTime.Now;
-                jd.ModifyTime = null;
-                jd.DeleteTime = null;
+                aa.RepeatType = col["RepeatType"];
+                aa.CreateTime = DateTime.Now;
+                aa.ModifyTime = null;
+                aa.DeleteTime = null;
+                aa.SetTimeSpane();
                 //bll.JurisDictions.Add(jd);
                 //return RedirectToAction("Index");
 
-                var result = bll.JurisDictions.Add(jd);
+                var result = bll.JurisDictions.Add(aa);
                 if (result)
                 {
                     return Json(new { success = result });
@@ -102,7 +103,7 @@ namespace WebLocation.Controllers
             }
 
             GetListToViewBag();
-            return View(jd);
+            return View(aa);
         }
 
         public ActionResult Edit(int? id)
@@ -111,7 +112,7 @@ namespace WebLocation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            JurisDiction jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.JurisDictions.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();
@@ -126,7 +127,7 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId,CreateTime,ModifyTime")] JurisDiction jd, FormCollection col)
+        public ActionResult Edit([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId,CreateTime,ModifyTime")] AreaAuthorization jd, FormCollection col)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +155,7 @@ namespace WebLocation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            JurisDiction jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.JurisDictions.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();

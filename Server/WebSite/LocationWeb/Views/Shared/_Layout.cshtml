@@ -27,55 +27,51 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("基站", "Index", "Archors")</li>
-                            <li>@Html.ActionLink("定位卡", "Index", "LocationCard")</li>
+                            <li>@Html.ActionLink("标签", "Index", "LocationCard")</li>
+                            <li>@Html.ActionLink("实时位置", "Index", "LocationCardPosition")</li>
+                            <li>@Html.ActionLink("历史轨迹", "Index", "Positions")</li>
+                            <li>@Html.ActionLink("定位告警", "Index", "Alarms")</li>
                         </ul>
                     </li>
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            拓扑
+                            区域设备
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("区域列表", "Index", "Area")</li>
                             <li>@Html.ActionLink("区域树", "Tree", "Area")</li>
+                            <li>@Html.ActionLink("区域权限", "Index", "AreaAuthorization")</li>
+                            <li>@Html.ActionLink("设备模型", "Index", "DevModel")</li>
+                            <li>@Html.ActionLink("设备类型", "Index", "DevType")</li>
+                            <li>@Html.ActionLink("设备告警", "Index", "Alarms")</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            部门人员
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
                             <li>@Html.ActionLink("部门列表", "Index", "Departments")</li>
                             <li>@Html.ActionLink("部门树", "Tree", "Departments")</li>
                             <li>@Html.ActionLink("人员信息", "Index", "Personnel")</li>
                             <li>@Html.ActionLink("岗位", "Index", "Post")</li>
-                            <li>@Html.ActionLink("权限", "Index", "JurisDiction")</li>
                         </ul>
                     </li>
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            查询
+                            对接
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("位置", "Index", "LocationCardPosition")</li>
-                            <li>@Html.ActionLink("轨迹", "Index", "Positions")</li>
-                            <li>@Html.ActionLink("告警", "Index", "Alarms")</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            管理
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("用户", "Index", "Users")</li>
-                            <li>@Html.ActionLink("角色", "Index", "Roles")</li>
-                            <li>@Html.ActionLink("菜单", "Index", "Menus")</li>
                             <li>@Html.ActionLink("KKS码", "Index", "KKSCode")</li>
-                            @*<li>@Html.ActionLink("Rsetful添加", "Create", "RsetfulClient")</li>
-                            <li>@Html.ActionLink("Rsetful获取", "Query", "RsetfulClient")</li>*@
-                            <li>@Html.ActionLink("设备模型", "Index", "DevModel")</li>
-                            <li>@Html.ActionLink("设备类型", "Index", "DevType")</li>
                             <li>@Html.ActionLink("操作票", "Index", "OperationTicket")</li>
                             <li>@Html.ActionLink("工作票", "Index", "WorkTicket")</li>
                             <li>@Html.ActionLink("巡检轨迹", "Index", "MobileInspection")</li>
                         </ul>
                     </li>
-                    <li>
+                    @*<li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             系统
                             <span class="caret"></span>
@@ -100,7 +96,7 @@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                         </ul>
-                    </li>
+                    </li>*@
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             测试

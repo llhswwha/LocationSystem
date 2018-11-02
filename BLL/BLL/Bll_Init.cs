@@ -14,6 +14,8 @@ using ExcelLib;
 using Location.BLL.Tool;
 using Location.TModel.Tools;
 using System.Threading;
+using DbModel.Location.Authorizations;
+using DbModel.Location.Work;
 
 namespace BLL
 {
@@ -95,13 +97,40 @@ namespace BLL
         private void InitByEntitys()
         {
             InitKKSCode();
-            InitTagPositions(); //定位标签
-            InitDepartments(); //机构、地图、区域、标签
-            InitUsers(); //登录人员
-            InitAreaAndDev(); //区域、设备
-            InitConfigArgs();//配置信息
+            InitTagPositions(); 
+            //定位标签
+            InitDepartments(); 
+            //机构、地图、区域、标签
+            InitUsers(); 
+            //登录人员
+            InitAreaAndDev(); 
+            //区域、设备
+            InitConfigArgs();
+            //配置信息
             InitDevModelAndType();
+            InitAuthorization();
         }
+
+        public void InitAuthorization()
+        {
+            CardRoles.Add(new CardRole() {Name = "超级管理员", Description = "特殊角色，可以进入全部区域。"});
+            CardRoles.Add(new CardRole() { Name = "管理人员", Description = "管理人员" });
+            CardRoles.Add(new CardRole() { Name = "巡检人员", Description = "巡检人员" });
+            CardRoles.Add(new CardRole() { Name = "操作人员", Description = "操作人员" });
+            CardRoles.Add(new CardRole() { Name = "维修人员", Description = "维修人员" });
+            CardRoles.Add(new CardRole() { Name = "参观人员", Description = "参观人员" });
+
+            //角色,区域，卡
+            //1.可以进入全部区域
+            //2.可以进入生产区域
+            //3.可以进入非生产区域
+            //4.可以进入多个区域
+            //5.可以进入某一个楼层
+            //6.可以进入某个房间
+
+            AreaAuthorizations.Add(new AreaAuthorization() {})
+        }
+
         /// <summary>
         /// 初始化设备模型和类型表
         /// </summary>

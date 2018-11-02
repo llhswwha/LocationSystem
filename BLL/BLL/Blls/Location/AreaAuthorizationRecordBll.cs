@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace BLL.Blls.Location
 {
-    public class JurisDictionBll : BaseBll<JurisDiction, LocationDb>
+    public class AreaAuthorizationRecordBll : BaseBll<AreaAuthorizationRecord, LocationDb>
     {
-        public JurisDictionBll():base()
+        public AreaAuthorizationRecordBll():base()
         {
 
         }
-        public JurisDictionBll(LocationDb db) : base(db)
+        public AreaAuthorizationRecordBll(LocationDb db) : base(db)
         {
 
         }
 
         protected override void InitDbSet()
         {
-            DbSet = Db.JurisDictions;
+            DbSet = Db.AreaAuthorizationRecords;
         }
     }
 }

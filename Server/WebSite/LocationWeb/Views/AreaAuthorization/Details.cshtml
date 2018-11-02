@@ -1,17 +1,16 @@
-﻿@model DbModel.Location.Work.JurisDiction
+﻿@model DbModel.Location.Work.AreaAuthorization
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
 }
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h2 class="modal-title" id="myModalLabel">Delete</h2>
-    <h3>Are you sure you want to delete this?</h3>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
 </div>
 
 <div class="modal-body">
-    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "deleteSuccess(data)" }))
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
     {
         @Html.AntiForgeryToken()
         <div>
@@ -67,11 +66,11 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.nTimeLength)
+                    @Html.DisplayNameFor(model => model.TimeSpan)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.nTimeLength)
+                    @Html.DisplayFor(model => model.TimeSpan)
                 </dd>
 
                 <dt>
@@ -138,26 +137,22 @@
                     @Html.DisplayFor(model => model.DeleteTime)
                 </dd>
 
+
             </dl>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Delete" class="btn btn-default" />
-                </div>
-            </div>
-
-            <div>
-                @Html.ActionLink("返 回", "Index")
-            </div>
         </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "JurisDiction", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+
+            @Html.ActionLink("返 回", "Index")
+        </p>
     }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
-<link href="~/Content/toastr.css" rel="stylesheet" />
-<script src="~/Scripts/toastr.js"></script>
-
-<script src="~/Scripts/deletemodal.js"></script>

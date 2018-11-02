@@ -43,6 +43,10 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "描述")]
         public string Describe { get; set; }
 
+
+        [Display(Name = "标签角色")]
+        public int? CardRoleId { get; set; }
+
         public override string ToString()
         {
             return Name;

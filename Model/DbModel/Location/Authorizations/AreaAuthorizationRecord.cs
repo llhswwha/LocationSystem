@@ -1,5 +1,4 @@
-﻿using DbModel.Location.AreaAndDev;
-using DbModel.Tools;
+﻿using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -8,9 +7,9 @@ using Location.TModel.Tools;
 namespace DbModel.Location.Work
 {
     /// <summary>
-    /// 权限
+    /// 具体权限分配记录
     /// </summary>
-    public class JurisDiction
+    public class AreaAuthorizationRecord
     {
         /// <summary>
         /// 主键Id
@@ -56,21 +55,21 @@ namespace DbModel.Location.Work
         public DateTime? EndTime { get; set; }
 
         /// <summary>
-        /// 权限时长,单位是 分钟
+        /// 权限时长
         /// </summary>
         [DataMember]
         [Display(Name = "权限时长")]
         public int? nTimeLength { get; set; }
 
         /// <summary>
-        /// 延迟时间，单位是 分钟
+        /// 延迟时间
         /// </summary>
         [DataMember]
         [Display(Name = "延迟时间")]
         public int DelayTime { get; set; }
 
         /// <summary>
-        /// 误差距离，单位是 米
+        /// 误差距离
         /// </summary>
         [DataMember]
         [Display(Name = "误差距离")]
@@ -82,7 +81,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "重复天数")]
         [Required]
-        public string RepeatType { get; set; }
+        public string RepeatType { get; set;}
 
         /// <summary>
         /// 区域
@@ -90,7 +89,6 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "区域")]
         public int AreaId { get; set; }
-        public virtual Area Area { get; set; }
 
         /// <summary>
         /// 定位卡
@@ -98,32 +96,10 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "定位卡")]
         public int LocationCardId { get; set; }
-        public virtual LocationCard LocationCard { get; set; }
 
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        [DataMember]
-        [Display(Name = "创建时间")]
-        public DateTime? CreateTime { get; set; }
-
-        /// <summary>
-        /// 修改时间
-        /// </summary>
-        [DataMember]
-        [Display(Name = "修改时间")]
-        public DateTime? ModifyTime { get; set; }
-
-        /// <summary>
-        /// 删除时间
-        /// </summary>
-        [DataMember]
-        [Display(Name = "删除时间")]
-        public DateTime? DeleteTime { get; set; }
-
-        public JurisDiction Clone()
+        public AreaAuthorizationRecord Clone()
         {
-            JurisDiction copy = new JurisDiction();
+            AreaAuthorizationRecord copy = new AreaAuthorizationRecord();
             copy = this.CloneObjectByBinary();
 
             return copy;

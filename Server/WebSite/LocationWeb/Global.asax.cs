@@ -20,6 +20,7 @@ using System.Threading;
 using SignalRService.Hubs;
 using LocationServices.Converters;
 using LocationServices.Tools;
+using LocationWCFServer;
 
 namespace WebLocation
 {
@@ -56,9 +57,12 @@ namespace WebLocation
             if (engineClient == null)
             {
                 Log.Info("StartConnectEngine");
+
+                EngineLogin login=new EngineLogin("127.0.0.1",2323,"127.0.0.1",3456);
+
                 engineClient = new PositionEngineClient();
                 engineClient.Logs = Logs;
-                engineClient.StartConnectEngine(0, "127.0.0.1", "127.0.0.1");//todo:ip写到配置文件中
+                engineClient.StartConnectEngine(login);//todo:ip写到配置文件中
             }
         }
 
