@@ -43,7 +43,7 @@ namespace Coldairarrow.Util.Sockets
         private IPEndPoint broadCastEp = null;
 
         //接收间隔（毫秒）
-        public int recvInterval = 100;
+        public int recvInterval = 50;
 
         //所有的IP包都有一个“生存时间”（time-to-live）,TTL
         //TTL指定一个包到达目的地之前跳过网络（路由）的最大次数
@@ -127,12 +127,13 @@ namespace Coldairarrow.Util.Sockets
                 IsReceiving = true;
                 while (udpc.Client != null && !recieveBW.CancellationPending)
                 {
-                    if (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
+                    while (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
                     {
                         BUDPGram budpg = new BUDPGram();
                         budpg.data = udpc.Receive(ref budpg.iep);
                         recieveBW.ReportProgress(1, budpg);
-                    }
+                    }//这里要用while，接收直到全部收完，而不是收一条，等100ms
+                    
                     System.Threading.Thread.Sleep(recvInterval);
                 }
             }

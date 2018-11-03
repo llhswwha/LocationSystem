@@ -16,7 +16,7 @@ namespace LocationServices.Tools
         {
             //Log.Info("WriteLogLeft:" + txt);
             LogLeft = txt + "\n" + LogLeft;
-            if (LogLeft.Length > 1000)
+            if (LogLeft.Length > 3000)
             {
                 LogLeft = txt;
             }
@@ -26,7 +26,7 @@ namespace LocationServices.Tools
         {
             //Log.Info("WriteLogRight:" + txt);
             LogRight = txt + "\n" + LogRight;
-            if (LogRight.Length > 1000)
+            if (LogRight.Length > 3000)
             {
                 LogRight = txt;
             }

@@ -102,7 +102,7 @@ namespace LocationServices.Tools
             {
                 while (true)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(300);//300ms插入一次数据库,todo:写入配置文件
                     InsertPostions();
                 }
             });
@@ -123,14 +123,19 @@ namespace LocationServices.Tools
                 if (!isBusy && Positions.Count > 0)
                 {
                     isBusy = true;
-                    WriteLogRight(GetLogText(string.Format("写入{0}条数据 Start", Positions.Count)));
+                    
                     try
                     {
                         List<Position> posList2 = new List<Position>();
                         posList2.AddRange(Positions);
                         if (InsertPostions(posList2))
                         {
+                            WriteLogRight(GetLogText(string.Format("写入{0}条数据", Positions.Count)));
                             Positions.Clear();
+                        }
+                        else
+                        {
+                            WriteLogRight(GetLogText(string.Format("当前有{0}条数据", Positions.Count)));
                         }
                     }
                     catch (Exception ex)
@@ -150,6 +155,7 @@ namespace LocationServices.Tools
 
         private bool InsertPostions(List<Position> list1)
         {
+            if (list1.Count < 20) return false;
             bool r = false;
             Stopwatch watch1 = new Stopwatch();
             watch1.Start();

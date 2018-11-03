@@ -128,7 +128,7 @@ namespace BLL
             //5.可以进入某一个楼层
             //6.可以进入某个房间
 
-            AreaAuthorizations.Add(new AreaAuthorization() {})
+            //AreaAuthorizations.Add(new AreaAuthorization() {})
         }
 
         /// <summary>
