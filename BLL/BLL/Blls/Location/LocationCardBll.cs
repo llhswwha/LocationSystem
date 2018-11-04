@@ -28,5 +28,10 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
         }
+
+        public List<LocationCard> GetListByRole(int roleId)
+        {
+            return DbSet.Where(i => i.CardRoleId==roleId).ToList();
+        }
     }
 }

@@ -113,12 +113,30 @@ namespace BLL
 
         public void InitAuthorization()
         {
-            CardRoles.Add(new CardRole() {Name = "超级管理员", Description = "特殊角色，可以进入全部区域。"});
-            CardRoles.Add(new CardRole() { Name = "管理人员", Description = "管理人员" });
-            CardRoles.Add(new CardRole() { Name = "巡检人员", Description = "巡检人员" });
-            CardRoles.Add(new CardRole() { Name = "操作人员", Description = "操作人员" });
-            CardRoles.Add(new CardRole() { Name = "维修人员", Description = "维修人员" });
-            CardRoles.Add(new CardRole() { Name = "参观人员", Description = "参观人员" });
+            //AreaAccessRule
+            var areas = Areas.ToList();
+            foreach (var area in areas)
+            {
+                var aa = new AreaAuthorization();
+                aa.AreaId = aa.Id;
+                aa.Area = area;
+                aa.AccessType = AreaAccessType.Enter;
+                aa.RangeType = AreaRangeType.Single;
+                aa.Description = string.Format("{0}权限", area.Name);
+                aa.Name = string.Format("{0}权限", area.Name);
+                aa.CreateTime = DateTime.Now;
+                aa.ModifyTime = DateTime.Now;
+                aa.RepeatDay = RepeatDay.All;
+                aa.TimeType = TimeSettingType.TimeRange;
+                aa.StartTime = new DateTime(2000, 0, 0, 8, 30, 0);
+                aa.EndTime = new DateTime(2000, 0, 0, 17, 30, 0);
+                AreaAuthorizations.Add(aa);
+
+                var aar = new AreaAuthorizationRecord(aa);
+            }
+
+
+
 
             //角色,区域，卡
             //1.可以进入全部区域
@@ -393,21 +411,38 @@ namespace BLL
             Log.InfoEnd("InitUsers");
         }
 
+        private CardRole AddCardRole(string name, string description = "")
+        {
+            if (string.IsNullOrEmpty(description))
+            {
+                description = name;
+            }
+            var role1 = new CardRole() { Name = name, Description = description };
+            CardRoles.Add(role1);
+            return role1;
+        }
+
         private void InitTagPositions()
         {
             DateTime dt = DateTime.Now;
             long TimeStamp = TimeConvert.DateTimeToTimeStamp(dt);
 
+            var role1 = AddCardRole("超级管理员", "特殊角色，可以进入全部区域。");
+            var role2 = AddCardRole("管理人员");
+            var role3 = AddCardRole("巡检人员");
+            var role4 = AddCardRole("操作人员");
+            var role5 = AddCardRole("维修人员");
+            var role6 = AddCardRole("参观人员");
 
             Log.InfoStart("InitTagPositions");
-            var tag1 = new LocationCard() { Name = "标签1", Code = "0002" };
-            var tag2 = new LocationCard() { Name = "标签2", Code = "0003" };
-            var tag3 = new LocationCard() { Name = "标签3", Code = "0004" };
-            var tag4 = new LocationCard() { Name = "标签4", Code = "0005" };
-            var tag5 = new LocationCard() { Name = "标签5", Code = "0006" };
-            var tag6 = new LocationCard() { Name = "标签6", Code = "0007" };
-            var tag7 = new LocationCard() { Name = "标签7", Code = "0008" };
-            var tag8 = new LocationCard() { Name = "标签8", Code = "0009" };
+            var tag1 = new LocationCard() { Name = "标签1", Code = "0002", CardRoleId = role1.Id };
+            var tag2 = new LocationCard() { Name = "标签2", Code = "0003", CardRoleId = role2.Id };
+            var tag3 = new LocationCard() { Name = "标签3", Code = "0004", CardRoleId = role3.Id };
+            var tag4 = new LocationCard() { Name = "标签4", Code = "0005", CardRoleId = role3.Id };
+            var tag5 = new LocationCard() { Name = "标签5", Code = "0006", CardRoleId = role4.Id };
+            var tag6 = new LocationCard() { Name = "标签6", Code = "0007", CardRoleId = role4.Id };
+            var tag7 = new LocationCard() { Name = "标签7", Code = "0008", CardRoleId = role5.Id };
+            var tag8 = new LocationCard() { Name = "标签8", Code = "0009", CardRoleId = role6.Id };
             List<LocationCard> tags = new List<LocationCard>() { tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8 };
             LocationCards.AddRange(tags);
             List<LocationCard> tagsT = new List<LocationCard>();
@@ -420,7 +455,7 @@ namespace BLL
             LocationCards.AddRange(tagsT);
 
 
-            var tagposition1 = new LocationCardPosition() { CardId = 1,Code = "0002", X = 2293.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId =2, PersonId =1};
+            var tagposition1 = new LocationCardPosition() { CardId = 1, Code = "0002", X = 2293.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 1 };
             var tagposition2 = new LocationCardPosition() { CardId = 2, Code = "0003", X = 2294.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 2 };
             var tagposition3 = new LocationCardPosition() { CardId = 3, Code = "0004", X = 2295.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 3 };
             var tagposition4 = new LocationCardPosition() { CardId = 4, Code = "0005", X = 2296.5f, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = 0, Flag = "0:0:0:0:0", AreaId = 2, PersonId = 4 };

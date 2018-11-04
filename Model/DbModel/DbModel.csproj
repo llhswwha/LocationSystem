@@ -53,7 +53,6 @@
     <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Picture.cs" />
-    <Compile Include="Location\Authorizations\AreaAccessRule.cs" />
     <Compile Include="Location\Authorizations\CardRole.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
     <Compile Include="Tools\CloneHelper.cs" />

@@ -111,6 +111,7 @@ namespace BLL
             {
                 //1.设置标签
                 pos.CardId = tag.Id;
+                pos.RoleId = tag.CardRoleId;//角色
                 var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id); //关系
                 if (ttp != null)
                 {

@@ -32,14 +32,14 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
-        public string Describe { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// 0 表示按时间长度设置权限，1 表示按时间点范围设置权限
         /// </summary>
         [DataMember]
         [Display(Name = "种类")]
-        public JurisDictionType nFlag { get; set; }
+        public TimeSettingType TimeType { get; set; }
 
         /// <summary>
         /// 权限起始时间点
@@ -92,7 +92,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "重复天数")]
         [Required]
-        public string RepeatType { get; set; }
+        public RepeatDay RepeatDay { get; set; }
 
         /// <summary>
         /// 区域
@@ -102,16 +102,9 @@ namespace DbModel.Location.Work
         public int AreaId { get; set; }
         public virtual Area Area { get; set; }
 
-        ///// <summary>
-        ///// 定位卡
-        ///// </summary>
-        //[DataMember]
-        //[Display(Name = "定位卡")]
-        //public int LocationCardId { get; set; }
-        //public virtual LocationCard LocationCard { get; set; }
+        public AreaAccessType AccessType { get; set; }
 
-        [Display(Name = "标签角色")]
-        public int? CardRoleId { get; set; }
+        public AreaRangeType RangeType { get; set; }
 
         /// <summary>
         /// 创建时间
@@ -141,5 +134,30 @@ namespace DbModel.Location.Work
 
             return copy;
         }
+    }
+
+    public enum RepeatDay
+    {
+        All=0,Mon=1,Tues=2,Wed=4,Thur=8,Fri=16,Sat=32,Sun=64,
+    }
+
+    public enum AreaRangeType
+    {
+        All,//特殊，全部区域
+        WithParent,//从根节点到自身节点
+        Single,//只有自身   
+        WithChildren,//自身和子节点（递归下去）
+        AllRelative,//父节点、自身、子节点（递归下去）
+    }
+
+    /// <summary>
+    /// 进出类型
+    /// </summary>
+    public enum AreaAccessType
+    {
+        EnterLeave,//可以进出
+        Enter,//可以进入,不能出去
+        Leave,//可以出去,不能进去
+        None,//不能进去不能出去
     }
 }

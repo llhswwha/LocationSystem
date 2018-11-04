@@ -37,7 +37,7 @@ namespace TModel.Location.Work
         /// </summary>
         [DataMember]
         //[Display(Name = "权限种类")]
-        public JurisDictionType nFlag { get; set; }
+        public TimeSettingType nFlag { get; set; }
 
         /// <summary>
         /// 权限起始时间点

@@ -24,7 +24,7 @@ namespace DbModel.Tools
     public enum Sexs { 未知, 男, 女 }
 
     //权限类型
-    public enum JurisDictionType { 按时间长度设置权限, 按时间点范围设置权限 }
+    public enum TimeSettingType { TimeLength, TimeRange }
 
     //定位告警类型
     public enum LocationAlarmType { 区域告警, 消失告警, 低电告警, 传感器告警, 重启告警, 非法拆卸 }

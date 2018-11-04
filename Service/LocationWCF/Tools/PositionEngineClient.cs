@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
+using DbModel.Location.Authorizations;
 
 namespace LocationServices.Tools
 {
@@ -168,6 +169,15 @@ namespace LocationServices.Tools
                     foreach (Position p in list1)
                     {
                         if (p == null) continue;
+                        CardRole role = bll.CardRoles.Find(p.RoleId);
+                        if (role != null)
+                        {
+                            //bll.AreaAuthorizations.Add(new areaa)
+                        }
+                        else
+                        {
+
+                        }
                         //1.找出区域相关的所有权限
                         //2.判断当前定位卡是否有权限进入该区域
                         //  2.1找的卡所在的标签角色

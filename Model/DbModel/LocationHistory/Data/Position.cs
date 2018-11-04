@@ -28,6 +28,10 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "标签卡Id")]
         public int? CardId { get; set; }
 
+        [DataMember]
+        [Display(Name = "标签角色Id")]
+        public int? RoleId { get; set; }
+
         /// <summary>
         /// 人员ID
         /// </summary>
