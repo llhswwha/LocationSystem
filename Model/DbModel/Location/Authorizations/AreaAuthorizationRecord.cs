@@ -101,8 +101,8 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "区域")]
-        public int AreaId { get; set; }
-        public virtual Area Area { get; set; }
+        public int? AreaId { get; set; }
+        //public virtual Area Area { get; set; }
 
         public AreaAccessType AccessType { get; set; }
 
@@ -131,11 +131,11 @@ namespace DbModel.Location.Work
 
         [DataMember]
         [Display(Name = "标签角色")]
-        public virtual CardRole CardRole { get; set; }
+        public int? CardRoleId { get; set; }
 
         [DataMember]
-        [Display(Name = "标签角色")]
-        public int? CardRoleId { get; set; }
+        [Display(Name = "区域选项")]
+        public int? AuthorizationId { get; set; }
 
         public AreaAuthorizationRecord()
         {
@@ -154,16 +154,16 @@ namespace DbModel.Location.Work
             this.ErrorDistance = aa.ErrorDistance;
             this.RepeatDay = aa.RepeatDay;
             this.AreaId = aa.AreaId;
-            this.Area = aa.Area;
+            //this.Area = aa.Area;
             this.AccessType = aa.AccessType;
             this.RangeType = aa.RangeType;
             this.CreateTime = DateTime.Now;
             this.ModifyTime = DateTime.Now;
             if (role != null)
             {
-                this.CardRole = role;
                 this.CardRoleId = role.Id;
             }
+            this.AuthorizationId = aa.Id;
         }
 
         public AreaAuthorizationRecord Clone()

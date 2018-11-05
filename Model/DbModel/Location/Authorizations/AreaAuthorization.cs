@@ -99,11 +99,18 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "区域")]
-        public int AreaId { get; set; }
-        public virtual Area Area { get; set; }
+        public int? AreaId { get; set; }
 
+        //[DataMember]
+        //[Display(Name = "区域")]
+        //public virtual Area Area { get; set; }
+
+        [DataMember]
+        [Display(Name = "进出类型")]
         public AreaAccessType AccessType { get; set; }
 
+        [DataMember]
+        [Display(Name = "权限范围")]
         public AreaRangeType RangeType { get; set; }
 
         /// <summary>
@@ -141,6 +148,9 @@ namespace DbModel.Location.Work
         All=0,Mon=1,Tues=2,Wed=4,Thur=8,Fri=16,Sat=32,Sun=64,
     }
 
+    /// <summary>
+    /// 权限范围
+    /// </summary>
     public enum AreaRangeType
     {
         WithParent,//从根节点到自身节点

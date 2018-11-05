@@ -86,5 +86,11 @@ namespace LocationServer.Windows
         {
 
         }
+
+        private void MenuInitAA_OnClick(object sender, RoutedEventArgs e)
+        {
+            DbInitializer initializer = new DbInitializer(new Bll());
+            initializer.InitAuthorization();
+        }
     }
 }

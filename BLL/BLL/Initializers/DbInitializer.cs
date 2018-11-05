@@ -341,28 +341,34 @@ namespace BLL
 
         public void InitAuthorization()
         {
-            
+
             //区域权限列表
+            AreaAuthorizations.Clear();
             var areas = Areas.ToList();
             var aaList = new List<AreaAuthorization>();
             foreach (var area in areas)
             {
                 var aa = new AreaAuthorization();
                 aa.AreaId = aa.Id;
-                aa.Area = area;
-                aa.AccessType = AreaAccessType.Enter;//可进入的权限
+                //aa.Area = area;
+                aa.AccessType = AreaAccessType.Enter; //可进入的权限
                 aa.RangeType = AreaRangeType.WithParent;
-                aa.Description = string.Format("{0}权限", area.Name);
-                aa.Name = string.Format("{0}权限", area.Name);
+                aa.Description = string.Format("[{0}]权限", area.Name);
+                aa.Name = string.Format("[{0}]权限", area.Name);
                 aa.CreateTime = DateTime.Now;
                 aa.ModifyTime = DateTime.Now;
                 aa.RepeatDay = RepeatDay.All;
                 aa.TimeType = TimeSettingType.TimeRange;
-                aa.StartTime = new DateTime(2000, 0, 0, 8, 30, 0);
-                aa.EndTime = new DateTime(2000, 0, 0, 17, 30, 0);
+                aa.StartTime = new DateTime(2000, 1, 1, 8, 30, 0);
+                aa.EndTime = new DateTime(2000, 1, 1, 17, 30, 0);
                 aaList.Add(aa);
+                //bool r = AreaAuthorizations.Add(aa);
+                //if (r == false)
+                //{
+                //    Log.Error("r == false");
+                //}
             }
-            AreaAuthorizations.AddRange(aaList);
+            bool r1=AreaAuthorizations.AddRange(aaList);
 
             var aarList = new List<AreaAuthorizationRecord>();
             //权限指派给标签角色
