@@ -1,0 +1,23 @@
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="PositionSimulation.SimulationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PositionSimulation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="SimulationWindow_OnLoaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="菜单"></MenuItem>
+        </Menu>
+        <TabControl  Width="200">
+            <TabItem Header="区域">
+                <WPFClientControlLib:TopoTreeView x:Name="TopoTreeView1" />
+            </TabItem>
+            <TabItem Header="人员">
+                <WPFClientControlLib:DepTreeView x:Name="DepTreeView1"/>
+            </TabItem>
+        </TabControl>
+        <WPFClientControlLib:AreaCanvas x:Name="AreaCanvas1"/>
+    </DockPanel>
+</Window>

@@ -114,8 +114,8 @@ namespace LocationServices.Locations.Services
 
         private List<PersonArea> GetPersonAreaList()
         {
-            var query = from p in db.Personnels.DbSet
-                        join r in db.LocationCardToPersonnels.DbSet on p.ParentId equals r.PersonnelId
+            var query = from r in db.LocationCardToPersonnels.DbSet
+                        join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
                         join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
                         select new PersonArea { Person = p, Area = pos.AreaId };

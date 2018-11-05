@@ -43,22 +43,6 @@ namespace WPFClientControlLib
 
         public void LoadData(Area root,bool onlyBuilding=false)
         {
-            //if (root == null)
-            //{
-            //    TreeView1.ItemsSource = null;
-            //}
-            //else
-            //{
-            //    if (onlyBuilding)
-            //    {
-            //        TreeView1.ItemsSource = root.GetBuildings();
-            //    }
-            //    else
-            //    {
-            //        TreeView1.ItemsSource = root.Children;
-            //    }
-            //}
-
             if (root == null)
             {
                 ShowTree(TreeView1, null);

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
+using DbModel.Location.Person;
 using DbModel.Tools;
 using Location.IModel;
+using WPFClientControlLib.Behaviors;
 
 namespace WPFClientControlLib
 {
@@ -91,6 +94,10 @@ namespace WPFClientControlLib
             CbDevSize.SelectionChanged += CbDevSize_SelectionChanged;
         }
 
+        public bool ShowDev { get; set; }
+
+        public bool ShowPerson { get; set; }
+
         public void ShowArea(Area area)
         {
             try
@@ -151,6 +158,7 @@ namespace WPFClientControlLib
 
         public Dictionary<int, Shape> AreaDict = new Dictionary<int, Shape>();
         public Dictionary<int, Rectangle> DevDict = new Dictionary<int, Rectangle>();
+        public Dictionary<int, Ellipse> PersonDict = new Dictionary<int, Ellipse>();
 
         public double Scale = 1;
 
@@ -248,11 +256,7 @@ namespace WPFClientControlLib
                     AddAreaRect(level1Item, null, scale, true);
                 }
 
-            if(area.LeafNodes!=null)
-                foreach (var dev in area.LeafNodes)
-                {
-                    AddDevRect(dev, scale, devSize);
-                }
+            ShowDevs(area, scale, devSize);
 
             AddZeroPoint(scale,new Vector(0,0));
         }
@@ -307,13 +311,20 @@ namespace WPFClientControlLib
                             AddAreaRect(level2Item, level1Item, scale);
                         }
                 }
-            if(area.LeafNodes!=null)
-                foreach (var dev in area.LeafNodes)
-                {
-                    AddDevRect(dev, scale, devSize);
-                }
+
+            ShowDevs(area, scale, devSize);
 
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
+        }
+
+        private void ShowDevs(Area area, double scale, double devSize)
+        {
+            if (ShowDev)
+                if (area.LeafNodes != null)
+                    foreach (var dev in area.LeafNodes)
+                    {
+                        AddDevRect(dev, scale, devSize);
+                    }
         }
 
         private Rectangle AddDevRect(DevInfo dev,double scale, double size = 2)
@@ -352,18 +363,13 @@ namespace WPFClientControlLib
 
         private void DevRect_MouseLeave(object sender, MouseEventArgs e)
         {
-            //UnSelectRectangle(sender as Rectangle);
-
             Rectangle rect = sender as Rectangle;
             if (SelectedDev == rect) return;
             DevInfo dev = rect.Tag as DevInfo;
-            LbState.Content = GetDevText(dev);
+            LbState.Content = "";
 
             rect.Fill = Brushes.DeepSkyBlue;
             rect.Stroke = Brushes.Black;
-            //rect.Width = DevSize;
-            //rect.Height = DevSize;
-            //SelectedRect = rect;
         }
 
         private void DevRect_MouseEnter(object sender, MouseEventArgs e)
@@ -380,14 +386,6 @@ namespace WPFClientControlLib
 
             rect.Fill = Brushes.Blue;
             rect.Stroke = Brushes.Red;
-            //rect.Width = DevSize*5;
-            //rect.Height = DevSize*5;
-            //double x = Canvas.GetLeft(rect);
-            //Canvas.SetLeft(rect, x - rect.Width / 2);
-            //double y = Canvas.GetTop(rect);
-            //Canvas.SetTop(rect, y - rect.Width / 2);
-
-            //SelectedRect = rect;
         }
 
         private Rectangle SelectedDev;
@@ -575,6 +573,7 @@ namespace WPFClientControlLib
                 {
                     SelectArea(area);
                 }
+                ShowPersons();
             }
             catch (Exception ex)
             {
@@ -627,9 +626,115 @@ namespace WPFClientControlLib
             
         }
 
+        private IList<Location.TModel.Location.Person.Personnel> _persons;
+
         public void ShowPersons()
         {
-            
+            ShowPersons(_persons);
+        }
+
+        public void ShowPersons(IList<Location.TModel.Location.Person.Personnel> persons)
+        {
+            _persons = persons;
+            if (persons == null) return;
+            foreach (var person in persons)
+            {
+                AddPersonRect(person,Scale,2);
+            }
+        }
+
+        private Ellipse AddPersonRect(Location.TModel.Location.Person.Personnel person, double scale, double size = 2)
+        {
+            if (PersonDict.ContainsKey(person.Id))
+            {
+                Canvas1.Children.Remove(PersonDict[person.Id]);
+            }
+
+            double x = (person.Tag.Pos.X - OffsetX) * scale - size * scale / 2;
+            double y = (person.Tag.Pos.Z - OffsetY) * scale - size * scale / 2;
+            //if (ViewMode == 0)
+            //    y = Canvas1.Height - size * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
+            Ellipse personShape = new Ellipse()
+            {
+                //Margin = new Thickness(x, y, 0, 0),
+                Width = size * scale,
+                Height = size * scale,
+                Fill = Brushes.GreenYellow,
+                Stroke = Brushes.Black,
+                StrokeThickness = 1,
+                Tag = person,
+                ToolTip = person.Name
+            };
+
+
+            DragInCanvasBehavior behavior1 = new DragInCanvasBehavior();
+            behavior1.Moved += Behavior1_Moved;
+            Interaction.GetBehaviors(personShape).Add(behavior1);
+
+            Canvas.SetLeft(personShape, x);
+            Canvas.SetTop(personShape, y);
+
+            PersonDict[person.Id] = personShape;
+            personShape.MouseDown += PersonShape_MouseDown;
+            personShape.MouseEnter += PersonShape_MouseEnter;
+            personShape.MouseLeave += PersonShape_MouseLeave;
+            Canvas1.Children.Add(personShape);
+            return personShape;
+        }
+
+        private void Behavior1_Moved(object arg1, System.Windows.Point arg2)
+        {
+            //double left = Canvas.GetLeft(this);
+            //double top = Canvas.GetTop(this);
+
+            //this.XPos = left;
+            //this.YPos = top;
+            //Position.XPos = (int)left;
+            //Position.YPos = (int)top;
+        }
+
+        private void PersonShape_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Ellipse rect = sender as Ellipse;
+            if (SelectedPerson == rect) return;
+            var dev = rect.Tag as Location.TModel.Location.Person.Personnel;
+            LbState.Content = "";
+
+            rect.Fill = Brushes.GreenYellow;
+            rect.Stroke = Brushes.Black;
+        }
+
+        private void PersonShape_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //SelectRectangle(sender as Rectangle);
+            Ellipse rect = sender as Ellipse;
+            var person = rect.Tag as Location.TModel.Location.Person.Personnel;
+            LbState.Content = person.Name;
+
+            rect.Fill = Brushes.Blue;
+            rect.Stroke = Brushes.Red;
+        }
+
+        public event Action<Ellipse, Location.TModel.Location.Person.Personnel> PersonSelected;
+
+        public Ellipse SelectedPerson;
+
+        private void PersonShape_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedPerson != null)
+            {
+                SelectedPerson.Fill = Brushes.GreenYellow;
+                SelectedPerson.Stroke = Brushes.Black;
+            }
+            Ellipse rect = sender as Ellipse;
+            var person = rect.Tag as Location.TModel.Location.Person.Personnel;
+            LbState.Content = person.Name;
+            SelectedPerson = rect;
+
+            if (PersonSelected != null)
+            {
+                PersonSelected(rect, person);
+            }
         }
 
         private void CbView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

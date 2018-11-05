@@ -63,6 +63,7 @@ namespace LocationServer
         {
             area = TopoTreeView1.SelectedObject as Area;
             if (area == null) return;
+            AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
             AreaListBox1.LoadData(area.Children);
             DeviceListBox1.LoadData(area.LeafNodes);

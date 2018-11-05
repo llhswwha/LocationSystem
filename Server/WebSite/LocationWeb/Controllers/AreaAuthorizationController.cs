@@ -22,7 +22,7 @@ namespace WebLocation.Controllers
         // GET: JurisDiction
         public ActionResult Index(int pageIndex = 1)
         {
-            PagedList<AreaAuthorization> lst = bll.JurisDictions.ToList().ToPagedList<AreaAuthorization>(pageIndex, pageSize);
+            PagedList<AreaAuthorization> lst = bll.AreaAuthorizations.ToList().ToPagedList<AreaAuthorization>(pageIndex, pageSize);
             return View("Index", lst);
         }
 
@@ -33,7 +33,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            AreaAuthorization jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.AreaAuthorizations.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();
@@ -52,7 +52,7 @@ namespace WebLocation.Controllers
             SelectList TagList = new SelectList(Tags, "Id", "Name");
             ViewBag.TagList = TagList.AsEnumerable();
 
-            ViewBag.EnumList = EnumToList.EnumToListChoice<JurisDictionType>();
+            ViewBag.EnumList = EnumToList.EnumToListChoice<RepeatDay>();
 
             List<SelectListItem> RepeatTypeList = new List<SelectListItem>();
             RepeatTypeList.Add(new SelectListItem { Text = "星期一", Value = "星期一" });
@@ -79,11 +79,11 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId")] AreaAuthorization aa, FormCollection col)
+        public ActionResult Create(AreaAuthorization aa, FormCollection col)
         {
             if (ModelState.IsValid)
             {
-                aa.RepeatType = col["RepeatType"];
+                //aa.RepeatDay = col["RepeatType"];
                 aa.CreateTime = DateTime.Now;
                 aa.ModifyTime = null;
                 aa.DeleteTime = null;
@@ -91,14 +91,14 @@ namespace WebLocation.Controllers
                 //bll.JurisDictions.Add(jd);
                 //return RedirectToAction("Index");
 
-                var result = bll.JurisDictions.Add(aa);
+                var result = bll.AreaAuthorizations.Add(aa);
                 if (result)
                 {
                     return Json(new { success = result });
                 }
                 else
                 {
-                    return Json(new { success = result, errors = bll.JurisDictions.ErrorMessage });
+                    return Json(new { success = result, errors = bll.AreaAuthorizations.ErrorMessage });
                 }
             }
 
@@ -112,7 +112,7 @@ namespace WebLocation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AreaAuthorization jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.AreaAuthorizations.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();
@@ -127,21 +127,21 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Describe,nFlag,StartTime,EndTime,nTimeLength,DelayTime,ErrorDistance,RepeatType,AreaId,LocationCardId,CreateTime,ModifyTime")] AreaAuthorization jd, FormCollection col)
+        public ActionResult Edit(AreaAuthorization jd, FormCollection col)
         {
             if (ModelState.IsValid)
             {
                 jd.ModifyTime = DateTime.Now;
-                jd.RepeatType = col["RepeatType"];
+                //jd.RepeatDay = col["RepeatDay"];
 
-                var result = bll.JurisDictions.Edit(jd);
+                var result = bll.AreaAuthorizations.Edit(jd);
                 if (result)
                 {
                     return Json(new { success = result });
                 }
                 else
                 {
-                    return Json(new { success = result, errors = bll.JurisDictions.ErrorMessage });
+                    return Json(new { success = result, errors = bll.AreaAuthorizations.ErrorMessage });
                 }
             }
 
@@ -155,7 +155,7 @@ namespace WebLocation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AreaAuthorization jd = bll.JurisDictions.Find(id);
+            AreaAuthorization jd = bll.AreaAuthorizations.Find(id);
             if (jd == null)
             {
                 return HttpNotFound();
@@ -169,7 +169,7 @@ namespace WebLocation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            bll.JurisDictions.DeleteById(id);
+            bll.AreaAuthorizations.DeleteById(id);
           
             return RedirectToAction("Index");
         }

@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.Wpf.Toolkit", "Third\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineClient", "Server\WCFServer\Tools\EngineClient\EngineClient.csproj", "{0629D8F9-CF59-4576-8D31-47D87DB57C17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionSimulation", "Server\WCFServer\Tools\PositionSimulation\PositionSimulation.csproj", "{1D07F8B3-0C29-4257-B632-88E2BA92A265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -352,6 +354,22 @@ Global
 		{0629D8F9-CF59-4576-8D31-47D87DB57C17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0629D8F9-CF59-4576-8D31-47D87DB57C17}.Release|x86.ActiveCfg = Release|Any CPU
 		{0629D8F9-CF59-4576-8D31-47D87DB57C17}.Release|x86.Build.0 = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Design|x86.ActiveCfg = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Design|x86.Build.0 = Debug|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Integration Tests|Any CPU.ActiveCfg = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Integration Tests|Any CPU.Build.0 = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Integration Tests|x86.ActiveCfg = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Integration Tests|x86.Build.0 = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

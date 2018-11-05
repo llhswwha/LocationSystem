@@ -155,14 +155,22 @@ namespace LocationServices.Locations.Services
 
         public IList<TEntity> GetListByArea(string areaId)
         {
-            var query = from p in dbSet.DbSet
-                        join r in db.LocationCardToPersonnels.DbSet on p.ParentId equals r.PersonnelId
+            var query = from r in db.LocationCardToPersonnels.DbSet
+                        join p in dbSet.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
                         join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
                         where pos.AreaId + "" == areaId
-                        select p;
-            var list= query.ToList().ToWcfModelList();
-            return list;
+                        select new {Person=p,Tag=tag,Pos=pos};
+
+            var list=new List<TEntity>();
+            foreach (var item in query.ToList())
+            {
+                var p = item.Person.ToTModel();
+                p.Tag = item.Tag.ToTModel();
+                p.Tag.Pos = item.Pos.ToTModel();
+                list.Add(p);
+            }
+            return list.ToWCFList();
         }
 
         public IList<TEntity> GetList(bool detail)

@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppContext.cs" />
     <Compile Include="BaseBuffer.cs" />
     <Compile Include="Bll.cs" />
     <Compile Include="Blls\BaseBll.cs" />

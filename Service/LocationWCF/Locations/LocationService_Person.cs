@@ -32,6 +32,78 @@ namespace LocationServices.Locations
     //人员相关的接口
     public partial class LocationService : ILocationService, IDisposable
     {
+        #region 人员列表
 
+        /// <summary>
+        /// 获取人员信息
+        /// </summary>
+        /// <returns></returns>
+        //[OperationContract]
+        public List<Personnel> GetPersonList()
+        {
+            var list = db.Personnels.ToList();
+            var tagToPersons = db.LocationCardToPersonnels.ToList();
+            var postList = db.Posts.ToList();//职位
+            var tagList = db.LocationCards.ToList();//关联标签
+            var departList = db.Departments.ToList();//部门
+            var ps = list.ToTModel();
+            var ps2 = new List<Personnel>();
+            foreach (var p in ps)
+            {
+                var ttp = tagToPersons.Find(i => i.PersonnelId == p.Id);
+                if (ttp != null)
+                {
+                    p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
+                    p.TagId = ttp.LocationCardId;
+
+                    ps2.Add(p);
+                }
+                else
+                {
+
+                }
+                //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
+                p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
+            }
+            return ps2.ToWCFList();
+        }
+
+        public List<Personnel> FindPersonList(string name)
+        {
+            return db.Personnels.GetListByName(name).ToWcfModelList();
+        }
+
+        public Personnel GetPerson(int id)
+        {
+            return db.Personnels.Find(id).ToTModel();
+        }
+
+        public int AddPerson(Personnel p)
+        {
+            bool r = db.Personnels.Add(p.ToDbModel());
+            if (r == false)
+            {
+                return -1;
+            }
+            return p.Id;
+        }
+
+        public bool EditPerson(Personnel p)
+        {
+            return db.Personnels.Edit(p.ToDbModel());
+        }
+
+        public bool DeletePerson(int id)
+        {
+            return db.Personnels.DeleteById(id) != null;
+        }
+
+
+        public List<Post> GetPostList()
+        {
+            var posts = db.Posts.ToList();
+            return posts.ToWcfModelList();
+        }
+        #endregion
     }
 }

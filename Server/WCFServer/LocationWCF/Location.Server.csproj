@@ -178,7 +178,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppContext.cs" />
     <Compile Include="Controls\ServerManagerBox.xaml.cs">
       <DependentUpon>ServerManagerBox.xaml</DependentUpon>
     </Compile>

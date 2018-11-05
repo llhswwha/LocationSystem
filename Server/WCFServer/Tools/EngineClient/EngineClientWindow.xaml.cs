@@ -127,8 +127,10 @@ namespace EngineClient
             list.Add(IPAddress.Parse("127.0.0.1"));
             list.AddRange(ipadrlist);
             TbLocalIp.ItemsSource = list;
+            TbLocalIp.SelectedIndex = 1;
 
             TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155"};
+            TbEngineIp.SelectedIndex = 1;
         }
     }
 }
