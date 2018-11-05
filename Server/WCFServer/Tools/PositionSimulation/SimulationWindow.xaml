@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PositionSimulation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="SimulationWindow_OnLoaded">
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="SimulationWindow_OnLoaded" Closed="SimulationWindow_OnClosed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="菜单"></MenuItem>

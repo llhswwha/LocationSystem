@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
+using DbModel.Location.Settings;
 using Location.TModel.Tools;
 
 namespace DbModel.LocationHistory.Data
@@ -139,6 +140,13 @@ namespace DbModel.LocationHistory.Data
             //Archors = new List<string>();
         }
 
+        public void SetTime()
+        {
+            DateTime now = DateTime.Now;
+            DateTimeStamp = TimeConvert.DateTimeToTimeStamp(now);
+            DateTime now2 = TimeConvert.TimeStampToDateTime(DateTimeStamp);
+        }
+
         public void AddArchor(string archor)
         {
             if (Archors == null)
@@ -164,7 +172,8 @@ namespace DbModel.LocationHistory.Data
                 Z = float.Parse(parts[2]);//平面位置
                 Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = long.Parse(parts[4]);
-                DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp / 1000);
+                DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
+                long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
 
                 if (length > 5)
                     Power = int.Parse(parts[5]);
@@ -188,6 +197,17 @@ namespace DbModel.LocationHistory.Data
                 Console.WriteLine(ex.ToString());
                 return false;
             }
+        }
+
+        public string GetText()
+        {
+            string archors = "";
+            if (Archors != null)
+            {
+                archors = string.Join(",", Archors.ToArray());
+            }
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Code, X, Y, Z, DateTimeStamp, Power, Number,
+                Flag, archors);
         }
 
         public override string ToString()

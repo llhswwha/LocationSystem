@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BLL;
 using DbModel.Location.AreaAndDev;
+using DbModel.LocationHistory.Data;
+using DbModel.Tools;
 using LocationServer;
 using LocationServices.Locations;
 using LocationServices.Locations.Services;
@@ -27,6 +30,8 @@ namespace PositionSimulation
     {
         private Bll bll;
 
+        private SimulationServer server;
+
         public SimulationWindow()
         {
             InitializeComponent();
@@ -38,7 +43,66 @@ namespace PositionSimulation
             AreaCanvas1.Init();
             LoadAreaTree();
             LoadDepTree();
-            
+            StartServer();
+        }
+
+
+        private void SimulationWindow_OnClosed(object sender, EventArgs e)
+        {
+            StopServer();
+        }
+
+        private void StopServer()
+        {
+            if (server != null)
+            {
+                server.Stop();
+                server = null;
+            }
+            if (serverThread != null)
+            {
+                serverThread.Abort();
+            }
+        }
+
+        private Thread serverThread;
+
+        private void StartServer()
+        {
+            if (server == null)
+            {
+                server = new SimulationServer();
+                server.Start();
+            }
+
+            if (serverThread == null)
+            {
+                serverThread = ThreadTool.Start(() =>
+                {
+                    while (true)
+                    {
+                        for (int i = 0; i < AreaCanvas1.PersonShapeList.Count; i++)
+                        {
+                            var ps = AreaCanvas1.PersonShapeList[i];
+                            ps.SavePos();
+                            Position pos = new Position();
+                            pos.SetTime();
+                            var tPos = ps.Person.Pos;
+                            pos.Code = tPos.Tag;
+                            pos.X = tPos.X;
+                            pos.Y = tPos.Z;
+                            pos.Z = tPos.Y;
+                            pos.Power = tPos.Power;
+                            pos.Number = i;
+                            pos.Flag = tPos.Flag;
+                            pos.Archors = tPos.Archors;
+                            server.Send(pos.GetText());
+                        }
+
+                        Thread.Sleep(250);
+                    }
+                });
+            }
         }
 
         private void LoadDepTree()

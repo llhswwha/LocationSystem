@@ -10,6 +10,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Location.Person;
 using DbModel.Tools;
 using Location.IModel;
+using WPFClientControlLib.AreaCanvaItems;
 using WPFClientControlLib.Behaviors;
 
 namespace WPFClientControlLib
@@ -635,106 +636,43 @@ namespace WPFClientControlLib
 
         public void ShowPersons(IList<Location.TModel.Location.Person.Personnel> persons)
         {
+            PersonShapeList.Clear();
             _persons = persons;
             if (persons == null) return;
             foreach (var person in persons)
             {
-                AddPersonRect(person,Scale,2);
+                PersonShape ps=AddPersonRect(person,Scale,2);
+                PersonShapeList.Add(ps);
             }
         }
 
-        private Ellipse AddPersonRect(Location.TModel.Location.Person.Personnel person, double scale, double size = 2)
+        public List<PersonShape> PersonShapeList=new List<PersonShape>();
+
+        private PersonShape AddPersonRect(Location.TModel.Location.Person.Personnel person, double scale, double size = 2)
         {
-            if (PersonDict.ContainsKey(person.Id))
+            PersonShape ps = new PersonShape(this,person, scale, size);
+            ps.Moved += Ps_Moved;
+            ps.Show();
+            return ps;
+        }
+
+        private void Ps_Moved(PersonShape obj)
+        {
+            
+        }
+
+        public void RemovePerson(int id)
+        {
+            if (PersonDict.ContainsKey(id))
             {
-                Canvas1.Children.Remove(PersonDict[person.Id]);
+                Canvas1.Children.Remove(PersonDict[id]);
             }
+        }
 
-            double x = (person.Tag.Pos.X - OffsetX) * scale - size * scale / 2;
-            double y = (person.Tag.Pos.Z - OffsetY) * scale - size * scale / 2;
-            //if (ViewMode == 0)
-            //    y = Canvas1.Height - size * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
-            Ellipse personShape = new Ellipse()
-            {
-                //Margin = new Thickness(x, y, 0, 0),
-                Width = size * scale,
-                Height = size * scale,
-                Fill = Brushes.GreenYellow,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                Tag = person,
-                ToolTip = person.Name
-            };
-
-
-            DragInCanvasBehavior behavior1 = new DragInCanvasBehavior();
-            behavior1.Moved += Behavior1_Moved;
-            Interaction.GetBehaviors(personShape).Add(behavior1);
-
-            Canvas.SetLeft(personShape, x);
-            Canvas.SetTop(personShape, y);
-
-            PersonDict[person.Id] = personShape;
-            personShape.MouseDown += PersonShape_MouseDown;
-            personShape.MouseEnter += PersonShape_MouseEnter;
-            personShape.MouseLeave += PersonShape_MouseLeave;
+        public void AddPerson(int id, Ellipse personShape)
+        {
+            PersonDict[id] = personShape;
             Canvas1.Children.Add(personShape);
-            return personShape;
-        }
-
-        private void Behavior1_Moved(object arg1, System.Windows.Point arg2)
-        {
-            //double left = Canvas.GetLeft(this);
-            //double top = Canvas.GetTop(this);
-
-            //this.XPos = left;
-            //this.YPos = top;
-            //Position.XPos = (int)left;
-            //Position.YPos = (int)top;
-        }
-
-        private void PersonShape_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Ellipse rect = sender as Ellipse;
-            if (SelectedPerson == rect) return;
-            var dev = rect.Tag as Location.TModel.Location.Person.Personnel;
-            LbState.Content = "";
-
-            rect.Fill = Brushes.GreenYellow;
-            rect.Stroke = Brushes.Black;
-        }
-
-        private void PersonShape_MouseEnter(object sender, MouseEventArgs e)
-        {
-            //SelectRectangle(sender as Rectangle);
-            Ellipse rect = sender as Ellipse;
-            var person = rect.Tag as Location.TModel.Location.Person.Personnel;
-            LbState.Content = person.Name;
-
-            rect.Fill = Brushes.Blue;
-            rect.Stroke = Brushes.Red;
-        }
-
-        public event Action<Ellipse, Location.TModel.Location.Person.Personnel> PersonSelected;
-
-        public Ellipse SelectedPerson;
-
-        private void PersonShape_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (SelectedPerson != null)
-            {
-                SelectedPerson.Fill = Brushes.GreenYellow;
-                SelectedPerson.Stroke = Brushes.Black;
-            }
-            Ellipse rect = sender as Ellipse;
-            var person = rect.Tag as Location.TModel.Location.Person.Personnel;
-            LbState.Content = person.Name;
-            SelectedPerson = rect;
-
-            if (PersonSelected != null)
-            {
-                PersonSelected(rect, person);
-            }
         }
 
         private void CbView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
