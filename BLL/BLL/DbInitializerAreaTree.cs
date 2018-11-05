@@ -3,19 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using Location.BLL.Tool;
 using System.IO;
+using BLL.Blls.Location;
+using BLL.Blls.LocationHistory;
+using BLL.Tools;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using DbModel.Tools.InitInfos;
 using Location.Model;
 using Location.Model.InitInfos;
-
 namespace BLL
 {
-    public partial class Bll : IDisposable
+    public class DbInitializerAreaTree
     {
+        private readonly Bll _bll;
+
+        public CardRoleBll CardRoles => _bll.CardRoles;
+
+        public LocationCardBll LocationCards => _bll.LocationCards;
+
+        public LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
+
+        public PositionBll Positions => _bll.Positions;
+
+        public AreaBll Areas => _bll.Areas;
+
+        public AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
+
+        public AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
+
+        public DevModelBll DevModels => _bll.DevModels;
+
+        public DevTypeBll DevTypes => _bll.DevTypes;
+
+        public ConfigArgBll ConfigArgs => _bll.ConfigArgs;
+
+        public PersonnelBll Personnels => _bll.Personnels;
+
+        public DepartmentBll Departments => _bll.Departments;
+
+        public PostBll Posts => _bll.Posts;
+
+        public LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
+
+        public ArchorBll Archors => _bll.Archors;
+
+        public DevInfoBll DevInfos => _bll.DevInfos;
+
+        public BoundBll Bounds => _bll.Bounds;
+
+        public KKSCodeBll KKSCodes => _bll.KKSCodes;
+
+        public NodeKKSBll NodeKKSs => _bll.NodeKKSs;
+
+        public DbInitializerAreaTree(Bll bll)
+        {
+            _bll = bll;
+        }
+
         public void UpdateInitDataFromXml()
         {
-            
+
         }
 
         public bool InitTopoFromXml()
@@ -46,16 +93,12 @@ namespace BLL
         public void ClearTopoTable()
         {
             Log.InfoStart("ClearTopoTable");
-            Archors.Clear();
-            DevInfos.Clear();
-            //Maps.Clear();
-            //PhysicalTopologys.Clear();
-            //TransformMs.Clear();
-            NodeKKSs.Clear();
-            Points.Clear();
-            Areas.Clear();
-            Bounds.Clear();
-
+            _bll.Archors.Clear();
+            _bll.DevInfos.Clear();
+            _bll.NodeKKSs.Clear();
+            _bll.Points.Clear();
+            _bll.Areas.Clear();
+            _bll.Bounds.Clear();
             Log.InfoEnd("ClearTopoTable");
         }
 
@@ -133,6 +176,29 @@ namespace BLL
             Log.InfoEnd("InitAreaAndDev");
         }
 
+        /// <summary>
+        /// 初始化基站信息
+        /// </summary>
+        private void InitLocationDevice()
+        {
+            Log.Info("导入基站信息");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\基站信息\\基站信息.xml";
+            bool value = LocationDeviceHelper.ImportLocationDeviceFromFile(filePath, Archors, Areas);
+            Log.Info(string.Format("导入基站信息结果:{0}", value));
+        }
+        /// <summary>
+        /// 初始化设备信息
+        /// </summary>
+        private void InitDevInfo()
+        {
+            Log.Info("导入设备信息");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
+            bool value = DevInfoHelper.ImportDevInfoFromFile(filePath, _bll);
+            Log.Info(string.Format("导入设备信息信息结果:{0}", value));
+        }
+
         private void InitTopoByEntities()
         {
             var root = new Area() { Name = "根节点", Type = AreaTypes.区域 };
@@ -199,33 +265,33 @@ namespace BLL
             //PhysicalTopologys.AddRange(building5Floor1, building5Floor2, building5Floor3, building5Floor4);
             float height1 = 4.5f;
             var room1 = AddTopoNode("工作段配电室", "", floor1, AreaTypes.机房);
-            SetInitBound(room1, new Point[] {new Point(0.02,4.45,0,0),new Point(7.15,4.45,0,1),new Point(7.15,11.05,0,2),new Point(14.3,11.05,0,3),new Point(14.3,23.55,0,4),new Point(0.02,23.55,0,5)}, height1);
+            SetInitBound(room1, new Point[] { new Point(0.02, 4.45, 0, 0), new Point(7.15, 4.45, 0, 1), new Point(7.15, 11.05, 0, 2), new Point(14.3, 11.05, 0, 3), new Point(14.3, 23.55, 0, 4), new Point(0.02, 23.55, 0, 5) }, height1);
             var room2 = AddTopoNode("空调机房1", "", floor1, AreaTypes.机房);
             SetInitBound(room2, 0.02, 0.02, 7.15, 4.25, height1);
             var room3 = AddTopoNode("电子设备间", "", floor1, AreaTypes.机房);
             SetInitBound(room3, 7.35, 10.85, 33.8, 0.02, height1);
             var room4 = AddTopoNode("化学加药间", "", floor1, AreaTypes.机房);
-            SetInitBound(room4, 34, 10.85,49.65, 0.02, height1);
+            SetInitBound(room4, 34, 10.85, 49.65, 0.02, height1);
             var room5 = AddTopoNode("联氨贮存间", "", floor1, AreaTypes.机房);
             SetInitBound(room5, 49.85, 6.6, 54.8, 0.02, height1);
             var room6 = AddTopoNode("磷酸盐贮存间", "", floor1, AreaTypes.机房);
             SetInitBound(room6, 49.85, 6.8, 54.8, 10.85, height1);
             var room7 = AddTopoNode("男卫生间", "", floor1, AreaTypes.机房);
-            SetInitBound(room7, 50.05, 23.55,51.85, 18.95, height1);
+            SetInitBound(room7, 50.05, 23.55, 51.85, 18.95, height1);
             var room8 = AddTopoNode("女卫生间", "", floor1, AreaTypes.机房);
             SetInitBound(room8, 47.7, 18.95, 49.85, 23.55, height1);
             var room9 = AddTopoNode("柴油发电机房", "", floor1, AreaTypes.机房);
-            SetInitBound(room9,34,23.55,47.5,13, height1);
+            SetInitBound(room9, 34, 23.55, 47.5, 13, height1);
             var room10 = AddTopoNode("油箱间1", "", floor1, AreaTypes.机房);
-            SetInitBound(room10, 30.55,17.55,33.8,23.55, height1);
+            SetInitBound(room10, 30.55, 17.55, 33.8, 23.55, height1);
             var room11 = AddTopoNode("油箱间2", "", floor1, AreaTypes.机房);
-            SetInitBound(room11, 27.35,23.55,30.35,17.55,height1);
+            SetInitBound(room11, 27.35, 23.55, 30.35, 17.55, height1);
             var room12 = AddTopoNode("机房备件间", "", floor1, AreaTypes.机房);
-            SetInitBound(room12, 30.55,13,33.8,17.35, height1);
+            SetInitBound(room12, 30.55, 13, 33.8, 17.35, height1);
             var room13 = AddTopoNode("备件间", "", floor1, AreaTypes.机房);
-            SetInitBound(room13, 27.35,13,30.35,17.35, height1);
+            SetInitBound(room13, 27.35, 13, 30.35, 17.35, height1);
             var room14 = AddTopoNode("空调机房2", "", floor1, AreaTypes.机房);
-            SetInitBound(room14, 20.2,23.55,27.15,13, height1);
+            SetInitBound(room14, 20.2, 23.55, 27.15, 13, height1);
             //PhysicalTopologys.AddRange(room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14);
 
             AddSubNodes(floor2, AreaTypes.机房, "集控室", "消防气瓶间", "工作票室", "电气工程师室", "交接班室", "SIS室", "电缆夹层", "仪表盘间", "高温架间", "饮水间", "男卫生间", "女卫生间", "会议室", "工程师室");
@@ -283,7 +349,7 @@ namespace BLL
             #region 电厂主要建筑
 
             var J1 = AddTopoNode("主厂房", "J1UMA", buildingGroup1, AreaTypes.大楼, null, "J1");
-            SetInitBound(J1,2200, 1800, 2244, 1648.2, defaultHeight, false);
+            SetInitBound(J1, 2200, 1800, 2244, 1648.2, defaultHeight, false);
             InitJ1(J1);
 
             var building2 = AddTopoNode("#2燃气轮机房", "11UMB", buildingGroup1, AreaTypes.大楼);
@@ -291,15 +357,15 @@ namespace BLL
             var building4 = AddTopoNode("调压站控制室", "J1UER", buildingGroup2, AreaTypes.大楼);
 
             var J4 = AddTopoNode("集控楼", "J1UCA", buildingGroup3, AreaTypes.大楼, null, "J4");
-            SetInitBound(J4,2249.5,1769.4, 2304, 1792.5, 19.1, false);
+            SetInitBound(J4, 2249.5, 1769.4, 2304, 1792.5, 19.1, false);
             InitJ4(J4);
 
 
-            var J5 = AddTopoNode("联合车间", "", buildingGroup3, AreaTypes.大楼,null,"J5");
+            var J5 = AddTopoNode("联合车间", "", buildingGroup3, AreaTypes.大楼, null, "J5");
             SetInitBound(J5, 2249.5, 1692.8, 2293, 1715.9, defaultHeight, false);
             InitJ5(J5);
 
-            Db.SaveChanges();
+            _bll.Db.SaveChanges();
             //return;
 
             var building7 = AddTopoNode("#1锅炉房", "", buildingGroup4, AreaTypes.大楼);
@@ -325,9 +391,9 @@ namespace BLL
             var building17 = AddTopoNode("净水站", "", buildingGroup7, AreaTypes.大楼);
             var building18 = AddTopoNode("综合泵房", "", buildingGroup7, AreaTypes.大楼);
             var building19 = AddTopoNode("雨水泵房", "", buildingGroup7, AreaTypes.大楼);
-            var H2 = AddTopoNode("锅炉补给水处理车间", "", buildingGroup7, AreaTypes.大楼,null,"H2");
+            var H2 = AddTopoNode("锅炉补给水处理车间", "", buildingGroup7, AreaTypes.大楼, null, "H2");
             InitH2(H2);
-            SetInitBound(H2,2330, 1712, 2362, 1650, defaultHeight,false);
+            SetInitBound(H2, 2330, 1712, 2362, 1650, defaultHeight, false);
 
             var building21 = AddTopoNode("废水集中处理站", "", buildingGroup7, AreaTypes.大楼);
             var building22 = AddTopoNode("生活污水处理站", "", buildingGroup7, AreaTypes.大楼);
@@ -389,9 +455,9 @@ namespace BLL
             double bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false,
             bool isOnLocationArea = false)
         {
-            SetInitBound(topo, (float) x1, (float) y1, (float) x2, (float) y2, (float) thicknessT,
+            SetInitBound(topo, (float)x1, (float)y1, (float)x2, (float)y2, (float)thicknessT,
                 isRelative,
-                (float) bottomHeightT, isOnNormalArea, isOnAlarmArea,
+                (float)bottomHeightT, isOnNormalArea, isOnAlarmArea,
                 isOnLocationArea);
         }
 
@@ -414,7 +480,7 @@ namespace BLL
             Areas.Edit(topo);
         }
 
-        private void SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative=true,
+        private void SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
             float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
         {
             Bound initBound = new Bound(points, bottomHeightT, thicknessT, isRelative);

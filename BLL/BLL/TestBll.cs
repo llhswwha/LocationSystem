@@ -8,27 +8,30 @@ namespace BLL
 
         public void ClearTopoTable()
         {
-            db.ClearTopoTable();
+            var initializer = new DbInitializerAreaTree(db);
+            initializer.ClearTopoTable();
         }
 
         public void InitTopo()
         {
-            db.InitAreaAndDev();
+            var initializer = new DbInitializerAreaTree(db);
+            initializer.InitAreaAndDev();
         }
 
         public void InitTopo(TopoInfo topoInfo)
         {
-            db.InitTopo(topoInfo);
+            var initializer = new DbInitializerAreaTree(db);
+            initializer.InitTopo(topoInfo);
         }
 
         public void InitTopoFromXml()
         {
-            db.InitTopoFromXml();
+            var initializer = new DbInitializerAreaTree(db);
+            initializer.InitTopoFromXml();
         }
 
         public void InitDbData(int mode, bool isForce = false)
         {
-
             db.InitDbData(mode, isForce);
         }
     }
