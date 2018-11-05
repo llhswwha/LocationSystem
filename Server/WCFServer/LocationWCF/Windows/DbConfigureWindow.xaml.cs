@@ -69,8 +69,8 @@ namespace LocationServer.Windows
         {
             Thread thread = new Thread(()=>
             {
-                Bll bll = new Bll();
-                bll.InitAreaAndDev();
+                AreaTreeInitializer initializer=new AreaTreeInitializer(new Bll());
+                initializer.InitAreaAndDev();
                 MessageBox.Show("完成");
             });
             thread.Start();

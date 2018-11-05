@@ -13,49 +13,49 @@ using Location.Model;
 using Location.Model.InitInfos;
 namespace BLL
 {
-    public class DbInitializerAreaTree
+    public class AreaTreeInitializer
     {
         private readonly Bll _bll;
 
-        public CardRoleBll CardRoles => _bll.CardRoles;
+        private CardRoleBll CardRoles => _bll.CardRoles;
 
-        public LocationCardBll LocationCards => _bll.LocationCards;
+        private LocationCardBll LocationCards => _bll.LocationCards;
 
-        public LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
+        private LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
 
-        public PositionBll Positions => _bll.Positions;
+        private PositionBll Positions => _bll.Positions;
 
-        public AreaBll Areas => _bll.Areas;
+        private AreaBll Areas => _bll.Areas;
 
-        public AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
+        private AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
 
-        public AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
+        private AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
 
-        public DevModelBll DevModels => _bll.DevModels;
+        private DevModelBll DevModels => _bll.DevModels;
 
-        public DevTypeBll DevTypes => _bll.DevTypes;
+        private DevTypeBll DevTypes => _bll.DevTypes;
 
-        public ConfigArgBll ConfigArgs => _bll.ConfigArgs;
+        private ConfigArgBll ConfigArgs => _bll.ConfigArgs;
 
-        public PersonnelBll Personnels => _bll.Personnels;
+        private PersonnelBll Personnels => _bll.Personnels;
 
-        public DepartmentBll Departments => _bll.Departments;
+        private DepartmentBll Departments => _bll.Departments;
 
-        public PostBll Posts => _bll.Posts;
+        private PostBll Posts => _bll.Posts;
 
-        public LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
+        private LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
 
-        public ArchorBll Archors => _bll.Archors;
+        private ArchorBll Archors => _bll.Archors;
 
-        public DevInfoBll DevInfos => _bll.DevInfos;
+        private DevInfoBll DevInfos => _bll.DevInfos;
 
-        public BoundBll Bounds => _bll.Bounds;
+        private BoundBll Bounds => _bll.Bounds;
 
-        public KKSCodeBll KKSCodes => _bll.KKSCodes;
+        private KKSCodeBll KKSCodes => _bll.KKSCodes;
 
-        public NodeKKSBll NodeKKSs => _bll.NodeKKSs;
+        private NodeKKSBll NodeKKSs => _bll.NodeKKSs;
 
-        public DbInitializerAreaTree(Bll bll)
+        public AreaTreeInitializer(Bll bll)
         {
             _bll = bll;
         }

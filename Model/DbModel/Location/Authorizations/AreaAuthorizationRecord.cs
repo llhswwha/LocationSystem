@@ -5,6 +5,7 @@ using System.Data;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using DbModel.Location.AreaAndDev;
+using DbModel.Location.Authorizations;
 
 namespace DbModel.Location.Work
 {
@@ -128,12 +129,20 @@ namespace DbModel.Location.Work
         [Display(Name = "删除时间")]
         public DateTime? DeleteTime { get; set; }
 
+        [DataMember]
+        [Display(Name = "标签角色")]
+        public virtual CardRole CardRole { get; set; }
+
+        [DataMember]
+        [Display(Name = "标签角色")]
+        public int? CardRoleId { get; set; }
+
         public AreaAuthorizationRecord()
         {
 
         }
 
-        public AreaAuthorizationRecord(AreaAuthorization aa)
+        public AreaAuthorizationRecord(AreaAuthorization aa,CardRole role)
         {
             this.Name = aa.Name;
             this.Description = aa.Description;
@@ -150,7 +159,11 @@ namespace DbModel.Location.Work
             this.RangeType = aa.RangeType;
             this.CreateTime = DateTime.Now;
             this.ModifyTime = DateTime.Now;
-
+            if (role != null)
+            {
+                this.CardRole = role;
+                this.CardRoleId = role.Id;
+            }
         }
 
         public AreaAuthorizationRecord Clone()

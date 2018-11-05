@@ -143,11 +143,11 @@ namespace DbModel.Location.Work
 
     public enum AreaRangeType
     {
-        All,//特殊，全部区域
         WithParent,//从根节点到自身节点
         Single,//只有自身   
         WithChildren,//自身和子节点（递归下去）
         AllRelative,//父节点、自身、子节点（递归下去）
+        All,//特殊，全部区域
     }
 
     /// <summary>

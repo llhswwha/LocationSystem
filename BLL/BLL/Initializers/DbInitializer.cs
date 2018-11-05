@@ -16,6 +16,7 @@ using Location.TModel.Tools;
 using System.Threading;
 using BLL.Blls.Location;
 using BLL.Blls.LocationHistory;
+using BLL.Initializers;
 using DbModel.Location.Authorizations;
 using DbModel.Location.Work;
 
@@ -31,33 +32,33 @@ namespace BLL
 
         private readonly Bll _bll;
 
-        public CardRoleBll CardRoles => _bll.CardRoles;
+        private CardRoleBll CardRoles => _bll.CardRoles;
 
-        public LocationCardBll LocationCards => _bll.LocationCards;
+        private LocationCardBll LocationCards => _bll.LocationCards;
 
-        public LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
+        private LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
 
-        public PositionBll Positions => _bll.Positions;
+        private PositionBll Positions => _bll.Positions;
 
-        public AreaBll Areas => _bll.Areas;
+        private AreaBll Areas => _bll.Areas;
 
-        public AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
+        private AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
 
-        public AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
+        private AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
 
-        public DevModelBll DevModels => _bll.DevModels;
+        private DevModelBll DevModels => _bll.DevModels;
 
-        public DevTypeBll DevTypes => _bll.DevTypes;
+        private DevTypeBll DevTypes => _bll.DevTypes;
 
-        public ConfigArgBll ConfigArgs => _bll.ConfigArgs;
+        private ConfigArgBll ConfigArgs => _bll.ConfigArgs;
 
-        public PersonnelBll Personnels => _bll.Personnels;
+        private PersonnelBll Personnels => _bll.Personnels;
 
-        public DepartmentBll Departments => _bll.Departments;
+        private DepartmentBll Departments => _bll.Departments;
 
-        public PostBll Posts => _bll.Posts;
+        private PostBll Posts => _bll.Posts;
 
-        public LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
+        private LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
 
         public DbInitializer(Bll bll)
         {
@@ -128,7 +129,7 @@ namespace BLL
             InitUsers();
             //登录人员
 
-            new DbInitializerAreaTree(_bll).InitAreaAndDev();
+            new AreaTreeInitializer(_bll).InitAreaAndDev();
             //区域、设备
             InitConfigArgs();
             //配置信息
@@ -270,38 +271,25 @@ namespace BLL
             KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
         }
 
-        private CardRole AddCardRole(string name, string description = "")
-        {
-            if (string.IsNullOrEmpty(description))
-            {
-                description = name;
-            }
-            var role1 = new CardRole() { Name = name, Description = description };
-            CardRoles.Add(role1);
-            return role1;
-        }
+        private CardRoleInitializer iniRole;
 
         public void InitTagPositions()
         {
             DateTime dt = DateTime.Now;
             long TimeStamp = TimeConvert.DateTimeToTimeStamp(dt);
 
-            var role1 = AddCardRole("超级管理员", "特殊角色，可以进入全部区域。");
-            var role2 = AddCardRole("管理人员");
-            var role3 = AddCardRole("巡检人员");
-            var role4 = AddCardRole("操作人员");
-            var role5 = AddCardRole("维修人员");
-            var role6 = AddCardRole("参观人员");
+            iniRole = new CardRoleInitializer(_bll);
+            iniRole.InitData();
 
             Log.InfoStart("InitTagPositions");
-            var tag1 = new LocationCard() { Name = "标签1", Code = "0002", CardRoleId = role1.Id };
-            var tag2 = new LocationCard() { Name = "标签2", Code = "0003", CardRoleId = role2.Id };
-            var tag3 = new LocationCard() { Name = "标签3", Code = "0004", CardRoleId = role3.Id };
-            var tag4 = new LocationCard() { Name = "标签4", Code = "0005", CardRoleId = role3.Id };
-            var tag5 = new LocationCard() { Name = "标签5", Code = "0006", CardRoleId = role4.Id };
-            var tag6 = new LocationCard() { Name = "标签6", Code = "0007", CardRoleId = role4.Id };
-            var tag7 = new LocationCard() { Name = "标签7", Code = "0008", CardRoleId = role5.Id };
-            var tag8 = new LocationCard() { Name = "标签8", Code = "0009", CardRoleId = role6.Id };
+            var tag1 = new LocationCard() { Name = "标签1", Code = "0002", CardRoleId = iniRole.role1.Id };
+            var tag2 = new LocationCard() { Name = "标签2", Code = "0003", CardRoleId = iniRole.role2.Id };
+            var tag3 = new LocationCard() { Name = "标签3", Code = "0004", CardRoleId = iniRole.role3.Id };
+            var tag4 = new LocationCard() { Name = "标签4", Code = "0005", CardRoleId = iniRole.role3.Id };
+            var tag5 = new LocationCard() { Name = "标签5", Code = "0006", CardRoleId = iniRole.role4.Id };
+            var tag6 = new LocationCard() { Name = "标签6", Code = "0007", CardRoleId = iniRole.role4.Id };
+            var tag7 = new LocationCard() { Name = "标签7", Code = "0008", CardRoleId = iniRole.role5.Id };
+            var tag8 = new LocationCard() { Name = "标签8", Code = "0009", CardRoleId = iniRole.role6.Id };
             List<LocationCard> tags = new List<LocationCard>() { tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8 };
             LocationCards.AddRange(tags);
             List<LocationCard> tagsT = new List<LocationCard>();
@@ -351,18 +339,19 @@ namespace BLL
             Log.InfoEnd("InitTagPositions");
         }
 
-
         public void InitAuthorization()
         {
-            //AreaAccessRule
+            
+            //区域权限列表
             var areas = Areas.ToList();
+            var aaList = new List<AreaAuthorization>();
             foreach (var area in areas)
             {
                 var aa = new AreaAuthorization();
                 aa.AreaId = aa.Id;
                 aa.Area = area;
-                aa.AccessType = AreaAccessType.Enter;
-                aa.RangeType = AreaRangeType.Single;
+                aa.AccessType = AreaAccessType.Enter;//可进入的权限
+                aa.RangeType = AreaRangeType.WithParent;
                 aa.Description = string.Format("{0}权限", area.Name);
                 aa.Name = string.Format("{0}权限", area.Name);
                 aa.CreateTime = DateTime.Now;
@@ -371,11 +360,27 @@ namespace BLL
                 aa.TimeType = TimeSettingType.TimeRange;
                 aa.StartTime = new DateTime(2000, 0, 0, 8, 30, 0);
                 aa.EndTime = new DateTime(2000, 0, 0, 17, 30, 0);
-                AreaAuthorizations.Add(aa);
-
-                var aar = new AreaAuthorizationRecord(aa);
-                AreaAuthorizationRecords.Add(aar);
+                aaList.Add(aa);
             }
+            AreaAuthorizations.AddRange(aaList);
+
+            var aarList = new List<AreaAuthorizationRecord>();
+            //权限指派给标签角色
+            foreach (var aa in aaList)
+            {
+                foreach (var role in iniRole.roles)
+                {
+                    var aar = new AreaAuthorizationRecord(aa, role);
+                    aarList.Add(aar);
+                }
+                //1.超级管理员能够进入全部区间
+                //2.管理人员也能进入全部区域
+                //3.巡检人员和维修人员能够进入生产区域
+
+                //4.参观人员（高级）能够进入生活区域和大部分生产区域
+                //5.参观人员（一般）能够进入生活区域和少部分生产区域
+            }
+            AreaAuthorizationRecords.AddRange(aarList);
 
             //角色,区域，卡
             //1.可以进入全部区域
