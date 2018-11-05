@@ -1,6 +1,7 @@
 ﻿using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using DbModel.Location.AreaAndDev;
@@ -145,7 +146,11 @@ namespace DbModel.Location.Work
             this.RepeatDay = aa.RepeatDay;
             this.AreaId = aa.AreaId;
             this.Area = aa.Area;
-            
+            this.AccessType = aa.AccessType;
+            this.RangeType = aa.RangeType;
+            this.CreateTime = DateTime.Now;
+            this.ModifyTime = DateTime.Now;
+
         }
 
         public AreaAuthorizationRecord Clone()
