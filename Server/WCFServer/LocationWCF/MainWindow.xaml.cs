@@ -33,6 +33,7 @@ using LocationServer;
 using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Interfaces;
+using TModel.Location.AreaAndDev;
 using TModel.Location.Data;
 using TModel.Tools;
 using WebNSQLib;
@@ -192,6 +193,16 @@ namespace LocationWCFServer
             {
                 MessageBox.Show("未找到文件:" + path);
             }
+        }
+
+        private void MenuCmd1_OnClick(object sender, RoutedEventArgs e)
+        {
+            LocationService client = new LocationService();
+            AreaStatistics recv = client.GetAreaStatistics(1);
+            int PersonNum = recv.PersonNum;
+            int DevNum = recv.DevNum;
+            int LocationAlarmNum = recv.LocationAlarmNum;
+            int DevAlarmNum = recv.DevAlarmNum;
         }
     }
 }

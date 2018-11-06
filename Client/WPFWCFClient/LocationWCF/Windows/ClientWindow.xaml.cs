@@ -18,6 +18,7 @@ using SignalRClientLib;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
+using WCFServiceForWPF.LocationServices;
 
 namespace LocationWCFClient.Windows
 {
@@ -35,9 +36,11 @@ namespace LocationWCFClient.Windows
             InitializeComponent();
         }
 
+        LocationServiceClient client;
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
+            client = AppContext.Instance.Client.InnerClient;
             var treeRoot1= client.GetPhysicalTopologyTree(0);
             var treeRoot2 = client.GetDepartmentTree();
             ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
@@ -136,7 +139,6 @@ namespace LocationWCFClient.Windows
 
         private void BtnModifyArchor_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
             Archor Archor = new Archor();
             Archor.Code = "85G8";
             Archor.Name = "测试";
@@ -158,7 +160,6 @@ namespace LocationWCFClient.Windows
 
         private void BtnModifyTag_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
             Tag Tag = new Tag();
 
             Tag.Code = "0004";
@@ -185,7 +186,6 @@ namespace LocationWCFClient.Windows
         private void BtnGetPicture_OnClick(object sender, RoutedEventArgs e)
         {
             string strName = "测试图片";
-            var client = AppContext.Instance.Client.InnerClient;
             Picture pc = client.GetPictureInfo(strName);
             byte[] byteArray = pc.Info;
             string strInfo = System.Text.Encoding.Default.GetString(byteArray);
@@ -194,7 +194,6 @@ namespace LocationWCFClient.Windows
 
         private void BtnGetAreaStatistics_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
             AreaStatistics recv = client.GetAreaStatistics(1);
             int PersonNum = recv.PersonNum;
             int DevNum = recv.DevNum;
@@ -204,16 +203,22 @@ namespace LocationWCFClient.Windows
 
         private void GetNearbyPerson_Currency_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
-            NearbyPerson_Currency[] lst = client.GetNearbyPerson_Currency(1);
-            int nn = 0;
+            NearbyPerson[] lst = client.GetNearbyPerson_Currency(1);
         }
 
         private void GetNearbyPerson_Alarm_OnClick(object sender, RoutedEventArgs e)
         {
-            var client = AppContext.Instance.Client.InnerClient;
-            NearbyPerson_Currency[] lst = client.GetNearbyPerson_Alarm(1);
-            int nn = 0;
+            NearbyPerson[] lst = client.GetNearbyPerson_Alarm(1);
+        }
+
+        private void GetNearbyDev_Currency_OnClick(object sender, RoutedEventArgs e)
+        {
+            NearbyDev[] lst = client.GetNearbyDev_Currency(1);
+        }
+
+        private void GetNearbyCamera_Alarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            NearbyDev[] lst = client.GetNearbyCamera_Alarm(1);
         }
     }
 }

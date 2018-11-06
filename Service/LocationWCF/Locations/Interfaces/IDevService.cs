@@ -191,5 +191,21 @@ namespace LocationServices.Locations.Interfaces
         bool AddArchor(Archor archor);
         [OperationContract]
         void DeleteArchor(int archorId);
+
+        /// <summary>
+        /// 附近设备（通用）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OperationContract]
+        List<NearbyDev> GetNearbyDev_Currency(int id);
+
+        /// <summary>
+        /// 附近摄像头（告警）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OperationContract]
+        List<NearbyDev> GetNearbyCamera_Alarm(int id);
     }
 }

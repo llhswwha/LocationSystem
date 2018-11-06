@@ -274,11 +274,41 @@
   <wsdl:message name="ILocationService_GetArchor_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetArchorResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchorByDevId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchorByDevId" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetArchorByDevId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArchorByDevIdResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_EditArchor_InputMessage">
     <wsdl:part name="parameters" element="tns:EditArchor" />
   </wsdl:message>
   <wsdl:message name="ILocationService_EditArchor_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditArchorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddArchor_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddArchor" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddArchor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddArchorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteArchor_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteArchor" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteArchor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteArchorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyDev_Currency_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyDev_Currency" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyDev_Currency_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyDev_CurrencyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyCamera_Alarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyCamera_Alarm" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNearbyCamera_Alarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNearbyCamera_AlarmResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
@@ -797,9 +827,29 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchor" message="tns:ILocationService_GetArchor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorResponse" message="tns:ILocationService_GetArchor_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetArchorByDevId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchorByDevId" message="tns:ILocationService_GetArchorByDevId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorByDevIdResponse" message="tns:ILocationService_GetArchorByDevId_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EditArchor">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/EditArchor" message="tns:ILocationService_EditArchor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/EditArchorResponse" message="tns:ILocationService_EditArchor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddArchor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddArchor" message="tns:ILocationService_AddArchor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/AddArchorResponse" message="tns:ILocationService_AddArchor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteArchor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/DeleteArchor" message="tns:ILocationService_DeleteArchor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/DeleteArchorResponse" message="tns:ILocationService_DeleteArchor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyDev_Currency">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetNearbyDev_Currency" message="tns:ILocationService_GetNearbyDev_Currency_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse" message="tns:ILocationService_GetNearbyDev_Currency_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyCamera_Alarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm" message="tns:ILocationService_GetNearbyCamera_Alarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse" message="tns:ILocationService_GetNearbyCamera_Alarm_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
@@ -1414,8 +1464,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetArchorByDevId">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetArchorByDevId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EditArchor">
       <soap:operation soapAction="http://tempuri.org/IDevService/EditArchor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddArchor">
+      <soap:operation soapAction="http://tempuri.org/IDevService/AddArchor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteArchor">
+      <soap:operation soapAction="http://tempuri.org/IDevService/DeleteArchor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyDev_Currency">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetNearbyDev_Currency" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNearbyCamera_Alarm">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetNearbyCamera_Alarm" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

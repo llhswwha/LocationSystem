@@ -7,6 +7,7 @@ using LocationServices.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TModel.Location.AreaAndDev;
 using TModel.Tools;
 using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using TPEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -230,5 +231,112 @@ namespace LocationServices.Locations.Services
         }
 
         #endregion
+
+        public List<NearbyDev> GetNearbyDev_Currency(int id)
+        {
+            List<NearbyDev> lst = new List<NearbyDev>();
+            DbModel.Location.Data.LocationCardPosition lcp = db.LocationCardPositions.DbSet.Where(p => p.PersonId == id).FirstOrDefault();
+            if (lcp == null || lcp.AreaId == null)
+            {
+                return lst;
+            }
+
+            int? AreadId = lcp.AreaId;
+            float PosX = lcp.X;
+            float PosY = lcp.Y;
+            float PosZ = lcp.Z;
+
+            float PosX2 = 0;
+            float PosY2 = 0;
+            float PosZ2 = 0;
+
+            float sqrtDistance = 0;
+            float Distance = 0;
+
+            var query = from t1 in db.DevInfos.DbSet
+                        join t2 in db.DevTypes.DbSet on t1.Local_TypeCode equals t2.TypeCode
+                        join t3 in db.Areas.DbSet on t1.ParentId equals t3.Id
+                        where t1.ParentId == AreadId
+                        select new NearbyDev { id = t1.Id, Name = t1.Name, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
+            if (query != null)
+            {
+                lst = query.ToList();
+            }
+
+            foreach (NearbyDev item in lst)
+            {
+                PosX2 = item.X - PosX;
+                PosY2 = item.Y - PosY;
+                PosZ2 = item.Z - PosZ;
+
+                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                Distance = (float)System.Math.Sqrt(sqrtDistance);
+                item.Distance = Distance;
+
+                PosX2 = 0;
+                PosY2 = 0;
+                PosZ2 = 0;
+                sqrtDistance = 0;
+                Distance = 0;
+            }
+
+            lst.Sort(new DevDistanceCompare());
+            
+            return lst;
+        }
+
+        public List<NearbyDev> GetNearbyCamera_Alarm(int id)
+        {
+            List<NearbyDev> lst = new List<NearbyDev>();
+            DbModel.Location.Data.LocationCardPosition lcp = db.LocationCardPositions.DbSet.Where(p => p.PersonId == id).FirstOrDefault();
+            if (lcp == null || lcp.AreaId == null)
+            {
+                return lst;
+            }
+
+            int? AreadId = lcp.AreaId;
+            float PosX = lcp.X;
+            float PosY = lcp.Y;
+            float PosZ = lcp.Z;
+
+            float PosX2 = 0;
+            float PosY2 = 0;
+            float PosZ2 = 0;
+
+            float sqrtDistance = 0;
+            float Distance = 0;
+
+            var query = from t1 in db.DevAlarms.DbSet
+                        join t2 in db.DevInfos.DbSet on t1.DevInfoId equals t2.Id
+                        join t3 in db.DevTypes.DbSet on t2.Local_TypeCode equals t3.TypeCode
+                        join t4 in db.Areas.DbSet on t2.ParentId equals t4.Id
+                        where t2.ParentId == AreadId && (t2.Local_TypeCode == 3000201 || t2.Local_TypeCode == 14 || t2.Local_TypeCode == 3000610 || t2.Local_TypeCode == 1000102)
+                        select new NearbyDev { id = t2.Id, Name = t2.Name, TypeName = t3.TypeName, Area = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
+            if (query != null)
+            {
+                lst = query.ToList();
+            }
+
+            foreach (NearbyDev item in lst)
+            {
+                PosX2 = item.X - PosX;
+                PosY2 = item.Y - PosY;
+                PosZ2 = item.Z - PosZ;
+
+                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                Distance = (float)System.Math.Sqrt(sqrtDistance);
+                item.Distance = Distance;
+
+                PosX2 = 0;
+                PosY2 = 0;
+                PosZ2 = 0;
+                sqrtDistance = 0;
+                Distance = 0;
+            }
+
+            lst.Sort(new DevDistanceCompare());
+
+            return lst;
+        }
     }
 }

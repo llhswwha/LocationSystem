@@ -87,7 +87,7 @@ namespace PositionSimulation
                             ps.SavePos();
                             Position pos = new Position();
                             pos.SetTime();
-                            var tPos = ps.Person.Pos;
+                            var tPos = ps.Person.Tag.Pos;
                             pos.Code = tPos.Tag;
                             pos.X = tPos.X;
                             pos.Y = tPos.Z;

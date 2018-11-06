@@ -10,6 +10,7 @@ using System.Linq;
 using DbModel.Location.Person;
 using DbModel.Tools;
 using Location.IModel;
+using TModel.Location.AreaAndDev;
 using TModel.Location.Nodes;
 using TModel.Tools;
 using DbEntity = DbModel.Location.AreaAndDev.Area;
@@ -62,7 +63,7 @@ namespace LocationServices.Locations.Services
             return list1.ToWcfModelList();
         }
 
-        public void GetAreaStatisticsCount(int id, ref int PersonNum, ref int DevNum, ref int LocationAlarmNum, ref int DevAlarmNum)
+        public AreaStatistics GetAreaStatisticsCount(int id)
         {
             var query = from t1 in db.LocationCardPositions.DbSet
                         join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
@@ -74,26 +75,15 @@ namespace LocationServices.Locations.Services
                          join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
                          where t1.ParentId == id
                          select t2;
-
-            List<Personnel> pList = new List<Personnel>();
-            List<DbModel.Location.Alarm.DevAlarm> dList = new List<DbModel.Location.Alarm.DevAlarm>();
-
-            if (query != null)
-            {
-                pList = query.ToList();
-            }
-
-            if (query2 != null)
-            {
-                dList = query2.ToList();
-            }
-
-            PersonNum = pList.Count;
-            DevNum = db.DevInfos.DbSet.Where(p => p.ParentId == id).Count();
-            LocationAlarmNum = db.LocationAlarms.DbSet.Where(p => p.AreadId == id).Count();
-            DevAlarmNum = dList.Count;
             
-            return ;
+            var pList = query.ToList();
+            var dList = query2.ToList();
+            var ass=new AreaStatistics();
+            ass.PersonNum= pList.Count;
+            ass.DevNum = db.DevInfos.DbSet.Count(p => p.ParentId == id);
+            ass.LocationAlarmNum = db.LocationAlarms.DbSet.Count(p => p.AreadId == id);
+            ass.DevAlarmNum = dList.Count;
+            return ass;
         }
 
         public IList<TEntity> GetListWithPerson()

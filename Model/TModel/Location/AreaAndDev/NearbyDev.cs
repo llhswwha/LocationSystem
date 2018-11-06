@@ -4,46 +4,44 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace TModel.Location.Person
+namespace TModel.Location.AreaAndDev
 {
     /// <summary>
-    /// 附近人员（通用）
+    /// 附近设备
     /// </summary>
-    [DataContract][Serializable]
-    public class NearbyPerson_Currency
+    [DataContract]
+    [Serializable]
+    public class NearbyDev
     {
+        /// <summary>
+        /// 设备Id
+        /// </summary>
         [DataMember]
         public int id { get; set; }
 
         /// <summary>
-        /// 人员名称
+        /// 设备名称
         /// </summary>
         [DataMember]
         public string Name { get; set; }
 
         /// <summary>
-        /// 编号
+        /// 设备类型名称
         /// </summary>
         [DataMember]
-        public int? WorkNumber { get; set; }
+        public string TypeName { get; set; }
+
+        /// <summary>
+        /// 所属区域名称
+        /// </summary>
+        [DataMember]
+        public string Area { get; set; }
 
         /// <summary>
         /// 距离
         /// </summary>
         [DataMember]
-        public float? Distance { get; set; }
-
-        /// <summary>
-        /// 部门
-        /// </summary>
-        [DataMember]
-        public string DepartMent { get; set; }
-
-        /// <summary>
-        /// 职位
-        /// </summary>
-        [DataMember]
-        public string Position { get; set; }
+        public float Distance { get; set; }
 
         /// <summary>
         /// X
@@ -63,18 +61,24 @@ namespace TModel.Location.Person
         [DataMember]
         public float Z { get; set; }
 
-
-        public NearbyPerson_Currency()
+        public NearbyDev()
         {
             id = 0;
             Name = "";
-            WorkNumber = 0;
+            TypeName = "";
+            Area = "";
             Distance = 0;
-            DepartMent = "";
-            Position = "";
             X = 0;
             Y = 0;
             Z = 0;
+        }
+    }
+
+    public class DevDistanceCompare : IComparer<NearbyDev>
+    {
+        public int Compare(NearbyDev d1, NearbyDev d2)
+        {
+            return d1.Distance.CompareTo(d2.Distance);
         }
     }
 }

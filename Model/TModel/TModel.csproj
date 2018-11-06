@@ -55,6 +55,7 @@
     <Compile Include="Location\AreaAndDev\Archor.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\ModelTypeItem.cs" />
+    <Compile Include="Location\AreaAndDev\NearbyDev.cs" />
     <Compile Include="Location\AreaAndDev\ObjectAddList.cs" />
     <Compile Include="FuncArgs\AlarmSearchArg.cs" />
     <Compile Include="LocationHistory\Data\Position.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Location\Obsolete\User.cs" />
     <Compile Include="Location\Obsolete\Map.cs" />
     <Compile Include="Location\Person\Department.cs" />
-    <Compile Include="Location\Person\NearbyPerson_Currency.cs" />
+    <Compile Include="Location\Person\NearbyPerson.cs" />
     <Compile Include="Location\Person\Personnel.cs" />
     <Compile Include="Location\TransferOfAxesConfig.cs" />
     <Compile Include="Location\Work\JurisDiction.cs" />

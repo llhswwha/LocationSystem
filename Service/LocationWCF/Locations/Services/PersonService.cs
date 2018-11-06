@@ -257,9 +257,9 @@ namespace LocationServices.Locations.Services
             return result ? dbItem.ToTModel() : null;
         }
 
-        public List<NearbyPerson_Currency> GetNearbyPerson_Currency(int id)
+        public List<NearbyPerson> GetNearbyPerson_Currency(int id)
         {
-            List<NearbyPerson_Currency> lst = new List<NearbyPerson_Currency>();
+            List<NearbyPerson> lst = new List<NearbyPerson>();
             DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
             if (dev == null || dev.ParentId == null)
             {
@@ -282,13 +282,13 @@ namespace LocationServices.Locations.Services
                         join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
                         join t3 in db.Departments.DbSet on t2.ParentId equals t3.Id
                         where t1.AreaId == AreadId
-                        select new NearbyPerson_Currency { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
+                        select new NearbyPerson { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
             if (query != null)
             {
                 lst = query.ToList();
             }
 
-            foreach (NearbyPerson_Currency item in lst)
+            foreach (NearbyPerson item in lst)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -305,12 +305,14 @@ namespace LocationServices.Locations.Services
                 Distance = 0;
             }
 
+            lst.Sort(new PersonDistanceCompare());
+
             return lst;
         }
 
-        public List<NearbyPerson_Currency> GetNearbyPerson_Alarm(int id)
+        public List<NearbyPerson> GetNearbyPerson_Alarm(int id)
         {
-            List<NearbyPerson_Currency> lst = new List<NearbyPerson_Currency>();
+            List<NearbyPerson> lst = new List<NearbyPerson>();
             DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
             if (dev == null || dev.ParentId == null)
             {
@@ -334,13 +336,13 @@ namespace LocationServices.Locations.Services
                         join t3 in db.Personnels.DbSet on t1.PersonnelId equals t3.Id
                         join t4 in db.Departments.DbSet on t3.ParentId equals t4.Id
                         where t1.LocationCardId == AreadId
-                        select new NearbyPerson_Currency { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
+                        select new NearbyPerson { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
             if (query != null)
             {
                 lst = query.ToList();
             }
 
-            foreach (NearbyPerson_Currency item in lst)
+            foreach (NearbyPerson item in lst)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -356,6 +358,8 @@ namespace LocationServices.Locations.Services
                 sqrtDistance = 0;
                 Distance = 0;
             }
+
+            lst.Sort(new PersonDistanceCompare());
 
             return lst;
 

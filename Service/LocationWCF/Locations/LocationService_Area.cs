@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DbModel.Location.AreaAndDev;
 using Location.BLL.ServiceHelpers;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
@@ -133,68 +134,52 @@ namespace LocationServices.Locations
 
         public AreaStatistics GetAreaStatistics(int id)
         {
-            int PersonNum = 0;
-            int DevNum = 0;
-            int LocationAlarmNum = 0;
-            int DevAlarmNum = 0;
+            var areaList = db.Areas.ToList();
+            var a1 = areaList.Find(p => p.Id == id);
+            AreaStatistics ast = GetAreaStatisticsInner(a1, areaList);//areaList传进去避免在循环中查找
+            return ast;
+        }
 
-            AreaStatistics ast = new AreaStatistics();
-            AreaService asr = new AreaService();
-
-            List<DbModel.Location.AreaAndDev.Area> AreaList = db.Areas.ToList();
-            DbModel.Location.AreaAndDev.Area a1 = AreaList.Find(p => p.Id == id);
+        private AreaStatistics GetAreaStatisticsInner(Area a1, List<Area> areaList)
+        {
+            AreaStatistics ast = null;
             if (a1 != null)
             {
-                asr.GetAreaStatisticsCount(id, ref PersonNum, ref DevNum, ref LocationAlarmNum, ref DevAlarmNum);
-
-                List<DbModel.Location.AreaAndDev.Area> AreaChildernList = AreaList.FindAll(p => p.ParentId == id);
-                if (AreaChildernList == null)
+                AreaService asr = new AreaService();
+                ast = asr.GetAreaStatisticsCount(a1.Id);
+                var areaChildernList = areaList.FindAll(p => p.ParentId == a1.Id);
+                foreach (var item in areaChildernList)
                 {
-                    return ast;
-                }
-
-                foreach (DbModel.Location.AreaAndDev.Area item in AreaChildernList)
-                {
-                    AreaStatistics ast2 = GetAreaStatistics(item.Id);
+                    AreaStatistics ast2 = GetAreaStatisticsInner(item, areaList);
                     if (ast2 == null)
                     {
                         continue;
                     }
-
-                    PersonNum += ast2.PersonNum;
-                    DevNum += ast2.DevNum;
-                    LocationAlarmNum += ast2.LocationAlarmNum;
-                    DevAlarmNum += ast2.DevAlarmNum;
+                    ast.Add(ast2);
                 }
             }
-
-            ast.PersonNum = PersonNum;
-            ast.DevNum = DevNum;
-            ast.LocationAlarmNum = LocationAlarmNum;
-            ast.DevAlarmNum = DevAlarmNum;
-            
             return ast;
         }
 
-        public List<NearbyPerson_Currency> GetNearbyPerson_Currency(int id)
+        public List<NearbyPerson> GetNearbyPerson_Currency(int id)
         {
             PersonService ps = new PersonService();
-            List<NearbyPerson_Currency> lst = ps.GetNearbyPerson_Currency(id);
+            List<NearbyPerson> lst = ps.GetNearbyPerson_Currency(id);
             if (lst == null)
             {
-                lst = new List<NearbyPerson_Currency>();
+                lst = new List<NearbyPerson>();
             }
             
             return lst;
         }
 
-        public List<NearbyPerson_Currency> GetNearbyPerson_Alarm(int id)
+        public List<NearbyPerson> GetNearbyPerson_Alarm(int id)
         {
             PersonService ps = new PersonService();
-            List<NearbyPerson_Currency> lst = ps.GetNearbyPerson_Alarm(id);
+            List<NearbyPerson> lst = ps.GetNearbyPerson_Alarm(id);
             if (lst == null)
             {
-                lst = new List<NearbyPerson_Currency>();
+                lst = new List<NearbyPerson>();
             }
 
             return lst;

@@ -7,14 +7,14 @@ namespace Location.TModel.Tools
         public static long DateTimeToTimeStamp(DateTime dt)
         {
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970,1,1));
-            long timeStamp = (long)(dt.Ticks - startTime.Ticks)/10000000;
+            long timeStamp = (long)(dt.Ticks - startTime.Ticks)/10000;
             return timeStamp;
         }
 
         public static DateTime TimeStampToDateTime(long timeStamp)
         {
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
-            DateTime dt = startTime.AddSeconds(timeStamp);
+            DateTime dt = startTime.AddMilliseconds(timeStamp);
             return dt;
         }
     }

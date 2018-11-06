@@ -537,5 +537,29 @@ namespace LocationServices.Locations
 
             return pc2.ToTModel();
         }
+
+        public List<NearbyDev> GetNearbyDev_Currency(int id)
+        {
+            DeviceService ds = new DeviceService();
+            List<NearbyDev> lst = ds.GetNearbyDev_Currency(id);
+            if (lst == null)
+            {
+                lst = new List<NearbyDev>();
+            }
+
+            return lst;
+        }
+
+        public List<NearbyDev> GetNearbyCamera_Alarm(int id)
+        {
+            DeviceService ds = new DeviceService();
+            List<NearbyDev> lst = ds.GetNearbyCamera_Alarm(id);
+            if (lst == null)
+            {
+                lst = new List<NearbyDev>();
+            }
+
+            return lst;
+        }
     }
 }

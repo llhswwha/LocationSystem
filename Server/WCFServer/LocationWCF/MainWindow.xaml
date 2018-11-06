@@ -25,6 +25,9 @@
                 <MenuItem Header="定位历史数据" Name="MenuLocationHistoryTest" Click="MenuLocationHistoryTest_OnClick"></MenuItem>
                 <MenuItem Header="事件发送测试" Name="MenuEventSendTest" Click="MenuEventSendTest_OnClick"></MenuItem>
             </MenuItem>
+            <MenuItem Header="测试指令">
+                <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>
+            </MenuItem>
         </Menu>
         <!--<Button DockPanel.Dock="Top" Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
         <Button DockPanel.Dock="Top" Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>-->

@@ -37,5 +37,13 @@ namespace TModel.Location.AreaAndDev
             LocationAlarmNum = 0;
             DevAlarmNum = 0;
         }
+
+        public void Add(AreaStatistics ast2)
+        {
+            PersonNum += ast2.PersonNum;
+            DevNum += ast2.DevNum;
+            LocationAlarmNum += ast2.LocationAlarmNum;
+            DevAlarmNum += ast2.DevAlarmNum;
+        }
     }
 }

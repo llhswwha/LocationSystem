@@ -142,8 +142,23 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchor", ReplyAction="http://tempuri.org/IDevService/GetArchorResponse")]
         TModel.Location.AreaAndDev.Archor GetArchor(string id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchorByDevId", ReplyAction="http://tempuri.org/IDevService/GetArchorByDevIdResponse")]
+        TModel.Location.AreaAndDev.Archor GetArchorByDevId(int devId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/EditArchor", ReplyAction="http://tempuri.org/IDevService/EditArchorResponse")]
         bool EditArchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddArchor", ReplyAction="http://tempuri.org/IDevService/AddArchorResponse")]
+        bool AddArchor(TModel.Location.AreaAndDev.Archor archor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
+        void DeleteArchor(int archorId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
+        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
+        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id);
@@ -255,10 +270,10 @@ namespace WCFServiceForWPF.LocationServices {
         bool DeletePerson(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse")]
-        TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Currency(int id);
+        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
-        TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Alarm(int id);
+        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetLocationAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse")]
         Location.TModel.Location.Alarm.LocationAlarm[] GetLocationAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg);
@@ -306,7 +321,7 @@ namespace WCFServiceForWPF.LocationServices {
         TModel.Location.Manage.LoginInfo Logout(TModel.Location.Manage.LoginInfo info);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_anchor/EditBusAnchor", ReplyAction="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse")]
-        bool EditBusAnchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId);
+        bool EditBusAnchor(TModel.Location.AreaAndDev.Archor archor, int parentId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_tag/EditBusTag", ReplyAction="http://tempuri.org/Ibus_tag/EditBusTagResponse")]
         bool EditBusTag(Location.TModel.Location.AreaAndDev.Tag Tag);
@@ -516,8 +531,28 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetArchor(id);
         }
         
+        public TModel.Location.AreaAndDev.Archor GetArchorByDevId(int devId) {
+            return base.Channel.GetArchorByDevId(devId);
+        }
+        
         public bool EditArchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId) {
             return base.Channel.EditArchor(Archor, ParentId);
+        }
+        
+        public bool AddArchor(TModel.Location.AreaAndDev.Archor archor) {
+            return base.Channel.AddArchor(archor);
+        }
+        
+        public void DeleteArchor(int archorId) {
+            base.Channel.DeleteArchor(archorId);
+        }
+        
+        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id) {
+            return base.Channel.GetNearbyDev_Currency(id);
+        }
+        
+        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id) {
+            return base.Channel.GetNearbyCamera_Alarm(id);
         }
         
         public Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id) {
@@ -664,11 +699,11 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.DeletePerson(id);
         }
         
-        public TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Currency(int id) {
+        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id) {
             return base.Channel.GetNearbyPerson_Currency(id);
         }
         
-        public TModel.Location.Person.NearbyPerson_Currency[] GetNearbyPerson_Alarm(int id) {
+        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id) {
             return base.Channel.GetNearbyPerson_Alarm(id);
         }
         
@@ -732,8 +767,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.Logout(info);
         }
         
-        public bool EditBusAnchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId) {
-            return base.Channel.EditBusAnchor(Archor, ParentId);
+        public bool EditBusAnchor(TModel.Location.AreaAndDev.Archor archor, int parentId) {
+            return base.Channel.EditBusAnchor(archor, parentId);
         }
         
         public bool EditBusTag(Location.TModel.Location.AreaAndDev.Tag Tag) {

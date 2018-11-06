@@ -19,6 +19,7 @@
       <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsAutoIp" type="xs:boolean" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
       <xs:element minOccurs="0" name="Power" type="xs:double" />
       <xs:element minOccurs="0" name="ServerIp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ServerPort" type="xs:int" />
@@ -29,6 +30,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Archor" nillable="true" type="tns:Archor" />
+  <xs:complexType name="ArrayOfNearbyDev">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NearbyDev" nillable="true" type="tns:NearbyDev" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNearbyDev" nillable="true" type="tns:ArrayOfNearbyDev" />
+  <xs:complexType name="NearbyDev">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Area" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Distance" type="xs:float" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NearbyDev" nillable="true" type="tns:NearbyDev" />
   <xs:complexType name="Picture">
     <xs:sequence>
       <xs:element minOccurs="0" name="Info" nillable="true" type="xs:base64Binary" />
