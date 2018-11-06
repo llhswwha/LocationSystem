@@ -161,7 +161,7 @@ namespace LocationServices.Locations.Services
                         join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
                         where pos.AreaId + "" == areaId
                         select new {Person=p,Tag=tag,Pos=pos};
-
+            string sql = query.ToString();
             var list=new List<TEntity>();
             foreach (var item in query.ToList())
             {

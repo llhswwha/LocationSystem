@@ -36,7 +36,7 @@ namespace BLL.Initializers
         public CardRole role7;
         public CardRole role8;
 
-        public List<CardRole> roles = new List<CardRole>(); 
+        public List<CardRole> roles = new List<CardRole>();
 
         public void InitData()
         {

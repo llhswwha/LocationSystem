@@ -20,13 +20,13 @@
             <Label Width="80">Local IP</Label>
             <ComboBox Width="130" Name="TbLocalIp"></ComboBox>
             <Label Width="80">Local Port</Label>
-            <TextBox Width="50" Name="TbLocalPort">2323</TextBox>
+            <TextBox Width="70" Name="TbLocalPort">2323</TextBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label Width="80">Engine IP</Label>
             <ComboBox Width="130" Name="TbEngineIp" IsEditable="True"></ComboBox>
             <Label Width="80">Engine Port</Label>
-            <TextBox Width="50" Name="TbEnginePort">3456</TextBox>
+            <ComboBox Width="70" Name="TbEnginePort"></ComboBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" >
             <CheckBox Name="CbWriteToDb" IsChecked="True">写入数据库</CheckBox>

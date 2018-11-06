@@ -59,14 +59,49 @@ namespace BLL
             }
         }
 
+        class ArchorDistance:IComparable<ArchorDistance>
+        {
+            public double Distance { get; set; }
+            public Archor Archor { get; set; }
+
+            public ArchorDistance(double d, Archor a)
+            {
+                Distance = d;
+                Archor = a;
+            }
+
+            public int CompareTo(ArchorDistance other)
+            {
+                return this.Distance.CompareTo(other.Distance);
+            }
+        }
+
+        //public void A
+
         private void AddSimulateArchor(Position pos)
         {
             if (pos.IsSimulate)//是模拟程序数据,计算并添加基站
             {
-                var relativeArchors = archors.FindAll(i => ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z)) < 100).ToList();
-                foreach (var archor in relativeArchors)
+                var relativeArchors = archors.FindAll(i => ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z)) < 200).ToList();
+                
+                if (relativeArchors.Count == 0)
                 {
-                    pos.AddArchor(archor.Code);
+                    List<ArchorDistance> distances = new List<ArchorDistance>();
+                    foreach (Archor i in archors)
+                    {
+                        var distance = ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z));
+                        distances.Add(new ArchorDistance(distance, i));
+                    }
+                    distances.Sort();
+
+                    pos.AddArchor(distances[0].Archor.Code);
+                }
+                else
+                {
+                    foreach (var archor in relativeArchors)
+                    {
+                        pos.AddArchor(archor.Code);
+                    }
                 }
             }
         }
@@ -94,6 +129,7 @@ namespace BLL
                     if (areas[parentId] > maxCount)
                     {
                         maxArea = parentId;
+                        maxCount = areas[parentId];
                     }
                 }
                 pos.AreaId = maxArea;

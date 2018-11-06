@@ -19,6 +19,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.LocationHistory.Data;
 using DbModel.Tools;
 using LocationServer;
+using LocationServices.Converters;
 using LocationServices.Locations;
 using LocationServices.Locations.Services;
 using TModel.Tools;
@@ -43,16 +44,25 @@ namespace PositionSimulation
         private void SimulationWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             AreaCanvas1.Init();
-            LoadAreaTree();
-            LoadDepTree();
-            //StartServer();
-            InitIpList();
+            
+            InitCbList();
+
+            LoadData();
         }
 
-        private void InitIpList()
+        private void LoadData()
+        {
+            LoadAreaTree();
+            LoadDepTree();
+        }
+
+        private void InitCbList()
         {
             CbIpList.ItemsSource = IpHelper.GetLocalList();
             CbIpList.SelectedIndex = 0;
+
+            TbPort.ItemsSource = new int[] {3455, 3456};
+            TbPort.SelectedIndex = 0;
         }
 
 
@@ -94,17 +104,12 @@ namespace PositionSimulation
                         {
                             var ps = AreaCanvas1.PersonShapeList[i];
                             ps.SavePos();
+                            var tPos = ps.Person.Tag.Pos;
+                            var dbPos = tPos.ToDbModel();
+
                             Position pos = new Position();
                             pos.SetTime();
-                            var tPos = ps.Person.Tag.Pos;
-                            pos.Code = tPos.Tag;
-                            pos.X = tPos.X;
-                            pos.Y = tPos.Z;
-                            pos.Z = tPos.Y;
-                            pos.Power = tPos.Power;
-                            pos.Number = i;
-                            pos.Flag = tPos.Flag;
-                            pos.Archors = tPos.Archors;
+                            pos.SetProperty(dbPos);
                             server.Send(pos.GetText());
                         }
 
@@ -136,10 +141,14 @@ namespace PositionSimulation
         {
             area = TopoTreeView1.SelectedObject as Area;
             if (area == null) return;
-            //AreaCanvas1.ShowDev = true;
+            AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
             var service = new PersonService();
             var persons=service.GetListByArea(area.Id+"");
+            if (persons == null)
+            {
+                persons = service.GetListByArea("");
+            }
             AreaCanvas1.ShowPersons(persons);
         }
 
@@ -161,12 +170,35 @@ namespace PositionSimulation
 
         private void MenuRefresh_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            LoadData();
         }
 
         private void MenuPersonSetting_OnClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void MenuSavePos_OnClick(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < AreaCanvas1.PersonShapeList.Count; i++)
+            {
+                var ps = AreaCanvas1.PersonShapeList[i];
+                ps.SavePos();
+                var tPos = ps.Person.Tag.Pos;
+                var dbPos = tPos.ToDbModel();
+                var dbPos2 = bll.LocationCardPositions.FindByCode(dbPos.Code);
+                dbPos2.Edit(dbPos);
+                if (bll.LocationCardPositions.Edit(dbPos2) == false)
+                {
+                    MessageBox.Show("保存失败");
+                    return;
+                }
+
+                //Position pos = new Position();
+                //pos.SetTime();
+                //pos.SetProperty(dbPos);
+                //server.Send(pos.GetText());
+            }
         }
     }
 }

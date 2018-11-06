@@ -144,12 +144,14 @@ namespace BLL
         public bool AddPositionsEx(List<Position> positions)
         {
             //1.删除重复的位置信息，只留最新的部分
-            positions = RemoveRepeatPosition(positions);
+            var positions2 = RemoveRepeatPosition(positions);
+            positions.Clear();
+            positions.AddRange(positions2);
             //2.处理定位引擎位置信息，添加关联人员信息
             var tagRelation = new TagRelationBuffer(this);
-            tagRelation.SetPositionInfo(positions);
+            tagRelation.SetPositionInfo(positions2);
             //3.写入数据库
-            return AddPositions(positions);
+            return AddPositions(positions2);
         }
 
         /// <summary>

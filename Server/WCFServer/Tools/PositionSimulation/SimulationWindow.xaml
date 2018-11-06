@@ -8,13 +8,17 @@
         Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="SimulationWindow_OnLoaded" Closed="SimulationWindow_OnClosed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="菜单"></MenuItem>
+            <MenuItem Header="菜单">
+                <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_OnClick"></MenuItem>
+                <MenuItem Header="人员设置" Name="MenuPersonSetting" Click="MenuPersonSetting_OnClick"></MenuItem>
+                <MenuItem Header="保存位置" Name="MenuSavePos" Click="MenuSavePos_OnClick"></MenuItem>
+            </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>Ip:</Label>
             <ComboBox Name="CbIpList" Width="150"></ComboBox>
             <Label>Port</Label>
-            <TextBox Name="TbPort" Width="50" Text="3455"></TextBox>
+            <ComboBox Name="TbPort" Width="70" IsEditable="True"></ComboBox>
             <Button Name="BtnStartListen" Content="开始" Click="BtnStartListen_OnClick"></Button>
         </StackPanel>
         <TabControl  Width="200">

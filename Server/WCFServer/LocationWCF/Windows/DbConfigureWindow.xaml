@@ -15,6 +15,8 @@
             <MenuItem Header="数据初始化">
                 <MenuItem Header="区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuInitAA" Click="MenuInitAA_OnClick"></MenuItem>
+                <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
+                <MenuItem Header="人员 标签" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="整理初始化设备" Name="MenuRemoveArchor" Click="MenuRemoveArchor_Click"></MenuItem>

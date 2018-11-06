@@ -54,18 +54,24 @@ namespace BLL.Tools
         /// <param name="areaId">设备所属区域ID</param>
         private static void AddLocationDev(List<LocationDevice> devList, ArchorBll archorBll, int? areaId)
         {
-            foreach (var locationDev in devList)
-            {                
-                DevInfo devInfo = GetDevInfo(locationDev,areaId);
-                DevPos devPos = GetDevPos(locationDev,devInfo.Local_DevID);
-                Archor archor = GetAnchorInfo(locationDev,devInfo.Id);
+            for (int i = 0; i < devList.Count; i++)
+            {
+                var locationDev = devList[i];
+                DevInfo devInfo = GetDevInfo(locationDev, areaId);
+                DevPos devPos = GetDevPos(locationDev, devInfo.Local_DevID);
+                Archor archor = GetAnchorInfo(locationDev, devInfo.Id);
                 archor.ParentId = areaId;
+                if (string.IsNullOrEmpty(archor.Code))
+                {
+                    archor.Code = "Code_" + i;
+                }
                 devInfo.SetPos(devPos);
                 archor.DevInfo = devInfo;
                 archorBll.Add(archor);
                 //devBlls.Add(devInfo);
             }
         }
+
         /// <summary>
         /// 获取基站信息
         /// </summary>

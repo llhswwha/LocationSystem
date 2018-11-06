@@ -124,6 +124,9 @@ namespace EngineClient
 
             TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155"};
             TbEngineIp.SelectedIndex = 0;
+
+            TbEnginePort.ItemsSource = new string[] {"3455", "3456"};
+            TbEnginePort.SelectedIndex = 0;
         }
 
         private void MenuOpenSimulation3D_OnClick(object sender, RoutedEventArgs e)

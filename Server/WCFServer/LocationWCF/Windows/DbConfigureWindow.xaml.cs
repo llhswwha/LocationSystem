@@ -91,6 +91,21 @@ namespace LocationServer.Windows
         {
             DbInitializer initializer = new DbInitializer(new Bll());
             initializer.InitAuthorization();
+            MessageBox.Show("完成");
+        }
+
+        private void MenuRealPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            DbInitializer initializer = new DbInitializer(new Bll());
+            initializer.InitRealTimePositions();
+            MessageBox.Show("完成");
+        }
+
+        private void MenuPersonAndCard_OnClick(object sender, RoutedEventArgs e)
+        {
+            DbInitializer initializer = new DbInitializer(new Bll());
+            initializer.InitCardAndPerson();
+            MessageBox.Show("完成");
         }
     }
 }

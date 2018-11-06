@@ -156,7 +156,7 @@ namespace LocationServices.Tools
 
         private bool InsertPostions(List<Position> list1)
         {
-            if (list1.Count < 20) return false;
+            //if (list1.Count < 20) return false;
             bool r = false;
             Stopwatch watch1 = new Stopwatch();
             watch1.Start();
@@ -172,6 +172,9 @@ namespace LocationServices.Tools
                         CardRole role = bll.CardRoles.Find(p.RoleId);
                         if (role != null)
                         {
+                            var aarList=bll.AreaAuthorizationRecords.ToList();
+                            var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
+                            var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
                             //bll.AreaAuthorizations.Add(new areaa)
                         }
                         else

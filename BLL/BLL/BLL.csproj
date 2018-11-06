@@ -133,6 +133,7 @@
     <Compile Include="Tools\KKSCodeHelper.cs" />
     <Compile Include="Tools\LocationDeviceHelper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\RandomTool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

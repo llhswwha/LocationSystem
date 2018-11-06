@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
+using DbModel.Location.Data;
 using DbModel.Location.Settings;
 using Location.TModel.Tools;
 
@@ -164,7 +165,7 @@ namespace DbModel.LocationHistory.Data
             try
             {
                 _info = info;
-                string[] parts = info.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = info.Split(new[] { ',' });
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
@@ -183,12 +184,13 @@ namespace DbModel.LocationHistory.Data
                     Flag = parts[7];
                 if (length > 8)
                 {
-                    Archors = parts[8].Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
+                    string archors = parts[8];
+                    Archors = archors.Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
                     if (Archors.Count > 1)
                     {
                         Console.Write("Archors.Count > 1");
                     }
-                    IsSimulate = parts[8] == "@0000";
+                    IsSimulate = archors == "@0000" || string.IsNullOrEmpty(archors);
                 }
                 return true;
             }
@@ -219,6 +221,18 @@ namespace DbModel.LocationHistory.Data
         {
             Position copy = this.CloneObjectByBinary();
             return copy;
+        }
+
+        public void SetProperty(LocationCardPosition pos)
+        {
+            Code = pos.Code;
+            X = pos.X;
+            Y = pos.Z;
+            Z = pos.Y;
+            Power = pos.Power;
+            Number = pos.Number;
+            Flag = pos.Flag;
+            Archors = pos.Archors;
         }
     }
 }

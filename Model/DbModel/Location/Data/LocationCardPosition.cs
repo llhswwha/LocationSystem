@@ -148,6 +148,21 @@ namespace DbModel.Location.Data
             this.AreaId = pos.AreaId;
         }
 
+        public void Edit(LocationCardPosition pos)
+        {
+            this.CardId = pos.CardId;
+            this.X = pos.X;
+            this.Y = pos.Y;
+            this.Z = pos.Z;
+            this.DateTimeStamp = pos.DateTimeStamp;
+            this.DateTime = pos.DateTime;
+            this.Power = pos.Power;
+            this.Number = pos.Number;
+            this.Flag = pos.Flag;
+            this.Archors = pos.Archors;
+            this.AreaId = pos.AreaId;
+        }
+
         public LocationCardPosition Clone()
         {
             LocationCardPosition copy = this.CloneObjectByBinary();

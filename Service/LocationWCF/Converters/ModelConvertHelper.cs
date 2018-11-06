@@ -60,12 +60,12 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Data.LocationCardPosition();
-            //item2.Code = item1.Code;
+            item2.Code = item1.Tag;
             item2.X = item1.X;
             item2.Y = item1.Y;
             item2.Z = item1.Z;
-            //item2.DateTime = item1.DateTime;
-            //item2.DateTimeStamp = item1.DateTimeStamp;
+            item2.DateTime = TimeConvert.TimeStampToDateTime(item1.Time);
+            item2.DateTimeStamp = item1.Time;
             item2.Power = item1.Power;
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
