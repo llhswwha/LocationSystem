@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ using DbModel.Tools;
 using LocationServer;
 using LocationServices.Locations;
 using LocationServices.Locations.Services;
+using TModel.Tools;
 
 namespace PositionSimulation
 {
@@ -43,7 +45,14 @@ namespace PositionSimulation
             AreaCanvas1.Init();
             LoadAreaTree();
             LoadDepTree();
-            StartServer();
+            //StartServer();
+            InitIpList();
+        }
+
+        private void InitIpList()
+        {
+            CbIpList.ItemsSource = IpHelper.GetLocalList();
+            CbIpList.SelectedIndex = 0;
         }
 
 
@@ -67,12 +76,12 @@ namespace PositionSimulation
 
         private Thread serverThread;
 
-        private void StartServer()
+        private void StartServer(IPAddress localIP, int localPort)
         {
             if (server == null)
             {
                 server = new SimulationServer();
-                server.Start();
+                server.Start(localIP, localPort);
             }
 
             if (serverThread == null)
@@ -129,12 +138,35 @@ namespace PositionSimulation
             if (area == null) return;
             //AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
-
-
             var service = new PersonService();
             var persons=service.GetListByArea(area.Id+"");
-
             AreaCanvas1.ShowPersons(persons);
+        }
+
+        private void BtnStartListen_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (BtnStartListen.Content.ToString() == "开始")
+            {
+                string ip = CbIpList.Text;
+                string port = TbPort.Text;
+                StartServer(IPAddress.Parse(ip),port.ToInt());
+                BtnStartListen.Content = "结束";
+            }
+            else
+            {
+                StopServer();
+                BtnStartListen.Content = "开始";
+            }
+        }
+
+        private void MenuRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MenuPersonSetting_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

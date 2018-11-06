@@ -7,11 +7,9 @@ using Location.TModel.Tools;
 using Newtonsoft.Json;
 using NsqSharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebNSQLib
 {

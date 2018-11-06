@@ -10,6 +10,13 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="菜单"></MenuItem>
         </Menu>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>Ip:</Label>
+            <ComboBox Name="CbIpList" Width="150"></ComboBox>
+            <Label>Port</Label>
+            <TextBox Name="TbPort" Width="50" Text="3455"></TextBox>
+            <Button Name="BtnStartListen" Content="开始" Click="BtnStartListen_OnClick"></Button>
+        </StackPanel>
         <TabControl  Width="200">
             <TabItem Header="区域">
                 <WPFClientControlLib:TopoTreeView x:Name="TopoTreeView1" />

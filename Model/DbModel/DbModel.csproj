@@ -116,6 +116,7 @@
     <Compile Include="Location\Work\WorkTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\InitInfos\TransformM.cs" />
+    <Compile Include="Tools\IpHelper.cs" />
     <Compile Include="Tools\ListExtension.cs" />
     <Compile Include="Tools\Log.cs" />
     <Compile Include="Tools\MathTool.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,8 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using DbModel.Tools;
 using LocationServices.Tools;
 using LocationWCFServer;
+using PositionSimulation;
 using TModel.Tools;
 
 namespace EngineClient
@@ -116,21 +119,30 @@ namespace EngineClient
 
         private void EngineClientWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            string name = Dns.GetHostName();
-            IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
-            //foreach (IPAddress ipa in ipadrlist)
-            //{
-            //    if (ipa.AddressFamily == AddressFamily.InterNetwork)
-            //        Console.Writeline(ipa.ToString());
-            //}
-            var list = new List<IPAddress>();
-            list.Add(IPAddress.Parse("127.0.0.1"));
-            list.AddRange(ipadrlist);
-            TbLocalIp.ItemsSource = list;
-            TbLocalIp.SelectedIndex = 1;
+            TbLocalIp.ItemsSource = IpHelper.GetLocalList();
+            TbLocalIp.SelectedIndex = 0;
 
             TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155"};
-            TbEngineIp.SelectedIndex = 1;
+            TbEngineIp.SelectedIndex = 0;
+        }
+
+        private void MenuOpenSimulation3D_OnClick(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Simulator\\Simulator.exe";
+            if (System.IO.File.Exists(path))
+            {
+                Process.Start(path);
+            }
+            else
+            {
+                MessageBox.Show("未找到文件:" + path);
+            }
+        }
+
+        private void MenuOpenSimulation2D_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new SimulationWindow();
+            win.Show();
         }
     }
 }

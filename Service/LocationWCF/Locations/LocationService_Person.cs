@@ -42,6 +42,7 @@ namespace LocationServices.Locations
         public List<Personnel> GetPersonList()
         {
             var list = db.Personnels.ToList();
+            if (list == null) return null;
             var tagToPersons = db.LocationCardToPersonnels.ToList();
             var postList = db.Posts.ToList();//职位
             var tagList = db.LocationCards.ToList();//关联标签

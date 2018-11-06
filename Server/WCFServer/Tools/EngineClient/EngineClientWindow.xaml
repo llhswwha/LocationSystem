@@ -9,8 +9,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="工具">
-                <MenuItem Header="三维模拟程序"></MenuItem>
-                <MenuItem Header="二维模拟程序"></MenuItem>
+                <MenuItem Header="三维模拟程序" Name="MenuOpenSimulation3D" Click="MenuOpenSimulation3D_OnClick"></MenuItem>
+                <MenuItem Header="二维模拟程序" Name="MenuOpenSimulation2D" Click="MenuOpenSimulation2D_OnClick"></MenuItem>
                 <MenuItem Header="数据写入测试"></MenuItem>
                 <MenuItem Header="历史数据查询" Name="MenuHistory" Click="MenuHistory_OnClick"></MenuItem>
                 <MenuItem Header="实时数据查询" Name="MenuReal" Click="MenuReal_OnClick"></MenuItem>

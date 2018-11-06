@@ -102,19 +102,6 @@ namespace LocationWCFServer
         //    LocationTestBox1.StopConnectEngine();
         //}
 
-        private void BtnOpenSimulator_OnClick(object sender, RoutedEventArgs e)
-        {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "Simulator\\Simulator.exe";
-            if (File.Exists(path))
-            {
-                Process.Start(path);
-            }
-            else
-            {
-                MessageBox.Show("未找到文件:" + path);
-            }
-        }
-
         private void BtnOpenU3D_OnClick(object sender, RoutedEventArgs e)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "Location\\Location.exe";

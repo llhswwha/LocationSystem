@@ -169,6 +169,10 @@
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PositionSimulation\PositionSimulation.csproj">
+      <Project>{1d07f8b3-0c29-4257-b632-88e2ba92a265}</Project>
+      <Name>PositionSimulation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />

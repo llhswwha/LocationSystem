@@ -127,14 +127,21 @@ namespace Coldairarrow.Util.Sockets
                 IsReceiving = true;
                 while (udpc.Client != null && !recieveBW.CancellationPending)
                 {
-                    while (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
+                    try
                     {
-                        BUDPGram budpg = new BUDPGram();
-                        budpg.data = udpc.Receive(ref budpg.iep);
-                        recieveBW.ReportProgress(1, budpg);
-                    }//这里要用while，接收直到全部收完，而不是收一条，等100ms
-                    
-                    System.Threading.Thread.Sleep(recvInterval);
+                        while (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
+                        {
+                            BUDPGram budpg = new BUDPGram();
+                            budpg.data = udpc.Receive(ref budpg.iep);
+                            recieveBW.ReportProgress(1, budpg);
+                        }//这里要用while，接收直到全部收完，而不是收一条，等100ms
+
+                        System.Threading.Thread.Sleep(recvInterval);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Threading.Thread.Sleep(recvInterval);
+                    }
                 }
             }
             catch (Exception  EX )
