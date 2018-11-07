@@ -110,6 +110,11 @@ namespace LocationServer.Controls
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {
+            ClickStart();
+        }
+
+        public void ClickStart()
+        {
             if (BtnStartService.Content.ToString() == "启动服务")
             {
                 string host = TbHost.Text;

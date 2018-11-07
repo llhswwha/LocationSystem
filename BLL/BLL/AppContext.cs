@@ -12,6 +12,8 @@ namespace LocationServer
 {
     public static class AppContext
     {
+        public static bool AutoStartServer { get; set; }
+
         public static Bll GetLocationBll()
         {
             return new Bll(false, true, false);
@@ -52,7 +54,7 @@ namespace LocationServer
             Log.InfoEnd("InitDb");
         }
 
-        public static void InitDbAsync(int mode,Action callBack,bool isForce=false)
+        public static void InitDbAsync(int mode,Action<Bll> callBack,bool isForce=false)
         {
             Log.InfoStart("InitDb");
             Bll bll;
@@ -83,18 +85,18 @@ namespace LocationServer
                     bll.DbHistory.Database.Create();
                 }
             }
-            bll.InitAsync(mode,()=>
+            bll.InitAsync(mode,(b)=>
             {
                 Log.InfoEnd("InitDb");
                 if (callBack != null)
                 {
-                    callBack();
+                    callBack(b);
                 }
             });
             
         }
 
-        public static void InitDbAsync(int dbsource, int initMode,Action callback)
+        public static void InitDbAsync(int dbsource, int initMode,Action<Bll> callback)
         {
             InitDbContext(dbsource);
             InitDbAsync(initMode, callback,true);

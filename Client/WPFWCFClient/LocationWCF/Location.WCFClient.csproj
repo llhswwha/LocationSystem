@@ -72,6 +72,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -93,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="WebApi\WebApiClient.cs" />
     <Compile Include="WebApi\WebApiHelper.cs" />
     <Compile Include="WebApi\WebApiWindow.xaml.cs">
@@ -200,6 +202,12 @@
       <Project>{2f461217-f714-4546-9302-d17c3f730ded}</Project>
       <Name>WPFClientControlLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Data\Images\顶视图.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

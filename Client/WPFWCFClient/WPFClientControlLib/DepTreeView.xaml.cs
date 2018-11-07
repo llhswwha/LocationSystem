@@ -29,7 +29,7 @@ namespace WPFClientControlLib
         public void LoadData(Department root)
         {
             //TreeView1.ItemsSource = root.Children;
-
+            if (root == null) return;
             ShowTree(TreeView1,root.Children);
 
         }

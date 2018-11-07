@@ -16,6 +16,7 @@ using Location.TModel.Location.Alarm;
 using LocationClient.WebApi;
 using SignalRClientLib;
 using Location.TModel.Location.AreaAndDev;
+using LocationClient.Tools;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
 using WCFServiceForWPF.LocationServices;
@@ -171,25 +172,39 @@ namespace LocationWCFClient.Windows
 
         private void BtnModifyPicture_OnClick(object sender, RoutedEventArgs e)
         {
-            string strName = "测试图片";
-            string strInfo = "还贷款萨丹哈";
-            byte[] byteArray = System.Text.Encoding.Default.GetBytes(strInfo);
-            var client = AppContext.Instance.Client.InnerClient;
-
+            string strName = "顶视图";
+            //string strInfo = "还贷款萨丹哈";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Images\\顶视图.png";
+            byte[] byteArray =  ImageHelper.LoadImageFile(path);
             Picture pc = new Picture();
             pc.Name = strName;
             pc.Info = byteArray;
             bool bReturn = client.EditPictureInfo(pc);
-
+            if (bReturn)
+            {
+                MessageBox.Show("保存成功");
+            }
+            else
+            {
+                MessageBox.Show("保存失败");
+            }
         }
 
         private void BtnGetPicture_OnClick(object sender, RoutedEventArgs e)
         {
-            string strName = "测试图片";
+            string strName = "顶视图";
             Picture pc = client.GetPictureInfo(strName);
             byte[] byteArray = pc.Info;
-            string strInfo = System.Text.Encoding.Default.GetString(byteArray);
-            int n = 0;
+            System.Drawing.Image image = ImageHelper.BytesToImage(byteArray);
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Images\\顶视图2.png";
+            image.Save(path);
+            BitmapImage bitmapImage = ImageHelper.ToBitmapImage(byteArray);
+            Image1.Source = bitmapImage;
+        }
+
+        private void BtnClearPicture_OnClick(object sender, RoutedEventArgs e)
+        {
+            Image1.Source = null;
         }
 
         private void BtnGetAreaStatistics_OnClick(object sender, RoutedEventArgs e)
@@ -220,5 +235,6 @@ namespace LocationWCFClient.Windows
         {
             NearbyDev[] lst = client.GetNearbyCamera_Alarm(1);
         }
+
     }
 }

@@ -213,7 +213,7 @@ namespace BLL
             var posts = new List<Post>() {post1,post2,post3,post4,post5,post6,post7};
             Posts.AddRange(posts);
 
-            int maxPersonCount = 400;
+            int maxPersonCount = 100;
             List<LocationCard> tagsT = LocationCards.ToList();
             RandomTool rt=new RandomTool();
             for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)

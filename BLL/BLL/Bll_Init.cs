@@ -14,7 +14,7 @@ namespace BLL
             InitDbData(mode);
         }
 
-        public void InitAsync(int mode,Action callBack)
+        public void InitAsync(int mode,Action<Bll> callBack)
         {
             Thread thread = new Thread(() =>
               {
@@ -22,7 +22,7 @@ namespace BLL
                   InitDbData(mode);
                   if (callBack != null)
                   {
-                      callBack();
+                      callBack(this);
                   }
               });
             thread.Start();

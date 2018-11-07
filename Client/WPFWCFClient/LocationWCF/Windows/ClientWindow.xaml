@@ -47,8 +47,11 @@
             </TabItem>
             <TabItem Header="图片修改测试">
                 <StackPanel>
+                    <!--<Button>选择</Button>-->
                     <Button Name="BtnModifyPicture" Click="BtnModifyPicture_OnClick">修改图片</Button>
                     <Button Name="BtnGetPicture" Click="BtnGetPicture_OnClick">获取图片</Button>
+                    <Image Name="Image1"></Image>
+                    <Button Name="BtnClearPicture" Click="BtnClearPicture_OnClick">清空图片</Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="部分界面信息">

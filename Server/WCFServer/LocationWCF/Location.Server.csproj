@@ -120,6 +120,7 @@
       <HintPath>..\..\..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -193,6 +194,8 @@
     <Compile Include="Models\EngineTool\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ConfigurationHelper.cs" />
+    <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Windows\ArchorListWindow.xaml.cs">
       <DependentUpon>ArchorListWindow.xaml</DependentUpon>
     </Compile>
@@ -345,6 +348,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="Data\Images\顶视图.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

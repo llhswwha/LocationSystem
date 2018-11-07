@@ -11,6 +11,7 @@ using log4net.Config;
 using Location.BLL.Tool;
 using TModel.Tools;
 using LocationServer;
+using LocationServer.Tools;
 
 namespace LocationWCFServer
 {
@@ -42,7 +43,7 @@ namespace LocationWCFServer
 
             //var devs = db.DevInfos.ToList();
 
-            int mode = ConfigurationManager.AppSettings["ShowSqlLog"].ToInt();
+            int mode = ConfigurationHelper.GetIntValue("ShowSqlLog");
             if (mode == 1)
             {
                 BLL.Bll.ShowLog = true;
@@ -51,18 +52,22 @@ namespace LocationWCFServer
             InitDbContext();
 
             InitData();
+
+            AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
         }
 
         private static void InitDbContext()
         {
-            int mode = ConfigurationManager.AppSettings["DbSource"].ToInt();
+            int mode = ConfigurationHelper.GetIntValue("DbSource");
             AppContext.InitDbContext(mode);
         }
+
+        
 
         private void InitData()
         {
             Log.Info("InitData");
-            int mode = ConfigurationManager.AppSettings["DataInitMode"].ToInt(); //-1:不初始化,0:EF,1:Sql
+            int mode = ConfigurationHelper.GetIntValue("DataInitMode"); //-1:不初始化,0:EF,1:Sql
             Log.Info("DataInitMode:" + mode);
             if (mode >= 0)
             {

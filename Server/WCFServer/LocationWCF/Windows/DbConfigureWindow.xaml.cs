@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LocationClient.Tools;
 
 namespace LocationServer.Windows
 {
@@ -50,17 +51,28 @@ namespace LocationServer.Windows
         private void MenuInitMSSql_Click(object sender, RoutedEventArgs e)
         {
 
-            AppContext.InitDbAsync(0, 0,()=>
+            AppContext.InitDbAsync(0, 0,(bll)=>
             {
+                InitImage(bll);
                 MessageBox.Show("初始化完成");
+
             });
+        }
+
+        private void InitImage(Bll bll)
+        {
+            string strName = "顶视图";
+            //string strInfo = "还贷款萨丹哈";
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Images\\顶视图.png";
+            byte[] byteArray = ImageHelper.LoadImageFile(path);
+            bll.Pictures.Update(strName, byteArray);
         }
 
         private void MenuInitSqlite_Click(object sender, RoutedEventArgs e)
         {
-
-            AppContext.InitDbAsync(1, 0, () =>
+            AppContext.InitDbAsync(1, 0, (bll) =>
             {
+                InitImage(bll);
                 MessageBox.Show("初始化完成");
             });
         }

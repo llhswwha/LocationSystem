@@ -62,9 +62,13 @@ namespace LocationWCFServer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-
             //LocationTestBox1.Logs = Logs;
             InitData();
+
+            if (AppContext.AutoStartServer)
+            {
+                ServerManagerBox1.ClickStart();
+            }
         }
 
         private void InitData()

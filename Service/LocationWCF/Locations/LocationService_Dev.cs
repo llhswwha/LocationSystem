@@ -508,28 +508,12 @@ namespace LocationServices.Locations
 
         public bool EditPictureInfo(Picture pc)
         {
-            bool bReturn = false;
-            DbModel.Location.AreaAndDev.Picture pc2 = db.Pictures.DbSet.Where(p => p.Name == pc.Name).FirstOrDefault();
-            if (pc2 == null)
-            {
-                pc2 = new DbModel.Location.AreaAndDev.Picture();
-                pc2.Name = pc.Name;
-                pc2.Info = pc.Info;
-
-                bReturn = db.Pictures.Add(pc2);
-            }
-            else
-            {
-                pc2.Info = pc.Info;
-                bReturn = db.Pictures.Edit(pc2);
-            }
-
-            return bReturn;
+            return db.Pictures.Update(pc.Name, pc.Info);
         }
 
         public Picture GetPictureInfo(string strPictureName)
         {
-            DbModel.Location.AreaAndDev.Picture pc2 = db.Pictures.DbSet.Where(p => p.Name == strPictureName).FirstOrDefault();
+            DbModel.Location.AreaAndDev.Picture pc2 = db.Pictures.DbSet.FirstOrDefault(p => p.Name == strPictureName);
             if (pc2 == null)
             {
                 pc2 = new DbModel.Location.AreaAndDev.Picture();
