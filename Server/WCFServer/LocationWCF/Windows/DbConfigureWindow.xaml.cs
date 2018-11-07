@@ -62,7 +62,6 @@ namespace LocationServer.Windows
         private void InitImage(Bll bll)
         {
             string strName = "顶视图";
-            //string strInfo = "还贷款萨丹哈";
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Images\\顶视图.png";
             byte[] byteArray = ImageHelper.LoadImageFile(path);
             bll.Pictures.Update(strName, byteArray);
