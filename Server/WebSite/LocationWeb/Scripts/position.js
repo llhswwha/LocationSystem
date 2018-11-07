@@ -24,7 +24,7 @@ img.src = '../Img/MapPic/PowerPlant.png';
 function initChart() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8733/api/pos",
+        url: "/api/pos",
         dataType: "json",
         success: function (datas) {
             console.log(datas);

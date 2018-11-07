@@ -16,6 +16,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DbModel.Tools;
+using DbModel.Tools.InitInfos;
 using LocationClient.Tools;
 
 namespace LocationServer.Windows
@@ -50,6 +52,20 @@ namespace LocationServer.Windows
 
         private void MenuInitMSSql_Click(object sender, RoutedEventArgs e)
         {
+            var aa = new AuthorizationArea();
+            aa.Id = 1;
+            aa.Name = "aa";
+            aa.ParentId = 0;
+            aa.Children.Add(new AuthorizationArea() { Id = 2, ParentId = 1, Name = "bb" });
+            XmlSerializeHelper.Save(aa, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml");
+
+
+            //var xf = new XmlFile();
+            //xf.Id = 1;
+            //xf.Name = "aa";
+            //xf.ParentId = 0;
+            //xf.Children.Add(new XmlFile() { Id = 2, ParentId = 1, Name = "bb" });
+            //XmlSerializeHelper.Save(xf, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\XmlFile.xml");
 
             AppContext.InitDbAsync(0, 0,(bll)=>
             {

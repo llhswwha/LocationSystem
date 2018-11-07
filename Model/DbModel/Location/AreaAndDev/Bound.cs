@@ -295,6 +295,11 @@ namespace DbModel.Location.AreaAndDev
             return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
         }
 
+        public bool ContainsSimple(double x, double y)
+        {
+            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+        }
+
 
         public Point GetLeftBottomPoint()
         {

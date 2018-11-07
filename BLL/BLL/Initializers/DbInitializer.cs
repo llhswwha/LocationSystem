@@ -19,6 +19,7 @@ using BLL.Blls.LocationHistory;
 using BLL.Initializers;
 using DbModel.Location.Authorizations;
 using DbModel.Location.Work;
+using DbModel.Tools.InitInfos;
 
 namespace BLL
 {
@@ -64,6 +65,9 @@ namespace BLL
         {
             _bll = bll;
         }
+
+        int maxPersonCount = 20;//初始人的数量
+        int maxTagCount = 20;//初始卡的数量
 
         public void InitDbData(int mode, bool isForce = false)
         {
@@ -193,12 +197,14 @@ namespace BLL
             Department dep11 = new Department() { Name = "四会电厂", ShowOrder = 0, Parent = dep0, Type = DepartType.本厂 };
             Departments.Add(dep11);
             Department dep12 = new Department() { Name = "维修部门", ShowOrder = 0, Parent = dep11, Type = DepartType.本厂 };
-            Department dep13 = new Department() { Name = "发电部门", ShowOrder = 1, Parent = dep11, Type = DepartType.本厂 };
-            Department dep14 = new Department() { Name = "外委人员", ShowOrder = 2, Parent = dep11, Type = DepartType.本厂 };
-            Department dep15 = new Department() { Name = "访客", ShowOrder = 0, Parent = dep11, Type = DepartType.本厂 };
+            Departments.Add(dep12);//单个添加可以只是设置Parent
+            Department dep13 = new Department() { Name = "发电部门", ShowOrder = 1, ParentId = dep11.Id, Type = DepartType.本厂 };//批量添加必须设置ParentId
+            Department dep14 = new Department() { Name = "外委人员", ShowOrder = 2, ParentId = dep11.Id, Type = DepartType.本厂 };
+            Department dep15 = new Department() { Name = "访客", ShowOrder = 0, ParentId = dep11.Id, Type = DepartType.本厂 };
 
-            List<Department> subDeps = new List<Department>() {dep12,dep13,dep14,dep15};
-            Departments.AddRange(subDeps);
+            List<Department> subDeps = new List<Department>() { dep12,dep13, dep14,dep15};
+            List<Department> subDeps2 = new List<Department>() { dep13, dep14, dep15 };
+            Departments.AddRange(subDeps2);
 
             //Departments.AddRange(dep11, dep12, dep13, dep14, dep15);
 
@@ -212,10 +218,9 @@ namespace BLL
             Post post7 = new Post() { Name = "访客" };
             var posts = new List<Post>() {post1,post2,post3,post4,post5,post6,post7};
             Posts.AddRange(posts);
-
-            int maxPersonCount = 100;
             List<LocationCard> tagsT = LocationCards.ToList();
             RandomTool rt=new RandomTool();
+
             for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
             {
                 var tag = tagsT[i];
@@ -231,6 +236,8 @@ namespace BLL
                     AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i, rt.GetRandomTel());
                 }
             }
+
+
         }
 
         public void InitUsers()
@@ -269,15 +276,24 @@ namespace BLL
             var cards = _bll.LocationCards.ToList();
             var area = _bll.Areas.Find(2);//电厂
             var bound = area.InitBound;
-            
+
             for (int i = 0; i < cardPersons.Count; i++)
             {
-                var x = r.Next((int)bound.GetWidth())+bound.MinX;
-                var z = r.Next((int)bound.GetLength())+bound.MinY;
                 var cp = cardPersons[i];
                 var card = cards.Find(j => j.Id == cp.LocationCardId);
-                var tagposition1 = new LocationCardPosition() { CardId = cp.LocationCardId, Code = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
-                tagpositions.Add(tagposition1);
+                if (i < 10)//这部分固定初始位置
+                {
+                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Code = card.Code, X = 2292.5f+i, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
+                    tagpositions.Add(tagposition);
+                }
+                else//这部分随机初始位置
+                {
+                    var x = r.Next((int)bound.GetWidth()) + bound.MinX;
+                    var z = r.Next((int)bound.GetLength()) + bound.MinY;
+                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Code = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
+                    tagpositions.Add(tagposition);
+                }
+                
             }
             LocationCardPositions.AddRange(tagpositions);
         }
@@ -290,7 +306,6 @@ namespace BLL
 
             var roles = GetRoles();
 
-            int maxTagCount = 800;
             Random r=new Random(DateTime.Now.Millisecond);
             Log.InfoStart("InitTagPositions");
             List<LocationCard> tags = new List<LocationCard>();
@@ -346,13 +361,39 @@ namespace BLL
 
         public void InitAuthorization()
         {
-
-            //区域权限列表
+            AreaAuthorizationRecords.Clear();
             AreaAuthorizations.Clear();
-            var areas = Areas.ToList();
+
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml";
+
+            //if (File.Exists(path))
+            //{
+            //    InitAuthorizationFromFile(path);
+            //}
+            //else
+            {
+                InitAuthorizationFromAreas(path);
+            }
+        }
+
+        private void InitAuthorizationFromAreas(string path)
+        {
             var aaList = new List<AreaAuthorization>();
+            var aarList = new List<AreaAuthorizationRecord>();
+            //区域权限列表
+
+            var areas = Areas.ToList();
+            var areas2 = new List<AuthorizationArea>();
             foreach (var area in areas)
             {
+                var aa2 = new AuthorizationArea();
+                aa2.Id = area.Id;
+                aa2.Name = area.Name;
+                aa2.ParentId = area.ParentId ?? 0;
+                areas2.Add(aa2);
+                if (area.InitBound == null) continue;
+
+                
                 var aa = new AreaAuthorization();
                 aa.AreaId = area.Id;
                 //aa.Area = area;
@@ -372,21 +413,21 @@ namespace BLL
                 //{
                 //    Log.Error("r == false");
                 //}
+                aa2.Items.Add(aa);
             }
-            bool r1=AreaAuthorizations.AddRange(aaList);
-
-            AreaAuthorizationRecords.Clear();
-            var aarList = new List<AreaAuthorizationRecord>();
+            bool r1 = AreaAuthorizations.AddRange(aaList);
 
             List<CardRole> roles = GetRoles();
 
             //权限指派给标签角色
             foreach (var aa in aaList)
             {
+                var aa2 = areas2.Find(i => i.Id == aa.AreaId);
                 foreach (var role in roles)
                 {
                     var aar = new AreaAuthorizationRecord(aa, role);
                     aarList.Add(aar);
+                    aa2.Records.Add(aar);
                 }
                 //1.超级管理员能够进入全部区间
                 //2.管理人员也能进入全部区域
@@ -395,7 +436,12 @@ namespace BLL
                 //4.参观人员（高级）能够进入生活区域和大部分生产区域
                 //5.参观人员（一般）能够进入生活区域和少部分生产区域
             }
+
             AreaAuthorizationRecords.AddRange(aarList);
+
+            var tree = TreeHelper.CreateTree(areas2);
+            XmlSerializeHelper.Save(tree[0], path);
+            //tree[0]
 
             //角色,区域，卡
             //1.可以进入全部区域
@@ -406,6 +452,41 @@ namespace BLL
             //6.可以进入某个房间
 
             //AreaAuthorizations.Add(new AreaAuthorization() {})
+        }
+
+        private void InitAuthorizationFromFile(string path)
+        {
+            var aaList = new List<AreaAuthorization>();
+            var aarList = new List<AreaAuthorizationRecord>();
+            var tree = XmlSerializeHelper.LoadFromFile<AuthorizationArea>(path);
+            var list = tree.GetAllChildren(null);
+            foreach (var area in list)
+            {
+                if (area.Items != null)
+                {
+                    foreach (var aa in area.Items)
+                    {
+                        aa.CreateTime = DateTime.Now;
+                        aa.ModifyTime = DateTime.Now;
+                        aaList.Add(aa);
+                    }
+                }
+            }
+            bool r1 = AreaAuthorizations.AddRange(aaList);
+
+            foreach (var area in list)
+            {
+                if (area.Records != null)
+                {
+                    foreach (var ar in area.Records)
+                    {
+                        ar.CreateTime = DateTime.Now;
+                        ar.ModifyTime = DateTime.Now;
+                        aarList.Add(ar);
+                    }
+                }
+            }
+            AreaAuthorizationRecords.AddRange(aarList);
         }
 
         /// <summary>

@@ -33,6 +33,11 @@ namespace WebLocation.Controllers
             return View("Index", lst);
         }
 
+        public ActionResult Position()
+        {
+            return View();
+        }
+
         // GET: Tags/Details/5
         public ActionResult Details(int? id)
         {

@@ -103,12 +103,20 @@ namespace DbModel.Tools
         /// <returns></returns>
         public static Stream Serialize(object obj, Encoding encoding)
         {
-            MemoryStream memory = new MemoryStream();
-            XmlSerializer serializer = new XmlSerializer(obj.GetType());
-            TextWriter writer = new StreamWriter(memory, encoding);
-            serializer.Serialize(writer, obj);
-            memory.Position = 0;
-            return memory;
+            try
+            {
+                MemoryStream memory = new MemoryStream();
+                XmlSerializer serializer = new XmlSerializer(obj.GetType());
+                TextWriter writer = new StreamWriter(memory, encoding);
+                serializer.Serialize(writer, obj);
+                memory.Position = 0;
+                return memory;
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Info("Serialize:" + ex);
+                return null;
+            }
         }
 
         /// <summary>

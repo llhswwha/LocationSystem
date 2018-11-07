@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DbModel.Location.Alarm;
 
 namespace BLL.Buffers
 {
@@ -27,8 +28,9 @@ namespace BLL.Buffers
             
         }
 
-        public void GetAlarms(List<Position> list1)
+        public List<LocationAlarm> GetAlarms(List<Position> list1)
         {
+            var alarms = new List<LocationAlarm>();
             LoadData();
             foreach (Position p in list1)
             {
@@ -36,13 +38,52 @@ namespace BLL.Buffers
                 CardRole role = roles.Find(i => i.Id == p.RoleId);
                 if (role != null)
                 {
-                    var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
-                    var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
-                    //bll.AreaAuthorizations.Add(new areaa)
+                    //var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
+                    //var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
+                    
+                    var aarList4 = aarList.FindAll(i => i.AreaId == p.AreaId && i.CardRoleId == role.Id);
+                    if (aarList4.Count > 0)
+                    {
+                        foreach (var arr in aarList)
+                        {
+                            if (arr.AccessType == AreaAccessType.Enter)
+                            {
+                                if (arr.IsTimeValid(p.DateTime)==false)
+                                {
+                                    LocationAlarm alarm = new LocationAlarm(p, "未在有效时间范围内");
+                                    alarms.Add(alarm);
+                                }
+                            }
+                            else if (arr.AccessType == AreaAccessType.EnterLeave)
+                            {
+                                if (arr.IsTimeValid(p.DateTime) == false)
+                                {
+                                    LocationAlarm alarm = new LocationAlarm(p, "未在有效时间范围内");
+                                    alarms.Add(alarm);
+                                }
+                            }
+                            else if (arr.AccessType == AreaAccessType.Leave)
+                            {
+                                LocationAlarm alarm = new LocationAlarm(p, "进入无权限的区域，必须离开");
+                                alarms.Add(alarm);
+                            }
+                            else if (arr.AccessType == AreaAccessType.None)
+                            {
+                                LocationAlarm alarm = new LocationAlarm(p, "进入无权限的区域");
+                                alarms.Add(alarm);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        LocationAlarm alarm=new LocationAlarm(p,"不存在可进入的区域");
+                        alarms.Add(alarm);
+                    }
                 }
                 else
                 {
-
+                    LocationAlarm alarm = new LocationAlarm(p, "未配置区域权限");
+                    alarms.Add(alarm);
                 }
                 //1.找出区域相关的所有权限
                 //2.判断当前定位卡是否有权限进入该区域
@@ -52,6 +93,7 @@ namespace BLL.Buffers
                 //  2.4默认标签角色CardRole 1.超级管理员、巡检人员、管理人员、施工人员、参观人员
                 //p.AreaId
             }
+            return alarms;
         }
     }
 }

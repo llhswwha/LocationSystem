@@ -46,10 +46,10 @@ namespace BLL.Blls.Location
             return DbSet.Where(i => i.ParentId==pid).ToList();
         }
 
-        public List<Area> GetWithBoundPoints()
+        public List<Area> GetWithBoundPoints(bool withPoints)
         {
             var bounds = Db.Bounds.ToList();
-            var points = Db.Points.ToList();
+            
             List<Area> list = ToList();
             foreach (var area in list)
             {
@@ -60,10 +60,15 @@ namespace BLL.Blls.Location
                 if(area.Children==null)
                     area.Children = list.FindAll(i => i.ParentId == area.Id);
             }
-            foreach (var bound in bounds)
+
+            if (withPoints)
             {
-                if (bound.Points == null)
-                    bound.Points = points.FindAll(i => i.BoundId == bound.Id);
+                var points = Db.Points.ToList();
+                foreach (var bound in bounds)
+                {
+                    if (bound.Points == null)
+                        bound.Points = points.FindAll(i => i.BoundId == bound.Id);
+                }
             }
             return list;
         } 

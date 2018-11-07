@@ -141,6 +141,8 @@ namespace BLL
             return dict.Values.ToList();
         }
 
+        private TagRelationBuffer tagRelation;
+
         public bool AddPositionsEx(List<Position> positions)
         {
             //1.删除重复的位置信息，只留最新的部分
@@ -148,7 +150,11 @@ namespace BLL
             positions.Clear();
             positions.AddRange(positions2);
             //2.处理定位引擎位置信息，添加关联人员信息
-            var tagRelation = new TagRelationBuffer(this);
+            //var tagRelation = new TagRelationBuffer(this);
+            if (tagRelation == null)
+            {
+                tagRelation = new TagRelationBuffer();
+            }
             tagRelation.SetPositionInfo(positions2);
             //3.写入数据库
             return AddPositions(positions2);

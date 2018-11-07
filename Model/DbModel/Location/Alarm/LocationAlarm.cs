@@ -6,6 +6,7 @@ using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using DbModel.LocationHistory.Data;
 using Location.TModel.Tools;
 
 namespace DbModel.Location.Alarm
@@ -42,7 +43,7 @@ namespace DbModel.Location.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "告警定位卡")]
-        public int LocationCardId { get; set; }
+        public int? LocationCardId { get; set; }
         [DataMember]
         public virtual LocationCard LocationCard { get; set; }
 
@@ -51,7 +52,7 @@ namespace DbModel.Location.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "告警人员")]
-        public int PersonnelId { get; set; }
+        public int? PersonnelId { get; set; }
         [DataMember]
         public virtual Personnel Personnel { get; set; }
 
@@ -113,8 +114,24 @@ namespace DbModel.Location.Alarm
 
         public LocationAlarm()
         {
+            SetTime();
+        }
+
+        private void SetTime()
+        {
             AlarmTime = DateTime.Now;
             AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(AlarmTime);
+        }
+
+        public LocationAlarm(Position p,string content)
+        {
+            SetTime();
+            AlarmType = LocationAlarmType.区域告警;
+            AlarmLevel = LocationAlarmLevel.四级告警;
+            LocationCardId = p.CardId;
+            PersonnelId = p.PersonnelID;
+            AreadId = p.AreaId;
+            Content = content;
         }
 
         public LocationAlarm SetPerson(LocationCardToPersonnel p)
@@ -150,8 +167,8 @@ namespace DbModel.Location.Alarm
             history.Id = this.Id;
             history.AlarmType = this.AlarmType;
             history.AlarmLevel = this.AlarmLevel;
-            history.LocationCardId = this.LocationCardId;
-            history.PersonnelId = this.PersonnelId;
+            history.LocationCardId = this.LocationCardId ?? 0;
+            history.PersonnelId = this.PersonnelId ?? 0;
             history.AreadId = this.AreadId;
             history.Content = this.Content;
             history.AlarmTime = this.AlarmTime;

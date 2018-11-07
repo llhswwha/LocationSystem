@@ -16,10 +16,17 @@
         };
         toastr.success("修改成功！");
         $('#myModal').modal('hide');
+
+        //局部刷新页面
+        //$(function () {
+        //    $("#freshTable").load(location.href + " #freshTable");//注意后面DIV的ID前面的空格，很重要！（也可以使用类名）
+        //})
+
         //延时加载页面
         setTimeout(function () {
             location.reload();
         }, 1000);
+
         //location.reload();
     } else {
         $.each(result.errors, function (key, val) {

@@ -629,9 +629,9 @@ namespace LocationServices.Converters
             item2.Id = item1.Id;
             item2.AlarmType = item1.AlarmType;
             item2.AlarmLevel = item1.AlarmLevel;
-            item2.TagId = item1.LocationCardId;
+            item2.TagId = item1.LocationCardId ?? 0;
             item2.Tag = item1.LocationCard.ToTModel();
-            item2.PersonnelId = item1.PersonnelId;
+            item2.PersonnelId = item1.PersonnelId ?? 0;
             item2.Personnel = item1.Personnel.ToTModel();
             item2.Content = item1.Content;
             item2.CreateTime = item1.AlarmTime;

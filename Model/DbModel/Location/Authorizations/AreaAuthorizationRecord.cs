@@ -3,9 +3,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using Location.TModel.Tools;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Authorizations;
+using DbModel.LocationHistory.Data;
 
 namespace DbModel.Location.Work
 {
@@ -19,6 +21,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "主键Id")]
+        [XmlIgnore]
         public int Id { get; set; }
 
         /// <summary>
@@ -27,6 +30,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "名称")]
         [Required]
+        [XmlAttribute]
         public string Name { get; set; }
 
         /// <summary>
@@ -34,6 +38,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
+        [XmlAttribute]
         public string Description { get; set; }
 
         /// <summary>
@@ -41,6 +46,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "种类")]
+        [XmlAttribute]
         public TimeSettingType TimeType { get; set; }
 
         /// <summary>
@@ -48,21 +54,24 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "起始时间点")]
-        public DateTime? StartTime { get; set; }
+        [XmlAttribute]
+        public DateTime StartTime { get; set; }
 
         /// <summary>
         /// 权限结束时间点
         /// </summary>
         [DataMember]
         [Display(Name = "结束时间点")]
-        public DateTime? EndTime { get; set; }
+        [XmlAttribute]
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// 权限时长,单位是 分钟
         /// </summary>
         [DataMember]
         [Display(Name = "时长")]
-        public int? TimeSpan { get; set; }
+        [XmlAttribute]
+        public int TimeSpan { get; set; }
 
         public void SetTimeSpane()
         {
@@ -79,6 +88,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "延迟时间")]
+        [XmlAttribute]
         public int DelayTime { get; set; }
 
         /// <summary>
@@ -86,6 +96,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "误差距离")]
+        [XmlAttribute]
         public int ErrorDistance { get; set; }
 
         /// <summary>
@@ -94,6 +105,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "重复天数")]
         [Required]
+        [XmlAttribute]
         public RepeatDay RepeatDay { get; set; }
 
         /// <summary>
@@ -101,11 +113,14 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "区域")]
-        public int? AreaId { get; set; }
+        [XmlAttribute]
+        public int AreaId { get; set; }
         //public virtual Area Area { get; set; }
 
+        [XmlAttribute]
         public AreaAccessType AccessType { get; set; }
 
+        [XmlAttribute]
         public AreaRangeType RangeType { get; set; }
 
         /// <summary>
@@ -113,6 +128,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "创建时间")]
+        [XmlIgnore]
         public DateTime? CreateTime { get; set; }
 
         /// <summary>
@@ -120,6 +136,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "修改时间")]
+        [XmlIgnore]
         public DateTime? ModifyTime { get; set; }
 
         /// <summary>
@@ -127,15 +144,18 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "删除时间")]
+        [XmlIgnore]
         public DateTime? DeleteTime { get; set; }
 
         [DataMember]
         [Display(Name = "标签角色")]
-        public int? CardRoleId { get; set; }
+        [XmlAttribute]
+        public int CardRoleId { get; set; }
 
         [DataMember]
-        [Display(Name = "区域选项")]
-        public int? AuthorizationId { get; set; }
+        [Display(Name = "原权限Id")]
+        [XmlAttribute]
+        public int AuthorizationId { get; set; }
 
         public AreaAuthorizationRecord()
         {
@@ -172,6 +192,20 @@ namespace DbModel.Location.Work
             copy = this.CloneObjectByBinary();
 
             return copy;
+        }
+
+        public bool IsValid(Position p)
+        {
+            //1.角色和区域已经在外面过滤过了，这里假设角色和区域相同
+            //2.时间是否在有效范围内
+            //3.AccessType
+            //4.RangeType
+            return true;
+        }
+
+        public bool IsTimeValid(DateTime time)
+        {
+            return true;
         }
     }
 }

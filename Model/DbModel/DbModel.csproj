@@ -56,6 +56,7 @@
     <Compile Include="Location\Authorizations\CardRole.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
     <Compile Include="Tools\CloneHelper.cs" />
+    <Compile Include="Tools\InitInfos\AuthorizationArea.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />

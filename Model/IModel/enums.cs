@@ -33,7 +33,7 @@ namespace DbModel.Tools
     public enum LocationAlarmLevel { 正常, 一级告警, 二级告警, 三级告警, 四级告警 }
 
     //定位告警处理类型
-    public enum LocationAlarmHandleType { 误报, 忽略, 确认 }
+    public enum LocationAlarmHandleType { 未处理,误报, 忽略, 确认 }
 
     //基站类型
     public enum ArchorTypes { 副基站, 主基站 }

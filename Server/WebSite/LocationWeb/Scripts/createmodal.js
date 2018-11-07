@@ -22,6 +22,12 @@
 
         toastr.success("创建成功！");
         $('#myModal').modal('hide');
+
+        //局部刷新        
+        //$(function () {
+        //    $("#freshTable").load(location.href + " #freshTable");//注意后面ID前面的空格，很重要！（也可以使用类名）
+        //})
+
         //延时加载页面
         setTimeout(function () {
             location.reload();

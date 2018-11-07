@@ -111,7 +111,7 @@ namespace LocationServer.Controls
             }
 
             var devs = bll.DevInfos.ToList();
-            var areas = bll.Areas.GetWithBoundPoints();
+            var areas = bll.Areas.GetWithBoundPoints(true);
             list = new List<ArchorSetting>();
             var list2 = bll.ArchorSettings.ToList();
             for (int i = 0; i < archors.Count; i++)

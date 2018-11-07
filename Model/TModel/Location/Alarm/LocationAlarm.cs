@@ -136,7 +136,14 @@ namespace Location.TModel.Location.Alarm
 
         public LocationAlarm SetPerson(Personnel p)
         {
-            //TargetId = p.Id; Target = p; Tag = p.Tag; TagId = p.TagId;
+            Personnel = p;
+            if(p!=null)
+            {
+                PersonnelId = p.Id;
+                Tag = p.Tag;
+                if(p.Tag!=null)
+                    TagId = p.Tag.Id;
+            }
             return this;
         }
 

@@ -17,7 +17,7 @@ namespace BLL
         private List<LocationCardToPersonnel> tagToPersons;
         private List<LocationCard> tags;
         private List<Archor> archors;
-        //private List<Area> areas;
+        private List<Area> areas;
         private Bll bll;
 
 
@@ -27,13 +27,19 @@ namespace BLL
             LoadData();
         }
 
+        public TagRelationBuffer()
+        {
+            this.bll = new Bll(false,false,false,false);
+            LoadData();
+        }
+
         protected override void UpdateData()
         {
             personnels = bll.Personnels.ToList();
             tagToPersons = bll.LocationCardToPersonnels.ToList();
             tags = bll.LocationCards.ToList();
             archors = bll.Archors.ToList();//基站
-            //areas = bll.Areas.GetWithBoundPoints();
+            areas = bll.Areas.GetWithBoundPoints(true);
         }
 
         public void SetPositionInfo(List<Position> positions)
@@ -141,47 +147,62 @@ namespace BLL
                 }
                 pos.AreaId = maxArea;
 
-                //var area = areas.Find(i => i.Id == pos.AreaId);
-                //if (area != null)
-                //{
-                //    if (area.IsPark())//电厂园区,基站属于园区或者楼层
-                //    {
-                //        //var containsAreas = new List<Area>();
-                //        //var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//建筑集合
-                //        //foreach (var item in childrenArea)
-                //        //{
-                //        //    var buildings = areas.FindAll(i => i.ParentId == item.Id);//建筑
-                //        //    foreach(var building in buildings)
-                //        //    {
-                //        //        if (building.InitBound.Contains(pos.X, pos.Y))
-                //        //        {
-                //        //            containsAreas.Add(building);
-                //        //        }
-                //        //    }
-                //        //}
-                //        ////todo:加上建筑外的区域
-                //        //if (containsAreas.Count > 0)
-                //        //{
-                //        //    pos.AreaId = containsAreas[0].Id;
-                //        //}
-                //    }
-                //    else if (area.Type == DbModel.Tools.AreaTypes.楼层)
-                //    {
-                //        var containsAreas = new List<Area>();
-                //        var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//机房
-                //        foreach (var item in childrenArea)
-                //        {
-                //            if (item.InitBound.Contains(pos.X, pos.Y))
-                //            {
-                //                containsAreas.Add(item);
-                //            }
-                //        }
-                //        if (containsAreas.Count > 0)
-                //        {
-                //            pos.AreaId = containsAreas[0].Id;
-                //        }
-                //    }
-                //}
+                var area = areas.Find(i => i.Id == pos.AreaId);
+                if (area != null)
+                {
+                    if (area.IsPark())//电厂园区,基站属于园区或者楼层
+                    {
+                        var containsAreas = new List<Area>();
+                        var boundAreas = new List<Area>();
+                        foreach (var item in area.Children)
+                        {
+                            if (item.InitBound != null)
+                            {
+                                boundAreas.Add(item);
+                            }
+                            foreach (var building in item.Children)
+                            {
+                                if (building.InitBound != null)
+                                {
+                                    boundAreas.Add(building);
+                                }
+                            }
+                        }
+                        foreach (var boundArea in boundAreas)
+                        {
+                            if (boundArea.InitBound.Contains(pos.X, pos.Z))
+                            {
+                                containsAreas.Add(boundArea);
+                            }
+
+                            //if (boundArea.InitBound.ContainsSimple(pos.X, pos.Z))
+                            //{
+                            //    containsAreas.Add(boundArea);
+                            //}
+                        }
+                        //todo:加上建筑外的区域
+                        if (containsAreas.Count > 0)
+                        {
+                            pos.AreaId = containsAreas[0].Id;
+                        }
+                    }
+                    else if (area.Type == DbModel.Tools.AreaTypes.楼层)
+                    {
+                        var containsAreas = new List<Area>();
+                        var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//机房
+                        foreach (var item in childrenArea)
+                        {
+                            if (item.InitBound.Contains(pos.X, pos.Y))
+                            {
+                                containsAreas.Add(item);
+                            }
+                        }
+                        if (containsAreas.Count > 0)
+                        {
+                            pos.AreaId = containsAreas[0].Id;
+                        }
+                    }
+                }
             }
             else
             {

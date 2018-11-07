@@ -3,6 +3,7 @@ using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using Location.TModel.Tools;
 
 namespace DbModel.Location.Work
@@ -17,6 +18,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "主键Id")]
+        [XmlIgnore]
         public int Id { get; set; }
 
         /// <summary>
@@ -25,6 +27,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "名称")]
         [Required]
+        [XmlAttribute]
         public string Name { get; set; }
 
         /// <summary>
@@ -32,6 +35,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
+        [XmlAttribute]
         public string Description { get; set; }
 
         /// <summary>
@@ -39,6 +43,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "种类")]
+        [XmlAttribute]
         public TimeSettingType TimeType { get; set; }
 
         /// <summary>
@@ -46,21 +51,24 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "起始时间点")]
-        public DateTime? StartTime { get; set; }
+        [XmlAttribute]
+        public DateTime StartTime { get; set; }
 
         /// <summary>
         /// 权限结束时间点
         /// </summary>
         [DataMember]
         [Display(Name = "结束时间点")]
-        public DateTime? EndTime { get; set; }
+        [XmlAttribute]
+        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// 权限时长,单位是 分钟
         /// </summary>
         [DataMember]
         [Display(Name = "时长")]
-        public int? TimeSpan { get; set; }
+        [XmlAttribute]
+        public int TimeSpan { get; set; }
 
         public void SetTimeSpane()
         {
@@ -77,6 +85,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "延迟时间")]
+        [XmlAttribute]
         public int DelayTime { get; set; }
 
         /// <summary>
@@ -84,6 +93,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "误差距离")]
+        [XmlAttribute]
         public int ErrorDistance { get; set; }
 
         /// <summary>
@@ -92,6 +102,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "重复天数")]
         [Required]
+        [XmlAttribute]
         public RepeatDay RepeatDay { get; set; }
 
         /// <summary>
@@ -99,7 +110,8 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "区域")]
-        public int? AreaId { get; set; }
+        [XmlAttribute]
+        public int AreaId { get; set; }
 
         //[DataMember]
         //[Display(Name = "区域")]
@@ -107,10 +119,12 @@ namespace DbModel.Location.Work
 
         [DataMember]
         [Display(Name = "进出类型")]
+        [XmlAttribute]
         public AreaAccessType AccessType { get; set; }
 
         [DataMember]
         [Display(Name = "权限范围")]
+        [XmlAttribute]
         public AreaRangeType RangeType { get; set; }
 
         /// <summary>
@@ -118,6 +132,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "创建时间")]
+        [XmlIgnore]
         public DateTime? CreateTime { get; set; }
 
         /// <summary>
@@ -125,6 +140,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "修改时间")]
+        [XmlIgnore]
         public DateTime? ModifyTime { get; set; }
 
         /// <summary>
@@ -132,6 +148,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "删除时间")]
+        [XmlIgnore]
         public DateTime? DeleteTime { get; set; }
 
         public AreaAuthorization Clone()

@@ -180,7 +180,8 @@ namespace LocationServices.Tools
                 //todo:添加定位权限判断
                 if (r)
                 {
-                    ab.GetAlarms(list1);
+                    var alarms=ab.GetAlarms(list1);
+                    bll.LocationAlarms.AddRange(alarms);
                 }
             }
 
