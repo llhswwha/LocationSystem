@@ -17,6 +17,7 @@ namespace BLL
         private List<LocationCardToPersonnel> tagToPersons;
         private List<LocationCard> tags;
         private List<Archor> archors;
+        //private List<Area> areas;
         private Bll bll;
 
 
@@ -32,6 +33,7 @@ namespace BLL
             tagToPersons = bll.LocationCardToPersonnels.ToList();
             tags = bll.LocationCards.ToList();
             archors = bll.Archors.ToList();//基站
+            //areas = bll.Areas.GetWithBoundPoints();
         }
 
         public void SetPositionInfo(List<Position> positions)
@@ -82,18 +84,23 @@ namespace BLL
         {
             if (pos.IsSimulate)//是模拟程序数据,计算并添加基站
             {
-                var relativeArchors = archors.FindAll(i => ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z)) < 200).ToList();
-                
-                if (relativeArchors.Count == 0)
+                List<Archor> relativeArchors = new List<Archor>();
+                List<ArchorDistance> distances = new List<ArchorDistance>();
+                foreach (Archor i in archors)
                 {
-                    List<ArchorDistance> distances = new List<ArchorDistance>();
-                    foreach (Archor i in archors)
+                    var distance = ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z));
+                    if (distance < 200)
                     {
-                        var distance = ((i.X - pos.X) * (i.X - pos.X) + (i.Z - pos.Z) * (i.Z - pos.Z));
+                        relativeArchors.Add(i);
+                    }
+                    if (distance < 1000)
+                    {
                         distances.Add(new ArchorDistance(distance, i));
                     }
+                }
+                if (relativeArchors.Count == 0)
+                {
                     distances.Sort();
-
                     pos.AddArchor(distances[0].Archor.Code);
                 }
                 else
@@ -114,25 +121,67 @@ namespace BLL
             {
                 //List<Archor> archorList = Archors.Buffer.FindByCodes(pos.Archors);
                 var archorList = archors.Where(i => pos.Archors.Contains(i.Code));
-                var areas = new Dictionary<int, int>();
+                var areaCount = new Dictionary<int, int>();
                 int maxCount = 0;
                 int maxArea = 0;
                 foreach (Archor archor in archorList)
                 {
                     if (archor.ParentId == null) continue;
                     int parentId = (int)archor.ParentId;
-                    if (!areas.ContainsKey(parentId))
+                    if (!areaCount.ContainsKey(parentId))
                     {
-                        areas[parentId] = 0;
+                        areaCount[parentId] = 0;
                     }
-                    areas[parentId]++;
-                    if (areas[parentId] > maxCount)
+                    areaCount[parentId]++;
+                    if (areaCount[parentId] > maxCount)
                     {
                         maxArea = parentId;
-                        maxCount = areas[parentId];
+                        maxCount = areaCount[parentId];
                     }
                 }
                 pos.AreaId = maxArea;
+
+                //var area = areas.Find(i => i.Id == pos.AreaId);
+                //if (area != null)
+                //{
+                //    if (area.IsPark())//电厂园区,基站属于园区或者楼层
+                //    {
+                //        //var containsAreas = new List<Area>();
+                //        //var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//建筑集合
+                //        //foreach (var item in childrenArea)
+                //        //{
+                //        //    var buildings = areas.FindAll(i => i.ParentId == item.Id);//建筑
+                //        //    foreach(var building in buildings)
+                //        //    {
+                //        //        if (building.InitBound.Contains(pos.X, pos.Y))
+                //        //        {
+                //        //            containsAreas.Add(building);
+                //        //        }
+                //        //    }
+                //        //}
+                //        ////todo:加上建筑外的区域
+                //        //if (containsAreas.Count > 0)
+                //        //{
+                //        //    pos.AreaId = containsAreas[0].Id;
+                //        //}
+                //    }
+                //    else if (area.Type == DbModel.Tools.AreaTypes.楼层)
+                //    {
+                //        var containsAreas = new List<Area>();
+                //        var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//机房
+                //        foreach (var item in childrenArea)
+                //        {
+                //            if (item.InitBound.Contains(pos.X, pos.Y))
+                //            {
+                //                containsAreas.Add(item);
+                //            }
+                //        }
+                //        if (containsAreas.Count > 0)
+                //        {
+                //            pos.AreaId = containsAreas[0].Id;
+                //        }
+                //    }
+                //}
             }
             else
             {

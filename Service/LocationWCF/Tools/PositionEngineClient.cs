@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using DbModel.Location.Authorizations;
+using BLL.Buffers;
 
 namespace LocationServices.Tools
 {
@@ -41,6 +42,7 @@ namespace LocationServices.Tools
 
         public PositionEngineDA engineDa;
 
+        //public System.Collections.Concurrent.list
 
         public List<Position> Positions = new List<Position>();
 
@@ -154,41 +156,31 @@ namespace LocationServices.Tools
             }
         }
 
+        Bll bll;
+
+        AuthorizationBuffer ab;
+
         private bool InsertPostions(List<Position> list1)
         {
             //if (list1.Count < 20) return false;
             bool r = false;
             Stopwatch watch1 = new Stopwatch();
             watch1.Start();
-            using (var bll = GetLocationBll())
+            if (bll == null)
+            {
+                bll = GetLocationBll();
+            }
+            if (ab == null)
+            {
+                ab = new AuthorizationBuffer(bll);
+            }
+            //using (var bll = GetLocationBll())
             {
                 r = bll.AddPositionsEx(list1);
                 //todo:添加定位权限判断
                 if (r)
                 {
-                    foreach (Position p in list1)
-                    {
-                        if (p == null) continue;
-                        CardRole role = bll.CardRoles.Find(p.RoleId);
-                        if (role != null)
-                        {
-                            var aarList=bll.AreaAuthorizationRecords.ToList();
-                            var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
-                            var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
-                            //bll.AreaAuthorizations.Add(new areaa)
-                        }
-                        else
-                        {
-
-                        }
-                        //1.找出区域相关的所有权限
-                        //2.判断当前定位卡是否有权限进入该区域
-                        //  2.1找的卡所在的标签角色
-                        //  2.2判断该组是否是在权限内
-                        //  2.3不在则发出警告，进入非法区域
-                        //  2.4默认标签角色CardRole 1.超级管理员、巡检人员、管理人员、施工人员、参观人员
-                        //p.AreaId
-                    }
+                    ab.GetAlarms(list1);
                 }
             }
 
@@ -256,7 +248,7 @@ namespace LocationServices.Tools
 
         private void EngineDa_PositionListRecived(List<Position> posList)
         {
-            lock (Positions)
+            //lock (Positions)//这里有lock的话会导致线程堵住，去掉发现似乎并不需要
             {
                 try
                 {

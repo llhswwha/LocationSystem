@@ -213,10 +213,10 @@ namespace BLL
             var posts = new List<Post>() {post1,post2,post3,post4,post5,post6,post7};
             Posts.AddRange(posts);
 
-
+            int maxPersonCount = 400;
             List<LocationCard> tagsT = LocationCards.ToList();
             RandomTool rt=new RandomTool();
-            for (int i = 0; i < 100 && i<tagsT.Count; i++)
+            for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
             {
                 var tag = tagsT[i];
                 int n = r.Next(1);
@@ -290,10 +290,11 @@ namespace BLL
 
             var roles = GetRoles();
 
+            int maxTagCount = 800;
             Random r=new Random(DateTime.Now.Millisecond);
             Log.InfoStart("InitTagPositions");
             List<LocationCard> tags = new List<LocationCard>();
-            for (int i = 0; i < 400; i++)//400张卡
+            for (int i = 0; i < maxTagCount; i++)//400张卡
             {
                 var role = roles[r.Next(roles.Count)];//随机分配角色
                 var tag1 = new LocationCard() { Name = "标签"+i, Code = "000"+(i+1), CardRoleId = role.Id };

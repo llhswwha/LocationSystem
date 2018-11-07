@@ -119,7 +119,6 @@
     <Compile Include="ServiceHostHelper.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />
     <Compile Include="Tools\DeviceInfoService.cs" />
-    <Compile Include="Tools\LightUDP.cs" />
     <Compile Include="Tools\ObjectAddListService.cs" />
     <Compile Include="Tools\PositionEngineClient.cs" />
     <Compile Include="Tools\PositionEngineDA.cs" />

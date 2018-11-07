@@ -1,5 +1,6 @@
 ﻿using Location.BLL.Tool;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Sockets;
@@ -26,6 +27,8 @@ namespace Coldairarrow.Util.Sockets
     }
 
     public delegate void DGramRecievedHandle(object sender, BUDPGram dgram);
+
+    public delegate void DGramListRecievedHandle(object sender, List<BUDPGram> dgram);
 
     /// <summary>
     /// 多播的地址是特定的，D类地址用于多播，即224.0.0.0至239.255.255.255之间的IP地址，并被划分为局部连接多播地址、预留多播地址和管理权限多播地址3类：
@@ -73,6 +76,7 @@ namespace Coldairarrow.Util.Sockets
 
         public event DGramRecievedHandle DGramRecieved;  //接收到信息的事件
 
+        public event DGramListRecievedHandle DGramListRecieved;  //接收到信息的事件
 
         /// <summary>
         /// 绑定监听地址，目前默认本地IP127.0.0.1
@@ -115,6 +119,13 @@ namespace Coldairarrow.Util.Sockets
                     DGramRecieved(this, (BUDPGram)e.UserState);
                 }
             }
+            if (e.ProgressPercentage == 2)
+            {
+                if (DGramListRecieved != null)
+                {
+                    DGramListRecieved(this, (List<BUDPGram>)e.UserState);
+                }
+            }
         }
 
         public bool IsReceiving { get; set; }
@@ -129,13 +140,19 @@ namespace Coldairarrow.Util.Sockets
                 {
                     try
                     {
+                        List<BUDPGram> list = new List<BUDPGram>();
                         while (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
                         {
                             BUDPGram budpg = new BUDPGram();
                             budpg.data = udpc.Receive(ref budpg.iep);
+                            list.Add(budpg);
                             recieveBW.ReportProgress(1, budpg);
                         }//这里要用while，接收直到全部收完，而不是收一条，等100ms
-
+                        if (list.Count > 0)
+                        {
+                            recieveBW.ReportProgress(2, list);
+                            //list.Clear();
+                        }
                         System.Threading.Thread.Sleep(recvInterval);
                     }
                     catch (Exception ex)

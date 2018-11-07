@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Server", "Server\W
 	ProjectSection(ProjectDependencies) = postProject
 		{7327244D-E163-4C35-9C1A-8DBDF06B9408} = {7327244D-E163-4C35-9C1A-8DBDF06B9408}
 		{13CCC157-451B-4249-BD65-A4DB04A5C143} = {13CCC157-451B-4249-BD65-A4DB04A5C143}
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265} = {1D07F8B3-0C29-4257-B632-88E2BA92A265}
 		{72E591D6-8F83-4D8C-8F67-9C325E623234} = {72E591D6-8F83-4D8C-8F67-9C325E623234}
 		{0629D8F9-CF59-4576-8D31-47D87DB57C17} = {0629D8F9-CF59-4576-8D31-47D87DB57C17}
 	EndProjectSection
@@ -55,6 +56,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xceed.Wpf.Toolkit", "Third\Projects\wpftoolkit-master\ExtendedWPFToolkitSolution\Src\Xceed.Wpf.Toolkit\Xceed.Wpf.Toolkit.csproj", "{72E591D6-8F83-4D8C-8F67-9C325E623234}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineClient", "Server\WCFServer\Tools\EngineClient\EngineClient.csproj", "{0629D8F9-CF59-4576-8D31-47D87DB57C17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D07F8B3-0C29-4257-B632-88E2BA92A265} = {1D07F8B3-0C29-4257-B632-88E2BA92A265}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionSimulation", "Server\WCFServer\Tools\PositionSimulation\PositionSimulation.csproj", "{1D07F8B3-0C29-4257-B632-88E2BA92A265}"
 EndProject

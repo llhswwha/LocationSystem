@@ -118,7 +118,35 @@ namespace LocationWCFServer
             {
                 Log.Info("PositionEngineDA.InitUdp");
                 ludp2 = new LightUDP(IPAddress.Parse(Login.LocalIp), Login.LocalPort); //建立UDP  监听端口
-                ludp2.DGramRecieved += Ludp2_DGramRecieved;
+                //ludp2.DGramRecieved += Ludp2_DGramRecieved;
+                ludp2.DGramListRecieved += Ludp2_DGramListRecieved;
+            }
+        }
+
+        private void Ludp2_DGramListRecieved(object sender, List<BUDPGram> dgramList)
+        {
+            List<Position> posList = new List<Position>();
+            foreach (var dgram in dgramList)
+            {
+                string msg = Encoding.UTF8.GetString(dgram.data);
+                if (MessageReceived != null)
+                {
+                    MessageReceived(msg);
+                }
+                //if (msg.Contains("002"))
+                //{
+                //    Log.Info("002");
+                //}
+                Position pos = new Position();
+                if (pos.Parse(msg))
+                {
+                    posList.Add(pos);
+                }
+
+            }
+            if (PositionListRecived != null)
+            {
+                PositionListRecived(posList);
             }
         }
 
@@ -129,18 +157,18 @@ namespace LocationWCFServer
             {
                 MessageReceived(msg);
             }
-            if (msg.Contains("002"))
-            {
-                Log.Info("002");
-            }
+            //if (msg.Contains("002"))
+            //{
+            //    Log.Info("002");
+            //}
             Position pos = new Position();
             if (pos.Parse(msg))
             {
-                if (PositionRecived != null)
-                {
-                    PositionRecived(pos);
-                }
-                List<Position> posList = AddPositions(pos);
+                //if (PositionRecived != null)
+                //{
+                //    PositionRecived(pos);
+                //}
+                List<Position> posList = AddMockPosition(pos);
                 if (PositionListRecived != null)
                 {
                     PositionListRecived(posList);
@@ -150,11 +178,11 @@ namespace LocationWCFServer
 
         public event Action<string> MessageReceived;
 
-        public event Action<Position> PositionRecived;
+        //public event Action<Position> PositionRecived;
 
         public event Action<List<Position>> PositionListRecived;
 
-        private List<Position> AddPositions(Position pos)
+        private List<Position> AddMockPosition(Position pos)
         {
             List<Position> posList = new List<Position>();
             posList.Add(pos);
