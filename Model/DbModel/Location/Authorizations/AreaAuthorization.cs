@@ -186,5 +186,6 @@ namespace DbModel.Location.Work
         Enter,//可以进入,不能出去
         Leave,//可以出去,不能进去
         None,//不能进去不能出去
+        //可以进入,不能进入
     }
 }

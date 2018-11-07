@@ -113,6 +113,7 @@
     <Compile Include="Locations\Services\PosHistoryService.cs" />
     <Compile Include="Locations\Services\PosService.cs" />
     <Compile Include="Locations\Services\PersonService.cs" />
+    <Compile Include="Locations\Services\TagRoleService.cs" />
     <Compile Include="Locations\Services\TagService.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

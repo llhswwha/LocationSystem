@@ -195,5 +195,11 @@ namespace LocationWCFServer
             int LocationAlarmNum = recv.LocationAlarmNum;
             int DevAlarmNum = recv.DevAlarmNum;
         }
+
+        private void MenuCardRole_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CardRoleWindow();
+            win.Show();
+        }
     }
 }

@@ -211,6 +211,9 @@
     <Compile Include="Windows\AreaCanvasWindow.xaml.cs">
       <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\CardRoleWindow.xaml.cs">
+      <DependentUpon>CardRoleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DbBrowserWindow.xaml.cs">
       <DependentUpon>DbBrowserWindow.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AreaCanvasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CardRoleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
