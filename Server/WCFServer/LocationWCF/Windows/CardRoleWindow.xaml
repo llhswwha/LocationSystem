@@ -11,7 +11,11 @@
             <MenuItem Header="File"></MenuItem>
         </Menu>
         <DataGrid Name="DataGrid1">
-            
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="设置区域权限"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
     </DockPanel>
 </Window>
