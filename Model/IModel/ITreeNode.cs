@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DbModel.Tools;
 
 namespace Location.IModel
 {
@@ -10,6 +11,8 @@ namespace Location.IModel
     {
         //string Name { get; set; }
         List<TNode> Children { get; set; }
+
+        List<TNode> GetAllChildren(int? nodeType);
     }
 
     /// <summary>

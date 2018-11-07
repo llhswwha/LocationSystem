@@ -45,8 +45,9 @@ namespace LocationWCFClient.Windows
             var treeRoot1= client.GetPhysicalTopologyTree(0);
             var treeRoot2 = client.GetDepartmentTree();
             ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
+            ResourceTreeView1.TopoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
 
-            var devList = client.GetDevInfos(null);
+             var devList = client.GetDevInfos(null);
             DeviceListBox1.LoadData(devList);
 
             var personList = client.GetPersonList();
@@ -67,6 +68,14 @@ namespace LocationWCFClient.Windows
             ShowLocationAlarms(locAlarms);
 
             InitAlarmHub();
+        }
+
+        private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            if (item == null) return;
+            AreaCanvas1.ShowDev = true;
+            //AreaCanvas1.ShowArea(item.Tag as PhysicalTopology);
         }
 
         protected List<LocationAlarm> LocationAlarms = new List<LocationAlarm>();

@@ -332,26 +332,23 @@ namespace DbModel.Location.AreaAndDev
             this.SetTransform(transfrom);
         }
 
-        /// <summary>
-        /// 获取建筑物
-        /// </summary>
-        /// <returns></returns>
-        public List<Area> GetBuildings()
+        public List<Area> GetAllChildren(int? type)
         {
-            var buildings=new List<Area>();
-            foreach (var child in Children)
+            var allChildren = new List<Area>();
+            GetSubChildren(allChildren, this, type);
+            return allChildren;
+        }
+
+        public void GetSubChildren(List<Area> list, Area node, int? type = null)
+        {
+            foreach (var child in node.Children)
             {
-                if (child.Type == AreaTypes.分组)
+                if (type == null || type == (int)child.Type)
                 {
-                    if(child.Children!=null)
-                        buildings.AddRange(child.Children);
+                    list.Add(child);
                 }
-                else
-                {
-                    buildings.Add(child);
-                }
+                GetSubChildren(list, child, type);
             }
-            return buildings;
         }
 
         public string GetPath()

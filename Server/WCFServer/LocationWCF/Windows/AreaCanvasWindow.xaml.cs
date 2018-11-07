@@ -52,8 +52,8 @@ namespace LocationServer
         {
             var tree = bll.GetAreaTree();
             TopoTreeView1.LoadData(tree);
-            TopoTreeView1.ExpandLevel(2);
             TopoTreeView1.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
+            TopoTreeView1.ExpandLevel(2);
             TopoTreeView1.SelectFirst();
         }
 

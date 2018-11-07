@@ -30,7 +30,20 @@ namespace WPFClientControlLib
         public void LoadData(PhysicalTopology tree1, Department tree2)
         {
             TopoTreeView1.LoadData(tree1);
+            TopoTreeView1.ExpandLevel(2);
+            TopoTreeView1.SelectFirst();
+
             DepTreeView1.LoadData(tree2);
+        }
+
+        public TopoTreeView TopoTree
+        {
+            get { return TopoTreeView1; }
+        }
+
+        public DepTreeView DepTree
+        {
+            get { return DepTreeView1; }
         }
     }
 }

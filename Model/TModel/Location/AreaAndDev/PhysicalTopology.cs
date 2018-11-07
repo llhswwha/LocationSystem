@@ -176,5 +176,24 @@ namespace Location.TModel.Location.AreaAndDev
         {
             return Name;
         }
+
+        public List<PhysicalTopology> GetAllChildren(int? type)
+        {
+            var allChildren = new List<PhysicalTopology>();
+            GetSubChildren(allChildren, this, type);
+            return allChildren;
+        }
+
+        public void GetSubChildren(List<PhysicalTopology> list, PhysicalTopology node, int? type = null)
+        {
+            foreach (var child in node.Children)
+            {
+                if (type == null || type == (int)child.Type)
+                {
+                    list.Add(child);
+                }
+                GetSubChildren(list, child, type);
+            }
+        }
     }   
 }

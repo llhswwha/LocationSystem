@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enums.cs" />
+    <Compile Include="Extensions\TreeNodeExtensions.cs" />
     <Compile Include="FuncArgs\IAlarmSearchArg.cs" />
     <Compile Include="IClone.cs" />
     <Compile Include="Locations\IDepartment.cs" />

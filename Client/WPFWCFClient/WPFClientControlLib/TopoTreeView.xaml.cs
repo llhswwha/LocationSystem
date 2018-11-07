@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
+using DbModel.Tools;
+using Location.IModel;
 
 namespace WPFClientControlLib
 {
@@ -27,32 +29,18 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData(PhysicalTopology root)
-        {
-            
-
-            if (root == null)
-            {
-                TreeView1.ItemsSource = null;
-            }
-            else
-            {
-                TreeView1.ItemsSource = root.Children;
-            }
-        }
-
-        public void LoadData(Area root,bool onlyBuilding=false)
+        public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
         {
             if (root == null)
             {
-                ShowTree(TreeView1, null);
+                ShowTree<T>(TreeView1, null);
             }
             else
             {
                 if (onlyBuilding)
                 {
-                    ShowTree(TreeView1, root.GetBuildings());
-                    
+                    ShowTree(TreeView1, root.GetAllChildren((int)AreaTypes.大楼));
+
                 }
                 else
                 {
@@ -61,13 +49,7 @@ namespace WPFClientControlLib
             }
         }
 
-        public void SelectFirst()
-        {
-            if(TreeView1.Items.Count>0)
-                (TreeView1.Items[0] as TreeViewItem).IsSelected = true;
-        }
-
-        public void ShowTree(ItemsControl control,List<Area> list)
+        public void ShowTree<T>(ItemsControl control, List<T> list) where T : ITreeNode<T>
         {
             control.Items.Clear();
             if (list == null) return;
@@ -79,6 +61,14 @@ namespace WPFClientControlLib
                 node.Tag = item;
                 control.Items.Add(node);
                 ShowTree(node, item.Children);
+            }
+        }
+
+        public void SelectFirst()
+        {
+            if (TreeView1.Items.Count > 0)
+            {
+                (TreeView1.Items[0] as TreeViewItem).IsSelected = true;
             }
         }
 

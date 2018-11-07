@@ -84,5 +84,24 @@ namespace TModel.Location.Nodes
         {
             return Name;
         }
+
+        public List<AreaNode> GetAllChildren(int? type)
+        {
+            var allChildren = new List<AreaNode>();
+            GetSubChildren(allChildren, this, type);
+            return allChildren;
+        }
+
+        public void GetSubChildren(List<AreaNode> list, AreaNode node, int? type = null)
+        {
+            foreach (var child in node.Children)
+            {
+                if (type == null || type == (int)child.Type)
+                {
+                    list.Add(child);
+                }
+                GetSubChildren(list, child, type);
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFClient.Windows"
         mc:Ignorable="d"
-        Title="ClientWindow" Height="800" Width="800" Loaded="Window_Loaded">
+        Title="ClientWindow" Height="800" Width="1000" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -19,8 +19,13 @@
                 <MenuItem Header="WebApi" Name="MenuWebApi" Click="MenuWebApi_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
-        <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="300" x:Name="ResourceTreeView1"/>
         <TabControl>
+            <TabItem Header="区域视图">
+                <DockPanel>
+                    <WPFClientControlLib:ResourceTreeView DockPanel.Dock="Left" Width="250" x:Name="ResourceTreeView1"/>
+                    <WPFClientControlLib:AreaCanvas x:Name="AreaCanvas1"/>
+                </DockPanel>
+            </TabItem>
             <TabItem Header="设备列表">
                 <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
             </TabItem>
