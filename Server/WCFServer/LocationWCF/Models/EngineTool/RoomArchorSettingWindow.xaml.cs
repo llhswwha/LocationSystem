@@ -41,12 +41,12 @@ namespace LocationServer.Windows
         double floorHeight = 0;
         private string _code;
 
-        public bool ShowInfo(Rectangle rect, DevInfo dev)
+        public bool ShowInfo(Rectangle rect, int devId)
         {
             Bll bll = new Bll();
-            this._dev = dev;
+            this._dev = bll.DevInfos.Find(devId);
             this._rect = rect;
-            _archor = bll.Archors.Find(i => i.DevInfoId == dev.Id);
+            _archor = bll.Archors.Find(i => i.DevInfoId == _dev.Id);
             if (_archor == null)
             {
                 return false;
@@ -57,13 +57,13 @@ namespace LocationServer.Windows
             _item.Id = _archor.Id;
             _item.Code = _code;
             _item.Name = _archor.Name;
-            var area = dev.Parent;
+            var area = _dev.Parent;
 
-            double x = dev.PosX;
-            double z = dev.PosZ;
+            double x = _dev.PosX;
+            double z = _dev.PosZ;
 
             _item.SetRelative(x, z);
-            _item.RelativeHeight = dev.PosY;
+            _item.RelativeHeight = _dev.PosY;
 
             _floor = area;
 
@@ -85,7 +85,7 @@ namespace LocationServer.Windows
             _item.AbsoluteY = (z + minY).ToString("F2");
 
             //var rooms = areas.FindAll(j => j.ParentId == floor.Id);
-            _room = Bll.GetDevRoom(_floor, dev);
+            _room = Bll.GetDevRoom(_floor, _dev);
             //PropertyGrid3.SelectedObject = item;
 
             LbId.Text = _archor.Id + "";

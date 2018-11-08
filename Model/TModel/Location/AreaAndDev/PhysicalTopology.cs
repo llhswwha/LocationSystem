@@ -159,6 +159,30 @@ namespace Location.TModel.Location.AreaAndDev
             }
         }
 
+        /// <summary>
+        /// 是否相对坐标
+        /// </summary>
+        [DataMember]
+        public bool IsRelative { get; set; }
+
+        /// <summary>
+        /// 创建区域范围是否通过数据，还是物体自身的大小
+        /// </summary>
+        [DataMember]
+        public bool IsCreateAreaByData { get; set; }
+
+        /// <summary>
+        /// 是否是告警区域范围
+        /// </summary>
+        [DataMember]
+        public bool IsOnAlarmArea { get; set; }
+
+        /// <summary>
+        /// 是否是定位区域
+        /// </summary>
+        [DataMember]
+        public bool IsOnLocationArea { get; set; }
+
         ///// <summary>
         ///// 用两点(对角点)初始化区域范围
         ///// </summary>
@@ -194,6 +218,15 @@ namespace Location.TModel.Location.AreaAndDev
                 }
                 GetSubChildren(list, child, type);
             }
+        }
+
+        /// <summary>
+        /// 是否电厂园区
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPark()
+        {
+            return Name == "四会热电厂";
         }
     }   
 }

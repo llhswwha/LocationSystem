@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer"
         mc:Ignorable="d"
-        Title="AreaCanvas" Height="700" Width="1200" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
+        Title="电厂视图" Height="700" Width="1200" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top"></Menu>
         <StackPanel DockPanel.Dock="Top">

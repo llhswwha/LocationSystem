@@ -63,11 +63,11 @@ namespace LocationServer.Controls
             }
         }
 
-        Area area;
+        int areaId;
 
-        public void LoadData(Area area)
+        public void LoadData(int areaId)
         {
-            this.area = area;
+            this.areaId = areaId;
             LoadData();
         }
 
@@ -101,13 +101,13 @@ namespace LocationServer.Controls
         {
             worker.ReportProgress(0);
             var bll = new Bll(false, false, false, false);
-            if (area == null)
+            if (areaId == 0)
             {
                 archors = bll.Archors.ToList();
             }
             else
             {
-                archors = bll.Archors.Where(i => i.ParentId == area.Id);
+                archors = bll.Archors.Where(i => i.ParentId == areaId);
             }
 
             var devs = bll.DevInfos.ToList();

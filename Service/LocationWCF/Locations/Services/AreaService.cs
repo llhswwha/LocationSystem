@@ -285,8 +285,8 @@ namespace LocationServices.Locations.Services
 
         private TEntity GetTreeWithPerson(List<Location.TModel.Location.AreaAndDev.DevInfo> devs)
         {
-            List<TEntity> list = GetListWithPerson().ToList();
-            List<TEntity> roots = TreeHelper.CreateTree<TEntity, Location.TModel.Location.AreaAndDev.DevInfo>(list, devs);
+            var list = GetListWithPerson().ToList();
+            var roots = TreeHelper.CreateTree(list, devs);
             if (roots.Count > 0)
             {
                 return roots[0];

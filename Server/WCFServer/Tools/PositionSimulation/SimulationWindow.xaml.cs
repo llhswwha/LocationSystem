@@ -18,6 +18,7 @@ using BLL;
 using DbModel.Location.AreaAndDev;
 using DbModel.LocationHistory.Data;
 using DbModel.Tools;
+using Location.TModel.Location.AreaAndDev;
 using LocationServer;
 using LocationServices.Converters;
 using LocationServices.Locations;
@@ -128,7 +129,8 @@ namespace PositionSimulation
 
         private void LoadAreaTree()
         {
-            var tree = bll.GetAreaTree();
+            var service = new AreaService();
+            var tree = service.GetTree(1);
             TopoTreeView1.LoadData(tree);
             TopoTreeView1.ExpandLevel(2);
             TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
@@ -137,7 +139,7 @@ namespace PositionSimulation
 
         private void TopoTreeView1_SelectedObjectChanged(object obj)
         {
-            area = obj as Area;
+            area = obj as PhysicalTopology;
             if (area == null) return;
             AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
@@ -150,7 +152,7 @@ namespace PositionSimulation
             AreaCanvas1.ShowPersons(persons);
         }
 
-        private Area area;
+        private PhysicalTopology area;
 
         private void BtnStartListen_OnClick(object sender, RoutedEventArgs e)
         {

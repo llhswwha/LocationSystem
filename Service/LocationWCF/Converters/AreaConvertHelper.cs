@@ -42,6 +42,11 @@ namespace LocationServices.Converters
             item2.InitBound = item1.InitBound.ToTModel();
             item2.EditBoundId = item1.EditBoundId;
             item2.EditBound = item1.EditBound.ToTModel();
+
+            item2.IsRelative = item1.IsRelative;
+            item2.IsCreateAreaByData = item1.IsCreateAreaByData;
+            item2.IsOnAlarmArea = item1.IsOnAlarmArea;
+            item2.IsOnLocationArea = item1.IsOnLocationArea;
             return item2;
         }
 
@@ -120,6 +125,11 @@ namespace LocationServices.Converters
             item2.InitBound = item1.InitBound.ToDbModel();
             item2.EditBoundId = item1.EditBoundId;
             item2.EditBound = item1.EditBound.ToDbModel();
+
+            item2.IsRelative = item1.IsRelative;
+            item2.IsCreateAreaByData = item1.IsCreateAreaByData;
+            item2.IsOnAlarmArea = item1.IsOnAlarmArea;
+            item2.IsOnLocationArea = item1.IsOnLocationArea;
             return item2;
         }
 

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
+//using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
+using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 namespace WPFClientControlLib
 {
     /// <summary>
@@ -24,14 +26,14 @@ namespace WPFClientControlLib
         {
             InitializeComponent();
         }
-        public void LoadData(IEnumerable<DevInfo> list)
+        public void LoadData(IEnumerable<DevEntity> list)
         {
             DataGrid1.ItemsSource = list;
         }
 
         private void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DevInfo item = DataGrid1.SelectedItem as DevInfo;
+            var item = DataGrid1.SelectedItem as DevEntity;
             //if (item == null) return;
             if (SelectedItemChanged != null)
             {
@@ -39,6 +41,6 @@ namespace WPFClientControlLib
             }
         }
 
-        public event Action<DevInfo> SelectedItemChanged;
+        public event Action<DevEntity> SelectedItemChanged;
     }
 }

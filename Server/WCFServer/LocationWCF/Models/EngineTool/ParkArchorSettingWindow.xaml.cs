@@ -39,12 +39,12 @@ namespace LocationServer.Windows
 
         private string _code;
 
-        public bool ShowInfo(Rectangle rect, DevInfo dev)
+        public bool ShowInfo(Rectangle rect, int devId)
         {
             Bll bll = new Bll();
-            this._dev = dev;
+            this._dev = bll.DevInfos.Find(devId);
             this._rect = rect;
-            _archor = bll.Archors.Find(i => i.DevInfoId == dev.Id);
+            _archor = bll.Archors.Find(i => i.DevInfoId == _dev.Id);
             if (_archor == null)
             {
                 return false;//不是基站的设备
@@ -55,15 +55,15 @@ namespace LocationServer.Windows
             _item.Code = _archor.Code;
             _item.Name = _archor.Name;
 
-            var area = dev.Parent;
+            var area = _dev.Parent;
 
             _item.RelativeMode = RelativeMode.相对楼层;
 
-            double x = dev.PosX;
-            double z = dev.PosZ;
+            double x = _dev.PosX;
+            double z = _dev.PosZ;
 
             _item.SetRelative(x, z);
-            _item.RelativeHeight = dev.PosY;
+            _item.RelativeHeight = _dev.PosY;
 
             park = area;
 

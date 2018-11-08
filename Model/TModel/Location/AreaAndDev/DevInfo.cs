@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.ConvertCodes;
@@ -15,7 +12,7 @@ namespace Location.TModel.Location.AreaAndDev
     /// 设备信息
     /// </summary>
     [DataContract] [Serializable]
-    public class DevInfo : INode
+    public class DevInfo : IEntity,INode
     {
         /// <summary>
         /// 主键Id

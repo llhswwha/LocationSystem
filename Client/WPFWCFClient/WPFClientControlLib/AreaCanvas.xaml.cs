@@ -6,12 +6,14 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using DbModel.Location.AreaAndDev;
-using DbModel.Location.Person;
 using DbModel.Tools;
 using Location.IModel;
 using WPFClientControlLib.AreaCanvaItems;
-using WPFClientControlLib.Behaviors;
+//using AreaEntity= DbModel.Location.AreaAndDev.Area;
+using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
+//using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
+using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
+using PersonEntity= Location.TModel.Location.Person.Personnel;
 
 namespace WPFClientControlLib
 {
@@ -25,35 +27,35 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void SelectArea(Area area)
+        public void SelectArea<T>(T entity) where T :IEntity
         {
-            if (area == null) return;
-            if (AreaDict.ContainsKey(area.Id))
+            if (entity == null) return;
+            if (AreaDict.ContainsKey(entity.Id))
             {
                 ClearSelect();
-                FocusRectangle(AreaDict[area.Id]);
+                FocusRectangle(AreaDict[entity.Id]);
                 LbState.Content = "";
             }
             else
             {
                 ClearSelect();
-                LbState.Content = "未找到区域:" + area.Name;
+                LbState.Content = "未找到区域:" + entity.Name;
             }
         }
 
-        public void SelectDev(DevInfo dev)
+        public void SelectDev<T>(T entity) where T : IEntity
         {
-            if (dev == null) return;
-            if (DevDict.ContainsKey(dev.Id))
+            if (entity == null) return;
+            if (DevDict.ContainsKey(entity.Id))
             {
                 ClearSelect();
-                FocusRectangle(DevDict[dev.Id]);
+                FocusRectangle(DevDict[entity.Id]);
                 LbState.Content = "";
             }
             else
             {
                 ClearSelect();
-                LbState.Content = "未找到设备:" + dev.Name;
+                LbState.Content = "未找到设备:" + entity.Name;
             }
         }
 
@@ -78,7 +80,7 @@ namespace WPFClientControlLib
 
         public Shape SelectedRect { get; set; }
 
-        public Area Current { get; set; }
+        public AreaEntity Current { get; set; }
 
         private void InitCbScale(int scale)
         {
@@ -99,25 +101,22 @@ namespace WPFClientControlLib
 
         public bool ShowPerson { get; set; }
 
-        public void ShowArea(Area area)
+        public void ShowArea(AreaEntity area)
         {
             try
             {
                 CbView.SelectionChanged -= CbView_OnSelectionChanged;
                 CbView.SelectionChanged += CbView_OnSelectionChanged;
-
-                
                 if (area == null) return;
-
-                if (area.Parent.Name == "根节点") //电厂
+                if (area.IsPark()) //电厂
                 {
                     Current = area;
                     int scale = 3;
                     DevSize = 3;
                     DrawPark(area, scale, DevSize);
                     InitCbScale(scale);
-
                     InitCbDevSize(new double[] { 0.5, 1, 2, 3,4,5 }, DevSize);
+                    //ShowPersons(area.Persons);
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
@@ -126,8 +125,8 @@ namespace WPFClientControlLib
                     DevSize = 0.3;
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
-
                     InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5,0.6 }, DevSize);
+                    //ShowPersons(area.Persons);
                 }
                 else
                 {
@@ -138,9 +137,7 @@ namespace WPFClientControlLib
             {
                 MessageBox.Show(ex.ToString());
             }
-            
         }
-
 
         private void ClearSelect()
         {
@@ -232,11 +229,11 @@ namespace WPFClientControlLib
             return ellipse;
         }
 
-        private void DrawFloor(Area area,double scale,double devSize)
+        private void DrawFloor(AreaEntity area,double scale,double devSize)
         {
             Clear();
 
-            Bound bound = area.InitBound;
+            var bound = area.InitBound;
             if (bound == null) return;
 
             Scale = scale;
@@ -257,7 +254,7 @@ namespace WPFClientControlLib
                     AddAreaRect(level1Item, null, scale, true);
                 }
 
-            ShowDevs(area, scale, devSize);
+            ShowDevs(area.LeafNodes, scale, devSize);
 
             AddZeroPoint(scale,new Vector(0,0));
         }
@@ -276,11 +273,11 @@ namespace WPFClientControlLib
 
         public double Margin = 20;
 
-        private void DrawPark(Area area,int scale,double devSize)
+        private void DrawPark(AreaEntity area,int scale,double devSize)
         {
             Clear();
 
-            Bound bound = area.InitBound;
+            var bound = area.InitBound;
             //if (bound == null)
             //{
             //    bound=area.CreateBoundByChildren();
@@ -313,30 +310,40 @@ namespace WPFClientControlLib
                         }
                 }
 
-            ShowDevs(area, scale, devSize);
+            ShowDevs(area.LeafNodes, scale, devSize);
 
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
 
-        private void ShowDevs(Area area, double scale, double devSize)
+        //private void ShowDevs(AreaEntity area, double scale, double devSize)
+        //{
+        //    if (ShowDev)
+        //        if (area.LeafNodes != null)
+        //            foreach (var dev in area.LeafNodes)
+        //            {
+        //                AddDevRect(dev, scale, devSize);
+        //            }
+        //}
+
+        private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
             if (ShowDev)
-                if (area.LeafNodes != null)
-                    foreach (var dev in area.LeafNodes)
+                if (devs != null)
+                    foreach (var dev in devs)
                     {
                         AddDevRect(dev, scale, devSize);
                     }
         }
 
-        private Rectangle AddDevRect(DevInfo dev,double scale, double size = 2)
+        private Rectangle AddDevRect(DevEntity dev,double scale, double size = 2)
         {
             if (DevDict.ContainsKey(dev.Id))
             {
                 Canvas1.Children.Remove(DevDict[dev.Id]);
             }
 
-            double x = (dev.PosX - OffsetX) * scale-size*scale/2;
-            double y = (dev.PosZ - OffsetY) * scale - size * scale / 2;
+            double x = (dev.Pos.PosX - OffsetX) * scale-size*scale/2;
+            double y = (dev.Pos.PosZ - OffsetY) * scale - size * scale / 2;
             //if (ViewMode == 0)
             //    y = Canvas1.Height - size * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
             Rectangle devRect = new Rectangle()
@@ -366,7 +373,7 @@ namespace WPFClientControlLib
         {
             Rectangle rect = sender as Rectangle;
             if (SelectedDev == rect) return;
-            DevInfo dev = rect.Tag as DevInfo;
+            var dev = rect.Tag as DevEntity;
             LbState.Content = "";
 
             rect.Fill = Brushes.DeepSkyBlue;
@@ -382,7 +389,7 @@ namespace WPFClientControlLib
 
         private void SelectDev(Rectangle rect)
         {
-            DevInfo dev = rect.Tag as DevInfo;
+            var dev = rect.Tag as DevEntity;
             LbState.Content = GetDevText(dev);
 
             rect.Fill = Brushes.Blue;
@@ -391,9 +398,9 @@ namespace WPFClientControlLib
 
         private Rectangle SelectedDev;
 
-        private string GetDevText(DevInfo dev)
+        private string GetDevText(DevEntity dev)
         {
-            return string.Format("[{0}]({1},{2})", dev.Name, dev.PosX, dev.PosZ); 
+            return string.Format("[{0}]({1},{2})", dev.Name, dev.Pos.PosX, dev.Pos.PosZ); 
         }
 
         private void DevRect_MouseDown(object sender, MouseButtonEventArgs e)
@@ -404,7 +411,7 @@ namespace WPFClientControlLib
                 SelectedDev.Stroke = Brushes.Black;
             }
             Rectangle rect = sender as Rectangle;
-            DevInfo dev = rect.Tag as DevInfo;
+            var dev = rect.Tag as DevEntity;
             LbState.Content = GetDevText(dev);
             SelectedDev = rect;
 
@@ -414,44 +421,13 @@ namespace WPFClientControlLib
             }
         }
 
-        public event Action<Rectangle,DevInfo> DevSelected;
+        public event Action<Rectangle, DevEntity> DevSelected;
 
-        
-
-        private void AddAreaRect(Area area, Area parent, double scale = 1,bool isTransparent = false)
+        private void AddAreaRect(AreaEntity area, AreaEntity parent, double scale = 1,bool isTransparent = false)
         {
             if (area == null) return;
-            Bound bound = area.InitBound;
+            var bound = area.InitBound;
             if (bound == null) return;
-
-            //{
-            //    double x = (bound.MinX - OffsetX) * scale;
-            //    double y = (bound.MinY - OffsetY) * scale;
-            //    //if (ViewMode == 0)
-            //    //    y = Canvas1.Height - bound.GetHeight() * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
-            //    if (bound.IsRelative && parent != null)
-            //    {
-            //        x += parent.InitBound.MinX * scale;
-            //        y -= parent.InitBound.MinY * scale;
-            //    }
-
-            //    Rectangle areaRect = new Rectangle()
-            //    {
-            //        Margin = new Thickness(x, y, 0, 0),
-            //        Width = bound.GetWidth() * scale,
-            //        Height = bound.GetHeight() * scale,
-            //        Fill = Brushes.LightGoldenrodYellow,
-            //        Stroke = Brushes.Black,
-            //        StrokeThickness = 1,
-            //        Tag = area,
-            //        ToolTip = area.Name
-            //    };
-            //    AreaDict[area.Id] = areaRect;
-            //    areaRect.MouseEnter += AreaRect_MouseEnter;
-            //    areaRect.MouseLeave += AreaRect_MouseLeave;
-            //    //Canvas1.Children.Add(areaRect);
-            //}
-
             {
                 //< Polygon Fill = "AliceBlue" StrokeThickness = "5" Stroke = "Green" Points = "40,10 70,80 10,50" />
 
@@ -560,7 +536,7 @@ namespace WPFClientControlLib
             try
             {
                 int scale = (int)CbScale.SelectedItem;
-                Area area = Current;
+                var area = Current;
                 if (area == null) return;
                 if (area.ParentId == 1) //电厂
                 {
@@ -582,7 +558,7 @@ namespace WPFClientControlLib
             }
         }
 
-        public void RefreshDev(DevInfo dev)
+        public void RefreshDev(DevEntity dev)
         {
             int scale = (int)CbScale.SelectedItem;
             var rect=AddDevRect(dev, scale, DevSize);
@@ -617,24 +593,19 @@ namespace WPFClientControlLib
             
         }
 
-        public void ShowArchors(Archor[] archors)
+        public void ShowDevs(DevEntity[] devs)
         {
             
         }
 
-        public void ShowDevs(DevInfo[] devs)
-        {
-            
-        }
-
-        private IList<Location.TModel.Location.Person.Personnel> _persons;
+        private IList<PersonEntity> _persons;
 
         public void ShowPersons()
         {
             ShowPersons(_persons);
         }
 
-        public void ShowPersons(IList<Location.TModel.Location.Person.Personnel> persons)
+        public void ShowPersons(IList<PersonEntity> persons)
         {
             PersonShapeList.Clear();
             _persons = persons;
@@ -648,7 +619,7 @@ namespace WPFClientControlLib
 
         public List<PersonShape> PersonShapeList=new List<PersonShape>();
 
-        private PersonShape AddPersonRect(Location.TModel.Location.Person.Personnel person, double scale, double size = 2)
+        private PersonShape AddPersonRect(PersonEntity person, double scale, double size = 2)
         {
             PersonShape ps = new PersonShape(this,person, scale, size);
             ps.Moved += Ps_Moved;

@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
+//using AreaEntity= DbModel.Location.AreaAndDev.Area;
+using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 
 namespace WPFClientControlLib
 {
@@ -27,9 +28,9 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public IEnumerable<Area> Data { get; set; }
+        public IEnumerable<AreaEntity> Data { get; set; }
 
-        public void LoadData(IEnumerable<Area> list)
+        public void LoadData(IEnumerable<AreaEntity> list)
         {
             Data = list;
             DataGrid1.ItemsSource = Data;
@@ -37,7 +38,7 @@ namespace WPFClientControlLib
 
         private void MenuInitBound_OnClick(object sender, RoutedEventArgs e)
         {
-            Area area = DataGrid1.SelectedItem as Area;
+            var area = DataGrid1.SelectedItem as AreaEntity;
             if (area == null) return;
             var wnd = new ItemInfoWindow();
             wnd.LoadData(area.InitBound);
@@ -46,7 +47,7 @@ namespace WPFClientControlLib
 
         private void MenuEditBound_OnClick(object sender, RoutedEventArgs e)
         {
-            Area area = DataGrid1.SelectedItem as Area;
+            var area = DataGrid1.SelectedItem as AreaEntity;
             if (area == null) return;
             var wnd = new ItemInfoWindow();
             wnd.LoadData(area.EditBound);
@@ -55,7 +56,7 @@ namespace WPFClientControlLib
 
         private void MenuItemProperty_OnClick(object sender, RoutedEventArgs e)
         {
-            Area area = DataGrid1.SelectedItem as Area;
+            var area = DataGrid1.SelectedItem as AreaEntity;
             if (area == null) return;
             var wnd = new ItemInfoWindow();
             wnd.LoadData(area);
@@ -84,7 +85,7 @@ namespace WPFClientControlLib
 
         private void DataGrid1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Area item = DataGrid1.SelectedItem as Area;
+            var item = DataGrid1.SelectedItem as AreaEntity;
             //if (item == null) return;
             if (SelectedItemChanged != null)
             {
@@ -92,6 +93,6 @@ namespace WPFClientControlLib
             }
         }
 
-        public event Action<Area> SelectedItemChanged;
+        public event Action<AreaEntity> SelectedItemChanged;
     }
 }
