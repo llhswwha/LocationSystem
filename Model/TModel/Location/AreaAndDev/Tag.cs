@@ -33,6 +33,9 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public TagPosition Pos { get; set; }
 
+        [DataMember]
+        public int CardRoleId { get; set; }
+
         public override string ToString()
         {
             return Name;

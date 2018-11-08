@@ -13,6 +13,13 @@
                 <MenuItem Header="定位引擎客户端" Name="MenuEngineClient" Click="MenuEngineClient_OnClick"></MenuItem>
                 <MenuItem Header="打开三维程序" Name="MenuOpen3D" Click="MenuOpen3D_OnClick"></MenuItem>
             </MenuItem>
+            <MenuItem Header="设置">
+                <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
+                <MenuItem Header="人员" Name="MenuPerson" Click="MenuPerson_OnClick"></MenuItem>
+                <MenuItem Header="标签" Name="MenuTag" Click="MenuTag_OnClick"></MenuItem>
+                <MenuItem Header="标签角色" Name="MenuCardRole" Click="MenuCardRole_Click"></MenuItem>
+                <MenuItem Header="区域权限" Name="MenuAreaAuthorization" Click="MenuAreaAuthorization_OnClick"></MenuItem>
+            </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="数据库配置" Name="MenuDbConfigure" Click="MenuDbInit_OnClick"></MenuItem>
                 <MenuItem Header="数据库表导出Excel" Name="MenuDbExport" Click="MenuDbExport_OnClick"></MenuItem>
@@ -27,10 +34,7 @@
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>
             </MenuItem>
-            <MenuItem Header="设置">
-                <MenuItem Header="标签角色" Name="MenuCardRole" Click="MenuCardRole_Click"></MenuItem>
-                <MenuItem Header="区域权限" Name="MenuAreaAuthorization" Click="MenuAreaAuthorization_OnClick"></MenuItem>
-            </MenuItem>
+
         </Menu>
         <!--<Button DockPanel.Dock="Top" Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
         <Button DockPanel.Dock="Top" Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>-->

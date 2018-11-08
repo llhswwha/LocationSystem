@@ -249,6 +249,15 @@
     <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
       <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PersonWindow.xaml.cs">
+      <DependentUpon>PersonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RealPosWindow.xaml.cs">
+      <DependentUpon>RealPosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TagWindow.xaml.cs">
+      <DependentUpon>TagWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ServerManagerBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -346,6 +355,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LocationHistoryTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PersonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RealPosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TagWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

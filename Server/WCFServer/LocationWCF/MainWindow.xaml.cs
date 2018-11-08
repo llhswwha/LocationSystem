@@ -208,5 +208,23 @@ namespace LocationWCFServer
             var win = new AreaAuthorizationWindow();
             win.Show();
         }
+
+        private void MenuTag_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new TagWindow();
+            win.Show();
+        }
+
+        private void MenuPerson_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new PersonWindow();
+            win.Show();
+        }
+
+        private void MenuRealPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new RealPosWindow();
+            win.Show();
+        }
     }
 }
