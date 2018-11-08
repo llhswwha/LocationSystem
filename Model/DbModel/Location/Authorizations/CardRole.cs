@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Location.IModel;
 
 namespace DbModel.Location.Authorizations
 {
 
-    public class CardRole
+    public class CardRole:IEntity
     {
         public int Id { get; set; }
 

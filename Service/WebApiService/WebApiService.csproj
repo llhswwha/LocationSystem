@@ -156,6 +156,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ArchorController.cs" />
     <Compile Include="Controllers\AreaAuthorizationController.cs" />
+    <Compile Include="Controllers\AreaAuthorizationRecordController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EntityController.cs" />

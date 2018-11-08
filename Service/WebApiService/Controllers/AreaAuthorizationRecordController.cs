@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using LocationServices.Locations.Services;
-using TEntity = DbModel.Location.Work.AreaAuthorization;
+using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
 
 namespace WebApiService.Controllers
 {
-    [RoutePrefix("api/areaAuz")]
-    public class AreaAuthorizationController: ApiController, IAreaAuthorizationService
+    [RoutePrefix("api/areaAuzItem")]
+    public class AreaAuthorizationRecordController:ApiController, IAreaAuthorizationRecordService
     {
-        IAreaAuthorizationService service;
-        public AreaAuthorizationController()
+        IAreaAuthorizationRecordService service;
+        public AreaAuthorizationRecordController()
         {
-            service = new AreaAuthorizationService();
+            service = new AreaAuthorizationRecordService();
         }
 
         [Route("{id}")]
@@ -45,10 +45,16 @@ namespace WebApiService.Controllers
             return service.GetListByName(name);
         }
 
-        [Route("")]//search?area=主
+        [Route("")]//search?area=2
         public IList<TEntity> GetListByArea(string area)
         {
             return service.GetListByArea(area);
+        }
+
+        [Route("")]//search?role=2
+        public IList<TEntity> GetListByRole(string role)
+        {
+            return service.GetListByRole(role);
         }
 
         [Route]

@@ -339,7 +339,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <None Include="Data\AuthorizationTree.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\CADAreaInfo.xml" />
+    <None Include="Data\Images\顶视图.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\InitInfo - 副本.xml" />
     <Content Include="Data\InitInfo.xml" />
     <Content Include="Data\Location.sql" />

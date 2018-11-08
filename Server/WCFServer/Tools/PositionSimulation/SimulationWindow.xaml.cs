@@ -131,26 +131,26 @@ namespace PositionSimulation
             var tree = bll.GetAreaTree();
             TopoTreeView1.LoadData(tree);
             TopoTreeView1.ExpandLevel(2);
-            TopoTreeView1.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
+            TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
             TopoTreeView1.SelectFirst();
         }
 
-        private Area area;
-
-        private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void TopoTreeView1_SelectedObjectChanged(object obj)
         {
-            area = TopoTreeView1.SelectedObject as Area;
+            area = obj as Area;
             if (area == null) return;
             AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
             var service = new PersonService();
-            var persons=service.GetListByArea(area.Id+"");
+            var persons = service.GetListByArea(area.Id + "");
             if (persons == null)
             {
                 persons = service.GetListByArea("");
             }
             AreaCanvas1.ShowPersons(persons);
         }
+
+        private Area area;
 
         private void BtnStartListen_OnClick(object sender, RoutedEventArgs e)
         {

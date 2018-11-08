@@ -24,6 +24,7 @@ using SignalRService.Hubs;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using BLL;
+using DbModel.Location.Work;
 using DbModel.LocationHistory.Data;
 using EngineClient;
 using Location.BLL;
@@ -199,6 +200,12 @@ namespace LocationWCFServer
         private void MenuCardRole_Click(object sender, RoutedEventArgs e)
         {
             var win = new CardRoleWindow();
+            win.Show();
+        }
+
+        private void MenuAreaAuthorization_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new AreaAuthorizationWindow();
             win.Show();
         }
     }

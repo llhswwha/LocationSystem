@@ -1,4 +1,4 @@
-﻿<Window x:Class="LocationServer.Windows.AreaAuthorizationWindow"
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.Windows.AreaAuthorizationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
         Title="区域权限"  Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <WPFClientControlLib:TopoTreeView Name="TopoTreeView1" Width="200"/>
+        <Grid>
+            <ListBox Name="ListBox1"></ListBox>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -30,6 +30,7 @@
             </MenuItem>
             <MenuItem Header="设置">
                 <MenuItem Header="标签角色" Name="MenuCardRole" Click="MenuCardRole_Click"></MenuItem>
+                <MenuItem Header="区域权限" Name="MenuAreaAuthorization" Click="MenuAreaAuthorization_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
         <!--<Button DockPanel.Dock="Top" Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>

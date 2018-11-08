@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Location.IModel;
 using Location.TModel.Tools;
 
 namespace DbModel.Location.Work
@@ -11,7 +12,7 @@ namespace DbModel.Location.Work
     /// <summary>
     /// 权限
     /// </summary>
-    public class AreaAuthorization
+    public class AreaAuthorization:IEntity
     {
         /// <summary>
         /// 主键Id

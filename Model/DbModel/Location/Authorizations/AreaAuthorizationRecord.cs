@@ -8,13 +8,14 @@ using Location.TModel.Tools;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Authorizations;
 using DbModel.LocationHistory.Data;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 具体权限分配记录
     /// </summary>
-    public class AreaAuthorizationRecord
+    public class AreaAuthorizationRecord:IEntity
     {
         /// <summary>
         /// 主键Id

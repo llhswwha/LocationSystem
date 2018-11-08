@@ -27,6 +27,7 @@ namespace WPFClientControlLib
         public TopoTreeView()
         {
             InitializeComponent();
+            
         }
 
         public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
@@ -95,8 +96,13 @@ namespace WPFClientControlLib
 
         private void TreeView1_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            
+            if (SelectedObjectChanged != null)
+            {
+                SelectedObjectChanged(SelectedObject);
+            }
         }
+
+        public event Action<object> SelectedObjectChanged;
 
         public TreeView Tree
         {
