@@ -39,5 +39,21 @@ namespace LocationServer.Windows
             var win = new AreaAuthorizationWindow(role);
             win.Show();
         }
+
+        public CardRole Role
+        {
+            get { return DataGrid1.SelectedItem as CardRole; }
+        }
+
+        private void BtnOk_OnClick(object sender, RoutedEventArgs e)
+        {
+            //this.Close();
+            DialogResult = true;
+        }
+
+        public void ShowOkButton()
+        {
+            ToolBar1.Visibility=Visibility.Visible;
+        }
     }
 }

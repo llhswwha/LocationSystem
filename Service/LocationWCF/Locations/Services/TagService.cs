@@ -21,6 +21,8 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetList(bool detail);
 
         IList<TEntity> GetListByRole(string role);
+
+        TEntity SetRole(string tag,string role);
     }
     public class TagService : ITagService
     {
@@ -118,7 +120,8 @@ namespace LocationServices.Locations.Services
 
         public TEntity Put(TEntity item)
         {
-            var dbItem = item.ToDbModel();
+            var dbItem=dbSet.Find(item.Id);
+            dbItem.Update(item);
             var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
@@ -154,6 +157,13 @@ namespace LocationServices.Locations.Services
             bool r = db.LocationCards.AddRange(list);
             db.AddTagPositionsByTags(list);
             return r;
+        }
+
+        public TEntity SetRole(string tagId,string roleId)
+        {
+            var tag = GetEntity(tagId);
+            tag.CardRoleId = roleId.ToInt();
+            return Put(tag);
         }
     }
 }

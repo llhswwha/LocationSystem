@@ -47,6 +47,14 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.LocationCard();
+            item2.Update(item1);
+            return item2;
+        }
+
+        public static DbModel.Location.AreaAndDev.LocationCard Update(
+            this DbModel.Location.AreaAndDev.LocationCard item2,Location.TModel.Location.AreaAndDev.Tag item1)
+        {
+            if (item1 == null) return item2;
             item2.Id = item1.Id;
             //item2.Abutment_Id = item1.Abutment_Id;
             item2.Code = item1.Code;
