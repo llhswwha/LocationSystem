@@ -8,6 +8,7 @@ using TEntity = Location.TModel.Location.AreaAndDev.Tag;
 using DbEntity = DbModel.Location.AreaAndDev.LocationCard;
 using System;
 using System.Linq;
+using DbModel.Location.Authorizations;
 
 namespace LocationServices.Locations.Services
 {
@@ -18,6 +19,8 @@ namespace LocationServices.Locations.Services
         bool AddList(List<TEntity> entities);
 
         IList<TEntity> GetList(bool detail);
+
+        IList<TEntity> GetListByRole(string role);
     }
     public class TagService : ITagService
     {
@@ -94,6 +97,12 @@ namespace LocationServices.Locations.Services
         {
             var devInfoList = dbSet.GetListByName(name).ToTModel();
             return devInfoList.ToWCFList();
+        }
+
+        public IList<TEntity> GetListByRole(string role)
+        {
+            var roleId = role.ToInt();
+            return dbSet.Where(i => i.CardRoleId == roleId).ToWcfModelList();
         }
 
         public TEntity Post(TEntity item)

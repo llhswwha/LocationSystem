@@ -13,7 +13,7 @@
         <DataGrid Name="DataGrid1">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="设置区域权限"></MenuItem>
+                    <MenuItem Header="设置区域权限" Click="MenuItem_OnClick"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

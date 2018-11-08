@@ -122,6 +122,7 @@
     <Compile Include="Bll_Business.cs" />
     <Compile Include="Bll_Init.cs" />
     <Compile Include="Bll_InsertPos.cs" />
+    <Compile Include="Initializers\AuthorizationInitializer.cs" />
     <Compile Include="Initializers\CardRoleInitializer.cs" />
     <Compile Include="Initializers\DbInitializer.cs" />
     <Compile Include="Initializers\AreaTreeInitializer.cs" />

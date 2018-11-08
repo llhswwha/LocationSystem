@@ -14,6 +14,10 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByArea(string area);
 
         IList<TEntity> GetListByRole(string role);
+
+        IList<TEntity> GetListByTag(string role);
+
+        IList<TEntity> GetListByPerson(string role);
     }
     public class AreaAuthorizationRecordService
         : EntityService<TEntity>
@@ -41,6 +45,22 @@ namespace LocationServices.Locations.Services
         {
             int roleId = role.ToInt();
             return dbSet.Where(i => i.CardRoleId == roleId);
+        }
+
+        public IList<TEntity> GetListByTag(string tagId)
+        {
+            var tag = db.LocationCards.Find(tagId.ToInt());
+            if (tag == null) return null;
+            return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
+        }
+
+        public IList<TEntity> GetListByPerson(string personId)
+        {
+            var id = personId.ToInt();
+            var tp=db.LocationCardToPersonnels.Find(i=>i.PersonnelId== id);
+            var tag = db.LocationCards.Find(tp.LocationCardId);
+            if (tag == null) return null;
+            return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
         }
     }
 }

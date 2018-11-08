@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DbModel.Location.AreaAndDev;
 using Location.BLL.ServiceHelpers;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Converters;
@@ -8,6 +7,7 @@ using LocationServices.Locations.Services;
 using TModel.Location.Nodes;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
+using System.Linq;
 
 namespace LocationServices.Locations
 {
@@ -131,34 +131,53 @@ namespace LocationServices.Locations
         {
             return db.Areas.Add(pt.ToDbModel());
         }
-
+        
         public AreaStatistics GetAreaStatistics(int id)
         {
+            List<int?> lst = new List<int?>();
+            List<int?> lstRecv;
+
             var areaList = db.Areas.ToList();
             var a1 = areaList.Find(p => p.Id == id);
-            AreaStatistics ast = GetAreaStatisticsInner(a1, areaList);//areaList传进去避免在循环中查找
+            if (a1 == null)
+            {
+                return new AreaStatistics();
+            } 
+
+            lst.Add(a1.Id);
+            lstRecv = GetAreaStatisticsInner(a1.Id, areaList);
+            if (lstRecv != null || lstRecv.Count > 0)
+            {
+                lst.AddRange(lstRecv);
+            }
+
+            AreaService asr = new AreaService();
+            AreaStatistics ast = asr.GetAreaStatisticsCount(lst);
+
             return ast;
         }
 
-        private AreaStatistics GetAreaStatisticsInner(Area a1, List<Area> areaList)
+        private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
         {
-            AreaStatistics ast = null;
-            if (a1 != null)
+            List<int?> lst = new List<int?>();
+            List<DbModel.Location.AreaAndDev.Area> alist2 = areaList.FindAll(p => p.ParentId == id);
+            List<int?> lstRecv;
+            if (alist2 == null || alist2.Count <= 0)
             {
-                AreaService asr = new AreaService();
-                ast = asr.GetAreaStatisticsCount(a1.Id);
-                var areaChildernList = areaList.FindAll(p => p.ParentId == a1.Id);
-                foreach (var item in areaChildernList)
+                return lst;
+            }
+
+            foreach (DbModel.Location.AreaAndDev.Area item in alist2)
+            {
+                lst.Add(item.Id);
+                lstRecv = GetAreaStatisticsInner(item.Id, areaList);
+                if (lstRecv != null || lstRecv.Count > 0)
                 {
-                    AreaStatistics ast2 = GetAreaStatisticsInner(item, areaList);
-                    if (ast2 == null)
-                    {
-                        continue;
-                    }
-                    ast.Add(ast2);
+                    lst.AddRange(lstRecv);
                 }
             }
-            return ast;
+
+            return lst;
         }
 
         public List<NearbyPerson> GetNearbyPerson_Currency(int id)

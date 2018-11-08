@@ -69,6 +69,13 @@ namespace WebApiService.Controllers
             return service.GetListByName(name);
         }
 
+        [Route("")]//?role=主
+        [Route("~/api/tagRoles/{role}/persons")]
+        public IList<TEntity> GetListByRole(string role)
+        {
+            return service.GetListByRole(role);
+        }
+
         [Route]
         public TEntity Post(TEntity item)
         {

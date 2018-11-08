@@ -17,33 +17,7 @@ namespace BLL
     {
         private readonly Bll _bll;
 
-        private CardRoleBll CardRoles => _bll.CardRoles;
-
-        private LocationCardBll LocationCards => _bll.LocationCards;
-
-        private LocationCardPositionBll LocationCardPositions => _bll.LocationCardPositions;
-
-        private PositionBll Positions => _bll.Positions;
-
         private AreaBll Areas => _bll.Areas;
-
-        private AreaAuthorizationBll AreaAuthorizations => _bll.AreaAuthorizations;
-
-        private AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
-
-        private DevModelBll DevModels => _bll.DevModels;
-
-        private DevTypeBll DevTypes => _bll.DevTypes;
-
-        private ConfigArgBll ConfigArgs => _bll.ConfigArgs;
-
-        private PersonnelBll Personnels => _bll.Personnels;
-
-        private DepartmentBll Departments => _bll.Departments;
-
-        private PostBll Posts => _bll.Posts;
-
-        private LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
 
         private ArchorBll Archors => _bll.Archors;
 

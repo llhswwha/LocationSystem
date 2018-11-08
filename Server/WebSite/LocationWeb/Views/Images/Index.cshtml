@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+
+<img id="topView" style="width:100%; height:100%" />
+<div id="timeDiv"></div>
+
+<script type="text/javascript">   
+    //获取顶视图url
+    function freshPic() {
+        var topView = document.getElementById('topView');
+        topView.src = '/api/image?name=顶视图';
+        console.log('10s后顶视图获取成功！')
+    }
+    freshPic();
+
+    //获取当前时间
+    function presentTime() {
+        var time = new Date();
+        var year = time.getFullYear();    //年
+        var month = time.getMonth();      //月
+        var day = time.getDate();         //日
+        var hour = time.getHours();       //时
+        var minute = time.getMinutes();   //分
+        var second = time.getSeconds();   //秒
+
+        var times = year + "-" + addZero((month + 1)) + "-" + addZero(day) + " " + addZero(hour) + ":" + addZero(minute) + ":" + addZero(second);
+        console.log(times);
+        var timeDiv = document.getElementById('timeDiv');
+        timeDiv.innerHTML = '当前时间：'+times;
+    }      
+    //当某个字段不是两位数时补0
+    function addZero(str) {
+        var num;
+        str >= 10 ? num = str : num = "0" + str;
+        return num;
+    }
+    presentTime();
+
+    window.onload = function () {
+        //定时刷新顶视图、更新时间
+        setInterval(function () {
+            freshPic();
+            presentTime();
+        }, 10000);
+    }
+</script>
+

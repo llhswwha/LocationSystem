@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DbModel.Location.Authorizations;
 
 namespace LocationServer.Windows
 {
@@ -29,6 +30,14 @@ namespace LocationServer.Windows
         {
             ITagRoleService service = new TagRoleService();
             DataGrid1.ItemsSource=service.GetList();
+        }
+
+        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var role = DataGrid1.SelectedItem as CardRole;
+            if (role == null) return;
+            var win = new AreaAuthorizationWindow(role);
+            win.Show();
         }
     }
 }

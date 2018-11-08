@@ -1,0 +1,67 @@
+﻿<Window x:Class="LocationServer.Windows.AreaAuthorizationRecordInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="区域权限" Height="400" Width="300" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <StackPanel>
+        <DockPanel>
+            <Label Width="100">名称</Label>
+            <TextBox Name="TbName"></TextBox>
+        </DockPanel>
+        <DockPanel>
+            <Label Width="100">描述</Label>
+            <TextBox Name="TbDescription"></TextBox>
+        </DockPanel>
+        <DockPanel>
+            <Label Width="100">区域</Label>
+            <ComboBox Name="CbAreaList" IsEditable="True" KeyUp="CbAreaList_OnKeyUp"></ComboBox>
+        </DockPanel>
+        <DockPanel>
+            <Label Width="100">角色</Label>
+            <ComboBox Name="CbRoleList" ></ComboBox>
+        </DockPanel>
+        <DockPanel>
+            <Label Width="100">进出限制</Label>
+            <ComboBox Name="CbAccessList"></ComboBox>
+        </DockPanel>
+        <DockPanel>
+            <Label Width="100">区域范围</Label>
+            <ComboBox Name="CbRangeTypeList"></ComboBox>
+        </DockPanel>
+
+        <GroupBox Header="时间设置">
+            <StackPanel>
+                <DockPanel>
+                    <Label Width="100">时间类型</Label>
+                    <ComboBox Name="CbTimeType"></ComboBox>
+                </DockPanel>
+                <DockPanel>
+                    <Label Width="100">开始时间</Label>
+                    <xctk:TimePicker Name="StartTime"></xctk:TimePicker>
+                </DockPanel>
+                <DockPanel>
+                    <Label Width="100">结束时间</Label>
+                    <xctk:TimePicker Name="EndTime"></xctk:TimePicker>
+                </DockPanel>
+                <DockPanel>
+                    <Label Width="100">重复天数</Label>
+                    <ComboBox Name="CbDays">
+                        <CheckBox Selector.IsSelected="True">全部</CheckBox>
+                        <CheckBox>星期一</CheckBox>
+                        <CheckBox>星期二</CheckBox>
+                        <CheckBox>星期三</CheckBox>
+                        <CheckBox>星期四</CheckBox>
+                        <CheckBox>星期五</CheckBox>
+                        <CheckBox>星期六</CheckBox>
+                        <CheckBox>星期日</CheckBox>
+                    </ComboBox>
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+        <Button Name="BtnSubmit" Click="BtnSubmit_OnClick">确定</Button>
+    </StackPanel>
+</Window>

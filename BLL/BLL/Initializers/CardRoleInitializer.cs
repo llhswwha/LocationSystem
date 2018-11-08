@@ -40,8 +40,8 @@ namespace BLL.Initializers
 
         public void InitData()
         {
-            role1 = AddCardRole("超级管理员", "特殊角色，可以进入全部区域。");
-            role2 = AddCardRole("管理人员");
+            role1 = AddCardRole("超级管理员", "可以进入全部区域");
+            role2 = AddCardRole("管理人员", "可以进入大部分区域");
             role3 = AddCardRole("巡检人员", "能够进入生产区域");
             role4 = AddCardRole("操作人员", "能够进入生产区域");
             role5 = AddCardRole("维修人员", "能够进入生产区域");

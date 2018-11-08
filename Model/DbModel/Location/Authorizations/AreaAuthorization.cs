@@ -63,6 +63,13 @@ namespace DbModel.Location.Work
         [XmlAttribute]
         public DateTime EndTime { get; set; }
 
+
+        public void SetTime(int startH,int startM,int endH,int endM,int endS=0)
+        {
+            StartTime = new DateTime(2000, 1, 1, startH, startM, 0);
+            EndTime = new DateTime(2000, 1, 1, endH, endM, endS);
+        }
+
         /// <summary>
         /// 权限时长,单位是 分钟
         /// </summary>

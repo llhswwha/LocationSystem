@@ -57,6 +57,7 @@ namespace LocationServices.Locations.Services
         TEntity BindWithTag(PersonTag pt);
 
 
+        IList<TEntity> GetListByRole(string role);
     }
 
     public class PersonTag
@@ -163,6 +164,27 @@ namespace LocationServices.Locations.Services
                         select new {Person=p,Tag=tag,Pos=pos};
             string sql = query.ToString();
             var list=new List<TEntity>();
+            foreach (var item in query.ToList())
+            {
+                var p = item.Person.ToTModel();
+                p.Tag = item.Tag.ToTModel();
+                p.Tag.Pos = item.Pos.ToTModel();
+                list.Add(p);
+            }
+            return list.ToWCFList();
+        }
+
+        public IList<TEntity> GetListByRole(string role)
+        {
+            var roleId = role.ToInt();
+            var query = from r in db.LocationCardToPersonnels.DbSet
+                        join p in dbSet.DbSet on r.PersonnelId equals p.Id
+                        join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        where tag.CardRoleId  == roleId
+                        select new { Person = p, Tag = tag, Pos = pos };
+            string sql = query.ToString();
+            var list = new List<TEntity>();
             foreach (var item in query.ToList())
             {
                 var p = item.Person.ToTModel();

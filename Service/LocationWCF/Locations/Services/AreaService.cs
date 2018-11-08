@@ -63,26 +63,37 @@ namespace LocationServices.Locations.Services
             return list1.ToWcfModelList();
         }
 
-        public AreaStatistics GetAreaStatisticsCount(int id)
+        public AreaStatistics GetAreaStatisticsCount(List<int?> lst)
         {
+          
             var query = from t1 in db.LocationCardPositions.DbSet
                         join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
-                        where t1.AreaId == id
+                        where lst.Contains(t1.AreaId)
                         select t2;
-            
 
             var query2 = from t1 in db.DevInfos.DbSet
+                         where lst.Contains(t1.ParentId)
+                         select t1;
+
+            var query3 = from t1 in db.LocationAlarms.DbSet
+                         where lst.Contains(t1.AreadId)
+                         select t1;
+
+            var query4 = from t1 in db.DevInfos.DbSet
                          join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
-                         where t1.ParentId == id
+                         where lst.Contains(t1.ParentId)
                          select t2;
             
             var pList = query.ToList();
-            var dList = query2.ToList();
+            var dvList = query2.ToList();
+            var laList = query3.ToList();
+            var daList = query4.ToList();
+
             var ass=new AreaStatistics();
             ass.PersonNum= pList.Count;
-            ass.DevNum = db.DevInfos.DbSet.Count(p => p.ParentId == id);
-            ass.LocationAlarmNum = db.LocationAlarms.DbSet.Count(p => p.AreadId == id);
-            ass.DevAlarmNum = dList.Count;
+            ass.DevNum = dvList.Count;
+            ass.LocationAlarmNum = laList.Count;
+            ass.DevAlarmNum = daList.Count;
             return ass;
         }
 

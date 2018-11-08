@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using DbModel.Location.Authorizations;
 using TEntity = Location.TModel.Location.AreaAndDev.Tag;
 using Location.TModel.Location.AreaAndDev;
 
@@ -35,7 +36,7 @@ namespace WebApiService.Controllers
             return service.Delete(id);
         }
 
-        [Route("")]//area/?id=1
+        [Route("")]//area?id=1
         [Route("{id}")]
         public TEntity GetEntity(string id)
         {
@@ -63,11 +64,18 @@ namespace WebApiService.Controllers
             return service.GetList(true);
         }
 
-        [Route("")]//search/?name=主
+        [Route("")]//search?name=主
         [Route("search/{name}")]//search/1,直接中文不行
         public IList<TEntity> GetListByName(string name)
         {
             return service.GetListByName(name);
+        }
+
+        [Route("")]//?role=主
+        [Route("~/api/tagRoles/{role}/tags")]
+        public IList<TEntity> GetListByRole(string role)
+        {
+            return service.GetListByRole(role);
         }
 
         [Route]

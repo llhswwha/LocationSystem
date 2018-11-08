@@ -51,6 +51,18 @@ namespace WebApiService.Controllers
             return service.GetListByArea(area);
         }
 
+        [Route("")]
+        public IList<TEntity> GetListByTag(string tag)
+        {
+            return service.GetListByTag(tag);
+        }
+
+        [Route("")]
+        public IList<TEntity> GetListByPerson(string person)
+        {
+            return service.GetListByPerson(person);
+        }
+
         [Route("")]//search?role=2
         public IList<TEntity> GetListByRole(string role)
         {

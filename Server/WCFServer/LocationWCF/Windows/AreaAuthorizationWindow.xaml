@@ -7,9 +7,16 @@
         mc:Ignorable="d"
         Title="区域权限"  Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="编辑">
+                <MenuItem Header="清空" Name="MenuClear" Click="MenuClear_OnClick"></MenuItem>
+                <MenuItem Header="初始化" Name="MenuInit" Click="MenuInit_OnClick"></MenuItem>
+                <MenuItem Header="保存" Name="Save" Click="Save_OnClick"></MenuItem>
+                <MenuItem Header="读取" Name="Load" Click="Load_OnClick"></MenuItem>
+                <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_OnClick"></MenuItem>
+            </MenuItem>
+        </Menu>
         <WPFClientControlLib:TopoTreeView Name="TopoTreeView1" Width="200"/>
-        <Grid>
-            <ListBox Name="ListBox1"></ListBox>
-        </Grid>
+        <DataGrid Name="DataGrid1"></DataGrid>
     </DockPanel>
 </Window>

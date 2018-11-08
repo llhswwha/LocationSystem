@@ -208,6 +208,9 @@
     <Compile Include="Windows\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AreaAuthorizationRecordInfoWindow.xaml.cs">
+      <DependentUpon>AreaAuthorizationRecordInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AreaAuthorizationWindow.xaml.cs">
       <DependentUpon>AreaAuthorizationWindow.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ArchorSettingWindowEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AreaAuthorizationRecordInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

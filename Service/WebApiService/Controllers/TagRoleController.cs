@@ -25,11 +25,18 @@ namespace WebApiService.Controllers
             return service.Delete(id);
         }
 
-        [Route("")]//area/?id=1
+        [Route("")]//area?id=1
         [Route("{id}")]
         public TEntity GetEntity(string id)
         {
             return service.GetEntity(id);
+        }
+
+        [Route("")]//area?tag=1
+        [Route("~/api/tags/{tag}/role")]
+        public TEntity GetEntityByTag(string tag)
+        {
+            return service.GetEntityByTag(tag);
         }
 
         [Route("")]

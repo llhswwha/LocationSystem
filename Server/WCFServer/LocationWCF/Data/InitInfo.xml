@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TopoInfo Name="根节点" KKS="" Type="区域">
-    <TopoInfo Name="四会热电厂" KKS="" Type="区域">
+    <TopoInfo Name="四会热电厂" KKS="" Type="园区">
       <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
         <Points>        
           <PointInfo X="2065.83" Y="1820" />
@@ -3222,7 +3222,7 @@
         </BoundInfo>
       </TopoInfo>
     </TopoInfo>
-    <TopoInfo Name="高新软件园" KKS="" Type="分组">
+    <TopoInfo Name="高新软件园" KKS="" Type="园区">
       <TopoInfo Name="左侧区域" KKS="" Type="分组">
         <TopoInfo Name="初灵大楼" KKS="" Type="大楼">
           <BoundInfo BottomHeight="0" Thickness="14" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="false">
