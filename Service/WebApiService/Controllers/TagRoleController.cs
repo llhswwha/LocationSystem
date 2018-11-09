@@ -39,6 +39,13 @@ namespace WebApiService.Controllers
             return service.GetEntityByTag(tag);
         }
 
+        [Route("")]//area?person=1
+        [Route("~/api/persons/{person}/role")]
+        public TEntity GetEntityByPerson(string person)
+        {
+            return service.GetEntityByPerson(person);
+        }
+
         [Route("")]
         [Route("list")]
         public IList<TEntity> GetList()

@@ -22,7 +22,7 @@ namespace LocationServices.Locations.Services
 
         IList<TEntity> GetListByRole(string role);
 
-        TEntity SetRole(string tag,string role);
+        TEntity SetRole(string id,string role);
     }
     public class TagService : ITagService
     {

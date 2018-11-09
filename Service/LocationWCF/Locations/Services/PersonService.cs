@@ -58,6 +58,8 @@ namespace LocationServices.Locations.Services
 
 
         IList<TEntity> GetListByRole(string role);
+
+        TEntity SetRole(string id, string role);
     }
 
     public class PersonTag
@@ -277,6 +279,17 @@ namespace LocationServices.Locations.Services
                 }
             }
             return result ? dbItem.ToTModel() : null;
+        }
+
+        public TEntity SetRole(string personId, string roleId)
+        {
+            int id = personId.ToInt();
+            var tp = db.LocationCardToPersonnels.Find(i => i.PersonnelId == id);
+            if (tp == null) return null;
+            TagService tagService = new TagService(db);
+            var tag = tagService.SetRole(tp.LocationCardId + "", roleId);
+            if (tag == null) return null;
+            return GetEntity(personId);
         }
 
         public List<NearbyPerson> GetNearbyPerson_Currency(int id)

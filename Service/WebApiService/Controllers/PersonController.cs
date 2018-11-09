@@ -76,6 +76,13 @@ namespace WebApiService.Controllers
             return service.GetListByRole(role);
         }
 
+        [HttpPut]
+        [Route("{id}/role/{role}")]
+        public TEntity SetRole(string id, string role)
+        {
+            return service.SetRole(id, role);
+        }
+
         [Route]
         public TEntity Post(TEntity item)
         {

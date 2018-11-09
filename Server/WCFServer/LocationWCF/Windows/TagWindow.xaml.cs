@@ -46,7 +46,11 @@ namespace LocationServer.Windows
             win.ShowOkButton();
             if (win.ShowDialog()==true)
             {
-                service.SetRole(tag.Id + "", win.Role.Id + "");
+                if (service.SetRole(tag.Id + "", win.Role.Id + "") == null)
+                {
+                    MessageBox.Show("设置失败");
+                    return;
+                }
                 LoadData();
             }
         }
