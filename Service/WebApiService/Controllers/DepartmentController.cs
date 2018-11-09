@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using TEntity = Location.TModel.Location.Person.Department;
 
 namespace WebApiService.Controllers
 {
@@ -22,85 +23,85 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<Department> GetList()
+        public IList<TEntity> GetList()
         {
             return service.GetList();
         }
-        public Department GetTree(List<Personnel> leafNodes)
+        public TEntity GetTree(List<Personnel> leafNodes)
         {
             return service.GetTree(leafNodes);
         }
         [Route("tree")]
-        public Department GetTree()
+        public TEntity GetTree()
         {
             return service.GetTree();
         }
 
         [Route("tree/{id}")]
-        public Department GetTree(string id)
+        public TEntity GetTree(string id)
         {
             return service.GetTree(id);
         }
 
         [Route("")]//search/?name=主
         [Route("search/{name}")]//search/1,直接中文不行
-        public IList<Department> GetListByName(string name)
+        public IList<TEntity> GetListByName(string name)
         {
             return service.GetListByName(name);
         }
 
         [Route("{id}/children")]
-        public IList<Department> GetListByPid(string id)
+        public List<TEntity> GetListByPid(string id)
         {
             return service.GetListByPid(id);
         }
 
         [Route("{id}/parent")]
-        public Department GetParent(string id)
+        public TEntity GetParent(string id)
         {
             return service.GetParent(id);
         }
 
         [Route("")]//area/?id=1
         [Route("{id}")]
-        public Department GetEntity(string id)
+        public TEntity GetEntity(string id)
         {
             return service.GetEntity(id);
         }
 
         [Route("")]
         [Route("{id}")]
-        public Department GetEntity(string id, bool getChildren)
+        public TEntity GetEntity(string id, bool getChildren)
         {
             return service.GetEntity(id, getChildren);
         }
 
         [Route]
-        public Department Post(Department item)
+        public TEntity Post(TEntity item)
         {
             return service.Post(item);
         }
 
         [Route("{pid}")]
-        public Department Post(string pid, Department item)
+        public TEntity Post(string pid, TEntity item)
         {
             return service.Post(pid, item);
         }
 
         [Route]
-        public Department Put(Department item)
+        public TEntity Put(TEntity item)
         {
             return service.Put(item);
         }
 
         [Route("{id}")]
-        public Department Delete(string id)
+        public TEntity Delete(string id)
         {
             return service.Delete(id);
         }
 
         [Route("{id}/children")]
-        public IList<Department> DeleteListByPid(string id)
+        public IList<TEntity> DeleteListByPid(string id)
         {
             return service.DeleteListByPid(id);
         }

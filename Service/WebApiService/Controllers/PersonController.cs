@@ -97,7 +97,7 @@ namespace WebApiService.Controllers
 
         [Route("")]//search/?pid=主
         [Route("~/api/deps/{pid}/persons")]
-        public IList<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pid)
         {
             return service.GetListByPid(pid);
         }

@@ -51,7 +51,7 @@ namespace WebApiService.Controllers
 
         [Route("")]//search/?pid=主
         [Route("~/api/areas/{pid}/devices")]
-        public IList<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pid)
         {
             return service.GetListByPid(pid);
         }

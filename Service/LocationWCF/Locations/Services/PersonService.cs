@@ -233,7 +233,7 @@ namespace LocationServices.Locations.Services
             return devInfoList.ToWCFList();
         }
 
-        public IList<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pid)
         {
             return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
         }

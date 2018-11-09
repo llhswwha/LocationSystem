@@ -124,7 +124,7 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public IList<TEntity> GetListByPids(int[] pidList)
+        public List<TEntity> GetListByPids(int[] pidList)
         {
             List<TEntity> devInfoList = new List<TEntity>();
             foreach (var pid in pidList)
@@ -140,7 +140,7 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public IList<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pid)
         {
             return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
         }

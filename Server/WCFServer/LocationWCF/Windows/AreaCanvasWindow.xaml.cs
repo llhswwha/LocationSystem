@@ -58,7 +58,12 @@ namespace LocationServer
             {
                 var win = new AreaInfoWindow();
                 win.Show();
-                win.ShowInfo(AreaCanvas1.SelectedArea);
+                var area = AreaCanvas1.SelectedArea;
+                if (area.Children == null)
+                {
+                    area.Children = areaService.GetListByPid(area.Id+"");
+                }
+                win.ShowInfo(area);
             });
             areaContextMenu.Items.Add(new MenuItem() { Header = "删除" });
             AreaCanvas1.AreaContextMenu = areaContextMenu;

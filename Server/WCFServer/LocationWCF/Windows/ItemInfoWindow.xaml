@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
         Title="ItemInfoWindow" Height="500" Width="500" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="保存" Click="MenuItem_Click"></MenuItem>
+        </Menu>
         <xctk:PropertyGrid x:Name="PropertyGrid1"/>
-    </Grid>
+    </DockPanel>
 </Window>

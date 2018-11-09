@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
         Title="AreaInfoWindow" Height="400" Width="400" WindowStartupLocation="CenterScreen" Loaded="ArchorListWindow_OnLoaded">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="编辑">
+                <MenuItem Header="保存" Name="MenuSave" Click="MenuSave_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="属性">
+                <MenuItem Header="InitBound" Name="MenuInitBound" Click="MenuInitBound_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
         <xctk:PropertyGrid Name="PropertyGrid1"/>
-    </Grid>
+    </DockPanel>
 </Window>

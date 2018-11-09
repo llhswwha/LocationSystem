@@ -28,5 +28,10 @@ namespace LocationServer.Windows
         {
             PropertyGrid1.SelectedObject = item;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

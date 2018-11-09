@@ -125,7 +125,7 @@ namespace LocationServices.Locations.Services
             return list.ToWcfModelList();
         }
 
-        public IList<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pid)
         {
             var list = dbSet.FindListByPid(pid.ToInt());
             return list.ToWcfModelList();

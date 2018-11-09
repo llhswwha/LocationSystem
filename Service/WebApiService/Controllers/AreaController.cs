@@ -82,7 +82,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("{id}/children")]
-        public IList<TEntity> GetListByPid(string id)
+        public List<TEntity> GetListByPid(string id)
         {
             return service.GetListByPid(id);
         }

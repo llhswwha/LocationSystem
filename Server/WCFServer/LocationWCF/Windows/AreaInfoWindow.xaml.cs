@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LocationServices.Locations.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 
 namespace LocationServer.Windows
 {
@@ -29,9 +31,34 @@ namespace LocationServer.Windows
 
         }
 
+        private object _item;
+
         public void ShowInfo(object item)
         {
-            PropertyGrid1.SelectedObject = item;
+            _item = item;
+            PropertyGrid1.SelectedObject = _item;
+        }
+
+        private void MenuSave_Click(object sender, RoutedEventArgs e)
+        {
+            var areaService = new AreaService();
+            var area = areaService.Put(_item as TEntity);
+            if (area == null)
+            {
+                MessageBox.Show("保存失败");
+            }
+            else
+            {
+                MessageBox.Show("保存成功");
+            }
+        }
+
+        private void MenuInitBound_Click(object sender, RoutedEventArgs e)
+        {
+            var area = _item as TEntity;
+            var win = new ItemInfoWindow();
+            win.Show();
+            win.ShowInfo(area.InitBound);
         }
     }
 }

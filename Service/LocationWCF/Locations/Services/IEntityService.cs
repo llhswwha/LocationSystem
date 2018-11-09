@@ -22,7 +22,7 @@ namespace LocationServices.Locations.Services
 
     public interface ILeafEntityService<T,TP> : IEntityService<T>
     {
-        IList<T> GetListByPid(string pid);
+        List<T> GetListByPid(string pid);
         IList<T> DeleteListByPid(string pid);
 
         TP GetParent(string id);
