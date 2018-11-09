@@ -4,6 +4,7 @@ using Location.BLL.Tool;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -85,6 +86,12 @@ namespace LocationServer.Windows
 
         private void MenuInitSqlite_Click(object sender, RoutedEventArgs e)
         {
+            DirectoryInfo dirInfo=new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\");
+            FileInfo[] files = dirInfo.GetFiles("*.db");
+            foreach (var file in files)
+            {
+                file.Delete();
+            }
             AppContext.InitDbAsync(1, 0, (bll) =>
             {
                 InitImage(bll);

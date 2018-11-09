@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL;
 using DbModel.Location.AreaAndDev;
+using Location.TModel.Location.AreaAndDev;
 using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Services;
@@ -22,6 +23,7 @@ using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 //using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
 using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using PersonEntity = Location.TModel.Location.Person.Personnel;
+using WPFClientControlLib.Extensions;
 
 namespace LocationServer
 {
@@ -44,6 +46,22 @@ namespace LocationServer
         {
             areaService = new AreaService();
             AreaCanvas1.Init();
+            ContextMenu devContextMenu=new ContextMenu();
+            devContextMenu.AddMenu("设置", () =>
+            {
+                SetDevInfo(AreaCanvas1.SelectedDev, AreaCanvas1.SelectedDev.Tag as DevEntity);
+            });
+            devContextMenu.Items.Add(new MenuItem() { Header = "删除" });
+            AreaCanvas1.DevContextMenu= devContextMenu;
+            ContextMenu areaContextMenu = new ContextMenu();
+            areaContextMenu.AddMenu("设置", () =>
+            {
+                var win = new AreaInfoWindow();
+                win.Show();
+                win.ShowInfo(AreaCanvas1.SelectedArea);
+            });
+            areaContextMenu.Items.Add(new MenuItem() { Header = "删除" });
+            AreaCanvas1.AreaContextMenu = areaContextMenu;
             LoadData();
         }
 
@@ -115,35 +133,34 @@ namespace LocationServer
 
         private void AreaCanvas1_DevSelected(Rectangle rect, DevEntity obj)
         {
-            var parentArea = areaService.GetEntity(obj.ParentId+"");
-            if (parentArea.IsPark())//电厂
+            //SetDevInfo(rect, obj);
+        }
+
+        private void SetDevInfo(Rectangle rect, DevEntity obj)
+        {
+            var parentArea = areaService.GetEntity(obj.ParentId + "");
+            if (parentArea.IsPark()) //电厂
             {
                 var bound = parentArea.InitBound;
                 //if (bound.Points == null)
                 //{
                 //    bound.Points = new Bll().Points.FindAll(i => i.BoundId == bound.Id);
                 //}
-                var leftBottom= bound.GetLeftBottomPoint();
+                var leftBottom = bound.GetLeftBottomPoint();
 
                 var win2 = new ParkArchorSettingWindow();
                 ParkArchorSettingWindow.ZeroX = leftBottom.X;
                 ParkArchorSettingWindow.ZeroY = leftBottom.Y;
                 win2.Owner = this;
                 win2.Show();
-                
+
                 if (win2.ShowInfo(rect, obj.Id) == false)
                 {
                     win2.Close();
                     return;
                 }
-                win2.RefreshDev += (dev) =>
-                {
-                    AreaCanvas1.RefreshDev(dev.ToTModel());
-                };
-                win2.ShowPointEvent += (x, y) =>
-                {
-                    AreaCanvas1.ShowPoint(x, y);
-                };
+                win2.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                win2.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
             }
             else
             {
@@ -155,16 +172,9 @@ namespace LocationServer
                     win2.Close();
                     return;
                 }
-                win2.RefreshDev += (dev) =>
-                {
-                    AreaCanvas1.RefreshDev(dev.ToTModel());
-                };
-                win2.ShowPointEvent += (x, y) =>
-                {
-                    AreaCanvas1.ShowPoint(x, y);
-                };
+                win2.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                win2.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
             }
-           
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

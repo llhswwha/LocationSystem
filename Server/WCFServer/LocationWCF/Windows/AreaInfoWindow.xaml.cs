@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace LocationServer.Windows
+{
+    /// <summary>
+    /// Interaction logic for AreaInfoWindow.xaml
+    /// </summary>
+    public partial class AreaInfoWindow : Window
+    {
+        public AreaInfoWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void ArchorListWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void ShowInfo(object item)
+        {
+            PropertyGrid1.SelectedObject = item;
+        }
+    }
+}

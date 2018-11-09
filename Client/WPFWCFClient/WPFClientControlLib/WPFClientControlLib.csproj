@@ -75,6 +75,7 @@
     <Compile Include="DbDeviceListBox.xaml.cs">
       <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\MenuExtensions.cs" />
     <Compile Include="ItemInfoWindow.xaml.cs">
       <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
     </Compile>

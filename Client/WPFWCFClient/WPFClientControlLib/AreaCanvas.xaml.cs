@@ -22,6 +22,43 @@ namespace WPFClientControlLib
     /// </summary>
     public partial class AreaCanvas : UserControl
     {
+        public Shape zeroPoint;
+        public double Scale = 1;
+        public double ZeroX;
+        public double ZeroY;
+        public double OffsetX;
+        public double OffsetY;
+        public int ViewMode { get; set; }
+        public double DevSize { get; set; }
+
+        public double CanvasMargin = 20;
+
+        public bool ShowDev { get; set; }
+
+        public bool ShowPerson { get; set; }
+
+        public Shape SelectedRect { get; set; }
+        public List<Shape> SelectedRects = new List<Shape>();
+
+        public AreaEntity SelectedArea { get; set; }
+
+        public List<AreaEntity> SelectedAreas = new List<AreaEntity>();
+
+        public Rectangle SelectedDev { get; set; }
+
+        public Dictionary<int, Shape> AreaDict = new Dictionary<int, Shape>();
+        public Dictionary<int, Rectangle> DevDict = new Dictionary<int, Rectangle>();
+        public Dictionary<int, Ellipse> PersonDict = new Dictionary<int, Ellipse>();
+
+        private IList<PersonEntity> _persons;
+        public List<PersonShape> PersonShapeList = new List<PersonShape>();
+
+        public event Action<Rectangle, DevEntity> DevSelected;
+
+        public ContextMenu DevContextMenu { get; set; }
+
+        public ContextMenu AreaContextMenu { get; set; }
+
         public AreaCanvas()
         {
             InitializeComponent();
@@ -43,6 +80,29 @@ namespace WPFClientControlLib
             }
         }
 
+        public void SelectAreas(List<AreaEntity> list)
+        {
+            if (list == null) return;
+            ClearSelect();
+            LbState.Content = "";
+            SelectedRects.Clear();
+            SelectedAreas.Clear();
+            foreach (var entity in list)
+            {
+                if (AreaDict.ContainsKey(entity.Id))
+                {
+                    SelectedRects.Add(AreaDict[entity.Id]);
+                    SelectedAreas.Add(entity);
+                    SetFocusStyle(AreaDict[entity.Id]);
+                    LbState.Content += entity.Name + ";";
+                }
+                else
+                {
+                    LbState.Content += "[" + entity.Name + "];";
+                }
+            }
+        }
+
         public void SelectDev<T>(T entity) where T : IEntity
         {
             if (entity == null) return;
@@ -59,28 +119,34 @@ namespace WPFClientControlLib
             }
         }
 
-        public void FocusRectangle(Shape rect)
+        private void SetAllShapeStrokeDash(Shape rect)
         {
-            foreach(var item in Canvas1.Children)
+            foreach (var item in Canvas1.Children)
             {
                 Shape shape = item as Shape;
                 if (shape == null) continue;
-                if(shape!= rect)
+                if (shape != rect)
                     SetShapeStrokeDash(shape);
             }
+        }
+
+        public void FocusRectangle(Shape rect)
+        {
+            SetAllShapeStrokeDash(rect);
 
             SelectedRect = rect;
-            SelectedRect.Stroke = Brushes.Red;
-            SelectedRect.StrokeThickness = 2;
-            SelectedRect.Focus();
-            //VisualTreeHelper.sc
+            SetFocusStyle(rect);
+
             ScrollViewer1.ScrollToHorizontalOffset(SelectedRect.Margin.Left);
             ScrollViewer1.ScrollToVerticalOffset(SelectedRect.Margin.Top);
         }
 
-        public Shape SelectedRect { get; set; }
-
-        public AreaEntity Current { get; set; }
+        private void SetFocusStyle(Shape rect)
+        {
+            rect.Stroke = Brushes.Red;
+            rect.StrokeThickness = 2;
+            rect.Focus();
+        }
 
         private void InitCbScale(int scale)
         {
@@ -97,10 +163,6 @@ namespace WPFClientControlLib
             CbDevSize.SelectionChanged += CbDevSize_SelectionChanged;
         }
 
-        public bool ShowDev { get; set; }
-
-        public bool ShowPerson { get; set; }
-
         public void ShowArea(AreaEntity area)
         {
             try
@@ -110,7 +172,7 @@ namespace WPFClientControlLib
                 if (area == null) return;
                 if (area.IsPark()) //电厂
                 {
-                    Current = area;
+                    SelectedArea = area;
                     int scale = 3;
                     DevSize = 3;
                     DrawPark(area, scale, DevSize);
@@ -120,13 +182,17 @@ namespace WPFClientControlLib
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
-                    Current = area;
+                    SelectedArea = area;
                     int scale = 20;
                     DevSize = 0.3;
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
                     InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5,0.6 }, DevSize);
                     //ShowPersons(area.Persons);
+                }
+                else if (area.Type == AreaTypes.分组)
+                {
+                    SelectAreas(area.Children);
                 }
                 else
                 {
@@ -152,15 +218,13 @@ namespace WPFClientControlLib
                 SelectedRect.Stroke = Brushes.Black;
                 SelectedRect.StrokeThickness = 1;
             }
+            foreach (var shape in SelectedRects)
+            {
+                shape.Stroke = Brushes.Black;
+                shape.StrokeThickness = 1;
+            }
         }
 
-        public Dictionary<int, Shape> AreaDict = new Dictionary<int, Shape>();
-        public Dictionary<int, Rectangle> DevDict = new Dictionary<int, Rectangle>();
-        public Dictionary<int, Ellipse> PersonDict = new Dictionary<int, Ellipse>();
-
-        public double Scale = 1;
-
-        public Shape zeroPoint;
         public Shape ShowPoint(double x, double y)
         {
             if (zeroPoint != null)
@@ -170,9 +234,6 @@ namespace WPFClientControlLib
             zeroPoint=AddPoint(Scale,new Vector(x,y));
             return zeroPoint;
         }
-
-        public double ZeroX;
-        public double ZeroY;
 
         private void AddZeroPoint(double scale, Vector vec)
         {
@@ -232,22 +293,15 @@ namespace WPFClientControlLib
         private void DrawFloor(AreaEntity area,double scale,double devSize)
         {
             Clear();
-
             var bound = area.InitBound;
             if (bound == null) return;
-
             Scale = scale;
-
-            Margin = 10;
-            OffsetX = -Margin/2;
-            OffsetY = -Margin/2;
-            Canvas1.Width = (bound.MaxX+ Margin) * scale ;
-            Canvas1.Height = (bound.MaxY+ Margin) * scale;
-
-            
-
+            CanvasMargin = 10;
+            OffsetX = -CanvasMargin/2;
+            OffsetY = -CanvasMargin/2;
+            Canvas1.Width = (bound.MaxX+ CanvasMargin) * scale ;
+            Canvas1.Height = (bound.MaxY+ CanvasMargin) * scale;
             AddAreaRect(area, null, scale);
-
             if (area.Children != null)
                 foreach (var level1Item in area.Children) //机房
                 {
@@ -264,37 +318,30 @@ namespace WPFClientControlLib
             Canvas1.Children.Clear();
             AreaDict.Clear();
             SelectedRect = null;
+            SelectedRects.Clear();
             OffsetX = 0;
             OffsetY = 0;
+            SelectedDev = null;
+            SelectedAreas.Clear();
+            SelectedArea = null;
         }
-
-        public double OffsetX = 0;
-        public double OffsetY = 0;
-
-        public double Margin = 20;
 
         private void DrawPark(AreaEntity area,int scale,double devSize)
         {
             Clear();
-
             var bound = area.InitBound;
             //if (bound == null)
             //{
             //    bound=area.CreateBoundByChildren();
             //}
             if (bound == null) return;
-
             //bound=area.SetBoundByDevs();
-
             Scale = scale;
-
-            Margin = 20;
-
-            OffsetX = bound.MinX - Margin;
-            OffsetY = bound.MinY - Margin;
-
-            Canvas1.Width = (bound.MaxX - OffsetX + Margin) * scale;
-            Canvas1.Height =(bound.MaxY - OffsetY + Margin) *scale;
+            CanvasMargin = 20;
+            OffsetX = bound.MinX - CanvasMargin;
+            OffsetY = bound.MinY - CanvasMargin;
+            Canvas1.Width = (bound.MaxX - OffsetX + CanvasMargin) * scale;
+            Canvas1.Height =(bound.MaxY - OffsetY + CanvasMargin) *scale;
 
             AddAreaRect(area,null, scale);
 
@@ -302,7 +349,6 @@ namespace WPFClientControlLib
                 foreach (var level1Item in area.Children) //建筑群
                 {
                     AddAreaRect(level1Item, area, scale);
-
                     if (level1Item.Children != null)
                         foreach (var level2Item in level1Item.Children) //建筑
                         {
@@ -314,16 +360,6 @@ namespace WPFClientControlLib
 
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
-
-        //private void ShowDevs(AreaEntity area, double scale, double devSize)
-        //{
-        //    if (ShowDev)
-        //        if (area.LeafNodes != null)
-        //            foreach (var dev in area.LeafNodes)
-        //            {
-        //                AddDevRect(dev, scale, devSize);
-        //            }
-        //}
 
         private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
@@ -357,6 +393,7 @@ namespace WPFClientControlLib
                 Tag = dev,
                 ToolTip = dev.Name
             };
+            devRect.ContextMenu = DevContextMenu;
 
             Canvas.SetLeft(devRect, x );
             Canvas.SetTop(devRect, y);
@@ -396,8 +433,6 @@ namespace WPFClientControlLib
             rect.Stroke = Brushes.Red;
         }
 
-        private Rectangle SelectedDev;
-
         private string GetDevText(DevEntity dev)
         {
             return string.Format("[{0}]({1},{2})", dev.Name, dev.Pos.PosX, dev.Pos.PosZ); 
@@ -405,23 +440,21 @@ namespace WPFClientControlLib
 
         private void DevRect_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedDev != null)
+            Rectangle rect = sender as Rectangle;
+            if (SelectedDev != null && SelectedDev != rect)
             {
                 SelectedDev.Fill = Brushes.DeepSkyBlue;
                 SelectedDev.Stroke = Brushes.Black;
             }
-            Rectangle rect = sender as Rectangle;
             var dev = rect.Tag as DevEntity;
             LbState.Content = GetDevText(dev);
             SelectedDev = rect;
 
             if (DevSelected != null)
             {
-                DevSelected(rect,dev);
+                DevSelected(rect, dev);
             }
         }
-
-        public event Action<Rectangle, DevEntity> DevSelected;
 
         private void AddAreaRect(AreaEntity area, AreaEntity parent, double scale = 1,bool isTransparent = false)
         {
@@ -443,9 +476,11 @@ namespace WPFClientControlLib
                 
                 polygon.Stroke = Brushes.Black;
                 polygon.StrokeThickness = 1;
+                polygon.MouseDown += Polygon_MouseDown;
                 polygon.MouseEnter += Polygon_MouseEnter;
                 polygon.MouseLeave += Polygon_MouseLeave;
                 polygon.Tag = area;
+                polygon.ContextMenu = AreaContextMenu;
 
                 if (area.Type == AreaTypes.范围)
                 {
@@ -457,19 +492,23 @@ namespace WPFClientControlLib
                 {
                     double x = (item.X - OffsetX) * scale;
                     double y = (item.Y - OffsetY) * scale;
-                    //if (ViewMode == 0)
-                    //    y = Canvas1.Height - /*bound.GetHeight() * scale*/ - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
-                    //if (bound.IsRelative && parent != null)
-                    //{
-                    //    x += parent.InitBound.MinX * scale;
-                    //    y -= parent.InitBound.MinY * scale;
-                    //}
                     polygon.Points.Add(new System.Windows.Point(x, y));
                 }
 
                 AreaDict[area.Id] = polygon;
                 Canvas1.Children.Add(polygon);
             }
+        }
+
+        private void Polygon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var shape=sender as Shape;
+            if (SelectedRect != null && SelectedRect != shape)
+            {
+                UnSelectRectangle(SelectedRect);
+            }
+            SelectedRect = shape;
+            SelectRectangle(shape);
         }
 
         private void SetShapeStrokeDash(Shape shape)
@@ -482,7 +521,11 @@ namespace WPFClientControlLib
 
         private void Polygon_MouseLeave(object sender, MouseEventArgs e)
         {
-            UnSelectRectangle(sender as Shape);
+            var shape = sender as Shape;
+            if (SelectedRect != shape)
+            {
+                UnSelectRectangle(shape);
+            }
         }
 
         private void Polygon_MouseEnter(object sender, MouseEventArgs e)
@@ -490,38 +533,20 @@ namespace WPFClientControlLib
             SelectRectangle(sender as Shape);
         }
 
-        private void AreaRect_MouseLeave(object sender, MouseEventArgs e)
-        {
-            UnSelectRectangle(sender as Shape);
-        }
-
-        private void AreaRect_MouseEnter(object sender, MouseEventArgs e)
-        {
-            SelectRectangle(sender as Shape);
-        }
-
         private void SelectRectangle(Shape rect)
         {
-            IName entity = rect.Tag as IName;
-            LbState.Content = "" + entity.Name;
+            SelectedArea = rect.Tag as AreaEntity;
+            if (SelectedArea == null) return;
+            LbState.Content = "" + SelectedArea.Name;
             rect.Stroke = Brushes.Red;
             rect.StrokeThickness = 2;
-
-            //Canvas1.Children.Remove(rect);
-            //Canvas1.Children.Add(rect);
-
-            SelectedRect = rect;
         }
 
         private void UnSelectRectangle(Shape rect)
         {
-            IName entity = rect.Tag as IName;
-            LbState.Content = "" + entity.Name;
-
             rect.Stroke = Brushes.Black;
             rect.StrokeThickness = 1;
-
-            SelectedRect = null;
+            //SelectedRect = null;
         }
 
         private void CbScale_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -536,7 +561,7 @@ namespace WPFClientControlLib
             try
             {
                 int scale = (int)CbScale.SelectedItem;
-                var area = Current;
+                var area = SelectedArea;
                 if (area == null) return;
                 if (area.ParentId == 1) //电厂
                 {
@@ -578,8 +603,6 @@ namespace WPFClientControlLib
             Refresh();
         }
 
-        public double DevSize { get; set; }
-
         private void AreaCanvas_OnLoaded(object sender, RoutedEventArgs e)
         {
             
@@ -598,7 +621,6 @@ namespace WPFClientControlLib
             
         }
 
-        private IList<PersonEntity> _persons;
 
         public void ShowPersons()
         {
@@ -616,8 +638,6 @@ namespace WPFClientControlLib
                 PersonShapeList.Add(ps);
             }
         }
-
-        public List<PersonShape> PersonShapeList=new List<PersonShape>();
 
         private PersonShape AddPersonRect(PersonEntity person, double scale, double size = 2)
         {
@@ -659,7 +679,5 @@ namespace WPFClientControlLib
             }
             Refresh();
         }
-
-        public int ViewMode { get; set; }
     }
 }

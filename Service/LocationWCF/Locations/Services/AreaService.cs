@@ -195,17 +195,33 @@ namespace LocationServices.Locations.Services
                 devs = db.DevInfos.ToList().ToTModelS();
             }
 
-
-
             var roots = TreeHelper.CreateTree(list, devs);
             AreaNode root = null;
             if (roots.Count > 0)
             {
-                root = roots[0];
+                root = roots[0];//根节点
+
+                var park = root.Children[0];//四会热电厂
+
+                //将电厂下的人员移动到其他区域中
+                var otherArea = new AreaNode();
+                otherArea.Id = 100000;
+                otherArea.Name = "厂区内";
+                if (park.Persons != null)
+                {
+                    foreach (var person in park.Persons)
+                    {
+                        otherArea.AddPerson(person);
+                    }
+                    park.Persons.Clear();
+                }
+                park.Children.Add(otherArea);
+                root = park;//将电厂做为根节点
             }
             if (view == 4 || view == 5 || view == 6)
             {
                 //RemoveEmptyNodes(root);
+                SumNodeCount(root);
             }
 
             //if (root.Children.Count == 0)
@@ -226,7 +242,15 @@ namespace LocationServices.Locations.Services
                 {
                     SetChildrenNull(subNode);
                 }
-                if (node.Children.Count == 0)
+                if (node.Children!=null && node.Children.Count == 0)
+                {
+                    node.Children = null;
+                }
+                if (node.Persons != null && node.Persons.Count == 0)
+                {
+                    node.Persons = null;
+                }
+                if (node.LeafNodes != null && node.LeafNodes.Count == 0)
                 {
                     node.Children = null;
                 }
@@ -255,6 +279,30 @@ namespace LocationServices.Locations.Services
                         }
                     }
                 }
+        }
+
+        /// <summary>
+        /// 遍历并计算数量
+        /// </summary>
+        /// <param name="node"></param>
+        private void SumNodeCount(AreaNode node)
+        {
+            if (node == null) return;
+            if(node.Persons!=null)
+                node.TotalPersonCount = node.Persons.Count;
+            if (node.LeafNodes != null)
+                node.TotalDevCount = node.LeafNodes.Count;
+
+            if (node.Children != null)
+            {
+                for (int i = 0; i < node.Children.Count; i++)
+                {
+                    AreaNode subNode = node.Children[i];
+                    SumNodeCount(subNode);
+                    node.TotalPersonCount += subNode.TotalPersonCount;
+                    node.TotalDevCount += subNode.TotalDevCount;
+                }
+            }
         }
 
         private void BindPerson(List<AreaNode> list)
@@ -366,6 +414,11 @@ namespace LocationServices.Locations.Services
         public TEntity GetEntity(string id, bool getChildren)
         {
             var item = dbSet.Find(id.ToInt());
+            if (item.InitBound == null)
+            {
+                item.InitBound=db.Bounds.Find(item.InitBoundId);
+                item.InitBound.Points = db.Points.FindAll(i => i.BoundId == item.InitBoundId);
+            }
             if (getChildren)
             {
                 GetChildren(item);

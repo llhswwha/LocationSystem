@@ -46,10 +46,22 @@ namespace TModel.Location.Nodes
         public List<DevNode> LeafNodes { get; set; }
 
         /// <summary>
+        /// 全部设备数量（包括子节点中的）
+        /// </summary>
+        [DataMember]
+        public int TotalDevCount { get; set; }
+
+        /// <summary>
         /// 区域内人员
         /// </summary>
         [DataMember]
         public List<PersonNode> Persons { get; set; }
+
+        /// <summary>
+        /// 全部人员数量（包括子节点中的）
+        /// </summary>
+        [DataMember]
+        public int TotalPersonCount { get; set; }
 
         public bool IsSelftEmpty()
         {

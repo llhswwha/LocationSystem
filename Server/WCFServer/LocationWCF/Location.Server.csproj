@@ -217,6 +217,9 @@
     <Compile Include="Windows\AreaCanvasWindow.xaml.cs">
       <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AreaInfoWindow.xaml.cs">
+      <DependentUpon>AreaInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CardRoleWindow.xaml.cs">
       <DependentUpon>CardRoleWindow.xaml</DependentUpon>
     </Compile>
@@ -303,6 +306,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\AreaCanvasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AreaInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
