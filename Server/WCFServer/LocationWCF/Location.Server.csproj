@@ -205,10 +205,10 @@
     <Compile Include="Models\EngineTool\RoomArchorSettingWindow.xaml.cs">
       <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ArchorSettingWindowEx.xaml.cs">
+    <Compile Include="Windows\Simple\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AreaAuthorizationRecordInfoWindow.xaml.cs">
+    <Compile Include="Windows\Simple\AreaAuthorizationRecordInfoWindow.xaml.cs">
       <DependentUpon>AreaAuthorizationRecordInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AreaAuthorizationWindow.xaml.cs">
@@ -217,10 +217,13 @@
     <Compile Include="Windows\AreaCanvasWindow.xaml.cs">
       <DependentUpon>AreaCanvasWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\AreaInfoWindow.xaml.cs">
+    <Compile Include="Windows\Simple\AreaInfoWindow.xaml.cs">
       <DependentUpon>AreaInfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\CardRoleWindow.xaml.cs">
+    <Compile Include="Windows\Simple\BoundWindow.xaml.cs">
+      <DependentUpon>BoundWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Simple\CardRoleWindow.xaml.cs">
       <DependentUpon>CardRoleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DbBrowserWindow.xaml.cs">
@@ -229,13 +232,13 @@
     <Compile Include="Windows\DbConfigureWindow.xaml.cs">
       <DependentUpon>DbConfigureWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DevInfoWindow.xaml.cs">
+    <Compile Include="Windows\Simple\DevInfoWindow.xaml.cs">
       <DependentUpon>DevInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\EventSendTestWindow.xaml.cs">
       <DependentUpon>EventSendTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ItemInfoWindow.xaml.cs">
+    <Compile Include="Windows\Simple\ItemInfoWindow.xaml.cs">
       <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EngineTool\LocationEngineToolWindow.xaml.cs">
@@ -246,19 +249,16 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Controls\StopwatchTextBox.cs" />
-    <Compile Include="Windows\LocationEngineClientWindow.xaml.cs">
-      <DependentUpon>LocationEngineClientWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
       <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\PersonWindow.xaml.cs">
+    <Compile Include="Windows\Simple\PersonWindow.xaml.cs">
       <DependentUpon>PersonWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\RealPosWindow.xaml.cs">
+    <Compile Include="Windows\Simple\RealPosWindow.xaml.cs">
       <DependentUpon>RealPosWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\TagWindow.xaml.cs">
+    <Compile Include="Windows\Simple\TagWindow.xaml.cs">
       <DependentUpon>TagWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\ServerManagerBox.xaml">
@@ -293,11 +293,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ArchorSettingWindowEx.xaml">
+    <Page Include="Windows\Simple\ArchorSettingWindowEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AreaAuthorizationRecordInfoWindow.xaml">
+    <Page Include="Windows\Simple\AreaAuthorizationRecordInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -309,11 +309,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AreaInfoWindow.xaml">
+    <Page Include="Windows\Simple\AreaInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\CardRoleWindow.xaml">
+    <Page Include="Windows\Simple\BoundWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Simple\CardRoleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -325,7 +329,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\DevInfoWindow.xaml">
+    <Page Include="Windows\Simple\DevInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -333,7 +337,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ItemInfoWindow.xaml">
+    <Page Include="Windows\Simple\ItemInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,23 +361,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\LocationEngineClientWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\LocationHistoryTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\PersonWindow.xaml">
+    <Page Include="Windows\Simple\PersonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\RealPosWindow.xaml">
+    <Page Include="Windows\Simple\RealPosWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\TagWindow.xaml">
+    <Page Include="Windows\Simple\TagWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

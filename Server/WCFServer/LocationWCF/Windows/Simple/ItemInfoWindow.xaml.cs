@@ -24,6 +24,12 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
+        public ItemInfoWindow(object item)
+        {
+            InitializeComponent();
+            ShowInfo(item);
+        }
+
         public void ShowInfo(object item)
         {
             PropertyGrid1.SelectedObject = item;

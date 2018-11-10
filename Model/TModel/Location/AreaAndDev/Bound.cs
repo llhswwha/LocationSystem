@@ -261,5 +261,20 @@ namespace Location.TModel.Location.AreaAndDev
             }
             return leftBottom;
         }
+
+        public double GetWidth()
+        {
+            return MaxX - MinX;
+        }
+
+        public double GetLength()
+        {
+            return MaxY - MinY;
+        }
+
+        public double GetHeight()
+        {
+            return MaxZ - MinZ;
+        }
     }
 }

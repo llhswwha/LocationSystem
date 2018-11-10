@@ -72,6 +72,9 @@
     <Compile Include="Behaviors\MoveRectangleBehavior.cs" />
     <Compile Include="Behaviors\RectangleHelper.cs" />
     <Compile Include="Behaviors\ResizeRectangleBehavior.cs" />
+    <Compile Include="BoundCanvas.xaml.cs">
+      <DependentUpon>BoundCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DbDeviceListBox.xaml.cs">
       <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AreaListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BoundCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using LocationServices.Locations.Services;
+﻿using LocationServer.Windows.Simple;
+using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,9 +57,9 @@ namespace LocationServer.Windows
         private void MenuInitBound_Click(object sender, RoutedEventArgs e)
         {
             var area = _item as TEntity;
-            var win = new ItemInfoWindow();
+            var win = new BoundWindow();
+            win.Bound = area.InitBound;
             win.Show();
-            win.ShowInfo(area.InitBound);
         }
     }
 }
