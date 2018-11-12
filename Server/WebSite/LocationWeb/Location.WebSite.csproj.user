@@ -4,7 +4,7 @@
     <UseIISExpress>true</UseIISExpress>
     <NameOfLastUsedPublishProfile>LocationWeb</NameOfLastUsedPublishProfile>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

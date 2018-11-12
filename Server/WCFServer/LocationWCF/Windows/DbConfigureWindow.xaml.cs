@@ -3,6 +3,7 @@ using BLL.Tools;
 using Location.BLL.Tool;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -53,12 +54,12 @@ namespace LocationServer.Windows
 
         private void MenuInitMSSql_Click(object sender, RoutedEventArgs e)
         {
-            var aa = new AuthorizationArea();
-            aa.Id = 1;
-            aa.Name = "aa";
-            aa.ParentId = 0;
-            aa.Children.Add(new AuthorizationArea() { Id = 2, ParentId = 1, Name = "bb" });
-            XmlSerializeHelper.Save(aa, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml");
+            //var aa = new AuthorizationArea();
+            //aa.Id = 1;
+            //aa.Name = "aa";
+            //aa.ParentId = 0;
+            //aa.Children.Add(new AuthorizationArea() { Id = 2, ParentId = 1, Name = "bb" });
+            //XmlSerializeHelper.Save(aa, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml");
 
 
             //var xf = new XmlFile();
@@ -68,6 +69,7 @@ namespace LocationServer.Windows
             //xf.Children.Add(new XmlFile() { Id = 2, ParentId = 1, Name = "bb" });
             //XmlSerializeHelper.Save(xf, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\XmlFile.xml");
 
+            //DbContext db=new DbContext();
             AppContext.InitDbAsync(0, 0,(bll)=>
             {
                 InitImage(bll);
