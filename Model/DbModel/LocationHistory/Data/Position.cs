@@ -130,6 +130,9 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
         public int? AreaId { get; set; }
 
+        [DataMember]
+        public string AreaPath { get; set; }
+
         /// <summary>
         /// 模拟数据
         /// </summary>

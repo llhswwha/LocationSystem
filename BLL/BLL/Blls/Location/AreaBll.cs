@@ -54,11 +54,15 @@ namespace BLL.Blls.Location
             foreach (var area in list)
             {
                 if (area.InitBound == null)
-                    area.InitBound = bounds.Find(i => i.Id == area.InitBoundId);
+                { area.InitBound = bounds.Find(i => i.Id == area.InitBoundId); }
                 if (area.EditBound == null)
-                    area.EditBound = bounds.Find(i => i.Id == area.EditBoundId);
-                if(area.Children==null)
-                    area.Children = list.FindAll(i => i.ParentId == area.Id);
+                { area.EditBound = bounds.Find(i => i.Id == area.EditBoundId); }
+                if (area.Children == null)
+                { area.Children = list.FindAll(i => i.ParentId == area.Id); }
+                if (area.Parent == null)
+                {
+                    area.Parent = list.Find(i => i.Id == area.ParentId);
+                }
             }
 
             if (withPoints)

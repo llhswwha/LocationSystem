@@ -184,22 +184,31 @@ namespace BLL
                         if (containsAreas.Count > 0)
                         {
                             pos.AreaId = containsAreas[0].Id;
+                            pos.AreaPath = containsAreas[0].Name;
                         }
                     }
                     else if (area.Type == DbModel.Tools.AreaTypes.楼层)
                     {
+                        var building = area.Parent;
                         var containsAreas = new List<Area>();
-                        var childrenArea = areas.FindAll(i => i.ParentId == area.Id);//机房
+                        var childrenArea = area.Children;
                         foreach (var item in childrenArea)
                         {
-                            if (item.InitBound.Contains(pos.X, pos.Y))
+                            var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
+                            var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
+                            if (item.InitBound.Contains(x, y))
                             {
                                 containsAreas.Add(item);
                             }
                         }
                         if (containsAreas.Count > 0)
                         {
+                            pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
                             pos.AreaId = containsAreas[0].Id;
+                        }
+                        else
+                        {
+                            pos.AreaPath = building.Name + "." + area.Name;
                         }
                     }
                 }

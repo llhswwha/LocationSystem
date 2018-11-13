@@ -141,10 +141,10 @@ namespace LocationServer
 
         private void LoadPersonTree()
         {
-            var tree = areaService.GetBasicTree(2);
+            var tree = areaService.GetBasicTree(5);
             var depTree = ResourceTreeView1.PersonTree;
             depTree.LoadData(tree);
-            depTree.ExpandLevel(2);
+            depTree.ExpandLevel(4);
 
             var persons=tree.GetAllPerson();
         }
