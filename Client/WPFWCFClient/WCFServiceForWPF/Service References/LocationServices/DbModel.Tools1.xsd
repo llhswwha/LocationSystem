@@ -206,6 +206,7 @@
   <xs:element name="LocationAlarmType" nillable="true" type="tns:LocationAlarmType" />
   <xs:simpleType name="LocationAlarmHandleType">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="未处理" />
       <xs:enumeration value="误报" />
       <xs:enumeration value="忽略" />
       <xs:enumeration value="确认" />

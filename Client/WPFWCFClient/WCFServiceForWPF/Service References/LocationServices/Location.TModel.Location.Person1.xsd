@@ -32,6 +32,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AreaId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AreaName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BirthDay" type="xs:dateTime" />
       <xs:element minOccurs="0" name="BirthTimeStamp" type="xs:long" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />

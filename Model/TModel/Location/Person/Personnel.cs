@@ -119,7 +119,6 @@ namespace Location.TModel.Location.Person
         [DataMember]
         public int? ParentId { get; set; }
 
-
         [DataMember]
         public int? TagId { get; set; }
 
@@ -138,13 +137,18 @@ namespace Location.TModel.Location.Person
         }
 
         [DataMember]
+        public int? AreaId { get; set; }
+
+        [DataMember]
+        public string AreaName { get; set; }
+
+
+        [DataMember]
         public string Pst { get; set; }
 
         [DataMember]
         public TagPosition Pos { get; set; }
 
-        [DataMember]
-        public int AreaId { get; set; }
 
         public Personnel Clone()
         {

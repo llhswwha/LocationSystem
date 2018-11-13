@@ -138,10 +138,13 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flag" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q6:Personnel" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q7:TagPosition" />
+      <xs:element minOccurs="0" name="Power" type="xs:int" />
+      <xs:element minOccurs="0" name="PowerState" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Tag" nillable="true" type="tns:Tag" />

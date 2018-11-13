@@ -268,6 +268,24 @@ namespace BLL
             {
                 Position position = positions[i];
                 if (position == null) continue;//位置信息可能有null
+                LocationCard lc = LocationCards.Where(p=>p.Code == position.Code).FirstOrDefault();
+                if (lc == null) continue;
+                if (lc.Flag != position.Flag || lc.Power != position.Power)
+                {
+                    lc.Flag = position.Flag;
+                    lc.Power = position.Power;
+                    if (lc.Power >= 400)
+                    {
+                        lc.PowerState = 0;
+                    }
+                    else
+                    {
+                        lc.PowerState = 1;
+                    }
+
+                    LocationCards.Edit(lc);
+                }
+
                 var tagPos = tagPosList.Find(item => item.Code == position.Code);
                 if (tagPos != null)
                 {

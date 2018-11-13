@@ -14,7 +14,7 @@
       </BoundInfo>
       <TopoInfo Name="主厂房区域建筑物" KKS="" Type="分组">
         <TopoInfo Name="主厂房" KKS="J1UMA" Type="大楼">
-          <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="false">
+          <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true">
             <Points>
               <PointInfo X="2200" Y="1648.2" />
               <PointInfo X="2244" Y="1648.2" />
@@ -23,7 +23,7 @@
             </Points>
           </BoundInfo>
           <TopoInfo Name="主厂房0m层" KKS="J1UMA00" Type="楼层">
-            <BoundInfo BottomHeight="0"  Thickness="4.5"  IsRelative="true"  IsCreateAreaByData="true">
+            <BoundInfo BottomHeight="0"  Thickness="4.5"  IsRelative="true"  IsCreateAreaByData="true" IsOnLocationArea="true">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="44.75" Y="0" />
@@ -1300,7 +1300,7 @@
             </TopoInfo>
           </TopoInfo>
           <TopoInfo Name="集控楼13.1m层" KKS="J1UCA13" Type="楼层">
-            <BoundInfo BottomHeight="13.1" Thickness="5.7" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false"  IsOnLocationArea="false">
+            <BoundInfo BottomHeight="13.1" Thickness="5.7" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false"  IsOnLocationArea="true">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="40.8" Y="23.55" />
@@ -1442,7 +1442,7 @@
             </Points>
           </BoundInfo>
           <TopoInfo Name="联合车间0m层" KKS="J2UCA00" Type="楼层">
-            <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true">
+            <BoundInfo BottomHeight="0" Thickness="4.5" IsRelative="true"  IsCreateAreaByData="true" IsOnLocationArea="true">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="43.8" Y="23.5" />
@@ -1502,7 +1502,7 @@
             </TopoInfo>
           </TopoInfo>
           <TopoInfo Name="联合车间4.5m层" KKS="J2UCA04" Type="楼层">
-            <BoundInfo BottomHeight="4.5" Thickness="3.3" IsRelative="true"  IsCreateAreaByData="true">
+            <BoundInfo BottomHeight="4.5" Thickness="3.3" IsRelative="true"  IsCreateAreaByData="true" IsOnLocationArea="true">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="30.4" Y="0" />

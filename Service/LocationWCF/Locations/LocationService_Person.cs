@@ -47,6 +47,8 @@ namespace LocationServices.Locations
             var postList = db.Posts.ToList();//职位
             var tagList = db.LocationCards.ToList();//关联标签
             var departList = db.Departments.ToList();//部门
+            var cardpositionList = db.LocationCardPositions.ToList();//卡位置
+            var areaList = db.Areas.ToList();//区域
             var ps = list.ToTModel();
             var ps2 = new List<Personnel>();
             foreach (var p in ps)
@@ -56,7 +58,16 @@ namespace LocationServices.Locations
                 {
                     p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
                     p.TagId = ttp.LocationCardId;
-
+                    var lcp = cardpositionList.Find(i => i.CardId == p.TagId);
+                    if (lcp != null && lcp.AreaId != null)
+                    {
+                        p.AreaId = lcp.AreaId;
+                        var area = areaList.Find(i => i.Id == p.AreaId);
+                        if (area != null)
+                        {
+                            p.AreaName = area.Name;
+                        }
+                    }
                     ps2.Add(p);
                 }
                 else

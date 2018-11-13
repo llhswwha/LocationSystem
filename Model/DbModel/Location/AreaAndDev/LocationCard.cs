@@ -47,6 +47,26 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "标签角色")]
         public int? CardRoleId { get; set; }
 
+        /// <summary>
+        /// 电量（伏*100)
+        /// </summary>
+        [Display(Name = "电量")]
+        public int Power { get; set; }
+
+        /// <summary>
+        /// 电量状态,0表示正常，1表示弱电
+        /// </summary>
+        [Display(Name = "电量状态")]
+        public int PowerState { get; set; }
+
+        /// <summary>
+        /// 不知道什么信息 格式是 0:0:0:0:0 或者 0:0:0:0:1。
+        /// 感觉是卡不动时会发1，动时发0。可能用:分开，不同位有不同作用
+        /// 补充：卡大约20秒中不动后，会发0:0:0:0:1，然后再不动大约10秒后，不发位置信息
+        /// </summary>
+        [Display(Name = "信息")]
+        public string Flag { get; set; }
+
         public override string ToString()
         {
             return Name;

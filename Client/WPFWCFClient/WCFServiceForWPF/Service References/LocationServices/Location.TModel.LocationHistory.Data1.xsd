@@ -17,6 +17,7 @@
       <xs:element minOccurs="0" name="Number" type="xs:int" />
       <xs:element minOccurs="0" name="PersonnelID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Power" type="xs:int" />
+      <xs:element minOccurs="0" name="PowerState" type="xs:int" />
       <xs:element minOccurs="0" name="Time" type="xs:long" />
       <xs:element minOccurs="0" name="TopoNodeId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="X" type="xs:float" />

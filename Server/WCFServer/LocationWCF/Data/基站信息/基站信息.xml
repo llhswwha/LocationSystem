@@ -168,7 +168,7 @@
     <Device Name="S3-8" AnchorId="" XPos="2526.872" YPos="1577.3686" ZPos="" />
   </DeviceList>
   <DeviceList Name="集控楼0m层">
-    <Device Name="集控楼一层" AnchorId="1111" XPos="0.432" YPos="0.907" ZPos="0" />
+    <Device Name="集控楼一层" AnchorId="1111" XPos="0.432" YPos="0.907" ZPos="1" />
     <Device Name="空调机房1" AnchorId="" XPos="0.432" YPos="0.907" ZPos="" />
     <Device Name="空调机房1" AnchorId="" XPos="0.432" YPos="0.907" ZPos="" />
     <Device Name="空调机房2" AnchorId="" XPos="6.917" YPos="0.871" ZPos="" />
@@ -235,7 +235,7 @@
     <Device Name="门厅走廊8" AnchorId="" XPos="40.71" YPos="11.232" ZPos="" />
   </DeviceList>
   <DeviceList Name="集控楼4.5m层">
-    <Device Name="集控楼二层" AnchorId="2222" XPos="0.432" YPos="0.907" ZPos="4.5" />
+    <Device Name="集控楼二层" AnchorId="2222" XPos="0.432" YPos="0.907" ZPos="2" />
     <Device Name="集控室1" AnchorId="" XPos="1.143" YPos="0.531" ZPos="" />
     <Device Name="集控室2" AnchorId="" XPos="4.081" YPos="0.531" ZPos="" />
     <Device Name="集控室3" AnchorId="" XPos="13.689" YPos="0.849" ZPos="" />
@@ -286,7 +286,7 @@
     <Device Name="工程师室4" AnchorId="" XPos="21.135" YPos="23.369" ZPos="" />
   </DeviceList>
   <DeviceList Name="集控楼8.8m层">
-    <Device Name="集控楼三层" AnchorId="3333" XPos="0.432" YPos="0.907" ZPos="8.8" />
+    <Device Name="集控楼三层" AnchorId="3333" XPos="0.432" YPos="0.907" ZPos="3" />
     <Device Name="空调机房1" AnchorId="" XPos="14.481" YPos="0.958" ZPos="" />
     <Device Name="空调机房2" AnchorId="" XPos="15.593" YPos="0.394" ZPos="" />
     <Device Name="空调机房3" AnchorId="" XPos="20.25" YPos="0.881" ZPos="" />
@@ -336,7 +336,7 @@
     <Device Name="卫生间4" AnchorId="" XPos="53.512" YPos="23.336" ZPos="" />
   </DeviceList>
   <DeviceList Name="集控楼13.1m层">
-    <Device Name="集控楼四层" AnchorId="4444" XPos="0.432" YPos="0.907" ZPos="13.1" />
+    <Device Name="集控楼四层" AnchorId="4444" XPos="0.432" YPos="0.907" ZPos="4" />
     <Device Name="走廊1" AnchorId="" XPos="54.533" YPos="11.352" ZPos="" />
     <Device Name="走廊2" AnchorId="" XPos="48.05" YPos="11.181" ZPos="" />
     <Device Name="走廊3" AnchorId="" XPos="47.276" YPos="11.47" ZPos="" />
@@ -354,6 +354,7 @@
     <Device Name="卫生间4" AnchorId="" XPos="53.512" YPos="23.336" ZPos="" />
   </DeviceList>
   <DeviceList Name="联合车间0m层">
+    <Device Name="联合车间一层" AnchorId="1001" XPos="0.432" YPos="0.907" ZPos="1" />
     <Device Name="工作段配电室1" AnchorId="" XPos="0.43" YPos="0.907" ZPos="" />
     <Device Name="工作段配电室2" AnchorId="" XPos="0.38" YPos="4.267" ZPos="" />
     <Device Name="工作段配电室3" AnchorId="" XPos="0.38" YPos="7.515" ZPos="" />
@@ -408,6 +409,7 @@
     <Device Name="空压机房8" AnchorId="" XPos="35.68" YPos="16.297" ZPos="" />
   </DeviceList>
   <DeviceList Name="联合车间4.5m层">
+    <Device Name="联合车间二层" AnchorId="1002" XPos="0.432" YPos="0.907" ZPos="2" />
     <Device Name="空调机房1" AnchorId="" XPos="-3.919" YPos="0.38" ZPos="" />
     <Device Name="空调机房2" AnchorId="" XPos="-0.369" YPos="0.48" ZPos="" />
     <Device Name="空调机房3" AnchorId="" XPos="-0.473" YPos="12.569" ZPos="" />
@@ -734,6 +736,7 @@
     <Device Name="化验室4" AnchorId="" XPos="20.107" YPos="8.866" ZPos="" />
   </DeviceList>
   <DeviceList Name="主厂房0m层">
+    <Device Name="主厂房一层" AnchorId="1201" XPos="0.432" YPos="0.907" ZPos="1" />
     <Device Name="#2机组6kV配电间1" AnchorId="" XPos="3.586" YPos="1.069" ZPos="" />
     <Device Name="#2机组6kV配电间2" AnchorId="" XPos="3.586" YPos="4.78" ZPos="" />
     <Device Name="#2机组6kV配电间3" AnchorId="" XPos="3.586" YPos="8.136" ZPos="" />

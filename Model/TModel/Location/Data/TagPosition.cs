@@ -45,6 +45,12 @@ namespace Location.TModel.Location.Data
         public int Power { get; set; }
 
         /// <summary>
+        /// 电量状态,0表示正常，1表示弱电
+        /// </summary>
+        [DataMember]
+        public int PowerState { get; set; }
+
+        /// <summary>
         /// 序号（新的卡才有的）
         /// </summary>
         [DataMember]

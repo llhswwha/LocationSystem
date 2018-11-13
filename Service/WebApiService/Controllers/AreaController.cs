@@ -4,6 +4,8 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations.Services;
 using TModel.Location.Nodes;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
+using System.Net.Http;
+using System.Net;
 
 namespace WebApiService.Controllers
 {
@@ -135,6 +137,23 @@ namespace WebApiService.Controllers
         public IList<TEntity> DeleteListByPid(string pid)
         {
             return service.DeleteListByPid(pid);
+        }
+
+        [Route("svg")]
+        public HttpResponseMessage GetAreaSvgXml(int Id)
+        {
+            AreaService asi = new AreaService();
+            string strXml = "<svg id=\"厂区\" width=\"100%\" height=\"100%\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" > ";
+            strXml += "<rect x=\"20\" y=\"20\" rx=\"20\" ry=\"20\" width=\"250\" height = \"100\" ";
+            strXml += "style = \"fill:red;stroke:black;stroke - width:5; opacity: 0.5\"/>";
+            
+            //strXml += asi.GetAreaSvgXml(Id);
+            strXml += "</svg>";
+
+            var resp = new HttpResponseMessage(HttpStatusCode.OK);
+         //   resp.Content = new ObjectContent>>(strXml,new XmlMdia);
+
+            return resp;
         }
     }
 }

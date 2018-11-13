@@ -305,7 +305,7 @@ namespace LocationServices.Locations.Services
             {
                 for (int i = 0; i < node.Children.Count; i++)
                 {
-                    AreaNode subNode = node.Children[i];
+                    var subNode = node.Children[i];
                     SumNodeCount(subNode);
                     node.TotalPersonCount += subNode.TotalPersonCount;
                     node.TotalDevCount += subNode.TotalDevCount;
@@ -509,58 +509,5 @@ namespace LocationServices.Locations.Services
             }
             return list2.ToWcfModelList();
         }
-
-        public string GetAreaSvgXml(int Id)
-        {
-            int Scale = 0;
-            int Margin = 0;
-            double DevSize = 0;
-            double OffsetX = 0;
-            double OffsetY = 0;
-            string strXml = "";
-
-            DbEntity area = dbSet.Find(Id);
-            if (area == null)
-            {
-                return strXml;
-            }
-
-            int? ParentId = area.ParentId;
-            DbEntity Parent = dbSet.Find(ParentId);
-            if (Parent == null)
-            {
-                return strXml;
-            }
-
-            DbModel.Location.AreaAndDev.Bound bound = db.Bounds.Find(area.InitBoundId);
-            if (bound == null)
-            {
-                return strXml;
-            }
-
-            if (Parent.Name == "根节点") //电厂
-            {
-                Scale = 3;
-                DevSize = 3;
-                Margin = 20;
-                OffsetX = bound.MinX - Margin;
-                OffsetY = bound.MinY - Margin;
-                
-            }
-            else if (area.Type == AreaTypes.楼层)
-            {
-                Scale = 20;
-                DevSize = 0.3;
-                Margin = 10;
-                OffsetX = -Margin / 2;
-                OffsetY = -Margin / 2;
-                
-            }
-
-
-            return "";
-        }
-
-        
     }
 }

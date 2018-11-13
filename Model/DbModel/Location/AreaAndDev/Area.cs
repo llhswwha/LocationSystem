@@ -412,5 +412,11 @@ namespace DbModel.Location.AreaAndDev
         {
             return Name == "四会热电厂";
         }
+
+
+        //public string GetParkSvgXml(int Scale, int Margin, double DevSize, double OffsetX, double OffsetY)
+        //{
+
+        //}
     }
 }

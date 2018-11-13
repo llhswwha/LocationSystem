@@ -100,6 +100,12 @@ namespace DbModel.LocationHistory.Data
         public int Power { get; set; }
 
         /// <summary>
+        /// 电量状态,0表示正常，1表示弱电
+        /// </summary>
+        [Display(Name = "电量状态")]
+        public int PowerState { get; set; }
+
+        /// <summary>
         /// 序号（新的卡才有的）
         /// </summary>
         [DataMember]
@@ -195,6 +201,16 @@ namespace DbModel.LocationHistory.Data
                     }
                     IsSimulate = archors == "@0000" || string.IsNullOrEmpty(archors);
                 }
+
+                if (Power >= 400)
+                {
+                    PowerState = 0;
+                }
+                else
+                {
+                    PowerState = 1;
+                }
+
                 return true;
             }
             catch (Exception ex)

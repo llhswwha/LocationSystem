@@ -13,6 +13,7 @@
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q3:Personnel" />
       <xs:element minOccurs="0" name="PersonId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Power" type="xs:int" />
+      <xs:element minOccurs="0" name="PowerState" type="xs:int" />
       <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
       <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="TagEntity" nillable="true" type="q4:Tag" />
       <xs:element minOccurs="0" name="Time" type="xs:long" />
