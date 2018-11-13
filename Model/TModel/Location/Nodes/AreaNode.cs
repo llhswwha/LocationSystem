@@ -115,5 +115,27 @@ namespace TModel.Location.Nodes
                 GetSubChildren(list, child, type);
             }
         }
+
+        public List<PersonNode> GetAllPerson()
+        {
+            var allChildren = new List<PersonNode>();
+            GetSubPerson(allChildren, this);
+            return allChildren;
+        }
+
+        public void GetSubPerson(List<PersonNode> list, AreaNode node)
+        {
+            if (node.Persons != null)
+                foreach (var person in node.Persons)
+                {
+                    list.Add(person);
+                }
+
+            if (node.Children!=null)
+                foreach (var child in node.Children)
+                {
+                    GetSubPerson(list, child);
+                }
+        }
     }
 }

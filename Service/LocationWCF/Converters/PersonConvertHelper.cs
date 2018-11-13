@@ -55,6 +55,17 @@ namespace LocationServices.Converters
             return item2;
         }
 
+        public static PersonNode ToTModelS(this TEntity item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new PersonNode();
+            item2.Id = item1.Id;
+            item2.Name = item1.Name;
+            item2.Sex = item1.Sex.ToString();
+            item2.ParentId = item1.ParentId;
+            return item2;
+        }
+
         public static List<PersonNode> ToTModelS(
     this List<DbEntity> list1)
         {

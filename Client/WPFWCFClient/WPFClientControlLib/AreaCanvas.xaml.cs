@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using DbModel.Tools;
 using Location.IModel;
+using TModel.Location.Nodes;
 using WPFClientControlLib.AreaCanvaItems;
 //using AreaEntity= DbModel.Location.AreaAndDev.Area;
 using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -639,9 +640,29 @@ namespace WPFClientControlLib
             }
         }
 
+        public void ShowPersons(IList<PersonNode> persons)
+        {
+            PersonShapeList.Clear();
+            //_persons = persons;
+            if (persons == null) return;
+            foreach (var person in persons)
+            {
+                PersonShape ps = AddPersonRect(person, Scale, 2);
+                PersonShapeList.Add(ps);
+            }
+        }
+
+        private PersonShape AddPersonRect(PersonNode person, double scale, double size = 2)
+        {
+            PersonShape ps = new PersonShape(this, person.Id, person.Name, person.Tag.Pos, scale, size);
+            ps.Moved += Ps_Moved;
+            ps.Show();
+            return ps;
+        }
+
         private PersonShape AddPersonRect(PersonEntity person, double scale, double size = 2)
         {
-            PersonShape ps = new PersonShape(this,person, scale, size);
+            PersonShape ps = new PersonShape(this,person.Id,person.Name,person.Pos, scale, size);
             ps.Moved += Ps_Moved;
             ps.Show();
             return ps;

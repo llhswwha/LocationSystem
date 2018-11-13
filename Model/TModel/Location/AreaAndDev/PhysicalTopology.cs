@@ -228,5 +228,27 @@ namespace Location.TModel.Location.AreaAndDev
         {
             return Name == "四会热电厂";
         }
+
+        public List<Personnel> GetAllPerson()
+        {
+            var allChildren = new List<Personnel>();
+            GetSubPerson(allChildren, this);
+            return allChildren;
+        }
+
+        public void GetSubPerson(List<Personnel> list, PhysicalTopology node)
+        {
+            if (node.Persons != null)
+                foreach (var person in node.Persons)
+                {
+                    list.Add(person);
+                }
+
+            if (node.Children != null)
+                foreach (var child in node.Children)
+                {
+                    GetSubPerson(list, child);
+                }
+        }
     }   
 }

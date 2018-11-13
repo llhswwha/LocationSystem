@@ -51,7 +51,7 @@ namespace LocationServer
 
             InitAreaCanvas();
             LoadData();
-            InitPersonTimer();
+            //StartPersonTimer();
         }
 
         private void PersonTimer_Tick(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace LocationServer
 
         DispatcherTimer personTimer;
 
-        void InitPersonTimer()
+        void StartPersonTimer()
         {
             if (personTimer == null)
             {
@@ -70,6 +70,15 @@ namespace LocationServer
                 personTimer.Interval = TimeSpan.FromMilliseconds(250);
                 personTimer.Tick += PersonTimer_Tick;
                 personTimer.Start();
+            }
+        }
+
+        void StopPersonTimer()
+        {
+            if (personTimer != null)
+            {
+                personTimer.Stop();
+                personTimer = null;
             }
         }
 
@@ -136,6 +145,8 @@ namespace LocationServer
             var depTree = ResourceTreeView1.PersonTree;
             depTree.LoadData(tree);
             depTree.ExpandLevel(2);
+
+            var persons=tree.GetAllPerson();
         }
 
         private AreaEntity area;
@@ -167,11 +178,12 @@ namespace LocationServer
             if (area == null) return;
             if (AreaCanvas1 == null) return;
             var service = new PersonService();
-            var persons = service.GetListByArea(area.Id + "");
-            if (persons == null)
-            {
-                persons = service.GetListByArea("");
-            }
+            //var persons = service.GetListByArea(area.Id + "");
+            //if (persons == null)
+            //{
+            //    persons = service.GetListByArea("");
+            //}
+            var persons = service.GetList(true);
             AreaCanvas1.ShowPersons(persons);
         }
 
@@ -248,7 +260,21 @@ namespace LocationServer
 
         private void MenuRefresh_Click(object sender, RoutedEventArgs e)
         {
+            LoadData();
+        }
 
+        private void MenuStartTimer_Click(object sender, RoutedEventArgs e)
+        {
+            if(MenuStartTimer.Header.ToString()== "启动定时器")
+            {
+                StartPersonTimer();
+                MenuStartTimer.Header = "停止定时器";
+            }
+            else
+            {
+                StopPersonTimer();
+                MenuStartTimer.Header = "启动定时器";
+            }
         }
     }
 }

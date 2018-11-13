@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Location.Data;
 using WPFClientControlLib.Behaviors;
 
@@ -15,7 +16,10 @@ namespace WPFClientControlLib.AreaCanvaItems
 {
     public class PersonShape
     {
-        public Location.TModel.Location.Person.Personnel Person { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public TagPosition Pos { get; set; }
 
         private AreaCanvas _canvas;
 
@@ -23,15 +27,17 @@ namespace WPFClientControlLib.AreaCanvaItems
 
         private double _size;
 
-        public PersonShape(AreaCanvas canvas, Location.TModel.Location.Person.Personnel person, double scale, double size = 2)
+        public PersonShape(AreaCanvas canvas, int id,string name, TagPosition pos, double scale, double size = 2)
         {
+            Id = id;
+            Name = name;
             _canvas = canvas;
-            Person = person;
+            Pos = pos;
             _scale = scale;
             _size = size;
 
-            PosX = Person.Tag.Pos.X;
-            PosY = Person.Tag.Pos.Z;
+            PosX = Pos.X;
+            PosY = Pos.Z;
         }
 
         public double PosX { get; set; }
@@ -68,7 +74,7 @@ namespace WPFClientControlLib.AreaCanvaItems
 
         public Ellipse Show()
         {
-            _canvas.RemovePerson(Person.Id);
+            _canvas.RemovePerson(Id);
 
             personShape = new Ellipse()
             {
@@ -78,8 +84,8 @@ namespace WPFClientControlLib.AreaCanvaItems
                 Fill = Brushes.GreenYellow,
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
-                Tag = Person,
-                ToolTip = Person.Name
+                Tag = Id,
+                ToolTip = Name
             };
 
             DragInCanvasBehavior behavior1 = new DragInCanvasBehavior();
@@ -91,7 +97,7 @@ namespace WPFClientControlLib.AreaCanvaItems
             Canvas.SetLeft(personShape, left);
             Canvas.SetTop(personShape, top);
 
-            _canvas.AddPerson(Person.Id, personShape);
+            _canvas.AddPerson(Id, personShape);
             personShape.MouseDown += PersonShape_MouseDown;
             personShape.MouseEnter += PersonShape_MouseEnter;
             personShape.MouseLeave += PersonShape_MouseLeave;
@@ -161,9 +167,9 @@ namespace WPFClientControlLib.AreaCanvaItems
 
         public TagPosition SavePos()
         {
-            Person.Tag.Pos.X= (float)PosX;
-            Person.Tag.Pos.Z = (float)PosY;
-            return Person.Tag.Pos;
+            Pos.X= (float)PosX;
+            Pos.Z = (float)PosY;
+            return Pos;
         }
 
         public event Action<PersonShape> Moved;

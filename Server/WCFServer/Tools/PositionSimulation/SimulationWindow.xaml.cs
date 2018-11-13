@@ -105,7 +105,7 @@ namespace PositionSimulation
                         {
                             var ps = AreaCanvas1.PersonShapeList[i];
                             ps.SavePos();
-                            var tPos = ps.Person.Tag.Pos;
+                            var tPos = ps.Pos;
                             var dbPos = tPos.ToDbModel();
 
                             Position pos = new Position();
@@ -186,7 +186,7 @@ namespace PositionSimulation
             {
                 var ps = AreaCanvas1.PersonShapeList[i];
                 ps.SavePos();
-                var tPos = ps.Person.Tag.Pos;
+                var tPos = ps.Pos;
                 var dbPos = tPos.ToDbModel();
                 var dbPos2 = bll.LocationCardPositions.FindByCode(dbPos.Code);
                 dbPos2.Edit(dbPos);

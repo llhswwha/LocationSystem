@@ -143,6 +143,9 @@ namespace Location.TModel.Location.Person
         [DataMember]
         public TagPosition Pos { get; set; }
 
+        [DataMember]
+        public int AreaId { get; set; }
+
         public Personnel Clone()
         {
             Personnel copy = this.CloneObjectByBinary();

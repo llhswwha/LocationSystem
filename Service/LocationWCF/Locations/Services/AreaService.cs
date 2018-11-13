@@ -15,6 +15,9 @@ using TModel.Location.Nodes;
 using TModel.Tools;
 using DbEntity = DbModel.Location.AreaAndDev.Area;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
+using DbModel.Location.Data;
+using TPerson = Location.TModel.Location.Person.Personnel;
+using DbPerson = DbModel.Location.Person.Personnel;
 
 namespace LocationServices.Locations.Services
 {
@@ -99,29 +102,29 @@ namespace LocationServices.Locations.Services
 
         public IList<TEntity> GetListWithPerson()
         {
-            var pList = GetPersonAreaList();
             IList<TEntity> list = GetList();
-            foreach (var item in pList)
-            {
-                var entity = list.First(i => i.Id == item.Area);
-                if (entity != null)
-                {
-                    entity.AddPerson(item.Person.ToTModel());
-                }
-            }
-            //todo:有必要的话做一个简化版的 只有区域和人员人员基本信息的列表
+            BindPerson(list);
             return list;
         }
 
-        private List<PersonArea> GetPersonAreaList()
+        private List<TPerson> GetPersonAreaList()
         {
             var query = from r in db.LocationCardToPersonnels.DbSet
                         join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
                         join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
-                        select new PersonArea { Person = p, Area = pos.AreaId };
+                        select new PersonArea { Person = p, Area = pos.AreaId,Tag=tag,Pos=pos };
             var pList = query.ToList();
-            return pList;
+            var list = new List<TPerson>();
+            foreach (var item in pList)
+            {
+                var p = item.Person.ToTModel();
+                p.Tag = item.Tag.ToTModel();
+                p.Tag.Pos = item.Pos.ToTModel();
+                p.AreaId = item.Area ?? 0;
+                list.Add(p);
+            }
+            return list;
         }
 
         class PersonArea
@@ -129,6 +132,10 @@ namespace LocationServices.Locations.Services
             public Personnel Person { get; set; }
 
             public int? Area { get; set; }
+
+            public LocationCard Tag { get; set; }
+
+            public LocationCardPosition Pos { get; set; }
         }
 
         public TEntity GetTree()
@@ -298,7 +305,7 @@ namespace LocationServices.Locations.Services
             {
                 for (int i = 0; i < node.Children.Count; i++)
                 {
-                    AreaNode subNode = node.Children[i];
+                    var subNode = node.Children[i];
                     SumNodeCount(subNode);
                     node.TotalPersonCount += subNode.TotalPersonCount;
                     node.TotalDevCount += subNode.TotalDevCount;
@@ -306,16 +313,28 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private void BindPerson(List<AreaNode> list)
+        private void BindPerson(IList<AreaNode> list)
         {
             var personList = GetPersonAreaList();
             foreach (var item in personList)
             {
-                if (item.Area == null) continue;
-                var entity = list.First(i => i.Id == item.Area);
+                var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
                 if (entity != null)
                 {
-                    entity.AddPerson(item.Person.ToTModelS());
+                    entity.AddPerson(item.ToTModelS());
+                }
+            }
+        }
+
+        private void BindPerson(IList<TEntity> list)
+        {
+            var personList = GetPersonAreaList();
+            foreach (var item in personList)
+            {
+                var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
+                if (entity != null)
+                {
+                    entity.AddPerson(item);
                 }
             }
         }
