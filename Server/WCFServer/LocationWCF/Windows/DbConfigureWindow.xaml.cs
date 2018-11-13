@@ -69,13 +69,13 @@ namespace LocationServer.Windows
             //xf.Children.Add(new XmlFile() { Id = 2, ParentId = 1, Name = "bb" });
             //XmlSerializeHelper.Save(xf, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\XmlFile.xml");
 
-            //DbContext db=new DbContext();
-            AppContext.InitDbAsync(0, 0,(bll)=>
-            {
-                InitImage(bll);
-                MessageBox.Show("初始化完成");
 
-            });
+            AppContext.DeleteDb(0);
+            AppContext.InitDbAsync(0, 0, (bll) =>
+             {
+                 InitImage(bll);
+                 MessageBox.Show("初始化完成");
+             });
         }
 
         private void InitImage(Bll bll)
@@ -88,12 +88,7 @@ namespace LocationServer.Windows
 
         private void MenuInitSqlite_Click(object sender, RoutedEventArgs e)
         {
-            DirectoryInfo dirInfo=new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\");
-            FileInfo[] files = dirInfo.GetFiles("*.db");
-            foreach (var file in files)
-            {
-                file.Delete();
-            }
+            AppContext.DeleteDb(1);
             AppContext.InitDbAsync(1, 0, (bll) =>
             {
                 InitImage(bll);
@@ -142,6 +137,11 @@ namespace LocationServer.Windows
             DbInitializer initializer = new DbInitializer(new Bll());
             initializer.InitCardAndPerson();
             MessageBox.Show("完成");
+        }
+
+        private void MenuDeleteSqlServer_Click(object sender, RoutedEventArgs e)
+        {
+            AppContext.DeleteDb(0);
         }
     }
 }

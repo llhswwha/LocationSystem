@@ -8,10 +8,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TabControl>
-            <TabItem Header="区域">
+            <TabItem Header="区域树">
                 <local:TopoTreeView x:Name="TopoTreeView1"/>
             </TabItem>
-            <TabItem Header="组织">
+            <TabItem Header="人员树">
+                <local:PersonTreeView x:Name="PersonTreeView1"/>
+            </TabItem>
+            <TabItem Header="组织机构">
                 <local:DepTreeView x:Name="DepTreeView1"/>
             </TabItem>
         </TabControl>

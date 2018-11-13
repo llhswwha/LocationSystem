@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TModel.Location.Nodes;
 
 namespace WPFClientControlLib
 {
@@ -27,13 +28,16 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData(PhysicalTopology tree1, Department tree2)
+        public void LoadData(PhysicalTopology tree1, Department tree2, AreaNode tree3=null)
         {
             TopoTreeView1.LoadData(tree1);
             TopoTreeView1.ExpandLevel(2);
             TopoTreeView1.SelectFirst();
 
             DepTreeView1.LoadData(tree2);
+            TopoTreeView1.ExpandLevel(2);
+
+            PersonTreeView1.LoadData(tree3);
         }
 
         public TopoTreeView TopoTree
@@ -44,6 +48,14 @@ namespace WPFClientControlLib
         public DepTreeView DepTree
         {
             get { return DepTreeView1; }
+        }
+
+        public PersonTreeView PersonTree
+        {
+            get
+            {
+                return PersonTreeView1;
+            }
         }
     }
 }

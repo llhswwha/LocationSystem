@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClientControlLib.Extensions;
 
 namespace WPFClientControlLib
 {
@@ -57,6 +58,11 @@ namespace WPFClientControlLib
                         node.Items.Add(subNode);
                     }
             }
+        }
+
+        public void ExpandLevel(int level)
+        {
+            TreeView1.ExpandLevel(level);
         }
     }
 }

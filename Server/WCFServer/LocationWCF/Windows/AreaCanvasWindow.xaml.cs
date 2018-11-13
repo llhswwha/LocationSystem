@@ -24,6 +24,7 @@ using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using PersonEntity = Location.TModel.Location.Person.Personnel;
 using WPFClientControlLib.Extensions;
+using System.Windows.Threading;
 
 namespace LocationServer
 {
@@ -41,18 +42,47 @@ namespace LocationServer
         }
 
         private AreaService areaService;
+        private DepartmentService depService;
 
         private void AreaCanvasWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             areaService = new AreaService();
+            depService = new DepartmentService();
+
+            InitAreaCanvas();
+            LoadData();
+            InitPersonTimer();
+        }
+
+        private void PersonTimer_Tick(object sender, EventArgs e)
+        {
+            ShowPersons();
+            LoadPersonTree();
+        }
+
+        DispatcherTimer personTimer;
+
+        void InitPersonTimer()
+        {
+            if (personTimer == null)
+            {
+                personTimer = new DispatcherTimer();
+                personTimer.Interval = TimeSpan.FromMilliseconds(250);
+                personTimer.Tick += PersonTimer_Tick;
+                personTimer.Start();
+            }
+        }
+
+        void InitAreaCanvas()
+        {
             AreaCanvas1.Init();
-            ContextMenu devContextMenu=new ContextMenu();
+            ContextMenu devContextMenu = new ContextMenu();
             devContextMenu.AddMenu("设置", () =>
             {
                 SetDevInfo(AreaCanvas1.SelectedDev, AreaCanvas1.SelectedDev.Tag as DevEntity);
             });
             devContextMenu.Items.Add(new MenuItem() { Header = "删除" });
-            AreaCanvas1.DevContextMenu= devContextMenu;
+            AreaCanvas1.DevContextMenu = devContextMenu;
             ContextMenu areaContextMenu = new ContextMenu();
             areaContextMenu.AddMenu("设置", () =>
             {
@@ -61,19 +91,19 @@ namespace LocationServer
                 var area = AreaCanvas1.SelectedArea;
                 if (area.Children == null)
                 {
-                    area.Children = areaService.GetListByPid(area.Id+"");
+                    area.Children = areaService.GetListByPid(area.Id + "");
                 }
                 win.ShowInfo(area);
             });
             areaContextMenu.Items.Add(new MenuItem() { Header = "删除" });
             AreaCanvas1.AreaContextMenu = areaContextMenu;
-            LoadData();
         }
 
         public void LoadData()
         {
             LoadAreaTree();
-
+            LoadDepTree();
+            LoadPersonTree();
             //LoadAreaList();
         }
 
@@ -85,17 +115,34 @@ namespace LocationServer
         private void LoadAreaTree()
         {
             var tree = areaService.GetTree(1);
-            TopoTreeView1.LoadData(tree);
-            TopoTreeView1.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
-            TopoTreeView1.ExpandLevel(2);
-            TopoTreeView1.SelectFirst();
+            var topoTree = ResourceTreeView1.TopoTree;
+            topoTree.LoadData(tree);
+            topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
+            topoTree.ExpandLevel(2);
+            topoTree.SelectFirst();
+        }
+
+        private void LoadDepTree()
+        {
+            var tree = depService.GetTree(1);
+            var depTree = ResourceTreeView1.DepTree;
+            depTree.LoadData(tree);
+            depTree.ExpandLevel(2);
+        }
+
+        private void LoadPersonTree()
+        {
+            var tree = areaService.GetBasicTree(2);
+            var depTree = ResourceTreeView1.PersonTree;
+            depTree.LoadData(tree);
+            depTree.ExpandLevel(2);
         }
 
         private AreaEntity area;
 
         private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            area = TopoTreeView1.SelectedObject as AreaEntity;
+            area = ResourceTreeView1.TopoTree.SelectedObject as AreaEntity;
             if (area == null) return;
             AreaCanvas1.ShowDev = true;
             AreaCanvas1.ShowArea(area);
@@ -117,6 +164,8 @@ namespace LocationServer
 
         private void ShowPersons()
         {
+            if (area == null) return;
+            if (AreaCanvas1 == null) return;
             var service = new PersonService();
             var persons = service.GetListByArea(area.Id + "");
             if (persons == null)
@@ -195,6 +244,11 @@ namespace LocationServer
                 ArchorListExportControl1.LoadData(area.Id);
                 TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
             }
+        }
+
+        private void MenuRefresh_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -79,11 +79,15 @@
       <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\MenuExtensions.cs" />
+    <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="ItemInfoWindow.xaml.cs">
       <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DbAchorListBox.xaml.cs">
       <DependentUpon>DbAchorListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TreeViews\PersonTreeView.xaml.cs">
+      <DependentUpon>PersonTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PointControl.xaml.cs">
       <DependentUpon>PointControl.xaml</DependentUpon>
@@ -94,7 +98,7 @@
     <Compile Include="TAchorListBox.xaml.cs">
       <DependentUpon>TAchorListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DepTreeView.xaml.cs">
+    <Compile Include="TreeViews\DepTreeView.xaml.cs">
       <DependentUpon>DepTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceAlarmListBox.xaml.cs">
@@ -112,13 +116,13 @@
     <Compile Include="PersonListBox.xaml.cs">
       <DependentUpon>PersonListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ResourceTreeView.xaml.cs">
+    <Compile Include="TreeViews\ResourceTreeView.xaml.cs">
       <DependentUpon>ResourceTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TagListBox.xaml.cs">
       <DependentUpon>TagListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TopoTreeView.xaml.cs">
+    <Compile Include="TreeViews\TopoTreeView.xaml.cs">
       <DependentUpon>TopoTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ArchorInfoWindow.xaml.cs">
@@ -161,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TreeViews\PersonTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PointControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,7 +181,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DepTreeView.xaml">
+    <Page Include="TreeViews\DepTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceTreeView.xaml">
+    <Page Include="TreeViews\ResourceTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,7 +213,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TopoTreeView.xaml">
+    <Page Include="TreeViews\TopoTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

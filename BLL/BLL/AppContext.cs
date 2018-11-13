@@ -7,6 +7,7 @@ using BLL;
 using Location.BLL.Tool;
 using DAL;
 using System.IO;
+using System.Data.Entity;
 
 namespace LocationServer
 {
@@ -106,6 +107,28 @@ namespace LocationServer
         {
             InitDbContext(dbsource);
             InitDb(initMode);
+        }
+
+        public static void DeleteDb(int type)
+        {
+            if (type == 0)
+            {
+                var db1 = new DbContext("LocationConnection");
+                var delResult1 = db1.Database.Delete();
+
+                var db2 = new DbContext("LocationHistoryConnection");
+                var delResult2 = db2.Database.Delete();
+            }
+            else
+            {
+                DirectoryInfo dirInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\");
+                FileInfo[] files = dirInfo.GetFiles("*.db");
+                foreach (var file in files)
+                {
+                    file.Delete();
+                }
+            }
+            
         }
     }
 }

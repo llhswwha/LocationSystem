@@ -220,9 +220,10 @@ namespace LocationServices.Locations.Services
             }
             if (view == 4 || view == 5 || view == 6)
             {
-                //RemoveEmptyNodes(root);
-                SumNodeCount(root);
+                RemoveEmptyNodes(root);
             }
+
+            SumNodeCount(root);
 
             //if (root.Children.Count == 0)
             //{

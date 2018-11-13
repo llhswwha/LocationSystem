@@ -7,12 +7,18 @@
         mc:Ignorable="d"
         Title="电厂视图" Height="700" Width="1200" Loaded="AreaCanvasWindow_OnLoaded" WindowStartupLocation="CenterScreen">
     <DockPanel>
-        <Menu DockPanel.Dock="Top"></Menu>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_Click"></MenuItem>
+        </Menu>
         <StackPanel DockPanel.Dock="Top">
 
         </StackPanel>
-        <wpfClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>
-        <TabControl Name="TabControl1" DockPanel.Dock="Top" Height="300" SelectionChanged="TabControl1_OnSelectionChanged">
+        <wpfClientControlLib:ResourceTreeView Width="200" DockPanel.Dock="Left" Name="ResourceTreeView1"/>
+        <!--<wpfClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>-->
+        <TabControl Name="TabControl1" SelectionChanged="TabControl1_OnSelectionChanged">
+            <TabItem Header="电厂视图">
+                <wpfClientControlLib:AreaCanvas x:Name="AreaCanvas1" DevSelected="AreaCanvas1_DevSelected"/>
+            </TabItem>
             <TabItem Header="子区域列表">
                 <wpfClientControlLib:AreaListBox x:Name="AreaListBox1" SelectedItemChanged="AreaListBox1_SelectedItemChanged"/>
             </TabItem>
@@ -24,6 +30,6 @@
             </TabItem>
         </TabControl>
         
-        <wpfClientControlLib:AreaCanvas x:Name="AreaCanvas1" DevSelected="AreaCanvas1_DevSelected"/>
+       
     </DockPanel>
 </Window>

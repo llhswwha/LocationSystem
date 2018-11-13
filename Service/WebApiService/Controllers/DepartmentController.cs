@@ -37,6 +37,12 @@ namespace WebApiService.Controllers
             return service.GetTree();
         }
 
+        [Route("tree")]
+        public TEntity GetTree(int view)
+        {
+            return service.GetTree(view);
+        }
+
         [Route("tree/{id}")]
         public TEntity GetTree(string id)
         {

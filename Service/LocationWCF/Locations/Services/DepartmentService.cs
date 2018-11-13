@@ -14,6 +14,13 @@ namespace LocationServices.Locations.Services
     public interface IDepartmentService : ITreeEntityService<TEntity>
     {
         TEntity GetTree(List<Personnel> leafNodes);
+
+        /// <summary>
+        /// 获取树节点
+        /// </summary>
+        /// <param name="view">0:基本数据;1:人员信息</param>
+        /// <returns></returns>
+        TEntity GetTree(int view);
     }
 
     public class DepartmentService : IDepartmentService
@@ -143,13 +150,31 @@ namespace LocationServices.Locations.Services
             return GetTree(new List<Personnel>());
         }
 
+        public TEntity GetTree(int view)
+        {
+            if (view == 0)
+            {
+                return GetTree(new List<Personnel>());
+            }
+            else if (view == 1)
+            {
+                List<Personnel> leafNodes = db.Personnels.ToList().ToTModel();
+                return GetTree(leafNodes);
+            }
+            else
+            {
+                return GetTree(new List<Personnel>());
+            }
+            
+        }
+
         public TEntity GetTree(List<Personnel> leafNodes)
         {
             try
             {
                 var list = dbSet.ToList().ToTModel();
                 //var leafNodes = GetPersonList();
-                var roots = TreeHelper.CreateTree<Department, Personnel>(list, leafNodes);
+                var roots = TreeHelper.CreateTree(list, leafNodes);
                 if (roots.Count > 0)
                 {
                     return roots[0];

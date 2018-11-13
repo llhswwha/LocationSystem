@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using Location.IModel;
+using WPFClientControlLib.Extensions;
 
 namespace WPFClientControlLib
 {
@@ -75,23 +76,7 @@ namespace WPFClientControlLib
 
         public void ExpandLevel(int level)
         {
-            ExpandChildren(TreeView1, level);
-            this.UpdateLayout();
-        }
-
-        public void ExpandChildren(ItemsControl control, int level)
-        {
-            if (level <= 0) return;
-            foreach (var item in control.Items)
-            {
-                TreeViewItem node = item as TreeViewItem;
-                //if(node==null)
-                //    node = control.ItemContainerGenerator.ContainerFromItem(item) as TreeViewItem;//子节点就不行了，不知道为什么
-                if (node == null) continue;
-                node.IsExpanded = true;
-                ExpandChildren(node, level - 1);
-            }
-            this.UpdateLayout();
+            TreeView1.ExpandLevel(level);
         }
 
         private void TreeView1_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
