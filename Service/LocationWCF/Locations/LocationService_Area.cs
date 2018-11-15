@@ -180,10 +180,10 @@ namespace LocationServices.Locations
             return lst;
         }
 
-        public List<NearbyPerson> GetNearbyPerson_Currency(int id)
+        public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
         {
             PersonService ps = new PersonService();
-            List<NearbyPerson> lst = ps.GetNearbyPerson_Currency(id);
+            List<NearbyPerson> lst = ps.GetNearbyPerson_Currency(id, fDis);
             if (lst == null)
             {
                 lst = new List<NearbyPerson>();

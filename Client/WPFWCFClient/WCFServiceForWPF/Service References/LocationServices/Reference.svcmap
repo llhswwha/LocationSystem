@@ -31,9 +31,9 @@
     <MetadataFile FileName="DbModel.Tools1.xsd" MetadataType="Schema" ID="7581cfe5-0f48-48e8-9082-f5336c8da380" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="Location.TModel.LocationHistory.Data1.xsd" MetadataType="Schema" ID="cfd2cd9b-136e-439c-a4ad-e90dc1873b8a" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.Location.AreaAndDev1.xsd" MetadataType="Schema" ID="6668ee3a-b1e3-453f-8df9-7cb38bb9fff5" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Nodes1.xsd" MetadataType="Schema" ID="77c49f6e-4658-4a8a-9769-ed3f5f5afe68" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Nodes.xsd" MetadataType="Schema" ID="e80aec93-7c4f-4fed-a256-c3f751a9b8e2" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="Location.TModel.Location1.xsd" MetadataType="Schema" ID="c4589054-a734-4e4b-a503-e6328fefafef" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
-    <MetadataFile FileName="TModel.Location.Person1.xsd" MetadataType="Schema" ID="f4c15daa-2417-4dd4-877f-5931e71a9877" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Location.Person.xsd" MetadataType="Schema" ID="ed878e38-a389-4ad9-8d74-116ed72ea786" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="Location.TModel.FuncArgs1.xsd" MetadataType="Schema" ID="2375302e-f1f5-4bed-a7fd-a1763376fe33" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="Location.TModel.Location.Alarm1.xsd" MetadataType="Schema" ID="6d4c8517-6ab1-4e57-b69e-267ad4c1e803" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.BaseData1.xsd" MetadataType="Schema" ID="db0ec994-c309-401e-a03d-1e1d2636126a" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />

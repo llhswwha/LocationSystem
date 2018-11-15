@@ -159,6 +159,7 @@
   <xs:simpleType name="AreaTypes">
     <xs:restriction base="xs:string">
       <xs:enumeration value="区域" />
+      <xs:enumeration value="园区" />
       <xs:enumeration value="分组" />
       <xs:enumeration value="大楼" />
       <xs:enumeration value="楼层" />

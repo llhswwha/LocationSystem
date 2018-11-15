@@ -32,6 +32,7 @@
                             <li>@Html.ActionLink("历史轨迹", "Index", "Positions")</li>
                             <li>@Html.ActionLink("定位告警", "Index", "Alarms")</li>
                             <li>@Html.ActionLink("定位图片", "Index", "Images")</li>
+                            <li>@Html.ActionLink("标签角色", "Index", "CardRole")</li>
                         </ul>
                     </li>
                     <li>
@@ -113,7 +114,11 @@
                             <li>@Html.ActionLink("读取初始数据", "LoadInitInfoXml", "DataInit")</li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="ThreeDimensional://">三维程序</a> 
+                    </li>                                                                                 
                 </ul>
+                             
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

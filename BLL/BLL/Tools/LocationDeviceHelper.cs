@@ -61,7 +61,7 @@ namespace BLL.Tools
                 DevPos devPos = GetDevPos(locationDev, devInfo.Local_DevID);
                 Archor archor = GetAnchorInfo(locationDev, devInfo.Id);
                 archor.ParentId = areaId;
-                if (string.IsNullOrEmpty(archor.Code))
+                if (string.IsNullOrEmpty(archor.Code)||archor.Code.Contains("Code"))
                 {
                     archor.Code = "Code_" + i;
                 }
@@ -90,7 +90,7 @@ namespace BLL.Tools
             archor.Name = locationDev.Name;
             archor.Type = ArchorTypes.副基站;
             archor.IsAutoIp = true;
-            archor.Ip = "";
+            archor.Ip = locationDev.IP;
             archor.ServerIp = "";
             archor.ServerPort = 0;
             archor.Power = 0;

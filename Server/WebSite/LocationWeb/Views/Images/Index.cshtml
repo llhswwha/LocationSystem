@@ -13,7 +13,15 @@
     function freshPic() {
         var topView = document.getElementById('topView');
         topView.src = '/api/image?name=顶视图';
-        console.log('10s后顶视图获取成功！')
+        //console.log('10s后顶视图获取成功！')
+        //$.ajax({
+        //    type: "GET",
+        //    url: "/api/image?name=顶视图",
+        //    dataType: "json",
+        //    success: function (data) {
+        //        console.log(data);
+        //    }
+        //});
     }
     freshPic();
 
@@ -28,9 +36,9 @@
         var second = time.getSeconds();   //秒
 
         var times = year + "-" + addZero((month + 1)) + "-" + addZero(day) + " " + addZero(hour) + ":" + addZero(minute) + ":" + addZero(second);
-        console.log(times);
+        //console.log(times);
         var timeDiv = document.getElementById('timeDiv');
-        timeDiv.innerHTML = '当前时间：'+times;
+        timeDiv.innerHTML = '当前时间：' + times;       
     }      
     //当某个字段不是两位数时补0
     function addZero(str) {

@@ -292,9 +292,10 @@ namespace LocationServices.Locations.Services
             return GetEntity(personId);
         }
 
-        public List<NearbyPerson> GetNearbyPerson_Currency(int id)
+        public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
         {
             List<NearbyPerson> lst = new List<NearbyPerson>();
+            List<NearbyPerson> lst2 = new List<NearbyPerson>();
             DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
             if (dev == null || dev.ParentId == null)
             {
@@ -320,10 +321,10 @@ namespace LocationServices.Locations.Services
                         select new NearbyPerson { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
             if (query != null)
             {
-                lst = query.ToList();
+                lst2 = query.ToList();
             }
 
-            foreach (NearbyPerson item in lst)
+            foreach (NearbyPerson item in lst2)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -332,6 +333,13 @@ namespace LocationServices.Locations.Services
                 sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
                 Distance = (float)System.Math.Sqrt(sqrtDistance);
                 item.Distance = Distance;
+
+                if (Distance <= fDis)
+                {
+                    NearbyPerson item2 = item.Clone();
+                    lst.Add(item2);
+                }
+
 
                 PosX2 = 0;
                 PosY2 = 0;

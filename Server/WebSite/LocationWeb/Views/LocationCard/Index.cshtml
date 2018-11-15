@@ -46,6 +46,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Describe)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardRoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Power)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PowerState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flag)
+            </th>
             <th></th>
         </tr>
 
@@ -60,6 +72,18 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Describe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardRoleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Power)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PowerState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flag)
                 </td>
                 <td>
                     @Ajax.ActionLink("Edit", "Edit", "LocationCard", new { id = item.Id }, new AjaxOptions

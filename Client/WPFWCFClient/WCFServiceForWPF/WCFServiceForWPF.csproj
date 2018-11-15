@@ -155,10 +155,10 @@
     <None Include="Service References\LocationServices\TModel.Location.Manage1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Nodes1.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Nodes.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Person1.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Person.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">

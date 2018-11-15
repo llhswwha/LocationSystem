@@ -270,7 +270,7 @@ namespace WCFServiceForWPF.LocationServices {
         bool DeletePerson(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Currency", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_CurrencyResponse")]
-        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id);
+        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id, float fDis);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
         TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id);
@@ -699,8 +699,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.DeletePerson(id);
         }
         
-        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id) {
-            return base.Channel.GetNearbyPerson_Currency(id);
+        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id, float fDis) {
+            return base.Channel.GetNearbyPerson_Currency(id, fDis);
         }
         
         public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id) {

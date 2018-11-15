@@ -56,5 +56,11 @@ namespace Location.Model.InitInfos
         [XmlAttribute("ZPos")]
         public string ZPos;
 
+        /// <summary>
+        /// 基站IP
+        /// </summary>
+        [XmlAttribute("IP")]
+        public string IP;
+
     }
 }

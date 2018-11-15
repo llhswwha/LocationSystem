@@ -42,7 +42,7 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         [OperationContract]
-        List<NearbyPerson> GetNearbyPerson_Currency(int id);
+        List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis);
 
         /// <summary>
         /// 附近人员（告警）

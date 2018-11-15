@@ -79,6 +79,22 @@ namespace TModel.Location.Person
             Y = 0;
             Z = 0;
         }
+
+        public NearbyPerson Clone()
+        {
+            NearbyPerson send = new NearbyPerson();
+            send.id = id;
+            send.Name = Name;
+            send.WorkNumber = WorkNumber;
+            send.Distance = Distance;
+            send.DepartMent = DepartMent;
+            send.Position = Position;
+            send.X = X;
+            send.Y = Y;
+            send.Z = Z;
+
+            return send;
+        }
     }
 
     public class PersonDistanceCompare:IComparer<NearbyPerson>

@@ -227,7 +227,7 @@ namespace LocationWCFClient.Windows
 
         private void GetNearbyPerson_Currency_OnClick(object sender, RoutedEventArgs e)
         {
-            NearbyPerson[] lst = client.GetNearbyPerson_Currency(1);
+            NearbyPerson[] lst = client.GetNearbyPerson_Currency(1,200);
         }
 
         private void GetNearbyPerson_Alarm_OnClick(object sender, RoutedEventArgs e)
