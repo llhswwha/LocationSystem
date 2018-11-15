@@ -15,6 +15,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using DbModel.Location.Authorizations;
 using BLL.Buffers;
+using DbModel.Location.Alarm;
 
 namespace LocationServices.Tools
 {
@@ -105,7 +106,8 @@ namespace LocationServices.Tools
             {
                 while (true)
                 {
-                    Thread.Sleep(300);//300ms插入一次数据库,todo:写入配置文件
+                    Thread.Sleep(300);//300ms插入一次数据库
+                    //todo:1.插入数据库时间写入配置文件,2.实时数据弄一个缓存，让客户端从缓存中取。
                     InsertPostions();
                 }
             });
@@ -180,8 +182,13 @@ namespace LocationServices.Tools
                 //todo:添加定位权限判断
                 if (r)
                 {
-                    var alarms=ab.GetAlarms(list1);
-                    bll.LocationAlarms.AddRange(alarms);
+                    NewAlarms = ab.GetAlarms(list1);
+                    bll.LocationAlarms.AddRange(NewAlarms);
+                    if (NewAlarmsFired != null)
+                    {
+                        NewAlarmsFired(NewAlarms);
+                    }
+                    //AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
                 }
             }
 
@@ -189,6 +196,10 @@ namespace LocationServices.Tools
             WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
             return r;
         }
+
+        public event Action<List<LocationAlarm>> NewAlarmsFired;
+
+        public List<LocationAlarm> NewAlarms = new List<LocationAlarm>();
 
         private async void InsertPostionsAsync()
         {

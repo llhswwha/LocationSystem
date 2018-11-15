@@ -25,6 +25,9 @@ using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using PersonEntity = Location.TModel.Location.Person.Personnel;
 using WPFClientControlLib.Extensions;
 using System.Windows.Threading;
+using LocationWCFServer;
+using LocationServices.Tools;
+using SignalRService.Hubs;
 
 namespace LocationServer
 {
@@ -184,6 +187,13 @@ namespace LocationServer
             //    persons = service.GetListByArea("");
             //}
             var persons = service.GetList(true);
+            var posService = new PosService();
+            var posList = posService.GetList();//todo:实时数据以后从缓存中取
+            foreach (var item in persons)
+            {
+                var pos= posList.FirstOrDefault(i => i.Tag == item.Tag.Code);
+                item.Pos = pos;
+            }
             AreaCanvas1.ShowPersons(persons);
         }
 
@@ -275,6 +285,62 @@ namespace LocationServer
                 StopPersonTimer();
                 MenuStartTimer.Header = "启动定时器";
             }
+        }
+
+        private void MenuConnectEngine_Click(object sender, RoutedEventArgs e)
+        {
+            if (MenuConnectEngine.Header.ToString() == "连接引擎")
+            {
+                StartEngine();
+                MenuConnectEngine.Header = "断开引擎";
+            }
+            else
+            {
+                StopEngine();
+                MenuConnectEngine.Header = "连接引擎";
+            }
+        }
+
+        PositionEngineClient engineClient;
+
+        private void StartEngine()
+        {
+            if (engineClient == null)
+            {
+                EngineLogin login = new EngineLogin();
+                login.LocalIp = "127.0.0.1";
+                login.LocalPort = 2323;
+                login.EngineIp = "127.0.0.1";
+                login.EnginePort = 3456;
+                if (login.Valid() == false)
+                {
+                    MessageBox.Show("本地Ip和对端Ip必须是同一个Ip段的");
+                    return;
+                }
+
+                engineClient = new PositionEngineClient();
+                //engineClient.Logs = Logs;
+                engineClient.IsWriteToDb = true;
+                engineClient.StartConnectEngine(login);
+                engineClient.NewAlarmsFired += EngineClient_NewAlarmsFired;
+            }
+        }
+
+        private void EngineClient_NewAlarmsFired(List<DbModel.Location.Alarm.LocationAlarm> obj)
+        {
+            var alarms = obj.ToTModel().ToArray();
+            AlarmHub.SendLocationAlarms(alarms);
+            AreaCanvas1.ShowLocationAlarms(alarms);
+        }
+
+        private void StopEngine()
+        {
+            if (engineClient != null)
+            {
+                engineClient.Stop();
+                engineClient = null;
+            }
+
         }
     }
 }

@@ -68,6 +68,9 @@ namespace Location.TModel.Location.Alarm
 
         [DataMember]
         public virtual Personnel Personnel { get; set; }
+
+        [DataMember]
+        public int AreaId { get; set; }
         
         /// <summary>
         /// 告警内容
@@ -143,6 +146,7 @@ namespace Location.TModel.Location.Alarm
                 Tag = p.Tag;
                 if(p.Tag!=null)
                     TagId = p.Tag.Id;
+                AreaId = p.AreaId ?? 0;
             }
             return this;
         }
