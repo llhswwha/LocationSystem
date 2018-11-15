@@ -256,6 +256,11 @@ namespace Location.TModel.Location.AreaAndDev
 
         #endregion
 
+        /// <summary>
+        /// 详细信息（如基站、摄像头等）
+        /// </summary>
+        public object DevDetail { get; set; }
+
 
         public DevInfo()
         {

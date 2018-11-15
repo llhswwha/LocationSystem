@@ -19,30 +19,35 @@ public class ArchorDev
     /// 基站名称
     /// </summary>
     [XmlAttribute("Name")]
-    public string Name;
+    public string Name { get; set; }
     /// <summary>
     /// 基站型号
     /// </summary>
     [XmlAttribute("ModelType")]
-    public string ModelType;
+    public string ModelType { get; set; }
     /// <summary>
     /// 产品序号
     /// </summary>
     [XmlAttribute("SerialNumber")]
-    public string SerialNumber;
+    public string SerialNumber { get; set; }
     /// <summary>
     /// 基站ID
     /// </summary>
     [XmlAttribute("ArchorID")]
-    public string ArchorID;
+    public string ArchorID { get; set; }
     /// <summary>
     /// 基站IP
     /// </summary>
     [XmlAttribute("ArchorIP")]
-    public string ArchorIp;
+    public string ArchorIp { get; set; }
     /// <summary>
     /// 基站安装区域
     /// </summary>
     [XmlAttribute("InstallArea")]
-    public string InstallArea;
+    public string InstallArea { get; set; }
+
+    public override string ToString()
+    {
+        return string.Format("{0},{1}", ArchorID, ArchorIp);
+    }
 }

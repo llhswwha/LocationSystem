@@ -196,8 +196,8 @@
     </Compile>
     <Compile Include="Tools\ConfigurationHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
-    <Compile Include="Windows\ArchorListWindow.xaml.cs">
-      <DependentUpon>ArchorListWindow.xaml</DependentUpon>
+    <Compile Include="Windows\BusArchorListWindow.xaml.cs">
+      <DependentUpon>BusArchorListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EngineTool\ParkArchorSettingWindow.xaml.cs">
       <DependentUpon>ParkArchorSettingWindow.xaml</DependentUpon>
@@ -207,6 +207,9 @@
     </Compile>
     <Compile Include="Windows\Simple\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Simple\ArchorWindow.xaml.cs">
+      <DependentUpon>ArchorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Simple\AreaAuthorizationRecordInfoWindow.xaml.cs">
       <DependentUpon>AreaAuthorizationRecordInfoWindow.xaml</DependentUpon>
@@ -281,7 +284,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ArchorListWindow.xaml">
+    <Page Include="Windows\BusArchorListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,6 +297,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Simple\ArchorSettingWindowEx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Simple\ArchorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -392,7 +399,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Data\基站信息\ArchorFiles.xml" />
+    <None Include="Data\基站信息\ArchorFiles.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -506,7 +515,9 @@
     <None Include="Data\DbInfos\Post.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="engine.db" />
+    <None Include="Data\engine.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

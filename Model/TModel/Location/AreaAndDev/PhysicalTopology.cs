@@ -250,5 +250,27 @@ namespace Location.TModel.Location.AreaAndDev
                     GetSubPerson(list, child);
                 }
         }
+
+        public List<DevInfo> GetAllDev()
+        {
+            var allChildren = new List<DevInfo>();
+            GetSubDev(allChildren, this);
+            return allChildren;
+        }
+
+        public void GetSubDev(List<DevInfo> list, PhysicalTopology node)
+        {
+            if (node.LeafNodes != null)
+                foreach (var item in node.LeafNodes)
+                {
+                    list.Add(item);
+                }
+
+            if (node.Children != null)
+                foreach (var child in node.Children)
+                {
+                    GetSubDev(list, child);
+                }
+        }
     }   
 }

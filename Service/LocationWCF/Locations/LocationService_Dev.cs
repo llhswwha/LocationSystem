@@ -14,6 +14,7 @@ using TModel.Tools;
 using LocationServices.Locations.Services;
 using DAL;
 using BLL.Tools;
+using IModel.Enums;
 
 namespace LocationServices.Locations
 {
@@ -367,10 +368,10 @@ namespace LocationServices.Locations
                 dev.IP = "";
                 dev.KKS = "";
                 dev.Name = Archor2.Name;
-                dev.ModelName = LocationDeviceHelper.LocationDevModelName;
+                dev.ModelName = TypeNames.Archor;
                 dev.Status = 0;
                 dev.ParentId = ParentId;
-                dev.Local_TypeCode = int.Parse(LocationDeviceHelper.LocationDevTypeCode);
+                dev.Local_TypeCode = TypeCodes.Archor;
                 dev.UserName = "admin";
                 Archor2.DevInfo = dev;
                 Archor2.ParentId = ParentId;

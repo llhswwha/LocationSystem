@@ -107,7 +107,11 @@ namespace LocationServer
             {
                 SetDevInfo(AreaCanvas1.SelectedDev, AreaCanvas1.SelectedDev.Tag as DevEntity);
             });
-            devContextMenu.Items.Add(new MenuItem() { Header = "删除" });
+            devContextMenu.AddMenu("删除", () =>
+            {
+                var dev = AreaCanvas1.SelectedDev.Tag as DevEntity;
+                new DeviceService().Delete(dev.Id+"");
+            });
             AreaCanvas1.DevContextMenu = devContextMenu;
             ContextMenu areaContextMenu = new ContextMenu();
             areaContextMenu.AddMenu("设置", () =>
@@ -141,6 +145,12 @@ namespace LocationServer
         private void LoadAreaTree()
         {
             var tree = areaService.GetTree(1);
+            var devList = tree.GetAllDev();
+            var archorList = new ArchorService().GetList();
+            foreach (var dev in devList)
+            {
+                dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
+            }
             var topoTree = ResourceTreeView1.TopoTree;
             topoTree.LoadData(tree);
             topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;

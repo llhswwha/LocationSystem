@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enums.cs" />
+    <Compile Include="Enums\Class1.cs" />
     <Compile Include="Extensions\TreeNodeExtensions.cs" />
     <Compile Include="FuncArgs\IAlarmSearchArg.cs" />
     <Compile Include="IClone.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Locations\IPost.cs" />
     <Compile Include="Locations\ITag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\TypeCodes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

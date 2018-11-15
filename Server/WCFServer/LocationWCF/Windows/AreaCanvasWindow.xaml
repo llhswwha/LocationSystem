@@ -15,7 +15,7 @@
         <StackPanel DockPanel.Dock="Top">
 
         </StackPanel>
-        <wpfClientControlLib:ResourceTreeView Width="200" DockPanel.Dock="Left" Name="ResourceTreeView1"/>
+        <wpfClientControlLib:ResourceTreeView Width="300" DockPanel.Dock="Left" Name="ResourceTreeView1"/>
         <!--<wpfClientControlLib:TopoTreeView x:Name="TopoTreeView1" Width="200" DockPanel.Dock="Left"/>-->
         <TabControl Name="TabControl1" SelectionChanged="TabControl1_OnSelectionChanged">
             <TabItem Header="电厂视图">

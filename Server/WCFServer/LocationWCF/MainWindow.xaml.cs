@@ -128,7 +128,7 @@ namespace LocationWCFServer
 
         private void MenuExportArchorPosition_OnClick(object sender, RoutedEventArgs e)
         {
-            var win = new ArchorListWindow();
+            var win = new BusArchorListWindow();
             win.Show();
         }
 

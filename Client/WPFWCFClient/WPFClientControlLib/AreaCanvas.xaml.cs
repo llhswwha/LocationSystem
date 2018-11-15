@@ -7,8 +7,10 @@ using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using DbModel.Tools;
+using IModel.Enums;
 using Location.IModel;
 using Location.TModel.Location.Alarm;
+using TModel.Location.AreaAndDev;
 using TModel.Location.Nodes;
 using WPFClientControlLib.AreaCanvaItems;
 //using AreaEntity= DbModel.Location.AreaAndDev.Area;
@@ -357,9 +359,7 @@ namespace WPFClientControlLib
                             AddAreaRect(level2Item, level1Item, scale);
                         }
                 }
-
             ShowDevs(area.LeafNodes, scale, devSize);
-
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
 
@@ -387,7 +387,7 @@ namespace WPFClientControlLib
         /// <summary>
         /// 基站TypeCode
         /// </summary>
-        private int ArchorTypeCode = 20180821;
+        private int ArchorTypeCode = TypeCodes.Archor;
         private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
             if (ShowDev)
@@ -421,6 +421,16 @@ namespace WPFClientControlLib
                 Tag = dev,
                 ToolTip = dev.Name
             };
+
+            if (dev.DevDetail is Archor)
+            {
+                Archor archor = dev.DevDetail as Archor;
+                if (!string.IsNullOrEmpty(archor.Code)&&!archor.Code.StartsWith("Code"))
+                {
+                    devRect.Fill = Brushes.Green;
+                }
+            }
+
             devRect.ContextMenu = DevContextMenu;
 
             Canvas.SetLeft(devRect, x );

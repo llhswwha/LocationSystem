@@ -4,6 +4,7 @@ using System.IO;
 using BLL.Blls.Location;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
+using IModel.Enums;
 using Location.Model.InitInfos;
 using Location.TModel.Location.AreaAndDev;
 using DevInfo = DbModel.Location.AreaAndDev.DevInfo;
@@ -12,14 +13,6 @@ namespace BLL.Tools
 {
     public class LocationDeviceHelper
     {
-        /// <summary>
-        /// 基站设备TypeCode
-        /// </summary>
-        public static string LocationDevTypeCode = "20180821";
-        /// <summary>
-        /// 基站设备模型名称
-        /// </summary>
-        public static string LocationDevModelName = "定位设备1_3D";
         /// <summary>
         /// 默认基站高度
         /// </summary>
@@ -111,12 +104,12 @@ namespace BLL.Tools
             dev.IP = "";
             dev.KKS = "";
             dev.Name = locationDev.Name;
-            dev.ModelName = LocationDevModelName;
+            dev.ModelName = TypeNames.Archor;
             dev.Status = 0;
             dev.ParentId = areaId;
             try
             {
-                dev.Local_TypeCode = int.Parse(LocationDevTypeCode);
+                dev.Local_TypeCode = TypeCodes.Archor;
             }
             catch (Exception e)
             {

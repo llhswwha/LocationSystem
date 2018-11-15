@@ -18,9 +18,9 @@ namespace LocationServer
     /// <summary>
     /// Interaction logic for ArchorListWindow.xaml
     /// </summary>
-    public partial class ArchorListWindow : Window
+    public partial class BusArchorListWindow : Window
     {
-        public ArchorListWindow()
+        public BusArchorListWindow()
         {
             InitializeComponent();
         }

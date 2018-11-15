@@ -38,6 +38,18 @@ namespace BLL.Blls.Location
             return DbSet.FirstOrDefault(i => i.Code == code);
         }
 
+        public Archor FindByDev(int devId)
+        {
+            return DbSet.FirstOrDefault(i => i.DevInfoId == devId);
+        }
+
+        public Archor DeleteByDev(int devId)
+        {
+            var archor = FindByDev(devId);
+            if (archor == null) return null;
+            return DeleteById(archor.Id);
+        }
+
         public List<Archor> FindByCodes(List<string> codes)
         {
             return DbSet.Where(i => codes.Contains(i.Code)).ToList();

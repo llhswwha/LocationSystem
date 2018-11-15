@@ -7,6 +7,7 @@ using Location.Model.InitInfos;
 using Location.TModel.Location.AreaAndDev;
 using DevInfo = DbModel.Location.AreaAndDev.DevInfo;
 using TModel.Tools;
+using IModel.Enums;
 
 namespace BLL.Tools
 {
@@ -37,7 +38,7 @@ namespace BLL.Tools
             var areas = bll.Areas.ToList();
             foreach (var devInfo in initInfo.DevList)
             {
-                if (devInfo.TypeCode == LocationDeviceHelper.LocationDevTypeCode)
+                if (devInfo.TypeCode == TypeCodes.Archor+"")
                 {
                     continue;
                 }
@@ -56,7 +57,7 @@ namespace BLL.Tools
             var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
             for (int i = 0; i < initInfo.DevList.Count; i++)
             {
-                if (initInfo.DevList[i].TypeCode == LocationDeviceHelper.LocationDevTypeCode)
+                if (initInfo.DevList[i].TypeCode == TypeCodes.Archor+"")
                 {
                     initInfo.DevList.RemoveAt(i);
                     i--;

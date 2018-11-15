@@ -1,6 +1,7 @@
 ﻿using BLL;
 using BLL.Blls.Location;
 using DbModel.Tools;
+using IModel.Enums;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Tools;
 using LocationServices.Converters;
@@ -37,8 +38,26 @@ namespace LocationServices.Locations.Services
 
         public TEntity Delete(string id)
         {
-            var item= dbSet.DeleteById(id.ToInt());
-            return item.ToTModel();
+            var devId = id.ToInt();
+            var dev = dbSet.Find(devId);
+            if (dev.Local_TypeCode== TypeCodes.Archor)
+            {
+                var archor=db.Archors.DeleteByDev(devId);
+                if (archor != null)
+                {
+                    var item = dbSet.DeleteById(id.ToInt());
+                    return item.ToTModel();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                var item = dbSet.DeleteById(id.ToInt());
+                return item.ToTModel();
+            }
         }
 
         public TEntity GetEntity(string id)

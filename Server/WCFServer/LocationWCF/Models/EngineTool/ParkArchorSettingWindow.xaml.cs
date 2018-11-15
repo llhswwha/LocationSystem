@@ -41,6 +41,14 @@ namespace LocationServer.Windows
 
         public bool ShowInfo(Rectangle rect, int devId)
         {
+            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+
+            TbCode.ItemsSource = archorList.ArchorList;
+            TbCode.DisplayMemberPath = "ArchorID";
+
+            IPCode1.ItemsSource = archorList.ArchorList;
+            IPCode1.DisplayMemberPath = "ArchorIp";
+
             Bll bll = new Bll();
             this._dev = bll.DevInfos.Find(devId);
             this._rect = rect;
@@ -70,7 +78,7 @@ namespace LocationServer.Windows
             var minX = park.InitBound.MinX;
             var minY = park.InitBound.MinY;
 
-            _item.SetAbsolute(x+minX,z+minY);
+            _item.SetAbsolute(x + minX, z + minY);
 
             LbId.Text = _archor.Id + "";
             TbName.Text = _archor.Name;
@@ -80,7 +88,7 @@ namespace LocationServer.Windows
 
             PcArchor.X = x;
             PcArchor.Y = z;
-         
+
 
             PcArchor.IsEnabled = true;
             PcZero.X = ZeroX;
@@ -293,7 +301,7 @@ namespace LocationServer.Windows
 
         private void MenuArchorList_OnClick(object sender, RoutedEventArgs e)
         {
-            var win = new ArchorListWindow();
+            var win = new BusArchorListWindow();
             win.Show();
         }
 
@@ -327,28 +335,47 @@ namespace LocationServer.Windows
 
         public event Action<double, double> ShowPointEvent;
 
-        private void IPCode1_TextChanged(object sender, TextChangedEventArgs e)
+
+        private void IPCode1_KeyUp(object sender, KeyEventArgs e)
         {
             ArchorDevList archorList = AreaCanvasWindow.ArchorList;
             if (archorList != null && archorList.ArchorList != null)
             {
-                ArchorDev dev = archorList.ArchorList.FirstOrDefault(i => (i.ArchorIp).ToLower() == (IPCode1.Text).ToLower());
-                if (dev != null)
+                var ip = (IPCode1.Text).ToLower();
+                var devs = archorList.ArchorList.Where(i => (i.ArchorIp).ToLower().Contains(ip)).ToList();
+                if (devs != null && devs.Count() > 0)
                 {
-                    TbCode.Text = dev.ArchorID;
+                    TbCode.ItemsSource = devs;
+                    IPCode1.ItemsSource = devs;
+                    IPCode1.IsDropDownOpen = true;
                 }
             }
         }
 
-        private void TbCode_TextChanged(object sender, TextChangedEventArgs e)
+        private void IPCode1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var dev = IPCode1.SelectedItem as ArchorDev;
+            TbCode.SelectedItem = dev;
+        }
+
+        private void TbCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var dev = TbCode.SelectedItem as ArchorDev;
+            IPCode1.SelectedItem = dev;
+        }
+
+        private void TbCode_KeyUp(object sender, KeyEventArgs e)
         {
             ArchorDevList archorList = AreaCanvasWindow.ArchorList;
-            if (archorList != null)
+            if (archorList != null && archorList.ArchorList != null)
             {
-                ArchorDev dev = archorList.ArchorList.FirstOrDefault(i => (i.ArchorID).ToLower() == (TbCode.Text).ToLower());
-                if (dev != null)
+                var code = (TbCode.Text).ToLower();
+                var devs = archorList.ArchorList.Where(i => (i.ArchorID).ToLower().Contains(code));
+                if (devs != null && devs.Count() > 0)
                 {
-                    IPCode1.Text = dev.ArchorIp;
+                    TbCode.ItemsSource = devs;
+                    IPCode1.ItemsSource = devs;
+                    TbCode.IsDropDownOpen = true;
                 }
             }
         }

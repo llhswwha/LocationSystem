@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IModel.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace TModel.Tools
     {
         public static string GetTypeName(int code)
         {
-            if (code == 20180821)
+            if (code == TypeCodes.Archor)
             {
                 return "基站";
             }

@@ -22,11 +22,11 @@
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">编号 *</Label>
-                <TextBox Name="TbCode" TextChanged="TbCode_TextChanged"></TextBox>
+                <ComboBox Name="TbCode" KeyUp="TbCode_KeyUp" IsEditable="True" SelectionChanged="TbCode_SelectionChanged"></ComboBox>
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">IP *</Label>
-                <TextBox Name="IPCode1"  TextChanged="IPCode1_TextChanged"></TextBox>
+                <ComboBox Name="IPCode1"  KeyUp="IPCode1_KeyUp" IsEditable="True" SelectionChanged="IPCode1_SelectionChanged"></ComboBox>
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">建筑</Label>
