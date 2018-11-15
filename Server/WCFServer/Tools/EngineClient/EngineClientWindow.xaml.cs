@@ -17,9 +17,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using DbModel.Tools;
+using LocationServices.Converters;
 using LocationServices.Tools;
 using LocationWCFServer;
 using PositionSimulation;
+using SignalRService.Hubs;
 using TModel.Tools;
 
 namespace EngineClient
@@ -92,7 +94,13 @@ namespace EngineClient
                 engineClient.Logs = Logs;
                 engineClient.IsWriteToDb = (bool)CbWriteToDb.IsChecked;
                 engineClient.StartConnectEngine(login);
+                engineClient.NewAlarmsFired += EngineClient_NewAlarmsFired;
             }
+        }
+
+        private void EngineClient_NewAlarmsFired(List<DbModel.Location.Alarm.LocationAlarm> obj)
+        {
+            AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
         }
 
         private void Stop()

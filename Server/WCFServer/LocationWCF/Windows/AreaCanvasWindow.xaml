@@ -9,6 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_Click"></MenuItem>
+            <MenuItem Header="连接引擎" Name="MenuConnectEngine" Click="MenuConnectEngine_Click"></MenuItem>
             <MenuItem Header="启动定时器" Name="MenuStartTimer" Click="MenuStartTimer_Click"></MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top">

@@ -47,7 +47,7 @@ namespace LocationWCFClient
         {
             this.Ip = ip;
             this.Port = port;
-            SignalRClientLib.SignalRAppContext.SetUrl(ip, port);
+            SignalRClientLib.SignalRAppContext.SetUrl(ip, "8735");
             try
             {
                 WCFClientLib.LocationClient client = new WCFClientLib.LocationClient(ip, port, hostType);

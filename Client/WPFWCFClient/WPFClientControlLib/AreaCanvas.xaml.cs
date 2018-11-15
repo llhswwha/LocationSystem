@@ -8,13 +8,14 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using DbModel.Tools;
 using Location.IModel;
+using Location.TModel.Location.Alarm;
 using TModel.Location.Nodes;
 using WPFClientControlLib.AreaCanvaItems;
 //using AreaEntity= DbModel.Location.AreaAndDev.Area;
 using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 //using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
 using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
-using PersonEntity= Location.TModel.Location.Person.Personnel;
+using PersonEntity = Location.TModel.Location.Person.Personnel;
 
 namespace WPFClientControlLib
 {
@@ -361,6 +362,28 @@ namespace WPFClientControlLib
 
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
+
+        public void ShowLocationAlarms(LocationAlarm[] alarms)
+        {
+            foreach (var item in alarms)
+            {
+                var personId = item.PersonnelId;
+                
+                if (PersonDict.ContainsKey(personId))
+                {
+                    var person = PersonDict[personId];
+                    person.Fill = Brushes.Red;
+                }
+
+                var areaId = item.AreaId;
+                if (AreaDict.ContainsKey(areaId))
+                {
+                    var area = AreaDict[areaId];
+                    area.Fill = Brushes.Red;
+                }
+            }
+        }
+
         /// <summary>
         /// 基站TypeCode
         /// </summary>

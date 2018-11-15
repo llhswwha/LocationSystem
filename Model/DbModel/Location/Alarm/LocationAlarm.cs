@@ -183,5 +183,10 @@ namespace DbModel.Location.Alarm
             return history;
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2}",Content,AreadId,PersonnelId);
+        }
+
     }
 }
