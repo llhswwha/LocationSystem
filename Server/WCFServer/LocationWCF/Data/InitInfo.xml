@@ -5,10 +5,8 @@
       <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
         <Points>        
           <PointInfo X="2065.83" Y="1820" />
-          <PointInfo X="2069.02" Y="1630" />
-          <PointInfo X="2402.2" Y="1630" />
-          <PointInfo X="2402.2" Y="1572.01" />
-          <PointInfo X="2567.67" Y="1572.01" />
+          <PointInfo X="2069.02" Y="1572" />
+          <PointInfo X="2567.67" Y="1572" />
           <PointInfo X="2561.6" Y="1820" />
         </Points>
       </BoundInfo>
@@ -1295,6 +1293,58 @@
                 <Points>
                   <PointInfo X="5.975" Y="12.9" />
                   <PointInfo X="12.925" Y="23.45" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="走廊1" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="0.1" Y="10.95" />
+                  <PointInfo X="2.51" Y="23.45" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="钢梯1" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="2.75" Y="12.9" />
+                  <PointInfo X="5.9" Y="20.91" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="走廊2" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="13.45" Y="10.95" />
+                  <PointInfo X="19.55" Y="12.7" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="走廊3" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="30.25" Y="10.95" />
+                  <PointInfo X="33.6" Y="12.7" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="走廊4" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="33.6" Y="10.95" />
+                  <PointInfo X="40.7" Y="10.95" />
+                  <PointInfo X="40.7" Y="12.7" />
+                  <PointInfo X="37.75" Y="12.7" />
+                  <PointInfo X="37.75" Y="18.85" />
+                  <PointInfo X="33.6" Y="18.85" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="钢梯2" KKS="" Type="机房">
+              <BoundInfo BottomHeight="0" Thickness="4.3" IsRelative="true"  IsCreateAreaByData="true">
+                <Points>
+                  <PointInfo X="37.95" Y="16.35" />
+                  <PointInfo X="40.7" Y="23.45" />
                 </Points>
               </BoundInfo>
             </TopoInfo>

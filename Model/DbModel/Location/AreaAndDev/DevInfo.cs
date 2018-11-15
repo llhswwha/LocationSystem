@@ -317,5 +317,25 @@ namespace DbModel.Location.AreaAndDev
 
             return history;
         }
+
+        public string GetSvgXml(int Scale, double DevSize, double OffsetX, double OffsetY, double CanvaHeight)
+        {
+            string strReturn = "";
+
+            double x = (PosX - OffsetX) * Scale - DevSize * Scale / 2;
+            double y = CanvaHeight - ((PosZ - OffsetY) * Scale - DevSize * Scale / 2);
+
+            double Width = DevSize * Scale;
+            double Height = DevSize * Scale;
+
+            string strX = Convert.ToString(x);
+            string strY = Convert.ToString(y);
+            string strW = Convert.ToString(Width);
+            string strH = Convert.ToString(Height);
+
+            strReturn = "<rect id = \"" + Convert.ToString(Id) + "\" name=\"" + Name + "\" class=\"cls-1\" x=\"" + strX + "\" y=\"" + strY + "\" width=\"" + strW + "\" height=\"" + strH + "\" />";
+        
+            return strReturn;
+        }
     }
 }

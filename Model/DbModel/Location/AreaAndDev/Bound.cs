@@ -262,7 +262,22 @@ namespace DbModel.Location.AreaAndDev
                 points.Add(new Point(MaxY, MinY, 0, 3));
             }
             return points;
-        } 
+        }
+
+        public List<Point> GetPointsByPointList(List<Point> pointlist)
+        {
+            List<Point> points = pointlist.FindAll(p => p.BoundId == Id);
+            if (points == null)
+            {
+                points = new List<Point>();
+                points.Add(new Point(MinX, MinY, 0, 0));
+                points.Add(new Point(MinX, MaxY, 0, 1));
+                points.Add(new Point(MaxX, MaxY, 0, 2));
+                points.Add(new Point(MaxY, MinY, 0, 3));
+            }
+            
+            return points;
+        }
 
         public Bound Clone()
         {

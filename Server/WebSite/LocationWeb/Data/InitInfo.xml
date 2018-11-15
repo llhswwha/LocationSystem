@@ -5,10 +5,8 @@
       <BoundInfo BottomHeight="0" Thickness="20" IsRelative="false"  IsCreateAreaByData="true" IsOnAlarmArea="false"  IsOnLocationArea="true">
         <Points>
           <PointInfo X="2065.83" Y="1820" />
-          <PointInfo X="2069.02" Y="1630" />
-          <PointInfo X="2402.2" Y="1630" />
-          <PointInfo X="2402.2" Y="1572.01" />
-          <PointInfo X="2567.67" Y="1572.01" />
+          <PointInfo X="2069.02" Y="1572" />
+          <PointInfo X="2567.67" Y="1572" />
           <PointInfo X="2561.6" Y="1820" />
         </Points>
       </BoundInfo>

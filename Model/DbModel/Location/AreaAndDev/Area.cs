@@ -414,9 +414,39 @@ namespace DbModel.Location.AreaAndDev
         }
 
 
-        //public string GetParkSvgXml(int Scale, int Margin, double DevSize, double OffsetX, double OffsetY)
-        //{
+        public string GetSvgXml(Bound bound, List<Point> pointlist, int Scale, double OffsetX, double OffsetY, double CanvaHeight)
+        {
+            int nCount = 0;
+            string strReturn = "";
+            string strPoints = "";
 
-        //}
+            if (bound == null) return strReturn;
+
+            foreach (var item in bound.GetPointsByPointList(pointlist))
+            {
+                double x = (item.X - OffsetX) * Scale;
+                double y = CanvaHeight - ((item.Y - OffsetY) * Scale);
+                string sx = Convert.ToString(x);
+                string sy = Convert.ToString(y);
+
+                if (nCount == 0)
+                {
+                    strPoints = sx + "," + sy;
+                    nCount = 1;
+                }
+                else
+                {
+                    strPoints += " " + sx + "," + sy;
+                }
+            }
+
+            if (strPoints != "")
+            {
+                strReturn = "<polygon id = \"" + Convert.ToString(Id) + "\" name = \"" + Name + "\" class=\"cls-1\" points=\"" + strPoints + "\" />";
+            }
+
+            return strReturn;
+        }
+
     }
 }

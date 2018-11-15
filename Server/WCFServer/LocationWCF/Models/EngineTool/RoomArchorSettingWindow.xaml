@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="机房基站设置" Height="350" Width="350" Topmost="True">
+        Title="机房基站设置" Height="380" Width="350" Topmost="True">
     <Grid>
         <StackPanel>
             <Menu>
@@ -22,7 +22,11 @@
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">编号 *</Label>
-                <TextBox Name="TbCode"></TextBox>
+                <TextBox Name="TbCode" TextChanged="TbCode_TextChanged"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">IP *</Label>
+                <TextBox Name="IPCode1"  TextChanged="IPCode1_TextChanged"></TextBox>
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">建筑</Label>

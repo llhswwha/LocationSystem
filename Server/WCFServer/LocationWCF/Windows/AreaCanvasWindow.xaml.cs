@@ -28,6 +28,7 @@ using System.Windows.Threading;
 using LocationWCFServer;
 using LocationServices.Tools;
 using SignalRService.Hubs;
+using DbModel.Tools;
 
 namespace LocationServer
 {
@@ -47,6 +48,11 @@ namespace LocationServer
         private AreaService areaService;
         private DepartmentService depService;
 
+        /// <summary>
+        /// 厂区提供基站信息
+        /// </summary>
+        public static ArchorDevList ArchorList;
+
         private void AreaCanvasWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             areaService = new AreaService();
@@ -55,8 +61,16 @@ namespace LocationServer
             InitAreaCanvas();
             LoadData();
             //StartPersonTimer();
+            LoadArchoDevInfo();  //载入基站信息，用于ID和IP的自动匹配
         }
-
+        public void LoadArchoDevInfo()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\基站信息\\ArchorFiles.xml";
+            var initInfo = XmlSerializeHelper.LoadFromFile<ArchorDevList>(filePath);
+            if(initInfo!=null)
+            ArchorList = initInfo;
+        }
         private void PersonTimer_Tick(object sender, EventArgs e)
         {
             ShowPersons();

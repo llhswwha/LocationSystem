@@ -384,12 +384,17 @@ namespace WPFClientControlLib
             }
         }
 
+        /// <summary>
+        /// 基站TypeCode
+        /// </summary>
+        private int ArchorTypeCode = 20180821;
         private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
             if (ShowDev)
                 if (devs != null)
                     foreach (var dev in devs)
                     {
+                        if (dev.TypeCode != ArchorTypeCode) continue;
                         AddDevRect(dev, scale, devSize);
                     }
         }
