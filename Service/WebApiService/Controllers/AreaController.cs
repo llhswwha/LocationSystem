@@ -6,6 +6,7 @@ using TModel.Location.Nodes;
 using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 using System.Net.Http;
 using System.Net;
+using System.Text;
 
 namespace WebApiService.Controllers
 {
@@ -143,17 +144,21 @@ namespace WebApiService.Controllers
         public HttpResponseMessage GetAreaSvgXml(int Id)
         {
             AreaService asi = new AreaService();
-            string strXml = "<svg id=\"厂区\" width=\"100%\" height=\"100%\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" > ";
-            strXml += "<rect x=\"20\" y=\"20\" rx=\"20\" ry=\"20\" width=\"250\" height = \"100\" ";
-            strXml += "style = \"fill:red;stroke:black;stroke - width:5; opacity: 0.5\"/>";
-            
-            //strXml += asi.GetAreaSvgXml(Id);
-            strXml += "</svg>";
+            string strXml = "";
+            strXml = asi.GetAreaSvgXml(Id);
 
-            var resp = new HttpResponseMessage(HttpStatusCode.OK);
-         //   resp.Content = new ObjectContent>>(strXml,new XmlMdia);
+            if (strXml == "")
+            {
+                strXml = "<svg id=\"厂区\" width=\"100%\" height=\"100%\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" > ";
+                strXml += "<defs><style>.cls-1{fill:none;stroke:#4d9fb5;}</style></defs> </svg>";
 
-            return resp;
+            }
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(strXml, Encoding.UTF8, "text/xml")
+            };
+            return result;
         }
     }
 }

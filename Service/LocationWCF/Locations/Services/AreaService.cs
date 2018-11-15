@@ -517,26 +517,35 @@ namespace LocationServices.Locations.Services
             double DevSize = 0;
             double OffsetX = 0;
             double OffsetY = 0;
+            double CanvaWidth = 0;
+            double CanvaHeight = 0;
+            string strReturn = "";
             string strXml = "";
+            string strWidth = "";
+            string strHeight = "";
 
             DbEntity area = dbSet.Find(Id);
             if (area == null)
             {
-                return strXml;
+                return strReturn;
             }
 
             int? ParentId = area.ParentId;
             DbEntity Parent = dbSet.Find(ParentId);
             if (Parent == null)
             {
-                return strXml;
+                return strReturn;
             }
 
             DbModel.Location.AreaAndDev.Bound bound = db.Bounds.Find(area.InitBoundId);
             if (bound == null)
             {
-                return strXml;
+                return strReturn;
             }
+
+            
+
+            List<DbModel.Location.AreaAndDev.Point> pointlist = db.Points.ToList();
 
             if (Parent.Name == "根节点") //电厂
             {
@@ -545,7 +554,39 @@ namespace LocationServices.Locations.Services
                 Margin = 20;
                 OffsetX = bound.MinX - Margin;
                 OffsetY = bound.MinY - Margin;
-                
+                CanvaWidth = (bound.MaxX - OffsetX + Margin) * Scale;
+                CanvaHeight = (bound.MaxY - OffsetY + Margin) * Scale;
+                strWidth = Convert.ToString(CanvaWidth);
+                strHeight = Convert.ToString(CanvaHeight);
+
+                strReturn = area.GetSvgXml(bound, pointlist, Scale, OffsetX, OffsetY, CanvaHeight);
+                var lst1 = dbSet.DbSet.Where(p => p.ParentId == Id).ToList();
+                if (lst1 != null)
+                {
+                    foreach (var item1 in lst1)
+                    {
+                        DbModel.Location.AreaAndDev.Bound bound1 = db.Bounds.Find(item1.InitBoundId);
+                        //if (bound1 == null)
+                        //{
+                        //    continue;
+                        //}
+
+                        strReturn += item1.GetSvgXml(bound1, pointlist, Scale, OffsetX, OffsetY, CanvaHeight);
+                        var lst2 = dbSet.DbSet.Where(p => p.ParentId == item1.Id).ToList();
+                        if (lst2 != null)
+                        {
+                            foreach (var item2 in lst2)
+                            {
+                                DbModel.Location.AreaAndDev.Bound bound2 = db.Bounds.Find(item2.InitBoundId);
+                                //if (bound2 == null)
+                                //{
+                                //    continue;
+                                //}
+                                strReturn += item2.GetSvgXml(bound2, pointlist, Scale, OffsetX, OffsetY, CanvaHeight);
+                            }    
+                        }
+                    }
+                }
             }
             else if (area.Type == AreaTypes.楼层)
             {
@@ -554,11 +595,42 @@ namespace LocationServices.Locations.Services
                 Margin = 10;
                 OffsetX = -Margin / 2;
                 OffsetY = -Margin / 2;
-                
+                CanvaWidth = (bound.MaxX - OffsetX + Margin) * Scale;
+                CanvaHeight = (bound.MaxY - OffsetY + Margin) * Scale;
+                strWidth = Convert.ToString(CanvaWidth);
+                strHeight = Convert.ToString(CanvaHeight);
+
+                strReturn = area.GetSvgXml(bound, pointlist, Scale, OffsetX, OffsetY, CanvaHeight);
+                var lst1 = dbSet.DbSet.Where(p => p.ParentId == Id).ToList();
+                if (lst1 != null)
+                {
+                    foreach (var item1 in lst1)
+                    {
+                        DbModel.Location.AreaAndDev.Bound bound1 = db.Bounds.Find(item1.InitBoundId);
+                        //if (bound1 == null)
+                        //{
+                        //    continue;
+                        //}
+
+                        strReturn += item1.GetSvgXml(bound1, pointlist, Scale, OffsetX, OffsetY, CanvaHeight);
+                    }
+                }
             }
 
+            var devList = db.DevInfos.DbSet.Where(p => p.ParentId == Id).ToList();
+            if (devList != null)
+            {
+                foreach (var item3 in devList)
+                {
+                    strReturn += item3.GetSvgXml(Scale, DevSize, OffsetX, OffsetY, CanvaHeight);
+                }
+            }
 
-            return "";
+            strXml = "<svg id=\"厂区\" width=\"" + strWidth + "\" height=\"" + strHeight + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" > ";
+            strXml += "<defs><style>.cls-1{fill:none;stroke:#4d9fb5;}</style></defs>";
+            strXml += strReturn;
+            strXml += "</svg>";
+            return strXml;
         }
 
         

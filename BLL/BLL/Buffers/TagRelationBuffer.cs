@@ -122,7 +122,10 @@ namespace BLL
         private void SetArea(Position pos)
         {
             AddSimulateArchor(pos);
-
+            if (pos.Code == "0009")
+            {
+                int i = 0;
+            }
             if (pos.Archors != null && pos.Archors.Count > 0)
             {
                 //List<Archor> archorList = Archors.Buffer.FindByCodes(pos.Archors);
@@ -196,7 +199,7 @@ namespace BLL
                         {
                             var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
                             var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
-                            if (item.InitBound.Contains(x, y))
+                            if (item.InitBound.Contains(x, y) && item.IsOnLocationArea)
                             {
                                 containsAreas.Add(item);
                             }

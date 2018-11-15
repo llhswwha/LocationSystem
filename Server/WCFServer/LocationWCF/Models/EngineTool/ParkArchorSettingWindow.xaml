@@ -22,7 +22,11 @@
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">编号 *</Label>
-                <TextBox Name="TbCode"></TextBox>
+                <TextBox Name="TbCode" TextChanged="TbCode_TextChanged"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">IP *</Label>
+                <TextBox Name="IPCode1"  TextChanged="IPCode1_TextChanged"></TextBox>
             </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left" >基站高度 *</Label>

@@ -211,8 +211,8 @@ namespace LocationServer.Controls
             locationServiceHost = new ServiceHost(typeof(LocationService), baseAddres);
             BasicHttpBinding httpBinding = new BasicHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof(ILocationService), httpBinding, baseAddres);
-            httpBinding.MaxReceivedMessageSize = 2147483647;
-            httpBinding.MaxBufferPoolSize = 2147483647;
+            //httpBinding.MaxReceivedMessageSize = 2147483647;
+            //httpBinding.MaxBufferPoolSize = 2147483647;
 
             Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), binding, "MEX");

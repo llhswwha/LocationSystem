@@ -75,6 +75,7 @@ namespace LocationServer.Windows
             LbId.Text = _archor.Id + "";
             TbName.Text = _archor.Name;
             TbCode.Text = _archor.GetCode();
+            IPCode1.Text = _archor.Ip;
             TbHeight.Text = _item.RelativeHeight.ToString("F2");
 
             PcArchor.X = x;
@@ -130,12 +131,14 @@ namespace LocationServer.Windows
             _archor.Y = TbHeight.Text.ToDouble();
             _archor.Name = TbName.Text;
             _archor.Code = TbCode.Text;
+            _archor.Ip = IPCode1.Text;
 
             archorNew.X = PcAbsolute.X;
             archorNew.Z = PcAbsolute.Y;
             archorNew.Y = TbHeight.Text.ToDouble();
             archorNew.Name = TbName.Text;
             archorNew.Code = TbCode.Text;
+            archorNew.Ip = IPCode1.Text;
 
             var devNew = bll.DevInfos.Find(_dev.Id);
 
@@ -323,5 +326,31 @@ namespace LocationServer.Windows
         }
 
         public event Action<double, double> ShowPointEvent;
+
+        private void IPCode1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            if (archorList != null && archorList.ArchorList != null)
+            {
+                ArchorDev dev = archorList.ArchorList.FirstOrDefault(i => (i.ArchorIp).ToLower() == (IPCode1.Text).ToLower());
+                if (dev != null)
+                {
+                    TbCode.Text = dev.ArchorID;
+                }
+            }
+        }
+
+        private void TbCode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            if (archorList != null)
+            {
+                ArchorDev dev = archorList.ArchorList.FirstOrDefault(i => (i.ArchorID).ToLower() == (TbCode.Text).ToLower());
+                if (dev != null)
+                {
+                    IPCode1.Text = dev.ArchorIp;
+                }
+            }
+        }
     }
 }
