@@ -28,7 +28,7 @@ namespace DbModel.Tools
         /// <returns></returns>
         public static IPAddress GetLocalIp(string ip)
         {
-            var i = ip.IndexOf('.');
+            var i = ip.LastIndexOf('.');
             var ipId = ip.Substring(0, i);
             var ips = GetLocalList();
             foreach (var item in ips)

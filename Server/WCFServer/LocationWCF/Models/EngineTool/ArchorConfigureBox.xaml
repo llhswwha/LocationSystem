@@ -16,11 +16,14 @@
             <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
         </StackPanel>
         <TabControl>
+            
+            <TabItem Header="控制台">
+                <ScrollViewer>
+                    <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>
+                </ScrollViewer>
+            </TabItem>
             <TabItem Header="表格">
                 <DataGrid Name="DataGrid3"></DataGrid>
-            </TabItem>
-            <TabItem Header="控制台">
-                <TextBox Name="TbConsole"></TextBox>
             </TabItem>
         </TabControl>
         
