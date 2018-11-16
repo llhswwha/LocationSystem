@@ -1,4 +1,5 @@
-﻿using Location.BLL.Tool;
+﻿using DbModel.Tools;
+using Location.BLL.Tool;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -172,6 +173,12 @@ namespace Coldairarrow.Util.Sockets
         public int Send(Byte[] sendData, IPEndPoint remoteEp)
         {
             return udpc.Send(sendData, sendData.Length, remoteEp);
+        }
+
+        public int SendHex(string hexString,IPEndPoint remoteEp)
+        {
+            var bytes = ByteHelper.HexToBytes(hexString);
+            return Send(bytes, remoteEp);
         }
 
         //所有局域网内监听指定port的UDPClient都可以收到

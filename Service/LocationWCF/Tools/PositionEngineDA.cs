@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Coldairarrow.Util.Sockets;
 using DbModel.LocationHistory.Data;
+using DbModel.Tools;
 using Location.BLL.Tool;
 
 namespace LocationWCFServer
@@ -37,13 +38,7 @@ namespace LocationWCFServer
 
         public bool Valid()
         {
-            string[] parts1 = EngineIp.Split('.');
-            string[] parts2= LocalIp.Split('.');
-            if (parts1.Length == 4 && parts2.Length == 4)
-            {
-                return parts1[0] == parts2[0] && parts1[1] == parts2[1] && parts1[2] == parts2[2];
-            }
-            return true;
+            return IpHelper.IsSameDomain(EngineIp, LocalIp);
         }
     }
 

@@ -188,6 +188,9 @@
     <Compile Include="Models\EngineTool\ArchorConfigureBox.xaml.cs">
       <DependentUpon>ArchorConfigureBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\EngineTool\ArchorConfigureWindow.xaml.cs">
+      <DependentUpon>ArchorConfigureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\EngineTool\ArchorListExportControl.xaml.cs">
       <DependentUpon>ArchorListExportControl.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\ArchorConfigureBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Models\EngineTool\ArchorConfigureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

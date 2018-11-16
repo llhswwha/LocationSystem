@@ -38,6 +38,7 @@ using TModel.Location.AreaAndDev;
 using TModel.Location.Data;
 using TModel.Tools;
 using WebNSQLib;
+using LocationServer.Models.EngineTool;
 
 namespace LocationWCFServer
 {
@@ -224,6 +225,12 @@ namespace LocationWCFServer
         private void MenuRealPos_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new RealPosWindow();
+            win.Show();
+        }
+
+        private void MenuArchorScane_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorConfigureWindow();
             win.Show();
         }
     }

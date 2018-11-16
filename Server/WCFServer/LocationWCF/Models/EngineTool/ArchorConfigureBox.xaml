@@ -8,12 +8,21 @@
              d:DesignHeight="600" d:DesignWidth="600">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+            
             <Label>Remote IP</Label>
-            <TextBox Width="100" Name="TbRemoteIp" Text="192.168.10.255"></TextBox>
+            <TextBox Width="100" Name="TbEndIp" Text="192.168.10.255"></TextBox>
             <Label>Port</Label>
             <TextBox Width="100" Name="TbPort" Text="4646"></TextBox>
             <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
         </StackPanel>
-        <DataGrid Name="DataGrid3"></DataGrid>
+        <TabControl>
+            <TabItem Header="表格">
+                <DataGrid Name="DataGrid3"></DataGrid>
+            </TabItem>
+            <TabItem Header="控制台">
+                <TextBox Name="TbConsole"></TextBox>
+            </TabItem>
+        </TabControl>
+        
     </DockPanel>
 </UserControl>
