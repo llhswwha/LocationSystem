@@ -192,10 +192,10 @@ namespace LocationServices.Locations
             return lst;
         }
 
-        public List<NearbyPerson> GetNearbyPerson_Alarm(int id)
+        public List<NearbyPerson> GetNearbyPerson_Alarm(int id, float fDis)
         {
             PersonService ps = new PersonService();
-            List<NearbyPerson> lst = ps.GetNearbyPerson_Alarm(id);
+            List<NearbyPerson> lst = ps.GetNearbyPerson_Alarm(id, fDis);
             if (lst == null)
             {
                 lst = new List<NearbyPerson>();

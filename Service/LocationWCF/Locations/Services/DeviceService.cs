@@ -251,9 +251,10 @@ namespace LocationServices.Locations.Services
 
         #endregion
 
-        public List<NearbyDev> GetNearbyDev_Currency(int id)
+        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis)
         {
             List<NearbyDev> lst = new List<NearbyDev>();
+            List<NearbyDev> lst2 = new List<NearbyDev>();
             DbModel.Location.Data.LocationCardPosition lcp = db.LocationCardPositions.DbSet.Where(p => p.PersonId == id).FirstOrDefault();
             if (lcp == null || lcp.AreaId == null)
             {
@@ -279,10 +280,10 @@ namespace LocationServices.Locations.Services
                         select new NearbyDev { id = t1.Id, Name = t1.Name, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
             if (query != null)
             {
-                lst = query.ToList();
+                lst2 = query.ToList();
             }
 
-            foreach (NearbyDev item in lst)
+            foreach (NearbyDev item in lst2)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -291,6 +292,14 @@ namespace LocationServices.Locations.Services
                 sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
                 Distance = (float)System.Math.Sqrt(sqrtDistance);
                 item.Distance = Distance;
+                if (Distance <= fDis)
+                {
+                    NearbyDev item2 = item.Clone();
+                    if (item2 != null)
+                    {
+                        lst.Add(item2);
+                    }
+                }
 
                 PosX2 = 0;
                 PosY2 = 0;
@@ -304,9 +313,10 @@ namespace LocationServices.Locations.Services
             return lst;
         }
 
-        public List<NearbyDev> GetNearbyCamera_Alarm(int id)
+        public List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis)
         {
             List<NearbyDev> lst = new List<NearbyDev>();
+            List<NearbyDev> lst2 = new List<NearbyDev>();
             DbModel.Location.Data.LocationCardPosition lcp = db.LocationCardPositions.DbSet.Where(p => p.PersonId == id).FirstOrDefault();
             if (lcp == null || lcp.AreaId == null)
             {
@@ -333,10 +343,10 @@ namespace LocationServices.Locations.Services
                         select new NearbyDev { id = t2.Id, Name = t2.Name, TypeName = t3.TypeName, Area = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
             if (query != null)
             {
-                lst = query.ToList();
+                lst2 = query.ToList();
             }
 
-            foreach (NearbyDev item in lst)
+            foreach (NearbyDev item in lst2)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -345,6 +355,15 @@ namespace LocationServices.Locations.Services
                 sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
                 Distance = (float)System.Math.Sqrt(sqrtDistance);
                 item.Distance = Distance;
+                if (Distance <= fDis)
+                {
+                    NearbyDev item2 = item.Clone();
+                    if (item2 != null)
+                    {
+                        lst.Add(item2);
+                    } 
+                }
+
 
                 PosX2 = 0;
                 PosY2 = 0;

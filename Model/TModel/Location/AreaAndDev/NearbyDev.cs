@@ -72,6 +72,21 @@ namespace TModel.Location.AreaAndDev
             Y = 0;
             Z = 0;
         }
+
+        public NearbyDev Clone()
+        {
+            NearbyDev copy = new NearbyDev();
+            copy.id = id;
+            copy.Name = Name;
+            copy.TypeName = TypeName;
+            copy.Area = Area;
+            copy.Distance = Distance;
+            copy.X = X;
+            copy.Y = Y;
+            copy.Z = Z;
+
+            return copy;
+        }
     }
 
     public class DevDistanceCompare : IComparer<NearbyDev>

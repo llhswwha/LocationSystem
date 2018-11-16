@@ -198,7 +198,7 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         [OperationContract]
-        List<NearbyDev> GetNearbyDev_Currency(int id);
+        List<NearbyDev> GetNearbyDev_Currency(int id, float fDis);
 
         /// <summary>
         /// 附近摄像头（告警）
@@ -206,6 +206,6 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         [OperationContract]
-        List<NearbyDev> GetNearbyCamera_Alarm(int id);
+        List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis);
     }
 }

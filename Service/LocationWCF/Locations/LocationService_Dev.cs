@@ -523,10 +523,10 @@ namespace LocationServices.Locations
             return pc2.ToTModel();
         }
 
-        public List<NearbyDev> GetNearbyDev_Currency(int id)
+        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis)
         {
             DeviceService ds = new DeviceService();
-            List<NearbyDev> lst = ds.GetNearbyDev_Currency(id);
+            List<NearbyDev> lst = ds.GetNearbyDev_Currency(id, fDis);
             if (lst == null)
             {
                 lst = new List<NearbyDev>();
@@ -535,10 +535,10 @@ namespace LocationServices.Locations
             return lst;
         }
 
-        public List<NearbyDev> GetNearbyCamera_Alarm(int id)
+        public List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis)
         {
             DeviceService ds = new DeviceService();
-            List<NearbyDev> lst = ds.GetNearbyCamera_Alarm(id);
+            List<NearbyDev> lst = ds.GetNearbyCamera_Alarm(id, fDis);
             if (lst == null)
             {
                 lst = new List<NearbyDev>();

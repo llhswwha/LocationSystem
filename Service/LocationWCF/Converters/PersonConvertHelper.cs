@@ -62,7 +62,7 @@ namespace LocationServices.Converters
             item2.Id = item1.Id;
             item2.Name = item1.Name;
             item2.Sex = item1.Sex.ToString();
-            item2.ParentId = item1.ParentId;
+            item2.ParentId = item1.AreaId;
             return item2;
         }
 

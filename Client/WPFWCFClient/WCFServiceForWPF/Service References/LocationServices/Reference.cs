@@ -155,10 +155,10 @@ namespace WCFServiceForWPF.LocationServices {
         void DeleteArchor(int archorId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
-        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id);
+        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
-        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id);
+        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id);
@@ -273,7 +273,7 @@ namespace WCFServiceForWPF.LocationServices {
         TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Currency(int id, float fDis);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetNearbyPerson_Alarm", ReplyAction="http://tempuri.org/IPersonalService/GetNearbyPerson_AlarmResponse")]
-        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id);
+        TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id, float fDis);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetLocationAlarms", ReplyAction="http://tempuri.org/IAlarmService/GetLocationAlarmsResponse")]
         Location.TModel.Location.Alarm.LocationAlarm[] GetLocationAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg);
@@ -547,12 +547,12 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.DeleteArchor(archorId);
         }
         
-        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id) {
-            return base.Channel.GetNearbyDev_Currency(id);
+        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis) {
+            return base.Channel.GetNearbyDev_Currency(id, fDis);
         }
         
-        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id) {
-            return base.Channel.GetNearbyCamera_Alarm(id);
+        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis) {
+            return base.Channel.GetNearbyCamera_Alarm(id, fDis);
         }
         
         public Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id) {
@@ -703,8 +703,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetNearbyPerson_Currency(id, fDis);
         }
         
-        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id) {
-            return base.Channel.GetNearbyPerson_Alarm(id);
+        public TModel.Location.Person.NearbyPerson[] GetNearbyPerson_Alarm(int id, float fDis) {
+            return base.Channel.GetNearbyPerson_Alarm(id, fDis);
         }
         
         public Location.TModel.Location.Alarm.LocationAlarm[] GetLocationAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg) {

@@ -337,7 +337,10 @@ namespace LocationServices.Locations.Services
                 if (Distance <= fDis)
                 {
                     NearbyPerson item2 = item.Clone();
-                    lst.Add(item2);
+                    if (item2 != null)
+                    {
+                        lst.Add(item2);
+                    }
                 }
 
 
@@ -353,9 +356,10 @@ namespace LocationServices.Locations.Services
             return lst;
         }
 
-        public List<NearbyPerson> GetNearbyPerson_Alarm(int id)
+        public List<NearbyPerson> GetNearbyPerson_Alarm(int id, float fDis)
         {
             List<NearbyPerson> lst = new List<NearbyPerson>();
+            List<NearbyPerson> lst2 = new List<NearbyPerson>();
             DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
             if (dev == null || dev.ParentId == null)
             {
@@ -382,10 +386,10 @@ namespace LocationServices.Locations.Services
                         select new NearbyPerson { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
             if (query != null)
             {
-                lst = query.ToList();
+                lst2 = query.ToList();
             }
 
-            foreach (NearbyPerson item in lst)
+            foreach (NearbyPerson item in lst2)
             {
                 PosX2 = item.X - PosX;
                 PosY2 = item.Y - PosY;
@@ -394,6 +398,14 @@ namespace LocationServices.Locations.Services
                 sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
                 Distance = (float)System.Math.Sqrt(sqrtDistance);
                 item.Distance = Distance;
+                if (Distance <= fDis)
+                {
+                    NearbyPerson item2 = item.Clone();
+                    if (item2 != null)
+                    {
+                        lst.Add(item2);
+                    }
+                }
 
                 PosX2 = 0;
                 PosY2 = 0;

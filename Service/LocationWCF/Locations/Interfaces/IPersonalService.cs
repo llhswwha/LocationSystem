@@ -50,6 +50,6 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         [OperationContract]
-        List<NearbyPerson> GetNearbyPerson_Alarm(int id);
+        List<NearbyPerson> GetNearbyPerson_Alarm(int id, float fDis);
     }
 }

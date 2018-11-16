@@ -1,0 +1,105 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model PagedList<DbModel.Location.Authorizations.CardRole>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Ajax.ActionLink("Create New", "Create", "CardRole", new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "modalContent",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "onBegin",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure",
+        OnComplete = "onComplete"
+    })
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="freshTable">
+    <table class="table">
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>          
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                               
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", "CardRole", new { id = item.Id }, new AjaxOptions
+                   {
+                       HttpMethod = "Get",
+                       UpdateTargetId = "modalContent",
+                       InsertionMode = InsertionMode.Replace,
+                       OnBegin = "onBegin",
+                       OnSuccess = "onSuccess",
+                       OnFailure = "onFailure",
+                       OnComplete = "onComplete"
+                   }) |
+
+                    @Ajax.ActionLink("Details", "Details", "CardRole", new { id = item.Id }, new AjaxOptions
+                   {
+                       HttpMethod = "GET",
+                       UpdateTargetId = "modalContent",
+                       InsertionMode = InsertionMode.Replace,
+                       OnBegin = "onBegin",
+                       OnSuccess = "onSuccess",
+                       OnFailure = "onFailure",
+                       OnComplete = "onComplete"
+                   }) |
+
+                    @Ajax.ActionLink("Delete", "Delete", "CardRole", new { id = item.Id }, new AjaxOptions
+                   {
+                       HttpMethod = "GET",
+                       UpdateTargetId = "modalContent",
+                       InsertionMode = InsertionMode.Replace,
+                       OnBegin = "onBegin",
+                       OnSuccess = "onSuccess",
+                       OnFailure = "onFailure",
+                       OnComplete = "onComplete"
+                   })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script> 
+
+

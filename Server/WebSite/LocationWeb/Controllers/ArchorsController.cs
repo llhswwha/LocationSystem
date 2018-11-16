@@ -11,7 +11,7 @@ using Webdiyer.WebControls.Mvc;
 using WebLocation.Tools;
 using BLL.Tools;
 using DbModel.Tools;
-
+using IModel.Enums;
 namespace WebLocation.Controllers
 {
     public class ArchorsController : Controller
@@ -77,7 +77,7 @@ namespace WebLocation.Controllers
                 dev.IP = "";
                 dev.KKS = "";
                 dev.Name = archor.Name;
-                dev.ModelName = LocationDeviceHelper.LocationDevModelName;
+                dev.ModelName = TypeNames.Archor;
                 dev.Status = 0;
                 string DepID = Request["DepID"];
                 if (DepID == "" || DepID == null)
@@ -88,7 +88,7 @@ namespace WebLocation.Controllers
                 dev.ParentId = Convert.ToInt32(Request["DepID"]);
                 try
                 {
-                    dev.Local_TypeCode = int.Parse(LocationDeviceHelper.LocationDevTypeCode);
+                    dev.Local_TypeCode = TypeCodes.Archor;
                 }
                 catch (Exception e)
                 {

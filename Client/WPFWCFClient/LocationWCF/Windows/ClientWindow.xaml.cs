@@ -232,17 +232,17 @@ namespace LocationWCFClient.Windows
 
         private void GetNearbyPerson_Alarm_OnClick(object sender, RoutedEventArgs e)
         {
-            NearbyPerson[] lst = client.GetNearbyPerson_Alarm(1);
+            NearbyPerson[] lst = client.GetNearbyPerson_Alarm(1,200);
         }
 
         private void GetNearbyDev_Currency_OnClick(object sender, RoutedEventArgs e)
         {
-            NearbyDev[] lst = client.GetNearbyDev_Currency(1);
+            NearbyDev[] lst = client.GetNearbyDev_Currency(1,200);
         }
 
         private void GetNearbyCamera_Alarm_OnClick(object sender, RoutedEventArgs e)
         {
-            NearbyDev[] lst = client.GetNearbyCamera_Alarm(1);
+            NearbyDev[] lst = client.GetNearbyCamera_Alarm(1,200);
         }
 
     }
