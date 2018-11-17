@@ -29,12 +29,14 @@ namespace DbModel.Tools
         public static IPAddress GetLocalIp(string ip)
         {
             if (string.IsNullOrEmpty(ip)) return null;
-            var i = ip.LastIndexOf('.');
-            var ipId = ip.Substring(0, i);
+            var ipId = ip.Substring(0, ip.LastIndexOf('.'));
             var ips = GetLocalList();
             foreach (var item in ips)
             {
-                if (item.ToString().StartsWith(ipId))
+                var ip2 = item.ToString();
+                if (ip2.Contains(":")) continue;
+                var ipId2= ip2.Substring(0, ip2.LastIndexOf('.'));
+                if (ipId2==ipId)
                 {
                     return item;
                 }

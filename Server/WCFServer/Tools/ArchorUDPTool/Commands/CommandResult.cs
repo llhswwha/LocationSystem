@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArchorUDPTool.Models;
 
 namespace ArchorUDPTool.Commands
 {
@@ -77,11 +78,24 @@ namespace ArchorUDPTool.Commands
             return "";
         }
 
-        public long GetNumberValue()
+        public long GetLongValue()
         {
             string hex = DataHex;
             long number = Convert.ToInt64(hex, 16);
             return number;
+        }
+
+        public int GetIntValue()
+        {
+            string hex = DataHex;
+            int number = Convert.ToInt32(hex, 16);
+            return number;
+        }
+
+        public bool GetBoolValue()
+        {
+            string hex = DataHex;
+            return hex != "00";
         }
 
         public override string ToString()
@@ -96,21 +110,17 @@ namespace ArchorUDPTool.Commands
 
         public List<UDPCommandResult> Items { get; set; }
 
-        public string ServerIp { get; set; }
-        public long ServerPort { get; set; }
-
-        public string ArchorId { get; set; }
-
-        public string ArchorIp { get; set; }
+        public UDPArchor Archor { get; set; }
 
         public CommandResultGroup()
         {
             Items = new List<UDPCommandResult>();
+            Archor=new UDPArchor();
         }
 
-        public CommandResultGroup(string id)
+        public CommandResultGroup(string id):this()
         {
-            Items = new List<UDPCommandResult>();
+            
             Id = id;
         }
 
@@ -121,19 +131,47 @@ namespace ArchorUDPTool.Commands
             this.Items.Add(r);
             if (r.CmdHex == UDPCommands.GetServerIpR)
             {
-                ServerIp = r.GetIPValue();
+                Archor.ServerIp = r.GetIPValue();
             }
             else if (r.CmdHex == UDPCommands.GetIdR)
             {
-                ArchorId = r.GetValue();
+                Archor.Id = r.GetValue();
             }
             else if (r.CmdHex == UDPCommands.GetIpR)
             {
-                ArchorIp = r.GetIPValue();
+                Archor.Ip = r.GetIPValue();
             }
             else if (r.CmdHex == UDPCommands.GetPortR)
             {
-                ServerPort = r.GetNumberValue();
+                Archor.ServerPort = r.GetLongValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetArchorTypeR)
+            {
+                Archor.Type = r.GetIntValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetDHCPR)
+            {
+                Archor.DHCP = r.GetBoolValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetMaskR)
+            {
+                Archor.Mask = r.GetIPValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetGatewayR)
+            {
+                Archor.Gateway = r.GetIPValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetSoftVersionR)
+            {
+                Archor.SoftVersion = r.GetValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetHardVersionR)
+            {
+                Archor.HardVersion = r.GetValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetPowerR)
+            {
+                Archor.Power = r.GetIntValue();
             }
             else
             {
@@ -156,12 +194,12 @@ namespace ArchorUDPTool.Commands
             Groups = new List<CommandResultGroup>();
         }
 
-        public void Add(System.Net.IPEndPoint iep, byte[] data)
+        public UDPArchor Add(System.Net.IPEndPoint iep, byte[] data)
         {
             string id = iep.ToString();
             var group = GetById(id);
             group.AddData(data);
-
+            return group.Archor;
         }
 
         public CommandResultGroup GetById(string id)

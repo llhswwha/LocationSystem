@@ -76,6 +76,7 @@
     <Compile Include="ArchorConfigureWindow.xaml.cs">
       <DependentUpon>ArchorConfigureWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ArchorManager.cs" />
     <Compile Include="ArchorUDPSettingWindow.xaml.cs">
       <DependentUpon>ArchorUDPSettingWindow.xaml</DependentUpon>
     </Compile>

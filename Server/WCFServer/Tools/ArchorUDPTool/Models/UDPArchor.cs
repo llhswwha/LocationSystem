@@ -14,5 +14,19 @@ namespace ArchorUDPTool.Models
         public string ServerIp { get; set; }
 
         public long ServerPort { get; set; }
+
+        public int Type { get; set; }
+
+        public string Mask { get; set; }
+
+        public string Gateway { get; set; }
+
+        public bool DHCP { get; set; }
+
+        public string SoftVersion { get; set; }
+
+        public string HardVersion { get; set; }
+
+        public int Power { get; set; }
     }
 }

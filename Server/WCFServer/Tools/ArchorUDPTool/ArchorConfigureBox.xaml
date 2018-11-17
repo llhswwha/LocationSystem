@@ -9,14 +9,27 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
+            <MenuItem Header="预制指令">
+                <MenuItem Header="重启" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.5.1)" Name="MenuSetServerIp1" Click="MenuSetServerIP1_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.10.155)" Name="MenuSetServerIp2" Click="MenuSetServerIp2_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.3.251)" Name="MenuSetServerIp3" Click="MenuSetServerIp3_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.4.251)" Name="MenuSetServerIp4" Click="MenuSetServerIp4_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.5.251)" Name="MenuSetServerIp5" Click="MenuSetServerIp5_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.*.251)" Name="MenuSetServerIp6" Click="MenuSetServerIp6_OnClick"></MenuItem>
+            </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
-            
             <Label>Remote IP</Label>
-            <TextBox Width="400" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;"></TextBox>
+            <TextBox Width="400" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
             <Label>Port</Label>
             <TextBox Width="100" Name="TbPort" Text="4646"></TextBox>
             <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>指令</Label>
+            <TextBox Name="TbCommand" Width="400" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
+            <Button Name="BtnSet" Click="BtnSet_Click">设置</Button>
         </StackPanel>
         <TabControl>
             
@@ -28,10 +41,17 @@
             <TabItem Header="表格">
                 <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
+                        <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"/>
+                        <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"/>
+                        <DataGridTextColumn Header="子网掩码" Binding="{Binding Mask}"/>
+                        <DataGridTextColumn Header="网关" Binding="{Binding Gateway}"/>
+                        <DataGridTextColumn Header="DHCP" Binding="{Binding DHCP}"/>
+                        <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"/>
+                        <DataGridTextColumn Header="硬件版本" Binding="{Binding HardVersion}"/>
+                        <DataGridTextColumn Header="功率" Binding="{Binding Power}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

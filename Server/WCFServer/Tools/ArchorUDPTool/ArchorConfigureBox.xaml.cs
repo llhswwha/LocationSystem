@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ArchorUDPTool;
 using TModel.Tools;
 
 namespace LocationServer
@@ -34,88 +35,71 @@ namespace LocationServer
             InitializeComponent();
         }
 
-        Dictionary<string, LightUDP> udps = new Dictionary<string, LightUDP>();
 
         private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
         {
-
-            resultList = new CommandResultManager();
-
-            //var ipStart = TbStartIp.Text;
-            var ipsText = TbRemote.Text;
-            var port = TbPort.Text;
-            var ips = ipsText.Split(';');
-            foreach(var ip in ips)
+            if (archorManager == null)
             {
-                var localIp = IpHelper.GetLocalIp(ip);
-                if (localIp != null)
+                archorManager=new ArchorManager();
+                archorManager.ArchorListChanged += () =>
                 {
-                    LightUDP udp = null;
-                    var id = localIp.ToString();
-                    if (udps.ContainsKey(id))
-                    {
-                        udp = udps[id];
-                    }
-                    else
-                    {
-                        udp = new LightUDP(localIp, 1111);
-                        udp.DGramRecieved += Udp_DGramRecieved;
-                        udps[id] = udp;
-                    }
-                    //foreach (var item in UDPCommands.GetAll())
-                    //{
-                    //    udp.SendHex(item.Trim(), new IPEndPoint(IPAddress.Parse(ipEnd), port.ToInt()));
-                    //}
-                    int sleepTime = 200;
-                    IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port.ToInt());
-                    udp.SendHex(UDPCommands.GetServerIp, ipEndPoint);
-                    Thread.Sleep(sleepTime);
-                    udp.SendHex(UDPCommands.GetId, ipEndPoint);
-                    Thread.Sleep(sleepTime);
-                    udp.SendHex(UDPCommands.GetIp, ipEndPoint);
-                    Thread.Sleep(sleepTime);
-                    udp.SendHex(UDPCommands.GetPort, ipEndPoint);
-                    Thread.Sleep(sleepTime);
-                }
-                else
-                {
-                    //MessageBox.Show("当前电脑不存在IP段:" + ips);
-                }
-                Thread.Sleep(1000);
+                    TbConsole.Text = archorManager.Log;
+                    DataGrid3.ItemsSource = archorManager.archorList;
+                    
+                };
             }
-            
-
+            archorManager.SearchArchor(TbRemote.Text, TbPort.Text);
             MessageBox.Show("完成");
-            
         }
 
-        CommandResultManager resultList;
+        private ArchorManager archorManager;
 
-        private void Udp_DGramRecieved(object sender, BUDPGram dgram)
-        {
-            resultList.Add(dgram.iep, dgram.data);
-            string hex = ByteHelper.byteToHexStr(dgram.data);
-            //string str = Encoding.UTF7.GetString(dgram.data);
-            string txt = string.Format("[{0}]:{1}\n",dgram.iep, hex);
-            TbConsole.Text =txt +TbConsole.Text;
-
-            var archorList = new List<UDPArchor>();
-            foreach (var item in resultList.Groups)
-            {
-                var archor = new UDPArchor();
-                archor.ServerIp = item.ServerIp;
-                archor.ServerPort = item.ServerPort;
-                archor.Id = item.ArchorId;
-                archor.Ip = item.ArchorIp;
-                archorList.Add(archor);
-            }
-            DataGrid3.ItemsSource = archorList;
-        }
 
         private void MenuSetting_Click(object sender, RoutedEventArgs e)
         {
             var win = new ArchorUDPSettingWindow();
             win.Show();
+        }
+
+        private void BtnSet_Click(object sender, RoutedEventArgs e)
+        {
+            var cmd = TbCommand.Text;
+            archorManager.SendCmd(cmd);
+        }
+
+        private void MenuRestart_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.Restart);
+        }
+
+        private void MenuSetServerIP1_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.ServerIp1);//192.168.5.1
+        }
+
+        private void MenuSetServerIp2_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.ServerIp2);//192.168.10.155
+        }
+
+        private void MenuSetServerIp3_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.ServerIp3);//192.168.3.251
+        }
+
+        private void MenuSetServerIp4_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.ServerIp4);//192.168.4.251
+        }
+
+        private void MenuSetServerIp5_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SendCmd(UDPCommands.ServerIp5);//192.168.5.251
+        }
+
+        private void MenuSetServerIp6_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SetServerIp();
         }
     }
 }

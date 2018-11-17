@@ -177,6 +177,7 @@ namespace Coldairarrow.Util.Sockets
 
         public int SendHex(string hexString,IPEndPoint remoteEp)
         {
+            if (string.IsNullOrEmpty(hexString)) return 0;
             var bytes = ByteHelper.HexToBytes(hexString);
             return Send(bytes, remoteEp);
         }
