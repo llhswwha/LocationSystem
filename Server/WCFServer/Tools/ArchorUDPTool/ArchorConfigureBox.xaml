@@ -5,12 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LocationServer"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="600">
+             d:DesignHeight="600" d:DesignWidth="700">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
+        </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             
             <Label>Remote IP</Label>
-            <TextBox Width="100" Name="TbEndIp" Text="192.168.10.255"></TextBox>
+            <TextBox Width="400" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;"></TextBox>
             <Label>Port</Label>
             <TextBox Width="100" Name="TbPort" Text="4646"></TextBox>
             <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
@@ -23,7 +26,14 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="表格">
-                <DataGrid Name="DataGrid3"></DataGrid>
+                <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
         

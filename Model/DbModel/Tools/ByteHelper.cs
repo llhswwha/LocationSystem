@@ -17,6 +17,7 @@ namespace DbModel.Tools
         public static byte[] HexToBytes(string hexString)
         {
             hexString = hexString.Replace(" ", "");
+            hexString = hexString.Replace(":", "");
             if ((hexString.Length % 2) != 0)
                 hexString += " ";
             byte[] returnBytes = new byte[hexString.Length / 2];

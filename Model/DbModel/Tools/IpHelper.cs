@@ -28,6 +28,7 @@ namespace DbModel.Tools
         /// <returns></returns>
         public static IPAddress GetLocalIp(string ip)
         {
+            if (string.IsNullOrEmpty(ip)) return null;
             var i = ip.LastIndexOf('.');
             var ipId = ip.Substring(0, i);
             var ips = GetLocalList();

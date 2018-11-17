@@ -39,6 +39,7 @@ using TModel.Location.Data;
 using TModel.Tools;
 using WebNSQLib;
 using LocationServer.Models.EngineTool;
+using System.Text;
 
 namespace LocationWCFServer
 {
@@ -71,6 +72,15 @@ namespace LocationWCFServer
             {
                 ServerManagerBox1.ClickStart();
             }
+
+            //var hex = "10 01 C0 01 02 85 A4 F4 8C C0 3A";
+            //var bytes = ByteHelper.HexToBytes(hex);
+            //var str = "85A4";
+            //byte[] bytes1 = Encoding.UTF8.GetBytes(str);
+            //byte[] bytes2 = Encoding.UTF32.GetBytes(str);
+            //byte[] bytes4 = Encoding.ASCII.GetBytes(str);
+            //byte[] bytes5 = Encoding.UTF7.GetBytes(str);
+            //byte[] bytes6 = Encoding.Default.GetBytes(str);
         }
 
         private void InitData()
@@ -232,6 +242,11 @@ namespace LocationWCFServer
         {
             var win = new ArchorConfigureWindow();
             win.Show();
+        }
+
+        private void MenuUDPSetting_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
