@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vector2=DbModel.Location.AreaAndDev.Point;
-namespace DbModel.Tools
+using Vector2= IModel.IVector2;
+namespace IModel.Tools
 {
     public static class MathTool
     {

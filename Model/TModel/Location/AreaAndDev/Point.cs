@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using System;
+using IModel;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -8,7 +9,7 @@ namespace Location.TModel.Location.AreaAndDev
     /// 位置点
     /// </summary>
     [DataContract] [Serializable]
-    public class Point
+    public class Point:IVector2
     {
         /// <summary>
         /// 主键Id

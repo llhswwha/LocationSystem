@@ -34,11 +34,24 @@ namespace DbModel.Location.AreaAndDev
         }
 
         /// <summary>
+        /// 基站IP
+        /// </summary>
+        [DataMember]
+        [Display(Name = "基站IP")]
+        public string Ip { get; set; }
+
+        /// <summary>
         /// 基站名
         /// </summary>
         [DataMember]
         [Display(Name = "基站名")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 所在区域的Id,要和DevInfo.ParentId相同
+        /// </summary>
+        [DataMember]
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// 位置X
@@ -74,13 +87,6 @@ namespace DbModel.Location.AreaAndDev
         [DataMember]
         [Display(Name = "自动获取IP")]
         public bool IsAutoIp { get; set; }
-
-        /// <summary>
-        /// 基站IP
-        /// </summary>
-        [DataMember]
-        [Display(Name = "基站IP")]
-        public string Ip { get; set; }
 
         /// <summary>
         /// 服务器IP
@@ -126,12 +132,6 @@ namespace DbModel.Location.AreaAndDev
 
         [Display(Name = "基站对应的设备")]
         public virtual DevInfo DevInfo { get; set; }
-
-        /// <summary>
-        /// 所在区域的Id,要和DevInfo.ParentId相同
-        /// </summary>
-        [DataMember]
-        public int? ParentId { get; set; }
 
         public override string ToString()
         {

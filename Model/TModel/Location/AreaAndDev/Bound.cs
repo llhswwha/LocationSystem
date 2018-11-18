@@ -2,6 +2,8 @@
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using System;
+using IModel.Tools;
+using IModel;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -275,6 +277,20 @@ namespace Location.TModel.Location.AreaAndDev
         public double GetHeight()
         {
             return MaxZ - MinZ;
+        }
+
+        public bool Contains(double x, double y)
+        {
+            if (Points != null && Points.Count > 4)//不规则多边形
+            {
+                return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i=>i));
+            }
+            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+        }
+
+        public bool ContainsSimple(double x, double y)
+        {
+            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
         }
     }
 }

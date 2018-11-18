@@ -41,6 +41,7 @@
     <Compile Include="Extensions\TreeNodeExtensions.cs" />
     <Compile Include="FuncArgs\IAlarmSearchArg.cs" />
     <Compile Include="IClone.cs" />
+    <Compile Include="IVector2.cs" />
     <Compile Include="Locations\IDepartment.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IKKSCode.cs" />
@@ -52,7 +53,9 @@
     <Compile Include="Locations\ITag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\TypeCodes.cs" />
+    <Compile Include="Tools\MathTool.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -46,9 +46,20 @@ namespace ArchorUDPTool.Commands
 
         public static string ServerIp1 = "10 01 20 03 04 C0 A8 05 01 91 9C 9D BE";//192.168.5.1
         public static string ServerIp2 = "10 01 20 03 04 C0 A8 0A 9B 06 DE FB 2B";//192.168.10.155
-        public static string ServerIp3 = "10 01 20 03 04 C0 A8 03 FB 9A AE 21 3A";//192.168.3.251
-        public static string ServerIp4 = "10 01 20 03 04 C0 A8 04 FB D5 EF B7 FD";//192.168.4.251
-        public static string ServerIp5 = "10 01 20 03 04 C0 A8 05 FB CC F4 86 BC";//192.168.5.251
+        public static string ServerIp3251 = "10 01 20 03 04 C0 A8 03 FB 9A AE 21 3A";//192.168.3.251
+        public static string ServerIp4251 = "10 01 20 03 04 C0 A8 04 FB D5 EF B7 FD";//192.168.4.251
+        public static string ServerIp5251 = "10 01 20 03 04 C0 A8 05 FB CC F4 86 BC";//192.168.5.251
+        public static string ServerIp3253 = "10 01 20 03 04 C0 A8 03 FD 73 CD 84 0F";//192.168.3.253
+        public static string ServerIp4253 = "10 01 20 03 04 C0 A8 04 FD 3C 8C 12 C8";//192.168.4.253
+        public static string ServerIp5253 = "10 01 20 03 04 C0 A8 05 FD 25 97 23 89";//192.168.5.253
+        /*
+         * Send:192.168.3.151:10 01 20 03 04 C0 A8 03 FD 73 CD 84 0F 
+Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
+Send:192.168.3.151:10 01 20 03 04 C0 A8 04 FD 3C 8C 12 C8 
+Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
+Send:192.168.3.151:10 01 20 03 04 C0 A8 05 FD 25 97 23 89 
+Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
+         */
 
         public static List<string> GetAll()
         {

@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DbModel.Location.Settings;
 using TModel.Tools;
+using LocationServer.Tools;
 
 namespace LocationServer.Windows
 {
@@ -43,7 +44,7 @@ namespace LocationServer.Windows
 
         public bool ShowInfo(Rectangle rect, int devId)
         {
-            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            ArchorDevList archorList = ArchorHelper.ArchorList;
 
             TbCode.ItemsSource = archorList.ArchorList;
             TbCode.DisplayMemberPath = "ArchorID";
@@ -194,7 +195,7 @@ namespace LocationServer.Windows
                 return;
             }
 
-            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            ArchorDevList archorList = ArchorHelper.ArchorList;
 
             TbCode.ItemsSource = archorList.ArchorList;
             TbCode.DisplayMemberPath = "ArchorID";
@@ -406,7 +407,7 @@ namespace LocationServer.Windows
 
         private void IPCode1_KeyUp(object sender, KeyEventArgs e)
         {
-            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            ArchorDevList archorList = ArchorHelper.ArchorList;
             if (archorList != null && archorList.ArchorList != null)
             {
                 var ip = (IPCode1.Text).ToLower();
@@ -434,7 +435,7 @@ namespace LocationServer.Windows
 
         private void TbCode_KeyUp(object sender, KeyEventArgs e)
         {
-            ArchorDevList archorList = AreaCanvasWindow.ArchorList;
+            ArchorDevList archorList = ArchorHelper.ArchorList;
             if (archorList != null && archorList.ArchorList != null)
             {
                 var code = (TbCode.Text).ToLower();

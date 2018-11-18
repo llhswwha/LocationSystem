@@ -63,9 +63,13 @@ namespace WPFClientControlLib
 
         public ContextMenu AreaContextMenu { get; set; }
 
+        public ContextMenu CanvasContextMenu { get; set; }
+
         public AreaCanvas()
         {
             InitializeComponent();
+            if(CanvasContextMenu!=null)
+                Canvas1.ContextMenu = CanvasContextMenu;
         }
 
         public void SelectArea<T>(T entity) where T :IEntity
@@ -107,6 +111,27 @@ namespace WPFClientControlLib
             }
         }
 
+        public void SelectDevs(List<DevEntity> list)
+        {
+            if (list == null) return;
+            ClearSelect();
+            //LbState.Content = "";
+            //SelectedRects.Clear();
+            foreach (var entity in list)
+            {
+                if (DevDict.ContainsKey(entity.Id))
+                {
+                    SelectedRects.Add(DevDict[entity.Id]);
+                    SetFocusStyle(DevDict[entity.Id]);
+                    LbState.Content += entity.Name + ";";
+                }
+                else
+                {
+                    LbState.Content += "[" + entity.Name + "];";
+                }
+            }
+        }
+
         public void SelectDev<T>(T entity) where T : IEntity
         {
             if (entity == null) return;
@@ -120,6 +145,27 @@ namespace WPFClientControlLib
             {
                 ClearSelect();
                 LbState.Content = "未找到设备:" + entity.Name;
+            }
+        }
+
+
+        public void RemoveArea(int id)
+        {
+            if (AreaDict.ContainsKey(id))
+            {
+                var dev = AreaDict[id];
+                Canvas1.Children.Remove(dev);
+                AreaDict.Remove(id);
+            }
+        }
+
+        public void RemoveDev(int id)
+        {
+            if (DevDict.ContainsKey(id))
+            {
+                var dev = DevDict[id];
+                Canvas1.Children.Remove(dev);
+                DevDict.Remove(id);
             }
         }
 
@@ -144,6 +190,7 @@ namespace WPFClientControlLib
             ScrollViewer1.ScrollToHorizontalOffset(SelectedRect.Margin.Left);
             ScrollViewer1.ScrollToVerticalOffset(SelectedRect.Margin.Top);
         }
+
 
         private void SetFocusStyle(Shape rect)
         {
@@ -188,7 +235,7 @@ namespace WPFClientControlLib
                 {
                     SelectedArea = area;
                     int scale = 20;
-                    DevSize = 0.3;
+                    DevSize = 0.4;
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
                     InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5,0.6 }, DevSize);
@@ -209,7 +256,7 @@ namespace WPFClientControlLib
             }
         }
 
-        private void ClearSelect()
+        public void ClearSelect()
         {
             foreach (var item in Canvas1.Children)
             {
@@ -221,12 +268,16 @@ namespace WPFClientControlLib
             {
                 SelectedRect.Stroke = Brushes.Black;
                 SelectedRect.StrokeThickness = 1;
+                SelectedRect = null;
             }
             foreach (var shape in SelectedRects)
             {
                 shape.Stroke = Brushes.Black;
                 shape.StrokeThickness = 1;
             }
+
+            LbState.Content = "";
+            SelectedRects.Clear();
         }
 
         public Shape ShowPoint(double x, double y)
@@ -415,21 +466,12 @@ namespace WPFClientControlLib
                 //Margin = new Thickness(x, y, 0, 0),
                 Width = size * scale,
                 Height = size * scale,
-                Fill = Brushes.DeepSkyBlue,
+                Fill = GetDevRectFillColor(dev),
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
                 Tag = dev,
                 ToolTip = dev.Name
             };
-
-            if (dev.DevDetail is Archor)
-            {
-                Archor archor = dev.DevDetail as Archor;
-                if (!string.IsNullOrEmpty(archor.Code)&&!archor.Code.StartsWith("Code"))
-                {
-                    devRect.Fill = Brushes.Green;
-                }
-            }
 
             devRect.ContextMenu = DevContextMenu;
 
@@ -451,8 +493,28 @@ namespace WPFClientControlLib
             var dev = rect.Tag as DevEntity;
             LbState.Content = "";
 
-            rect.Fill = Brushes.DeepSkyBlue;
+            rect.Fill = GetDevRectFillColor(dev);
             rect.Stroke = Brushes.Black;
+        }
+
+        private Brush GetDevRectFillColor(DevEntity dev)
+        {
+            if (dev.DevDetail is Archor)
+            {
+                Archor archor = dev.DevDetail as Archor;
+                if (!string.IsNullOrEmpty(archor.Code) && !archor.Code.StartsWith("Code"))
+                {
+                    return Brushes.Green;
+                }
+                else
+                {
+                    return Brushes.DeepSkyBlue;
+                }
+            }
+            else
+            {
+                return Brushes.DeepSkyBlue;
+            }
         }
 
         private void DevRect_MouseEnter(object sender, MouseEventArgs e)
@@ -514,7 +576,7 @@ namespace WPFClientControlLib
                 
                 polygon.Stroke = Brushes.Black;
                 polygon.StrokeThickness = 1;
-                polygon.MouseDown += Polygon_MouseDown;
+                polygon.MouseUp += Polygon_MouseDown;
                 polygon.MouseEnter += Polygon_MouseEnter;
                 polygon.MouseLeave += Polygon_MouseLeave;
                 polygon.Tag = area;
@@ -568,7 +630,11 @@ namespace WPFClientControlLib
 
         private void Polygon_MouseEnter(object sender, MouseEventArgs e)
         {
-            SelectRectangle(sender as Shape);
+            //SelectRectangle(sender as Shape);
+
+            Shape rect = sender as Shape;
+            rect.Stroke = Brushes.Red;
+            rect.StrokeThickness = 2;
         }
 
         private void SelectRectangle(Shape rect)

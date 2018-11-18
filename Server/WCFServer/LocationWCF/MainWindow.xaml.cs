@@ -248,5 +248,11 @@ namespace LocationWCFServer
         {
 
         }
+
+        private void MenuArchorCheck_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorCheckWindow();
+            win.Show();
+        }
     }
 }

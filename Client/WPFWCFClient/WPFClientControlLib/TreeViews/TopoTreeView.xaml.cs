@@ -30,6 +30,54 @@ namespace WPFClientControlLib
             InitializeComponent();
             
         }
+        public void LoadDataEx<TD,TF>(TD root, bool onlyBuilding = false) where TD : ITreeNodeEx<TD,TF>
+        {
+            if (root == null)
+            {
+                ShowTreeEx<TD,TF>(TreeView1, null);
+            }
+            else
+            {
+                if (onlyBuilding)
+                {
+                    ShowTreeEx<TD, TF>(TreeView1, root.GetAllChildren((int)AreaTypes.大楼));
+
+                }
+                else
+                {
+                    ShowTreeEx<TD, TF>(TreeView1, root.Children);
+                }
+            }
+        }
+
+        private void ShowTreeEx<TD, TF>(ItemsControl control, List<TD> list) where TD : ITreeNodeEx<TD, TF>
+        {
+            control.Items.Clear();
+            if (list == null) return;
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+                TreeViewItem node = new TreeViewItem();
+                node.Header = item.Name;
+                node.Tag = item;
+                control.Items.Add(node);
+
+                ShowTreeEx<TD, TF>(node, item.Children);
+
+                if (item.LeafNodes != null)
+                {
+                    foreach (var leaf in item.LeafNodes)
+                    {
+                        TreeViewItem subNode = new TreeViewItem();
+                        subNode.Header = leaf.ToString();
+                        subNode.Tag = leaf;
+                        subNode.Foreground = Brushes.Blue;
+                        node.Items.Add(subNode);
+                    }
+                }
+            }
+        }
+
 
         public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
         {
@@ -51,7 +99,7 @@ namespace WPFClientControlLib
             }
         }
 
-        public void ShowTree<T>(ItemsControl control, List<T> list) where T : ITreeNode<T>
+        private void ShowTree<T>(ItemsControl control, List<T> list) where T : ITreeNode<T>
         {
             control.Items.Clear();
             if (list == null) return;

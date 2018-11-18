@@ -33,11 +33,18 @@ namespace LocationServer
         public ArchorConfigureBox()
         {
             InitializeComponent();
+
+            //C0 A8 05 01 91 9C 9D BE //192.168.5.1
+
+            IPAddress ip = IPAddress.Parse("192.168.5.1");
+            IPAddress ip2 = ip.MapToIPv6();
         }
 
 
         private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
         {
+            TbConsole.Text = "";
+            DataGrid3.ItemsSource = null;
             if (archorManager == null)
             {
                 archorManager=new ArchorManager();
@@ -52,7 +59,7 @@ namespace LocationServer
             MessageBox.Show("完成");
         }
 
-        private ArchorManager archorManager;
+        public ArchorManager archorManager { get; set; }
 
 
         private void MenuSetting_Click(object sender, RoutedEventArgs e)
@@ -84,22 +91,40 @@ namespace LocationServer
 
         private void MenuSetServerIp3_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SendCmd(UDPCommands.ServerIp3);//192.168.3.251
+            archorManager.SendCmd(UDPCommands.ServerIp3251);//192.168.3.251
         }
 
         private void MenuSetServerIp4_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SendCmd(UDPCommands.ServerIp4);//192.168.4.251
+            archorManager.SendCmd(UDPCommands.ServerIp4251);//192.168.4.251
         }
 
         private void MenuSetServerIp5_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SendCmd(UDPCommands.ServerIp5);//192.168.5.251
+            archorManager.SendCmd(UDPCommands.ServerIp5251);//192.168.5.251
         }
 
         private void MenuSetServerIp6_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SetServerIp();
+            archorManager.SetServerIp251();
+        }
+
+        private void MenuTest_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CodeTestWindow();
+            win.Show();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+            archorManager.SaveArchorList(path);
+
+        }
+
+        private void MenuSetServerIp7_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.SetServerIp253();
         }
     }
 }

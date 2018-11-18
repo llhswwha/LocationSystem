@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArchorUDPTool;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace LocationServer.Models.EngineTool
         public ArchorConfigureWindow()
         {
             InitializeComponent();
+        }
+
+        public ArchorManager archorManager { get
+            {
+                return ArchorConfigureBox1.archorManager;
+            }
         }
     }
 }

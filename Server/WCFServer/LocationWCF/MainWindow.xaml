@@ -32,7 +32,7 @@
                 <MenuItem Header="事件发送测试" Name="MenuEventSendTest" Click="MenuEventSendTest_OnClick"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="基站扫描" Name="MenuArchorScane" Click="MenuArchorScane_Click"></MenuItem>
-                <MenuItem Header="基站设置" Name="MenuUDPSetting" Click="MenuUDPSetting_Click"></MenuItem>
+                <MenuItem Header="基站校对" Name="MenuArchorCheck" Click="MenuArchorCheck_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

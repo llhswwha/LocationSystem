@@ -16,21 +16,6 @@ public class ArchorDevList{
 public class ArchorDev
 {
     /// <summary>
-    /// 基站名称
-    /// </summary>
-    [XmlAttribute("Name")]
-    public string Name { get; set; }
-    /// <summary>
-    /// 基站型号
-    /// </summary>
-    [XmlAttribute("ModelType")]
-    public string ModelType { get; set; }
-    /// <summary>
-    /// 产品序号
-    /// </summary>
-    [XmlAttribute("SerialNumber")]
-    public string SerialNumber { get; set; }
-    /// <summary>
     /// 基站ID
     /// </summary>
     [XmlAttribute("ArchorID")]
@@ -45,6 +30,27 @@ public class ArchorDev
     /// </summary>
     [XmlAttribute("InstallArea")]
     public string InstallArea { get; set; }
+
+    [XmlAttribute("IsConnected")]
+    public string IsConnected { get; set; }
+
+    /// <summary>
+    /// 基站名称
+    /// </summary>
+    [XmlAttribute("Name")]
+    public string Name { get; set; }
+    /// <summary>
+    /// 基站型号
+    /// </summary>
+    [XmlAttribute("ModelType")]
+    public string ModelType { get; set; }
+
+    /// <summary>
+    /// 产品序号
+    /// </summary>
+    [XmlAttribute("SerialNumber")]
+    public string SerialNumber { get; set; }
+
 
     public override string ToString()
     {

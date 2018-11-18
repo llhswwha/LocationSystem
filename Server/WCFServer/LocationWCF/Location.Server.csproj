@@ -191,8 +191,12 @@
     <Compile Include="Models\EngineTool\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ArchorHelper.cs" />
     <Compile Include="Tools\ConfigurationHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
+    <Compile Include="Windows\ArchorCheckWindow.xaml.cs">
+      <DependentUpon>ArchorCheckWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\BusArchorListWindow.xaml.cs">
       <DependentUpon>BusArchorListWindow.xaml</DependentUpon>
     </Compile>
@@ -277,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\ArchorListExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ArchorCheckWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -399,6 +407,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Data\基站信息\UDPArchorList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\基站信息\ArchorFiles.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

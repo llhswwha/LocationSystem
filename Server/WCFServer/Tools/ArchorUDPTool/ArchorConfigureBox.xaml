@@ -17,14 +17,25 @@
                 <MenuItem Header="设置ServerIP(192.168.4.251)" Name="MenuSetServerIp4" Click="MenuSetServerIp4_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.5.251)" Name="MenuSetServerIp5" Click="MenuSetServerIp5_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.*.251)" Name="MenuSetServerIp6" Click="MenuSetServerIp6_OnClick"></MenuItem>
+                <MenuItem Header="设置ServerIP(192.168.*.253)" Name="MenuSetServerIp7" Click="MenuSetServerIp7_OnClick"></MenuItem>
             </MenuItem>
+            <MenuItem Header="测试" Name="MenuTest" Click="MenuTest_Click"></MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label>Remote IP</Label>
             <TextBox Width="400" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
             <Label>Port</Label>
             <TextBox Width="100" Name="TbPort" Text="4646"></TextBox>
+            
+        </StackPanel>
+        <!--<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <CheckBox Name="CbId" IsChecked="True">Id</CheckBox>
+            <CheckBox Name="CbIp" IsChecked="True">Ip</CheckBox>
+            <CheckBox Name="CbServerIp" IsChecked="True">ServerIp</CheckBox>
+        </StackPanel>-->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
+            <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>指令</Label>
@@ -41,6 +52,7 @@
             <TabItem Header="表格">
                 <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
                         <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
                         <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>

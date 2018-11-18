@@ -21,15 +21,16 @@ namespace ArchorUDPTool
 
         CommandResultManager resultList;
 
-        public List<UDPArchor> archorList;
+        public UDPArchorList archorList;
 
-        public List<UDPArchor> AddArchor(System.Net.IPEndPoint iep, byte[] data)
+        public UDPArchorList AddArchor(System.Net.IPEndPoint iep, byte[] data)
         {
             resultList.Add(iep, data);
-            archorList = new List<UDPArchor>();
+            archorList = new UDPArchorList();
             foreach (var item in resultList.Groups)
             {
                 archorList.Add(item.Archor);
+                item.Archor.Num = archorList.Count;
             }
             if (ArchorListChanged != null)
             {
@@ -55,7 +56,7 @@ namespace ArchorUDPTool
                     AddLog("存在IP段:" + ip);
 
                     var udp = GetLightUDP(localIp);
-                    int sleepTime = 100;
+                    int sleepTime = 200;
                     IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), archorPort);
                     udp.SendHex(UDPCommands.GetServerIp, ipEndPoint);
                     Thread.Sleep(sleepTime);
@@ -79,13 +80,14 @@ namespace ArchorUDPTool
                     Thread.Sleep(sleepTime);
                     udp.SendHex(UDPCommands.GetPower, ipEndPoint);
                     Thread.Sleep(sleepTime);
+
+                    Thread.Sleep(1000);
                 }
                 else
                 {
                     AddLog("不存在IP段:" + ip );
                     //MessageBox.Show("当前电脑不存在IP段:" + ips);
                 }
-                //Thread.Sleep(1000);
             }
         }
 
@@ -117,6 +119,11 @@ namespace ArchorUDPTool
             return udp;
         }
 
+        internal void SaveArchorList(string path)
+        {
+            XmlSerializeHelper.Save(archorList, path);
+        }
+
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
         {
             string hex = ByteHelper.byteToHexStr(dgram.data);
@@ -138,7 +145,7 @@ namespace ArchorUDPTool
             }
         }
 
-        public void SetServerIp()
+        public void SetServerIp251()
         {
             foreach (var archor in archorList)
             {
@@ -148,15 +155,45 @@ namespace ArchorUDPTool
                 var cmd = "";
                 if (archor.Ip.StartsWith("192.168.3."))
                 {
-                    cmd = UDPCommands.ServerIp3;
+                    if(archor.ServerIp!="192.168.3.251")
+                        cmd = UDPCommands.ServerIp3251;
                 }
                 else if (archor.Ip.StartsWith("192.168.4."))
                 {
-                    cmd = UDPCommands.ServerIp4;
+                    if (archor.ServerIp != "192.168.4.251")
+                        cmd = UDPCommands.ServerIp4251;
                 }
                 else if(archor.Ip.StartsWith("192.168.5."))
                 {
-                    cmd = UDPCommands.ServerIp5;
+                    if (archor.ServerIp != "192.168.5.251")
+                        cmd = UDPCommands.ServerIp5251;
+                }
+                udp.SendHex(cmd, ipEndPoint);
+            }
+        }
+
+        public void SetServerIp253()
+        {
+            foreach (var archor in archorList)
+            {
+                var localIp = IpHelper.GetLocalIp(archor.Ip);
+                var udp = GetLightUDP(localIp);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archor.Ip), archorPort);
+                var cmd = "";
+                if (archor.Ip.StartsWith("192.168.3."))
+                {
+                    if (archor.ServerIp != "192.168.3.253")
+                        cmd = UDPCommands.ServerIp3253;
+                }
+                else if (archor.Ip.StartsWith("192.168.4."))
+                {
+                    if (archor.ServerIp != "192.168.4.253")
+                        cmd = UDPCommands.ServerIp4253;
+                }
+                else if (archor.Ip.StartsWith("192.168.5."))
+                {
+                    if (archor.ServerIp != "192.168.5.253")
+                        cmd = UDPCommands.ServerIp5253;
                 }
                 udp.SendHex(cmd, ipEndPoint);
             }

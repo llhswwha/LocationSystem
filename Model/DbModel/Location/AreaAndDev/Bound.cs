@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using IModel.Tools;
+using IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -305,7 +307,7 @@ namespace DbModel.Location.AreaAndDev
         {
             if (Points != null && Points.Count > 4)//不规则多边形
             {
-                return MathTool.IsInRegion(new Point(x, y, 0, 0), Points);
+                return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i=>i));
             }
             return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
         }

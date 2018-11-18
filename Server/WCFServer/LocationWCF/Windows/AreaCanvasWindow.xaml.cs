@@ -29,6 +29,7 @@ using LocationWCFServer;
 using LocationServices.Tools;
 using SignalRService.Hubs;
 using DbModel.Tools;
+using LocationServer.Tools;
 
 namespace LocationServer
 {
@@ -47,30 +48,21 @@ namespace LocationServer
 
         private AreaService areaService;
         private DepartmentService depService;
+        private DeviceService devService;
 
-        /// <summary>
-        /// 厂区提供基站信息
-        /// </summary>
-        public static ArchorDevList ArchorList;
 
         private void AreaCanvasWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             areaService = new AreaService();
             depService = new DepartmentService();
+            devService = new DeviceService();
 
             InitAreaCanvas();
             LoadData();
             //StartPersonTimer();
-            LoadArchoDevInfo();  //载入基站信息，用于ID和IP的自动匹配
+            ArchorHelper.LoadArchoDevInfo();  //载入基站信息，用于ID和IP的自动匹配
         }
-        public void LoadArchoDevInfo()
-        {
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\基站信息\\ArchorFiles.xml";
-            var initInfo = XmlSerializeHelper.LoadFromFile<ArchorDevList>(filePath);
-            if(initInfo!=null)
-            ArchorList = initInfo;
-        }
+
         private void PersonTimer_Tick(object sender, EventArgs e)
         {
             ShowPersons();
@@ -103,18 +95,26 @@ namespace LocationServer
         {
             AreaCanvas1.Init();
             ContextMenu devContextMenu = new ContextMenu();
-            devContextMenu.AddMenu("设置", () =>
+            devContextMenu.AddMenu("设置设备", (tag) =>
             {
                 SetDevInfo(AreaCanvas1.SelectedDev, AreaCanvas1.SelectedDev.Tag as DevEntity);
             });
-            devContextMenu.AddMenu("删除", () =>
+            devContextMenu.AddMenu("删除设备", (tag) =>
             {
                 var dev = AreaCanvas1.SelectedDev.Tag as DevEntity;
-                new DeviceService().Delete(dev.Id+"");
+                if (MessageBox.Show("确认删除设备:" + dev.Name + "?", "警告", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    var r = devService.Delete(dev.Id + "");
+                    if (r == null)
+                    {
+                        MessageBox.Show("删除失败");
+                    }
+                    AreaCanvas1.RemoveDev(dev.Id);
+                }
             });
             AreaCanvas1.DevContextMenu = devContextMenu;
             ContextMenu areaContextMenu = new ContextMenu();
-            areaContextMenu.AddMenu("设置", () =>
+            areaContextMenu.AddMenu("设置区域", (tag) =>
             {
                 var win = new AreaInfoWindow();
                 win.Show();
@@ -125,8 +125,114 @@ namespace LocationServer
                 }
                 win.ShowInfo(area);
             });
-            areaContextMenu.Items.Add(new MenuItem() { Header = "删除" });
+            areaContextMenu.AddMenu("删除区域", (tag) =>
+            {
+                var area = AreaCanvas1.SelectedArea;
+                RemoveArea(area);
+            });
+            areaContextMenu.AddMenu("删除区域内设备", (tag) =>
+            {
+                var area = AreaCanvas1.SelectedArea;
+                RemoveAreaDevs(area);
+            });
             AreaCanvas1.AreaContextMenu = areaContextMenu;
+        }
+
+        private void RemoveAreaDevs(AreaEntity area)
+        {
+            if (area.LeafNodes == null)
+            {
+                area.LeafNodes = devService.GetListByPid(area.Id + "");
+            }
+
+            List<DevEntity> devs = new List<DevEntity>();
+            //List<DevEntity> devs2 = new List<DevEntity>();
+            if (area.Type == AreaTypes.机房)
+            {
+                var parent = area.Parent;
+                if (parent == null)
+                {
+                    parent = areaService.GetParent(area.Id+"");
+                }
+                var devs2 = parent.LeafNodes;
+                if (devs2 == null)
+                {
+                    devs2 = devService.GetListByPid(parent.Id + "");
+                }
+                foreach (var item in devs2)
+                {
+                    if (area.InitBound.Contains(item.Pos.PosX, item.Pos.PosZ))
+                    {
+                        devs.Add(item);
+                    }
+                }
+            }
+            else if (area.Type == AreaTypes.楼层)
+            {
+                var devs2 = area.LeafNodes;
+                if (devs2 == null)
+                {
+                    devs2 = devService.GetListByPid(area.Id + "");
+                }
+                foreach (var item in devs2)
+                {
+                    if (area.InitBound.Contains(item.Pos.PosX, item.Pos.PosZ))
+                    {
+                        devs.Add(item);
+                    }
+                }
+            }
+
+            //var devs=devService.GetListByBound(area.InitBound);
+            AreaCanvas1.SelectDevs(devs);
+            if (MessageBox.Show(string.Format("确认删除区域'{0}'内{1}个设备?",area.Name,devs.Count), "警告", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                foreach (var dev in devs)
+                {
+                    var r = devService.Delete(dev.Id + "");
+                    if (r == null)
+                    {
+                        MessageBox.Show("删除失败:"+dev.Name);
+                    }
+                    AreaCanvas1.RemoveDev(dev.Id);
+                }
+            }
+            else
+            {
+                AreaCanvas1.ClearSelect();
+            }
+        }
+
+        private void RemoveArea(AreaEntity area)
+        {
+            if (area.Children == null)
+            {
+                area.Children = areaService.GetListByPid(area.Id + "");
+            }
+            if (area.Children != null && area.Children.Count > 0)
+            {
+                MessageBox.Show("存在子区域，不能删除！");
+            }
+            if (area.LeafNodes == null)
+            {
+                area.LeafNodes = devService.GetListByPid(area.Id + "");
+            }
+            if (area.LeafNodes != null && area.LeafNodes.Count > 0)
+            {
+                MessageBox.Show("存在子设备，不能删除！");
+            }
+            if(MessageBox.Show("确认删除区域:"+area.Name+"?","警告",MessageBoxButton.YesNo)== MessageBoxResult.Yes)
+            {
+                var r = areaService.Delete(area.Id + "");
+                if (r == null)
+                {
+                    MessageBox.Show("删除失败");
+                }
+                else
+                {
+                    AreaCanvas1.RemoveArea(area.Id);
+                }
+            }
         }
 
         public void LoadData()
@@ -152,7 +258,7 @@ namespace LocationServer
                 dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
             }
             var topoTree = ResourceTreeView1.TopoTree;
-            topoTree.LoadData(tree);
+            topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
             topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
             topoTree.ExpandLevel(2);
             topoTree.SelectFirst();
@@ -176,16 +282,16 @@ namespace LocationServer
             var persons=tree.GetAllPerson();
         }
 
-        private AreaEntity area;
+        private AreaEntity currentArea;
 
         private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            area = ResourceTreeView1.TopoTree.SelectedObject as AreaEntity;
-            if (area == null) return;
+            currentArea = ResourceTreeView1.TopoTree.SelectedObject as AreaEntity;
+            if (currentArea == null) return;
             AreaCanvas1.ShowDev = true;
-            AreaCanvas1.ShowArea(area);
-            AreaListBox1.LoadData(area.Children);
-            DeviceListBox1.LoadData(area.LeafNodes);
+            AreaCanvas1.ShowArea(currentArea);
+            AreaListBox1.LoadData(currentArea.Children);
+            DeviceListBox1.LoadData(currentArea.LeafNodes);
 
             ShowPersons();
 
@@ -195,14 +301,14 @@ namespace LocationServer
 
             if (TabControl1.SelectedIndex == 2)
             {
-                ArchorListExportControl1.LoadData(area.Id);
+                ArchorListExportControl1.LoadData(currentArea.Id);
                 TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
             }
         }
 
         private void ShowPersons()
         {
-            if (area == null) return;
+            if (currentArea == null) return;
             if (AreaCanvas1 == null) return;
             var service = new PersonService();
             //var persons = service.GetListByArea(area.Id + "");
@@ -234,7 +340,19 @@ namespace LocationServer
         private void AreaCanvas1_DevSelected(Rectangle rect, DevEntity obj)
         {
             //SetDevInfo(rect, obj);
+            if (parkArchorSettingWnd != null)
+            {
+                parkArchorSettingWnd.ShowInfo(rect, obj.Id);
+            }
+            if (roomArchorSettingWnd != null)
+            {
+                roomArchorSettingWnd.ShowInfo(rect, obj.Id);
+            }
         }
+
+        RoomArchorSettingWindow roomArchorSettingWnd;
+
+        ParkArchorSettingWindow parkArchorSettingWnd;
 
         private void SetDevInfo(Rectangle rect, DevEntity obj)
         {
@@ -248,32 +366,36 @@ namespace LocationServer
                 //}
                 var leftBottom = bound.GetLeftBottomPoint();
 
-                var win2 = new ParkArchorSettingWindow();
+                parkArchorSettingWnd = new ParkArchorSettingWindow();
                 ParkArchorSettingWindow.ZeroX = leftBottom.X;
                 ParkArchorSettingWindow.ZeroY = leftBottom.Y;
-                win2.Owner = this;
-                win2.Show();
+                //win2.Owner = this;
+                parkArchorSettingWnd.Show();
 
-                if (win2.ShowInfo(rect, obj.Id) == false)
+                if (parkArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
                 {
-                    win2.Close();
+                    parkArchorSettingWnd.Close();
+                    parkArchorSettingWnd = null;
                     return;
                 }
-                win2.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
-                win2.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
             }
             else
             {
-                var win2 = new RoomArchorSettingWindow();
-                win2.Owner = this;
-                win2.Show();
-                if (win2.ShowInfo(rect, obj.Id) == false)
+                roomArchorSettingWnd = new RoomArchorSettingWindow();
+                //roomArchorSettingWnd.Owner = this;
+                roomArchorSettingWnd.Show();
+                if (roomArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
                 {
-                    win2.Close();
+                    roomArchorSettingWnd.Close();
+                    roomArchorSettingWnd = null;
                     return;
                 }
-                win2.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
-                win2.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
             }
         }
 
@@ -287,7 +409,7 @@ namespace LocationServer
         {
             if (TabControl1.SelectedIndex == 2)
             {
-                ArchorListExportControl1.LoadData(area.Id);
+                ArchorListExportControl1.LoadData(currentArea.Id);
                 TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
             }
         }

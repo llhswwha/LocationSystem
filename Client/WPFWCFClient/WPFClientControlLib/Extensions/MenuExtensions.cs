@@ -9,15 +9,16 @@ namespace WPFClientControlLib.Extensions
 {
     public static class MenuExtensions
     {
-        public static MenuItem AddMenu(this ContextMenu menu,string head, Action action)
+        public static MenuItem AddMenu(this ContextMenu menu,string head, Action<object> action)
         {
             MenuItem menuItem=new MenuItem();
             menuItem.Header = head;
-            menuItem.Click += (send, e) =>
+            menuItem.Click += (sender, e) =>
             {
                 if (action != null)
                 {
-                    action();
+                    var tag = ((sender as MenuItem).Parent as ContextMenu).Tag;
+                    action(tag);
                 }
             };
             menu.Items.Add(menuItem);

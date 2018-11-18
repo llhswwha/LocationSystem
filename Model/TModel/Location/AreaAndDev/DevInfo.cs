@@ -316,5 +316,10 @@ namespace Location.TModel.Location.AreaAndDev
 
         //    return history;
         //}
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

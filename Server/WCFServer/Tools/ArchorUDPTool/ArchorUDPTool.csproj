@@ -80,11 +80,19 @@
     <Compile Include="ArchorUDPSettingWindow.xaml.cs">
       <DependentUpon>ArchorUDPSettingWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CodeTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeTestWindow.xaml.cs">
+      <DependentUpon>CodeTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Models\UDPArchor.cs" />
+    <Compile Include="Models\UDPArchorList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -135,6 +143,14 @@
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\基站信息\TextFile1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\基站信息\UDPArchorList.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
