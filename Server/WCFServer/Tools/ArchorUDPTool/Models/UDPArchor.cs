@@ -23,9 +23,26 @@ namespace ArchorUDPTool.Models
         }
 
         [XmlAttribute]
+        public bool IsConnected { get; set; }
+        [XmlAttribute]
+        public string Area { get; set; }
+
+        [XmlAttribute]
         public string Id { get; set; }
         [XmlAttribute]
         public string Ip { get; set; }
+
+        public string GetIp()
+        {
+            if (string.IsNullOrEmpty(Ip))
+            {
+                return GetClientIP();
+            }
+            else
+            {
+                return Ip;
+            }
+        }
 
 
         [XmlAttribute]
@@ -55,5 +72,8 @@ namespace ArchorUDPTool.Models
         public string HardVersion { get; set; }
         [XmlAttribute]
         public int Power { get; set; }
+
+        [XmlAttribute]
+        public string MAC { get; set; }
     }
 }

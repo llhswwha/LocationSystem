@@ -41,6 +41,14 @@ namespace WPFClientControlLib
                 {
                     Start();
                 }
+                if (value == 100)
+                {
+                    Stop();
+                }
+                if (value > 0)
+                {
+                    this.Visibility = Visibility.Visible;
+                }
             }
         }
 

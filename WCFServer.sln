@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Server", "Server\WCFServer\LocationWCF\Location.Server.csproj", "{3236F096-0351-411A-AD3E-9316B03AAD05}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -65,6 +65,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.WebSite", "Server\WebSite\LocationWeb\Location.WebSite.csproj", "{82CA49B0-D760-44BD-9B99-3F5F460CF688}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchorUDPTool", "Server\WCFServer\Tools\ArchorUDPTool\ArchorUDPTool.csproj", "{A88D0971-0C84-442A-A8AB-9D41594C81BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDPListener", "Third\Projects\UDPListener\UDPListener\UDPListener.csproj", "{EBABE58A-742B-47A8-8545-C51F4535A90E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -410,8 +412,27 @@ Global
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Release|x86.ActiveCfg = Release|Any CPU
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Release|x86.Build.0 = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Debug|x86.Build.0 = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Design|x86.ActiveCfg = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Design|x86.Build.0 = Debug|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Integration Tests|Any CPU.ActiveCfg = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Integration Tests|Any CPU.Build.0 = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Integration Tests|x86.ActiveCfg = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Integration Tests|x86.Build.0 = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBABE58A-742B-47A8-8545-C51F4535A90E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D69F687-53D2-4BB4-ABA4-9FB4CA1897EE}
 	EndGlobalSection
 EndGlobal

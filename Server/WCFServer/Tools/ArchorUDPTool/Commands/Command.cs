@@ -41,6 +41,10 @@ namespace ArchorUDPTool.Commands
 
         public static string GetPowerR = "1001C00401";
 
+        public static string GetMAC = "10:01:10:09:00:d3:9a:1f:c3";
+
+        public static string GetMACR = "1001C00906";//10:01:c0:09:06:00:00:2e:5b:49:9c:16:ed:01:3f
+
 
         public static string Restart = "10 01 20 0B 00 C5 C7 98 D1";
 
@@ -74,7 +78,8 @@ Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79
                 GetGateway,
                 GetSoftVersion,
                 GetHardVersion,
-                GetPower
+                GetPower,
+                GetMAC
             };
         }
     }

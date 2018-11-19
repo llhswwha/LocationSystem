@@ -1,0 +1,22 @@
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="ArchorUDPTool.PingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArchorUDPTool"
+        mc:Ignorable="d"
+        Title="PingWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Label>IP:</Label>
+            <ComboBox Width="200" Name="TbIp" Text="192.168.4.79" IsEditable="True"></ComboBox>
+            <Label>Count:</Label>
+            <TextBox Width="50" Name="TbCount" Text="4"></TextBox>
+            <Button Name="BtnStart" Click="BtnStart_Click">Ping</Button>
+            <Button Name="BtnStartRange" Click="BtnStartRange_Click">Ping整段</Button>
+        </StackPanel>
+        <WPFClientControlLib:ProgressBarEx Name="ProgressBarEx1" DockPanel.Dock="Bottom" Visibility="Collapsed"/>
+        <TextBox Name="TbConsole1" DockPanel.Dock="Top" Height="200"></TextBox>
+        <TextBox Name="TbConsole2"></TextBox>
+    </DockPanel>
+</Window>

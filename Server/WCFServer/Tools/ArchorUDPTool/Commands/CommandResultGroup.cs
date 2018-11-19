@@ -34,6 +34,7 @@ namespace ArchorUDPTool.Commands
 
         public string AddData(byte[] bytes)
         {
+            Archor.IsConnected = true;
             var r = new UDPCommandResult(bytes);
             var newValue = r.ToString();
             this.Items.Add(r);
@@ -91,6 +92,11 @@ namespace ArchorUDPTool.Commands
             {
                 Archor.Power = r.GetIntValue();
                 newValue += "  功率=" + r.GetIntValue();
+            }
+            else if (r.CmdHex == UDPCommands.GetMACR)
+            {
+                Archor.MAC = r.GetMACValue();
+                newValue += "  MAC=" + r.GetMACValue();
             }
             else
             {

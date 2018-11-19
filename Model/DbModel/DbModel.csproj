@@ -55,6 +55,7 @@
     <Compile Include="Location\AreaAndDev\Picture.cs" />
     <Compile Include="Location\Authorizations\CardRole.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
+    <Compile Include="Tools\ArchorHelper.cs" />
     <Compile Include="Tools\ByteHelper.cs" />
     <Compile Include="Tools\CloneHelper.cs" />
     <Compile Include="Tools\InitInfos\ArchorDevList.cs" />

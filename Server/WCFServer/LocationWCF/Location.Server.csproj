@@ -191,7 +191,6 @@
     <Compile Include="Models\EngineTool\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tools\ArchorHelper.cs" />
     <Compile Include="Tools\ConfigurationHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Windows\ArchorCheckWindow.xaml.cs">

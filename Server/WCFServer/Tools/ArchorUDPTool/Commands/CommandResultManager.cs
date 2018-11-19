@@ -37,6 +37,10 @@ namespace ArchorUDPTool.Commands
             }
             else
             {
+                if (g.Archor.IsConnected == false)//从清单加载进来的
+                {
+                    statistics.Add(id);
+                }
                 g.IsNew = false;
             }
             return g;
@@ -45,6 +49,14 @@ namespace ArchorUDPTool.Commands
         public string GetStatistics()
         {
             return statistics.GetText();
+        }
+
+        internal CommandResultGroup Add(ArchorDev item)
+        {
+            CommandResultGroup group = new CommandResultGroup(item.ArchorIp+":4646");
+            Groups.Add(group);
+
+            return group;
         }
     }
 }

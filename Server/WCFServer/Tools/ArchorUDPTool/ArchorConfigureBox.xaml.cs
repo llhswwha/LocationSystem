@@ -25,6 +25,8 @@ using TModel.Tools;
 using System.Windows.Threading;
 using System.IO;
 using System.Diagnostics;
+using static ArchorUDPTool.ArchorManager;
+using LocationServer.Tools;
 
 namespace LocationServer
 {
@@ -129,7 +131,7 @@ namespace LocationServer
                     LbTime.Content = archorManager.GetTimeSpan();
                     TbConsole.Text = archorManager.Log;
                     DataGrid3.ItemsSource = list;
-                    LbCount.Content = list.Count;
+                    LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
                 }
             });
@@ -175,6 +177,11 @@ namespace LocationServer
                 {
                     SetArchorList(archorManager, list);
                 };
+                archorManager.PercentChanged += (p) =>
+                {
+                    ProgressBarEx1.Visibility = Visibility.Visible;
+                    ProgressBarEx1.Value = p;
+                };
                 //archorManager.NewArchorAdded += AddArchor;
             }
 
@@ -201,68 +208,88 @@ namespace LocationServer
 
         public DispatcherTimer Timer;
 
+        private ScanArg GetScanArg(params string[] cmds)
+        {
+            ScanArg arg = new ScanArg();
+            arg.ipsText = TbRemote.Text;
+            arg.port = TbPort.Text;
+            arg.cmds = cmds;
+            arg.OneIPS = (bool)CbOneIPS.IsChecked;
+            arg.ScanList = (bool)CbList.IsChecked;
+            arg.Ping = (bool)CbPing.IsChecked;
+            return arg;
+        }
+
 
         private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
         {
             SetArchorList(null, null);
 
             List<string> cmds = UDPCommands.GetAll();
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, cmds.ToArray());
+            archorManager.ScanArchors(GetScanArg(cmds.ToArray()));
         }
+
+
 
         private void BtnSearchId_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetId);
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetId));
         }
 
         private void BtnSearchIp_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetIp);
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetIp));
         }
 
         private void BtnSearchPort_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetPort);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPort));
         }
 
         private void BtnSearchServerIP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetServerIp);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerIp));
         }
 
         private void BtnSearchType_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetArchorType);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetArchorType));
         }
 
         private void BtnSearchMask_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetMask);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetMask));
         }
 
         private void BtnSearchGateway_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetGateway);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetGateway));
         }
 
         private void BtnSearchDHCP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetDHCP);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetDHCP));
         }
 
         private void BtnSearchSoftverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetSoftVersion);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetSoftVersion));
         }
 
         private void BtnSearchHardverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetHardVersion);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetHardVersion));
         }
 
         private void BtnSearchPower_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(TbRemote.Text, TbPort.Text, UDPCommands.GetPower);
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPower));
+        }
+
+
+        private void BtnSearchMAC_Click(object sender, RoutedEventArgs e)
+        {
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetMAC));
         }
 
         private void BtnStopTime_Click(object sender, RoutedEventArgs e)
@@ -287,9 +314,40 @@ namespace LocationServer
             }
         }
 
+        private void MenuPingArchor_Click(object sender, RoutedEventArgs e)
+        {
+            var archor = DataGrid3.SelectedItem as UDPArchor;
+            if (archor == null) return;
+            var pingWnd = new PingWindow(archor.GetIp());
+            pingWnd.Show();
+        }
+
         private void BtnClearBuffer_Click(object sender, RoutedEventArgs e)
         {
             archorManager.ClearBuffer();
+        }
+
+        private void MenuPing_Click(object sender, RoutedEventArgs e)
+        {
+            var pingWnd = new PingWindow();
+            pingWnd.Show();
+        }
+
+        private void MenuLoadList_Click(object sender, RoutedEventArgs e)
+        {
+            var list = ArchorHelper.LoadArchoDevInfo();
+            archorManager.LoadList(list);
+        }
+
+        private void BtnSearchList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuListen_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorUDPListener();
+            win.Show();
         }
     }
 }

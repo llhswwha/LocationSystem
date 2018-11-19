@@ -1,0 +1,19 @@
+﻿<Window x:Class="ArchorUDPTool.ArchorUDPListener"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArchorUDPTool"
+        mc:Ignorable="d"
+        Title="ArchorUDPListener" Height="450" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>IP:</Label>
+            <ComboBox Width="200" Name="CbIps"></ComboBox>
+            <Label>Port:</Label>
+            <TextBox Width="50" Name="TbPort"></TextBox>
+            <Button Name="BtnStart" Click="BtnStart_Click">开始</Button>
+        </StackPanel>
+        <TextBox Name="TbConsole"></TextBox>
+    </DockPanel>
+</Window>

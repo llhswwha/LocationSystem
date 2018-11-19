@@ -50,5 +50,17 @@ namespace ArchorUDPTool.Models
         //public event Action<UDPArchor> DataUpdated;
 
         //public event Action<UDPArchor> DataAdded;
+        internal object GetConnectedCount()
+        {
+            int count = 0;
+            foreach(var i in this)
+            {
+                if (i.IsConnected)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
     }
 }

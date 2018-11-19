@@ -79,6 +79,11 @@ namespace Coldairarrow.Util.Sockets
 
         public event DGramListRecievedHandle DGramListRecieved;  //接收到信息的事件
 
+        public LightUDP(string ip,int port):this(IPAddress.Parse(ip),port)
+        {
+
+        }
+
         /// <summary>
         /// 绑定监听地址，目前默认本地IP127.0.0.1
         /// </summary>

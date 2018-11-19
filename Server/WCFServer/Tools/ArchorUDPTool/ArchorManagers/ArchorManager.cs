@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,7 +59,6 @@ namespace ArchorUDPTool
                 }
 
                 CommandResultGroup group =resultList.Add(iep, data);
-                //int r=archorList.AddOrUpdate(group.Archor);
                 if (ArchorListChanged != null)
                 {
                     ArchorListChanged(list);
@@ -106,50 +107,125 @@ namespace ArchorUDPTool
             Stopwatch.Start();
         }
 
-        public void ScanArchors(string ipsText, string port,params string[] cmds)
+        public class ScanArg
         {
-            var ips = ipsText.Split(';');
-            archorPort = port.ToInt();
+            public string ipsText;
+            public string port;
+            public bool OneIPS;
+            public bool ScanList;
+            public bool Ping;
+            public string[] cmds;
+        }
+
+        public void ScanArchors(ScanArg arg)
+        {
+            var ips = arg.ipsText.Split(';');
+            archorPort = arg.port.ToInt();
             if (resultList == null)
             {
                 resultList = new CommandResultManager();
             }
-
             StartTime();
-            ScanArchors(cmds, ips);
+
+            List<string> localIps = GetLocalIps(ips);
+
+            if (arg.OneIPS)
+            {
+                List<string> allIps = new List<string>();
+                foreach (var ip in localIps)
+                {
+                    var ipList = IpHelper.GetIPS(ip);
+                    allIps.AddRange(ipList);
+                }
+                ScanArchors(arg.cmds, allIps.ToArray());
+            }
+            else if (arg.ScanList)
+            {
+                List<string> allIps = new List<string>();
+                foreach (var archor in archors.ArchorList)
+                {
+                    allIps.Add(archor.ArchorIp);
+                }
+                ScanArchors(arg.cmds, allIps.ToArray());
+            }
+            else
+            {
+                ScanArchors(arg.cmds, localIps.ToArray());
+            }
         }
+
+        private List<string> GetLocalIps(string[] ips)
+        {
+            List<string> localIps = new List<string>();
+            foreach (var ip in ips)
+            {
+                var localIp = IpHelper.GetLocalIp(ip);
+                if (localIp != null)
+                {
+                    localIps.Add(ip);
+                    AddLog("存在IP段:" + ip);
+                }
+                else
+                {
+                    AddLog("不存在IP段:" + ip);
+                }
+            }
+            return localIps;
+        }
+
+        public string[] Ips;
+        public string[] Cmds;
 
         private void ScanArchors(string[] cmds, string[] ips)
         {
-            Thread thread = ThreadTool.Start(() =>
+            this.Cmds = cmds;
+            this.Ips = ips;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.RunWorkerAsync();
+
+            //Ping ping = new Ping();
+            //ping.
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (PercentChanged != null)
             {
-                foreach (var ip in ips)
+                PercentChanged(e.ProgressPercentage);
+            }
+        }
+
+        public Action<int> PercentChanged;
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            for (int j = 0; j < Ips.Length; j++)
+            {
+                string ip = Ips[j];
+                var localIp = IpHelper.GetLocalIp(ip);
+
+                var udp = GetLightUDP(localIp);
+                int sleepTime = 200;
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), archorPort);
+
+                int i = 0;
+                foreach (var cmd in Cmds)
                 {
-                    var localIp = IpHelper.GetLocalIp(ip);
-                    if (localIp != null)
-                    {
-                        AddLog("存在IP段:" + ip);
-
-                        var udp = GetLightUDP(localIp);
-                        int sleepTime = 200;
-                        IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), archorPort);
-
-                        int i = 0;
-                        foreach (var cmd in cmds)
-                        {
-                            udp.SendHex(cmd, ipEndPoint);
-                            Thread.Sleep(sleepTime);
-                            i++;
-                        }
-                        Thread.Sleep(sleepTime * i);
-                    }
-                    else
-                    {
-                        AddLog("不存在IP段:" + ip);
-                        //MessageBox.Show("当前电脑不存在IP段:" + ips);
-                    }
+                    string log = string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd);
+                    AddLog(log);
+                    udp.SendHex(cmd, ipEndPoint);
+                    Thread.Sleep(sleepTime);
+                    i++;
                 }
-            });
+                Thread.Sleep(sleepTime * i);
+
+                int percent = (int)((j + 1.0) / Ips.Length * 100);
+                worker.ReportProgress(percent,Ips.Length);
+            }
         }
 
         public string Log = "";
@@ -194,7 +270,7 @@ namespace ArchorUDPTool
 
             var group=AddArchor(dgram.iep, dgram.data);
 
-            string txt = string.Format("{0}", group.ToString());
+            string txt = string.Format("收到 :: {0}", group.ToString());
             AddLog(txt);
         }
 
@@ -271,6 +347,34 @@ namespace ArchorUDPTool
         internal void ScanArchor(UDPArchor archor)
         {
             ScanArchors(UDPCommands.GetAll().ToArray(), new string[] { archor.GetClientIP() });
+        }
+
+        ArchorDevList archors;
+
+        internal void LoadList(ArchorDevList archors)
+        {
+            this.archors = archors;
+            resultList = new CommandResultManager();
+            foreach (var item in archors.ArchorList)
+            {
+                var group=resultList.Add(item);
+                //group.Archor.Ip = item.ArchorIp;
+                group.Archor.Area = item.InstallArea;
+            }
+
+            UDPArchorList list = new UDPArchorList();
+            foreach (var item in resultList.Groups)
+            {
+                list.Add(item.Archor);
+                item.Archor.Num = list.Count;
+            }
+
+            archorList = list;
+            if (ArchorListChanged != null)
+            {
+                ArchorListChanged(list);
+            }
+            
         }
     }
 }

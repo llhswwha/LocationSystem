@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ArchorUDPListener.xaml.cs">
+      <DependentUpon>ArchorUDPListener.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\PingEx.cs" />
     <Page Include="ArchorConfigureBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -61,6 +65,10 @@
     <Page Include="ArchorConfigureWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ArchorUDPListener.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ArchorUDPSettingWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +93,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeTestWindow.xaml.cs">
@@ -96,6 +108,9 @@
     <Compile Include="Commands\CommandResultManager.cs" />
     <Compile Include="Models\UDPArchor.cs" />
     <Compile Include="Models\UDPArchorList.cs" />
+    <Compile Include="PingWindow.xaml.cs">
+      <DependentUpon>PingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,6 +141,10 @@
       <Project>{c3d77c78-c78f-4e18-8ae1-bb29d3e30a9b}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Client\WPFWCFClient\WPFClientControlLib\WPFClientControlLib.csproj">
+      <Project>{2F461217-F714-4546-9302-D17C3F730DED}</Project>
+      <Name>WPFClientControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\DAL\DAL\DAL.csproj">
       <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
       <Name>DAL</Name>
@@ -154,6 +173,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Data\基站信息\UDPArchorList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\基站信息\ArchorFiles.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

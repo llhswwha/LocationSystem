@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LocationServer.ArchorConfigureBox"
+﻿<UserControl xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.ArchorConfigureBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,6 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
+            <MenuItem Header="加载清单" Name="MenuLoadList" Click="MenuLoadList_Click"></MenuItem>
             <MenuItem Header="预制指令">
                 <MenuItem Header="重启" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.5.1)" Name="MenuSetServerIp1" Click="MenuSetServerIP1_OnClick"></MenuItem>
@@ -20,18 +21,25 @@
                 <MenuItem Header="设置ServerIP(192.168.*.253)" Name="MenuSetServerIp7" Click="MenuSetServerIp7_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试" Name="MenuTest" Click="MenuTest_Click"></MenuItem>
+            <MenuItem Header="工具">
+                <MenuItem Header="Ping" Name="MenuPing" Click="MenuPing_Click"></MenuItem>
+                <MenuItem Header="监听" Name="MenuListen" Click="MenuListen_Click"></MenuItem>
+            </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label>Remote IP</Label>
             <TextBox Width="230" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
             <Label>Port</Label>
             <TextBox Width="50" Name="TbPort" Text="4646"></TextBox>
-
+            <CheckBox Name="CbOneIPS">整个网段</CheckBox>
+            <CheckBox Name="CbList">按清单扫描</CheckBox>
+            <CheckBox Name="CbPing">Ping</CheckBox>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top">
             <GroupBox>
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label>基站扫描</Label>
-                       
                         <Button Name="BtnSearchAll" Click="BtnSearch_OnClick">扫描全部</Button>
                         <Button Name="BtnSave" Click="BtnSave_Click">保存结果</Button>
                         <Button Name="BtnClearBuffer" Click="BtnClearBuffer_Click">清空缓存</Button>
@@ -49,6 +57,7 @@
                     <Button Name="BtnSearchSoftverson" Click="BtnSearchSoftverson_Click">软件版本</Button>
                     <Button Name="BtnSearchHardverson" Click="BtnSearchHardverson_Click">硬件版本</Button>
                     <Button Name="BtnSearchPower" Click="BtnSearchPower_Click">功率</Button>
+                    <Button Name="BtnSearchMAC" Click="BtnSearchMAC_Click">MAC</Button>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
@@ -57,7 +66,7 @@
             <TextBox Name="TbCommand" Width="400" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
             <Button Name="BtnSet" Click="BtnSet_Click">设置</Button>
         </StackPanel>
-        <TabControl DockPanel.Dock="Top" Height="120">
+        <TabControl DockPanel.Dock="Top" Height="150">
             <TabItem Header="控制台">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -70,6 +79,7 @@
                         <Label>统计:</Label>
                         <Label Name="LbStatistics"></Label>
                     </StackPanel>
+                    <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1" Visibility="Collapsed"/>
                     <ScrollViewer>
                         <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>
                     </ScrollViewer>
@@ -84,12 +94,14 @@
                             <ContextMenu>
                                 <MenuItem Header="刷新当条数据" Name="MenuRefreshOne" Click="MenuRefreshOne_Click"/>
                                 <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
-                                <!--<MenuItem Header=""></MenuItem>-->
+                                <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"></MenuItem>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
                             <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
+                            <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>
+                            <DataGridTextColumn Header="连通" Binding="{Binding IsConnected}"/>
                             <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
                             <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>
@@ -101,6 +113,7 @@
                             <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"/>
                             <DataGridTextColumn Header="硬件版本" Binding="{Binding HardVersion}"/>
                             <DataGridTextColumn Header="功率" Binding="{Binding Power}"/>
+                            <DataGridTextColumn Header="MAC" Binding="{Binding MAC}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>

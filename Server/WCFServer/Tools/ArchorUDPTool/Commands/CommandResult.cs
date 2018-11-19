@@ -82,6 +82,16 @@ namespace ArchorUDPTool.Commands
             return "";
         }
 
+        public string GetMACValue()
+        {
+            if (DataPart.Count == 6)
+            {
+                return DataPart[0] + "-" + DataPart[1] + "-" + DataPart[2] 
+                    + "-" + DataPart[3] + "-" + DataPart[4] + "-" + DataPart[5];
+            }
+            return "";
+        }
+
         public long GetLongValue()
         {
             string hex = DataHex;

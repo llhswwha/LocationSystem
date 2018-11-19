@@ -7,18 +7,23 @@ namespace DbModel.Tools
 {
     public static class IpHelper
     {
+        public static List<IPAddress> LocalList = new List<IPAddress>();
+
         /// <summary>
         /// 获取当前电脑上的所有IP
         /// </summary>
         /// <returns></returns>
         public static List<IPAddress> GetLocalList()
         {
-            string name = Dns.GetHostName();
-            IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
-            var list = new List<IPAddress>();
-            list.Add(IPAddress.Parse("127.0.0.1"));
-            list.AddRange(ipadrlist);
-            return list;
+            if (LocalList == null|| LocalList.Count==0)
+            {
+                string name = Dns.GetHostName();
+                IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
+                LocalList = new List<IPAddress>();
+                LocalList.Add(IPAddress.Parse("127.0.0.1"));
+                LocalList.AddRange(ipadrlist);
+            }
+            return LocalList;
         } 
         
         /// <summary>
@@ -111,6 +116,30 @@ namespace DbModel.Tools
             }
             return result;
         }
+
+        public static List<string> GetIPS(string item)
+        {
+            var startIp = IpHelper.GetStartIp(item);
+            var endIp = IpHelper.GetEndIp(item);
+            return GetIPS(startIp, endIp);
+        }
+
+        public static string GetStartIp(string item)
+        {
+            int id = item.LastIndexOf('.');
+            string s = item.Substring(0, id);
+            string ip = s + ".1";
+            return ip;
+        }
+
+        public static string GetEndIp(string item)
+        {
+            int id = item.LastIndexOf('.');
+            string s = item.Substring(0, id);
+            string ip = s + ".255";
+            return ip;
+        }
+
         ///// <summary>
         ///// 生成两个Ip之间的所有Ip（IPV6）
         ///// </summary>
