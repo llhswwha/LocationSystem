@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ArchorUDPTool.Models;
 using TModel.Tools;
 
 namespace ArchorUDPTool
@@ -25,6 +26,18 @@ namespace ArchorUDPTool
         public ArchorUDPListener()
         {
             InitializeComponent();
+            valueList = new UDPArchorValueList();
+        }
+
+        public ArchorUDPListener(ArchorManager archorManager)
+        {
+            InitializeComponent();
+            if(archorManager!=null)
+                valueList = new UDPArchorValueList(archorManager.archorList);
+            else
+            {
+                valueList = new UDPArchorValueList();
+            }
         }
 
         LightUDP udp;
@@ -49,9 +62,17 @@ namespace ArchorUDPTool
 
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
         {
-            string txt = string.Format("[{0}][{1}]{2}({3})",DateTime.Now.ToString("HH:mm:ss.fff"),dgram.iep,ByteHelper.byteToHexStr(dgram.data),ByteHelper.byteToStr(dgram.data));
+            string txt = string.Format("[{0}][{1}]{2}\t({3})",DateTime.Now.ToString("HH:mm:ss.fff"),dgram.iep,ByteHelper.byteToHexStr(dgram.data),ByteHelper.byteToStr(dgram.data,"\t"));
             TbConsole.Text = txt + "\n" + TbConsole.Text;
+
+            valueList.Add(dgram.iep,dgram.data);
+            DataGrid1.ItemsSource = null;
+            DataGrid1.ItemsSource = valueList;
+            LbCount.Content = valueList.Count;
+            LbStatistics.Content = valueList.GetStatistics();
         }
+
+        UDPArchorValueList valueList;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

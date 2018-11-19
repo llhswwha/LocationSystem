@@ -56,7 +56,7 @@ namespace ArchorUDPTool
                     AibId.Value = ar.Id;
                     AibIp.Value = ar.Ip;
                     AibType.Value = ar.Type;
-                    AibServerIP.Value = ar.ServerIp;
+                    AibServerIp.Value = ar.ServerIp;
                     AibServerPort.Value = ar.ServerPort;
                     AibMask.Value = ar.Mask;
                     AibGateway.Value = ar.Gateway;
@@ -82,6 +82,11 @@ namespace ArchorUDPTool
         private void MenuGetAll_Click(object sender, RoutedEventArgs e)
         {
             archorManager.ScanArchor(archor);
+        }
+
+        private void MenuReset_OnClick(object sender, RoutedEventArgs e)
+        {
+            archorManager.Reset(archor);
         }
     }
 }

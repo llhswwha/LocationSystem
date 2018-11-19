@@ -25,6 +25,7 @@ using TModel.Tools;
 using System.Windows.Threading;
 using System.IO;
 using System.Diagnostics;
+using LocationServer.Tools;
 using static ArchorUDPTool.ArchorManager;
 using LocationServer.Tools;
 
@@ -62,7 +63,7 @@ namespace LocationServer
 
         private void MenuRestart_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SendCmd(UDPCommands.Restart);
+            archorManager.ResetAll();
         }
 
         private void MenuSetServerIP1_OnClick(object sender, RoutedEventArgs e)
@@ -215,9 +216,9 @@ namespace LocationServer
 
         public DispatcherTimer Timer;
 
-        private ScanArg GetScanArg(params string[] cmds)
+        private ArchorManager.ScanArg GetScanArg(params string[] cmds)
         {
-            ScanArg arg = new ScanArg();
+            ArchorManager.ScanArg arg = new ArchorManager.ScanArg();
             arg.ipsText = TbRemote.Text;
             arg.port = TbPort.Text;
             arg.cmds = cmds;
@@ -354,7 +355,7 @@ namespace LocationServer
 
         private void MenuListen_Click(object sender, RoutedEventArgs e)
         {
-            var win = new ArchorUDPListener();
+            var win = new ArchorUDPListener(archorManager);
             win.Show();
         }
 
@@ -364,6 +365,13 @@ namespace LocationServer
             if (archor == null) return;
             var wnd = new UDPArchorInfoWindow(archorManager,archor);
             wnd.Show();
+        }
+
+        private void MenuRestartOne_OnClick(object sender, RoutedEventArgs e)
+        {
+            var archor = DataGrid3.SelectedItem as UDPArchor;
+            if (archor == null) return;
+            archorManager.Reset(archor);
         }
     }
 }

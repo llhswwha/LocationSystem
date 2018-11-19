@@ -48,14 +48,14 @@ namespace DbModel.Tools
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static string byteToStr(byte[] bytes)
+        public static string byteToStr(byte[] bytes,string interval=" ")
         {
             string returnStr = "";
             if (bytes != null)
             {
                 for (int i = 0; i < bytes.Length; i++)
                 {
-                    returnStr += bytes[i]+ " ";
+                    returnStr += bytes[i]+ interval;
                 }
             }
             return returnStr;

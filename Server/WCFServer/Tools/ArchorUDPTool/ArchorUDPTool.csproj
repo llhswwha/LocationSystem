@@ -57,6 +57,7 @@
     <Compile Include="ArchorUDPListener.xaml.cs">
       <DependentUpon>ArchorUDPListener.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\UDPArchorValue.cs" />
     <Compile Include="Tools\PingEx.cs" />
     <Compile Include="UDPArchorInfoBox.xaml.cs">
       <DependentUpon>UDPArchorInfoBox.xaml</DependentUpon>

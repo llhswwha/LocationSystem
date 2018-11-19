@@ -24,8 +24,15 @@ namespace ArchorUDPTool.Models
 
         [XmlAttribute]
         public bool IsConnected { get; set; }
+
         [XmlAttribute]
         public string Area { get; set; }
+
+        [XmlAttribute]
+        public bool Ping { get; set; }
+
+        [XmlAttribute]
+        public string Value { get; set; }
 
         [XmlAttribute]
         public string Id { get; set; }

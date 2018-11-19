@@ -11,9 +11,22 @@
             <Label>IP:</Label>
             <ComboBox Width="200" Name="CbIps"></ComboBox>
             <Label>Port:</Label>
-            <TextBox Width="50" Name="TbPort"></TextBox>
+            <ComboBox Width="70" Name="TbPort" >
+                <ComboBoxItem>1998</ComboBoxItem>
+                <ComboBoxItem IsSelected="True">2018</ComboBoxItem>
+            </ComboBox>
             <Button Name="BtnStart" Click="BtnStart_Click">开始</Button>
         </StackPanel>
-        <TextBox Name="TbConsole"></TextBox>
+        <TextBox Name="TbConsole" DockPanel.Dock="Top" Height="170"></TextBox>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            
+            <Label>Count</Label>
+            <Label Name="LbCount"></Label>
+            <Label>统计</Label>
+            <Label Name="LbStatistics"></Label>
+        </StackPanel>
+        <DataGrid Name="DataGrid1">
+            
+        </DataGrid>
     </DockPanel>
 </Window>

@@ -79,6 +79,7 @@
                         <Label Name="LbCount"></Label>
                         <Label>统计:</Label>
                         <Label Name="LbStatistics"></Label>
+                        <Button></Button>
                     </StackPanel>
                     <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1" Visibility="Collapsed"/>
                     <ScrollViewer>
@@ -97,6 +98,7 @@
                                 <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
                                 <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"/>
                                 <MenuItem Header="设置" Name="MenuSetArchor" Click="MenuSetArchor_Click"></MenuItem>
+                                <MenuItem Header="重启" Name="MenuRestartOne" Click="MenuRestartOne_OnClick"></MenuItem>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
@@ -104,6 +106,8 @@
                             <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>
                             <DataGridTextColumn Header="连通" Binding="{Binding IsConnected}"/>
+                            <DataGridTextColumn Header="Ping" Binding="{Binding Ping}"/>
+                            <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
                             <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
                             <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>

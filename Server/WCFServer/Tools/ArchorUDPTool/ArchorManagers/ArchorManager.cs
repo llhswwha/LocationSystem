@@ -289,11 +289,26 @@ namespace ArchorUDPTool
         {
             foreach (var archor in archorList)
             {
-                var localIp = IpHelper.GetLocalIp(archor.Ip);
-                var udp = GetLightUDP(localIp);
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archor.Ip), archorPort);
-                udp.SendHex(cmd, ipEndPoint);
+                SendCmd(cmd, archor);
             }
+        }
+
+        private void SendCmd(string cmd, UDPArchor archor)
+        {
+            var localIp = IpHelper.GetLocalIp(archor.Ip);
+            var udp = GetLightUDP(localIp);
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archor.Ip), archorPort);
+            udp.SendHex(cmd, ipEndPoint);
+        }
+
+        public void ResetAll()
+        {
+            SendCmd(UDPCommands.Restart);
+        }
+
+        public void Reset(UDPArchor archor)
+        {
+            SendCmd(UDPCommands.Restart, archor);
         }
 
         public void SetServerIp251()
