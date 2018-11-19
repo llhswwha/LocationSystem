@@ -32,6 +32,17 @@ namespace ArchorUDPTool
             }
         }
 
+        public string Key { get; set; }
+
+        public string GetKey()
+        {
+            if (string.IsNullOrEmpty(Key))
+            {
+                return Label;
+            }
+            return Key;
+        }
+
         public string Value
         {
             get
@@ -55,13 +66,22 @@ namespace ArchorUDPTool
 
         private void BtnGet_Click(object sender, RoutedEventArgs e)
         {
-            var am = new ArchorManager();
-            //am.ScanArchor();
+            if (GetEvent != null)
+            {
+                GetEvent(this, GetCmd);
+            }
         }
+
+        public event Action<UDPArchorInfoBox, string> GetEvent;
 
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SetEvent != null)
+            {
+                SetEvent(this, SetCmd);
+            }
         }
+
+        public event Action<UDPArchorInfoBox, string> SetEvent;
     }
 }

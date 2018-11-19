@@ -44,10 +44,7 @@ namespace ArchorUDPTool
                     //    //{
                     //    //    ArchorListChanged(archorList);
                     //    //}
-                    //    if (NewArchorAdded != null)
-                    //    {
-                    //        NewArchorAdded(archor);
-                    //    }
+   
                     //};
                 }
 
@@ -59,6 +56,10 @@ namespace ArchorUDPTool
                 }
 
                 CommandResultGroup group =resultList.Add(iep, data);
+                if (ArchorUpdated != null)
+                {
+                    ArchorUpdated(group.Archor);
+                }
                 if (ArchorListChanged != null)
                 {
                     ArchorListChanged(list);
@@ -76,7 +77,7 @@ namespace ArchorUDPTool
 
         public event Action<UDPArchorList> ArchorListChanged;
 
-        public event Action<UDPArchor> NewArchorAdded;
+        public event Action<UDPArchor> ArchorUpdated;
 
         public event Action<string> LogChanged;
 
@@ -175,6 +176,16 @@ namespace ArchorUDPTool
 
         public string[] Ips;
         public string[] Cmds;
+
+        private void ScanArchors(string cmd, string[] ips)
+        {
+            ScanArchors(new string[] { cmd }, ips);
+        }
+
+        private void ScanArchor(string cmd, string ip)
+        {
+            ScanArchors(new string[] { cmd }, new string[] { ip });
+        }
 
         private void ScanArchors(string[] cmds, string[] ips)
         {
@@ -346,6 +357,29 @@ namespace ArchorUDPTool
 
         internal void ScanArchor(UDPArchor archor)
         {
+            ScanArchors(UDPCommands.GetAll().ToArray(), new string[] { archor.GetClientIP() });
+        }
+
+        internal void GetArchorInfo(UDPArchor archor,string key)
+        {
+            key = key.ToLower();
+            if (key == "id")
+            {
+                ScanArchor(UDPCommands.GetId, archor.GetClientIP());
+            }
+            else if (key == "ip")
+            {
+                ScanArchor(UDPCommands.GetIp, archor.GetClientIP());
+            }
+            
+        }
+
+        internal void SetArchorInfo(UDPArchor archor, string key)
+        {
+            if (key == "id")
+            {
+
+            }
             ScanArchors(UDPCommands.GetAll().ToArray(), new string[] { archor.GetClientIP() });
         }
 

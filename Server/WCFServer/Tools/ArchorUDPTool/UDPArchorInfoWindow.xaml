@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="基站信息" Height="450" Width="400" Loaded="Window_Loaded">
     <StackPanel>
-        <local:UDPArchorInfoBox x:Name="AibId" Label="Id"/>
+        <local:UDPArchorInfoBox x:Name="AibId" Label="Id" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibIp" Label="Ip" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        
     </StackPanel>
 </Window>

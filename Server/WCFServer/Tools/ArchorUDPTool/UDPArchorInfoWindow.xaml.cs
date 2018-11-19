@@ -27,19 +27,43 @@ namespace ArchorUDPTool
 
         UDPArchor archor;
 
-        public UDPArchorInfoWindow(UDPArchor archor)
+        public UDPArchorInfoWindow(ArchorManager archorManager,UDPArchor archor)
         {
             InitializeComponent();
             this.archor = archor;
-
+            this.archorManager = archorManager;
+            this.archorManager.ArchorUpdated += ArchorManager_ArchorUpdated;
         }
+
+        private void ArchorManager_ArchorUpdated(UDPArchor obj)
+        {
+            ShowValue();
+        }
+
+        private ArchorManager archorManager;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            ShowValue();
+        }
+
+        private void ShowValue()
+        {
             if (archor != null)
             {
-                AibId.Value = archor.Id;
+                //AibId.Value = archor.Id;
+                //AibIp.Value = archor.Ip;
             }
+        }
+
+        private void Aib_GetEvent(UDPArchorInfoBox arg1, string arg2)
+        {
+            archorManager.GetArchorInfo(archor, arg1.GetKey());
+        }
+
+        private void Aib_SetEvent(UDPArchorInfoBox arg1, string arg2)
+        {
+            archorManager.SetArchorInfo(archor, arg1.GetKey());
         }
     }
 }
