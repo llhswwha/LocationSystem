@@ -42,6 +42,7 @@
                         <Label>基站扫描</Label>
                         <Button Name="BtnSearchAll" Click="BtnSearch_OnClick">扫描全部</Button>
                         <Button Name="BtnSave" Click="BtnSave_Click">保存结果</Button>
+                        <Button Name="BtnLoad" Click="BtnLoad_Click">读取结果</Button>
                         <Button Name="BtnClearBuffer" Click="BtnClearBuffer_Click">清空缓存</Button>
                     </StackPanel>
                 </GroupBox.Header>

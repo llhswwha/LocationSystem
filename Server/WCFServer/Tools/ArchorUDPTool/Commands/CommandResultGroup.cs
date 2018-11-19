@@ -24,6 +24,12 @@ namespace ArchorUDPTool.Commands
             IsNew = true;
         }
 
+        public CommandResultGroup(UDPArchor item)
+        {
+            Id = item.Client;
+            Archor = item;
+        }
+
         public CommandResultGroup(string id) : this()
         {
             Id = id;

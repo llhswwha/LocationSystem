@@ -1,4 +1,5 @@
 ﻿using ArchorUDPTool.ArchorManagers;
+using ArchorUDPTool.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,6 @@ namespace ArchorUDPTool.Commands
         public CommandResultManager()
         {
             Groups = new List<CommandResultGroup>();
-        }
-
-        public CommandResultGroup Add(System.Net.IPEndPoint iep, byte[] data)
-        {
-            string id = iep.ToString();
-            var group = GetById(id);
-            group.AddData(data);
-            return group;
         }
 
         public CommandResultGroup GetById(string id)
@@ -51,11 +44,27 @@ namespace ArchorUDPTool.Commands
             return statistics.GetText();
         }
 
+        public CommandResultGroup Add(System.Net.IPEndPoint iep, byte[] data)
+        {
+            string id = iep.ToString();
+            var group = GetById(id);
+            group.AddData(data);
+            return group;
+        }
+
         internal CommandResultGroup Add(ArchorDev item)
         {
             CommandResultGroup group = new CommandResultGroup(item.ArchorIp+":4646");
             Groups.Add(group);
 
+            return group;
+        }
+
+        internal CommandResultGroup Add(UDPArchor item)
+        {
+            var group = new CommandResultGroup(item);
+            Groups.Add(group);
+            statistics.Add(group.Id);
             return group;
         }
     }

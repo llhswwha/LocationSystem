@@ -109,6 +109,13 @@ namespace LocationServer
             Process.Start(fi.Directory.FullName);
         }
 
+        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+            FileInfo fi = new FileInfo(path);
+            archorManager.LoadArchorList(path);
+        }
+
         private void MenuSetServerIp7_OnClick(object sender, RoutedEventArgs e)
         {
             archorManager.SetServerIp253();

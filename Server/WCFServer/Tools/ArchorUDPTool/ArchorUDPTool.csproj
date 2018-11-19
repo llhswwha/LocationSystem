@@ -172,7 +172,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\基站信息\UDPArchorList.xml" />
+    <None Include="Data\基站信息\UDPArchorList.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\基站信息\ArchorFiles.xml">

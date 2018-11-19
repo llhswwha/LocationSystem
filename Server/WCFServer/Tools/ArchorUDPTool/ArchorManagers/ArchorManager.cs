@@ -374,7 +374,22 @@ namespace ArchorUDPTool
             {
                 ArchorListChanged(list);
             }
-            
+        }
+
+        internal void LoadArchorList(string path)
+        {
+            archorList = XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
+
+            resultList = new CommandResultManager();
+            foreach (var item in archorList)
+            {
+                var group = resultList.Add(item);
+            }
+
+            if (ArchorListChanged != null)
+            {
+                ArchorListChanged(archorList);
+            }
         }
     }
 }
