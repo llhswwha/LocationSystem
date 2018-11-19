@@ -7,8 +7,21 @@
         mc:Ignorable="d"
         Title="基站信息" Height="450" Width="400" Loaded="Window_Loaded">
     <StackPanel>
+        <Menu>
+            <MenuItem Header="GetAll" Name="MenuGetAll" Click="MenuGetAll_Click"></MenuItem>
+        </Menu>
         <local:UDPArchorInfoBox x:Name="AibId" Label="Id" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
         <local:UDPArchorInfoBox x:Name="AibIp" Label="Ip" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibType" Label="Archor Type" Key="Type" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibServerIP" Label="Server IP" Key="ServerIp" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibServerPort" Label="Server Port" Key="ServerPort" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibMask" Label="子网掩码" Key="Mask" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibGateway" Label="网关" Key="Gateway" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibDHCP" Label="DHCP" Key="DHCP" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibSoftVersion" Label="软件版本" Key="SoftVersion" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibHardVersion" Label="硬件版本" Key="HardVersion" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibPower" Label="功率" Key="Power" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
+        <local:UDPArchorInfoBox x:Name="AibMAC" Label="MAC" Key="MAC" GetEvent="Aib_GetEvent" SetEvent="Aib_SetEvent"/>
         
     </StackPanel>
 </Window>

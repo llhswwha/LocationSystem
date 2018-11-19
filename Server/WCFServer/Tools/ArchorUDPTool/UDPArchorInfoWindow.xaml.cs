@@ -55,6 +55,16 @@ namespace ArchorUDPTool
                 {
                     AibId.Value = ar.Id;
                     AibIp.Value = ar.Ip;
+                    AibType.Value = ar.Type;
+                    AibServerIP.Value = ar.ServerIp;
+                    AibServerPort.Value = ar.ServerPort;
+                    AibMask.Value = ar.Mask;
+                    AibGateway.Value = ar.Gateway;
+                    AibDHCP.Value = ar.DHCP;
+                    AibSoftVersion.Value = ar.SoftVersion;
+                    AibHardVersion.Value = ar.HardVersion;
+                    AibPower.Value = ar.Power;
+                    AibMAC.Value = ar.MAC;
                 });
             }
         }
@@ -67,6 +77,11 @@ namespace ArchorUDPTool
         private void Aib_SetEvent(UDPArchorInfoBox arg1, string arg2)
         {
             archorManager.SetArchorInfo(archor, arg1.GetKey());
+        }
+
+        private void MenuGetAll_Click(object sender, RoutedEventArgs e)
+        {
+            archorManager.ScanArchor(archor);
         }
     }
 }

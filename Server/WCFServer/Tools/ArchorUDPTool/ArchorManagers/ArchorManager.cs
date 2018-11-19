@@ -362,16 +362,56 @@ namespace ArchorUDPTool
 
         internal void GetArchorInfo(UDPArchor archor,string key)
         {
-            key = key.ToLower();
-            if (key == "id")
+            //key = key.ToLower();
+            if (key == "Id")
             {
                 ScanArchor(UDPCommands.GetId, archor.GetClientIP());
             }
-            else if (key == "ip")
+            else if (key == "Ip")
             {
                 ScanArchor(UDPCommands.GetIp, archor.GetClientIP());
             }
-            
+            else if (key == "Type")
+            {
+                ScanArchor(UDPCommands.GetType, archor.GetClientIP());
+            }
+            else if (key == "ServerIp")
+            {
+                ScanArchor(UDPCommands.GetServerIp, archor.GetClientIP());
+            }
+            else if (key == "ServerPort")
+            {
+                ScanArchor(UDPCommands.GetServerPort, archor.GetClientIP());
+            }
+            else if (key == "Mask")
+            {
+                ScanArchor(UDPCommands.GetMask, archor.GetClientIP());
+            }
+            else if (key == "Gateway")
+            {
+                ScanArchor(UDPCommands.GetGateway, archor.GetClientIP());
+            }
+            else if (key == "DHCP")
+            {
+                ScanArchor(UDPCommands.GetDHCP, archor.GetClientIP());
+            }
+            else if (key == "SoftVersion")
+            {
+                ScanArchor(UDPCommands.GetSoftVersion, archor.GetClientIP());
+            }
+            else if (key == "HardVersion")
+            {
+                ScanArchor(UDPCommands.GetHardVersion, archor.GetClientIP());
+            }
+            else if (key == "Power")
+            {
+                ScanArchor(UDPCommands.GetPower, archor.GetClientIP());
+            }
+            else if (key == "MAC")
+            {
+                ScanArchor(UDPCommands.GetMAC, archor.GetClientIP());
+            }
+
         }
 
         internal void SetArchorInfo(UDPArchor archor, string key)

@@ -250,7 +250,7 @@ namespace LocationServer
 
         private void BtnSearchPort_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPort));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerPort));
         }
 
         private void BtnSearchServerIP_Click(object sender, RoutedEventArgs e)
@@ -260,7 +260,7 @@ namespace LocationServer
 
         private void BtnSearchType_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetArchorType));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetType));
         }
 
         private void BtnSearchMask_Click(object sender, RoutedEventArgs e)

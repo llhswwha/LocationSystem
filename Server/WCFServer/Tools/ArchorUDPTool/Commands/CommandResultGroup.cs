@@ -59,12 +59,12 @@ namespace ArchorUDPTool.Commands
                 Archor.Ip = r.GetIPValue();
                 newValue += "  IP=" + r.GetIPValue();
             }
-            else if (r.CmdHex == UDPCommands.GetPortR)
+            else if (r.CmdHex == UDPCommands.GetServerPortR)
             {
                 Archor.ServerPort = r.GetLongValue();
                 newValue += "  Port=" + r.GetLongValue();
             }
-            else if (r.CmdHex == UDPCommands.GetArchorTypeR)
+            else if (r.CmdHex == UDPCommands.GetTypeR)
             {
                 Archor.Type = r.GetIntValue();
                 newValue += "  ArchorType=" + r.GetIntValue();

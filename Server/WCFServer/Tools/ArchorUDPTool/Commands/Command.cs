@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArchorUDPTool.Commands
 {
-    public class UDPCommands
+    public static class UDPCommands
     {
         public static string GetId = "10:01:10:01:00:1b:43:95:cb";
         public static string GetIdR = "1001C00102";
@@ -20,10 +20,10 @@ namespace ArchorUDPTool.Commands
         public static string GetGatewayR = "1001C00D04";
         public static string GetServerIp = "10 01 10 03 00 29 75 F7 49";
         public static string GetServerIpR = "1001C00304";
-        public static string GetPort = "10:01:10:0a:00:f8:b7:4c:00";
-        public static string GetPortR = "1001C00A02";
-        public static string GetArchorType = "10:01:10:13:00:63:b7:e5:18";
-        public static string GetArchorTypeR = "1001C01301";
+        public static string GetServerPort = "10:01:10:0a:00:f8:b7:4c:00";
+        public static string GetServerPortR = "1001C00A02";
+        public static string GetType = "10:01:10:13:00:63:b7:e5:18";
+        public static string GetTypeR = "1001C01301";
 
         public static string GetDHCP = "10 01 10 0E 00 9C DB 89 04";
         public static string GetDHCPR = "1001C00E01";
@@ -71,8 +71,8 @@ Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79
                 GetId,
                 GetIp,
                 GetServerIp,
-                GetPort,
-                GetArchorType,
+                GetServerPort,
+                GetType,
                 GetDHCP,
                 GetMask,
                 GetGateway,

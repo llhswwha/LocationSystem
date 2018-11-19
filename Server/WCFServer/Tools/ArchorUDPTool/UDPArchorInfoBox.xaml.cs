@@ -32,7 +32,14 @@ namespace ArchorUDPTool
             }
         }
 
-        public string Key { get; set; }
+        //public string Key { get; set; }
+
+        public string Key
+        {
+            get { return (string)GetValue(KeyProperty); }
+            set { SetValue(KeyProperty, value); }
+        }
+        public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(UDPArchorInfoBox));
 
         public string GetKey()
         {
@@ -43,7 +50,7 @@ namespace ArchorUDPTool
             return Key;
         }
 
-        public string Value
+        public object Value
         {
             get
             {
@@ -51,7 +58,7 @@ namespace ArchorUDPTool
             }
             set
             {
-                TbValue.Text = value;
+                TbValue.Text = value+"";
             }
         }
 
