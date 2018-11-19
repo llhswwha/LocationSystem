@@ -9,6 +9,8 @@ namespace ArchorUDPTool.Models
 {
     public class UDPArchor
     {
+        private string _value;
+
         [XmlAttribute]
         public int Num { get; set; }
 
@@ -32,7 +34,10 @@ namespace ArchorUDPTool.Models
         public bool Ping { get; set; }
 
         [XmlAttribute]
-        public string Value { get; set; }
+        public string Value { get => _value; set  { _value = value; UpdateTime = DateTime.Now; } }
+
+        [XmlAttribute]
+        public DateTime UpdateTime { get; set; }
 
         [XmlAttribute]
         public string Id { get; set; }
@@ -62,7 +67,7 @@ namespace ArchorUDPTool.Models
         [XmlAttribute]
         public string ServerIp { get; set; }
         [XmlAttribute]
-        public long ServerPort { get; set; }
+        public int ServerPort { get; set; }
 
 
         [XmlAttribute]

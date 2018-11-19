@@ -10,8 +10,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
             <MenuItem Header="加载清单" Name="MenuLoadList" Click="MenuLoadList_Click"></MenuItem>
-            <MenuItem Header="预制指令">
-                <MenuItem Header="重启" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
+            <MenuItem Header="重启全部" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
+            <MenuItem Header="设置服务器">
                 <MenuItem Header="设置ServerIP(192.168.5.1)" Name="MenuSetServerIp1" Click="MenuSetServerIP1_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.10.155)" Name="MenuSetServerIp2" Click="MenuSetServerIp2_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.3.251)" Name="MenuSetServerIp3" Click="MenuSetServerIp3_OnClick"></MenuItem>
@@ -79,7 +79,15 @@
                         <Label Name="LbCount"></Label>
                         <Label>统计:</Label>
                         <Label Name="LbStatistics"></Label>
-                        <Button></Button>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Label>服务器IP:</Label>
+                        <Label Name="LbServerIpList"></Label>
+                        <Button Name="BtnStartListen" Click="BtnStartListen_Click">开始监听</Button>
+                        <Label>数量:</Label>
+                        <Label Name="LbListenCount"></Label>
+                        <Label>统计:</Label>
+                        <Label Name="LbListenStatistics"></Label>
                     </StackPanel>
                     <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1" Visibility="Collapsed"/>
                     <ScrollViewer>
@@ -107,7 +115,8 @@
                             <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>
                             <DataGridTextColumn Header="连通" Binding="{Binding IsConnected}"/>
                             <DataGridTextColumn Header="Ping" Binding="{Binding Ping}"/>
-                            <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+                            <DataGridTextColumn Header="值" Binding="{Binding Value}"/>
+                            <DataGridTextColumn Header="时间" Binding="{Binding UpdateTime}"/>
                             <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
                             <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>

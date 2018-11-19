@@ -11,6 +11,14 @@ namespace ArchorUDPTool.Models
     [XmlRoot("UDPArchorList")]
     public class UDPArchorList : List<UDPArchor>
     {
+        public ServerInfoList ServerList = new ServerInfoList();
+
+        public new void Add(UDPArchor item)
+        {
+            base.Add(item);
+            ServerList.Add(item.ServerIp,item.ServerPort);
+        }
+
         //ArchorStatistics statistics = new ArchorStatistics();
 
         //Dictionary<string, UDPArchor> index = new Dictionary<string, UDPArchor>();

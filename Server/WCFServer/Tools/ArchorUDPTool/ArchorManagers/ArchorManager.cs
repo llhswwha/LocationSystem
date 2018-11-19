@@ -429,6 +429,47 @@ namespace ArchorUDPTool
 
         }
 
+        public List<LightUDP> serverUdps = new List<LightUDP>();
+
+        internal void StartListen()
+        {
+            
+            var servers = archorList.ServerList;
+            foreach (var server in servers)
+            {
+                var localIp = IpHelper.GetLocalIp(server.Ip);
+                if (localIp != null && localIp.Address.ToString() == server.Ip)
+                {
+                    LightUDP udp = new LightUDP(server.Ip, server.Port);
+                    udp.DGramRecieved += Udp_DGramRecieved1;
+                    serverUdps.Add(udp);
+                }
+            }
+        }
+
+        public UDPArchorValueList valueList = new UDPArchorValueList();
+
+        private void Udp_DGramRecieved1(object sender, BUDPGram dgram)
+        {
+            var group = resultList.GetById(dgram.iep.ToString());
+            group.Archor.Value = ByteHelper.byteToHexStr(dgram.data);
+
+            valueList.Add(dgram.iep, dgram.data);
+
+            //LbCount.Content = valueList.Count;
+            //LbStatistics.Content = valueList.GetStatistics();
+
+        }
+
+        public void StopListen()
+        {
+            foreach (var item in serverUdps)
+            {
+                item.Close();
+            }
+            serverUdps.Clear();
+        }
+
         internal void SetArchorInfo(UDPArchor archor, string key)
         {
             if (key == "id")

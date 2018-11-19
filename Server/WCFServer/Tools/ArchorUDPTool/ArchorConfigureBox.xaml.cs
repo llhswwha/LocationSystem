@@ -141,6 +141,10 @@ namespace LocationServer
                     DataGrid3.ItemsSource = list;
                     LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
+                    LbServerIpList.Content = list.ServerList.GetText();
+
+                    LbListenCount.Content = archorManager.valueList.Count;
+                    LbListenStatistics.Content = archorManager.valueList.GetStatistics();
                 }
             });
         }
@@ -372,6 +376,25 @@ namespace LocationServer
             var archor = DataGrid3.SelectedItem as UDPArchor;
             if (archor == null) return;
             archorManager.Reset(archor);
+        }
+
+        private void BtnStartListen_Click(object sender, RoutedEventArgs e)
+        {
+            if (BtnStartListen.Content.ToString() == "")
+            {
+                archorManager.StartListen();
+                BtnStartListen.Content = "停止监听";
+            }
+            else
+            {
+                BtnStartListen.Content = "开始监听";
+                archorManager.StopListen();
+            }
+        }
+
+        private void Udp_DGramRecieved(object sender, BUDPGram dgram)
+        {
+            
         }
     }
 }

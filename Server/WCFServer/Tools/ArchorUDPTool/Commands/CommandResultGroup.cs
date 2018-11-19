@@ -61,8 +61,8 @@ namespace ArchorUDPTool.Commands
             }
             else if (r.CmdHex == UDPCommands.GetServerPortR)
             {
-                Archor.ServerPort = r.GetLongValue();
-                newValue += "  Port=" + r.GetLongValue();
+                Archor.ServerPort = r.GetIntValue();
+                newValue += "  Port=" + r.GetIntValue();
             }
             else if (r.CmdHex == UDPCommands.GetTypeR)
             {
