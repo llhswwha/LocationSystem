@@ -356,5 +356,13 @@ namespace LocationServer
             var win = new ArchorUDPListener();
             win.Show();
         }
+
+        private void MenuSetArchor_Click(object sender, RoutedEventArgs e)
+        {
+            var archor = DataGrid3.SelectedItem as UDPArchor;
+            if (archor == null) return;
+            var wnd = new UDPArchorInfoWindow(archor);
+            wnd.Show();
+        }
     }
 }

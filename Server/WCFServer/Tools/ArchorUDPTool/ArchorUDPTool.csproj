@@ -58,6 +58,12 @@
       <DependentUpon>ArchorUDPListener.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\PingEx.cs" />
+    <Compile Include="UDPArchorInfoBox.xaml.cs">
+      <DependentUpon>UDPArchorInfoBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UDPArchorInfoWindow.xaml.cs">
+      <DependentUpon>UDPArchorInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ArchorConfigureBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,6 +100,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UDPArchorInfoBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UDPArchorInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

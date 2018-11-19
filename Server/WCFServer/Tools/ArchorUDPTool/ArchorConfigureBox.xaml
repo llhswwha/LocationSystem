@@ -95,7 +95,8 @@
                             <ContextMenu>
                                 <MenuItem Header="刷新当条数据" Name="MenuRefreshOne" Click="MenuRefreshOne_Click"/>
                                 <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
-                                <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"></MenuItem>
+                                <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"/>
+                                <MenuItem Header="设置" Name="MenuSetArchor" Click="MenuSetArchor_Click"></MenuItem>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
