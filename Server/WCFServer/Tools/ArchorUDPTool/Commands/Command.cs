@@ -29,10 +29,10 @@ namespace ArchorUDPTool.Commands
         public static string GetDHCPR = "1001C00E01";
 
         public static string GetSoftVersion = "10:01:10:05:00:7f:2f:50:cf";
-        public static string GetSoftVersionR = "1001C00502";
+        public static string GetSoftVersionR = "1001C005";
 
         public static string GetHardVersion = "10:01:10:06:00:54:02:03:0c";
-        public static string GetHardVersionR = "1001C00601";
+        public static string GetHardVersionR = "1001C006";
 
         /// <summary>
         /// 功率
@@ -63,7 +63,19 @@ Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79
 
         public static List<string> GetAll()
         {
-            return new List<string>() { GetId, GetIp, GetArchorType, GetDHCP,GetSoftVersion,GetServerIp,GetPort,GetMask,GetGateway };
+            return new List<string>() {
+                GetId,
+                GetIp,
+                GetServerIp,
+                GetPort,
+                GetArchorType,
+                GetDHCP,
+                GetMask,
+                GetGateway,
+                GetSoftVersion,
+                GetHardVersion,
+                GetPower
+            };
         }
     }
 

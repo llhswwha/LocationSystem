@@ -6,6 +6,7 @@ using LocationServer.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -183,6 +184,7 @@ namespace LocationServer.Windows
             }
             FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory+string.Format("基站设备校对清单({0}_{1}).xls",count1,list1.Count));
             ExcelLib.ExcelHelper.Save(dt, file, string.Format("基站设备校对清单({0}_{1})", count1, list1.Count));
+            Process.Start(file.Directory.FullName);
         }
     }
 }

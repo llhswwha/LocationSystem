@@ -76,7 +76,8 @@
     <Compile Include="ArchorConfigureWindow.xaml.cs">
       <DependentUpon>ArchorConfigureWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ArchorManager.cs" />
+    <Compile Include="ArchorManagers\ArchorManager.cs" />
+    <Compile Include="ArchorManagers\ArchorStatistics.cs" />
     <Compile Include="ArchorUDPSettingWindow.xaml.cs">
       <DependentUpon>ArchorUDPSettingWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +92,8 @@
     </Compile>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandResult.cs" />
+    <Compile Include="Commands\CommandResultGroup.cs" />
+    <Compile Include="Commands\CommandResultManager.cs" />
     <Compile Include="Models\UDPArchor.cs" />
     <Compile Include="Models\UDPArchorList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

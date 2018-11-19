@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LocationServer"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="700">
+             d:DesignHeight="600" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
@@ -23,49 +23,88 @@
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label>Remote IP</Label>
-            <TextBox Width="400" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
+            <TextBox Width="230" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
             <Label>Port</Label>
-            <TextBox Width="100" Name="TbPort" Text="4646"></TextBox>
-            
-        </StackPanel>
-        <!--<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <CheckBox Name="CbId" IsChecked="True">Id</CheckBox>
-            <CheckBox Name="CbIp" IsChecked="True">Ip</CheckBox>
-            <CheckBox Name="CbServerIp" IsChecked="True">ServerIp</CheckBox>
-        </StackPanel>-->
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Button Name="BtnSearch" Click="BtnSearch_OnClick">搜索</Button>
-            <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>
+            <TextBox Width="50" Name="TbPort" Text="4646"></TextBox>
+
+            <GroupBox>
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>基站扫描</Label>
+                       
+                        <Button Name="BtnSearchAll" Click="BtnSearch_OnClick">扫描全部</Button>
+                        <Button Name="BtnSave" Click="BtnSave_Click">保存结果</Button>
+                        <Button Name="BtnClearBuffer" Click="BtnClearBuffer_Click">清空缓存</Button>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="BtnSearchId" Click="BtnSearchId_Click">ID</Button>
+                    <Button Name="BtnSearchIp" Click="BtnSearchIp_Click">IP</Button>
+                    <Button Name="BtnSearchType" Click="BtnSearchType_Click">Type</Button>
+                    <Button Name="BtnSearchServerIP" Click="BtnSearchServerIP_Click">ServerIP</Button>
+                    <Button Name="BtnSearchPort" Click="BtnSearchPort_Click">ServerPort</Button>
+                    <Button Name="BtnSearchMask" Click="BtnSearchMask_Click">Mask</Button>
+                    <Button Name="BtnSearchGateway" Click="BtnSearchGateway_Click">网关</Button>
+                    <Button Name="BtnSearchDHCP" Click="BtnSearchDHCP_Click">DHCP</Button>
+                    <Button Name="BtnSearchSoftverson" Click="BtnSearchSoftverson_Click">软件版本</Button>
+                    <Button Name="BtnSearchHardverson" Click="BtnSearchHardverson_Click">硬件版本</Button>
+                    <Button Name="BtnSearchPower" Click="BtnSearchPower_Click">功率</Button>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>指令</Label>
             <TextBox Name="TbCommand" Width="400" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
             <Button Name="BtnSet" Click="BtnSet_Click">设置</Button>
         </StackPanel>
-        <TabControl>
-            
+        <TabControl DockPanel.Dock="Top" Height="120">
             <TabItem Header="控制台">
-                <ScrollViewer>
-                    <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>
-                </ScrollViewer>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                       
+                        <Label>时间:</Label>
+                        <Label Name="LbTime"></Label>
+                        <Button Name="BtnStopTime" Click="BtnStopTime_Click">停止时间</Button>
+                        <Label>数量:</Label>
+                        <Label Name="LbCount"></Label>
+                        <Label>统计:</Label>
+                        <Label Name="LbStatistics"></Label>
+                    </StackPanel>
+                    <ScrollViewer>
+                        <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>
+                    </ScrollViewer>
+                </DockPanel>
             </TabItem>
-            <TabItem Header="表格">
-                <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
-                        <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
-                        <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>
-                        <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"/>
-                        <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"/>
-                        <DataGridTextColumn Header="子网掩码" Binding="{Binding Mask}"/>
-                        <DataGridTextColumn Header="网关" Binding="{Binding Gateway}"/>
-                        <DataGridTextColumn Header="DHCP" Binding="{Binding DHCP}"/>
-                        <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"/>
-                        <DataGridTextColumn Header="硬件版本" Binding="{Binding HardVersion}"/>
-                        <DataGridTextColumn Header="功率" Binding="{Binding Power}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+        </TabControl>
+        <TabControl>
+            <TabItem Header="数据">
+                <DockPanel>
+                    <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="刷新当条数据" Name="MenuRefreshOne" Click="MenuRefreshOne_Click"/>
+                                <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
+                                <!--<MenuItem Header=""></MenuItem>-->
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
+                            <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
+                            <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
+                            <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>
+                            <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"/>
+                            <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"/>
+                            <DataGridTextColumn Header="子网掩码" Binding="{Binding Mask}"/>
+                            <DataGridTextColumn Header="网关" Binding="{Binding Gateway}"/>
+                            <DataGridTextColumn Header="DHCP" Binding="{Binding DHCP}"/>
+                            <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"/>
+                            <DataGridTextColumn Header="硬件版本" Binding="{Binding HardVersion}"/>
+                            <DataGridTextColumn Header="功率" Binding="{Binding Power}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+                
             </TabItem>
         </TabControl>
         

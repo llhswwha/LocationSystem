@@ -13,6 +13,16 @@ namespace ArchorUDPTool.Models
         public int Num { get; set; }
 
         [XmlAttribute]
+        public string Client { get; set; }
+
+        public string GetClientIP()
+        {
+            int id = Client.IndexOf(':');
+            string ip = Client.Substring(0, id);
+            return ip;
+        }
+
+        [XmlAttribute]
         public string Id { get; set; }
         [XmlAttribute]
         public string Ip { get; set; }
