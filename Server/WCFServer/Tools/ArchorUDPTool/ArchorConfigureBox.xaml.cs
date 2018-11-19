@@ -332,6 +332,7 @@ namespace LocationServer
         private void BtnClearBuffer_Click(object sender, RoutedEventArgs e)
         {
             archorManager.ClearBuffer();
+            DataGrid3.ItemsSource = null;
         }
 
         private void MenuPing_Click(object sender, RoutedEventArgs e)
@@ -361,7 +362,7 @@ namespace LocationServer
         {
             var archor = DataGrid3.SelectedItem as UDPArchor;
             if (archor == null) return;
-            var wnd = new UDPArchorInfoWindow(archor);
+            var wnd = new UDPArchorInfoWindow(archorManager,archor);
             wnd.Show();
         }
     }

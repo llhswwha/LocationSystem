@@ -37,22 +37,25 @@ namespace ArchorUDPTool
 
         private void ArchorManager_ArchorUpdated(UDPArchor obj)
         {
-            ShowValue();
+            ShowValue(obj);
         }
 
         private ArchorManager archorManager;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ShowValue();
+            ShowValue(null);
         }
 
-        private void ShowValue()
+        private void ShowValue(UDPArchor ar)
         {
-            if (archor != null)
+            if (ar != null)
             {
-                //AibId.Value = archor.Id;
-                //AibIp.Value = archor.Ip;
+                this.Dispatcher.Invoke(() =>
+                {
+                    AibId.Value = ar.Id;
+                    AibIp.Value = ar.Ip;
+                });
             }
         }
 

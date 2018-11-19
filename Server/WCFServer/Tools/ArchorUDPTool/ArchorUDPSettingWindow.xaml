@@ -21,7 +21,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label>IP:</Label>
-            <TextBox Name="TbIP" Width="120">192.168.5.78</TextBox>
+            <TextBox Name="TbIP" Width="120">192.168.10.105</TextBox>
             <Button Name="BtnGet" Click="BtnGet_Click">获取</Button>
             <Label>Value</Label>
             <TextBox Name="TbValue" Width="300" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
