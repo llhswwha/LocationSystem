@@ -130,15 +130,6 @@ namespace ArchorUDPTool.Tools
             }
         }
 
-        public class PingResult
-        {
-            public int Type = 0;
-            public string Ip;
-            public string Line;
-            public string ResultText;
-            public bool Result;
-        }
-
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             PingResult pr = e.UserState as PingResult;
@@ -148,9 +139,19 @@ namespace ArchorUDPTool.Tools
             }
         }
 
-        public Action<int, PingResult> ProgressChanged;
+        public event Action<int, PingResult> ProgressChanged;
 
         string result = "";
 
+    }
+
+
+    public class PingResult
+    {
+        public int Type = 0;
+        public string Ip;
+        public string Line;
+        public string ResultText;
+        public bool Result;
     }
 }

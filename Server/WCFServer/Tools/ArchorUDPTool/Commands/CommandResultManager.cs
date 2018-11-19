@@ -18,6 +18,12 @@ namespace ArchorUDPTool.Commands
             Groups = new List<CommandResultGroup>();
         }
 
+        public UDPArchor GetArchorByIp(string ip)
+        {
+            var group = Groups.Find(i => i.Archor.Ip == ip);
+            return group.Archor;
+        }
+
         public CommandResultGroup GetById(string id)
         {
 

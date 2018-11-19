@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ArchorUDPTool.Commands;
 using ArchorUDPTool.Models;
+using ArchorUDPTool.Tools;
 using Coldairarrow.Util.Sockets;
 using DbModel.Tools;
 using TModel.Tools;
@@ -118,8 +119,12 @@ namespace ArchorUDPTool
             public string[] cmds;
         }
 
+        ScanArg arg;
+
         public void ScanArchors(ScanArg arg)
         {
+            if (arg == null) return;
+            this.arg = arg;
             var ips = arg.ipsText.Split(';');
             archorPort = arg.port.ToInt();
             if (resultList == null)
@@ -211,12 +216,26 @@ namespace ArchorUDPTool
 
         public Action<int> PercentChanged;
 
+        PingEx pingEx;
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
+ 
             for (int j = 0; j < Ips.Length; j++)
             {
                 string ip = Ips[j];
+
+                if (arg.Ping)
+                {
+                    if (pingEx == null)
+                    {
+                        pingEx = new PingEx();
+                        pingEx.ProgressChanged += PingEx_ProgressChanged;
+                    }
+                    pingEx.Ping(ip, 4);
+                }
+
                 var localIp = IpHelper.GetLocalIp(ip);
 
                 var udp = GetLightUDP(localIp);
@@ -237,6 +256,12 @@ namespace ArchorUDPTool
                 int percent = (int)((j + 1.0) / Ips.Length * 100);
                 worker.ReportProgress(percent,Ips.Length);
             }
+        }
+
+        private void PingEx_ProgressChanged(int arg1, PingResult arg2)
+        {
+            var archor = resultList.GetArchorByIp(arg2.Ip);
+            archor.Ping = arg2.Result;
         }
 
         public string Log = "";
