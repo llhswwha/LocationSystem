@@ -46,6 +46,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "定位卡编号")]
+        [MaxLength(32)]
         [Required]
         public string Code { get; set; }
 
@@ -119,6 +120,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "信息")]
+        [MaxLength(16)]
         public string Flag { get; set; }
 
         /// <summary>
@@ -137,6 +139,7 @@ namespace DbModel.LocationHistory.Data
         public int? AreaId { get; set; }
 
         [DataMember]
+        [MaxLength(128)]
         public string AreaPath { get; set; }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "基站编号")]
+        [MaxLength(16)]
         public string Code { get; set; }
 
         public string GetCode()
@@ -38,6 +39,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "基站IP")]
+        [MaxLength(16)]
         public string Ip { get; set; }
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "基站名")]
+        [MaxLength(128)]
         public string Name { get; set; }
 
         /// <summary>
@@ -93,6 +96,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "服务器IP")]
+        [MaxLength(16)]
         public string ServerIp { get; set; }
 
         /// <summary>

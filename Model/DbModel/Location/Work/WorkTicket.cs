@@ -32,6 +32,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作票编号")]
+        [MaxLength(32)]
         public string No { get; set; }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作票负责人")]
+        [MaxLength(128)]
         public string PersonInCharge { get; set; }
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作班负责人")]
+        [MaxLength(128)]
         public string HeadOfWorkClass { get; set; }
 
         /// <summary>
@@ -53,6 +56,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作地点")]
+        [MaxLength(128)]
         public string WorkPlace { get; set; }
 
         /// <summary>
@@ -60,6 +64,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作内容")]
+        [MaxLength(512)]
         public string JobContent { get; set; }
 
 
@@ -90,6 +95,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "工作条件")]
+        [MaxLength(128)]
         public string WorkCondition { get; set; }
 
         /// <summary>
@@ -97,6 +103,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "签发人")]
+        [MaxLength(128)]
         public string Lssuer { get; set; }
 
         /// <summary>
@@ -104,6 +111,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "许可人")]
+        [MaxLength(128)]
         public string Licensor { get; set; }
 
         /// <summary>
@@ -111,6 +119,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "审批人")]
+        [MaxLength(128)]
         public string Approver { get; set; }
 
         /// <summary>
@@ -118,6 +127,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "送电后评语")]
+        [MaxLength(128)]
         public string Comment { get; set; }
 
         public WorkTicket Clone()

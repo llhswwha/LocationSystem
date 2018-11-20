@@ -33,6 +33,7 @@ namespace DbModel.LocationHistory.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "标题")]
+        [MaxLength(64)]
         public string Title { get; set; }
 
         /// <summary>
@@ -40,6 +41,7 @@ namespace DbModel.LocationHistory.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "内容")]
+        [MaxLength(512)]
         public string Msg { get; set; }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace DbModel.LocationHistory.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "代码")]
+        [MaxLength(32)]
         public string Code { get; set; }
 
         /// <summary>
@@ -75,6 +78,7 @@ namespace DbModel.LocationHistory.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "设备说明")]
+        [MaxLength(128)]
         public string Device_desc { get; set; }
 
         /// <summary>

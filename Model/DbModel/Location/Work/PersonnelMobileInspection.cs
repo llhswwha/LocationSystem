@@ -32,6 +32,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "人员名称")]
+        [MaxLength(128)]
         public string PersonnelName { get; set; }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "巡检轨迹名称")]
+        [MaxLength(128)]
         public string MobileInspectionName { get; set; }
 
         /// <summary>
@@ -82,7 +84,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "备注")]
-
+        [MaxLength(128)]
         public string Remark { get; set; }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(16)]
         public string Name { get; set; }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "键")]
+        [MaxLength(32)]
         public string Key { get; set; }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "值")]
+        [MaxLength(32)]
         public string Value { get; set; }
 
         /// <summary>
@@ -44,6 +47,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "值类型")]
+        [MaxLength(8)]
         public string ValueType { get; set; }
 
         /// <summary>
@@ -51,6 +55,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
+        [MaxLength(32)]
         public string Describe { get; set; }
 
         /// <summary>
@@ -58,6 +63,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "配置分类")]
+        [MaxLength(8)]
         public string Classify { get; set; }
 
         public ConfigArg Clone()

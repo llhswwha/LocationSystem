@@ -21,6 +21,7 @@ namespace DbModel.Location.Person
         /// </summary>
         [DataMember]
         [Display(Name="角色编号")]
+        [MaxLength(32)]
         public string Code { get; set; }
 
         /// <summary>
@@ -28,6 +29,7 @@ namespace DbModel.Location.Person
         /// </summary>
         [DataMember]
         [Display(Name="角色名")]
+        [MaxLength(64)]
         [Required]
         public string Name { get; set; }
 

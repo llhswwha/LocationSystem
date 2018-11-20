@@ -25,6 +25,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "设备名称")]
+        [MaxLength(128)]
         public string Name { get; set; }
 
         /// <summary>

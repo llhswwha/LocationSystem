@@ -26,6 +26,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(128)]
         [Required]
         public string Name { get; set; }
 
@@ -41,6 +42,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "编码")]
+        [MaxLength(32)]
         public string Code { get; set; }
 
         /// <summary>
@@ -48,6 +50,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "KKS编码")]
+        [MaxLength(32)]
         public string KKS { get; set; }
 
 
@@ -56,6 +59,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "本地设备ID")]
+        [MaxLength(64)]
         public string Local_DevID { get; set; }
 
         /// <summary>
@@ -63,6 +67,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "本地机柜ID")]
+        [MaxLength(64)]
         public string Local_CabinetID { get; set; }
 
         /// <summary>
@@ -84,6 +89,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "对接原始设备Id")]
+        [MaxLength(64)]
         public string Abutment_DevID { get; set; }
 
         /// <summary>
@@ -119,6 +125,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "模型名称")]
+        [MaxLength(128)]
         public string ModelName { get; set; }
 
         /// <summary>
@@ -168,6 +175,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "用户名")]
+        [MaxLength(128)]
         public string UserName { get; set; }
 
         /// <summary>
@@ -175,6 +183,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "IP")]
+        [MaxLength(32)]
         public string IP { get; set; }
 
         /// <summary>

@@ -36,6 +36,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [Display(Name = "KKS码")]
         [DataMember]
+        [MaxLength(32)]
         [Required]
         public string KKS { get; set; }
 

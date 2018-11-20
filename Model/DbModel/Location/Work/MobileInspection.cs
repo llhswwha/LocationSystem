@@ -31,6 +31,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "巡检轨迹名称")]
+        [MaxLength(64)]
         public string Name { get; set; }
 
         /// <summary>

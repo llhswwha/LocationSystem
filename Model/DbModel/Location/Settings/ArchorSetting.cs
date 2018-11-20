@@ -18,9 +18,11 @@ namespace DbModel.Location.Settings
         public int Id { get; set; }
 
         [Display(Name="基站编号(Id)")]
+        [MaxLength(16)]
         public string Code { get; set; }
 
         [Display(Name = "名称")]
+        [MaxLength(32)]
         public string Name { get; set; }
 
         [Display(Name = "相对高度")]
@@ -30,30 +32,39 @@ namespace DbModel.Location.Settings
         public double AbsoluteHeight { get; set; }
 
         [Display(Name = "所在机房")]
+        [MaxLength(128)]
         public string RoomName { get; set; }
 
         [Display(Name = "所在机房左下角X")]
+        [MaxLength(64)]
         public string RoomMinX { get; set; }
 
         [Display(Name = "所在机房左下角Y")]
+        [MaxLength(64)]
         public string RoomMinY { get; set; }
 
         [Display(Name = "所在楼层")]
+        [MaxLength(64)]
         public string FloorName { get; set; }
 
         [Display(Name = "所在楼层左下角X")]
+        [MaxLength(64)]
         public string FloorMinX { get; set; }
 
         [Display(Name = "所在楼层左下角Y")]
+        [MaxLength(64)]
         public string FloorMinY { get; set; }
 
         [Display(Name = "所在建筑")]
+        [MaxLength(64)]
         public string BuildingName { get; set; }
 
         [Display(Name = "所在建筑左下角X")]
+        [MaxLength(64)]
         public string BuildingMinX { get; set; }
 
         [Display(Name = "所在建筑左下角Y")]
+        [MaxLength(64)]
         public string BuildingMinY { get; set; }
 
         public void SetPath(Area room,Area floor,Area building)
@@ -87,9 +98,11 @@ namespace DbModel.Location.Settings
         public RelativeMode RelativeMode { get; set; }
 
         [Display(Name = "参考点X")]
+        [MaxLength(64)]
         public string ZeroX { get; set; }
 
         [Display(Name = "参考点Y")]
+        [MaxLength(64)]
         public string ZeroY { get; set; }
 
         public void SetZero(double x,double y)
@@ -99,9 +112,11 @@ namespace DbModel.Location.Settings
         }
 
         [Display(Name = "相对坐标X")]
+        [MaxLength(64)]
         public string RelativeX { get; set; }
 
         [Display(Name = "相对坐标Y")]
+        [MaxLength(64)]
         public string RelativeY { get; set; }
 
         public void SetRelative(double x, double y)
@@ -112,9 +127,11 @@ namespace DbModel.Location.Settings
 
 
         [Display(Name = "绝对(CAD)坐标X")]
+        [MaxLength(64)]
         public string AbsoluteX { get; set; }
 
         [Display(Name = "绝对(CAD)坐标Y")]
+        [MaxLength(64)]
         public string AbsoluteY { get; set; }
 
         public void SetAbsolute(double x, double y)

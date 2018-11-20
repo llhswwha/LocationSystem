@@ -22,6 +22,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "岗位名称")]
+        [MaxLength(8)]
         [Required]
         public string Name { get; set; }
 

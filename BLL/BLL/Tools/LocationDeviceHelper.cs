@@ -34,7 +34,10 @@ namespace BLL.Tools
             foreach (var devArea in initInfo.DepList)
             {
                 Area topo = topoTree.FindByName(devArea.Name);
-                if (topo == null) continue;
+                if (topo == null)
+                {
+                    continue;
+                }
                 AddLocationDev(devArea.DevList, archorBll, topo.Id);
             }
             return true;
@@ -77,9 +80,9 @@ namespace BLL.Tools
             Archor archor = new Archor();
             archor.Code = locationDev.AnchorId;
             archor.DevInfoId = DevInfoId;
-            archor.X = TryParseFloat(locationDev.XPos);
-            archor.Y = TryParseFloat(locationDev.ZPos);
-            archor.Z = TryParseFloat(locationDev.YPos);
+            archor.X = TryParseFloat(locationDev.AbsolutePosX);
+            archor.Y = TryParseFloat(locationDev.AbsolutePosY);
+            archor.Z = TryParseFloat(locationDev.AbsolutePosZ);
             archor.Name = locationDev.Name;
             archor.Type = ArchorTypes.副基站;
             archor.IsAutoIp = true;

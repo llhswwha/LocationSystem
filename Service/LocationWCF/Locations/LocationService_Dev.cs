@@ -523,10 +523,11 @@ namespace LocationServices.Locations
             return pc2.ToTModel();
         }
 
-        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis)
+        //nFlag 0 表示获取全部，1表示获取摄像头
+        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis, int nFlag)
         {
             DeviceService ds = new DeviceService();
-            List<NearbyDev> lst = ds.GetNearbyDev_Currency(id, fDis);
+            List<NearbyDev> lst = ds.GetNearbyDev_Currency(id, fDis, nFlag);
             if (lst == null)
             {
                 lst = new List<NearbyDev>();

@@ -27,6 +27,7 @@ namespace DbModel.Location.AreaAndDev
         /// 终端编号
         /// </summary>
         [Display(Name = "终端编号")]
+        [MaxLength(16)]
         [Required]
         public string Code { get; set; }
 
@@ -34,6 +35,7 @@ namespace DbModel.Location.AreaAndDev
         /// 终端名称
         /// </summary>
         [Display(Name = "终端名称")]
+        [MaxLength(128)]
         [Required]
         public string Name { get; set; }
 
@@ -41,6 +43,7 @@ namespace DbModel.Location.AreaAndDev
         /// 描述
         /// </summary>
         [Display(Name = "描述")]
+        [MaxLength(128)]
         public string Describe { get; set; }
 
 
@@ -65,6 +68,7 @@ namespace DbModel.Location.AreaAndDev
         /// 补充：卡大约20秒中不动后，会发0:0:0:0:1，然后再不动大约10秒后，不发位置信息
         /// </summary>
         [Display(Name = "信息")]
+        [MaxLength(16)]
         public string Flag { get; set; }
 
         public override string ToString()

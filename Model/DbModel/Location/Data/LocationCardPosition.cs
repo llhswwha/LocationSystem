@@ -21,6 +21,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "定位卡编号")]
+        [MaxLength(32)]
         [Key]
         public string Code { get; set; }
 
@@ -98,6 +99,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "信息")]
+        [MaxLength(16)]
         public string Flag { get; set; }
 
         /// <summary>

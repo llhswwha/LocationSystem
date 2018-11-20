@@ -33,6 +33,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "终端编号")]
+        [MaxLength(16)]
         [Required]
         public string Code { get; set; }
 
@@ -41,6 +42,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "终端名称")]
+        [MaxLength(128)]
         [Required]
         public string Name { get; set; }
 
@@ -49,6 +51,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
+        [MaxLength(128)]
         public string Describe { get; set; }
 
         /// <summary>

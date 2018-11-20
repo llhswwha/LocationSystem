@@ -29,6 +29,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "所属巡检内容")]
+        [MaxLength(128)]
         public string Content { get; set; }
 
         /// <summary>

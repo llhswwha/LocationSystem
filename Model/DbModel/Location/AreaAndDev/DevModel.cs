@@ -33,6 +33,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(128)]
         public string Name { get; set; }
 
         /// <summary>
@@ -40,6 +41,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "模型Id")]
+        [MaxLength(128)]
         public string ModelId { get; set; }
 
         /// <summary>
@@ -47,6 +49,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "大项")]
+        [MaxLength(16)]
         public string Items { get; set; }
 
         /// <summary>
@@ -54,6 +57,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "大类")]
+        [MaxLength(32)]
         public string Class { get; set; }
 
         public DevModel Clone()

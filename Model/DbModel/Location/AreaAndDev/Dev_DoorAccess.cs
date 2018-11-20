@@ -33,6 +33,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name ="门禁所属门的Id")]
+        [MaxLength(64)]
         public string DoorId { get; set; }
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "门禁对应的本地设备ID")]
+        [MaxLength(64)]
         public string Local_DevID { get; set; }
         /// <summary>
         /// 门禁设备

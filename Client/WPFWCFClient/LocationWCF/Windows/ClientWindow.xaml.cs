@@ -237,7 +237,7 @@ namespace LocationWCFClient.Windows
 
         private void GetNearbyDev_Currency_OnClick(object sender, RoutedEventArgs e)
         {
-            NearbyDev[] lst = client.GetNearbyDev_Currency(1,200);
+            NearbyDev[] lst = client.GetNearbyDev_Currency(1,200,0);
         }
 
         private void GetNearbyCamera_Alarm_OnClick(object sender, RoutedEventArgs e)

@@ -65,6 +65,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "说明")]
+        [MaxLength(128)]
         public string description { get; set; }
 
         public DevEntranceGuardCardAction Clone()

@@ -28,6 +28,7 @@ namespace DbModel.LocationHistory.Work
         /// </summary>
         [DataMember]
         [Display(Name = "签发人填写的安全措施")]
+        [MaxLength(256)]
         public string LssuerContent { get; set; }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace DbModel.LocationHistory.Work
         /// </summary>
         [DataMember]
         [Display(Name = "许可人填写的安全措施")]
+        [MaxLength(256)]
         public string LicensorContent { get; set; }
 
         /// <summary>

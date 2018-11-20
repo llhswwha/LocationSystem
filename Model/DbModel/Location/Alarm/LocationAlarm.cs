@@ -68,6 +68,7 @@ namespace DbModel.Location.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "告警内容")]
+        [MaxLength(512)]
         public string Content { get; set; }
 
         /// <summary>
@@ -103,6 +104,7 @@ namespace DbModel.Location.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "处理人")]
+        [MaxLength(128)]
         public string Handler { get; set; }
 
         /// <summary>

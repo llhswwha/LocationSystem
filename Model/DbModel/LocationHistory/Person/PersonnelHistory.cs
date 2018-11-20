@@ -33,6 +33,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "姓名")]
+        [MaxLength(16)]
         [Required]
         public string Name { get; set; }
 
@@ -48,6 +49,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "照片")]
+        [MaxLength(128)]
         public string Photo { get; set; }
 
         /// <summary>
@@ -69,6 +71,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "民族")]
+        [MaxLength(64)]
         public string Nation { get; set; }
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "住址")]
+        [MaxLength(512)]
         public string Address { get; set; }
 
         /// <summary>
@@ -90,6 +94,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "邮箱")]
+        [MaxLength(64)]
         public string Email { get; set; }
 
         /// <summary>
@@ -97,6 +102,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "电话")]
+        [MaxLength(16)]
         public string Phone { get; set; }
 
         /// <summary>
@@ -104,6 +110,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "手机")]
+        [MaxLength(16)]
         public string Mobile { get; set; }
 
         /// <summary>
@@ -125,6 +132,7 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "岗位")]
+        [MaxLength(16)]
         public string Pst { get; set; }
 
         /// <summary>

@@ -51,6 +51,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "操作项目")]
+        [MaxLength(128)]
         public string Item { get; set; }
 
         public OperationItem Clone()

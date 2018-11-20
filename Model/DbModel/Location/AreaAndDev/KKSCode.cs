@@ -23,6 +23,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "序号")]
+        [MaxLength(8)]
         [Required]
         public string Serial { get; set; }
 
@@ -31,6 +32,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "设备名称")]
+        [MaxLength(128)]
         [Required]
         public string Name { get; set; }
 
@@ -39,6 +41,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "工艺相关标识")]
+        [MaxLength(32)]
         [Required]
         public string Code { get; set; }
 
@@ -47,6 +50,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "上级工艺相关标识")]
+        [MaxLength(32)]
         public string ParentCode { get; set; }
 
         /// <summary>
@@ -54,6 +58,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "设计院编码")]
+        [MaxLength(32)]
         public string DesinCode { get; set; }
 
         /// <summary>
@@ -61,6 +66,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "主类")]
+        [MaxLength(16)]
         [Required]
         public string MainType { get; set; }
 
@@ -69,6 +75,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "子类")]
+        [MaxLength(32)]
         [Required]
         public string SubType { get; set; }
 
@@ -77,6 +84,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "所属系统")]
+        [MaxLength(32)]
         [Required]
         public string System { get; set; }
 

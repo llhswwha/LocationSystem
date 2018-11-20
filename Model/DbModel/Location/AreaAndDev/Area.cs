@@ -37,6 +37,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(32)]
         [Required]
         public string Name { get; set; }
         
@@ -45,6 +46,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "KKS编码")]
+        [MaxLength(32)]
         public string KKS { get; set; }
 
         /// <summary>
@@ -229,6 +231,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "说明")]
+        [MaxLength(128)]
         public string Describe { get; set; }
 
         [DataMember]

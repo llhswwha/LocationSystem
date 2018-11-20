@@ -26,6 +26,12 @@ namespace TModel.Location.AreaAndDev
         public string Name { get; set; }
 
         /// <summary>
+        /// 设备类型编号
+        /// </summary>
+        [DataMember]
+        public int TypeCode { get; set; }
+
+        /// <summary>
         /// 设备类型名称
         /// </summary>
         [DataMember]
@@ -65,6 +71,7 @@ namespace TModel.Location.AreaAndDev
         {
             id = 0;
             Name = "";
+            TypeCode = 0;
             TypeName = "";
             Area = "";
             Distance = 0;
@@ -78,6 +85,7 @@ namespace TModel.Location.AreaAndDev
             NearbyDev copy = new NearbyDev();
             copy.id = id;
             copy.Name = Name;
+            copy.TypeCode = TypeCode;
             copy.TypeName = TypeName;
             copy.Area = Area;
             copy.Distance = Distance;

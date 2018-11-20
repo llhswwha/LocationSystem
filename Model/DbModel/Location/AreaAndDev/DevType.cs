@@ -23,6 +23,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "类型名称")]
+        [MaxLength(128)]
         public string TypeName { get; set; }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "大类")]
+        [MaxLength(32)]
         public string Class { get; set; }
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "前面板")]
+        [MaxLength(128)]
         public string FrontElevation { get; set; }
 
 

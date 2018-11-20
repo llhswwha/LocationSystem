@@ -155,7 +155,7 @@ namespace WCFServiceForWPF.LocationServices {
         void DeleteArchor(int archorId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
-        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis);
+        TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
         TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis);
@@ -547,8 +547,8 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.DeleteArchor(archorId);
         }
         
-        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis) {
-            return base.Channel.GetNearbyDev_Currency(id, fDis);
+        public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag) {
+            return base.Channel.GetNearbyDev_Currency(id, fDis, nFlag);
         }
         
         public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis) {

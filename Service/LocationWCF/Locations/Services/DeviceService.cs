@@ -251,7 +251,7 @@ namespace LocationServices.Locations.Services
 
         #endregion
 
-        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis)
+        public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis, int nFlag)
         {
             List<NearbyDev> lst = new List<NearbyDev>();
             List<NearbyDev> lst2 = new List<NearbyDev>();
@@ -262,6 +262,7 @@ namespace LocationServices.Locations.Services
             }
 
             int? AreadId = lcp.AreaId;
+
             float PosX = lcp.X;
             float PosY = lcp.Y;
             float PosZ = lcp.Z;
@@ -276,8 +277,9 @@ namespace LocationServices.Locations.Services
             var query = from t1 in db.DevInfos.DbSet
                         join t2 in db.DevTypes.DbSet on t1.Local_TypeCode equals t2.TypeCode
                         join t3 in db.Areas.DbSet on t1.ParentId equals t3.Id
-                        where t1.ParentId == AreadId
-                        select new NearbyDev { id = t1.Id, Name = t1.Name, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
+                        where t1.ParentId == AreadId && (nFlag == 0 ? true : (t1.Local_TypeCode == 3000201 || t1.Local_TypeCode == 14 || t1.Local_TypeCode == 3000610 || t1.Local_TypeCode == 1000102))
+                        select new NearbyDev { id = t1.Id, Name = t1.Name, TypeCode = t1.Local_TypeCode, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
+
             if (query != null)
             {
                 lst2 = query.ToList();
@@ -297,6 +299,9 @@ namespace LocationServices.Locations.Services
                     NearbyDev item2 = item.Clone();
                     if (item2 != null)
                     {
+                        item2.X = PosX2;
+                        item2.Y = PosY2;
+                        item2.Z = PosZ2;
                         lst.Add(item2);
                     }
                 }
@@ -340,7 +345,7 @@ namespace LocationServices.Locations.Services
                         join t3 in db.DevTypes.DbSet on t2.Local_TypeCode equals t3.TypeCode
                         join t4 in db.Areas.DbSet on t2.ParentId equals t4.Id
                         where t2.ParentId == AreadId && (t2.Local_TypeCode == 3000201 || t2.Local_TypeCode == 14 || t2.Local_TypeCode == 3000610 || t2.Local_TypeCode == 1000102)
-                        select new NearbyDev { id = t2.Id, Name = t2.Name, TypeName = t3.TypeName, Area = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
+                        select new NearbyDev { id = t2.Id, Name = t2.Name, TypeCode = t2.Local_TypeCode, TypeName = t3.TypeName, Area = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
             if (query != null)
             {
                 lst2 = query.ToList();

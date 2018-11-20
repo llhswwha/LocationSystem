@@ -1,977 +1,584 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DepList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DeviceList Name="四会热电厂">
-    <Device Name="四会热电厂0000" AnchorId="0000" XPos="2066.5468" YPos="1820.4024" ZPos="0.5" IP="" />
-    <Device Name="围墙-1" AnchorId="Code_1" XPos="2066.5468" YPos="1820.4024" ZPos="" IP="" />
-    <Device Name="围墙-2" AnchorId="Code_2" XPos="2066.7488" YPos="1806.3397" ZPos="" IP="" />
-    <Device Name="围墙-3" AnchorId="Code_3" XPos="2066.9616" YPos="1774.2697" ZPos="" IP="" />
-    <Device Name="围墙-4" AnchorId="Code_4" XPos="2067.5916" YPos="1736.7833" ZPos="" IP="" />
-    <Device Name="围墙-5" AnchorId="Code_5" XPos="2068.0092" YPos="1699.8362" ZPos="" IP="" />
-    <Device Name="围墙-6" AnchorId="8B92" XPos="2068.0092" YPos="1679.8583" ZPos="" IP="192.168.5.20" />
-    <Device Name="围墙-7" AnchorId="8B90" XPos="2069.302" YPos="1650.4812" ZPos="" IP="192.168.5.19" />
-    <Device Name="围墙-8" AnchorId="8B8E" XPos="2069.302" YPos="1630.8687" ZPos="" IP="192.168.5.18" />
-    <Device Name="围墙-9" AnchorId="8B8C" XPos="2101.0169" YPos="1630.8687" ZPos="" IP="192.168.5.17" />
-    <Device Name="围墙-10" AnchorId="8B7C" XPos="2130.4598" YPos="1630.8687" ZPos="" IP="192.168.5.9" />
-    <Device Name="围墙-11" AnchorId="8B8A" XPos="2167.7887" YPos="1630.8687" ZPos="" IP="192.168.5.16" />
-    <Device Name="围墙-12" AnchorId="8B88" XPos="2206.253" YPos="1630.8687" ZPos="" IP="192.168.5.15" />
-    <Device Name="围墙-13" AnchorId="8B86" XPos="2245.7815" YPos="1631.1129" ZPos="" IP="192.168.5.14" />
-    <Device Name="围墙-14" AnchorId="8B80" XPos="2282.3505" YPos="1631.1129" ZPos="" IP="192.168.5.11" />
-    <Device Name="围墙-16" AnchorId="Code_15" XPos="2328.1842" YPos="1631.1129" ZPos="" IP="" />
-    <Device Name="围墙-16" AnchorId="Code_15" XPos="2363.8976" YPos="1631.1129" ZPos="" IP="" />
-    <Device Name="围墙-17" AnchorId="8B78" XPos="2402.4116" YPos="1631.1129" ZPos="" IP="192.168.5.7" />
-    <Device Name="围墙-18" AnchorId="8B72" XPos="2402.4227" YPos="1572.5059" ZPos="" IP="192.168.5.5" />
-    <Device Name="围墙-19" AnchorId="8B70" XPos="2509.9426" YPos="1572.8122" ZPos="" IP="192.168.5.4" />
-    <Device Name="围墙-20" AnchorId="Code_20" XPos="2567.2919" YPos="1572.5201" ZPos="" IP="" />
-    <Device Name="围墙-21" AnchorId="Code_21" XPos="2566.0215" YPos="1615.0769" ZPos="" IP="" />
-    <Device Name="围墙-22" AnchorId="Code_22" XPos="2565.4404" YPos="1642.9724" ZPos="" IP="" />
-    <Device Name="围墙-23" AnchorId="Code_23" XPos="2564.9173" YPos="1657.787" ZPos="" IP="" />
-    <Device Name="围墙-24" AnchorId="8C12" XPos="2564.8467" YPos="1680.6207" ZPos="" IP="192.168.5.81" />
-    <Device Name="围墙-25" AnchorId="8BA4" XPos="2563.9331" YPos="1702.3057" ZPos="" IP="192.168.5.29" />
-    <Device Name="围墙-26" AnchorId="8C20" XPos="2563.0679" YPos="1723.4567" ZPos="" IP="192.168.5.85" />
-    <Device Name="围墙-27" AnchorId="Code_27" XPos="2562.4592" YPos="1742.5246" ZPos="" IP="" />
-    <Device Name="围墙-28" AnchorId="8B98" XPos="2562.4592" YPos="1781.9898" ZPos="" IP="192.168.5.23" />
-    <Device Name="围墙-29" AnchorId="8BE0" XPos="2560.5282" YPos="1819.5375" ZPos="" IP="192.168.5.58" />
-    <Device Name="围墙-30" AnchorId="8BA8" XPos="2499.1806" YPos="1820.1477" ZPos="" IP="192.168.5.31" />
-    <Device Name="围墙-31" AnchorId="8BAC" XPos="2453.6263" YPos="1820.1477" ZPos="" IP="192.168.5.32" />
-    <Device Name="围墙-32" AnchorId="8BB4" XPos="2410.2644" YPos="1820.2429" ZPos="" IP="192.168.5.36" />
-    <Device Name="围墙-33" AnchorId="Code_131" XPos="2392.2708" YPos="1819.4164" ZPos="" IP="" />
-    <Device Name="围墙-34" AnchorId="8BE4" XPos="2363.7265" YPos="1820.1477" ZPos="" IP="192.168.5.60" />
-    <Device Name="围墙-35" AnchorId="8BE6" XPos="2329.6224" YPos="1820.1477" ZPos="" IP="192.168.5.61" />
-    <Device Name="围墙-36" AnchorId="Code_36" XPos="2306.1175" YPos="1820.1477" ZPos="" IP="" />
-    <Device Name="围墙-37" AnchorId="8B3A" XPos="2280.7638" YPos="1820.0142" ZPos="" IP="192.168.4.172" />
-    <Device Name="围墙-38" AnchorId="8C0E" XPos="2245.7027" YPos="1820.0142" ZPos="" IP="192.168.5.80" />
-    <Device Name="围墙-39" AnchorId="8C00" XPos="2198.9784" YPos="1820.0142" ZPos="" IP="192.168.5.74" />
-    <Device Name="围墙-40" AnchorId="8C0A" XPos="2161.3879" YPos="1822.6145" ZPos="" IP="192.168.5.78" />
-    <Device Name="围墙-41" AnchorId="Code_41" XPos="2146.6462" YPos="1822.1519" ZPos="" IP="" />
-    <Device Name="围墙-42" AnchorId="Code_42" XPos="2103.9041" YPos="1820.1333" ZPos="" IP="" />
-    <Device Name="U1-1" AnchorId="Code_43" XPos="2104.3079" YPos="1806.878" ZPos="" IP="" />
-    <Device Name="U1-2" AnchorId="Code_44" XPos="2087.0745" YPos="1805.8495" ZPos="" IP="" />
-    <Device Name="U1-3" AnchorId="Code_45" XPos="2101.0289" YPos="1770.8315" ZPos="" IP="" />
-    <Device Name="U1-4" AnchorId="Code_46" XPos="2137.2015" YPos="1750.4691" ZPos="" IP="" />
-    <Device Name="U1-5" AnchorId="Code_47" XPos="2140.5175" YPos="1767.8438" ZPos="" IP="" />
-    <Device Name="U2-1" AnchorId="Code_48" XPos="2109.1508" YPos="1737.7099" ZPos="" IP="" />
-    <Device Name="U2-2" AnchorId="Code_49" XPos="2077.4525" YPos="1735.9944" ZPos="" IP="" />
-    <Device Name="U2-3" AnchorId="Code_50" XPos="2076.8909" YPos="1699.8362" ZPos="" IP="" />
-    <Device Name="U2-4" AnchorId="Code_51" XPos="2110.2526" YPos="1699.4172" ZPos="" IP="" />
-    <Device Name="D5-1" AnchorId="8C0C" XPos="2105.2502" YPos="1677.1455" ZPos="" IP="192.168.5.79" />
-    <Device Name="D5-2" AnchorId="8C14" XPos="2104.6129" YPos="1650.4812" ZPos="" IP="192.168.5.82" />
-    <Device Name="D5-3" AnchorId="Code_54" XPos="2111.8371" YPos="1634.8014" ZPos="" IP="" />
-    <Device Name="D5-4" AnchorId="Code_55" XPos="2129.262" YPos="1634.5674" ZPos="" IP="" />
-    <Device Name="D5-5" AnchorId="8C18" XPos="2130.4317" YPos="1677.6486" ZPos="" IP="192.168.5.84" />
-    <Device Name="主厂房-1" AnchorId="Code_57" XPos="2167.6871" YPos="1783.1756" ZPos="" IP="" />
-    <Device Name="主厂房-2" AnchorId="Code_58" XPos="2170.3945" YPos="1781.6557" ZPos="" IP="" />
-    <Device Name="主厂房-3" AnchorId="Code_59" XPos="2198.2672" YPos="1783.1756" ZPos="" IP="" />
-    <Device Name="主厂房-4" AnchorId="Code_60" XPos="2198.4013" YPos="1780.4859" ZPos="" IP="" />
-    <Device Name="主厂房-5" AnchorId="Code_61" XPos="2167.7298" YPos="1751.6548" ZPos="" IP="" />
-    <Device Name="主厂房-6" AnchorId="Code_62" XPos="2174.4575" YPos="1747.1403" ZPos="" IP="" />
-    <Device Name="主厂房-7" AnchorId="Code_63" XPos="2184.7436" YPos="1744.57" ZPos="" IP="" />
-    <Device Name="主厂房-8" AnchorId="Code_64" XPos="2198.5562" YPos="1741.8528" ZPos="" IP="" />
-    <Device Name="主厂房-9" AnchorId="Code_65" XPos="2170.1969" YPos="1728.5188" ZPos="" IP="" />
-    <Device Name="主厂房-10" AnchorId="Code_66" XPos="2198.35" YPos="1718.6769" ZPos="" IP="" />
-    <Device Name="主厂房-11" AnchorId="Code_67" XPos="2167.6596" YPos="1699.2006" ZPos="" IP="" />
-    <Device Name="主厂房-12" AnchorId="Code_68" XPos="2170.488" YPos="1699.2204" ZPos="" IP="" />
-    <Device Name="主厂房-13" AnchorId="Code_69" XPos="2198.2216" YPos="1698.4769" ZPos="" IP="" />
-    <Device Name="主厂房-14" AnchorId="Code_70" XPos="2167.6596" YPos="1679.2227" ZPos="" IP="" />
-    <Device Name="主厂房-15" AnchorId="Code_71" XPos="2170.3303" YPos="1680.3963" ZPos="" IP="" />
-    <Device Name="主厂房-16" AnchorId="Code_72" XPos="2174.5081" YPos="1669.8947" ZPos="" IP="" />
-    <Device Name="主厂房-17" AnchorId="Code_73" XPos="2198.2049" YPos="1676.0871" ZPos="" IP="" />
-    <Device Name="主厂房-18" AnchorId="Code_74" XPos="2198.3445" YPos="1668.305" ZPos="" IP="" />
-    <Device Name="主厂房-19" AnchorId="8B96" XPos="2167.7887" YPos="1647.8672" ZPos="" IP="192.168.5.22" />
-    <Device Name="主厂房-20" AnchorId="8B9E" XPos="2206.253" YPos="1647.8672" ZPos="" IP="192.168.5.26" />
-    <Device Name="主厂房-21" AnchorId="8C06" XPos="2198.9784" YPos="1801.6504" ZPos="" IP="192.168.5.76" />
-    <Device Name="主厂房-22" AnchorId="8BF6" XPos="2245.7027" YPos="1801.6504" ZPos="" IP="192.168.5.69" />
-    <Device Name="主厂房-23" AnchorId="Code_79" XPos="2245.2808" YPos="1769.2277" ZPos="" IP="" />
-    <Device Name="主厂房-24" AnchorId="Code_80" XPos="2246.1705" YPos="1757.5048" ZPos="" IP="" />
-    <Device Name="主厂房-25" AnchorId="Code_81" XPos="2245.8681" YPos="1735.1441" ZPos="" IP="" />
-    <Device Name="主厂房-26" AnchorId="Code_82" XPos="2245.8681" YPos="17717.3925" ZPos="" IP="" />
-    <Device Name="主厂房-27" AnchorId="Code_83" XPos="2245.6012" YPos="1692.5619" ZPos="" IP="" />
-    <Device Name="主厂房-28" AnchorId="Code_84" XPos="2246.1705" YPos="1680.9047" ZPos="" IP="" />
-    <Device Name="主厂房-29" AnchorId="8B94" XPos="2245.7902" YPos="1658.0912" ZPos="" IP="192.168.5.21" />
-    <Device Name="锅炉区-1" AnchorId="8BE8" XPos="2280.7638" YPos="1794.095" ZPos="" IP="192.168.5.62" />
-    <Device Name="锅炉区-2" AnchorId="Code_87" XPos="2305.6255" YPos="1794.951" ZPos="" IP="" />
-    <Device Name="锅炉区-3" AnchorId="Code_88" XPos="2268.5591" YPos="1769.0867" ZPos="" IP="" />
-    <Device Name="锅炉区-4" AnchorId="Code_89" XPos="2306.0192" YPos="1770.9834" ZPos="" IP="" />
-    <Device Name="锅炉区-5" AnchorId="Code_90" XPos="2256.3699" YPos="1757.5048" ZPos="" IP="" />
-    <Device Name="锅炉区-6" AnchorId="Code_91" XPos="2257.6973" YPos="1725.0457" ZPos="" IP="" />
-    <Device Name="锅炉区-7" AnchorId="Code_92" XPos="2268.2064" YPos="1754.7016" ZPos="" IP="" />
-    <Device Name="锅炉区-8" AnchorId="Code_93" XPos="2280.9037" YPos="1740.3165" ZPos="" IP="" />
-    <Device Name="锅炉区-9" AnchorId="Code_94" XPos="2306.0605" YPos="1735.1441" ZPos="" IP="" />
-    <Device Name="锅炉区-10" AnchorId="Code_95" XPos="2280.9037" YPos="1717.3925" ZPos="" IP="" />
-    <Device Name="锅炉区-11" AnchorId="Code_96" XPos="2310.4287" YPos="1717.3925" ZPos="" IP="" />
-    <Device Name="锅炉区-12" AnchorId="Code_97" XPos="2268.613" YPos="1692.3301" ZPos="" IP="" />
-    <Device Name="锅炉区-13" AnchorId="Code_98" XPos="2256.3699" YPos="1680.9047" ZPos="" IP="" />
-    <Device Name="锅炉区-14" AnchorId="Code_99" XPos="2257.6973" YPos="1675.4457" ZPos="" IP="" />
-    <Device Name="锅炉区-15" AnchorId="Code_100" XPos="2268.3362" YPos="1678.0223" ZPos="" IP="" />
-    <Device Name="锅炉区-16" AnchorId="Code_101" XPos="2310.438" YPos="1682.4015" ZPos="" IP="" />
-    <Device Name="锅炉区-17" AnchorId="Code_102" XPos="2282.3592" YPos="1663.728" ZPos="" IP="" />
-    <Device Name="锅炉区-18" AnchorId="Code_103" XPos="2306.9159" YPos="1657.7736" ZPos="" IP="" />
-    <Device Name="U3-1" AnchorId="8BFC" XPos="2329.5241" YPos="1800.0261" ZPos="" IP="192.168.5.72" />
-    <Device Name="U3-2" AnchorId="Code_105" XPos="2351.607" YPos="1799.8821" ZPos="" IP="" />
-    <Device Name="U3-3" AnchorId="8BFA" XPos="2329.5241" YPos="1770.9834" ZPos="" IP="192.168.5.71" />
-    <Device Name="U3-4" AnchorId="Code_107" XPos="2350.7692" YPos="1764.5593" ZPos="" IP="" />
-    <Device Name="U3-5" AnchorId="Code_108" XPos="2350.7692" YPos="1754.0342" ZPos="" IP="" />
-    <Device Name="U3-6" AnchorId="8BF8" XPos="2328.8063" YPos="1736.9163" ZPos="" IP="192.168.5.70" />
-    <Device Name="S4-1" AnchorId="Code_110" XPos="2355.4276" YPos="1736.9163" ZPos="" IP="" />
-    <Device Name="S4-2" AnchorId="Code_111" XPos="2369.2388" YPos="1736.6676" ZPos="" IP="" />
-    <Device Name="H3-1" AnchorId="Code_112" XPos="2383.8179" YPos="1799.2147" ZPos="" IP="" />
-    <Device Name="H3-2" AnchorId="8BB0" XPos="2396.6244" YPos="1782.1215" ZPos="" IP="192.168.5.34" />
-    <Device Name="H3-3" AnchorId="Code_114" XPos="2384.8848" YPos="1764.5593" ZPos="" IP="" />
-    <Device Name="H3-4" AnchorId="Code_115" XPos="2368.4491" YPos="1757.0602" ZPos="" IP="" />
-    <Device Name="H3-5" AnchorId="Code_116" XPos="2384.8848" YPos="1754.0342" ZPos="" IP="" />
-    <Device Name="H3-6" AnchorId="8BBC" XPos="2396.6244" YPos="1752.3513" ZPos="" IP="192.168.5.40" />
-    <Device Name="H3-7" AnchorId="Code_118" XPos="2385.9589" YPos="1736.9163" ZPos="" IP="" />
-    <Device Name="H2-1" AnchorId="Code_119" XPos="2328.8063" YPos="1714.9411" ZPos="" IP="" />
-    <Device Name="H2-2" AnchorId="Code_120" XPos="2355.4276" YPos="1714.9411" ZPos="" IP="" />
-    <Device Name="H2-3" AnchorId="Code_121" XPos="2364.3502" YPos="1712.282" ZPos="" IP="" />
-    <Device Name="H2-4" AnchorId="8BC0" XPos="2385.9589" YPos="1714.9411" ZPos="" IP="192.168.5.42" />
-    <Device Name="H2-5" AnchorId="Code_123" XPos="2328.1842" YPos="1682.4015" ZPos="" IP="" />
-    <Device Name="H2-6" AnchorId="8BC4" XPos="2385.9589" YPos="1682.0479" ZPos="" IP="192.168.5.44" />
-    <Device Name="H2-7" AnchorId="8B82" XPos="2328.1842" YPos="1648.9632" ZPos="" IP="192.168.5.12" />
-    <Device Name="H2-8" AnchorId="8B7E" XPos="2363.8976" YPos="1648.9632" ZPos="" IP="192.168.5.10" />
-    <Device Name="H2-9" AnchorId="Code_127" XPos="2385.9589" YPos="1647.079" ZPos="" IP="" />
-    <Device Name="冷却塔-1" AnchorId="8BB8" XPos="2410.1664" YPos="1807.3947" ZPos="" IP="192.168.5.38" />
-    <Device Name="冷却塔-2" AnchorId="8BAE" XPos="2453.528" YPos="1809.6824" ZPos="" IP="192.168.5.33" />
-    <Device Name="冷却塔-3" AnchorId="Code_130" XPos="2498.4009" YPos="1808.5147" ZPos="" IP="" />
-    <Device Name="冷却塔-4" AnchorId="8BBA" XPos="2408.8548" YPos="1782.1191" ZPos="" IP="192.168.5.39" />
-    <Device Name="冷却塔-5" AnchorId="8BC8" XPos="2501.4122" YPos="1776.8183" ZPos="" IP="192.168.5.46" />
-    <Device Name="冷却塔-6" AnchorId="8BBE" XPos="2408.8548" YPos="1752.3488" ZPos="" IP="192.168.5.41" />
-    <Device Name="冷却塔-7" AnchorId="8BCC" XPos="2501.4122" YPos="1742.4879" ZPos="" IP="192.168.5.48" />
-    <Device Name="冷却塔-8" AnchorId="8BB2" XPos="2408.8548" YPos="1714.9411" ZPos="" IP="192.168.5.35" />
-    <Device Name="冷却塔-9" AnchorId="Code_136" XPos="2425.1319" YPos="1725.5672" ZPos="" IP="" />
-    <Device Name="冷却塔-10" AnchorId="Code_137" XPos="2483.6728" YPos="1723.2302" ZPos="" IP="" />
-    <Device Name="冷却塔-11" AnchorId="8BCE" XPos="2501.0279" YPos="1723.7811" ZPos="" IP="192.168.5.49" />
-    <Device Name="冷却塔-12" AnchorId="Code_139" XPos="2500.8607" YPos="1702.9787" ZPos="" IP="" />
-    <Device Name="冷却塔-13" AnchorId="8BC2" XPos="2408.8548" YPos="1682.0479" ZPos="" IP="192.168.5.43" />
-    <Device Name="冷却塔-14" AnchorId="Code_141" XPos="2426.1568" YPos="1686.1655" ZPos="" IP="" />
-    <Device Name="冷却塔-15" AnchorId="Code_142" XPos="2483.729" YPos="1686.9748" ZPos="" IP="" />
-    <Device Name="冷却塔-16" AnchorId="8BD0" XPos="2501.1366" YPos="1680.5113" ZPos="" IP="192.168.5.50" />
-    <Device Name="冷却塔-17" AnchorId="8BFE" XPos="2408.8548" YPos="1647.079" ZPos="" IP="192.168.5.73" />
-    <Device Name="冷却塔-18" AnchorId="Code_145" XPos="2501.1607" YPos="1648.795" ZPos="" IP="" />
-    <Device Name="冷却塔-19" AnchorId="8B76" XPos="2413.1874" YPos="1605.8572" ZPos="" IP="192.168.5.6" />
-    <Device Name="冷却塔-20" AnchorId="Code_147" XPos="2498.6482" YPos="1606.9045" ZPos="" IP="" />
-    <Device Name="J6-1" AnchorId="8BDE" XPos="2553.6119" YPos="1810.5388" ZPos="" IP="192.168.5.57" />
-    <Device Name="J6-2" AnchorId="Code_149" XPos="2510.7142" YPos="1776.6467" ZPos="" IP="" />
-    <Device Name="J6-3" AnchorId="8BA0" XPos="2553.6119" YPos="1782.4159" ZPos="" IP="192.168.5.27" />
-    <Device Name="J6-4" AnchorId="8BCA" XPos="2510.7142" YPos="1743.2411" ZPos="" IP="192.168.5.47" />
-    <Device Name="J6-5" AnchorId="8B9C" XPos="2553.6119" YPos="1742.9507" ZPos="" IP="192.168.5.25" />
-    <Device Name="H4-1" AnchorId="8A9A" XPos="2515.8924" YPos="1723.3016" ZPos="" IP="192.168.4.124" />
-    <Device Name="H4-2" AnchorId="8A9C" XPos="2553.0564" YPos="1723.4952" ZPos="" IP="192.168.4.125" />
-    <Device Name="H4-3" AnchorId="8AA0" XPos="2516.1827" YPos="1702.2067" ZPos="" IP="192.168.4.126" />
-    <Device Name="H4-4" AnchorId="8A96" XPos="2553.0564" YPos="1702.8841" ZPos="" IP="192.168.4.123" />
-    <Device Name="S3-1" AnchorId="Code_157" XPos="2507.8184" YPos="1679.5288" ZPos="" IP="" />
-    <Device Name="S3-2" AnchorId="Code_158" XPos="2519.2914" YPos="1658.5325" ZPos="" IP="" />
-    <Device Name="S3-3" AnchorId="Code_159" XPos="2507.8184" YPos="1648.5512" ZPos="" IP="" />
-    <Device Name="S3-4" AnchorId="Code_160" XPos="2518.989" YPos="1643.3803" ZPos="" IP="" />
-    <Device Name="S3-5" AnchorId="Code_161" XPos="2507.8184" YPos="1616.4076" ZPos="" IP="" />
-    <Device Name="S3-6" AnchorId="code_1111" XPos="2522.842" YPos="1615.5836" ZPos="" IP="" />
-    <Device Name="S3-7" AnchorId="Code_163" XPos="2544.6743" YPos="1662.4742" ZPos="" IP="" />
-    <Device Name="S3-8" AnchorId="Code_164" XPos="2526.872" YPos="1577.3686" ZPos="" IP="" />
+	<Device Name="四会热电厂0000" AnchorId="Test01" XPos="2066.5468" YPos="1820.4024" ZPos="0.5" IP="" AbsolutePosX="2066.5468" AbsolutePosY="0.5" AbsolutePosZ="1820.4024"/>
+    <Device Name="围墙-6" AnchorId="8B92" XPos="2068.0092" YPos="1679.8583" ZPos="" IP="192.168.5.20" AbsolutePosX="2068.01" AbsolutePosY="2.00" AbsolutePosZ="1679.86" />
+    <Device Name="围墙-7" AnchorId="8B90" XPos="2069.302" YPos="1650.4812" ZPos="" IP="192.168.5.19" AbsolutePosX="2069.30" AbsolutePosY="2.00" AbsolutePosZ="1650.48" />
+    <Device Name="围墙-8" AnchorId="8B8E" XPos="2069.302" YPos="1630.8687" ZPos="" IP="192.168.5.18" AbsolutePosX="2069.30" AbsolutePosY="2.00" AbsolutePosZ="1630.87" />
+    <Device Name="围墙-9" AnchorId="8B8C" XPos="2101.0169" YPos="1630.8687" ZPos="" IP="192.168.5.17" AbsolutePosX="2101.02" AbsolutePosY="2.00" AbsolutePosZ="1630.87" />
+    <Device Name="围墙-10" AnchorId="8B7C" XPos="2130.4598" YPos="1630.8687" ZPos="" IP="192.168.5.9" AbsolutePosX="2130.46" AbsolutePosY="2.00" AbsolutePosZ="1630.87" />
+    <Device Name="围墙-11" AnchorId="8B8A" XPos="2167.7887" YPos="1630.8687" ZPos="" IP="192.168.5.16" AbsolutePosX="2167.79" AbsolutePosY="2.00" AbsolutePosZ="1630.87" />
+    <Device Name="围墙-12" AnchorId="8B88" XPos="2206.253" YPos="1630.8687" ZPos="" IP="192.168.5.15" AbsolutePosX="2206.25" AbsolutePosY="2.00" AbsolutePosZ="1630.87" />
+    <Device Name="围墙-13" AnchorId="8B86" XPos="2245.7815" YPos="1631.1129" ZPos="" IP="192.168.5.14" AbsolutePosX="2245.78" AbsolutePosY="2.00" AbsolutePosZ="1631.11" />
+    <Device Name="围墙-14" AnchorId="8B80" XPos="2282.3505" YPos="1631.1129" ZPos="" IP="192.168.5.11" AbsolutePosX="2282.35" AbsolutePosY="2.00" AbsolutePosZ="1631.11" />
+    <Device Name="围墙-16" AnchorId="Code_15" XPos="2328.1842" YPos="1631.1129" ZPos="" IP="" AbsolutePosX="2328.18" AbsolutePosY="2.00" AbsolutePosZ="1631.11" />
+    <Device Name="围墙-16" AnchorId="Code_15" XPos="2363.8976" YPos="1631.1129" ZPos="" IP="" AbsolutePosX="2328.18" AbsolutePosY="2.00" AbsolutePosZ="1631.11" />
+    <Device Name="围墙-17" AnchorId="8B78" XPos="2402.4116" YPos="1631.1129" ZPos="" IP="192.168.5.7" AbsolutePosX="2402.41" AbsolutePosY="2.00" AbsolutePosZ="1631.11" />
+    <Device Name="围墙-18" AnchorId="8B72" XPos="2402.4227" YPos="1572.5059" ZPos="" IP="192.168.5.5" AbsolutePosX="2402.42" AbsolutePosY="2.00" AbsolutePosZ="1572.51" />
+    <Device Name="围墙-19" AnchorId="8B70" XPos="2509.9426" YPos="1572.8122" ZPos="" IP="192.168.5.4" AbsolutePosX="2509.94" AbsolutePosY="2.00" AbsolutePosZ="1572.81" />
+    <Device Name="围墙-24" AnchorId="8C12" XPos="2564.8467" YPos="1680.6207" ZPos="" IP="192.168.5.81" AbsolutePosX="2564.85" AbsolutePosY="2.00" AbsolutePosZ="1680.62" />
+    <Device Name="围墙-25" AnchorId="8BA4" XPos="2563.9331" YPos="1702.3057" ZPos="" IP="192.168.5.29" AbsolutePosX="2563.93" AbsolutePosY="2.00" AbsolutePosZ="1702.31" />
+    <Device Name="围墙-26" AnchorId="8C20" XPos="2563.0679" YPos="1723.4567" ZPos="" IP="192.168.5.85" AbsolutePosX="2563.07" AbsolutePosY="2.00" AbsolutePosZ="1723.46" />
+    <Device Name="围墙-27" AnchorId="8B9A" XPos="2562.4592" YPos="1742.5246" ZPos="" IP="192.168.5.24" AbsolutePosX="2562.46" AbsolutePosY="2.00" AbsolutePosZ="1742.52" />
+    <Device Name="围墙-28" AnchorId="8B98" XPos="2562.4592" YPos="1781.9898" ZPos="" IP="192.168.5.23" AbsolutePosX="2562.46" AbsolutePosY="2.00" AbsolutePosZ="1781.99" />
+    <Device Name="围墙-29" AnchorId="8BE0" XPos="2560.5282" YPos="1819.5375" ZPos="" IP="192.168.5.58" AbsolutePosX="2560.53" AbsolutePosY="2.00" AbsolutePosZ="1819.54" />
+    <Device Name="围墙-30" AnchorId="8BA8" XPos="2499.1806" YPos="1820.1477" ZPos="" IP="192.168.5.31" AbsolutePosX="2499.18" AbsolutePosY="2.00" AbsolutePosZ="1820.15" />
+    <Device Name="围墙-31" AnchorId="8BAC" XPos="2453.6263" YPos="1820.1477" ZPos="" IP="192.168.5.32" AbsolutePosX="2453.63" AbsolutePosY="2.00" AbsolutePosZ="1820.15" />
+    <Device Name="围墙-32" AnchorId="8BB4" XPos="2410.2644" YPos="1820.2429" ZPos="" IP="192.168.5.36" AbsolutePosX="2410.26" AbsolutePosY="2.00" AbsolutePosZ="1820.24" />
+    <Device Name="围墙-34" AnchorId="8BE4" XPos="2363.7265" YPos="1820.1477" ZPos="" IP="192.168.5.60" AbsolutePosX="2363.73" AbsolutePosY="2.00" AbsolutePosZ="1820.15" />
+    <Device Name="围墙-35" AnchorId="8BE6" XPos="2329.6224" YPos="1820.1477" ZPos="" IP="192.168.5.61" AbsolutePosX="2329.62" AbsolutePosY="2.00" AbsolutePosZ="1820.15" />
+    <Device Name="围墙-36" AnchorId="Code_36" XPos="2306.1175" YPos="1820.1477" ZPos="" IP="" AbsolutePosX="2306.12" AbsolutePosY="2.00" AbsolutePosZ="1820.15" />
+    <Device Name="围墙-37" AnchorId="8B3A" XPos="2280.7638" YPos="1820.0142" ZPos="" IP="192.168.4.172" AbsolutePosX="2280.76" AbsolutePosY="2.00" AbsolutePosZ="1820.01" />
+    <Device Name="围墙-38" AnchorId="8C0E" XPos="2245.7027" YPos="1820.0142" ZPos="" IP="192.168.5.80" AbsolutePosX="2245.70" AbsolutePosY="2.00" AbsolutePosZ="1820.01" />
+    <Device Name="围墙-39" AnchorId="8C00" XPos="2198.9784" YPos="1820.0142" ZPos="" IP="192.168.5.74" AbsolutePosX="2198.98" AbsolutePosY="2.00" AbsolutePosZ="1820.01" />
+    <Device Name="围墙-40" AnchorId="8C0A" XPos="2161.3879" YPos="1822.6145" ZPos="" IP="192.168.5.78" AbsolutePosX="2161.39" AbsolutePosY="2.00" AbsolutePosZ="1822.61" />
+    <Device Name="D5-1" AnchorId="8C0C" XPos="2105.2502" YPos="1677.1455" ZPos="" IP="192.168.5.79" AbsolutePosX="2105.25" AbsolutePosY="2.00" AbsolutePosZ="1677.15" />
+    <Device Name="D5-2" AnchorId="8C14" XPos="2104.6129" YPos="1650.4812" ZPos="" IP="192.168.5.82" AbsolutePosX="2104.61" AbsolutePosY="2.00" AbsolutePosZ="1650.48" />
+    <Device Name="D5-3" AnchorId="Code_54" XPos="2111.8371" YPos="1634.8014" ZPos="" IP="" AbsolutePosX="2111.84" AbsolutePosY="2.00" AbsolutePosZ="1634.80" />
+    <Device Name="D5-4" AnchorId="Code_55" XPos="2129.262" YPos="1634.5674" ZPos="" IP="" AbsolutePosX="2129.26" AbsolutePosY="2.00" AbsolutePosZ="1634.57" />
+    <Device Name="D5-5" AnchorId="8C18" XPos="2130.4317" YPos="1677.6486" ZPos="" IP="192.168.5.84" AbsolutePosX="2130.43" AbsolutePosY="2.00" AbsolutePosZ="1677.65" />
+    <Device Name="主厂房-1" AnchorId="Code_57" XPos="2167.6871" YPos="1783.1756" ZPos="" IP="" AbsolutePosX="2167.69" AbsolutePosY="2.00" AbsolutePosZ="1783.18" />
+    <Device Name="主厂房-2" AnchorId="Code_58" XPos="2170.3945" YPos="1781.6557" ZPos="" IP="" AbsolutePosX="2170.39" AbsolutePosY="2.00" AbsolutePosZ="1781.66" />
+    <Device Name="主厂房-3" AnchorId="Code_59" XPos="2198.2672" YPos="1783.1756" ZPos="" IP="" AbsolutePosX="2198.27" AbsolutePosY="2.00" AbsolutePosZ="1783.18" />
+    <Device Name="主厂房-4" AnchorId="Code_60" XPos="2198.4013" YPos="1780.4859" ZPos="" IP="" AbsolutePosX="2198.40" AbsolutePosY="2.00" AbsolutePosZ="1780.49" />
+    <Device Name="主厂房-5" AnchorId="Code_61" XPos="2167.7298" YPos="1751.6548" ZPos="" IP="" AbsolutePosX="2167.73" AbsolutePosY="2.00" AbsolutePosZ="1751.65" />
+    <Device Name="主厂房-6" AnchorId="Code_62" XPos="2174.4575" YPos="1747.1403" ZPos="" IP="" AbsolutePosX="2174.46" AbsolutePosY="2.00" AbsolutePosZ="1747.14" />
+    <Device Name="主厂房-7" AnchorId="Code_63" XPos="2184.7436" YPos="1744.57" ZPos="" IP="" AbsolutePosX="2184.74" AbsolutePosY="2.00" AbsolutePosZ="1744.57" />
+    <Device Name="主厂房-8" AnchorId="Code_64" XPos="2198.5562" YPos="1741.8528" ZPos="" IP="" AbsolutePosX="2198.56" AbsolutePosY="2.00" AbsolutePosZ="1741.85" />
+    <Device Name="主厂房-9" AnchorId="Code_65" XPos="2170.1969" YPos="1728.5188" ZPos="" IP="" AbsolutePosX="2170.20" AbsolutePosY="2.00" AbsolutePosZ="1728.52" />
+    <Device Name="主厂房-10" AnchorId="Code_66" XPos="2198.35" YPos="1718.6769" ZPos="" IP="" AbsolutePosX="2198.35" AbsolutePosY="2.00" AbsolutePosZ="1718.68" />
+    <Device Name="主厂房-11" AnchorId="Code_67" XPos="2167.6596" YPos="1699.2006" ZPos="" IP="" AbsolutePosX="2167.66" AbsolutePosY="2.00" AbsolutePosZ="1699.20" />
+    <Device Name="主厂房-12" AnchorId="Code_68" XPos="2170.488" YPos="1699.2204" ZPos="" IP="" AbsolutePosX="2170.49" AbsolutePosY="2.00" AbsolutePosZ="1699.22" />
+    <Device Name="主厂房-13" AnchorId="Code_69" XPos="2198.2216" YPos="1698.4769" ZPos="" IP="" AbsolutePosX="2198.22" AbsolutePosY="2.00" AbsolutePosZ="1698.48" />
+    <Device Name="主厂房-14" AnchorId="Code_70" XPos="2167.6596" YPos="1679.2227" ZPos="" IP="" AbsolutePosX="2167.66" AbsolutePosY="2.00" AbsolutePosZ="1679.22" />
+    <Device Name="主厂房-15" AnchorId="Code_71" XPos="2170.3303" YPos="1680.3963" ZPos="" IP="" AbsolutePosX="2170.33" AbsolutePosY="2.00" AbsolutePosZ="1680.40" />
+    <Device Name="主厂房-16" AnchorId="Code_72" XPos="2174.5081" YPos="1669.8947" ZPos="" IP="" AbsolutePosX="2174.51" AbsolutePosY="2.00" AbsolutePosZ="1669.89" />
+    <Device Name="主厂房-17" AnchorId="Code_73" XPos="2198.2049" YPos="1676.0871" ZPos="" IP="" AbsolutePosX="2198.20" AbsolutePosY="2.00" AbsolutePosZ="1676.09" />
+    <Device Name="主厂房-18" AnchorId="Code_74" XPos="2198.3445" YPos="1668.305" ZPos="" IP="" AbsolutePosX="2198.34" AbsolutePosY="2.00" AbsolutePosZ="1668.31" />
+    <Device Name="主厂房-19" AnchorId="8B96" XPos="2167.7887" YPos="1647.8672" ZPos="" IP="192.168.5.22" AbsolutePosX="2167.79" AbsolutePosY="2.00" AbsolutePosZ="1647.87" />
+    <Device Name="主厂房-20" AnchorId="8B9E" XPos="2206.253" YPos="1647.8672" ZPos="" IP="192.168.5.26" AbsolutePosX="2206.25" AbsolutePosY="2.00" AbsolutePosZ="1647.87" />
+    <Device Name="主厂房-21" AnchorId="8C06" XPos="2198.9784" YPos="1801.6504" ZPos="" IP="192.168.5.76" AbsolutePosX="2198.98" AbsolutePosY="2.00" AbsolutePosZ="1801.65" />
+    <Device Name="主厂房-22" AnchorId="8BF6" XPos="2245.7027" YPos="1801.6504" ZPos="" IP="192.168.5.69" AbsolutePosX="2245.70" AbsolutePosY="2.00" AbsolutePosZ="1801.65" />
+    <Device Name="主厂房-25" AnchorId="Code_81" XPos="2245.8681" YPos="1735.1441" ZPos="" IP="" AbsolutePosX="2245.87" AbsolutePosY="2.00" AbsolutePosZ="1735.14" />
+    <Device Name="主厂房-26" AnchorId="Code_82" XPos="2245.8681" YPos="17717.3925" ZPos="" IP="" AbsolutePosX="2245.87" AbsolutePosY="2.00" AbsolutePosZ="17717.39" />
+    <Device Name="主厂房-29" AnchorId="8B94" XPos="2245.7902" YPos="1658.0912" ZPos="" IP="192.168.5.21" AbsolutePosX="2245.79" AbsolutePosY="2.00" AbsolutePosZ="1658.09" />
+    <Device Name="锅炉区-1" AnchorId="8BE8" XPos="2280.7638" YPos="1794.095" ZPos="" IP="192.168.5.62" AbsolutePosX="2280.76" AbsolutePosY="2.00" AbsolutePosZ="1794.09" />
+    <Device Name="锅炉区-2" AnchorId="Code_87" XPos="2305.6255" YPos="1794.951" ZPos="" IP="" AbsolutePosX="2305.63" AbsolutePosY="2.00" AbsolutePosZ="1794.95" />
+    <Device Name="锅炉区-4" AnchorId="Code_89" XPos="2306.0192" YPos="1770.9834" ZPos="" IP="" AbsolutePosX="2306.02" AbsolutePosY="2.00" AbsolutePosZ="1770.98" />
+    <Device Name="锅炉区-6" AnchorId="Code_91" XPos="2257.6973" YPos="1725.0457" ZPos="" IP="" AbsolutePosX="2257.70" AbsolutePosY="2.00" AbsolutePosZ="1725.05" />
+    <Device Name="锅炉区-8" AnchorId="Code_93" XPos="2280.9037" YPos="1740.3165" ZPos="" IP="" AbsolutePosX="2280.90" AbsolutePosY="2.00" AbsolutePosZ="1740.32" />
+    <Device Name="锅炉区-9" AnchorId="Code_94" XPos="2306.0605" YPos="1735.1441" ZPos="" IP="" AbsolutePosX="2306.06" AbsolutePosY="2.00" AbsolutePosZ="1735.14" />
+    <Device Name="锅炉区-10" AnchorId="Code_95" XPos="2280.9037" YPos="1717.3925" ZPos="" IP="" AbsolutePosX="2280.90" AbsolutePosY="2.00" AbsolutePosZ="1717.39" />
+    <Device Name="锅炉区-11" AnchorId="Code_96" XPos="2310.4287" YPos="1717.3925" ZPos="" IP="" AbsolutePosX="2310.43" AbsolutePosY="2.00" AbsolutePosZ="1717.39" />
+    <Device Name="锅炉区-16" AnchorId="Code_101" XPos="2310.438" YPos="1682.4015" ZPos="" IP="" AbsolutePosX="2310.44" AbsolutePosY="2.00" AbsolutePosZ="1682.40" />
+    <Device Name="锅炉区-17" AnchorId="Code_102" XPos="2282.3592" YPos="1663.728" ZPos="" IP="" AbsolutePosX="2282.36" AbsolutePosY="2.00" AbsolutePosZ="1663.73" />
+    <Device Name="锅炉区-18" AnchorId="Code_103" XPos="2306.9159" YPos="1657.7736" ZPos="" IP="" AbsolutePosX="2306.92" AbsolutePosY="2.00" AbsolutePosZ="1657.77" />
+    <Device Name="U3-1" AnchorId="8BFC" XPos="2329.5241" YPos="1800.0261" ZPos="" IP="192.168.5.72" AbsolutePosX="2329.52" AbsolutePosY="2.00" AbsolutePosZ="1800.03" />
+    <Device Name="U3-2" AnchorId="8BE2" XPos="2351.607" YPos="1799.8821" ZPos="" IP="192.168.5.59" AbsolutePosX="2368.61" AbsolutePosY="2.00" AbsolutePosZ="1799.88" />
+    <Device Name="U3-3" AnchorId="8BFA" XPos="2329.5241" YPos="1770.9834" ZPos="" IP="192.168.5.71" AbsolutePosX="2329.52" AbsolutePosY="2.00" AbsolutePosZ="1770.98" />
+    <Device Name="U3-6" AnchorId="8BF8" XPos="2328.8063" YPos="1736.9163" ZPos="" IP="192.168.5.70" AbsolutePosX="2328.81" AbsolutePosY="2.00" AbsolutePosZ="1736.92" />
+    <Device Name="S4-2" AnchorId="Code_111" XPos="2369.2388" YPos="1736.6676" ZPos="" IP="" AbsolutePosX="2369.24" AbsolutePosY="2.00" AbsolutePosZ="1736.67" />
+    <Device Name="H3-2" AnchorId="8BB0" XPos="2396.6244" YPos="1782.1215" ZPos="" IP="192.168.5.34" AbsolutePosX="2396.62" AbsolutePosY="2.00" AbsolutePosZ="1782.12" />
+    <Device Name="H3-6" AnchorId="8BBC" XPos="2396.6244" YPos="1752.3513" ZPos="" IP="192.168.5.40" AbsolutePosX="2396.62" AbsolutePosY="2.00" AbsolutePosZ="1752.35" />
+    <Device Name="H2-1" AnchorId="8C0A" XPos="2328.8063" YPos="1714.9411" ZPos="" IP="192.168.5.78" AbsolutePosX="2328.81" AbsolutePosY="2.00" AbsolutePosZ="1714.94" />
+    <Device Name="H2-4" AnchorId="8BC0" XPos="2385.9589" YPos="1714.9411" ZPos="" IP="192.168.5.42" AbsolutePosX="2385.96" AbsolutePosY="2.00" AbsolutePosZ="1714.94" />
+    <Device Name="H2-5" AnchorId="Code_123" XPos="2328.1842" YPos="1682.4015" ZPos="" IP="" AbsolutePosX="2328.18" AbsolutePosY="2.00" AbsolutePosZ="1682.40" />
+    <Device Name="H2-6" AnchorId="8BC4" XPos="2385.9589" YPos="1682.0479" ZPos="" IP="192.168.5.44" AbsolutePosX="2385.96" AbsolutePosY="2.00" AbsolutePosZ="1682.05" />
+    <Device Name="H2-7" AnchorId="8B82" XPos="2328.1842" YPos="1648.9632" ZPos="" IP="192.168.5.12" AbsolutePosX="2328.18" AbsolutePosY="2.00" AbsolutePosZ="1648.96" />
+    <Device Name="H2-8" AnchorId="8B7E" XPos="2363.8976" YPos="1648.9632" ZPos="" IP="192.168.5.10" AbsolutePosX="2363.90" AbsolutePosY="2.00" AbsolutePosZ="1648.96" />
+    <Device Name="H2-9" AnchorId="Code_127" XPos="2385.9589" YPos="1647.079" ZPos="" IP="" AbsolutePosX="2385.96" AbsolutePosY="2.00" AbsolutePosZ="1647.08" />
+    <Device Name="冷却塔-1" AnchorId="8BB8" XPos="2410.1664" YPos="1807.3947" ZPos="" IP="192.168.5.38" AbsolutePosX="2410.17" AbsolutePosY="2.00" AbsolutePosZ="1807.39" />
+    <Device Name="冷却塔-2" AnchorId="8BAE" XPos="2453.528" YPos="1809.6824" ZPos="" IP="192.168.5.33" AbsolutePosX="2453.53" AbsolutePosY="2.00" AbsolutePosZ="1809.68" />
+    <Device Name="冷却塔-3" AnchorId="8BA6" XPos="2498.4009" YPos="1808.5147" ZPos="" IP="192.168.5.30" AbsolutePosX="2498.40" AbsolutePosY="2.00" AbsolutePosZ="1808.51" />
+    <Device Name="冷却塔-4" AnchorId="8BBA" XPos="2408.8548" YPos="1782.1191" ZPos="" IP="192.168.5.39" AbsolutePosX="2408.85" AbsolutePosY="2.00" AbsolutePosZ="1782.12" />
+    <Device Name="冷却塔-5" AnchorId="8BC8" XPos="2501.4122" YPos="1776.8183" ZPos="" IP="192.168.5.46" AbsolutePosX="2501.41" AbsolutePosY="2.00" AbsolutePosZ="1776.82" />
+    <Device Name="冷却塔-6" AnchorId="8BBE" XPos="2408.8548" YPos="1752.3488" ZPos="" IP="192.168.5.41" AbsolutePosX="2408.85" AbsolutePosY="2.00" AbsolutePosZ="1752.35" />
+    <Device Name="冷却塔-7" AnchorId="8BCC" XPos="2501.4122" YPos="1742.4879" ZPos="" IP="192.168.5.48" AbsolutePosX="2501.41" AbsolutePosY="2.00" AbsolutePosZ="1742.49" />
+    <Device Name="冷却塔-8" AnchorId="8BB2" XPos="2408.8548" YPos="1714.9411" ZPos="" IP="192.168.5.35" AbsolutePosX="2408.85" AbsolutePosY="2.00" AbsolutePosZ="1714.94" />
+    <Device Name="冷却塔-9" AnchorId="Code_136" XPos="2425.1319" YPos="1725.5672" ZPos="" IP="" AbsolutePosX="2425.13" AbsolutePosY="2.00" AbsolutePosZ="1725.57" />
+    <Device Name="冷却塔-10" AnchorId="Code_137" XPos="2483.6728" YPos="1723.2302" ZPos="" IP="" AbsolutePosX="2483.67" AbsolutePosY="2.00" AbsolutePosZ="1723.23" />
+    <Device Name="冷却塔-11" AnchorId="8BCE" XPos="2501.0279" YPos="1723.7811" ZPos="" IP="192.168.5.49" AbsolutePosX="2501.03" AbsolutePosY="2.00" AbsolutePosZ="1723.78" />
+    <Device Name="冷却塔-12" AnchorId="Code_139" XPos="2500.8607" YPos="1702.9787" ZPos="" IP="" AbsolutePosX="2500.86" AbsolutePosY="2.00" AbsolutePosZ="1702.98" />
+    <Device Name="冷却塔-13" AnchorId="8BC2" XPos="2408.8548" YPos="1682.0479" ZPos="" IP="192.168.5.43" AbsolutePosX="2408.85" AbsolutePosY="2.00" AbsolutePosZ="1682.05" />
+    <Device Name="冷却塔-14" AnchorId="Code_141" XPos="2426.1568" YPos="1686.1655" ZPos="" IP="" AbsolutePosX="2426.16" AbsolutePosY="2.00" AbsolutePosZ="1686.17" />
+    <Device Name="冷却塔-15" AnchorId="Code_142" XPos="2483.729" YPos="1686.9748" ZPos="" IP="" AbsolutePosX="2483.73" AbsolutePosY="2.00" AbsolutePosZ="1686.97" />
+    <Device Name="冷却塔-16" AnchorId="8BD0" XPos="2501.1366" YPos="1680.5113" ZPos="" IP="192.168.5.50" AbsolutePosX="2501.14" AbsolutePosY="2.00" AbsolutePosZ="1680.51" />
+    <Device Name="冷却塔-17" AnchorId="8BFE" XPos="2408.8548" YPos="1647.079" ZPos="" IP="192.168.5.73" AbsolutePosX="2408.85" AbsolutePosY="2.00" AbsolutePosZ="1647.08" />
+    <Device Name="冷却塔-18" AnchorId="Code_145" XPos="2501.1607" YPos="1648.795" ZPos="" IP="" AbsolutePosX="2501.16" AbsolutePosY="2.00" AbsolutePosZ="1648.80" />
+    <Device Name="冷却塔-19" AnchorId="8B76" XPos="2413.1874" YPos="1605.8572" ZPos="" IP="192.168.5.6" AbsolutePosX="2413.19" AbsolutePosY="2.00" AbsolutePosZ="1605.86" />
+    <Device Name="冷却塔-20" AnchorId="Code_147" XPos="2498.6482" YPos="1606.9045" ZPos="" IP="" AbsolutePosX="2498.65" AbsolutePosY="2.00" AbsolutePosZ="1606.90" />
+    <Device Name="J6-1" AnchorId="8BDE" XPos="2553.6119" YPos="1810.5388" ZPos="" IP="192.168.5.57" AbsolutePosX="2553.61" AbsolutePosY="2.00" AbsolutePosZ="1810.54" />
+    <Device Name="J6-2" AnchorId="8BC6" XPos="2510.7142" YPos="1776.6467" ZPos="" IP="192.168.5.45" AbsolutePosX="2510.71" AbsolutePosY="2.00" AbsolutePosZ="1776.65" />
+    <Device Name="J6-3" AnchorId="8BA0" XPos="2553.6119" YPos="1782.4159" ZPos="" IP="192.168.5.27" AbsolutePosX="2553.61" AbsolutePosY="2.00" AbsolutePosZ="1782.42" />
+    <Device Name="J6-4" AnchorId="8BCA" XPos="2510.7142" YPos="1743.2411" ZPos="" IP="192.168.5.47" AbsolutePosX="2510.71" AbsolutePosY="2.00" AbsolutePosZ="1743.24" />
+    <Device Name="J6-5" AnchorId="8B9C" XPos="2553.6119" YPos="1742.9507" ZPos="" IP="192.168.5.25" AbsolutePosX="2553.61" AbsolutePosY="2.00" AbsolutePosZ="1742.95" />
+    <Device Name="H4-1" AnchorId="8A9A" XPos="2515.8924" YPos="1723.3016" ZPos="" IP="192.168.4.124" AbsolutePosX="2515.89" AbsolutePosY="2.00" AbsolutePosZ="1723.30" />
+    <Device Name="H4-2" AnchorId="8A9C" XPos="2553.0564" YPos="1723.4952" ZPos="" IP="192.168.4.125" AbsolutePosX="2553.06" AbsolutePosY="2.00" AbsolutePosZ="1723.50" />
+    <Device Name="H4-3" AnchorId="8AA0" XPos="2516.1827" YPos="1702.2067" ZPos="" IP="192.168.4.126" AbsolutePosX="2516.18" AbsolutePosY="2.00" AbsolutePosZ="1702.21" />
+    <Device Name="H4-4" AnchorId="8A96" XPos="2553.0564" YPos="1702.8841" ZPos="" IP="192.168.4.123" AbsolutePosX="2553.06" AbsolutePosY="2.00" AbsolutePosZ="1702.88" />
+    <Device Name="S3-1" AnchorId="Code_157" XPos="2507.8184" YPos="1679.5288" ZPos="" IP="" AbsolutePosX="2507.82" AbsolutePosY="2.00" AbsolutePosZ="1679.53" />
+    <Device Name="S3-3" AnchorId="Code_159" XPos="2507.8184" YPos="1648.5512" ZPos="" IP="" AbsolutePosX="2507.82" AbsolutePosY="2.00" AbsolutePosZ="1648.55" />
+    <Device Name="S3-5" AnchorId="8C18" XPos="2507.8184" YPos="1616.4076" ZPos="" IP="192.168.5.84" AbsolutePosX="2507.82" AbsolutePosY="2.00" AbsolutePosZ="1616.41" />
   </DeviceList>
   <DeviceList Name="集控楼0m层">
-    <Device Name="集控楼一层" AnchorId="1111" XPos="0.432" YPos="0.907" ZPos="0.5" IP="" />
-    <Device Name="空调机房1" AnchorId="Code_1" XPos="0.332" YPos="0.807" ZPos="" IP="" />
-    <Device Name="空调机房2" AnchorId="Code_2" XPos="6.817" YPos="0.771" ZPos="" IP="" />
-    <Device Name="空调机房3" AnchorId="Code_3" XPos="0.352" YPos="3.899" ZPos="" IP="" />
-    <Device Name="空调机房4" AnchorId="Code_4" XPos="6.839" YPos="3.924" ZPos="" IP="" />
-    <Device Name="工作段配电室1" AnchorId="Code_5" XPos="0.348" YPos="4.847" ZPos="" IP="" />
-    <Device Name="工作段配电室2" AnchorId="Code_6" XPos="6.845" YPos="4.808" ZPos="" IP="" />
-    <Device Name="工作段配电室3" AnchorId="Code_7" XPos="6.854" YPos="8.211" ZPos="" IP="" />
-    <Device Name="工作段配电室4" AnchorId="Code_8" XPos="13.976" YPos="12.5" ZPos="" IP="" />
-    <Device Name="工作段配电室5" AnchorId="Code_9" XPos="13.581" YPos="16.261" ZPos="" IP="" />
-    <Device Name="工作段配电室6" AnchorId="Code_10" XPos="13.93" YPos="19.636" ZPos="" IP="" />
-    <Device Name="工作段配电室7" AnchorId="Code_11" XPos="14.012" YPos="22.63" ZPos="" IP="" />
-    <Device Name="工作段配电室8" AnchorId="Code_12" XPos="0.338" YPos="22.797" ZPos="" IP="" />
-    <Device Name="工作段配电室9" AnchorId="Code_13" XPos="0.318" YPos="19.506" ZPos="" IP="" />
-    <Device Name="工作段配电室10" AnchorId="Code_14" XPos="0.597" YPos="16.215" ZPos="" IP="" />
-    <Device Name="工作段配电室11" AnchorId="Code_15" XPos="0.345" YPos="12.547" ZPos="" IP="" />
-    <Device Name="工作段配电室12" AnchorId="Code_16" XPos="0.278" YPos="8.047" ZPos="" IP="" />
-    <Device Name="电子设备间1" AnchorId="Code_17" XPos="7.428" YPos="0.922" ZPos="" IP="" />
-    <Device Name="电子设备间2" AnchorId="Code_18" XPos="7.428" YPos="3.47" ZPos="" IP="" />
-    <Device Name="电子设备间3" AnchorId="Code_19" XPos="7.445" YPos="5.728" ZPos="" IP="" />
-    <Device Name="电子设备间4" AnchorId="Code_20" XPos="7.455" YPos="10.064" ZPos="" IP="" />
-    <Device Name="电子设备间5" AnchorId="Code_21" XPos="33.45" YPos="0.834" ZPos="" IP="" />
-    <Device Name="电子设备间6" AnchorId="Code_22" XPos="33.472" YPos="3.561" ZPos="" IP="" />
-    <Device Name="电子设备间7" AnchorId="Code_23" XPos="33.461" YPos="6.168" ZPos="" IP="" />
-    <Device Name="电子设备间8" AnchorId="Code_24" XPos="33.432" YPos="9.884" ZPos="" IP="" />
-    <Device Name="化学加药间1" AnchorId="Code_25" XPos="33.914" YPos="0.834" ZPos="" IP="" />
-    <Device Name="化学加药间2" AnchorId="Code_26" XPos="34.069" YPos="9.911" ZPos="" IP="" />
-    <Device Name="化学加药间3" AnchorId="Code_27" XPos="49.362" YPos="0.585" ZPos="" IP="" />
-    <Device Name="化学加药间4" AnchorId="Code_28" XPos="49.349" YPos="9.976" ZPos="" IP="" />
-    <Device Name="贮存间1" AnchorId="Code_29" XPos="49.955" YPos="0.465" ZPos="" IP="" />
-    <Device Name="贮存间2" AnchorId="Code_30" XPos="54.202" YPos="0.441" ZPos="" IP="" />
-    <Device Name="贮存间3" AnchorId="Code_31" XPos="54.183" YPos="10.42" ZPos="" IP="" />
-    <Device Name="贮存间4" AnchorId="Code_32" XPos="49.948" YPos="10.385" ZPos="" IP="" />
-    <Device Name="门厅1" AnchorId="Code_33" XPos="47.95" YPos="11.131" ZPos="" IP="" />
-    <Device Name="门厅2" AnchorId="Code_34" XPos="54.453" YPos="11.152" ZPos="" IP="" />
-    <Device Name="门厅3" AnchorId="Code_35" XPos="54.44" YPos="15.664" ZPos="" IP="" />
-    <Device Name="门厅4" AnchorId="Code_36" XPos="53.225" YPos="16.474" ZPos="" IP="" />
-    <Device Name="门厅5" AnchorId="Code_37" XPos="51.554" YPos="18.462" ZPos="" IP="" />
-    <Device Name="门厅6" AnchorId="Code_38" XPos="47.887" YPos="18.459" ZPos="" IP="" />
-    <Device Name="门厅7" AnchorId="Code_39" XPos="53.412" YPos="23.136" ZPos="" IP="" />
-    <Device Name="柴油发电机房1" AnchorId="Code_40" XPos="34.184" YPos="13.075" ZPos="" IP="" />
-    <Device Name="柴油发电机房2" AnchorId="Code_41" XPos="40.635" YPos="13.083" ZPos="" IP="" />
-    <Device Name="柴油发电机房3" AnchorId="Code_42" XPos="47.127" YPos="13.086" ZPos="" IP="" />
-    <Device Name="柴油发电机房4" AnchorId="Code_43" XPos="47.094" YPos="23.188" ZPos="" IP="" />
-    <Device Name="柴油发电机房5" AnchorId="Code_44" XPos="40.721" YPos="22.742" ZPos="" IP="" />
-    <Device Name="柴油发电机房6" AnchorId="Code_45" XPos="34.204" YPos="23.097" ZPos="" IP="" />
-    <Device Name="油箱间1" AnchorId="Code_46" XPos="32.179" YPos="23.132" ZPos="" IP="" />
-    <Device Name="油箱间2" AnchorId="Code_47" XPos="30.659" YPos="23.227" ZPos="" IP="" />
-    <Device Name="油箱间3" AnchorId="Code_48" XPos="30.021" YPos="23.122" ZPos="" IP="" />
-    <Device Name="油箱间4" AnchorId="Code_49" XPos="27.579" YPos="23.164" ZPos="" IP="" />
-    <Device Name="备件间1" AnchorId="Code_50" XPos="30.045" YPos="17.061" ZPos="" IP="" />
-    <Device Name="备件间2" AnchorId="Code_51" XPos="27.421" YPos="17.054" ZPos="" IP="" />
-    <Device Name="空调机房1" AnchorId="Code_1" XPos="20.505" YPos="13.104" ZPos="" IP="" />
-    <Device Name="空调机房2" AnchorId="Code_2" XPos="26.812" YPos="13.151" ZPos="" IP="" />
-    <Device Name="空调机房3" AnchorId="Code_3" XPos="26.655" YPos="23.109" ZPos="" IP="" />
-    <Device Name="空调机房4" AnchorId="Code_4" XPos="21.081" YPos="23.155" ZPos="" IP="" />
-    <Device Name="门厅走廊1" AnchorId="Code_56" XPos="18.489" YPos="13.151" ZPos="" IP="" />
-    <Device Name="门厅走廊2" AnchorId="Code_57" XPos="19.688" YPos="19.719" ZPos="" IP="" />
-    <Device Name="门厅走廊3" AnchorId="Code_58" XPos="18.479" YPos="20.725" ZPos="" IP="" />
-    <Device Name="门厅走廊4" AnchorId="Code_59" XPos="15.416" YPos="23.256" ZPos="" IP="" />
-    <Device Name="门厅走廊5" AnchorId="Code_60" XPos="14.582" YPos="19.805" ZPos="" IP="" />
-    <Device Name="门厅走廊6" AnchorId="Code_61" XPos="14.635" YPos="11.148" ZPos="" IP="" />
-    <Device Name="门厅走廊7" AnchorId="Code_62" XPos="31.111" YPos="11.131" ZPos="" IP="" />
-    <Device Name="门厅走廊8" AnchorId="Code_63" XPos="40.61" YPos="11.132" ZPos="" IP="" />
+	<Device Name="集控楼一层" AnchorId="Test02" XPos="0.432" YPos="0.907" ZPos="0.5" IP="" AbsolutePosX="0.432" AbsolutePosY="0.5" AbsolutePosZ="0.907" />
+    <Device Name="工作段配电室1" AnchorId="86CE" XPos="0.348" YPos="4.847" ZPos="" IP="192.168.4.15" AbsolutePosX="2249.85" AbsolutePosY="2.00" AbsolutePosZ="1774.25" />
+    <Device Name="工作段配电室2" AnchorId="86D8" XPos="6.845" YPos="4.808" ZPos="" IP="192.168.4.20" AbsolutePosX="2256.34" AbsolutePosY="2.00" AbsolutePosZ="1774.21" />
+    <Device Name="工作段配电室3" AnchorId="86D6" XPos="6.854" YPos="8.211" ZPos="" IP="192.168.4.19" AbsolutePosX="2256.35" AbsolutePosY="2.00" AbsolutePosZ="1777.61" />
+    <Device Name="工作段配电室4" AnchorId="86DC" XPos="13.976" YPos="12.5" ZPos="" IP="192.168.4.22" AbsolutePosX="2263.48" AbsolutePosY="2.00" AbsolutePosZ="1781.90" />
+    <Device Name="工作段配电室5" AnchorId="86DE" XPos="13.581" YPos="16.261" ZPos="" IP="192.168.4.23" AbsolutePosX="2263.08" AbsolutePosY="2.00" AbsolutePosZ="1785.66" />
+    <Device Name="工作段配电室6" AnchorId="86DA" XPos="13.93" YPos="19.636" ZPos="" IP="192.168.4.21" AbsolutePosX="2263.43" AbsolutePosY="2.00" AbsolutePosZ="1789.04" />
+    <Device Name="工作段配电室7" AnchorId="86D0" XPos="14.012" YPos="22.63" ZPos="" IP="192.168.4.16" AbsolutePosX="2263.51" AbsolutePosY="2.00" AbsolutePosZ="1792.03" />
+    <Device Name="工作段配电室8" AnchorId="86D4" XPos="0.338" YPos="22.797" ZPos="" IP="192.168.4.18" AbsolutePosX="2249.84" AbsolutePosY="2.00" AbsolutePosZ="1792.20" />
+    <Device Name="工作段配电室9" AnchorId="86C0" XPos="0.318" YPos="19.506" ZPos="" IP="192.168.4.8" AbsolutePosX="2249.82" AbsolutePosY="2.00" AbsolutePosZ="1788.91" />
+    <Device Name="工作段配电室10" AnchorId="86BE" XPos="0.597" YPos="16.215" ZPos="" IP="192.168.4.7" AbsolutePosX="2250.10" AbsolutePosY="2.00" AbsolutePosZ="1785.62" />
+    <Device Name="工作段配电室11" AnchorId="86D2" XPos="0.345" YPos="12.547" ZPos="" IP="192.168.4.17" AbsolutePosX="2249.84" AbsolutePosY="2.00" AbsolutePosZ="1781.95" />
+    <Device Name="工作段配电室12" AnchorId="86CC" XPos="0.278" YPos="8.047" ZPos="" IP="192.168.4.14" AbsolutePosX="2249.78" AbsolutePosY="2.00" AbsolutePosZ="1777.45" />
+    <Device Name="电子设备间1" AnchorId="8A04" XPos="7.428" YPos="0.922" ZPos="" IP="192.168.4.53" AbsolutePosX="2256.93" AbsolutePosY="2.00" AbsolutePosZ="1770.32" />
+    <Device Name="电子设备间2" AnchorId="8A06" XPos="7.428" YPos="3.47" ZPos="" IP="192.168.4.54" AbsolutePosX="2256.93" AbsolutePosY="2.00" AbsolutePosZ="1772.87" />
+    <Device Name="电子设备间3" AnchorId="89E2" XPos="7.445" YPos="5.728" ZPos="" IP="192.168.4.36" AbsolutePosX="2256.95" AbsolutePosY="2.00" AbsolutePosZ="1775.13" />
+    <Device Name="电子设备间4" AnchorId="8A08" XPos="7.455" YPos="10.064" ZPos="" IP="192.168.4.55" AbsolutePosX="2256.95" AbsolutePosY="2.00" AbsolutePosZ="1779.46" />
+    <Device Name="电子设备间5" AnchorId="8A0A" XPos="33.45" YPos="0.834" ZPos="" IP="192.168.4.56" AbsolutePosX="2282.95" AbsolutePosY="2.00" AbsolutePosZ="1770.23" />
+    <Device Name="电子设备间6" AnchorId="89DC" XPos="33.472" YPos="3.561" ZPos="" IP="192.168.4.34" AbsolutePosX="2282.97" AbsolutePosY="2.00" AbsolutePosZ="1772.96" />
+    <Device Name="电子设备间7" AnchorId="89E0" XPos="33.461" YPos="6.168" ZPos="" IP="192.168.4.35" AbsolutePosX="2282.96" AbsolutePosY="2.00" AbsolutePosZ="1775.57" />
+    <Device Name="电子设备间8" AnchorId="8886" XPos="33.432" YPos="9.884" ZPos="" IP="192.168.4.2" AbsolutePosX="2282.93" AbsolutePosY="2.00" AbsolutePosZ="1779.28" />
+    <Device Name="贮存间1" AnchorId="8702" XPos="49.955" YPos="0.465" ZPos="" IP="192.168.4.32" AbsolutePosX="2299.46" AbsolutePosY="2.00" AbsolutePosZ="1769.87" />
+    <Device Name="贮存间2" AnchorId="8704" XPos="54.202" YPos="0.441" ZPos="" IP="192.168.4.33" AbsolutePosX="2303.70" AbsolutePosY="2.00" AbsolutePosZ="1769.84" />
+    <Device Name="贮存间3" AnchorId="86F4" XPos="54.183" YPos="10.42" ZPos="" IP="192.168.4.27" AbsolutePosX="2303.68" AbsolutePosY="2.00" AbsolutePosZ="1779.82" />
+    <Device Name="贮存间4" AnchorId="86F6" XPos="49.948" YPos="10.385" ZPos="" IP="192.168.4.28" AbsolutePosX="2299.45" AbsolutePosY="2.00" AbsolutePosZ="1779.79" />
   </DeviceList>
   <DeviceList Name="集控楼4.5m层">
-    <Device Name="集控楼二层" AnchorId="2222" XPos="0.432" YPos="0.907" ZPos="4.5" IP="" />
-    <Device Name="集控室1" AnchorId="Code_1" XPos="5.343" YPos="0.431" ZPos="" IP="" />
-    <Device Name="集控室2" AnchorId="Code_2" XPos="8.281" YPos="0.431" ZPos="" IP="" />
-    <Device Name="集控室3" AnchorId="Code_3" XPos="17.889" YPos="0.749" ZPos="" IP="" />
-    <Device Name="集控室4" AnchorId="Code_4" XPos="18.25" YPos="20.069" ZPos="" IP="" />
-    <Device Name="集控室5" AnchorId="Code_5" XPos="8.281" YPos="20.069" ZPos="" IP="" />
-    <Device Name="集控室6" AnchorId="Code_6" XPos="5.328" YPos="20.069" ZPos="" IP="" />
-    <Device Name="交接班室1" AnchorId="Code_7" XPos="18.899" YPos="0.431" ZPos="" IP="" />
-    <Device Name="交接班室2" AnchorId="Code_8" XPos="24.019" YPos="0.281" ZPos="" IP="" />
-    <Device Name="SIS室1" AnchorId="Code_9" XPos="25.35" YPos="0.281" ZPos="" IP="" />
-    <Device Name="SIS室2" AnchorId="Code_10" XPos="28.168" YPos="0.281" ZPos="" IP="" />
-    <Device Name="SIS室3" AnchorId="Code_11" XPos="28.15" YPos="10.519" ZPos="" IP="" />
-    <Device Name="SIS室4" AnchorId="Code_12" XPos="24.983" YPos="10.07" ZPos="" IP="" />
-    <Device Name="电缆夹层1" AnchorId="Code_13" XPos="28.731" YPos="0.802" ZPos="" IP="" />
-    <Device Name="电缆夹层2" AnchorId="Code_14" XPos="44.653" YPos="0.854" ZPos="" IP="" />
-    <Device Name="电缆夹层3" AnchorId="Code_15" XPos="44.653" YPos="9.992" ZPos="" IP="" />
-    <Device Name="电缆夹层4" AnchorId="Code_16" XPos="28.731" YPos="10" ZPos="" IP="" />
-    <Device Name="高温架间1" AnchorId="Code_17" XPos="45.231" YPos="0.856" ZPos="" IP="" />
-    <Device Name="高温架间2" AnchorId="Code_18" XPos="45.231" YPos="3.901" ZPos="" IP="" />
-    <Device Name="高温架间3" AnchorId="Code_19" XPos="58.753" YPos="0.843" ZPos="" IP="" />
-    <Device Name="高温架间4" AnchorId="Code_20" XPos="58.753" YPos="3.916" ZPos="" IP="" />
-    <Device Name="仪表盘间1" AnchorId="Code_21" XPos="45.231" YPos="4.652" ZPos="" IP="" />
-    <Device Name="仪表盘间2" AnchorId="Code_22" XPos="58.753" YPos="4.589" ZPos="" IP="" />
-    <Device Name="仪表盘间3" AnchorId="Code_23" XPos="58.753" YPos="9.992" ZPos="" IP="" />
-    <Device Name="仪表盘间4" AnchorId="Code_24" XPos="45.231" YPos="10" ZPos="" IP="" />
-    <Device Name="走廊1" AnchorId="Code_25" XPos="58.753" YPos="11.152" ZPos="" IP="" />
-    <Device Name="走廊2" AnchorId="Code_26" XPos="52.25" YPos="11.131" ZPos="" IP="" />
-    <Device Name="走廊3" AnchorId="Code_27" XPos="35.411" YPos="11.131" ZPos="" IP="" />
-    <Device Name="走廊4" AnchorId="Code_28" XPos="24.019" YPos="12.507" ZPos="" IP="" />
-    <Device Name="走廊5" AnchorId="Code_29" XPos="18.935" YPos="11.148" ZPos="" IP="" />
-    <Device Name="走廊6" AnchorId="Code_30" XPos="22.789" YPos="13.081" ZPos="" IP="" />
-    <Device Name="走廊7" AnchorId="Code_31" XPos="23.988" YPos="19.719" ZPos="" IP="" />
-    <Device Name="走廊8" AnchorId="Code_32" XPos="22.779" YPos="20.725" ZPos="" IP="" />
-    <Device Name="走廊9" AnchorId="Code_33" XPos="18.882" YPos="19.805" ZPos="" IP="" />
-    <Device Name="走廊10" AnchorId="Code_34" XPos="19.716" YPos="23.269" ZPos="" IP="" />
-    <Device Name="走廊11" AnchorId="Code_35" XPos="0.281" YPos="22.219" ZPos="" IP="" />
-    <Device Name="饮水间" AnchorId="Code_36" XPos="58.74" YPos="15.664" ZPos="" IP="" />
-    <Device Name="卫生间1" AnchorId="Code_37" XPos="52.187" YPos="18.459" ZPos="" IP="" />
-    <Device Name="卫生间2" AnchorId="Code_38" XPos="55.856" YPos="18.462" ZPos="" IP="" />
-    <Device Name="卫生间3" AnchorId="Code_39" XPos="57.525" YPos="16.474" ZPos="" IP="" />
-    <Device Name="卫生间4" AnchorId="Code_40" XPos="57.712" YPos="23.136" ZPos="" IP="" />
-    <Device Name="会议室1" AnchorId="Code_41" XPos="31.869" YPos="13.081" ZPos="" IP="" />
-    <Device Name="会议室2" AnchorId="Code_42" XPos="37.617" YPos="13.931" ZPos="" IP="" />
-    <Device Name="会议室3" AnchorId="Code_43" XPos="37.368" YPos="23.269" ZPos="" IP="" />
-    <Device Name="会议室4" AnchorId="Code_44" XPos="32.289" YPos="23.259" ZPos="" IP="" />
-    <Device Name="工程师室1" AnchorId="Code_45" XPos="24.843" YPos="13.081" ZPos="" IP="" />
-    <Device Name="工程师室2" AnchorId="Code_46" XPos="31.169" YPos="13.081" ZPos="" IP="" />
-    <Device Name="工程师室3" AnchorId="Code_47" XPos="30.988" YPos="23.269" ZPos="" IP="" />
-    <Device Name="工程师室4" AnchorId="Code_48" XPos="25.335" YPos="23.269" ZPos="" IP="" />
+	<Device Name="集控楼二层" AnchorId="Test03" XPos="0.432" YPos="0.907" ZPos="4.5" IP="" AbsolutePosX="0.432" AbsolutePosY="4.5" AbsolutePosZ="0.907" />
   </DeviceList>
   <DeviceList Name="集控楼8.8m层">
-    <Device Name="集控楼三层" AnchorId="3333" XPos="0.432" YPos="0.907" ZPos="8.8" IP="" />
-    <Device Name="空调机房1" AnchorId="Code_1" XPos="0.256" YPos="0.858" ZPos="" IP="" />
-    <Device Name="空调机房2" AnchorId="Code_2" XPos="1.368" YPos="0.294" ZPos="" IP="" />
-    <Device Name="空调机房3" AnchorId="Code_3" XPos="6.016" YPos="0.781" ZPos="" IP="" />
-    <Device Name="空调机房4" AnchorId="Code_4" XPos="9.744" YPos="0.54" ZPos="" IP="" />
-    <Device Name="空调机房5" AnchorId="Code_5" XPos="9.744" YPos="10.069" ZPos="" IP="" />
-    <Device Name="空调机房6" AnchorId="Code_6" XPos="6.016" YPos="10.069" ZPos="" IP="" />
-    <Device Name="空调机房7" AnchorId="Code_7" XPos="1.368" YPos="10.069" ZPos="" IP="" />
-    <Device Name="空调机房8" AnchorId="Code_8" XPos="0.256" YPos="10.009" ZPos="" IP="" />
-    <Device Name="继电器室1" AnchorId="Code_9" XPos="10.75" YPos="0.281" ZPos="" IP="" />
-    <Device Name="继电器室2" AnchorId="Code_10" XPos="13.033" YPos="0.781" ZPos="" IP="" />
-    <Device Name="继电器室3" AnchorId="Code_11" XPos="15.398" YPos="0.281" ZPos="" IP="" />
-    <Device Name="继电器室4" AnchorId="Code_12" XPos="17.243" YPos="0.431" ZPos="" IP="" />
-    <Device Name="继电器室5" AnchorId="Code_13" XPos="19.47" YPos="0.781" ZPos="" IP="" />
-    <Device Name="继电器室6" AnchorId="Code_14" XPos="21.851" YPos="0.281" ZPos="" IP="" />
-    <Device Name="继电器室7" AnchorId="Code_15" XPos="24.098" YPos="0.281" ZPos="" IP="" />
-    <Device Name="继电器室8" AnchorId="Code_16" XPos="25.945" YPos="0.281" ZPos="" IP="" />
-    <Device Name="继电器室9" AnchorId="Code_17" XPos="25.904" YPos="10.569" ZPos="" IP="" />
-    <Device Name="继电器室10" AnchorId="Code_18" XPos="24.027" YPos="10.569" ZPos="" IP="" />
-    <Device Name="继电器室11" AnchorId="Code_19" XPos="21.851" YPos="10.547" ZPos="" IP="" />
-    <Device Name="继电器室12" AnchorId="Code_20" XPos="19.606" YPos="10.069" ZPos="" IP="" />
-    <Device Name="继电器室13" AnchorId="Code_21" XPos="17.375" YPos="10.569" ZPos="" IP="" />
-    <Device Name="继电器室14" AnchorId="Code_22" XPos="15.198" YPos="10.569" ZPos="" IP="" />
-    <Device Name="继电器室15" AnchorId="Code_23" XPos="13.017" YPos="10.069" ZPos="" IP="" />
-    <Device Name="继电器室16" AnchorId="Code_24" XPos="10.773" YPos="10.079" ZPos="" IP="" />
-    <Device Name="蓄电池室1" AnchorId="Code_25" XPos="26.806" YPos="0.9" ZPos="" IP="" />
-    <Device Name="蓄电池室2" AnchorId="Code_26" XPos="36.244" YPos="0.492" ZPos="" IP="" />
-    <Device Name="蓄电池室3" AnchorId="Code_27" XPos="36.244" YPos="10.069" ZPos="" IP="" />
-    <Device Name="蓄电池室4" AnchorId="Code_28" XPos="26.806" YPos="10.009" ZPos="" IP="" />
-    <Device Name="备品间1" AnchorId="Code_29" XPos="36.862" YPos="0.281" ZPos="" IP="" />
-    <Device Name="备品间2" AnchorId="Code_30" XPos="40.043" YPos="0.281" ZPos="" IP="" />
-    <Device Name="备品间3" AnchorId="Code_31" XPos="40.06" YPos="10.419" ZPos="" IP="" />
-    <Device Name="备品间4" AnchorId="Code_32" XPos="36.846" YPos="10.369" ZPos="" IP="" />
-    <Device Name="走廊1" AnchorId="Code_25" XPos="40.308" YPos="11.252" ZPos="" IP="" />
-    <Device Name="走廊2" AnchorId="Code_26" XPos="33.825" YPos="11.131" ZPos="" IP="" />
-    <Device Name="走廊3" AnchorId="Code_27" XPos="33.051" YPos="11.37" ZPos="" IP="" />
-    <Device Name="走廊4" AnchorId="Code_28" XPos="16.986" YPos="11.131" ZPos="" IP="" />
-    <Device Name="走廊5" AnchorId="Code_29" XPos="0.51" YPos="11.148" ZPos="" IP="" />
-    <Device Name="走廊6" AnchorId="Code_30" XPos="4.364" YPos="13.151" ZPos="" IP="" />
-    <Device Name="走廊7" AnchorId="Code_31" XPos="5.563" YPos="19.719" ZPos="" IP="" />
-    <Device Name="走廊8" AnchorId="Code_32" XPos="4.354" YPos="20.725" ZPos="" IP="" />
-    <Device Name="走廊9" AnchorId="Code_33" XPos="0.256" YPos="19.805" ZPos="" IP="" />
-    <Device Name="走廊10" AnchorId="Code_34" XPos="1.291" YPos="23.269" ZPos="" IP="" />
-    <Device Name="饮水间" AnchorId="Code_36" XPos="40.315" YPos="15.764" ZPos="" IP="" />
-    <Device Name="卫生间1" AnchorId="Code_37" XPos="33.762" YPos="18.559" ZPos="" IP="" />
-    <Device Name="卫生间2" AnchorId="Code_38" XPos="37.431" YPos="18.562" ZPos="" IP="" />
-    <Device Name="卫生间3" AnchorId="Code_39" XPos="39.1" YPos="16.574" ZPos="" IP="" />
-    <Device Name="卫生间4" AnchorId="Code_40" XPos="39.287" YPos="23.236" ZPos="" IP="" />
+	<Device Name="集控楼三层" AnchorId="Test04" XPos="0.432" YPos="0.907" ZPos="8.8" IP="" AbsolutePosX="0.432" AbsolutePosY="8.8" AbsolutePosZ="0.907" />
+    <Device Name="继电器室1" AnchorId="89F6" XPos="10.75" YPos="0.281" ZPos="" IP="192.168.4.46" AbsolutePosX="2260.25" AbsolutePosY="10.80" AbsolutePosZ="1769.68" />
+    <Device Name="继电器室2" AnchorId="89EA" XPos="13.033" YPos="0.781" ZPos="" IP="192.168.4.40" AbsolutePosX="2262.54" AbsolutePosY="10.80" AbsolutePosZ="1770.18" />
+    <Device Name="继电器室3" AnchorId="89F2" XPos="15.398" YPos="0.281" ZPos="" IP="192.168.4.44" AbsolutePosX="2264.90" AbsolutePosY="10.80" AbsolutePosZ="1769.68" />
+    <Device Name="继电器室4" AnchorId="89F4" XPos="17.243" YPos="0.431" ZPos="" IP="192.168.4.45" AbsolutePosX="2266.76" AbsolutePosY="10.80" AbsolutePosZ="1769.83" />
+    <Device Name="继电器室5" AnchorId="89FA" XPos="19.47" YPos="0.781" ZPos="" IP="192.168.4.48" AbsolutePosX="2268.97" AbsolutePosY="10.80" AbsolutePosZ="1770.18" />
+    <Device Name="继电器室6" AnchorId="89FC" XPos="21.851" YPos="0.281" ZPos="" IP="192.168.4.49" AbsolutePosX="2271.36" AbsolutePosY="10.80" AbsolutePosZ="1769.68" />
+    <Device Name="继电器室7" AnchorId="89F0" XPos="24.098" YPos="0.281" ZPos="" IP="192.168.4.43" AbsolutePosX="2273.60" AbsolutePosY="10.80" AbsolutePosZ="1769.68" />
+    <Device Name="继电器室8" AnchorId="89EE" XPos="25.945" YPos="0.281" ZPos="" IP="192.168.4.42" AbsolutePosX="2275.45" AbsolutePosY="10.80" AbsolutePosZ="1769.68" />
+    <Device Name="继电器室9" AnchorId="89E8" XPos="25.904" YPos="10.569" ZPos="" IP="192.168.4.39" AbsolutePosX="2275.41" AbsolutePosY="10.80" AbsolutePosZ="1779.97" />
+    <Device Name="继电器室10" AnchorId="89E6" XPos="24.027" YPos="10.569" ZPos="" IP="192.168.4.38" AbsolutePosX="2273.53" AbsolutePosY="10.80" AbsolutePosZ="1779.97" />
+    <Device Name="继电器室11" AnchorId="8A02" XPos="21.851" YPos="10.547" ZPos="" IP="192.168.4.52" AbsolutePosX="2271.35" AbsolutePosY="10.80" AbsolutePosZ="1779.95" />
+    <Device Name="继电器室12" AnchorId="89F4" XPos="19.606" YPos="10.069" ZPos="" IP="192.168.4.45" AbsolutePosX="2269.11" AbsolutePosY="10.80" AbsolutePosZ="1779.47" />
+    <Device Name="继电器室13" AnchorId="89EC" XPos="17.375" YPos="10.569" ZPos="" IP="192.168.4.41" AbsolutePosX="2266.87" AbsolutePosY="10.80" AbsolutePosZ="1779.97" />
+    <Device Name="继电器室14" AnchorId="89F4" XPos="15.198" YPos="10.569" ZPos="" IP="192.168.4.45" AbsolutePosX="2264.70" AbsolutePosY="10.80" AbsolutePosZ="1779.97" />
+    <Device Name="继电器室15" AnchorId="8A00" XPos="13.017" YPos="10.069" ZPos="" IP="192.168.4.51" AbsolutePosX="2262.52" AbsolutePosY="10.80" AbsolutePosZ="1779.47" />
+    <Device Name="继电器室16" AnchorId="89E4" XPos="10.773" YPos="10.079" ZPos="" IP="192.168.4.37" AbsolutePosX="2260.27" AbsolutePosY="10.80" AbsolutePosZ="1779.48" />
   </DeviceList>
   <DeviceList Name="集控楼13.1m层">
-    <Device Name="集控楼四层" AnchorId="4444" XPos="0.432" YPos="0.907" ZPos="13.1" IP="" />
-    <Device Name="走廊1" AnchorId="Code_25" XPos="40.433" YPos="11.252" ZPos="" IP="" />
-    <Device Name="走廊2" AnchorId="Code_26" XPos="33.95" YPos="11.081" ZPos="" IP="" />
-    <Device Name="走廊3" AnchorId="Code_27" XPos="33.176" YPos="11.37" ZPos="" IP="" />
-    <Device Name="走廊4" AnchorId="Code_28" XPos="17.111" YPos="11.081" ZPos="" IP="" />
-    <Device Name="走廊5" AnchorId="Code_29" XPos="0.635" YPos="11.148" ZPos="" IP="" />
-    <Device Name="走廊6" AnchorId="Code_30" XPos="4.489" YPos="13.151" ZPos="" IP="" />
-    <Device Name="走廊7" AnchorId="Code_31" XPos="5.688" YPos="19.719" ZPos="" IP="" />
-    <Device Name="走廊8" AnchorId="Code_32" XPos="4.479" YPos="20.725" ZPos="" IP="" />
-    <Device Name="走廊9" AnchorId="Code_33" XPos="0.582" YPos="19.805" ZPos="" IP="" />
-    <Device Name="走廊10" AnchorId="Code_34" XPos="1.416" YPos="23.159" ZPos="" IP="" />
-    <Device Name="饮水间" AnchorId="Code_36" XPos="40.44" YPos="15.764" ZPos="" IP="" />
-    <Device Name="卫生间1" AnchorId="Code_37" XPos="33.887" YPos="18.559" ZPos="" IP="" />
-    <Device Name="卫生间2" AnchorId="Code_38" XPos="37.556" YPos="18.562" ZPos="" IP="" />
-    <Device Name="卫生间3" AnchorId="Code_39" XPos="39.225" YPos="16.574" ZPos="" IP="" />
-    <Device Name="卫生间4" AnchorId="Code_40" XPos="39.412" YPos="23.236" ZPos="" IP="" />
+	<Device Name="集控楼四层" AnchorId="Test05" XPos="0.432" YPos="0.907" ZPos="13.1" IP="" AbsolutePosX="0.432" AbsolutePosY="13.1" AbsolutePosZ="0.907" />
   </DeviceList>
   <DeviceList Name="联合车间0m层">
-    <Device Name="联合车间一层" AnchorId="1001" XPos="0.432" YPos="0.907" ZPos="0.5" IP="" />
-    <Device Name="工作段配电室1" AnchorId="Code_5" XPos="0.33" YPos="0.807" ZPos="" IP="" />
-    <Device Name="工作段配电室2" AnchorId="Code_6" XPos="0.28" YPos="4.167" ZPos="" IP="" />
-    <Device Name="工作段配电室3" AnchorId="Code_7" XPos="0.28" YPos="7.415" ZPos="" IP="" />
-    <Device Name="工作段配电室4" AnchorId="Code_8" XPos="0.28" YPos="10.015" ZPos="" IP="" />
-    <Device Name="工作段配电室5" AnchorId="Code_9" XPos="14.67" YPos="0.68" ZPos="" IP="" />
-    <Device Name="工作段配电室6" AnchorId="Code_10" XPos="15.139" YPos="10.469" ZPos="" IP="" />
-    <Device Name="工作段配电室7" AnchorId="Code_11" XPos="21.019" YPos="0.784" ZPos="" IP="" />
-    <Device Name="工作段配电室8" AnchorId="Code_12" XPos="21.017" YPos="4.253" ZPos="" IP="" />
-    <Device Name="工作段配电室9" AnchorId="Code_13" XPos="21.017" YPos="7.378" ZPos="" IP="" />
-    <Device Name="工作段配电室10" AnchorId="Code_14" XPos="21.017" YPos="10.01" ZPos="" IP="" />
-    <Device Name="电子设备间1" AnchorId="Code_17" XPos="0.336" YPos="11.854" ZPos="" IP="" />
-    <Device Name="电子设备间2" AnchorId="Code_18" XPos="0.336" YPos="13.915" ZPos="" IP="" />
-    <Device Name="电子设备间3" AnchorId="Code_19" XPos="15.874" YPos="11.688" ZPos="" IP="" />
-    <Device Name="电子设备间4" AnchorId="Code_20" XPos="15.917" YPos="13.851" ZPos="" IP="" />
-    <Device Name="电子设备间5" AnchorId="Code_21" XPos="15.917" YPos="15.803" ZPos="" IP="" />
-    <Device Name="电子设备间6" AnchorId="Code_22" XPos="15.831" YPos="18.03" ZPos="" IP="" />
-    <Device Name="电子设备间7" AnchorId="Code_23" XPos="15.874" YPos="20.321" ZPos="" IP="" />
-    <Device Name="电子设备间8" AnchorId="Code_24" XPos="15.917" YPos="22.569" ZPos="" IP="" />
-    <Device Name="电子设备间9" AnchorId="Code_19" XPos="3.236" YPos="22.858" ZPos="" IP="" />
-    <Device Name="电子设备间10" AnchorId="Code_20" XPos="3.236" YPos="20.135" ZPos="" IP="" />
-    <Device Name="电子设备间11" AnchorId="Code_21" XPos="3.236" YPos="18.072" ZPos="" IP="" />
-    <Device Name="电子设备间12" AnchorId="Code_22" XPos="3.236" YPos="15.919" ZPos="" IP="" />
-    <Device Name="设备间左1" AnchorId="Code_23" XPos="0.942" YPos="16.28" ZPos="" IP="" />
-    <Device Name="设备间左2" AnchorId="Code_24" XPos="2.244" YPos="16.28" ZPos="" IP="" />
-    <Device Name="设备间左3" AnchorId="Code_25" XPos="1.332" YPos="23.209" ZPos="" IP="" />
-    <Device Name="走道1" AnchorId="Code_26" XPos="16.509" YPos="11.036" ZPos="" IP="" />
-    <Device Name="走道2" AnchorId="Code_27" XPos="20.943" YPos="11.031" ZPos="" IP="" />
-    <Device Name="走道3" AnchorId="Code_28" XPos="20.617" YPos="16.153" ZPos="" IP="" />
-    <Device Name="走道4" AnchorId="Code_29" XPos="18.816" YPos="16.38" ZPos="" IP="" />
-    <Device Name="走道5" AnchorId="Code_30" XPos="20.717" YPos="23.053" ZPos="" IP="" />
-    <Device Name="走道6" AnchorId="Code_31" XPos="16.536" YPos="23.244" ZPos="" IP="" />
-    <Device Name="走道7" AnchorId="Code_32" XPos="16.43" YPos="16.129" ZPos="" IP="" />
-    <Device Name="空调机房1" AnchorId="Code_1" XPos="21.58" YPos="0.541" ZPos="" IP="" />
-    <Device Name="空调机房2" AnchorId="Code_2" XPos="26.819" YPos="0.29" ZPos="" IP="" />
-    <Device Name="空调机房3" AnchorId="Code_3" XPos="30.322" YPos="0.29" ZPos="" IP="" />
-    <Device Name="空调机房4" AnchorId="Code_4" XPos="34.709" YPos="0.497" ZPos="" IP="" />
-    <Device Name="空调机房5" AnchorId="Code_5" XPos="34.809" YPos="8.646" ZPos="" IP="" />
-    <Device Name="空调机房6" AnchorId="Code_6" XPos="34.809" YPos="14.836" ZPos="" IP="" />
-    <Device Name="空调机房7" AnchorId="Code_7" XPos="34.709" YPos="22.975" ZPos="" IP="" />
-    <Device Name="空调机房8" AnchorId="Code_8" XPos="30.322" YPos="23.119" ZPos="" IP="" />
-    <Device Name="空调机房9" AnchorId="Code_41" XPos="26.469" YPos="23.219" ZPos="" IP="" />
-    <Device Name="空调机房10" AnchorId="Code_42" XPos="21.58" YPos="22.819" ZPos="" IP="" />
-    <Device Name="空调机房11" AnchorId="Code_43" XPos="21.58" YPos="15.013" ZPos="" IP="" />
-    <Device Name="空调机房12" AnchorId="Code_44" XPos="21.58" YPos="8.624" ZPos="" IP="" />
-    <Device Name="空压机房1" AnchorId="Code_45" XPos="35.58" YPos="0.28" ZPos="" IP="" />
-    <Device Name="空压机房2" AnchorId="Code_46" XPos="39.923" YPos="0.28" ZPos="" IP="" />
-    <Device Name="空压机房3" AnchorId="Code_47" XPos="43.153" YPos="0.28" ZPos="" IP="" />
-    <Device Name="空压机房4" AnchorId="Code_48" XPos="43.219" YPos="16.206" ZPos="" IP="" />
-    <Device Name="空压机房5" AnchorId="Code_49" XPos="43.219" YPos="23.073" ZPos="" IP="" />
-    <Device Name="空压机房6" AnchorId="Code_50" XPos="39.707" YPos="23.238" ZPos="" IP="" />
-    <Device Name="空压机房7" AnchorId="Code_51" XPos="35.58" YPos="22.995" ZPos="" IP="" />
-    <Device Name="空压机房8" AnchorId="Code_52" XPos="35.58" YPos="16.197" ZPos="" IP="" />
+    <Device Name="联合车间一层" AnchorId="Test06" XPos="0.432" YPos="0.907" ZPos="0.5" IP="" AbsolutePosX="0.432" AbsolutePosY="0.5" AbsolutePosZ="0.907" />
+    <Device Name="工作段配电室1" AnchorId="8A26" XPos="0.33" YPos="0.807" ZPos="" IP="192.168.4.69" AbsolutePosX="2249.83" AbsolutePosY="2.00" AbsolutePosZ="1693.61" />
+    <Device Name="工作段配电室2" AnchorId="8A2E" XPos="0.28" YPos="4.167" ZPos="" IP="192.168.4.73" AbsolutePosX="2249.78" AbsolutePosY="2.00" AbsolutePosZ="1696.97" />
+    <Device Name="工作段配电室3" AnchorId="8A50" XPos="0.28" YPos="7.415" ZPos="" IP="192.168.4.89" AbsolutePosX="2249.78" AbsolutePosY="2.00" AbsolutePosZ="1700.22" />
+    <Device Name="工作段配电室4" AnchorId="8A48" XPos="0.28" YPos="10.015" ZPos="" IP="192.168.4.86" AbsolutePosX="2249.78" AbsolutePosY="2.00" AbsolutePosZ="1702.82" />
+    <Device Name="工作段配电室5" AnchorId="8A0E" XPos="14.67" YPos="0.68" ZPos="" IP="192.168.4.58" AbsolutePosX="2264.17" AbsolutePosY="2.00" AbsolutePosZ="1693.48" />
+    <Device Name="工作段配电室6" AnchorId="8A4C" XPos="15.139" YPos="10.469" ZPos="" IP="192.168.4.87" AbsolutePosX="2264.64" AbsolutePosY="2.00" AbsolutePosZ="1703.27" />
+    <Device Name="工作段配电室7" AnchorId="8A52" XPos="21.019" YPos="0.784" ZPos="" IP="192.168.4.90" AbsolutePosX="2270.52" AbsolutePosY="2.00" AbsolutePosZ="1693.58" />
+    <Device Name="工作段配电室8" AnchorId="8A4E" XPos="21.017" YPos="4.253" ZPos="" IP="192.168.4.88" AbsolutePosX="2270.52" AbsolutePosY="2.00" AbsolutePosZ="1697.05" />
+    <Device Name="工作段配电室9" AnchorId="8A46" XPos="21.017" YPos="7.378" ZPos="" IP="192.168.4.85" AbsolutePosX="2270.52" AbsolutePosY="2.00" AbsolutePosZ="1700.18" />
+    <Device Name="工作段配电室10" AnchorId="8A54" XPos="21.017" YPos="10.01" ZPos="" IP="192.168.4.91" AbsolutePosX="2270.52" AbsolutePosY="2.00" AbsolutePosZ="1702.81" />
+    <Device Name="电子设备间1" AnchorId="8A22" XPos="0.336" YPos="11.854" ZPos="" IP="192.168.4.67" AbsolutePosX="2249.84" AbsolutePosY="2.00" AbsolutePosZ="1704.65" />
+    <Device Name="电子设备间2" AnchorId="8A12" XPos="0.336" YPos="13.915" ZPos="" IP="192.168.4.60" AbsolutePosX="2249.84" AbsolutePosY="2.00" AbsolutePosZ="1706.72" />
+    <Device Name="电子设备间3" AnchorId="8898" XPos="15.874" YPos="11.688" ZPos="" IP="192.168.4.3" AbsolutePosX="2265.37" AbsolutePosY="2.00" AbsolutePosZ="1704.49" />
+    <Device Name="电子设备间4" AnchorId="8A1C" XPos="15.917" YPos="13.851" ZPos="" IP="192.168.4.65" AbsolutePosX="2265.42" AbsolutePosY="2.00" AbsolutePosZ="1706.65" />
+    <Device Name="电子设备间5" AnchorId="8A20" XPos="15.917" YPos="15.803" ZPos="" IP="192.168.4.66" AbsolutePosX="2265.42" AbsolutePosY="2.00" AbsolutePosZ="1708.60" />
+    <Device Name="电子设备间6" AnchorId="8A10" XPos="15.831" YPos="18.03" ZPos="" IP="192.168.4.59" AbsolutePosX="2265.33" AbsolutePosY="2.00" AbsolutePosZ="1710.83" />
+    <Device Name="电子设备间7" AnchorId="8A14" XPos="15.874" YPos="20.321" ZPos="" IP="192.168.4.61" AbsolutePosX="2265.37" AbsolutePosY="2.00" AbsolutePosZ="1713.12" />
+    <Device Name="电子设备间8" AnchorId="8A2A" XPos="15.917" YPos="22.569" ZPos="" IP="192.168.4.71" AbsolutePosX="2265.42" AbsolutePosY="2.00" AbsolutePosZ="1715.37" />
+    <Device Name="电子设备间9" AnchorId="8A1A" XPos="3.236" YPos="22.858" ZPos="" IP="192.168.4.64" AbsolutePosX="2252.74" AbsolutePosY="2.00" AbsolutePosZ="1715.66" />
+    <Device Name="电子设备间10" AnchorId="8A0C" XPos="3.236" YPos="20.135" ZPos="" IP="192.168.4.57" AbsolutePosX="2252.74" AbsolutePosY="2.00" AbsolutePosZ="1712.94" />
+    <Device Name="电子设备间11" AnchorId="8A18" XPos="3.236" YPos="18.072" ZPos="" IP="192.168.4.63" AbsolutePosX="2252.74" AbsolutePosY="2.00" AbsolutePosZ="1710.87" />
+    <Device Name="电子设备间12" AnchorId="8A16" XPos="3.236" YPos="15.919" ZPos="" IP="192.168.4.62" AbsolutePosX="2252.74" AbsolutePosY="2.00" AbsolutePosZ="1708.72" />
   </DeviceList>
   <DeviceList Name="联合车间4.5m层">
-    <Device Name="联合车间二层" AnchorId="1002" XPos="0.432" YPos="0.907" ZPos="4.5" IP="" />
-    <Device Name="空调机房1" AnchorId="Code_1" XPos="0.28" YPos="0.28" ZPos="" IP="" />
-    <Device Name="空调机房2" AnchorId="Code_2" XPos="3.82" YPos="0.38" ZPos="" IP="" />
-    <Device Name="空调机房3" AnchorId="Code_3" XPos="3.726" YPos="12.469" ZPos="" IP="" />
-    <Device Name="空调机房4" AnchorId="Code_4" XPos="0.18" YPos="12.469" ZPos="" IP="" />
-    <Device Name="消防气瓶间1" AnchorId="Code_5" XPos="0.28" YPos="13.03" ZPos="" IP="" />
-    <Device Name="消防气瓶间2" AnchorId="Code_6" XPos="3.97" YPos="23.219" ZPos="" IP="" />
-    <Device Name="消防气瓶间3" AnchorId="Code_7" XPos="3.981" YPos="13.03" ZPos="" IP="" />
-    <Device Name="消防气瓶间4" AnchorId="Code_8" XPos="0.13" YPos="23.119" ZPos="" IP="" />
-    <Device Name="电缆夹层1" AnchorId="Code_13" XPos="4.63" YPos="0.804" ZPos="" IP="" />
-    <Device Name="电缆夹层2" AnchorId="Code_14" XPos="4.63" YPos="9.946" ZPos="" IP="" />
-    <Device Name="电缆夹层3" AnchorId="Code_15" XPos="23.367" YPos="0.327" ZPos="" IP="" />
-    <Device Name="电缆夹层4" AnchorId="Code_16" XPos="23.287" YPos="10.469" ZPos="" IP="" />
-    <Device Name="配电室1" AnchorId="Code_13" XPos="25.933" YPos="0.686" ZPos="" IP="" />
-    <Device Name="配电室2" AnchorId="Code_14" XPos="30.058" YPos="0.346" ZPos="" IP="" />
-    <Device Name="配电室3" AnchorId="Code_15" XPos="30.024" YPos="15.969" ZPos="" IP="" />
-    <Device Name="配电室4" AnchorId="Code_16" XPos="26.005" YPos="16.019" ZPos="" IP="" />
-    <Device Name="走道1" AnchorId="Code_26" XPos="24.918" YPos="0.976" ZPos="" IP="" />
-    <Device Name="走道2" AnchorId="Code_27" XPos="22.613" YPos="10.846" ZPos="" IP="" />
-    <Device Name="走道3" AnchorId="Code_28" XPos="24.919" YPos="16.08" ZPos="" IP="" />
-    <Device Name="走道4" AnchorId="Code_29" XPos="22.53" YPos="16.062" ZPos="" IP="" />
-    <Device Name="走道5" AnchorId="Code_30" XPos="23.828" YPos="23.219" ZPos="" IP="" />
-    <Device Name="电缆夹层5" AnchorId="Code_22" XPos="7.53" YPos="11.141" ZPos="" IP="" />
-    <Device Name="电缆夹层6" AnchorId="Code_23" XPos="21.956" YPos="11.05" ZPos="" IP="" />
-    <Device Name="电缆夹层7" AnchorId="Code_24" XPos="21.942" YPos="23.219" ZPos="" IP="" />
-    <Device Name="电缆夹层8" AnchorId="Code_25" XPos="7.53" YPos="22.864" ZPos="" IP="" />
-    <Device Name="走道6" AnchorId="Code_31" XPos="4.662" YPos="11.046" ZPos="" IP="" />
-    <Device Name="走道7" AnchorId="Code_32" XPos="6.968" YPos="11.046" ZPos="" IP="" />
-    <Device Name="走道8" AnchorId="Code_28" XPos="6.968" YPos="16.28" ZPos="" IP="" />
-    <Device Name="走道9" AnchorId="Code_29" XPos="4.879" YPos="16.2" ZPos="" IP="" />
-    <Device Name="走道10" AnchorId="Code_30" XPos="5.804" YPos="23.119" ZPos="" IP="" />
+	<Device Name="联合车间二层" AnchorId="Test07" XPos="0.432" YPos="0.907" ZPos="4.5" IP="" AbsolutePosX="0.432" AbsolutePosY="4.5" AbsolutePosZ="0.907"/>
+    <Device Name="配电室1" AnchorId="8A44" XPos="25.933" YPos="0.686" ZPos="" IP="192.168.4.84" AbsolutePosX="2275.43" AbsolutePosY="6.50" AbsolutePosZ="1693.49" />
+    <Device Name="配电室2" AnchorId="8A28" XPos="30.058" YPos="0.346" ZPos="" IP="192.168.4.70" AbsolutePosX="2279.56" AbsolutePosY="6.50" AbsolutePosZ="1693.15" />
+    <Device Name="配电室3" AnchorId="8A2A" XPos="30.024" YPos="15.969" ZPos="" IP="192.168.4.71" AbsolutePosX="2279.52" AbsolutePosY="6.50" AbsolutePosZ="1708.77" />
+    <Device Name="配电室4" AnchorId="8A30" XPos="26.005" YPos="16.019" ZPos="" IP="192.168.4.74" AbsolutePosX="2275.50" AbsolutePosY="6.50" AbsolutePosZ="1708.82" />
   </DeviceList>
   <DeviceList Name="联合车间7.8m层">
-    <Device Name="公用段配电间1" AnchorId="Code_0" XPos="4.53" YPos="1.966" ZPos="" IP="" />
-    <Device Name="公用段配电间2" AnchorId="Code_1" XPos="4.53" YPos="5.488" ZPos="" IP="" />
-    <Device Name="公用段配电间3" AnchorId="Code_2" XPos="4.58" YPos="9.765" ZPos="" IP="" />
-    <Device Name="公用段配电间4" AnchorId="Code_3" XPos="25.219" YPos="1.285" ZPos="" IP="" />
-    <Device Name="公用段配电间5" AnchorId="Code_4" XPos="25.219" YPos="5.471" ZPos="" IP="" />
-    <Device Name="公用段配电间6" AnchorId="Code_5" XPos="25.219" YPos="9.39" ZPos="" IP="" />
-    <Device Name="走道1" AnchorId="Code_26" XPos="5.755" YPos="23.119" ZPos="" IP="" />
-    <Device Name="走道2" AnchorId="Code_27" XPos="4.83" YPos="16.2" ZPos="" IP="" />
-    <Device Name="走道3" AnchorId="Code_28" XPos="6.919" YPos="16.28" ZPos="" IP="" />
-    <Device Name="走道4" AnchorId="Code_29" XPos="4.53" YPos="11.764" ZPos="" IP="" />
-    <Device Name="走道5" AnchorId="Code_30" XPos="6.919" YPos="11.046" ZPos="" IP="" />
-    <Device Name="走道6" AnchorId="Code_31" XPos="22.566" YPos="10.846" ZPos="" IP="" />
-    <Device Name="走道7" AnchorId="Code_32" XPos="25.219" YPos="11.325" ZPos="" IP="" />
-    <Device Name="走道8" AnchorId="Code_28" XPos="24.869" YPos="16.08" ZPos="" IP="" />
-    <Device Name="走道9" AnchorId="Code_29" XPos="22.48" YPos="16.062" ZPos="" IP="" />
-    <Device Name="走道10" AnchorId="Code_30" XPos="23.778" YPos="23.219" ZPos="" IP="" />
-    <Device Name="继电器室1" AnchorId="Code_9" XPos="7.486" YPos="13.599" ZPos="" IP="" />
-    <Device Name="继电器室2" AnchorId="Code_10" XPos="7.486" YPos="16.979" ZPos="" IP="" />
-    <Device Name="继电器室3" AnchorId="Code_11" XPos="7.486" YPos="18.85" ZPos="" IP="" />
-    <Device Name="继电器室4" AnchorId="Code_12" XPos="7.486" YPos="20.942" ZPos="" IP="" />
-    <Device Name="继电器室5" AnchorId="Code_13" XPos="7.486" YPos="22.772" ZPos="" IP="" />
-    <Device Name="继电器室6" AnchorId="Code_14" XPos="21.896" YPos="22.772" ZPos="" IP="" />
-    <Device Name="继电器室7" AnchorId="Code_15" XPos="21.896" YPos="20.942" ZPos="" IP="" />
-    <Device Name="继电器室8" AnchorId="Code_16" XPos="21.896" YPos="18.85" ZPos="" IP="" />
-    <Device Name="继电器室9" AnchorId="Code_17" XPos="21.896" YPos="16.979" ZPos="" IP="" />
-    <Device Name="继电器室10" AnchorId="Code_18" XPos="21.896" YPos="13.599" ZPos="" IP="" />
+    <Device Name="公用段配电间1" AnchorId="86F8" XPos="4.53" YPos="1.966" ZPos="" IP="192.168.4.29" AbsolutePosX="2254.03" AbsolutePosY="9.80" AbsolutePosZ="1694.77" />
+    <Device Name="公用段配电间2" AnchorId="86EA" XPos="4.53" YPos="5.488" ZPos="" IP="192.168.4.25" AbsolutePosX="2254.03" AbsolutePosY="9.80" AbsolutePosZ="1698.29" />
+    <Device Name="公用段配电间3" AnchorId="86FC" XPos="4.58" YPos="9.765" ZPos="" IP="192.168.4.31" AbsolutePosX="2254.08" AbsolutePosY="9.80" AbsolutePosZ="1702.57" />
+    <Device Name="公用段配电间4" AnchorId="86FA" XPos="25.219" YPos="1.285" ZPos="" IP="192.168.4.30" AbsolutePosX="2274.72" AbsolutePosY="9.80" AbsolutePosZ="1694.09" />
+    <Device Name="公用段配电间5" AnchorId="86F0" XPos="25.219" YPos="5.471" ZPos="" IP="192.168.4.26" AbsolutePosX="2274.72" AbsolutePosY="9.80" AbsolutePosZ="1698.27" />
+    <Device Name="公用段配电间6" AnchorId="86E4" XPos="25.219" YPos="9.39" ZPos="" IP="192.168.4.24" AbsolutePosX="2274.72" AbsolutePosY="9.80" AbsolutePosZ="1702.19" />
+    <Device Name="继电器室1" AnchorId="8A40" XPos="7.486" YPos="13.599" ZPos="" IP="192.168.4.82" AbsolutePosX="2256.99" AbsolutePosY="9.80" AbsolutePosZ="1706.40" />
+    <Device Name="继电器室2" AnchorId="8A3A" XPos="7.486" YPos="16.979" ZPos="" IP="192.168.4.79" AbsolutePosX="2256.99" AbsolutePosY="9.80" AbsolutePosZ="1709.78" />
+    <Device Name="继电器室3" AnchorId="8A32" XPos="7.486" YPos="18.85" ZPos="" IP="192.168.4.75" AbsolutePosX="2256.99" AbsolutePosY="9.80" AbsolutePosZ="1711.65" />
+    <Device Name="继电器室4" AnchorId="8A34" XPos="7.486" YPos="20.942" ZPos="" IP="192.168.4.76" AbsolutePosX="2256.99" AbsolutePosY="9.80" AbsolutePosZ="1713.74" />
+    <Device Name="继电器室5" AnchorId="8A2C" XPos="7.486" YPos="22.772" ZPos="" IP="192.168.4.72" AbsolutePosX="2256.99" AbsolutePosY="9.80" AbsolutePosZ="1715.57" />
+    <Device Name="继电器室6" AnchorId="8A3C" XPos="21.896" YPos="22.772" ZPos="" IP="192.168.4.80" AbsolutePosX="2271.40" AbsolutePosY="9.80" AbsolutePosZ="1715.57" />
+    <Device Name="继电器室7" AnchorId="8A3E" XPos="21.896" YPos="20.942" ZPos="" IP="192.168.4.81" AbsolutePosX="2271.40" AbsolutePosY="9.80" AbsolutePosZ="1713.74" />
+    <Device Name="继电器室8" AnchorId="8A38" XPos="21.896" YPos="18.85" ZPos="" IP="192.168.4.78" AbsolutePosX="2271.40" AbsolutePosY="9.80" AbsolutePosZ="1711.65" />
+    <Device Name="继电器室9" AnchorId="8A42" XPos="21.896" YPos="16.979" ZPos="" IP="192.168.4.83" AbsolutePosX="2271.40" AbsolutePosY="9.80" AbsolutePosZ="1709.78" />
+    <Device Name="继电器室10" AnchorId="8A36" XPos="21.896" YPos="13.599" ZPos="" IP="192.168.4.77" AbsolutePosX="2271.40" AbsolutePosY="9.80" AbsolutePosZ="1706.40" />
   </DeviceList>
-  <DeviceList Name="J6天然气调压站">
-    <Device Name="扩建预留场地1" AnchorId="Code_0" XPos="4.384" YPos="4.382" ZPos="" IP="" />
-    <Device Name="扩建预留场地2" AnchorId="Code_1" XPos="35.574" YPos="4.382" ZPos="" IP="" />
-    <Device Name="扩建预留场地3" AnchorId="Code_2" XPos="35.664" YPos="20.672" ZPos="" IP="" />
-    <Device Name="扩建预留场地4" AnchorId="Code_3" XPos="4.294" YPos="20.672" ZPos="" IP="" />
-    <Device Name="调压站1" AnchorId="Code_4" XPos="4.384" YPos="25.354" ZPos="" IP="" />
-    <Device Name="调压站2" AnchorId="Code_5" XPos="35.574" YPos="25.354" ZPos="" IP="" />
-    <Device Name="调压站3" AnchorId="Code_6" XPos="35.664" YPos="41.644" ZPos="" IP="" />
-    <Device Name="调压站4" AnchorId="Code_7" XPos="4.294" YPos="41.644" ZPos="" IP="" />
-    <Device Name="基站1" AnchorId="Code_8" XPos="0.478" YPos="54.016" ZPos="" IP="" />
-    <Device Name="基站2" AnchorId="Code_9" XPos="14.979" YPos="54.045" ZPos="" IP="" />
-    <Device Name="基站3" AnchorId="Code_10" XPos="17.372" YPos="42.397" ZPos="" IP="" />
-    <Device Name="基站4" AnchorId="Code_11" XPos="42.175" YPos="42.397" ZPos="" IP="" />
-    <Device Name="基站5" AnchorId="Code_12" XPos="39.736" YPos="67.6" ZPos="" IP="" />
-    <Device Name="基站6" AnchorId="Code_13" XPos="17.372" YPos="67.6" ZPos="" IP="" />
-    <Device Name="调压站控制室1" AnchorId="Code_14" XPos="6.468" YPos="54.899" ZPos="" IP="" />
-    <Device Name="调压站控制室2" AnchorId="Code_15" XPos="14.645" YPos="54.899" ZPos="" IP="" />
-    <Device Name="调压站控制室3" AnchorId="Code_16" XPos="14.645" YPos="67.6" ZPos="" IP="" />
-    <Device Name="调压站控制室4" AnchorId="Code_17" XPos="6.468" YPos="67.6" ZPos="" IP="" />
+  <DeviceList Name="天然气调压站0m层">
+    <Device Name="调压站1" AnchorId="Code_4" XPos="4.384" YPos="25.354" ZPos="" IP="" AbsolutePosX="4.38" AbsolutePosY="2.00" AbsolutePosZ="25.35" />
+    <Device Name="调压站2" AnchorId="Code_5" XPos="35.574" YPos="25.354" ZPos="" IP="" AbsolutePosX="35.57" AbsolutePosY="2.00" AbsolutePosZ="25.35" />
+    <Device Name="调压站3" AnchorId="Code_6" XPos="35.664" YPos="41.644" ZPos="" IP="" AbsolutePosX="35.66" AbsolutePosY="2.00" AbsolutePosZ="41.64" />
+    <Device Name="调压站4" AnchorId="Code_7" XPos="4.294" YPos="41.644" ZPos="" IP="" AbsolutePosX="4.29" AbsolutePosY="2.00" AbsolutePosZ="41.64" />
+    <Device Name="基站1" AnchorId="Code_8" XPos="0.478" YPos="54.016" ZPos="" IP="" AbsolutePosX="0.48" AbsolutePosY="2.00" AbsolutePosZ="54.02" />
+    <Device Name="基站2" AnchorId="Code_9" XPos="14.979" YPos="54.045" ZPos="" IP="" AbsolutePosX="14.98" AbsolutePosY="2.00" AbsolutePosZ="54.04" />
+    <Device Name="基站3" AnchorId="Code_10" XPos="17.372" YPos="42.397" ZPos="" IP="" AbsolutePosX="17.37" AbsolutePosY="2.00" AbsolutePosZ="42.40" />
+    <Device Name="基站4" AnchorId="Code_11" XPos="42.175" YPos="42.397" ZPos="" IP="" AbsolutePosX="42.17" AbsolutePosY="2.00" AbsolutePosZ="42.40" />
+    <Device Name="基站5" AnchorId="Code_12" XPos="39.736" YPos="67.6" ZPos="" IP="" AbsolutePosX="39.74" AbsolutePosY="2.00" AbsolutePosZ="67.60" />
+    <Device Name="基站6" AnchorId="Code_13" XPos="17.372" YPos="67.6" ZPos="" IP="" AbsolutePosX="17.37" AbsolutePosY="2.00" AbsolutePosZ="67.60" />
+    <Device Name="调压站控制室1" AnchorId="Code_14" XPos="6.468" YPos="54.899" ZPos="" IP="" AbsolutePosX="6.47" AbsolutePosY="2.00" AbsolutePosZ="54.90" />
+    <Device Name="调压站控制室2" AnchorId="Code_15" XPos="14.645" YPos="54.899" ZPos="" IP="" AbsolutePosX="14.65" AbsolutePosY="2.00" AbsolutePosZ="54.90" />
+    <Device Name="调压站控制室3" AnchorId="Code_16" XPos="14.645" YPos="67.6" ZPos="" IP="" AbsolutePosX="14.65" AbsolutePosY="2.00" AbsolutePosZ="67.60" />
+    <Device Name="调压站控制室4" AnchorId="Code_17" XPos="6.468" YPos="67.6" ZPos="" IP="" AbsolutePosX="6.47" AbsolutePosY="2.00" AbsolutePosZ="67.60" />
   </DeviceList>
-  <DeviceList Name="J7启动锅炉房">
-    <Device Name="基站1" AnchorId="Code_8" XPos="0.497" YPos="0.304" ZPos="" IP="" />
-    <Device Name="基站2" AnchorId="Code_9" XPos="9.76" YPos="0.304" ZPos="" IP="" />
-    <Device Name="基站3" AnchorId="Code_10" XPos="0.497" YPos="6.616" ZPos="" IP="" />
-    <Device Name="基站4" AnchorId="Code_11" XPos="5.05" YPos="7.517" ZPos="" IP="" />
-    <Device Name="基站5" AnchorId="Code_12" XPos="9.715" YPos="7.055" ZPos="" IP="" />
-    <Device Name="基站6" AnchorId="Code_13" XPos="0.774" YPos="19.904" ZPos="" IP="" />
-    <Device Name="基站7" AnchorId="Code_6" XPos="4.973" YPos="19.704" ZPos="" IP="" />
-    <Device Name="基站8" AnchorId="Code_7" XPos="9.841" YPos="19.847" ZPos="" IP="" />
+  <DeviceList Name="启动锅炉房">
+    <Device Name="基站1" AnchorId="Code_0" XPos="0.497" YPos="0.304" ZPos="" IP="" AbsolutePosX="0.50" AbsolutePosY="2.00" AbsolutePosZ="0.30" />
+    <Device Name="基站2" AnchorId="Code_1" XPos="9.76" YPos="0.304" ZPos="" IP="" AbsolutePosX="9.76" AbsolutePosY="2.00" AbsolutePosZ="0.30" />
+    <Device Name="基站3" AnchorId="Code_2" XPos="0.497" YPos="6.616" ZPos="" IP="" AbsolutePosX="0.50" AbsolutePosY="2.00" AbsolutePosZ="6.62" />
+    <Device Name="基站4" AnchorId="Code_3" XPos="5.05" YPos="7.517" ZPos="" IP="" AbsolutePosX="5.05" AbsolutePosY="2.00" AbsolutePosZ="7.52" />
+    <Device Name="基站5" AnchorId="Code_4" XPos="9.715" YPos="7.055" ZPos="" IP="" AbsolutePosX="9.72" AbsolutePosY="2.00" AbsolutePosZ="7.05" />
+    <Device Name="基站6" AnchorId="Code_5" XPos="0.774" YPos="19.904" ZPos="" IP="" AbsolutePosX="0.77" AbsolutePosY="2.00" AbsolutePosZ="19.90" />
+    <Device Name="基站7" AnchorId="Code_6" XPos="4.973" YPos="19.704" ZPos="" IP="" AbsolutePosX="4.97" AbsolutePosY="2.00" AbsolutePosZ="19.70" />
+    <Device Name="基站8" AnchorId="Code_7" XPos="9.841" YPos="19.847" ZPos="" IP="" AbsolutePosX="9.84" AbsolutePosY="2.00" AbsolutePosZ="19.85" />
   </DeviceList>
-  <DeviceList Name="S3净水站">
-    <Device Name="消防水泵房1" AnchorId="Code_0" XPos="0.504" YPos="0.454" ZPos="" IP="" />
-    <Device Name="消防水泵房2" AnchorId="0.12" XPos="8.987" YPos="0.454" ZPos="" IP="" />
-    <Device Name="消防水泵房3" AnchorId="Code_2" XPos="8.987" YPos="12.672" ZPos="" IP="" />
-    <Device Name="消防水泵房4" AnchorId="Code_3" XPos="0.404" YPos="12.672" ZPos="" IP="" />
-    <Device Name="检修场地1" AnchorId="Code_4" XPos="0.504" YPos="14.62" ZPos="" IP="" />
-    <Device Name="检修场地2" AnchorId="Code_5" XPos="8.987" YPos="14.62" ZPos="" IP="" />
-    <Device Name="综合水泵房1" AnchorId="Code_6" XPos="0.504" YPos="16.44" ZPos="" IP="" />
-    <Device Name="综合水泵房2" AnchorId="Code_7" XPos="8.987" YPos="16.44" ZPos="" IP="" />
-    <Device Name="综合水泵房3" AnchorId="Code_8" XPos="8.987" YPos="26.707" ZPos="" IP="" />
-    <Device Name="综合水泵房4" AnchorId="Code_9" XPos="0.504" YPos="26.707" ZPos="" IP="" />
-    <Device Name="电子设备间1" AnchorId="Code_17" XPos="0.336" YPos="28.824" ZPos="" IP="" />
-    <Device Name="电子设备间2" AnchorId="Code_18" XPos="9.049" YPos="28.866" ZPos="" IP="" />
-    <Device Name="配电间1" AnchorId="Code_12" XPos="0.336" YPos="31.757" ZPos="" IP="" />
-    <Device Name="配电间2" AnchorId="Code_13" XPos="9.049" YPos="31.757" ZPos="" IP="" />
-    <Device Name="配电间3" AnchorId="Code_14" XPos="9.049" YPos="35.674" ZPos="" IP="" />
-    <Device Name="配电间4" AnchorId="Code_15" XPos="0.336" YPos="35.682" ZPos="" IP="" />
-    <Device Name="加药间1" AnchorId="Code_16" XPos="0.457" YPos="36.794" ZPos="" IP="" />
-    <Device Name="加药间2" AnchorId="Code_17" XPos="9.029" YPos="37.362" ZPos="" IP="" />
-    <Device Name="加药间3" AnchorId="Code_18" XPos="9.029" YPos="47.57" ZPos="" IP="" />
-    <Device Name="加药间4" AnchorId="Code_19" XPos="0.297" YPos="47.57" ZPos="" IP="" />
-    <Device Name="加氯间1" AnchorId="Code_20" XPos="0.297" YPos="50.447" ZPos="" IP="" />
-    <Device Name="加氯间2" AnchorId="Code_21" XPos="9.029" YPos="50.447" ZPos="" IP="" />
-    <Device Name="加氯间3" AnchorId="Code_22" XPos="9.029" YPos="54.093" ZPos="" IP="" />
-    <Device Name="加氯间4" AnchorId="Code_23" XPos="0.297" YPos="54.093" ZPos="" IP="" />
-    <Device Name="储药间1" AnchorId="Code_24" XPos="0.457" YPos="55.043" ZPos="" IP="" />
-    <Device Name="储药间2" AnchorId="Code_25" XPos="9.119" YPos="55.043" ZPos="" IP="" />
-    <Device Name="储药间3" AnchorId="Code_26" XPos="9.119" YPos="62.632" ZPos="" IP="" />
-    <Device Name="储药间4" AnchorId="Code_27" XPos="0.457" YPos="62.632" ZPos="" IP="" />
+  <DeviceList Name="净水站0m层">
+    <Device Name="电子设备间1" AnchorId="Code_10" XPos="0.336" YPos="28.824" ZPos="" IP="" AbsolutePosX="0.34" AbsolutePosY="2.00" AbsolutePosZ="28.82" />
+    <Device Name="电子设备间2" AnchorId="Code_11" XPos="9.049" YPos="28.866" ZPos="" IP="" AbsolutePosX="9.05" AbsolutePosY="2.00" AbsolutePosZ="28.87" />
+    <Device Name="配电间1" AnchorId="Code_12" XPos="0.336" YPos="31.757" ZPos="" IP="" AbsolutePosX="0.34" AbsolutePosY="2.00" AbsolutePosZ="31.76" />
+    <Device Name="配电间2" AnchorId="Code_13" XPos="9.049" YPos="31.757" ZPos="" IP="" AbsolutePosX="9.05" AbsolutePosY="2.00" AbsolutePosZ="31.76" />
+    <Device Name="配电间3" AnchorId="Code_14" XPos="9.049" YPos="35.674" ZPos="" IP="" AbsolutePosX="9.05" AbsolutePosY="2.00" AbsolutePosZ="35.67" />
+    <Device Name="配电间4" AnchorId="Code_15" XPos="0.336" YPos="35.682" ZPos="" IP="" AbsolutePosX="0.34" AbsolutePosY="2.00" AbsolutePosZ="35.68" />
   </DeviceList>
-  <DeviceList Name="S4生活污水处理站">
-    <Device Name="基站1" AnchorId="Code_8" XPos="0.319" YPos="0.443" ZPos="" IP="" />
-    <Device Name="基站2" AnchorId="Code_9" XPos="2.695" YPos="0.215" ZPos="" IP="" />
-    <Device Name="基站3" AnchorId="Code_10" XPos="5.389" YPos="0.391" ZPos="" IP="" />
-    <Device Name="基站4" AnchorId="Code_11" XPos="5.389" YPos="11.776" ZPos="" IP="" />
-    <Device Name="基站5" AnchorId="Code_12" XPos="2.695" YPos="11.952" ZPos="" IP="" />
-    <Device Name="基站6" AnchorId="Code_13" XPos="0.319" YPos="11.724" ZPos="" IP="" />
+  <DeviceList Name="生活污水处理站">
+    <Device Name="基站1" AnchorId="Code_0" XPos="0.319" YPos="0.443" ZPos="" IP="" AbsolutePosX="0.32" AbsolutePosY="2.00" AbsolutePosZ="0.44" />
+    <Device Name="基站2" AnchorId="Code_1" XPos="2.695" YPos="0.215" ZPos="" IP="" AbsolutePosX="2.69" AbsolutePosY="2.00" AbsolutePosZ="0.22" />
+    <Device Name="基站3" AnchorId="Code_2" XPos="5.389" YPos="0.391" ZPos="" IP="" AbsolutePosX="5.39" AbsolutePosY="2.00" AbsolutePosZ="0.39" />
+    <Device Name="基站4" AnchorId="Code_3" XPos="5.389" YPos="11.776" ZPos="" IP="" AbsolutePosX="5.39" AbsolutePosY="2.00" AbsolutePosZ="11.78" />
+    <Device Name="基站5" AnchorId="Code_4" XPos="2.695" YPos="11.952" ZPos="" IP="" AbsolutePosX="2.69" AbsolutePosY="2.00" AbsolutePosZ="11.95" />
+    <Device Name="基站6" AnchorId="Code_5" XPos="0.319" YPos="11.724" ZPos="" IP="" AbsolutePosX="0.32" AbsolutePosY="2.00" AbsolutePosZ="11.72" />
   </DeviceList>
-  <DeviceList Name="D5 GIS配电装置楼1.5m层">
-    <Device Name="低压配电间1" AnchorId="Code_0" XPos="0.43" YPos="0.725" ZPos="" IP="" />
-    <Device Name="低压配电间2" AnchorId="Code_1" XPos="5.719" YPos="0.725" ZPos="" IP="" />
-    <Device Name="低压配电间3" AnchorId="Code_2" XPos="5.719" YPos="3.52" ZPos="" IP="" />
-    <Device Name="低压配电间4" AnchorId="Code_3" XPos="0.43" YPos="3.52" ZPos="" IP="" />
-    <Device Name="通信蓄电池室1" AnchorId="Code_4" XPos="0.43" YPos="5.825" ZPos="" IP="" />
-    <Device Name="通信蓄电池室2" AnchorId="Code_5" XPos="5.719" YPos="5.825" ZPos="" IP="" />
-    <Device Name="GIS室1" AnchorId="Code_6" XPos="6.973" YPos="0.379" ZPos="" IP="" />
-    <Device Name="GIS室2" AnchorId="Code_7" XPos="16.425" YPos="0.379" ZPos="" IP="" />
-    <Device Name="GIS室3" AnchorId="Code_8" XPos="6.26" YPos="9.483" ZPos="" IP="" />
-    <Device Name="GIS室4" AnchorId="Code_9" XPos="17.252" YPos="9.37" ZPos="" IP="" />
-    <Device Name="GIS室5" AnchorId="Code_10" XPos="6.794" YPos="24.428" ZPos="" IP="" />
-    <Device Name="GIS室6" AnchorId="Code_11" XPos="16.727" YPos="24.277" ZPos="" IP="" />
-    <Device Name="GIS室7" AnchorId="Code_12" XPos="68" YPos="36.24" ZPos="" IP="" />
-    <Device Name="GIS室8" AnchorId="Code_13" XPos="16.708" YPos="36.271" ZPos="" IP="" />
-    <Device Name="GIS室9" AnchorId="Code_14" XPos="69.73" YPos="42.137" ZPos="" IP="" />
-    <Device Name="GIS室10" AnchorId="Code_15" XPos="16.425" YPos="42.137" ZPos="" IP="" />
-    <Device Name="蓄电池室1" AnchorId="Code_25" XPos="0.727" YPos="36.52" ZPos="" IP="" />
-    <Device Name="蓄电池室2" AnchorId="Code_26" XPos="5.655" YPos="36.52" ZPos="" IP="" />
-    <Device Name="蓄电池室3" AnchorId="Code_27" XPos="5.655" YPos="42.137" ZPos="" IP="" />
-    <Device Name="蓄电池室4" AnchorId="Code_28" XPos="0.727" YPos="42.137" ZPos="" IP="" />
-    <Device Name="升压站继电器室1" AnchorId="Code_20" XPos="0.727" YPos="6.52" ZPos="" IP="" />
-    <Device Name="升压站继电器室2" AnchorId="Code_21" XPos="5.655" YPos="6.52" ZPos="" IP="" />
-    <Device Name="升压站继电器室3" AnchorId="Code_22" XPos="0.43" YPos="16.83" ZPos="" IP="" />
-    <Device Name="升压站继电器室4" AnchorId="Code_23" XPos="5.719" YPos="16.83" ZPos="" IP="" />
-    <Device Name="升压站继电器室5" AnchorId="Code_24" XPos="0.43" YPos="27.422" ZPos="" IP="" />
-    <Device Name="升压站继电器室6" AnchorId="Code_25" XPos="5.719" YPos="27.422" ZPos="" IP="" />
-    <Device Name="升压站继电器室7" AnchorId="Code_26" XPos="0.727" YPos="35.977" ZPos="" IP="" />
-    <Device Name="升压站继电器室8" AnchorId="Code_27" XPos="5.655" YPos="35.977" ZPos="" IP="" />
+  <DeviceList Name="GIS配电装置楼1.5m层">
+    <Device Name="低压配电间1" AnchorId="Code_0" XPos="0.43" YPos="0.725" ZPos="" IP="" AbsolutePosX="0.43" AbsolutePosY="2.00" AbsolutePosZ="0.73" />
+    <Device Name="低压配电间2" AnchorId="Code_1" XPos="5.719" YPos="0.725" ZPos="" IP="" AbsolutePosX="5.72" AbsolutePosY="2.00" AbsolutePosZ="0.73" />
+    <Device Name="低压配电间3" AnchorId="Code_2" XPos="5.719" YPos="3.52" ZPos="" IP="" AbsolutePosX="5.72" AbsolutePosY="2.00" AbsolutePosZ="3.52" />
+    <Device Name="低压配电间4" AnchorId="Code_3" XPos="0.43" YPos="3.52" ZPos="" IP="" AbsolutePosX="0.43" AbsolutePosY="2.00" AbsolutePosZ="3.52" />
+    <Device Name="通信蓄电池室1" AnchorId="Code_4" XPos="0.43" YPos="5.825" ZPos="" IP="" AbsolutePosX="0.43" AbsolutePosY="2.00" AbsolutePosZ="5.82" />
+    <Device Name="通信蓄电池室2" AnchorId="Code_5" XPos="5.719" YPos="5.825" ZPos="" IP="" AbsolutePosX="5.72" AbsolutePosY="2.00" AbsolutePosZ="5.82" />
+    <Device Name="GIS室1" AnchorId="Code_6" XPos="6.973" YPos="0.379" ZPos="" IP="" AbsolutePosX="6.97" AbsolutePosY="2.00" AbsolutePosZ="0.38" />
+    <Device Name="GIS室2" AnchorId="Code_7" XPos="16.425" YPos="0.379" ZPos="" IP="" AbsolutePosX="16.42" AbsolutePosY="2.00" AbsolutePosZ="0.38" />
+    <Device Name="GIS室3" AnchorId="Code_8" XPos="6.26" YPos="9.483" ZPos="" IP="" AbsolutePosX="6.26" AbsolutePosY="2.00" AbsolutePosZ="9.48" />
+    <Device Name="GIS室4" AnchorId="Code_9" XPos="17.252" YPos="9.37" ZPos="" IP="" AbsolutePosX="17.25" AbsolutePosY="2.00" AbsolutePosZ="9.37" />
+    <Device Name="GIS室5" AnchorId="Code_10" XPos="6.794" YPos="24.428" ZPos="" IP="" AbsolutePosX="6.79" AbsolutePosY="2.00" AbsolutePosZ="24.43" />
+    <Device Name="GIS室6" AnchorId="Code_11" XPos="16.727" YPos="24.277" ZPos="" IP="" AbsolutePosX="16.73" AbsolutePosY="2.00" AbsolutePosZ="24.28" />
+    <Device Name="GIS室7" AnchorId="Code_12" XPos="68" YPos="36.24" ZPos="" IP="" AbsolutePosX="68.00" AbsolutePosY="2.00" AbsolutePosZ="36.24" />
+    <Device Name="GIS室8" AnchorId="Code_13" XPos="16.708" YPos="36.271" ZPos="" IP="" AbsolutePosX="16.71" AbsolutePosY="2.00" AbsolutePosZ="36.27" />
+    <Device Name="GIS室9" AnchorId="Code_14" XPos="69.73" YPos="42.137" ZPos="" IP="" AbsolutePosX="69.73" AbsolutePosY="2.00" AbsolutePosZ="42.14" />
+    <Device Name="GIS室10" AnchorId="Code_15" XPos="16.425" YPos="42.137" ZPos="" IP="" AbsolutePosX="16.42" AbsolutePosY="2.00" AbsolutePosZ="42.14" />
+    <Device Name="蓄电池室1" AnchorId="Code_16" XPos="0.727" YPos="36.52" ZPos="" IP="" AbsolutePosX="0.73" AbsolutePosY="2.00" AbsolutePosZ="36.52" />
+    <Device Name="蓄电池室2" AnchorId="Code_17" XPos="5.655" YPos="36.52" ZPos="" IP="" AbsolutePosX="5.66" AbsolutePosY="2.00" AbsolutePosZ="36.52" />
+    <Device Name="蓄电池室3" AnchorId="Code_18" XPos="5.655" YPos="42.137" ZPos="" IP="" AbsolutePosX="5.66" AbsolutePosY="2.00" AbsolutePosZ="42.14" />
+    <Device Name="蓄电池室4" AnchorId="Code_19" XPos="0.727" YPos="42.137" ZPos="" IP="" AbsolutePosX="0.73" AbsolutePosY="2.00" AbsolutePosZ="42.14" />
+    <Device Name="升压站继电器室1" AnchorId="Code_20" XPos="0.727" YPos="6.52" ZPos="" IP="" AbsolutePosX="0.73" AbsolutePosY="2.00" AbsolutePosZ="6.52" />
+    <Device Name="升压站继电器室2" AnchorId="Code_21" XPos="5.655" YPos="6.52" ZPos="" IP="" AbsolutePosX="5.66" AbsolutePosY="2.00" AbsolutePosZ="6.52" />
+    <Device Name="升压站继电器室3" AnchorId="Code_22" XPos="0.43" YPos="16.83" ZPos="" IP="" AbsolutePosX="0.43" AbsolutePosY="2.00" AbsolutePosZ="16.83" />
+    <Device Name="升压站继电器室4" AnchorId="Code_23" XPos="5.719" YPos="16.83" ZPos="" IP="" AbsolutePosX="5.72" AbsolutePosY="2.00" AbsolutePosZ="16.83" />
+    <Device Name="升压站继电器室5" AnchorId="Code_24" XPos="0.43" YPos="27.422" ZPos="" IP="" AbsolutePosX="0.43" AbsolutePosY="2.00" AbsolutePosZ="27.42" />
+    <Device Name="升压站继电器室6" AnchorId="Code_25" XPos="5.719" YPos="27.422" ZPos="" IP="" AbsolutePosX="5.72" AbsolutePosY="2.00" AbsolutePosZ="27.42" />
+    <Device Name="升压站继电器室7" AnchorId="Code_26" XPos="0.727" YPos="35.977" ZPos="" IP="" AbsolutePosX="0.73" AbsolutePosY="2.00" AbsolutePosZ="35.98" />
+    <Device Name="升压站继电器室8" AnchorId="Code_27" XPos="5.655" YPos="35.977" ZPos="" IP="" AbsolutePosX="5.66" AbsolutePosY="2.00" AbsolutePosZ="35.98" />
   </DeviceList>
-  <DeviceList Name="D6循环水泵房配电间">
-    <Device Name="循环水泵房配电间1" AnchorId="Code_0" XPos="0.403" YPos="0.289" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间2" AnchorId="Code_1" XPos="4.836" YPos="0.289" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间3" AnchorId="Code_2" XPos="0.218" YPos="2.366" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间4" AnchorId="Code_3" XPos="5.006" YPos="2.366" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间5" AnchorId="Code_4" XPos="0.218" YPos="4.872" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间6" AnchorId="Code_5" XPos="5.006" YPos="4.872" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间7" AnchorId="Code_6" XPos="0.403" YPos="7.439" ZPos="" IP="" />
-    <Device Name="循环水泵房配电间8" AnchorId="Code_7" XPos="4.836" YPos="7.439" ZPos="" IP="" />
+  <DeviceList Name="循环水泵房配电间">
+    <Device Name="循环水泵房配电间1" AnchorId="Code_0" XPos="0.403" YPos="0.289" ZPos="" IP="" AbsolutePosX="0.40" AbsolutePosY="2.00" AbsolutePosZ="0.29" />
+    <Device Name="循环水泵房配电间2" AnchorId="Code_1" XPos="4.836" YPos="0.289" ZPos="" IP="" AbsolutePosX="4.84" AbsolutePosY="2.00" AbsolutePosZ="0.29" />
+    <Device Name="循环水泵房配电间3" AnchorId="Code_2" XPos="0.218" YPos="2.366" ZPos="" IP="" AbsolutePosX="0.22" AbsolutePosY="2.00" AbsolutePosZ="2.37" />
+    <Device Name="循环水泵房配电间4" AnchorId="Code_3" XPos="5.006" YPos="2.366" ZPos="" IP="" AbsolutePosX="5.01" AbsolutePosY="2.00" AbsolutePosZ="2.37" />
+    <Device Name="循环水泵房配电间5" AnchorId="Code_4" XPos="0.218" YPos="4.872" ZPos="" IP="" AbsolutePosX="0.22" AbsolutePosY="2.00" AbsolutePosZ="4.87" />
+    <Device Name="循环水泵房配电间6" AnchorId="Code_5" XPos="5.006" YPos="4.872" ZPos="" IP="" AbsolutePosX="5.01" AbsolutePosY="2.00" AbsolutePosZ="4.87" />
+    <Device Name="循环水泵房配电间7" AnchorId="Code_6" XPos="0.403" YPos="7.439" ZPos="" IP="" AbsolutePosX="0.40" AbsolutePosY="2.00" AbsolutePosZ="7.44" />
+    <Device Name="循环水泵房配电间8" AnchorId="Code_7" XPos="4.836" YPos="7.439" ZPos="" IP="" AbsolutePosX="4.84" AbsolutePosY="2.00" AbsolutePosZ="7.44" />
   </DeviceList>
-  <DeviceList Name="H1循环水加药间">
-    <Device Name="循环水加药间1" AnchorId="Code_0" XPos="0.367" YPos="0.502" ZPos="" IP="" />
-    <Device Name="循环水加药间2" AnchorId="Code_1" XPos="8.005" YPos="0.502" ZPos="" IP="" />
-    <Device Name="循环水加药间3" AnchorId="Code_2" XPos="0.367" YPos="9.674" ZPos="" IP="" />
-    <Device Name="循环水加药间4" AnchorId="Code_3" XPos="8.005" YPos="9.674" ZPos="" IP="" />
-    <Device Name="循环水加药间5" AnchorId="Code_4" XPos="0.367" YPos="10.509" ZPos="" IP="" />
-    <Device Name="循环水加药间6" AnchorId="Code_5" XPos="8.005" YPos="10.509" ZPos="" IP="" />
-    <Device Name="循环水加药间7" AnchorId="Code_6" XPos="8.045" YPos="15.701" ZPos="" IP="" />
-    <Device Name="循环水加药间8" AnchorId="Code_7" XPos="0.327" YPos="15.701" ZPos="" IP="" />
+  <DeviceList Name="循环水加药间">
+    <Device Name="循环水加药间1" AnchorId="Code_0" XPos="0.367" YPos="0.502" ZPos="" IP="" AbsolutePosX="0.37" AbsolutePosY="2.00" AbsolutePosZ="0.50" />
+    <Device Name="循环水加药间2" AnchorId="Code_1" XPos="8.005" YPos="0.502" ZPos="" IP="" AbsolutePosX="8.01" AbsolutePosY="2.00" AbsolutePosZ="0.50" />
+    <Device Name="循环水加药间3" AnchorId="Code_2" XPos="0.367" YPos="9.674" ZPos="" IP="" AbsolutePosX="0.37" AbsolutePosY="2.00" AbsolutePosZ="9.67" />
+    <Device Name="循环水加药间4" AnchorId="Code_3" XPos="8.005" YPos="9.674" ZPos="" IP="" AbsolutePosX="8.01" AbsolutePosY="2.00" AbsolutePosZ="9.67" />
+    <Device Name="循环水加药间5" AnchorId="Code_4" XPos="0.367" YPos="10.509" ZPos="" IP="" AbsolutePosX="0.37" AbsolutePosY="2.00" AbsolutePosZ="10.51" />
+    <Device Name="循环水加药间6" AnchorId="Code_5" XPos="8.005" YPos="10.509" ZPos="" IP="" AbsolutePosX="8.01" AbsolutePosY="2.00" AbsolutePosZ="10.51" />
+    <Device Name="循环水加药间7" AnchorId="Code_6" XPos="8.045" YPos="15.701" ZPos="" IP="" AbsolutePosX="8.05" AbsolutePosY="2.00" AbsolutePosZ="15.70" />
+    <Device Name="循环水加药间8" AnchorId="Code_7" XPos="0.327" YPos="15.701" ZPos="" IP="" AbsolutePosX="0.33" AbsolutePosY="2.00" AbsolutePosZ="15.70" />
   </DeviceList>
-  <DeviceList Name="H2锅炉补给水处理车间0m层">
-    <Device Name="药品贮存区域1" AnchorId="Code_0" XPos="0.678" YPos="0.46" ZPos="" IP="" />
-    <Device Name="药品贮存区域2" AnchorId="Code_1" XPos="0.806" YPos="12.869" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间1" AnchorId="Code_2" XPos="5.438" YPos="0.263" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间2" AnchorId="Code_3" XPos="9.697" YPos="0.267" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间3" AnchorId="Code_4" XPos="10.053" YPos="9.928" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间4" AnchorId="Code_5" XPos="0.761" YPos="19.646" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间5" AnchorId="Code_6" XPos="9.717" YPos="19.651" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间6" AnchorId="Code_7" XPos="10.181" YPos="25.629" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间7" AnchorId="Code_8" XPos="53.5" YPos="25.735" ZPos="" IP="" />
-    <Device Name="加药及化学清洗间8" AnchorId="Code_9" XPos="0.452" YPos="25.629" ZPos="" IP="" />
-    <Device Name="楼梯1" AnchorId="Code_10" XPos="0.363" YPos="26.918" ZPos="" IP="" />
-    <Device Name="楼梯2" AnchorId="Code_11" XPos="0.363" YPos="60.174" ZPos="" IP="" />
-    <Device Name="运行化验室1" AnchorId="Code_12" XPos="0.452" YPos="32.581" ZPos="" IP="" />
-    <Device Name="运行化验室2" AnchorId="Code_13" XPos="0.452" YPos="37.681" ZPos="" IP="" />
-    <Device Name="水系统控制室1" AnchorId="Code_14" XPos="10.181" YPos="32.581" ZPos="" IP="" />
-    <Device Name="水系统控制室2" AnchorId="Code_15" XPos="10.181" YPos="37.681" ZPos="" IP="" />
-    <Device Name="电子设备间1" AnchorId="Code_17" XPos="0.452" YPos="38.606" ZPos="" IP="" />
-    <Device Name="电子设备间2" AnchorId="Code_18" XPos="0.452" YPos="43.477" ZPos="" IP="" />
-    <Device Name="电子设备间3" AnchorId="Code_19" XPos="10.181" YPos="38.606" ZPos="" IP="" />
-    <Device Name="电子设备间4" AnchorId="Code_20" XPos="10.181" YPos="43.477" ZPos="" IP="" />
-    <Device Name="配电间1" AnchorId="Code_12" XPos="1.345" YPos="44.469" ZPos="" IP="" />
-    <Device Name="配电间2" AnchorId="Code_13" XPos="5.26" YPos="44.469" ZPos="" IP="" />
-    <Device Name="配电间3" AnchorId="Code_14" XPos="9.38" YPos="44.469" ZPos="" IP="" />
-    <Device Name="配电间4" AnchorId="Code_15" XPos="9.38" YPos="58.825" ZPos="" IP="" />
-    <Device Name="配电间5" AnchorId="Code_24" XPos="5.26" YPos="58.825" ZPos="" IP="" />
-    <Device Name="配电间6" AnchorId="Code_25" XPos="1.345" YPos="58.825" ZPos="" IP="" />
-    <Device Name="除盐间1" AnchorId="Code_26" XPos="10.788" YPos="1.482" ZPos="" IP="" />
-    <Device Name="除盐间2" AnchorId="Code_27" XPos="12.091" YPos="0.295" ZPos="" IP="" />
-    <Device Name="除盐间3" AnchorId="Code_28" XPos="22.732" YPos="0.295" ZPos="" IP="" />
-    <Device Name="除盐间4" AnchorId="Code_29" XPos="23.658" YPos="1.389" ZPos="" IP="" />
-    <Device Name="除盐间5" AnchorId="Code_30" XPos="10.788" YPos="16.983" ZPos="" IP="" />
-    <Device Name="除盐间6" AnchorId="Code_31" XPos="23.658" YPos="16.94" ZPos="" IP="" />
-    <Device Name="除盐间7" AnchorId="Code_32" XPos="23.661" YPos="28.859" ZPos="" IP="" />
-    <Device Name="除盐间8" AnchorId="Code_33" XPos="10.804" YPos="29.058" ZPos="" IP="" />
-    <Device Name="除盐间9" AnchorId="Code_34" XPos="10.463" YPos="35.739" ZPos="" IP="" />
-    <Device Name="除盐间10" AnchorId="Code_35" XPos="23.631" YPos="35.878" ZPos="" IP="" />
-    <Device Name="除盐间11" AnchorId="Code_36" XPos="23.246" YPos="50.158" ZPos="" IP="" />
-    <Device Name="除盐间12" AnchorId="Code_37" XPos="10.788" YPos="50.15" ZPos="" IP="" />
-    <Device Name="除盐间13" AnchorId="Code_38" XPos="10.788" YPos="59.156" ZPos="" IP="" />
-    <Device Name="除盐间14" AnchorId="Code_39" XPos="11.878" YPos="62.016" ZPos="" IP="" />
-    <Device Name="除盐间15" AnchorId="Code_40" XPos="22.721" YPos="62.016" ZPos="" IP="" />
-    <Device Name="除盐间16" AnchorId="Code_41" XPos="23.66" YPos="59.938" ZPos="" IP="" />
-    <Device Name="水泵间1" AnchorId="Code_42" XPos="24.606" YPos="0.295" ZPos="" IP="" />
-    <Device Name="水泵间2" AnchorId="Code_43" XPos="27.017" YPos="0.295" ZPos="" IP="" />
-    <Device Name="水泵间3" AnchorId="Code_44" XPos="31.795" YPos="0.295" ZPos="" IP="" />
-    <Device Name="水泵间4" AnchorId="Code_45" XPos="24.231" YPos="13.144" ZPos="" IP="" />
-    <Device Name="水泵间5" AnchorId="Code_46" XPos="27.017" YPos="13.195" ZPos="" IP="" />
-    <Device Name="水泵间6" AnchorId="Code_47" XPos="31.816" YPos="13.152" ZPos="" IP="" />
-    <Device Name="水泵间7" AnchorId="Code_48" XPos="24.231" YPos="26.137" ZPos="" IP="" />
-    <Device Name="水泵间8" AnchorId="Code_49" XPos="27.017" YPos="26.188" ZPos="" IP="" />
-    <Device Name="水泵间9" AnchorId="Code_50" XPos="31.816" YPos="26.145" ZPos="" IP="" />
-    <Device Name="水泵间10" AnchorId="Code_51" XPos="24.231" YPos="38.124" ZPos="" IP="" />
-    <Device Name="水泵间11" AnchorId="Code_52" XPos="27.017" YPos="38.195" ZPos="" IP="" />
-    <Device Name="水泵间12" AnchorId="Code_53" XPos="31.816" YPos="38.152" ZPos="" IP="" />
-    <Device Name="水泵间13" AnchorId="Code_54" XPos="24.231" YPos="50.15" ZPos="" IP="" />
-    <Device Name="水泵间14" AnchorId="Code_55" XPos="27.017" YPos="50.202" ZPos="" IP="" />
-    <Device Name="水泵间15" AnchorId="Code_56" XPos="31.816" YPos="50.158" ZPos="" IP="" />
-    <Device Name="水泵间16" AnchorId="Code_57" XPos="24.393" YPos="62.016" ZPos="" IP="" />
-    <Device Name="水泵间17" AnchorId="Code_58" XPos="27.015" YPos="62.016" ZPos="" IP="" />
-    <Device Name="水泵间18" AnchorId="Code_59" XPos="31.784" YPos="62.016" ZPos="" IP="" />
+  <DeviceList Name="锅炉补给水处理车间0m层">
+    <Device Name="加药及化学清洗间7" AnchorId="Code_8" XPos="53.5" YPos="25.735" ZPos="" IP="" AbsolutePosX="53.50" AbsolutePosY="2.00" AbsolutePosZ="25.74" />
+    <Device Name="电子设备间1" AnchorId="Code_16" XPos="0.452" YPos="38.606" ZPos="" IP="" AbsolutePosX="0.45" AbsolutePosY="2.00" AbsolutePosZ="38.61" />
+    <Device Name="电子设备间2" AnchorId="Code_17" XPos="0.452" YPos="43.477" ZPos="" IP="" AbsolutePosX="0.45" AbsolutePosY="2.00" AbsolutePosZ="43.48" />
+    <Device Name="电子设备间3" AnchorId="Code_18" XPos="10.181" YPos="38.606" ZPos="" IP="" AbsolutePosX="10.18" AbsolutePosY="2.00" AbsolutePosZ="38.61" />
+    <Device Name="电子设备间4" AnchorId="Code_19" XPos="10.181" YPos="43.477" ZPos="" IP="" AbsolutePosX="10.18" AbsolutePosY="2.00" AbsolutePosZ="43.48" />
+    <Device Name="配电间1" AnchorId="Code_20" XPos="1.345" YPos="44.469" ZPos="" IP="" AbsolutePosX="1.35" AbsolutePosY="2.00" AbsolutePosZ="44.47" />
+    <Device Name="配电间2" AnchorId="Code_21" XPos="5.26" YPos="44.469" ZPos="" IP="" AbsolutePosX="5.26" AbsolutePosY="2.00" AbsolutePosZ="44.47" />
+    <Device Name="配电间3" AnchorId="Code_22" XPos="9.38" YPos="44.469" ZPos="" IP="" AbsolutePosX="9.38" AbsolutePosY="2.00" AbsolutePosZ="44.47" />
+    <Device Name="配电间4" AnchorId="Code_23" XPos="9.38" YPos="58.825" ZPos="" IP="" AbsolutePosX="9.38" AbsolutePosY="2.00" AbsolutePosZ="58.83" />
+    <Device Name="配电间5" AnchorId="Code_24" XPos="5.26" YPos="58.825" ZPos="" IP="" AbsolutePosX="5.26" AbsolutePosY="2.00" AbsolutePosZ="58.83" />
+    <Device Name="配电间6" AnchorId="Code_25" XPos="1.345" YPos="58.825" ZPos="" IP="" AbsolutePosX="1.35" AbsolutePosY="2.00" AbsolutePosZ="58.83" />
   </DeviceList>
-  <DeviceList Name="H2锅炉补给水处理车间4.5m层">
-    <Device Name="环保实验室1" AnchorId="Code_0" XPos="0.744" YPos="0.268" ZPos="" IP="" />
-    <Device Name="环保实验室2" AnchorId="Code_1" XPos="9.707" YPos="0.268" ZPos="" IP="" />
-    <Device Name="油分析室1" AnchorId="Code_2" XPos="3.031" YPos="9.469" ZPos="" IP="" />
-    <Device Name="油分析室2" AnchorId="Code_3" XPos="9.707" YPos="9.469" ZPos="" IP="" />
-    <Device Name="高温炉室" AnchorId="Code_4" XPos="3.031" YPos="25.839" ZPos="" IP="" />
-    <Device Name="天平室" AnchorId="Code_5" XPos="9.707" YPos="25.839" ZPos="" IP="" />
-    <Device Name="走廊1" AnchorId="Code_25" XPos="1.383" YPos="9.431" ZPos="" IP="" />
-    <Device Name="走廊2" AnchorId="Code_26" XPos="0.808" YPos="26.133" ZPos="" IP="" />
-    <Device Name="走廊3" AnchorId="Code_27" XPos="0.27" YPos="27.659" ZPos="" IP="" />
-    <Device Name="走廊4" AnchorId="Code_28" XPos="10.229" YPos="27.692" ZPos="" IP="" />
-    <Device Name="走廊5" AnchorId="Code_29" XPos="0.795" YPos="44.133" ZPos="" IP="" />
-    <Device Name="走廊6" AnchorId="Code_30" XPos="0.27" YPos="61.387" ZPos="" IP="" />
-    <Device Name="走廊7" AnchorId="Code_31" XPos="1.463" YPos="61.991" ZPos="" IP="" />
-    <Device Name="走廊8" AnchorId="Code_32" XPos="10.202" YPos="60.685" ZPos="" IP="" />
-    <Device Name="办公室1" AnchorId="Code_14" XPos="3.031" YPos="29.455" ZPos="" IP="" />
-    <Device Name="办公室2" AnchorId="Code_15" XPos="9.707" YPos="29.455" ZPos="" IP="" />
-    <Device Name="会议室1" AnchorId="Code_41" XPos="3.031" YPos="36.927" ZPos="" IP="" />
-    <Device Name="会议室2" AnchorId="Code_42" XPos="9.707" YPos="36.927" ZPos="" IP="" />
-    <Device Name="精密仪器室1" AnchorId="Code_18" XPos="3.031" YPos="42.92" ZPos="" IP="" />
-    <Device Name="精密仪器室2" AnchorId="Code_19" XPos="9.707" YPos="42.92" ZPos="" IP="" />
-    <Device Name="气瓶间" AnchorId="Code_20" XPos="3.031" YPos="50.442" ZPos="" IP="" />
-    <Device Name="色谱仪室" AnchorId="Code_21" XPos="9.707" YPos="50.442" ZPos="" IP="" />
-    <Device Name="药品仓库1" AnchorId="Code_22" XPos="3.031" YPos="58.872" ZPos="" IP="" />
-    <Device Name="药品仓库2" AnchorId="Code_23" XPos="9.707" YPos="58.872" ZPos="" IP="" />
+  <DeviceList Name="锅炉补给水处理车间4.5m层" />
+  <DeviceList Name="废水集中处理站0m层">
+    <Device Name="配电间1" AnchorId="Code_22" XPos="0.302" YPos="33.482" ZPos="" IP="" AbsolutePosX="0.30" AbsolutePosY="2.00" AbsolutePosZ="33.48" />
+    <Device Name="配电间2" AnchorId="Code_23" XPos="8.815" YPos="33.482" ZPos="" IP="" AbsolutePosX="8.81" AbsolutePosY="2.00" AbsolutePosZ="33.48" />
+    <Device Name="配电间3" AnchorId="Code_24" XPos="8.815" YPos="38.737" ZPos="" IP="" AbsolutePosX="8.81" AbsolutePosY="2.00" AbsolutePosZ="38.74" />
+    <Device Name="配电间4" AnchorId="Code_25" XPos="0.302" YPos="38.737" ZPos="" IP="" AbsolutePosX="0.30" AbsolutePosY="2.00" AbsolutePosZ="38.74" />
+    <Device Name="电子设备间1" AnchorId="Code_26" XPos="0.302" YPos="39.546" ZPos="" IP="" AbsolutePosX="0.30" AbsolutePosY="2.00" AbsolutePosZ="39.55" />
+    <Device Name="电子设备间2" AnchorId="Code_27" XPos="8.815" YPos="39.546" ZPos="" IP="" AbsolutePosX="8.81" AbsolutePosY="2.00" AbsolutePosZ="39.55" />
+    <Device Name="电子设备间3" AnchorId="Code_28" XPos="8.815" YPos="44.637" ZPos="" IP="" AbsolutePosX="8.81" AbsolutePosY="2.00" AbsolutePosZ="44.64" />
+    <Device Name="电子设备间4" AnchorId="Code_29" XPos="0.302" YPos="44.637" ZPos="" IP="" AbsolutePosX="0.30" AbsolutePosY="2.00" AbsolutePosZ="44.64" />
   </DeviceList>
-  <DeviceList Name="H3废水站0m层">
-    <Device Name="污泥脱水间1" AnchorId="Code_0" XPos="0.302" YPos="0.455" ZPos="" IP="" />
-    <Device Name="污泥脱水间2" AnchorId="Code_1" XPos="8.815" YPos="0.455" ZPos="" IP="" />
-    <Device Name="污泥脱水间3" AnchorId="Code_2" XPos="0.302" YPos="5.688" ZPos="" IP="" />
-    <Device Name="污泥脱水间4" AnchorId="Code_3" XPos="8.815" YPos="5.688" ZPos="" IP="" />
-    <Device Name="酸碱贮存间1" AnchorId="Code_4" XPos="0.302" YPos="6.453" ZPos="" IP="" />
-    <Device Name="酸碱贮存间2" AnchorId="Code_5" XPos="3.44" YPos="6.286" ZPos="" IP="" />
-    <Device Name="酸碱贮存间3" AnchorId="Code_6" XPos="6.617" YPos="6.286" ZPos="" IP="" />
-    <Device Name="酸碱贮存间4" AnchorId="Code_7" XPos="8.815" YPos="6.453" ZPos="" IP="" />
-    <Device Name="酸碱贮存间5" AnchorId="Code_8" XPos="8.815" YPos="14.757" ZPos="" IP="" />
-    <Device Name="酸碱贮存间6" AnchorId="Code_9" XPos="6.617" YPos="14.794" ZPos="" IP="" />
-    <Device Name="酸碱贮存间7" AnchorId="Code_10" XPos="3.44" YPos="14.794" ZPos="" IP="" />
-    <Device Name="酸碱贮存间8" AnchorId="Code_11" XPos="0.302" YPos="14.757" ZPos="" IP="" />
-    <Device Name="加药间1" AnchorId="Code_16" XPos="0.302" YPos="15.647" ZPos="" IP="" />
-    <Device Name="加药间2" AnchorId="Code_17" XPos="4.806" YPos="15.495" ZPos="" IP="" />
-    <Device Name="加药间3" AnchorId="Code_18" XPos="8.815" YPos="15.647" ZPos="" IP="" />
-    <Device Name="加药间4" AnchorId="Code_19" XPos="8.815" YPos="26.703" ZPos="" IP="" />
-    <Device Name="加药间5" AnchorId="Code_16" XPos="4.806" YPos="26.745" ZPos="" IP="" />
-    <Device Name="加药间6" AnchorId="Code_17" XPos="0.302" YPos="26.703" ZPos="" IP="" />
-    <Device Name="药品贮存间1" AnchorId="Code_18" XPos="0.302" YPos="27.384" ZPos="" IP="" />
-    <Device Name="药品贮存间2" AnchorId="Code_19" XPos="8.815" YPos="27.384" ZPos="" IP="" />
-    <Device Name="药品贮存间3" AnchorId="Code_20" XPos="8.815" YPos="32.737" ZPos="" IP="" />
-    <Device Name="药品贮存间4" AnchorId="Code_21" XPos="0.302" YPos="32.737" ZPos="" IP="" />
-    <Device Name="配电间1" AnchorId="Code_12" XPos="0.302" YPos="33.482" ZPos="" IP="" />
-    <Device Name="配电间2" AnchorId="Code_13" XPos="8.815" YPos="33.482" ZPos="" IP="" />
-    <Device Name="配电间3" AnchorId="Code_14" XPos="8.815" YPos="38.737" ZPos="" IP="" />
-    <Device Name="配电间4" AnchorId="Code_15" XPos="0.302" YPos="38.737" ZPos="" IP="" />
-    <Device Name="电子设备间1" AnchorId="Code_17" XPos="0.302" YPos="39.546" ZPos="" IP="" />
-    <Device Name="电子设备间2" AnchorId="Code_18" XPos="8.815" YPos="39.546" ZPos="" IP="" />
-    <Device Name="电子设备间3" AnchorId="Code_19" XPos="8.815" YPos="44.637" ZPos="" IP="" />
-    <Device Name="电子设备间4" AnchorId="Code_20" XPos="0.302" YPos="44.637" ZPos="" IP="" />
-  </DeviceList>
-  <DeviceList Name="H4制氢站">
-    <Device Name="高压氢瓶装卸区1" AnchorId="Code_0" XPos="0.377" YPos="0.634" ZPos="" IP="" />
-    <Device Name="高压氢瓶装卸区2" AnchorId="Code_1" XPos="4.311" YPos="0.634" ZPos="" IP="" />
-    <Device Name="高压氢瓶装卸区3" AnchorId="Code_2" XPos="4.221" YPos="8.776" ZPos="" IP="" />
-    <Device Name="高压氢瓶装卸区4" AnchorId="Code_3" XPos="0.287" YPos="8.776" ZPos="" IP="" />
-    <Device Name="空瓶间1" AnchorId="Code_4" XPos="4.844" YPos="0.544" ZPos="" IP="" />
-    <Device Name="空瓶间2" AnchorId="Code_5" XPos="9.359" YPos="0.544" ZPos="" IP="" />
-    <Device Name="空瓶间3" AnchorId="Code_6" XPos="9.359" YPos="8.776" ZPos="" IP="" />
-    <Device Name="空瓶间4" AnchorId="Code_7" XPos="4.844" YPos="8.776" ZPos="" IP="" />
-    <Device Name="实瓶区1" AnchorId="Code_8" XPos="9.885" YPos="0.544" ZPos="" IP="" />
-    <Device Name="实瓶区2" AnchorId="Code_9" XPos="19.482" YPos="0.544" ZPos="" IP="" />
-    <Device Name="实瓶区3" AnchorId="Code_10" XPos="19.482" YPos="8.776" ZPos="" IP="" />
-    <Device Name="实瓶区4" AnchorId="Code_11" XPos="9.885" YPos="8.776" ZPos="" IP="" />
-    <Device Name="汇流排间1" AnchorId="Code_12" XPos="20.017" YPos="0.544" ZPos="" IP="" />
-    <Device Name="汇流排间2" AnchorId="Code_13" XPos="24.277" YPos="0.544" ZPos="" IP="" />
-    <Device Name="汇流排间3" AnchorId="Code_14" XPos="24.277" YPos="4.44" ZPos="" IP="" />
-    <Device Name="汇流排间4" AnchorId="Code_15" XPos="20.017" YPos="4.44" ZPos="" IP="" />
-    <Device Name="化验室1" AnchorId="Code_16" XPos="20.017" YPos="5.086" ZPos="" IP="" />
-    <Device Name="化验室2" AnchorId="Code_17" XPos="24.277" YPos="5.086" ZPos="" IP="" />
-    <Device Name="化验室3" AnchorId="Code_18" XPos="24.277" YPos="8.776" ZPos="" IP="" />
-    <Device Name="化验室4" AnchorId="Code_19" XPos="20.017" YPos="8.776" ZPos="" IP="" />
+  <DeviceList Name="供氢站0m层">
+    <Device Name="高压氢瓶装卸区1" AnchorId="Code_0" XPos="0.377" YPos="0.634" ZPos="" IP="" AbsolutePosX="0.38" AbsolutePosY="2.00" AbsolutePosZ="0.63" />
+    <Device Name="高压氢瓶装卸区2" AnchorId="Code_1" XPos="4.311" YPos="0.634" ZPos="" IP="" AbsolutePosX="4.31" AbsolutePosY="2.00" AbsolutePosZ="0.63" />
+    <Device Name="高压氢瓶装卸区3" AnchorId="Code_2" XPos="4.221" YPos="8.776" ZPos="" IP="" AbsolutePosX="4.22" AbsolutePosY="2.00" AbsolutePosZ="8.78" />
+    <Device Name="高压氢瓶装卸区4" AnchorId="Code_3" XPos="0.287" YPos="8.776" ZPos="" IP="" AbsolutePosX="0.29" AbsolutePosY="2.00" AbsolutePosZ="8.78" />
   </DeviceList>
   <DeviceList Name="主厂房0m层">
-    <Device Name="主厂房一层" AnchorId="1201" XPos="0.432" YPos="0.907" ZPos="1" IP="" />
-    <Device Name="#2机组6kV配电间1" AnchorId="Code_1" XPos="3.486" YPos="0.969" ZPos="" IP="" />
-    <Device Name="#2机组6kV配电间2" AnchorId="Code_2" XPos="3.486" YPos="4.68" ZPos="" IP="" />
-    <Device Name="#2机组6kV配电间3" AnchorId="Code_3" XPos="3.486" YPos="8.036" ZPos="" IP="" />
-    <Device Name="#2机组6kV配电间4" AnchorId="Code_4" XPos="21.867" YPos="8.617" ZPos="" IP="" />
-    <Device Name="#2机组6kV配电间5" AnchorId="Code_5" XPos="21.867" YPos="4.68" ZPos="" IP="" />
-    <Device Name="#2机组6kV配电间6" AnchorId="Code_6" XPos="21.867" YPos="0.969" ZPos="" IP="" />
-    <Device Name="#2   T3钢梯1" AnchorId="Code_7" XPos="22.479" YPos="8.746" ZPos="" IP="" />
-    <Device Name="#2 T3钢梯2" AnchorId="Code_8" XPos="22.495" YPos="2.669" ZPos="" IP="" />
-    <Device Name="#2 T3钢梯3" AnchorId="Code_9" XPos="25.337" YPos="0.626" ZPos="" IP="" />
-    <Device Name="#2燃机机房检修场地1" AnchorId="Code_10" XPos="32.334" YPos="0.626" ZPos="" IP="" />
-    <Device Name="#2燃机机房检修场地2" AnchorId="Code_11" XPos="40.647" YPos="0.394" ZPos="" IP="" />
-    <Device Name="#2燃机机房检修场地3" AnchorId="Code_12" XPos="43.475" YPos="0.512" ZPos="" IP="" />
-    <Device Name="#2燃机机房检修场地4" AnchorId="Code_13" XPos="43.468" YPos="9.194" ZPos="" IP="" />
-    <Device Name="#2燃机机房检修场地5" AnchorId="Code_14" XPos="32.372" YPos="8.835" ZPos="" IP="" />
-    <Device Name="#2壁装离地高1" AnchorId="Code_15" XPos="43.45" YPos="17.068" ZPos="" IP="" />
-    <Device Name="#2壁装离地高2" AnchorId="Code_16" XPos="40.647" YPos="18.404" ZPos="" IP="" />
-    <Device Name="#2壁装离地高3" AnchorId="Code_17" XPos="32.375" YPos="16.838" ZPos="" IP="" />
-    <Device Name="#2壁装离地高4" AnchorId="Code_18" XPos="25.381" YPos="16.869" ZPos="" IP="" />
-    <Device Name="#2壁装离地高5" AnchorId="Code_19" XPos="24.451" YPos="16.854" ZPos="" IP="" />
-    <Device Name="#2壁装离地高6" AnchorId="Code_20" XPos="24.438" YPos="9.533" ZPos="" IP="" />
-    <Device Name="#2壁装离地高7" AnchorId="Code_21" XPos="14.13" YPos="9.631" ZPos="" IP="" />
-    <Device Name="#2壁装离地高8" AnchorId="Code_22" XPos="14.239" YPos="17.137" ZPos="" IP="" />
-    <Device Name="#2壁装离地高9" AnchorId="Code_23" XPos="11.062" YPos="17.261" ZPos="" IP="" />
-    <Device Name="#2壁装离地高10" AnchorId="Code_24" XPos="0.478" YPos="14.703" ZPos="" IP="" />
-    <Device Name="#2壁装离地高11" AnchorId="8906" XPos="0.693" YPos="28.113" ZPos="" IP="192.168.3.141" />
-    <Device Name="#2壁装离地高12" AnchorId="8904" XPos="2.942" YPos="33.015" ZPos="" IP="192.168.3.140" />
-    <Device Name="#2壁装离地高13" AnchorId="8916" XPos="10.705" YPos="28.154" ZPos="" IP="192.168.3.149" />
-    <Device Name="#2壁装离地高14" AnchorId="8908" XPos="16.554" YPos="32.955" ZPos="" IP="192.168.3.142" />
-    <Device Name="#2壁装离地高15" AnchorId="8914" XPos="18.396" YPos="28.733" ZPos="" IP="192.168.3.148" />
-    <Device Name="#2壁装离地高16" AnchorId="8918" XPos="24.895" YPos="28.678" ZPos="" IP="192.168.3.150" />
-    <Device Name="#2壁装离地高17" AnchorId="8924" XPos="31.599" YPos="28.681" ZPos="" IP="192.168.3.156" />
-    <Device Name="#2壁装离地高18" AnchorId="891E" XPos="31.61" YPos="39.264" ZPos="" IP="192.168.3.153" />
-    <Device Name="#2壁装离地高19" AnchorId="8912" XPos="43.471" YPos="28.194" ZPos="" IP="192.168.3.147" />
-    <Device Name="#2壁装离地高20" AnchorId="8926" XPos="43.564" YPos="40.13" ZPos="" IP="192.168.3.157" />
-    <Device Name="#2壁装离地高21" AnchorId="8920" XPos="16.65" YPos="38.913" ZPos="" IP="192.168.3.154" />
-    <Device Name="#2机组就地MCC配电间1" AnchorId="Code_36" XPos="3.485" YPos="34.468" ZPos="" IP="" />
-    <Device Name="#2机组就地MCC配电间2" AnchorId="Code_37" XPos="3.485" YPos="36.699" ZPos="" IP="" />
-    <Device Name="#2机组就地MCC配电间3" AnchorId="Code_38" XPos="3.485" YPos="38.735" ZPos="" IP="" />
-    <Device Name="#2机组就地MCC配电间4" AnchorId="Code_39" XPos="16.069" YPos="38.793" ZPos="" IP="" />
-    <Device Name="#2机组就地MCC配电间5" AnchorId="Code_40" XPos="16.069" YPos="36.7" ZPos="" IP="" />
-    <Device Name="#2机组就地MCC配电间6" AnchorId="Code_41" XPos="16.069" YPos="34.526" ZPos="" IP="" />
-    <Device Name="#2壁装离地高22" AnchorId="892A" XPos="2.939" YPos="40.385" ZPos="" IP="192.168.3.159" />
-    <Device Name="#2壁装离地高23" AnchorId="890E" XPos="1.092" YPos="46.204" ZPos="" IP="192.168.3.145" />
-    <Device Name="#2壁装离地高24" AnchorId="891A" XPos="7.181" YPos="41.126" ZPos="" IP="192.168.3.151" />
-    <Device Name="#2壁装离地高25" AnchorId="891C" XPos="13.177" YPos="40.585" ZPos="" IP="192.168.3.152" />
-    <Device Name="#2壁装离地高26" AnchorId="890C" XPos="17.854" YPos="40.844" ZPos="" IP="192.168.3.144" />
-    <Device Name="#2壁装离地高27" AnchorId="8910" XPos="12.853" YPos="46.837" ZPos="" IP="192.168.3.146" />
-    <Device Name="#2汽机房检修场地1" AnchorId="894A" XPos="1.108" YPos="55.884" ZPos="" IP="192.168.3.168" />
-    <Device Name="#2汽机房检修场地2" AnchorId="8950" XPos="6.66" YPos="55.895" ZPos="" IP="192.168.3.171" />
-    <Device Name="#2汽机房检修场地3" AnchorId="8932" XPos="6.773" YPos="66.432" ZPos="" IP="192.168.3.163" />
-    <Device Name="#2壁装离地高28" AnchorId="894E" XPos="8.071" YPos="64.147" ZPos="" IP="192.168.3.170" />
-    <Device Name="#2壁装离地高29" AnchorId="8884" XPos="18.383" YPos="56.599" ZPos="" IP="192.168.3.86" />
-    <Device Name="#2壁装离地高30" AnchorId="8954" XPos="18.91" YPos="66.461" ZPos="" IP="192.168.3.173" />
-    <Device Name="#2壁装离地高31" AnchorId="8940" XPos="24.796" YPos="56.787" ZPos="" IP="192.168.3.166" />
-    <Device Name="#2壁装离地高32" AnchorId="892E" XPos="30.04" YPos="62.404" ZPos="" IP="192.168.3.161" />
-    <Device Name="#2壁装离地高33" AnchorId="8952" XPos="43.699" YPos="67.274" ZPos="" IP="192.168.3.172" />
-    <Device Name="#2壁装离地高34" AnchorId="8948" XPos="44.112" YPos="74.606" ZPos="" IP="192.168.3.167" />
-    <Device Name="#2壁装离地高35" AnchorId="8958" XPos="25.372" YPos="74.605" ZPos="" IP="192.168.3.175" />
-    <Device Name="#2壁装离地高36" AnchorId="894C" XPos="25.396" YPos="66.455" ZPos="" IP="192.168.3.169" />
-    <Device Name="#2壁装离地高37" AnchorId="8934" XPos="7.015" YPos="74.478" ZPos="" IP="192.168.3.164" />
-    <Device Name="#2壁装离地高38" AnchorId="8956" XPos="2.956" YPos="76.419" ZPos="" IP="192.168.3.174" />
-    <Device Name="#2壁装离地高39" AnchorId="892C" XPos="0.7" YPos="75.944" ZPos="" IP="192.168.3.160" />
-    <Device Name="#1机组6kV配电间1" AnchorId="Code_63" XPos="3.486" YPos="77.569" ZPos="" IP="" />
-    <Device Name="#1机组6kV配电间2" AnchorId="Code_64" XPos="3.486" YPos="81.28" ZPos="" IP="" />
-    <Device Name="#1机组6kV配电间3" AnchorId="Code_65" XPos="3.486" YPos="84.636" ZPos="" IP="" />
-    <Device Name="#1机组6kV配电间4" AnchorId="89C6" XPos="21.867" YPos="85.217" ZPos="" IP="192.168.3.227" />
-    <Device Name="#1机组6kV配电间5" AnchorId="Code_67" XPos="21.867" YPos="81.28" ZPos="" IP="" />
-    <Device Name="#1机组6kV配电间6" AnchorId="Code_68" XPos="21.867" YPos="77.569" ZPos="" IP="" />
-    <Device Name="T2钢梯1" AnchorId="87E4" XPos="22.497" YPos="85.346" ZPos="" IP="192.168.3.39" />
-    <Device Name="T2钢梯2" AnchorId="Code_70" XPos="22.495" YPos="79.269" ZPos="" IP="" />
-    <Device Name="T2钢梯3" AnchorId="89D4" XPos="25.337" YPos="77.226" ZPos="" IP="192.168.3.233" />
-    <Device Name="#1燃机机房检修场地1" AnchorId="89B4" XPos="32.334" YPos="77.226" ZPos="" IP="192.168.3.218" />
-    <Device Name="#1燃机机房检修场地2" AnchorId="89C4" XPos="32.374" YPos="85.434" ZPos="" IP="192.168.3.226" />
-    <Device Name="#1燃机机房检修场地3" AnchorId="89C8" XPos="40.647" YPos="76.994" ZPos="" IP="192.168.3.228" />
-    <Device Name="#1燃机机房检修场地4" AnchorId="89C2" XPos="43.475" YPos="77.112" ZPos="" IP="192.168.3.225" />
-    <Device Name="#1燃机机房检修场地5" AnchorId="89CA" XPos="43.468" YPos="85.794" ZPos="" IP="192.168.3.229" />
-    <Device Name="#1壁装离地高1" AnchorId="87EC" XPos="0.478" YPos="91.303" ZPos="" IP="192.168.3.40" />
-    <Device Name="#1壁装离地高2" AnchorId="880E" XPos="11.062" YPos="93.861" ZPos="" IP="192.168.3.47" />
-    <Device Name="#1壁装离地高3" AnchorId="8806" XPos="14.239" YPos="93.737" ZPos="" IP="192.168.3.46" />
-    <Device Name="#1壁装离地高4" AnchorId="87EE" XPos="14.13" YPos="86.231" ZPos="" IP="192.168.3.41" />
-    <Device Name="#1壁装离地高5" AnchorId="8812" XPos="24.438" YPos="86.133" ZPos="" IP="192.168.3.49" />
-    <Device Name="#1壁装离地高6" AnchorId="88B4" XPos="24.451" YPos="93.454" ZPos="" IP="192.168.3.106" />
-    <Device Name="#1壁装离地高7" AnchorId="88A2" XPos="25.381" YPos="93.469" ZPos="" IP="192.168.3.98" />
-    <Device Name="#1壁装离地高8" AnchorId="89D8" XPos="32.375" YPos="93.438" ZPos="" IP="192.168.3.235" />
-    <Device Name="#1壁装离地高9" AnchorId="Code_85" XPos="40.647" YPos="95.004" ZPos="" IP="" />
-    <Device Name="#1壁装离地高10" AnchorId="89D6" XPos="43.45" YPos="93.668" ZPos="" IP="192.168.3.234" />
-    <Device Name="#1壁装离地高11" AnchorId="Code_87" XPos="0.693" YPos="104.713" ZPos="" IP="" />
-    <Device Name="#1壁装离地高12" AnchorId="Code_88" XPos="2.942" YPos="109.615" ZPos="" IP="" />
-    <Device Name="#1壁装离地高13" AnchorId="Code_89" XPos="10.705" YPos="104.754" ZPos="" IP="" />
-    <Device Name="#1壁装离地高14" AnchorId="Code_90" XPos="16.554" YPos="109.555" ZPos="" IP="" />
-    <Device Name="#1壁装离地高15" AnchorId="Code_91" XPos="18.396" YPos="105.333" ZPos="" IP="" />
-    <Device Name="#1壁装离地高16" AnchorId="Code_92" XPos="24.895" YPos="105.278" ZPos="" IP="" />
-    <Device Name="#1壁装离地高17" AnchorId="Code_93" XPos="31.599" YPos="105.281" ZPos="" IP="" />
-    <Device Name="#1壁装离地高18" AnchorId="Code_94" XPos="31.61" YPos="115.864" ZPos="" IP="" />
-    <Device Name="#1壁装离地高19" AnchorId="Code_95" XPos="43.471" YPos="104.794" ZPos="" IP="" />
-    <Device Name="#1壁装离地高20" AnchorId="Code_96" XPos="43.564" YPos="116.73" ZPos="" IP="" />
-    <Device Name="#1壁装离地高21" AnchorId="Code_97" XPos="16.65" YPos="115.513" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间1" AnchorId="Code_98" XPos="3.485" YPos="111.068" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间2" AnchorId="Code_99" XPos="3.485" YPos="113.299" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间3" AnchorId="Code_100" XPos="3.485" YPos="115.335" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间4" AnchorId="Code_101" XPos="16.069" YPos="111.126" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间5" AnchorId="Code_102" XPos="16.069" YPos="113.3" ZPos="" IP="" />
-    <Device Name="#1机组就地MCC配电间6" AnchorId="Code_103" XPos="16.069" YPos="115.393" ZPos="" IP="" />
-    <Device Name="#1壁装离地高22" AnchorId="Code_104" XPos="2.939" YPos="116.985" ZPos="" IP="" />
-    <Device Name="#1壁装离地高23" AnchorId="Code_105" XPos="1.092" YPos="122.804" ZPos="" IP="" />
-    <Device Name="#1壁装离地高24" AnchorId="Code_106" XPos="7.181" YPos="117.726" ZPos="" IP="" />
-    <Device Name="#1壁装离地高25" AnchorId="Code_107" XPos="13.177" YPos="117.185" ZPos="" IP="" />
-    <Device Name="#1壁装离地高26" AnchorId="Code_108" XPos="17.854" YPos="117.444" ZPos="" IP="" />
-    <Device Name="#1壁装离地高27" AnchorId="Code_109" XPos="12.853" YPos="123.437" ZPos="" IP="" />
-    <Device Name="#1汽机房检修场地1" AnchorId="Code_110" XPos="1.108" YPos="132.484" ZPos="" IP="" />
-    <Device Name="#1汽机房检修场地2" AnchorId="Code_111" XPos="6.66" YPos="132.495" ZPos="" IP="" />
-    <Device Name="#1汽机房检修场地3" AnchorId="Code_112" XPos="6.773" YPos="143.032" ZPos="" IP="" />
-    <Device Name="#1壁装离地高28" AnchorId="Code_113" XPos="8.071" YPos="140.747" ZPos="" IP="" />
-    <Device Name="#1壁装离地高29" AnchorId="Code_114" XPos="18.383" YPos="133.199" ZPos="" IP="" />
-    <Device Name="#1壁装离地高30" AnchorId="Code_115" XPos="18.91" YPos="143.061" ZPos="" IP="" />
-    <Device Name="#1壁装离地高31" AnchorId="Code_116" XPos="24.796" YPos="133.387" ZPos="" IP="" />
-    <Device Name="#1壁装离地高32" AnchorId="Code_117" XPos="30.04" YPos="139.004" ZPos="" IP="" />
-    <Device Name="#1壁装离地高33" AnchorId="Code_118" XPos="43.699" YPos="143.874" ZPos="" IP="" />
-    <Device Name="#1壁装离地高34" AnchorId="Code_119" XPos="35.938" YPos="149.12" ZPos="" IP="" />
-    <Device Name="#1壁装离地高35" AnchorId="Code_120" XPos="27.148" YPos="148.575" ZPos="" IP="" />
-    <Device Name="#1壁装离地高36" AnchorId="Code_121" XPos="25.396" YPos="143.055" ZPos="" IP="" />
-    <Device Name="#1壁装离地高37" AnchorId="Code_122" XPos="7.015" YPos="151.078" ZPos="" IP="" />
-    <Device Name="#1壁装离地高38" AnchorId="Code_123" XPos="0.675" YPos="151.272" ZPos="" IP="" />
+    <Device Name="主厂房一层" AnchorId="Test08" XPos="0.432" YPos="0.907" ZPos="1" IP="" AbsolutePosX="0.43" AbsolutePosY="1" AbsolutePosZ="0.907" />
+    <Device Name="#2机组6kV配电间1" AnchorId="899C" XPos="3.486" YPos="0.969" ZPos="" IP="192.168.3.207" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1649.17" />
+    <Device Name="#2机组6kV配电间2" AnchorId="8900" XPos="3.486" YPos="4.68" ZPos="" IP="192.168.3.138" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1652.88" />
+    <Device Name="#2机组6kV配电间3" AnchorId="8994" XPos="3.486" YPos="8.036" ZPos="" IP="192.168.3.203" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1656.24" />
+    <Device Name="#2机组6kV配电间4" AnchorId="898E" XPos="21.867" YPos="8.617" ZPos="" IP="192.168.3.200" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1656.82" />
+    <Device Name="#2机组6kV配电间5" AnchorId="8996" XPos="21.867" YPos="4.68" ZPos="" IP="192.168.3.204" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1652.88" />
+    <Device Name="#2机组6kV配电间6" AnchorId="897E" XPos="21.867" YPos="0.969" ZPos="" IP="192.168.3.192" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1649.17" />
+    <Device Name="#2   T3钢梯1" AnchorId="88FA" XPos="22.479" YPos="8.746" ZPos="" IP="192.168.3.135" AbsolutePosX="2222.48" AbsolutePosY="2.00" AbsolutePosZ="1656.95" />
+    <Device Name="#2 T3钢梯2" AnchorId="8AF0" XPos="22.495" YPos="2.669" ZPos="" IP="192.168.4.161" AbsolutePosX="2222.50" AbsolutePosY="2.00" AbsolutePosZ="1650.87" />
+    <Device Name="#2 T3钢梯3" AnchorId="89B2" XPos="25.337" YPos="0.626" ZPos="" IP="192.168.3.217" AbsolutePosX="2225.34" AbsolutePosY="2.00" AbsolutePosZ="1648.83" />
+    <Device Name="#2燃机机房检修场地1" AnchorId="89B4" XPos="32.334" YPos="0.626" ZPos="" IP="192.168.3.218" AbsolutePosX="2232.33" AbsolutePosY="2.00" AbsolutePosZ="1648.83" />
+    <Device Name="#2燃机机房检修场地2" AnchorId="Code_11" XPos="40.647" YPos="0.394" ZPos="" IP="" AbsolutePosX="40.65" AbsolutePosY="2.00" AbsolutePosZ="0.39" />
+    <Device Name="#2燃机机房检修场地3" AnchorId="89C2" XPos="43.475" YPos="0.512" ZPos="" IP="192.168.3.225" AbsolutePosX="2243.47" AbsolutePosY="2.00" AbsolutePosZ="1648.71" />
+    <Device Name="#2燃机机房检修场地4" AnchorId="89CA" XPos="43.468" YPos="9.194" ZPos="" IP="192.168.3.229" AbsolutePosX="2243.47" AbsolutePosY="2.00" AbsolutePosZ="1657.39" />
+    <Device Name="#2燃机机房检修场地5" AnchorId="89C4" XPos="32.372" YPos="8.835" ZPos="" IP="192.168.3.226" AbsolutePosX="2232.37" AbsolutePosY="2.00" AbsolutePosZ="1657.03" />
+    <Device Name="#2壁装离地高1" AnchorId="8906" XPos="43.45" YPos="17.068" ZPos="" IP="192.168.3.141" AbsolutePosX="2243.45" AbsolutePosY="2.00" AbsolutePosZ="1665.27" />
+    <Device Name="#2壁装离地高2" AnchorId="Code_16" XPos="40.647" YPos="18.404" ZPos="" IP="" AbsolutePosX="40.65" AbsolutePosY="2.00" AbsolutePosZ="18.40" />
+    <Device Name="#2壁装离地高3" AnchorId="8986" XPos="32.375" YPos="16.838" ZPos="" IP="192.168.3.196" AbsolutePosX="2232.38" AbsolutePosY="2.00" AbsolutePosZ="1665.04" />
+    <Device Name="#2壁装离地高4" AnchorId="897A" XPos="25.381" YPos="16.869" ZPos="" IP="192.168.3.190" AbsolutePosX="2225.38" AbsolutePosY="2.00" AbsolutePosZ="1665.07" />
+    <Device Name="#2壁装离地高5" AnchorId="88FC" XPos="24.451" YPos="16.854" ZPos="" IP="192.168.3.136" AbsolutePosX="2224.45" AbsolutePosY="2.00" AbsolutePosZ="1665.05" />
+    <Device Name="#2壁装离地高6" AnchorId="890A" XPos="24.438" YPos="9.533" ZPos="" IP="192.168.3.143" AbsolutePosX="2224.44" AbsolutePosY="2.00" AbsolutePosZ="1657.73" />
+    <Device Name="#2壁装离地高7" AnchorId="Code_21" XPos="14.13" YPos="9.631" ZPos="" IP="" AbsolutePosX="14.13" AbsolutePosY="2.00" AbsolutePosZ="9.63" />
+    <Device Name="#2壁装离地高8" AnchorId="8922" XPos="14.239" YPos="17.137" ZPos="" IP="192.168.3.155" AbsolutePosX="2214.24" AbsolutePosY="2.00" AbsolutePosZ="1665.34" />
+    <Device Name="#2壁装离地高9" AnchorId="8928" XPos="11.062" YPos="17.261" ZPos="" IP="192.168.3.158" AbsolutePosX="2211.06" AbsolutePosY="2.00" AbsolutePosZ="1665.46" />
+    <Device Name="#2壁装离地高10" AnchorId="88FE" XPos="0.478" YPos="14.703" ZPos="" IP="192.168.3.137" AbsolutePosX="2200.48" AbsolutePosY="2.00" AbsolutePosZ="1662.90" />
+    <Device Name="#2壁装离地高11" AnchorId="8906" XPos="0.693" YPos="28.113" ZPos="" IP="192.168.3.141" AbsolutePosX="0.69" AbsolutePosY="2.00" AbsolutePosZ="28.11" />
+    <Device Name="#2壁装离地高12" AnchorId="8904" XPos="2.942" YPos="33.015" ZPos="" IP="192.168.3.140" AbsolutePosX="2.94" AbsolutePosY="2.00" AbsolutePosZ="33.01" />
+    <Device Name="#2壁装离地高13" AnchorId="8916" XPos="10.705" YPos="28.154" ZPos="" IP="192.168.3.149" AbsolutePosX="10.70" AbsolutePosY="2.00" AbsolutePosZ="28.15" />
+    <Device Name="#2壁装离地高14" AnchorId="8908" XPos="16.554" YPos="32.955" ZPos="" IP="192.168.3.142" AbsolutePosX="16.55" AbsolutePosY="2.00" AbsolutePosZ="32.96" />
+    <Device Name="#2壁装离地高15" AnchorId="8914" XPos="18.396" YPos="28.733" ZPos="" IP="192.168.3.148" AbsolutePosX="18.40" AbsolutePosY="2.00" AbsolutePosZ="28.73" />
+    <Device Name="#2壁装离地高16" AnchorId="8918" XPos="24.895" YPos="28.678" ZPos="" IP="192.168.3.150" AbsolutePosX="24.90" AbsolutePosY="2.00" AbsolutePosZ="28.68" />
+    <Device Name="#2壁装离地高17" AnchorId="8924" XPos="31.599" YPos="28.681" ZPos="" IP="192.168.3.156" AbsolutePosX="31.60" AbsolutePosY="2.00" AbsolutePosZ="28.68" />
+    <Device Name="#2壁装离地高18" AnchorId="891E" XPos="31.61" YPos="39.264" ZPos="" IP="192.168.3.153" AbsolutePosX="31.61" AbsolutePosY="2.00" AbsolutePosZ="39.26" />
+    <Device Name="#2壁装离地高19" AnchorId="8912" XPos="43.471" YPos="28.194" ZPos="" IP="192.168.3.147" AbsolutePosX="43.47" AbsolutePosY="2.00" AbsolutePosZ="28.19" />
+    <Device Name="#2壁装离地高20" AnchorId="8926" XPos="43.564" YPos="40.13" ZPos="" IP="192.168.3.157" AbsolutePosX="43.56" AbsolutePosY="2.00" AbsolutePosZ="40.13" />
+    <Device Name="#2壁装离地高21" AnchorId="8920" XPos="16.65" YPos="38.913" ZPos="" IP="192.168.3.154" AbsolutePosX="16.65" AbsolutePosY="2.00" AbsolutePosZ="38.91" />
+    <Device Name="#2机组就地MCC配电间1" AnchorId="Code_36" XPos="3.485" YPos="34.468" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="34.47" />
+    <Device Name="#2机组就地MCC配电间2" AnchorId="Code_37" XPos="3.485" YPos="36.699" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="36.70" />
+    <Device Name="#2机组就地MCC配电间3" AnchorId="Code_38" XPos="3.485" YPos="38.735" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="38.74" />
+    <Device Name="#2机组就地MCC配电间4" AnchorId="Code_39" XPos="16.069" YPos="38.793" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="38.79" />
+    <Device Name="#2机组就地MCC配电间5" AnchorId="Code_40" XPos="16.069" YPos="36.7" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="36.70" />
+    <Device Name="#2机组就地MCC配电间6" AnchorId="Code_41" XPos="16.069" YPos="34.526" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="34.53" />
+    <Device Name="#2壁装离地高22" AnchorId="892A" XPos="2.939" YPos="40.385" ZPos="" IP="192.168.3.159" AbsolutePosX="2.94" AbsolutePosY="2.00" AbsolutePosZ="40.38" />
+    <Device Name="#2壁装离地高23" AnchorId="890E" XPos="1.092" YPos="46.204" ZPos="" IP="192.168.3.145" AbsolutePosX="1.09" AbsolutePosY="2.00" AbsolutePosZ="46.20" />
+    <Device Name="#2壁装离地高24" AnchorId="891A" XPos="7.181" YPos="41.126" ZPos="" IP="192.168.3.151" AbsolutePosX="7.18" AbsolutePosY="2.00" AbsolutePosZ="41.13" />
+    <Device Name="#2壁装离地高25" AnchorId="891C" XPos="13.177" YPos="40.585" ZPos="" IP="192.168.3.152" AbsolutePosX="13.18" AbsolutePosY="2.00" AbsolutePosZ="40.58" />
+    <Device Name="#2壁装离地高26" AnchorId="890C" XPos="17.854" YPos="40.844" ZPos="" IP="192.168.3.144" AbsolutePosX="17.85" AbsolutePosY="2.00" AbsolutePosZ="40.84" />
+    <Device Name="#2壁装离地高27" AnchorId="8910" XPos="12.853" YPos="46.837" ZPos="" IP="192.168.3.146" AbsolutePosX="12.85" AbsolutePosY="2.00" AbsolutePosZ="46.84" />
+    <Device Name="#2汽机房检修场地1" AnchorId="894A" XPos="1.108" YPos="55.884" ZPos="" IP="192.168.3.168" AbsolutePosX="1.11" AbsolutePosY="2.00" AbsolutePosZ="55.88" />
+    <Device Name="#2汽机房检修场地2" AnchorId="8950" XPos="6.66" YPos="55.895" ZPos="" IP="192.168.3.171" AbsolutePosX="6.66" AbsolutePosY="2.00" AbsolutePosZ="55.90" />
+    <Device Name="#2汽机房检修场地3" AnchorId="8932" XPos="6.773" YPos="66.432" ZPos="" IP="192.168.3.163" AbsolutePosX="6.77" AbsolutePosY="2.00" AbsolutePosZ="66.43" />
+    <Device Name="#2壁装离地高28" AnchorId="894E" XPos="8.071" YPos="64.147" ZPos="" IP="192.168.3.170" AbsolutePosX="8.07" AbsolutePosY="2.00" AbsolutePosZ="64.15" />
+    <Device Name="#2壁装离地高29" AnchorId="8884" XPos="18.383" YPos="56.599" ZPos="" IP="192.168.3.86" AbsolutePosX="18.38" AbsolutePosY="2.00" AbsolutePosZ="56.60" />
+    <Device Name="#2壁装离地高30" AnchorId="8954" XPos="18.91" YPos="66.461" ZPos="" IP="192.168.3.173" AbsolutePosX="18.91" AbsolutePosY="2.00" AbsolutePosZ="66.46" />
+    <Device Name="#2壁装离地高31" AnchorId="8940" XPos="24.796" YPos="56.787" ZPos="" IP="192.168.3.166" AbsolutePosX="24.80" AbsolutePosY="2.00" AbsolutePosZ="56.79" />
+    <Device Name="#2壁装离地高32" AnchorId="892E" XPos="30.04" YPos="62.404" ZPos="" IP="192.168.3.161" AbsolutePosX="30.04" AbsolutePosY="2.00" AbsolutePosZ="62.40" />
+    <Device Name="#2壁装离地高33" AnchorId="8952" XPos="43.699" YPos="67.274" ZPos="" IP="192.168.3.172" AbsolutePosX="43.70" AbsolutePosY="2.00" AbsolutePosZ="67.27" />
+    <Device Name="#2壁装离地高34" AnchorId="8948" XPos="44.112" YPos="74.606" ZPos="" IP="192.168.3.167" AbsolutePosX="44.11" AbsolutePosY="2.00" AbsolutePosZ="74.61" />
+    <Device Name="#2壁装离地高35" AnchorId="8958" XPos="25.372" YPos="74.605" ZPos="" IP="192.168.3.175" AbsolutePosX="25.37" AbsolutePosY="2.00" AbsolutePosZ="74.61" />
+    <Device Name="#2壁装离地高36" AnchorId="894C" XPos="25.396" YPos="66.455" ZPos="" IP="192.168.3.169" AbsolutePosX="25.40" AbsolutePosY="2.00" AbsolutePosZ="66.46" />
+    <Device Name="#2壁装离地高37" AnchorId="8934" XPos="7.015" YPos="74.478" ZPos="" IP="192.168.3.164" AbsolutePosX="7.01" AbsolutePosY="2.00" AbsolutePosZ="74.48" />
+    <Device Name="#2壁装离地高38" AnchorId="8956" XPos="2.956" YPos="76.419" ZPos="" IP="192.168.3.174" AbsolutePosX="2.96" AbsolutePosY="2.00" AbsolutePosZ="76.42" />
+    <Device Name="#2壁装离地高39" AnchorId="892C" XPos="0.7" YPos="75.944" ZPos="" IP="192.168.3.160" AbsolutePosX="0.70" AbsolutePosY="2.00" AbsolutePosZ="75.94" />
+    <Device Name="#1机组6kV配电间1" AnchorId="89CE" XPos="3.486" YPos="77.569" ZPos="" IP="192.168.3.230" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1725.77" />
+    <Device Name="#1机组6kV配电间2" AnchorId="89D2" XPos="3.486" YPos="81.28" ZPos="" IP="192.168.3.232" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1729.48" />
+    <Device Name="#1机组6kV配电间3" AnchorId="89DA" XPos="3.486" YPos="84.636" ZPos="" IP="192.168.3.236" AbsolutePosX="2203.49" AbsolutePosY="2.00" AbsolutePosZ="1732.84" />
+    <Device Name="#1机组6kV配电间4" AnchorId="89C6" XPos="21.867" YPos="85.217" ZPos="" IP="192.168.3.227" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1733.42" />
+    <Device Name="#1机组6kV配电间5" AnchorId="89C0" XPos="21.867" YPos="81.28" ZPos="" IP="192.168.3.224" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1729.48" />
+    <Device Name="#1机组6kV配电间6" AnchorId="89D0" XPos="21.867" YPos="77.569" ZPos="" IP="192.168.3.231" AbsolutePosX="2221.87" AbsolutePosY="2.00" AbsolutePosZ="1725.77" />
+    <Device Name="T2钢梯1" AnchorId="87E4" XPos="22.497" YPos="85.346" ZPos="" IP="192.168.3.39" AbsolutePosX="22.50" AbsolutePosY="2.00" AbsolutePosZ="85.35" />
+    <Device Name="T2钢梯2" AnchorId="87FE" XPos="22.495" YPos="79.269" ZPos="" IP="192.168.3.45" AbsolutePosX="2222.50" AbsolutePosY="2.00" AbsolutePosZ="1727.47" />
+    <Device Name="T2钢梯3" AnchorId="89D4" XPos="25.337" YPos="77.226" ZPos="" IP="192.168.3.233" AbsolutePosX="25.34" AbsolutePosY="2.00" AbsolutePosZ="77.23" />
+    <Device Name="#1燃机机房检修场地1" AnchorId="89B4" XPos="32.334" YPos="77.226" ZPos="" IP="192.168.3.218" AbsolutePosX="32.33" AbsolutePosY="2.00" AbsolutePosZ="77.23" />
+    <Device Name="#1燃机机房检修场地2" AnchorId="89C4" XPos="32.374" YPos="85.434" ZPos="" IP="192.168.3.226" AbsolutePosX="32.37" AbsolutePosY="2.00" AbsolutePosZ="85.43" />
+    <Device Name="#1燃机机房检修场地3" AnchorId="89C8" XPos="40.647" YPos="76.994" ZPos="" IP="192.168.3.228" AbsolutePosX="40.65" AbsolutePosY="2.00" AbsolutePosZ="76.99" />
+    <Device Name="#1燃机机房检修场地4" AnchorId="89C2" XPos="43.475" YPos="77.112" ZPos="" IP="192.168.3.225" AbsolutePosX="43.47" AbsolutePosY="2.00" AbsolutePosZ="77.11" />
+    <Device Name="#1燃机机房检修场地5" AnchorId="89CA" XPos="43.468" YPos="85.794" ZPos="" IP="192.168.3.229" AbsolutePosX="43.47" AbsolutePosY="2.00" AbsolutePosZ="85.79" />
+    <Device Name="#1壁装离地高1" AnchorId="87EC" XPos="0.478" YPos="91.303" ZPos="" IP="192.168.3.40" AbsolutePosX="0.48" AbsolutePosY="2.00" AbsolutePosZ="91.30" />
+    <Device Name="#1壁装离地高2" AnchorId="880E" XPos="11.062" YPos="93.861" ZPos="" IP="192.168.3.47" AbsolutePosX="11.06" AbsolutePosY="2.00" AbsolutePosZ="93.86" />
+    <Device Name="#1壁装离地高3" AnchorId="8806" XPos="14.239" YPos="93.737" ZPos="" IP="192.168.3.46" AbsolutePosX="14.24" AbsolutePosY="2.00" AbsolutePosZ="93.74" />
+    <Device Name="#1壁装离地高4" AnchorId="87EE" XPos="14.13" YPos="86.231" ZPos="" IP="192.168.3.41" AbsolutePosX="14.13" AbsolutePosY="2.00" AbsolutePosZ="86.23" />
+    <Device Name="#1壁装离地高5" AnchorId="8812" XPos="24.438" YPos="86.133" ZPos="" IP="192.168.3.49" AbsolutePosX="24.44" AbsolutePosY="2.00" AbsolutePosZ="86.13" />
+    <Device Name="#1壁装离地高6" AnchorId="87F8" XPos="24.451" YPos="93.454" ZPos="" IP="192.168.3.44" AbsolutePosX="2224.45" AbsolutePosY="2.00" AbsolutePosZ="1741.65" />
+    <Device Name="#1壁装离地高7" AnchorId="88B4" XPos="25.381" YPos="93.469" ZPos="" IP="192.168.3.106" AbsolutePosX="2225.38" AbsolutePosY="2.00" AbsolutePosZ="1741.67" />
+    <Device Name="#1壁装离地高8" AnchorId="88A2" XPos="32.375" YPos="93.438" ZPos="" IP="192.168.3.98" AbsolutePosX="2232.38" AbsolutePosY="2.00" AbsolutePosZ="1741.64" />
+    <Device Name="#1壁装离地高9" AnchorId="89D8" XPos="40.647" YPos="95.004" ZPos="" IP="192.168.3.235" AbsolutePosX="2240.65" AbsolutePosY="2.00" AbsolutePosZ="1743.20" />
+    <Device Name="#1壁装离地高10" AnchorId="89D6" XPos="43.45" YPos="93.668" ZPos="" IP="192.168.3.234" AbsolutePosX="2243.45" AbsolutePosY="2.00" AbsolutePosZ="1741.87" />
+    <Device Name="#1壁装离地高11" AnchorId="87F0" XPos="0.693" YPos="104.713" ZPos="" IP="192.168.3.42" AbsolutePosX="2200.69" AbsolutePosY="2.00" AbsolutePosZ="1752.91" />
+    <Device Name="#1壁装离地高12" AnchorId="87F4" XPos="2.942" YPos="109.615" ZPos="" IP="192.168.3.43" AbsolutePosX="2202.94" AbsolutePosY="2.00" AbsolutePosZ="1757.81" />
+    <Device Name="#1壁装离地高13" AnchorId="8848" XPos="10.705" YPos="104.754" ZPos="" IP="192.168.3.58" AbsolutePosX="2210.70" AbsolutePosY="2.00" AbsolutePosZ="1752.95" />
+    <Device Name="#1壁装离地高14" AnchorId="8810" XPos="16.554" YPos="109.555" ZPos="" IP="192.168.3.48" AbsolutePosX="2216.55" AbsolutePosY="2.00" AbsolutePosZ="1757.75" />
+    <Device Name="#1壁装离地高15" AnchorId="8842" XPos="18.396" YPos="105.333" ZPos="" IP="192.168.3.56" AbsolutePosX="2218.40" AbsolutePosY="2.00" AbsolutePosZ="1753.53" />
+    <Device Name="#1壁装离地高16" AnchorId="882C" XPos="24.895" YPos="105.278" ZPos="" IP="192.168.3.54" AbsolutePosX="2224.90" AbsolutePosY="2.00" AbsolutePosZ="1753.48" />
+    <Device Name="#1壁装离地高17" AnchorId="8844" XPos="31.599" YPos="105.281" ZPos="" IP="192.168.3.57" AbsolutePosX="2231.60" AbsolutePosY="2.00" AbsolutePosZ="1753.48" />
+    <Device Name="#1壁装离地高18" AnchorId="8854" XPos="31.61" YPos="115.864" ZPos="" IP="192.168.3.64" AbsolutePosX="2231.61" AbsolutePosY="2.00" AbsolutePosZ="1764.06" />
+    <Device Name="#1壁装离地高19" AnchorId="8820" XPos="43.471" YPos="104.794" ZPos="" IP="192.168.3.51" AbsolutePosX="2243.47" AbsolutePosY="2.00" AbsolutePosZ="1752.99" />
+    <Device Name="#1壁装离地高20" AnchorId="884C" XPos="43.564" YPos="116.73" ZPos="" IP="192.168.3.60" AbsolutePosX="2243.56" AbsolutePosY="2.00" AbsolutePosZ="1764.93" />
+    <Device Name="#1壁装离地高21" AnchorId="8828" XPos="16.65" YPos="115.513" ZPos="" IP="192.168.3.53" AbsolutePosX="2216.65" AbsolutePosY="2.00" AbsolutePosZ="1763.71" />
+    <Device Name="#1机组就地MCC配电间1" AnchorId="Code_98" XPos="3.485" YPos="111.068" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="111.07" />
+    <Device Name="#1机组就地MCC配电间2" AnchorId="Code_99" XPos="3.485" YPos="113.299" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="113.30" />
+    <Device Name="#1机组就地MCC配电间3" AnchorId="Code_100" XPos="3.485" YPos="115.335" ZPos="" IP="" AbsolutePosX="3.48" AbsolutePosY="2.00" AbsolutePosZ="115.33" />
+    <Device Name="#1机组就地MCC配电间4" AnchorId="Code_101" XPos="16.069" YPos="111.126" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="111.13" />
+    <Device Name="#1机组就地MCC配电间5" AnchorId="Code_102" XPos="16.069" YPos="113.3" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="113.30" />
+    <Device Name="#1机组就地MCC配电间6" AnchorId="Code_103" XPos="16.069" YPos="115.393" ZPos="" IP="" AbsolutePosX="16.07" AbsolutePosY="2.00" AbsolutePosZ="115.39" />
+    <Device Name="#1壁装离地高22" AnchorId="8822" XPos="2.939" YPos="116.985" ZPos="" IP="192.168.3.52" AbsolutePosX="2202.94" AbsolutePosY="2.00" AbsolutePosZ="1765.18" />
+    <Device Name="#1壁装离地高23" AnchorId="8852" XPos="1.092" YPos="122.804" ZPos="" IP="192.168.3.63" AbsolutePosX="2201.09" AbsolutePosY="2.00" AbsolutePosZ="1771.00" />
+    <Device Name="#1壁装离地高24" AnchorId="8840" XPos="7.181" YPos="117.726" ZPos="" IP="192.168.3.55" AbsolutePosX="2207.18" AbsolutePosY="2.00" AbsolutePosZ="1765.93" />
+    <Device Name="#1壁装离地高25" AnchorId="8850" XPos="13.177" YPos="117.185" ZPos="" IP="192.168.3.62" AbsolutePosX="2213.18" AbsolutePosY="2.00" AbsolutePosZ="1765.38" />
+    <Device Name="#1壁装离地高26" AnchorId="8856" XPos="17.854" YPos="117.444" ZPos="" IP="192.168.3.65" AbsolutePosX="2217.85" AbsolutePosY="2.00" AbsolutePosZ="1765.64" />
+    <Device Name="#1壁装离地高27" AnchorId="8818" XPos="12.853" YPos="123.437" ZPos="" IP="192.168.3.50" AbsolutePosX="2212.85" AbsolutePosY="2.00" AbsolutePosZ="1771.64" />
+    <Device Name="#1汽机房检修场地1" AnchorId="886C" XPos="1.108" YPos="132.484" ZPos="" IP="192.168.3.74" AbsolutePosX="2201.11" AbsolutePosY="2.00" AbsolutePosZ="1780.68" />
+    <Device Name="#1汽机房检修场地2" AnchorId="886A" XPos="6.66" YPos="132.495" ZPos="" IP="192.168.3.73" AbsolutePosX="2206.66" AbsolutePosY="2.00" AbsolutePosZ="1780.69" />
+    <Device Name="#1汽机房检修场地3" AnchorId="8866" XPos="6.773" YPos="143.032" ZPos="" IP="192.168.3.71" AbsolutePosX="2206.77" AbsolutePosY="2.00" AbsolutePosZ="1791.23" />
+    <Device Name="#1壁装离地高28" AnchorId="8880" XPos="8.071" YPos="140.747" ZPos="" IP="192.168.3.84" AbsolutePosX="2208.07" AbsolutePosY="2.00" AbsolutePosZ="1788.95" />
+    <Device Name="#1壁装离地高29" AnchorId="8870" XPos="18.383" YPos="133.199" ZPos="" IP="192.168.3.76" AbsolutePosX="2218.38" AbsolutePosY="2.00" AbsolutePosZ="1781.40" />
+    <Device Name="#1壁装离地高30" AnchorId="8868" XPos="18.91" YPos="143.061" ZPos="" IP="192.168.3.72" AbsolutePosX="2218.91" AbsolutePosY="2.00" AbsolutePosZ="1791.26" />
+    <Device Name="#1壁装离地高31" AnchorId="8882" XPos="24.796" YPos="133.387" ZPos="" IP="192.168.3.85" AbsolutePosX="2224.80" AbsolutePosY="2.00" AbsolutePosZ="1781.59" />
+    <Device Name="#1壁装离地高32" AnchorId="887E" XPos="30.04" YPos="139.004" ZPos="" IP="192.168.3.83" AbsolutePosX="2230.04" AbsolutePosY="2.00" AbsolutePosZ="1787.20" />
+    <Device Name="#1壁装离地高33" AnchorId="8864" XPos="43.699" YPos="143.874" ZPos="" IP="192.168.3.70" AbsolutePosX="2243.70" AbsolutePosY="2.00" AbsolutePosZ="1792.07" />
+    <Device Name="#1壁装离地高34" AnchorId="8874" XPos="35.938" YPos="149.12" ZPos="" IP="192.168.3.78" AbsolutePosX="2235.94" AbsolutePosY="2.00" AbsolutePosZ="1797.32" />
+    <Device Name="#1壁装离地高35" AnchorId="885A" XPos="27.148" YPos="148.575" ZPos="" IP="192.168.3.66" AbsolutePosX="2227.15" AbsolutePosY="2.00" AbsolutePosZ="1796.77" />
+    <Device Name="#1壁装离地高36" AnchorId="887C" XPos="25.396" YPos="143.055" ZPos="" IP="192.168.3.82" AbsolutePosX="2225.40" AbsolutePosY="2.00" AbsolutePosZ="1791.25" />
+    <Device Name="#1壁装离地高37" AnchorId="86E4" XPos="7.015" YPos="151.078" ZPos="" IP="192.168.4.24" AbsolutePosX="2207.01" AbsolutePosY="2.00" AbsolutePosZ="1799.28" />
+    <Device Name="#1壁装离地高38" AnchorId="Code_123" XPos="0.675" YPos="151.272" ZPos="" IP="" AbsolutePosX="0.68" AbsolutePosY="2.00" AbsolutePosZ="151.27" />
   </DeviceList>
   <DeviceList Name="主厂房4.5m层">
-    <Device Name="#2变频起动柜室1" AnchorId="Code_0" XPos="0.281" YPos="1.132" ZPos="" IP="" />
-    <Device Name="#2变频起动柜室2" AnchorId="Code_1" XPos="0.281" YPos="4.266" ZPos="" IP="" />
-    <Device Name="#2变频起动柜室3" AnchorId="Code_2" XPos="0.281" YPos="8.167" ZPos="" IP="" />
-    <Device Name="#2变频起动柜室4" AnchorId="Code_3" XPos="9.639" YPos="1.132" ZPos="" IP="" />
-    <Device Name="#2变频起动柜室5" AnchorId="Code_4" XPos="9.639" YPos="4.266" ZPos="" IP="" />
-    <Device Name="#2变频起动柜室6" AnchorId="Code_5" XPos="9.639" YPos="8.167" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室1" AnchorId="Code_6" XPos="0.281" YPos="77.732" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室2" AnchorId="Code_7" XPos="0.281" YPos="80.866" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室3" AnchorId="Code_8" XPos="0.281" YPos="84.767" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室4" AnchorId="Code_9" XPos="9.639" YPos="77.732" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室5" AnchorId="Code_10" XPos="9.639" YPos="80.866" ZPos="" IP="" />
-    <Device Name="#1变频起动柜室6" AnchorId="Code_11" XPos="9.639" YPos="84.767" ZPos="" IP="" />
-    <Device Name="#2机组配电间1" AnchorId="Code_12" XPos="10.201" YPos="1.132" ZPos="" IP="" />
-    <Device Name="#2机组配电间2" AnchorId="Code_13" XPos="10.201" YPos="4.266" ZPos="" IP="" />
-    <Device Name="#2机组配电间3" AnchorId="Code_14" XPos="10.201" YPos="8.167" ZPos="" IP="" />
-    <Device Name="#2机组配电间4" AnchorId="Code_15" XPos="19.119" YPos="1.132" ZPos="" IP="" />
-    <Device Name="#2机组配电间5" AnchorId="Code_16" XPos="19.119" YPos="4.266" ZPos="" IP="" />
-    <Device Name="#2机组配电间6" AnchorId="Code_17" XPos="19.119" YPos="8.167" ZPos="" IP="" />
-    <Device Name="#1机组配电间1" AnchorId="Code_18" XPos="10.201" YPos="77.732" ZPos="" IP="" />
-    <Device Name="#1机组配电间2" AnchorId="Code_19" XPos="10.201" YPos="80.866" ZPos="" IP="" />
-    <Device Name="#1机组配电间3" AnchorId="Code_20" XPos="10.201" YPos="84.767" ZPos="" IP="" />
-    <Device Name="#1机组配电间4" AnchorId="Code_21" XPos="19.119" YPos="77.732" ZPos="" IP="" />
-    <Device Name="#1机组配电间5" AnchorId="Code_22" XPos="19.119" YPos="80.866" ZPos="" IP="" />
-    <Device Name="#1机组配电间6" AnchorId="Code_23" XPos="19.119" YPos="84.767" ZPos="" IP="" />
-    <Device Name="#2钢梯1" AnchorId="Code_24" XPos="19.658" YPos="0.19" ZPos="" IP="" />
-    <Device Name="#2钢梯2" AnchorId="Code_25" XPos="30.856" YPos="0.641" ZPos="" IP="" />
-    <Device Name="#2钢梯3" AnchorId="Code_26" XPos="30.838" YPos="8.82" ZPos="" IP="" />
-    <Device Name="#1钢梯1" AnchorId="Code_27" XPos="19.658" YPos="76.79" ZPos="" IP="" />
-    <Device Name="#1钢梯2" AnchorId="Code_28" XPos="30.856" YPos="77.241" ZPos="" IP="" />
-    <Device Name="#1钢梯3" AnchorId="Code_29" XPos="30.838" YPos="85.452" ZPos="" IP="" />
-    <Device Name="#2暖通管道1" AnchorId="Code_30" XPos="19.645" YPos="9.408" ZPos="" IP="" />
-    <Device Name="#2暖通管道2" AnchorId="Code_31" XPos="24.438" YPos="16.82" ZPos="" IP="" />
-    <Device Name="#2暖通管道3" AnchorId="Code_32" XPos="17.888" YPos="16.77" ZPos="" IP="" />
-    <Device Name="#2暖通管道4" AnchorId="Code_33" XPos="7.622" YPos="16.787" ZPos="" IP="" />
-    <Device Name="#1暖通管道1" AnchorId="Code_34" XPos="19.645" YPos="86.008" ZPos="" IP="" />
-    <Device Name="#1暖通管道2" AnchorId="Code_35" XPos="24.438" YPos="93.42" ZPos="" IP="" />
-    <Device Name="#1暖通管道3" AnchorId="Code_36" XPos="17.888" YPos="93.37" ZPos="" IP="" />
-    <Device Name="#1暖通管道4" AnchorId="Code_37" XPos="7.622" YPos="93.387" ZPos="" IP="" />
-    <Device Name="#2燃机平台1" AnchorId="Code_38" XPos="10.791" YPos="17.643" ZPos="" IP="" />
-    <Device Name="#2燃机平台2" AnchorId="Code_39" XPos="24.421" YPos="17.524" ZPos="" IP="" />
-    <Device Name="#2燃机平台3" AnchorId="Code_40" XPos="24.419" YPos="28.2" ZPos="" IP="" />
-    <Device Name="#2燃机平台4" AnchorId="Code_41" XPos="13.058" YPos="32.983" ZPos="" IP="" />
-    <Device Name="#2燃机平台5" AnchorId="Code_42" XPos="7.638" YPos="27.783" ZPos="" IP="" />
-    <Device Name="#1燃机平台1" AnchorId="Code_43" XPos="10.791" YPos="94.243" ZPos="" IP="" />
-    <Device Name="#1燃机平台2" AnchorId="Code_44" XPos="24.421" YPos="94.124" ZPos="" IP="" />
-    <Device Name="#1燃机平台3" AnchorId="Code_45" XPos="24.419" YPos="104.8" ZPos="" IP="" />
-    <Device Name="#1燃机平台4" AnchorId="Code_46" XPos="13.058" YPos="109.583" ZPos="" IP="" />
-    <Device Name="#1燃机平台5" AnchorId="Code_47" XPos="7.638" YPos="104.383" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间1" AnchorId="Code_48" XPos="0.987" YPos="28.304" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间2" AnchorId="Code_49" XPos="3.054" YPos="28.304" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间3" AnchorId="Code_50" XPos="6.008" YPos="28.304" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间4" AnchorId="Code_51" XPos="0.987" YPos="39.907" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间5" AnchorId="Code_52" XPos="3.054" YPos="39.907" ZPos="" IP="" />
-    <Device Name="#2燃机电子设备间6" AnchorId="Code_53" XPos="6.008" YPos="39.907" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间1" AnchorId="Code_54" XPos="0.987" YPos="104.904" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间2" AnchorId="Code_55" XPos="3.054" YPos="104.904" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间3" AnchorId="Code_56" XPos="6.008" YPos="104.904" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间4" AnchorId="Code_57" XPos="0.987" YPos="116.507" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间5" AnchorId="Code_58" XPos="3.054" YPos="116.507" ZPos="" IP="" />
-    <Device Name="#1燃机电子设备间6" AnchorId="Code_59" XPos="6.008" YPos="116.507" ZPos="" IP="" />
-    <Device Name="#2机组励磁小室1" AnchorId="Code_60" XPos="7.696" YPos="33.452" ZPos="" IP="" />
-    <Device Name="#2机组励磁小室2" AnchorId="Code_61" XPos="12.539" YPos="33.452" ZPos="" IP="" />
-    <Device Name="#2机组励磁小室3" AnchorId="Code_62" XPos="8.081" YPos="39.895" ZPos="" IP="" />
-    <Device Name="#2机组励磁小室4" AnchorId="Code_63" XPos="12.539" YPos="39.895" ZPos="" IP="" />
-    <Device Name="#1机组励磁小室1" AnchorId="Code_64" XPos="7.696" YPos="110.052" ZPos="" IP="" />
-    <Device Name="#1机组励磁小室2" AnchorId="Code_65" XPos="12.539" YPos="110.052" ZPos="" IP="" />
-    <Device Name="#1机组励磁小室3" AnchorId="Code_66" XPos="8.081" YPos="116.495" ZPos="" IP="" />
-    <Device Name="#1机组励磁小室4" AnchorId="Code_67" XPos="12.539" YPos="116.495" ZPos="" IP="" />
-    <Device Name="#2基站1" AnchorId="Code_68" XPos="1.081" YPos="46.2" ZPos="" IP="" />
-    <Device Name="#2基站2" AnchorId="Code_69" XPos="7.2" YPos="41.137" ZPos="" IP="" />
-    <Device Name="#2基站3" AnchorId="Code_70" XPos="9.47" YPos="46.92" ZPos="" IP="" />
-    <Device Name="#2基站4" AnchorId="Code_71" XPos="11.528" YPos="45.94" ZPos="" IP="" />
-    <Device Name="#2基站5" AnchorId="Code_72" XPos="13.038" YPos="40.417" ZPos="" IP="" />
-    <Device Name="#2基站6" AnchorId="Code_73" XPos="18.644" YPos="45.775" ZPos="" IP="" />
-    <Device Name="#2基站7" AnchorId="Code_74" XPos="42.519" YPos="40.58" ZPos="" IP="" />
-    <Device Name="#2基站8" AnchorId="Code_75" XPos="42.519" YPos="49.704" ZPos="" IP="" />
-    <Device Name="#2基站9" AnchorId="Code_76" XPos="42.519" YPos="55.9" ZPos="" IP="" />
-    <Device Name="#2基站10" AnchorId="Code_77" XPos="9.47" YPos="55.156" ZPos="" IP="" />
-    <Device Name="#2基站11" AnchorId="Code_78" XPos="1.081" YPos="55.9" ZPos="" IP="" />
-    <Device Name="#2基站12" AnchorId="Code_79" XPos="42.519" YPos="73.909" ZPos="" IP="" />
-    <Device Name="#2基站13" AnchorId="Code_80" XPos="0.671" YPos="74.479" ZPos="" IP="" />
-    <Device Name="#1基站1" AnchorId="Code_81" XPos="1.081" YPos="122.8" ZPos="" IP="" />
-    <Device Name="#1基站2" AnchorId="Code_82" XPos="7.2" YPos="117.734" ZPos="" IP="" />
-    <Device Name="#1基站3" AnchorId="Code_83" XPos="9.47" YPos="123.52" ZPos="" IP="" />
-    <Device Name="#1基站4" AnchorId="Code_84" XPos="11.528" YPos="122.54" ZPos="" IP="" />
-    <Device Name="#1基站5" AnchorId="Code_85" XPos="13.038" YPos="117.017" ZPos="" IP="" />
-    <Device Name="#1基站6" AnchorId="Code_86" XPos="18.644" YPos="122.375" ZPos="" IP="" />
-    <Device Name="#1基站7" AnchorId="Code_87" XPos="42.519" YPos="117.18" ZPos="" IP="" />
-    <Device Name="#1基站8" AnchorId="Code_88" XPos="42.519" YPos="125.94" ZPos="" IP="" />
-    <Device Name="#1基站9" AnchorId="Code_89" XPos="42.519" YPos="132.5" ZPos="" IP="" />
-    <Device Name="#1基站10" AnchorId="Code_90" XPos="9.47" YPos="131.75" ZPos="" IP="" />
-    <Device Name="#1基站11" AnchorId="Code_91" XPos="1.081" YPos="132.5" ZPos="" IP="" />
-    <Device Name="#1基站12" AnchorId="Code_92" XPos="42.519" YPos="150.509" ZPos="" IP="" />
-    <Device Name="#1基站13" AnchorId="Code_93" XPos="0.671" YPos="151.079" ZPos="" IP="" />
+    <Device Name="#2变频起动柜室1" AnchorId="Code_0" XPos="0.281" YPos="1.132" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="1.13" />
+    <Device Name="#2变频起动柜室2" AnchorId="Code_1" XPos="0.281" YPos="4.266" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="4.27" />
+    <Device Name="#2变频起动柜室3" AnchorId="Code_2" XPos="0.281" YPos="8.167" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="8.17" />
+    <Device Name="#2变频起动柜室4" AnchorId="Code_3" XPos="9.639" YPos="1.132" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="1.13" />
+    <Device Name="#2变频起动柜室5" AnchorId="Code_4" XPos="9.639" YPos="4.266" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="4.27" />
+    <Device Name="#2变频起动柜室6" AnchorId="Code_5" XPos="9.639" YPos="8.167" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="8.17" />
+    <Device Name="#1变频起动柜室1" AnchorId="Code_6" XPos="0.281" YPos="77.732" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="77.73" />
+    <Device Name="#1变频起动柜室2" AnchorId="Code_7" XPos="0.281" YPos="80.866" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="80.87" />
+    <Device Name="#1变频起动柜室3" AnchorId="Code_8" XPos="0.281" YPos="84.767" ZPos="" IP="" AbsolutePosX="0.28" AbsolutePosY="2.00" AbsolutePosZ="84.77" />
+    <Device Name="#1变频起动柜室4" AnchorId="Code_9" XPos="9.639" YPos="77.732" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="77.73" />
+    <Device Name="#1变频起动柜室5" AnchorId="Code_10" XPos="9.639" YPos="80.866" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="80.87" />
+    <Device Name="#1变频起动柜室6" AnchorId="Code_11" XPos="9.639" YPos="84.767" ZPos="" IP="" AbsolutePosX="9.64" AbsolutePosY="2.00" AbsolutePosZ="84.77" />
+    <Device Name="#2机组配电间1" AnchorId="Code_12" XPos="10.201" YPos="1.132" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="1.13" />
+    <Device Name="#2机组配电间2" AnchorId="Code_13" XPos="10.201" YPos="4.266" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="4.27" />
+    <Device Name="#2机组配电间3" AnchorId="Code_14" XPos="10.201" YPos="8.167" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="8.17" />
+    <Device Name="#2机组配电间4" AnchorId="Code_15" XPos="19.119" YPos="1.132" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="1.13" />
+    <Device Name="#2机组配电间5" AnchorId="Code_16" XPos="19.119" YPos="4.266" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="4.27" />
+    <Device Name="#2机组配电间6" AnchorId="Code_17" XPos="19.119" YPos="8.167" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="8.17" />
+    <Device Name="#1机组配电间1" AnchorId="Code_18" XPos="10.201" YPos="77.732" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="77.73" />
+    <Device Name="#1机组配电间2" AnchorId="Code_19" XPos="10.201" YPos="80.866" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="80.87" />
+    <Device Name="#1机组配电间3" AnchorId="Code_20" XPos="10.201" YPos="84.767" ZPos="" IP="" AbsolutePosX="10.20" AbsolutePosY="2.00" AbsolutePosZ="84.77" />
+    <Device Name="#1机组配电间4" AnchorId="Code_21" XPos="19.119" YPos="77.732" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="77.73" />
+    <Device Name="#1机组配电间5" AnchorId="Code_22" XPos="19.119" YPos="80.866" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="80.87" />
+    <Device Name="#1机组配电间6" AnchorId="Code_23" XPos="19.119" YPos="84.767" ZPos="" IP="" AbsolutePosX="19.12" AbsolutePosY="2.00" AbsolutePosZ="84.77" />
+    <Device Name="#2钢梯1" AnchorId="Code_24" XPos="19.658" YPos="0.19" ZPos="" IP="" AbsolutePosX="19.66" AbsolutePosY="2.00" AbsolutePosZ="0.19" />
+    <Device Name="#2钢梯2" AnchorId="Code_25" XPos="30.856" YPos="0.641" ZPos="" IP="" AbsolutePosX="30.86" AbsolutePosY="2.00" AbsolutePosZ="0.64" />
+    <Device Name="#2钢梯3" AnchorId="Code_26" XPos="30.838" YPos="8.82" ZPos="" IP="" AbsolutePosX="30.84" AbsolutePosY="2.00" AbsolutePosZ="8.82" />
+    <Device Name="#1钢梯1" AnchorId="Code_27" XPos="19.658" YPos="76.79" ZPos="" IP="" AbsolutePosX="19.66" AbsolutePosY="2.00" AbsolutePosZ="76.79" />
+    <Device Name="#1钢梯2" AnchorId="Code_28" XPos="30.856" YPos="77.241" ZPos="" IP="" AbsolutePosX="30.86" AbsolutePosY="2.00" AbsolutePosZ="77.24" />
+    <Device Name="#1钢梯3" AnchorId="Code_29" XPos="30.838" YPos="85.452" ZPos="" IP="" AbsolutePosX="30.84" AbsolutePosY="2.00" AbsolutePosZ="85.45" />
+    <Device Name="#2暖通管道1" AnchorId="Code_30" XPos="19.645" YPos="9.408" ZPos="" IP="" AbsolutePosX="19.65" AbsolutePosY="2.00" AbsolutePosZ="9.41" />
+    <Device Name="#2暖通管道2" AnchorId="Code_31" XPos="24.438" YPos="16.82" ZPos="" IP="" AbsolutePosX="24.44" AbsolutePosY="2.00" AbsolutePosZ="16.82" />
+    <Device Name="#2暖通管道3" AnchorId="Code_32" XPos="17.888" YPos="16.77" ZPos="" IP="" AbsolutePosX="17.89" AbsolutePosY="2.00" AbsolutePosZ="16.77" />
+    <Device Name="#2暖通管道4" AnchorId="Code_33" XPos="7.622" YPos="16.787" ZPos="" IP="" AbsolutePosX="7.62" AbsolutePosY="2.00" AbsolutePosZ="16.79" />
+    <Device Name="#1暖通管道1" AnchorId="Code_34" XPos="19.645" YPos="86.008" ZPos="" IP="" AbsolutePosX="19.65" AbsolutePosY="2.00" AbsolutePosZ="86.01" />
+    <Device Name="#1暖通管道2" AnchorId="Code_35" XPos="24.438" YPos="93.42" ZPos="" IP="" AbsolutePosX="24.44" AbsolutePosY="2.00" AbsolutePosZ="93.42" />
+    <Device Name="#1暖通管道3" AnchorId="Code_36" XPos="17.888" YPos="93.37" ZPos="" IP="" AbsolutePosX="17.89" AbsolutePosY="2.00" AbsolutePosZ="93.37" />
+    <Device Name="#1暖通管道4" AnchorId="Code_37" XPos="7.622" YPos="93.387" ZPos="" IP="" AbsolutePosX="7.62" AbsolutePosY="2.00" AbsolutePosZ="93.39" />
+    <Device Name="#2燃机平台1" AnchorId="Code_38" XPos="10.791" YPos="17.643" ZPos="" IP="" AbsolutePosX="10.79" AbsolutePosY="2.00" AbsolutePosZ="17.64" />
+    <Device Name="#2燃机平台2" AnchorId="Code_39" XPos="24.421" YPos="17.524" ZPos="" IP="" AbsolutePosX="24.42" AbsolutePosY="2.00" AbsolutePosZ="17.52" />
+    <Device Name="#2燃机平台3" AnchorId="Code_40" XPos="24.419" YPos="28.2" ZPos="" IP="" AbsolutePosX="24.42" AbsolutePosY="2.00" AbsolutePosZ="28.20" />
+    <Device Name="#2燃机平台4" AnchorId="Code_41" XPos="13.058" YPos="32.983" ZPos="" IP="" AbsolutePosX="13.06" AbsolutePosY="2.00" AbsolutePosZ="32.98" />
+    <Device Name="#2燃机平台5" AnchorId="Code_42" XPos="7.638" YPos="27.783" ZPos="" IP="" AbsolutePosX="7.64" AbsolutePosY="2.00" AbsolutePosZ="27.78" />
+    <Device Name="#1燃机平台1" AnchorId="Code_43" XPos="10.791" YPos="94.243" ZPos="" IP="" AbsolutePosX="10.79" AbsolutePosY="2.00" AbsolutePosZ="94.24" />
+    <Device Name="#1燃机平台2" AnchorId="Code_44" XPos="24.421" YPos="94.124" ZPos="" IP="" AbsolutePosX="24.42" AbsolutePosY="2.00" AbsolutePosZ="94.12" />
+    <Device Name="#1燃机平台3" AnchorId="Code_45" XPos="24.419" YPos="104.8" ZPos="" IP="" AbsolutePosX="24.42" AbsolutePosY="2.00" AbsolutePosZ="104.80" />
+    <Device Name="#1燃机平台4" AnchorId="Code_46" XPos="13.058" YPos="109.583" ZPos="" IP="" AbsolutePosX="13.06" AbsolutePosY="2.00" AbsolutePosZ="109.58" />
+    <Device Name="#1燃机平台5" AnchorId="Code_47" XPos="7.638" YPos="104.383" ZPos="" IP="" AbsolutePosX="7.64" AbsolutePosY="2.00" AbsolutePosZ="104.38" />
+    <Device Name="#2燃机电子设备间1" AnchorId="Code_48" XPos="0.987" YPos="28.304" ZPos="" IP="" AbsolutePosX="0.99" AbsolutePosY="2.00" AbsolutePosZ="28.30" />
+    <Device Name="#2燃机电子设备间2" AnchorId="Code_49" XPos="3.054" YPos="28.304" ZPos="" IP="" AbsolutePosX="3.05" AbsolutePosY="2.00" AbsolutePosZ="28.30" />
+    <Device Name="#2燃机电子设备间3" AnchorId="Code_50" XPos="6.008" YPos="28.304" ZPos="" IP="" AbsolutePosX="6.01" AbsolutePosY="2.00" AbsolutePosZ="28.30" />
+    <Device Name="#2燃机电子设备间4" AnchorId="Code_51" XPos="0.987" YPos="39.907" ZPos="" IP="" AbsolutePosX="0.99" AbsolutePosY="2.00" AbsolutePosZ="39.91" />
+    <Device Name="#2燃机电子设备间5" AnchorId="Code_52" XPos="3.054" YPos="39.907" ZPos="" IP="" AbsolutePosX="3.05" AbsolutePosY="2.00" AbsolutePosZ="39.91" />
+    <Device Name="#2燃机电子设备间6" AnchorId="Code_53" XPos="6.008" YPos="39.907" ZPos="" IP="" AbsolutePosX="6.01" AbsolutePosY="2.00" AbsolutePosZ="39.91" />
+    <Device Name="#1燃机电子设备间1" AnchorId="Code_54" XPos="0.987" YPos="104.904" ZPos="" IP="" AbsolutePosX="0.99" AbsolutePosY="2.00" AbsolutePosZ="104.90" />
+    <Device Name="#1燃机电子设备间2" AnchorId="Code_55" XPos="3.054" YPos="104.904" ZPos="" IP="" AbsolutePosX="3.05" AbsolutePosY="2.00" AbsolutePosZ="104.90" />
+    <Device Name="#1燃机电子设备间3" AnchorId="Code_56" XPos="6.008" YPos="104.904" ZPos="" IP="" AbsolutePosX="6.01" AbsolutePosY="2.00" AbsolutePosZ="104.90" />
+    <Device Name="#1燃机电子设备间4" AnchorId="Code_57" XPos="0.987" YPos="116.507" ZPos="" IP="" AbsolutePosX="0.99" AbsolutePosY="2.00" AbsolutePosZ="116.51" />
+    <Device Name="#1燃机电子设备间5" AnchorId="Code_58" XPos="3.054" YPos="116.507" ZPos="" IP="" AbsolutePosX="3.05" AbsolutePosY="2.00" AbsolutePosZ="116.51" />
+    <Device Name="#1燃机电子设备间6" AnchorId="Code_59" XPos="6.008" YPos="116.507" ZPos="" IP="" AbsolutePosX="6.01" AbsolutePosY="2.00" AbsolutePosZ="116.51" />
+    <Device Name="#2机组励磁小室1" AnchorId="Code_60" XPos="7.696" YPos="33.452" ZPos="" IP="" AbsolutePosX="7.70" AbsolutePosY="2.00" AbsolutePosZ="33.45" />
+    <Device Name="#2机组励磁小室2" AnchorId="Code_61" XPos="12.539" YPos="33.452" ZPos="" IP="" AbsolutePosX="12.54" AbsolutePosY="2.00" AbsolutePosZ="33.45" />
+    <Device Name="#2机组励磁小室3" AnchorId="Code_62" XPos="8.081" YPos="39.895" ZPos="" IP="" AbsolutePosX="8.08" AbsolutePosY="2.00" AbsolutePosZ="39.90" />
+    <Device Name="#2机组励磁小室4" AnchorId="Code_63" XPos="12.539" YPos="39.895" ZPos="" IP="" AbsolutePosX="12.54" AbsolutePosY="2.00" AbsolutePosZ="39.90" />
+    <Device Name="#1机组励磁小室1" AnchorId="Code_64" XPos="7.696" YPos="110.052" ZPos="" IP="" AbsolutePosX="7.70" AbsolutePosY="2.00" AbsolutePosZ="110.05" />
+    <Device Name="#1机组励磁小室2" AnchorId="Code_65" XPos="12.539" YPos="110.052" ZPos="" IP="" AbsolutePosX="12.54" AbsolutePosY="2.00" AbsolutePosZ="110.05" />
+    <Device Name="#1机组励磁小室3" AnchorId="Code_66" XPos="8.081" YPos="116.495" ZPos="" IP="" AbsolutePosX="8.08" AbsolutePosY="2.00" AbsolutePosZ="116.50" />
+    <Device Name="#1机组励磁小室4" AnchorId="Code_67" XPos="12.539" YPos="116.495" ZPos="" IP="" AbsolutePosX="12.54" AbsolutePosY="2.00" AbsolutePosZ="116.50" />
+    <Device Name="#2基站1" AnchorId="Code_68" XPos="1.081" YPos="46.2" ZPos="" IP="" AbsolutePosX="1.08" AbsolutePosY="2.00" AbsolutePosZ="46.20" />
+    <Device Name="#2基站2" AnchorId="Code_69" XPos="7.2" YPos="41.137" ZPos="" IP="" AbsolutePosX="7.20" AbsolutePosY="2.00" AbsolutePosZ="41.14" />
+    <Device Name="#2基站3" AnchorId="Code_70" XPos="9.47" YPos="46.92" ZPos="" IP="" AbsolutePosX="9.47" AbsolutePosY="2.00" AbsolutePosZ="46.92" />
+    <Device Name="#2基站4" AnchorId="Code_71" XPos="11.528" YPos="45.94" ZPos="" IP="" AbsolutePosX="11.53" AbsolutePosY="2.00" AbsolutePosZ="45.94" />
+    <Device Name="#2基站5" AnchorId="Code_72" XPos="13.038" YPos="40.417" ZPos="" IP="" AbsolutePosX="13.04" AbsolutePosY="2.00" AbsolutePosZ="40.42" />
+    <Device Name="#2基站6" AnchorId="Code_73" XPos="18.644" YPos="45.775" ZPos="" IP="" AbsolutePosX="18.64" AbsolutePosY="2.00" AbsolutePosZ="45.78" />
+    <Device Name="#2基站7" AnchorId="Code_74" XPos="42.519" YPos="40.58" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="40.58" />
+    <Device Name="#2基站8" AnchorId="Code_75" XPos="42.519" YPos="49.704" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="49.70" />
+    <Device Name="#2基站9" AnchorId="Code_76" XPos="42.519" YPos="55.9" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="55.90" />
+    <Device Name="#2基站10" AnchorId="Code_77" XPos="9.47" YPos="55.156" ZPos="" IP="" AbsolutePosX="9.47" AbsolutePosY="2.00" AbsolutePosZ="55.16" />
+    <Device Name="#2基站11" AnchorId="Code_78" XPos="1.081" YPos="55.9" ZPos="" IP="" AbsolutePosX="1.08" AbsolutePosY="2.00" AbsolutePosZ="55.90" />
+    <Device Name="#2基站12" AnchorId="Code_79" XPos="42.519" YPos="73.909" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="73.91" />
+    <Device Name="#2基站13" AnchorId="Code_80" XPos="0.671" YPos="74.479" ZPos="" IP="" AbsolutePosX="0.67" AbsolutePosY="2.00" AbsolutePosZ="74.48" />
+    <Device Name="#1基站1" AnchorId="Code_81" XPos="1.081" YPos="122.8" ZPos="" IP="" AbsolutePosX="1.08" AbsolutePosY="2.00" AbsolutePosZ="122.80" />
+    <Device Name="#1基站2" AnchorId="Code_82" XPos="7.2" YPos="117.734" ZPos="" IP="" AbsolutePosX="7.20" AbsolutePosY="2.00" AbsolutePosZ="117.73" />
+    <Device Name="#1基站3" AnchorId="Code_83" XPos="9.47" YPos="123.52" ZPos="" IP="" AbsolutePosX="9.47" AbsolutePosY="2.00" AbsolutePosZ="123.52" />
+    <Device Name="#1基站4" AnchorId="Code_84" XPos="11.528" YPos="122.54" ZPos="" IP="" AbsolutePosX="11.53" AbsolutePosY="2.00" AbsolutePosZ="122.54" />
+    <Device Name="#1基站5" AnchorId="Code_85" XPos="13.038" YPos="117.017" ZPos="" IP="" AbsolutePosX="13.04" AbsolutePosY="2.00" AbsolutePosZ="117.02" />
+    <Device Name="#1基站6" AnchorId="Code_86" XPos="18.644" YPos="122.375" ZPos="" IP="" AbsolutePosX="18.64" AbsolutePosY="2.00" AbsolutePosZ="122.38" />
+    <Device Name="#1基站7" AnchorId="Code_87" XPos="42.519" YPos="117.18" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="117.18" />
+    <Device Name="#1基站8" AnchorId="Code_88" XPos="42.519" YPos="125.94" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="125.94" />
+    <Device Name="#1基站9" AnchorId="Code_89" XPos="42.519" YPos="132.5" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="132.50" />
+    <Device Name="#1基站10" AnchorId="Code_90" XPos="9.47" YPos="131.75" ZPos="" IP="" AbsolutePosX="9.47" AbsolutePosY="2.00" AbsolutePosZ="131.75" />
+    <Device Name="#1基站11" AnchorId="Code_91" XPos="1.081" YPos="132.5" ZPos="" IP="" AbsolutePosX="1.08" AbsolutePosY="2.00" AbsolutePosZ="132.50" />
+    <Device Name="#1基站12" AnchorId="Code_92" XPos="42.519" YPos="150.509" ZPos="" IP="" AbsolutePosX="42.52" AbsolutePosY="2.00" AbsolutePosZ="150.51" />
+    <Device Name="#1基站13" AnchorId="Code_93" XPos="0.671" YPos="151.079" ZPos="" IP="" AbsolutePosX="0.67" AbsolutePosY="2.00" AbsolutePosZ="151.08" />
   </DeviceList>
-  <DeviceList Name="主厂房11m层">
-    <Device Name="基站1" AnchorId="Code_8" XPos="32.286" YPos="0.439" ZPos="" IP="" />
-    <Device Name="基站2" AnchorId="Code_9" XPos="43.355" YPos="0.477" ZPos="" IP="" />
-    <Device Name="基站3" AnchorId="Code_10" XPos="43.522" YPos="33.41" ZPos="" IP="" />
-    <Device Name="基站4" AnchorId="Code_11" XPos="32.182" YPos="75.67" ZPos="" IP="" />
-    <Device Name="基站5" AnchorId="Code_12" XPos="43.522" YPos="76.831" ZPos="" IP="" />
-    <Device Name="基站6" AnchorId="Code_13" XPos="43.572" YPos="122.81" ZPos="" IP="" />
-    <Device Name="基站7" AnchorId="Code_6" XPos="43.516" YPos="151.796" ZPos="" IP="" />
-    <Device Name="基站8" AnchorId="Code_7" XPos="32.181" YPos="152.072" ZPos="" IP="" />
-  </DeviceList>
+  <DeviceList Name="主厂房11.0m层" />
   <DeviceList Name="初灵大楼一层">
-    <Device Name="一楼基站1" AnchorId="85A4" XPos="3000" YPos="870" ZPos="200" IP="" />
-    <Device Name="一楼基站2" AnchorId="85D8" XPos="4960" YPos="1925" ZPos="200" IP="" />
-    <Device Name="一楼基站3" AnchorId="85E8" XPos="4960" YPos="1125" ZPos="200" IP="" />
-    <Device Name="一楼基站4" AnchorId="85D4" XPos="3500" YPos="1965" ZPos="200" IP="" />
-    <Device Name="一楼基站5" AnchorId="85B2" XPos="4960" YPos="870" ZPos="200" IP="" />
-    <Device Name="一楼基站6" AnchorId="85D2" XPos="3500" YPos="1005" ZPos="200" IP="" />
+    <Device Name="一楼基站1" AnchorId="85A4" XPos="3000" YPos="870" ZPos="200" IP="" AbsolutePosX="3000.00" AbsolutePosY="200.00" AbsolutePosZ="870.00" />
+    <Device Name="一楼基站2" AnchorId="85D8" XPos="4960" YPos="1925" ZPos="200" IP="" AbsolutePosX="4960.00" AbsolutePosY="200.00" AbsolutePosZ="1925.00" />
+    <Device Name="一楼基站3" AnchorId="85E8" XPos="4960" YPos="1125" ZPos="200" IP="" AbsolutePosX="4960.00" AbsolutePosY="200.00" AbsolutePosZ="1125.00" />
+    <Device Name="一楼基站4" AnchorId="85D4" XPos="3500" YPos="1965" ZPos="200" IP="" AbsolutePosX="3500.00" AbsolutePosY="200.00" AbsolutePosZ="1965.00" />
+    <Device Name="一楼基站5" AnchorId="85B2" XPos="4960" YPos="870" ZPos="200" IP="" AbsolutePosX="4960.00" AbsolutePosY="200.00" AbsolutePosZ="870.00" />
+    <Device Name="一楼基站6" AnchorId="85D2" XPos="3500" YPos="1005" ZPos="200" IP="" AbsolutePosX="3500.00" AbsolutePosY="200.00" AbsolutePosZ="1005.00" />
   </DeviceList>
   <DeviceList Name="初灵大楼二层">
-    <Device Name="二楼基站1" AnchorId="85CE" XPos="5585" YPos="1623" ZPos="500" IP="" />
-    <Device Name="二楼基站2" AnchorId="85CC" XPos="5025" YPos="1930" ZPos="500" IP="" />
-    <Device Name="二楼基站3" AnchorId="85A8" XPos="5025" YPos="1630" ZPos="500" IP="" />
-    <Device Name="二楼基站4" AnchorId="85D6" XPos="5585" YPos="1953" ZPos="500" IP="" />
+    <Device Name="二楼基站1" AnchorId="85CE" XPos="5585" YPos="1623" ZPos="500" IP="" AbsolutePosX="5585.00" AbsolutePosY="500.00" AbsolutePosZ="1623.00" />
+    <Device Name="二楼基站2" AnchorId="85CC" XPos="5025" YPos="1930" ZPos="500" IP="" AbsolutePosX="5025.00" AbsolutePosY="500.00" AbsolutePosZ="1930.00" />
+    <Device Name="二楼基站3" AnchorId="85A8" XPos="5025" YPos="1630" ZPos="500" IP="" AbsolutePosX="5025.00" AbsolutePosY="500.00" AbsolutePosZ="1630.00" />
+    <Device Name="二楼基站4" AnchorId="85D6" XPos="5585" YPos="1953" ZPos="500" IP="" AbsolutePosX="5585.00" AbsolutePosY="500.00" AbsolutePosZ="1953.00" />
   </DeviceList>
 </DepList>

@@ -32,6 +32,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "操作票编号")]
+        [MaxLength(32)]
         public string No { get; set; }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "操作任务")]
+        [MaxLength(128)]
         public string OperationTask { get; set; }
 
         /// <summary>
@@ -67,6 +69,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "监护人")]
+        [MaxLength(128)]
         public string Guardian { get; set; }
 
         /// <summary>
@@ -74,6 +77,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "操作人")]
+        [MaxLength(128)]
         public string Operator { get; set; }
 
         /// <summary>
@@ -81,6 +85,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "值班负责人")]
+        [MaxLength(128)]
         public string DutyOfficer { get; set; }
 
         /// <summary>
@@ -88,6 +93,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "调度")]
+        [MaxLength(128)]
         public string Dispatch { get; set; }
 
         /// <summary>
@@ -95,6 +101,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "备注")]
+        [MaxLength(128)]
         public string Remark { get; set; }
 
         public OperationTicket Clone()

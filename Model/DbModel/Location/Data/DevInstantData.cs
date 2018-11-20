@@ -17,6 +17,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "KKS码")]
+        [MaxLength(32)]
         [Key]
         public string KKS { get; set; }
 
@@ -25,6 +26,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(128)]
         public string Name { get; set; }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace DbModel.Location.Data
         /// </summary>
         [DataMember]
         [Display(Name = "值")]
+        [MaxLength(32)]
         public string Value { get; set; }
 
         /// <summary>

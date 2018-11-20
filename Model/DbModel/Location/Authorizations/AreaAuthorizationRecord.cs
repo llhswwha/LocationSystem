@@ -30,6 +30,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "名称")]
+        [MaxLength(128)]
         [Required]
         [XmlAttribute]
         public string Name { get; set; }
@@ -39,6 +40,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "描述")]
+        [MaxLength(128)]
         [XmlAttribute]
         public string Description { get; set; }
 

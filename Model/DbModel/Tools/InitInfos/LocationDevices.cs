@@ -62,5 +62,23 @@ namespace Location.Model.InitInfos
         [XmlAttribute("IP")]
         public string IP;
 
+        /// <summary>
+        /// 厂区绝对位置X
+        /// </summary>
+        [XmlAttribute("AbsolutePosX")]
+        public string AbsolutePosX;
+
+        /// <summary>
+        /// 厂区绝对位置Y
+        /// </summary>
+        [XmlAttribute("AbsolutePosY")]
+        public string AbsolutePosY;
+
+        /// <summary>
+        /// 厂区绝对位置Z
+        /// </summary>
+        [XmlAttribute("AbsolutePosZ")]
+        public string AbsolutePosZ;
+
     }
 }

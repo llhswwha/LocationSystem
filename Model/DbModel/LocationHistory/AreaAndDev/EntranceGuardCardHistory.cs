@@ -33,6 +33,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "门禁卡号")]
+        [MaxLength(64)]
         public string Code { get; set; }
 
         /// <summary>
