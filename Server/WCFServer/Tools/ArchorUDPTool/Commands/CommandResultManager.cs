@@ -20,13 +20,19 @@ namespace ArchorUDPTool.Commands
 
         public UDPArchor GetArchorByIp(string ip)
         {
-            var group = Groups.Find(i => i.Archor.Ip == ip);
+            var group = Groups.Find(i => i.Id.StartsWith(ip));
+            if (group == null) return null;
             return group.Archor;
+        }
+
+        public CommandResultGroup GetByIp(string ip)
+        {
+            var group = Groups.Find(i => i.Id.StartsWith(ip));
+            return group;
         }
 
         public CommandResultGroup GetById(string id)
         {
-
             var g = Groups.Find(i => i!=null&&i.Id == id);
             if (g == null)
             {
@@ -36,7 +42,7 @@ namespace ArchorUDPTool.Commands
             }
             else
             {
-                if (g.Archor.IsConnected == false)//从清单加载进来的
+                if (string.IsNullOrEmpty(g.Archor.IsConnected))//从清单加载进来的
                 {
                     statistics.Add(id);
                 }
@@ -48,6 +54,11 @@ namespace ArchorUDPTool.Commands
         public string GetStatistics()
         {
             return statistics.GetText();
+        }
+        public CommandResultGroup Add(string id)
+        {
+            var group = GetById(id);
+            return group;
         }
 
         public CommandResultGroup Add(System.Net.IPEndPoint iep, byte[] data)
@@ -70,7 +81,8 @@ namespace ArchorUDPTool.Commands
         {
             var group = new CommandResultGroup(item);
             Groups.Add(group);
-            statistics.Add(group.Id);
+            if(!string.IsNullOrEmpty(item.IsConnected))
+                statistics.Add(group.Id);
             return group;
         }
     }

@@ -51,12 +51,12 @@ namespace ArchorUDPTool
             };
             pingSender.Ping(ip, count);
         }
-
+        PingEx pingSender;
         private void BtnStartRange_Click(object sender, RoutedEventArgs e)
         {
             var ip = TbIp.Text;
             int count = TbCount.Text.ToInt();
-            PingEx pingSender = new PingEx();
+            pingSender = new PingEx();
             pingSender.ProgressChanged += (p, pr) =>
             {
                 if (p > 0)
@@ -80,6 +80,14 @@ namespace ArchorUDPTool
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TbIp.ItemsSource = IpHelper.GetLocalList();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (pingSender != null)
+            {
+                pingSender.Cancel();
+            }
         }
     }
 }

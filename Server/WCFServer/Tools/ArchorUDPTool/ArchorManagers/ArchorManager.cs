@@ -45,27 +45,11 @@ namespace ArchorUDPTool
                     //    //{
                     //    //    ArchorListChanged(archorList);
                     //    //}
-   
                     //};
                 }
 
-                UDPArchorList list = new UDPArchorList();
-                foreach(var item in resultList.Groups)
-                {
-                    list.Add(item.Archor);
-                    item.Archor.Num = list.Count;
-                }
-
                 CommandResultGroup group =resultList.Add(iep, data);
-                if (ArchorUpdated != null)
-                {
-                    ArchorUpdated(group.Archor);
-                }
-                if (ArchorListChanged != null)
-                {
-                    ArchorListChanged(list);
-                }
-                archorList = list;
+                archorList = OnDataReceive(group);
                 return group;
             }
 
@@ -148,9 +132,17 @@ namespace ArchorUDPTool
             else if (arg.ScanList)
             {
                 List<string> allIps = new List<string>();
-                foreach (var archor in archors.ArchorList)
+                if(archors!=null)
+                    foreach (var archor in archors.ArchorList)
+                    {
+                        allIps.Add(archor.ArchorIp);
+                    }
+                else
                 {
-                    allIps.Add(archor.ArchorIp);
+                    foreach (var archor in archorList)
+                    {
+                        allIps.Add(archor.GetClientIP());
+                    }
                 }
                 ScanArchors(arg.cmds, allIps.ToArray());
             }
@@ -196,15 +188,35 @@ namespace ArchorUDPTool
         {
             this.Cmds = cmds;
             this.Ips = ips;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.DoWork += Worker_DoWork;
-            worker.ProgressChanged += Worker_ProgressChanged;
-            worker.RunWorkerAsync();
+
+            if (arg.Ping)
+            {
+                if (pingEx == null)
+                {
+                    pingEx = new PingEx();
+                    pingEx.ProgressChanged += PingEx_ProgressChanged;
+                    pingEx.Error += (ex) =>
+                    {
+                        AddLog(ex.ToString());
+                    };
+                }
+                pingEx.PingRange(Ips, 4);
+            }
+            else
+            {
+                worker = new BackgroundWorker();
+                worker.WorkerSupportsCancellation = true;
+                worker.WorkerReportsProgress = true;
+                worker.DoWork += Worker_DoWork;
+                worker.ProgressChanged += Worker_ProgressChanged;
+                worker.RunWorkerAsync();
+            }
 
             //Ping ping = new Ping();
             //ping.
         }
+
+        BackgroundWorker worker;
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -214,61 +226,93 @@ namespace ArchorUDPTool
             }
         }
 
-        public Action<int> PercentChanged;
+        public event Action<int> PercentChanged;
 
         PingEx pingEx;
 
+        public int CmdSleepTime = 100;
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            IsCancel = false;
             BackgroundWorker worker = sender as BackgroundWorker;
  
             for (int j = 0; j < Ips.Length; j++)
             {
                 string ip = Ips[j];
 
-                if (arg.Ping)
-                {
-                    if (pingEx == null)
-                    {
-                        pingEx = new PingEx();
-                        pingEx.ProgressChanged += PingEx_ProgressChanged;
-                    }
-                    pingEx.Ping(ip, 4);
-                }
+                //if (arg.Ping)
+                //{
+                //    if (pingEx == null)
+                //    {
+                //        pingEx = new PingEx();
+                //        pingEx.ProgressChanged += PingEx_ProgressChanged;
+                //    }
+                //    pingEx.Ping(ip, 4);
+                //}
 
                 var localIp = IpHelper.GetLocalIp(ip);
 
                 var udp = GetLightUDP(localIp);
-                int sleepTime = 200;
                 IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), archorPort);
 
-                int i = 0;
                 foreach (var cmd in Cmds)
                 {
-                    string log = string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd);
-                    AddLog(log);
+                    AddLog(string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd));
                     udp.SendHex(cmd, ipEndPoint);
-                    Thread.Sleep(sleepTime);
-                    i++;
+                    Thread.Sleep(CmdSleepTime);
                 }
-                Thread.Sleep(sleepTime * i);
+                Thread.Sleep(CmdSleepTime * Cmds.Length);
 
                 int percent = (int)((j + 1.0) / Ips.Length * 100);
                 worker.ReportProgress(percent,Ips.Length);
+
+                if (IsCancel)
+                {
+                    return;
+                }
             }
         }
 
         private void PingEx_ProgressChanged(int arg1, PingResult arg2)
         {
-            var archor = resultList.GetArchorByIp(arg2.Ip);
-            archor.Ping = arg2.Result;
+            if (arg2.Type == 1)
+            {
+                var group = resultList.GetByIp(arg2.Ip);
+                if (group == null)
+                {
+                    group = resultList.Add(arg2.Ip + ":Ping");
+                    group.Archor.Ping = arg2.GetResult();
+                }
+                else
+                {
+                    group.Archor.Ping = arg2.GetResult();
+                }
+
+                archorList = OnDataReceive(group);
+            }
+            else
+            {
+                if (PercentChanged != null)
+                {
+                    PercentChanged(arg1);
+                }
+            }
         }
 
         public string Log = "";
 
+        int logCount = 0;
+
         private void AddLog(string log)
         {
+            logCount++;
+            log = "[" + logCount + "]" + log;
             Log = log + "\n" + Log;
+            if (Log.Length > 2000)
+            {
+                Log = Log.Substring(0, 1000);
+            }
             if (LogChanged != null)
             {
                 LogChanged(Log);
@@ -305,9 +349,7 @@ namespace ArchorUDPTool
             //AddLog(txt);
 
             var group=AddArchor(dgram.iep, dgram.data);
-
-            string txt = string.Format("收到 :: {0}", group.ToString());
-            AddLog(txt);
+            AddLog(string.Format("收到 :: {0}", group.ToString()));
         }
 
         public void SendCmd(string cmd)
@@ -315,29 +357,41 @@ namespace ArchorUDPTool
             foreach (var archor in archorList)
             {
                 SendCmd(cmd, archor);
+                Thread.Sleep(100);
             }
         }
 
         private void SendCmd(string cmd, UDPArchor archor)
         {
-            var localIp = IpHelper.GetLocalIp(archor.Ip);
+            var archorIp = archor.GetClientIP();
+            var localIp = IpHelper.GetLocalIp(archorIp);
             var udp = GetLightUDP(localIp);
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archor.Ip), archorPort);
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archorIp), archorPort);
             udp.SendHex(cmd, ipEndPoint);
+            AddLog(string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd));
+
         }
 
-        public void ResetAll()
+        public void ResetAll(int port)
         {
-            SendCmd(UDPCommands.Restart);
+            archorPort = port;
+            Thread thread = ThreadTool.Start(() =>
+            {
+                SendCmd(UDPCommands.Restart);
+            });
         }
 
-        public void Reset(UDPArchor archor)
+        public void Reset(params UDPArchor[] archors)
         {
-            SendCmd(UDPCommands.Restart, archor);
+            foreach (var archor in archors)
+            {
+                SendCmd(UDPCommands.Restart, archor);
+            }
         }
 
-        public void SetServerIp251()
+        public void SetServerIp251(int port)
         {
+            archorPort = port;
             foreach (var archor in archorList)
             {
                 var localIp = IpHelper.GetLocalIp(archor.Ip);
@@ -360,33 +414,41 @@ namespace ArchorUDPTool
                         cmd = UDPCommands.ServerIp5251;
                 }
                 udp.SendHex(cmd, ipEndPoint);
+                AddLog(string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd));
             }
         }
 
-        public void SetServerIp253()
+        public void SetServerIp253(int port)
         {
+            archorPort = port;
             foreach (var archor in archorList)
             {
-                var localIp = IpHelper.GetLocalIp(archor.Ip);
+                string archorIp = archor.GetClientIP();
+                var localIp = IpHelper.GetLocalIp(archorIp);
+                if (localIp == null)
+                {
+                    continue;
+                }
                 var udp = GetLightUDP(localIp);
-                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archor.Ip), archorPort);
+                IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archorIp), archorPort);
                 var cmd = "";
-                if (archor.Ip.StartsWith("192.168.3."))
+                if (archorIp.StartsWith("192.168.3."))
                 {
                     if (archor.ServerIp != "192.168.3.253")
                         cmd = UDPCommands.ServerIp3253;
                 }
-                else if (archor.Ip.StartsWith("192.168.4."))
+                else if (archorIp.StartsWith("192.168.4."))
                 {
                     if (archor.ServerIp != "192.168.4.253")
                         cmd = UDPCommands.ServerIp4253;
                 }
-                else if (archor.Ip.StartsWith("192.168.5."))
+                else if (archorIp.StartsWith("192.168.5."))
                 {
                     if (archor.ServerIp != "192.168.5.253")
                         cmd = UDPCommands.ServerIp5253;
                 }
                 udp.SendHex(cmd, ipEndPoint);
+                AddLog(string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd));
             }
         }
 
@@ -395,9 +457,14 @@ namespace ArchorUDPTool
             resultList = new CommandResultManager();
         }
 
-        internal void ScanArchor(UDPArchor archor)
+        internal void ScanArchor(params UDPArchor[] archors)
         {
-            ScanArchors(UDPCommands.GetAll().ToArray(), new string[] { archor.GetClientIP() });
+            var ips = new List<string>();
+            foreach (UDPArchor item in archors)
+            {
+                ips.Add(item.GetClientIP());
+            }
+            ScanArchors(UDPCommands.GetAll().ToArray(), ips.ToArray());
         }
 
         internal void GetArchorInfo(UDPArchor archor,string key)
@@ -454,36 +521,110 @@ namespace ArchorUDPTool
 
         }
 
+        internal void UnCheckAll()
+        {
+            if (archorList != null)
+            {
+                foreach (var item in archorList)
+                {
+                    item.IsChecked = false;
+                }
+            }
+        }
+
+        internal void CheckAll()
+        {
+            if (archorList != null)
+            {
+                foreach (var item in archorList)
+                {
+                    item.IsChecked = true;
+                }
+            }
+        }
+
+        internal void Cancel()
+        {
+            if (arg == null) return;
+            if (arg.Ping)
+            {
+                pingEx.Cancel();
+            }
+            else
+            {
+                worker.CancelAsync();
+                IsCancel = true;
+            }
+        }
+
+        private bool IsCancel = false;
+
         public List<LightUDP> serverUdps = new List<LightUDP>();
 
         internal void StartListen()
         {
             
-            var servers = archorList.ServerList;
-            foreach (var server in servers)
+            //var servers = archorList.ServerList;
+            //foreach (var server in servers)
+            //{
+            //    var localIp = IpHelper.GetLocalIp(server.Ip);
+            //    if (localIp != null && localIp.Address.ToString() == server.Ip)
+            //    {
+            //        LightUDP udp = new LightUDP(server.Ip, server.Port);
+            //        udp.DGramRecieved += Udp_DGramRecieved1;
+            //        serverUdps.Add(udp);
+            //    }
+            //}
+
+            string[] ips = new string[] { "192.168.3.253", "192.168.4.253", "192.168.5.253" };
+            foreach (var ip in ips)
             {
-                var localIp = IpHelper.GetLocalIp(server.Ip);
-                if (localIp != null && localIp.Address.ToString() == server.Ip)
+                var localIp = IpHelper.GetLocalIp(ip);
+                if (localIp != null && localIp.ToString() == ip)
                 {
-                    LightUDP udp = new LightUDP(server.Ip, server.Port);
+                    LightUDP udp = new LightUDP(ip, 1998);
                     udp.DGramRecieved += Udp_DGramRecieved1;
                     serverUdps.Add(udp);
                 }
             }
+
         }
 
         public UDPArchorValueList valueList = new UDPArchorValueList();
 
         private void Udp_DGramRecieved1(object sender, BUDPGram dgram)
         {
-            var group = resultList.GetById(dgram.iep.ToString());
+            if (resultList == null)
+            {
+                resultList = new CommandResultManager();
+            }
+            var group = resultList.Add(dgram.iep,dgram.data);
             group.Archor.Value = ByteHelper.byteToHexStr(dgram.data);
 
             valueList.Add(dgram.iep, dgram.data);
+            AddLog(string.Format("收到 :: {0}", group.ToString()));
 
-            //LbCount.Content = valueList.Count;
-            //LbStatistics.Content = valueList.GetStatistics();
 
+            archorList=OnDataReceive(group);
+        }
+
+        private UDPArchorList OnDataReceive(CommandResultGroup group)
+        {
+            UDPArchorList list = new UDPArchorList();
+            foreach (var item in resultList.Groups)
+            {
+                list.Add(item.Archor);
+                item.Archor.Num = list.Count;
+            }
+            if (ArchorUpdated != null)
+            {
+                ArchorUpdated(group.Archor);
+            }
+            if (ArchorListChanged != null)
+            {
+                ArchorListChanged(list);
+            }
+            return list;
         }
 
         public void StopListen()

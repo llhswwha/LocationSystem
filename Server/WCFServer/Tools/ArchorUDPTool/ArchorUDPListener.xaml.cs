@@ -60,12 +60,28 @@ namespace ArchorUDPTool
             
         }
 
+        string log = "";
+
+        int i = 0;
+
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
         {
-            string txt = string.Format("[{0}][{1}]{2}\t({3})",DateTime.Now.ToString("HH:mm:ss.fff"),dgram.iep,ByteHelper.byteToHexStr(dgram.data),ByteHelper.byteToStr(dgram.data,"\t"));
-            TbConsole.Text = txt + "\n" + TbConsole.Text;
+            i++;
+            string txt = string.Format("[{0}][{1}][{2}]{3}\t({4})",
+                i,
+                DateTime.Now.ToString("HH:mm:ss.fff"),
+                dgram.iep,
+                ByteHelper.byteToHexStr(dgram.data),
+                ByteHelper.byteToStr(dgram.data, "\t")
+            );
+            log = txt + "\n" + log;
+            if (log.Length > 2000)
+            {
+                log = log.Substring(0, 2000);
+            }
+            TbConsole.Text = log;
 
-            valueList.Add(dgram.iep,dgram.data);
+            valueList.Add(dgram.iep, dgram.data);
             DataGrid1.ItemsSource = null;
             DataGrid1.ItemsSource = valueList;
             LbCount.Content = valueList.Count;

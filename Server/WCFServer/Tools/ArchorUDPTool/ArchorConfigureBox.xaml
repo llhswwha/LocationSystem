@@ -10,7 +10,11 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
             <MenuItem Header="加载清单" Name="MenuLoadList" Click="MenuLoadList_Click"></MenuItem>
-            <MenuItem Header="重启全部" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
+            <MenuItem Header="重启">
+                <MenuItem Header="全部" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
+                <MenuItem Header="Checked" Name="MenuRestartChecked" Click="MenuRestartChecked_Click"></MenuItem>
+            </MenuItem>
+           
             <MenuItem Header="设置服务器">
                 <MenuItem Header="设置ServerIP(192.168.5.1)" Name="MenuSetServerIp1" Click="MenuSetServerIP1_OnClick"></MenuItem>
                 <MenuItem Header="设置ServerIP(192.168.10.155)" Name="MenuSetServerIp2" Click="MenuSetServerIp2_OnClick"></MenuItem>
@@ -25,6 +29,10 @@
                 <MenuItem Header="Ping" Name="MenuPing" Click="MenuPing_Click"></MenuItem>
                 <MenuItem Header="监听" Name="MenuListen" Click="MenuListen_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="取消" Name="MenuCancel" Click="MenuCancel_Click"></MenuItem>
+            <!--<MenuItem Header="批量命令">
+                <MenuItem Header="按清单扫描Id+Ping" Name=""></MenuItem>
+            </MenuItem>-->
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label>Remote IP</Label>
@@ -104,12 +112,18 @@
                             <ContextMenu>
                                 <MenuItem Header="刷新当条数据" Name="MenuRefreshOne" Click="MenuRefreshOne_Click"/>
                                 <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
+                                <MenuItem Header="刷新Checked数据" Name="MenuRefreshMultiChecked" Click="MenuRefreshMultiChecked_Click"/>
                                 <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"/>
                                 <MenuItem Header="设置" Name="MenuSetArchor" Click="MenuSetArchor_Click"></MenuItem>
                                 <MenuItem Header="重启" Name="MenuRestartOne" Click="MenuRestartOne_OnClick"></MenuItem>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsChecked}">
+                                <DataGridCheckBoxColumn.Header>
+                                    <CheckBox Name="CheckColumn" Checked="CheckColumn_Checked" Unchecked="CheckColumn_Unchecked"></CheckBox>
+                                </DataGridCheckBoxColumn.Header>
+                            </DataGridCheckBoxColumn>
                             <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
                             <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>

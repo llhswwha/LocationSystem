@@ -63,7 +63,7 @@ namespace ArchorUDPTool.Models
             int count = 0;
             foreach(var i in this)
             {
-                if (i.IsConnected)
+                if (!string.IsNullOrEmpty(i.IsConnected))
                 {
                     count++;
                 }

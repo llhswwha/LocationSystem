@@ -56,6 +56,13 @@ namespace ArchorUDPTool.Tools
             InitWorker();
         }
 
+        public void PingRange(string[] ips, int count = 1)
+        {
+            this.ips = ips;
+            this.count = count;
+            InitWorker();
+        }
+
         public void PingRange(string ip, int count = 1)
         {
             ips = IpHelper.GetIPS(ip).ToArray();
@@ -71,64 +78,79 @@ namespace ArchorUDPTool.Tools
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            IsCancel = false;
             BackgroundWorker worker = sender as BackgroundWorker;
             int allCount = ips.Length * count;
             for (int i1 = 0; i1 < ips.Length; i1++)
             {
-                string ip = ips[i1];
-                if (string.IsNullOrEmpty(ip)) continue;
-                result = "";
-                int successCount = 0;
-                for (int i = 0; i < count; i++)
+                try
                 {
-                    string line = "";
-                    //调用同步send方法发送数据，结果存入reply对象;
-                    PingReply reply = pingSender.Send(ip, 120, buf, options);
-                    line += string.Format("[{0}][{1}] ", ip, i);
-                    if (reply.Status == IPStatus.Success)
+                    string ip = ips[i1];
+                    if (string.IsNullOrEmpty(ip)) continue;
+                    result = "";
+                    int successCount = 0;
+                    for (int i = 0; i < count; i++)
                     {
-                        line += ("主机地址::" + reply.Address) + "\t";
-                        line += ("往返时间::" + reply.RoundtripTime) + "\t";
-                        line += ("生存时间TTL::" + reply.Options.Ttl) + "\t";
-                        line += ("缓冲区大小::" + reply.Buffer.Length) + "\t";
-                        line += ("数据包是否分段::" + reply.Options.DontFragment) + "";
-                        successCount++;
+                        string line = "";
+                        //调用同步send方法发送数据，结果存入reply对象;
+                        PingReply reply = pingSender.Send(ip, 120, buf, options);
+                        line += string.Format("[{0}][{1}] ", ip, i);
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            line += ("主机地址::" + reply.Address) + "\t";
+                            line += ("往返时间::" + reply.RoundtripTime) + "\t";
+                            line += ("生存时间TTL::" + reply.Options.Ttl) + "\t";
+                            line += ("缓冲区大小::" + reply.Buffer.Length) + "\t";
+                            line += ("数据包是否分段::" + reply.Options.DontFragment) + "";
+                            successCount++;
+                        }
+                        else
+                        {
+                            line += "失败!";
+                        }
+
+                        result += line + "\n";
+                        int percent = (int)((i1 * count + i + 1.0) / allCount * 100);
+                        PingResult pr = new PingResult();
+                        pr.Type = 0;
+                        pr.Line = DateTime.Now.ToString("HH:mm:ss.fff") + "|" + line;
+                        pr.Ip = ip;
+                        worker.ReportProgress(percent, pr);
+                        Thread.Sleep(100);
+                        if (IsCancel) return;
+                    }
+
+                    string t = "";
+                    bool s = successCount > 0;
+                    if (s)
+                    {
+                        SuccessIpCount++;
+                        t = string.Format("成功 [{0}]", SuccessIpCount);
                     }
                     else
                     {
-                        line += "失败!";
+                        FailIpCount++;
+                        t = string.Format("失败！ [{0}]", FailIpCount);
                     }
 
-                    result += line + "\n";
-                    int percent = (int)((i1 * count + i + 1.0) / allCount * 100);
-                    PingResult pr = new PingResult();
-                    pr.Type = 0;
-                    pr.Line = DateTime.Now.ToString("HH:mm:ss.fff")+"|"+line;
-                    pr.Ip = ip;
-                    worker.ReportProgress(percent, pr);
-                    Thread.Sleep(100);
+                    PingResult r = new PingResult();
+                    r.Type = 1;
+                    r.Result = s;
+                    r.ResultText = DateTime.Now.ToString("HH:mm:ss.fff") + "|" + string.Format("{0}:{1}", ip, t);
+                    r.Ip = ip;
+                    worker.ReportProgress(0, r);
+                    if (IsCancel) return;
                 }
-
-                string t = "";
-                bool s = successCount > 0;
-                if (s)
+                catch (Exception ex)
                 {
-                    SuccessIpCount++;
-                    t = string.Format("成功 [{0}]", SuccessIpCount);
+                    Error(ex);
+                    return;
                 }
-                else
-                {
-                    FailIpCount++;
-                    t = string.Format("失败！ [{0}]", FailIpCount);
-                }
-
-                PingResult r = new PingResult();
-                r.Type = 1;
-                r.ResultText = DateTime.Now.ToString("HH:mm:ss.fff") + "|" +string.Format("{0}:{1}", ip, t);
-                r.Ip = ip;
-                worker.ReportProgress(0, r);
+                
             }
         }
+
+        public event Action<Exception> Error;
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -143,6 +165,13 @@ namespace ArchorUDPTool.Tools
 
         string result = "";
 
+        internal void Cancel()
+        {
+            worker.CancelAsync();
+            IsCancel = true;
+        }
+
+        public bool IsCancel = false;
     }
 
 
@@ -153,5 +182,14 @@ namespace ArchorUDPTool.Tools
         public string Line;
         public string ResultText;
         public bool Result;
+
+        public string GetResult()
+        {
+            if (Result)
+            {
+                return "True";
+            }
+            return "";
+        }
     }
 }

@@ -9,6 +9,9 @@ namespace ArchorUDPTool.Models
 {
     public class UDPArchor
     {
+        [XmlAttribute]
+        public bool IsChecked { get; set; }
+
         private string _value;
 
         [XmlAttribute]
@@ -25,13 +28,13 @@ namespace ArchorUDPTool.Models
         }
 
         [XmlAttribute]
-        public bool IsConnected { get; set; }
+        public string IsConnected { get; set; }
 
         [XmlAttribute]
         public string Area { get; set; }
 
         [XmlAttribute]
-        public bool Ping { get; set; }
+        public string Ping { get; set; }
 
         [XmlAttribute]
         public string Value { get => _value; set  { _value = value; UpdateTime = DateTime.Now; } }

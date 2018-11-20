@@ -63,7 +63,8 @@ namespace LocationServer
 
         private void MenuRestart_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.ResetAll();
+            int port = TbPort.Text.ToInt();
+            archorManager.ResetAll(port);
         }
 
         private void MenuSetServerIP1_OnClick(object sender, RoutedEventArgs e)
@@ -93,7 +94,8 @@ namespace LocationServer
 
         private void MenuSetServerIp6_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SetServerIp251();
+            int port = TbPort.Text.ToInt();
+            archorManager.SetServerIp251(port);
         }
 
         private void MenuTest_Click(object sender, RoutedEventArgs e)
@@ -119,7 +121,8 @@ namespace LocationServer
 
         private void MenuSetServerIp7_OnClick(object sender, RoutedEventArgs e)
         {
-            archorManager.SetServerIp253();
+            int port = TbPort.Text.ToInt();
+            archorManager.SetServerIp253(port);
         }
 
 
@@ -193,6 +196,13 @@ namespace LocationServer
                 {
                     ProgressBarEx1.Visibility = Visibility.Visible;
                     ProgressBarEx1.Value = p;
+                };
+                archorManager.LogChanged += (log) =>
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        TbConsole.Text = log;
+                    });
                 };
                 //archorManager.NewArchorAdded += AddArchor;
             }
@@ -318,12 +328,33 @@ namespace LocationServer
 
         private void MenuRefeshMuti_Click(object sender, RoutedEventArgs e)
         {
+            var list = new List<UDPArchor>();
             foreach (var item in DataGrid3.SelectedItems)
             {
                 var archor = item as UDPArchor;
                 if (archor == null) continue;
-                archorManager.ScanArchor(archor);
+                list.Add(archor);
             }
+            archorManager.ScanArchor(list.ToArray());
+        }
+
+        private void MenuRefreshMultiChecked_Click(object sender, RoutedEventArgs e)
+        {
+            var list = GetCheckedArchors();
+            archorManager.ScanArchor(list.ToArray());
+        }
+
+        private List<UDPArchor> GetCheckedArchors()
+        {
+            var list = new List<UDPArchor>();
+            foreach (var item in DataGrid3.Items)
+            {
+                var archor = item as UDPArchor;
+                if (archor == null) continue;
+                if (archor.IsChecked)
+                    list.Add(archor);
+            }
+            return list;
         }
 
         private void MenuPingArchor_Click(object sender, RoutedEventArgs e)
@@ -380,7 +411,7 @@ namespace LocationServer
 
         private void BtnStartListen_Click(object sender, RoutedEventArgs e)
         {
-            if (BtnStartListen.Content.ToString() == "")
+            if (BtnStartListen.Content.ToString() == "开始监听")
             {
                 archorManager.StartListen();
                 BtnStartListen.Content = "停止监听";
@@ -395,6 +426,28 @@ namespace LocationServer
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
         {
             
+        }
+
+        private void MenuCancel_Click(object sender, RoutedEventArgs e)
+        {
+            archorManager.Cancel();
+            ProgressBarEx1.Stop();
+        }
+
+        private void CheckColumn_Checked(object sender, RoutedEventArgs e)
+        {
+            archorManager.CheckAll();
+        }
+
+        private void CheckColumn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            archorManager.UnCheckAll();
+        }
+
+        private void MenuRestartChecked_Click(object sender, RoutedEventArgs e)
+        {
+            var list = GetCheckedArchors();
+            archorManager.Reset(list.ToArray());
         }
     }
 }

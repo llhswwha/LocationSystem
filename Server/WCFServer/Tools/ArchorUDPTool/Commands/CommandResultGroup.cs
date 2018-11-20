@@ -26,6 +26,7 @@ namespace ArchorUDPTool.Commands
 
         public CommandResultGroup(UDPArchor item)
         {
+            Items = new List<UDPCommandResult>();
             Id = item.Client;
             Archor = item;
         }
@@ -40,7 +41,7 @@ namespace ArchorUDPTool.Commands
 
         public string AddData(byte[] bytes)
         {
-            Archor.IsConnected = true;
+            Archor.IsConnected = "True";
             var r = new UDPCommandResult(bytes);
             var newValue = r.ToString();
             this.Items.Add(r);
