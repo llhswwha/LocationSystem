@@ -572,7 +572,7 @@ namespace ArchorUDPTool
             {
                 pingEx.Cancel();
             }
-            else
+            else if(worker!=null)
             {
                 worker.CancelAsync();
                 IsCancel = true;

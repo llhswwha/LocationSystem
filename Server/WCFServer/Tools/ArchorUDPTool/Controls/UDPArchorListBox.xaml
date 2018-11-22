@@ -39,6 +39,8 @@
                         <ComboBoxItem>11222906</ComboBoxItem>
                         <ComboBoxItem>3156</ComboBoxItem>
                         <ComboBoxItem>网关错误</ComboBoxItem>
+                        <ComboBoxItem>IsChecked</ComboBoxItem>
+                        <ComboBoxItem>有DbInfo</ComboBoxItem>
                     </ComboBox>
                     <ComboBox Name="CbFilterCodition2" Width="100" SelectionChanged="CbFilterCodition2_SelectionChanged">
                         <ComboBoxItem IsSelected="True">全部</ComboBoxItem>

@@ -131,7 +131,7 @@ namespace LocationServer
                     {
                         foreach (var item in list)
                         {
-                            var ar = DbArchorList.Find(i => i.Code == item.Id);
+                            var ar = DbArchorList.Find(i => i.Ip == item.GetClientIP());
                             if (ar != null)
                             {
                                 if (item.GetClientIP() != ar.Ip)

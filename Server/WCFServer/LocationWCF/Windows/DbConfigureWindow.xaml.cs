@@ -21,6 +21,8 @@ using System.Windows.Shapes;
 using DbModel.Tools;
 using DbModel.Tools.InitInfos;
 using LocationClient.Tools;
+using Location.Model.InitInfos;
+using DbModel.Location.AreaAndDev;
 
 namespace LocationServer.Windows
 {
@@ -142,6 +144,56 @@ namespace LocationServer.Windows
         private void MenuDeleteSqlServer_Click(object sender, RoutedEventArgs e)
         {
             AppContext.DeleteDb(0);
+        }
+
+        private void MenuExportArchorData_Click(object sender, RoutedEventArgs e)
+        {
+            LocationDeviceList list = new LocationDeviceList();
+            list.DepList = new List<LocationDevices>();
+
+            Dictionary<int, List<Archor>> dict = new Dictionary<int, List<Archor>>();
+
+            Bll bll = new Bll();
+            var archorList=bll.Archors.ToList();
+            foreach (var item in archorList)
+            {
+                int pId = (int)item.ParentId;
+                if (!dict.ContainsKey(pId))
+                {
+                    dict[pId] = new List<Archor>();
+                }
+                dict[pId].Add(item);
+            }
+
+            foreach (var item in dict.Keys)
+            {
+                var area = bll.Areas.Find(item);
+                var archors = dict[item];
+                LocationDevices devs = new LocationDevices();
+                devs.DevList = new List<LocationDevice>();
+                devs.Name = area.Name;
+
+                list.DepList.Add(devs);
+                foreach (var archor in archors)
+                {
+                    var dev = new LocationDevice();
+                    dev.AbsolutePosX = archor.X.ToString();
+                    dev.AbsolutePosY = archor.Y.ToString();
+                    dev.AbsolutePosZ = archor.Z.ToString();
+                    dev.AnchorId = archor.Code;
+                    dev.IP = archor.Ip;
+                    dev.Name = archor.Name;
+                    dev.XPos = archor.DevInfo.PosX.ToString();
+                    dev.YPos = archor.DevInfo.PosY.ToString();
+                    dev.ZPos= archor.DevInfo.PosZ.ToString();
+                    devs.DevList.Add(dev);
+                }
+            }
+
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\基站信息\\基站信息.xml";
+
+            XmlSerializeHelper.Save(list,filePath);
         }
     }
 }

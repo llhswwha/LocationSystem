@@ -131,8 +131,8 @@ namespace BLL.Tools
             DevPos pos = new DevPos();
             pos.DevID = devId;
             pos.PosX = TryParseFloat(locationDev.XPos);
-            pos.PosZ = TryParseFloat(locationDev.YPos);
-            pos.PosY = TryParseFloat(locationDev.ZPos);
+            pos.PosZ = TryParseFloat(locationDev.ZPos);
+            pos.PosY = TryParseFloat(locationDev.YPos);
             pos.RotationX = 0;
             pos.RotationY = 0;
             pos.RotationZ = 0;

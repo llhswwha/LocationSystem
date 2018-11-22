@@ -38,6 +38,11 @@ namespace BLL.Blls.Location
             return DbSet.FirstOrDefault(i => i.Code == code);
         }
 
+        public Archor FindByIp(string ip)
+        {
+            return DbSet.FirstOrDefault(i => i.Ip == ip);
+        }
+
         public Archor FindByDev(int devId)
         {
             return DbSet.FirstOrDefault(i => i.DevInfoId == devId);

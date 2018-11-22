@@ -43,7 +43,7 @@ namespace LocationServer.Windows
                 foreach (var item in DataGrid2.SelectedItems)
                 {
                     var archor = item as UDPArchor;
-                    Archor dbArchor = bll.Archors.FindByCode(archor.Id);
+                    Archor dbArchor = bll.Archors.FindByIp(archor.GetClientIP());
                     if(dbArchor!=null)
                         list.Add(dbArchor);
                 }
@@ -102,17 +102,26 @@ namespace LocationServer.Windows
 
             int count2 = 0;
             int count22 = 0;
+            int count23 = 0;
             foreach (var item2 in udpArchorList)
             {
                 if (!string.IsNullOrEmpty(item2.IsConnected))
                 {
                     count22++;
                 }
-                var i3 = dbArchorList.Find(i => i.Code == item2.Id);
+                ////var i3 = dbArchorList.Find(i => i.Code == item2.Id);
+                //var fileItem = fileArchorList.Find(i => i.ArchorIp == item2.GetClientIP());
+                //if (fileItem != null)
+                //{
+                //    count23++;
+                //}
+
+
+                var i3 = dbArchorList.Find(i => i.Ip == item2.GetClientIP());
                 if (i3 != null)
                 {
-                    var area = areas.Find(i => i.Id == i3.ParentId);
-                    item2.Path2 = area.Name;
+                    //var area = areas.Find(i => i.Id == i3.ParentId);
+                    //item2.Path2 = area.Name;
                     count2++;
                 }
                 else
@@ -183,14 +192,14 @@ namespace LocationServer.Windows
         {
             var item2 = DataGrid2.SelectedItem as UDPArchor;
             if (item2 == null) return;
-            var i1 = fileArchorList.Find(i => i.ArchorID == item2.Id);
+            var i1 = fileArchorList.Find(i => i.ArchorIp == item2.GetClientIP());
             if (i1 != null)
             {
                 DataGrid1.SelectedItem = i1;
                 DataGrid1.ScrollIntoView(DataGrid1.SelectedItem);
             }
 
-            var i3 = dbArchorList.Find(i => i.Code == item2.Id);
+            var i3 = dbArchorList.Find(i => i.Ip == item2.GetClientIP());
             if (i3 != null)
             {
                 DataGridDb.SelectedItem = i3;
@@ -244,9 +253,12 @@ namespace LocationServer.Windows
             {
                 if (!item.Code.Contains("Code"))
                 {
-                    var fileItem = fileArchorList.Find(i => i.ArchorID == item.Code);
+                    //var fileItem = fileArchorList.Find(i => i.ArchorID == item.Code);
+                    //var fileItem = fileArchorList.Find(i => i.ArchorIp == item.Ip);
+                    var fileItem = udpArchorList.Find(i => i.GetClientIP() == item.Ip);
                     if (fileItem != null)
                     {
+                        fileItem.IsChecked = true;
                         dbList.Add(item);
                     }
                 }
