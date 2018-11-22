@@ -1,4 +1,6 @@
-﻿using ArchorUDPTool.Models;
+﻿using ArchorUDPTool.Controls;
+using ArchorUDPTool.Models;
+using BLL;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using LocationServer.Models.EngineTool;
@@ -19,6 +21,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFClientControlLib.Extensions;
 
 namespace LocationServer.Windows
 {
@@ -30,28 +33,49 @@ namespace LocationServer.Windows
         public ArchorCheckWindow()
         {
             InitializeComponent();
+
+            DataGrid2 = new UDPArchorListBox();
+            DataGrid2.DataGrid.SelectionChanged += DataGrid2_SelectionChanged;
+            DataGrid2.DataGridMenu.AddMenu("定位", (obj) =>
+            {
+                Bll bll = new Bll();
+                var list = new List<Archor>();
+                foreach (var item in DataGrid2.SelectedItems)
+                {
+                    var archor = item as UDPArchor;
+                    Archor dbArchor = bll.Archors.FindByCode(archor.Id);
+                    if(dbArchor!=null)
+                        list.Add(dbArchor);
+                }
+                var win = new AreaCanvasWindow(list.ToArray());
+                win.Show();
+            });
+            Group2.Content = DataGrid2;
         }
+
+        UDPArchorListBox DataGrid2;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
+
         }
 
         private void LoadData()
         {
-            list1= ArchorHelper.LoadArchoDevInfo().ArchorList;
-            Group1.Header += " " + list1.Count;
-            DataGrid1.ItemsSource = list1;
+            fileArchorList= ArchorHelper.LoadArchoDevInfo().ArchorList;
+            Group1.Header += " " + fileArchorList.Count;
+            DataGrid1.ItemsSource = fileArchorList;
 
             BLL.Bll bll = new BLL.Bll();
 
-            list3= bll.Archors.ToList();
-            DataGrid3.ItemsSource = list3;
+            dbArchorList= bll.Archors.ToList();
+            DataGridDb.ItemsSource = dbArchorList;
 
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
-            list2=XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
-            Group2.Header += " " + list2.Count;
-            DataGrid2.ItemsSource = list2;
+            udpArchorList=XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
+            Group2.Header += " " + udpArchorList.Count;
+            DataGrid2.ItemsSource = udpArchorList;
 
             var list4 = bll.bus_anchors.ToList();
             Group4.Header += " " + list4.Count;
@@ -67,19 +91,24 @@ namespace LocationServer.Windows
         private void Check()
         {
             int count3 = 0;
-            foreach (var item in list3)
+            foreach (var item in dbArchorList)
             {
                 if (!item.GetCode().StartsWith("Code"))
                 {
                     count3++;
                 }
             }
-            Group3.Header += string.Format(" ({0}/{1})", count3, list3.Count);
+            Group3.Header += string.Format(" ({0}/{1})", count3, dbArchorList.Count);
 
             int count2 = 0;
-            foreach (var item2 in list2)
+            int count22 = 0;
+            foreach (var item2 in udpArchorList)
             {
-                var i3 = list3.Find(i => i.Code == item2.Id);
+                if (!string.IsNullOrEmpty(item2.IsConnected))
+                {
+                    count22++;
+                }
+                var i3 = dbArchorList.Find(i => i.Code == item2.Id);
                 if (i3 != null)
                 {
                     var area = areas.Find(i => i.Id == i3.ParentId);
@@ -91,16 +120,16 @@ namespace LocationServer.Windows
                     item2.Path2 = "*";
                 }
 
-                var i1 = list1.Find(i => i.ArchorID == item2.Id);
+                var i1 = fileArchorList.Find(i => i.ArchorID == item2.Id);
                 if (i1 != null)
                 {
-                    if (i1.ArchorIp == item2.Ip)
+                    if (i1.ArchorIp == item2.GetClientIP())
                     {
                         item2.Path1 = i1.InstallArea;
                     }
                     else
                     {
-                        item2.Path1 = string.Format("IP不同:{0},{1}",i1.ArchorIp,item2.Ip);
+                        item2.Path1 = string.Format("IP不同:{0},{1}",i1.ArchorIp,item2.GetClientIP());
                     }
                 }
                 else
@@ -108,12 +137,12 @@ namespace LocationServer.Windows
                     item2.Path1 = "*";
                 }
             }
-            Group2.Header = string.Format("扫描基站({0}/{1})", count2, list2.Count);
+            Group2.Header = string.Format("扫描基站(录入Id:{0}/{1},连接基站 {2}/{1})", count2, udpArchorList.Count, count22);
 
             int count1 = 0;
-            foreach (var item1 in list1)
+            foreach (var item1 in fileArchorList)
             {
-                var i2 = list2.Find(i => i.Id == item1.ArchorID && i.Ip == item1.ArchorIp);
+                var i2 = udpArchorList.Find(i => i.Id == item1.ArchorID && i.GetClientIP() == item1.ArchorIp);
                 if (i2 != null)
                 {
                     item1.IsConnected = "可以";
@@ -124,22 +153,25 @@ namespace LocationServer.Windows
                     item1.IsConnected = "*";
                 }
             }
-            Group1.Header = string.Format("设备清单({0}/{1})", count1, list1.Count);
+            Group1.Header = string.Format("设备清单({0}/{1})", count1, fileArchorList.Count);
         }
 
-        List<ArchorDev> list1;
-        UDPArchorList list2;
-        List<Archor> list3;
+        List<ArchorDev> fileArchorList;
+        UDPArchorList udpArchorList;
+        List<Archor> dbArchorList;
 
         private void MenuScan_Click(object sender, RoutedEventArgs e)
         {
-            var win = new ArchorConfigureWindow();
-            win.ShowDialog();
-            list2= win.archorManager.archorList;
-            Group2.Header += " " + list2.Count;
-            DataGrid2.ItemsSource = list2;
+            Bll bll = new Bll();
+            var list3 = bll.Archors.ToList();
+            var win = new ArchorConfigureWindow(list3);
+            win.Show();
 
-            Check();
+            //udpArchorList = win.archorManager.archorList;
+            //Group2.Header += " " + udpArchorList.Count;
+            //DataGrid2.ItemsSource = udpArchorList;
+
+            //Check();
         }
 
         private void MenuCheck_Click(object sender, RoutedEventArgs e)
@@ -151,18 +183,18 @@ namespace LocationServer.Windows
         {
             var item2 = DataGrid2.SelectedItem as UDPArchor;
             if (item2 == null) return;
-            var i1 = list1.Find(i => i.ArchorID == item2.Id);
+            var i1 = fileArchorList.Find(i => i.ArchorID == item2.Id);
             if (i1 != null)
             {
                 DataGrid1.SelectedItem = i1;
                 DataGrid1.ScrollIntoView(DataGrid1.SelectedItem);
             }
 
-            var i3 = list3.Find(i => i.Code == item2.Id);
+            var i3 = dbArchorList.Find(i => i.Code == item2.Id);
             if (i3 != null)
             {
-                DataGrid3.SelectedItem = i3;
-                DataGrid3.ScrollIntoView(DataGrid3.SelectedItem);
+                DataGridDb.SelectedItem = i3;
+                DataGridDb.ScrollIntoView(DataGridDb.SelectedItem);
             }
         }
         private void ExportListFile_Click(object sender, RoutedEventArgs e)
@@ -174,7 +206,7 @@ namespace LocationServer.Windows
             dt.Columns.Add("网络能通");
 
             int count1 = 0;
-            foreach (var item in list1)
+            foreach (var item in fileArchorList)
             {
                 if (item.IsConnected != "*")
                 {
@@ -182,9 +214,89 @@ namespace LocationServer.Windows
                 }
                 dt.Rows.Add(item.ArchorID, item.ArchorIp, item.InstallArea, item.IsConnected);
             }
-            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory+string.Format("基站设备校对清单({0}_{1}).xls",count1,list1.Count));
-            ExcelLib.ExcelHelper.Save(dt, file, string.Format("基站设备校对清单({0}_{1})", count1, list1.Count));
+            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory+string.Format("基站设备校对清单({0}_{1}).xls",count1,fileArchorList.Count));
+            ExcelLib.ExcelHelper.Save(dt, file, string.Format("基站设备校对清单({0}_{1})", count1, fileArchorList.Count));
             Process.Start(file.Directory.FullName);
+        }
+
+        private void NotInFileList_Click(object sender, RoutedEventArgs e)
+        {
+            var dbList = new List<Archor>();
+            foreach (var item in dbArchorList)
+            {
+                if (!item.Code.Contains("Code"))
+                {
+                    var fileItem = fileArchorList.Find(i => i.ArchorID == item.Code);
+                    if (fileItem == null)
+                    {
+                        dbList.Add(item);
+                    }
+                }
+            }
+            Group3.Header = string.Format("数量 :{0}", dbList.Count);
+            DataGridDb.ItemsSource = dbList;
+        }
+
+        private void InFileList_Click(object sender, RoutedEventArgs e)
+        {
+            var dbList = new List<Archor>();
+            foreach (var item in dbArchorList)
+            {
+                if (!item.Code.Contains("Code"))
+                {
+                    var fileItem = fileArchorList.Find(i => i.ArchorID == item.Code);
+                    if (fileItem != null)
+                    {
+                        dbList.Add(item);
+                    }
+                }
+            }
+            Group3.Header = string.Format("数量 :{0}", dbList.Count);
+            DataGridDb.ItemsSource = dbList;
+        }
+
+        private void BtnRepeatIds_Click(object sender, RoutedEventArgs e)
+        {
+            var dbList = new List<Archor>();
+            foreach (var item in dbArchorList)
+            {
+                if (!item.Code.Contains("Code"))
+                {
+                    var list = dbArchorList.FindAll(i => i.Code == item.Code);
+                    if (list.Count > 1)
+                    {
+                        dbList.Add(item);
+                    }
+                }
+            }
+            Group3.Header = string.Format("数量 :{0}", dbList.Count);
+            DataGridDb.ItemsSource = dbList;
+        }
+
+        private void MenuLocalArchor_Click(object sender, RoutedEventArgs e)
+        {
+            var list = new List<Archor>();
+            foreach (var item in DataGridDb.SelectedItems)
+            {
+                var archor = item as Archor;
+                list.Add(archor);
+            }
+            var win = new AreaCanvasWindow(list.ToArray());
+            win.Show();
+        }
+
+        private void BtnNoIds_Click(object sender, RoutedEventArgs e)
+        {
+            var dbList = new List<Archor>();
+            foreach (var item in dbArchorList)
+            {
+                if (item.Code.Contains("Code"))
+                {
+                        dbList.Add(item);
+                }
+            }
+            Group3.Header = string.Format("数量 :{0}", dbList.Count);
+            DataGridDb.ItemsSource = dbList;
         }
     }
 }

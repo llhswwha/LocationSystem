@@ -6,6 +6,48 @@ using System.Threading.Tasks;
 
 namespace ArchorUDPTool.Commands
 {
+    public static class SetCommands
+    {
+        public static List<SetCommand> Cmds = new List<SetCommand>();
+
+        static SetCommands()
+        {
+            AddCmd("192.168.5.1", "10 01 20 03 04 C0 A8 05 01 91 9C 9D BE");
+            AddCmd("192.168.10.155", "10 01 20 03 04 C0 A8 0A 9B 06 DE FB 2B");
+            AddCmd("192.168.3.251", "10 01 20 03 04 C0 A8 03 FB 9A AE 21 3A");
+            AddCmd("192.168.4.251", "10 01 20 03 04 C0 A8 04 FB D5 EF B7 FD");
+            AddCmd("192.168.5.251", "10 01 20 03 04 C0 A8 05 FB CC F4 86 BC");
+            AddCmd("192.168.3.253", "10 01 20 03 04 C0 A8 03 FD 73 CD 84 0F");
+            AddCmd("192.168.4.253", "10 01 20 03 04 C0 A8 04 FD 3C 8C 12 C8");
+            AddCmd("192.168.5.253", "10 01 20 03 04 C0 A8 05 FD 25 97 23 89");
+            AddCmd("172.16.100.25", "10 01 20 03 04 AC 10 64 19 44 AB B8 1D");
+            AddCmd("172.16.100.207", "10 01 20 03 04 AC 10 64 CF 2B 1B CF FC");
+        }
+
+        public static SetCommand AddCmd(string name, string cmd)
+        {
+            SetCommand ipCmd = new SetCommand();
+            ipCmd.Name = name;
+            ipCmd.Cmd = cmd;
+            Cmds.Add(ipCmd);
+            return ipCmd;
+        }
+
+        public static string GetCmd(string name)
+        {
+            var cmd = Cmds.Find(i => i.Name == name);
+            if (cmd == null) return "";
+            return cmd.Name;
+        }
+    }
+
+    public class SetCommand
+    {
+        public string Name { get; set; }
+
+        public string Cmd { get; set; }
+    }
+
     public static class UDPCommands
     {
         public static string GetId = "10:01:10:01:00:1b:43:95:cb";
@@ -48,23 +90,6 @@ namespace ArchorUDPTool.Commands
 
         public static string Restart = "10 01 20 0B 00 C5 C7 98 D1";
 
-        public static string ServerIp1 = "10 01 20 03 04 C0 A8 05 01 91 9C 9D BE";//192.168.5.1
-        public static string ServerIp2 = "10 01 20 03 04 C0 A8 0A 9B 06 DE FB 2B";//192.168.10.155
-        public static string ServerIp3251 = "10 01 20 03 04 C0 A8 03 FB 9A AE 21 3A";//192.168.3.251
-        public static string ServerIp4251 = "10 01 20 03 04 C0 A8 04 FB D5 EF B7 FD";//192.168.4.251
-        public static string ServerIp5251 = "10 01 20 03 04 C0 A8 05 FB CC F4 86 BC";//192.168.5.251
-        public static string ServerIp3253 = "10 01 20 03 04 C0 A8 03 FD 73 CD 84 0F";//192.168.3.253
-        public static string ServerIp4253 = "10 01 20 03 04 C0 A8 04 FD 3C 8C 12 C8";//192.168.4.253
-        public static string ServerIp5253 = "10 01 20 03 04 C0 A8 05 FD 25 97 23 89";//192.168.5.253
-        /*
-         * Send:192.168.3.151:10 01 20 03 04 C0 A8 03 FD 73 CD 84 0F 
-Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
-Send:192.168.3.151:10 01 20 03 04 C0 A8 04 FD 3C 8C 12 C8 
-Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
-Send:192.168.3.151:10 01 20 03 04 C0 A8 05 FD 25 97 23 89 
-Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79 
-         */
-
         public static List<string> GetAll()
         {
             return new List<string>() {
@@ -86,7 +111,7 @@ Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79
 
     public class UDPCommand
     {
-        public string Name { get; set;}
+        public string Name { get; set; }
 
         public string Hex { get; set; }
 
@@ -95,14 +120,14 @@ Recieve:192.168.3.151:4646:10 01 C0 03 00 A4 FC C2 79
 
         }
 
-        public UDPCommand(string name,string hex)
+        public UDPCommand(string name, string hex)
         {
             Name = name;
             Hex = hex;
         }
     }
 
-    public class CommandList:List<UDPCommand>
+    public class CommandList : List<UDPCommand>
     {
 
     }

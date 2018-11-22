@@ -157,5 +157,53 @@ namespace WPFClientControlLib
                 return TreeView1.SelectedItem;
             }
         }
+
+        public bool SelectNode(int id,int subId)
+        {
+            var r= SelectNode(id, TreeView1.Items);
+            if (r != null)
+            {
+                ExpandParent(r);
+
+                r.IsExpanded = true;
+                foreach (TreeViewItem node in r.Items)
+                {
+                    IEntity idObj = node.Tag as IEntity;
+                    if (idObj.Id == subId)
+                    {
+                        node.IsSelected = true;
+                        node.Foreground = Brushes.Red;
+                    }
+                }
+            }
+            return r != null;
+        }
+
+        public void ExpandParent(TreeViewItem node)
+        {
+            if (node.Parent is TreeViewItem)
+            {
+                (node.Parent as TreeViewItem).IsExpanded = true;
+                ExpandParent(node.Parent as TreeViewItem);
+            }
+        }
+
+        public TreeViewItem SelectNode(int id,ItemCollection nodes)
+        {
+            foreach (TreeViewItem node in nodes)
+            {
+                IEntity idObj = node.Tag as IEntity;
+                if (idObj.Id == id)
+                {
+                    node.IsSelected = true;
+                    node.Foreground = Brushes.Red;
+                    return node;
+                }
+
+                var r = SelectNode(id, node.Items);
+                if (r!=null) return r;
+            }
+            return null;
+        }
     }
 }

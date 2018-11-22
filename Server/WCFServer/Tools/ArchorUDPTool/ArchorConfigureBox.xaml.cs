@@ -46,8 +46,13 @@ namespace LocationServer
             IPAddress ip2 = ip.MapToIPv6();
         }
 
-        public ArchorManager archorManager { get; set; }
+        internal void Close()
+        {
+            archorManager.Close();
+        }
 
+        public ArchorManager archorManager { get; set; }
+        public List<Archor> DbArchorList { get; internal set; }
 
         private void MenuSetting_Click(object sender, RoutedEventArgs e)
         {
@@ -58,7 +63,8 @@ namespace LocationServer
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
             var cmd = TbCommand.Text;
-            archorManager.SendCmd(cmd);
+            var port = TbPort.Text.ToInt();
+            archorManager.SendCmd(cmd,port);
         }
 
         private void MenuRestart_OnClick(object sender, RoutedEventArgs e)
@@ -67,35 +73,9 @@ namespace LocationServer
             archorManager.ResetAll(port);
         }
 
-        private void MenuSetServerIP1_OnClick(object sender, RoutedEventArgs e)
-        {
-            archorManager.SendCmd(UDPCommands.ServerIp1);//192.168.5.1
-        }
-
-        private void MenuSetServerIp2_OnClick(object sender, RoutedEventArgs e)
-        {
-            archorManager.SendCmd(UDPCommands.ServerIp2);//192.168.10.155
-        }
-
-        private void MenuSetServerIp3_OnClick(object sender, RoutedEventArgs e)
-        {
-            archorManager.SendCmd(UDPCommands.ServerIp3251);//192.168.3.251
-        }
-
-        private void MenuSetServerIp4_OnClick(object sender, RoutedEventArgs e)
-        {
-            archorManager.SendCmd(UDPCommands.ServerIp4251);//192.168.4.251
-        }
-
-        private void MenuSetServerIp5_OnClick(object sender, RoutedEventArgs e)
-        {
-            archorManager.SendCmd(UDPCommands.ServerIp5251);//192.168.5.251
-        }
-
         private void MenuSetServerIp6_OnClick(object sender, RoutedEventArgs e)
         {
-            int port = TbPort.Text.ToInt();
-            archorManager.SetServerIp251(port);
+            //archorManager.SetServerIp251();
         }
 
         private void MenuTest_Click(object sender, RoutedEventArgs e)
@@ -106,10 +86,16 @@ namespace LocationServer
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
-            FileInfo fi = new FileInfo(path);
-            archorManager.SaveArchorList(path);
-            Process.Start(fi.Directory.FullName);
+            string path1 = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+            FileInfo fi1 = new FileInfo(path1);
+            archorManager.SaveArchorList(path1);
+
+            string path2 = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList"+DateTime.Now.ToString("(yyMMddHHmmss)")+".xml";
+            FileInfo fi2 = new FileInfo(path2);
+            archorManager.SaveArchorList(path2);
+            Process.Start(fi1.Directory.FullName);
+
+
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
@@ -121,8 +107,7 @@ namespace LocationServer
 
         private void MenuSetServerIp7_OnClick(object sender, RoutedEventArgs e)
         {
-            int port = TbPort.Text.ToInt();
-            archorManager.SetServerIp253(port);
+            //archorManager.SetServerIp253();
         }
 
 
@@ -141,6 +126,26 @@ namespace LocationServer
                     //IsDirty = true;
                     LbTime.Content = archorManager.GetTimeSpan();
                     TbConsole.Text = archorManager.Log;
+
+                    if (DbArchorList != null)
+                    {
+                        foreach (var item in list)
+                        {
+                            var ar = DbArchorList.Find(i => i.Code == item.Id);
+                            if (ar != null)
+                            {
+                                if (item.GetClientIP() != ar.Ip)
+                                {
+                                    item.DbInfo = "IP:" + ar.Ip;
+                                }
+                                else
+                                {
+                                    item.DbInfo = "有";
+                                }
+                            }
+                        }
+                    }
+
                     DataGrid3.ItemsSource = list;
                     LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
@@ -151,35 +156,6 @@ namespace LocationServer
                 }
             });
         }
-
-        //private void AddArchor(UDPArchor archor)
-        //{
-        //    this.Dispatcher.Invoke(() =>
-        //    {
-        //        {
-        //            if (archorList == null)
-        //            {
-        //                archorList = new UDPArchorList();
-        //            }
-        //            if (archorList.AddOrUpdate(archor) == 1)
-        //            {
-        //                //DataGrid3.ItemsSource = archorList;
-        //                DataGrid3.Items.Add(archor);
-        //                LbCount.Content = archorList.Count;
-        //                LbStatistics.Content = archorList.GetStatistics();
-        //            }
-        //            //else
-        //            //{
-        //            //    var index=DataGrid3.Items.IndexOf(archor);
-        //            //}
-
-        //            LbTime.Content = archorManager.GetTimeSpan();
-
-        //            TbConsole.Text = archorManager.Log;
-                    
-        //        }
-        //    });
-        //}
 
         UDPArchorList archorList;
 
@@ -197,20 +173,22 @@ namespace LocationServer
                     ProgressBarEx1.Visibility = Visibility.Visible;
                     ProgressBarEx1.Value = p;
                 };
-                archorManager.LogChanged += (log) =>
-                {
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        TbConsole.Text = log;
-                    });
-                };
                 //archorManager.NewArchorAdded += AddArchor;
+
+                DataGrid3.archorManager = archorManager;
+                archorManager.arg = GetScanArg();
             }
 
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromMilliseconds(200);
             Timer.Tick += Timer_Tick;
             Timer.Start();
+
+            CbServerIpList.ItemsSource = SetCommands.Cmds;
+            CbServerIpList.DisplayMemberPath = "Name";
+            CbServerIpList.SelectedIndex = 0;
+
+            CbLocalIps.ItemsSource = IpHelper.GetLocalList();
         }
 
         private bool IsDirty = false;
@@ -319,51 +297,7 @@ namespace LocationServer
             archorManager.StopTime();
         }
 
-        private void MenuRefreshOne_Click(object sender, RoutedEventArgs e)
-        {
-            var archor = DataGrid3.SelectedItem as UDPArchor;
-            if (archor == null) return;
-            archorManager.ScanArchor(archor);
-        }
-
-        private void MenuRefeshMuti_Click(object sender, RoutedEventArgs e)
-        {
-            var list = new List<UDPArchor>();
-            foreach (var item in DataGrid3.SelectedItems)
-            {
-                var archor = item as UDPArchor;
-                if (archor == null) continue;
-                list.Add(archor);
-            }
-            archorManager.ScanArchor(list.ToArray());
-        }
-
-        private void MenuRefreshMultiChecked_Click(object sender, RoutedEventArgs e)
-        {
-            var list = GetCheckedArchors();
-            archorManager.ScanArchor(list.ToArray());
-        }
-
-        private List<UDPArchor> GetCheckedArchors()
-        {
-            var list = new List<UDPArchor>();
-            foreach (var item in DataGrid3.Items)
-            {
-                var archor = item as UDPArchor;
-                if (archor == null) continue;
-                if (archor.IsChecked)
-                    list.Add(archor);
-            }
-            return list;
-        }
-
-        private void MenuPingArchor_Click(object sender, RoutedEventArgs e)
-        {
-            var archor = DataGrid3.SelectedItem as UDPArchor;
-            if (archor == null) return;
-            var pingWnd = new PingWindow(archor.GetIp());
-            pingWnd.Show();
-        }
+        
 
         private void BtnClearBuffer_Click(object sender, RoutedEventArgs e)
         {
@@ -381,6 +315,7 @@ namespace LocationServer
         {
             var list = ArchorHelper.LoadArchoDevInfo();
             archorManager.LoadList(list);
+            CbList.IsChecked = true;
         }
 
         private void BtnSearchList_Click(object sender, RoutedEventArgs e)
@@ -394,24 +329,11 @@ namespace LocationServer
             win.Show();
         }
 
-        private void MenuSetArchor_Click(object sender, RoutedEventArgs e)
-        {
-            var archor = DataGrid3.SelectedItem as UDPArchor;
-            if (archor == null) return;
-            var wnd = new UDPArchorInfoWindow(archorManager,archor);
-            wnd.Show();
-        }
 
-        private void MenuRestartOne_OnClick(object sender, RoutedEventArgs e)
-        {
-            var archor = DataGrid3.SelectedItem as UDPArchor;
-            if (archor == null) return;
-            archorManager.Reset(archor);
-        }
 
         private void BtnStartListen_Click(object sender, RoutedEventArgs e)
         {
-            if (BtnStartListen.Content.ToString() == "开始监听")
+            if (BtnStartListen.Content.ToString() == "")
             {
                 archorManager.StartListen();
                 BtnStartListen.Content = "停止监听";
@@ -434,20 +356,23 @@ namespace LocationServer
             ProgressBarEx1.Stop();
         }
 
-        private void CheckColumn_Checked(object sender, RoutedEventArgs e)
-        {
-            archorManager.CheckAll();
-        }
-
-        private void CheckColumn_Unchecked(object sender, RoutedEventArgs e)
-        {
-            archorManager.UnCheckAll();
-        }
-
         private void MenuRestartChecked_Click(object sender, RoutedEventArgs e)
         {
-            var list = GetCheckedArchors();
+            var list = DataGrid3.GetCheckedArchors();
             archorManager.Reset(list.ToArray());
+        }
+
+        private void BtnSetServerIp_Click(object sender, RoutedEventArgs e)
+        {
+            var cmd = CbServerIpList.SelectedItem as SetCommand;
+            if (cmd == null) return;
+            var port = TbPort.Text.ToInt();
+            archorManager.SendCmd(cmd.Cmd,port);
+        }
+
+        private void CbLocalIps_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            archorManager.LocalIp = CbLocalIps.SelectedItem as IPAddress;
         }
     }
 }

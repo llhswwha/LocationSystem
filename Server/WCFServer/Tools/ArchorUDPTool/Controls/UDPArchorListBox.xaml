@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="ArchorUDPTool.Controls.UDPArchorListBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArchorUDPTool.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Label>数量:</Label>
+                <Label Name="LbCount"></Label>
+                <Button Name="BtnGetAreas" Click="BtnGetAreas_Click">区域过滤</Button>
+                <ComboBox Name="CbAreas" Width="200" SelectionChanged="CbAreas_SelectionChanged"></ComboBox>
+                <Button Name="BtnCountByArea" Click="BtnCountByArea_Click">按区域统计</Button>
+            </StackPanel>
+            <GroupBox Header="过滤">
+                <StackPanel Orientation="Horizontal">
+                    <!--<CheckBox Name="CbConnected">连通</CheckBox>
+                    <CheckBox Name="CbPing">Ping</CheckBox>
+                    <CheckBox Name="CbIPS3">3网段</CheckBox>
+                    <CheckBox Name="CbIPS4">4网段</CheckBox>
+                    <CheckBox Name="CbIPS5">5网段</CheckBox>
+                    <CheckBox Name="CbValue">有值</CheckBox>
+                    <Button Name="BtnFilter" Click="BtnFilter_Click">过滤</Button>-->
+                    <ComboBox Name="CbFilterCondition" Width="150" SelectionChanged="CbFilterCondition_SelectionChanged">
+                        <ComboBoxItem IsSelected="True">全部</ComboBoxItem>
+                        <ComboBoxItem>只显示连通</ComboBoxItem>
+                        <ComboBoxItem>只显示不连通</ComboBoxItem>
+                        <ComboBoxItem>只显示Ping通</ComboBoxItem>
+                        <ComboBoxItem>只显示不Ping通</ComboBoxItem>
+                        <ComboBoxItem>3网段</ComboBoxItem>
+                        <ComboBoxItem>4网段</ComboBoxItem>
+                        <ComboBoxItem>5网段</ComboBoxItem>
+                        <ComboBoxItem>1999端口</ComboBoxItem>
+                        <ComboBoxItem>有DbInfo</ComboBoxItem>
+                        <ComboBoxItem>11222902</ComboBoxItem>
+                        <ComboBoxItem>11222906</ComboBoxItem>
+                        <ComboBoxItem>3156</ComboBoxItem>
+                        <ComboBoxItem>网关错误</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Name="CbFilterCodition2" Width="100" SelectionChanged="CbFilterCodition2_SelectionChanged">
+                        <ComboBoxItem IsSelected="True">全部</ComboBoxItem>
+                        <ComboBoxItem>有值</ComboBoxItem>
+                        <ComboBoxItem>无值</ComboBoxItem>
+                    </ComboBox>
+                    <Button Name="BtnFilterNoValue" Click="BtnFilterNoValue_Click">无值</Button>
+                    <Button Name="BtnNoDbInfo" Click="BtnNoDbInfo_Click">无DbInfo</Button>
+                </StackPanel>
+            </GroupBox>
+
+        </StackPanel>
+        
+        <DataGrid Name="DataGrid3" AutoGenerateColumns="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="刷新当条数据" Name="MenuRefreshOne" Click="MenuRefreshOne_Click"/>
+                    <MenuItem Header="刷新多条数据" Name="MenuRefeshMuti" Click="MenuRefeshMuti_Click"/>
+                    <MenuItem Header="刷新Checked数据" Name="MenuRefreshMultiChecked" Click="MenuRefreshMultiChecked_Click"/>
+                    <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"/>
+                    <MenuItem Header="设置" Name="MenuSetArchor" Click="MenuSetArchor_Click"></MenuItem>
+                    <MenuItem Header="重启" Name="MenuRestartOne" Click="MenuRestartOne_OnClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding IsChecked}">
+                    <DataGridCheckBoxColumn.Header>
+                        <CheckBox Name="CheckColumn" Checked="CheckColumn_Checked" Unchecked="CheckColumn_Unchecked"></CheckBox>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
+                <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
+                <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>
+                <DataGridTextColumn Header="连通" Binding="{Binding IsConnected}"/>
+                <DataGridTextColumn Header="DbInfo" Binding="{Binding DbInfo}"/>
+                <DataGridTextColumn Header="Ping" Binding="{Binding Ping}"/>
+                <DataGridTextColumn Header="值" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="时间" Binding="{Binding UpdateTime}"/>
+                <DataGridTextColumn Header="Archor ID" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Archor IP" Binding="{Binding Ip}"/>
+                <DataGridTextColumn Header="Archor Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Server IP" Binding="{Binding ServerIp}"/>
+                <DataGridTextColumn Header="Server Port" Binding="{Binding ServerPort}"/>
+                <DataGridTextColumn Header="子网掩码" Binding="{Binding Mask}"/>
+                <DataGridTextColumn Header="网关" Binding="{Binding Gateway}"/>
+                <DataGridTextColumn Header="DHCP" Binding="{Binding DHCP}"/>
+                <DataGridTextColumn Header="软件版本" Binding="{Binding SoftVersion}"/>
+                <DataGridTextColumn Header="硬件版本" Binding="{Binding HardVersion}"/>
+                <DataGridTextColumn Header="功率" Binding="{Binding Power}"/>
+                <DataGridTextColumn Header="MAC" Binding="{Binding MAC}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

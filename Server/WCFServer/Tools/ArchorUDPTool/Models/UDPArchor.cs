@@ -23,12 +23,17 @@ namespace ArchorUDPTool.Models
         public string GetClientIP()
         {
             int id = Client.IndexOf(':');
-            string ip = Client.Substring(0, id);
+            string ip = Client;
+            if (id>0)
+                 ip = Client.Substring(0, id);
             return ip;
         }
 
         [XmlAttribute]
         public string IsConnected { get; set; }
+
+        [XmlAttribute]
+        public string DbInfo { get; set; }
 
         [XmlAttribute]
         public string Area { get; set; }

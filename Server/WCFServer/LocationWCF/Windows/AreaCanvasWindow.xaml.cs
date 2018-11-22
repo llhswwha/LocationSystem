@@ -46,6 +46,16 @@ namespace LocationServer
             bll = AppContext.GetLocationBll();
         }
 
+        Archor[] _archors;
+
+
+        public AreaCanvasWindow(params Archor[] archors)
+        {
+            InitializeComponent();
+            bll = AppContext.GetLocationBll();
+            _archors = archors;
+        }
+
         private AreaService areaService;
         private DepartmentService depService;
         private DeviceService devService;
@@ -261,7 +271,22 @@ namespace LocationServer
             topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
             topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
             topoTree.ExpandLevel(2);
-            topoTree.SelectFirst();
+            
+
+            if (_archors != null)
+            {
+                List<int> ids = new List<int>();
+                foreach (var archor in _archors)
+                {
+                    topoTree.SelectNode((int)archor.ParentId, archor.Id);
+                    ids.Add(archor.Id);
+                }
+                AreaCanvas1.SelectDevsById(ids);
+            }
+            else
+            {
+                topoTree.SelectFirst();
+            }
         }
 
         private void LoadDepTree()
@@ -287,22 +312,30 @@ namespace LocationServer
         private void Tree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             currentArea = ResourceTreeView1.TopoTree.SelectedObject as AreaEntity;
-            if (currentArea == null) return;
-            AreaCanvas1.ShowDev = true;
-            AreaCanvas1.ShowArea(currentArea);
-            AreaListBox1.LoadData(currentArea.Children);
-            DeviceListBox1.LoadData(currentArea.LeafNodes);
-
-            ShowPersons();
-
-            ArchorListExportControl1.Clear();
-            TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
-            TabControl1.SelectionChanged += TabControl1_OnSelectionChanged;
-
-            if (TabControl1.SelectedIndex == 2)
+            if (currentArea != null)
             {
-                ArchorListExportControl1.LoadData(currentArea.Id);
+
+                AreaCanvas1.ShowDev = true;
+                AreaCanvas1.ShowArea(currentArea);
+                AreaListBox1.LoadData(currentArea.Children);
+                DeviceListBox1.LoadData(currentArea.LeafNodes);
+
+                ShowPersons();
+
+                ArchorListExportControl1.Clear();
                 TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+                TabControl1.SelectionChanged += TabControl1_OnSelectionChanged;
+
+                if (TabControl1.SelectedIndex == 2)
+                {
+                    ArchorListExportControl1.LoadData(currentArea.Id);
+                    TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+                }
+            }
+            else
+            {
+                var dev= ResourceTreeView1.TopoTree.SelectedObject as DevEntity;
+                AreaCanvas1.SelectDevById(dev.Id);
             }
         }
 

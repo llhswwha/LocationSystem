@@ -57,6 +57,9 @@
     <Compile Include="ArchorUDPListener.xaml.cs">
       <DependentUpon>ArchorUDPListener.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UDPArchorListBox.xaml.cs">
+      <DependentUpon>UDPArchorListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\ServerIpList.cs" />
     <Compile Include="Models\UDPArchorValue.cs" />
     <Compile Include="Tools\PingEx.cs" />
@@ -100,6 +103,10 @@
     <Page Include="CodeTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UDPArchorListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PingWindow.xaml">
       <SubType>Designer</SubType>

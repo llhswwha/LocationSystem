@@ -25,10 +25,26 @@
                 <DataGrid Name="DataGrid1"></DataGrid>
             </GroupBox>
             <GroupBox Header="扫描基站" Grid.Column="1" Name="Group2">
-                <DataGrid Name="DataGrid2" SelectionChanged="DataGrid2_SelectionChanged"></DataGrid>
+                
+                
             </GroupBox>
             <GroupBox Header="MSSql基站" Grid.Column="2" Name="Group3">
-                <DataGrid Name="DataGrid3"></DataGrid>
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Button Name="NotInFileList" Click="NotInFileList_Click">不在清单中的ID</Button>
+                        <Button Name="InFileList" Click="InFileList_Click">在清单中的ID</Button>
+                        <Button Name="BtnRepeatIds" Click="BtnRepeatIds_Click">重复的ID</Button>
+                        <Button Name="BtnNoIds" Click="BtnNoIds_Click">没有ID</Button>
+                    </StackPanel>
+                    <DataGrid Name="DataGridDb">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="基站定位" Name="MenuLocalArchor" Click="MenuLocalArchor_Click"></MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </DockPanel>
+                
             </GroupBox>
             <GroupBox Header="Sqlite基站" Grid.Column="3" Name="Group4">
                 <DataGrid Name="DataGrid4"></DataGrid>

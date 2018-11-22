@@ -132,6 +132,26 @@ namespace WPFClientControlLib
             }
         }
 
+        public void SelectDevsById(List<int> list)
+        {
+            if (list == null) return;
+            ClearSelect();
+            //LbState.Content = "";
+            //SelectedRects.Clear();
+            foreach (var id in list)
+            {
+                if (DevDict.ContainsKey(id))
+                {
+                    SelectedRects.Add(DevDict[id]);
+                    SetFocusStyle(DevDict[id]);
+                }
+                else
+                {
+                    LbState.Content += "[" + id + "];";
+                }
+            }
+        }
+
         public void SelectDev<T>(T entity) where T : IEntity
         {
             if (entity == null) return;
@@ -145,6 +165,21 @@ namespace WPFClientControlLib
             {
                 ClearSelect();
                 LbState.Content = "未找到设备:" + entity.Name;
+            }
+        }
+
+        public void SelectDevById(int id) 
+        {
+            if (DevDict.ContainsKey(id))
+            {
+                ClearSelect();
+                FocusRectangle(DevDict[id]);
+                LbState.Content = "";
+            }
+            else
+            {
+                ClearSelect();
+                LbState.Content = "未找到设备:" + id;
             }
         }
 
@@ -187,8 +222,11 @@ namespace WPFClientControlLib
             SelectedRect = rect;
             SetFocusStyle(rect);
 
-            ScrollViewer1.ScrollToHorizontalOffset(SelectedRect.Margin.Left);
-            ScrollViewer1.ScrollToVerticalOffset(SelectedRect.Margin.Top);
+            double left = Canvas.GetLeft(SelectedRect);
+            double top= Canvas.GetTop(SelectedRect);
+            //ScrollViewer1.ScrollToHorizontalOffset(100);
+            //ScrollViewer1.ver
+            //ScrollViewer1.ScrollToVerticalOffset(top);
         }
 
 
@@ -470,7 +508,7 @@ namespace WPFClientControlLib
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
                 Tag = dev,
-                ToolTip = dev.Name
+                ToolTip = GetDevName(dev)
             };
 
             devRect.ContextMenu = DevContextMenu;
@@ -514,6 +552,19 @@ namespace WPFClientControlLib
             else
             {
                 return Brushes.DeepSkyBlue;
+            }
+        }
+
+        private string GetDevName(DevEntity dev)
+        {
+            if (dev.DevDetail is Archor)
+            {
+                Archor archor = dev.DevDetail as Archor;
+                return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
+            }
+            else
+            {
+                return dev.Name;
             }
         }
 

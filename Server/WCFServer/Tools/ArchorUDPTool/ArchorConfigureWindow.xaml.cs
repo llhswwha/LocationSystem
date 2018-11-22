@@ -1,4 +1,5 @@
 ﻿using ArchorUDPTool;
+using DbModel.Location.AreaAndDev;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,21 @@ namespace LocationServer.Models.EngineTool
             InitializeComponent();
         }
 
+        public ArchorConfigureWindow(List<Archor> archorList)
+        {
+            InitializeComponent();
+            ArchorConfigureBox1.DbArchorList = archorList;
+        }
+
         public ArchorManager archorManager { get
             {
                 return ArchorConfigureBox1.archorManager;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            ArchorConfigureBox1.Close();
         }
     }
 }
