@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using ArchorUDPTool.Models;
 using DbModel.Tools;
 using IModel.Enums;
 using Location.IModel;
@@ -513,7 +514,7 @@ namespace WPFClientControlLib
 
             devRect.ContextMenu = DevContextMenu;
 
-            Canvas.SetLeft(devRect, x );
+            Canvas.SetLeft(devRect, x);
             Canvas.SetTop(devRect, y);
 
             DevDict[dev.Id] = devRect;
@@ -521,8 +522,30 @@ namespace WPFClientControlLib
             devRect.MouseEnter += DevRect_MouseEnter;
             devRect.MouseLeave += DevRect_MouseLeave;
             Canvas1.Children.Add(devRect);
+
+
+            if (udpArchorList == null)
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+                udpArchorList = XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
+            }
+            Label lb = new Label();
+            lb.Content = GetArchorCode(dev);
+            Canvas.SetLeft(lb, x);
+            Canvas.SetTop(lb, y);
+            Canvas1.Children.Add(lb);
+            lb.LayoutTransform = ScaleTransform1;
+
+            var udpArchor=udpArchorList.Find(i => i.Id == GetArchorCode(dev));
+            if (udpArchor != null)
+            {
+                lb.Foreground = Brushes.Blue;
+            }
+
             return devRect;
         }
+
+        UDPArchorList udpArchorList;
 
         private void DevRect_MouseLeave(object sender, MouseEventArgs e)
         {
@@ -561,6 +584,23 @@ namespace WPFClientControlLib
             {
                 Archor archor = dev.DevDetail as Archor;
                 return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
+            }
+            else
+            {
+                return dev.Name;
+            }
+        }
+
+        private string GetArchorCode(DevEntity dev)
+        {
+            if (dev.DevDetail is Archor)
+            {
+                Archor archor = dev.DevDetail as Archor;
+                if (archor.Code.Contains("Code"))
+                {
+                    return "[C]";
+                }
+                return archor.Code;
             }
             else
             {
@@ -639,16 +679,48 @@ namespace WPFClientControlLib
                     SetShapeStrokeDash(polygon);
                 }
 
+                double mX = 0;
+                double mY = 0;
+                int c = 0;
                 foreach (var item in bound.GetPoints2D())
                 {
                     double x = (item.X - OffsetX) * scale;
                     double y = (item.Y - OffsetY) * scale;
                     polygon.Points.Add(new System.Windows.Point(x, y));
+                    mX += x;
+                    mY += y;
+                    c++;
                 }
+                mX /= c;
+                mY /= c;
 
                 AreaDict[area.Id] = polygon;
                 Canvas1.Children.Add(polygon);
+
+                Label lb = new Label();
+                lb.Content = area.Name;
+                var w = MeasureTextWidth(area.Name, lb.FontSize, lb.FontFamily.ToString());
+                Canvas.SetLeft(lb, mX-w/2);
+                Canvas.SetTop(lb, mY);
+                Canvas1.Children.Add(lb);
+                lb.Foreground = Brushes.Gray;
+                lb.LayoutTransform = ScaleTransform1;
+
+                
             }
+        }
+
+        private double MeasureTextWidth(string text, double fontSize, string fontFamily)
+        {
+            FormattedText formattedText = new FormattedText(
+            text,
+            System.Globalization.CultureInfo.InvariantCulture,
+            FlowDirection.LeftToRight,
+            new Typeface(fontFamily.ToString()),
+            fontSize,
+            Brushes.Black
+            );
+            return formattedText.WidthIncludingTrailingWhitespace;
         }
 
         private void Polygon_MouseDown(object sender, MouseButtonEventArgs e)

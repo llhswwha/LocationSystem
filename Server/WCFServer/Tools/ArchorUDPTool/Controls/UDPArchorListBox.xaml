@@ -41,14 +41,14 @@
                         <ComboBoxItem>网关错误</ComboBoxItem>
                         <ComboBoxItem>IsChecked</ComboBoxItem>
                         <ComboBoxItem>有DbInfo</ComboBoxItem>
+                        <ComboBoxItem>无DbInfo</ComboBoxItem>
                     </ComboBox>
                     <ComboBox Name="CbFilterCodition2" Width="100" SelectionChanged="CbFilterCodition2_SelectionChanged">
                         <ComboBoxItem IsSelected="True">全部</ComboBoxItem>
                         <ComboBoxItem>有值</ComboBoxItem>
                         <ComboBoxItem>无值</ComboBoxItem>
                     </ComboBox>
-                    <Button Name="BtnFilterNoValue" Click="BtnFilterNoValue_Click">无值</Button>
-                    <Button Name="BtnNoDbInfo" Click="BtnNoDbInfo_Click">无DbInfo</Button>
+                    <Button Name="BtnFilterNoValue" Click="BtnFilterNoValue_Click">能通无值</Button>
                 </StackPanel>
             </GroupBox>
 

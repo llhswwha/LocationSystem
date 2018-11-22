@@ -1,10 +1,6 @@
-﻿using ArchorUDPTool.ArchorManagers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ArchorUDPTool.Models
@@ -59,7 +55,7 @@ namespace ArchorUDPTool.Models
         //public event Action<UDPArchor> DataUpdated;
 
         //public event Action<UDPArchor> DataAdded;
-        internal object GetConnectedCount()
+        public object GetConnectedCount()
         {
             int count = 0;
             foreach (var i in this)

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using ArchorUDPTool.ArchorManagers;
+﻿using ArchorUDPTool.ArchorManagers;
 using DbModel.Tools;
+using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace ArchorUDPTool.Models
 {
@@ -42,7 +39,7 @@ namespace ArchorUDPTool.Models
             this.archorList = archorList;
         }
 
-        internal void Add(IPEndPoint iep, byte[] data)
+        public void Add(IPEndPoint iep, byte[] data)
         {
             UDPArchorValue value = null;
             //if (archorList != null)

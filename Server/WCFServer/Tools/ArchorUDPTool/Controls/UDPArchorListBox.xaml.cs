@@ -265,6 +265,13 @@ namespace ArchorUDPTool.Controls
                         subArchorList.Add(item);
                     }
                 }
+                else if (id == 16)//无DbInfo
+                {
+                    if (string.IsNullOrEmpty(item.DbInfo))
+                    {
+                        subArchorList.Add(item);
+                    }
+                }
             }
             DataGrid3.ItemsSource = subArchorList;
             LbCount.Content = string.Format("{0}/{1}", subArchorList.GetConnectedCount(), subArchorList.Count);

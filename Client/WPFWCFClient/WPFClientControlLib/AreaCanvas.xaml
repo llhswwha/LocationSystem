@@ -19,16 +19,25 @@
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
             <Label Name="LbState">State</Label>
         </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="ScrollViewer1">
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Canvas Name="Canvas1" Background="LightBlue">
-                    <Canvas.LayoutTransform>
-                        <ScaleTransform  ScaleX="1" ScaleY="-1" x:Name="ScaleTransform1"></ScaleTransform>
-                    </Canvas.LayoutTransform>
-                    <Polygon Fill="AliceBlue" StrokeThickness="5" Stroke="Green" Points="40,10 70,80 10,50"/>
-                </Canvas>
-            </Border>
-            
-        </ScrollViewer>
+        <Grid>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="ScrollViewer1">
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Canvas Name="Canvas1" Background="LightBlue">
+                        <Canvas.LayoutTransform>
+                            <ScaleTransform  ScaleX="1" ScaleY="-1" x:Name="ScaleTransform1"></ScaleTransform>
+                        </Canvas.LayoutTransform>
+                        <Polygon Fill="AliceBlue" StrokeThickness="5" Stroke="Green" Points="40,10 70,80 10,50"/>
+                    </Canvas>
+                </Border>
+            </ScrollViewer>
+
+            <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Canvas Name="Canvas2" >
+                    </Canvas>
+                </Border>
+            </ScrollViewer>-->
+        </Grid>
+        
     </DockPanel>
 </UserControl>
