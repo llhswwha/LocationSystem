@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TModel.Location.AreaAndDev;
+using TModel.LocationHistory.AreaAndDev;
 using TModel.Tools;
 using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using TPEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -76,6 +77,13 @@ namespace LocationServices.Locations.Services
         public TEntity GetEntityByDevId(string id)
         {
             List<TEntity> devInfo = dbSet.DbSet.Where(item => item.Local_DevID == id).ToList().ToTModel();
+            if (devInfo != null && devInfo.Count != 0) return devInfo[0];
+            else return null;
+        }
+
+        public TEntity GetEntityByid(int id)
+        {
+            List<TEntity> devInfo = dbSet.DbSet.Where(item => item.Id == id).ToList().ToTModel();
             if (devInfo != null && devInfo.Count != 0) return devInfo[0];
             else return null;
         }
@@ -322,16 +330,16 @@ namespace LocationServices.Locations.Services
         {
             List<NearbyDev> lst = new List<NearbyDev>();
             List<NearbyDev> lst2 = new List<NearbyDev>();
-            DbModel.Location.Data.LocationCardPosition lcp = db.LocationCardPositions.DbSet.Where(p => p.PersonId == id).FirstOrDefault();
-            if (lcp == null || lcp.AreaId == null)
+            DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.DbSet.Where(p => p.Id == id).FirstOrDefault();
+            if (dev == null || dev.ParentId == null)
             {
                 return lst;
             }
 
-            int? AreadId = lcp.AreaId;
-            float PosX = lcp.X;
-            float PosY = lcp.Y;
-            float PosZ = lcp.Z;
+            int? AreadId = dev.ParentId;
+            float PosX = dev.PosX;
+            float PosY = dev.PosY;
+            float PosZ = dev.PosZ;
 
             float PosX2 = 0;
             float PosY2 = 0;
@@ -378,6 +386,78 @@ namespace LocationServices.Locations.Services
             }
 
             lst.Sort(new DevDistanceCompare());
+
+            return lst;
+        }
+
+        public List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id)
+        {
+            DateTime dtNow = DateTime.Now;
+            DateTime dtOld = DateTime.Now.AddHours(-24);
+
+            long lNow = TimeConvert.DateTimeToTimeStamp(dtNow);
+            long lOld = TimeConvert.DateTimeToTimeStamp(dtOld);
+
+            List<EntranceGuardActionInfo> lst = new List<EntranceGuardActionInfo>();
+            List<int> lst2 = db.EntranceGuardCardToPersonnels.DbSet.Where(p => p.PersonnelId == id).Select(p=>p.EntranceGuardCardId).ToList();
+            List<DbModel.LocationHistory.AreaAndDev.DevEntranceGuardCardAction> lst3 = null;
+            List<DbModel.Location.AreaAndDev.EntranceGuardCard> lst4 = db.EntranceGuardCards.ToList();
+            List<DbModel.Location.AreaAndDev.DevInfo> lst5 = db.DevInfos.ToList();
+            List<DbModel.Location.AreaAndDev.Area> lst6 = db.Areas.ToList();
+
+            if (lst2 == null)
+            {
+                return lst;
+            }
+
+            var query = from t1 in db.DevEntranceGuardCardActions.DbSet
+                        where lst2.Contains(t1.EntranceGuardCardId) && t1.OperateTimeStamp >= lOld && t1.OperateTimeStamp <= lNow
+                        select t1;
+            if (query == null)
+            {
+                return lst;
+            }
+
+            lst3 = query.ToList();
+
+            foreach (DbModel.LocationHistory.AreaAndDev.DevEntranceGuardCardAction item in lst3)
+            {
+                int DevInfoId = item.DevInfoId;
+                int EntranceGuardCardId = item.EntranceGuardCardId;
+                DateTime? OperateTime = item.OperateTime;
+                int nInOutState = item.nInOutState;
+
+                var card = lst4.Find(p => p.Id == EntranceGuardCardId);
+                if (card == null || card.Code == null || card.Code == "")
+                {
+                    continue;
+                }
+
+                var devinfo = lst5.Find(p => p.Id == DevInfoId);
+                if (devinfo == null || devinfo.Name == null || devinfo.Name == "" || devinfo.ParentId == null)
+                {
+                    continue;
+                }
+
+                string Name = devinfo.Name;
+                int AreaId = (int)devinfo.ParentId;
+                var area = lst6.Find(p=>p.Id == AreaId);
+                if (area == null || area.Name == "" || area.Name == null)
+                {
+                    continue;
+                }
+
+                EntranceGuardActionInfo ega = new EntranceGuardActionInfo();
+                ega.Id = DevInfoId;
+                ega.Name = Name;
+                ega.AreadId = AreaId;
+                ega.AreadName = area.Name;
+                ega.Code = card.Code;
+                ega.OperateTime = OperateTime;
+                ega.nInOutState = nInOutState;
+
+                lst.Add(ega);
+            }
 
             return lst;
         }

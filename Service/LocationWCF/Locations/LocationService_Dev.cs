@@ -15,6 +15,7 @@ using LocationServices.Locations.Services;
 using DAL;
 using BLL.Tools;
 using IModel.Enums;
+using TModel.LocationHistory.AreaAndDev;
 
 namespace LocationServices.Locations
 {
@@ -170,6 +171,7 @@ namespace LocationServices.Locations
         {
             return new DeviceService(db).GetListByPids(pidList);
         }
+
         /// <summary>
         /// 通过设备Id,获取设备
         /// </summary>
@@ -179,6 +181,17 @@ namespace LocationServices.Locations
         {
             return new DeviceService(db).GetEntityByDevId(devId);
         }
+
+        /// <summary>
+        /// 通过设备Id,获取设备
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        public DevInfo GetDevByiId(int id)
+        {
+            return new DeviceService(db).GetEntityByid(id);
+        }
+
         /// <summary>
         /// 添加门禁设备
         /// </summary>
@@ -523,19 +536,25 @@ namespace LocationServices.Locations
             return pc2.ToTModel();
         }
 
-        //nFlag 0 表示获取全部，1表示获取摄像头
+        //通过人员找附近设备 nFlag 0 表示获取全部，1表示获取摄像头
         public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis, int nFlag)
         {
             DeviceService ds = new DeviceService();
             List<NearbyDev> lst = ds.GetNearbyDev_Currency(id, fDis, nFlag);
-            if (lst == null)
+            //if (lst == null)
+            //{
+            //    lst = new List<NearbyDev>();
+            //}
+
+            if (lst!=null&&lst.Count == 0)
             {
-                lst = new List<NearbyDev>();
+                lst = null;
             }
 
             return lst;
         }
 
+        //通过设备找附近设备
         public List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis)
         {
             DeviceService ds = new DeviceService();
@@ -545,6 +564,19 @@ namespace LocationServices.Locations
                 lst = new List<NearbyDev>();
             }
 
+            return lst;
+        }
+
+        //获取人员24小时内经过的门禁
+        public List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id)
+        {
+            DeviceService ds = new DeviceService();
+            List<EntranceGuardActionInfo> lst = ds.GetEntranceActionInfoByPerson24Hours(id);
+            if (lst == null)
+            {
+                lst = new List<EntranceGuardActionInfo>();
+            }
+            
             return lst;
         }
     }

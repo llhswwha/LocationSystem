@@ -20,6 +20,7 @@ using LocationClient.Tools;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
 using WCFServiceForWPF.LocationServices;
+using TModel.LocationHistory.AreaAndDev;
 
 namespace LocationWCFClient.Windows
 {
@@ -245,5 +246,9 @@ namespace LocationWCFClient.Windows
             NearbyDev[] lst = client.GetNearbyCamera_Alarm(1,200);
         }
 
+        private void GetEntranceActionInfoByPerson24Hours_OnClick(object sender, RoutedEventArgs e)
+        {
+            EntranceGuardActionInfo[] lst = client.GetEntranceActionInfoByPerson24Hours(1);
+        }
     }
 }

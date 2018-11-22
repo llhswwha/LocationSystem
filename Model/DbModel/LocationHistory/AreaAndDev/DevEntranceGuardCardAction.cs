@@ -61,6 +61,13 @@ namespace DbModel.LocationHistory.AreaAndDev
         public int code { get; set; }
 
         /// <summary>
+        /// 出入状态，0 表示进入，1 表示出去
+        /// </summary>
+        [DataMember]
+        [Display(Name = "出入状态")]
+        public int nInOutState { get; set; }
+
+        /// <summary>
         /// 说明
         /// </summary>
         [DataMember]

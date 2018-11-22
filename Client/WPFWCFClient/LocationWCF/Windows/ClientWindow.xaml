@@ -66,6 +66,7 @@
                     <Button Name="GetNearbyPerson_Alarm" Click="GetNearbyPerson_Alarm_OnClick">获取附近人员（告警）</Button>
                     <Button Name="GetNearbyDev_Currency" Click="GetNearbyDev_Currency_OnClick">获取附近设备（通用）</Button>
                     <Button Name="GetNearbyCamera_Alarm" Click="GetNearbyCamera_Alarm_OnClick">获取附近摄像头（告警）</Button>
+                    <Button Name="GetEntranceActionInfoByPerson24Hours" Click="GetEntranceActionInfoByPerson24Hours_OnClick">获取人员24小时内经过的门禁 </Button>
                 </StackPanel>
             </TabItem>
         </TabControl>
