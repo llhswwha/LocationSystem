@@ -747,6 +747,7 @@ namespace WebApiLib.Clients
                     degca.code = item.code;
                     degca.description = item.description;
                     degca.OperateTimeStamp = item.t;
+                    degca.nInOutState = 0;
 
                     if (item.t != null)
                     {
@@ -913,6 +914,7 @@ namespace WebApiLib.Clients
                         degca.code = item.code;
                         degca.description = item.description;
                         degca.OperateTimeStamp = item.t;
+                        degca.nInOutState = 0;
 
                         if (item.t != null)
                         {

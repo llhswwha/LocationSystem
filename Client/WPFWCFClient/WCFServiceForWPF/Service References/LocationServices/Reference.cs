@@ -118,6 +118,9 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByID", ReplyAction="http://tempuri.org/IDevService/GetDevByIDResponse")]
         Location.TModel.Location.AreaAndDev.DevInfo GetDevByID(string devId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByiId", ReplyAction="http://tempuri.org/IDevService/GetDevByiIdResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo GetDevByiId(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDoorAccessByList", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessByListResponse")]
         bool AddDoorAccessByList(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList);
         
@@ -159,6 +162,9 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm", ReplyAction="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse")]
         TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours", ReplyAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse")]
+        TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId", ReplyAction="http://tempuri.org/IKKSService/GetKKSInfoByNodeIdResponse")]
         Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id);
@@ -499,6 +505,10 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetDevByID(devId);
         }
         
+        public Location.TModel.Location.AreaAndDev.DevInfo GetDevByiId(int id) {
+            return base.Channel.GetDevByiId(id);
+        }
+        
         public bool AddDoorAccessByList(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList) {
             return base.Channel.AddDoorAccessByList(doorAccessList);
         }
@@ -553,6 +563,10 @@ namespace WCFServiceForWPF.LocationServices {
         
         public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyCamera_Alarm(int id, float fDis) {
             return base.Channel.GetNearbyCamera_Alarm(id, fDis);
+        }
+        
+        public TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo[] GetEntranceActionInfoByPerson24Hours(int id) {
+            return base.Channel.GetEntranceActionInfoByPerson24Hours(id);
         }
         
         public Location.TModel.Location.AreaAndDev.KKSCode GetKKSInfoByNodeId(int id) {

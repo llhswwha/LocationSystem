@@ -537,7 +537,28 @@ namespace LocationServices.Locations
         public List<PersonnelMobileInspection> GetPersonnelMobileInspectionList()
         {
             var PersonnelMobileInspection = db.PersonnelMobileInspections.ToList();
-            return PersonnelMobileInspection.ToWcfModelList();
+            //return PersonnelMobileInspection.ToWcfModelList();
+
+            PersonnelMobileInspection o1 = new PersonnelMobileInspection() { Id = 1, MobileInspectionId=100001, MobileInspectionName = "巡检轨迹1", PersonnelName = "李风A" };
+            //o1.OperationTask = "操作任务";
+            o1.PlanStartTime = DateTime.Now.AddHours(-2);
+            o1.PlanEndTime = DateTime.Now;
+            o1.StartTime = DateTime.Now.AddHours(-2);
+            o1.Remark = "备注";
+            PersonnelMobileInspectionItem oi1 = new PersonnelMobileInspectionItem() { Id = 1, nOrder = 1, ItemName = "操作项1", DevId = 1 };
+            PersonnelMobileInspectionItem oi2 = new PersonnelMobileInspectionItem() { Id = 2, nOrder = 2, ItemName = "操作项2", DevId = 2 };
+            PersonnelMobileInspectionItem oi3 = new PersonnelMobileInspectionItem() { Id = 3, nOrder = 3, ItemName = "操作项3", DevId = 3 };
+            PersonnelMobileInspectionItem oi4 = new PersonnelMobileInspectionItem() { Id = 4, nOrder = 4, ItemName = "操作项4", DevId = 4 };
+            PersonnelMobileInspectionItem oi5 = new PersonnelMobileInspectionItem() { Id = 5, nOrder = 5, ItemName = "操作项5", DevId = 5 };
+            o1.list = new List<PersonnelMobileInspectionItem>() { oi1, oi2, oi3, oi4, oi5 };
+
+            PersonnelMobileInspection o2 = new PersonnelMobileInspection() { Id = 2, MobileInspectionId = 100002, MobileInspectionName = "巡检轨迹2", PersonnelName = "赵一含" };
+            PersonnelMobileInspection o3 = new PersonnelMobileInspection() { Id = 3, MobileInspectionId = 100003, MobileInspectionName = "巡检轨迹3", PersonnelName = "刘国柱" };
+            PersonnelMobileInspection o4 = new PersonnelMobileInspection() { Id = 4, MobileInspectionId = 100004, MobileInspectionName = "巡检轨迹4", PersonnelName = "陈浩然" };
+            PersonnelMobileInspection o5 = new PersonnelMobileInspection() { Id = 5, MobileInspectionId = 100005, MobileInspectionName = "巡检轨迹5", PersonnelName = "李一样" };
+
+            List<PersonnelMobileInspection> os = new List<PersonnelMobileInspection>() { o1, o2, o3, o4, o5 };
+            return os;
         }
 
         //获取操作票历史记录
@@ -613,7 +634,31 @@ namespace LocationServices.Locations
         public List<PersonnelMobileInspectionHistory> GetPersonnelMobileInspectionHistoryList()
         {
             var PersonnelMobileInspectionHistory = db.PersonnelMobileInspectionHistorys.ToList();
-            return PersonnelMobileInspectionHistory.ToWcfModelList();
+            //return PersonnelMobileInspectionHistory.ToWcfModelList();
+            PersonnelMobileInspectionHistory o1 = new PersonnelMobileInspectionHistory() { Id = 1, MobileInspectionId = 100001, MobileInspectionName = "巡检轨迹1", PersonnelName = "李风A" };
+            o1.PlanStartTime = DateTime.Now.AddHours(-2);
+            o1.PlanEndTime = DateTime.Now;
+            o1.StartTime = DateTime.Now.AddHours(-2);
+            o1.Remark = "备注";
+            //o1.OperatorPersonelId = 7;
+            PersonnelMobileInspectionItemHistory oi1 = new PersonnelMobileInspectionItemHistory() { Id = 1, nOrder = 1, ItemName = "项1",DevName= "设备1", DevId = 1 };
+            PersonnelMobileInspectionItemHistory oi2 = new PersonnelMobileInspectionItemHistory() { Id = 2, nOrder = 2, ItemName = "项2",DevName= "设备2", DevId = 2 };
+            PersonnelMobileInspectionItemHistory oi3 = new PersonnelMobileInspectionItemHistory() { Id = 3, nOrder = 3, ItemName = "项3",DevName= "设备3", DevId = 3 };
+            PersonnelMobileInspectionItemHistory oi4 = new PersonnelMobileInspectionItemHistory() { Id = 4, nOrder = 4, ItemName = "项4",DevName= "设备4", DevId = 4 };
+            PersonnelMobileInspectionItemHistory oi5 = new PersonnelMobileInspectionItemHistory() { Id = 5, nOrder = 5, ItemName = "项5",DevName= "设备5", DevId = 5 };
+            o1.list = new List<PersonnelMobileInspectionItemHistory>() { oi1, oi2, oi3, oi4, oi5 };
+
+            PersonnelMobileInspectionHistory o2 = new PersonnelMobileInspectionHistory() { Id = 2, MobileInspectionId = 100002, MobileInspectionName = "巡检轨迹2", PersonnelName = "赵一含" };
+            PersonnelMobileInspectionHistory o3 = new PersonnelMobileInspectionHistory() { Id = 3, MobileInspectionId = 100003, MobileInspectionName = "巡检轨迹3", PersonnelName = "刘国柱" };
+            PersonnelMobileInspectionHistory o4 = new PersonnelMobileInspectionHistory() { Id = 4, MobileInspectionId = 100004, MobileInspectionName = "巡检轨迹4", PersonnelName = "陈浩然" };
+            PersonnelMobileInspectionHistory o5 = new PersonnelMobileInspectionHistory() { Id = 5, MobileInspectionId = 100005, MobileInspectionName = "巡检轨迹5", PersonnelName = "李一样" };
+            List<PersonnelMobileInspectionHistory> os = new List<PersonnelMobileInspectionHistory>() { o1, o2, o3, o4, o5 };
+            for (int i = 0; i < 20; i++)
+            {
+                PersonnelMobileInspectionHistory wT = new PersonnelMobileInspectionHistory() { Id = 6 + i, MobileInspectionId = 100005 + i, MobileInspectionName = "巡检轨迹" + (5 + i).ToString() };
+                os.Add(wT);
+            }
+            return os;
         }
         
 

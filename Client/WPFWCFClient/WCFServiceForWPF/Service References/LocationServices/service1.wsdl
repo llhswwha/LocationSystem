@@ -11,6 +11,7 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Person" />
@@ -226,6 +227,12 @@
   <wsdl:message name="ILocationService_GetDevByID_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDevByIDResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByiId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByiId" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByiId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByiIdResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_AddDoorAccessByList_InputMessage">
     <wsdl:part name="parameters" element="tns:AddDoorAccessByList" />
   </wsdl:message>
@@ -309,6 +316,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetNearbyCamera_Alarm_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetNearbyCamera_AlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetEntranceActionInfoByPerson24Hours_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEntranceActionInfoByPerson24Hours" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetEntranceActionInfoByPerson24Hours_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEntranceActionInfoByPerson24HoursResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
@@ -795,6 +808,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByID" message="tns:ILocationService_GetDevByID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByIDResponse" message="tns:ILocationService_GetDevByID_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDevByiId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByiId" message="tns:ILocationService_GetDevByiId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByiIdResponse" message="tns:ILocationService_GetDevByiId_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="AddDoorAccessByList">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddDoorAccessByList" message="tns:ILocationService_AddDoorAccessByList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/AddDoorAccessByListResponse" message="tns:ILocationService_AddDoorAccessByList_OutputMessage" />
@@ -850,6 +867,10 @@
     <wsdl:operation name="GetNearbyCamera_Alarm">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetNearbyCamera_Alarm" message="tns:ILocationService_GetNearbyCamera_Alarm_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetNearbyCamera_AlarmResponse" message="tns:ILocationService_GetNearbyCamera_Alarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntranceActionInfoByPerson24Hours">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours" message="tns:ILocationService_GetEntranceActionInfoByPerson24Hours_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse" message="tns:ILocationService_GetEntranceActionInfoByPerson24Hours_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
@@ -1392,6 +1413,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDevByiId">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByiId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AddDoorAccessByList">
       <soap:operation soapAction="http://tempuri.org/IDevService/AddDoorAccessByList" style="document" />
       <wsdl:input>
@@ -1511,6 +1541,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetNearbyCamera_Alarm">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetNearbyCamera_Alarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntranceActionInfoByPerson24Hours">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

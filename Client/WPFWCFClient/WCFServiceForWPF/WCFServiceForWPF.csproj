@@ -89,6 +89,7 @@
     <None Include="Properties\DataSources\TModel.Location.Work.OperationTicket.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.PersonnelMobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.WorkTicket.datasource" />
+    <None Include="Properties\DataSources\TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.OperationItemHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.OperationTicketHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.PersonnelMobileInspectionHistory.datasource" />
@@ -162,6 +163,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.LocationHistory.Work1.xsd">

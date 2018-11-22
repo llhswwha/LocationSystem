@@ -29,6 +29,14 @@ namespace DbModel.LocationHistory.AreaAndDev
         public int? Abutment_Id { get; set; }
 
         /// <summary>
+        /// 门禁卡名称
+        /// </summary>
+        [DataMember]
+        [Display(Name = "门禁卡名称")]
+        [MaxLength(128)]
+        public string Name { get; set; }
+
+        /// <summary>
         /// 门禁卡号
         /// </summary>
         [DataMember]

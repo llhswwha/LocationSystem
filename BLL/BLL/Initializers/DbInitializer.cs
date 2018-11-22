@@ -224,7 +224,8 @@ namespace BLL
             for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
             {
                 var tag = tagsT[i];
-                int n = r.Next(1);
+                //int n = r.Next(1);
+                int n = i % 2;
                 var post = posts[r.Next(posts.Count)];
                 var dep = subDeps[r.Next(subDeps.Count)];
                 if (n == 0)

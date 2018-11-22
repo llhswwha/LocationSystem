@@ -5,6 +5,7 @@ using Location.TModel.Location.AreaAndDev;
 using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.AreaAndDev;
+using TModel.LocationHistory.AreaAndDev;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -118,6 +119,14 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         DevInfo GetDevByID(string devId);
 
+        /// <summary>
+        /// 通过设备ID,获取设备信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        DevInfo GetDevByiId(int id);
+
         //门禁设备的增删改查
 
         /// <summary>
@@ -207,5 +216,13 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis);
+
+        /// <summary>
+        /// 获取人员24小时内经过的门禁
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OperationContract]
+        List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id);
     }
 }
