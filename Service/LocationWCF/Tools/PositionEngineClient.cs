@@ -30,6 +30,7 @@ namespace LocationServices.Tools
                 Logs = new PositionEngineLog();
             }
             Logs.WriteLogLeft(txt);
+            Log.Info(txt);
         }
 
         public void WriteLogRight(string txt)

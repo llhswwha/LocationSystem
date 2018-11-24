@@ -123,6 +123,9 @@ namespace DbModel.Location.Alarm
         {
             AlarmTime = DateTime.Now;
             AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(AlarmTime);
+
+            HandleTime = new DateTime(2000,1,1);
+            HandleTimeStamp = TimeConvert.DateTimeToTimeStamp(HandleTime);
         }
 
         public LocationAlarm(Position p,string content)

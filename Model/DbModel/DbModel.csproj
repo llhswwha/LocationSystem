@@ -49,6 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CADEntitys\CADAreaList.cs" />
+    <Compile Include="CADEntitys\CADEntity.cs" />
+    <Compile Include="CADEntitys\CADPoint.cs" />
+    <Compile Include="CADEntitys\CADShape.cs" />
+    <Compile Include="CADEntitys\CADArea.cs" />
     <Compile Include="Engine\bus_anchor.cs" />
     <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />

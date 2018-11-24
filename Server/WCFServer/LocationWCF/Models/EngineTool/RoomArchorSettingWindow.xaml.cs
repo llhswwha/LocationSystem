@@ -42,6 +42,10 @@ namespace LocationServer.Windows
         double floorHeight = 0;
         private string _code;
 
+        double x;
+
+        double z;
+
         public bool ShowInfo(Rectangle rect, int devId)
         {
             ArchorDevList archorList = ArchorHelper.ArchorList;
@@ -68,8 +72,8 @@ namespace LocationServer.Windows
             _item.Name = _archor.Name;
             var area = _dev.Parent;
 
-            double x = _dev.PosX;
-            double z = _dev.PosZ;
+            x = _dev.PosX;
+            z = _dev.PosZ;
 
             _item.SetRelative(x, z);
             _item.RelativeHeight = _dev.PosY;
@@ -115,17 +119,18 @@ namespace LocationServer.Windows
             {
                 TbRoomName.Text = _room.Name;
                 PcArchor.IsEnabled = false;
-                PcZero.X = _room.InitBound.MinX;
-                PcZero.Y = _room.InitBound.MinY;
-                PcRelative.X = x - _room.InitBound.MinX;
-                PcRelative.Y = z - _room.InitBound.MinY;
+                //PcZero.X = _room.InitBound.MinX;
+                //PcZero.Y = _room.InitBound.MinY;
+                //PcRelative.X = x - _room.InitBound.MinX;
+                //PcRelative.Y = z - _room.InitBound.MinY;
+
+                SetZeroPoint(_room.InitBound.MinX, _room.InitBound.MinY);
             }
             else
             {
                 PcArchor.IsEnabled = true;
                 PcRelative.X = PcArchor.X;
                 PcRelative.Y = PcArchor.Y;
-
             }
 
             PcZero.ValueChanged += PcZero_ValueChanged;
@@ -141,7 +146,17 @@ namespace LocationServer.Windows
                 Title += " [已配置]";
             }
 
+            //OnShowPoint();
             return true;
+        }
+
+        private void SetZeroPoint(float zx,float zy)
+        {
+            PcZero.X = zx;
+            PcZero.Y = zy;
+            PcRelative.X = x - zx;
+            PcRelative.Y = z - zy;
+            OnShowPoint(); 
         }
 
         private void PcZero_ValueChanged(WPFClientControlLib.PointControl obj)
@@ -396,6 +411,11 @@ namespace LocationServer.Windows
 
         private void BtnShowPoint_OnClick(object sender, RoutedEventArgs e)
         {
+            OnShowPoint();
+        }
+
+        public void OnShowPoint()
+        {
             if (ShowPointEvent != null)
             {
                 ShowPointEvent(PcZero.X, PcZero.Y);
@@ -446,6 +466,20 @@ namespace LocationServer.Windows
                     IPCode1.ItemsSource = devs;
                     TbCode.IsDropDownOpen = true;
                 }
+            }
+        }
+
+        private void BtnSelectPoint_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAutoSelectPoint_Click(object sender, RoutedEventArgs e)
+        {
+            if (_room != null)
+            {
+                var p=_room.InitBound.GetClosePoint(x, z);
+                SetZeroPoint(p.X, p.Y);
             }
         }
     }

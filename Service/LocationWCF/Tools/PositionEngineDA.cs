@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using BLL;
 using Coldairarrow.Util.Sockets;
 using DbModel.LocationHistory.Data;
 using DbModel.Tools;
@@ -133,7 +134,7 @@ namespace LocationWCFServer
                 //    Log.Info("002");
                 //}
                 Position pos = new Position();
-                if (pos.Parse(msg))
+                if (pos.Parse(msg, LocationContext.OffsetX, LocationContext.OffsetY))
                 {
                     posList.Add(pos);
                 }
@@ -157,7 +158,7 @@ namespace LocationWCFServer
             //    Log.Info("002");
             //}
             Position pos = new Position();
-            if (pos.Parse(msg))
+            if (pos.Parse(msg,LocationContext.OffsetX, LocationContext.OffsetY))
             {
                 //if (PositionRecived != null)
                 //{

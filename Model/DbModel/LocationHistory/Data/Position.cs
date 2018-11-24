@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
+using DbModel.Location.AreaAndDev;
 using DbModel.Location.Data;
 using DbModel.Location.Settings;
 using Location.TModel.Tools;
@@ -100,11 +101,32 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "电量")]
         public int Power { get; set; }
 
+
+        public void SetArea(Area area)
+        {
+            if (area == null) return;
+            AreaId = area.Id;
+            AreaPath = area.Name;
+            AreaState = area.IsOnLocationArea ? 0 : 1;
+        }
+
         /// <summary>
         /// 电量状态,0表示正常，1表示弱电
         /// </summary>
         [Display(Name = "电量状态")]
         public int PowerState { get; set; }
+
+        /// <summary>
+        /// 区域状态，0:在定位区域，1:不在定位区域
+        /// </summary>
+        [Display(Name = "区域状态")]
+        public int AreaState { get; set; }
+
+        /// <summary>
+        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// </summary>
+        [Display(Name = "区域状态")]
+        public int MoveState { get; set; }
 
         /// <summary>
         /// 序号（新的卡才有的）
@@ -130,6 +152,14 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "参与计算的基站编号")]
         [NotMapped]
         public List<string> Archors { get; set; }
+
+        /// <summary>
+        /// 参与计算的基站编号
+        /// </summary>
+        [DataMember]
+        [Display(Name = "参与计算的基站编号")]
+        [MaxLength(128)]
+        public string ArchorsText { get; set; }
 
         /// <summary>
         /// 基站所在的区域、建筑、楼层编号Id
@@ -172,7 +202,7 @@ namespace DbModel.LocationHistory.Data
 
         public string _info;
 
-        public bool Parse(string info)
+        public bool Parse(string info,float offsetX, float offsetY)
         {
             try
             {
@@ -181,8 +211,8 @@ namespace DbModel.LocationHistory.Data
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
-                X = float.Parse(parts[1]);//平面位置
-                Z = float.Parse(parts[2]);//平面位置
+                X = float.Parse(parts[1])+ offsetX;//平面位置
+                Z = float.Parse(parts[2])+ offsetY;//平面位置
                 Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = long.Parse(parts[4]);
                 DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
@@ -196,13 +226,13 @@ namespace DbModel.LocationHistory.Data
                     Flag = parts[7];
                 if (length > 8)
                 {
-                    string archors = parts[8];
-                    Archors = archors.Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
+                    ArchorsText = parts[8];
+                    Archors = ArchorsText.Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
                     if (Archors.Count > 1)
                     {
                         Console.Write("Archors.Count > 1");
                     }
-                    IsSimulate = archors == "@0000" || string.IsNullOrEmpty(archors);
+                    IsSimulate = ArchorsText == "@0000" || string.IsNullOrEmpty(ArchorsText);
                 }
 
                 if (Power >= 400)

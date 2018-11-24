@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClientControlLib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400" Loaded="AreaCanvas_OnLoaded">
+             d:DesignHeight="300" d:DesignWidth="600" Loaded="AreaCanvas_OnLoaded">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <Label>比例:</Label>
@@ -17,6 +17,8 @@
             </ComboBox>
             <Label>设备大小:</Label>
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
+            <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
+            <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
             <Label Name="LbState">State</Label>
         </StackPanel>
         <Grid>

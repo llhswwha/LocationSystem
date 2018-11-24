@@ -86,6 +86,18 @@ namespace DbModel.Location.Data
         public int PowerState { get; set; }
 
         /// <summary>
+        /// 区域状态，0:在定位区域，1:不在定位区域
+        /// </summary>
+        [Display(Name = "区域状态")]
+        public int AreaState { get; set; }
+
+        /// <summary>
+        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// </summary>
+        [Display(Name = "区域状态")]
+        public int MoveState { get; set; }
+
+        /// <summary>
         /// 序号（新的卡才有的）
         /// </summary>
         [DataMember]
@@ -111,10 +123,19 @@ namespace DbModel.Location.Data
         public List<string> Archors { get; set; }
 
         /// <summary>
+        /// 参与计算的基站编号
+        /// </summary>
+        [DataMember]
+        [Display(Name = "参与计算的基站编号")]
+        [MaxLength(128)]
+        public string ArchorsText { get; set; }
+
+        /// <summary>
         /// 基站所在的区域、建筑、楼层
         /// </summary>
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层")]
+
         public int? AreaId { get; set; }
 
         /// <summary>
@@ -154,6 +175,11 @@ namespace DbModel.Location.Data
             this.Flag = pos.Flag;
             this.Archors = pos.Archors;
             this.AreaId = pos.AreaId;
+            this.AreaState = pos.AreaState;
+            this.PowerState = pos.PowerState;
+            this.MoveState = pos.MoveState;
+            this.ArchorsText = pos.ArchorsText;
+            //this.AreaPath = pos.AreaPath;
         }
 
         public void Edit(LocationCardPosition pos)
@@ -169,6 +195,11 @@ namespace DbModel.Location.Data
             this.Flag = pos.Flag;
             this.Archors = pos.Archors;
             this.AreaId = pos.AreaId;
+            this.AreaState = pos.AreaState;
+            this.PowerState = pos.PowerState;
+            this.MoveState = pos.MoveState;
+            this.ArchorsText = pos.ArchorsText;
+            //this.AreaPath = pos.AreaPath;
         }
 
         public LocationCardPosition Clone()

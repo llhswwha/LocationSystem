@@ -253,10 +253,13 @@ namespace WPFClientControlLib
             CbDevSize.SelectionChanged += CbDevSize_SelectionChanged;
         }
 
+        public AreaEntity CurrentArea;
+
         public void ShowArea(AreaEntity area)
         {
             try
             {
+                CurrentArea = area;
                 CbView.SelectionChanged -= CbView_OnSelectionChanged;
                 CbView.SelectionChanged += CbView_OnSelectionChanged;
                 if (area == null) return;
@@ -498,6 +501,29 @@ namespace WPFClientControlLib
 
             double x = (dev.Pos.PosX - OffsetX) * scale-size*scale/2;
             double y = (dev.Pos.PosZ - OffsetY) * scale - size * scale / 2;
+
+            if (ShowDevName)
+            {
+                if (udpArchorList == null)
+                {
+                    string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+                    udpArchorList = XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
+                }
+                Label lb = new Label();
+                lb.Content = GetDevName(dev);
+                Canvas.SetLeft(lb, x);
+                Canvas.SetTop(lb, y);
+                Canvas1.Children.Add(lb);
+                lb.LayoutTransform = ScaleTransform1;
+
+                var udpArchor = udpArchorList.Find(i => i.Id == GetArchorCode(dev));
+                if (udpArchor != null)
+                {
+                    lb.Foreground = Brushes.Blue;
+                }
+            }
+
+
             //if (ViewMode == 0)
             //    y = Canvas1.Height - size * scale - y; //上下颠倒一下，不然就不是CAD上的上北下南的状况了
             Rectangle devRect = new Rectangle()
@@ -522,25 +548,6 @@ namespace WPFClientControlLib
             devRect.MouseEnter += DevRect_MouseEnter;
             devRect.MouseLeave += DevRect_MouseLeave;
             Canvas1.Children.Add(devRect);
-
-
-            if (udpArchorList == null)
-            {
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
-                udpArchorList = XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
-            }
-            Label lb = new Label();
-            lb.Content = GetArchorCode(dev);
-            Canvas.SetLeft(lb, x);
-            Canvas.SetTop(lb, y);
-            Canvas1.Children.Add(lb);
-            lb.LayoutTransform = ScaleTransform1;
-
-            var udpArchor=udpArchorList.Find(i => i.Id == GetArchorCode(dev));
-            if (udpArchor != null)
-            {
-                lb.Foreground = Brushes.Blue;
-            }
 
             return devRect;
         }
@@ -583,7 +590,8 @@ namespace WPFClientControlLib
             if (dev.DevDetail is Archor)
             {
                 Archor archor = dev.DevDetail as Archor;
-                return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
+                //return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
+                return archor.Code + "|" + archor.Ip;
             }
             else
             {
@@ -697,16 +705,21 @@ namespace WPFClientControlLib
                 AreaDict[area.Id] = polygon;
                 Canvas1.Children.Add(polygon);
 
-                Label lb = new Label();
-                lb.Content = area.Name;
-                var w = MeasureTextWidth(area.Name, lb.FontSize, lb.FontFamily.ToString());
-                Canvas.SetLeft(lb, mX-w/2);
-                Canvas.SetTop(lb, mY);
-                Canvas1.Children.Add(lb);
-                lb.Foreground = Brushes.Gray;
-                lb.LayoutTransform = ScaleTransform1;
+                if (ShowAreaName)
+                {
+                    Label lb = new Label();
+                    lb.Content = area.Name;
+                    var w = MeasureTextWidth(area.Name, lb.FontSize, lb.FontFamily.ToString());
+                    Canvas.SetLeft(lb, mX - w / 2);
+                    Canvas.SetTop(lb, mY);
+                    Canvas1.Children.Add(lb);
+                    lb.Foreground = Brushes.Gray;
+                    lb.LayoutTransform = ScaleTransform1;
+                    lb.Focusable = false;
+                }
 
-                
+               
+
             }
         }
 
@@ -785,10 +798,11 @@ namespace WPFClientControlLib
 
         public void Refresh()
         {
+            if (CbScale.SelectedItem == null) return;//还没初始化
             try
             {
                 int scale = (int)CbScale.SelectedItem;
-                var area = SelectedArea;
+                var area = CurrentArea;
                 if (area == null) return;
                 if (area.ParentId == 1) //电厂
                 {
@@ -924,6 +938,34 @@ namespace WPFClientControlLib
             {
                 ScaleTransform1.ScaleY = 1;
             }
+            Refresh();
+        }
+
+        private void CbAreaName_Checked(object sender, RoutedEventArgs e)
+        {
+            ShowAreaName = (bool)CbAreaName.IsChecked;
+            Refresh();
+        }
+
+        public bool ShowAreaName = true;
+
+        private void CbAreaName_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ShowAreaName = (bool)CbAreaName.IsChecked;
+            Refresh();
+        }
+
+        public bool ShowDevName = true;
+
+        private void CbDevName_Checked(object sender, RoutedEventArgs e)
+        {
+            ShowDevName = (bool)CbDevName.IsChecked;
+            Refresh();
+        }
+
+        private void CbDevName_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ShowDevName = (bool)CbDevName.IsChecked;
             Refresh();
         }
     }

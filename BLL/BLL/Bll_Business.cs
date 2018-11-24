@@ -87,7 +87,14 @@ namespace BLL
         public static Area GetDevRoom(Area floor, DevInfo dev)
         {
             Bll bll = new Bll();
+            
             var rooms = bll.Areas.FindAll(j => j.ParentId == floor.Id);
+
+            List<Bound> bounds = bll.Bounds.ToList();
+            List<Point> points = bll.Points.ToList();
+            BindBoundWithPoint(points, bounds);
+            BindAreaWithBound(rooms, bounds);
+
             return GetDevRoom(rooms, dev);
         }
 

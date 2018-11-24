@@ -403,6 +403,9 @@ namespace LocationServer
                 ParkArchorSettingWindow.ZeroX = leftBottom.X;
                 ParkArchorSettingWindow.ZeroY = leftBottom.Y;
                 //win2.Owner = this;
+                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
                 parkArchorSettingWnd.Show();
 
                 if (parkArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
@@ -411,14 +414,14 @@ namespace LocationServer
                     parkArchorSettingWnd = null;
                     return;
                 }
-                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
-                parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
-                parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
             }
             else
             {
                 roomArchorSettingWnd = new RoomArchorSettingWindow();
                 //roomArchorSettingWnd.Owner = this;
+                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
+                roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
                 roomArchorSettingWnd.Show();
                 if (roomArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
                 {
@@ -426,9 +429,7 @@ namespace LocationServer
                     roomArchorSettingWnd = null;
                     return;
                 }
-                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
-                roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
-                roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
+
             }
         }
 

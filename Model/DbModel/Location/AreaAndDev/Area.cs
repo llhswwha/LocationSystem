@@ -268,6 +268,23 @@ namespace DbModel.Location.AreaAndDev
             }
         }
 
+        public Area GetFloorByHeight(float y)
+        {
+            Area floor = null;
+            if (Children != null)
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    Area item = Children[i];
+                    double height = GetCeilingHeight(i);
+                    if (y < height)
+                    {
+                        floor =item;
+                        break;
+                    }
+                }
+            return floor;
+        }
+
         [DataMember]
         public int? EditBoundId { get; set; }
 
@@ -407,6 +424,27 @@ namespace DbModel.Location.AreaAndDev
             return floorHeight;
         }
 
+        //public double GetCeilingHeight(int id)
+        //{
+        //    double height = 0;
+        //    int index = Children.FindIndex(i => i.Id == id);
+        //    for (int i = 0; i <= index; i++)
+        //    {
+        //        height += Children[i].InitBound.GetHeight();
+        //    }
+        //    return height;
+        //}
+
+        public double GetCeilingHeight(int index)
+        {
+            double height = 0;
+            for (int i = 0; i <= index; i++)
+            {
+                height += Children[i].InitBound.GetHeight();
+            }
+            return height;
+        }
+
         /// <summary>
         /// 是否电厂园区
         /// </summary>
@@ -451,5 +489,10 @@ namespace DbModel.Location.AreaAndDev
             return strReturn;
         }
 
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -81,8 +81,23 @@ namespace Location.TModel.LocationHistory.Data
         /// <summary>
         /// 电量状态,0表示正常，1表示弱电
         /// </summary>
+        //[Display(Name = "电量状态")]
         [DataMember]
         public int PowerState { get; set; }
+
+        /// <summary>
+        /// 区域状态，0:在定位区域，1:不在定位区域
+        /// </summary>
+        //[Display(Name = "区域状态")]
+        [DataMember]
+        public int AreaState { get; set; }
+
+        /// <summary>
+        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// </summary>
+        //[Display(Name = "区域状态")]
+        [DataMember]
+        public int MoveState { get; set; }
 
         /// <summary>
         /// 序号（新的卡才有的）

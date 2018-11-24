@@ -289,7 +289,7 @@ namespace BLL
                 var tagPos = tagPosList.Find(item => item.Code == position.Code);
                 if (tagPos != null)
                 {
-                    tagPos.Edit(position);
+                    tagPos.Edit(position);//修改实时位置数据
                     if (!changedTagPosList.Contains(tagPos))
                     {
                         changedTagPosList.Add(tagPos);
@@ -302,8 +302,26 @@ namespace BLL
                 }
             }
 
-            LocationCardPositions.Db.BulkUpdate(changedTagPosList);//插件Z.EntityFramework.Extensions功能
-            LocationCardPositions.Db.BulkInsert(newTagPosList);//插件Z.EntityFramework.Extensions功能
+            try
+            {
+
+                LocationCardPositions.Db.BulkUpdate(changedTagPosList);//插件Z.EntityFramework.Extensions功能
+            }
+            catch (Exception ex)
+            {
+                Log.Error(string.Format("EditTagPositionListOP1,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
+            }
+            
+            try
+            {
+
+                LocationCardPositions.Db.BulkInsert(newTagPosList);//插件Z.EntityFramework.Extensions功能
+            }
+            catch (Exception ex)
+            {
+                Log.Error(string.Format("EditTagPositionListOP2,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
+            }
+
         }
 
         public bool EditTagPositionEx(Position position)

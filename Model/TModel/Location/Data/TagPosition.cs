@@ -47,8 +47,23 @@ namespace Location.TModel.Location.Data
         /// <summary>
         /// 电量状态,0表示正常，1表示弱电
         /// </summary>
+        //[Display(Name = "电量状态")]
         [DataMember]
         public int PowerState { get; set; }
+
+        /// <summary>
+        /// 区域状态，0:在定位区域，1:不在定位区域
+        /// </summary>
+        //[Display(Name = "区域状态")]
+        [DataMember]
+        public int AreaState { get; set; }
+
+        /// <summary>
+        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// </summary>
+        //[Display(Name = "区域状态")]
+        [DataMember]
+        public int MoveState { get; set; }
 
         /// <summary>
         /// 序号（新的卡才有的）
@@ -75,6 +90,12 @@ namespace Location.TModel.Location.Data
         /// </summary>
         [DataMember]
         public int? AreaId { get; set; }
+
+        ///// <summary>
+        ///// 基站所在的区域、建筑、楼层
+        ///// </summary>
+        //[DataMember]
+        //public string AreaPath { get; set; }
 
         /// <summary>
         /// 关联人员的Id

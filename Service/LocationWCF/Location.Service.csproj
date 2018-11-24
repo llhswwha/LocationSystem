@@ -71,6 +71,7 @@
     <Compile Include="Converters\ModelConvertHelper.cs" />
     <Compile Include="Converters\ModelConvertHelperOfBaseData.cs" />
     <Compile Include="Converters\PersonConvertHelper.cs" />
+    <Compile Include="Converters\PositionConvertHelper.cs" />
     <Compile Include="Converters\TagConvertHelper.cs" />
     <Compile Include="LocationCallbacks\AlarmSubscriber.cs" />
     <Compile Include="LocationCallbacks\ILocationAlarmService.cs" />

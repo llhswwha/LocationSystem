@@ -23,6 +23,7 @@ using DbModel.Tools.InitInfos;
 using LocationClient.Tools;
 using Location.Model.InitInfos;
 using DbModel.Location.AreaAndDev;
+using DbModel.CADEntitys;
 
 namespace LocationServer.Windows
 {
@@ -194,6 +195,31 @@ namespace LocationServer.Windows
             string filePath = basePath + "Data\\基站信息\\基站信息.xml";
 
             XmlSerializeHelper.Save(list,filePath);
+        }
+
+        private void LoadCADShapeList_Click(object sender, RoutedEventArgs e)
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\CADAreaInfo.xml";
+
+            CADAreaList list=XmlSerializeHelper.LoadFromFile<CADAreaList>(filePath);
+
+            Bll bll = new Bll();
+            var areas=bll.Areas.ToList();
+            foreach (var item in list)
+            {
+                var area = areas.Find(i => i.Name == item.Name);
+                if (area != null)
+                {
+                    foreach (var sp in item.Shapes)
+                    {
+                        Area newArea = new Area();
+                        newArea.Name = sp.Name;
+                        newArea.Type = AreaTypes.CAD;
+
+                    }
+                }
+            }
         }
     }
 }

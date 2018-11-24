@@ -330,7 +330,7 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
-                Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1}", typeof(T),list.Count()), ex);
+                Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex.Message));
 
                 try
                 {
@@ -340,10 +340,20 @@ namespace BLL.Blls
                 }
                 catch (Exception ex2)
                 {
-                    Log.Error(string.Format("BaseBll.AddRange.BulkInsert2,Type:{0},Count:{1}", typeof(T), list.Count()), ex2);
-                }
-                
+                    Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex2.Message));
 
+                    try
+                    {
+                        Thread.Sleep(100);
+                        Db.BulkInsert(list);
+                        return true;//有一定概率先失败后成功
+                    }
+                    catch (Exception ex3)
+                    {
+                        Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex3.Message));
+                        return false;
+                    }
+                }
                 return false;
             }
 

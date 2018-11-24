@@ -54,6 +54,9 @@ namespace LocationWCFServer
             InitData();
 
             AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
+
+
+            LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
         }
 
         private static void InitDbContext()

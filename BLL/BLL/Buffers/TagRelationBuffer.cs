@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
+using DbModel.Location.Authorizations;
 using DbModel.Location.Data;
 using DbModel.Location.Person;
 using DbModel.Location.Relation;
@@ -16,6 +17,7 @@ namespace BLL
         private List<Personnel> personnels;
         private List<LocationCardToPersonnel> tagToPersons;
         private List<LocationCard> tags;
+        private List<CardRole> roles;
         private List<Archor> archors;
         private List<Area> areas;
         private Bll bll;
@@ -35,11 +37,19 @@ namespace BLL
 
         protected override void UpdateData()
         {
+            RefreshTags();
+
+            archors = bll.Archors.ToList();//基站
+
+            areas = bll.Areas.GetWithBoundPoints(true);
+            roles = bll.CardRoles.ToList();
+        }
+
+        private void RefreshTags()
+        {
             personnels = bll.Personnels.ToList();
             tagToPersons = bll.LocationCardToPersonnels.ToList();
             tags = bll.LocationCards.ToList();
-            archors = bll.Archors.ToList();//基站
-            areas = bll.Areas.GetWithBoundPoints(true);
         }
 
         public void SetPositionInfo(List<Position> positions)
@@ -128,98 +138,126 @@ namespace BLL
             }
             if (pos.Archors != null && pos.Archors.Count > 0)
             {
-                //List<Archor> archorList = Archors.Buffer.FindByCodes(pos.Archors);
-                var archorList = archors.Where(i => pos.Archors.Contains(i.Code));
-                var areaCount = new Dictionary<int, int>();
-                int maxCount = 0;
-                int maxArea = 0;
-                foreach (Archor archor in archorList)
-                {
-                    if (archor.ParentId == null) continue;
-                    int parentId = (int)archor.ParentId;
-                    if (!areaCount.ContainsKey(parentId))
-                    {
-                        areaCount[parentId] = 0;
-                    }
-                    areaCount[parentId]++;
-                    if (areaCount[parentId] > maxCount)
-                    {
-                        maxArea = parentId;
-                        maxCount = areaCount[parentId];
-                    }
-                }
-                pos.AreaId = maxArea;
-
+                SetAreaByArchor(pos);
                 var area = areas.Find(i => i.Id == pos.AreaId);
                 if (area != null)
                 {
                     if (area.IsPark())//电厂园区,基站属于园区或者楼层
                     {
-                        var containsAreas = new List<Area>();
-                        var boundAreas = new List<Area>();
-                        foreach (var item in area.Children)
-                        {
-                            if (item.InitBound != null)
-                            {
-                                boundAreas.Add(item);
-                            }
-                            foreach (var building in item.Children)
-                            {
-                                if (building.InitBound != null)
-                                {
-                                    boundAreas.Add(building);
-                                }
-                            }
-                        }
-                        foreach (var boundArea in boundAreas)
-                        {
-                            if (boundArea.InitBound.Contains(pos.X, pos.Z))
-                            {
-                                containsAreas.Add(boundArea);
-                            }
-
-                            //if (boundArea.InitBound.ContainsSimple(pos.X, pos.Z))
-                            //{
-                            //    containsAreas.Add(boundArea);
-                            //}
-                        }
-                        //todo:加上建筑外的区域
-                        if (containsAreas.Count > 0)
-                        {
-                            pos.AreaId = containsAreas[0].Id;
-                            pos.AreaPath = containsAreas[0].Name;
-                        }
+                        SetAreaInPark(pos, area);
                     }
                     else if (area.Type == DbModel.Tools.AreaTypes.楼层)
                     {
-                        var building = area.Parent;
-                        var containsAreas = new List<Area>();
-                        var childrenArea = area.Children;
-                        foreach (var item in childrenArea)
-                        {
-                            var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
-                            var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
-                            if (item.InitBound.Contains(x, y) && item.IsOnLocationArea)
-                            {
-                                containsAreas.Add(item);
-                            }
-                        }
-                        if (containsAreas.Count > 0)
-                        {
-                            pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
-                            pos.AreaId = containsAreas[0].Id;
-                        }
-                        else
-                        {
-                            pos.AreaPath = building.Name + "." + area.Name;
-                        }
+                        SetAreaInFloor(pos, area);
                     }
                 }
             }
             else
             {
-                pos.AreaId = null;
+                var area = areas[1];
+                if (area.IsPark())//电厂园区,基站属于园区或者楼层
+                {
+                    var inArea=SetAreaInPark(pos, area);
+                    if (inArea != null)//某个建筑物
+                    {
+                        var floor = inArea.GetFloorByHeight(pos.Y);
+                        if (floor != null)
+                        {
+                            SetAreaInFloor(pos, floor);
+                        }
+                    }
+                }
             }
+        }
+
+        private void SetAreaByArchor(Position pos)
+        {
+            var archorList = archors.Where(i => pos.Archors.Contains(i.Code));
+            var areaCount = new Dictionary<int, int>();
+            int maxCount = 0;
+            int maxArea = 0;
+            foreach (Archor archor in archorList)
+            {
+                if (archor.ParentId == null) continue;
+                int parentId = (int)archor.ParentId;
+                if (!areaCount.ContainsKey(parentId))
+                {
+                    areaCount[parentId] = 0;
+                }
+                areaCount[parentId]++;
+                if (areaCount[parentId] > maxCount)
+                {
+                    maxArea = parentId;
+                    maxCount = areaCount[parentId];
+                }
+            }
+            pos.AreaId = maxArea;
+        }
+
+        private static void SetAreaInFloor(Position pos, Area area)
+        {
+            var building = area.Parent;
+            var containsAreas = new List<Area>();
+            var childrenArea = area.Children;
+            foreach (var item in childrenArea)
+            {
+                var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
+                var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
+                if (item.InitBound.Contains(x, y) /*&& item.IsOnLocationArea*/)
+                {
+                    containsAreas.Add(item);
+                }
+            }
+            if (containsAreas.Count > 0)
+            {
+                pos.SetArea(containsAreas[0]);
+                pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
+            }
+            else
+            {
+                pos.AreaPath = building.Name + "." + area.Name;
+            }
+        }
+
+        private static Area SetAreaInPark(Position pos, Area area)
+        {
+            var containsAreas = new List<Area>();
+            var boundAreas = new List<Area>();
+            foreach (var item in area.Children)
+            {
+                if (item.InitBound != null)
+                {
+                    boundAreas.Add(item);
+                }
+                foreach (var building in item.Children)
+                {
+                    if (building.InitBound != null)
+                    {
+                        boundAreas.Add(building);
+                    }
+                }
+            }
+            foreach (var boundArea in boundAreas)
+            {
+                if (boundArea.InitBound.Contains(pos.X, pos.Z))
+                {
+                    containsAreas.Add(boundArea);
+                }
+
+                //if (boundArea.InitBound.ContainsSimple(pos.X, pos.Z))
+                //{
+                //    containsAreas.Add(boundArea);
+                //}
+            }
+
+            Area inArea = null;
+            //todo:加上建筑外的区域
+            if (containsAreas.Count > 0)
+            {
+                inArea = containsAreas[0];
+                pos.SetArea(inArea);
+            }
+            return inArea;
         }
 
         private void SetTagAndPerson(Position pos)
@@ -239,8 +277,61 @@ namespace BLL
                         //2.设置人员
                         pos.PersonnelID = personnelT.Id;
                     }
+                    else//关联的人员不在了 ，误删了的话，先补回来上吧
+                    {
+                        var person = AddPersonByTag(pos, tag);
+                        if (person != null)
+                        {
+                            pos.PersonnelID = person.Id;
+                        }
+                    }
                 }
             }
+            else//新的定位卡 不存在人员 ；策略，添加一个标签 同时绑定一个人员 ，后续可以改成绑定其他人员。
+            {
+                tag=AddTagByPos(pos);
+                RefreshTags();
+            }
+        }
+
+        public LocationCard AddTagByPos(Position pos)
+        {
+            LocationCard tag = new LocationCard();
+            tag.Name = pos.Code;
+            tag.Code = pos.Code;
+            tag.CardRoleId = roles[0].Id;
+            bool r1 = bll.LocationCards.Add(tag);
+
+            pos.CardId = tag.Id;
+            pos.RoleId = tag.CardRoleId;//角色
+
+            if (r1)
+            {
+                var person = AddPersonByTag(pos, tag);
+                if (person != null)
+                {
+                    pos.PersonnelID = person.Id;
+                }
+            }
+            return tag;
+        }
+
+        private Personnel AddPersonByTag(Position pos, LocationCard tag)
+        {
+            Personnel person = new Personnel();
+            person.Name = "Tag_" + pos.Code;
+            person.ParentId = 6;//访客
+            bool r2 = bll.Personnels.Add(person);
+
+            if (r2)
+            {
+                var perToCard = new LocationCardToPersonnel();
+                perToCard.LocationCard = tag;
+                perToCard.Personnel = person;
+                bool r3 = bll.LocationCardToPersonnels.Add(perToCard);
+                return person;
+            }
+            return null;
         }
     }
 }

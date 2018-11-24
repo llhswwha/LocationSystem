@@ -320,18 +320,41 @@ namespace DbModel.Location.AreaAndDev
 
         public Point GetLeftBottomPoint()
         {
-            Point leftBottom = null;
+            //Point leftBottom = null;
+            //var minLenth = double.MaxValue;
+            //foreach (var point in GetPoints2D())
+            //{
+            //    var length = (point.X - MinX)*(point.X - MinX) + (point.Y - MinY)*(point.Y - MinY);
+            //    if (length < minLenth)
+            //    {
+            //        minLenth = length;
+            //        leftBottom = point;
+            //    }
+            //}
+            //return leftBottom;
+
+            return GetClosePoint(MinX, MinY);
+        }
+
+        /// <summary>
+        /// 得到最近的点
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        public Point GetClosePoint(double x, double y)
+        {
+            Point closePoint = null;
             var minLenth = double.MaxValue;
             foreach (var point in GetPoints2D())
             {
-                var length = (point.X - MinX)*(point.X - MinX) + (point.Y - MinY)*(point.Y - MinY);
+                var length = (point.X - x) * (point.X - x) + (point.Y - y) * (point.Y - y);
                 if (length < minLenth)
                 {
                     minLenth = length;
-                    leftBottom = point;
+                    closePoint = point;
                 }
             }
-            return leftBottom;
+            return closePoint;
         }
     }
 }

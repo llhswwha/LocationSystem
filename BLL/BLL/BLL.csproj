@@ -127,6 +127,7 @@
     <Compile Include="Initializers\CardRoleInitializer.cs" />
     <Compile Include="Initializers\DbInitializer.cs" />
     <Compile Include="Initializers\AreaTreeInitializer.cs" />
+    <Compile Include="LocationContext.cs" />
     <Compile Include="ServiceHelpers\PhysicalTopologySP.cs" />
     <Compile Include="ServiceHelpers\U3DPositionSP.cs" />
     <Compile Include="Buffers\TagRelationBuffer.cs" />

@@ -18,7 +18,7 @@ namespace DbModel.Tools
     public enum Abutment_DevAlarmSrc { 未知, 视频监控, 门禁, 消防, SIS = 11, 人员定位 }
 
     //区域分类
-    public enum AreaTypes { 区域, 园区,分组, 大楼, 楼层, 机房, 设备, 部件, 范围 }
+    public enum AreaTypes { 区域, 园区, 分组, 大楼, 楼层, 机房, 设备, 部件, 范围, CAD }
 
     //性别
     public enum Sexs { 未知, 男, 女 }

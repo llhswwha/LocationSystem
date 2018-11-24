@@ -130,10 +130,10 @@ namespace EngineClient
             TbLocalIp.ItemsSource = IpHelper.GetLocalList();
             TbLocalIp.SelectedIndex = 0;
 
-            TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155"};
+            TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155","172.16.100.25"};
             TbEngineIp.SelectedIndex = 0;
 
-            TbEnginePort.ItemsSource = new string[] {"3455", "3456"};
+            TbEnginePort.ItemsSource = new string[] { "3456","3455"};
             TbEnginePort.SelectedIndex = 0;
         }
 
