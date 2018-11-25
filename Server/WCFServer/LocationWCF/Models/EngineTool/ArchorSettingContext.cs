@@ -11,9 +11,9 @@ namespace LocationServer.Models.EngineTool
         public static double ZeroX;
         public static double ZeroY;
 
-        public static string TestGitMerge;
+        public static string a;
 
-        public static string TestGitMerge222;
+        public static string b;
 
         public static string TestGitMerge333;
     }
