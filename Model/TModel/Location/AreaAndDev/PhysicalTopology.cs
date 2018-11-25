@@ -16,7 +16,7 @@ namespace Location.TModel.Location.AreaAndDev
     /// </summary>
     [DataContract] [Serializable]
     [ByName("Area")]
-    public class PhysicalTopology:ITreeNodeEx<PhysicalTopology,DevInfo>
+    public class PhysicalTopology:ITreeNodeEx<PhysicalTopology,DevInfo>,IComparable<PhysicalTopology>
     {
         private TransformM _transfrom;
         private Bound _initBound;
@@ -271,6 +271,11 @@ namespace Location.TModel.Location.AreaAndDev
                 {
                     GetSubDev(list, child);
                 }
+        }
+
+        public int CompareTo(PhysicalTopology other)
+        {
+            return (other.Type + other.Name).CompareTo((Type + Name));
         }
     }   
 }

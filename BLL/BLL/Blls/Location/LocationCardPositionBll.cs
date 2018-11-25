@@ -43,5 +43,34 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.AreaId==area).ToList();
         }
+
+        public override List<LocationCardPosition> ToList(bool isTracking = false)
+        {
+            var list= base.ToList(isTracking);
+            //设置实时位置的移动状态
+            foreach (var tag1 in list)
+            {
+                TimeSpan time = DateTime.Now - tag1.DateTime;
+                if (time.TotalSeconds > 30)//30s
+                {
+                    if (tag1.Flag == "0:0:0:0:1")
+                    {
+                        tag1.MoveState = 1;
+                    }
+                    else
+                    {
+                        if (time.TotalSeconds > 300)//5m 长时间不动，在三维中显示为告警
+                        {
+                            tag1.MoveState = 3;
+                        }
+                        else
+                        {
+                            tag1.MoveState = 2;
+                        }  
+                    }
+                }
+            }
+            return list;
+        }
     }
 }

@@ -92,14 +92,13 @@ namespace DbModel.Location.AreaAndDev
 
         public Point Clone()
         {
-            Point copy = new Point();
-            copy = this.CloneObjectByBinary();
-            if (this.Bound != null)
-            {
-                copy.Bound = this.Bound;
-            }
-
+            Point copy = this.CloneObjectByBinary();
             return copy;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1}",X,Y);
         }
     }
 }

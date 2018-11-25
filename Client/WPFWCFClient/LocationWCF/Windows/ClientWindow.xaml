@@ -69,6 +69,22 @@
                     <Button Name="GetEntranceActionInfoByPerson24Hours" Click="GetEntranceActionInfoByPerson24Hours_OnClick">获取人员24小时内经过的门禁 </Button>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="实时位置">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取" Name="MenuGetRealPos" Click="MenuGetRealPos_Click"></MenuItem>
+                    </Menu>
+                    <DataGrid Name="DataGridRealPos"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="历史位置">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取" Name="MenuGetHisPos" Click="MenuGetHisPos_Click"></MenuItem>
+                    </Menu>
+                    <DataGrid Name="DataGridHisPos"></DataGrid>
+                </DockPanel>
+            </TabItem>
         </TabControl>
         
     </DockPanel>

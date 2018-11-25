@@ -89,6 +89,7 @@ namespace BLL
             Bll bll = new Bll();
             
             var rooms = bll.Areas.FindAll(j => j.ParentId == floor.Id);
+            floor.Children = rooms;
 
             List<Bound> bounds = bll.Bounds.ToList();
             List<Point> points = bll.Points.ToList();

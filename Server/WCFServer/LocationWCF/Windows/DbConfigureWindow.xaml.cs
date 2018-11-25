@@ -24,6 +24,8 @@ using LocationClient.Tools;
 using Location.Model.InitInfos;
 using DbModel.Location.AreaAndDev;
 using DbModel.CADEntitys;
+using Point = DbModel.Location.AreaAndDev.Point;
+using System.ComponentModel;
 
 namespace LocationServer.Windows
 {
@@ -195,31 +197,134 @@ namespace LocationServer.Windows
             string filePath = basePath + "Data\\基站信息\\基站信息.xml";
 
             XmlSerializeHelper.Save(list,filePath);
+
+            FileInfo fi = new FileInfo(filePath);
+            Process.Start(fi.Directory.FullName);
         }
 
         private void LoadCADShapeList_Click(object sender, RoutedEventArgs e)
         {
+            BackgroundWorker worker2 = new BackgroundWorker();
+            worker2.DoWork += Worker2_DoWork;
+            worker2.WorkerReportsProgress = true;
+            worker2.ProgressChanged += Worker2_ProgressChanged;
+            worker2.RunWorkerAsync();
+        }
+
+        private void Worker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBarEx1.Value = e.ProgressPercentage;
+        }
+
+        private void Worker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker1 = sender as BackgroundWorker;
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\CADAreaInfo.xml";
 
-            CADAreaList list=XmlSerializeHelper.LoadFromFile<CADAreaList>(filePath);
-
+            CADAreaList list = XmlSerializeHelper.LoadFromFile<CADAreaList>(filePath);
             Bll bll = new Bll();
-            var areas=bll.Areas.ToList();
-            foreach (var item in list)
+            var areas = bll.Areas.ToList(false);
+            List<Point> newPoints = new List<Point>();
+            List<Area> newBounds = new List<Area>();
+            List<Area> newAreas = new List<Area>();
+            int count = 0;
+            for (int i1 = 0; i1 < list.Count; i1++)
             {
+                CADArea item = list[i1];
                 var area = areas.Find(i => i.Name == item.Name);
                 if (area != null)
                 {
-                    foreach (var sp in item.Shapes)
+                    count += item.Shapes.Count;
+                }
+            }
+            int index = 0;
+             for (int i1 = 0; i1 < list.Count; i1++)
+            {
+                CADArea item = list[i1];
+                var area = areas.Find(i => i.Name == item.Name);
+                if (area != null)
+                {
+                    for (int i = 0; i < item.Shapes.Count; i++)
                     {
-                        Area newArea = new Area();
-                        newArea.Name = sp.Name;
-                        newArea.Type = AreaTypes.CAD;
+                        index++;
+                        CADShape sp = item.Shapes[i];
+                        Bound bound = new Bound();
+                        bool r1 = bll.Bounds.Add(bound);
+                        if (r1)
+                        {
+                            Area newArea = new Area();
+                            newArea.Name = sp.Name;
+                            newArea.Type = AreaTypes.CAD;
+                            newArea.ParentId = area.Id;
+                            newArea.InitBound = bound;
+                            var r2 = bll.Areas.Add(newArea);
+                            if (r2)
+                            {
+                                var pointList = new List<Point>();
+                                foreach (var pt in sp.Points)
+                                {
+                                    var point = new Point();
+                                    point.X = (float)pt.X / 1000 - 0.1f;
+                                    point.Y = (float)pt.Y / 1000 - 0.1f;
+                                    point.BoundId = bound.Id;
+                                    var r3 = bll.Points.Add(point);
+                                    pointList.Add(point);
+                                }
+                                bound.IsRectangle = true;
+                                bound.IsRelative = true;
+                                bound.SetInitBound(pointList.ToArray(), area.InitBound.MinZ, (float)area.InitBound.GetHeight());
 
+                                bool r4 = bll.Bounds.Edit(bound);
+                                newArea.SetBound(bound);
+                                bll.Areas.Edit(newArea);
+                            }
+                        }
+                        
+                        int percent = (int)((index + 0.0) / count * 100);
+                        worker1.ReportProgress(percent);
                     }
                 }
             }
+
+            //bll.Areas.AddRange(newAreas);
+        }
+
+        private void ClearCADShapeList_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundWorker worker1 = new BackgroundWorker();
+            worker1.DoWork += Worker1_DoWork;
+            worker1.WorkerReportsProgress = true;
+            worker1.ProgressChanged += Worker1_ProgressChanged;
+            worker1.RunWorkerAsync();
+        }
+
+        private void Worker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBarEx1.Value = e.ProgressPercentage;
+        }
+
+        private void Worker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker1 = sender as BackgroundWorker;
+            Bll bll = new Bll();
+            var areas = bll.Areas.ToList(false);
+            var cadAreas = areas.FindAll(i => i.Type == AreaTypes.CAD);
+            //bll.Areas.RemoveList(cadAreas);
+            for (int i = 0; i < cadAreas.Count; i++)
+            {
+                Area item = cadAreas[i];
+                var r1 = bll.Points.RemoveList(item.InitBound.Points);
+                var r3 = bll.Areas.DeleteById(item.Id);
+                var r2 = bll.Bounds.DeleteById(item.InitBoundId);
+                int percent = (int)((i+0.0) / cadAreas.Count*100);
+                worker1.ReportProgress(percent);
+            }
+        }
+
+        private void MenuArchorSetting_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

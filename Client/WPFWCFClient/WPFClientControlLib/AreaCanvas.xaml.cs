@@ -52,7 +52,7 @@ namespace WPFClientControlLib
         public Rectangle SelectedDev { get; set; }
 
         public Dictionary<int, Shape> AreaDict = new Dictionary<int, Shape>();
-        public Dictionary<int, Rectangle> DevDict = new Dictionary<int, Rectangle>();
+        public Dictionary<int, DevShape> DevDict = new Dictionary<int, DevShape>();
         public Dictionary<int, Ellipse> PersonDict = new Dictionary<int, Ellipse>();
 
         private IList<PersonEntity> _persons;
@@ -122,8 +122,8 @@ namespace WPFClientControlLib
             {
                 if (DevDict.ContainsKey(entity.Id))
                 {
-                    SelectedRects.Add(DevDict[entity.Id]);
-                    SetFocusStyle(DevDict[entity.Id]);
+                    SelectedRects.Add(DevDict[entity.Id].Rect);
+                    SetFocusStyle(DevDict[entity.Id].Rect);
                     LbState.Content += entity.Name + ";";
                 }
                 else
@@ -143,8 +143,8 @@ namespace WPFClientControlLib
             {
                 if (DevDict.ContainsKey(id))
                 {
-                    SelectedRects.Add(DevDict[id]);
-                    SetFocusStyle(DevDict[id]);
+                    SelectedRects.Add(DevDict[id].Rect);
+                    SetFocusStyle(DevDict[id].Rect);
                 }
                 else
                 {
@@ -159,7 +159,7 @@ namespace WPFClientControlLib
             if (DevDict.ContainsKey(entity.Id))
             {
                 ClearSelect();
-                FocusRectangle(DevDict[entity.Id]);
+                FocusRectangle(DevDict[entity.Id].Rect);
                 LbState.Content = "";
             }
             else
@@ -174,7 +174,7 @@ namespace WPFClientControlLib
             if (DevDict.ContainsKey(id))
             {
                 ClearSelect();
-                FocusRectangle(DevDict[id]);
+                FocusRectangle(DevDict[id].Rect);
                 LbState.Content = "";
             }
             else
@@ -200,7 +200,7 @@ namespace WPFClientControlLib
             if (DevDict.ContainsKey(id))
             {
                 var dev = DevDict[id];
-                Canvas1.Children.Remove(dev);
+                dev.Remove();
                 DevDict.Remove(id);
             }
         }
@@ -400,10 +400,13 @@ namespace WPFClientControlLib
             Canvas1.Height = (bound.MaxY+ CanvasMargin) * scale;
             AddAreaRect(area, null, scale);
             if (area.Children != null)
+            {
+                area.Children.Sort();
                 foreach (var level1Item in area.Children) //机房
                 {
                     AddAreaRect(level1Item, null, scale, true);
                 }
+            }
 
             ShowDevs(area.LeafNodes, scale, devSize);
 
@@ -496,12 +499,13 @@ namespace WPFClientControlLib
         {
             if (DevDict.ContainsKey(dev.Id))
             {
-                Canvas1.Children.Remove(DevDict[dev.Id]);
+                DevDict[dev.Id].Remove();
             }
 
             double x = (dev.Pos.PosX - OffsetX) * scale-size*scale/2;
             double y = (dev.Pos.PosZ - OffsetY) * scale - size * scale / 2;
 
+            DevShape devShape = new DevShape(Canvas1);
             if (ShowDevName)
             {
                 if (udpArchorList == null)
@@ -521,6 +525,8 @@ namespace WPFClientControlLib
                 {
                     lb.Foreground = Brushes.Blue;
                 }
+
+                devShape.Label = lb;
             }
 
 
@@ -538,12 +544,15 @@ namespace WPFClientControlLib
                 ToolTip = GetDevName(dev)
             };
 
+            devShape.Rect = devRect;
+            devShape.Id = dev.Id;
+
             devRect.ContextMenu = DevContextMenu;
 
             Canvas.SetLeft(devRect, x);
             Canvas.SetTop(devRect, y);
 
-            DevDict[dev.Id] = devRect;
+            DevDict[dev.Id] = devShape;
             devRect.MouseDown += DevRect_MouseDown;
             devRect.MouseEnter += DevRect_MouseEnter;
             devRect.MouseLeave += DevRect_MouseLeave;
@@ -591,7 +600,7 @@ namespace WPFClientControlLib
             {
                 Archor archor = dev.DevDetail as Archor;
                 //return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
-                return archor.Code + "|" + archor.Ip;
+                return archor.Code;// + "|" + archor.Ip;
             }
             else
             {
@@ -664,16 +673,41 @@ namespace WPFClientControlLib
                 //< Polygon Fill = "AliceBlue" StrokeThickness = "5" Stroke = "Green" Points = "40,10 70,80 10,50" />
 
                 Polygon polygon = new Polygon();
-                if (isTransparent)
+                //if (isTransparent)
+                //{
+                //    polygon.Fill = Brushes.Transparent;
+                //}
+                //else
+                //{
+                //    
+                //}
+
+                if (area.Type == AreaTypes.CAD)
                 {
-                    polygon.Fill = Brushes.Transparent;
+                    if (area.Name == "Block")
+                    {
+                        polygon.Fill = Brushes.Gray;
+                        polygon.Stroke = Brushes.Gray;
+                    }
+                    else if (area.Name == "Line")
+                    {
+                        polygon.Fill = Brushes.Transparent;
+                        polygon.Stroke = Brushes.Gray;
+                    }
+                    else
+                    {
+                        polygon.Fill = Brushes.Transparent;
+                        polygon.Stroke = Brushes.Gray;
+                    }
                 }
                 else
                 {
                     polygon.Fill = Brushes.AliceBlue;
+                    polygon.Stroke = Brushes.Black;
                 }
+
+
                 
-                polygon.Stroke = Brushes.Black;
                 polygon.StrokeThickness = 1;
                 polygon.MouseUp += Polygon_MouseDown;
                 polygon.MouseEnter += Polygon_MouseEnter;
@@ -705,7 +739,7 @@ namespace WPFClientControlLib
                 AreaDict[area.Id] = polygon;
                 Canvas1.Children.Add(polygon);
 
-                if (ShowAreaName)
+                if (ShowAreaName && area.Type != AreaTypes.CAD)
                 {
                     Label lb = new Label();
                     lb.Content = area.Name;
@@ -851,10 +885,8 @@ namespace WPFClientControlLib
 
         public void Init()
         {
-            CbScale.ItemsSource = new int[] { 1, 2, 3, 4, 5, 10, 20, 30, 40, 50 };
+            CbScale.ItemsSource = new int[] { 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90,100 };
             CbScale.SelectedIndex = 0;
-
-            
         }
 
         public void ShowDevs(DevEntity[] devs)

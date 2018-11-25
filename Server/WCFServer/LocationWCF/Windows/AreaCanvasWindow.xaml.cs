@@ -30,6 +30,7 @@ using LocationServices.Tools;
 using SignalRService.Hubs;
 using DbModel.Tools;
 using LocationServer.Tools;
+using LocationServer.Models.EngineTool;
 
 namespace LocationServer
 {
@@ -400,10 +401,10 @@ namespace LocationServer
                 var leftBottom = bound.GetLeftBottomPoint();
 
                 parkArchorSettingWnd = new ParkArchorSettingWindow();
-                ParkArchorSettingWindow.ZeroX = leftBottom.X;
-                ParkArchorSettingWindow.ZeroY = leftBottom.Y;
+                ArchorSettingContext.ZeroX = leftBottom.X;
+                ArchorSettingContext.ZeroY = leftBottom.Y;
                 //win2.Owner = this;
-                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev); };
                 parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
                 parkArchorSettingWnd.Show();
@@ -419,7 +420,7 @@ namespace LocationServer
             {
                 roomArchorSettingWnd = new RoomArchorSettingWindow();
                 //roomArchorSettingWnd.Owner = this;
-                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev.ToTModel()); };
+                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev); };
                 roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
                 roomArchorSettingWnd.Show();

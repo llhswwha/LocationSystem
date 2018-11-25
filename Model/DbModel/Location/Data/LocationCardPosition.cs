@@ -92,7 +92,7 @@ namespace DbModel.Location.Data
         public int AreaState { get; set; }
 
         /// <summary>
-        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// 运动状态，0:运动，1:待机状态，2:静止状态，3.长时间不动
         /// </summary>
         [Display(Name = "区域状态")]
         public int MoveState { get; set; }

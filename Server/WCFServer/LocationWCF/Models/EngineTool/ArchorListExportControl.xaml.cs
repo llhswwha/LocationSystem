@@ -97,6 +97,8 @@ namespace LocationServer.Controls
         List<ArchorSetting> listAdd = new List<ArchorSetting>();
         List<ArchorSetting> listEdit = new List<ArchorSetting>();
 
+        public bool ShowAll = false;
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             worker.ReportProgress(0);
@@ -114,6 +116,7 @@ namespace LocationServer.Controls
             var areas = bll.Areas.GetWithBoundPoints(true);
             list = new List<ArchorSetting>();
             var list2 = bll.ArchorSettings.ToList();
+            var list3 = new List<ArchorSetting>();
             for (int i = 0; i < archors.Count; i++)
             {
                 try
@@ -122,72 +125,82 @@ namespace LocationServer.Controls
                     ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(archor.GetCode());
                     if (archorSetting == null)
                     {
-                        archorSetting = new ArchorSetting();
-                        listAdd.Add(archorSetting);
-                        archorSetting.Id = archor.Id;
-                        archorSetting.Code = archor.GetCode();
-                        archorSetting.Name = archor.Name;
-                        //var dev = archor.DevInfo;//大量循环获取sql数据的话采用按需加载的方式会慢很多
-                        var dev = devs.Find(j => j.Id == archor.DevInfoId); //应该采用全部事先获取并从列表中搜索的方式，具体680多个，从35s变为1s
-                        //var area = dev.Parent; 
-                        var floor = areas.Find(j => j.Id == dev.ParentId);
-                        var building = areas.Find(j => j.Id == floor.ParentId);
-                        if (building.Children == null)
+                        if (ShowAll)
                         {
-                            building.Children = areas.FindAll(j => j.ParentId == building.Id);
-                        }
-                        var x = dev.PosX;
-                        var y = dev.PosZ;
-                        if (floor.IsPark()) //电厂
-                        {
-                            archorSetting.RelativeMode = RelativeMode.相对园区;
-                            archorSetting.RelativeHeight = archor.Y;
-                            archorSetting.AbsoluteHeight = archor.Y;
-                            var park = floor;
-                            var leftBottom = park.InitBound.GetLeftBottomPoint();
-                            archorSetting.SetZero(leftBottom.X, leftBottom.Y);
-                            archorSetting.SetRelative((x - leftBottom.X), (y - leftBottom.Y));
-                            archorSetting.SetAbsolute(x, y);
-                        }
-                        else //机房
-                        {
-                            //var floor = area;
-                            //var building = floor.Parent;
-                            archorSetting.RelativeHeight = archor.Y;
-                            archorSetting.AbsoluteHeight = (archor.Y + building.GetFloorHeight(floor.Id));
-
-                            var minX = floor.InitBound.MinX + building.InitBound.MinX;
-                            var minY = floor.InitBound.MinY + building.InitBound.MinY;
-
-                            archorSetting.AbsoluteX = (x + minX).ToString("F2");
-                            archorSetting.AbsoluteY = (y + minY).ToString("F2");
-
-                            var room = Bll.GetDevRoom(floor, dev);
-                            if (room != null)
+                            archorSetting = new ArchorSetting();
+                            listAdd.Add(archorSetting);
+                            archorSetting.Id = archor.Id;
+                            archorSetting.Code = archor.GetCode();
+                            archorSetting.Name = archor.Name;
+                            //var dev = archor.DevInfo;//大量循环获取sql数据的话采用按需加载的方式会慢很多
+                            var dev = devs.Find(j => j.Id == archor.DevInfoId); //应该采用全部事先获取并从列表中搜索的方式，具体680多个，从35s变为1s
+                                                                                //var area = dev.Parent; 
+                            var floor = areas.Find(j => j.Id == dev.ParentId);
+                            var building = areas.Find(j => j.Id == floor.ParentId);
+                            if (building.Children == null)
                             {
-                                archorSetting.RelativeMode = RelativeMode.相对机房;
-                                var roomX = room.InitBound.MinX;
-                                var roomY = room.InitBound.MinY;
-                                archorSetting.SetPath(room, floor, building);
-                                archorSetting.SetZero(roomX, roomY);
-                                archorSetting.SetRelative((x - roomX), (y - roomY));
-                                archorSetting.SetAbsolute((minX + x), (minY + y));
+                                building.Children = areas.FindAll(j => j.ParentId == building.Id);
                             }
-                            else
+                            var x = dev.PosX;
+                            var y = dev.PosZ;
+                            if (floor.IsPark()) //电厂
                             {
-                                archorSetting.RelativeMode = RelativeMode.相对楼层;
-                                archorSetting.SetPath(null, floor, building);
-                                archorSetting.SetZero(0, 0);
-                                archorSetting.SetRelative(x, y);
-                                archorSetting.SetAbsolute((minX + x), (minY + y));
+                                archorSetting.RelativeMode = RelativeMode.相对园区;
+                                archorSetting.RelativeHeight = archor.Y;
+                                archorSetting.AbsoluteHeight = archor.Y;
+                                var park = floor;
+                                var leftBottom = park.InitBound.GetLeftBottomPoint();
+                                archorSetting.SetZero(leftBottom.X, leftBottom.Y);
+                                archorSetting.SetRelative((x - leftBottom.X), (y - leftBottom.Y));
+                                archorSetting.SetAbsolute(x, y);
+                            }
+                            else //机房
+                            {
+                                //var floor = area;
+                                //var building = floor.Parent;
+                                archorSetting.RelativeHeight = archor.Y;
+                                archorSetting.AbsoluteHeight = (archor.Y + building.GetFloorHeight(floor.Id));
+
+                                var minX = floor.InitBound.MinX + building.InitBound.MinX;
+                                var minY = floor.InitBound.MinY + building.InitBound.MinY;
+
+                                archorSetting.AbsoluteX = (x + minX).ToString("F2");
+                                archorSetting.AbsoluteY = (y + minY).ToString("F2");
+
+                                var room = Bll.GetDevRoom(floor, dev);
+                                if (room != null)
+                                {
+                                    archorSetting.RelativeMode = RelativeMode.相对机房;
+                                    var roomX = room.InitBound.MinX;
+                                    var roomY = room.InitBound.MinY;
+                                    archorSetting.SetPath(room, floor, building);
+                                    archorSetting.SetZero(roomX, roomY);
+                                    archorSetting.SetRelative((x - roomX), (y - roomY));
+                                    archorSetting.SetAbsolute((minX + x), (minY + y));
+                                }
+                                else
+                                {
+                                    archorSetting.RelativeMode = RelativeMode.相对楼层;
+                                    archorSetting.SetPath(null, floor, building);
+                                    archorSetting.SetZero(0, 0);
+                                    archorSetting.SetRelative(x, y);
+                                    archorSetting.SetAbsolute((minX + x), (minY + y));
+                                }
                             }
                         }
+                       
                     }
                     else
                     {
+                        bool r=archorSetting.CalAbsolute();
+                        if (r == false)
+                        {
+                            list3.Add(archorSetting);
+                        }
                         listEdit.Add(archorSetting);
                     }
-                    list.Add(archorSetting);
+                    if(archorSetting!=null)
+                        list.Add(archorSetting);
 
                     double percent = i*100f/archors.Count;
                     worker.ReportProgress((int) percent);
@@ -244,6 +257,27 @@ namespace LocationServer.Controls
             {
                 MessageBox.Show("保存失败");
             }
+        }
+
+        private void MenuCalculate_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAll = true;
+            LoadData();
+        }
+
+        private void CbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnGetAreas_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CbAreas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

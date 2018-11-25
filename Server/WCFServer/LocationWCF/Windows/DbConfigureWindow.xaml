@@ -1,4 +1,4 @@
-﻿<Window x:Class="LocationServer.Windows.DbConfigureWindow"
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.Windows.DbConfigureWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,17 +18,19 @@
                 <MenuItem Header="区域权限" Name="MenuInitAA" Click="MenuInitAA_OnClick"></MenuItem>
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
                 <MenuItem Header="人员 标签" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
+                <MenuItem Header="基站测量配置信息" Name="MenuArchorSetting" Click="MenuArchorSetting_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="整理初始化设备" Name="MenuRemoveArchor" Click="MenuRemoveArchor_Click"></MenuItem>
                 <MenuItem Header="导入初始化设备" Name="MenuImportDevs" Click='MenuImportDevs_Click'></MenuItem>
                 <MenuItem Header="生成基站数据" Name="MenuExportArchorData" Click="MenuExportArchorData_Click"></MenuItem>
+                <MenuItem Header="清空CAD形状" Name="ClearCADShapeList" Click="ClearCADShapeList_Click"></MenuItem>
                 <MenuItem Header="读取CAD形状" Name="LoadCADShapeList" Click="LoadCADShapeList_Click"></MenuItem>
             </MenuItem>
         </Menu>
+        <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" >
             <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>
         </ScrollViewer>
-        
     </DockPanel>
 </Window>

@@ -29,6 +29,8 @@ namespace BLL
 
         public BoundBll Bounds { get; set; }
 
+        //public ShapeBll Shapes { get; set; }
+
         public ConfigArgBll ConfigArgs { get; set; }
 
         public DepartmentBll Departments { get; set; }
@@ -84,6 +86,8 @@ namespace BLL
         public PersonnelMobileInspectionItemBll PersonnelMobileInspectionItems { get; set; }
 
         public PointBll Points { get; set; }
+
+        //public ShapePointBll ShapePoints { get; set; }
 
         public PostBll Posts { get; set; }
 
@@ -200,6 +204,8 @@ namespace BLL
             Pictures = new PictureBll(Db);
             ArchorSettings = new ArchorSettingBll(Db);
             CardRoles = new CardRoleBll(Db);
+            //Shapes = new ShapeBll(Db);
+            //ShapePoints = new ShapePointBll();
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);

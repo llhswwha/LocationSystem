@@ -191,6 +191,10 @@
     <Compile Include="Models\EngineTool\ArchorListExportWindow.xaml.cs">
       <DependentUpon>ArchorListExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\EngineTool\ArchorSettingContext.cs" />
+    <Compile Include="Models\EngineTool\PointSelectWindow.xaml.cs">
+      <DependentUpon>PointSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ConfigurationHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Windows\ArchorCheckWindow.xaml.cs">
@@ -280,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\ArchorListExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Models\EngineTool\PointSelectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -421,7 +429,6 @@
     <None Include="Data\AuthorizationTree.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Resource Include="Data\CADShapeList.xml" />
     <Content Include="Data\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

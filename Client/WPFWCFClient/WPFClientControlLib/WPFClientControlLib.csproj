@@ -61,6 +61,7 @@
     <Compile Include="ArchorSettingListBox.xaml.cs">
       <DependentUpon>ArchorSettingListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AreaCanvaItems\DevShape.cs" />
     <Compile Include="AreaCanvaItems\PersonShape.cs" />
     <Compile Include="AreaCanvas.xaml.cs">
       <DependentUpon>AreaCanvas.xaml</DependentUpon>

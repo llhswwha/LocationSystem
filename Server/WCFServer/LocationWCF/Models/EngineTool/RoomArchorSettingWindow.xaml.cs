@@ -19,6 +19,11 @@ using System.Windows.Shapes;
 using DbModel.Location.Settings;
 using TModel.Tools;
 using LocationServer.Tools;
+using LocationServer.Models.EngineTool;
+
+using DbDev = DbModel.Location.AreaAndDev.DevInfo;
+using TDev = Location.TModel.Location.AreaAndDev.DevInfo;
+using LocationServices.Converters;
 
 namespace LocationServer.Windows
 {
@@ -105,8 +110,13 @@ namespace LocationServer.Windows
             TbName.Text = _archor.Name;
             TbCode.Text = _archor.GetCode();
             IPCode1.Text = _archor.Ip;
-            TbHeight.Text = _item.RelativeHeight.ToString("F2");
-            TbHeight2.Text = (floorHeight + _item.RelativeHeight).ToString("F2");
+            double height = _item.RelativeHeight;
+            if (height == 2)
+            {
+                height = 2.6;//现场实际一般高度是2.6左右
+            }
+            TbHeight.Text = height.ToString("F2");
+            TbHeight2.Text = (floorHeight + height).ToString("F2");
             PcArchor.X = x;
             PcArchor.Y = z;
             TbBuildingName.Text = _building.Name;
@@ -123,8 +133,23 @@ namespace LocationServer.Windows
                 //PcZero.Y = _room.InitBound.MinY;
                 //PcRelative.X = x - _room.InitBound.MinX;
                 //PcRelative.Y = z - _room.InitBound.MinY;
-
-                SetZeroPoint(_room.InitBound.MinX, _room.InitBound.MinY);
+                var setting = bll.ArchorSettings.GetByCode(_code);
+                if (setting != null)
+                {
+                    SetZeroPoint(setting.ZeroX.ToFloat(), setting.ZeroY.ToFloat());
+                    Title += " [已配置]";
+                }
+                else
+                {
+                    if (ArchorSettingContext.ZeroX != 0)
+                    {
+                        SetZeroPoint(ArchorSettingContext.ZeroX, ArchorSettingContext.ZeroY);
+                    }
+                    else
+                    {
+                        SetZeroPoint(_room.InitBound.MinX, _room.InitBound.MinY);
+                    }
+                }
             }
             else
             {
@@ -137,20 +162,11 @@ namespace LocationServer.Windows
             PcRelative.ValueChanged += PcRelative_ValueChanged;
             PcArchor.ValueChanged += PcArchor_ValueChanged;
 
-            var setting = bll.ArchorSettings.GetByCode(_code);
-            if (setting != null)
-            {
-                PcZero.X = setting.ZeroX.ToDouble();
-                PcZero.Y = setting.ZeroY.ToDouble();
-
-                Title += " [已配置]";
-            }
-
             //OnShowPoint();
             return true;
         }
 
-        private void SetZeroPoint(float zx,float zy)
+        private void SetZeroPoint(double zx, double zy)
         {
             PcZero.X = zx;
             PcZero.Y = zy;
@@ -162,6 +178,9 @@ namespace LocationServer.Windows
         private void PcZero_ValueChanged(WPFClientControlLib.PointControl obj)
         {
             PcRelative.ValueChanged -= PcRelative_ValueChanged;
+            ArchorSettingContext.ZeroX = obj.X;
+            ArchorSettingContext.ZeroY = obj.Y;
+
             PcRelative.X = _dev.PosX - obj.X;
             PcRelative.Y = _dev.PosZ - obj.Y;
             PcRelative.ValueChanged += PcRelative_ValueChanged;
@@ -297,6 +316,11 @@ namespace LocationServer.Windows
                 archorSetting.SetAbsolute(PcAbsolute.X, PcAbsolute.Y);
             }
 
+            if (archorSetting.CalAbsolute() == false)//75个里面有43个录入的绝对坐标有问题
+            {
+                MessageBox.Show("有bug，请检查代码!");
+            }
+
             if (isAdd)
             {
                 if (bll.ArchorSettings.Add(archorSetting) == false)
@@ -314,10 +338,7 @@ namespace LocationServer.Windows
                 }
             }
 
-            if (RefreshDev != null)
-            {
-                RefreshDev(devNew);
-            }
+            OnRefreshDev();
 
             MessageBox.Show("保存完成");
         }
@@ -381,13 +402,20 @@ namespace LocationServer.Windows
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            OnRefreshDev();
+        }
+
+        private void OnRefreshDev()
+        {
             if (RefreshDev != null)
             {
-                RefreshDev(_dev);
+                var tDev = _dev.ToTModel();
+                tDev.DevDetail = _archor.ToTModel();
+                RefreshDev(tDev);
             }
         }
 
-        public event Action<DevInfo> RefreshDev;
+        public event Action<TDev> RefreshDev;
 
         private void MenuArchorInfo_OnClick(object sender, RoutedEventArgs e)
         {
@@ -471,15 +499,36 @@ namespace LocationServer.Windows
 
         private void BtnSelectPoint_Click(object sender, RoutedEventArgs e)
         {
+            var win = new PointSelectWindow(_floor,_dev);
+            win.SelectedAreaChanged += (area) =>
+            {
 
+            };
+            win.SelectedPointChanged += (point) =>
+            {
+                SetZeroPoint(point.X, point.Y);
+            };
+            win.Owner = this;
+            win.Show();
         }
 
         private void BtnAutoSelectPoint_Click(object sender, RoutedEventArgs e)
         {
             if (_room != null)
             {
-                var p=_room.InitBound.GetClosePoint(x, z);
-                SetZeroPoint(p.X, p.Y);
+                if (_floor.Name.Contains("主厂房"))//主厂房有柱子
+                {
+                    //var p=_room.InitBound.GetClosePoint(x, z);
+                    var p = _floor.GetClosePointEx(x, z);
+                    SetZeroPoint(p.X, p.Y);
+                }
+                else
+                {
+                    var p=_room.InitBound.GetClosePoint(x, z);
+                    //var p = _floor.GetClosePointEx(x, z);
+                    SetZeroPoint(p.X, p.Y);
+                }
+                
             }
         }
     }

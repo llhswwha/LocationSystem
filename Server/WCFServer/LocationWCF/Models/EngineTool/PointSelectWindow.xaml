@@ -1,0 +1,21 @@
+﻿<Window x:Class="LocationServer.Models.EngineTool.PointSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Models.EngineTool"
+        mc:Ignorable="d"
+        Title="PointSelectWindow" Height="300" Width="400" Loaded="Window_Loaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"></Menu>
+        <Button DockPanel.Dock="Bottom" Name="BtnEnter" Click="BtnEnter_Click">确定</Button>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Name="List1" SelectionChanged="List1_SelectionChanged"></ListBox>
+            <ListBox Name="List2" SelectionChanged="List2_SelectionChanged" Grid.Column="1"></ListBox>
+        </Grid>
+    </DockPanel>
+</Window>

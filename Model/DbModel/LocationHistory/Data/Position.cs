@@ -47,7 +47,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "定位卡编号")]
-        [MaxLength(32)]
+        [MaxLength(16)]
         [Required]
         public string Code { get; set; }
 
@@ -158,7 +158,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "参与计算的基站编号")]
-        [MaxLength(128)]
+        [MaxLength(64)]
         public string ArchorsText { get; set; }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace DbModel.LocationHistory.Data
         public int? AreaId { get; set; }
 
         [DataMember]
-        [MaxLength(128)]
+        [MaxLength(64)]
         public string AreaPath { get; set; }
 
         /// <summary>

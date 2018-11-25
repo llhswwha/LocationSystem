@@ -19,4 +19,21 @@ namespace BLL.Blls.Location
             DbSet = Db.Bounds;
         }
     }
+
+    //public class ShapeBll : BaseBll<Bound, LocationDb>
+    //{
+    //    public ShapeBll() : base()
+    //    {
+
+    //    }
+    //    public ShapeBll(LocationDb db) : base(db)
+    //    {
+
+    //    }
+
+    //    protected override void InitDbSet()
+    //    {
+    //        DbSet = Db.Shapes;
+    //    }
+    //}
 }

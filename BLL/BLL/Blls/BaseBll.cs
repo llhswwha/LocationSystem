@@ -115,6 +115,7 @@ namespace BLL.Blls
                 Exception innerEx = ex.InnerException;
                 while (innerEx is DbUpdateException || innerEx is UpdateException)
                 {
+                    if (innerEx.InnerException == null) break;
                     innerEx = innerEx.InnerException;
                 }
                 Log.Error("BaseBll.Save DbUpdateException", innerEx);
@@ -265,6 +266,7 @@ namespace BLL.Blls
         {
             try
             {
+                ErrorMessage = "";
                 DbSet.Remove(obj);
                 if (isSave)
                 {
@@ -278,6 +280,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Remove", ex);
+                ErrorMessage = ex.Message;
                 return false;
             }
         }
@@ -292,6 +295,7 @@ namespace BLL.Blls
         {
             try
             {
+                ErrorMessage = "";
                 if (DbSet == null) return false;
                 DbEntityEntry<T> entry = Db.Entry<T>(entity);
                 entry.State = EntityState.Modified;

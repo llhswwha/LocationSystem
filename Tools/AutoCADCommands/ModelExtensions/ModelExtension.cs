@@ -73,7 +73,7 @@ namespace AutoCADCommands.ModelExtensions
             return sp;
         }
 
-        public static CADArea ToCADArea(this ObjectId[] objIds, Point3d zero)
+        public static CADArea ToCADArea(this ObjectId[] objIds, Point3d zero,string zeroType)
         {
             CADArea sps = new CADArea();
             
@@ -83,7 +83,7 @@ namespace AutoCADCommands.ModelExtensions
                 sps.Shapes.Add(sp);
                 sp.Num = sps.Shapes.Count;
             }
-            sps.SetZero(zero.ToCADPoint());
+            sps.SetZero(zero.ToCADPoint(), zeroType);
             return sps;
         }
 

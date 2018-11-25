@@ -250,5 +250,17 @@ namespace LocationWCFClient.Windows
         {
             EntranceGuardActionInfo[] lst = client.GetEntranceActionInfoByPerson24Hours(1);
         }
+
+        private void MenuGetRealPos_Click(object sender, RoutedEventArgs e)
+        {
+            var list=client.GetRealPositons();
+            DataGridRealPos.ItemsSource = list;
+        }
+
+        private void MenuGetHisPos_Click(object sender, RoutedEventArgs e)
+        {
+            var list = client.GetHistoryPositons();
+            DataGridHisPos.ItemsSource = list;
+        }
     }
 }

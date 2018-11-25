@@ -24,4 +24,21 @@ namespace BLL.Blls.Location
             DbSet = Db.Points;
         }
     }
+
+    //public class ShapePointBll : BaseBll<Point, LocationDb>
+    //{
+    //    public ShapePointBll() : base()
+    //    {
+
+    //    }
+    //    public ShapePointBll(LocationDb db) : base(db)
+    //    {
+
+    //    }
+
+    //    //protected override void InitDbSet()
+    //    //{
+    //    //    DbSet = Db.ShapePoints;
+    //    //}
+    //}
 }

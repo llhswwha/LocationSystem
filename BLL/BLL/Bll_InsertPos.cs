@@ -302,6 +302,32 @@ namespace BLL
                 }
             }
 
+            List<LocationCardPosition> noChangedTagPosList = new List<LocationCardPosition>();//没有移动的位置信息
+            foreach (var tag1 in tagPosList)
+            {
+                if (!changedTagPosList.Contains(tag1))
+                {
+                    noChangedTagPosList.Add(tag1);
+                }
+            }
+
+            ////设置实时位置的移动状态
+            //foreach (var tag1 in noChangedTagPosList)
+            //{
+            //    TimeSpan time = DateTime.Now - tag1.DateTime;
+            //    if (time.TotalSeconds > 30)
+            //    {
+            //        if (tag1.Flag == "0:0:0:0:1")
+            //        {
+            //            tag1.MoveState = 1;
+            //        }
+            //        else
+            //        {
+            //            tag1.MoveState = 2;
+            //        }
+            //    }
+            //}
+
             try
             {
 

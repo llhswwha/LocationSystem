@@ -188,15 +188,15 @@ namespace DbModel.Location.AreaAndDev
         {
             if (!HaveTransform()) return null;
             TransformM transform = new TransformM();
-            transform.X = (double)this.X;
-            transform.Y = (double)this.Y;
-            transform.Z = (double)this.Z;
-            transform.SX = (double)this.SX;
-            transform.SY = (double)this.SY;
-            transform.SZ = (double)this.SZ;
-            transform.RX = (double)this.RX;
-            transform.RY = (double)this.RY;
-            transform.RZ = (double)this.RZ;
+            transform.X = this.X ?? 0;
+            transform.Y = this.Y ?? 0;
+            transform.Z = this.Z ?? 0;
+            transform.SX = this.SX ?? 0;
+            transform.SY = this.SY ?? 0;
+            transform.SZ = this.SZ ?? 0;
+            transform.RX = this.RX ?? 0;
+            transform.RY = this.RY ?? 0;
+            transform.RZ = this.RZ ?? 0;
 
             transform.IsRelative = this.IsRelative;
             transform.IsCreateAreaByData = this.IsCreateAreaByData;
@@ -239,6 +239,68 @@ namespace DbModel.Location.AreaAndDev
         [NotMapped]
         public virtual List<Area> Children { get; set; }
 
+        class AreaDistance : IComparable<AreaDistance>
+        {
+            public double Distance { get; set; }
+
+            public Area Area { get; set; }
+
+            public int CompareTo(AreaDistance other)
+            {
+                return this.Distance.CompareTo(other.Distance);
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0} {1}", Distance, Area);
+            }
+        }
+
+        public double GetDistance(double x,double y)
+        {
+            double x0 = X ?? 0;
+            double y0 = Z ?? 0;
+            return Math.Pow(((x0-x)*(x0 - x)+(y0 - y)*(y0 - y)),0.5);
+        }
+
+        public List<Area> SortByPoint(double x,double y)
+        {
+            var list0 = new List<AreaDistance>();
+            foreach (var item in Children)
+            {
+                double distance = item.GetDistance(x, y);
+                var ad = new AreaDistance();
+                ad.Distance = distance;
+                ad.Area = item;
+                list0.Add(ad);
+            }
+            list0.Sort();
+
+            var list = new List<Area>();
+            foreach (var item in list0)
+            {
+                list.Add(item.Area);
+            }
+            return list;
+        }
+
+        public Area GetCloseArea(double x,double y)
+        {
+            var list = SortByPoint(x, y);
+            if (list.Count > 0)
+            {
+                return list[0];
+            }
+            return null;
+        }
+
+        public Point GetClosePointEx(double x,double y)
+        {
+            var area = GetCloseArea(x, y);
+            if (area == null) return null;
+            return area.InitBound.GetClosePoint(x, y);
+        }
+
         /// <summary>
         /// 叶子节点：区域中的设备
         /// </summary>
@@ -264,6 +326,7 @@ namespace DbModel.Location.AreaAndDev
                 if (value != null)
                 {
                     InitBoundId = value.Id;
+                    //value.ParentId = this.Id;
                 }
             }
         }
@@ -301,6 +364,7 @@ namespace DbModel.Location.AreaAndDev
                 if (value != null)
                 {
                     EditBoundId = value.Id;
+                    //value.ParentId = this.Id;
                 }
             }
         }
@@ -311,6 +375,11 @@ namespace DbModel.Location.AreaAndDev
 
         public Area(Bound bound)
         {
+            SetBound(bound);
+        }
+
+        public void SetBound(Bound bound)
+        {
             IsRelative = bound.IsRelative;
             X = (float)((bound.MinX + bound.MaxX) / 2.0);
             Z = (float)((bound.MinY + bound.MaxY) / 2.0);//Z和Y调换一下
@@ -319,6 +388,10 @@ namespace DbModel.Location.AreaAndDev
             SX = (bound.MaxX - bound.MinX);
             SZ = (bound.MaxY - bound.MinY);//Z和Y调换一下
             SY = (bound.MaxZ - bound.MinZ);
+
+            RX = 0;
+            RY = 0;
+            RZ = 0;
         }
 
         public Area Clone()

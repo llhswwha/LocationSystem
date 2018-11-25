@@ -15,9 +15,13 @@ using BLL;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Settings;
 using Location.TModel.FuncArgs;
+using LocationServer.Models.EngineTool;
 using LocationServer.Tools;
+using LocationServices.Converters;
 using TModel.Tools;
 using WPFClientControlLib;
+using DbDev = DbModel.Location.AreaAndDev.DevInfo;
+using TDev = Location.TModel.Location.AreaAndDev.DevInfo;
 
 namespace LocationServer.Windows
 {
@@ -39,6 +43,9 @@ namespace LocationServer.Windows
         double floorHeight = 0;
 
         private string _code;
+
+        double x;
+        double z;
 
         public bool ShowInfo(Rectangle rect, int devId)
         {
@@ -68,8 +75,8 @@ namespace LocationServer.Windows
 
             _item.RelativeMode = RelativeMode.相对楼层;
 
-            double x = _dev.PosX;
-            double z = _dev.PosZ;
+            x = _dev.PosX;
+            z = _dev.PosZ;
 
             _item.SetRelative(x, z);
             _item.RelativeHeight = _dev.PosY;
@@ -92,26 +99,41 @@ namespace LocationServer.Windows
 
 
             PcArchor.IsEnabled = true;
-            PcZero.X = ZeroX;
-            PcZero.Y = ZeroY;
-            PcRelative.X = x - ZeroX;
-            PcRelative.Y = z - ZeroY;
+
+            var setting = bll.ArchorSettings.GetByCode(_code);
+            if (setting != null)
+            {
+                //PcZero.X = setting.ZeroX.ToDouble();
+                //PcZero.Y = setting.ZeroY.ToDouble();
+
+                SetZeroPoint(setting.ZeroX.ToDouble(), setting.ZeroY.ToDouble());
+                Title += " [已配置]";
+            }
+            else
+            {
+                SetZeroPoint(ArchorSettingContext.ZeroX, ArchorSettingContext.ZeroY);
+                //PcZero.X = ArchorSettingContext.ZeroX;
+                //PcZero.Y = ArchorSettingContext.ZeroY;
+                //PcRelative.X = x - ArchorSettingContext.ZeroX;
+                //PcRelative.Y = z - ArchorSettingContext.ZeroY;
+            }
+
             PcAbsolute.X = PcZero.X + PcRelative.X;
             PcAbsolute.Y = PcZero.Y + PcRelative.Y;
 
             PcZero.ValueChanged += PcZero_OnValueChanged;
             PcRelative.ValueChanged += PcRelative_OnValueChanged;
 
-            var setting = bll.ArchorSettings.GetByCode(_code);
-            if (setting != null)
-            {
-                PcZero.X = setting.ZeroX.ToDouble();
-                PcZero.Y = setting.ZeroY.ToDouble();
-
-                Title += " [已配置]";
-            }
-
             return true;
+        }
+
+        private void SetZeroPoint(double zx, double zy)
+        {
+            PcZero.X = zx;
+            PcZero.Y = zy;
+            PcRelative.X = x - zx;
+            PcRelative.Y = z - zy;
+            OnShowPoint();
         }
 
         private void PcArchor_ValueChanged(WPFClientControlLib.PointControl obj)
@@ -220,10 +242,7 @@ namespace LocationServer.Windows
                 }
             }
 
-            if (RefreshDev != null)
-            {
-                RefreshDev(devNew);
-            }
+            OnRefreshDev(devNew);
 
             MessageBox.Show("保存完成");
         }
@@ -290,7 +309,17 @@ namespace LocationServer.Windows
 
         }
 
-        public event Action<DevInfo> RefreshDev;
+        private void OnRefreshDev(DbDev dev)
+        {
+            if (RefreshDev != null)
+            {
+                var tDev = dev.ToTModel();
+                tDev.DevDetail = _archor.ToTModel();
+                RefreshDev(tDev);
+            }
+        }
+
+        public event Action<TDev> RefreshDev;
 
         private void MenuArchorInfo_OnClick(object sender, RoutedEventArgs e)
         {
@@ -308,15 +337,13 @@ namespace LocationServer.Windows
 
         private void PcZero_OnValueChanged(PointControl obj)
         {
-            ZeroX = obj.X;
-            ZeroY = obj.Y;
+            ArchorSettingContext.ZeroX = obj.X;
+            ArchorSettingContext.ZeroY = obj.Y;
 
-            PcRelative.X = _dev.PosX - ZeroX;
-            PcRelative.Y = _dev.PosZ - ZeroY;
+            PcRelative.X = _dev.PosX - obj.X;
+            PcRelative.Y = _dev.PosZ - obj.Y;
         }
 
-        public static double ZeroX;
-        public static double ZeroY;
 
         private void PcRelative_OnValueChanged(PointControl obj)
         {
@@ -327,6 +354,11 @@ namespace LocationServer.Windows
         }
 
         private void BtnShowPoint_OnClick(object sender, RoutedEventArgs e)
+        {
+            OnShowPoint();
+        }
+
+        public void OnShowPoint()
         {
             if (ShowPointEvent != null)
             {

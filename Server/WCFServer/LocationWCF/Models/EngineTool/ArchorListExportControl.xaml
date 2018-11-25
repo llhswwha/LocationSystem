@@ -5,13 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LocationServer.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="700">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
+            <MenuItem Header="计算全部" Name="MenuCalculate" Click="MenuCalculate_Click"></MenuItem>
             <MenuItem Header="导出" Name="MenuExport" Click="MenuExport_OnClick"></MenuItem>
             <MenuItem Header="保存(Location.db)" Name="MenuSave" Click="MenuSave_OnClick"></MenuItem>
             <MenuItem Header="保存(Engine.db)" Name="MenuSave2" Click="MenuSave2_OnClick"></MenuItem>
         </Menu>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>过滤</Label>
+            <ComboBox Name="CbFilter" SelectionChanged="CbFilter_SelectionChanged" Width="200">
+                <ComboBoxItem>全部</ComboBoxItem>
+                <ComboBoxItem>全部</ComboBoxItem>
+            </ComboBox>
+            <Button Name="BtnGetAreas" Click="BtnGetAreas_Click">按区域过滤</Button>
+            <ComboBox Name="CbAreas" SelectionChanged="CbAreas_SelectionChanged"></ComboBox>
+        </StackPanel>
         <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBar1" Height="30"/>
         <DataGrid Name="DataGrid1">
 

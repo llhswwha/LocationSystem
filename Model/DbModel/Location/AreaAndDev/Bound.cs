@@ -85,6 +85,9 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "位置点")]
         public List<Point> Points { get; set; }
 
+        //[DataMember]
+        //public int ParentId { get; set; }
+
         public Bound()
         {
             MaxZ = 1;

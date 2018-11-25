@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DbModel.Location.AreaAndDev;
+using TModel.Tools;
 
 namespace DbModel.Location.Settings
 {
@@ -243,6 +245,27 @@ namespace DbModel.Location.Settings
             {
                 return null;
             }
+        }
+
+        public bool CalAbsolute()
+        {
+            float x1= BuildingMinX.ToFloat() + ZeroX.ToFloat() + RelativeX.ToFloat();
+            float x2 = AbsoluteX.ToFloat();
+
+            float y1 = BuildingMinY.ToFloat() + ZeroY.ToFloat() + RelativeY.ToFloat();
+            float y2 = AbsoluteY.ToFloat();
+
+            if (x1 != x2 || y1!=y2)
+            {
+                AbsoluteX = x1.ToString();
+                AbsoluteY = y1.ToString();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
     }
 }

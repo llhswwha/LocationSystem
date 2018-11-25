@@ -56,6 +56,8 @@ namespace DAL
 
         public DbSet<DbModel.Location.AreaAndDev.Bound> Bounds { get; set; }
 
+        //public DbSet<DbModel.Location.AreaAndDev.Bound> Shapes { get; set; }
+
         public DbSet<DbModel.Location.AreaAndDev.ConfigArg> ConfigArgs { get; set; }
 
         public DbSet<Department> Departments { get; set; }
@@ -75,6 +77,8 @@ namespace DAL
         public DbSet<DbModel.Location.AreaAndDev.NodeKKS> NodeKKSs { get; set; }
 
         public DbSet<DbModel.Location.AreaAndDev.Point> Points { get; set; }
+
+        //public DbSet<DbModel.Location.AreaAndDev.Point> ShapePoints { get; set; }
 
         public DbSet<DbModel.Location.AreaAndDev.Post> Posts { get; set; }
 
