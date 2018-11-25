@@ -14,5 +14,7 @@ namespace LocationServer.Models.EngineTool
         public static string TestGitMerge;
 
         public static string TestGitMerge222;
+
+        public static string TestGitMerge333;
     }
 }
