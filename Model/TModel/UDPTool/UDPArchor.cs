@@ -38,7 +38,7 @@ namespace ArchorUDPTool.Models
         public string Ping { get; set; }
 
         [XmlAttribute]
-        public string Value { get => _value; set  { _value = value; UpdateTime = DateTime.Now; } }
+        public string Value { get { return _value; } set  { _value = value; UpdateTime = DateTime.Now; } }
 
         [XmlAttribute]
         public DateTime UpdateTime { get; set; }
