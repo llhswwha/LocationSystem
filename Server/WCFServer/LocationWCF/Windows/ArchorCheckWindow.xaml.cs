@@ -78,8 +78,11 @@ namespace LocationServer.Windows
             DataGrid2.ItemsSource = udpArchorList;
 
             var list4 = bll.bus_anchors.ToList();
-            Group4.Header += " " + list4.Count;
-            DataGrid4.ItemsSource = list4;
+            if (list4 != null)
+            {
+                Group4.Header += " " + list4.Count;
+                DataGrid4.ItemsSource = list4;
+            }
 
             areas = bll.Areas.ToList();
 

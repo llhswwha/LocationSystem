@@ -36,6 +36,9 @@ namespace Location.Model.InitInfos
             Name = topo.Name;
             KKS = topo.KKS;
             Type = topo.Type;
+
+
+
             if (Type == AreaTypes.分组 || Type == AreaTypes.区域)
             {
                 BoundInfo = null;
@@ -44,6 +47,9 @@ namespace Location.Model.InitInfos
             {
 
                 BoundInfo = new BoundInfo(topo.InitBound);
+                BoundInfo.IsCreateAreaByData = topo.IsCreateAreaByData;
+                BoundInfo.IsOnAlarmArea = topo.IsOnAlarmArea;
+                BoundInfo.IsOnLocationArea = topo.IsOnLocationArea;
             }
 
             if(topo.Children!=null)

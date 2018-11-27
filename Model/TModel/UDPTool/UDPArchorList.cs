@@ -73,6 +73,7 @@ namespace ArchorUDPTool.Models
             List<string> areas = new List<string>();
             foreach (var item in this)
             {
+                if (item.Area == null) continue;
                 var areaName = item.Area;
                 areaName = areaName.Replace("）", "） ");
                 string[] parts = areaName.Split(' ');
