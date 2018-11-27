@@ -28,7 +28,7 @@ namespace AutoCADCommands.ModelExtensions
             return point;
         }
 
-        public static CADShape AddExtents(this CADShape sp, Extents3d extents)
+        public static CADShape AddPoints(this CADShape sp, Extents3d extents)
         {
             var p11 = extents.MinPoint;
             var p22 = extents.MaxPoint;
@@ -41,10 +41,20 @@ namespace AutoCADCommands.ModelExtensions
             return sp;
         }
 
-        public static CADShape AddExtents(this CADShape sp, Line line)
+        public static CADShape AddPoints(this CADShape sp, Line line)
         {
             sp.AddPoint(line.StartPoint);
             sp.AddPoint(line.EndPoint);
+            return sp;
+        }
+
+        public static CADShape AddPoints(this CADShape sp, Polyline line)
+        {
+            var points = line.GetPoints();
+            foreach (var point in points)
+            {
+                sp.AddPoint(point);
+            }
             return sp;
         }
 
@@ -59,11 +69,15 @@ namespace AutoCADCommands.ModelExtensions
             if (entity is BlockReference)
             {
                 sp.Name = "Block";
-                sp.AddExtents(entity.GeometricExtents);
+                sp.AddPoints(entity.GeometricExtents);
             }
             else if (entity is Line)
             {
-                sp.AddExtents(entity as Line);
+                sp.AddPoints(entity as Line);
+            }
+            else if (entity is Polyline)
+            {
+                sp.AddPoints(entity as Polyline);
             }
             else
             {

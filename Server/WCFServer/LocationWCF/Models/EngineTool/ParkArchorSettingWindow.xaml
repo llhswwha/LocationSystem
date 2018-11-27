@@ -39,6 +39,8 @@
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">园区参考点坐标</Label>
                 <Button DockPanel.Dock="Right" Name="BtnShowPoint" Click="BtnShowPoint_OnClick">显示</Button>
+                <Button DockPanel.Dock="Right" Name="BtnAutoSelectPoint" Click="BtnAutoSelectPoint_Click">就近选择</Button>
+                <Button DockPanel.Dock="Right" Name="BtnSelectPoint" Click="BtnSelectPoint_Click">选择...</Button>
                 <WPFClientControlLib:PointControl x:Name="PcZero"/>
                 
             </DockPanel>

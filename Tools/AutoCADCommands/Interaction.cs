@@ -297,10 +297,18 @@ namespace Dreambuild.AutoCAD
             return ObjectId.Null;
         }
 
-        public static ObjectId[] GetEntitysByLayer(string layer)
+        //public static ObjectId[] GetEntitysByLayer(string layer)
+        //{
+        //    var ids = QuickSelection
+        //       .SelectAll(FilterList.Create().Layer(layer))
+        //       .ToArray();
+        //    return ids;
+        //}
+
+        public static ObjectId[] GetEntitysByLayers(params string[] layers)
         {
             var ids = QuickSelection
-               .SelectAll(FilterList.Create().Layer(layer))
+               .SelectAll(FilterList.Create().Layer(layers))
                .ToArray();
             return ids;
         }

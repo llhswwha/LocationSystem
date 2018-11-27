@@ -40,7 +40,8 @@ namespace DbModel.CADEntitys
 
         public override string ToString()
         {
-            return string.Format("{0},{1}",Name,Layer);
+            return string.Format("{0},{1}({2}->{3})",Name,Layer,Points[0],Points.Last());
         }
+
     }
 }

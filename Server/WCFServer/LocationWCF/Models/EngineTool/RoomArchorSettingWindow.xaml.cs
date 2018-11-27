@@ -53,6 +53,10 @@ namespace LocationServer.Windows
 
         public bool ShowInfo(Rectangle rect, int devId)
         {
+            PcZero.ValueChanged -= PcZero_ValueChanged;
+            PcRelative.ValueChanged -= PcRelative_ValueChanged;
+            PcArchor.ValueChanged -= PcArchor_ValueChanged;
+
             ArchorDevList archorList = ArchorHelper.ArchorList;
 
             TbCode.ItemsSource = archorList.ArchorList;
@@ -111,10 +115,10 @@ namespace LocationServer.Windows
             TbCode.Text = _archor.GetCode();
             IPCode1.Text = _archor.Ip;
             double height = _item.RelativeHeight;
-            if (height == 2)
-            {
-                height = 2.6;//现场实际一般高度是2.6左右
-            }
+            //if (height == 2)
+            //{
+            //    height = 2.6;//现场实际一般高度是2.6左右
+            //}
             TbHeight.Text = height.ToString("F2");
             TbHeight2.Text = (floorHeight + height).ToString("F2");
             PcArchor.X = x;
@@ -199,11 +203,12 @@ namespace LocationServer.Windows
 
         private void PcRelative_ValueChanged(WPFClientControlLib.PointControl obj)
         {
+            PcArchor.ValueChanged -= PcArchor_ValueChanged;
             PcZero.ValueChanged -= PcZero_ValueChanged;
             if (_room != null)
             {
-                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + _room.InitBound.MinX + obj.X;
-                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + _room.InitBound.MinY + obj.Y;
+                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + PcZero.X + obj.X;
+                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + PcZero.Y + obj.Y;
 
                 PcArchor.X = PcZero.X + obj.X;
                 PcArchor.Y = PcZero.Y + obj.Y;
@@ -217,6 +222,7 @@ namespace LocationServer.Windows
                 PcArchor.Y = PcZero.Y + obj.Y;
             }
             PcZero.ValueChanged += PcZero_ValueChanged;
+            PcArchor.ValueChanged += PcArchor_ValueChanged;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -528,7 +534,6 @@ namespace LocationServer.Windows
                     //var p = _floor.GetClosePointEx(x, z);
                     SetZeroPoint(p.X, p.Y);
                 }
-                
             }
         }
     }

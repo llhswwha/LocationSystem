@@ -19,6 +19,14 @@
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
             <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
             <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
+            <Label>楼层</Label>
+            <ComboBox Width="50" Name="CbFloor" SelectionChanged="CbFloor_SelectionChanged">
+                <ComboBoxItem IsSelected="True">无</ComboBoxItem>
+                <ComboBoxItem>1层</ComboBoxItem>
+                <ComboBoxItem>2层</ComboBoxItem>
+                <ComboBoxItem>3层</ComboBoxItem>
+                <ComboBoxItem>4层</ComboBoxItem>
+            </ComboBox>
             <Label Name="LbState">State</Label>
         </StackPanel>
         <Grid>

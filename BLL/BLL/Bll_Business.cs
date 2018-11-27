@@ -19,7 +19,7 @@ namespace BLL
         /// 获取物理逻辑拓扑
         /// </summary>
         /// <returns></returns>
-        public Area GetAreaTree(bool isWithDev = true)
+        public Area GetAreaTree(bool isWithDev = true,int? id=null)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace BLL
 
                 if (roots.Count > 0)
                 {
-                    return roots[0];
+                    return roots[0].FindChild(id);
                 }
                 else
                 {

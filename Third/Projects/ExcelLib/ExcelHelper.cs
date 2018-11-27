@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using System.Reflection;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
@@ -267,6 +268,58 @@ namespace ExcelLib
             DataTable dt = GetDataTable(sheet1, tableName, isFirtRowHeader);
             return dt;
         }
+
+        //public static List<T> LoadExcelToList<T>(string filePath) where T : class, new()
+        //{
+        //    DataTable dt = ExcelHelper.LoadTable(new FileInfo(filePath), "", true);
+        //    List<T> list = new List<T>();
+        //    Type type = typeof(T);
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        T item = new T();
+        //        for (int i = 0; i < dt.Columns.Count; i++)
+        //        {
+        //            var column = dt.Columns[i];
+        //            var value = row.ItemArray[i];
+        //            var pt = type.GetProperty(column.ColumnName);
+        //            if (pt == null) continue;
+        //            pt.SetValueEx(item, value);
+        //        }
+        //        list.Add(item);
+        //    }
+        //    return list;
+        //}
+
+        //public static bool SetValueEx(this PropertyInfo pt, object obj, object value)
+        //{
+        //    try
+        //    {
+        //        var vaule2 = ToType(value, pt.PropertyType);
+        //        pt.SetValue(obj, vaule2, null);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex);
+        //        return false;
+        //    }
+        //}
+
+        //public static bool SetValueEx(this PropertyInfo pt, object obj, object value)
+        //{
+        //    try
+        //    {
+        //        var vaule2 = ToType(value, pt.PropertyType);
+        //        pt.SetValue(obj, vaule2, null);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex);
+        //        return false;
+        //    }
+        //}
+
         #endregion
 
         public static bool Save(DataSet dataSet, FileInfo file,string[] titles)

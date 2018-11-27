@@ -7,12 +7,14 @@ using System.Windows.Interactivity;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using ArchorUDPTool.Models;
+using DbModel.Location.Settings;
 using DbModel.Tools;
 using IModel.Enums;
 using Location.IModel;
 using Location.TModel.Location.Alarm;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Nodes;
+using TModel.Tools;
 using WPFClientControlLib.AreaCanvaItems;
 //using AreaEntity= DbModel.Location.AreaAndDev.Area;
 using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
@@ -275,6 +277,7 @@ namespace WPFClientControlLib
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
+                    //GetSettingFunc = null;
                     SelectedArea = area;
                     int scale = 20;
                     DevSize = 0.4;
@@ -398,17 +401,19 @@ namespace WPFClientControlLib
             OffsetY = -CanvasMargin/2;
             Canvas1.Width = (bound.MaxX+ CanvasMargin) * scale ;
             Canvas1.Height = (bound.MaxY+ CanvasMargin) * scale;
+            DrawMode = 2;
             AddAreaRect(area, null, scale);
             if (area.Children != null)
             {
                 area.Children.Sort();
                 foreach (var level1Item in area.Children) //机房
                 {
-                    AddAreaRect(level1Item, null, scale, true);
+                    level1Item.Parent = area;
+                    AddAreaRect(level1Item, area, scale, true);
                 }
             }
 
-            ShowDevs(area.LeafNodes, scale, devSize);
+            ShowDevs(area.LeafNodes, area, scale, devSize);
 
             AddZeroPoint(scale,new Vector(0,0));
         }
@@ -443,19 +448,44 @@ namespace WPFClientControlLib
             Canvas1.Width = (bound.MaxX - OffsetX + CanvasMargin) * scale;
             Canvas1.Height =(bound.MaxY - OffsetY + CanvasMargin) *scale;
 
+            DrawMode = 1;
+
             AddAreaRect(area,null, scale);
 
             if (area.Children != null)
                 foreach (var level1Item in area.Children) //建筑群
                 {
+                    level1Item.Parent = area;
                     AddAreaRect(level1Item, area, scale);
                     if (level1Item.Children != null)
                         foreach (var level2Item in level1Item.Children) //建筑
                         {
+                            level2Item.Parent = level1Item;
                             AddAreaRect(level2Item, level1Item, scale);
+
+                            if (ShowFloor > 0)
+                            {
+                                var floor=level2Item.GetChild(ShowFloor - 1);//楼层
+                                
+                                if (floor != null)
+                                {
+                                    if(level2Item.InitBound!=null)
+                                        AddAreaRect(floor, level2Item, scale);//楼层画出来
+
+                                    if (floor.Children!=null)
+                                        foreach (var room in floor.Children)//机房
+                                        {
+                                            if (room == null) continue;
+                                            room.Parent = floor;
+                                            AddAreaRect(room, floor, scale);
+                                        }
+
+                                    ShowDevs(floor.LeafNodes, floor, scale, devSize/5);//楼层内设备
+                                }
+                            }
                         }
                 }
-            ShowDevs(area.LeafNodes, scale, devSize);
+            ShowDevs(area.LeafNodes, area, scale, devSize);
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
 
@@ -484,26 +514,57 @@ namespace WPFClientControlLib
         /// 基站TypeCode
         /// </summary>
         private int ArchorTypeCode = TypeCodes.Archor;
-        private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
+        private void ShowDevs(List<DevEntity> devs, AreaEntity parent, double scale, double devSize)
         {
             if (ShowDev)
                 if (devs != null)
                     foreach (var dev in devs)
                     {
                         if (dev.TypeCode != ArchorTypeCode) continue;
-                        AddDevRect(dev, scale, devSize);
+                        AddDevRect(dev, parent,scale, devSize);
                     }
         }
 
-        private Rectangle AddDevRect(DevEntity dev,double scale, double size = 2)
+        public Func<DevEntity, ArchorSetting> GetSettingFunc;
+
+        private Rectangle AddDevRect(DevEntity dev,AreaEntity parent,double scale, double size = 2)
         {
             if (DevDict.ContainsKey(dev.Id))
             {
                 DevDict[dev.Id].Remove();
             }
 
-            double x = (dev.Pos.PosX - OffsetX) * scale-size*scale/2;
-            double y = (dev.Pos.PosZ - OffsetY) * scale - size * scale / 2;
+            double roomOffX = 0;
+            double roomOffY = 0;
+            if (DrawMode == 1)
+            {
+                if (parent != null)
+                {
+                    if (parent.Type == AreaTypes.楼层 && parent.Parent != null)
+                    {
+                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
+                }
+            }
+
+            double ax = dev.Pos.PosX + roomOffX;
+            double ay = dev.Pos.PosZ + roomOffY;
+
+            if (DrawMode==1 && GetSettingFunc != null)
+            {
+                ArchorSetting setting = GetSettingFunc(dev);
+                if (setting != null)
+                {
+                    setting.CalAbsolute();
+                    ax = setting.AbsoluteX.ToDouble();
+                    ay = setting.AbsoluteY.ToDouble();
+                }
+            }
+
+
+            double x = (ax - OffsetX) * scale-size*scale/2;
+            double y = (ay - OffsetY ) * scale - size * scale / 2;
 
             DevShape devShape = new DevShape(Canvas1);
             if (ShowDevName)
@@ -515,7 +576,7 @@ namespace WPFClientControlLib
                 }
                 Label lb = new Label();
                 lb.Content = GetDevName(dev);
-                Canvas.SetLeft(lb, x);
+                Canvas.SetLeft(lb, x+ size * scale);
                 Canvas.SetTop(lb, y);
                 Canvas1.Children.Add(lb);
                 lb.LayoutTransform = ScaleTransform1;
@@ -541,7 +602,7 @@ namespace WPFClientControlLib
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
                 Tag = dev,
-                ToolTip = GetDevName(dev)
+                ToolTip = GetDevNameEx(dev)
             };
 
             devShape.Rect = devRect;
@@ -578,19 +639,58 @@ namespace WPFClientControlLib
         {
             if (dev.DevDetail is Archor)
             {
-                Archor archor = dev.DevDetail as Archor;
-                if (!string.IsNullOrEmpty(archor.Code) && !archor.Code.StartsWith("Code"))
+                if (GetSettingFunc != null)
                 {
-                    return Brushes.Green;
+                    ArchorSetting setting = GetSettingFunc(dev);
+                    if (setting != null )
+                    {
+                        if(setting.RelativeHeight == 2)
+                        {
+                            return Brushes.LightGreen;
+                        }
+                        else
+                        {
+                            return Brushes.Green;
+                        }
+                        
+                    }
+                    else
+                    {
+                        return Brushes.DeepSkyBlue;
+                    }
                 }
                 else
                 {
                     return Brushes.DeepSkyBlue;
                 }
+
+                //Archor archor = dev.DevDetail as Archor;
+                //if (!string.IsNullOrEmpty(archor.Code) && !archor.Code.StartsWith("Code"))
+                //{
+                //    return Brushes.Green;
+                //}
+                //else
+                //{
+                //    return Brushes.DeepSkyBlue;
+                //}
             }
             else
             {
                 return Brushes.DeepSkyBlue;
+            }
+        }
+
+        private string GetDevNameEx(DevEntity dev)
+        {
+            if (dev.DevDetail is Archor)
+            {
+                Archor archor = dev.DevDetail as Archor;
+                return archor.Name+"("+archor.Code + "|" + archor.Ip+")";
+                //return archor.Code;// + "|" + archor.Ip;
+            }
+            else
+            {
+                return dev.Name;
             }
         }
 
@@ -684,9 +784,10 @@ namespace WPFClientControlLib
 
                 if (area.Type == AreaTypes.CAD)
                 {
-                    if (area.Name == "Block")
+                    if (area.Name == "Block" || area.Name== "Polyline")
                     {
-                        polygon.Fill = Brushes.Gray;
+                        var brush = new SolidColorBrush(Color.FromArgb(128, 80, 80, 80));
+                        polygon.Fill = brush;
                         polygon.Stroke = Brushes.Gray;
                     }
                     else if (area.Name == "Line")
@@ -700,9 +801,14 @@ namespace WPFClientControlLib
                         polygon.Stroke = Brushes.Gray;
                     }
                 }
-                else
+                else if (area.Type == AreaTypes.大楼)
                 {
                     polygon.Fill = Brushes.AliceBlue;
+                    polygon.Stroke = Brushes.Blue;
+                }
+                else
+                {
+                    polygon.Fill = Brushes.Transparent;
                     polygon.Stroke = Brushes.Black;
                 }
 
@@ -724,10 +830,38 @@ namespace WPFClientControlLib
                 double mX = 0;
                 double mY = 0;
                 int c = 0;
-                foreach (var item in bound.GetPoints2D())
+
+                double roomOffX = 0;
+                double roomOffY = 0;
+
+                if (DrawMode == 1)//大图模式
                 {
-                    double x = (item.X - OffsetX) * scale;
-                    double y = (item.Y - OffsetY) * scale;
+                    if (parent != null)
+                    {
+                        if (parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
+                        {
+                            roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                            roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                        }
+                    }
+                    if (parent == null)
+                    {
+                        parent = area.Parent;
+                    }
+
+                    if (area.Type == AreaTypes.楼层 && parent != null && parent.InitBound != null)//当前是楼层
+                    {
+                        roomOffX = /*area.InitBound.MinX + */ parent.InitBound.MinX;
+                        roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
+                    }
+                }
+
+
+
+                    foreach (var item in bound.GetPoints2D())
+                {
+                    double x = (item.X - OffsetX+ roomOffX) * scale;
+                    double y = (item.Y - OffsetY+ roomOffY) * scale;
                     polygon.Points.Add(new System.Windows.Point(x, y));
                     mX += x;
                     mY += y;
@@ -858,10 +992,12 @@ namespace WPFClientControlLib
             }
         }
 
+        int DrawMode = 1;
+
         public void RefreshDev(DevEntity dev)
         {
             int scale = (int)CbScale.SelectedItem;
-            var rect=AddDevRect(dev, scale, DevSize);
+            var rect=AddDevRect(dev,null, scale, DevSize);
             SelectDev(rect);
         }
 
@@ -1000,5 +1136,13 @@ namespace WPFClientControlLib
             ShowDevName = (bool)CbDevName.IsChecked;
             Refresh();
         }
+
+        private void CbFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowFloor = CbFloor.SelectedIndex;
+            Refresh();
+        }
+
+        public int ShowFloor;
     }
 }

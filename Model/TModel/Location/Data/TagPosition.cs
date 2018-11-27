@@ -39,6 +39,12 @@ namespace Location.TModel.Location.Data
         public long Time { get; set; }
 
         /// <summary>
+        /// 时间戳（毫秒）
+        /// </summary>
+        [DataMember]
+        public DateTime DateTime { get; set; }
+
+        /// <summary>
         /// 电量（伏*100)
         /// </summary>
         [DataMember]

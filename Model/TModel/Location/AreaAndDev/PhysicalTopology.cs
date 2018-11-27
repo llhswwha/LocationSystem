@@ -34,8 +34,8 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public int? ParentId { get; set; }
 
-        [DataMember]
-        public virtual PhysicalTopology Parent { get; set; }
+        //[DataMember]
+        public PhysicalTopology Parent { get; set; }
 
         ////[NotMapped]
         ////[DataMember]
@@ -183,6 +183,18 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public bool IsOnLocationArea { get; set; }
 
+        public void SetParent()
+        {
+            if (Children != null)
+            {
+                foreach (var item in Children)
+                {
+                    item.Parent = this;
+                    item.SetParent();
+                }
+            }
+        }
+
         ///// <summary>
         ///// 用两点(对角点)初始化区域范围
         ///// </summary>
@@ -276,6 +288,16 @@ namespace Location.TModel.Location.AreaAndDev
         public int CompareTo(PhysicalTopology other)
         {
             return (other.Type + other.Name).CompareTo((Type + Name));
+        }
+
+        public PhysicalTopology GetChild(int v)
+        {
+            if (Children != null&&Children.Count>v) {
+                var child = Children[v];
+                child.Parent = this;
+                return child;
+            }
+            return null;
         }
     }   
 }

@@ -29,6 +29,7 @@ namespace LocationServices.Converters
             item2.Y = item1.Y;
             item2.Z = item1.Z;
             item2.Time = item1.DateTimeStamp;
+            item2.DateTime = item1.DateTime;//在TagPosition添加DateTime
             item2.Power = item1.Power;
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;

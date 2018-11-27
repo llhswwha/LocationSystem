@@ -26,6 +26,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.CADEntitys;
 using Point = DbModel.Location.AreaAndDev.Point;
 using System.ComponentModel;
+using DbModel.Location.Settings;
 
 namespace LocationServer.Windows
 {
@@ -223,6 +224,8 @@ namespace LocationServer.Windows
             string filePath = basePath + "Data\\CADAreaInfo.xml";
 
             CADAreaList list = XmlSerializeHelper.LoadFromFile<CADAreaList>(filePath);
+            list.LineToBlock();
+
             Bll bll = new Bll();
             var areas = bll.Areas.ToList(false);
             List<Point> newPoints = new List<Point>();
@@ -238,6 +241,9 @@ namespace LocationServer.Windows
                     count += item.Shapes.Count;
                 }
             }
+
+            
+
             int index = 0;
              for (int i1 = 0; i1 < list.Count; i1++)
             {
@@ -324,7 +330,19 @@ namespace LocationServer.Windows
 
         private void MenuArchorSetting_Click(object sender, RoutedEventArgs e)
         {
+            Bll bll = new Bll();
+            var list2 = DbInitializer.LoadExcelToList<ArchorSetting>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\ArchorSetting.xls");
+            bll.ArchorSettings.Clear();
+            bll.ArchorSettings.AddRange(list2);
+            MessageBox.Show("完成");
+        }
 
+        private void MenuSaveTop_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
+            initializer.SaveInitInfoXml();
+            MessageBox.Show("完成");
         }
     }
 }

@@ -71,7 +71,7 @@ namespace LocationServer.Windows
             _item.Code = _archor.Code;
             _item.Name = _archor.Name;
 
-            var area = _dev.Parent;
+            var area = bll.GetAreaTree(false,_dev.ParentId);
 
             _item.RelativeMode = RelativeMode.相对楼层;
 
@@ -182,8 +182,6 @@ namespace LocationServer.Windows
             _dev.PosX = (float)PcAbsolute.X;
             _dev.PosZ = (float)PcAbsolute.Y;
             _dev.PosY = TbHeight.Text.ToFloat();
-
-
 
             if (bll.bus_anchors.Update(code, _archor) == false)
             {
@@ -411,6 +409,27 @@ namespace LocationServer.Windows
                     TbCode.IsDropDownOpen = true;
                 }
             }
+        }
+
+        private void BtnAutoSelectPoint_Click(object sender, RoutedEventArgs e)
+        {
+            var p = park.GetClosePointEx(x, z);
+            SetZeroPoint(p.X, p.Y);
+        }
+
+        private void BtnSelectPoint_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new PointSelectWindow(park, _dev);
+            win.SelectedAreaChanged += (area) =>
+            {
+
+            };
+            win.SelectedPointChanged += (point) =>
+            {
+                SetZeroPoint(point.X, point.Y);
+            };
+            win.Owner = this;
+            win.Show();
         }
     }
 }

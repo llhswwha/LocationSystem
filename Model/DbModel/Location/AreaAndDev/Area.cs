@@ -49,6 +49,13 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(32)]
         public string KKS { get; set; }
 
+        public Area FindChild(int? id)
+        {
+            if (id == null) return this;
+            var children=GetAllChildren(null);
+            return children.Find(i => i.Id == id);
+        }
+
         /// <summary>
         /// 父ID
         /// </summary>
@@ -268,11 +275,22 @@ namespace DbModel.Location.AreaAndDev
             var list0 = new List<AreaDistance>();
             foreach (var item in Children)
             {
-                double distance = item.GetDistance(x, y);
                 var ad = new AreaDistance();
-                ad.Distance = distance;
+                ad.Distance = item.GetDistance(x, y);
                 ad.Area = item;
                 list0.Add(ad);
+
+                if (item.Type == AreaTypes.分组)
+                {
+                    if(item.Children!=null)
+                        foreach (var building in item.Children)
+                        {
+                            var ad2 = new AreaDistance();
+                            ad2.Distance = building.GetDistance(x, y);
+                            ad2.Area = building;
+                            list0.Add(ad2);
+                        }
+                }
             }
             list0.Sort();
 
@@ -434,14 +452,15 @@ namespace DbModel.Location.AreaAndDev
 
         public void GetSubChildren(List<Area> list, Area node, int? type = null)
         {
-            foreach (var child in node.Children)
-            {
-                if (type == null || type == (int)child.Type)
+            if (node.Children!=null)
+                foreach (var child in node.Children)
                 {
-                    list.Add(child);
+                    if (type == null || type == (int)child.Type)
+                    {
+                        list.Add(child);
+                    }
+                    GetSubChildren(list, child, type);
                 }
-                GetSubChildren(list, child, type);
-            }
         }
 
         public string GetPath()

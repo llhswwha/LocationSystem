@@ -45,5 +45,11 @@ namespace DbModel.CADEntitys
         {
             return new CADPoint(a.X - b.X, a.Y - b.Y);
         }
+
+
+        public bool IsSamePoint(CADPoint other)
+        {
+            return this.X == other.X && this.Y == other.Y;
+        }
     }
 }

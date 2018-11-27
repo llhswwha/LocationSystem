@@ -11,6 +11,8 @@ using DbModel.Tools;
 using DbModel.Tools.InitInfos;
 using Location.Model;
 using Location.Model.InitInfos;
+using System.Text;
+
 namespace BLL
 {
     public class AreaTreeInitializer
@@ -62,6 +64,18 @@ namespace BLL
                 Log.InfoEnd("InitTopoFromXml");
                 return false;
             }
+        }
+
+        // GET: DataInit
+        public void SaveInitInfoXml()
+        {
+            Log.InfoStart("SaveInitInfoXml");
+            var root = _bll.GetAreaTree(false);
+            InitInfo initInfo = new InitInfo();
+            initInfo.TopoInfo = new TopoInfo(root);
+            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
+            XmlSerializeHelper.Save(initInfo, initFile, Encoding.UTF8);
+            Log.InfoEnd("SaveInitInfoXml");
         }
 
         public void ClearTopoTable()

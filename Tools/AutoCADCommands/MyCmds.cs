@@ -46,7 +46,7 @@ namespace AutoCADCommands
             string[] keys = { "0:左下", "1:右下", "2:右上", "3:左上" };
             var key = Interaction.GetKeywords("\nChoose Zero Type", keys);
 
-            var columns = Interaction.GetEntitysByLayer("COLUMN");
+            var columns = Interaction.GetEntitysByLayers("COLUMN","STAIR");
             var area = columns.ToCADArea(zero,key);
             area.Name = "主厂房0m层";
             areaList.Add(area);

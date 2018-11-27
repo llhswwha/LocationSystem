@@ -142,6 +142,8 @@ namespace LocationServices.Locations.Services
         {
             var root0 = db.GetAreaTree(false);
             var root = root0.ToTModel();
+            if(root!=null)
+                root.SetParent();
             return root;
         }
 
@@ -170,6 +172,8 @@ namespace LocationServices.Locations.Services
                 var leafNodes = db.DevInfos.ToList();
                 tree = GetTreeWithPerson(leafNodes.ToTModel());
             }
+            if(tree!=null)
+                tree.SetParent();
             return tree;
         }
 

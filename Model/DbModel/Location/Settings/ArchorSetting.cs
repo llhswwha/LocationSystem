@@ -249,13 +249,13 @@ namespace DbModel.Location.Settings
 
         public bool CalAbsolute()
         {
-            float x1= BuildingMinX.ToFloat() + ZeroX.ToFloat() + RelativeX.ToFloat();
+            float x1= FloorMinX.ToFloat()+BuildingMinX.ToFloat() + ZeroX.ToFloat() + RelativeX.ToFloat();
             float x2 = AbsoluteX.ToFloat();
 
-            float y1 = BuildingMinY.ToFloat() + ZeroY.ToFloat() + RelativeY.ToFloat();
+            float y1 = FloorMinY.ToFloat() + BuildingMinY.ToFloat() + ZeroY.ToFloat() + RelativeY.ToFloat();
             float y2 = AbsoluteY.ToFloat();
 
-            if (x1 != x2 || y1!=y2)
+            if (Math.Abs(x1 - x2)>0.1 || Math.Abs(y1-y2)>0.1)
             {
                 AbsoluteX = x1.ToString();
                 AbsoluteY = y1.ToString();

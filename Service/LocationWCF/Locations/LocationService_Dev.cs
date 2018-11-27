@@ -325,6 +325,7 @@ namespace LocationServices.Locations
         public List<DeviceAlarm> GetDeviceAlarms(AlarmSearchArg arg)
         {
             var devs = db.DevInfos.ToList();
+            if (devs == null) return null;
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
             alarms.Add(new DeviceAlarm() { Id = 0, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
             alarms.Add(new DeviceAlarm() { Id = 1, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));

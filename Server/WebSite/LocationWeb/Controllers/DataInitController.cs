@@ -33,14 +33,9 @@ namespace WebLocation.Controllers
         // GET: DataInit
         public ActionResult SaveInitInfoXml()
         {
-            Log.InfoStart("SaveInitInfoXml");
             Bll bll = new Bll(false, false, false, false);
-            var root = bll.GetAreaTree(false);
-            InitInfo initInfo=new InitInfo();
-            initInfo.TopoInfo = new TopoInfo(root);
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
-            XmlSerializeHelper.Save(initInfo, initFile,Encoding.UTF8);
-            Log.InfoEnd("SaveInitInfoXml");
+            AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
+            initializer.SaveInitInfoXml();
             return View();
         }
 

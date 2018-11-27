@@ -31,6 +31,7 @@ using SignalRService.Hubs;
 using DbModel.Tools;
 using LocationServer.Tools;
 using LocationServer.Models.EngineTool;
+using DbModel.Location.Settings;
 
 namespace LocationServer
 {
@@ -147,7 +148,20 @@ namespace LocationServer
                 RemoveAreaDevs(area);
             });
             AreaCanvas1.AreaContextMenu = areaContextMenu;
+
+            archorSettings = bll.ArchorSettings.ToList();
+            AreaCanvas1.GetSettingFunc = (dev) =>
+            {
+                object detail = dev.DevDetail;
+                if (detail is TModel.Location.AreaAndDev.Archor)
+                {
+                    return archorSettings.Find(i=>i.Code==(dev.DevDetail as TModel.Location.AreaAndDev.Archor).Code);
+                }
+                return null;
+            };
         }
+
+        List<ArchorSetting> archorSettings;
 
         private void RemoveAreaDevs(AreaEntity area)
         {
@@ -262,6 +276,7 @@ namespace LocationServer
         private void LoadAreaTree()
         {
             var tree = areaService.GetTree(1);
+            if (tree == null) return;
             var devList = tree.GetAllDev();
             var archorList = new ArchorService().GetList();
             foreach (var dev in devList)
@@ -391,6 +406,7 @@ namespace LocationServer
         private void SetDevInfo(Rectangle rect, DevEntity obj)
         {
             var parentArea = areaService.GetEntity(obj.ParentId + "");
+            //obj.Parent
             if (parentArea.IsPark()) //电厂
             {
                 var bound = parentArea.InitBound;

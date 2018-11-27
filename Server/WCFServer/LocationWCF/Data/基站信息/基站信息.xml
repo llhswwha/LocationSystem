@@ -181,7 +181,7 @@
     <Device Name="电子设备间5" AnchorId="8A20" XPos="15.91" YPos="2.6" ZPos="14.45" IP="192.168.4.66" AbsolutePosX="2265.41" AbsolutePosY="2.6" AbsolutePosZ="1707.25" />
     <Device Name="电子设备间6" AnchorId="8A10" XPos="15.91" YPos="2.6" ZPos="17.14" IP="192.168.4.59" AbsolutePosX="2265.41" AbsolutePosY="2.6" AbsolutePosZ="1709.94" />
     <Device Name="电子设备间7" AnchorId="8A14" XPos="15.91" YPos="2.6" ZPos="19.44" IP="192.168.4.61" AbsolutePosX="2265.41" AbsolutePosY="2.6" AbsolutePosZ="1712.24" />
-    <Device Name="电子设备间8" AnchorId="8A24" XPos="15.91" YPos="2.6" ZPos="22.33" IP="192.168.4.68" AbsolutePosX="2249.46" AbsolutePosY="2.6" AbsolutePosZ="1715.13" />
+    <Device Name="电子设备间8" AnchorId="8A24" XPos="15.91" YPos="2.6" ZPos="22.33" IP="192.168.4.68" AbsolutePosX="2265.41" AbsolutePosY="2.6" AbsolutePosZ="1715.13" />
     <Device Name="电子设备间9" AnchorId="8A1A" XPos="3.19" YPos="2.6" ZPos="22.43" IP="192.168.4.64" AbsolutePosX="2252.69" AbsolutePosY="2.6" AbsolutePosZ="1715.23" />
     <Device Name="电子设备间10" AnchorId="8A0C" XPos="3.19" YPos="2.6" ZPos="19.66" IP="192.168.4.57" AbsolutePosX="2252.69" AbsolutePosY="2.6" AbsolutePosZ="1712.46" />
     <Device Name="电子设备间11" AnchorId="8A18" XPos="3.19" YPos="2.6" ZPos="17.31" IP="192.168.4.63" AbsolutePosX="2252.69" AbsolutePosY="2.6" AbsolutePosZ="1710.11" />
@@ -389,75 +389,75 @@
     <Device Name="#2壁装离地高29" AnchorId="8884" XPos="18.383" YPos="2" ZPos="56.599" IP="192.168.3.86" AbsolutePosX="18.382999420166" AbsolutePosY="2" AbsolutePosZ="56.5989990234375" />
     <Device Name="#2壁装离地高30" AnchorId="8954" XPos="18.91" YPos="2" ZPos="66.461" IP="192.168.3.173" AbsolutePosX="18.9099998474121" AbsolutePosY="2" AbsolutePosZ="66.4609985351563" />
     <Device Name="#2壁装离地高31" AnchorId="8940" XPos="24.796" YPos="2" ZPos="56.787" IP="192.168.3.166" AbsolutePosX="24.7959995269775" AbsolutePosY="2" AbsolutePosZ="56.7869987487793" />
-    <Device Name="#2壁装离地高32" AnchorId="892E" XPos="30.04" YPos="2" ZPos="62.404" IP="192.168.3.161" AbsolutePosX="30.0400009155273" AbsolutePosY="2" AbsolutePosZ="62.4039993286133" />
-    <Device Name="#2壁装离地高33" AnchorId="8952" XPos="43.699" YPos="2" ZPos="67.274" IP="192.168.3.172" AbsolutePosX="43.6990013122559" AbsolutePosY="2" AbsolutePosZ="67.2740020751953" />
-    <Device Name="#2壁装离地高34" AnchorId="8948" XPos="44.112" YPos="2" ZPos="74.606" IP="192.168.3.167" AbsolutePosX="44.1119995117188" AbsolutePosY="2" AbsolutePosZ="74.6060028076172" />
-    <Device Name="#2壁装离地高35" AnchorId="8958" XPos="25.372" YPos="2" ZPos="74.605" IP="192.168.3.175" AbsolutePosX="25.3719997406006" AbsolutePosY="2" AbsolutePosZ="74.6050033569336" />
-    <Device Name="#2壁装离地高36" AnchorId="894C" XPos="25.396" YPos="2" ZPos="66.455" IP="192.168.3.169" AbsolutePosX="25.3959999084473" AbsolutePosY="2" AbsolutePosZ="66.4550018310547" />
+    <Device Name="#2壁装离地高32" AnchorId="892E" XPos="29.39" YPos="3.37" ZPos="63.4" IP="192.168.3.161" AbsolutePosX="2229.39" AbsolutePosY="3.37" AbsolutePosZ="1711.6" />
+    <Device Name="#2壁装离地高33" AnchorId="8952" XPos="43.71" YPos="1.98" ZPos="67.08" IP="192.168.3.172" AbsolutePosX="2243.71" AbsolutePosY="1.98" AbsolutePosZ="1715.28" />
+    <Device Name="#2壁装离地高34" AnchorId="8948" XPos="44.11" YPos="2.5" ZPos="74.97" IP="192.168.3.167" AbsolutePosX="2244.11" AbsolutePosY="2.5" AbsolutePosZ="1723.17" />
+    <Device Name="#2壁装离地高35" AnchorId="8958" XPos="25.48" YPos="2.6" ZPos="74.33" IP="192.168.3.175" AbsolutePosX="2225.48" AbsolutePosY="2.6" AbsolutePosZ="1722.53" />
+    <Device Name="#2壁装离地高36" AnchorId="894C" XPos="25.55" YPos="2.3" ZPos="65.92" IP="192.168.3.169" AbsolutePosX="2225.55" AbsolutePosY="2.3" AbsolutePosZ="1714.12" />
     <Device Name="#2壁装离地高37" AnchorId="8934" XPos="7.015" YPos="2" ZPos="74.478" IP="192.168.3.164" AbsolutePosX="7.0149998664856" AbsolutePosY="2" AbsolutePosZ="74.4779968261719" />
     <Device Name="#2壁装离地高38" AnchorId="8956" XPos="2.956" YPos="2" ZPos="76.419" IP="192.168.3.174" AbsolutePosX="2.95600008964539" AbsolutePosY="2" AbsolutePosZ="76.4189987182617" />
     <Device Name="#2壁装离地高39" AnchorId="892C" XPos="0.7" YPos="2" ZPos="75.944" IP="192.168.3.160" AbsolutePosX="0.699999988079071" AbsolutePosY="2" AbsolutePosZ="75.9440002441406" />
-    <Device Name="#1机组6kV配电间1" AnchorId="89CE" XPos="3.49" YPos="2" ZPos="77.57" IP="192.168.3.230" AbsolutePosX="2203.48999023438" AbsolutePosY="2" AbsolutePosZ="1725.77001953125" />
-    <Device Name="#1机组6kV配电间2" AnchorId="89D2" XPos="3.49" YPos="2" ZPos="81.28" IP="192.168.3.232" AbsolutePosX="2203.48999023438" AbsolutePosY="2" AbsolutePosZ="1729.47998046875" />
-    <Device Name="#1机组6kV配电间3" AnchorId="89DA" XPos="3.49" YPos="2" ZPos="84.64" IP="192.168.3.236" AbsolutePosX="2203.48999023438" AbsolutePosY="2" AbsolutePosZ="1732.83996582031" />
-    <Device Name="#1机组6kV配电间4" AnchorId="89C6" XPos="21.87" YPos="2" ZPos="85.22" IP="192.168.3.227" AbsolutePosX="2221.8701171875" AbsolutePosY="2" AbsolutePosZ="1733.42004394531" />
-    <Device Name="#1机组6kV配电间5" AnchorId="89C0" XPos="21.87" YPos="2" ZPos="81.28" IP="192.168.3.224" AbsolutePosX="2221.8701171875" AbsolutePosY="2" AbsolutePosZ="1729.47998046875" />
-    <Device Name="#1机组6kV配电间6" AnchorId="89D0" XPos="21.87" YPos="2" ZPos="77.57" IP="192.168.3.231" AbsolutePosX="2221.8701171875" AbsolutePosY="2" AbsolutePosZ="1725.77001953125" />
-    <Device Name="T2钢梯1" AnchorId="8812" XPos="22.5" YPos="2" ZPos="85.35" IP="192.168.3.49" AbsolutePosX="2222.5" AbsolutePosY="2" AbsolutePosZ="1733.55004882813" />
-    <Device Name="T2钢梯2" AnchorId="87FE" XPos="22.5" YPos="2" ZPos="79.27" IP="192.168.3.45" AbsolutePosX="2222.5" AbsolutePosY="2" AbsolutePosZ="1727.46997070313" />
-    <Device Name="T2钢梯3" AnchorId="89D4" XPos="25.337" YPos="2" ZPos="77.226" IP="192.168.3.233" AbsolutePosX="25.3369998931885" AbsolutePosY="2" AbsolutePosZ="77.2259979248047" />
-    <Device Name="#1燃机机房检修场地1" AnchorId="89B4" XPos="32.334" YPos="2" ZPos="77.226" IP="192.168.3.218" AbsolutePosX="32.3339996337891" AbsolutePosY="2" AbsolutePosZ="77.2259979248047" />
-    <Device Name="#1燃机机房检修场地2" AnchorId="89C4" XPos="32.374" YPos="2" ZPos="85.434" IP="192.168.3.226" AbsolutePosX="32.3740005493164" AbsolutePosY="2" AbsolutePosZ="85.4339981079102" />
-    <Device Name="#1燃机机房检修场地3" AnchorId="89C8" XPos="40.647" YPos="2" ZPos="76.994" IP="192.168.3.228" AbsolutePosX="40.6469993591309" AbsolutePosY="2" AbsolutePosZ="76.9940032958984" />
-    <Device Name="#1燃机机房检修场地4" AnchorId="89C2" XPos="43.475" YPos="2" ZPos="77.112" IP="192.168.3.225" AbsolutePosX="43.4749984741211" AbsolutePosY="2" AbsolutePosZ="77.1119995117188" />
-    <Device Name="#1燃机机房检修场地5" AnchorId="89CA" XPos="43.468" YPos="2" ZPos="85.794" IP="192.168.3.229" AbsolutePosX="43.4679985046387" AbsolutePosY="2" AbsolutePosZ="85.7939987182617" />
-    <Device Name="#1壁装离地高1" AnchorId="87EC" XPos="0.478" YPos="2" ZPos="91.303" IP="192.168.3.40" AbsolutePosX="0.477999985218048" AbsolutePosY="2" AbsolutePosZ="91.3030014038086" />
-    <Device Name="#1壁装离地高2" AnchorId="880E" XPos="11.062" YPos="2" ZPos="93.861" IP="192.168.3.47" AbsolutePosX="11.0620002746582" AbsolutePosY="2" AbsolutePosZ="93.8610000610352" />
-    <Device Name="#1壁装离地高3" AnchorId="8806" XPos="14.239" YPos="2" ZPos="93.737" IP="192.168.3.46" AbsolutePosX="14.2390003204346" AbsolutePosY="2" AbsolutePosZ="93.7369995117188" />
-    <Device Name="#1壁装离地高4" AnchorId="87EE" XPos="14.13" YPos="2" ZPos="86.231" IP="192.168.3.41" AbsolutePosX="14.1300001144409" AbsolutePosY="2" AbsolutePosZ="86.2310028076172" />
-    <Device Name="#1壁装离地高5" AnchorId="87E4" XPos="24.44" YPos="2" ZPos="86.13" IP="192.168.3.39" AbsolutePosX="2202.2900390625" AbsolutePosY="2" AbsolutePosZ="1743.43005371094" />
-    <Device Name="#1壁装离地高6" AnchorId="87F8" XPos="24.45" YPos="2" ZPos="93.45" IP="192.168.3.44" AbsolutePosX="2224.44995117188" AbsolutePosY="2" AbsolutePosZ="1741.65002441406" />
-    <Device Name="#1壁装离地高7" AnchorId="88B4" XPos="25.38" YPos="2" ZPos="93.47" IP="192.168.3.106" AbsolutePosX="2225.3798828125" AbsolutePosY="2" AbsolutePosZ="1741.67004394531" />
-    <Device Name="#1壁装离地高8" AnchorId="88A2" XPos="32.38" YPos="2" ZPos="93.44" IP="192.168.3.98" AbsolutePosX="2232.3798828125" AbsolutePosY="2" AbsolutePosZ="1741.64001464844" />
-    <Device Name="#1壁装离地高9" AnchorId="89D8" XPos="40.65" YPos="2" ZPos="95" IP="192.168.3.235" AbsolutePosX="2240.64990234375" AbsolutePosY="2" AbsolutePosZ="1743.19995117188" />
-    <Device Name="#1壁装离地高10" AnchorId="89D6" XPos="43.45" YPos="2" ZPos="93.67" IP="192.168.3.234" AbsolutePosX="2243.44995117188" AbsolutePosY="2" AbsolutePosZ="1741.86999511719" />
-    <Device Name="#1壁装离地高11" AnchorId="87F0" XPos="0.69" YPos="2" ZPos="104.71" IP="192.168.3.42" AbsolutePosX="2200.68994140625" AbsolutePosY="2" AbsolutePosZ="1752.91003417969" />
-    <Device Name="#1壁装离地高12" AnchorId="87F4" XPos="2.94" YPos="2" ZPos="109.61" IP="192.168.3.43" AbsolutePosX="2202.93994140625" AbsolutePosY="2" AbsolutePosZ="1757.81005859375" />
+    <Device Name="#1机组6kV配电间1" AnchorId="89C6" XPos="3.44" YPos="2.5" ZPos="77.96" IP="192.168.3.227" AbsolutePosX="2203.44" AbsolutePosY="2.5" AbsolutePosZ="1726.16" />
+    <Device Name="#1机组6kV配电间2" AnchorId="89C0" XPos="3.44" YPos="2.5" ZPos="81.09" IP="192.168.3.224" AbsolutePosX="2203.44" AbsolutePosY="2.5" AbsolutePosZ="1729.29" />
+    <Device Name="#1机组6kV配电间3" AnchorId="89D0" XPos="3.44" YPos="2.5" ZPos="84.7" IP="192.168.3.231" AbsolutePosX="2203.44" AbsolutePosY="2.5" AbsolutePosZ="1732.9" />
+    <Device Name="#1机组6kV配电间4(无)" AnchorId="89CE" XPos="17.96" YPos="2.5" ZPos="85.5" IP="192.168.3.230" AbsolutePosX="2217.96" AbsolutePosY="2.5" AbsolutePosZ="1733.7" />
+    <Device Name="#1机组6kV配电间5" AnchorId="89D2" XPos="21.91" YPos="2.5" ZPos="80.95" IP="192.168.3.232" AbsolutePosX="2221.91" AbsolutePosY="2.5" AbsolutePosZ="1729.15" />
+    <Device Name="#1机组6kV配电间6" AnchorId="89DA" XPos="21.91" YPos="2.5" ZPos="78.11" IP="192.168.3.236" AbsolutePosX="2221.91" AbsolutePosY="2.5" AbsolutePosZ="1726.31" />
+    <Device Name="T2钢梯1" AnchorId="8812" XPos="22.39" YPos="2.26" ZPos="85.22" IP="192.168.3.49" AbsolutePosX="2222.39" AbsolutePosY="2.26" AbsolutePosZ="1733.42" />
+    <Device Name="T2钢梯2" AnchorId="87FE" XPos="22.39" YPos="2.25" ZPos="81.53" IP="192.168.3.45" AbsolutePosX="2222.39" AbsolutePosY="2.25" AbsolutePosZ="1729.73" />
+    <Device Name="T2钢梯3" AnchorId="89D4" XPos="25.28" YPos="4.79" ZPos="77.22" IP="192.168.3.233" AbsolutePosX="2225.28" AbsolutePosY="4.79" AbsolutePosZ="1725.42" />
+    <Device Name="#1燃机机房检修场地1" AnchorId="89B4" XPos="32.28" YPos="5.45" ZPos="77.26" IP="192.168.3.218" AbsolutePosX="2232.28" AbsolutePosY="5.45" AbsolutePosZ="1725.46" />
+    <Device Name="#1燃机机房检修场地2" AnchorId="89C4" XPos="32.36" YPos="5.37" ZPos="85.42" IP="192.168.3.226" AbsolutePosX="2232.36" AbsolutePosY="5.37" AbsolutePosZ="1733.62" />
+    <Device Name="#1燃机机房检修场地3" AnchorId="89C8" XPos="38.79" YPos="5.41" ZPos="77.04" IP="192.168.3.228" AbsolutePosX="2238.79" AbsolutePosY="5.41" AbsolutePosZ="1725.24" />
+    <Device Name="#1燃机机房检修场地4" AnchorId="89C2" XPos="43.49" YPos="5.38" ZPos="77.18" IP="192.168.3.225" AbsolutePosX="2243.49" AbsolutePosY="5.38" AbsolutePosZ="1725.38" />
+    <Device Name="#1燃机机房检修场地5" AnchorId="89CA" XPos="43.57" YPos="5.38" ZPos="85.34" IP="192.168.3.229" AbsolutePosX="2243.57" AbsolutePosY="5.38" AbsolutePosZ="1733.54" />
+    <Device Name="#1壁装离地高1" AnchorId="87EC" XPos="0.64" YPos="2.05" ZPos="93.61" IP="192.168.3.40" AbsolutePosX="2200.64" AbsolutePosY="2.05" AbsolutePosZ="1741.81" />
+    <Device Name="#1壁装离地高2（改）" AnchorId="880E" XPos="11.06" YPos="2.6" ZPos="93.86" IP="192.168.3.47" AbsolutePosX="2211.06" AbsolutePosY="2.6" AbsolutePosZ="1742.06" />
+    <Device Name="#1壁装离地高3" AnchorId="8806" XPos="13.65" YPos="2.13" ZPos="92.64" IP="192.168.3.46" AbsolutePosX="2213.65" AbsolutePosY="2.13" AbsolutePosZ="1740.84" />
+    <Device Name="#1壁装离地高4" AnchorId="87EE" XPos="15.11" YPos="2.42" ZPos="86.09" IP="192.168.3.41" AbsolutePosX="2215.11" AbsolutePosY="2.42" AbsolutePosZ="1734.29" />
+    <Device Name="#1壁装离地高5" AnchorId="87E4" XPos="24.28" YPos="1.74" ZPos="86.24" IP="192.168.3.39" AbsolutePosX="2224.28" AbsolutePosY="1.74" AbsolutePosZ="1734.44" />
+    <Device Name="#1壁装离地高6" AnchorId="87F8" XPos="24.46" YPos="1.97" ZPos="93.53" IP="192.168.3.44" AbsolutePosX="2224.46" AbsolutePosY="1.97" AbsolutePosZ="1741.73" />
+    <Device Name="#1壁装离地高7" AnchorId="88B4" XPos="25.34" YPos="5.27" ZPos="93.76" IP="192.168.3.106" AbsolutePosX="2225.34" AbsolutePosY="5.27" AbsolutePosZ="1741.96" />
+    <Device Name="#1壁装离地高8" AnchorId="88A2" XPos="32.34" YPos="5.56" ZPos="93.99" IP="192.168.3.98" AbsolutePosX="2232.34" AbsolutePosY="5.56" AbsolutePosZ="1742.19" />
+    <Device Name="#1壁装离地高9" AnchorId="89D8" XPos="40.87" YPos="5.28" ZPos="95" IP="192.168.3.235" AbsolutePosX="2240.87" AbsolutePosY="5.28" AbsolutePosZ="1743.2" />
+    <Device Name="#1壁装离地高10" AnchorId="89D6" XPos="43.51" YPos="5.32" ZPos="93.63" IP="192.168.3.234" AbsolutePosX="2243.51" AbsolutePosY="5.32" AbsolutePosZ="1741.83" />
+    <Device Name="#1壁装离地高11" AnchorId="87F0" XPos="0.64" YPos="2" ZPos="104.65" IP="192.168.3.42" AbsolutePosX="2200.64" AbsolutePosY="2" AbsolutePosZ="1752.85" />
+    <Device Name="#1壁装离地高12" AnchorId="87F4" XPos="2.9" YPos="1.99" ZPos="109.42" IP="192.168.3.43" AbsolutePosX="2202.9" AbsolutePosY="1.99" AbsolutePosZ="1757.62" />
     <Device Name="#1壁装离地高13" AnchorId="8848" XPos="10.7" YPos="2" ZPos="104.75" IP="192.168.3.58" AbsolutePosX="2210.69995117188" AbsolutePosY="2" AbsolutePosZ="1752.94995117188" />
-    <Device Name="#1壁装离地高14" AnchorId="8810" XPos="16.55" YPos="2" ZPos="109.56" IP="192.168.3.48" AbsolutePosX="2216.55004882813" AbsolutePosY="2" AbsolutePosZ="1757.75" />
-    <Device Name="#1壁装离地高15" AnchorId="8842" XPos="18.4" YPos="2" ZPos="105.33" IP="192.168.3.56" AbsolutePosX="2218.39990234375" AbsolutePosY="2" AbsolutePosZ="1753.53002929688" />
-    <Device Name="#1壁装离地高16" AnchorId="882C" XPos="24.9" YPos="2" ZPos="105.28" IP="192.168.3.54" AbsolutePosX="2224.89990234375" AbsolutePosY="2" AbsolutePosZ="1753.47998046875" />
-    <Device Name="#1壁装离地高17" AnchorId="8844" XPos="31.6" YPos="2" ZPos="105.28" IP="192.168.3.57" AbsolutePosX="2231.60009765625" AbsolutePosY="2" AbsolutePosZ="1753.47998046875" />
-    <Device Name="#1壁装离地高18" AnchorId="8854" XPos="31.61" YPos="2" ZPos="115.86" IP="192.168.3.64" AbsolutePosX="2231.61010742188" AbsolutePosY="2" AbsolutePosZ="1764.06005859375" />
-    <Device Name="#1壁装离地高19" AnchorId="8820" XPos="43.47" YPos="2" ZPos="104.79" IP="192.168.3.51" AbsolutePosX="2243.46997070313" AbsolutePosY="2" AbsolutePosZ="1752.98999023438" />
-    <Device Name="#1壁装离地高20" AnchorId="884C" XPos="43.56" YPos="2" ZPos="116.73" IP="192.168.3.60" AbsolutePosX="2243.56005859375" AbsolutePosY="2" AbsolutePosZ="1764.93005371094" />
-    <Device Name="#1壁装离地高21" AnchorId="8828" XPos="16.65" YPos="2" ZPos="115.51" IP="192.168.3.53" AbsolutePosX="2216.64990234375" AbsolutePosY="2" AbsolutePosZ="1763.7099609375" />
-    <Device Name="#1机组就地MCC配电间1" AnchorId="88C4" XPos="3.48" YPos="2" ZPos="111.07" IP="192.168.3.114" AbsolutePosX="2203.47998046875" AbsolutePosY="2" AbsolutePosZ="1759.27001953125" />
-    <Device Name="#1机组就地MCC配电间2" AnchorId="88D6" XPos="3.48" YPos="2" ZPos="113.3" IP="192.168.3.120" AbsolutePosX="2203.47998046875" AbsolutePosY="2" AbsolutePosZ="1761.5" />
-    <Device Name="#1机组就地MCC配电间3" AnchorId="88C6" XPos="3.48" YPos="2" ZPos="115.33" IP="192.168.3.115" AbsolutePosX="2203.47998046875" AbsolutePosY="2" AbsolutePosZ="1763.53002929688" />
-    <Device Name="#1机组就地MCC配电间4" AnchorId="88D8" XPos="16.07" YPos="2" ZPos="111.13" IP="192.168.3.121" AbsolutePosX="2216.07006835938" AbsolutePosY="2" AbsolutePosZ="1759.32995605469" />
-    <Device Name="#1机组就地MCC配电间5" AnchorId="88DC" XPos="16.07" YPos="2" ZPos="113.3" IP="192.168.3.122" AbsolutePosX="2216.07006835938" AbsolutePosY="2" AbsolutePosZ="1761.5" />
-    <Device Name="#1机组就地MCC配电间6" AnchorId="88E0" XPos="16.07" YPos="2" ZPos="115.39" IP="192.168.3.123" AbsolutePosX="2216.07006835938" AbsolutePosY="2" AbsolutePosZ="1763.58996582031" />
-    <Device Name="#1壁装离地高22" AnchorId="8822" XPos="2.94" YPos="2" ZPos="116.99" IP="192.168.3.52" AbsolutePosX="2202.93994140625" AbsolutePosY="2" AbsolutePosZ="1765.18005371094" />
-    <Device Name="#1壁装离地高23" AnchorId="8852" XPos="1.09" YPos="2" ZPos="122.8" IP="192.168.3.63" AbsolutePosX="2201.09008789063" AbsolutePosY="2" AbsolutePosZ="1771" />
-    <Device Name="#1壁装离地高24" AnchorId="8840" XPos="7.18" YPos="2" ZPos="117.73" IP="192.168.3.55" AbsolutePosX="2207.17993164063" AbsolutePosY="2" AbsolutePosZ="1765.93005371094" />
-    <Device Name="#1壁装离地高25" AnchorId="8850" XPos="13.18" YPos="2" ZPos="117.18" IP="192.168.3.62" AbsolutePosX="2213.17993164063" AbsolutePosY="2" AbsolutePosZ="1765.38000488281" />
-    <Device Name="#1壁装离地高26" AnchorId="8856" XPos="17.85" YPos="2" ZPos="117.44" IP="192.168.3.65" AbsolutePosX="2217.85009765625" AbsolutePosY="2" AbsolutePosZ="1765.64001464844" />
+    <Device Name="#1壁装离地高14" AnchorId="8810" XPos="16.7" YPos="2.24" ZPos="109.48" IP="192.168.3.48" AbsolutePosX="2216.7" AbsolutePosY="2.24" AbsolutePosZ="1757.68" />
+    <Device Name="#1壁装离地高15(改）" AnchorId="8842" XPos="18.64" YPos="2.06" ZPos="105.29" IP="192.168.3.56" AbsolutePosX="2218.64" AbsolutePosY="2.06" AbsolutePosZ="1753.49" />
+    <Device Name="#1壁装离地高16" AnchorId="882C" XPos="25.09" YPos="2.23" ZPos="105.24" IP="192.168.3.54" AbsolutePosX="2225.09" AbsolutePosY="2.23" AbsolutePosZ="1753.44" />
+    <Device Name="#1壁装离地高17" AnchorId="8844" XPos="31.97" YPos="2.27" ZPos="105.24" IP="192.168.3.57" AbsolutePosX="2231.97" AbsolutePosY="2.27" AbsolutePosZ="1753.44" />
+    <Device Name="#1壁装离地高18" AnchorId="8854" XPos="31.27" YPos="1.75" ZPos="115.91" IP="192.168.3.64" AbsolutePosX="2231.27" AbsolutePosY="1.75" AbsolutePosZ="1764.11" />
+    <Device Name="#1壁装离地高19" AnchorId="8820" XPos="43.51" YPos="2.32" ZPos="104.97" IP="192.168.3.51" AbsolutePosX="2243.51" AbsolutePosY="2.32" AbsolutePosZ="1753.17" />
+    <Device Name="#1壁装离地高20" AnchorId="884C" XPos="44.51" YPos="2.25" ZPos="113.55" IP="192.168.3.60" AbsolutePosX="2244.51" AbsolutePosY="2.25" AbsolutePosZ="1761.75" />
+    <Device Name="#1壁装离地高21" AnchorId="8828" XPos="16.59" YPos="2.02" ZPos="115.36" IP="192.168.3.53" AbsolutePosX="2216.59" AbsolutePosY="2.02" AbsolutePosZ="1763.56" />
+    <Device Name="#1机组就地MCC配电间1" AnchorId="88C4" XPos="3.44" YPos="2.62" ZPos="111.23" IP="192.168.3.114" AbsolutePosX="2203.44" AbsolutePosY="2.62" AbsolutePosZ="1759.43" />
+    <Device Name="#1机组就地MCC配电间2" AnchorId="88D6" XPos="3.44" YPos="2.62" ZPos="113.54" IP="192.168.3.120" AbsolutePosX="2203.44" AbsolutePosY="2.62" AbsolutePosZ="1761.74" />
+    <Device Name="#1机组就地MCC配电间3" AnchorId="88C6" XPos="3.44" YPos="2.62" ZPos="115.34" IP="192.168.3.115" AbsolutePosX="2203.44" AbsolutePosY="2.62" AbsolutePosZ="1763.54" />
+    <Device Name="#1机组就地MCC配电间4" AnchorId="88D8" XPos="16.11" YPos="2.62" ZPos="111.27" IP="192.168.3.121" AbsolutePosX="2216.11" AbsolutePosY="2.62" AbsolutePosZ="1759.47" />
+    <Device Name="#1机组就地MCC配电间5" AnchorId="88DC" XPos="16.11" YPos="2.62" ZPos="113.51" IP="192.168.3.122" AbsolutePosX="2216.11" AbsolutePosY="2.62" AbsolutePosZ="1761.71" />
+    <Device Name="#1机组就地MCC配电间6" AnchorId="88E0" XPos="16.11" YPos="2.62" ZPos="115.23" IP="192.168.3.123" AbsolutePosX="2216.11" AbsolutePosY="2.62" AbsolutePosZ="1763.43" />
+    <Device Name="#1壁装离地高22" AnchorId="8822" XPos="2.8" YPos="1.96" ZPos="117.1" IP="192.168.3.52" AbsolutePosX="2202.8" AbsolutePosY="1.96" AbsolutePosZ="1765.3" />
+    <Device Name="#1壁装离地高23" AnchorId="8852" XPos="1.04" YPos="1.96" ZPos="123.06" IP="192.168.3.63" AbsolutePosX="2201.04" AbsolutePosY="1.96" AbsolutePosZ="1771.26" />
+    <Device Name="#1壁装离地高24" AnchorId="8840" XPos="7.2" YPos="2.06" ZPos="117.69" IP="192.168.3.55" AbsolutePosX="2207.2" AbsolutePosY="2.06" AbsolutePosZ="1765.89" />
+    <Device Name="#1壁装离地高25" AnchorId="8850" XPos="13.13" YPos="2.05" ZPos="117.04" IP="192.168.3.62" AbsolutePosX="2213.13" AbsolutePosY="2.05" AbsolutePosZ="1765.24" />
+    <Device Name="#1壁装离地高26" AnchorId="8856" XPos="17.96" YPos="2.4" ZPos="116.95" IP="192.168.3.65" AbsolutePosX="2217.96" AbsolutePosY="2.4" AbsolutePosZ="1765.15" />
     <Device Name="#1壁装离地高27" AnchorId="8818" XPos="12.85" YPos="2" ZPos="123.44" IP="192.168.3.50" AbsolutePosX="2212.85009765625" AbsolutePosY="2" AbsolutePosZ="1771.64001464844" />
-    <Device Name="#1汽机房检修场地1" AnchorId="886C" XPos="1.11" YPos="2" ZPos="132.48" IP="192.168.3.74" AbsolutePosX="2201.11010742188" AbsolutePosY="2" AbsolutePosZ="1780.68005371094" />
-    <Device Name="#1汽机房检修场地2" AnchorId="886A" XPos="6.66" YPos="2" ZPos="132.49" IP="192.168.3.73" AbsolutePosX="2206.65991210938" AbsolutePosY="2" AbsolutePosZ="1780.68994140625" />
-    <Device Name="#1汽机房检修场地3" AnchorId="8866" XPos="6.77" YPos="2" ZPos="143.03" IP="192.168.3.71" AbsolutePosX="2206.77001953125" AbsolutePosY="2" AbsolutePosZ="1791.22998046875" />
-    <Device Name="#1壁装离地高28" AnchorId="8880" XPos="7.77" YPos="2" ZPos="140.75" IP="192.168.3.84" AbsolutePosX="2207.77" AbsolutePosY="2" AbsolutePosZ="1788.95" />
+    <Device Name="#1汽机房检修场地1" AnchorId="886C" XPos="1.04" YPos="2.25" ZPos="132.53" IP="192.168.3.74" AbsolutePosX="2201.04" AbsolutePosY="2.25" AbsolutePosZ="1780.73" />
+    <Device Name="#1汽机房检修场地2" AnchorId="886A" XPos="6.71" YPos="2.2" ZPos="132.46" IP="192.168.3.73" AbsolutePosX="2206.71" AbsolutePosY="2.2" AbsolutePosZ="1780.66" />
+    <Device Name="#1汽机房检修场地3" AnchorId="8866" XPos="6.81" YPos="2.27" ZPos="143.04" IP="192.168.3.71" AbsolutePosX="2206.81" AbsolutePosY="2.27" AbsolutePosZ="1791.24" />
+    <Device Name="#1壁装离地高28" AnchorId="8880" XPos="8.45" YPos="2.22" ZPos="141.39" IP="192.168.3.84" AbsolutePosX="2208.45" AbsolutePosY="2.22" AbsolutePosZ="1789.59" />
     <Device Name="#1壁装离地高29" AnchorId="8870" XPos="18.38" YPos="2" ZPos="133.2" IP="192.168.3.76" AbsolutePosX="2218.3798828125" AbsolutePosY="2" AbsolutePosZ="1781.40002441406" />
-    <Device Name="#1壁装离地高30" AnchorId="8868" XPos="18.91" YPos="2" ZPos="143.06" IP="192.168.3.72" AbsolutePosX="2218.90991210938" AbsolutePosY="2" AbsolutePosZ="1791.26000976563" />
+    <Device Name="#1壁装离地高30" AnchorId="8868" XPos="18.84" YPos="2.17" ZPos="143.08" IP="192.168.3.72" AbsolutePosX="2218.84" AbsolutePosY="2.17" AbsolutePosZ="1791.28" />
     <Device Name="#1壁装离地高31" AnchorId="8882" XPos="24.8" YPos="2" ZPos="133.39" IP="192.168.3.85" AbsolutePosX="2224.80004882813" AbsolutePosY="2" AbsolutePosZ="1781.58996582031" />
     <Device Name="#1壁装离地高32" AnchorId="887E" XPos="30.04" YPos="2" ZPos="139" IP="192.168.3.83" AbsolutePosX="2230.0400390625" AbsolutePosY="2" AbsolutePosZ="1787.19995117188" />
-    <Device Name="#1壁装离地高33" AnchorId="8864" XPos="43.7" YPos="2" ZPos="143.87" IP="192.168.3.70" AbsolutePosX="2243.69995117188" AbsolutePosY="2" AbsolutePosZ="1792.06994628906" />
-    <Device Name="#1壁装离地高34" AnchorId="8874" XPos="35.94" YPos="2" ZPos="149.12" IP="192.168.3.78" AbsolutePosX="2235.93994140625" AbsolutePosY="2" AbsolutePosZ="1797.31994628906" />
-    <Device Name="#1壁装离地高35" AnchorId="885A" XPos="27.15" YPos="2" ZPos="148.57" IP="192.168.3.66" AbsolutePosX="2227.14990234375" AbsolutePosY="2" AbsolutePosZ="1796.77001953125" />
+    <Device Name="#1壁装离地高33" AnchorId="8864" XPos="43.71" YPos="1.91" ZPos="143.69" IP="192.168.3.70" AbsolutePosX="2243.71" AbsolutePosY="1.91" AbsolutePosZ="1791.89" />
+    <Device Name="#1壁装离地高34" AnchorId="8874" XPos="36.22" YPos="2.07" ZPos="149.06" IP="192.168.3.78" AbsolutePosX="2236.22" AbsolutePosY="2.07" AbsolutePosZ="1797.26" />
+    <Device Name="#1壁装离地高35" AnchorId="885A" XPos="27.06" YPos="2.08" ZPos="148.53" IP="192.168.3.66" AbsolutePosX="2227.06" AbsolutePosY="2.08" AbsolutePosZ="1796.73" />
     <Device Name="#1壁装离地高36" AnchorId="887C" XPos="25.4" YPos="2" ZPos="143.05" IP="192.168.3.82" AbsolutePosX="2225.39990234375" AbsolutePosY="2" AbsolutePosZ="1791.25" />
-    <Device Name="#1壁装离地高37" AnchorId="887A" XPos="7.01" YPos="2" ZPos="151.08" IP="192.168.3.81" AbsolutePosX="2207.01000976563" AbsolutePosY="2" AbsolutePosZ="1799.28002929688" />
-    <Device Name="#1壁装离地高38" AnchorId="Code_123" XPos="0.675" YPos="2" ZPos="151.272" IP="" AbsolutePosX="0.675000011920929" AbsolutePosY="2" AbsolutePosZ="151.272003173828" />
+    <Device Name="#1壁装离地高37" AnchorId="886E" XPos="7.01" YPos="2.29" ZPos="151.11" IP="192.168.3.75" AbsolutePosX="2207.01" AbsolutePosY="2.29" AbsolutePosZ="1799.31" />
+    <Device Name="#1壁装离地高38" AnchorId="887A" XPos="0.47" YPos="2.14" ZPos="151.11" IP="192.168.3.81" AbsolutePosX="2200.47" AbsolutePosY="2.14" AbsolutePosZ="1799.31" />
   </DeviceList>
   <DeviceList Name="主厂房4.5m层">
     <Device Name="#2变频起动柜室1" AnchorId="89AA" XPos="0.281" YPos="2" ZPos="1.132" IP="192.168.3.213" AbsolutePosX="2200.28002929688" AbsolutePosY="6.5" AbsolutePosZ="1649.32995605469" />
