@@ -221,7 +221,7 @@ namespace LocationServices.Locations
             foreach (Dev_DoorAccess item in doorAccessList)
             {
                 var doorAccess = db.Dev_DoorAccess.DeleteById(item.Id);
-                var dev = db.DevInfos.DeleteById(item.DevID);
+                var dev = db.DevInfos.DeleteById(item.DevInfoId);
                 //bool posResult = db.DevPos.DeleteById(item.DevID);
                 bool valueTemp = doorAccess!=null && dev!=null;
                 if (!valueTemp) value = valueTemp;
@@ -576,6 +576,11 @@ namespace LocationServices.Locations
             if (lst == null)
             {
                 lst = new List<EntranceGuardActionInfo>();
+            }
+
+            if (lst.Count == 0)
+            {
+                lst = null;
             }
             
             return lst;

@@ -142,7 +142,7 @@ namespace BLL
                 var area = areas.Find(i => i.Id == pos.AreaId);
                 if (area != null)
                 {
-                    if (area.IsPark())//电厂园区,基站属于园区或者楼层
+                    if (area.IsPark()) //电厂园区,基站属于园区或者楼层
                     {
                         SetAreaInPark(pos, area);
                     }
@@ -151,20 +151,30 @@ namespace BLL
                         SetAreaInFloor(pos, area);
                     }
                 }
+                else
+                {
+                    area = areas[1];
+                    SetAreaByPosition(pos, area);
+                }
             }
             else
             {
                 var area = areas[1];
-                if (area.IsPark())//电厂园区,基站属于园区或者楼层
+                SetAreaByPosition(pos, area);
+            }
+        }
+
+        private static void SetAreaByPosition(Position pos, Area area)
+        {
+            if (area.IsPark()) //电厂园区,基站属于园区或者楼层
+            {
+                var inArea = SetAreaInPark(pos, area);
+                if (inArea != null) //某个建筑物
                 {
-                    var inArea=SetAreaInPark(pos, area);
-                    if (inArea != null)//某个建筑物
+                    var floor = inArea.GetFloorByHeight(pos.Y);
+                    if (floor != null)
                     {
-                        var floor = inArea.GetFloorByHeight(pos.Y);
-                        if (floor != null)
-                        {
-                            SetAreaInFloor(pos, floor);
-                        }
+                        SetAreaInFloor(pos, floor);
                     }
                 }
             }
@@ -172,7 +182,7 @@ namespace BLL
 
         private void SetAreaByArchor(Position pos)
         {
-            var archorList = archors.Where(i => pos.Archors.Contains(i.Code));
+            var archorList = archors.Where(i => pos.Archors.Contains(i.Code)).ToList();
             var areaCount = new Dictionary<int, int>();
             int maxCount = 0;
             int maxArea = 0;

@@ -202,6 +202,13 @@ namespace DbModel.LocationHistory.Data
 
         public string _info;
 
+        /// <summary>
+        /// 解析位置信息
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="offsetX">偏移量X 和定位引擎约定好具体偏移数值</param>
+        /// <param name="offsetY">偏移量Y 和定位引擎约定好具体偏移数值</param>
+        /// <returns></returns>
         public bool Parse(string info,float offsetX, float offsetY)
         {
             try
@@ -211,8 +218,19 @@ namespace DbModel.LocationHistory.Data
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
-                X = float.Parse(parts[1])+ offsetX;//平面位置
-                Z = float.Parse(parts[2])+ offsetY;//平面位置
+                float x = float.Parse(parts[1]);
+                float y = float.Parse(parts[2]);
+                if (x < offsetX)
+                {
+                    X = x + offsetX; //平面位置
+                    Z = y + offsetY; //平面位置
+                }
+                else //模拟数据是可以没有偏移量的 看模拟程序的版本
+                {
+                    X = x;
+                    Z = y;
+                }
+               
                 Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = long.Parse(parts[4]);
                 DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);

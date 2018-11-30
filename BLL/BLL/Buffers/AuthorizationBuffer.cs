@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DbModel.Location.Alarm;
+using DbModel.LocationHistory.Alarm;
+using DbModel.Tools;
 
 namespace BLL.Buffers
 {
@@ -16,6 +18,8 @@ namespace BLL.Buffers
 
         List<AreaAuthorizationRecord> aarList;
         List<CardRole> roles;
+        private List<LocationAlarm> realAlarms;
+        private List<LocationAlarmHistory> hisAlarms = new List<LocationAlarmHistory>();
         public AuthorizationBuffer(Bll bll)
         {
             _bll = bll;
@@ -25,14 +29,90 @@ namespace BLL.Buffers
         {
             aarList = _bll.AreaAuthorizationRecords.ToList();
             roles = _bll.CardRoles.ToList();
-            
+            realAlarms = _bll.LocationAlarms.ToList();//定位实时告警信息
+            //bll.LocationAlarms.AddRange(NewAlarms);
+
+            lock (hisAlarms)
+            {
+                if (hisAlarms.Count > 0)
+                {
+                    _bll.LocationAlarmHistorys.AddRange(hisAlarms);
+                    hisAlarms.Clear();
+                }
+            }
         }
 
+        public List<LocationAlarm> GetNewAlarms(List<Position> list1)
+        {
+            var alarms = GetAlarms(list1);
+            var updateAlarms=new List<LocationAlarm>();//修改的告警
+            var addedAlarms = new List<LocationAlarm>();//新增的告警
+            var removeAlarms = new List<LocationAlarm>();//恢复的告警
+            removeAlarms.AddRange(realAlarms);
+            var noChangeAlarms = new List<LocationAlarm>();//没有变化的告警
+            foreach (var alarm in alarms)
+            {
+                var realAlarm = realAlarms.Find(i => i.AuzId==alarm.AuzId && i.LocationCardId == alarm.LocationCardId);
+                //某张卡基于某个规则产生的告警
+                if (realAlarm == null)
+                {
+                    addedAlarms.Add(alarm);
+                }
+                else
+                {
+                    removeAlarms.Remove(realAlarm);
+                    var id1 = realAlarm.GetAlarmId();
+                    var id2 = alarm.GetAlarmId();
+                    if (id1 == id2)
+                    {
+                        noChangeAlarms.Add(realAlarm);
+                    }
+                    else
+                    {
+                        realAlarm.Update(realAlarm);
+                        updateAlarms.Add(realAlarm);
+                    }
+                }
+            }
+            var newAlarms = new List<LocationAlarm>();
+            newAlarms.AddRange(addedAlarms);
+            newAlarms.AddRange(updateAlarms);
+            newAlarms.AddRange(removeAlarms);
+            foreach (var alarm in removeAlarms)
+            {
+                alarm.AlarmLevel = LocationAlarmLevel.正常;
+            }
+
+            _bll.LocationAlarms.AddRange(addedAlarms);
+            realAlarms.AddRange(addedAlarms);
+
+            _bll.LocationAlarms.EditRange(updateAlarms);
+            _bll.LocationAlarms.EditRange(removeAlarms);
+            //_bll.LocationAlarms.RemoveList(removeAlarms);
+
+            foreach (var alarm in newAlarms)
+            {
+                hisAlarms.Add(alarm.RemoveToHistory());
+            }
+            return newAlarms;
+        }
+
+        List<LocationAlarm> alarms= new List<LocationAlarm>();
+        Dictionary<Position, List<LocationAlarm>> posAlarms = new Dictionary<Position, List<LocationAlarm>>();
+        List<Position> noAlarmPos = new List<Position>();
+
+        private LocationAlarm AddAlarm(Position p, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level)
+        {
+            LocationAlarm alarm = new LocationAlarm(p, arr, content, level);
+            alarms.Add(alarm);
+            return alarm;
+        }
         public List<LocationAlarm> GetAlarms(List<Position> list1)
         {
-            var alarms = new List<LocationAlarm>();
-            var posAlarms = new Dictionary<Position, List<LocationAlarm>>();
-            var noAlarmPos = new List<Position>();
+            alarms = new List<LocationAlarm>();
+            posAlarms = new Dictionary<Position, List<LocationAlarm>>();
+            noAlarmPos = new List<Position>();
+
             LoadData();
             foreach (Position p in list1)
             {
@@ -54,12 +134,11 @@ namespace BLL.Buffers
                             {
                                 if (arr.IsTimeValid(p.DateTime)==false)
                                 {
-                                    LocationAlarm alarm = new LocationAlarm(p, "未在有效时间范围内");
-                                    posAlarm.Add(alarm);
-                                    alarms.Add(alarm);
+                                    posAlarm.Add(AddAlarm(p, arr, "未在有效时间范围内", LocationAlarmLevel.四级告警));
                                 }
                                 else
                                 {
+                                    posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
                                     noAlarmPos.Add(p);
                                 }
                             }
@@ -67,44 +146,37 @@ namespace BLL.Buffers
                             {
                                 if (arr.IsTimeValid(p.DateTime) == false)
                                 {
-                                    LocationAlarm alarm = new LocationAlarm(p, "未在有效时间范围内");
-                                    posAlarm.Add(alarm);
-                                    alarms.Add(alarm);
+                                    posAlarm.Add(AddAlarm(p, arr, "未在有效时间范围内", LocationAlarmLevel.四级告警));
                                 }
                                 else
                                 {
+                                    posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
                                     noAlarmPos.Add(p);
                                 }
                             }
                             else if (arr.AccessType == AreaAccessType.Leave)
                             {
-                                LocationAlarm alarm = new LocationAlarm(p, "进入无权限的区域，必须离开");
-                                posAlarm.Add(alarm);
-                                alarms.Add(alarm);
+                                posAlarm.Add(AddAlarm(p, arr, "进入无权限的区域，必须离开", LocationAlarmLevel.三级告警));
                             }
                             else if (arr.AccessType == AreaAccessType.None)
                             {
-                                LocationAlarm alarm = new LocationAlarm(p, "进入无权限的区域");
-                                posAlarm.Add(alarm);
-                                alarms.Add(alarm);
+                                posAlarm.Add(AddAlarm(p, arr, "进入无权限的区域", LocationAlarmLevel.三级告警));
                             }
                             else
                             {
+                                posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
                                 noAlarmPos.Add(p);
                             }
                         }
                     }
                     else
                     {
-                        LocationAlarm alarm=new LocationAlarm(p,"不存在可进入的区域");
-                        posAlarm.Add(alarm);
-                        alarms.Add(alarm);
+                        posAlarm.Add(AddAlarm(p, null, "标签所在区域未配置权限", LocationAlarmLevel.四级告警));
                     }
                 }
                 else
                 {
-                    LocationAlarm alarm = new LocationAlarm(p, "未配置区域权限");
-                    posAlarm.Add(alarm);
+                    posAlarm.Add(AddAlarm(p, null, "标签未配置区域权限", LocationAlarmLevel.四级告警));
                 }
                 //1.找出区域相关的所有权限
                 //2.判断当前定位卡是否有权限进入该区域

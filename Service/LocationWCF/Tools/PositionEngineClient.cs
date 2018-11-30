@@ -16,6 +16,7 @@ using DbModel.Tools;
 using DbModel.Location.Authorizations;
 using BLL.Buffers;
 using DbModel.Location.Alarm;
+using LocationServer;
 
 namespace LocationServices.Tools
 {
@@ -30,7 +31,10 @@ namespace LocationServices.Tools
                 Logs = new PositionEngineLog();
             }
             Logs.WriteLogLeft(txt);
-            Log.Info(txt);
+            if (AppContext.WritePositionLog)
+            {
+                Log.Info(txt);
+            }
         }
 
         public void WriteLogRight(string txt)
@@ -183,8 +187,7 @@ namespace LocationServices.Tools
                 //todo:添加定位权限判断
                 if (r)
                 {
-                    NewAlarms = ab.GetAlarms(list1);
-                    bll.LocationAlarms.AddRange(NewAlarms);
+                    NewAlarms = ab.GetNewAlarms(list1);
                     if (NewAlarmsFired != null)
                     {
                         NewAlarmsFired(NewAlarms);
