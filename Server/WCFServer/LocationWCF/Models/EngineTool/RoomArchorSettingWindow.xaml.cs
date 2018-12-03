@@ -471,6 +471,11 @@ namespace LocationServer.Windows
                     TbCode.ItemsSource = devs;
                     IPCode1.ItemsSource = devs;
                     IPCode1.IsDropDownOpen = true;
+
+                    if (devs.Count() == 1)
+                    {
+                        IPCode1.SelectedItem = devs[0];
+                    }
                 }
             }
         }
@@ -493,12 +498,17 @@ namespace LocationServer.Windows
             if (archorList != null && archorList.ArchorList != null)
             {
                 var code = (TbCode.Text).ToLower();
-                var devs = archorList.ArchorList.Where(i => (i.ArchorID).ToLower().Contains(code));
+                var devs = archorList.ArchorList.Where(i => (i.ArchorID).ToLower().Contains(code)).ToList();
                 if (devs != null && devs.Count() > 0)
                 {
                     TbCode.ItemsSource = devs;
                     IPCode1.ItemsSource = devs;
                     TbCode.IsDropDownOpen = true;
+
+                    if (devs.Count() == 1)
+                    {
+                        TbCode.SelectedItem = devs[0];
+                    }
                 }
             }
         }
