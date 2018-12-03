@@ -85,6 +85,26 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "位置点")]
         public List<Point> Points { get; set; }
 
+        public Point GetCenter()
+        {
+            double x = 0;
+            double y = 0;
+            double z = 0;
+            if (Points != null)
+            {
+                foreach (Point point in Points)
+                {
+                    x += point.X;
+                    y += point.Y;
+                    z += point.Z;
+                }
+                x /= Points.Count;
+                y /= Points.Count;
+                z /= Points.Count;
+            }
+            return new Point(x, y, z, 0);
+        }
+
         //[DataMember]
         //public int ParentId { get; set; }
 

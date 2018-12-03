@@ -410,6 +410,8 @@ namespace DbModel.Location.AreaAndDev
             RX = 0;
             RY = 0;
             RZ = 0;
+
+            InitBound = bound;
         }
 
         public Area Clone()

@@ -69,7 +69,7 @@ namespace BLL.Buffers
                     }
                     else
                     {
-                        realAlarm.Update(realAlarm);
+                        realAlarm.Update(alarm);
                         updateAlarms.Add(realAlarm);
                     }
                 }
@@ -77,17 +77,17 @@ namespace BLL.Buffers
             var newAlarms = new List<LocationAlarm>();
             newAlarms.AddRange(addedAlarms);
             newAlarms.AddRange(updateAlarms);
-            newAlarms.AddRange(removeAlarms);
-            foreach (var alarm in removeAlarms)
-            {
-                alarm.AlarmLevel = LocationAlarmLevel.正常;
-            }
+            //newAlarms.AddRange(removeAlarms);
+            //foreach (var alarm in removeAlarms)
+            //{
+            //    alarm.AlarmLevel = LocationAlarmLevel.正常;
+            //}
 
             _bll.LocationAlarms.AddRange(addedAlarms);
             realAlarms.AddRange(addedAlarms);
 
             _bll.LocationAlarms.EditRange(updateAlarms);
-            _bll.LocationAlarms.EditRange(removeAlarms);
+            //_bll.LocationAlarms.EditRange(removeAlarms);
             //_bll.LocationAlarms.RemoveList(removeAlarms);
 
             foreach (var alarm in newAlarms)

@@ -132,7 +132,7 @@ namespace BLL
         private void SetArea(Position pos)
         {
             AddSimulateArchor(pos);
-            if (pos.Code == "0009")
+            if (pos.Code == "0002")
             {
                 int i = 0;
             }
@@ -161,6 +161,11 @@ namespace BLL
             {
                 var area = areas[1];
                 SetAreaByPosition(pos, area);
+            }
+
+            if (pos.AreaId == 0)
+            {
+                Console.WriteLine("pos.AreaId == 0");
             }
         }
 

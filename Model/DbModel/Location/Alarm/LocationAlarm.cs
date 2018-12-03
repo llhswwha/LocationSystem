@@ -143,6 +143,10 @@ namespace DbModel.Location.Alarm
             AlarmLevel = level;
             LocationCardId = p.CardId;
             PersonnelId = p.PersonnelID;
+            //if (p.AreaId == 0)
+            //{
+            //    Console.WriteLine("p.AreaId == 0");
+            //}
             AreadId = p.AreaId;
             if(aar!=null)
                 AuzId = aar.Id;//触发告警的权限规则
@@ -178,7 +182,7 @@ namespace DbModel.Location.Alarm
 
         public void Update(LocationAlarm alarm)
         {
-            this.Id = alarm.Id;
+            //this.Id = alarm.Id;
             this.AlarmType = alarm.AlarmType;
             this.AlarmLevel = alarm.AlarmLevel;
             this.LocationCardId = alarm.LocationCardId;
@@ -219,7 +223,7 @@ namespace DbModel.Location.Alarm
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}",Content,AreadId,PersonnelId);
+            return string.Format("Content:{0},AreaId:{1},PersonId:{2}",Content,AreadId,PersonnelId);
         }
 
         public string GetAlarmId()

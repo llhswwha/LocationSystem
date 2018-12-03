@@ -209,6 +209,9 @@
     <Compile Include="Models\EngineTool\RoomArchorSettingWindow.xaml.cs">
       <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\NewAreaWindow.xaml.cs">
+      <DependentUpon>NewAreaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Simple\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\RoomArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewAreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

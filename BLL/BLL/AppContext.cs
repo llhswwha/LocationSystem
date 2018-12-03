@@ -22,7 +22,7 @@ namespace LocationServer
 
         public static Bll GetLocationBll()
         {
-            return new Bll(false, true, false);
+            return new Bll(false, true, true);
         }
 
         public static int DbSource = 0;
