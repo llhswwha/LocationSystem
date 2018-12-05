@@ -13,7 +13,7 @@ using Location.BLL.Tool;
 
 namespace BLL
 {
-    public class TagRelationBuffer: BaseBuffer
+    public class TagRelationBuffer : BaseBuffer
     {
         private List<Personnel> personnels;
         private List<LocationCardToPersonnel> tagToPersons;
@@ -32,7 +32,7 @@ namespace BLL
 
         public TagRelationBuffer()
         {
-            this.bll = new Bll(false,false,false,false);
+            this.bll = new Bll(false, false, false, false);
             LoadData();
         }
 
@@ -78,7 +78,7 @@ namespace BLL
             }
         }
 
-        class ArchorDistance:IComparable<ArchorDistance>
+        class ArchorDistance : IComparable<ArchorDistance>
         {
             public double Distance { get; set; }
             public Archor Archor { get; set; }
@@ -241,8 +241,17 @@ namespace BLL
             }
             if (containsAreas.Count > 0)
             {
-                pos.SetArea(containsAreas[0]);
-                pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
+                Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
+                if (areaT == null)
+                {
+                    //pos.SetArea(containsAreas[0]);
+                    areaT = containsAreas[0];
+                }
+
+                pos.SetArea(areaT);
+
+                //pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
+                pos.AreaPath = building.Name + "." + area.Name + "." + areaT.Name;
             }
             else
             {
@@ -327,7 +336,7 @@ namespace BLL
             }
             else//新的定位卡 不存在人员 ；策略，添加一个标签 同时绑定一个人员 ，后续可以改成绑定其他人员。
             {
-                tag=AddTagByPos(pos);
+                tag = AddTagByPos(pos);
                 RefreshTags();
             }
         }
