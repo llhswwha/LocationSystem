@@ -94,6 +94,10 @@ namespace BLL.Buffers
             {
                 hisAlarms.Add(alarm.RemoveToHistory());
             }
+            if (newAlarms.Count > 0)
+            {
+                Console.WriteLine("newAlarms.Count > 0");
+            }
             return newAlarms;
         }
 
@@ -117,6 +121,11 @@ namespace BLL.Buffers
             foreach (Position p in list1)
             {
                 if (p == null) continue;
+                if (p.AreaId == null || p.AreaId == 0)
+                {
+                    AddAlarm(p, null, "不在园区有效区域内", LocationAlarmLevel.四级告警);
+                    continue;
+                }
                 List<LocationAlarm> posAlarm = new List<LocationAlarm>();
                 posAlarms[p] = posAlarm;
                 CardRole role = roles.Find(i => i.Id == p.RoleId);
@@ -156,11 +165,11 @@ namespace BLL.Buffers
                             }
                             else if (arr.AccessType == AreaAccessType.Leave)
                             {
-                                posAlarm.Add(AddAlarm(p, arr, "进入无权限的区域，必须离开", LocationAlarmLevel.三级告警));
+                                posAlarm.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'，必须离开",p.Area), LocationAlarmLevel.三级告警));
                             }
                             else if (arr.AccessType == AreaAccessType.None)
                             {
-                                posAlarm.Add(AddAlarm(p, arr, "进入无权限的区域", LocationAlarmLevel.三级告警));
+                                posAlarm.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'", p.Area), LocationAlarmLevel.三级告警));
                             }
                             else
                             {
@@ -171,7 +180,7 @@ namespace BLL.Buffers
                     }
                     else
                     {
-                        posAlarm.Add(AddAlarm(p, null, "标签所在区域未配置权限", LocationAlarmLevel.四级告警));
+                        posAlarm.Add(AddAlarm(p, null, string.Format("标签角色'{0}'在区域'{1}'未配置权限", role, p.Area), LocationAlarmLevel.四级告警));
                     }
                 }
                 else

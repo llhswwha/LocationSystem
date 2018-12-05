@@ -104,7 +104,13 @@ namespace DbModel.LocationHistory.Data
 
         public void SetArea(Area area)
         {
-            if (area == null) return;
+            if (area == null)
+            {
+                AreaId = null;
+                AreaPath = "";
+                return;
+            }
+            Area = area;
             AreaId = area.Id;
             AreaPath = area.Name;
             AreaState = area.IsOnLocationArea ? 0 : 1;
@@ -167,6 +173,13 @@ namespace DbModel.LocationHistory.Data
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
         public int? AreaId { get; set; }
+
+        /// <summary>
+        /// 基站所在的区域
+        /// </summary>
+        [NotMapped]
+        public Area Area { get; set; }
+
 
         [DataMember]
         [MaxLength(64)]

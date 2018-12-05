@@ -8,6 +8,7 @@ using DbModel.Location.Data;
 using DbModel.Location.Person;
 using DbModel.Location.Relation;
 using DbModel.LocationHistory.Data;
+using DbModel.Tools;
 using Location.BLL.Tool;
 
 namespace BLL
@@ -117,7 +118,10 @@ namespace BLL
                 if (relativeArchors.Count == 0)
                 {
                     distances.Sort();
-                    pos.AddArchor(distances[0].Archor.Code);
+                    if (distances.Count > 0)
+                    {
+                        pos.AddArchor(distances[0].Archor.Code);
+                    }
                 }
                 else
                 {
@@ -132,7 +136,7 @@ namespace BLL
         private void SetArea(Position pos)
         {
             AddSimulateArchor(pos);
-            if (pos.Code == "0002")
+            if (pos.Code == "00012")
             {
                 int i = 0;
             }
@@ -163,9 +167,9 @@ namespace BLL
                 SetAreaByPosition(pos, area);
             }
 
-            if (pos.AreaId == 0)
+            if (pos.AreaId == 0|| pos.AreaId == null)
             {
-                Console.WriteLine("pos.AreaId == 0");
+                Console.WriteLine("pos.AreaId == 0|| pos.AreaId == null");
             }
         }
 
@@ -176,10 +180,13 @@ namespace BLL
                 var inArea = SetAreaInPark(pos, area);
                 if (inArea != null) //某个建筑物
                 {
-                    var floor = inArea.GetFloorByHeight(pos.Y);
-                    if (floor != null)
+                    if (inArea.Type == AreaTypes.大楼)
                     {
-                        SetAreaInFloor(pos, floor);
+                        var floor = inArea.GetFloorByHeight(pos.Y);
+                        if (floor != null)
+                        {
+                            SetAreaInFloor(pos, floor);
+                        }
                     }
                 }
             }
@@ -188,25 +195,30 @@ namespace BLL
         private void SetAreaByArchor(Position pos)
         {
             var archorList = archors.Where(i => pos.Archors.Contains(i.Code)).ToList();
-            var areaCount = new Dictionary<int, int>();
-            int maxCount = 0;
-            int maxArea = 0;
-            foreach (Archor archor in archorList)
+            if (archorList.Count > 0)
             {
-                if (archor.ParentId == null) continue;
-                int parentId = (int)archor.ParentId;
-                if (!areaCount.ContainsKey(parentId))
+                var areaCount = new Dictionary<int, int>();
+                int maxCount = 0;
+                int maxArea = 0;
+                foreach (Archor archor in archorList)
                 {
-                    areaCount[parentId] = 0;
+                    if (archor.ParentId == null) continue;
+                    int parentId = (int)archor.ParentId;
+                    if (!areaCount.ContainsKey(parentId))
+                    {
+                        areaCount[parentId] = 0;
+                    }
+                    areaCount[parentId]++;
+                    if (areaCount[parentId] > maxCount)
+                    {
+                        maxArea = parentId;
+                        maxCount = areaCount[parentId];
+                    }
                 }
-                areaCount[parentId]++;
-                if (areaCount[parentId] > maxCount)
-                {
-                    maxArea = parentId;
-                    maxCount = areaCount[parentId];
-                }
+                //pos.AreaId = maxArea;
+                var area = areas.Find(i => i.Id == maxArea);
+                pos.SetArea(area);
             }
-            pos.AreaId = maxArea;
         }
 
         private static void SetAreaInFloor(Position pos, Area area)
@@ -218,6 +230,10 @@ namespace BLL
             {
                 var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
                 var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
+                if (item == null || item.InitBound == null)
+                {
+                    continue;
+                }
                 if (item.InitBound.Contains(x, y) /*&& item.IsOnLocationArea*/)
                 {
                     containsAreas.Add(item);
@@ -240,10 +256,6 @@ namespace BLL
             var boundAreas = new List<Area>();
             foreach (var item in area.Children)
             {
-                if (item.InitBound != null)
-                {
-                    boundAreas.Add(item);
-                }
                 foreach (var building in item.Children)
                 {
                     if (building.InitBound != null)
@@ -251,7 +263,13 @@ namespace BLL
                         boundAreas.Add(building);
                     }
                 }
+                if (item.InitBound != null)
+                {
+                    boundAreas.Add(item);
+                }
             }
+            boundAreas.Add(area);
+
             foreach (var boundArea in boundAreas)
             {
                 if (boundArea.InitBound.Contains(pos.X, pos.Z))
@@ -272,11 +290,16 @@ namespace BLL
                 inArea = containsAreas[0];
                 pos.SetArea(inArea);
             }
+            if (inArea == null)
+            {
+                Console.WriteLine("inArea == null");
+            }
             return inArea;
         }
 
         private void SetTagAndPerson(Position pos)
         {
+            if (tags == null) return;
             var tag = tags.Find(i => i.Code == pos.Code); //标签
             if (tag != null)
             {

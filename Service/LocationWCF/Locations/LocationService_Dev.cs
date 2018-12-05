@@ -585,5 +585,15 @@ namespace LocationServices.Locations
             
             return lst;
         }
+        /// <summary>
+        /// 根据模型名称，获取模型类型
+        /// </summary>
+        /// <param name="devModelName"></param>
+        /// <returns></returns>
+        public DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName)
+        {            
+            DbModel.Location.AreaAndDev.DevModel devModel = db.DevModels.FirstOrDefault(dev=>dev.Name==devModelName);
+            return devModel;
+        }
     }
 }

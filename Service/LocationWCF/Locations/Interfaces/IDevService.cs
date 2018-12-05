@@ -224,5 +224,13 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id);
+
+        /// <summary>
+        /// 根据模型名称，获取模型类型
+        /// </summary>
+        /// <param name="devModelName"></param>
+        /// <returns></returns>
+        [OperationContract]
+        DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName);
     }
 }

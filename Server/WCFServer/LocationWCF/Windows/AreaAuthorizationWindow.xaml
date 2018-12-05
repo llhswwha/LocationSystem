@@ -17,6 +17,18 @@
             </MenuItem>
         </Menu>
         <WPFClientControlLib:TopoTreeView Name="TopoTreeView1" Width="200"/>
-        <DataGrid Name="DataGrid1"></DataGrid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Header="权限配置">
+                <DataGrid Name="DataGrid1"></DataGrid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="权限分配">
+                <DataGrid Name="DataGrid2"></DataGrid>
+            </GroupBox>
+        </Grid>
+        
     </DockPanel>
 </Window>
