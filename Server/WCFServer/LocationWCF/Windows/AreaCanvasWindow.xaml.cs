@@ -128,14 +128,8 @@ namespace LocationServer
             ContextMenu areaContextMenu = new ContextMenu();
             areaContextMenu.AddMenu("设置区域", (tag) =>
             {
-                var win = new AreaInfoWindow();
-                win.Show();
                 var area = AreaCanvas1.SelectedArea;
-                if (area.Children == null)
-                {
-                    area.Children = areaService.GetListByPid(area.Id + "");
-                }
-                win.ShowInfo(area);
+                ShowAreaInfo(area);
             });
             areaContextMenu.AddMenu("删除区域", (tag) =>
             {
@@ -159,6 +153,17 @@ namespace LocationServer
                 }
                 return null;
             };
+        }
+
+        private void ShowAreaInfo(PhysicalTopology area)
+        {
+            var win = new AreaInfoWindow();
+            win.Show();
+            if (area.Children == null)
+            {
+                area.Children = areaService.GetListByPid(area.Id + "");
+            }
+            win.ShowInfo(area);
         }
 
         List<ArchorSetting> archorSettings;
@@ -287,7 +292,27 @@ namespace LocationServer
             topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
             topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
             topoTree.ExpandLevel(2);
-            
+            topoTree.Tree.ContextMenu=new ContextMenu();
+            topoTree.Tree.ContextMenu.AddMenu("添加区域", (obj) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+                NewAreaWindow win=new NewAreaWindow(area);
+                if (win.ShowDialog() == true)
+                {
+                    
+                }
+            });
+
+            topoTree.Tree.ContextMenu.AddMenu("设置区域", (tag) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+                ShowAreaInfo(area);
+            });
+            topoTree.Tree.ContextMenu.AddMenu("删除区域", (tag) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+                RemoveArea(area);
+            });
 
             if (_archors != null)
             {
@@ -351,7 +376,10 @@ namespace LocationServer
             else
             {
                 var dev= ResourceTreeView1.TopoTree.SelectedObject as DevEntity;
-                AreaCanvas1.SelectDevById(dev.Id);
+                if (dev != null)
+                {
+                    AreaCanvas1.SelectDevById(dev.Id);
+                }
             }
         }
 

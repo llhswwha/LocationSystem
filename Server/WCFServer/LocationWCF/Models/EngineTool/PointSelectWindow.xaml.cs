@@ -40,7 +40,10 @@ namespace LocationServer.Models.EngineTool
             var area = List1.SelectedItem as Area;
             if (area == null) return;
             var bound = area.InitBound;
-            List2.ItemsSource = bound.Points;
+            var points = new List<Point>();
+            points.AddRange(bound.Points);
+            points.Add(bound.GetCenter());
+            List2.ItemsSource = points;
             List2.SelectedItem = bound.GetClosePoint(dev.PosX, dev.PosZ);
 
             if (SelectedAreaChanged != null)

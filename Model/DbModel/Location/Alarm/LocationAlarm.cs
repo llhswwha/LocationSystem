@@ -6,6 +6,7 @@ using DbModel.Tools;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using DbModel.Location.Work;
 using DbModel.LocationHistory.Data;
 using Location.TModel.Tools;
 
@@ -62,6 +63,13 @@ namespace DbModel.Location.Alarm
         [DataMember]
         [Display(Name = "告警")]
         public int? AreadId  { get; set; }
+
+        /// <summary>
+        /// 告警规则
+        /// </summary>
+        [DataMember]
+        [Display(Name = "告警规则")]
+        public int? AuzId { get; set; }
 
         /// <summary>
         /// 告警内容
@@ -128,14 +136,20 @@ namespace DbModel.Location.Alarm
             HandleTimeStamp = TimeConvert.DateTimeToTimeStamp(HandleTime);
         }
 
-        public LocationAlarm(Position p,string content)
+        public LocationAlarm(Position p,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level)
         {
             SetTime();
             AlarmType = LocationAlarmType.区域告警;
-            AlarmLevel = LocationAlarmLevel.四级告警;
+            AlarmLevel = level;
             LocationCardId = p.CardId;
             PersonnelId = p.PersonnelID;
+            //if (p.AreaId == 0)
+            //{
+            //    Console.WriteLine("p.AreaId == 0");
+            //}
             AreadId = p.AreaId;
+            if(aar!=null)
+                AuzId = aar.Id;//触发告警的权限规则
             Content = content;
         }
 
@@ -166,6 +180,24 @@ namespace DbModel.Location.Alarm
             return copy;
         }
 
+        public void Update(LocationAlarm alarm)
+        {
+            //this.Id = alarm.Id;
+            this.AlarmType = alarm.AlarmType;
+            this.AlarmLevel = alarm.AlarmLevel;
+            this.LocationCardId = alarm.LocationCardId;
+            this.PersonnelId = alarm.PersonnelId;
+            this.AreadId = alarm.AreadId;
+            this.Content = alarm.Content;
+            this.AlarmTime = alarm.AlarmTime;
+            this.AlarmTimeStamp = alarm.AlarmTimeStamp;
+            this.HandleTime = alarm.HandleTime;
+            this.HandleTimeStamp = alarm.HandleTimeStamp;
+            this.Handler = alarm.Handler;
+            this.HandleType = alarm.HandleType;
+            this.AuzId = alarm.AuzId;
+        }
+
         public LocationAlarmHistory RemoveToHistory()
         {
             LocationAlarmHistory history = new LocationAlarmHistory();
@@ -182,6 +214,7 @@ namespace DbModel.Location.Alarm
             history.HandleTimeStamp = this.HandleTimeStamp;
             history.Handler = this.Handler;
             history.HandleType = this.HandleType;
+            history.AuzId = this.AuzId;
             history.HistoryTime = DateTime.Now;
             history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
 
@@ -190,7 +223,12 @@ namespace DbModel.Location.Alarm
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}",Content,AreadId,PersonnelId);
+            return string.Format("Content:{0},AreaId:{1},PersonId:{2}",Content,AreadId,PersonnelId);
+        }
+
+        public string GetAlarmId()
+        {
+            return "" + AuzId+AlarmType + AlarmLevel + LocationCardId + PersonnelId + AreadId + Content;
         }
 
     }

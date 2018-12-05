@@ -54,7 +54,7 @@ namespace LocationWCFServer
             InitData();
 
             AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
-
+            AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
 
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
         }

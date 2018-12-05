@@ -70,6 +70,7 @@ namespace DbModel.Location.Work
         {
             StartTime = new DateTime(2000, 1, 1, startH, startM, 0);
             EndTime = new DateTime(2000, 1, 1, endH, endM, endS);
+            TimeType = TimeSettingType.TimeRange;
         }
 
         /// <summary>
@@ -167,6 +168,20 @@ namespace DbModel.Location.Work
             copy = this.CloneObjectByBinary();
 
             return copy;
+        }
+
+        public AreaAuthorization()
+        {
+            CreateTime = DateTime.Now;
+            ModifyTime = DateTime.Now;
+        }
+
+        public static AreaAuthorization New()
+        {
+            var aa = new AreaAuthorization();
+            aa.CreateTime = DateTime.Now;
+            aa.ModifyTime = DateTime.Now;
+            return aa;
         }
     }
 

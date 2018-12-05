@@ -13,11 +13,16 @@ namespace LocationServer
 {
     public static class AppContext
     {
+        /// <summary>
+        /// 是否将定位引擎获取的数据写入日志
+        /// </summary>
+        public static bool WritePositionLog { get; set; }
+
         public static bool AutoStartServer { get; set; }
 
         public static Bll GetLocationBll()
         {
-            return new Bll(false, true, false);
+            return new Bll(false, true, true);
         }
 
         public static int DbSource = 0;

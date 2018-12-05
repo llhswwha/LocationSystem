@@ -10,6 +10,7 @@ using DbModel.Location.Authorizations;
 using DbModel.Location.Work;
 using DbModel.Tools;
 using DbModel.Tools.InitInfos;
+using System.IO;
 
 namespace BLL.Initializers
 {
@@ -41,16 +42,8 @@ namespace BLL.Initializers
         public void InitAuthorization(List<CardRole> roles)
         {
             this.roles = roles;
-
-            areaAuthorizations = new List<AreaAuthorization>();
-            authorizationRecords = new List<AreaAuthorizationRecord>();
-            //区域权限列表
-            authorizationAreas = new List<AuthorizationArea>();
             areas = Areas.ToList();
-
-            AreaAuthorizationRecords.Clear();
-            AreaAuthorizations.Clear();
-
+            Clear();
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml";
 
             //if (File.Exists(path))
@@ -63,6 +56,39 @@ namespace BLL.Initializers
             }
         }
 
+        public void Clear()
+        {
+            areaAuthorizations = new List<AreaAuthorization>();
+            authorizationRecords = new List<AreaAuthorizationRecord>();
+            //区域权限列表
+            authorizationAreas = new List<AuthorizationArea>();
+
+            AreaAuthorizationRecords.Clear();
+            AreaAuthorizations.Clear();
+        }
+
+        public void Save()
+        {
+            
+        }
+
+        public void Load(List<CardRole> roles)
+        {
+            this.roles = roles;
+            areas = Areas.ToList();
+            Clear();
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml";
+
+            if (File.Exists(path))
+            {
+                InitAuthorizationFromFile(path);
+            }
+            else
+            {
+                InitAuthorizationFromAreas(path);
+            }
+        }
+
         private void InitAuthorizationFromAreas(string path)
         {
             CreateAllAuthorization();//所有的区域创建权限
@@ -70,16 +96,13 @@ namespace BLL.Initializers
             //CreateAllAuthorizationRecord();//所有的角色分配权限
 
             {//AddCardRole("超级管理员", "可以进入全部区域");
-                var aa = new AreaAuthorization();
+                var aa = AreaAuthorization.New();
                 aa.AreaId = 1;//根节点
                 aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
                 aa.RangeType = AreaRangeType.All;
                 aa.Name = string.Format("权限[全部区域]");
                 aa.Description = string.Format("权限：可以进入全部区域");
-                aa.CreateTime = DateTime.Now;
-                aa.ModifyTime = DateTime.Now;
                 aa.RepeatDay = RepeatDay.All;
-                aa.TimeType = TimeSettingType.TimeRange;
                 aa.SetTime(0, 0, 23, 59, 59);
                 areaAuthorizations.Add(aa);
                 AreaAuthorizations.Add(aa);
@@ -95,32 +118,31 @@ namespace BLL.Initializers
             var parks = areas.FindAll(i => i.Type == AreaTypes.园区);
 
             {
-                foreach (var area in parks)
+                foreach (var role in roles)
                 {
-                    var role = roles[7];
-                    //  role7 = AddCardRole("参观人员(一般)", "能够进入生活区域和少部分生产区域");
-                    var aa = new AreaAuthorization();
-                    aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
-                    aa.RangeType = AreaRangeType.Single;
-                    aa.Name = string.Format("权限[园区参观(一般)]");
-                    aa.Description = string.Format("权限：可以进入园区参观，不能靠近建筑物。");
-                    aa.CreateTime = DateTime.Now;
-                    aa.ModifyTime = DateTime.Now;
-                    aa.RepeatDay = RepeatDay.All;
-                    aa.TimeType = TimeSettingType.TimeRange;
-                    aa.SetTime(8, 30, 17, 30);
-                    areaAuthorizations.Add(aa);
-                    AreaAuthorizations.Add(aa);
+                    foreach (var area in parks)
+                    {
+                        //var role = roles[7];
+                        //  role7 = AddCardRole("参观人员(一般)", "能够进入生活区域和少部分生产区域");
+                        var aa = AreaAuthorization.New();
+                        aa.AreaId = area.Id;//根节点
+                        aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                        aa.RangeType = AreaRangeType.Single;
+                        aa.Name = string.Format("权限[园区参观(一般)]");
+                        aa.Description = string.Format("权限：可以进入园区参观，不能靠近建筑物。");
+                        aa.RepeatDay = RepeatDay.All;
+                        aa.SetTime(8, 30, 17, 30);
+                        areaAuthorizations.Add(aa);
+                        AreaAuthorizations.Add(aa);
 
-                    var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                    var aar = new AreaAuthorizationRecord(aa, role);
-                    authorizationRecords.Add(aar);
-                    aa2.Records.Add(aar);
+                        var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
+                        var aar = new AreaAuthorizationRecord(aa, role);
+                        authorizationRecords.Add(aar);
+                        aa2.Records.Add(aar);
 
-                    AreaAuthorizationRecords.Add(aar);
+                        AreaAuthorizationRecords.Add(aar);
+                    }
                 }
-                
             }
 
             var buildGroup = areas.FindAll(i => i.Type == AreaTypes.分组);
@@ -128,22 +150,18 @@ namespace BLL.Initializers
             var list = new List<Area>();
             list.AddRange(buildGroup);
             list.AddRange(buildings);
-
             {
                 var role = roles[6];
                 //role6 = AddCardRole("参观人员(高级)", "能够进入生活区域和大部分生产区域");
                 foreach (var area in buildings)
                 {
-                    var aa = new AreaAuthorization();
+                    var aa = AreaAuthorization.New();
                     aa.AreaId = area.Id;//根节点
                     aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
                     aa.RangeType = AreaRangeType.WithParent;
                     aa.Name = string.Format("权限[园区参观(高级)]");
                     aa.Description = string.Format("权限：可以进入园区参观，可以靠近建筑物。");
-                    aa.CreateTime = DateTime.Now;
-                    aa.ModifyTime = DateTime.Now;
                     aa.RepeatDay = RepeatDay.All;
-                    aa.TimeType = TimeSettingType.TimeRange;
                     aa.SetTime(8, 30, 17, 30);
                     areaAuthorizations.Add(aa);
 
@@ -165,16 +183,13 @@ namespace BLL.Initializers
                 //role5 = AddCardRole("外维人员", "能够进入生活区域和指定生产区域");
                 foreach (var area in floors)
                 {
-                    var aa = new AreaAuthorization();
+                    var aa = AreaAuthorization.New();
                     aa.AreaId = area.Id;//根节点
                     aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
                     aa.RangeType = AreaRangeType.WithParent;
                     aa.Name = string.Format("权限[大楼内部]");
                     aa.Description = string.Format("权限：可以进入大楼内部，不能进入机房。");
-                    aa.CreateTime = DateTime.Now;
-                    aa.ModifyTime = DateTime.Now;
                     aa.RepeatDay = RepeatDay.All;
-                    aa.TimeType = TimeSettingType.TimeRange;
                     aa.SetTime(8, 30, 17, 30);
                     areaAuthorizations.Add(aa);
 
@@ -202,16 +217,13 @@ namespace BLL.Initializers
                 var role = roles[j];
                 foreach (var area in rooms)
                 {
-                    var aa = new AreaAuthorization();
+                    var aa = AreaAuthorization.New();
                     aa.AreaId = area.Id;//根节点
                     aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
                     aa.RangeType = AreaRangeType.WithParent;
                     aa.Name = string.Format("权限[机房]");
                     aa.Description = string.Format("权限：可以进入机房。");
-                    aa.CreateTime = DateTime.Now;
-                    aa.ModifyTime = DateTime.Now;
                     aa.RepeatDay = RepeatDay.All;
-                    aa.TimeType = TimeSettingType.TimeRange;
                     aa.SetTime(8, 30, 17, 30);
                     areaAuthorizations.Add(aa);
 
@@ -233,16 +245,13 @@ namespace BLL.Initializers
                 var role = roles[j];
                 foreach (var area in ranges)
                 {
-                    var aa = new AreaAuthorization();
+                    var aa = AreaAuthorization.New();
                     aa.AreaId = area.Id;//根节点
                     aa.AccessType = AreaAccessType.Leave; //不能进入
                     aa.RangeType = AreaRangeType.Single;
                     aa.Name = string.Format("权限[不能进入]");
                     aa.Description = string.Format("权限：告警区域");
-                    aa.CreateTime = DateTime.Now;
-                    aa.ModifyTime = DateTime.Now;
                     aa.RepeatDay = RepeatDay.All;
-                    aa.TimeType = TimeSettingType.TimeRange;
                     aa.SetTime(8, 30, 17, 30);
                     areaAuthorizations.Add(aa);
 
@@ -300,10 +309,7 @@ namespace BLL.Initializers
         {
             foreach (var area in areas)
             {
-                var aa2 = new AuthorizationArea();
-                aa2.Id = area.Id;
-                aa2.Name = area.Name;
-                aa2.ParentId = area.ParentId ?? 0;
+                var aa2 = new AuthorizationArea(area);
                 authorizationAreas.Add(aa2);
                 if (area.InitBound == null) continue;
 
@@ -321,17 +327,14 @@ namespace BLL.Initializers
 
         private static AreaAuthorization CreateAreaAuthorization(Area area, AreaAccessType accType)
         {
-            var aa = new AreaAuthorization();
+            var aa = AreaAuthorization.New();
             aa.AreaId = area.Id;
             //aa.Area = area;
             aa.AccessType = accType; //可进入的权限
             aa.RangeType = AreaRangeType.WithParent;
             aa.Description = string.Format("权限[{0}][{1}]", accType, area.Name);
             aa.Name = string.Format("权限：[{0}]区域‘{1}’", accType, area.Name);
-            aa.CreateTime = DateTime.Now;
-            aa.ModifyTime = DateTime.Now;
             aa.RepeatDay = RepeatDay.All;
-            aa.TimeType = TimeSettingType.TimeRange;
             aa.SetTime(8, 30, 17, 30);
             return aa;
         }

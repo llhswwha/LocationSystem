@@ -35,6 +35,13 @@ namespace DbModel.Tools.InitInfos
             Children = new List<AuthorizationArea>();
         }
 
+        public AuthorizationArea(Area area):this()
+        {
+            Id = area.Id;
+            Name = area.Name;
+            ParentId = area.ParentId ?? 0;
+        }
+
         public List<AuthorizationArea> GetAllChildren(int? type)
         {
             var allChildren = new List<AuthorizationArea>();

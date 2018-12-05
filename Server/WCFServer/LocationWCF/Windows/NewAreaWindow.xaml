@@ -1,0 +1,44 @@
+﻿<Window xmlns:WPFClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"  x:Class="LocationServer.Windows.NewAreaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        mc:Ignorable="d"
+        Title="NewAreaWindow" Height="250" Width="300" Loaded="NewAreaWindow_OnLoaded">
+    <DockPanel>
+        <Button Name="BtnSave" Click="BtnSave_OnClick" DockPanel.Dock="Bottom">保存</Button>
+        <StackPanel>
+            <DockPanel>
+                <Label Width="100">父节点</Label>
+                <TextBox Name="TbPId"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100">名称</Label>
+                <TextBox Name="TbName"></TextBox>
+            </DockPanel>
+            <DockPanel>
+                <Label Width="100">类型</Label>
+                <ComboBox Name="TbType"></ComboBox>
+            </DockPanel>
+            <GroupBox >
+                <GroupBox.Header>
+                    <CheckBox Name="CbHaveBound" IsChecked="True">是否有坐标</CheckBox>
+                </GroupBox.Header>
+                <StackPanel>
+                    <DockPanel>
+                        <Label Width="100">中心坐标</Label>
+                        <WPFClientControlLib:PointControl x:Name="TbCenterPosition"/>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Width="100">大小</Label>
+                        <WPFClientControlLib:PointControl x:Name="TbSize"/>
+                    </DockPanel>
+                </StackPanel>
+            </GroupBox>
+
+           
+        </StackPanel>
+    </DockPanel>
+
+</Window>

@@ -221,7 +221,7 @@ namespace LocationServices.Locations
             foreach (Dev_DoorAccess item in doorAccessList)
             {
                 var doorAccess = db.Dev_DoorAccess.DeleteById(item.Id);
-                var dev = db.DevInfos.DeleteById(item.DevID);
+                var dev = db.DevInfos.DeleteById(item.DevInfoId);
                 //bool posResult = db.DevPos.DeleteById(item.DevID);
                 bool valueTemp = doorAccess!=null && dev!=null;
                 if (!valueTemp) value = valueTemp;
@@ -577,8 +577,23 @@ namespace LocationServices.Locations
             {
                 lst = new List<EntranceGuardActionInfo>();
             }
+
+            if (lst.Count == 0)
+            {
+                lst = null;
+            }
             
             return lst;
+        }
+        /// <summary>
+        /// 根据模型名称，获取模型类型
+        /// </summary>
+        /// <param name="devModelName"></param>
+        /// <returns></returns>
+        public DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName)
+        {            
+            DbModel.Location.AreaAndDev.DevModel devModel = db.DevModels.FirstOrDefault(dev=>dev.Name==devModelName);
+            return devModel;
         }
     }
 }

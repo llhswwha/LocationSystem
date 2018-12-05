@@ -322,7 +322,12 @@ namespace LocationServices.Locations.Services
             }
 
             lst.Sort(new DevDistanceCompare());
-            
+
+            if (lst.Count == 0)
+            {
+                lst = null;
+            }
+
             return lst;
         }
 
@@ -458,7 +463,7 @@ namespace LocationServices.Locations.Services
 
                 lst.Add(ega);
             }
-
+           
             return lst;
         }
     }

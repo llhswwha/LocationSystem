@@ -366,6 +366,25 @@ namespace BLL
             AuthorizationInitializer ai = new AuthorizationInitializer(_bll);
             ai.InitAuthorization(roles);
         }
+        public void ClearAuthorization()
+        {
+            AuthorizationInitializer ai = new AuthorizationInitializer(_bll);
+            ai.Clear();
+        }
+
+        public void SaveAuthorization()
+        {
+            AuthorizationInitializer ai = new AuthorizationInitializer(_bll);
+            ai.Save();
+        }
+
+        public void LoadAuthorization()
+        {
+            var roles = GetRoles();
+            AuthorizationInitializer ai = new AuthorizationInitializer(_bll);
+            ai.Load(roles);
+        }
+
 
         /// <summary>
         /// 初始化设备模型和类型表
