@@ -13,14 +13,18 @@ namespace LocationServices.Locations.Services
         T GetEntity(string id);
 
         IList<T> GetList();
-        IList<T> GetListByName(string name);
 
         T Post(T item);
 
         T Put(T item);
     }
 
-    public interface ILeafEntityService<T,TP> : IEntityService<T>
+    public interface INameEntityService<T> : IEntityService<T>
+    {
+        IList<T> GetListByName(string name);
+    }
+
+    public interface ILeafEntityService<T,TP> : INameEntityService<T>
     {
         List<T> GetListByPid(string pid);
         IList<T> DeleteListByPid(string pid);

@@ -4,14 +4,14 @@ using TEntity= DbModel.Location.Authorizations.CardRole;
 
 namespace LocationServices.Locations.Services
 {
-    public interface ITagRoleService:IEntityService<TEntity>
+    public interface ITagRoleService:INameEntityService<TEntity>
     {
         TEntity GetEntityByTag(string tag);
 
         TEntity GetEntityByPerson(string person);
     }
     public class TagRoleService 
-        : EntityService<TEntity>
+        : NameEntityService<TEntity>
         , ITagRoleService
     {
         public TagRoleService():base()

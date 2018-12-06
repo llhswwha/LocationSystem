@@ -26,10 +26,13 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
+        public IList<CardRole> _roles; 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ITagRoleService service = new TagRoleService();
-            DataGrid1.ItemsSource=service.GetList();
+            _roles = service.GetList();
+            DataGrid1.ItemsSource = _roles;
         }
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -44,6 +47,19 @@ namespace LocationServer.Windows
         {
             get { return DataGrid1.SelectedItem as CardRole; }
         }
+
+        public List<CardRole> GetSelectedRoles()
+        {
+            List<CardRole> roles=new List<CardRole>();
+            foreach (var role in _roles)
+            {
+                if (role.IsChecked)
+                {
+                    roles.Add(role);
+                }
+            }
+            return roles;
+        } 
 
         private void BtnOk_OnClick(object sender, RoutedEventArgs e)
         {

@@ -19,7 +19,9 @@
                 <MenuItem Header="标签" Name="MenuTag" Click="MenuTag_OnClick"></MenuItem>
                 <MenuItem Header="标签角色" Name="MenuCardRole" Click="MenuCardRole_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuAreaAuthorization" Click="MenuAreaAuthorization_OnClick"></MenuItem>
+                <MenuItem Header="定位告警" Name="MenuLocationAlarms" Click="MenuLocationAlarms_OnClick"></MenuItem>
             </MenuItem>
+            
             <MenuItem Header="工具">
                 <MenuItem Header="数据库配置" Name="MenuDbConfigure" Click="MenuDbInit_OnClick"></MenuItem>
                 <MenuItem Header="数据库表导出Excel" Name="MenuDbExport" Click="MenuDbExport_OnClick"></MenuItem>
@@ -33,6 +35,7 @@
                 <Separator></Separator>
                 <MenuItem Header="基站扫描" Name="MenuArchorScane" Click="MenuArchorScane_Click"></MenuItem>
                 <MenuItem Header="基站校对" Name="MenuArchorCheck" Click="MenuArchorCheck_Click"></MenuItem>
+                <MenuItem Header="基站搜索" Name="MenuArchorSearch" Click="MenuArchorSearch_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

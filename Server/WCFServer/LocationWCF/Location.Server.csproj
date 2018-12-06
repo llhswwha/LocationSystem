@@ -265,6 +265,9 @@
     <Compile Include="Windows\LocationHistoryTestWindow.xaml.cs">
       <DependentUpon>LocationHistoryTestWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Simple\LocationAlarmWindow.xaml.cs">
+      <DependentUpon>LocationAlarmWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Simple\PersonWindow.xaml.cs">
       <DependentUpon>PersonWindow.xaml</DependentUpon>
     </Compile>
@@ -391,6 +394,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\LocationHistoryTestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Simple\LocationAlarmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

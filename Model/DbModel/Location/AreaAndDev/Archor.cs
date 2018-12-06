@@ -1,5 +1,6 @@
 ﻿using DbModel.Tools;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 
@@ -55,6 +56,9 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         public int? ParentId { get; set; }
+
+        [NotMapped]
+        public Area Parent { get; set; }
 
         /// <summary>
         /// 位置X

@@ -165,6 +165,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\KKSCodeController.cs" />
+    <Compile Include="Controllers\LocationAlarmController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\PositionHistoryController.cs" />

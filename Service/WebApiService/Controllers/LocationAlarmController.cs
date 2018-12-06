@@ -1,18 +1,21 @@
-﻿using LocationServices.Locations.Services;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
-using TEntity = TModel.Location.AreaAndDev.Archor;
+using LocationServices.Locations.Services;
+using TEntity = DbModel.Location.Alarm.LocationAlarm;
 
 namespace WebApiService.Controllers
 {
-    [RoutePrefix("api/archors")]
-    public class ArchorController : ApiController, IArchorService
+    [RoutePrefix("api/locationAlarms")]
+    public class LocationAlarmController : ApiController, ILocationAlarmService
     {
-        IArchorService service;
-
-        public ArchorController()
+        ILocationAlarmService service;
+        public LocationAlarmController()
         {
-            service = new ArchorService();
+            service = new LocationAlarmService();
         }
 
         [Route("{id}")]
@@ -35,20 +38,6 @@ namespace WebApiService.Controllers
             return service.GetList();
         }
 
-        [Route("")]//search/?name=主
-        [Route("search/{name}")]//search/1,直接中文不行
-        public IList<TEntity> GetListByName(string name)
-        {
-            return service.GetListByName(name);
-        }
-
-        [HttpGet]
-        [Route("search")]
-        public IList<TEntity> Search(string key,string value)
-        {
-            return service.Search(key,value);
-        }
-
         [Route]
         public TEntity Post(TEntity item)
         {
@@ -59,6 +48,12 @@ namespace WebApiService.Controllers
         public TEntity Put(TEntity item)
         {
             return service.Put(item);
+        }
+
+        [Route("clear")]
+        public void Clear()
+        {
+            service.Clear();
         }
     }
 }

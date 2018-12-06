@@ -37,7 +37,9 @@ namespace LocationServer.Controls
 
         private void MenuExport_OnClick(object sender, RoutedEventArgs e)
         {
-            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Archors.xls");
+            string fileName = string.Format("Archors_{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\"+ fileName);
+            list.Sort();
             ExcelHelper.ExportList(list, file);
             Process.Start(file.Directory.FullName);
         }
@@ -122,15 +124,13 @@ namespace LocationServer.Controls
                 try
                 {
                     var archor = archors[i];
-                    ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(archor.GetCode());
+                    ArchorSetting archorSetting = bll.ArchorSettings.GetByArchor(archor);
                     if (archorSetting == null)
                     {
                         if (ShowAll)
                         {
-                            archorSetting = new ArchorSetting();
+                            archorSetting = new ArchorSetting(archor.GetCode(), archor.Id);
                             listAdd.Add(archorSetting);
-                            archorSetting.Id = archor.Id;
-                            archorSetting.Code = archor.GetCode();
                             archorSetting.Name = archor.Name;
                             //var dev = archor.DevInfo;//大量循环获取sql数据的话采用按需加载的方式会慢很多
                             var dev = devs.Find(j => j.Id == archor.DevInfoId); //应该采用全部事先获取并从列表中搜索的方式，具体680多个，从35s变为1s

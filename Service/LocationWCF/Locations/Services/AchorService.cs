@@ -14,9 +14,9 @@ using TEntity = TModel.Location.AreaAndDev.Archor;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IArchorService:IEntityService<TEntity>
+    public interface IArchorService:INameEntityService<TEntity>
     {
-
+        IList<TEntity> Search(string key,string value);
     }
     public class ArchorService : IArchorService
     {
@@ -57,6 +57,12 @@ namespace LocationServices.Locations.Services
         public IList<TEntity> GetListByName(string name)
         {
             var devInfoList = dbSet.GetListByName(name).ToTModel();
+            return devInfoList.ToWCFList();
+        }
+
+        public IList<TEntity> Search(string key,string value)
+        {
+            var devInfoList = dbSet.Search(key, value).ToTModel();
             return devInfoList.ToWCFList();
         }
 

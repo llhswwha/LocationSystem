@@ -107,13 +107,14 @@
     <Compile Include="Locations\LocationService_Person.cs" />
     <Compile Include="Locations\LocationService_ConfigArg.cs" />
     <Compile Include="Locations\Services\AchorService.cs" />
+    <Compile Include="Locations\Services\IEntityService.cs" />
+    <Compile Include="Locations\Services\LocationAlarmService.cs" />
     <Compile Include="Locations\Services\AreaAuthorizationRecordService.cs" />
     <Compile Include="Locations\Services\AreaAuthorizationService.cs" />
     <Compile Include="Locations\Services\AreaService.cs" />
     <Compile Include="Locations\Services\DepartmentService.cs" />
     <Compile Include="Locations\Services\DeviceService.cs" />
     <Compile Include="Locations\Services\EntityService.cs" />
-    <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\KKSCodeService.cs" />
     <Compile Include="Locations\Services\PosHistoryService.cs" />
     <Compile Include="Locations\Services\PosService.cs" />

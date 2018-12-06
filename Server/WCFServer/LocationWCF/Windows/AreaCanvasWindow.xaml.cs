@@ -58,6 +58,14 @@ namespace LocationServer
             _archors = archors;
         }
 
+        public AreaCanvasWindow(params int[] archorsIds)
+        {
+            InitializeComponent();
+            bll = AppContext.GetLocationBll();
+            var ids = archorsIds.ToList();
+            _archors = bll.Archors.FindAll(i => ids.Contains(i.Id)).ToArray();
+        }
+
         private AreaService areaService;
         private DepartmentService depService;
         private DeviceService devService;
@@ -149,7 +157,8 @@ namespace LocationServer
                 object detail = dev.DevDetail;
                 if (detail is TModel.Location.AreaAndDev.Archor)
                 {
-                    return archorSettings.Find(i=>i.Code==(dev.DevDetail as TModel.Location.AreaAndDev.Archor).Code);
+                    var archor = detail as TModel.Location.AreaAndDev.Archor;
+                    return archorSettings.Find(i=>i.Code== archor.Code);
                 }
                 return null;
             };

@@ -75,9 +75,7 @@ namespace LocationServer.Windows
             }
             _code = _archor.GetCode();
 
-            _item = new ArchorSetting();
-            _item.Id = _archor.Id;
-            _item.Code = _code;
+            _item = new ArchorSetting(_code, _archor.Id);
             _item.Name = _archor.Name;
             var area = _dev.Parent;
 
@@ -137,7 +135,7 @@ namespace LocationServer.Windows
                 //PcZero.Y = _room.InitBound.MinY;
                 //PcRelative.X = x - _room.InitBound.MinX;
                 //PcRelative.Y = z - _room.InitBound.MinY;
-                var setting = bll.ArchorSettings.GetByCode(_code);
+                var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
                 if (setting != null)
                 {
                     SetZeroPoint(setting.ZeroX.ToFloat(), setting.ZeroY.ToFloat());
@@ -294,11 +292,11 @@ namespace LocationServer.Windows
             }
 
 
-            ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(_code);
+            ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
             bool isAdd = false;
             if (archorSetting == null)
             {
-                archorSetting = new ArchorSetting();
+                archorSetting = new ArchorSetting(_code, _archor.Id);
                 isAdd = true;
             }
             archorSetting.Code = _archor.Code;

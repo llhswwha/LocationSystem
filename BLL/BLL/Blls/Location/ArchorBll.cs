@@ -65,6 +65,43 @@ namespace BLL.Blls.Location
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
         }
 
+        public List<Archor> Search(string key,string value)
+        {
+            key = key.ToLower();
+            if (key == "name")
+            {
+                return GetListByName(value);
+            }
+            else if (key == "ip")
+            {
+                return DbSet.Where(i => i.Ip.Contains(value)).ToList();
+            }
+            else if (key == "code")
+            {
+                return DbSet.Where(i => i.Code.Contains(value)).ToList();
+            }
+            else if (key == "area")
+            {
+                var areas = Db.Areas.ToList();
+                var archors = DbSet.ToList();
+                foreach (var archor in archors)
+                {
+                    archor.Parent = areas.Find(i => i.Id == archor.ParentId);
+                }
+                var archors2= archors.Where(i => i.Parent!=null&&i.Parent.Name.Contains(value)).ToList();
+                foreach (var archor in archors2)
+                {
+                    archor.Parent = null;
+                }
+                return archors2;
+            }
+            else
+            {
+                
+            }
+            return null;
+        }
+
         public void ClearCode()
         {
             var list = ToList();

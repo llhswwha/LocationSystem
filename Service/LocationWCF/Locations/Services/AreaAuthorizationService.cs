@@ -12,12 +12,12 @@ using TEntity= DbModel.Location.Work.AreaAuthorization;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IAreaAuthorizationService:IEntityService<TEntity>
+    public interface IAreaAuthorizationService:INameEntityService<TEntity>
     {
         IList<TEntity> GetListByArea(string area);
     }
     public class AreaAuthorizationService
-        : EntityService<TEntity>
+        : NameEntityService<TEntity>
         ,IAreaAuthorizationService
     {
         public AreaAuthorizationService():base()

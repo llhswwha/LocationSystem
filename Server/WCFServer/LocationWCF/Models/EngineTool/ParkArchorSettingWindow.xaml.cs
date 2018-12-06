@@ -65,10 +65,8 @@ namespace LocationServer.Windows
             {
                 return false;//不是基站的设备
             }
-            _item = new ArchorSetting();
-            _item.Id = _archor.Id;
+            _item = new ArchorSetting(_archor.GetCode(), _archor.Id);
             _code = _archor.Code;
-            _item.Code = _archor.Code;
             _item.Name = _archor.Name;
 
             var area = bll.GetAreaTree(false,_dev.ParentId);
@@ -100,7 +98,7 @@ namespace LocationServer.Windows
 
             PcArchor.IsEnabled = true;
 
-            var setting = bll.ArchorSettings.GetByCode(_code);
+            var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
             if (setting != null)
             {
                 //PcZero.X = setting.ZeroX.ToDouble();
@@ -201,10 +199,10 @@ namespace LocationServer.Windows
             }
 
             bool isAdd = false;
-            ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(_code);
+            ArchorSetting archorSetting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
             if (archorSetting == null)
             {
-                archorSetting = new ArchorSetting();
+                archorSetting = new ArchorSetting(_code, _archor.Id);
                 isAdd = true;
             }
             archorSetting.Code = _archor.Code;

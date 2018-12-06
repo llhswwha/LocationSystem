@@ -13,7 +13,7 @@ using TModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
-    public abstract class EntityService<T>:IEntityService<T> where T :  class, IName, new()
+    public abstract class EntityService<T> : IEntityService<T> where T : class, new()
     {
         protected Bll db;
 
@@ -24,7 +24,6 @@ namespace LocationServices.Locations.Services
             db = new Bll(false, false, false, false);
             SetDbSet();
         }
-
 
         public EntityService(Bll bll)
         {
@@ -50,11 +49,6 @@ namespace LocationServices.Locations.Services
             return dbSet.ToList();
         }
 
-        public IList<T> GetListByName(string name)
-        {
-            return dbSet.Where(i => i.Name.Contains(name));
-        }
-
         public T Post(T item)
         {
             bool result = dbSet.Add(item);
@@ -65,6 +59,25 @@ namespace LocationServices.Locations.Services
         {
             bool result = dbSet.Edit(item);
             return result ? item : null;
+        }
+    }
+
+    public abstract class NameEntityService<T>:EntityService<T>,INameEntityService<T> where T :  class, IName, new()
+    {
+
+        public NameEntityService():base()
+        {
+            
+        }
+
+        public NameEntityService(Bll bll):base(bll)
+        {
+            
+        }
+
+        public IList<T> GetListByName(string name)
+        {
+            return dbSet.Where(i => i.Name.Contains(name));
         }
     }
 }

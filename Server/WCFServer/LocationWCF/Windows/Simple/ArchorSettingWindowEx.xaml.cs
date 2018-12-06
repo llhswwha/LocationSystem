@@ -47,15 +47,13 @@ namespace LocationServer.Windows
             PropertyGrid1.SelectedObject = archor;
             PropertyGrid2.SelectedObject = archor.DevInfo;
 
-            archorSetting = bll.ArchorSettings.GetByCode(archor.Code);
+            archorSetting = bll.ArchorSettings.GetByArchor(archor);
             if (archorSetting == null)
             {
                 //archorSetting = new ArchorSetting(archor);
                 dev = archor.DevInfo;
                 //var archor = archors[i];
-                archorSetting = new ArchorSetting();
-                archorSetting.Id = archor.Id;
-                archorSetting.Code = archor.Code;
+                archorSetting = new ArchorSetting(archor.Code, archor.Id);
                 archorSetting.Name = archor.Name;
                 var area = dev.Parent;
                 var x = dev.PosX;

@@ -13,7 +13,7 @@ using Location.TModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IPosService : IEntityService<TEntity>
+    public interface IPosService : INameEntityService<TEntity>
     {
         IList<TEntity> GetListByPerson(string person);
 

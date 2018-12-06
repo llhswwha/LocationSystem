@@ -8,9 +8,9 @@ using System.Web.Http;
 
 namespace WebApiService.Controllers
 {
-    public class EntityController<T> : ApiController, IEntityService<T>
+    public class EntityController<T> : ApiController, INameEntityService<T>
     {
-        protected IEntityService<T> service;
+        protected INameEntityService<T> service;
 
         [Route("{id}")]
         public T Delete(string id)

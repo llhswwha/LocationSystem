@@ -23,10 +23,26 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <GroupBox Header="权限配置">
-                <DataGrid Name="DataGrid1"></DataGrid>
+                <DataGrid Name="DataGrid1" IsReadOnly="True">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="添加" Name="MenuAddSetting"></MenuItem>
+                            <MenuItem Header="修改" Name="MenuEditSetting"></MenuItem>
+                            <MenuItem Header="删除" Name="MenuRemoveSetting"></MenuItem>
+                            <MenuItem Header="分配" Name="MenuAddRecord" Click="MenuAddRecord_OnClick"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
             </GroupBox>
             <GroupBox Grid.Row="1" Header="权限分配">
-                <DataGrid Name="DataGrid2"></DataGrid>
+                <DataGrid Name="DataGrid2" IsReadOnly="True">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="修改" Name="MenuEditRecord"></MenuItem>
+                            <MenuItem Header="删除" Name="MenuRemoveRecord"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
             </GroupBox>
         </Grid>
         

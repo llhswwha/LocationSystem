@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using BLL;
 using BLL.Initializers;
 using DbModel.Location.Authorizations;
+using DbModel.Location.Work;
 using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations.Services;
 
@@ -51,7 +52,7 @@ namespace LocationServer.Windows
 
             LoadAreaTree();
 
-            LoadAuthorizationList();
+            //LoadAuthorizationList();
         }
 
         void LoadAreaTree()
@@ -67,18 +68,20 @@ namespace LocationServer.Windows
         {
             var area = obj as PhysicalTopology;
             if (area == null) return;
-            DataGrid1.ItemsSource = aarService.GetListByArea(area.Id + "");
+            DataGrid1.ItemsSource = aaService.GetListByArea(area.Id + "");
+            DataGrid2.ItemsSource = aarService.GetListByArea(area.Id + "");
         }
 
         void LoadAuthorizationList()
         {
+            DataGrid1.ItemsSource = aaService.GetList();
             if (_role != null)
             {
-                DataGrid1.ItemsSource = aarService.GetListByRole(_role.Id + "");
+                DataGrid2.ItemsSource = aarService.GetListByRole(_role.Id + "");
             }
             else
             {
-                DataGrid1.ItemsSource = aarService.GetList();
+                DataGrid2.ItemsSource = aarService.GetList();
             }
         }
 
@@ -110,6 +113,27 @@ namespace LocationServer.Windows
         private void Load_OnClick(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void MenuAddRecord_OnClick(object sender, RoutedEventArgs e)
+        {
+            AreaAuthorization aa = DataGrid1.SelectedItem as AreaAuthorization;
+            if (aa == null) return;
+            var win = new CardRoleWindow();
+            win.ShowOkButton();
+            if (win.ShowDialog() == true)
+            {
+                var roles = win.GetSelectedRoles();
+                foreach (var role in roles)
+                {
+                    AreaAuthorizationRecord aar = new AreaAuthorizationRecord(aa, role);
+                    if (aarService.Post(aar) == null)
+                    {
+                        MessageBox.Show("分配权限失败");
+                        break;
+                    }
+                }
+            }
         }
     }
 }

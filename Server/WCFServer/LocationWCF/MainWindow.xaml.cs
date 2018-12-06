@@ -40,6 +40,7 @@ using TModel.Tools;
 using WebNSQLib;
 using LocationServer.Models.EngineTool;
 using System.Text;
+using LocationServer.Windows.Simple;
 
 namespace LocationWCFServer
 {
@@ -252,6 +253,18 @@ namespace LocationWCFServer
         private void MenuArchorCheck_Click(object sender, RoutedEventArgs e)
         {
             var win = new ArchorCheckWindow();
+            win.Show();
+        }
+
+        private void MenuLocationAlarms_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new LocationAlarmWindow();
+            win.Show();
+        }
+
+        private void MenuArchorSearch_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new ArchorWindow();
             win.Show();
         }
     }

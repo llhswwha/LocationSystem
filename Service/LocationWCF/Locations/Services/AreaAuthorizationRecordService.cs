@@ -9,7 +9,7 @@ using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IAreaAuthorizationRecordService : IEntityService<TEntity>
+    public interface IAreaAuthorizationRecordService : INameEntityService<TEntity>
     {
         IList<TEntity> GetListByArea(string area);
 
@@ -20,7 +20,7 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByPerson(string role);
     }
     public class AreaAuthorizationRecordService
-        : EntityService<TEntity>
+        : NameEntityService<TEntity>
         , IAreaAuthorizationRecordService
     {
         public AreaAuthorizationRecordService():base()
@@ -62,5 +62,10 @@ namespace LocationServices.Locations.Services
             if (tag == null) return null;
             return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
         }
+
+        //public TEntity PostByRole(string )
+        //{
+            
+        //}
     }
 }

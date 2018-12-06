@@ -12,7 +12,7 @@ namespace DbModel.Location.Settings
         CAD坐标,相对园区,相对楼层,相对机房
     }
 
-    public class ArchorSetting
+    public class ArchorSetting:IComparable<ArchorSetting>
     {
         [NotMapped]
         public bool IsNew { get; set; }
@@ -22,6 +22,11 @@ namespace DbModel.Location.Settings
         [Display(Name="基站编号(Id)")]
         [MaxLength(16)]
         public string Code { get; set; }
+
+        [Display(Name = "基站Id")]
+        public int ArchorId { get; set; }
+
+        public bool Error { get; set; }
 
         [Display(Name = "名称")]
         [MaxLength(32)]
@@ -164,10 +169,17 @@ namespace DbModel.Location.Settings
             BuildingMinY = "0";
         }
 
+        public ArchorSetting(string code,int archorId):this()
+        {
+            Code = code;
+            ArchorId = archorId;
+        }
+
         public ArchorSetting(Archor archor)
         {
             var dev = archor.DevInfo;
             Id = archor.Id;
+            ArchorId = archor.Id;
             Code = archor.Code;
             Name = archor.Name;
             var area = dev.Parent;
@@ -266,6 +278,16 @@ namespace DbModel.Location.Settings
                 return true;
             }
             
+        }
+
+        public string GetPath()
+        {
+            return BuildingName +"."+ FloorName + "." + RoomName + "." + Name;
+        }
+
+        public int CompareTo(ArchorSetting other)
+        {
+            return this.GetPath().CompareTo(other.GetPath());
         }
     }
 }

@@ -6,9 +6,19 @@
         xmlns:local="clr-namespace:LocationServer.Windows.Simple"
         mc:Ignorable="d"
         Title="ArchorWindow" Height="400" Width="600"  WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <ComboBox Width="100" Name="CbKey">
+            </ComboBox>
+            <TextBox Name="TbValue" Width="100"></TextBox>
+            <Button Name="BtnSearch" Click="BtnSearch_OnClick" Content="搜索"></Button>
+        </StackPanel>
         <DataGrid Name="DataGrid1">
-
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="基站定位" Name="MenuLocalArchor" Click="MenuLocalArchor_Click"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
-    </Grid>
+    </DockPanel>
 </Window>

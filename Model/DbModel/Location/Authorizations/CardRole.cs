@@ -5,12 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Location.IModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Authorizations
 {
 
     public class CardRole:IEntity
     {
+        [NotMapped]
+        public bool IsChecked { get; set; }
+
         public int Id { get; set; }
 
         [MaxLength(32)]

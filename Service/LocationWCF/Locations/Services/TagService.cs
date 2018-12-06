@@ -12,7 +12,7 @@ using DbModel.Location.Authorizations;
 
 namespace LocationServices.Locations.Services
 {
-    public interface ITagService:IEntityService<TEntity>
+    public interface ITagService:INameEntityService<TEntity>
     {
         bool DeleteAll();
 
