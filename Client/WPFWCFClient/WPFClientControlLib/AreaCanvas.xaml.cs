@@ -713,6 +713,10 @@ namespace WPFClientControlLib
             if (dev.DevDetail is Archor)
             {
                 Archor archor = dev.DevDetail as Archor;
+                if (archor.Code == null)
+                {
+                    return "NULL";
+                }
                 if (archor.Code.Contains("Code"))
                 {
                     return "[C]";

@@ -60,6 +60,7 @@ namespace WPFClientControlLib
                 TreeViewItem node = new TreeViewItem();
                 node.Header = item.Name;
                 node.Tag = item;
+                node.ContextMenu = AreaMenu;
                 control.Items.Add(node);
 
                 ShowTreeEx<TD, TF>(node, item.Children);
@@ -72,6 +73,7 @@ namespace WPFClientControlLib
                         subNode.Header = leaf.ToString();
                         subNode.Tag = leaf;
                         subNode.Foreground = Brushes.Blue;
+                        subNode.ContextMenu = DevMenu;
                         node.Items.Add(subNode);
                     }
                 }
@@ -110,6 +112,7 @@ namespace WPFClientControlLib
                 node.Header = item.Name;
                 node.Tag = item;
                 control.Items.Add(node);
+                node.ContextMenu = AreaMenu;
                 ShowTree(node, item.Children);
             }
         }
@@ -187,6 +190,9 @@ namespace WPFClientControlLib
                 ExpandParent(node.Parent as TreeViewItem);
             }
         }
+
+        public ContextMenu AreaMenu;
+        public ContextMenu DevMenu;
 
         public TreeViewItem SelectNode(int id,ItemCollection nodes)
         {

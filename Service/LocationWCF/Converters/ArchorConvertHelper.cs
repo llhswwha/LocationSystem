@@ -29,12 +29,12 @@ namespace LocationServices.Converters
             item2.AliveTime = item1.AliveTime;
             item2.Enable = item1.Enable;
             item2.DevInfoId = item1.DevInfoId;
-            item2.DevInfo = item1.DevInfo.ToTModel();
+            //item2.DevInfo = item1.DevInfo.ToTModel();
             item2.ParentId = item1.ParentId ?? 0;
             return item2;
         }
 
-        public static void EditProperty(this DbModel.Location.AreaAndDev.Archor item1, TModel.Location.AreaAndDev.Archor item2)
+        public static void EditProperty(this DbModel.Location.AreaAndDev.Archor item2, TModel.Location.AreaAndDev.Archor item1)
         {
             item2.Code = item1.Code;
             item2.Name = item1.Name;
@@ -49,7 +49,7 @@ namespace LocationServices.Converters
             item2.Power = item1.Power;
             item2.AliveTime = item1.AliveTime;
             item2.Enable = item1.Enable;
-            item2.ParentId = item1.ParentId ?? 0;
+            item2.ParentId = item1.ParentId ;
         }
 
         public static List<TModel.Location.AreaAndDev.Archor> ToTModel(this List<DbModel.Location.AreaAndDev.Archor> list1)

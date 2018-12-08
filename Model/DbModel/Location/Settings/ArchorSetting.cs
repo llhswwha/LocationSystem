@@ -141,10 +141,48 @@ namespace DbModel.Location.Settings
         [MaxLength(64)]
         public string AbsoluteY { get; set; }
 
+        [NotMapped]
+        public string ParkOffsetX { get; set; }
+
+        [NotMapped]
+        public string ParkOffsetY { get; set; }
+
+        [NotMapped]
+        public string ArchorX { get; set; }
+
+        [NotMapped]
+        public string ArchorY { get; set; }
+
+        [NotMapped]
+        public string ArchorX100 { get; set; }
+
+        [NotMapped]
+        public string ArchorY100 { get; set; }
+
+        [NotMapped]
+        public string Height100 { get; set; }
+
         public void SetAbsolute(double x, double y)
         {
             AbsoluteX = x.ToString("F2");
             AbsoluteY = y.ToString("F2");
+
+        }
+
+        /// <summary>
+        /// 设置附加信息（给品铂用）
+        /// </summary>
+        public void SetExtensionInfo(double offx,double offy)
+        {
+            ParkOffsetX = offx.ToString("F2");
+            ParkOffsetY = offy.ToString("F2");
+            double x = AbsoluteX.ToDouble();
+            double y = AbsoluteY.ToDouble();
+            ArchorX = (x - offx).ToString("F2");
+            ArchorY = (y - offy).ToString("F2");
+            ArchorX100 = ((x - offx)*100).ToString("F0");
+            ArchorY100 = ((y - offy)*100).ToString("F0");
+            Height100=(AbsoluteHeight*100).ToString("F0");
         }
 
 

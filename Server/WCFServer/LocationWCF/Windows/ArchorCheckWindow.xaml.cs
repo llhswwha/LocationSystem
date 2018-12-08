@@ -39,13 +39,13 @@ namespace LocationServer.Windows
             DataGrid2.DataGridMenu.AddMenu("定位", (obj) =>
             {
                 Bll bll = new Bll();
-                var list = new List<Archor>();
+                var list = new List<int>();
                 foreach (var item in DataGrid2.SelectedItems)
                 {
                     var archor = item as UDPArchor;
                     Archor dbArchor = bll.Archors.FindByIp(archor.GetClientIP());
                     if(dbArchor!=null)
-                        list.Add(dbArchor);
+                        list.Add(dbArchor.Id);
                 }
                 var win = new AreaCanvasWindow(list.ToArray());
                 win.Show();
@@ -290,11 +290,11 @@ namespace LocationServer.Windows
 
         private void MenuLocalArchor_Click(object sender, RoutedEventArgs e)
         {
-            var list = new List<Archor>();
+            var list = new List<int>();
             foreach (var item in DataGridDb.SelectedItems)
             {
                 var archor = item as Archor;
-                list.Add(archor);
+                list.Add(archor.Id);
             }
             var win = new AreaCanvasWindow(list.ToArray());
             win.Show();

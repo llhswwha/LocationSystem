@@ -101,7 +101,17 @@ namespace ExcelLib
             for (int j = 0; j < dataRow.Table.Columns.Count; j++)
             {
                 ICell cell = row.CreateCell(j + startColumn);
-                cell.SetCellValue(dataRow[j].ToString());
+                string value = dataRow[j].ToString();
+                double rec = 0;
+                bool r=double.TryParse(value, out rec);
+                if (r)
+                {
+                    cell.SetCellValue(rec);
+                }
+                else
+                {
+                    cell.SetCellValue(value);
+                }
                 cell.SetICellStyle(10, false, true);
             }
         }

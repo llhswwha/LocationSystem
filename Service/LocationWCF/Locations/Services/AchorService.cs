@@ -69,19 +69,27 @@ namespace LocationServices.Locations.Services
         public TEntity Post(TEntity item)
         {
             var dbItem = item.ToDbModel();
-            var dev = new DbModel.Location.AreaAndDev.DevInfo();
-            dev.Name = item.Name;
-            bool r1=db.DevInfos.Add(dev);
-            if (r1)
+            if (item.DevInfoId == 0)
             {
-                dbItem.DevInfo = dev;
-                dbItem.DevInfoId = dev.Id;
-                var result = dbSet.Add(dbItem);
-                return result ? dbItem.ToTModel() : null;
+                var dev = new DbModel.Location.AreaAndDev.DevInfo();
+                dev.Name = item.Name;
+                bool r1 = db.DevInfos.Add(dev);//创建基站前先创建设备
+                if (r1)
+                {
+                    dbItem.DevInfo = dev;
+                    dbItem.DevInfoId = dev.Id;
+                    var result = dbSet.Add(dbItem);
+                    return result ? dbItem.ToTModel() : null;
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
-                return null;
+                var result = dbSet.Add(dbItem);
+                return result ? dbItem.ToTModel() : null;
             }
         }
 

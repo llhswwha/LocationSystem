@@ -199,8 +199,13 @@ namespace LocationServer.Controls
                         }
                         listEdit.Add(archorSetting);
                     }
-                    if(archorSetting!=null)
-                        list.Add(archorSetting);
+                    if (archorSetting != null)
+                    {
+
+                        archorSetting.SetExtensionInfo(LocationContext.OffsetX, LocationContext.OffsetY);
+                        if(archorSetting.RelativeHeight!=2)//过滤掉2m的基站 未测量位置坐标的
+                            list.Add(archorSetting);
+                    }
 
                     double percent = i*100f/archors.Count;
                     worker.ReportProgress((int) percent);

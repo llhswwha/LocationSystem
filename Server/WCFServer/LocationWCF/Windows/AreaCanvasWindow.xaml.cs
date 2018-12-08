@@ -32,6 +32,7 @@ using DbModel.Tools;
 using LocationServer.Tools;
 using LocationServer.Models.EngineTool;
 using DbModel.Location.Settings;
+using TArchor = TModel.Location.AreaAndDev.Archor;
 
 namespace LocationServer
 {
@@ -45,37 +46,49 @@ namespace LocationServer
         public AreaCanvasWindow()
         {
             InitializeComponent();
-            bll = AppContext.GetLocationBll();
+
+            InitService();
         }
 
-        Archor[] _archors;
+        TArchor[] _archors;
 
 
-        public AreaCanvasWindow(params Archor[] archors)
-        {
-            InitializeComponent();
-            bll = AppContext.GetLocationBll();
-            _archors = archors;
-        }
+        //public AreaCanvasWindow(params Archor[] archors)
+        //{
+        //    InitializeComponent();
+        //    bll = AppContext.GetLocationBll();
+        //    _archors = archors;
+        //}
 
         public AreaCanvasWindow(params int[] archorsIds)
         {
             InitializeComponent();
-            bll = AppContext.GetLocationBll();
+
+            InitService();
+
             var ids = archorsIds.ToList();
-            _archors = bll.Archors.FindAll(i => ids.Contains(i.Id)).ToArray();
+            //_archors = bll.Archors.FindAll(i => ids.Contains(i.Id)).ToArray();
+            _archors = archorService.GetList().Where(i => ids.Contains(i.Id)).ToArray();
         }
 
         private AreaService areaService;
         private DepartmentService depService;
         private DeviceService devService;
+        private ArchorService archorService;
 
+
+        private void InitService()
+        {
+            bll = AppContext.GetLocationBll();
+            areaService = new AreaService(bll);
+            depService = new DepartmentService(bll);
+            devService = new DeviceService(bll);
+            archorService = new ArchorService(bll);
+        }
 
         private void AreaCanvasWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            areaService = new AreaService();
-            depService = new DepartmentService();
-            devService = new DeviceService();
+            
 
             InitAreaCanvas();
             LoadData();
@@ -132,6 +145,29 @@ namespace LocationServer
                     AreaCanvas1.RemoveDev(dev.Id);
                 }
             });
+            devContextMenu.AddMenu("复制设备", (tag) =>
+            {
+                var dev = AreaCanvas1.SelectedDev.Tag as DevEntity;
+                dev.Pos.PosX += 5;
+                dev.Pos.PosY += 5;
+                dev.Name += " Copy";
+                dev.Code = "";
+                //dev.Ip = "";
+                var dev2=devService.Post(dev);
+
+                var archor = dev.DevDetail as TArchor;
+                archor.X += 5;
+                archor.Y += 5;
+                archor.Name += " Copy";
+                archor.Code = "";
+                archor.Ip = "";
+                archor.DevInfoId = dev2.Id;
+                var archorNew=archorService.Post(archor);
+                archorNew.Code = "Code_" + archorNew.Id;
+                archorService.Put(archorNew);
+
+                LoadData();
+            });
             AreaCanvas1.DevContextMenu = devContextMenu;
             ContextMenu areaContextMenu = new ContextMenu();
             areaContextMenu.AddMenu("设置区域", (tag) =>
@@ -155,9 +191,9 @@ namespace LocationServer
             AreaCanvas1.GetSettingFunc = (dev) =>
             {
                 object detail = dev.DevDetail;
-                if (detail is TModel.Location.AreaAndDev.Archor)
+                if (detail is TArchor)
                 {
-                    var archor = detail as TModel.Location.AreaAndDev.Archor;
+                    var archor = detail as TArchor;
                     return archorSettings.Find(i=>i.Code== archor.Code);
                 }
                 return null;
@@ -292,36 +328,45 @@ namespace LocationServer
             var tree = areaService.GetTree(1);
             if (tree == null) return;
             var devList = tree.GetAllDev();
-            var archorList = new ArchorService().GetList();
+            var archorList = archorService.GetList();
             foreach (var dev in devList)
             {
                 dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
             }
             var topoTree = ResourceTreeView1.TopoTree;
-            topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
-            topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
-            topoTree.ExpandLevel(2);
-            topoTree.Tree.ContextMenu=new ContextMenu();
-            topoTree.Tree.ContextMenu.AddMenu("添加区域", (obj) =>
+
+            topoTree.AreaMenu = new ContextMenu();
+            topoTree.AreaMenu.AddMenu("添加区域", (obj) =>
             {
                 var area = topoTree.SelectedObject as AreaEntity;
-                NewAreaWindow win=new NewAreaWindow(area);
+                NewAreaWindow win = new NewAreaWindow(area);
                 if (win.ShowDialog() == true)
                 {
-                    
+
                 }
             });
-
-            topoTree.Tree.ContextMenu.AddMenu("设置区域", (tag) =>
+            topoTree.AreaMenu.AddMenu("设置区域", (tag) =>
             {
                 var area = topoTree.SelectedObject as AreaEntity;
                 ShowAreaInfo(area);
             });
-            topoTree.Tree.ContextMenu.AddMenu("删除区域", (tag) =>
+            topoTree.AreaMenu.AddMenu("删除区域", (tag) =>
             {
                 var area = topoTree.SelectedObject as AreaEntity;
                 RemoveArea(area);
             });
+
+            topoTree.DevMenu = new ContextMenu();
+            topoTree.DevMenu.AddMenu("设置设备", (tag) =>
+            {
+                var dev=topoTree.SelectedObject as DevEntity;
+                SetDevInfo(null, dev);
+            });
+
+            topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
+            topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
+            topoTree.ExpandLevel(2);
+            
 
             if (_archors != null)
             {

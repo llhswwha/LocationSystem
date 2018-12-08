@@ -32,7 +32,7 @@
                     </DockPanel>
                     <DockPanel>
                         <Label Width="100">大小</Label>
-                        <WPFClientControlLib:PointControl x:Name="TbSize"/>
+                        <WPFClientControlLib:PointControl x:Name="TbSize" X="2" Y="2"/>
                     </DockPanel>
                 </StackPanel>
             </GroupBox>

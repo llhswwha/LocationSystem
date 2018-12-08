@@ -199,10 +199,40 @@ namespace LocationServer.Windows
             PcRelative.ValueChanged += PcRelative_ValueChanged;
         }
 
+        private void GetDevRoom()
+        {
+            var _newRoom= Bll.GetDevRoom(_floor, _dev);
+            if (_newRoom != null && _room != null)
+            {
+                if(_newRoom.Id!=_room.Id)
+                {
+                    _room = _newRoom;
+                    TbRoomName.Text = _newRoom.Name;
+                }
+            }
+            else
+            {
+                if (_newRoom != _room)
+                {
+                    _room = _newRoom;
+                    if (_newRoom != null)
+                    {
+                        TbRoomName.Text = _newRoom.Name;
+                    }
+                    else
+                    {
+                        TbRoomName.Text = "";
+                    }
+                }
+            }
+            
+        }
+
         private void PcRelative_ValueChanged(WPFClientControlLib.PointControl obj)
         {
             PcArchor.ValueChanged -= PcArchor_ValueChanged;
             PcZero.ValueChanged -= PcZero_ValueChanged;
+            GetDevRoom();
             if (_room != null)
             {
                 PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + PcZero.X + obj.X;
@@ -303,6 +333,8 @@ namespace LocationServer.Windows
             archorSetting.Name = _archor.Name;
             archorSetting.RelativeHeight = TbHeight.Text.ToDouble();
             archorSetting.AbsoluteHeight = TbHeight2.Text.ToDouble();
+
+            GetDevRoom();
             if (_room != null)
             {
                 archorSetting.RelativeMode = RelativeMode.相对机房;
@@ -528,6 +560,7 @@ namespace LocationServer.Windows
 
         private void BtnAutoSelectPoint_Click(object sender, RoutedEventArgs e)
         {
+            GetDevRoom();
             if (_room != null)
             {
                 if (_floor.Name.Contains("主厂房"))//主厂房有柱子
