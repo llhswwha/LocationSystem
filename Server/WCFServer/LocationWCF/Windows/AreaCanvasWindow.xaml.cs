@@ -135,15 +135,7 @@ namespace LocationServer
             devContextMenu.AddMenu("删除设备", (tag) =>
             {
                 var dev = AreaCanvas1.SelectedDev.Tag as DevEntity;
-                if (MessageBox.Show("确认删除设备:" + dev.Name + "?", "警告", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    var r = devService.Delete(dev.Id + "");
-                    if (r == null)
-                    {
-                        MessageBox.Show("删除失败");
-                    }
-                    AreaCanvas1.RemoveDev(dev.Id);
-                }
+                RemoveDev(dev);
             });
             devContextMenu.AddMenu("复制设备", (tag) =>
             {
@@ -198,6 +190,19 @@ namespace LocationServer
                 }
                 return null;
             };
+        }
+
+        private void RemoveDev(DevEntity dev)
+        {
+            if (MessageBox.Show("确认删除设备:" + dev.Name + "?", "警告", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var r = devService.Delete(dev.Id + "");
+                if (r == null)
+                {
+                    MessageBox.Show("删除失败");
+                }
+                AreaCanvas1.RemoveDev(dev.Id);
+            }
         }
 
         private void ShowAreaInfo(PhysicalTopology area)
@@ -361,6 +366,11 @@ namespace LocationServer
             {
                 var dev=topoTree.SelectedObject as DevEntity;
                 SetDevInfo(null, dev);
+            });
+            topoTree.DevMenu.AddMenu("删除设备", (tag) =>
+            {
+                var dev = topoTree.SelectedObject as DevEntity;
+                RemoveDev(dev);
             });
 
             topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);

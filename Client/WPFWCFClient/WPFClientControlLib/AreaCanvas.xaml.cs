@@ -556,7 +556,7 @@ namespace WPFClientControlLib
                 ArchorSetting setting = GetSettingFunc(dev);
                 if (setting != null)
                 {
-                    setting.CalAbsolute();
+                    setting.CalAbsolute();//检测配置的数据是否正确
                     ax = setting.AbsoluteX.ToDouble();
                     ay = setting.AbsoluteY.ToDouble();
                 }
@@ -755,16 +755,17 @@ namespace WPFClientControlLib
             Rectangle rect = sender as Rectangle;
             if (SelectedDev != null && SelectedDev != rect)
             {
-                SelectedDev.Fill = Brushes.DeepSkyBlue;
+                var dev = rect.Tag as DevEntity;
+                SelectedDev.Fill = GetDevRectFillColor(dev);
                 SelectedDev.Stroke = Brushes.Black;
             }
-            var dev = rect.Tag as DevEntity;
-            LbState.Content = GetDevText(dev);
+            var dev2 = rect.Tag as DevEntity;
+            LbState.Content = GetDevText(dev2);
             SelectedDev = rect;
 
             if (DevSelected != null)
             {
-                DevSelected(rect, dev);
+                DevSelected(rect, dev2);
             }
         }
 

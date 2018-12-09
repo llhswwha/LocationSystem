@@ -26,6 +26,9 @@ namespace DbModel.Location.Settings
         [Display(Name = "基站Id")]
         public int ArchorId { get; set; }
 
+        [NotMapped]
+        public Archor Archor { get; set; }
+
         public bool Error { get; set; }
 
         [Display(Name = "名称")]
@@ -142,25 +145,25 @@ namespace DbModel.Location.Settings
         public string AbsoluteY { get; set; }
 
         [NotMapped]
-        public string ParkOffsetX { get; set; }
+        public double ParkOffsetX { get; set; }
 
         [NotMapped]
-        public string ParkOffsetY { get; set; }
+        public double ParkOffsetY { get; set; }
 
         [NotMapped]
-        public string ArchorX { get; set; }
+        public double ArchorX { get; set; }
 
         [NotMapped]
-        public string ArchorY { get; set; }
+        public double ArchorY { get; set; }
 
         [NotMapped]
-        public string ArchorX100 { get; set; }
+        public double ArchorX100 { get; set; }
 
         [NotMapped]
-        public string ArchorY100 { get; set; }
+        public double ArchorY100 { get; set; }
 
         [NotMapped]
-        public string Height100 { get; set; }
+        public double Height100 { get; set; }
 
         public void SetAbsolute(double x, double y)
         {
@@ -174,15 +177,15 @@ namespace DbModel.Location.Settings
         /// </summary>
         public void SetExtensionInfo(double offx,double offy)
         {
-            ParkOffsetX = offx.ToString("F2");
-            ParkOffsetY = offy.ToString("F2");
+            ParkOffsetX = offx;
+            ParkOffsetY = offy;
             double x = AbsoluteX.ToDouble();
             double y = AbsoluteY.ToDouble();
-            ArchorX = (x - offx).ToString("F2");
-            ArchorY = (y - offy).ToString("F2");
-            ArchorX100 = ((x - offx)*100).ToString("F0");
-            ArchorY100 = ((y - offy)*100).ToString("F0");
-            Height100=(AbsoluteHeight*100).ToString("F0");
+            ArchorX = (x - offx);
+            ArchorY = (y - offy);
+            ArchorX100 = ((x - offx)*100);
+            ArchorY100 = ((y - offy)*100);
+            Height100=(AbsoluteHeight*100);
         }
 
 

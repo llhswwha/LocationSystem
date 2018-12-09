@@ -179,6 +179,10 @@ namespace DbModel.CADEntitys
                         pt.X = zero.Y - y;
                         pt.Y = x - zero.X;
                     }
+                    if (pt.X < 0 || pt.Y < 0)
+                    {
+
+                    }
                 }
             }
         }

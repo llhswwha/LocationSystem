@@ -29,6 +29,8 @@
                 <MenuItem Header="生成基站数据" Name="MenuExportArchorData" Click="MenuExportArchorData_Click"></MenuItem>
                 <MenuItem Header="清空CAD形状" Name="ClearCADShapeList" Click="ClearCADShapeList_Click"></MenuItem>
                 <MenuItem Header="读取CAD形状" Name="LoadCADShapeList" Click="LoadCADShapeList_Click"></MenuItem>
+                <MenuItem Header="合并部分基站" Name="MenuMergeArchorInfo" Click="MenuMergeArchorInfo_Click"></MenuItem>
+                <MenuItem Header="读取室外基站位置" Name="MenuLoadOutArchorPoints" Click="MenuLoadOutArchorPoints_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1"/>

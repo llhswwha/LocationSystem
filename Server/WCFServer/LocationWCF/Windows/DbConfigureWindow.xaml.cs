@@ -27,6 +27,8 @@ using DbModel.CADEntitys;
 using Point = DbModel.Location.AreaAndDev.Point;
 using System.ComponentModel;
 using DbModel.Location.Settings;
+using LocationServer.Tools;
+using TModel.Tools;
 
 namespace LocationServer.Windows
 {
@@ -331,7 +333,7 @@ namespace LocationServer.Windows
         private void MenuArchorSetting_Click(object sender, RoutedEventArgs e)
         {
             Bll bll = new Bll();
-            var list2 = DbInitializer.LoadExcelToList<ArchorSetting>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\ArchorSetting.xls");
+            var list2 = DbInfoHelper.GetArchorSettings();
             bll.ArchorSettings.Clear();
             bll.ArchorSettings.AddRange(list2);
             MessageBox.Show("完成");
@@ -343,6 +345,126 @@ namespace LocationServer.Windows
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
             initializer.SaveInitInfoXml();
             MessageBox.Show("完成");
+        }
+
+        private void MenuMergeArchorInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AreaTreeWindow();
+            if (win.ShowDialog() == true)
+            {
+                var area=win.SelectedArea;
+                var archors=DbInfoHelper.GetArchors().FindAll(i => i.ParentId == area.Id);
+                var devs = DbInfoHelper.GetDevInfos().FindAll(i => i.ParentId == area.Id);
+                foreach (var item in archors)
+                {
+                    item.DevInfo = devs.Find(i => i.Id == item.DevInfoId);
+                }
+                var archorSettings = DbInfoHelper.GetArchorSettings().FindAll(i => i.FloorName == area.Name);
+                foreach (var item in archorSettings)
+                {
+                    item.Archor = archors.Find(i => i.Id == item.ArchorId);
+                }
+
+                Bll bll = new Bll();
+                var archors2=bll.Archors.FindAll(i => i.ParentId == area.Id);
+                var devs2 = bll.DevInfos.FindAll(i => i.ParentId == area.Id);
+                var archorSettings2 = bll.ArchorSettings.FindAll(i => i.FloorName == area.Name);
+
+                bll.Archors.RemoveList(archors2);
+                bll.DevInfos.RemoveList(devs2);
+                bll.ArchorSettings.RemoveList(archorSettings2);
+
+                bll.DevInfos.AddRange(devs);
+                foreach (var item in archors)
+                {
+                    item.DevInfoId = item.DevInfo.Id;
+                }
+                bll.Archors.AddRange(archors);
+
+                foreach (var item in archorSettings)
+                {
+                    if(item.Archor!=null)
+                        item.ArchorId = item.Archor.Id;
+                }
+                bll.ArchorSettings.AddRange(archorSettings);
+            }
+        }
+
+        private void MenuLoadOutArchorPoints_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            var archors=bll.Archors.ToList().Where(i => i.ParentId == 2).ToList();
+            var devs = bll.DevInfos.ToList().Where(i => i.ParentId == 2).ToList();
+            var archorSettings = bll.ArchorSettings.ToList();
+            var newDevs = new List<DevInfo>();
+            var newArchors = new List<Archor>();
+            var newArchorSettings1 = new List<ArchorSetting>();
+            var newArchorSettings2 = new List<ArchorSetting>();
+            var notArchors = new List<string>();
+            var path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\GPSPoints.txt";
+            string[] lines = File.ReadAllLines(path);
+            foreach (var item in lines)
+            {
+                string line = item.Trim();
+                if (string.IsNullOrEmpty(line)) continue;
+                string[] parts = line.Split(',');
+                string name = parts[0].ToLower();
+                double x = parts[2].ToDouble();
+                double y = parts[3].ToDouble();
+                double z = parts[4].ToDouble();
+
+
+                var archor = archors.Find(i => i.Code.ToLower() == name || i.Name.ToLower() == name);
+                if (archor != null)
+                {
+                    if (archor.Name == "4")
+                    {
+                        int j = 0;
+                    }
+                    newArchors.Add(archor);
+                    archors.Remove(archor);
+                    archor.X = x;
+                    archor.Y = z;
+                    archor.Z = y;
+                    var dev = devs.Find(i => i.Id == archor.DevInfoId);
+                    dev.PosX = (float)x;
+                    dev.PosY = (float)z;
+                    dev.PosZ = (float)y;
+                    newDevs.Add(dev);
+
+                    var archorSetting = archorSettings.Find(i => i.ArchorId == archor.Id||i.Code==archor.Code);
+                    if (archorSetting != null)
+                    {
+                        newArchorSettings1.Add(archorSetting);
+                    }
+                    else
+                    {
+                        archorSetting = new ArchorSetting();
+                        newArchorSettings2.Add(archorSetting);
+                    }
+                    archorSetting.ZeroX = "0";
+                    archorSetting.ZeroY = "0";
+                    archorSetting.AbsoluteX = x.ToString("F2");
+                    archorSetting.AbsoluteY = y.ToString("F2");
+                    archorSetting.RelativeX = x.ToString("F2");
+                    archorSetting.RelativeY = y.ToString("F2");
+                    archorSetting.AbsoluteHeight = z;
+                    archorSetting.RelativeHeight = z;
+                    archorSetting.RelativeMode = RelativeMode.CAD坐标;
+                    archorSetting.Name = archor.Name;
+                    archorSetting.Code = archor.Code;
+                    archorSetting.ArchorId = archor.Id;
+                }
+                else
+                {
+                    notArchors.Add(line);
+                }
+            }
+            bll.Archors.EditRange(newArchors);
+            bll.DevInfos.EditRange(newDevs);
+            //bll.Db.SaveChanges();
+            bll.ArchorSettings.EditRange(newArchorSettings1);
+            bll.ArchorSettings.AddRange(newArchorSettings2);
         }
     }
 }

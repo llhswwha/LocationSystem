@@ -172,13 +172,34 @@ namespace Location.TModel.Location.AreaAndDev
         public void SetInitBound(Point[] points, float bottomHeightT, float thicknessT)
         {
             Points = new List<Point>();
+            SetMinMax(points, bottomHeightT, thicknessT);
 
+            for (int i = 0; i < points.Length; i++)
+            {
+                Point point = points[i];
+                //point.X -= MinX;
+                //point.Y -= MinY;
+                Points.Add(new Point(point));
+            }
+
+            //double pX = (MinX + MaxX)/2.0;
+            //double pY = (MinY + MaxY)/2.0;
+            //double pZ = (MinZ + MaxZ)/2.0;
+        }
+
+        private void SetMinMax(Point[] points, float bottomHeightT, float thicknessT)
+        {
+            MinZ = 0 + bottomHeightT;
+            MaxZ = thicknessT + bottomHeightT;
+            SetMinMaxXY(points);
+        }
+
+        private void SetMinMaxXY(Point[] points)
+        {
             MinX = float.MaxValue;
             MinY = float.MaxValue;
             MaxX = float.MinValue;
             MaxY = float.MinValue;
-            MinZ = 0 + bottomHeightT;
-            MaxZ = thicknessT + bottomHeightT;
 
             for (int i = 0; i < points.Length; i++)
             {
@@ -201,18 +222,6 @@ namespace Location.TModel.Location.AreaAndDev
                     MaxY = point.Y;
                 }
             }
-
-            for (int i = 0; i < points.Length; i++)
-            {
-                Point point = points[i];
-                //point.X -= MinX;
-                //point.Y -= MinY;
-                Points.Add(new Point(point));
-            }
-
-            //double pX = (MinX + MaxX)/2.0;
-            //double pY = (MinY + MaxY)/2.0;
-            //double pZ = (MinZ + MaxZ)/2.0;
         }
 
         public void AddPoint(Point point)
@@ -222,6 +231,13 @@ namespace Location.TModel.Location.AreaAndDev
                 Points=new List<Point>();
             }
             Points.Add(point);
+
+            SetMinMaxXY();
+        }
+
+        public void SetMinMaxXY()
+        {
+            SetMinMaxXY(Points.ToArray());
         }
 
         public Bound Clone()

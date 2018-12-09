@@ -37,7 +37,16 @@ namespace LocationServer.Windows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (SaveEvent != null)
+            {
+                var result=SaveEvent(this, PropertyGrid1.SelectedObject);
+                if (result == true)
+                {
+                    this.DialogResult = true;
+                }
+            }
         }
+
+        public event Func<object, object,bool> SaveEvent;
     }
 }

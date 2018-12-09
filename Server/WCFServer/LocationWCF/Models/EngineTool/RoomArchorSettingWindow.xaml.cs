@@ -131,10 +131,6 @@ namespace LocationServer.Windows
             {
                 TbRoomName.Text = _room.Name;
                 PcArchor.IsEnabled = false;
-                //PcZero.X = _room.InitBound.MinX;
-                //PcZero.Y = _room.InitBound.MinY;
-                //PcRelative.X = x - _room.InitBound.MinX;
-                //PcRelative.Y = z - _room.InitBound.MinY;
                 var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
                 if (setting != null)
                 {
@@ -155,9 +151,25 @@ namespace LocationServer.Windows
             }
             else
             {
-                PcArchor.IsEnabled = true;
-                PcRelative.X = PcArchor.X;
-                PcRelative.Y = PcArchor.Y;
+                var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
+                if (setting != null)
+                {
+                    SetZeroPoint(setting.ZeroX.ToFloat(), setting.ZeroY.ToFloat());
+                    Title += " [已配置]";
+                }
+                else
+                {
+                    PcArchor.IsEnabled = true;
+                    PcRelative.X = PcArchor.X;
+                    PcRelative.Y = PcArchor.Y;
+
+                    if (ArchorSettingContext.ZeroX != 0)
+                    {
+                        SetZeroPoint(ArchorSettingContext.ZeroX, ArchorSettingContext.ZeroY);
+                    }
+                    
+                }
+               
             }
 
             PcZero.ValueChanged += PcZero_ValueChanged;
@@ -575,6 +587,12 @@ namespace LocationServer.Windows
                     //var p = _floor.GetClosePointEx(x, z);
                     SetZeroPoint(p.X, p.Y);
                 }
+            }
+            else
+            {
+                //var p=_room.InitBound.GetClosePoint(x, z);
+                var p = _floor.GetClosePointEx(x, z);
+                SetZeroPoint(p.X, p.Y);
             }
         }
     }

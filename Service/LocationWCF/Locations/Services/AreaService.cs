@@ -18,6 +18,8 @@ using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 using DbModel.Location.Data;
 using TPerson = Location.TModel.Location.Person.Personnel;
 using DbPerson = DbModel.Location.Person.Personnel;
+using Point = Location.TModel.Location.AreaAndDev.Point;
+using Bound = Location.TModel.Location.AreaAndDev.Bound;
 
 namespace LocationServices.Locations.Services
 {
@@ -637,6 +639,55 @@ namespace LocationServices.Locations.Services
             return strXml;
         }
 
-        
+        public Bound GetBound(TEntity area)
+        {
+            if (area.InitBound != null) return area.InitBound;
+            var bound = new DbModel.Location.AreaAndDev.Bound();
+            bool r1=db.Bounds.Add(bound);
+            area.InitBoundId = bound.Id;
+            var newArea = new AreaService().Put(area);
+            area.InitBound = bound.ToTModel();
+            return area.InitBound;
+        }
+
+        public Point AddPoint(TEntity area, Point point)
+        {
+            var bound = GetBound(area);
+            if (bound == null) return null;
+            point.BoundId = bound.Id;
+            //p1.Bound = Bound;
+            var dbPoint = point.ToDbModel();
+            bool r=db.Points.Add(dbPoint);
+            if (r)
+            {
+                point.Id = dbPoint.Id;
+                bound.AddPoint(point);
+                return point;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public Point EditPoint(Point p1)
+        {
+            p1.Bound.SetMinMaxXY();
+            var dbBound = db.Bounds.Find(p1.BoundId);
+            dbBound.Update(p1.Bound);
+            db.Bounds.Edit(dbBound);
+
+            var dbPoint = db.Points.Find(p1.Id);
+            dbPoint.Update(p1);
+            bool r = db.Points.Edit(dbPoint);
+            if (r)
+            {
+                return p1;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

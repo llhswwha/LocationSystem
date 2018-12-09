@@ -5,20 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows.Simple"
         mc:Ignorable="d"
-        Title="BoundWindow" Height="500" Width="700" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="BoundWindow" Height="500" Width="700" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="保存" Click="MenuItem_Click"></MenuItem>
         </Menu>
-        <ListBox Name="ListBox1" DockPanel.Dock="Left" Width="300">
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_Click"></MenuItem>
-                    <MenuItem Header="修改" Name="MenuEdit" Click="MenuEdit_Click"></MenuItem>
-                    <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-        </ListBox>
+        <DockPanel DockPanel.Dock="Left" Width="300">
+            <ListBox Name="ListBox1"  SelectionChanged="ListBox1_SelectionChanged" DockPanel.Dock="Bottom" Height="200">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_Click"></MenuItem>
+                        <MenuItem Header="修改" Name="MenuEdit" Click="MenuEdit_Click"></MenuItem>
+                        <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <xctk:PropertyGrid x:Name="PropertyGrid1"/>
+        </DockPanel>
+        
         <WPFClientControlLib:BoundCanvas Name="BoundCanvas1"/>
     </DockPanel>
 </Window>

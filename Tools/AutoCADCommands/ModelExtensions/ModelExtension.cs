@@ -81,7 +81,7 @@ namespace AutoCADCommands.ModelExtensions
             }
             else
             {
-
+                sp = null;
             }
 
             return sp;
@@ -94,8 +94,11 @@ namespace AutoCADCommands.ModelExtensions
             foreach (var item in objIds)
             {
                 var sp = item.ToCADShape();
-                sps.Shapes.Add(sp);
-                sp.Num = sps.Shapes.Count;
+                if (sp != null)
+                {
+                    sps.Shapes.Add(sp);
+                    sp.Num = sps.Shapes.Count;
+                }
             }
             sps.SetZero(zero.ToCADPoint(), zeroType);
             return sps;

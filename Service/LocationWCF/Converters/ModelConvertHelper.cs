@@ -58,6 +58,13 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.Bound();
+            item2.Update(item1);
+            return item2;
+        }
+
+        public static DbModel.Location.AreaAndDev.Bound Update(this DbModel.Location.AreaAndDev.Bound item2,Location.TModel.Location.AreaAndDev.Bound item1)
+        {
+            if (item1 == null) return null;
             item2.Id = item1.Id;
             item2.MinX = item1.MinX;
             item2.MaxX = item1.MaxX;
@@ -335,6 +342,13 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.AreaAndDev.Point();
+            item2.Update(item1);
+            return item2;
+        }
+
+        public static DbModel.Location.AreaAndDev.Point Update(this DbModel.Location.AreaAndDev.Point item2, Location.TModel.Location.AreaAndDev.Point item1)
+        {
+            if (item1 == null) return null;
             item2.Id = item1.Id;
             item2.X = item1.X;
             item2.Y = item1.Y;

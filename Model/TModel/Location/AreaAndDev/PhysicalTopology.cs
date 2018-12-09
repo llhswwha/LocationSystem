@@ -126,7 +126,7 @@ namespace Location.TModel.Location.AreaAndDev
         /// 初始设定的范围信息
         /// </summary>
         [DataMember]
-        public virtual Bound InitBound
+        public Bound InitBound
         {
             get { return _initBound; }
             set
@@ -137,6 +137,20 @@ namespace Location.TModel.Location.AreaAndDev
                     InitBoundId = value.Id;
                 }
             }
+        }
+
+        public List<Point> GetPoints()
+        {
+            if (InitBound != null)
+            {
+                var points = InitBound.Points;
+                foreach (var item in points)
+                {
+                    item.Bound = InitBound;
+                }
+                return points;
+            }
+            return null;
         }
 
         [DataMember]

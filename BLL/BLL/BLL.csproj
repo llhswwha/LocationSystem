@@ -133,6 +133,7 @@
     <Compile Include="Buffers\TagRelationBuffer.cs" />
     <Compile Include="TestBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\DbInfoHelper.cs" />
     <Compile Include="Tools\DevInfoHelper.cs" />
     <Compile Include="Tools\KKSCodeHelper.cs" />
     <Compile Include="Tools\LightUDP.cs" />

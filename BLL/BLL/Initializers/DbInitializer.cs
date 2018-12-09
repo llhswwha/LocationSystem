@@ -411,10 +411,10 @@ namespace BLL
             //}
             //因为sqlite不支持改成从表格导入
 
-            var list = LoadExcelToList<DevModel>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\DevModel.xls");
+            var list = DbInfoHelper.GetDevModels();
             DevModels.AddRange(list);
 
-            var list2 = LoadExcelToList<DevType>(AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\DevType.xls");
+            var list2 = DbInfoHelper.GetDevTypes();
             DevTypes.AddRange(list2);
         }
 
@@ -423,8 +423,9 @@ namespace BLL
             DataTable dt = ExcelHelper.LoadTable(new FileInfo(filePath), "", true);
             List<T> list = new List<T>();
             Type type = typeof(T);
-            foreach (DataRow row in dt.Rows)
+            for (int j = 0; j < dt.Rows.Count; j++)
             {
+                var row = dt.Rows[j];
                 T item = new T();
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {

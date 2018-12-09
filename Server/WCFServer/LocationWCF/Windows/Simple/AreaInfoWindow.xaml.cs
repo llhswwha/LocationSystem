@@ -58,7 +58,8 @@ namespace LocationServer.Windows
         {
             var area = _item as TEntity;
             var win = new BoundWindow();
-            win.Bound = area.InitBound;
+            //win.Bound = area.InitBound;
+            win.Area = area;
             win.Show();
         }
     }

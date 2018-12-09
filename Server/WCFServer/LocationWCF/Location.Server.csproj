@@ -200,6 +200,9 @@
     <Compile Include="Windows\ArchorCheckWindow.xaml.cs">
       <DependentUpon>ArchorCheckWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AreaTreeWindow.xaml.cs">
+      <DependentUpon>AreaTreeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\BusArchorListWindow.xaml.cs">
       <DependentUpon>BusArchorListWindow.xaml</DependentUpon>
     </Compile>
@@ -298,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ArchorCheckWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AreaTreeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -428,6 +435,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Data\GPSPoints.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\DbInfos\ArchorSetting.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

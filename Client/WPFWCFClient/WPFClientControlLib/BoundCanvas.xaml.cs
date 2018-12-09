@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Location.TModel.Location.AreaAndDev;
+using Point = Location.TModel.Location.AreaAndDev.Point;
 
 namespace WPFClientControlLib
 {
@@ -28,10 +29,15 @@ namespace WPFClientControlLib
 
         public double CanvasMargin = 10;
 
-        public void Show(Bound bound)
+        public Bound Bound;
+
+        public void DrawBound(Bound bound)
         {
-            double scale1 = (Canvas1.ActualWidth- CanvasMargin) / bound.GetWidth();
-            double scale2 = (Canvas1.ActualHeight- CanvasMargin) / bound.GetLength();
+            PointEllipse.Clear();
+            if (bound == null) return;
+            if (bound.GetWidth() == 0) return;
+            double scale1 = (Canvas1.ActualWidth - CanvasMargin) / bound.GetWidth();
+            double scale2 = (Canvas1.ActualHeight - CanvasMargin) / bound.GetLength();
             double scale = scale1 < scale2 ? scale1 : scale2;
 
             //this.Width = bound.GetWidth();
@@ -46,8 +52,8 @@ namespace WPFClientControlLib
             var ps = new List<System.Windows.Point>();
             foreach (var item in points)
             {
-                double x = (item.X-bound.MinX)* scale+ CanvasMargin/2;
-                double y = (item.Y-bound.MinY)* scale + CanvasMargin / 2;
+                double x = (item.X - bound.MinX) * scale + CanvasMargin / 2;
+                double y = (item.Y - bound.MinY) * scale + CanvasMargin / 2;
                 //double x = (item.X - OffsetX) * scale;
                 //double y = (item.Y - OffsetY) * scale;
                 var p = new System.Windows.Point(x, y);
@@ -61,13 +67,13 @@ namespace WPFClientControlLib
                 double x = (item.X - bound.MinX) * scale + CanvasMargin / 2;
                 double y = (item.Y - bound.MinY) * scale + CanvasMargin / 2;
 
-                double size = 4 * scale;
+                double size = scale;
                 Ellipse ellipse = new Ellipse();
                 //ellipse.Margin = new Thickness(Margin/2, Margin/2, 0, 0);
                 ellipse.Width = size;
                 ellipse.Height = size;
                 ellipse.Fill = Brushes.Transparent;
-                ellipse.Stroke = Brushes.Red;
+                ellipse.Stroke = Brushes.Blue;
                 ellipse.StrokeThickness = 2;
                 Canvas1.Children.Add(ellipse);
 
@@ -76,8 +82,44 @@ namespace WPFClientControlLib
 
                 Canvas.SetLeft(ellipse, left);
                 Canvas.SetTop(ellipse, top);
+
+                PointEllipse[item] = ellipse;
             }
-            
+        }
+
+        public void Show(Bound bound)
+        {
+            this.Bound = bound;
+            DrawBound(Bound);
+        }
+
+        public void RefreshBound()
+        {
+            if (Bound == null) return;
+            DrawBound(Bound);
+            SelectPoint(SelectedPoint);
+        }
+
+        public Dictionary<Point, Ellipse> PointEllipse = new Dictionary<Point, Ellipse>();
+
+        public Ellipse SelectedEllipse = null;
+
+        public Point SelectedPoint = null;
+
+        public void SelectPoint(Point point)
+        {
+            if (SelectedEllipse != null)
+            {
+                SelectedEllipse.Stroke = Brushes.Blue;
+            }
+            if (point == null) return;
+            if (PointEllipse.ContainsKey(point))
+            {
+                Ellipse ellipse = PointEllipse[point];
+                ellipse.Stroke = Brushes.Red;
+                SelectedEllipse = ellipse;
+                SelectedPoint = point;
+            }
         }
     }
 }

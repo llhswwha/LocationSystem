@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,17 +19,54 @@ namespace Location.TModel.Tools
 
         public static object ToType(object value, Type type)
         {
-            if (type == typeof (Int16))
+            if (type == typeof (Int16)|| type == typeof(Int16?))
             {
+                if (value == "") return null;
                 return Convert.ToInt16(value);
             }
-            if (type == typeof(Int32))
+            else if (type == typeof(Int32) || type == typeof(Int32?))
             {
+                if (value == "") return null;
                 return Convert.ToInt32(value);
             }
-            if (type == typeof(Int64))
+            else if (type == typeof(Int64) || type == typeof(Int64?))
             {
+                if (value == "") return null;
                 return Convert.ToInt64(value);
+            }
+            else if (type == typeof(double) || type == typeof(double?))
+            {
+                if (value == "") return null;
+                return Convert.ToDouble(value);
+            }
+            else if (type == typeof(float) || type == typeof(float?))
+            {
+                if (value == "") return null;
+                return (float)Convert.ToDouble(value);
+            }
+            else if (type == typeof(bool) || type == typeof(bool?))
+            {
+                if (value == "") return null;
+                return Convert.ToBoolean(value);
+            }
+            else if (type == typeof(DateTime) || type == typeof(DateTime?))
+            {
+                if (value == "") return null;
+                return Convert.ToDateTime(value);
+            }
+            else if (type.BaseType == typeof(Enum))
+            {
+                var names= Enum.GetNames(type);
+                var id = names.ToList().IndexOf(value.ToString());
+                var values=Enum.GetValues(type);
+                return values.GetValue(id);
+            }
+            else if (value == "")
+            {
+                if (type.BaseType == typeof(Object))
+                {
+                    return null;
+                }
             }
             return value;
         }

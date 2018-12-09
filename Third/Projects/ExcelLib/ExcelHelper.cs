@@ -365,7 +365,14 @@ namespace ExcelLib
             dt.TableName = type.Name;
             foreach (var p in ps)
             {
-                dt.Columns.Add(p.Name);
+                if(p.PropertyType == typeof(int)|| p.PropertyType == typeof(float)|| p.PropertyType == typeof(double))
+                {
+                    dt.Columns.Add(p.Name, p.PropertyType);
+                }
+                else
+                {
+                    dt.Columns.Add(p.Name);
+                }
             }
             foreach (var item in list)
             {

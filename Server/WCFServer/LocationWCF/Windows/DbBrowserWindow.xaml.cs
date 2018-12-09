@@ -69,7 +69,15 @@ namespace LocationServer.Windows
             var list2 = new List<object>();
             foreach (var item in list)
             {
-                list2.Add(item);
+                //if(item is IComparable)
+                //{
+                //    list2.Add(item as IComparable);
+                //}
+                //else
+                {
+                    list2.Add(item);
+                }
+                
             }
             return list2;
         }
@@ -86,6 +94,7 @@ namespace LocationServer.Windows
         private void MenuExportExcel_OnClick(object sender, RoutedEventArgs e)
         {
             var list=DataGrid1.ItemsSource as List<object>;
+            //list.Sort();
             if (list.Count > 0)
             {
                 Type type = list[0].GetType();
