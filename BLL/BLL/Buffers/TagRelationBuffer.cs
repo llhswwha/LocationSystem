@@ -296,8 +296,17 @@ namespace BLL
             //todo:加上建筑外的区域
             if (containsAreas.Count > 0)
             {
-                inArea = containsAreas[0];
-                pos.SetArea(inArea);
+                //inArea = containsAreas[0];
+                //pos.SetArea(inArea);
+
+                Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
+                if (areaT == null)
+                {
+                    //pos.SetArea(containsAreas[0]);
+                    areaT = containsAreas[0];
+                }
+                inArea = areaT;
+                pos.SetArea(areaT);
             }
             if (inArea == null)
             {
