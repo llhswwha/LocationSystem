@@ -12,7 +12,7 @@ namespace LocationServices.Locations.Interfaces
     [ServiceContract]
     public interface IDevService
     {
-        #region 设备位置(DevPos)和信息(DevInfo)的增删改查
+        #region 设备位置(DevPos)和信息(DevInfo),门禁、摄像头数据的增删改查
         /// <summary>
         /// 获取模型类型数量
         /// </summary>
@@ -170,6 +170,59 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         IList<Dev_DoorAccess> GetAllDoorAccessInfo();
+
+        //摄像头设备的增删改查
+
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool AddCameraInfoByList(IList<Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfo"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool AddCameraInfo(Dev_CameraInfo cameraInfo);
+        /// <summary>
+        /// 删除摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool DeleteCameraInfo(IList<Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 修改摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool ModifyCameraInfo(IList<Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 通过区域ID，获取所有摄像头信息
+        /// </summary>
+        /// <param name="pids"></param>
+        /// <returns></returns>
+        [OperationContract]
+        IList<Dev_CameraInfo> GetCameraInfoByParent(int[] pids);
+        /// <summary>
+        /// 获取所有的摄像头信息
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        IList<Dev_CameraInfo> GetAllCameraInfo();
+
+        /// <summary>
+        /// 通过设备信息，获取摄像头信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        [OperationContract]
+        Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev);
+
         #endregion
 
         [OperationContract]
@@ -232,5 +285,7 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName);
+
+
     }
 }

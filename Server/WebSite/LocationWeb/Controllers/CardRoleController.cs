@@ -19,20 +19,23 @@ using Location.IModel;
 using Webdiyer.WebControls.Mvc;
 using WebLocation.Tools;
 using DbModel.Location.Authorizations;
+using LocationServices.Locations.Services;
 
 namespace WebLocation.Controllers
 {
     public class CardRoleController : Controller
     {
         private Bll db = new Bll();
-        private int pageSize = StaticArgs.DefaultPageSize;
+        //private int pageSize = StaticArgs.DefaultPageSize;
         //private int pageSize = 4;
 
         // GET: CardRole
-        public ActionResult Index(int pageIndex = 1)
-        {
-            PagedList<CardRole> lst = db.CardRoles.ToList().ToPagedList<CardRole>(pageIndex, pageSize);
-            return View("Index", lst);
+        public ActionResult Index()
+        {          
+            List<CardRole> cardRoleList = db.CardRoles.ToList();
+            return View(cardRoleList);
+            //PagedList<CardRole> lst = db.CardRoles.ToList().ToPagedList<CardRole>(pageIndex, pageSize);            
+            //return View("Index", lst);
         }
 
         // GET: CardRole/Details/5
@@ -62,7 +65,7 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description")]CardRole cardRole)
+        public ActionResult Create(CardRole cardRole)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +102,7 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description")]CardRole cardRole)
+        public ActionResult Edit(CardRole cardRole)
         {
             if (ModelState.IsValid)
             {

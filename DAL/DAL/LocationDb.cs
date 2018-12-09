@@ -120,6 +120,8 @@ namespace DAL
 
         public DbSet<DbModel.Location.AreaAndDev.Dev_DoorAccess> Dev_DoorAccess { get; set; }
 
+        public DbSet<DbModel.Location.AreaAndDev.Dev_CameraInfo> Dev_CameraInfos { get; set; }
+
         public DbSet<DbModel.Location.AreaAndDev.Picture> Pictures { get; set; }
 
         public DbSet<ArchorSetting> ArchorSettings { get; set; }

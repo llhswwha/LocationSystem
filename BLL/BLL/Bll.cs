@@ -41,6 +41,8 @@ namespace BLL
 
         public Dev_DoorAccessBll Dev_DoorAccess { get; set; }
 
+        public Dev_CameraInfoBll Dev_CameraInfos { get; set; }
+
         public DevInstantDataBll DevInstantDatas { get; set; }
 
         public DevModelBll DevModels { get; set; }
@@ -174,6 +176,7 @@ namespace BLL
             DevAlarms = new DevAlarmBll(Db);
             DevInfos = new DevInfoBll(Db);
             Dev_DoorAccess = new Dev_DoorAccessBll(Db);
+            Dev_CameraInfos = new Dev_CameraInfoBll(Db);
             DevInstantDatas = new DevInstantDataBll(Db);
             DevModels = new DevModelBll(Db);
             DevTypes = new DevTypeBll(Db);

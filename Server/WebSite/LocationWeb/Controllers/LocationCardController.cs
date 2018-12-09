@@ -18,6 +18,9 @@ using ExcelLib;
 using Location.IModel;
 using Webdiyer.WebControls.Mvc;
 using WebLocation.Tools;
+using DbModel.Location.Authorizations;
+using DbModel.Tools;
+using LocationServices.Locations.Services;
 
 namespace WebLocation.Controllers
 {
@@ -29,14 +32,28 @@ namespace WebLocation.Controllers
         // GET: Tags
         public ActionResult Index(int pageIndex = 1)
         {
-            PagedList<LocationCard> lst = db.LocationCards.ToList().ToPagedList<LocationCard>(pageIndex, pageSize);
+            PagedList<LocationCard> lst = db.LocationCards.ToList().ToPagedList<LocationCard>(pageIndex, pageSize);                                  
             return View("Index", lst);
-        }
+        }       
 
         public ActionResult Position()
         {
             return View();
+        }      
+
+        public ActionResult RoleSet()
+        {
+            List<CardRole> cardRoleList = db.CardRoles.ToList();           
+            return PartialView("RoleSet", cardRoleList);
         }
+
+        public ActionResult SetTagRole(string tagId, string roleId)
+        {
+            var service = new TagService();
+            var result = service.SetRole(tagId, roleId) != null;
+            result = true;
+            return Json(new { success = result });
+        }        
 
         // GET: Tags/Details/5
         public ActionResult Details(int? id)
@@ -65,7 +82,7 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,Name,Describe")] LocationCard tag)
+        public ActionResult Create(LocationCard tag)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +96,7 @@ namespace WebLocation.Controllers
                     return Json(new { success = result, errors = db.LocationCards.ErrorMessage });
                 }
             }
-            return View(tag);            
+            return base.View(tag);            
         }
 
         // GET: Tags/Edit/5
@@ -103,7 +120,7 @@ namespace WebLocation.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Abutment_Id,Code,Name,Describe")] LocationCard tag)
+        public ActionResult Edit(LocationCard tag)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +134,7 @@ namespace WebLocation.Controllers
                     return Json(new { success = result, errors = db.LocationCards.ErrorMessage });
                 }
             }
-            return View(tag);
+            return base.View(tag);
         }
 
         // GET: Tags/Delete/5

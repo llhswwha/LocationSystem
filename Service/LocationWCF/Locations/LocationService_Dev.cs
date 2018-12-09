@@ -260,6 +260,86 @@ namespace LocationServices.Locations
             List<Dev_DoorAccess> doorAccessList= db.Dev_DoorAccess.DbSet.ToList().ToTModel();
             return doorAccessList.ToWCFList();
         }
+        #region 摄像头信息
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        public bool AddCameraInfoByList(IList<Dev_CameraInfo> cameraInfoList)
+        {
+            return db.Dev_CameraInfos.AddRange(cameraInfoList.ToList().ToDbModel());
+        }
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfo"></param>
+        /// <returns></returns>
+        public bool AddCameraInfo(Dev_CameraInfo cameraInfo)
+        {
+            return db.Dev_CameraInfos.Add(cameraInfo.ToDbModel());
+        }
+        /// <summary>
+        /// 删除摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        public bool DeleteCameraInfo(IList<Dev_CameraInfo> cameraInfoList)
+        {
+            bool value = true;
+            foreach (Dev_CameraInfo item in cameraInfoList)
+            {
+                var cameraInfo = db.Dev_CameraInfos.DeleteById(item.Id);
+                var dev = db.DevInfos.DeleteById(item.DevInfoId);
+                //bool posResult = db.DevPos.DeleteById(item.DevID);
+                bool valueTemp = cameraInfo != null && dev != null;
+                if (!valueTemp) value = valueTemp;
+            }
+            return value;
+        }
+        /// <summary>
+        /// 修改摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        public bool ModifyCameraInfo(IList<Dev_CameraInfo> cameraInfoList)
+        {
+            return db.Dev_CameraInfos.EditRange(db.Db, cameraInfoList.ToList().ToDbModel());
+        }
+        /// <summary>
+        /// 通过区域ID，获取所有摄像头信息
+        /// </summary>
+        /// <param name="pids"></param>
+        /// <returns></returns>
+        public IList<Dev_CameraInfo> GetCameraInfoByParent(int[] pidList)
+        {
+            List<Dev_CameraInfo> devInfoList = new List<Dev_CameraInfo>();
+            foreach (var pId in pidList)
+            {
+                devInfoList.AddRange(db.Dev_CameraInfos.DbSet.Where(item => item.ParentId == pId).ToList().ToTModel());
+            }
+            return devInfoList.ToWCFList();
+        }
+        /// <summary>
+        /// 获取所有的摄像头信息
+        /// </summary>
+        /// <returns></returns>
+        public IList<Dev_CameraInfo> GetAllCameraInfo()
+        {
+            List<Dev_CameraInfo> cameraInfoList = db.Dev_CameraInfos.DbSet.ToList().ToTModel();
+            return cameraInfoList.ToWCFList();
+        }
+        /// <summary>
+        /// 通过设备信息，获取摄像头信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        public Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev)
+        {
+            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item=>item.DevInfoId==dev.Id).ToTModel();
+            return cameraInfo;
+        }
+        #endregion
         public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
             List<Personnel> ps = GetPersonList();

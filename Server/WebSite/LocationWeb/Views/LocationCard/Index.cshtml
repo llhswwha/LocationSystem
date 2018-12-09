@@ -47,8 +47,11 @@
                 @Html.DisplayNameFor(model => model.Describe)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CardRoleId)
+                @Html.DisplayNameFor(model => model.CardRole)
             </th>
+            <th>
+                标签角色设置
+            </th>                      
             <th>
                 @Html.DisplayNameFor(model => model.Power)
             </th>
@@ -74,8 +77,20 @@
                     @Html.DisplayFor(modelItem => item.Describe)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CardRoleId)
-                </td>
+                    @Html.DisplayFor(modelItem => item.CardRole.Name)                  
+                </td>  
+                <td>                   
+                    @Ajax.ActionLink("设置", "RoleSet", "LocationCard", new { id = item.Id }, new AjaxOptions
+                   {
+                       HttpMethod = "Get",
+                       UpdateTargetId = "modalContent",
+                       InsertionMode = InsertionMode.Replace,
+                       OnBegin = "onBegin",
+                       OnSuccess = "onSuccess",
+                       OnFailure = "onFailure",
+                       OnComplete = "onComplete"
+                   })                   
+                </td>                  
                 <td>
                     @Html.DisplayFor(modelItem => item.Power)
                 </td>

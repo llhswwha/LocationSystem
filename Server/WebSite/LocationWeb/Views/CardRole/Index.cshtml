@@ -1,6 +1,6 @@
 ﻿@using Webdiyer.WebControls.Mvc;
 @using Location.Model;
-@model PagedList<DbModel.Location.Authorizations.CardRole>
+@model IEnumerable<DbModel.Location.Authorizations.CardRole>
 
 @{
     ViewBag.Title = "Index";
@@ -88,10 +88,8 @@
                 </td>
             </tr>
         }
-
     </table>
-
-    @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+    @*@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })*@
 </div>
 
 @section Scripts {

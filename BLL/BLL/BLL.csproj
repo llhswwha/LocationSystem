@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
     <Compile Include="Buffers\BaseBuffer.cs" />
     <Compile Include="Bll.cs" />

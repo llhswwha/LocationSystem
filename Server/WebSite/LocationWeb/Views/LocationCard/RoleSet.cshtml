@@ -1,0 +1,105 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model IEnumerable<DbModel.Location.Authorizations.CardRole>
+
+@{
+    ViewBag.Title = "RoleSet";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">RoleSet</h2>
+</div>
+
+<div class="modal-body">
+    <div class="form-horizontal">
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="radio" name="choose" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="确定" id="btnId" />
+            </div>
+        </div>
+       
+        <div>
+            @Html.ActionLink("返 回", "Index")
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+@*<script type="text/javascript">
+    $(function () {
+        $("#btnId").click(function () {
+            var choosed = $('input:radio[name="choose"]:checked').val();
+            if (choosed == null) {
+                alert("未选择，不修改标签角色！");
+                return false;
+            }
+            else {
+                $.ajax({                   
+                    type: "post",
+                    url: "LocationCard/SetTagRole",
+                    //data: "{tagId:1,roleId:1}",
+                    data: '{"tagId": "tagId","roleId": "roleId"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        console.log(data);
+                        console.log(data.success);
+                        if (data.success == true) {
+                            alert("标签角色设置成功！");
+                        }
+                        else {
+                            alert("标签角色设置失败！");
+                        }
+              
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log("error"); 
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                        alert("通信失败！");
+                    }
+                });            
+            }
+        });
+    });
+</script>*@
+
+
+

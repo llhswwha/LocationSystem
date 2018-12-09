@@ -637,6 +637,76 @@ namespace LocationServices.Converters
 
         #endregion
 
+        #region TModel.Location.AreaAndDev.Dev_CameraInfo <=> DbModel.Location.AreaAndDev.Dev_CameraInfossss
+
+        public static List<TModel.Location.AreaAndDev.Dev_CameraInfo> ToWcfModelList(
+            this List<DbModel.Location.AreaAndDev.Dev_CameraInfo> list1)
+        {
+            return list1.ToTModel().ToWCFList();
+        }
+
+        public static TModel.Location.AreaAndDev.Dev_CameraInfo ToTModel(
+            this DbModel.Location.AreaAndDev.Dev_CameraInfo item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new TModel.Location.AreaAndDev.Dev_CameraInfo();
+            item2.Id = item1.Id;
+            item2.Ip = item1.Ip;
+            item2.UserName = item1.UserName;           
+            item2.PassWord = item1.PassWord;
+            item2.Port = item1.Port;
+            item2.CameraIndex = item1.CameraIndex;
+            item2.ParentId = item1.ParentId;
+            item2.DevInfoId = item1.DevInfoId;
+            item2.Local_DevID = item1.Local_DevID;
+            item2.DevInfo = item1.DevInfo.ToTModel();
+            return item2;
+        }
+
+        public static List<TModel.Location.AreaAndDev.Dev_CameraInfo> ToTModel(
+            this List<DbModel.Location.AreaAndDev.Dev_CameraInfo> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<TModel.Location.AreaAndDev.Dev_CameraInfo>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToTModel());
+            }
+            return list2;
+        }
+
+        public static DbModel.Location.AreaAndDev.Dev_CameraInfo ToDbModel(
+            this TModel.Location.AreaAndDev.Dev_CameraInfo item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new DbModel.Location.AreaAndDev.Dev_CameraInfo();
+            item2.Id = item1.Id;
+            item2.Ip = item1.Ip;
+            item2.UserName = item1.UserName;
+            item2.PassWord = item1.PassWord;
+            item2.Port = item1.Port;
+            item2.CameraIndex = item1.CameraIndex;
+            item2.ParentId = item1.ParentId;
+            item2.DevInfoId = item1.DevInfoId;
+            item2.Local_DevID = item1.Local_DevID;
+            item2.DevInfo = item1.DevInfo.ToDbModel();
+            return item2;
+        }
+
+        public static List<DbModel.Location.AreaAndDev.Dev_CameraInfo> ToDbModel(
+            this List<TModel.Location.AreaAndDev.Dev_CameraInfo> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<DbModel.Location.AreaAndDev.Dev_CameraInfo>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToDbModel());
+            }
+            return list2;
+        }
+
+        #endregion
+
         #endregion
 
         #region TModel.Location.Work.OperationItem <=> DbModel.Location.Work.OperationItem

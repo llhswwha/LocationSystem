@@ -161,7 +161,10 @@ namespace LocationServices.Locations.Services
 
         public TEntity SetRole(string tagId,string roleId)
         {
+            if (string.IsNullOrEmpty(tagId)) return null;
+            if (string.IsNullOrEmpty(roleId)) return null;
             var tag = GetEntity(tagId);
+            if (tag == null) return null;
             tag.CardRoleId = roleId.ToInt();
             return Put(tag);
         }

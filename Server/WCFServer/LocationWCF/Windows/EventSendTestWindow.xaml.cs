@@ -17,6 +17,7 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations;
 using SignalRService.Hubs;
 using TModel.Location.Data;
+using IModel.Enums;
 
 namespace LocationServer.Windows
 {
@@ -86,8 +87,8 @@ namespace LocationServer.Windows
                 {
                     Id = dev.Id,
                     Level = Abutment_DevAlarmLevel.低,
-                    Title = "告警" + dev.Id,
-                    Message = "设备告警1",
+                    Title = "告警" + dev.Id,                  
+                    Message = GetAlarmMsg(dev),
                     CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
                 }.SetDev(dev);
                 AlarmHub.SendDeviceAlarms(alarm);
@@ -101,13 +102,30 @@ namespace LocationServer.Windows
                     Id = dev.Id,
                     Level = Abutment_DevAlarmLevel.无,
                     Title = "消警" + dev.Id,
-                    Message = "设备消警1",
+                    Message = "设备消警",
                     CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
                 }.SetDev(dev);
                 AlarmHub.SendDeviceAlarms(alarm);
             });
         }
-
+        /// <summary>
+        /// 获取告警信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        private string GetAlarmMsg(DevInfo dev)
+        {
+            string msg = "设备告警";
+            string typecode = dev.TypeCode.ToString();
+            if (TypeCodeHelper.IsBorderAlarmDev(typecode))
+            {
+                msg = string.Format("边界告警 : {0} 检测到非法越界.",dev.Name);
+            }else if(TypeCodeHelper.IsAlarmDev(typecode))
+            {
+                msg= string.Format("消防告警 : {0} 消防装置被触发.", dev.Name);
+            }
+            return msg;
+        }
         /// <summary>
         /// 设置门禁信息
         /// </summary>

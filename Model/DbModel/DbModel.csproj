@@ -56,6 +56,7 @@
     <Compile Include="CADEntitys\CADArea.cs" />
     <Compile Include="Engine\bus_anchor.cs" />
     <Compile Include="Engine\bus_tag.cs" />
+    <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Picture.cs" />
     <Compile Include="Location\AreaAndDev\Shape.cs" />
