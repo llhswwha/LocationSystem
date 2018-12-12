@@ -19,7 +19,7 @@ namespace LocationServices.Converters
         }
 
         public static Location.TModel.Location.AreaAndDev.DevInfo ToTModel(
-            this DbModel.Location.AreaAndDev.DevInfo item1)
+            this DbModel.Location.AreaAndDev.DevInfo item1,bool haveParent=false)
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.AreaAndDev.DevInfo();
@@ -53,6 +53,10 @@ namespace LocationServices.Converters
             //item2.ScaleX = item1.ScaleX;
             //item2.ScaleY = item1.ScaleY;
             //item2.ScaleZ = item1.ScaleZ;
+            if (haveParent)
+            {
+                item2.Parent = item1.Parent.ToTModel();
+            }
             item2.SetPos(item1.GetPos());
             return item2;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,18 @@ namespace Location.TModel.Tools
 {
     public static class ConvertHelper
     {
+        public static IList<T> CloneObjectList<T>(this IList<T> list) where T : class, new()
+        {
+            if (list == null) return null;
+            IList<T> listNew = new List<T>();
+            foreach (T item in list)
+            {
+                T itemNew = CloneObjectByBinary(item);
+                listNew.Add(itemNew);
+            }
+            return listNew;
+        }
+
         public static T CloneObjectByBinary<T>(this T obj) where T : class
         {
             MemoryStream stream = new MemoryStream();

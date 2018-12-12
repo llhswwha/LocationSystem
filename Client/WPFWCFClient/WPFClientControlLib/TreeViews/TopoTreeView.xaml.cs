@@ -80,6 +80,44 @@ namespace WPFClientControlLib
             }
         }
 
+        private void ShowTreeEx<TD, TF>(ItemsControl control, TD root) where TD : ITreeNodeEx<TD, TF>
+        {
+            control.Items.Clear();
+            if (root.Children != null)
+            {
+                for (int i = 0; i < root.Children.Count; i++)
+                {
+                    var item = root.Children[i];
+                    TreeViewItem node = new TreeViewItem();
+                    node.Header = item.Name;
+                    node.Tag = item;
+                    node.ContextMenu = AreaMenu;
+                    control.Items.Add(node);
+
+                    ShowTreeEx<TD, TF>(node, item.Children);
+                    ShowLeafNodesEx<TD, TF>(item, node);
+                }
+            }
+
+            ShowLeafNodesEx<TD, TF>(root, control);
+
+        }
+
+        private void ShowLeafNodesEx<TD, TF>(TD item, ItemsControl control) where TD : ITreeNodeEx<TD, TF>
+        {
+            if (item.LeafNodes != null)
+            {
+                foreach (var leaf in item.LeafNodes)
+                {
+                    TreeViewItem subNode = new TreeViewItem();
+                    subNode.Header = leaf.ToString();
+                    subNode.Tag = leaf;
+                    subNode.Foreground = Brushes.Blue;
+                    subNode.ContextMenu = DevMenu;
+                    control.Items.Add(subNode);
+                }
+            }
+        }
 
         public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
         {
@@ -161,6 +199,23 @@ namespace WPFClientControlLib
             }
         }
 
+        public TreeViewItem SelectedNode
+        {
+            get
+            {
+                TreeViewItem node = TreeView1.SelectedItem as TreeViewItem;
+                return node;
+            }
+        }
+
+        public void RemoveCurrentNode()
+        {
+            TreeViewItem node = TreeView1.SelectedItem as TreeViewItem;
+            if (node == null) return;
+            if (node.Parent == null) return;
+            (node.Parent as TreeViewItem).Items.Remove(node);
+        }
+
         public bool SelectNode(int id,int subId)
         {
             var r= SelectNode(id, TreeView1.Items);
@@ -210,6 +265,13 @@ namespace WPFClientControlLib
                 if (r!=null) return r;
             }
             return null;
+        }
+
+        public void RefreshCurrentNode<TD, TF>(TD entity) where TD : ITreeNodeEx<TD, TF>
+        {
+            TreeViewItem item = TreeView1.SelectedItem as TreeViewItem;
+            var tag = (TD)item.Tag;
+            ShowTreeEx<TD,TF>(item, tag);
         }
     }
 }

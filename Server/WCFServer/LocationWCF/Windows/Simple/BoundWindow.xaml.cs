@@ -31,7 +31,8 @@ namespace LocationServer.Windows.Simple
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            var bll = AppContext.GetLocationBll();
+            bll.Bounds.Edit(Area.InitBound.ToDbModel());
         }
 
         //public Bound Bound { get; set; }
@@ -46,10 +47,27 @@ namespace LocationServer.Windows.Simple
         {
             if (Area == null) return;
             var bound = Area.InitBound;
+            if(bound.MaxX==0)
+                bound.SetMinMaxXY();
+
             PropertyGrid1.SelectedObject = bound;
+
             ListBox1.ItemsSource = null;
             ListBox1.ItemsSource = Area.GetPoints();
+
+            ListBox2.ItemsSource = null;
+            ListBox2.ItemsSource = Area.GetAbsolutePoints();
+
+            
             BoundCanvas1.Show(bound);
+
+
+            //pcCenter.X=bound.
+            pcSize.X = bound.GetSizeX();
+            pcSize.Y = bound.GetSizeY();
+
+            pcCenter.X = bound.GetCenterX();
+            pcCenter.Y = bound.GetCenterY();
         }
 
         private void MenuAdd_Click(object sender, RoutedEventArgs e)
@@ -94,10 +112,10 @@ namespace LocationServer.Windows.Simple
         private void MenuDelete_Click(object sender, RoutedEventArgs e)
         {
             var point = ListBox1.SelectedItem as Location.TModel.Location.AreaAndDev.Point;
-            //var point = new DbModel.Location.AreaAndDev.Point();
-            //var win = new ItemInfoWindow(point);
-            //win.Show();
             Area.InitBound.Points.Remove(point);
+            var bll = AppContext.GetLocationBll();
+            bll.Points.DeleteById(point.Id);
+            DrawArea();
 
 
         }
@@ -111,6 +129,21 @@ namespace LocationServer.Windows.Simple
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             BoundCanvas1.RefreshBound();
+        }
+
+        private void BtnModifySize_Click(object sender, RoutedEventArgs e)
+        {
+            //pcSize.X = bound.GetSizeX();
+            //pcSize.Y = bound.GetSizeY();
+
+            //pcCenter.X = bound.GetCenterX();
+            //pcCenter.Y = bound.GetCenterY();
+
+            var bound = Area.InitBound;
+
+            //bound.ModifSize(pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
+
+            new AreaService().ModifySize(bound,pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
         }
     }
 }

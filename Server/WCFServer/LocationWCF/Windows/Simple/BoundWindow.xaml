@@ -11,16 +11,38 @@
             <MenuItem Header="保存" Click="MenuItem_Click"></MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Left" Width="300">
-            <ListBox Name="ListBox1"  SelectionChanged="ListBox1_SelectionChanged" DockPanel.Dock="Bottom" Height="200">
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_Click"></MenuItem>
-                        <MenuItem Header="修改" Name="MenuEdit" Click="MenuEdit_Click"></MenuItem>
-                        <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
-                    </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
+            <StackPanel DockPanel.Dock="Top" Height="100">
+                <DockPanel>
+                    <Label>中心</Label>
+                    <WPFClientControlLib:PointControl x:Name="pcCenter"/>
+                </DockPanel>
+                <DockPanel>
+                    <Label>大小</Label>
+                    <WPFClientControlLib:PointControl x:Name="pcSize"/>
+                </DockPanel>
+                <Button Name="BtnModifySize" Click="BtnModifySize_Click">调整</Button>
+            </StackPanel>
+            <TabControl DockPanel.Dock="Bottom" Height="200">
+                <TabItem Header="相对坐标">
+                    <ListBox Name="ListBox1"  SelectionChanged="ListBox1_SelectionChanged">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_Click"></MenuItem>
+                                <MenuItem Header="修改" Name="MenuEdit" Click="MenuEdit_Click"></MenuItem>
+                                <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="绝对坐标">
+                    <ListBox Name="ListBox2"  SelectionChanged="ListBox1_SelectionChanged">
+                        
+                    </ListBox>
+                </TabItem>
+            </TabControl>
+           
             <xctk:PropertyGrid x:Name="PropertyGrid1"/>
+        
         </DockPanel>
         
         <WPFClientControlLib:BoundCanvas Name="BoundCanvas1"/>

@@ -40,7 +40,7 @@
             <Label>Port</Label>
             <TextBox Width="50" Name="TbPort" Text="4646"></TextBox>
             <CheckBox Name="CbOneIPS">整个网段</CheckBox>
-            <CheckBox Name="CbList">按清单扫描</CheckBox>
+            <CheckBox Name="CbList">按清单处理</CheckBox>
             <CheckBox Name="CbScanByDataGrid">按当前列表扫描</CheckBox>
             <CheckBox Name="CbPing">Ping</CheckBox>
         </StackPanel>

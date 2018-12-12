@@ -6,11 +6,11 @@ namespace LocationServices.Converters
     public static class ArchorConvertHelper
     {
         #region TModel.Location.AreaAndDev.Archor <=> DbModel.Location.AreaAndDev.Archor
-        public static List<TModel.Location.AreaAndDev.Archor> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Archor> list1)
+        public static List<TModel.Location.AreaAndDev.Archor> ToWcfModelList(this List<DbModel.Location.AreaAndDev.Archor> list1,bool copyDev = false)
         {
-            return list1.ToTModel().ToWCFList();
+            return list1.ToTModel(copyDev).ToWCFList();
         }
-        public static TModel.Location.AreaAndDev.Archor ToTModel(this DbModel.Location.AreaAndDev.Archor item1)
+        public static TModel.Location.AreaAndDev.Archor ToTModel(this DbModel.Location.AreaAndDev.Archor item1,bool copyDev=false)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.AreaAndDev.Archor();
@@ -29,7 +29,8 @@ namespace LocationServices.Converters
             item2.AliveTime = item1.AliveTime;
             item2.Enable = item1.Enable;
             item2.DevInfoId = item1.DevInfoId;
-            //item2.DevInfo = item1.DevInfo.ToTModel();
+            if(copyDev)
+                item2.DevInfo = item1.DevInfo.ToTModel();
             item2.ParentId = item1.ParentId ?? 0;
             return item2;
         }
@@ -52,13 +53,13 @@ namespace LocationServices.Converters
             item2.ParentId = item1.ParentId ;
         }
 
-        public static List<TModel.Location.AreaAndDev.Archor> ToTModel(this List<DbModel.Location.AreaAndDev.Archor> list1)
+        public static List<TModel.Location.AreaAndDev.Archor> ToTModel(this List<DbModel.Location.AreaAndDev.Archor> list1, bool copyDev = false)
         {
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.AreaAndDev.Archor>();
             foreach (var item1 in list1)
             {
-                list2.Add(item1.ToTModel());
+                list2.Add(item1.ToTModel(copyDev));
             }
             return list2;
         }

@@ -36,6 +36,8 @@ namespace Location.TModel.Location.AreaAndDev
         //[Display(Name = "区域ID")]
         public int? ParentId { get; set; }
 
+        public PhysicalTopology Parent { get; set; }
+
         [DataMember]
         public string Path { get; set; }
 

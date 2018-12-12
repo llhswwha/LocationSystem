@@ -132,7 +132,7 @@ namespace BLL.Blls
 
         public string ErrorMessage { get; set; }
 
-        public virtual bool AddRange(List<T> list)
+        public virtual bool AddRange(IList<T> list)
         {
             if (DbSet == null) return false;
             //DbSet.AddRange(list);

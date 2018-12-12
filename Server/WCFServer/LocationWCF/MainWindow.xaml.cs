@@ -241,8 +241,19 @@ namespace LocationWCFServer
 
         private void MenuArchorScane_Click(object sender, RoutedEventArgs e)
         {
-            var win = new ArchorConfigureWindow();
+
+            Bll bll = new Bll(false,false,false,false);
+            var list3 = bll.Archors.ToList();
+            var areas = bll.Areas.ToList();
+            foreach (var item in list3)
+            {
+                item.Parent = areas.Find(i => i.Id == item.ParentId);
+            }
+            var win = new ArchorConfigureWindow(list3);
             win.Show();
+
+            //var win = new ArchorConfigureWindow();
+            //win.Show();
         }
 
         private void MenuUDPSetting_Click(object sender, RoutedEventArgs e)

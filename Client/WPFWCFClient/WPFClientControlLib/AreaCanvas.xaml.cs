@@ -395,6 +395,8 @@ namespace WPFClientControlLib
             Clear();
             var bound = area.InitBound;
             if (bound == null) return;
+            if(bound.MaxX==0)
+                bound.SetMinMaxXY();
             Scale = scale;
             CanvasMargin = 10;
             OffsetX = -CanvasMargin/2;
@@ -413,7 +415,7 @@ namespace WPFClientControlLib
                 }
             }
 
-            ShowDevs(area.LeafNodes, area, scale, devSize);
+            ShowDevs(area.GetLeafNodes(), scale, devSize);
 
             AddZeroPoint(scale,new Vector(0,0));
         }
@@ -480,12 +482,12 @@ namespace WPFClientControlLib
                                             AddAreaRect(room, floor, scale);
                                         }
 
-                                    ShowDevs(floor.LeafNodes, floor, scale, devSize/5);//楼层内设备
+                                    ShowDevs(floor.GetLeafNodes(), scale, devSize/5);//楼层内设备
                                 }
                             }
                         }
                 }
-            ShowDevs(area.LeafNodes, area, scale, devSize);
+            ShowDevs(area.GetLeafNodes(), scale, devSize);
             AddZeroPoint(scale,new Vector(bound.MinX, bound.MinY));
         }
 
@@ -514,44 +516,52 @@ namespace WPFClientControlLib
         /// 基站TypeCode
         /// </summary>
         private int ArchorTypeCode = TypeCodes.Archor;
-        private void ShowDevs(List<DevEntity> devs, AreaEntity parent, double scale, double devSize)
+        private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
             if (ShowDev)
                 if (devs != null)
                     foreach (var dev in devs)
                     {
+                        if (dev == null) continue;
                         if (dev.TypeCode != ArchorTypeCode) continue;
-                        AddDevRect(dev, parent,scale, devSize);
+                        AddDevRect(dev,scale, devSize);
                     }
         }
 
         public Func<DevEntity, ArchorSetting> GetSettingFunc;
 
-        private Rectangle AddDevRect(DevEntity dev,AreaEntity parent,double scale, double size = 2)
+        private Rectangle AddDevRect(DevEntity dev,double scale, double size = 2)
         {
             if (DevDict.ContainsKey(dev.Id))
             {
                 DevDict[dev.Id].Remove();
             }
 
+            AreaEntity parent = dev.Parent;
+
             double roomOffX = 0;
             double roomOffY = 0;
-            if (DrawMode == 1)
+            if (DrawMode == 1)//大图模式
             {
-                if (parent != null)
+                if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)
                 {
-                    if (parent.Type == AreaTypes.楼层 && parent.Parent != null)
-                    {
-                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
-                    }
+                    roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                    roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                }
+            }
+            else //小图模式
+            {
+                if (parent != null && parent.Type == AreaTypes.楼层)
+                {
+                    roomOffX = parent.InitBound.MinX;
+                    roomOffY = parent.InitBound.MinY;
                 }
             }
 
             double ax = dev.Pos.PosX + roomOffX;
             double ay = dev.Pos.PosZ + roomOffY;
 
-            if (DrawMode==1 && GetSettingFunc != null)
+            if (DrawMode==1 && GetSettingFunc != null)//大图模式
             {
                 ArchorSetting setting = GetSettingFunc(dev);
                 if (setting != null)
@@ -769,7 +779,7 @@ namespace WPFClientControlLib
             }
         }
 
-        private void AddAreaRect(AreaEntity area, AreaEntity parent, double scale = 1,bool isTransparent = false)
+        private void AddAreaRect(AreaEntity area, AreaEntity parent, double scale = 1, bool isTransparent = false)
         {
             if (area == null) return;
             var bound = area.InitBound;
@@ -789,7 +799,7 @@ namespace WPFClientControlLib
 
                 if (area.Type == AreaTypes.CAD)
                 {
-                    if (area.Name == "Block" || area.Name== "Polyline")
+                    if (area.Name == "Block" || area.Name == "Polyline")
                     {
                         var brush = new SolidColorBrush(Color.FromArgb(128, 80, 80, 80));
                         polygon.Fill = brush;
@@ -818,7 +828,7 @@ namespace WPFClientControlLib
                 }
 
 
-                
+
                 polygon.StrokeThickness = 1;
                 polygon.MouseUp += Polygon_MouseDown;
                 polygon.MouseEnter += Polygon_MouseEnter;
@@ -839,20 +849,20 @@ namespace WPFClientControlLib
                 double roomOffX = 0;
                 double roomOffY = 0;
 
+                if (parent == null)
+                {
+                    parent = area.Parent;
+                }
+
                 if (DrawMode == 1)//大图模式
                 {
-                    if (parent != null)
+
+                    if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
                     {
-                        if (parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
-                        {
-                            roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                            roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
-                        }
+                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
                     }
-                    if (parent == null)
-                    {
-                        parent = area.Parent;
-                    }
+
 
                     if (area.Type == AreaTypes.楼层 && parent != null && parent.InitBound != null)//当前是楼层
                     {
@@ -860,13 +870,19 @@ namespace WPFClientControlLib
                         roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
                     }
                 }
-
-
-
-                    foreach (var item in bound.GetPoints2D())
+                else//小图模式
                 {
-                    double x = (item.X - OffsetX+ roomOffX) * scale;
-                    double y = (item.Y - OffsetY+ roomOffY) * scale;
+                    if (parent != null && parent.Type == AreaTypes.楼层)//当前是机房
+                    {
+                        roomOffX = parent.InitBound.MinX ;
+                        roomOffY = parent.InitBound.MinY;
+                    }
+                }
+
+                foreach (var item in bound.GetPoints2D())
+                {
+                    double x = (item.X - OffsetX + roomOffX) * scale;
+                    double y = (item.Y - OffsetY + roomOffY) * scale;
                     polygon.Points.Add(new System.Windows.Point(x, y));
                     mX += x;
                     mY += y;
@@ -890,9 +906,6 @@ namespace WPFClientControlLib
                     lb.LayoutTransform = ScaleTransform1;
                     lb.Focusable = false;
                 }
-
-               
-
             }
         }
 
@@ -1002,7 +1015,8 @@ namespace WPFClientControlLib
         public void RefreshDev(DevEntity dev)
         {
             int scale = (int)CbScale.SelectedItem;
-            var rect=AddDevRect(dev,null, scale, DevSize);
+            
+            var rect=AddDevRect(dev, scale, DevSize);
             SelectDev(rect);
         }
 

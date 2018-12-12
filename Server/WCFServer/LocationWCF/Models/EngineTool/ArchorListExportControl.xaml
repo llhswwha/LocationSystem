@@ -18,7 +18,7 @@
             <Label>过滤</Label>
             <ComboBox Name="CbFilter" SelectionChanged="CbFilter_SelectionChanged" Width="200">
                 <ComboBoxItem>全部</ComboBoxItem>
-                <ComboBoxItem>全部</ComboBoxItem>
+                
             </ComboBox>
             <Button Name="BtnGetAreas" Click="BtnGetAreas_Click">按区域过滤</Button>
             <ComboBox Name="CbAreas" SelectionChanged="CbAreas_SelectionChanged"></ComboBox>

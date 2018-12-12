@@ -73,13 +73,19 @@ namespace LocationServices.Locations.Services
             {
                 var dev = new DbModel.Location.AreaAndDev.DevInfo();
                 dev.Name = item.Name;
+                dev.ParentId = item.ParentId;
+                dev.Local_DevID = Guid.NewGuid().ToString();
+                dev.Local_TypeCode = 20180821;
+                dev.ModelName = "定位设备1_3D";
+                dev.UserName = "admin";
+                dev.IP = "";
                 bool r1 = db.DevInfos.Add(dev);//创建基站前先创建设备
                 if (r1)
                 {
                     dbItem.DevInfo = dev;
                     dbItem.DevInfoId = dev.Id;
                     var result = dbSet.Add(dbItem);
-                    return result ? dbItem.ToTModel() : null;
+                    return result ? dbItem.ToTModel(true) : null;
                 }
                 else
                 {

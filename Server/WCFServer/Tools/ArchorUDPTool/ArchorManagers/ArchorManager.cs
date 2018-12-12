@@ -105,7 +105,7 @@ namespace ArchorUDPTool
 
         public ScanArg arg;
 
-        public void ScanArchors(ScanArg arg)
+        public void ScanArchors(ScanArg arg,UDPArchorList list)
         {
             if (arg == null) return;
             this.arg = arg;
@@ -132,12 +132,19 @@ namespace ArchorUDPTool
             else if (arg.ScanList)
             {
                 List<string> allIps = new List<string>();
-                if (archors != null)
+                if (list != null)
+                {
+                    foreach (var archor in list)
+                    {
+                        allIps.Add(archor.GetIp());
+                    }
+                }
+                else if (archors != null)
                     foreach (var archor in archors.ArchorList)
                     {
                         allIps.Add(archor.ArchorIp);
                     }
-                else
+                else if(archorList!=null)
                 {
                     foreach (var archor in archorList)
                     {
@@ -381,6 +388,20 @@ namespace ArchorUDPTool
 
         }
 
+        public void SendCmd(string cmd, int port,UDPArchorList list)
+        {
+            archorPort = port;
+            ThreadTool.Start(() =>
+            {
+                foreach (var archor in list)
+                {
+                    SendCmd(cmd, archor);
+                    Thread.Sleep(100);
+                }
+            });
+
+        }
+
         private void SendCmd(string cmd, UDPArchor archor)
         {
             var archorIp = archor.GetClientIP();
@@ -397,6 +418,12 @@ namespace ArchorUDPTool
         {
             archorPort = port;
             SendCmd(UDPCommands.Restart,port);
+        }
+
+        public void ResetAll(int port,UDPArchorList list)
+        {
+            archorPort = port;
+            SendCmd(UDPCommands.Restart, port, list);
         }
 
         public void Reset(params UDPArchor[] archors)

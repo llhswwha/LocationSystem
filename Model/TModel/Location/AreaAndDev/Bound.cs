@@ -106,6 +106,69 @@ namespace Location.TModel.Location.AreaAndDev
         /// <summary>
         /// 用两点(对角点)初始化区域范围
         /// </summary>
+        public List<Point> SetInitBound(float x1, float y1, float x2, float y2)
+        {
+            MinX = float.MaxValue;
+            MinY = float.MaxValue;
+            MaxX = float.MinValue;
+            MaxY = float.MinValue;
+
+            if (x1 < MinX)
+            {
+                MinX = x1;
+            }
+            if (x2 < MinX)
+            {
+                MinX = x2;
+            }
+
+            if (y1 < MinY)
+            {
+                MinY = y1;
+            }
+            if (y2 < MinY)
+            {
+                MinY = y2;
+            }
+
+            if (x1 > MaxX)
+            {
+                MaxX = x1;
+            }
+            if (x2 > MaxX)
+            {
+                MaxX = x2;
+            }
+
+
+            if (y1 > MaxY)
+            {
+                MaxY = y1;
+            }
+            if (y2 > MaxY)
+            {
+                MaxY = y2;
+            }
+
+            //double pX = (MinX + MaxX)/2.0;
+            //double pY = (MinY + MaxY)/2.0;
+            //double pZ = (MinZ + MaxZ)/2.0;
+            Points = new List<Point>();
+            Points.Add(new Point(MinX, MinY, 0));
+            Points.Add(new Point(MaxX, MinY, 1));
+            Points.Add(new Point(MaxX, MaxY, 2));
+            Points.Add(new Point(MinX, MaxY, 3));
+
+            foreach (var item in Points)
+            {
+                item.BoundId = this.Id;
+            }
+            return Points;
+        }
+
+        /// <summary>
+        /// 用两点(对角点)初始化区域范围
+        /// </summary>
         public void SetInitBound(float x1, float y1, float x2, float y2, float bottomHeightT, float thicknessT)
         {
             MinX = float.MaxValue;
@@ -173,18 +236,11 @@ namespace Location.TModel.Location.AreaAndDev
         {
             Points = new List<Point>();
             SetMinMax(points, bottomHeightT, thicknessT);
-
             for (int i = 0; i < points.Length; i++)
             {
                 Point point = points[i];
-                //point.X -= MinX;
-                //point.Y -= MinY;
                 Points.Add(new Point(point));
             }
-
-            //double pX = (MinX + MaxX)/2.0;
-            //double pY = (MinY + MaxY)/2.0;
-            //double pZ = (MinZ + MaxZ)/2.0;
         }
 
         private void SetMinMax(Point[] points, float bottomHeightT, float thicknessT)
@@ -280,12 +336,12 @@ namespace Location.TModel.Location.AreaAndDev
             return leftBottom;
         }
 
-        public double GetWidth()
+        public double GetSizeX()
         {
             return MaxX - MinX;
         }
 
-        public double GetLength()
+        public double GetSizeY()
         {
             return MaxY - MinY;
         }
@@ -293,6 +349,16 @@ namespace Location.TModel.Location.AreaAndDev
         public double GetHeight()
         {
             return MaxZ - MinZ;
+        }
+
+        public double GetCenterX()
+        {
+            return MinX + (MaxX - MinX) / 2;
+        }
+
+        public double GetCenterY()
+        {
+            return MinY + (MaxY - MinY) / 2;
         }
 
         public bool Contains(double x, double y)

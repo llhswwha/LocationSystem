@@ -430,7 +430,7 @@ namespace LocationServer.Windows
 
         private void BtnSelectPoint_Click(object sender, RoutedEventArgs e)
         {
-            var win = new PointSelectWindow(park, _dev);
+            var win = new PointSelectWindow(park, _dev,0);
             win.SelectedAreaChanged += (area) =>
             {
 

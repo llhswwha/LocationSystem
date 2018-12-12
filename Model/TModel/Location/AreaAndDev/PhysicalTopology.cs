@@ -5,6 +5,7 @@ using Location.IModel;
 using Location.TModel.ConvertCodes;
 using System;
 using Location.TModel.Location.Person;
+using Location.TModel.Tools;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -80,6 +81,16 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public List<DevInfo> LeafNodes { get; set; }
 
+        public List<DevInfo> GetLeafNodes()
+        {
+            if (LeafNodes == null) return null;
+            foreach (var item in LeafNodes)
+            {
+                item.Parent = this;
+            }
+            return LeafNodes;
+        }
+
         /// <summary>
         /// 区域内人员
         /// </summary>
@@ -151,6 +162,36 @@ namespace Location.TModel.Location.AreaAndDev
                 return points;
             }
             return null;
+        }
+
+        public IList<Point> GetAbsolutePoints()
+        {
+            
+            var points = GetPoints().CloneObjectList();
+            if (Parent != null)
+            {
+                if (Parent.Type == AreaTypes.大楼)
+                {
+                    Parent.SetAbsolutePoints(points);
+                }
+                if (Parent.Type == AreaTypes.楼层)
+                {
+                    Parent.SetAbsolutePoints(points);
+                    Parent.Parent.SetAbsolutePoints(points);
+                }
+            }
+            return points;
+        }
+
+        public void SetAbsolutePoints(IList<Point> points)
+        {
+            var x = InitBound.MinX;
+            var y = InitBound.MinY;
+            foreach (var item in points)
+            {
+                item.X += x;
+                item.Y += y;
+            }
         }
 
         [DataMember]
@@ -313,5 +354,15 @@ namespace Location.TModel.Location.AreaAndDev
             }
             return null;
         }
+
+        public void AddLeaf(DevInfo devInfo)
+        {
+            if (LeafNodes == null)
+            {
+                LeafNodes = new List<DevInfo>();
+            }
+            LeafNodes.Add(devInfo);
+        }
+
     }   
 }

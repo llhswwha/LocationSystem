@@ -35,6 +35,9 @@ namespace ArchorUDPTool.Models
         public string Area { get; set; }
 
         [XmlAttribute]
+        public string RealArea { get; set; }
+
+        [XmlAttribute]
         public string Ping { get; set; }
 
         [XmlAttribute]

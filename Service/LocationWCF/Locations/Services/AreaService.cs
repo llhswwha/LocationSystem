@@ -129,6 +129,32 @@ namespace LocationServices.Locations.Services
             return list;
         }
 
+        public bool ModifySize(Bound bound,double cx1, double cy1, double sx2, double sy2)
+        {
+            if (bound.Points == null || bound.Points.Count != 4)
+            {
+                return false;
+            }
+            var points=db.Points.FindAll(i => i.BoundId == bound.Id);
+            db.Points.RemoveList(points);
+
+            bound.Points.Clear();
+
+            float x1 = (float)(cx1 - sx2 / 2);
+            float y1 = (float)(cy1 - sy2 / 2);
+            float x2 = (float)(cx1 + sx2 / 2);
+            float y2 = (float)(cy1 + sy2 / 2);
+
+            var pointsNew=bound.SetInitBound(x1, y1, x2, y2);
+            var dbPointsNew = pointsNew.ToDbModel();
+            db.Points.AddRange(dbPointsNew);
+            for (int i = 0; i < dbPointsNew.Count; i++)
+            {
+                pointsNew[i].Id = dbPointsNew[i].Id;
+            }
+            return true;
+        }
+
         class PersonArea
         {
             public Personnel Person { get; set; }

@@ -27,6 +27,11 @@
                 </GroupBox.Header>
                 <StackPanel>
                     <DockPanel>
+                        <Label Width="100">原点坐标</Label>
+                        <Button DockPanel.Dock="Right" Name="BtnSelectZero" Click="BtnSelectZero_Click">选择</Button>
+                        <WPFClientControlLib:PointControl x:Name="TbZero"/>
+                    </DockPanel>
+                    <DockPanel>
                         <Label Width="100">中心坐标</Label>
                         <WPFClientControlLib:PointControl x:Name="TbCenterPosition"/>
                     </DockPanel>

@@ -40,8 +40,9 @@
                         <ComboBoxItem>3156</ComboBoxItem>
                         <ComboBoxItem>网关错误</ComboBoxItem>
                         <ComboBoxItem>IsChecked</ComboBoxItem>
-                        <ComboBoxItem>有DbInfo</ComboBoxItem>
-                        <ComboBoxItem>无DbInfo</ComboBoxItem>
+                        <ComboBoxItem>有记录ID</ComboBoxItem>
+                        <ComboBoxItem>无记录ID</ComboBoxItem>
+                        <ComboBoxItem>非25服务端IP</ComboBoxItem>
                     </ComboBox>
                     <ComboBox Name="CbFilterCodition2" Width="100" SelectionChanged="CbFilterCodition2_SelectionChanged">
                         <ComboBoxItem IsSelected="True">全部</ComboBoxItem>
@@ -73,9 +74,10 @@
                 </DataGridCheckBoxColumn>
                 <DataGridTextColumn Header="Num" Binding="{Binding Num}"/>
                 <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
-                <DataGridTextColumn Header="区域" Binding="{Binding Area}"/>
+                <DataGridTextColumn Header="计划区域" Binding="{Binding Area}"/>
+                <DataGridTextColumn Header="实际区域" Binding="{Binding RealArea}"/>
                 <DataGridTextColumn Header="连通" Binding="{Binding IsConnected}"/>
-                <DataGridTextColumn Header="DbInfo" Binding="{Binding DbInfo}"/>
+                <DataGridTextColumn Header="记录ID" Binding="{Binding DbInfo}"/>
                 <DataGridTextColumn Header="Ping" Binding="{Binding Ping}"/>
                 <DataGridTextColumn Header="值" Binding="{Binding Value}"/>
                 <DataGridTextColumn Header="时间" Binding="{Binding UpdateTime}"/>

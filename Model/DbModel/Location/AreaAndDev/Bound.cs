@@ -191,6 +191,42 @@ namespace DbModel.Location.AreaAndDev
             //Points.Add(new Point(MinX - MinX, MaxY - MinY, 3));
         }
 
+        private void SetMinMaxXY(Point[] points)
+        {
+            MinX = float.MaxValue;
+            MinY = float.MaxValue;
+            MaxX = float.MinValue;
+            MaxY = float.MinValue;
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                Point point = points[i];
+                point.Index = i;
+                if (point.X < MinX)
+                {
+                    MinX = point.X;
+                }
+                if (point.Y < MinY)
+                {
+                    MinY = point.Y;
+                }
+                if (point.X > MaxX)
+                {
+                    MaxX = point.X;
+                }
+                if (point.Y > MaxY)
+                {
+                    MaxY = point.Y;
+                }
+            }
+        }
+
+        public void SetMinMaxXY()
+        {
+            if(Points!=null)
+                SetMinMaxXY(Points.ToArray());
+        }
+
         /// <summary>
         /// 用两点(对角点)初始化区域范围
         /// </summary>

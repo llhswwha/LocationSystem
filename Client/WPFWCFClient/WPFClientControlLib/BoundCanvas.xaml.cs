@@ -35,9 +35,9 @@ namespace WPFClientControlLib
         {
             PointEllipse.Clear();
             if (bound == null) return;
-            if (bound.GetWidth() == 0) return;
-            double scale1 = (Canvas1.ActualWidth - CanvasMargin) / bound.GetWidth();
-            double scale2 = (Canvas1.ActualHeight - CanvasMargin) / bound.GetLength();
+            if (bound.GetSizeX() == 0) return;
+            double scale1 = (Canvas1.ActualWidth - CanvasMargin) / bound.GetSizeX();
+            double scale2 = (Canvas1.ActualHeight - CanvasMargin) / bound.GetSizeY();
             double scale = scale1 < scale2 ? scale1 : scale2;
 
             //this.Width = bound.GetWidth();

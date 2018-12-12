@@ -33,6 +33,7 @@ using LocationServer.Tools;
 using LocationServer.Models.EngineTool;
 using DbModel.Location.Settings;
 using TArchor = TModel.Location.AreaAndDev.Archor;
+using Bound = Location.TModel.Location.AreaAndDev.Bound;
 
 namespace LocationServer
 {
@@ -202,6 +203,9 @@ namespace LocationServer
                     MessageBox.Show("删除失败");
                 }
                 AreaCanvas1.RemoveDev(dev.Id);
+
+                //topoTree.RefreshNode(dev.ParentId);
+                ResourceTreeView1.TopoTree.RemoveCurrentNode();
             }
         }
 
@@ -344,10 +348,17 @@ namespace LocationServer
             topoTree.AreaMenu.AddMenu("添加区域", (obj) =>
             {
                 var area = topoTree.SelectedObject as AreaEntity;
-                NewAreaWindow win = new NewAreaWindow(area);
+                var win = new NewAreaWindow(area);
+                win.ShowPointEvent += (x, y) =>
+                {
+                    AreaCanvas1.ShowPoint(x, y);
+                };
                 if (win.ShowDialog() == true)
                 {
-
+                    var newArea = win.NewArea;
+                    area.Children.Add(newArea.ToTModel());
+                    topoTree.RefreshCurrentNode<AreaEntity,DevEntity>(area);
+                    AreaCanvas1.Refresh();
                 }
             });
             topoTree.AreaMenu.AddMenu("设置区域", (tag) =>
@@ -359,6 +370,139 @@ namespace LocationServer
             {
                 var area = topoTree.SelectedObject as AreaEntity;
                 RemoveArea(area);
+            });
+            topoTree.AreaMenu.AddMenu("添加基站", (tag) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+
+                var archor = new TArchor();
+                archor.X = 10;
+                archor.Y = 10;
+                archor.Name = "NewArchor";
+                archor.Code = "";
+                archor.Ip = "";
+                archor.ParentId = area.Id;
+                var archorNew = archorService.Post(archor);
+                archorNew.Code = "Code_" + archorNew.Id;
+                archorService.Put(archorNew);
+
+                area.AddLeaf(archorNew.DevInfo);
+
+                topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
+                AreaCanvas1.Refresh();
+            });
+            //topoTree.AreaMenu.AddMenu("调整子区域坐标", (tag) =>
+            //{
+            //    var area = topoTree.SelectedObject as AreaEntity;
+            //    var bound = area.InitBound;
+            //    var x = bound.MinX;
+            //    var y = bound.MinY;
+            //    var boundList = new List<Bound>();
+            //    foreach (var subArea in area.Children)
+            //    {
+            //        var subBound = subArea.InitBound;
+            //        if (subBound != null)
+            //        {
+            //            var points = subBound.Points;
+            //            if (points != null)
+            //            {
+            //                foreach (var point in points)
+            //                {
+            //                    point.X -= x;
+            //                    point.Y -= y;
+            //                }
+            //                bll.Points.EditRange(points.ToDbModel());
+            //            }
+            //            subBound.SetMinMaxXY();
+            //            boundList.Add(subBound);
+            //        }
+            //    }
+            //    bll.Bounds.EditRange(boundList.ToDbModel());
+            //});
+
+            topoTree.AreaMenu.AddMenu("复制结构", (tag) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+
+                var area1 = areaService.GetEntity("240", true);
+
+                area.InitBound.SetMinMaxXY();
+                bll.Bounds.Edit(area.InitBound.ToDbModel());
+
+                var children=area1.Children.CloneObjectList().ToList();
+
+                var newBounds = new List<Bound>();
+                foreach (var item in children)
+                {
+                    if (item.InitBound.Points == null)
+                    {
+                        item.InitBound.Points = bll.Points.FindAll(i => i.BoundId == item.Id).ToTModel();
+                    }
+                    newBounds.Add(item.InitBound);
+                }
+
+                var dbBounds = newBounds.ToDbModel();
+                bll.Bounds.AddRange(dbBounds);
+                for (int i = 0; i < children.Count; i++)
+                {
+                    AreaEntity item = children[i];
+                    item.ParentId = area.Id;
+                    item.InitBoundId = dbBounds[i].Id;
+                }
+                foreach (var item in dbBounds)
+                {
+                   
+                    var points = item.Points.CloneObjectList();
+                    foreach (var point in points)
+                    {
+                        point.BoundId = item.Id;
+                    }
+                    bll.Points.AddRange(points);
+                }
+                var dbChildren = children.ToDbModel();
+                bll.Areas.AddRange(dbChildren);
+
+                var devs = area1.LeafNodes.CloneObjectList().ToList(); ;
+                foreach (var item in devs)
+                {
+                    item.ParentId = area.Id;
+                    item.Code = "";
+                    item.IP = "";
+                    item.DevDetail = bll.Archors.Find(i => i.DevInfoId == item.Id).ToTModel();
+                }
+                var dbDevs = devs.ToDbModel();
+                bll.DevInfos.AddRange(dbDevs);
+
+
+                var archors = new List<TModel.Location.AreaAndDev.Archor>();
+                for (int i = 0; i < devs.Count; i++)
+                {
+                    DevEntity dev = devs[i];
+                    var archor = dev.DevDetail as TModel.Location.AreaAndDev.Archor;
+                    archor.Code = "";
+                    archor.Ip = "";
+                    archor.ParentId = area.Id;
+                    archor.DevInfoId = dbDevs[i].Id;
+                    archors.Add(archor);
+                }
+                bll.Archors.AddRange(archors.ToDbModel());
+                
+
+                //var archor = new TArchor();
+                //archor.X = 10;
+                //archor.Y = 10;
+                //archor.Name = "NewArchor";
+                //archor.Code = "";
+                //archor.Ip = "";
+                //archor.ParentId = area.Id;
+                //var archorNew = archorService.Post(archor);
+                //archorNew.Code = "Code_" + archorNew.Id;
+                //archorService.Put(archorNew);
+
+                //area.AddLeaf(archorNew.DevInfo);
+
+                topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
+                AreaCanvas1.Refresh();
             });
 
             topoTree.DevMenu = new ContextMenu();
@@ -383,8 +527,8 @@ namespace LocationServer
                 List<int> ids = new List<int>();
                 foreach (var archor in _archors)
                 {
-                    topoTree.SelectNode((int)archor.ParentId, archor.Id);
-                    ids.Add(archor.Id);
+                    topoTree.SelectNode((int)archor.ParentId, archor.DevInfoId);
+                    ids.Add(archor.DevInfoId);
                 }
                 AreaCanvas1.SelectDevsById(ids);
             }
@@ -512,7 +656,10 @@ namespace LocationServer
                 ArchorSettingContext.ZeroX = leftBottom.X;
                 ArchorSettingContext.ZeroY = leftBottom.Y;
                 //win2.Owner = this;
-                parkArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev); };
+                parkArchorSettingWnd.RefreshDev += (dev) => {
+                    archorSettings = bll.ArchorSettings.ToList();
+                    AreaCanvas1.RefreshDev(dev);
+                };
                 parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
                 parkArchorSettingWnd.Show();
@@ -528,7 +675,10 @@ namespace LocationServer
             {
                 roomArchorSettingWnd = new RoomArchorSettingWindow();
                 //roomArchorSettingWnd.Owner = this;
-                roomArchorSettingWnd.RefreshDev += (dev) => { AreaCanvas1.RefreshDev(dev); };
+                roomArchorSettingWnd.RefreshDev += (dev) => {
+                    archorSettings = bll.ArchorSettings.ToList();
+                    AreaCanvas1.RefreshDev(dev);
+                };
                 roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
                 roomArchorSettingWnd.Show();

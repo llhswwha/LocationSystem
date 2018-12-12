@@ -15,6 +15,8 @@ using BLL;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using Location.TModel.Location.AreaAndDev;
+using LocationServer.Models.EngineTool;
+using LocationServices.Converters;
 using Bound = DbModel.Location.AreaAndDev.Bound;
 
 namespace LocationServer.Windows
@@ -31,15 +33,12 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
+
         public NewAreaWindow(PhysicalTopology area)
         {
             InitializeComponent();
-
-            TbType.ItemsSource = Enum.GetValues(typeof(AreaTypes));
-
             this.parent = area;
-            TbPId.Text = area.Name;
-            TbType.SelectedItem = (AreaTypes) ((int) area.Type + 1);
+            
         }
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
@@ -53,10 +52,10 @@ namespace LocationServer.Windows
 
             if (CbHaveBound.IsChecked == true)
             {
-                float x1 = (float)(TbCenterPosition.X - TbSize.X / 2);
-                float y1 = (float)(TbCenterPosition.Y - TbSize.Y / 2);
-                float x2 = (float)(TbCenterPosition.X + TbSize.X / 2);
-                float y2 = (float)(TbCenterPosition.Y + TbSize.Y / 2);
+                float x1 = (float)(TbCenterPosition.X - TbSize.X / 2 + TbZero.X);
+                float y1 = (float)(TbCenterPosition.Y - TbSize.Y / 2 + TbZero.Y);
+                float x2 = (float)(TbCenterPosition.X + TbSize.X / 2 + TbZero.X);
+                float y2 = (float)(TbCenterPosition.Y + TbSize.Y / 2 + TbZero.Y);
                 var bound = new Bound(x1, y1, x2, y2, 0, 0.5f, false);
                 if (bll.Bounds.Add(bound) == false)
                 {
@@ -73,12 +72,57 @@ namespace LocationServer.Windows
             {
                 MessageBox.Show("区域添加失败");
             }
+            NewArea = area;
             this.DialogResult = true;
         }
 
+        public Area NewArea;
+
+        public double MinX;
+        public double MinY;
+
         private void NewAreaWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+            TbType.ItemsSource = Enum.GetValues(typeof(AreaTypes));
+            TbPId.Text = parent.Name;
+            TbType.SelectedItem = (AreaTypes)((int)parent.Type + 1);
+
+            var bound = parent.InitBound;
+            bound.SetMinMaxXY();
+            MinX = bound.MinX;
+            MinY = bound.MinY;
+
+            TbZero.X = 0;
+            TbZero.Y = 0;
+            OnShowPoint();
         }
+
+        private void BtnSelectZero_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new PointSelectWindow(parent.ToDbModel(), null,1);
+            win.SelectedAreaChanged += (area) =>
+            {
+
+            };
+            win.SelectedPointChanged += (point) =>
+            {
+                //SetZeroPoint(point.X, point.Y);
+                TbZero.X = point.X;
+                TbZero.Y = point.Y;
+                OnShowPoint();
+            };
+            win.Owner = this;
+            win.Show();
+        }
+
+        public void OnShowPoint()
+        {
+            if (ShowPointEvent != null)
+            {
+                ShowPointEvent(TbZero.X+MinX, TbZero.Y+MinY);
+            }
+        }
+
+        public event Action<double, double> ShowPointEvent;
     }
 }

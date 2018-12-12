@@ -70,7 +70,14 @@ namespace LocationServer
         private void MenuRestart_OnClick(object sender, RoutedEventArgs e)
         {
             int port = TbPort.Text.ToInt();
-            archorManager.ResetAll(port);
+            if (CbList.IsChecked == true)
+            {
+                archorManager.ResetAll( port, DataGrid3.subArchorList);
+            }
+            else
+            {
+                archorManager.ResetAll(port);
+            }
         }
 
         private void MenuSetServerIp6_OnClick(object sender, RoutedEventArgs e)
@@ -94,8 +101,6 @@ namespace LocationServer
             FileInfo fi2 = new FileInfo(path2);
             archorManager.SaveArchorList(path2);
             Process.Start(fi1.Directory.FullName);
-
-
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
@@ -134,6 +139,7 @@ namespace LocationServer
                             var ar = DbArchorList.Find(i => i.Ip == item.GetClientIP());
                             if (ar != null)
                             {
+                                item.RealArea = ar.Parent.Name;
                                 if (item.GetClientIP() != ar.Ip)
                                 {
                                     item.DbInfo = "IP:" + ar.Ip;
@@ -226,70 +232,70 @@ namespace LocationServer
             SetArchorList(null, null);
 
             List<string> cmds = UDPCommands.GetAll();
-            archorManager.ScanArchors(GetScanArg(cmds.ToArray()));
+            archorManager.ScanArchors(GetScanArg(cmds.ToArray()),DataGrid3.subArchorList);
         }
 
 
 
         private void BtnSearchId_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetId));
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetId), DataGrid3.subArchorList);
         }
 
         private void BtnSearchIp_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetIp));
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetIp), DataGrid3.subArchorList);
         }
 
         private void BtnSearchPort_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerPort));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerPort), DataGrid3.subArchorList);
         }
 
         private void BtnSearchServerIP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerIp));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerIp), DataGrid3.subArchorList);
         }
 
         private void BtnSearchType_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetType));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetType), DataGrid3.subArchorList);
         }
 
         private void BtnSearchMask_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetMask));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetMask), DataGrid3.subArchorList);
         }
 
         private void BtnSearchGateway_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetGateway));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetGateway), DataGrid3.subArchorList);
         }
 
         private void BtnSearchDHCP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetDHCP));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetDHCP), DataGrid3.subArchorList);
         }
 
         private void BtnSearchSoftverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetSoftVersion));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetSoftVersion), DataGrid3.subArchorList);
         }
 
         private void BtnSearchHardverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetHardVersion));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetHardVersion), DataGrid3.subArchorList);
         }
 
         private void BtnSearchPower_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPower));
+            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPower), DataGrid3.subArchorList);
         }
 
 
         private void BtnSearchMAC_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetMAC));
+            archorManager.ScanArchors(GetScanArg(UDPCommands.GetMAC), DataGrid3.subArchorList);
         }
 
         private void BtnStopTime_Click(object sender, RoutedEventArgs e)
@@ -367,7 +373,15 @@ namespace LocationServer
             var cmd = CbServerIpList.SelectedItem as SetCommand;
             if (cmd == null) return;
             var port = TbPort.Text.ToInt();
-            archorManager.SendCmd(cmd.Cmd,port);
+
+            if (CbList.IsChecked == true)
+            {
+                archorManager.SendCmd(cmd.Cmd, port, DataGrid3.subArchorList);
+            }
+            else
+            {
+                archorManager.SendCmd(cmd.Cmd, port);
+            }
         }
 
         private void CbLocalIps_SelectionChanged(object sender, SelectionChangedEventArgs e)

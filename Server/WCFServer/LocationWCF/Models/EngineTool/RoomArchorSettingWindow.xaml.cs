@@ -93,13 +93,23 @@ namespace LocationServer.Windows
             {
                 _building.Children = bll.Areas.Where(i => i.ParentId == _building.Id);
             }
-            floorHeight = _building.GetFloorHeight(_floor.Id);
+            floorHeight = _floor.InitBound.MinZ;
             TbFloorHeight.Text = floorHeight.ToString("F2");
 
             //var building = areas.Find(j => j.Id == floor.ParentId);
-
-            var minX = _floor.InitBound.MinX + _building.InitBound.MinX;
-            var minY = _floor.InitBound.MinY + _building.InitBound.MinY;
+            //_floor.InitBound.SetInitBound();
+            var floorBound = _floor.InitBound;
+            if (floorBound.Points == null)
+            {
+                floorBound.Points = bll.Points.FindAll(i => i.BoundId == floorBound.Id);
+            }
+            if (floorBound.MaxX == 0)
+            {
+                floorBound.SetMinMaxXY();
+                bll.Bounds.Edit(floorBound);
+            }
+            var minX = floorBound.MinX + _building.InitBound.MinX;
+            var minY = floorBound.MinY + _building.InitBound.MinY;
 
             _item.AbsoluteX = (x + minX).ToString("F2");
             _item.AbsoluteY = (z + minY).ToString("F2");
@@ -360,7 +370,8 @@ namespace LocationServer.Windows
                 archorSetting.RelativeMode = RelativeMode.相对楼层;
                 archorSetting.SetPath(null, _floor, _building);
                 archorSetting.SetZero(PcZero.X, PcZero.Y);
-                archorSetting.SetRelative(PcArchor.X, PcArchor.Y);
+                //archorSetting.SetRelative(PcArchor.X, PcArchor.Y);
+                archorSetting.SetRelative(PcRelative.X, PcRelative.Y);
                 archorSetting.SetAbsolute(PcAbsolute.X, PcAbsolute.Y);
             }
 
@@ -457,7 +468,7 @@ namespace LocationServer.Windows
         {
             if (RefreshDev != null)
             {
-                var tDev = _dev.ToTModel();
+                var tDev = _dev.ToTModel(true);
                 tDev.DevDetail = _archor.ToTModel();
                 RefreshDev(tDev);
             }
@@ -494,7 +505,7 @@ namespace LocationServer.Windows
         {
             if (ShowPointEvent != null)
             {
-                ShowPointEvent(PcZero.X, PcZero.Y);
+                ShowPointEvent(PcZero.X+_floor.InitBound.MinX, PcZero.Y+ _floor.InitBound.MinY);
             }
         }
 
@@ -532,6 +543,8 @@ namespace LocationServer.Windows
         {
             var dev = TbCode.SelectedItem as ArchorDev;
             IPCode1.SelectedItem = dev;
+            if(dev!=null)
+                TbName.Text = dev.ArchorID;
         }
 
         private void TbCode_KeyUp(object sender, KeyEventArgs e)
@@ -557,7 +570,7 @@ namespace LocationServer.Windows
 
         private void BtnSelectPoint_Click(object sender, RoutedEventArgs e)
         {
-            var win = new PointSelectWindow(_floor,_dev);
+            var win = new PointSelectWindow(_floor,_dev,0);
             win.SelectedAreaChanged += (area) =>
             {
 

@@ -157,13 +157,13 @@ namespace DbModel.Location.Settings
         public double ArchorY { get; set; }
 
         [NotMapped]
-        public double ArchorX100 { get; set; }
+        public int ArchorX100 { get; set; }
 
         [NotMapped]
-        public double ArchorY100 { get; set; }
+        public int ArchorY100 { get; set; }
 
         [NotMapped]
-        public double Height100 { get; set; }
+        public int Height100 { get; set; }
 
         public void SetAbsolute(double x, double y)
         {
@@ -183,9 +183,9 @@ namespace DbModel.Location.Settings
             double y = AbsoluteY.ToDouble();
             ArchorX = (x - offx);
             ArchorY = (y - offy);
-            ArchorX100 = ((x - offx)*100);
-            ArchorY100 = ((y - offy)*100);
-            Height100=(AbsoluteHeight*100);
+            ArchorX100 = (ArchorX * 100).ToString("F0").ToInt();
+            ArchorY100 = (ArchorY * 100).ToString("F0").ToInt();
+            Height100 = (AbsoluteHeight*100).ToString("F0").ToInt();
         }
 
 

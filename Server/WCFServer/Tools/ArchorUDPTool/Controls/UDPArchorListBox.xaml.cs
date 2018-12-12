@@ -83,6 +83,8 @@ namespace ArchorUDPTool.Controls
                 }
                 
                 subArchorList = value;
+
+                Filter();
             }
         }
 
@@ -147,9 +149,14 @@ namespace ArchorUDPTool.Controls
             archorManager.Reset(archor);
         }
 
-        UDPArchorList subArchorList;
+        public UDPArchorList subArchorList;
 
         private void CbFilterCondition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Filter();
+        }
+
+        public void Filter()
         {
             if (_archorList == null) return;
             int id = CbFilterCondition.SelectedIndex;
@@ -211,7 +218,7 @@ namespace ArchorUDPTool.Controls
                 }
                 else if (id == 8)//1999端口
                 {
-                    if (item.ServerPort==1999)
+                    if (item.ServerPort == 1999)
                     {
                         subArchorList.Add(item);
                     }
@@ -225,7 +232,7 @@ namespace ArchorUDPTool.Controls
                 }
                 else if (id == 10)//11222902
                 {
-                    if (item.SoftVersion=="11222902")
+                    if (item.SoftVersion == "11222902")
                     {
                         subArchorList.Add(item);
                     }
@@ -246,7 +253,7 @@ namespace ArchorUDPTool.Controls
                 }
                 else if (id == 13)//网关错误
                 {
-                    if (!string.IsNullOrEmpty(item.Ip)&&!string.IsNullOrEmpty(item.Gateway)&&!IpHelper.IsSameDomain(item.Ip,item.Gateway))
+                    if (!string.IsNullOrEmpty(item.Ip) && !string.IsNullOrEmpty(item.Gateway) && !IpHelper.IsSameDomain(item.Ip, item.Gateway))
                     {
                         subArchorList.Add(item);
                     }
@@ -272,9 +279,17 @@ namespace ArchorUDPTool.Controls
                         subArchorList.Add(item);
                     }
                 }
+                else if (id == 17)//非25IP
+                {
+                    if (!string.IsNullOrEmpty(item.IsConnected) && item.ServerIp != "172.16.100.25")
+                    {
+                        subArchorList.Add(item);
+                    }
+                }
             }
             DataGrid3.ItemsSource = subArchorList;
             LbCount.Content = string.Format("{0}/{1}", subArchorList.GetConnectedCount(), subArchorList.Count);
+
         }
 
         private void CbAreas_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -288,7 +303,7 @@ namespace ArchorUDPTool.Controls
                 {
                     subArchorList.Add(item);
                 }
-                else if (item.Area.StartsWith(area))
+                else if (item.RealArea==area)
                 {
                     subArchorList.Add(item);
                 }

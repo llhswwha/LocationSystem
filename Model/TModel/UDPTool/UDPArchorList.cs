@@ -73,8 +73,8 @@ namespace ArchorUDPTool.Models
             List<string> areas = new List<string>();
             foreach (var item in this)
             {
-                if (item.Area == null) continue;
-                var areaName = item.Area;
+                //if (item.RealArea == null) continue;
+                var areaName = item.RealArea+"";
                 areaName = areaName.Replace("）", "） ");
                 string[] parts = areaName.Split(' ');
                 if (parts.Length >= 3)
@@ -159,7 +159,7 @@ namespace ArchorUDPTool.Models
                 {
                     if (area == "")
                     {
-                        if (archor.Area == area)
+                        if (archor.RealArea == area)
                         {
                             if (!string.IsNullOrEmpty(archor.IsConnected))
                             {
@@ -170,7 +170,7 @@ namespace ArchorUDPTool.Models
                     }
                     else
                     {
-                        if (archor.Area.StartsWith(area))
+                        if (archor.RealArea==area)
                         {
                             if (!string.IsNullOrEmpty(archor.IsConnected))
                             {

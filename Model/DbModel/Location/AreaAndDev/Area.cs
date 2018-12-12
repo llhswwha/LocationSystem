@@ -513,6 +513,7 @@ namespace DbModel.Location.AreaAndDev
             int floorIndex = Children.FindIndex(i => i.Id == id);
             for (int i = 0; i < floorIndex; i++)
             {
+                if (Children[i].InitBound == null) continue;
                 floorHeight += Children[i].InitBound.GetHeight();
             }
             return floorHeight;

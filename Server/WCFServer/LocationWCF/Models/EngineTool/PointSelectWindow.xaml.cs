@@ -28,11 +28,13 @@ namespace LocationServer.Models.EngineTool
 
         Area area;
         DevInfo dev;
-        public PointSelectWindow(Area area,DevInfo dev)
+        int mode;
+        public PointSelectWindow(Area area,DevInfo dev,int mode)
         {
             InitializeComponent();
             this.area = area;
             this.dev = dev;
+            this.mode = mode;
         }
 
         private void List1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,7 +46,10 @@ namespace LocationServer.Models.EngineTool
             points.AddRange(bound.Points);
             points.Add(bound.GetCenter());
             List2.ItemsSource = points;
-            List2.SelectedItem = bound.GetClosePoint(dev.PosX, dev.PosZ);
+            if (dev != null)
+            {
+                List2.SelectedItem = bound.GetClosePoint(dev.PosX, dev.PosZ);
+            }
 
             if (SelectedAreaChanged != null)
             {
@@ -75,7 +80,33 @@ namespace LocationServer.Models.EngineTool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            List1.ItemsSource = area.SortByPoint(dev.PosX, dev.PosZ);
+            if (dev != null)
+            {
+                List1.ItemsSource = area.SortByPoint(dev.PosX, dev.PosZ);
+            }
+            else
+            {
+                if (area.Children == null || area.Children.Count == 0)
+                {
+                    List1.ItemsSource = new List<Area>() { area };
+                }
+                else
+                {
+                    if(mode == 1)
+                    {
+                        var areas = new List<Area>();
+                        areas.Add(area);
+                        areas.AddRange(area.Children);
+                        List1.ItemsSource = areas;
+                    }
+                    else
+                    {
+                        List1.ItemsSource = area.Children;
+                    }
+                    
+                }
+                
+            }
             List1.SelectedIndex = 0;
         }
     }
