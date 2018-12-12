@@ -37,6 +37,7 @@
                         <ComboBoxItem>有DbInfo</ComboBoxItem>
                         <ComboBoxItem>11222902</ComboBoxItem>
                         <ComboBoxItem>11222906</ComboBoxItem>
+                        <ComboBoxItem>11222907</ComboBoxItem>
                         <ComboBoxItem>3156</ComboBoxItem>
                         <ComboBoxItem>网关错误</ComboBoxItem>
                         <ComboBoxItem>IsChecked</ComboBoxItem>

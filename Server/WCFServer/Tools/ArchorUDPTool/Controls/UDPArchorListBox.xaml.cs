@@ -244,42 +244,49 @@ namespace ArchorUDPTool.Controls
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 12)//3506
+                else if (id == 12)//11222906
+                {
+                    if (item.SoftVersion == "11222907")
+                    {
+                        subArchorList.Add(item);
+                    }
+                }
+                else if (id == 13)//3506
                 {
                     if (item.SoftVersion == "3156")
                     {
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 13)//网关错误
+                else if (id == 14)//网关错误
                 {
                     if (!string.IsNullOrEmpty(item.Ip) && !string.IsNullOrEmpty(item.Gateway) && !IpHelper.IsSameDomain(item.Ip, item.Gateway))
                     {
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 14)//IsChecked
+                else if (id == 15)//IsChecked
                 {
                     if (item.IsChecked)
                     {
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 15)//有DbInfo
+                else if (id == 16)//有DbInfo
                 {
                     if (!string.IsNullOrEmpty(item.DbInfo))
                     {
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 16)//无DbInfo
+                else if (id == 17)//无DbInfo
                 {
                     if (string.IsNullOrEmpty(item.DbInfo))
                     {
                         subArchorList.Add(item);
                     }
                 }
-                else if (id == 17)//非25IP
+                else if (id == 18)//非25IP
                 {
                     if (!string.IsNullOrEmpty(item.IsConnected) && item.ServerIp != "172.16.100.25")
                     {
