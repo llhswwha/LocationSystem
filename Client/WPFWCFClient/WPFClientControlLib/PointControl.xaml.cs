@@ -34,7 +34,7 @@ namespace WPFClientControlLib
             }
             set
             {
-                TbX.Text = value.ToString("F2");
+                TbX.Text = value.ToString("F3");
             }
         }
 
@@ -46,7 +46,7 @@ namespace WPFClientControlLib
             }
             set
             {
-                TbY.Text = value.ToString("F2");
+                TbY.Text = value.ToString("F3");
             }
         }
 

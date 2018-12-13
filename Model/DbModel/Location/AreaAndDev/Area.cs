@@ -315,8 +315,14 @@ namespace DbModel.Location.AreaAndDev
         public Point GetClosePointEx(double x,double y)
         {
             var area = GetCloseArea(x, y);
-            if (area == null) return null;
-            return area.InitBound.GetClosePoint(x, y);
+            if (area != null)
+            {
+                return area.InitBound.GetClosePoint(x, y);
+            }
+            else
+            {
+                return InitBound.GetClosePoint(x, y);
+            }
         }
 
         /// <summary>

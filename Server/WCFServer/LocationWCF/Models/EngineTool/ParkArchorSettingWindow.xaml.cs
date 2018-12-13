@@ -90,7 +90,7 @@ namespace LocationServer.Windows
             TbName.Text = _archor.Name;
             TbCode.Text = _archor.GetCode();
             IPCode1.Text = _archor.Ip;
-            TbHeight.Text = _item.RelativeHeight.ToString("F2");
+            TbHeight.Text = _item.RelativeHeight.ToString("F3");
 
             PcArchor.X = x;
             PcArchor.Y = z;

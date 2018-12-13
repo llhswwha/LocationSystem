@@ -520,12 +520,15 @@ namespace WPFClientControlLib
         {
             if (ShowDev)
                 if (devs != null)
+                {
                     foreach (var dev in devs)
                     {
                         if (dev == null) continue;
                         if (dev.TypeCode != ArchorTypeCode) continue;
-                        AddDevRect(dev,scale, devSize);
+                        AddDevRect(dev, scale, devSize);
                     }
+                    LbState.Content = "设备数量:" + devs.Count;
+                }
         }
 
         public Func<DevEntity, ArchorSetting> GetSettingFunc;

@@ -205,7 +205,7 @@ namespace LocationServer
                 AreaCanvas1.RemoveDev(dev.Id);
 
                 //topoTree.RefreshNode(dev.ParentId);
-                ResourceTreeView1.TopoTree.RemoveCurrentNode();
+                //ResourceTreeView1.TopoTree.RemoveCurrentNode();
             }
         }
 

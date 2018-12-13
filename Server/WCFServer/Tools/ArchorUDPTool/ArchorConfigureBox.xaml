@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LocationServer"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" Loaded="UserControl_Loaded">
+             d:DesignHeight="600" d:DesignWidth="900" Loaded="UserControl_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
@@ -36,15 +36,15 @@
             <Label>LocalIP</Label>
             <ComboBox Name="CbLocalIps" Width="120" SelectionChanged="CbLocalIps_SelectionChanged"></ComboBox>
             <Label>广播IP</Label>
-            <TextBox Width="230" Name="TbRemote" Text="192.168.1.255;192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
+            <TextBox Width="300" Name="TbRemote" Text="192.168.3.255;192.168.4.255;192.168.5.255;192.168.10.255;" TextWrapping="Wrap"></TextBox>
             <Label>Port</Label>
             <TextBox Width="50" Name="TbPort" Text="4646"></TextBox>
             <CheckBox Name="CbOneIPS">整个网段</CheckBox>
             <CheckBox Name="CbList">按清单处理</CheckBox>
             <CheckBox Name="CbScanByDataGrid">按当前列表扫描</CheckBox>
-            <CheckBox Name="CbPing">Ping</CheckBox>
+            <!--<CheckBox Name="CbPing">Ping</CheckBox>-->
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <GroupBox>
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
@@ -60,44 +60,71 @@
                     <Button Name="BtnSearchIp" Click="BtnSearchIp_Click">IP</Button>
                     <Button Name="BtnSearchType" Click="BtnSearchType_Click">Type</Button>
                     <Button Name="BtnSearchServerIP" Click="BtnSearchServerIP_Click">ServerIP</Button>
-                    <Button Name="BtnSearchPort" Click="BtnSearchPort_Click">ServerPort</Button>
+                    <Button Name="BtnSearchPort" Click="BtnSearchPort_Click">Port</Button>
                     <Button Name="BtnSearchMask" Click="BtnSearchMask_Click">Mask</Button>
                     <Button Name="BtnSearchGateway" Click="BtnSearchGateway_Click">网关</Button>
                     <Button Name="BtnSearchDHCP" Click="BtnSearchDHCP_Click">DHCP</Button>
-                    <Button Name="BtnSearchSoftverson" Click="BtnSearchSoftverson_Click">软件版本</Button>
-                    <Button Name="BtnSearchHardverson" Click="BtnSearchHardverson_Click">硬件版本</Button>
+                    <Button Name="BtnSearchSoftverson" Click="BtnSearchSoftverson_Click">软件</Button>
+                    <Button Name="BtnSearchHardverson" Click="BtnSearchHardverson_Click">硬件</Button>
                     <Button Name="BtnSearchPower" Click="BtnSearchPower_Click">功率</Button>
                     <Button Name="BtnSearchMAC" Click="BtnSearchMAC_Click">MAC</Button>
                 </StackPanel>
             </GroupBox>
+            <GroupBox >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>指令</Label>
+                        <Button Name="BtnSet" Click="BtnSet_Click">设置</Button>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <TextBox Name="TbCommand" Width="280" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox >
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>指令</Label>
+                        <Button Name="BtnStartPing" Click="BtnStartPing_Click">开始</Button>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label>大小</Label>
+                    <TextBox Name="TbPingLength">1472</TextBox>
+                    <Label>等待</Label>
+                    <TextBox Name="TbPingWaitTime">100</TextBox>
+                    <Label>次数</Label>
+                    <TextBox Name="TbPingCount">4</TextBox>
+                </StackPanel>
+                
+            </GroupBox>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label>指令</Label>
-            <TextBox Name="TbCommand" Width="400" Text="10 01 20 03 04 C0 A8 05 01 91 9C 9D BE"></TextBox>
-            <Button Name="BtnSet" Click="BtnSet_Click">设置</Button>
-        </StackPanel>
+        
         <TabControl DockPanel.Dock="Top" Height="150">
             <TabItem Header="控制台">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                       
-                        <Label>时间:</Label>
-                        <Label Name="LbTime"></Label>
-                        <Button Name="BtnStopTime" Click="BtnStopTime_Click">停止时间</Button>
-                        <Label>数量:</Label>
-                        <Label Name="LbCount"></Label>
-                        <Label>统计:</Label>
-                        <Label Name="LbStatistics"></Label>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label>时间:</Label>
+                            <Label Name="LbTime"></Label>
+                            <Button Name="BtnStopTime" Click="BtnStopTime_Click">停止时间</Button>
+                            <Label>数量:</Label>
+                            <Label Name="LbCount"></Label>
+                            <Label>统计:</Label>
+                            <Label Name="LbStatistics"></Label>
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label>||||||||</Label>
+                            <Label>服务器IP:</Label>
+                            <Label Name="LbServerIpList"></Label>
+                            <Button Name="BtnStartListen" Click="BtnStartListen_Click">开始监听</Button>
+                            <Label>数量:</Label>
+                            <Label Name="LbListenCount"></Label>
+                            <Label>统计:</Label>
+                            <Label Name="LbListenStatistics"></Label>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <Label>服务器IP:</Label>
-                        <Label Name="LbServerIpList"></Label>
-                        <Button Name="BtnStartListen" Click="BtnStartListen_Click">开始监听</Button>
-                        <Label>数量:</Label>
-                        <Label Name="LbListenCount"></Label>
-                        <Label>统计:</Label>
-                        <Label Name="LbListenStatistics"></Label>
-                    </StackPanel>
+                    
                     <WPFClientControlLib:ProgressBarEx DockPanel.Dock="Bottom" Name="ProgressBarEx1" Visibility="Collapsed"/>
                     <ScrollViewer>
                         <TextBox Name="TbConsole" TextWrapping="Wrap"></TextBox>

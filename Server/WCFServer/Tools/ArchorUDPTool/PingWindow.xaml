@@ -12,6 +12,8 @@
             <ComboBox Width="200" Name="TbIp" Text="192.168.4.79" IsEditable="True"></ComboBox>
             <Label>Count:</Label>
             <TextBox Width="50" Name="TbCount" Text="4"></TextBox>
+            <Label>包大小:</Label>
+            <TextBox Width="50" Name="TbSize" Text="10"></TextBox>
             <Button Name="BtnStart" Click="BtnStart_Click">Ping</Button>
             <Button Name="BtnStartRange" Click="BtnStartRange_Click">Ping整段</Button>
         </StackPanel>

@@ -9,7 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="计算全部" Name="MenuCalculate" Click="MenuCalculate_Click"></MenuItem>
-            <MenuItem Header="显示过滤部分"></MenuItem>
+            <MenuItem Header="显示全部" Name="MenuShowAll" Click="MenuShowAll_Click"></MenuItem>
             <MenuItem Header="导出" Name="MenuExport" Click="MenuExport_OnClick"></MenuItem>
             <MenuItem Header="保存(Location.db)" Name="MenuSave" Click="MenuSave_OnClick"></MenuItem>
             <MenuItem Header="保存(Engine.db)" Name="MenuSave2" Click="MenuSave2_OnClick"></MenuItem>

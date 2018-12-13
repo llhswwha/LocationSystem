@@ -176,6 +176,11 @@ namespace LocationServer.Windows
         {
             Bll bll = new Bll();
             var list3 = bll.Archors.ToList();
+            var areas = bll.Areas.ToList();
+            foreach (var item in list3)
+            {
+                item.Parent = areas.Find(i => i.Id == item.ParentId);
+            }
             var win = new ArchorConfigureWindow(list3);
             win.Show();
 
@@ -206,7 +211,8 @@ namespace LocationServer.Windows
             if (i3 != null)
             {
                 DataGridDb.SelectedItem = i3;
-                DataGridDb.ScrollIntoView(DataGridDb.SelectedItem);
+                if(DataGridDb.SelectedItem!=null)
+                    DataGridDb.ScrollIntoView(DataGridDb.SelectedItem);
             }
         }
         private void ExportListFile_Click(object sender, RoutedEventArgs e)

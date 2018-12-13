@@ -139,10 +139,18 @@ namespace ArchorUDPTool.Models
         {
             List<AreaCount> areasCount = GetAreaCount();
             string txt = "";
+
+            //
+            int c1 = 0;
+            int c2 = 0;
             foreach (var item in areasCount)
             {
                 txt += item.ToString() + "\n";
+                c1 += item.Count1;
+                c2 += item.Count2;
             }
+            AreaCount all = new AreaCount("全部",c1,c2);
+            txt += all.ToString();
             return txt;
         }
 

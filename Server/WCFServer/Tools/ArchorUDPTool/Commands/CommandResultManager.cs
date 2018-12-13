@@ -85,5 +85,17 @@ namespace ArchorUDPTool.Commands
                 statistics.Add(group.Id);
             return group;
         }
+
+        internal void ClearPing(string[] ips)
+        {
+            var list = ips.ToList();
+            foreach (var item in Groups)
+            {
+                if (list.Contains(item.Archor.GetClientIP()))
+                {
+                    item.Archor.Ping = "";
+                }
+            }
+        }
     }
 }

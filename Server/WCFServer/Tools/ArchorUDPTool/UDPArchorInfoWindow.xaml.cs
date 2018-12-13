@@ -32,12 +32,13 @@ namespace ArchorUDPTool
             InitializeComponent();
             this.archor = archor;
             this.archorManager = archorManager;
-            this.archorManager.ArchorUpdated += ArchorManager_ArchorUpdated;
+            this.archorManager.ArchorListChanged += ArchorManager_ArchorListChanged;
+            PropertyGrid1.SelectedObject = archor;
         }
 
-        private void ArchorManager_ArchorUpdated(UDPArchor obj)
+        private void ArchorManager_ArchorListChanged(UDPArchorList arg1, UDPArchor arg2)
         {
-            ShowValue(obj);
+            ShowValue(arg2);
         }
 
         private ArchorManager archorManager;

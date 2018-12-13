@@ -108,6 +108,7 @@ namespace LocationServer
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
             FileInfo fi = new FileInfo(path);
             archorManager.LoadArchorList(path);
+            CbList.IsChecked = true;
         }
 
         private void MenuSetServerIp7_OnClick(object sender, RoutedEventArgs e)
@@ -116,7 +117,7 @@ namespace LocationServer
         }
 
 
-        private void SetArchorList(ArchorManager archorManager, UDPArchorList list)
+        private void SetArchorList(ArchorManager archorManager, UDPArchorList list,UDPArchor item1=null,int id=-1)
         {
             this.Dispatcher.Invoke(() => {
                 if (archorManager == null)
@@ -153,6 +154,15 @@ namespace LocationServer
                     }
 
                     DataGrid3.ItemsSource = list;
+                    if (id > 0)
+                    {
+                        var item2 = list[id];
+                        if (item2 != item1)
+                        {
+
+                        }
+                    }
+                    
                     LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
                     LbServerIpList.Content = list.ServerList.GetText();
@@ -170,9 +180,19 @@ namespace LocationServer
             if (archorManager == null)
             {
                 archorManager = new ArchorManager();
-                archorManager.ArchorListChanged += (list) =>
+                archorManager.ArchorListChanged += (list,item) =>
                 {
-                    SetArchorList(archorManager, list);
+                    if (item != null)
+                    {
+                        var id = list.IndexOf(item);
+                        SetArchorList(archorManager, list,item,id);
+                    }
+                    else
+                    {
+                        SetArchorList(archorManager, list);
+                    }
+                    
+                   
                 };
                 archorManager.PercentChanged += (p) =>
                 {
@@ -222,7 +242,7 @@ namespace LocationServer
             arg.cmds = cmds;
             arg.OneIPS = (bool)CbOneIPS.IsChecked;
             arg.ScanList = (bool)CbList.IsChecked;
-            arg.Ping = (bool)CbPing.IsChecked;
+            //arg.Ping = (bool)CbPing.IsChecked;
             return arg;
         }
 
@@ -387,6 +407,16 @@ namespace LocationServer
         private void CbLocalIps_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             archorManager.LocalIp = CbLocalIps.SelectedItem as IPAddress;
+        }
+
+        private void BtnStartPing_Click(object sender, RoutedEventArgs e)
+        {
+            var arg = GetScanArg(UDPCommands.GetId);
+            arg.Ping = true;
+            arg.PingLength = TbPingLength.Text.ToInt();
+            arg.PingWaitTime = TbPingWaitTime.Text.ToInt();
+            arg.PingCount = TbPingCount.Text.ToInt();
+            archorManager.ScanArchors(arg, DataGrid3.subArchorList);
         }
     }
 }

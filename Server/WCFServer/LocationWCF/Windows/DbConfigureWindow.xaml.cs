@@ -444,10 +444,10 @@ namespace LocationServer.Windows
                     }
                     archorSetting.ZeroX = "0";
                     archorSetting.ZeroY = "0";
-                    archorSetting.AbsoluteX = x.ToString("F2");
-                    archorSetting.AbsoluteY = y.ToString("F2");
-                    archorSetting.RelativeX = x.ToString("F2");
-                    archorSetting.RelativeY = y.ToString("F2");
+                    archorSetting.AbsoluteX = x.ToString("F3");
+                    archorSetting.AbsoluteY = y.ToString("F3");
+                    archorSetting.RelativeX = x.ToString("F3");
+                    archorSetting.RelativeY = y.ToString("F3");
                     archorSetting.AbsoluteHeight = z;
                     archorSetting.RelativeHeight = z;
                     archorSetting.RelativeMode = RelativeMode.CAD坐标;

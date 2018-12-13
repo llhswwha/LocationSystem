@@ -60,9 +60,9 @@ namespace ArchorUDPTool
             return resultList.GetStatistics();
         }
 
-        public event Action<UDPArchorList> ArchorListChanged;
+        public event Action<UDPArchorList, UDPArchor> ArchorListChanged;
 
-        public event Action<UDPArchor> ArchorUpdated;
+        //public event Action<UDPArchor> ArchorUpdated;
 
         public event Action<string> LogChanged;
 
@@ -100,6 +100,9 @@ namespace ArchorUDPTool
             public bool OneIPS;
             public bool ScanList;
             public bool Ping;
+            public int PingLength;
+            public int PingWaitTime;
+            public int PingCount;
             public string[] cmds;
         }
 
@@ -210,6 +213,7 @@ namespace ArchorUDPTool
 
             if (arg.Ping)
             {
+                resultList.ClearPing(Ips);
                 if (pingEx == null)
                 {
                     pingEx = new PingEx();
@@ -219,7 +223,9 @@ namespace ArchorUDPTool
                         AddLog(ex.ToString());
                     };
                 }
-                pingEx.PingRange(Ips, 4);
+                pingEx.WaitTime = arg.PingWaitTime;
+                pingEx.SetData(arg.PingLength);
+                pingEx.PingRange(Ips, arg.PingCount);
             }
             else
             {
@@ -298,6 +304,7 @@ namespace ArchorUDPTool
 
         private void PingEx_ProgressChanged(int arg1, PingResult arg2)
         {
+            AddLog(arg2.Line);
             if (arg2.Type == 1)
             {
                 var group = resultList.GetByIp(arg2.Ip);
@@ -310,6 +317,8 @@ namespace ArchorUDPTool
                 {
                     group.Archor.Ping = arg2.GetResult();
                 }
+
+                //AddLog()
 
                 archorList = OnDataReceive(group);
             }
@@ -665,13 +674,13 @@ namespace ArchorUDPTool
                 list.Add(item.Archor);
                 item.Archor.Num = list.Count;
             }
-            if (ArchorUpdated != null)
-            {
-                ArchorUpdated(group.Archor);
-            }
+            //if (ArchorUpdated != null)
+            //{
+            //    ArchorUpdated(group.Archor);
+            //}
             if (ArchorListChanged != null)
             {
-                ArchorListChanged(list);
+                ArchorListChanged(list, group.Archor);
             }
             return list;
         }
@@ -717,7 +726,7 @@ namespace ArchorUDPTool
             archorList = list;
             if (ArchorListChanged != null)
             {
-                ArchorListChanged(list);
+                ArchorListChanged(list,null);
             }
         }
 
@@ -733,7 +742,7 @@ namespace ArchorUDPTool
 
             if (ArchorListChanged != null)
             {
-                ArchorListChanged(archorList);
+                ArchorListChanged(archorList,null);
             }
         }
 

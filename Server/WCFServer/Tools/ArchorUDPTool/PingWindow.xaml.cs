@@ -49,6 +49,7 @@ namespace ArchorUDPTool
             {
                 TbConsole1.Text += pr.Line + "\n";
             };
+            pingSender.SetData(TbSize.Text.ToInt());
             pingSender.Ping(ip, count);
         }
         PingEx pingSender;
@@ -74,6 +75,7 @@ namespace ArchorUDPTool
                 }
 
             };
+            pingSender.SetData(TbSize.Text.ToInt());
             pingSender.PingRange(ip, count);
         }
 

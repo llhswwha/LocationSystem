@@ -135,6 +135,8 @@ namespace DbModel.LocationHistory.Data
         public int MoveState { get; set; }
 
         /// <summary>
+        /// 
+        /// 
         /// 序号（新的卡才有的）
         /// </summary>
         [DataMember]

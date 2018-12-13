@@ -99,7 +99,7 @@ namespace LocationServer.Controls
         List<ArchorSetting> listAdd = new List<ArchorSetting>();
         List<ArchorSetting> listEdit = new List<ArchorSetting>();
 
-        public bool ShowAll = false;
+        public bool CalculateAll = false;
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -127,7 +127,7 @@ namespace LocationServer.Controls
                     ArchorSetting archorSetting = bll.ArchorSettings.GetByArchor(archor);
                     if (archorSetting == null)
                     {
-                        if (ShowAll)
+                        if (CalculateAll)
                         {
                             archorSetting = new ArchorSetting(archor.GetCode(), archor.Id);
                             listAdd.Add(archorSetting);
@@ -164,8 +164,8 @@ namespace LocationServer.Controls
                                 var minX = floor.InitBound.MinX + building.InitBound.MinX;
                                 var minY = floor.InitBound.MinY + building.InitBound.MinY;
 
-                                archorSetting.AbsoluteX = (x + minX).ToString("F2");
-                                archorSetting.AbsoluteY = (y + minY).ToString("F2");
+                                archorSetting.AbsoluteX = (x + minX).ToString("F3");
+                                archorSetting.AbsoluteY = (y + minY).ToString("F3");
 
                                 var room = Bll.GetDevRoom(floor, dev);
                                 if (room != null)
@@ -203,8 +203,18 @@ namespace LocationServer.Controls
                     {
 
                         archorSetting.SetExtensionInfo(LocationContext.OffsetX, LocationContext.OffsetY);
-                        if(archorSetting.RelativeHeight!=2)//过滤掉2m的基站 未测量位置坐标的
-                            list.Add(archorSetting);
+
+                        if (ShowAll)
+                        {
+                            //if (archorSetting.RelativeHeight != 2)//过滤掉2m的基站 未测量位置坐标的
+                                list.Add(archorSetting);
+                        }
+                        else
+                        {
+                            if (archorSetting.RelativeHeight != 2)//过滤掉2m的基站 未测量位置坐标的
+                                list.Add(archorSetting);
+                        }
+                        
                     }
 
                     double percent = i*100f/archors.Count;
@@ -266,9 +276,12 @@ namespace LocationServer.Controls
 
         private void MenuCalculate_Click(object sender, RoutedEventArgs e)
         {
-            ShowAll = true;
+            CalculateAll = true;
+            worker = null;
             LoadData();
         }
+
+        public bool ShowAll = false;
 
         private void CbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -283,6 +296,13 @@ namespace LocationServer.Controls
         private void CbAreas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void MenuShowAll_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAll = true;
+            worker = null;
+            LoadData();
         }
     }
 }

@@ -82,20 +82,20 @@ namespace DbModel.Location.Settings
             if (room != null)
             {
                 RoomName = room.Name;
-                RoomMinX = room.InitBound.MinX.ToString("F2");
-                RoomMinY = room.InitBound.MinY.ToString("F2");
+                RoomMinX = room.InitBound.MinX.ToString("F3");
+                RoomMinY = room.InitBound.MinY.ToString("F3");
             }
             if (floor != null)
             {
                 FloorName = floor.Name;
-                FloorMinX = floor.InitBound.MinX.ToString("F2");
-                FloorMinY = floor.InitBound.MinY.ToString("F2");
+                FloorMinX = floor.InitBound.MinX.ToString("F3");
+                FloorMinY = floor.InitBound.MinY.ToString("F3");
             }
             if (building != null)
             {
                 BuildingName = building.Name;
-                BuildingMinX = building.InitBound.MinX.ToString("F2");
-                BuildingMinY = building.InitBound.MinY.ToString("F2");
+                BuildingMinX = building.InitBound.MinX.ToString("F3");
+                BuildingMinY = building.InitBound.MinY.ToString("F3");
             }
            
         }
@@ -117,8 +117,8 @@ namespace DbModel.Location.Settings
 
         public void SetZero(double x,double y)
         {
-            ZeroX = x.ToString("F2");
-            ZeroY = y.ToString("F2");
+            ZeroX = x.ToString("F3");
+            ZeroY = y.ToString("F3");
         }
 
         [Display(Name = "相对坐标X")]
@@ -131,8 +131,8 @@ namespace DbModel.Location.Settings
 
         public void SetRelative(double x, double y)
         {
-            RelativeX = x.ToString("F2");
-            RelativeY = y.ToString("F2");
+            RelativeX = x.ToString("F3");
+            RelativeY = y.ToString("F3");
         }
 
 
@@ -167,8 +167,8 @@ namespace DbModel.Location.Settings
 
         public void SetAbsolute(double x, double y)
         {
-            AbsoluteX = x.ToString("F2");
-            AbsoluteY = y.ToString("F2");
+            AbsoluteX = x.ToString("F3");
+            AbsoluteY = y.ToString("F3");
 
         }
 

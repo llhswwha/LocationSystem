@@ -38,12 +38,16 @@
                         <ComboBoxItem>11222902</ComboBoxItem>
                         <ComboBoxItem>11222906</ComboBoxItem>
                         <ComboBoxItem>11222907</ComboBoxItem>
-                        <ComboBoxItem>3156</ComboBoxItem>
+                        <ComboBoxItem>3156|3157</ComboBoxItem>
                         <ComboBoxItem>网关错误</ComboBoxItem>
                         <ComboBoxItem>IsChecked</ComboBoxItem>
                         <ComboBoxItem>有记录ID</ComboBoxItem>
                         <ComboBoxItem>无记录ID</ComboBoxItem>
                         <ComboBoxItem>非25服务端IP</ComboBoxItem>
+                        <ComboBoxItem>Ping有问题的</ComboBoxItem>
+                        <ComboBoxItem>Ping 空</ComboBoxItem>
+                        <ComboBoxItem>Ping 失败</ComboBoxItem>
+                        <ComboBoxItem>Ping 丢包</ComboBoxItem>
                     </ComboBox>
                     <ComboBox Name="CbFilterCodition2" Width="100" SelectionChanged="CbFilterCodition2_SelectionChanged">
                         <ComboBoxItem IsSelected="True">全部</ComboBoxItem>

@@ -94,7 +94,7 @@ namespace LocationServer.Windows
                 _building.Children = bll.Areas.Where(i => i.ParentId == _building.Id);
             }
             floorHeight = _floor.InitBound.MinZ;
-            TbFloorHeight.Text = floorHeight.ToString("F2");
+            TbFloorHeight.Text = floorHeight.ToString("F3");
 
             //var building = areas.Find(j => j.Id == floor.ParentId);
             //_floor.InitBound.SetInitBound();
@@ -111,8 +111,8 @@ namespace LocationServer.Windows
             var minX = floorBound.MinX + _building.InitBound.MinX;
             var minY = floorBound.MinY + _building.InitBound.MinY;
 
-            _item.AbsoluteX = (x + minX).ToString("F2");
-            _item.AbsoluteY = (z + minY).ToString("F2");
+            _item.AbsoluteX = (x + minX).ToString("F3");
+            _item.AbsoluteY = (z + minY).ToString("F3");
 
             //var rooms = areas.FindAll(j => j.ParentId == floor.Id);
             _room = Bll.GetDevRoom(_floor, _dev);
@@ -127,8 +127,8 @@ namespace LocationServer.Windows
             //{
             //    height = 2.6;//现场实际一般高度是2.6左右
             //}
-            TbHeight.Text = height.ToString("F2");
-            TbHeight2.Text = (floorHeight + height).ToString("F2");
+            TbHeight.Text = height.ToString("F3");
+            TbHeight2.Text = (floorHeight + height).ToString("F3");
             PcArchor.X = x;
             PcArchor.Y = z;
             TbBuildingName.Text = _building.Name;
@@ -255,7 +255,7 @@ namespace LocationServer.Windows
             PcArchor.ValueChanged -= PcArchor_ValueChanged;
             PcZero.ValueChanged -= PcZero_ValueChanged;
             GetDevRoom();
-            if (_room != null)
+            //if (_room != null)
             {
                 PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + PcZero.X + obj.X;
                 PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + PcZero.Y + obj.Y;
@@ -263,14 +263,14 @@ namespace LocationServer.Windows
                 PcArchor.X = PcZero.X + obj.X;
                 PcArchor.Y = PcZero.Y + obj.Y;
             }
-            else
-            {
-                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
-                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+            //else
+            //{
+            //    PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
+            //    PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
 
-                PcArchor.X = PcZero.X + obj.X;
-                PcArchor.Y = PcZero.Y + obj.Y;
-            }
+            //    PcArchor.X = PcZero.X + obj.X;
+            //    PcArchor.Y = PcZero.Y + obj.Y;
+            //}
             PcZero.ValueChanged += PcZero_ValueChanged;
             PcArchor.ValueChanged += PcArchor_ValueChanged;
         }
@@ -487,7 +487,7 @@ namespace LocationServer.Windows
         private void TbHeight_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             double height = TbHeight.Text.ToDouble();
-            TbHeight2.Text = (height + floorHeight).ToString("F2");
+            TbHeight2.Text = (height + floorHeight).ToString("F3");
         }
 
         private void MenuArchorList_OnClick(object sender, RoutedEventArgs e)

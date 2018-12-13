@@ -68,6 +68,10 @@ namespace WPFClientControlLib
                 double y = (item.Y - bound.MinY) * scale + CanvasMargin / 2;
 
                 double size = scale;
+                if (size > 0)
+                {
+                    size = 10;
+                }
                 Ellipse ellipse = new Ellipse();
                 //ellipse.Margin = new Thickness(Margin/2, Margin/2, 0, 0);
                 ellipse.Width = size;

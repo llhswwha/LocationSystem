@@ -20,10 +20,26 @@ namespace ArchorUDPTool.Tools
             //Ping 实例对象;
              pingSender = new Ping();
             //ping选项;
-             options = new PingOptions();
+            options = new PingOptions();
             options.DontFragment = true;
-            string data = "ping test data";
-             buf = Encoding.ASCII.GetBytes(data);
+            SetData(0);
+        }
+
+        public void SetData(int length)
+        {
+            string data = "";
+            if (length <= 0)
+            {
+                data = "ping test data";
+            }
+            else
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    data += "a";
+                }
+            }
+            buf = Encoding.ASCII.GetBytes(data);
         }
 
         public string[] ips;
@@ -49,21 +65,21 @@ namespace ArchorUDPTool.Tools
             InitWorker();
         }
 
-        public void PingRange(string ipStart, string ipEnd, int count = 1)
+        public void PingRange(string ipStart, string ipEnd, int count = 4)
         {
             ips = IpHelper.GetIPS(ipStart, ipEnd).ToArray();
             this.count = count;
             InitWorker();
         }
 
-        public void PingRange(string[] ips, int count = 1)
+        public void PingRange(string[] ips, int count = 4)
         {
             this.ips = ips;
             this.count = count;
             InitWorker();
         }
 
-        public void PingRange(string ip, int count = 1)
+        public void PingRange(string ip, int count = 4)
         {
             ips = IpHelper.GetIPS(ip).ToArray();
             this.count = count;
@@ -75,6 +91,10 @@ namespace ArchorUDPTool.Tools
         public int SuccessIpCount = 0;
 
         public int FailIpCount = 0;
+
+        public int WaitTime = 200;
+
+        public int Timeout = 120;
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -93,7 +113,7 @@ namespace ArchorUDPTool.Tools
                     {
                         string line = "";
                         //调用同步send方法发送数据，结果存入reply对象;
-                        PingReply reply = pingSender.Send(ip, 120, buf, options);
+                        PingReply reply = pingSender.Send(ip, Timeout, buf, options);
                         line += string.Format("[{0}][{1}] ", ip, i);
                         if (reply.Status == IPStatus.Success)
                         {
@@ -116,7 +136,7 @@ namespace ArchorUDPTool.Tools
                         pr.Line = DateTime.Now.ToString("HH:mm:ss.fff") + "|" + line;
                         pr.Ip = ip;
                         worker.ReportProgress(percent, pr);
-                        Thread.Sleep(100);
+                        Thread.Sleep(WaitTime);
                         if (IsCancel) return;
                     }
 
@@ -138,6 +158,8 @@ namespace ArchorUDPTool.Tools
                     r.Result = s;
                     r.ResultText = DateTime.Now.ToString("HH:mm:ss.fff") + "|" + string.Format("{0}:{1}", ip, t);
                     r.Ip = ip;
+                    r.Count = count;
+                    r.SuccessCount = successCount;
                     worker.ReportProgress(0, r);
                     if (IsCancel) return;
                 }
@@ -182,14 +204,24 @@ namespace ArchorUDPTool.Tools
         public string Line;
         public string ResultText;
         public bool Result;
+        public int Count;
+        public int SuccessCount;
 
         public string GetResult()
         {
-            if (Result)
+            //if (Result)
+            //{
+            //    return "True";
+            //}
+            //return "";
+            if (SuccessCount > 0)
             {
-                return "True";
+                return string.Format("{0}/{1}", SuccessCount, Count);
             }
-            return "";
+            else
+            {
+                return "*";
+            }
         }
     }
 }

@@ -253,7 +253,7 @@ namespace ArchorUDPTool.Controls
                 }
                 else if (id == 13)//3506
                 {
-                    if (item.SoftVersion == "3156")
+                    if (item.SoftVersion == "3156"|| item.SoftVersion == "3157")
                     {
                         subArchorList.Add(item);
                     }
@@ -293,6 +293,46 @@ namespace ArchorUDPTool.Controls
                         subArchorList.Add(item);
                     }
                 }
+                else if (id == 19)//ping有问题的
+                {
+                    if (string.IsNullOrEmpty(item.Ping)||item.Ping=="*")
+                    {
+                        subArchorList.Add(item);
+                    }
+                    else
+                    {
+                        string[] parts = item.Ping.Split('/');
+                        if (parts[0] != parts[1])
+                        {
+                            subArchorList.Add(item);
+                        }
+                    }
+                }
+                else if (id == 20)//ping空
+                {
+                    if (string.IsNullOrEmpty(item.Ping))
+                    {
+                        subArchorList.Add(item);
+                    }
+                }
+                else if (id == 21)//ping失败
+                {
+                    if (item.Ping == "*")
+                    {
+                        subArchorList.Add(item);
+                    }
+                }
+                else if (id == 22)//ping丢包
+                {
+                    if (!string.IsNullOrEmpty(item.Ping))
+                    {
+                        string[] parts = item.Ping.Split('/');
+                        if (parts.Length==2&&parts[0] != parts[1])
+                        {
+                            subArchorList.Add(item);
+                        }
+                    }
+                }
             }
             DataGrid3.ItemsSource = subArchorList;
             LbCount.Content = string.Format("{0}/{1}", subArchorList.GetConnectedCount(), subArchorList.Count);
@@ -321,6 +361,7 @@ namespace ArchorUDPTool.Controls
 
         private void BtnGetAreas_Click(object sender, RoutedEventArgs e)
         {
+            if (_archorList == null) return;
             List<string> areas = _archorList.GetAreas();
             areas.Insert(0, "全部");
             CbAreas.ItemsSource = areas;
