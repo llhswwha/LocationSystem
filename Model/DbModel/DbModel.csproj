@@ -67,6 +67,7 @@
     <Compile Include="Tools\InitInfos\ArchorDevList.cs" />
     <Compile Include="Tools\InitInfos\AuthorizationArea.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
+    <Compile Include="Tools\InitInfos\CameraInfoBackUp.cs" />
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />
     <Compile Include="Tools\InitInfos\LocationDevices.cs" />

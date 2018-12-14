@@ -51,7 +51,8 @@ namespace WebLocation.Controllers
         {
             var service = new TagService();
             var result = service.SetRole(tagId, roleId) != null;
-            result = true;
+            //result = true;
+           
             return Json(new { success = result });
         }        
 

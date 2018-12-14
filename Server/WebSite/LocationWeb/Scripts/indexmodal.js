@@ -1,5 +1,6 @@
 ﻿function onBegin() {
     //alert('begin');
+    $('#myModal').modal('show');
     $('#myModal').modal({
         //点击背景空白处不被关闭
         backdrop: 'static',
@@ -13,8 +14,7 @@ function onSuccess() {
 }
 
 function onComplete() {
-    //alert('complete');    
-    $('#myModal').modal('show');
+    //alert('complete');      
 }
 
 function onFailure() {

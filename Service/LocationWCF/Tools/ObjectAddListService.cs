@@ -114,7 +114,7 @@ namespace LocationServices.Tools
             var ModelTypeList = from model in modelList
                                 join type in typeList on (model.ModelId + "_前面板_0.png") equals type.FrontElevation into TempTable
                                 from c in TempTable.DefaultIfEmpty()
-                                where model.Items != "" && model.Class != ""
+                                where !string.IsNullOrEmpty(model.Items) && !string.IsNullOrEmpty(model.Class)
                                 orderby model.Items, model.Class
                                 select new ModelTypeItem
                                 {
@@ -176,6 +176,7 @@ namespace LocationServices.Tools
         /// <param name="item"></param>
         private void InitDic(Dictionary<string,List<ModelTypeItem>> ModelDic,string KeyName,ModelTypeItem item)
         {
+            if (string.IsNullOrEmpty(KeyName)) return;
             if (!ModelDic.ContainsKey(KeyName))
             {
                 List<ModelTypeItem> ListTemp = new List<ModelTypeItem>();

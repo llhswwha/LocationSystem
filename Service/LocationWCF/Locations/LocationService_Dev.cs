@@ -275,9 +275,11 @@ namespace LocationServices.Locations
         /// </summary>
         /// <param name="cameraInfo"></param>
         /// <returns></returns>
-        public bool AddCameraInfo(Dev_CameraInfo cameraInfo)
+        public Dev_CameraInfo AddCameraInfo(Dev_CameraInfo cameraInfo)
         {
-            return db.Dev_CameraInfos.Add(cameraInfo.ToDbModel());
+            DbModel.Location.AreaAndDev.Dev_CameraInfo dbCamera = cameraInfo.ToDbModel();
+            var result = db.Dev_CameraInfos.Add(dbCamera);
+            return result ? dbCamera.ToTModel() : null;            
         }
         /// <summary>
         /// 删除摄像头信息
@@ -302,9 +304,14 @@ namespace LocationServices.Locations
         /// </summary>
         /// <param name="cameraInfoList"></param>
         /// <returns></returns>
-        public bool ModifyCameraInfo(IList<Dev_CameraInfo> cameraInfoList)
+        public bool ModifyCameraInfoByList(IList<Dev_CameraInfo> cameraInfoList)
         {
+            //好像没用
             return db.Dev_CameraInfos.EditRange(db.Db, cameraInfoList.ToList().ToDbModel());
+        }
+        public bool ModifyCameraInfo(Dev_CameraInfo camInfo)
+        {
+            return db.Dev_CameraInfos.Edit(camInfo.ToDbModel());
         }
         /// <summary>
         /// 通过区域ID，获取所有摄像头信息

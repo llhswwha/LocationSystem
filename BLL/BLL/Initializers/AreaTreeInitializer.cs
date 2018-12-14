@@ -160,7 +160,7 @@ namespace BLL
 
             InitLocationDevice();//基站设备
             InitDevInfo();//设备信息（不包含基站设备）  
-
+            InitCameraInfo();
             Log.InfoEnd("InitAreaAndDev");
         }
 
@@ -184,6 +184,14 @@ namespace BLL
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
             bool value = DevInfoHelper.ImportDevInfoFromFile(filePath, _bll);
+            Log.Info(string.Format("导入设备信息信息结果:{0}", value));
+        }
+        private void InitCameraInfo()
+        {
+            Log.Info("导入摄像头信息");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
+            bool value = DevInfoHelper.ImportCameraInfoFromFile(filePath, _bll);
             Log.Info(string.Format("导入设备信息信息结果:{0}", value));
         }
 

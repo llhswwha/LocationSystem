@@ -136,8 +136,27 @@
     @Scripts.Render("~/bundles/jqueryajax")
     @RenderSection("scripts", required: false)
 
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
     <script src="~/Scripts/LocationSystem.js"></script>
     <script src="~/Scripts/protocolcheck.js"></script>
+    <script>
+        //$(function () {
+        //    $.ajax({
+        //        type: "Get",
+        //        url: "/configuration/appSettings",
+        //        contentType: "text/html; charset=utf-8",
+        //        async:false,
+        //        //data:"Ip",
+        //        success: function (data) {
+        //            console.log(data);
+        //        },
+        //        error:function(){
+        //            alert('获取配置信息失败！');
+        //        }
+        //    });
+        //});
+
+        
+    </script>
 </body>
 </html>

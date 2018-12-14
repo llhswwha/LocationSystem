@@ -67,6 +67,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td style="display:none;" class="locationcardId">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Code)
                 </td>
@@ -148,38 +151,38 @@
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jqueryui-1.12.1.js"></script>
-<script src="~/Scripts/indexmodal.js"></script> 
+@*<script src="~/Scripts/indexmodal.js"></script>*@ 
  
-    @*<script type="text/javascript">
-            function onBegin() {
-                //alert('begin');
-                $('#myModal').modal({
-                    //点击背景空白处不被关闭
-                    backdrop: 'static',
-                    //触发键盘esc事件时不关闭
-                    keyboard: false
-                });
-            }
-
-            function onSuccess() {
-                //alert('success');
-            }
-
-            function onComplete() {
-                //alert('complete');
-                $('#myModal').modal('show');
-            }
-
-            function onFailure() {
-                //alert('fail');
-            }
-
-            $("#myModal").each(function () {
-                $(this).draggable({
-                    handle: ".modal-header"   // 只能点击头部拖动
-                });
-                $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+    <script type="text/javascript">
+        function onBegin() {
+            //alert('begin');
+            $('#myModal').modal('show');
+            $('#myModal').modal({
+                //点击背景空白处不被关闭
+                backdrop: 'static',
+                //触发键盘esc事件时不关闭
+                keyboard: false
             });
-    </script>*@
+        }
+
+        function onSuccess() {
+            //alert('success');
+        }
+
+        function onComplete() {
+            //alert('complete');      
+        }
+
+        function onFailure() {
+            //alert('fail');
+        }
+
+        $("#myModal").each(function () {
+            $(this).draggable({
+                handle: ".modal-header"   // 只能点击头部拖动
+            });
+            $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的    
+        });
+    </script>
 
 

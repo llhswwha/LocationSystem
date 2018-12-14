@@ -186,7 +186,7 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="cameraInfo"></param>
         /// <returns></returns>
         [OperationContract]
-        bool AddCameraInfo(Dev_CameraInfo cameraInfo);
+        Dev_CameraInfo AddCameraInfo(Dev_CameraInfo cameraInfo);
         /// <summary>
         /// 删除摄像头信息
         /// </summary>
@@ -200,7 +200,14 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="cameraInfoList"></param>
         /// <returns></returns>
         [OperationContract]
-        bool ModifyCameraInfo(IList<Dev_CameraInfo> cameraInfoList);
+        bool ModifyCameraInfoByList(IList<Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 修改摄像头信息
+        /// </summary>
+        /// <param name="camInfo"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool ModifyCameraInfo(Dev_CameraInfo camInfo);
         /// <summary>
         /// 通过区域ID，获取所有摄像头信息
         /// </summary>
