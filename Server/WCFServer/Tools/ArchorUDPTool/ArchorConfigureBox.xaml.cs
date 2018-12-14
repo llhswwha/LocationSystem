@@ -137,6 +137,8 @@ namespace LocationServer
                     {
                         foreach (var item in list)
                         {
+                            item.DbInfo = "";
+                            item.RealArea = "";
                             var ar = DbArchorList.Find(i => i.Ip == item.GetClientIP());
                             if (ar != null)
                             {
@@ -147,8 +149,15 @@ namespace LocationServer
                                 }
                                 else
                                 {
-                                    item.DbInfo = "有";
-                                }
+                                    string code = ar.Code.Trim();
+                                    if (!string.IsNullOrEmpty(code))
+                                    {
+                                        item.DbInfo = "有:" + code;
+                                    }
+                                    else
+                                    {
+                                        item.DbInfo = "有:" + ar.Ip;
+                                    }                                }
                             }
                         }
                     }
