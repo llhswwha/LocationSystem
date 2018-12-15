@@ -44,11 +44,11 @@ namespace BLL.Buffers
 
         public List<LocationAlarm> GetNewAlarms(List<Position> list1)
         {
-            var alarms = GetAlarms(list1);
-            var updateAlarms=new List<LocationAlarm>();//修改的告警
-            var addedAlarms = new List<LocationAlarm>();//新增的告警
-            var removeAlarms = new List<LocationAlarm>();//恢复的告警
-            removeAlarms.AddRange(realAlarms);
+            var alarms = GetAlarms(list1);//根据位置信息产生告警，包括正常的。
+            //var updateAlarms=new List<LocationAlarm>();//修改的告警
+            var addedAlarms = new List<LocationAlarm>();//要新增的告警
+            var removeAlarms = new List<LocationAlarm>();//要删除的告警，移动到历史表中
+            //removeAlarms.AddRange(realAlarms);
             var noChangeAlarms = new List<LocationAlarm>();//没有变化的告警
             foreach (var alarm in alarms)
             {
@@ -70,13 +70,13 @@ namespace BLL.Buffers
                     else
                     {
                         realAlarm.Update(alarm);
-                        updateAlarms.Add(realAlarm);
+                        //updateAlarms.Add(realAlarm);
                     }
                 }
             }
             var newAlarms = new List<LocationAlarm>();
             newAlarms.AddRange(addedAlarms);
-            newAlarms.AddRange(updateAlarms);
+            //newAlarms.AddRange(updateAlarms);
             //newAlarms.AddRange(removeAlarms);
             //foreach (var alarm in removeAlarms)
             //{
@@ -86,7 +86,7 @@ namespace BLL.Buffers
             _bll.LocationAlarms.AddRange(addedAlarms);
             realAlarms.AddRange(addedAlarms);
 
-            _bll.LocationAlarms.EditRange(updateAlarms);
+            //_bll.LocationAlarms.EditRange(updateAlarms);
             //_bll.LocationAlarms.EditRange(removeAlarms);
             //_bll.LocationAlarms.RemoveList(removeAlarms);
 

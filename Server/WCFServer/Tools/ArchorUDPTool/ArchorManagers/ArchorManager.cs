@@ -420,23 +420,25 @@ namespace ArchorUDPTool
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(archorIp), archorPort);
             udp.SendHex(cmd, ipEndPoint);
             AddLog(string.Format("发送 :: [{0}]:{1}", ipEndPoint, cmd));
-
         }
 
         public void ResetAll(int port)
         {
+            AddLog(string.Format("开始重启"));
             archorPort = port;
             SendCmd(UDPCommands.Restart,port);
         }
 
         public void ResetAll(int port,UDPArchorList list)
         {
+            AddLog(string.Format("开始重启"));
             archorPort = port;
             SendCmd(UDPCommands.Restart, port, list);
         }
 
         public void Reset(params UDPArchor[] archors)
         {
+            AddLog(string.Format("开始重启"));
             foreach (var archor in archors)
             {
                 SendCmd(UDPCommands.Restart, archor);

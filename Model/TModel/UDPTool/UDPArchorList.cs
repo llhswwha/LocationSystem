@@ -154,6 +154,14 @@ namespace ArchorUDPTool.Models
             return txt;
         }
 
+        public void ClearInfo()
+        {
+            foreach (var item in this)
+            {
+                item.RealArea = "";
+            }
+        }
+
         private List<AreaCount> GetAreaCount()
         {
             List<string> areas = GetAreas();

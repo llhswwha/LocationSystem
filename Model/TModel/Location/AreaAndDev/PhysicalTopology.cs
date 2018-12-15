@@ -75,6 +75,15 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public List<PhysicalTopology> Children { get; set; }
 
+        public void AddChild(PhysicalTopology child)
+        {
+            if (Children == null)
+            {
+                Children = new List<PhysicalTopology>();
+            }
+            Children.Add(child);
+        }
+
         /// <summary>
         /// 叶子节点：区域中的设备
         /// </summary>

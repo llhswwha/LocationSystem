@@ -135,6 +135,7 @@ namespace LocationServer
 
                     if (DbArchorList != null)
                     {
+                        //list.ClearInfo();
                         foreach (var item in list)
                         {
                             item.DbInfo = "";
@@ -200,9 +201,8 @@ namespace LocationServer
                     {
                         SetArchorList(archorManager, list);
                     }
-                    
-                   
                 };
+                archorManager.LogChanged += ArchorManager_LogChanged;
                 archorManager.PercentChanged += (p) =>
                 {
                     ProgressBarEx1.Visibility = Visibility.Visible;
@@ -224,6 +224,15 @@ namespace LocationServer
             CbServerIpList.SelectedIndex = 0;
 
             CbLocalIps.ItemsSource = IpHelper.GetLocalList();
+        }
+
+        private void ArchorManager_LogChanged(string obj)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                TbConsole.Text = archorManager.Log;
+            }
+            );
         }
 
         private bool IsDirty = false;

@@ -356,7 +356,7 @@ namespace LocationServer
                 if (win.ShowDialog() == true)
                 {
                     var newArea = win.NewArea;
-                    area.Children.Add(newArea.ToTModel());
+                    area.AddChild(newArea.ToTModel());
                     topoTree.RefreshCurrentNode<AreaEntity,DevEntity>(area);
                     AreaCanvas1.Refresh();
                 }

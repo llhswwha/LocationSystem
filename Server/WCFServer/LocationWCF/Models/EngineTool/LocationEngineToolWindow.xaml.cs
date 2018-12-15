@@ -37,8 +37,11 @@ namespace LocationServer
             changedArchor1.Clear();
 
             var archors1 = bll.bus_anchors.ToList();
-            Group1.Header = "列表1 ["+archors1.Count+"]";
-            DataGridArchor1.ItemsSource = archors1;
+            if (archors1 != null)
+            {
+                Group1.Header = "列表1 [" + archors1.Count + "]";
+                DataGridArchor1.ItemsSource = archors1;
+            }
 
             var tags = bll.bus_tags.ToList();
             DataGrid2.ItemsSource = tags;

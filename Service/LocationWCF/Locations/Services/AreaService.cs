@@ -511,6 +511,7 @@ namespace LocationServices.Locations.Services
         public TEntity Delete(string id)
         {
             var item = dbSet.Find(id.ToInt());
+            if (item == null) return null;
             GetChildren(item);
             if (item.Children != null && item.Children.Count > 0)//不能删除有子物体的节点
             {

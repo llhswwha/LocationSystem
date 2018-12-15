@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="ArchorCheckWindow" Height="450" Width="1200" Loaded="Window_Loaded">
+        Title="ArchorCheckWindow" Height="450" Width="1600" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="刷新"></MenuItem>
@@ -19,7 +19,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="0"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <GroupBox Header="基站清单" Grid.Column="0" Name="Group1">
                 <DataGrid Name="DataGrid1"></DataGrid>

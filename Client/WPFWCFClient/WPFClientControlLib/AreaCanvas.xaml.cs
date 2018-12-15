@@ -521,13 +521,16 @@ namespace WPFClientControlLib
             if (ShowDev)
                 if (devs != null)
                 {
+                    int count = 0;
                     foreach (var dev in devs)
                     {
                         if (dev == null) continue;
                         if (dev.TypeCode != ArchorTypeCode) continue;
+                        count++;
                         AddDevRect(dev, scale, devSize);
                     }
-                    LbState.Content = "设备数量:" + devs.Count;
+                    
+                    LbState.Content = "基站设备数量:" + count;
                 }
         }
 
