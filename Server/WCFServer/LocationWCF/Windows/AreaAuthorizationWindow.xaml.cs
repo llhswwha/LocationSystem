@@ -50,19 +50,65 @@ namespace LocationServer.Windows
             aarService = new AreaAuthorizationRecordService(bll);
             aaService=new AreaAuthorizationService(bll);
 
-            LoadAreaTree();
+            if (_role != null)
+            {
+                var list1 = aarService.GetListByRole(_role.Id + "");
+                var aaIds = new List<int>();
+                foreach (var item in list1)
+                {
+                    aaIds.Add(item.AuthorizationId);
+                }
+                DataGrid2.ItemsSource = list1;
+                var list2 = aaService.GetList(aaIds);
+                DataGrid1.ItemsSource = list2;
 
-            //LoadAuthorizationList();
+                var areaIds = new List<int>();
+                foreach (var item in list2)
+                {
+                    areaIds.Add(item.AreaId);
+                }
+
+                var tree = areaService.GetTree();
+                //var nodes=tree.GetAllChildren(null);
+                //foreach (var item in nodes)
+                //{
+                //    if (areaIds.Contains(item.Id))
+                //    {
+                //        item.IsChecked = true;
+                //    }
+                //}
+
+                TopoTreeView1.LoadData(tree);
+
+                foreach (var item in areaIds)
+                {
+                    var node = TopoTreeView1.GetAreaNode(item);
+                    if(node!=null)
+                        node.Foreground = Brushes.Blue;
+                }
+
+                TopoTreeView1.ExpandLevel(2);
+                //TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
+                TopoTreeView1.SelectFirst();
+            }
+            else
+            {
+                var tree = areaService.GetTree();
+                TopoTreeView1.LoadData(tree);
+                TopoTreeView1.ExpandLevel(2);
+                TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
+                TopoTreeView1.SelectFirst();
+            }
         }
 
-        void LoadAreaTree()
-        {
-            var tree= areaService.GetTree();
-            TopoTreeView1.LoadData(tree);
-            TopoTreeView1.ExpandLevel(2);
-            TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
-            TopoTreeView1.SelectFirst();
-        }
+        //void LoadAreaTree()
+        //{
+        //    var tree = areaService.GetTree();
+        //    TopoTreeView1.LoadData(tree);
+        //    TopoTreeView1.ExpandLevel(2);
+        //    TopoTreeView1.SelectedObjectChanged += TopoTreeView1_SelectedObjectChanged;
+        //    TopoTreeView1.SelectFirst();
+        //}
 
         private void TopoTreeView1_SelectedObjectChanged(object obj)
         {
@@ -70,19 +116,6 @@ namespace LocationServer.Windows
             if (area == null) return;
             DataGrid1.ItemsSource = aaService.GetListByArea(area.Id + "");
             DataGrid2.ItemsSource = aarService.GetListByArea(area.Id + "");
-        }
-
-        void LoadAuthorizationList()
-        {
-            DataGrid1.ItemsSource = aaService.GetList();
-            if (_role != null)
-            {
-                DataGrid2.ItemsSource = aarService.GetListByRole(_role.Id + "");
-            }
-            else
-            {
-                DataGrid2.ItemsSource = aarService.GetList();
-            }
         }
 
         private void MenuAdd_OnClick(object sender, RoutedEventArgs e)

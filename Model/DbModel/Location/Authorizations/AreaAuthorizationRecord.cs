@@ -9,6 +9,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Location.Authorizations;
 using DbModel.LocationHistory.Data;
 using Location.IModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Work
 {
@@ -118,7 +119,9 @@ namespace DbModel.Location.Work
         [Display(Name = "区域")]
         [XmlAttribute]
         public int AreaId { get; set; }
-        //public virtual Area Area { get; set; }
+
+        [NotMapped]
+        public Area Area { get; set; }
 
         [XmlAttribute]
         public AreaAccessType AccessType { get; set; }

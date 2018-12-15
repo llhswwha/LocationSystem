@@ -16,7 +16,6 @@ namespace IModel.Tools
         //判断点pnt是否在region内主程序
         public static bool IsInRegion(Vector2 pnt, List<Vector2> region)
         {
-
             int wn = 0, j = 0; //wn 计数器 j第二个点指针
             for (int i = 0; i < region.Count; i++)
             {

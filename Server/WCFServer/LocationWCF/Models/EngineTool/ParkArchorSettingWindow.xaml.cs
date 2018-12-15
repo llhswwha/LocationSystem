@@ -181,11 +181,11 @@ namespace LocationServer.Windows
             _dev.PosZ = (float)PcAbsolute.Y;
             _dev.PosY = TbHeight.Text.ToFloat();
 
-            if (bll.bus_anchors.Update(code, _archor) == false)
-            {
-                MessageBox.Show("保存失败1");
-                return;
-            }
+            //if (bll.bus_anchors.Update(code, _archor) == false)
+            //{
+            //    MessageBox.Show("保存失败1");
+            //    return;
+            //}
 
             if (bll.Archors.Edit(archorNew) == false)
             {

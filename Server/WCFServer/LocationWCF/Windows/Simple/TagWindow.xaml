@@ -13,6 +13,7 @@
                     <MenuItem Header="设置">
                         <MenuItem Header="角色" Name="MenuSetRole" Click="MenuSetRole_OnClick"></MenuItem>
                         <MenuItem Header="人员" Name="MenuSetPerson" Click="MenuSetPerson_OnClick"></MenuItem>
+                        <MenuItem Header="权限" Name="MenuAuthorization" Click="MenuAuthorization_Click"></MenuItem>
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>

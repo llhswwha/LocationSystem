@@ -23,6 +23,7 @@ namespace BLL.Buffers
         public AuthorizationBuffer(Bll bll)
         {
             _bll = bll;
+            UpdateInterval = 10;
         }
 
         protected override void UpdateData()
@@ -44,38 +45,52 @@ namespace BLL.Buffers
 
         public List<LocationAlarm> GetNewAlarms(List<Position> list1)
         {
-            var alarms = GetAlarms(list1);//根据位置信息产生告警，包括正常的。
+            var newAlarms = GetAlarms(list1);//根据位置信息产生告警，包括正常的。
             //var updateAlarms=new List<LocationAlarm>();//修改的告警
             var addedAlarms = new List<LocationAlarm>();//要新增的告警
             var removeAlarms = new List<LocationAlarm>();//要删除的告警，移动到历史表中
-            //removeAlarms.AddRange(realAlarms);
             var noChangeAlarms = new List<LocationAlarm>();//没有变化的告警
-            foreach (var alarm in alarms)
+            foreach (var newAlarm in newAlarms)
             {
-                var realAlarm = realAlarms.Find(i => i.AuzId==alarm.AuzId && i.LocationCardId == alarm.LocationCardId);
-                //某张卡基于某个规则产生的告警
-                if (realAlarm == null)
+                var newAlarmId = newAlarm.GetAlarmId();
+
+                var tagAlarms = realAlarms.FindAll(i => i.LocationCardId == newAlarm.LocationCardId);
+                //某张卡基于某个规则产生的告警，可能有多个
+                if (tagAlarms == null|| tagAlarms.Count==0)
                 {
-                    addedAlarms.Add(alarm);
+                    addedAlarms.Add(newAlarm);//新增加一条告警
                 }
+                //else if (tagAlarms.Count == 1)
+                //{
+
+                //}
                 else
                 {
-                    removeAlarms.Remove(realAlarm);
-                    var id1 = realAlarm.GetAlarmId();
-                    var id2 = alarm.GetAlarmId();
-                    if (id1 == id2)
+                    foreach (var tagAlarm in tagAlarms)
                     {
-                        noChangeAlarms.Add(realAlarm);
-                    }
-                    else
-                    {
-                        realAlarm.Update(alarm);
-                        //updateAlarms.Add(realAlarm);
+                        var alarmId = tagAlarm.GetAlarmId();
+                        if (alarmId == newAlarmId)//相同则不变
+                        {
+                            noChangeAlarms.Add(tagAlarm);
+                        }
+                        else
+                        {
+                            //realAlarm.Update(alarm);
+                            //updateAlarms.Add(realAlarm);
+                            if (tagAlarm.AreadId != newAlarm.AreadId)//在相同区域，不同告警规则产生的告警不用删除
+                            {
+                                removeAlarms.Add(tagAlarm);//删除不同的告警
+                            }
+                            if (!addedAlarms.Contains(newAlarm))//可能重复添加
+                            {
+                                addedAlarms.Add(newAlarm);//
+                            }
+                        }
                     }
                 }
             }
-            var newAlarms = new List<LocationAlarm>();
-            newAlarms.AddRange(addedAlarms);
+            //var newAlarms = new List<LocationAlarm>();
+            //newAlarms.AddRange(addedAlarms);
             //newAlarms.AddRange(updateAlarms);
             //newAlarms.AddRange(removeAlarms);
             //foreach (var alarm in removeAlarms)
@@ -84,15 +99,16 @@ namespace BLL.Buffers
             //}
 
             _bll.LocationAlarms.AddRange(addedAlarms);
-            realAlarms.AddRange(addedAlarms);
-
-            //_bll.LocationAlarms.EditRange(updateAlarms);
-            //_bll.LocationAlarms.EditRange(removeAlarms);
-            //_bll.LocationAlarms.RemoveList(removeAlarms);
-
-            foreach (var alarm in newAlarms)
+            _bll.LocationAlarms.RemoveList(removeAlarms);
+            foreach (var alarm in removeAlarms)//删除掉的告警
             {
                 hisAlarms.Add(alarm.RemoveToHistory());
+                realAlarms.Remove(alarm);
+            }
+            foreach (var alarm in addedAlarms)//新增加的告警
+            {
+                hisAlarms.Add(alarm.RemoveToHistory());
+                realAlarms.Add(alarm);
             }
             if (newAlarms.Count > 0)
             {

@@ -68,8 +68,8 @@ namespace DbModel.Location.AreaAndDev
         /// 是否长方形
         /// </summary>
         [DataMember]
-        [Display(Name = "是否长方形")]
-        public bool IsRectangle { get; set; }
+        [Display(Name = "形状")]//0:长方形，1:不规则多边形 2:圆形
+        public int Shape { get; set; }
 
         /// <summary>
         /// 是否相对坐标
@@ -117,14 +117,14 @@ namespace DbModel.Location.AreaAndDev
         public Bound(float x1, float y1, float x2, float y2, float bottomHeightT, float thicknessT, bool isRelative) : this()
         {
             SetInitBound(x1, y1, x2, y2, bottomHeightT, thicknessT);
-            IsRectangle = true;
+            Shape = 0;
             IsRelative = isRelative;
         }
 
         public Bound(Point[] points, float bottomHeightT, float thicknessT, bool isRelative) : this()
         {
             SetInitBound(points, bottomHeightT, thicknessT);
-            IsRectangle = false;
+            Shape = 1;
             IsRelative = isRelative;
         }
 
@@ -347,12 +347,12 @@ namespace DbModel.Location.AreaAndDev
             return copy;
         }
 
-        public double GetWidth()
+        public double GetSizeX()
         {
             return MaxX - MinX;
         }
 
-        public double GetLength()
+        public double GetSizeY()
         {
             return MaxY - MinY;
         }
@@ -362,13 +362,44 @@ namespace DbModel.Location.AreaAndDev
             return MaxZ - MinZ;
         }
 
+        public double GetCenterX()
+        {
+            return MinX + (MaxX - MinX) / 2;
+        }
+
+        public double GetCenterY()
+        {
+            return MinY + (MaxY - MinY) / 2;
+        }
+
+        //public bool Get
+
         public bool Contains(double x, double y)
         {
-            if (Points != null && Points.Count > 4)//不规则多边形
+            if (MinX == 0 && MaxX == 0)
             {
-                return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i=>i));
+                SetMinMaxXY();
             }
-            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+            if (Shape == 2)//圆形
+            {
+                var center = GetCenter();
+                var sizeX = GetSizeX();
+                var sizeY = GetSizeY();
+                var size = sizeX > sizeY ? sizeX : sizeY;
+
+                var distance = (center.X - x) * (center.X - x)+ (center.Y - y) * (center.Y - y);
+                var distance2 = size * size/4;
+                var r= distance2 > distance;
+                return r;
+            }
+            else
+            {
+                if (Points != null && Points.Count > 4)//不规则多边形
+                {
+                    return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i => i));
+                }
+                return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+            }
         }
 
         public bool ContainsSimple(double x, double y)
@@ -379,19 +410,6 @@ namespace DbModel.Location.AreaAndDev
 
         public Point GetLeftBottomPoint()
         {
-            //Point leftBottom = null;
-            //var minLenth = double.MaxValue;
-            //foreach (var point in GetPoints2D())
-            //{
-            //    var length = (point.X - MinX)*(point.X - MinX) + (point.Y - MinY)*(point.Y - MinY);
-            //    if (length < minLenth)
-            //    {
-            //        minLenth = length;
-            //        leftBottom = point;
-            //    }
-            //}
-            //return leftBottom;
-
             return GetClosePoint(MinX, MinY);
         }
 

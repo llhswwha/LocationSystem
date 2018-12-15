@@ -32,6 +32,7 @@ namespace WPFClientControlLib
         }
         public void LoadDataEx<TD,TF>(TD root, bool onlyBuilding = false) where TD : ITreeNodeEx<TD,TF>
         {
+            AreaNodeDict.Clear();
             if (root == null)
             {
                 ShowTreeEx<TD,TF>(TreeView1, null);
@@ -83,6 +84,7 @@ namespace WPFClientControlLib
         private void ShowTreeEx<TD, TF>(ItemsControl control, TD root) where TD : ITreeNodeEx<TD, TF>
         {
             control.Items.Clear();
+
             if (root.Children != null)
             {
                 for (int i = 0; i < root.Children.Count; i++)
@@ -93,7 +95,7 @@ namespace WPFClientControlLib
                     node.Tag = item;
                     node.ContextMenu = AreaMenu;
                     control.Items.Add(node);
-
+                    AreaNodeDict[item.Id] = node;
                     ShowTreeEx<TD, TF>(node, item.Children);
                     ShowLeafNodesEx<TD, TF>(item, node);
                 }
@@ -121,6 +123,7 @@ namespace WPFClientControlLib
 
         public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
         {
+            AreaNodeDict.Clear();
             if (root == null)
             {
                 ShowTree<T>(TreeView1, null);
@@ -142,6 +145,7 @@ namespace WPFClientControlLib
         private void ShowTree<T>(ItemsControl control, List<T> list) where T : ITreeNode<T>
         {
             control.Items.Clear();
+
             if (list == null) return;
             for (int i = 0; i < list.Count; i++)
             {
@@ -149,10 +153,22 @@ namespace WPFClientControlLib
                 TreeViewItem node = new TreeViewItem();
                 node.Header = item.Name;
                 node.Tag = item;
-                control.Items.Add(node);
                 node.ContextMenu = AreaMenu;
+                control.Items.Add(node);
+                AreaNodeDict[item.Id] = node;
                 ShowTree(node, item.Children);
             }
+        }
+
+        public Dictionary<int, TreeViewItem> AreaNodeDict = new Dictionary<int, TreeViewItem>();
+
+        public TreeViewItem GetAreaNode(int id)
+        {
+            if (AreaNodeDict.ContainsKey(id))
+            {
+                return AreaNodeDict[id];
+            }
+            return null;
         }
 
         public void SelectFirst()

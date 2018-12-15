@@ -38,5 +38,10 @@ namespace LocationServices.Locations.Services
             int areaId = area.ToInt();
             return dbSet.Where(i => i.AreaId== areaId);
         }
+
+        public IList<TEntity> GetList(List<int> ids)
+        {
+            return dbSet.Where(i => ids.Contains(i.Id));
+        }
     }
 }

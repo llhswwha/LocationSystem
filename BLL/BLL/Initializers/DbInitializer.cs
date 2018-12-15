@@ -289,8 +289,8 @@ namespace BLL
                 }
                 else//这部分随机初始位置
                 {
-                    var x = r.Next((int)bound.GetWidth()) + bound.MinX;
-                    var z = r.Next((int)bound.GetLength()) + bound.MinY;
+                    var x = r.Next((int)bound.GetSizeX()) + bound.MinX;
+                    var z = r.Next((int)bound.GetSizeY()) + bound.MinY;
                     var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Code = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
                     tagpositions.Add(tagposition);
                 }

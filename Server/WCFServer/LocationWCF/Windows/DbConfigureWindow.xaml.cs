@@ -279,7 +279,7 @@ namespace LocationServer.Windows
                                     var r3 = bll.Points.Add(point);
                                     pointList.Add(point);
                                 }
-                                bound.IsRectangle = true;
+                                bound.Shape = 0;
                                 bound.IsRelative = true;
                                 bound.SetInitBound(pointList.ToArray(), area.InitBound.MinZ, (float)area.InitBound.GetHeight());
 

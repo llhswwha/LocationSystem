@@ -247,6 +247,8 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public bool IsOnLocationArea { get; set; }
 
+        //public bool IsChecked { get; set; }
+
         public void SetParent()
         {
             if (Children != null)

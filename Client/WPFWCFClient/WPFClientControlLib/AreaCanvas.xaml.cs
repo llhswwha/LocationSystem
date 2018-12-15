@@ -362,20 +362,14 @@ namespace WPFClientControlLib
         {
             ZeroX = vec.X;
             ZeroY = vec.Y;
-            /*
-             * <Ellipse Canvas.Left="60" Canvas.Top="80" Width="100" Height="100"
 
-　　Fill="Blue" Opacity="0.5" Stroke="Black" StrokeThickness="3"/>
-             */
             double size = 10;
             Ellipse ellipse = new Ellipse();
-            //ellipse.Margin = new Thickness(Margin/2, Margin/2, 0, 0);
             ellipse.Width = size;
             ellipse.Height = size;
             ellipse.Fill = Brushes.Transparent;
             ellipse.Stroke = Brushes.Red;
             ellipse.StrokeThickness = 2;
-            //SetShapeStrokeDash(ellipse);
             ellipse.Tag = vec;
             Canvas1.Children.Add(ellipse);
 
@@ -785,137 +779,172 @@ namespace WPFClientControlLib
             }
         }
 
+
+
         private void AddAreaRect(AreaEntity area, AreaEntity parent, double scale = 1, bool isTransparent = false)
         {
             if (area == null) return;
             var bound = area.InitBound;
             if (bound == null) return;
             {
-                //< Polygon Fill = "AliceBlue" StrokeThickness = "5" Stroke = "Green" Points = "40,10 70,80 10,50" />
-
-                Polygon polygon = new Polygon();
-                //if (isTransparent)
-                //{
-                //    polygon.Fill = Brushes.Transparent;
-                //}
-                //else
-                //{
-                //    
-                //}
-
-                if (area.Type == AreaTypes.CAD)
-                {
-                    if (area.Name == "Block" || area.Name == "Polyline")
-                    {
-                        var brush = new SolidColorBrush(Color.FromArgb(128, 80, 80, 80));
-                        polygon.Fill = brush;
-                        polygon.Stroke = Brushes.Gray;
-                    }
-                    else if (area.Name == "Line")
-                    {
-                        polygon.Fill = Brushes.Transparent;
-                        polygon.Stroke = Brushes.Gray;
-                    }
-                    else
-                    {
-                        polygon.Fill = Brushes.Transparent;
-                        polygon.Stroke = Brushes.Gray;
-                    }
-                }
-                else if (area.Type == AreaTypes.大楼)
-                {
-                    polygon.Fill = Brushes.AliceBlue;
-                    polygon.Stroke = Brushes.Blue;
-                }
-                else
-                {
-                    polygon.Fill = Brushes.Transparent;
-                    polygon.Stroke = Brushes.Black;
-                }
-
-
-
-                polygon.StrokeThickness = 1;
-                polygon.MouseUp += Polygon_MouseDown;
-                polygon.MouseEnter += Polygon_MouseEnter;
-                polygon.MouseLeave += Polygon_MouseLeave;
-                polygon.Tag = area;
-                polygon.ContextMenu = AreaContextMenu;
-
-                if (area.Type == AreaTypes.范围)
-                {
-                    polygon.Fill = Brushes.Transparent;
-                    SetShapeStrokeDash(polygon);
-                }
-
-                double mX = 0;
-                double mY = 0;
-                int c = 0;
-
-                double roomOffX = 0;
-                double roomOffY = 0;
-
                 if (parent == null)
                 {
                     parent = area.Parent;
                 }
 
-                if (DrawMode == 1)//大图模式
+                double roomOffX = 0;
+                double roomOffY = 0;
+                SetAreaRoomOffset(area, parent, ref roomOffX, ref roomOffY);
+                List<Point> points = GetPoints(scale, bound, roomOffX, roomOffY);
+
+                Shape areaShape = null;
+                if (bound.Shape == 2)//圆形
                 {
+                    Ellipse ellipse = new Ellipse();
+                    ellipse.Width = bound.GetSizeX() * scale;
+                    ellipse.Height = bound.GetSizeY() * scale;
 
-                    if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
-                    {
-                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
-                    }
+                    double left = (bound.GetCenterX() - OffsetX - roomOffX - bound.GetSizeX() / 2) * scale;
+                    double top = (bound.GetCenterY() - OffsetY - roomOffY - bound.GetSizeY() / 2) * scale;
 
+                    Canvas.SetLeft(ellipse, left);
+                    Canvas.SetTop(ellipse, top);
 
-                    if (area.Type == AreaTypes.楼层 && parent != null && parent.InitBound != null)//当前是楼层
-                    {
-                        roomOffX = /*area.InitBound.MinX + */ parent.InitBound.MinX;
-                        roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
-                    }
+                    areaShape = ellipse;
                 }
-                else//小图模式
+                else
                 {
-                    if (parent != null && parent.Type == AreaTypes.楼层)//当前是机房
+                    Polygon polygon = new Polygon();
+                    foreach (var item in points)
                     {
-                        roomOffX = parent.InitBound.MinX ;
-                        roomOffY = parent.InitBound.MinY;
+                        polygon.Points.Add(item);
                     }
+                    areaShape = polygon;
                 }
 
-                foreach (var item in bound.GetPoints2D())
+                AreaDict[area.Id] = areaShape;
+
+                Canvas1.Children.Add(areaShape);
+                SetAreaStyle(area, areaShape);
+                areaShape.Tag = area;
+                areaShape.ContextMenu = AreaContextMenu;
+
+                areaShape.MouseUp += Area_MouseDown;
+                areaShape.MouseEnter += Area_MouseEnter;
+                areaShape.MouseLeave += Area_MouseLeave;
+
+                double mX = 0;
+                double mY = 0;
+                int c = 0;
+                foreach (var item in points)
                 {
-                    double x = (item.X - OffsetX + roomOffX) * scale;
-                    double y = (item.Y - OffsetY + roomOffY) * scale;
-                    polygon.Points.Add(new System.Windows.Point(x, y));
-                    mX += x;
-                    mY += y;
+                    mX += item.X;
+                    mY += item.Y;
                     c++;
                 }
                 mX /= c;
                 mY /= c;
+                ShowAreaName(area, mX, mY);
+            }
+        }
 
-                AreaDict[area.Id] = polygon;
-                Canvas1.Children.Add(polygon);
+        private List<Point> GetPoints(double scale, Location.TModel.Location.AreaAndDev.Bound bound, double roomOffX, double roomOffY)
+        {
+            List<Point> points = new List<Point>();
+            foreach (var item in bound.GetPoints2D())
+            {
+                double x = (item.X - OffsetX + roomOffX) * scale;
+                double y = (item.Y - OffsetY + roomOffY) * scale;
+                points.Add(new Point(x, y));
+            }
 
-                if (ShowAreaName && area.Type != AreaTypes.CAD)
+            return points;
+        }
+
+        private void ShowAreaName(AreaEntity area, double mX, double mY)
+        {
+            if (IsShowAreaName && area.Type != AreaTypes.CAD)
+            {
+                Label lb = new Label();
+                lb.Content = area.Name;
+                var ft = MeasureText(area.Name, lb.FontSize, lb.FontFamily.ToString());
+                var w = ft.WidthIncludingTrailingWhitespace;
+                var h = ft.Height;
+                Canvas.SetLeft(lb, mX - w / 2);
+                Canvas.SetTop(lb, mY - h / 2);
+                Canvas1.Children.Add(lb);
+                lb.Foreground = Brushes.Gray;
+                lb.LayoutTransform = ScaleTransform1;
+                lb.Focusable = false;
+            }
+        }
+
+        private void SetAreaRoomOffset(AreaEntity area, AreaEntity parent, ref double roomOffX, ref double roomOffY)
+        {
+            if (DrawMode == 1)//大图模式
+            {
+                if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
                 {
-                    Label lb = new Label();
-                    lb.Content = area.Name;
-                    var w = MeasureTextWidth(area.Name, lb.FontSize, lb.FontFamily.ToString());
-                    Canvas.SetLeft(lb, mX - w / 2);
-                    Canvas.SetTop(lb, mY);
-                    Canvas1.Children.Add(lb);
-                    lb.Foreground = Brushes.Gray;
-                    lb.LayoutTransform = ScaleTransform1;
-                    lb.Focusable = false;
+                    roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                    roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                }
+                if (area.Type == AreaTypes.楼层 && parent != null && parent.InitBound != null)//当前是楼层
+                {
+                    roomOffX = /*area.InitBound.MinX + */ parent.InitBound.MinX;
+                    roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
+                }
+            }
+            else//小图模式
+            {
+                if (parent != null && parent.Type == AreaTypes.楼层)//当前是机房
+                {
+                    roomOffX = parent.InitBound.MinX;
+                    roomOffY = parent.InitBound.MinY;
                 }
             }
         }
 
-        private double MeasureTextWidth(string text, double fontSize, string fontFamily)
+        private void SetAreaStyle(AreaEntity area, Shape polygon)
+        {
+            if (area.Type == AreaTypes.CAD)
+            {
+                if (area.Name == "Block" || area.Name == "Polyline")
+                {
+                    var brush = new SolidColorBrush(Color.FromArgb(128, 80, 80, 80));
+                    polygon.Fill = brush;
+                    polygon.Stroke = Brushes.Gray;
+                }
+                else if (area.Name == "Line")
+                {
+                    polygon.Fill = Brushes.Transparent;
+                    polygon.Stroke = Brushes.Gray;
+                }
+                else
+                {
+                    polygon.Fill = Brushes.Transparent;
+                    polygon.Stroke = Brushes.Gray;
+                }
+            }
+            else if (area.Type == AreaTypes.大楼)
+            {
+                polygon.Fill = Brushes.AliceBlue;
+                polygon.Stroke = Brushes.Blue;
+            }
+            else if(area.Type == AreaTypes.范围)
+            {
+                polygon.Fill = Brushes.Transparent;
+                SetShapeStrokeDash(polygon);
+            }
+            else
+            {
+                polygon.Fill = Brushes.Transparent;
+                polygon.Stroke = Brushes.Black;
+            }
+
+            polygon.StrokeThickness = 1;
+        }
+
+        private FormattedText MeasureText(string text, double fontSize, string fontFamily)
         {
             FormattedText formattedText = new FormattedText(
             text,
@@ -925,10 +954,10 @@ namespace WPFClientControlLib
             fontSize,
             Brushes.Black
             );
-            return formattedText.WidthIncludingTrailingWhitespace;
+            return formattedText;
         }
 
-        private void Polygon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Area_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var shape=sender as Shape;
             if (SelectedRect != null && SelectedRect != shape)
@@ -947,7 +976,7 @@ namespace WPFClientControlLib
             shape.StrokeStartLineCap = PenLineCap.Round;
         }
 
-        private void Polygon_MouseLeave(object sender, MouseEventArgs e)
+        private void Area_MouseLeave(object sender, MouseEventArgs e)
         {
             var shape = sender as Shape;
             if (SelectedRect != shape)
@@ -956,7 +985,7 @@ namespace WPFClientControlLib
             }
         }
 
-        private void Polygon_MouseEnter(object sender, MouseEventArgs e)
+        private void Area_MouseEnter(object sender, MouseEventArgs e)
         {
             //SelectRectangle(sender as Shape);
 
@@ -985,8 +1014,6 @@ namespace WPFClientControlLib
         {
             Refresh();
         }
-
-
 
         public void Refresh()
         {
@@ -1136,15 +1163,15 @@ namespace WPFClientControlLib
 
         private void CbAreaName_Checked(object sender, RoutedEventArgs e)
         {
-            ShowAreaName = (bool)CbAreaName.IsChecked;
+            IsShowAreaName = (bool)CbAreaName.IsChecked;
             Refresh();
         }
 
-        public bool ShowAreaName = true;
+        public bool IsShowAreaName = true;
 
         private void CbAreaName_Unchecked(object sender, RoutedEventArgs e)
         {
-            ShowAreaName = (bool)CbAreaName.IsChecked;
+            IsShowAreaName = (bool)CbAreaName.IsChecked;
             Refresh();
         }
 

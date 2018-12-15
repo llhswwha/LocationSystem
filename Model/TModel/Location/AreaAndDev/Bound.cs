@@ -67,7 +67,7 @@ namespace Location.TModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         //[Display(Name = "是否长方形")]
-        public bool IsRectangle { get; set; }
+        public int Shape { get; set; }
 
         /// <summary>
         /// 是否相对坐标
@@ -92,14 +92,14 @@ namespace Location.TModel.Location.AreaAndDev
         public Bound(float x1, float y1, float x2, float y2, float bottomHeightT, float thicknessT, bool isRelative) : this()
         {
             SetInitBound(x1, y1, x2, y2, bottomHeightT, thicknessT);
-            IsRectangle = true;
+            Shape = 0;
             IsRelative = isRelative;
         }
 
         public Bound(Point[] points, float bottomHeightT, float thicknessT, bool isRelative) : this()
         {
             SetInitBound(points, bottomHeightT, thicknessT);
-            IsRectangle = false;
+            Shape = 1;
             IsRelative = isRelative;
         }
 
@@ -361,13 +361,52 @@ namespace Location.TModel.Location.AreaAndDev
             return MinY + (MaxY - MinY) / 2;
         }
 
+        public Point GetCenter()
+        {
+            double x = 0;
+            double y = 0;
+            double z = 0;
+            if (Points != null)
+            {
+                foreach (Point point in Points)
+                {
+                    x += point.X;
+                    y += point.Y;
+                    z += point.Z;
+                }
+                x /= Points.Count;
+                y /= Points.Count;
+                z /= Points.Count;
+            }
+            return new Point(x, y, z, 0);
+        }
+
         public bool Contains(double x, double y)
         {
-            if (Points != null && Points.Count > 4)//不规则多边形
+            if (MinX == 0 && MaxX == 0)
             {
-                return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i=>i));
+                SetMinMaxXY();
             }
-            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+            if (Shape == 2)//圆形
+            {
+                var center = GetCenter();
+                var sizeX = GetSizeX();
+                var sizeY = GetSizeY();
+                var size = sizeX > sizeY ? sizeX : sizeY;
+
+                var distance = (center.X - x) * (center.X - x) + (center.Y - y) * (center.Y - y);
+                var distance2 = size * size / 4;
+                var r = distance2 > distance;
+                return r;
+            }
+            else
+            {
+                if (Points != null && Points.Count > 4)//不规则多边形
+                {
+                    return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i => i));
+                }
+                return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+            }
         }
 
         public bool ContainsSimple(double x, double y)

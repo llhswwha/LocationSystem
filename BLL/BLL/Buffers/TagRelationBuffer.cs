@@ -259,11 +259,11 @@ namespace BLL
             }
         }
 
-        private static Area SetAreaInPark(Position pos, Area area)
+        private static Area SetAreaInPark(Position pos, Area park)
         {
             var containsAreas = new List<Area>();
             var boundAreas = new List<Area>();
-            foreach (var item in area.Children)
+            foreach (var item in park.Children)
             {
                 foreach (var building in item.Children)
                 {
@@ -277,7 +277,7 @@ namespace BLL
                     boundAreas.Add(item);
                 }
             }
-            boundAreas.Add(area);
+            //boundAreas.Add(area);
 
             foreach (var boundArea in boundAreas)
             {
@@ -298,15 +298,28 @@ namespace BLL
             {
                 //inArea = containsAreas[0];
                 //pos.SetArea(inArea);
-
-                Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
-                if (areaT == null)
+                if (containsAreas.Count == 1)
                 {
-                    //pos.SetArea(containsAreas[0]);
-                    areaT = containsAreas[0];
+                    inArea = containsAreas[0];
                 }
-                inArea = areaT;
-                pos.SetArea(areaT);
+                else
+                {
+                    Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
+                    if (areaT == null)
+                    {
+                        //pos.SetArea(containsAreas[0]);
+                        areaT = containsAreas[0];
+                    }
+                    inArea = areaT;
+                }
+                pos.SetArea(inArea);
+            }
+            if (inArea == null)
+            {
+                if (park.InitBound.Contains(pos.X, pos.Z))
+                {
+                    inArea = park;
+                }
             }
             if (inArea == null)
             {

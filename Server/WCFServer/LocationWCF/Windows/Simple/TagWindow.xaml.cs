@@ -59,5 +59,10 @@ namespace LocationServer.Windows
         {
             
         }
+
+        private void MenuAuthorization_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

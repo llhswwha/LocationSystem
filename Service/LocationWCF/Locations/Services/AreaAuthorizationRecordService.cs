@@ -44,7 +44,20 @@ namespace LocationServices.Locations.Services
         public IList<TEntity> GetListByRole(string role)
         {
             int roleId = role.ToInt();
-            return dbSet.Where(i => i.CardRoleId == roleId);
+            //return dbSet.Where(i => i.CardRoleId == roleId);
+            var query = from aar in dbSet.DbSet
+                        join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
+                        from area2 in AreaLst.DefaultIfEmpty()
+                        where aar.CardRoleId == roleId
+                        select new { AreaAuzRcd = aar, Area = area2 };
+            var result = query.ToList();
+            IList<TEntity> list = new List<TEntity>();
+            foreach (var item in result)
+            {
+                item.AreaAuzRcd.Area = item.Area;
+                list.Add(item.AreaAuzRcd);
+            }
+            return list;
         }
 
         public IList<TEntity> GetListByTag(string tagId)

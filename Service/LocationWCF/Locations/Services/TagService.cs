@@ -75,11 +75,28 @@ namespace LocationServices.Locations.Services
             if (detail)
             {
                 var list = new List<TEntity>();
+                //var list1 = dbSet.ToList();
+
+                //var query = from tag in dbSet.DbSet
+                //            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                //            join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
+                //              into c2pLst
+                //            from r2 in c2pLst.DefaultIfEmpty()
+                //            join p in db.Personnels.DbSet on r2.PersonnelId equals p.Id
+                //              into pLst
+                //            from p2 in pLst.DefaultIfEmpty()
+                //            select tag;
+                //var result = query.ToList();
                 var query = from tag in dbSet.DbSet
-                    join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
-                    join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
-                    join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
-                    select new {Tag = tag, Person = p, Pos = pos};
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                            join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
+                                into c2pLst
+                            from r2 in c2pLst.DefaultIfEmpty() //left join
+                            join p in db.Personnels.DbSet on r2.PersonnelId equals p.Id
+                            into pLst
+                            from p2 in pLst.DefaultIfEmpty()
+                            select new { Tag = tag, Person = p2, Pos = pos };
+                var result = query.ToList();
                 foreach (var item in query)
                 {
                     var entity = item.Tag.ToTModel();
