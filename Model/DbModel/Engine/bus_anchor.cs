@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Location.IModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DbModel.Engine
 {
-    public class bus_anchor
+    public class bus_anchor:IId
     {
         [Key]
-        public int id { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
 
         public string anchor_id { get; set; }
 

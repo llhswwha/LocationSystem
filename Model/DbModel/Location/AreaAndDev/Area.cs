@@ -365,9 +365,15 @@ namespace DbModel.Location.AreaAndDev
                     double height = GetCeilingHeight(i);
                     if (y < height)
                     {
-                        floor =item;
+                        floor = item;
                         break;
                     }
+                    //double maxZ = item.InitBound.MaxZ;
+                    //if (y < maxZ)
+                    //{
+                    //    floor =item;
+                    //    break;
+                    //}
                 }
             return floor;
         }

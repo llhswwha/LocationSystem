@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Relation
 {
     /// <summary>
     /// 门禁卡与人员之间的历史关系
     /// </summary>
-    public class EntranceGuardCardToPersonnelHistory
+    public class EntranceGuardCardToPersonnelHistory:IId
     {
         /// <summary>
         /// 主键Id

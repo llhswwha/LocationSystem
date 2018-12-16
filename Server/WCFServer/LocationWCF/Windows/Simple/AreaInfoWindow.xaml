@@ -11,8 +11,9 @@
             <MenuItem Header="编辑">
                 <MenuItem Header="保存" Name="MenuSave" Click="MenuSave_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="属性">
-                <MenuItem Header="InitBound" Name="MenuInitBound" Click="MenuInitBound_Click"></MenuItem>
+            <MenuItem Header="设置">
+                <MenuItem Header="边界" Name="MenuInitBound" Click="MenuInitBound_Click"></MenuItem>
+                <MenuItem Header="设为告警区域" Name="MenuSetAlarmArea" Click="MenuSetAlarmArea_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <xctk:PropertyGrid Name="PropertyGrid1"/>

@@ -5,13 +5,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Alarm
 {
     /// <summary>
     /// 设备告警
     /// </summary>
-    public class DevAlarm
+    public class DevAlarm: IId
     {
         /// <summary>
         /// 主键Id

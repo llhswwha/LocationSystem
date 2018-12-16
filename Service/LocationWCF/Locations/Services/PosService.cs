@@ -49,7 +49,7 @@ namespace LocationServices.Locations.Services
 
             var tItem = item.ToTModel();
             tItem.Area = db.Areas.Find(item.AreaId).ToTModel();
-            var tag = db.LocationCards.FirstOrDefault(i=>i.Code==item.Code);
+            var tag = db.LocationCards.FirstOrDefault(i=>i.Code==item.Id);
             var tagToPerson = db.LocationCardToPersonnels.FirstOrDefault(i => i.LocationCardId == tag.Id);
             if (tagToPerson != null)
             {
@@ -123,7 +123,7 @@ namespace LocationServices.Locations.Services
         {
             try
             {
-                var list = dbSet.DbSet.Where(tag => tagCodes.Contains(tag.Code)).ToList();
+                var list = dbSet.DbSet.Where(tag => tagCodes.Contains(tag.Id)).ToList();
                 return list.ToWcfModelList();
             }
             catch (Exception ex)

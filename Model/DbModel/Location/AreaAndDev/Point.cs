@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using IModel;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
     /// <summary>
     /// 位置点
     /// </summary>
-    public class Point: IVector2
+    public class Point: IVector2,IId
     {
         /// <summary>
         /// 主键Id

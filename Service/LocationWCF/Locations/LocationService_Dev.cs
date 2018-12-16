@@ -603,7 +603,7 @@ namespace LocationServices.Locations
                 return bDeal;
             }
 
-            bDeal = EditTag(Tag, btag.id);
+            bDeal = EditTag(Tag, btag.Id);
 
             return bDeal;
         }

@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 { 
     /// <summary>
     /// 节点（物理拓扑/设备)的KKS信息
     /// </summary>
-    public class NodeKKS
+    public class NodeKKS:IId
     {
         /// <summary>
         /// 主键Id

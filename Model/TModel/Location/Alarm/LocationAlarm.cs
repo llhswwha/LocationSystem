@@ -23,6 +23,9 @@ namespace Location.TModel.Location.Alarm
         //[Display(Name = "主键Id")]
         public int Id { get; set; }
 
+        [DataMember]
+        public string AlarmId { get; set; }
+
         /// <summary>
         /// 告警类型：0:区域告警，1:消失告警，2:低电告警，3:传感器告警，4:重启告警，5:非法拆卸
         /// </summary>
@@ -68,6 +71,12 @@ namespace Location.TModel.Location.Alarm
 
         [DataMember]
         public virtual Personnel Personnel { get; set; }
+
+        /// <summary>
+        /// 定位卡角色
+        /// </summary>
+        [DataMember]
+        public int CardRoleId { get; set; }
 
         [DataMember]
         public int AreaId { get; set; }

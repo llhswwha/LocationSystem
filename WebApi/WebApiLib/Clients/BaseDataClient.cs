@@ -1172,12 +1172,12 @@ namespace WebApiLib.Clients
                         continue;
                     }
 
-                    DevInstantData did = bll.DevInstantDatas.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    DevInstantData did = bll.DevInstantDatas.DbSet.Where(p => p.Id == item.kks).FirstOrDefault();
 
                     if (did == null)
                     {
                         did = new DevInstantData();
-                        did.KKS = item.kks;
+                        did.Id = item.kks;
                         did.Value = item.value;
                         did.DateTime = DateTime.Now;
                         did.DateTimeStamp = TimeConvert.DateTimeToTimeStamp(did.DateTime);

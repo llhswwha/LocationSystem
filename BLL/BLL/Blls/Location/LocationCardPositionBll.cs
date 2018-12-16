@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Blls.Location
 {
-    public class LocationCardPositionBll : BaseBll<LocationCardPosition, LocationDb>
+    public class LocationCardPositionBll : BaseBll<LocationCardPosition, LocationDb,string>
     {
         public LocationCardPositionBll():base()
         {
@@ -31,7 +31,7 @@ namespace BLL.Blls.Location
 
         public List<LocationCardPosition> GetListByTagCode(string name)
         {
-            return DbSet.Where(i => i.Code.Contains(name)).ToList();
+            return DbSet.Where(i => i.Id.Contains(name)).ToList();
         }
 
         //public List<LocationCardPosition> GetListByPerson(int person)

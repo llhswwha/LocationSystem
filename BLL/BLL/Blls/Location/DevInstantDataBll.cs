@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Blls.Location
 {
-    public class DevInstantDataBll : BaseBll<DevInstantData, LocationDb>
+    public class DevInstantDataBll : BaseBll<DevInstantData, LocationDb,string>
     {
         public DevInstantDataBll():base()
         {

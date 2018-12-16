@@ -13,6 +13,16 @@ namespace ArchorUDPTool.Commands
 
         public string Id { get; set; }
 
+        public string GetIp()
+        {
+            string[] parts = Id.Split(':');
+            if (parts.Length == 2)
+            {
+                return parts[0];
+            }
+            return Id;
+        }
+
         public List<UDPCommandResult> Items { get; set; }
 
         public UDPArchor Archor { get; set; }

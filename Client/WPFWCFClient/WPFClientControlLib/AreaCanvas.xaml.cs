@@ -933,7 +933,8 @@ namespace WPFClientControlLib
             else if(area.Type == AreaTypes.范围)
             {
                 polygon.Fill = Brushes.Transparent;
-                SetShapeStrokeDash(polygon);
+                //SetShapeStrokeDash(polygon);
+                polygon.Stroke = Brushes.Orange;
             }
             else
             {

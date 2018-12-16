@@ -11,6 +11,7 @@ using Location.TModel.Tools;
 
 namespace DbModel.Location.AreaAndDev
 {
+    using global::Location.IModel;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
     using Tools;
@@ -19,7 +20,7 @@ namespace DbModel.Location.AreaAndDev
     /// 设备模型
     /// </summary>
     [DataContract]
-    public partial class DevModel
+    public partial class DevModel:IEntity
     {
         /// <summary>
         /// 主键Id

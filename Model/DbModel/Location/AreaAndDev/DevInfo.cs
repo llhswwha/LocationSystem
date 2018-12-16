@@ -12,7 +12,7 @@ namespace DbModel.Location.AreaAndDev
     /// <summary>
     /// 设备信息
     /// </summary>
-    public class DevInfo : INode
+    public class DevInfo : INode,IEntity
     {
         /// <summary>
         /// 主键Id

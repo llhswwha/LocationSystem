@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
     /// <summary>
     /// 基站
     /// </summary>
-    public class Archor
+    public class Archor:IEntity
     {
         /// <summary>
         /// 基站Id

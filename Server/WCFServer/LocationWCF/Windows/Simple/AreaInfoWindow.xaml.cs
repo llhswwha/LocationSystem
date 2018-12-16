@@ -1,4 +1,6 @@
-﻿using LocationServer.Windows.Simple;
+﻿using BLL;
+using BLL.Initializers;
+using LocationServer.Windows.Simple;
 using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
@@ -61,6 +63,13 @@ namespace LocationServer.Windows
             //win.Bound = area.InitBound;
             win.Area = area;
             win.Show();
+        }
+
+        private void MenuSetAlarmArea_Click(object sender, RoutedEventArgs e)
+        {
+            var area = _item as TEntity;
+            DbInitializer initializer = new DbInitializer(AppContext.GetLocationBll());
+            initializer.SetAlamArea(area.Id);
         }
     }
 }

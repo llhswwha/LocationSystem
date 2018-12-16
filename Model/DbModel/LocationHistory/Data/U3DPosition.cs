@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Location.IModel;
 using Location.TModel.Tools;
 
 namespace DbModel.LocationHistory.Data
@@ -9,7 +10,7 @@ namespace DbModel.LocationHistory.Data
     /// 位置信息 (历史位置记录）
     /// </summary>
     [DataContract]
-    public class U3DPosition
+    public class U3DPosition:IId
     {
         /// <summary>
         /// 主键Id

@@ -148,7 +148,7 @@ namespace LocationServices.Locations.Services
         {
             var query = from r in db.LocationCardToPersonnels.DbSet
                 join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id 
-                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                 where r.PersonnelId+"" == personId 
                 select pos;
             TagPosition tagPos = query.FirstOrDefault().ToTModel();
@@ -161,7 +161,7 @@ namespace LocationServices.Locations.Services
             var query = from r in db.LocationCardToPersonnels.DbSet
                         join p in dbSet.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                         where pos.AreaId + "" == areaId
                         select new {Person=p,Tag=tag,Pos=pos};
             string sql = query.ToString();
@@ -182,7 +182,7 @@ namespace LocationServices.Locations.Services
             var query = from r in db.LocationCardToPersonnels.DbSet
                         join p in dbSet.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                         where tag.CardRoleId  == roleId
                         select new { Person = p, Tag = tag, Pos = pos };
             string sql = query.ToString();
@@ -205,7 +205,7 @@ namespace LocationServices.Locations.Services
                 var query = from p in dbSet.DbSet
                             join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
                             join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                             select new { Person = p, Tag = tag,Pos=pos };
                 foreach (var item in query)
                 {

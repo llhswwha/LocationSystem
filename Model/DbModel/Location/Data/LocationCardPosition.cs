@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Data
 {
@@ -12,7 +13,7 @@ namespace DbModel.Location.Data
     /// 定位卡的位置信息（实时位置）
     /// </summary>
     [DataContract]
-    public class LocationCardPosition
+    public class LocationCardPosition:IId<string>
     {
         private DateTime _dateTime;
 
@@ -22,8 +23,9 @@ namespace DbModel.Location.Data
         [DataMember]
         [Display(Name = "定位卡编号")]
         [MaxLength(32)]
+        [Column("Code")]
         [Key]
-        public string Code { get; set; }
+        public string Id { get; set; }
 
         [DataMember]
         [Display(Name = "标签卡Id")]
@@ -153,12 +155,12 @@ namespace DbModel.Location.Data
         public LocationCardPosition(string code)
         {
             DateTime = DateTime.Now;
-            this.Code = code;
+            this.Id = code;
         }
 
         public LocationCardPosition(Position pos)
         {
-            this.Code = pos.Code;
+            this.Id = pos.Code;
             Edit(pos);
         }
 

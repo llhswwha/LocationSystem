@@ -11,7 +11,7 @@ namespace DbModel.Location.Person
     /// <summary>
     /// 人员信息
     /// </summary>
-    public class Personnel:INode
+    public class Personnel:INode,IEntity
     {
         /// <summary>
         /// 主键Id

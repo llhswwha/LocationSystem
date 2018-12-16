@@ -24,7 +24,7 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new Location.TModel.Location.Data.TagPosition();
-            item2.Tag = item1.Code;
+            item2.Tag = item1.Id;
             item2.X = item1.X;
             item2.Y = item1.Y;
             item2.Z = item1.Z;
@@ -63,7 +63,7 @@ namespace LocationServices.Converters
         {
             if (item1 == null) return null;
             var item2 = new DbModel.Location.Data.LocationCardPosition();
-            item2.Code = item1.Tag;
+            item2.Id = item1.Tag;
             item2.X = item1.X;
             item2.Y = item1.Y;
             item2.Z = item1.Z;

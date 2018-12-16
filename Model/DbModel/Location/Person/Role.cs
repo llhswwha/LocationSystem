@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Location.IModel;
 using Location.TModel.Tools;
 
 namespace DbModel.Location.Person
@@ -7,7 +8,7 @@ namespace DbModel.Location.Person
     /// <summary>
     /// 角色
     /// </summary>
-    public class Role
+    public class Role:IEntity
     {
         /// <summary>
         /// 主键Id

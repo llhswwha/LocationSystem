@@ -3,13 +3,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.AreaAndDev
 {
     /// <summary>
     /// 设备、门禁卡操作历史
     /// </summary>
-    public class DevEntranceGuardCardAction
+    public class DevEntranceGuardCardAction : IId
     {
         /// <summary>
         /// 主键Id

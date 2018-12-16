@@ -20,14 +20,14 @@ namespace ArchorUDPTool.Commands
 
         public UDPArchor GetArchorByIp(string ip)
         {
-            var group = Groups.Find(i => i.Id.StartsWith(ip));
+            var group = Groups.Find(i => i.GetIp() == ip);
             if (group == null) return null;
             return group.Archor;
         }
 
         public CommandResultGroup GetByIp(string ip)
         {
-            var group = Groups.Find(i => i.Id.StartsWith(ip));
+            var group = Groups.Find(i => i.GetIp()==ip);
             return group;
         }
 

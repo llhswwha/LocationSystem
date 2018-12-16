@@ -5,13 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Work
 {
     /// <summary>
     /// 操作票历史记录
     /// </summary>
-    public class OperationTicketHistory
+    public class OperationTicketHistory:IId
     {
         /// <summary>
         /// 操作票Id

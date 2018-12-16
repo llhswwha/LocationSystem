@@ -114,7 +114,7 @@ namespace LocationServices.Locations.Services
             var query = from r in db.LocationCardToPersonnels.DbSet
                         join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                         select new PersonArea { Person = p, Area = pos.AreaId,Tag=tag,Pos=pos };
             var pList = query.ToList();
             var list = new List<TPerson>();

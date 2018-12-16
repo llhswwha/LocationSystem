@@ -181,6 +181,8 @@ namespace DbModel.Location.Work
             var aa = new AreaAuthorization();
             aa.CreateTime = DateTime.Now;
             aa.ModifyTime = DateTime.Now;
+            aa.RepeatDay = RepeatDay.All;
+            aa.SetTime(8, 30, 17, 30);
             return aa;
         }
     }

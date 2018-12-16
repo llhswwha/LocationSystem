@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using DbModel.Tools;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -9,7 +10,7 @@ namespace DbModel.Location.AreaAndDev
     /// 设备类型
     /// </summary>
     [DataContract]
-    public class DevType
+    public class DevType:IId
     {
         /// <summary>
         /// 主键Id

@@ -9,6 +9,7 @@ using DbEntity = DbModel.Location.AreaAndDev.LocationCard;
 using System;
 using System.Linq;
 using DbModel.Location.Authorizations;
+using BLL.Tools;
 
 namespace LocationServices.Locations.Services
 {
@@ -53,7 +54,7 @@ namespace LocationServices.Locations.Services
             //var item = dbSet.Find(id.ToInt()).ToTModel();
 
             var query = from tag in dbSet.DbSet where tag.Id + "" == id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                         join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
                         join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
                         select new { Tag = tag, Person = p, Pos = pos };
@@ -88,7 +89,7 @@ namespace LocationServices.Locations.Services
                 //            select tag;
                 //var result = query.ToList();
                 var query = from tag in dbSet.DbSet
-                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                             join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
                                 into c2pLst
                             from r2 in c2pLst.DefaultIfEmpty() //left join
@@ -183,7 +184,10 @@ namespace LocationServices.Locations.Services
             var tag = GetEntity(tagId);
             if (tag == null) return null;
             tag.CardRoleId = roleId.ToInt();
-            return Put(tag);
+            var entity= Put(tag);
+            DataChangArg arg = new DataChangArg(this, entity);
+            StaticEvents.OnDbDataChanged(arg);
+            return entity;
         }
     }
 }

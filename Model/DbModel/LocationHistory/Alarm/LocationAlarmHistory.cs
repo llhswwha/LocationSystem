@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Alarm
 {
     /// <summary>
     /// 定位告警历史数据
     /// </summary>
-    public class LocationAlarmHistory
+    public class LocationAlarmHistory:IId
     {
         /// <summary>
         /// 主键Id
@@ -18,8 +19,12 @@ namespace DbModel.LocationHistory.Alarm
         [DataMember]
         [Display(Name = "主键Id")]
         [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
+        [DataMember]
+        [MaxLength(40)]
+        public string AlarmId { get; set; }
 
         /// <summary>
         /// 告警类型：0:区域告警，1:消失告警，2:低电告警，3:传感器告警，4:重启告警，5:非法拆卸
@@ -50,6 +55,13 @@ namespace DbModel.LocationHistory.Alarm
         public int PersonnelId { get; set; }
 
         /// <summary>
+        /// 定位卡角色
+        /// </summary>
+        [DataMember]
+        [Display(Name = "定位卡角色")]
+        public int CardRoleId { get; set; }
+
+        /// <summary>
         /// 区域Id
         /// </summary>
         [DataMember]
@@ -62,6 +74,10 @@ namespace DbModel.LocationHistory.Alarm
         [DataMember]
         [Display(Name = "告警规则")]
         public int? AuzId { get; set; }
+
+        [DataMember]
+        [MaxLength(100)]
+        public string AllAuzId { get; set; }
 
         /// <summary>
         /// 告警内容

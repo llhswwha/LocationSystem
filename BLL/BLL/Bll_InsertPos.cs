@@ -40,7 +40,7 @@ namespace BLL
             foreach (var tag in tags)
             {
                 //TagPosition tagPos = TagPositions.FindByCode(tag.Code);//100个要2s
-                var tagPos = tagPosList.Find(i => i.Code == tag.Code);//判断是否存在实时数据
+                var tagPos = tagPosList.Find(i => i.Id == tag.Code);//判断是否存在实时数据
                 if (tagPos == null)
                 {
                     var tagPosition = new LocationCardPosition(tag.Code);
@@ -143,6 +143,14 @@ namespace BLL
 
         private TagRelationBuffer tagRelation;
 
+        public void UpdateBuffer()
+        {
+            if (tagRelation != null)
+            {
+                tagRelation.ForceLoadData();
+            }
+        }
+
         public bool AddPositionsEx(List<Position> positions)
         {
             //1.删除重复的位置信息，只留最新的部分
@@ -210,7 +218,7 @@ namespace BLL
                 sql +=
                     string.Format(
                         "UPDATE TagPositions SET X = '{1}',Y ='{2}',Z='{3}',DateTimeStamp='{4}',Power='{5}',Number='{6}',Flag='{7}' where Code='{0}' ",
-                        p.Code, p.X, p.Y, p.Z, p.DateTimeStamp, p.Power, p.Number, p.Flag);
+                        p.Id, p.X, p.Y, p.Z, p.DateTimeStamp, p.Power, p.Number, p.Flag);
             }
             return sql;
         }
@@ -246,7 +254,7 @@ namespace BLL
             {
                 Position position = positions[i];
                 if (position == null) continue;//位置信息可能有null
-                var tagPos = tagPosList.Find(item => item.Code == position.Code);
+                var tagPos = tagPosList.Find(item => item.Id == position.Code);
                 if (tagPos == null) continue;
                 tagPos.Edit(position);
                 if (!changedTagPosList.Contains(tagPos))
@@ -286,7 +294,7 @@ namespace BLL
                     LocationCards.Edit(lc);
                 }
 
-                var tagPos = tagPosList.Find(item => item.Code == position.Code);
+                var tagPos = tagPosList.Find(item => item.Id == position.Code);
                 if (tagPos != null)
                 {
                     tagPos.Edit(position);//修改实时位置数据

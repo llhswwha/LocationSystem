@@ -1,4 +1,5 @@
 ﻿using Location.BLL.Tool;
+using Location.IModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -34,8 +35,23 @@ namespace BLL.Blls
         }
     }
 
-    public abstract class BaseBll<T,TDb>: BaseBll<TDb> 
-        where T :class , new()
+    public abstract class BaseBll<T, TDb> : BaseBll<T,TDb,int>
+        where T : class, IId<int>, new()
+        where TDb : DbContext, new()
+    {
+        public BaseBll() : base(new TDb())
+        {
+            InitDbSet();
+        }
+
+        public BaseBll(TDb db) : base(db)
+        {
+            InitDbSet();
+        }
+    }
+
+        public abstract class BaseBll<T,TDb,TKey>: BaseBll<TDb> 
+        where T :class, IId<TKey>, new()
         where TDb : DbContext, new()
     {
         public DbSet<T> DbSet { get; set; }
@@ -209,6 +225,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.ToList", ex);
+                ErrorMessage = ex.Message;
                 return null;
             }
         }
@@ -258,7 +275,17 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Clear", ex);
-                return false;
+                //ErrorMessage = ex.Message;
+                //return false;
+                foreach (var item in list)
+                {
+                    T r = DeleteById(item.Id);
+                    if (r == null)
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
 

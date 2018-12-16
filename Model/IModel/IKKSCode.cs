@@ -1,10 +1,8 @@
 namespace Location.IModel
 {
-    public interface IKKSCode
+    public interface IKKSCode:IEntity
     {
-        int Id { get; set; }
         string Serial { get; set; }
-        string Name { get; set; }
         string Code { get; set; }
         string ParentCode { get; set; }
         string DesinCode { get; set; }

@@ -5,13 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 工作票
     /// </summary>
-    public class WorkTicket
+    public class WorkTicket:IId
     {
         /// <summary>
         /// 工作票Id

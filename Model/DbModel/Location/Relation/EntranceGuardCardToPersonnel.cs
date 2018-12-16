@@ -6,13 +6,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Relation
 {
     /// <summary>
     /// 门禁卡与人员之间的关系
     /// </summary>
-    public class EntranceGuardCardToPersonnel
+    public class EntranceGuardCardToPersonnel:IId
     {
         /// <summary>
         /// 主键Id

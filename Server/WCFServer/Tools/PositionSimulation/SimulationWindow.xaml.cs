@@ -188,7 +188,7 @@ namespace PositionSimulation
                 ps.SavePos();
                 var tPos = ps.Pos;
                 var dbPos = tPos.ToDbModel();
-                var dbPos2 = bll.LocationCardPositions.FindByCode(dbPos.Code);
+                var dbPos2 = bll.LocationCardPositions.FindByCode(dbPos.Id);
                 dbPos2.Edit(dbPos);
                 if (bll.LocationCardPositions.Edit(dbPos2) == false)
                 {

@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Location.IModel.Locations
 {
-    public interface IConfigArg
+    public interface IConfigArg:IEntity
     {
-        int Id { get; set; }
-        string Name { get; set; }
         string Key { get; set; }
         string Value { get; set; }
         string ValueType { get; set; }

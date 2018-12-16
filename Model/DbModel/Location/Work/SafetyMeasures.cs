@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 工作票安全措施
     /// </summary>
-    public class SafetyMeasures
+    public class SafetyMeasures:IId
     {
         /// <summary>
         /// Id

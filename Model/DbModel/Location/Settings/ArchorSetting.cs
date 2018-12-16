@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DbModel.Location.AreaAndDev;
+using Location.IModel;
 using TModel.Tools;
 
 namespace DbModel.Location.Settings
@@ -12,7 +13,7 @@ namespace DbModel.Location.Settings
         CAD坐标,相对园区,相对楼层,相对机房
     }
 
-    public class ArchorSetting:IComparable<ArchorSetting>
+    public class ArchorSetting:IComparable<ArchorSetting>,IEntity
     {
         [NotMapped]
         public bool IsNew { get; set; }

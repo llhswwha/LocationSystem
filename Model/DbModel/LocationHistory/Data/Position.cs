@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Data;
 using DbModel.Location.Settings;
+using Location.IModel;
 using Location.TModel.Tools;
 
 namespace DbModel.LocationHistory.Data
@@ -16,7 +17,7 @@ namespace DbModel.LocationHistory.Data
     /// 位置信息 (历史位置记录）
     /// </summary>
     [DataContract]
-    public class Position
+    public class Position:IId
     {
         private DateTime _dateTime;
 
@@ -310,7 +311,7 @@ namespace DbModel.LocationHistory.Data
 
         public void SetProperty(LocationCardPosition pos)
         {
-            Code = pos.Code;
+            Code = pos.Id;
             X = pos.X;
             Y = pos.Z;
             Z = pos.Y;

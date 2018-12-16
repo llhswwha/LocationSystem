@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Person
 {
     /// <summary>
     /// 人员历史表
     /// </summary>
-    public class PersonnelHistory
+    public class PersonnelHistory:IEntity
     {
         /// <summary>
         /// 主键Id

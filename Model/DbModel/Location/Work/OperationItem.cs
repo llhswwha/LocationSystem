@@ -3,13 +3,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 操作票中具体的操作项
     /// </summary>
-    public class OperationItem
+    public class OperationItem:IId
     {
         /// <summary>
         /// 操作项Id

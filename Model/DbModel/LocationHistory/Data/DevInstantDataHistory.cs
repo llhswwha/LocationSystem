@@ -3,13 +3,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Data
 {
     /// <summary>
     /// 设备历史数据
     /// </summary>
-    public class DevInstantDataHistory
+    public class DevInstantDataHistory:IEntity
     {
         /// <summary>
         /// 主键Id

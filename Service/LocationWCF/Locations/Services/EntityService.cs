@@ -13,7 +13,7 @@ using TModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
-    public abstract class EntityService<T> : IEntityService<T> where T : class, new()
+    public abstract class EntityService<T> : IEntityService<T> where T : class, IId,new()
     {
         protected Bll db;
 
@@ -62,7 +62,7 @@ namespace LocationServices.Locations.Services
         }
     }
 
-    public abstract class NameEntityService<T>:EntityService<T>,INameEntityService<T> where T :  class, IName, new()
+    public abstract class NameEntityService<T>:EntityService<T>,INameEntityService<T> where T :  class, IEntity, new()
     {
 
         public NameEntityService():base()

@@ -4,13 +4,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
     /// <summary>
     /// 门禁卡
     /// </summary>
-    public class EntranceGuardCard
+    public class EntranceGuardCard:IId
     {
         /// <summary>
         /// 主键Id

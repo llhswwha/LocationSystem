@@ -62,7 +62,12 @@ namespace LocationServer.Windows
 
         private void MenuAuthorization_Click(object sender, RoutedEventArgs e)
         {
-
+            //var tag = DataGrid1.SelectedItem as Tag;
+            //if (tag == null) return;
+            //var role = new BLL.Bll().CardRoles.Find(tag.CardRoleId);
+            //if (role == null) return;
+            //var win = new AreaAuthorizationWindow(role);
+            //win.Show();
         }
     }
 }

@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Location.IModel.Locations
 {
-    public interface IPost
+    public interface IPost:IEntity
     {
-        int Id { get; set; }
-
-        string Name { get; set; }
+        
     }
 }

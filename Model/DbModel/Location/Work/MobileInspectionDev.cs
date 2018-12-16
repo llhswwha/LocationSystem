@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 需要移动巡检的设备
     /// </summary>
-    public class MobileInspectionDev
+    public class MobileInspectionDev:IEntity
     {
         /// <summary>
         /// 设备Id(主键)

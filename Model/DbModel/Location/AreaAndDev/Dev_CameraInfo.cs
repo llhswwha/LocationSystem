@@ -1,4 +1,5 @@
-﻿using Location.TModel.Tools;
+﻿using Location.IModel;
+using Location.TModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace DbModel.Location.AreaAndDev
 {
     [DataContract]
-    public class Dev_CameraInfo
+    public class Dev_CameraInfo:IId
     {
         /// <summary>
         /// 摄像头Id

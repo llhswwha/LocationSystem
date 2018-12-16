@@ -1,15 +1,21 @@
 ﻿namespace Location.IModel
 {
-    public interface IEntity: IName
+    public interface IEntity: IId,IName, IEntity<int>
     {
-        int Id { get; set; }
     }
 
-    public interface IEntity<T> : IName
+    public interface IEntity<TKey> : IId<TKey>,IName
     {
-        T Id { get; set; }
     }
 
+    public interface IId<TKey>
+    {
+        TKey Id { get; set; }
+    }
+
+    public interface IId:IId<int>
+    {
+    }
 
     public interface IName
     {

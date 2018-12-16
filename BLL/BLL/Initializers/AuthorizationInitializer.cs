@@ -29,7 +29,7 @@ namespace BLL.Initializers
         private AreaAuthorizationRecordBll AreaAuthorizationRecords => _bll.AreaAuthorizationRecords;
 
 
-        private List<CardRole> roles;
+        private List<CardRole> _roles;
 
         private List<AreaAuthorization> areaAuthorizations;
 
@@ -41,7 +41,7 @@ namespace BLL.Initializers
 
         public void InitAuthorization(List<CardRole> roles)
         {
-            this.roles = roles;
+            this._roles = roles;
             areas = Areas.ToList();
             Clear();
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml";
@@ -74,7 +74,7 @@ namespace BLL.Initializers
 
         public void Load(List<CardRole> roles)
         {
-            this.roles = roles;
+            this._roles = roles;
             areas = Areas.ToList();
             Clear();
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\AuthorizationTree.xml";
@@ -91,36 +91,149 @@ namespace BLL.Initializers
 
         private void InitAuthorizationFromAreas(string path)
         {
-            CreateAllAuthorization();//所有的区域创建权限
+            var parks = areas.FindAll(i => i.Type == AreaTypes.园区);
+            var buildGroup = areas.FindAll(i => i.Type == AreaTypes.分组);
+            var buildings = areas.FindAll(i => i.Type == AreaTypes.大楼);
+            var floors = areas.FindAll(i => i.Type == AreaTypes.楼层);
 
+            CreateAllAuthorization();//所有的区域创建权限
             //CreateAllAuthorizationRecord();//所有的角色分配权限
 
-            {//AddCardRole("超级管理员", "可以进入全部区域");
-                var aa = AreaAuthorization.New();
-                aa.AreaId = 1;//根节点
-                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
-                aa.RangeType = AreaRangeType.All;
-                aa.Name = string.Format("权限[全部区域]");
-                aa.Description = string.Format("权限：可以进入全部区域");
-                aa.RepeatDay = RepeatDay.All;
-                aa.SetTime(0, 0, 23, 59, 59);
-                areaAuthorizations.Add(aa);
-                AreaAuthorizations.Add(aa);
+            //1.超级管理员
+            SetRoleAuthorization1(_roles[0]);//AddCardRole("超级管理员", "可以进入全部区域");
 
-                var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                var aar = new AreaAuthorizationRecord(aa, roles[0]);
-                authorizationRecords.Add(aar);
-                aa2.Records.Add(aar);
 
-                AreaAuthorizationRecords.Add(aar);
+            //2.参观人员(一般)
+            var areaList = new List<Area>();
+            areaList.AddRange(parks);
+            SetRoleAuthorization2(areaList); //AddCardRole("参观人员(一般)", "能够进入生活区域和少部分生产区域");
+
+            //3.参观人员(高级)
+            areaList.AddRange(buildGroup);
+            areaList.AddRange(buildings);
+            SetRoleAuthorization3(_roles[6], areaList);//AddCardRole("参观人员(高级)", "能够进入生活区域和大部分生产区域");
+
+            //4.外维人员
+            areaList.AddRange(floors);
+            SetRoleAuthorization4(areaList, _roles[5]);//role5 = AddCardRole("外维人员", "能够进入生活区域和指定生产区域");
+
+            //5.管理人员,巡检人员,操作人员,维修人员
+            /*
+            role1 = AddCardRole("管理人员", "可以进入大部分区域");
+            role2 = AddCardRole("巡检人员", "能够进入生产区域");
+            role3 = AddCardRole("操作人员", "能够进入生产区域");
+            role4 = AddCardRole("维修人员", "能够进入生产区域");
+             */
+            var rooms = areas.FindAll(i => i.Type == AreaTypes.机房);
+            areaList.AddRange(rooms);
+            SetRoleAuthorization5(areaList);
+
+            //6.告警范围
+            var ranges = areas.FindAll(i => i.Type == AreaTypes.范围);
+
+
+            foreach (var area in ranges)
+            {
+                SetAlarmArea(_roles,area.Id);
             }
 
-            var parks = areas.FindAll(i => i.Type == AreaTypes.园区);
+            var tree = TreeHelper.CreateTree(authorizationAreas);
+            XmlSerializeHelper.Save(tree[0], path);
 
+            //角色,区域，卡
+            //1.可以进入全部区域
+            //2.可以进入生产区域
+            //3.可以进入非生产区域
+            //4.可以进入多个区域
+            //5.可以进入某一个楼层
+            //6.可以进入某个房间
+        }
+
+        public void SetAlarmArea(List<CardRole> roles,int areaId)
+        {
+            for (int j = 0; j < roles.Count; j++)
             {
-                foreach (var role in roles)
+                var role = roles[j];
+                SetAlarmArea(role, areaId);//设置电子围栏，谁都不能进去
+            }
+        }
+
+        private void SetAlarmArea(CardRole role, int areaId)
+        {
+            var aa = AreaAuthorization.New();
+            aa.AreaId = areaId;//根节点
+            aa.AccessType = AreaAccessType.Leave; //不能进入
+            aa.RangeType = AreaRangeType.Single;
+            aa.Name = string.Format("权限[不能进入]");
+            aa.Description = string.Format("权限：告警区域");
+            if (areaAuthorizations == null)
+            {
+                areaAuthorizations = new List<AreaAuthorization>();
+            }
+            areaAuthorizations.Add(aa);
+            AreaAuthorizations.Add(aa);
+            AddAAR(role, aa);
+        }
+
+        private void SetRoleAuthorization5(List<Area> areaList)
+        {
+            for (int j = 1; j <= 4; j++)
+            {
+                var role = _roles[j];
+                foreach (var area in areaList)
                 {
-                    foreach (var area in parks)
+                    var aa = AreaAuthorization.New();
+                    aa.AreaId = area.Id;//根节点
+                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                    aa.RangeType = AreaRangeType.WithParent;
+                    aa.Name = string.Format("权限[机房]");
+                    aa.Description = string.Format("权限：可以进入机房。");
+                    areaAuthorizations.Add(aa);
+                    AreaAuthorizations.Add(aa);
+
+                    AddAAR(role, aa);
+                }
+            }
+        }
+
+        private void SetRoleAuthorization4(List<Area> floors, CardRole role)
+        {
+            foreach (var area in floors)
+            {
+                var aa = AreaAuthorization.New();
+                aa.AreaId = area.Id;//根节点
+                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.RangeType = AreaRangeType.WithParent;
+                aa.Name = string.Format("权限[大楼内部]");
+                aa.Description = string.Format("权限：可以进入大楼内部，不能进入机房。");
+                areaAuthorizations.Add(aa);
+                AreaAuthorizations.Add(aa);
+                AddAAR(role, aa);
+            }
+        }
+
+        private void SetRoleAuthorization3(CardRole role, List<Area> buildAreaList)
+        {
+            foreach (var area in buildAreaList)
+            {
+                var aa = AreaAuthorization.New();
+                aa.AreaId = area.Id;//根节点
+                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.RangeType = AreaRangeType.WithParent;
+                aa.Name = string.Format("权限[园区参观(高级)]");
+                aa.Description = string.Format("权限：可以进入园区参观，可以靠近建筑物。");
+                areaAuthorizations.Add(aa);
+                AreaAuthorizations.Add(aa);
+                AddAAR(role, aa);
+            }
+        }
+
+        private void SetRoleAuthorization2(List<Area> areaList)
+        {
+            {
+                foreach (var role in _roles)
+                {
+                    foreach (var area in areaList)
                     {
                         //var role = roles[7];
                         //  role7 = AddCardRole("参观人员(一般)", "能够进入生活区域和少部分生产区域");
@@ -130,157 +243,51 @@ namespace BLL.Initializers
                         aa.RangeType = AreaRangeType.Single;
                         aa.Name = string.Format("权限[园区参观(一般)]");
                         aa.Description = string.Format("权限：可以进入园区参观，不能靠近建筑物。");
-                        aa.RepeatDay = RepeatDay.All;
-                        aa.SetTime(8, 30, 17, 30);
                         areaAuthorizations.Add(aa);
                         AreaAuthorizations.Add(aa);
-
-                        var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                        var aar = new AreaAuthorizationRecord(aa, role);
-                        authorizationRecords.Add(aar);
-                        aa2.Records.Add(aar);
-
-                        AreaAuthorizationRecords.Add(aar);
+                        AddAAR(role, aa);
                     }
                 }
             }
+        }
 
-            var buildGroup = areas.FindAll(i => i.Type == AreaTypes.分组);
-            var buildings = areas.FindAll(i => i.Type == AreaTypes.大楼);
-            var list = new List<Area>();
-            list.AddRange(buildGroup);
-            list.AddRange(buildings);
+        private void SetRoleAuthorization1(CardRole role)
+        {
+            //foreach (var area in areaList)
             {
-                var role = roles[6];
-                //role6 = AddCardRole("参观人员(高级)", "能够进入生活区域和大部分生产区域");
-                foreach (var area in buildings)
+                var aa = AreaAuthorization.New();
+                aa.AreaId = 1;//根节点
+                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.RangeType = AreaRangeType.All;
+                aa.Name = string.Format("权限[全部区域]");
+                aa.Description = string.Format("权限：可以进入全部区域");
+                aa.SetTime(0, 0, 23, 59, 59);
+                areaAuthorizations.Add(aa);
+                AreaAuthorizations.Add(aa);
+
+                AddAAR(role, aa);
+            }
+        }
+
+        private void AddAAR(CardRole role, AreaAuthorization aa)
+        {
+            var aar = new AreaAuthorizationRecord(aa, role);
+            if (authorizationRecords == null)
+            {
+                authorizationRecords = new List<AreaAuthorizationRecord>();
+            }
+            authorizationRecords.Add(aar);
+            AreaAuthorizationRecords.Add(aar);
+
+            if (authorizationAreas != null)
+            {
+                var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
+                if (aa2 != null)
                 {
-                    var aa = AreaAuthorization.New();
-                    aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
-                    aa.RangeType = AreaRangeType.WithParent;
-                    aa.Name = string.Format("权限[园区参观(高级)]");
-                    aa.Description = string.Format("权限：可以进入园区参观，可以靠近建筑物。");
-                    aa.RepeatDay = RepeatDay.All;
-                    aa.SetTime(8, 30, 17, 30);
-                    areaAuthorizations.Add(aa);
-
-                    AreaAuthorizations.Add(aa);
-
-                    var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                    var aar = new AreaAuthorizationRecord(aa, role);
-                    authorizationRecords.Add(aar);
                     aa2.Records.Add(aar);
-
-                    AreaAuthorizationRecords.Add(aar);
                 }
             }
 
-
-            var floors = areas.FindAll(i => i.Type == AreaTypes.楼层);
-            {
-                var role = roles[5];
-                //role5 = AddCardRole("外维人员", "能够进入生活区域和指定生产区域");
-                foreach (var area in floors)
-                {
-                    var aa = AreaAuthorization.New();
-                    aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
-                    aa.RangeType = AreaRangeType.WithParent;
-                    aa.Name = string.Format("权限[大楼内部]");
-                    aa.Description = string.Format("权限：可以进入大楼内部，不能进入机房。");
-                    aa.RepeatDay = RepeatDay.All;
-                    aa.SetTime(8, 30, 17, 30);
-                    areaAuthorizations.Add(aa);
-
-                    AreaAuthorizations.Add(aa);
-
-                    var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                    var aar = new AreaAuthorizationRecord(aa, role);
-                    authorizationRecords.Add(aar);
-                    aa2.Records.Add(aar);
-
-                    AreaAuthorizationRecords.Add(aar);
-                }
-            }
-
-            /*
-            role1 = AddCardRole("管理人员", "可以进入大部分区域");
-            role2 = AddCardRole("巡检人员", "能够进入生产区域");
-            role3 = AddCardRole("操作人员", "能够进入生产区域");
-            role4 = AddCardRole("维修人员", "能够进入生产区域");
-             */
-
-            var rooms = areas.FindAll(i => i.Type == AreaTypes.机房);
-            for (int j = 1; j <= 4 ; j++)
-            {
-                var role = roles[j];
-                foreach (var area in rooms)
-                {
-                    var aa = AreaAuthorization.New();
-                    aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
-                    aa.RangeType = AreaRangeType.WithParent;
-                    aa.Name = string.Format("权限[机房]");
-                    aa.Description = string.Format("权限：可以进入机房。");
-                    aa.RepeatDay = RepeatDay.All;
-                    aa.SetTime(8, 30, 17, 30);
-                    areaAuthorizations.Add(aa);
-
-                    AreaAuthorizations.Add(aa);
-
-                    var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                    var aar = new AreaAuthorizationRecord(aa, role);
-                    authorizationRecords.Add(aar);
-                    aa2.Records.Add(aar);
-
-                    AreaAuthorizationRecords.Add(aar);
-                }
-            }
-
-            var ranges = areas.FindAll(i => i.Type == AreaTypes.范围);
-
-            for (int j = 0; j < roles.Count; j++)
-            {
-                var role = roles[j];
-                foreach (var area in ranges)
-                {
-                    var aa = AreaAuthorization.New();
-                    aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.Leave; //不能进入
-                    aa.RangeType = AreaRangeType.Single;
-                    aa.Name = string.Format("权限[不能进入]");
-                    aa.Description = string.Format("权限：告警区域");
-                    aa.RepeatDay = RepeatDay.All;
-                    aa.SetTime(8, 30, 17, 30);
-                    areaAuthorizations.Add(aa);
-
-                    AreaAuthorizations.Add(aa);
-
-                    var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                    var aar = new AreaAuthorizationRecord(aa, role);
-                    authorizationRecords.Add(aar);
-                    aa2.Records.Add(aar);
-
-                    AreaAuthorizationRecords.Add(aar);
-                }
-            }
-
-            //roles[0]
-
-            var tree = TreeHelper.CreateTree(authorizationAreas);
-            XmlSerializeHelper.Save(tree[0], path);
-            //tree[0]
-
-            //角色,区域，卡
-            //1.可以进入全部区域
-            //2.可以进入生产区域
-            //3.可以进入非生产区域
-            //4.可以进入多个区域
-            //5.可以进入某一个楼层
-            //6.可以进入某个房间
-
-            //AreaAuthorizations.Add(new AreaAuthorization() {})
         }
 
         private void CreateAllAuthorizationRecord()
@@ -289,7 +296,7 @@ namespace BLL.Initializers
             foreach (var aa in areaAuthorizations)
             {
                 var aa2 = authorizationAreas.Find(i => i.Id == aa.AreaId);
-                foreach (var role in roles)
+                foreach (var role in _roles)
                 {
                     var aar = new AreaAuthorizationRecord(aa, role);
                     authorizationRecords.Add(aar);

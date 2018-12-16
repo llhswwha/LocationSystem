@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using IModel.Tools;
 using IModel;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -13,7 +14,7 @@ namespace DbModel.Location.AreaAndDev
     ///     边界信息 地图和区域
     /// </summary>
     [DataContract]
-    public class Bound
+    public class Bound:IId
     {
         /// <summary>
         /// 主键Id

@@ -25,11 +25,16 @@ namespace BLL
             TimeSpan time = DateTime.Now - DataTime;
             if (time.TotalSeconds > UpdateInterval) //大于该时间则更新数据，否则用老数据
             {
-                DataTime = DateTime.Now;
-                UpdateData();
+                ForceLoadData();
             }
         }
 
         protected abstract void UpdateData();
+
+        public void ForceLoadData()
+        {
+            DataTime = DateTime.Now;
+            UpdateData();
+        }
     }
 }

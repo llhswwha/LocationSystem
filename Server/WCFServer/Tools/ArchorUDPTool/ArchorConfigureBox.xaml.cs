@@ -163,7 +163,6 @@ namespace LocationServer
                         }
                     }
 
-                    DataGrid3.ItemsSource = list;
                     if (id > 0)
                     {
                         var item2 = list[id];
@@ -171,8 +170,24 @@ namespace LocationServer
                         {
 
                         }
+
+                        int id2 = list.IndexOf(item1);
                     }
-                    
+
+                    DataGrid3.ItemsSource = list;
+
+                    if (id > 0)
+                    {
+                        var item2 = list[id];
+                        if (item2 != item1)
+                        {
+
+                        }
+
+                        int id2 = list.IndexOf(item1);
+                    }
+
+
                     LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
                     LbServerIpList.Content = list.ServerList.GetText();

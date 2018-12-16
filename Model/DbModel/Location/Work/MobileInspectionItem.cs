@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.Work
 {
     /// <summary>
     /// 移动巡检轨迹下的巡检项
     /// </summary>
-    public class MobileInspectionItem
+    public class MobileInspectionItem:IId
     {
         /// <summary>
         /// 巡检项Id

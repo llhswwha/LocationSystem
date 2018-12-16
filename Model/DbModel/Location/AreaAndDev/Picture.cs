@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Location.IModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,14 +12,18 @@ namespace DbModel.Location.AreaAndDev
     /// <summary>
     /// 图片
     /// </summary>
-    public class Picture
+    public class Picture:IEntity
     {
+        [Key]
+        [DataMember]
+        public int Id { get; set; }
+
         /// <summary>
         /// 图片
         /// </summary>
         [DataMember]
         [Display(Name = "图片")]
-        [Key]
+        
         public string Name { get; set; }
 
         /// <summary>

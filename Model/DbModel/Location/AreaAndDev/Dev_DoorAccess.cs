@@ -7,11 +7,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using DbModel.Location.AreaAndDev;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.Location.AreaAndDev
 {
     [DataContract]
-    public class Dev_DoorAccess
+    public class Dev_DoorAccess:IId
     {
         /// <summary>
         /// 基站Id

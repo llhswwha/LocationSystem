@@ -17,11 +17,29 @@ using DbModel.Location.Authorizations;
 using BLL.Buffers;
 using DbModel.Location.Alarm;
 using LocationServer;
+using BLL.Tools;
 
 namespace LocationServices.Tools
 {
     public class PositionEngineClient
     {
+        public PositionEngineClient()
+        {
+            StaticEvents.DbDataChanged += StaticEvents_DbDataChanged;
+        }
+
+        private void StaticEvents_DbDataChanged(DataChangArg arg)
+        {
+            //if (ab != null)
+            //{
+            //    ab.ForceLoadData();
+            //}
+            if (bll != null)
+            {
+                bll.UpdateBuffer();
+            }
+        }
+
         public PositionEngineLog Logs { get; set; }
 
         public void WriteLogLeft(string txt)
@@ -245,6 +263,7 @@ namespace LocationServices.Tools
         {
             try
             {
+                StaticEvents.DbDataChanged -= StaticEvents_DbDataChanged;
                 if (engineDa != null)
                 {
                     engineDa.Stop();
@@ -289,7 +308,7 @@ namespace LocationServices.Tools
 
         private Bll GetLocationBll()
         {
-            return new Bll(false, true, false);
+            return new Bll(false, true, true);
         }
     }
 }

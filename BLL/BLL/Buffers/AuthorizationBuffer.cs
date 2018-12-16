@@ -28,16 +28,29 @@ namespace BLL.Buffers
 
         protected override void UpdateData()
         {
-            aarList = _bll.AreaAuthorizationRecords.ToList();
-            roles = _bll.CardRoles.ToList();
-            realAlarms = _bll.LocationAlarms.ToList();//定位实时告警信息
+            //lock (realAlarms)
+            {
+                aarList = _bll.AreaAuthorizationRecords.ToList();
+                roles = _bll.CardRoles.ToList();
+                realAlarms = _bll.LocationAlarms.ToList();//定位实时告警信息
+            }
+
             //bll.LocationAlarms.AddRange(NewAlarms);
 
+            //SaveHisAlarms();
+        }
+
+        private void SaveHisAlarms()
+        {
             lock (hisAlarms)
             {
                 if (hisAlarms.Count > 0)
                 {
-                    _bll.LocationAlarmHistorys.AddRange(hisAlarms);
+                    //_bll.LocationAlarmHistorys.AddRange(hisAlarms);
+                    foreach (var item in hisAlarms)
+                    {
+                        bool r=_bll.LocationAlarmHistorys.Add(item);
+                    }
                     hisAlarms.Clear();
                 }
             }
@@ -77,61 +90,87 @@ namespace BLL.Buffers
                         {
                             //realAlarm.Update(alarm);
                             //updateAlarms.Add(realAlarm);
-                            if (tagAlarm.AreadId != newAlarm.AreadId)//在相同区域，不同告警规则产生的告警不用删除
+                            //if (tagAlarm.AreadId != newAlarm.AreadId||tagAlarm.AlarmLevel!=newAlarm.AlarmLevel)
+                                //1.在相同区域，不同告警规则产生的告警不用删除
+                                //2.正常->告警，告警->正常
                             {
-                                removeAlarms.Add(tagAlarm);//删除不同的告警
+                                if (!removeAlarms.Contains(tagAlarm))
+                                    removeAlarms.Add(tagAlarm);//删除不同的告警
                             }
+                            //else
+                            //{
+
+                            //}
+
                             if (!addedAlarms.Contains(newAlarm))//可能重复添加
                             {
                                 addedAlarms.Add(newAlarm);//
+                                if (addedAlarms.Count > 1)
+                                {
+
+                                }
+                            }
+                            else
+                            {
+
                             }
                         }
                     }
                 }
             }
-            //var newAlarms = new List<LocationAlarm>();
-            //newAlarms.AddRange(addedAlarms);
-            //newAlarms.AddRange(updateAlarms);
-            //newAlarms.AddRange(removeAlarms);
-            //foreach (var alarm in removeAlarms)
-            //{
-            //    alarm.AlarmLevel = LocationAlarmLevel.正常;
-            //}
+            if (addedAlarms.Count > 1)
+            {
 
-            _bll.LocationAlarms.AddRange(addedAlarms);
-            _bll.LocationAlarms.RemoveList(removeAlarms);
+            }
+
             foreach (var alarm in removeAlarms)//删除掉的告警
             {
+                //if(alarm.AlarmLevel!=LocationAlarmLevel.正常)
                 hisAlarms.Add(alarm.RemoveToHistory());
                 realAlarms.Remove(alarm);
             }
             foreach (var alarm in addedAlarms)//新增加的告警
             {
-                hisAlarms.Add(alarm.RemoveToHistory());
+                //hisAlarms.Add(alarm.RemoveToHistory());
                 realAlarms.Add(alarm);
             }
             if (newAlarms.Count > 0)
             {
                 Console.WriteLine("newAlarms.Count > 0");
             }
+
+            bool result1=_bll.LocationAlarms.RemoveList(removeAlarms);
+            if (result1 == false)
+            {
+
+            }
+            _bll.LocationAlarms.AddRange(addedAlarms);
+
+            var realAlarms2 = _bll.LocationAlarms.ToList();//定位实时告警信息
+            if (realAlarms2.Count > 1)
+            {
+
+            }
+
+            SaveHisAlarms();
             return newAlarms;
         }
 
         List<LocationAlarm> alarms= new List<LocationAlarm>();
         Dictionary<Position, List<LocationAlarm>> posAlarms = new Dictionary<Position, List<LocationAlarm>>();
-        List<Position> noAlarmPos = new List<Position>();
+        //List<Position> noAlarmPos = new List<Position>();
 
         private LocationAlarm AddAlarm(Position p, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level)
         {
             LocationAlarm alarm = new LocationAlarm(p, arr, content, level);
-            alarms.Add(alarm);
+            //alarms.Add(alarm);
             return alarm;
         }
         public List<LocationAlarm> GetAlarms(List<Position> list1)
         {
             alarms = new List<LocationAlarm>();
             posAlarms = new Dictionary<Position, List<LocationAlarm>>();
-            noAlarmPos = new List<Position>();
+            
 
             LoadData();
             foreach (Position p in list1)
@@ -139,18 +178,21 @@ namespace BLL.Buffers
                 if (p == null) continue;
                 if (p.AreaId == null || p.AreaId == 0)
                 {
-                    AddAlarm(p, null, "不在园区有效区域内", LocationAlarmLevel.四级告警);
+                    AddAlarm(p, null, "不在园区有效区域内。", LocationAlarmLevel.四级告警);
                     continue;
                 }
-                List<LocationAlarm> posAlarm = new List<LocationAlarm>();
-                posAlarms[p] = posAlarm;
+                List<LocationAlarm> posAlarm1 = new List<LocationAlarm>();
+                List<LocationAlarm> posAlarm2 = new List<LocationAlarm>();
+                List<Position> noAlarmPos = new List<Position>();
+
                 CardRole role = roles.Find(i => i.Id == p.RoleId);
                 if (role != null)
                 {
-                    //var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
-                    //var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
-                    
-                    var aarList4 = aarList.FindAll(i => i.AreaId == p.AreaId && i.CardRoleId == role.Id);
+                    var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
+                    var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
+
+                    //var aarList4 = aarList.FindAll(i => i.AreaId == p.AreaId && i.CardRoleId == role.Id);
+                    var aarList4 = aarList3;
                     if (aarList4.Count > 0)
                     {
                         foreach (var arr in aarList4)
@@ -159,11 +201,11 @@ namespace BLL.Buffers
                             {
                                 if (arr.IsTimeValid(p.DateTime)==false)
                                 {
-                                    posAlarm.Add(AddAlarm(p, arr, "未在有效时间范围内", LocationAlarmLevel.四级告警));
+                                    posAlarm1.Add(AddAlarm(p, arr, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", p.Area), LocationAlarmLevel.四级告警));
                                 }
                                 else
                                 {
-                                    posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
+                                    posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}",p.Area), LocationAlarmLevel.正常));
                                     noAlarmPos.Add(p);
                                 }
                             }
@@ -171,37 +213,45 @@ namespace BLL.Buffers
                             {
                                 if (arr.IsTimeValid(p.DateTime) == false)
                                 {
-                                    posAlarm.Add(AddAlarm(p, arr, "未在有效时间范围内", LocationAlarmLevel.四级告警));
+                                    posAlarm1.Add(AddAlarm(p, arr, string.Format("可以进出区域'{0}',但是未在有效时间范围内。", p.Area), LocationAlarmLevel.四级告警));
                                 }
                                 else
                                 {
-                                    posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
+                                    posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
                                     noAlarmPos.Add(p);
                                 }
                             }
                             else if (arr.AccessType == AreaAccessType.Leave)
                             {
-                                posAlarm.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'，必须离开",p.Area), LocationAlarmLevel.三级告警));
+                                posAlarm1.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'，必须离开。",p.Area), LocationAlarmLevel.三级告警));
                             }
                             else if (arr.AccessType == AreaAccessType.None)
                             {
-                                posAlarm.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'", p.Area), LocationAlarmLevel.三级告警));
+                                posAlarm1.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'。", p.Area), LocationAlarmLevel.三级告警));
                             }
                             else
                             {
-                                posAlarm.Add(AddAlarm(p, arr, "正常", LocationAlarmLevel.正常));
+                                posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
                                 noAlarmPos.Add(p);
                             }
                         }
                     }
                     else
                     {
-                        posAlarm.Add(AddAlarm(p, null, string.Format("标签角色'{0}'在区域'{1}'未配置权限", role, p.Area), LocationAlarmLevel.四级告警));
+                        if (role.Id == 1)//超级管理员
+                        {
+                            posAlarm2.Add(AddAlarm(p, null, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
+                            noAlarmPos.Add(p);
+                        }
+                        else
+                        {
+                            posAlarm1.Add(AddAlarm(p, null, string.Format("标签角色'{0}'在区域'{1}'未配置权限。", role, p.Area), LocationAlarmLevel.四级告警));
+                        }
                     }
                 }
                 else
                 {
-                    posAlarm.Add(AddAlarm(p, null, "标签未配置区域权限", LocationAlarmLevel.四级告警));
+                    posAlarm1.Add(AddAlarm(p, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警));
                 }
                 //1.找出区域相关的所有权限
                 //2.判断当前定位卡是否有权限进入该区域
@@ -210,6 +260,30 @@ namespace BLL.Buffers
                 //  2.3不在则发出警告，进入非法区域
                 //  2.4默认标签角色CardRole 1.超级管理员、巡检人员、管理人员、施工人员、参观人员
                 //p.AreaId
+                List<LocationAlarm> posAlarm0 = new List<LocationAlarm>();
+                foreach (var item in posAlarm1)
+                {
+                    alarms.Add(item);
+                    posAlarm0.Add(item);
+                }
+
+                if (posAlarm2.Count > 0)//在一个区域内的多个规则的正常告警（状态）合并成一个
+                {
+                    if (posAlarm2.Count > 1)
+                    {
+                        for (int i = 1; i < posAlarm2.Count; i++)
+                        {
+                            posAlarm2[0].AllAuzId += ";" + posAlarm2[i].AuzId;
+                        }
+                    }
+                    alarms.Add(posAlarm2[0]);
+                    posAlarm0.Add(posAlarm2[0]);
+                }
+                posAlarms[p] = posAlarm0;
+            }
+            if (alarms.Count > 1)
+            {
+
             }
             return alarms;
         }

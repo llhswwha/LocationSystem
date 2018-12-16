@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Work
 {
-    public class SafetyMeasuresHistory
+    public class SafetyMeasuresHistory:IId
     {
         /// <summary>
         /// Id

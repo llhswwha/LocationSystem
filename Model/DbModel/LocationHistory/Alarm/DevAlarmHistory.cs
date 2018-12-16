@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
 
 namespace DbModel.LocationHistory.Alarm
 {
     /// <summary>
     /// 设备历史告警
     /// </summary>
-    public class DevAlarmHistory
+    public class DevAlarmHistory:IId
     {
         /// <summary>
         /// 主键Id

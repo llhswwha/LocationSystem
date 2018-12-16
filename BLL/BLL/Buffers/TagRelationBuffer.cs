@@ -46,7 +46,7 @@ namespace BLL
             roles = bll.CardRoles.ToList();
         }
 
-        private void RefreshTags()
+        public void RefreshTags()
         {
             personnels = bll.Personnels.ToList();
             tagToPersons = bll.LocationCardToPersonnels.ToList();
@@ -135,7 +135,7 @@ namespace BLL
 
         private void SetArea(Position pos)
         {
-            AddSimulateArchor(pos);
+            //AddSimulateArchor(pos);
             if (pos.Code == "00012")
             {
                 int i = 0;
@@ -183,10 +183,22 @@ namespace BLL
                     if (inArea.Type == AreaTypes.大楼)
                     {
                         var floor = inArea.GetFloorByHeight(pos.Y);
+                        if (floor.Id == 62)
+                        {
+
+                        }
                         if (floor != null)
                         {
                             SetAreaInFloor(pos, floor);
                         }
+                        if (pos.AreaId == 62)
+                        {
+
+                        }
+                    }
+                    else//园区
+                    {
+
                     }
                 }
             }
@@ -319,6 +331,7 @@ namespace BLL
                 if (park.InitBound.Contains(pos.X, pos.Z))
                 {
                     inArea = park;
+                    pos.SetArea(inArea);
                 }
             }
             if (inArea == null)

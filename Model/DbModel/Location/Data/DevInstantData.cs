@@ -4,13 +4,15 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
+using Location.IModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Data
 {
     /// <summary>
     /// 设备实时数据
     /// </summary>
-    public class DevInstantData
+    public class DevInstantData:IEntity<string>
     {
         /// <summary>
         /// KKS码
@@ -18,8 +20,9 @@ namespace DbModel.Location.Data
         [DataMember]
         [Display(Name = "KKS码")]
         [MaxLength(32)]
+        [Column("KKS")]
         [Key]
-        public string KKS { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 名称
@@ -68,7 +71,7 @@ namespace DbModel.Location.Data
         public DevInstantDataHistory RemoveToHistory()
         {
             DevInstantDataHistory history = new DevInstantDataHistory();
-            history.KKS = this.KKS;
+            history.KKS = this.Id;
             history.Name = this.Name;
             history.Value = this.Value;
             history.DateTime = this.DateTime;
