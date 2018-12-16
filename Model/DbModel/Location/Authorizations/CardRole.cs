@@ -15,11 +15,23 @@ namespace DbModel.Location.Authorizations
         [NotMapped]
         public bool IsChecked { get; set; }
 
+        /// <summary>
+        /// 主键Id
+        /// </summary>
+        [Display(Name = "主键Id")]
         public int Id { get; set; }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
+        [Display(Name = "名称")]
         [MaxLength(32)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [Display(Name = "描述")]
         [MaxLength(64)]
         public string Description { get; set; }
 

@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Location.IModel.Locations;
 using Location.TModel.Tools;
+using DbModel.Location.Authorizations;
+using System.Runtime.Serialization;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -46,9 +48,11 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(128)]
         public string Describe { get; set; }
 
-
         [Display(Name = "标签角色")]
         public int? CardRoleId { get; set; }
+
+        [Display(Name = "标签角色")]
+        public virtual CardRole CardRole { get; set; }
 
         /// <summary>
         /// 电量（伏*100)
@@ -88,7 +92,7 @@ namespace DbModel.Location.AreaAndDev
             history.Abutment_Id = this.Abutment_Id;
             history.Code = this.Code;
             history.Name = this.Name;
-            history.Describe = this.Describe;
+            history.Describe = this.Describe;            
             history.HistoryTime = DateTime.Now;
             history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
 
