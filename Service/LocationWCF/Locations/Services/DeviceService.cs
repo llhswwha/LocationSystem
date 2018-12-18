@@ -109,6 +109,18 @@ namespace LocationServices.Locations.Services
             return result ? dbItem.ToTModel() : null;
         }
 
+        public List<TEntity> PostRange(List<TEntity>itemList)
+        {
+            List<TEntity> entityList = new List<TEntity>();
+            foreach(var item in itemList)
+            {
+                var dbItem = item.ToDbModel();
+                var result = dbSet.Add(dbItem);
+                TEntity value = result ? dbItem.ToTModel() : null;
+                if (value != null) entityList.Add(value);
+            }
+            return entityList;
+        }
         public TEntity Post(string pid, TEntity item)
         {
             item.ParentId = pid.ToInt();

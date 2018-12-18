@@ -88,7 +88,7 @@ namespace LocationServices.Locations.Interfaces
         /// </summary>
         /// <param name="devInfoList"></param>
         [OperationContract]
-        bool AddDevInfoByList(List<DevInfo> devInfoList);
+        List<DevInfo> AddDevInfoByList(List<DevInfo> devInfoList);
         /// <summary>
         /// 修改设备信息
         /// </summary>

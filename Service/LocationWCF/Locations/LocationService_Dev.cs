@@ -140,9 +140,9 @@ namespace LocationServices.Locations
         /// 添加设备基本信息（列表形式）
         /// </summary>
         /// <param name="devInfoList"></param>
-        public bool AddDevInfoByList(List<DevInfo> devInfoList)
+        public List<DevInfo> AddDevInfoByList(List<DevInfo> devInfoList)
         {
-            return db.DevInfos.AddRange(devInfoList.ToDbModel());
+            return new DeviceService(db).PostRange(devInfoList);
         }
         /// <summary>
         /// 修改设备信息
