@@ -41,7 +41,7 @@ namespace BLL.Blls.Location
 
         public List<LocationCardPosition> GetListByArea(int area)
         {
-            return DbSet.Where(i => i.AreaId==area).ToList();
+            return DbSet.Where(i => i.IsInArea(area)).ToList();
         }
 
         public override List<LocationCardPosition> ToList(bool isTracking = false)

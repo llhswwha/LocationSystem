@@ -3,12 +3,12 @@
 @model IEnumerable<DbModel.Location.Authorizations.CardRole>
 
 @{
-    ViewBag.Title = "RoleSet";
+    ViewBag.Title = "设定权限角色";
 }
 
 <div class="modal-header">
     @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
-    <h2 class="modal-title" id="myModalLabel">RoleSet</h2>
+    <h2 class="modal-title" id="myModalLabel">设定权限角色 [@ViewBag.TagName]</h2>
 </div>
 
 <div class="modal-body">      
@@ -29,7 +29,14 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    <input type="radio" name="choose" />
+                    @if (item.Id == ViewBag.RoleId)
+                    {
+                        <input type="radio" name="choose" checked="checked" value="@item.Id"/> //cww:选中当前角色
+                    }
+                    else
+                    {
+                        <input type="radio" name="choose" value="@item.Id"/>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -42,9 +49,7 @@
     </table>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="button" value="确定" class="btn btn-default" id="btnId" />
-        </div>
+        <input type="button" value="确定" class="btn btn-default" id="btnId" />
     </div>
     <div>
         @Html.ActionLink("返 回", "Index")
@@ -60,31 +65,29 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
-           
+
     $(function () {
         $("#btnId").click(function () {
-            var choosed = $('input:radio[name="choose"]:checked').val();                           
-
-            //var locationcardId = document.getElementsByClassName('locationcardId');
-            //console.log(locationcardId);
-
-            //var roleId = document.getElementsByClassName('roleId');
-            //console.log(roleId);
-
-            //var roleset = eval('(' + '{"tagId":"' + locationcardId + '","roleId":"' + roleId + '"}' + ')');
-
-            var roleset = eval('(' + '{"tagId":"' + 3 + '","roleId":"' + 3 + '"}' + ')');
-            if (choosed == null) {
+            var choosedRoleId = $('input:radio[name="choose"]:checked').val();//cww:获取角色Id,这个是和上面的@item.Id对应的，上面设置，这里获取
+            //var roleset = eval('(' + '{"tagId":"' + 3 + '","roleId":"' + 3 + '"}' + ')');//这个还是拼接json字符串而不是处理javascript对象
+            if (choosedRoleId == null) {
                 alert("未选择，不修改标签角色！");
-                return false;
+                //return false;
+            }
+            else if (choosedRoleId == @ViewBag.RoleId) {
+                //alert("没有修改所所属角色");
             }
             else {
-                $.ajax({                   
+                    var roleset = {} //cww:javascript创建空对象
+                    roleset.tagId = @ViewBag.TagId;//cww:给对象创建属性并赋值 使用后台传递的参数
+                    roleset.roleId = choosedRoleId;//cww:给对象创建属性并赋值
+
+                $.ajax({
                     type: "Post",
                     url: "LocationCard/SetTagRole",
-                    data: JSON.stringify(roleset),
+                    data: roleset,//cww:传递javascript对象作为参数，而不是json字符串
                     //data:'{"tagId":"1","roleId":"2"}',
-                    contentType: "application/json",
+                    //contentType: "application/json",//cww:这个移除掉
                     dataType: "json",
                     async: false,
                     success: function (data) {
@@ -95,16 +98,16 @@
                         }
                         else {
                             alert("标签角色设置失败！");
-                        }            
+                        }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("error"); 
+                        console.log("error");
                         console.log(XMLHttpRequest.status);
                         console.log(XMLHttpRequest.readyState);
                         console.log(textStatus);
                         alert("通信失败！");
                     }
-                });            
+                });
             }
         });
     });

@@ -284,14 +284,14 @@ namespace BLL
                 var card = cards.Find(j => j.Id == cp.LocationCardId);
                 if (i < 10)//这部分固定初始位置
                 {
-                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = 2292.5f+i, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
+                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = 2292.5f+i, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0",  PersonId = cp.Id };
                     tagpositions.Add(tagposition);
                 }
                 else//这部分随机初始位置
                 {
                     var x = r.Next((int)bound.GetSizeX()) + bound.MinX;
                     var z = r.Next((int)bound.GetSizeY()) + bound.MinY;
-                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = area.Id, PersonId = cp.Id };
+                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0",  PersonId = cp.Id };
                     tagpositions.Add(tagposition);
                 }
                 

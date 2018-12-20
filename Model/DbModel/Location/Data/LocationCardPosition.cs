@@ -138,7 +138,45 @@ namespace DbModel.Location.Data
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层")]
 
+        public string AllAreaId { get; set; }
+
+        [DataMember]
+        [Display(Name = "基站所在的区域、建筑、楼层")]
         public int? AreaId { get; set; }
+
+        public bool IsInArea(int areaId)
+        {
+            {
+                string[] parts = AllAreaId.Split(';');
+                foreach (var item in parts)
+                {
+                    if (item == areaId + "")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool IsInArea(List<int?> areaIds)
+        {
+            foreach (var areaId in areaIds)
+            {
+                {
+                    string[] parts = AllAreaId.Split(';');
+                    foreach (var item in parts)
+                    {
+                        if (item == areaId + "")
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// 关联的人员

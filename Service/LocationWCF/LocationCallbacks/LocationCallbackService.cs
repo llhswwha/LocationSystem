@@ -47,13 +47,13 @@ namespace LocationServices.LocationCallbacks
             m_Callbacks.ForEach(invoke);
         }
 
-        //通知用户服务已经停止
-        public static void NotifyServiceStop()
-        {
-            List<LocationAlarm> msgItems = new List<LocationAlarm>();
-            msgItems.Add(new LocationAlarm() { Id = 0,Content="告警" });
-            ActiveAlarmReport(msgItems);
-        }
+        ////通知用户服务已经停止
+        //public static void NotifyServiceStop()
+        //{
+        //    List<LocationAlarm> msgItems = new List<LocationAlarm>();
+        //    msgItems.Add(new LocationAlarm() { Id = 0,Content="告警" });
+        //    ActiveAlarmReport(msgItems);
+        //}
 
         public void AddAlarmInfo(string AlarmInfo)
         {

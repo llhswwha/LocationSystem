@@ -23,7 +23,7 @@
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101090" ArchorID="8ACC" ArchorIP="192.168.4.143" InstallArea="J2 余热锅炉（A）" />
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101091" ArchorID="8ACE" ArchorIP="192.168.4.144" InstallArea="J2 余热锅炉（A）" />
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101092" ArchorID="8AD0" ArchorIP="192.168.4.145" InstallArea="J2 余热锅炉（A）" />
-  <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101093" ArchorID="8AD2" ArchorIP="192.168.5.90" InstallArea="J2 余热锅炉（A）" />
+  <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101093" ArchorID="8AD2" ArchorIP="192.168.4.146" InstallArea="J2 余热锅炉（A）" />
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101094" ArchorID="8AD4" ArchorIP="192.168.4.147" InstallArea="J2 余热锅炉（A）" />
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101095" ArchorID="8AD6" ArchorIP="192.168.4.148" InstallArea="J2 余热锅炉（A）" />
   <Archors Name="Aries-O 1000" ModelType="Aries-O 1000" SerialNumber="YA18PA102ZF101096" ArchorID="8AD8" ArchorIP="192.168.4.149" InstallArea="J2 余热锅炉（A）" />
@@ -350,7 +350,7 @@
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100932" ArchorID="8974" ArchorIP="192.168.3.188" InstallArea="J1 联合主厂房" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100933" ArchorID="8976" ArchorIP="192.168.3.189" InstallArea="J1 联合主厂房" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100934" ArchorID="897A" ArchorIP="192.168.3.190" InstallArea="J1 联合主厂房" />
-  <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100935" ArchorID="897C" ArchorIP="192.168.4.202" InstallArea="J1 联合主厂房" />
+  <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100935" ArchorID="897C" ArchorIP="192.168.3.191" InstallArea="J1 联合主厂房" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100936" ArchorID="897E" ArchorIP="192.168.3.192" InstallArea="J1 联合主厂房" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100937" ArchorID="8980" ArchorIP="192.168.3.193" InstallArea="J1 联合主厂房" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF100938" ArchorID="8982" ArchorIP="192.168.3.194" InstallArea="J1 联合主厂房" />
@@ -432,7 +432,7 @@
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101014" ArchorID="8A22" ArchorIP="192.168.4.67" InstallArea="J5 联合车间" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101015" ArchorID="8A24" ArchorIP="192.168.4.68" InstallArea="J5 联合车间" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101016" ArchorID="8A26" ArchorIP="192.168.4.69" InstallArea="J5 联合车间" />
-  <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101017" ArchorID="8A28" ArchorIP="192.168.3.237" InstallArea="J5 联合车间" />
+  <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101017" ArchorID="8A28" ArchorIP="192.168.4.70" InstallArea="J5 联合车间" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101018" ArchorID="8A2A" ArchorIP="192.168.4.71" InstallArea="J5 联合车间" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101019" ArchorID="8A2C" ArchorIP="192.168.4.72" InstallArea="J5 联合车间" />
   <Archors Name="Aries-V 1000" ModelType="Aries-V 1000" SerialNumber="YA18PA102ZF101020" ArchorID="8A2E" ArchorIP="192.168.4.73" InstallArea="J5 联合车间" />

@@ -103,18 +103,35 @@ namespace DbModel.LocationHistory.Data
         public int Power { get; set; }
 
 
-        public void SetArea(Area area)
+        public void SetArea(params Area[] areas)
         {
-            if (area == null)
+            if (areas == null)
             {
-                AreaId = null;
+                AllAreaId = null;
                 AreaPath = "";
+                AreaState = 1;
                 return;
             }
-            Area = area;
-            AreaId = area.Id;
-            AreaPath = area.Name;
-            AreaState = area.IsOnLocationArea ? 0 : 1;
+            Areas = areas;
+            //AreaId = areas.Id;
+            //AreaPath = area.Name;
+            //AreaState = area.IsOnLocationArea ? 0 : 1;
+            AreaState = 1;
+            AllAreaId = "";
+            AreaPath = "";
+            foreach (var area in Areas)//同时处于一个告警区域和一个定位区域时 人员区域怎么判断？ 同时处于两个区域时 人员区域怎么判断
+            {
+                if (area.IsOnLocationArea)
+                {
+                    AreaState = 0;
+                }
+                if (area.Type != Tools.AreaTypes.范围)
+                {
+                    AreaId = area.Id;
+                }
+                AllAreaId += area.Id + ";";
+                AreaPath = area.Name + ";";
+            }
         }
 
         /// <summary>
@@ -175,13 +192,81 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
+        public string AllAreaId { get; set; }
+
+        [DataMember]
+        [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
         public int? AreaId { get; set; }
+
+        public bool IsAreaNull()
+        {
+            //return (AreaId == null || AreaId == 0);
+            return (AllAreaId == null || AllAreaId == "");
+        }
+
+        public bool IsInArea(int areaId)
+        {
+            if (Areas != null)
+            {
+                foreach (var item in Areas)
+                {
+                    if (item.Id == areaId)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                string[] parts = AllAreaId.Split(';');
+                foreach (var item in parts)
+                {
+                    if(item== areaId + "")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool IsInArea(List<int> areaIds)
+        {
+            foreach (var areaId in areaIds)
+            {
+                if (Areas != null)
+                {
+                    foreach (var item in Areas)
+                    {
+                        if (item.Id == areaId)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                else
+                {
+                    string[] parts = AllAreaId.Split(';');
+                    foreach (var item in parts)
+                    {
+                        if (item == areaId + "")
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// 基站所在的区域
         /// </summary>
         [NotMapped]
-        public Area Area { get; set; }
+        public Area[] Areas { get; set; }
 
 
         [DataMember]
@@ -234,6 +319,10 @@ namespace DbModel.LocationHistory.Data
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
+                if (Code.StartsWith("1"))
+                {
+
+                }
                 float x = float.Parse(parts[1]);
                 float y = float.Parse(parts[2]);
                 if (x < offsetX)

@@ -711,12 +711,13 @@ namespace ArchorUDPTool
         {
             this.archors = archors;
             resultList = new CommandResultManager();
-            foreach (var item in archors.ArchorList)
-            {
-                var group = resultList.Add(item);
-                //group.Archor.Ip = item.ArchorIp;
-                group.Archor.Area = item.InstallArea;
-            }
+            if(archors.ArchorList!=null)
+                foreach (var item in archors.ArchorList)
+                {
+                    var group = resultList.Add(item);
+                    //group.Archor.Ip = item.ArchorIp;
+                    group.Archor.Area = item.InstallArea;
+                }
 
             UDPArchorList list = new UDPArchorList();
             foreach (var item in resultList.Groups)

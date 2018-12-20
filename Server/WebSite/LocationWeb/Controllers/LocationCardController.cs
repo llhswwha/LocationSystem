@@ -41,8 +41,23 @@ namespace WebLocation.Controllers
             return View();
         }      
 
-        public ActionResult RoleSet()
+        public ActionResult RoleSet(int? id) //cww:添加id，接收点击某一行的标签时传递的id参数
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var tag = db.LocationCards.Find(id);//cww:获取当前标签
+            if (tag == null)
+            {
+                return HttpNotFound();
+            }
+
+            //cww:设置信息给前台使用
+            ViewBag.TagId = id;
+            ViewBag.RoleId = tag.CardRoleId;
+            ViewBag.TagName = tag.Name;
+
             List<CardRole> cardRoleList = db.CardRoles.ToList();           
             return PartialView("RoleSet", cardRoleList);
         }

@@ -200,7 +200,7 @@ namespace LocationServices.Locations.Services
             }
             var info = from u in dbSet.DbSet
                 where
-                    personnelID == u.PersonnelID && topoNodeIds.Contains((int) u.AreaId) && u.DateTimeStamp >= startStamp &&
+                    personnelID == u.PersonnelID && u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
                     u.DateTimeStamp <= endStamp
                 select u;
             var tempList = info.ToList();
@@ -217,7 +217,7 @@ namespace LocationServices.Locations.Services
             }
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds.Contains((int)u.AreaId) && u.DateTimeStamp >= startStamp &&
+                           u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
                            u.DateTimeStamp <= endStamp
                        select u;
             var tempList = info.ToList();
@@ -228,7 +228,7 @@ namespace LocationServices.Locations.Services
         {
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds.Contains((int)u.AreaId) 
+                           u.IsInArea(topoNodeIds) 
                        select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
@@ -238,7 +238,7 @@ namespace LocationServices.Locations.Services
         {
             var info = from u in dbSet.DbSet
                        where
-                           topoNodeIds==u.AreaId
+                           u.IsInArea(topoNodeIds)
                        select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();

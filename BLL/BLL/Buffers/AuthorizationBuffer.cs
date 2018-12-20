@@ -160,9 +160,9 @@ namespace BLL.Buffers
         Dictionary<Position, List<LocationAlarm>> posAlarms = new Dictionary<Position, List<LocationAlarm>>();
         //List<Position> noAlarmPos = new List<Position>();
 
-        private LocationAlarm AddAlarm(Position p, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level)
+        private LocationAlarm AddAlarm(Position p,int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level)
         {
-            LocationAlarm alarm = new LocationAlarm(p, arr, content, level);
+            LocationAlarm alarm = new LocationAlarm(p, area, arr, content, level);
             //alarms.Add(alarm);
             return alarm;
         }
@@ -176,9 +176,9 @@ namespace BLL.Buffers
             foreach (Position p in list1)
             {
                 if (p == null) continue;
-                if (p.AreaId == null || p.AreaId == 0)
+                if (p.IsAreaNull())
                 {
-                    AddAlarm(p, null, "不在园区有效区域内。", LocationAlarmLevel.四级告警);
+                    AddAlarm(p,0, null, "不在园区有效区域内。", LocationAlarmLevel.四级告警);
                     continue;
                 }
                 List<LocationAlarm> posAlarm1 = new List<LocationAlarm>();
@@ -189,69 +189,74 @@ namespace BLL.Buffers
                 if (role != null)
                 {
                     var aarList2 = aarList.FindAll(i => i.CardRoleId == role.Id);
-                    var aarList3 = aarList2.FindAll(i => i.AreaId == p.AreaId);
 
-                    //var aarList4 = aarList.FindAll(i => i.AreaId == p.AreaId && i.CardRoleId == role.Id);
-                    var aarList4 = aarList3;
-                    if (aarList4.Count > 0)
+                    foreach (var area in p.Areas)
                     {
-                        foreach (var arr in aarList4)
+                        var aarList3 = aarList2.FindAll(i => i.AreaId==area.Id);
+
+                        //var aarList4 = aarList.FindAll(i => i.AreaId == p.AreaId && i.CardRoleId == role.Id);
+                        var aarList4 = aarList3;
+                        if (aarList4.Count > 0)
                         {
-                            if (arr.AccessType == AreaAccessType.Enter)
+                            foreach (var arr in aarList4)
                             {
-                                if (arr.IsTimeValid(p.DateTime)==false)
+                                if (arr.AccessType == AreaAccessType.Enter)
                                 {
-                                    posAlarm1.Add(AddAlarm(p, arr, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", p.Area), LocationAlarmLevel.四级告警));
+                                    if (arr.IsTimeValid(p.DateTime) == false)
+                                    {
+                                        posAlarm1.Add(AddAlarm(p,area.Id, arr, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警));
+                                    }
+                                    else
+                                    {
+                                        posAlarm2.Add(AddAlarm(p, area.Id, arr, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
+                                        noAlarmPos.Add(p);
+                                    }
+                                }
+                                else if (arr.AccessType == AreaAccessType.EnterLeave)
+                                {
+                                    if (arr.IsTimeValid(p.DateTime) == false)
+                                    {
+                                        posAlarm1.Add(AddAlarm(p, area.Id, arr, string.Format("可以进出区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警));
+                                    }
+                                    else
+                                    {
+                                        posAlarm2.Add(AddAlarm(p, area.Id, arr, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
+                                        noAlarmPos.Add(p);
+                                    }
+                                }
+                                else if (arr.AccessType == AreaAccessType.Leave)
+                                {
+                                    posAlarm1.Add(AddAlarm(p, area.Id, arr, string.Format("进入无权限的区域'{0}'，必须离开。", area), LocationAlarmLevel.三级告警));
+                                }
+                                else if (arr.AccessType == AreaAccessType.None)
+                                {
+                                    posAlarm1.Add(AddAlarm(p, area.Id, arr, string.Format("进入无权限的区域'{0}'。", area), LocationAlarmLevel.三级告警));
                                 }
                                 else
                                 {
-                                    posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}",p.Area), LocationAlarmLevel.正常));
+                                    posAlarm2.Add(AddAlarm(p, area.Id, arr, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
                                     noAlarmPos.Add(p);
                                 }
                             }
-                            else if (arr.AccessType == AreaAccessType.EnterLeave)
-                            {
-                                if (arr.IsTimeValid(p.DateTime) == false)
-                                {
-                                    posAlarm1.Add(AddAlarm(p, arr, string.Format("可以进出区域'{0}',但是未在有效时间范围内。", p.Area), LocationAlarmLevel.四级告警));
-                                }
-                                else
-                                {
-                                    posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
-                                    noAlarmPos.Add(p);
-                                }
-                            }
-                            else if (arr.AccessType == AreaAccessType.Leave)
-                            {
-                                posAlarm1.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'，必须离开。",p.Area), LocationAlarmLevel.三级告警));
-                            }
-                            else if (arr.AccessType == AreaAccessType.None)
-                            {
-                                posAlarm1.Add(AddAlarm(p, arr, string.Format("进入无权限的区域'{0}'。", p.Area), LocationAlarmLevel.三级告警));
-                            }
-                            else
-                            {
-                                posAlarm2.Add(AddAlarm(p, arr, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
-                                noAlarmPos.Add(p);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (role.Id == 1)//超级管理员
-                        {
-                            posAlarm2.Add(AddAlarm(p, null, string.Format("正常，所在区域:{0}", p.Area), LocationAlarmLevel.正常));
-                            noAlarmPos.Add(p);
                         }
                         else
                         {
-                            posAlarm1.Add(AddAlarm(p, null, string.Format("标签角色'{0}'在区域'{1}'未配置权限。", role, p.Area), LocationAlarmLevel.四级告警));
+                            if (role.Id == 1)//超级管理员
+                            {
+                                posAlarm2.Add(AddAlarm(p, area.Id,null, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
+                                noAlarmPos.Add(p);
+                            }
+                            else
+                            {
+                                posAlarm1.Add(AddAlarm(p, area.Id, null, string.Format("标签角色'{0}'在区域'{1}'未配置权限。", role, area), LocationAlarmLevel.四级告警));
+                            }
                         }
                     }
+                    
                 }
                 else
                 {
-                    posAlarm1.Add(AddAlarm(p, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警));
+                    posAlarm1.Add(AddAlarm(p,0, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警));
                 }
                 //1.找出区域相关的所有权限
                 //2.判断当前定位卡是否有权限进入该区域

@@ -466,5 +466,23 @@ namespace LocationServer.Windows
             bll.ArchorSettings.EditRange(newArchorSettings1);
             bll.ArchorSettings.AddRange(newArchorSettings2);
         }
+
+        private void MenuSaveOutArchorPoints_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            var archorSettings = bll.ArchorSettings.Where(i=>string.IsNullOrEmpty(i.BuildingName)&&!string.IsNullOrEmpty(i.Code) && i.AbsoluteHeight !=2).ToList();
+            string txt = "";
+            foreach (var item in archorSettings)
+            {
+                txt += string.Format("{0},,{1},{2},{3}\r\n", item.Code, item.AbsoluteX, item.AbsoluteY, item.AbsoluteHeight);
+            }
+            var path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\GPSPoints2.txt";
+            File.WriteAllText(path, txt);
+        }
+
+        private void MenuInitDevs_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

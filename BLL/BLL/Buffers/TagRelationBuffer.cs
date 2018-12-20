@@ -143,7 +143,7 @@ namespace BLL
             if (pos.Archors != null && pos.Archors.Count > 0)
             {
                 SetAreaByArchor(pos);
-                var area = areas.Find(i => i.Id == pos.AreaId);
+                var area = areas.Find(i => pos.IsInArea(i.Id));
                 if (area != null)
                 {
                     if (area.IsPark()) //电厂园区,基站属于园区或者楼层
@@ -167,9 +167,9 @@ namespace BLL
                 SetAreaByPosition(pos, area);
             }
 
-            if (pos.AreaId == 0|| pos.AreaId == null)
+            if (pos.IsAreaNull())
             {
-                Console.WriteLine("pos.AreaId == 0|| pos.AreaId == null");
+                Console.WriteLine("pos.IsAreaNull()");
             }
         }
 
@@ -253,17 +253,17 @@ namespace BLL
             }
             if (containsAreas.Count > 0)
             {
-                Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
-                if (areaT == null)
-                {
-                    //pos.SetArea(containsAreas[0]);
-                    areaT = containsAreas[0];
-                }
+                //Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
+                //if (areaT == null)
+                //{
+                //    //pos.SetArea(containsAreas[0]);
+                //    areaT = containsAreas[0];
+                //}
+                //pos.SetArea(areaT);
+                ////pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
+                //pos.AreaPath = building.Name + "." + area.Name + "." + areaT.Name;
 
-                pos.SetArea(areaT);
-
-                //pos.AreaPath = building.Name + "." + area.Name + "." + containsAreas[0].Name;
-                pos.AreaPath = building.Name + "." + area.Name + "." + areaT.Name;
+                pos.SetArea(containsAreas.ToArray());
             }
             else
             {
@@ -308,23 +308,25 @@ namespace BLL
             //todo:加上建筑外的区域
             if (containsAreas.Count > 0)
             {
-                //inArea = containsAreas[0];
-                //pos.SetArea(inArea);
-                if (containsAreas.Count == 1)
-                {
-                    inArea = containsAreas[0];
-                }
-                else
-                {
-                    Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
-                    if (areaT == null)
-                    {
-                        //pos.SetArea(containsAreas[0]);
-                        areaT = containsAreas[0];
-                    }
-                    inArea = areaT;
-                }
-                pos.SetArea(inArea);
+                ////inArea = containsAreas[0];
+                ////pos.SetArea(inArea);
+                //if (containsAreas.Count == 1)
+                //{
+                //    inArea = containsAreas[0];
+                //}
+                //else
+                //{
+                //    Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
+                //    if (areaT == null)
+                //    {
+                //        //pos.SetArea(containsAreas[0]);
+                //        areaT = containsAreas[0];
+                //    }
+                //    inArea = areaT;
+                //}
+                //pos.SetArea(inArea);//同时处于一个告警区域和一个定位区域时 人员区域怎么判断？ 同时处于两个区域时 人员区域怎么判断?
+
+                pos.SetArea(containsAreas.ToArray());
             }
             if (inArea == null)
             {

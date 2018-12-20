@@ -75,7 +75,7 @@ namespace DbModel.Location.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "告警")]
-        public int? AreadId  { get; set; }
+        public int? AreaId  { get; set; }
 
         /// <summary>
         /// 告警规则
@@ -153,7 +153,7 @@ namespace DbModel.Location.Alarm
             HandleTimeStamp = TimeConvert.DateTimeToTimeStamp(HandleTime);
         }
 
-        public LocationAlarm(Position p,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level)
+        public LocationAlarm(Position p,int area,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level)
         {
             SetTime();
             AlarmType = LocationAlarmType.区域告警;
@@ -165,11 +165,16 @@ namespace DbModel.Location.Alarm
             //{
             //    Console.WriteLine("p.AreaId == 0");
             //}
-            AreadId = p.AreaId;
+            
             if (aar != null)
             {
+                AreaId = aar.AreaId;
                 AuzId = aar.Id;//触发告警的权限规则
                 AllAuzId += aar.Id;
+            }
+            else
+            {
+                AreaId = area;
             }
             Content = content;
             AlarmId = Guid.NewGuid().ToString();
@@ -209,7 +214,7 @@ namespace DbModel.Location.Alarm
             this.AlarmLevel = alarm.AlarmLevel;
             this.LocationCardId = alarm.LocationCardId;
             this.PersonnelId = alarm.PersonnelId;
-            this.AreadId = alarm.AreadId;
+            this.AreaId = alarm.AreaId;
             this.CardRoleId = alarm.CardRoleId;
             this.Content = alarm.Content;
             this.AlarmTime = alarm.AlarmTime;
@@ -231,7 +236,7 @@ namespace DbModel.Location.Alarm
             history.AlarmLevel = this.AlarmLevel;
             history.LocationCardId = this.LocationCardId ?? 0;
             history.PersonnelId = this.PersonnelId ?? 0;
-            history.AreadId = this.AreadId;
+            history.AreadId = this.AreaId;
             history.CardRoleId = this.CardRoleId;
             history.Content = this.Content;
             history.AlarmTime = this.AlarmTime;
@@ -250,12 +255,12 @@ namespace DbModel.Location.Alarm
 
         public override string ToString()
         {
-            return string.Format("Content:{0},AreaId:{1},PersonId:{2}",Content,AreadId,PersonnelId);
+            return string.Format("Content:{0},AreaId:{1},PersonId:{2}",Content,AreaId,PersonnelId);
         }
 
         public string GetAlarmId()
         {
-            return "" + AuzId+AlarmType + AlarmLevel + LocationCardId + PersonnelId + AreadId + Content;
+            return "" + AuzId+AlarmType + AlarmLevel + LocationCardId + PersonnelId + AreaId + Content;
         }
 
     }

@@ -98,7 +98,7 @@ namespace LocationWCFServer
         private void SendAlive()
         {
             //Log.Info("PositionEngineDA.SendAlive");
-            byte[] data = Encoding.UTF8.GetBytes("1");
+            byte[] data = Encoding.UTF8.GetBytes("1");//当前项目所有标签的ID都是09开头的，发送1作为心跳包，有一定概率返回19开头的数据，改成0
             IPAddress ip = IPAddress.Parse(Login.EngineIp);
             ludp2.Send(data, new IPEndPoint(ip, Login.EnginePort));
 
@@ -125,6 +125,10 @@ namespace LocationWCFServer
             foreach (var dgram in dgramList)
             {
                 string msg = Encoding.UTF8.GetString(dgram.data);
+                if (dgram.data.Length>1&&msg.StartsWith("1"))
+                {
+
+                }
                 if (MessageReceived != null)
                 {
                     MessageReceived(msg);

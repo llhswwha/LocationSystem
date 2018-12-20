@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ArchorUDPTool.Models;
 using DbModel.Location.Settings;
@@ -1036,7 +1038,9 @@ namespace WPFClientControlLib
                 {
                     SelectArea(area);
                 }
-                ShowPersons();
+
+                if(IsShowPerson)
+                    ShowPersons();
             }
             catch (Exception ex)
             {
@@ -1197,5 +1201,54 @@ namespace WPFClientControlLib
         }
 
         public int ShowFloor;
+
+        private void MenuSaveImage_Click(object sender, RoutedEventArgs e)
+        {
+            string name = CurrentArea.Name;
+            if (CurrentArea.IsPark())
+            {
+                if (CbFloor.SelectedIndex > 0)
+                {
+                    name += "(" + CbFloor.Text + ")";
+                }
+            }
+            else
+            {
+
+            }
+            SaveToImage(Canvas1, name);
+        }
+
+        private void SaveToImage(Canvas canvas,string fileName)
+        {
+            string path = string.Format("{0}\\Data\\Images\\{1}.png", AppDomain.CurrentDomain.BaseDirectory, fileName);
+            //保存到特定路径
+            FileStream fs = new FileStream(path, FileMode.Create);
+            //对象转换成位图
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)(canvas.ActualWidth*1.1), (int)(canvas.ActualHeight * 1.1), 100, 100, PixelFormats.Pbgra32);
+            bmp.Render(canvas);
+            //对象的集合编码转成图像流
+            BitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+            //保存到路径中
+            encoder.Save(fs);
+            //释放资源
+            fs.Close();
+            fs.Dispose();
+        }
+
+        public bool IsShowPerson = true;
+
+        private void CbShowPerson_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowPerson = (bool)CbShowPerson.IsChecked;
+            Refresh();
+        }
+
+        private void CbShowPerson_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowPerson = (bool)CbShowPerson.IsChecked;
+            Refresh();
+        }
     }
 }

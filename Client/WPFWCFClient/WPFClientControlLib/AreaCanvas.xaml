@@ -19,6 +19,7 @@
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
             <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
             <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
+            <CheckBox Name="CbShowPerson" IsChecked="True" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
             <Label>楼层</Label>
             <ComboBox Width="50" Name="CbFloor" SelectionChanged="CbFloor_SelectionChanged">
                 <ComboBoxItem IsSelected="True">无</ComboBoxItem>
@@ -37,6 +38,11 @@
                             <ScaleTransform  ScaleX="1" ScaleY="-1" x:Name="ScaleTransform1"></ScaleTransform>
                         </Canvas.LayoutTransform>
                         <Polygon Fill="AliceBlue" StrokeThickness="5" Stroke="Green" Points="40,10 70,80 10,50"/>
+                        <Canvas.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="保存图片" Name="MenuSaveImage" Click="MenuSaveImage_Click"></MenuItem>
+                            </ContextMenu>
+                        </Canvas.ContextMenu>
                     </Canvas>
                 </Border>
             </ScrollViewer>

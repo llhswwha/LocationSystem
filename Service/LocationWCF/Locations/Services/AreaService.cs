@@ -81,7 +81,7 @@ namespace LocationServices.Locations.Services
                          select t1;
 
             var query3 = from t1 in db.LocationAlarms.DbSet
-                         where lst.Contains(t1.AreadId)
+                         where lst.Contains(t1.AreaId)
                          select t1;
 
             var query4 = from t1 in db.DevInfos.DbSet
@@ -115,7 +115,7 @@ namespace LocationServices.Locations.Services
                         join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
                         join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
                         join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                        select new PersonArea { Person = p, Area = pos.AreaId,Tag=tag,Pos=pos };
+                        select new PersonArea { Person = p, AreaId = pos.AreaId,Tag=tag,Pos=pos };
             var pList = query.ToList();
             var list = new List<TPerson>();
             foreach (var item in pList)
@@ -123,7 +123,7 @@ namespace LocationServices.Locations.Services
                 var p = item.Person.ToTModel();
                 p.Tag = item.Tag.ToTModel();
                 p.Tag.Pos = item.Pos.ToTModel();
-                p.AreaId = item.Area ?? 0;
+                p.AreaId = item.AreaId ?? 0;
                 list.Add(p);
             }
             return list;
@@ -159,7 +159,7 @@ namespace LocationServices.Locations.Services
         {
             public Personnel Person { get; set; }
 
-            public int? Area { get; set; }
+            public int? AreaId { get; set; }
 
             public LocationCard Tag { get; set; }
 
