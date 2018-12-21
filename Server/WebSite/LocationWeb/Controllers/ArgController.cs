@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebLocation.Tools;
 
 namespace WebLocation.Controllers
 {
@@ -11,10 +13,12 @@ namespace WebLocation.Controllers
         // GET: Arg            
         public string GetLoginInfo()       
         {
-            string ip = "127.0.0.1"; //动态获取后端Ip
-            string port = "8733";
-            string user = "admin";
-            string pass = "admin";
+            string ip = ConfigurationHelper.GetValue("Ip"); //动态获取后端Ip
+            //string ip = ConfigurationManager.AppSettings["Ip"];
+            //ConfigurationManager.AppSettings[key]
+            string port = ConfigurationHelper.GetValue("Port");
+            string user = ConfigurationHelper.GetValue("User");
+            string pass = ConfigurationHelper.GetValue("Password");
             //return ""
 
             var locations = ip + "|" + port + "|" + user + "|" + pass;  

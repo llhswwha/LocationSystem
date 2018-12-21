@@ -30,14 +30,6 @@ namespace BLL.Tools
                 return false;
             }
             var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
-            //for (int i = 0; i < initInfo.DevList.Count; i++)
-            //{
-            //    if (initInfo.DevList[i].TypeCode == LocationDeviceHelper.LocationDevTypeCode)
-            //    {
-            //        initInfo.DevList.RemoveAt(i);
-            //        i--;
-            //    }
-            //}
             var areas = bll.Areas.ToList();
             foreach (var devInfo in initInfo.DevList)
             {
@@ -45,9 +37,28 @@ namespace BLL.Tools
                 {
                     continue;
                 }
-                var area= areas.Find(i => i.Name == devInfo.ParentName);
-                if (area != null)
-                    devInfo.ParentId = area.Id;
+                string[] value = devInfo.ParentName.Split('|');
+                //电子设备间|集控楼0m层
+                if (value.Length < 2) continue;
+                string parentName = value[0];
+                List<Area> arealist = areas.FindAll(i => (i.Name == parentName));//找到所有 电子设备间
+                if (arealist.Count > 1)
+                {
+                    foreach (var areaT in arealist)
+                    {
+                        Area areaParent = areas.Find(i => i.Id == areaT.ParentId);
+                        if (areaParent.Name == value[1])  //找到父节点匹配的 ->集控楼0m层
+                        {
+                            devInfo.ParentId = areaT.Id;
+                        }
+                    }
+                }
+                else
+                {
+                    Area areaT = arealist[0];
+                    if (areaT != null)
+                        devInfo.ParentId = areaT.Id;
+                }
                 AddDevInfo(devInfo, bll.DevInfos);
             }
             return true;

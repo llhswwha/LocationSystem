@@ -8,15 +8,15 @@ $(function () {
             //dataType: "json",
             async: false,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 $(function () {
                     $("#exe").attr("href", "LocationSystem:");
                     //当前href
                     var location = $("#exe").attr("href");
-                    console.log(location);
+                    //console.log(location);
                     //连接字段
                     var newStr = location.concat(data);
-                    console.log(newStr);
+                    //console.log(newStr);
                     $("#exe").attr("href", newStr);
                 });
             },
@@ -32,7 +32,17 @@ $(function () {
         //console.log("LocationSystem.js");
         window.protocolCheck($(this).attr("href"),
             function () {
-                alert("exe程序未安装,请下载!");
+                var downloadEXE = window.confirm("exe程序未安装,是否下载安装包!")
+                if (downloadEXE) {
+                    //window.alert("下载");
+                    window.open("http://localhost:53506/../Exe/LocationSystem.exe");           
+                } else {
+                    //window.alert("取消");
+                    return false;
+                }
+                    
+                //alert("exe程序未安装,请下载!");                
+                //window.open("http://localhost:53506/../Exe/LocationSystem.exe");
             });
         event.preventDefault ? event.preventDefault() : event.returnValue = false;
     });            
