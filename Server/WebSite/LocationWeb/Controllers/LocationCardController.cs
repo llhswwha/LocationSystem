@@ -41,19 +41,19 @@ namespace WebLocation.Controllers
             return View();
         }      
 
-        public ActionResult RoleSet(int? id) //cww:添加id，接收点击某一行的标签时传递的id参数
+        public ActionResult RoleSet(int? id)//添加id，接收点击某一行的标签传递的id参数
         {
-            if (id == null)
+            if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var tag = db.LocationCards.Find(id);//cww:获取当前标签
-            if (tag == null)
+            var tag = db.LocationCards.Find(id);//获取当前标签
+            if(tag == null)
             {
                 return HttpNotFound();
             }
 
-            //cww:设置信息给前台使用
+            //设置相关信息给前台
             ViewBag.TagId = id;
             ViewBag.RoleId = tag.CardRoleId;
             ViewBag.TagName = tag.Name;

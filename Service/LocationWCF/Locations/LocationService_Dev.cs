@@ -356,7 +356,13 @@ namespace LocationServices.Locations
             //alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
             //alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
             //return alarms;
-            return db.LocationAlarms.ToList().ToWcfModelList();
+            var list = db.LocationAlarms.ToList();
+            var persons = db.Personnels.ToList();
+            foreach (var alarm in list)
+            {
+                alarm.Personnel = persons.Find(i => i.Id == alarm.PersonnelId);
+            }
+            return list.ToWcfModelList();
         }
 
         /// <summary>

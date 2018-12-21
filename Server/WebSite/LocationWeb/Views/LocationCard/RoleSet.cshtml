@@ -29,13 +29,13 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @if (item.Id == ViewBag.RoleId)
+                    @if(item.Id == ViewBag.RoleId)
                     {
-                        <input type="radio" name="choose" checked="checked" value="@item.Id"/> //cww:选中当前角色
+                        <input type="radio" name="choose" checked="checked" value="@item.Id" /> //选中当前角色
                     }
                     else
                     {
-                        <input type="radio" name="choose" value="@item.Id"/>
+                        <input type="radio" name="choose" value="@item.Id" />
                     }
                 </td>
                 <td>
@@ -49,7 +49,7 @@
     </table>
 
     <div class="form-group">
-        <input type="button" value="确定" class="btn btn-default" id="btnId" />
+         <input type="button" value="确定" class="btn btn-default" id="btnId" />        
     </div>
     <div>
         @Html.ActionLink("返 回", "Index")
@@ -65,29 +65,27 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
-
+           
     $(function () {
         $("#btnId").click(function () {
-            var choosedRoleId = $('input:radio[name="choose"]:checked').val();//cww:获取角色Id,这个是和上面的@item.Id对应的，上面设置，这里获取
-            //var roleset = eval('(' + '{"tagId":"' + 3 + '","roleId":"' + 3 + '"}' + ')');//这个还是拼接json字符串而不是处理javascript对象
+            var choosedRoleId = $('input:radio[name="choose"]:checked').val(); //获取角色Id，和上面的item.Id对应，上面设置这里获取   
             if (choosedRoleId == null) {
                 alert("未选择，不修改标签角色！");
                 //return false;
             }
-            else if (choosedRoleId == @ViewBag.RoleId) {
-                //alert("没有修改所所属角色");
-            }
+            else if(choosedRoleId == @ViewBag.RoleId) {
+                alert("没有修改所属角色");
+            }                
             else {
-                    var roleset = {} //cww:javascript创建空对象
-                    roleset.tagId = @ViewBag.TagId;//cww:给对象创建属性并赋值 使用后台传递的参数
-                    roleset.roleId = choosedRoleId;//cww:给对象创建属性并赋值
-
-                $.ajax({
+                var roleset = {} //javascript创建空对象
+                roleset.tagId = @ViewBag.TagId;//给对象创建属性并赋值 使用后台传递的参数
+                roleset.roleId = choosedRoleId;//给对象创建属性并赋值
+        
+                $.ajax({                   
                     type: "Post",
                     url: "LocationCard/SetTagRole",
-                    data: roleset,//cww:传递javascript对象作为参数，而不是json字符串
-                    //data:'{"tagId":"1","roleId":"2"}',
-                    //contentType: "application/json",//cww:这个移除掉
+                    data: roleset, //传递javascript对象作为参数，而不是json字符串 data:'{"tagId":"1","roleId":"2"}',
+                    //contentType: "application/json",
                     dataType: "json",
                     async: false,
                     success: function (data) {
@@ -95,19 +93,21 @@
                         console.log(data.success);
                         if (data.success == true) {
                             alert("标签角色设置成功！");
+                            //return false;                          
                         }
                         else {
                             alert("标签角色设置失败！");
-                        }
+                            //return false;
+                        }            
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        console.log("error");
+                        console.log("error"); 
                         console.log(XMLHttpRequest.status);
                         console.log(XMLHttpRequest.readyState);
                         console.log(textStatus);
                         alert("通信失败！");
                     }
-                });
+                });            
             }
         });
     });
