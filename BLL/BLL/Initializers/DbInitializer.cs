@@ -144,6 +144,8 @@ namespace BLL
             //配置信息
             InitDevModelAndType();
             InitAuthorization();
+
+            InitArchorSettings();
         }
 
         public void InitCardAndPerson()
@@ -476,6 +478,13 @@ namespace BLL
                 Describe = "坐标转换方向",
                 Classify = "Axes"
             });
+        }
+
+        public void InitArchorSettings()
+        {
+            var list2 = DbInfoHelper.GetArchorSettings();
+            _bll.ArchorSettings.Clear();
+            _bll.ArchorSettings.AddRange(list2);
         }
     }
 }
