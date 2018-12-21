@@ -55,9 +55,17 @@ namespace BLL.Tools
                 }
                 else
                 {
-                    Area areaT = arealist[0];
-                    if (areaT != null)
-                        devInfo.ParentId = areaT.Id;
+                    if (arealist.Count == 1)
+                    {
+                        Area areaT = arealist[0];
+                        if (areaT != null)
+                            devInfo.ParentId = areaT.Id;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    
                 }
                 AddDevInfo(devInfo, bll.DevInfos);
             }

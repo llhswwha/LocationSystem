@@ -19,23 +19,43 @@ namespace SignalRService.Hubs
 
         public static void SendDeviceAlarms(params DeviceAlarm[] alarms)
         {
-            foreach (var alarm in alarms)
-            {
-                DeviceAlarms[alarm.Id]= alarm;
-            }
-
-            IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
-            chatHubContext.Clients.All.GetDeviceAlarms(alarms);
+            //foreach (var alarm in alarms)
+            //{
+            //    DeviceAlarms[alarm.Id]= alarm;
+            //}
+            //IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
+            //chatHubContext.Clients.All.GetDeviceAlarms(alarms);
+            SendDevAlarm(alarms);
         }
-
+       
         public static void SendLocationAlarms(params LocationAlarm[] alarms)
         {
-            foreach (var alarm in alarms)
-            {
-                LocationAlarms[alarm.Id] = alarm;
-            }
+            //foreach (var alarm in alarms)
+            //{
+            //    LocationAlarms[alarm.Id] = alarm;
+            //}
+            //IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
+            //chatHubContext.Clients.All.GetLocationAlarms(alarms);
+            SendDevAlarm(alarms);
+        }
+
+        /// <summary>
+        /// 异步发送设备告警
+        /// </summary>
+        /// <param name="alarms"></param>
+        private static async void SendDevAlarm(params DeviceAlarm[] alarms)
+        {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
-            chatHubContext.Clients.All.GetLocationAlarms(alarms);
+            await chatHubContext.Clients.All.GetDeviceAlarms(alarms);
+        }
+        /// <summary>
+        /// 异步发送设备告警
+        /// </summary>
+        /// <param name="alarms"></param>
+        private static async void SendDevAlarm(params LocationAlarm[] alarms)
+        {
+            IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
+            await chatHubContext.Clients.All.GetDeviceAlarms(alarms);
         }
     }
 }
