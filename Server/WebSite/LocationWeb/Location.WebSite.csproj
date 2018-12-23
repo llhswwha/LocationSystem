@@ -356,6 +356,8 @@
     <None Include="Data\AuthorizationTree.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Data\CADAreaInfo.xml" />
     <None Include="Data\Images\顶视图.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -366,6 +368,12 @@
     <Content Include="Data\基站信息\基站信息.xml" />
     <Content Include="Data\设备信息\DevInfoBackup.xml" />
     <Content Include="Data\设备模型信息\DevTypeModel.sql" />
+    <None Include="Exe\LocationSystem.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Exe\a.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -464,6 +472,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.signalR-2.3.0.js" />
     <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -475,6 +485,8 @@
     <Content Include="Scripts\LocationSystem.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="LocationService.svc" />
     <Content Include="Web.config">
@@ -629,6 +641,7 @@
     <Content Include="Views\CardRole\Edit.cshtml" />
     <Content Include="Views\CardRole\Delete.cshtml" />
     <Content Include="Views\LocationCard\RoleSet.cshtml" />
+    <Content Include="Scripts\toastr.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
