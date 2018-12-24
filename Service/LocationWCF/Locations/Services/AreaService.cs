@@ -123,7 +123,7 @@ namespace LocationServices.Locations.Services
                 var p = item.Person.ToTModel();
                 p.Tag = item.Tag.ToTModel();
                 p.Tag.Pos = item.Pos.ToTModel();
-                p.AreaId = item.AreaId ?? 0;
+                p.AreaId = item.AreaId ?? 2;//要是AreaId为空就改为四会电厂区域
                 list.Add(p);
             }
             return list;

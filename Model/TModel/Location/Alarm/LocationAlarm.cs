@@ -155,7 +155,7 @@ namespace Location.TModel.Location.Alarm
                 Tag = p.Tag;
                 if(p.Tag!=null)
                     TagId = p.Tag.Id;
-                AreaId = p.AreaId ?? 0;
+                AreaId = p.AreaId ?? 2;//要是AreaId为空就改为四会电厂区域
             }
             return this;
         }
