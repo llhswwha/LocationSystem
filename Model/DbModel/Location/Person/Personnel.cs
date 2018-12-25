@@ -135,7 +135,6 @@ namespace DbModel.Location.Person
         {
             BirthDay = DateTime.Now;
             BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(BirthDay);
-            Enabled = true;
         }
 
         public Personnel Clone()

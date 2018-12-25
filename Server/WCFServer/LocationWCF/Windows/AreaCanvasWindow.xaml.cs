@@ -340,8 +340,7 @@ namespace LocationServer
             var archorList = archorService.GetList();
             foreach (var dev in devList)
             {
-                if(archorList!=null)
-                    dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
+                dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
             }
             var topoTree = ResourceTreeView1.TopoTree;
 
@@ -512,11 +511,6 @@ namespace LocationServer
                 var dev=topoTree.SelectedObject as DevEntity;
                 SetDevInfo(null, dev);
             });
-            topoTree.DevMenu.AddMenu("基站配置", (tag) =>
-            {
-                //var dev = topoTree.SelectedObject as DevEntity;
-                //SetDevInfo(null, dev);
-            });
             topoTree.DevMenu.AddMenu("删除设备", (tag) =>
             {
                 var dev = topoTree.SelectedObject as DevEntity;
@@ -569,12 +563,9 @@ namespace LocationServer
             currentArea = ResourceTreeView1.TopoTree.SelectedObject as AreaEntity;
             if (currentArea != null)
             {
-                Bll bll = new Bll();
-                var switchAreas = bll.bus_anchor_switch_area.ToList();
 
                 AreaCanvas1.ShowDev = true;
-                AreaCanvas1.ShowArea(currentArea, switchAreas);
-
+                AreaCanvas1.ShowArea(currentArea);
                 AreaListBox1.LoadData(currentArea.Children);
                 DeviceListBox1.LoadData(currentArea.LeafNodes);
 

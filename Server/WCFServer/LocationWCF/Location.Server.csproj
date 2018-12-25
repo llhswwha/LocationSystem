@@ -197,17 +197,14 @@
     </Compile>
     <Compile Include="Tools\ConfigurationHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
-    <Compile Include="Windows\AnchorCheckWindow.xaml.cs">
-      <DependentUpon>AnchorCheckWindow.xaml</DependentUpon>
+    <Compile Include="Windows\ArchorCheckWindow.xaml.cs">
+      <DependentUpon>ArchorCheckWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AreaTreeWindow.xaml.cs">
       <DependentUpon>AreaTreeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\BusAnchorConfigWindow.xaml.cs">
-      <DependentUpon>BusAnchorConfigWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\BusAnchorListWindow.xaml.cs">
-      <DependentUpon>BusAnchorListWindow.xaml</DependentUpon>
+    <Compile Include="Windows\BusArchorListWindow.xaml.cs">
+      <DependentUpon>BusArchorListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\EngineTool\ParkArchorSettingWindow.xaml.cs">
       <DependentUpon>ParkArchorSettingWindow.xaml</DependentUpon>
@@ -303,7 +300,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\AnchorCheckWindow.xaml">
+    <Page Include="Windows\ArchorCheckWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -311,11 +308,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\BusAnchorConfigWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\BusAnchorListWindow.xaml">
+    <Page Include="Windows\BusArchorListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

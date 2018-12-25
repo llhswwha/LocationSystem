@@ -23,8 +23,8 @@ namespace BLL.Blls.Engine
         public void UpdateList(List<DbModel.Location.AreaAndDev.Archor> archors2)
         {
             var archors1 = ToList();
-            var addList = new List<bus_anchor>();
-            var editList = new List<bus_anchor>();
+            List<bus_anchor> addList = new List<bus_anchor>();
+            List<bus_anchor> editList = new List<bus_anchor>();
             foreach (var archor in archors2)
             {
                 var bac = archors1.Find(i => i.anchor_id == archor.Code);//bus_archor

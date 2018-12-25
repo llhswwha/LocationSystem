@@ -46,7 +46,6 @@ namespace WebLocation
             Log.Info("XmlConfigurator");
             InitData();
 
-            //告警通道
             //if (receiveAlarmThread != null)
             //{
             //    RealAlarm ra = new RealAlarm();
@@ -55,15 +54,16 @@ namespace WebLocation
             //    ra.MessageHandler.DevAlarmReceived += DevAlarmReceived;
             //}
 
-            //定位引擎
-            //if (engineClient == null)
-            //{
-            //    Log.Info("StartConnectEngine");
-            //    EngineLogin login=new EngineLogin("127.0.0.1",2323,"127.0.0.1",3456);
-            //    engineClient = new PositionEngineClient();
-            //    engineClient.Logs = Logs;
-            //    engineClient.StartConnectEngine(login);//todo:ip写到配置文件中
-            //}
+            if (engineClient == null)
+            {
+                Log.Info("StartConnectEngine");
+
+                EngineLogin login=new EngineLogin("127.0.0.1",2323,"127.0.0.1",3456);
+
+                engineClient = new PositionEngineClient();
+                engineClient.Logs = Logs;
+                engineClient.StartConnectEngine(login);//todo:ip写到配置文件中
+            }
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();

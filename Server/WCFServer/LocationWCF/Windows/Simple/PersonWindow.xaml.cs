@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Location.TModel.Location.Person;
 using LocationServices.Locations.Services;
 
 namespace LocationServer.Windows
@@ -28,45 +27,8 @@ namespace LocationServer.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadData();
-        }
-
-        PersonService service = new PersonService();
-        private void LoadData()
-        {
-            
+            var service = new PersonService();
             DataGrid1.ItemsSource = service.GetList(true);
-        }
-
-        public Personnel SelectedItem
-        {
-            get
-            {
-                return DataGrid1.SelectedItem as Personnel;
-            }
-        }
-
-        private void MenuBindTag_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedItem == null) return;
-            var win = new TagWindow();
-            win.ShowOkButton();
-            if (win.ShowDialog() == true)
-            {
-                if (win.SelectedItem == null) return;
-                service.BindWithTag(SelectedItem.Id, win.SelectedItem.Id);
-                LoadData();
-            }
-        }
-
-        private void BtnOk_OnClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-        }
-
-        public void ShowOkButton()
-        {
-            ToolBar1.Visibility = Visibility.Visible;
         }
     }
 }

@@ -140,7 +140,7 @@ namespace LocationWCFServer
 
         private void MenuExportArchorPosition_OnClick(object sender, RoutedEventArgs e)
         {
-            var win = new BusAnchorListWindow();
+            var win = new BusArchorListWindow();
             win.Show();
         }
 
@@ -263,7 +263,7 @@ namespace LocationWCFServer
 
         private void MenuArchorCheck_Click(object sender, RoutedEventArgs e)
         {
-            var win = new AnchorCheckWindow();
+            var win = new ArchorCheckWindow();
             win.Show();
         }
 

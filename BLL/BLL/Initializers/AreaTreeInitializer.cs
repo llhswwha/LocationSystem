@@ -152,20 +152,16 @@ namespace BLL
         public void InitAreaAndDev()
         {
             Log.InfoStart("InitAreaAndDev");
+
             if (!InitTopoFromXml())
             {
                 InitTopoByEntities();
             }
-            InitDevs();
-            Log.InfoEnd("InitAreaAndDev");
-        }
 
-        public void InitDevs()
-        {
-            _bll.DevInfos.Clear();
             InitLocationDevice();//基站设备
             InitDevInfo();//设备信息（不包含基站设备）  
-            InitCameraInfo();//摄像头设备
+            InitCameraInfo();
+            Log.InfoEnd("InitAreaAndDev");
         }
 
         /// <summary>

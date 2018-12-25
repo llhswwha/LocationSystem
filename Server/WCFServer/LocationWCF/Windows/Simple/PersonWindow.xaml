@@ -6,16 +6,7 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
         Title="PersonWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Name="ToolBar1" Visibility="Collapsed">
-            <Button Name="BtnOk" Click="BtnOk_OnClick">确定</Button>
-        </StackPanel>
-        <DataGrid Name="DataGrid1">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="发卡" Name="MenuBindTag" Click="MenuBindTag_Click"></MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-        </DataGrid>
-    </DockPanel>
+    <Grid>
+        <DataGrid Name="DataGrid1"></DataGrid>
+    </Grid>
 </Window>

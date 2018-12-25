@@ -55,9 +55,6 @@
     <Compile Include="CADEntitys\CADShape.cs" />
     <Compile Include="CADEntitys\CADArea.cs" />
     <Compile Include="Engine\bus_anchor.cs" />
-    <Compile Include="Engine\bus_anchor_config.cs" />
-    <Compile Include="Engine\bus_anchor_switch_area.cs" />
-    <Compile Include="Engine\bus_area.cs" />
     <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />

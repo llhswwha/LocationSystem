@@ -8,7 +8,7 @@ using Location.IModel;
 namespace DbModel.Location.AreaAndDev
 {
     /// <summary>
-    /// 基站 //todo:英文写错了，应该是anchor
+    /// 基站
     /// </summary>
     public class Archor:IEntity
     {
