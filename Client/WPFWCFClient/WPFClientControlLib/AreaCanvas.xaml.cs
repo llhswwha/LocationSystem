@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ArchorUDPTool.Models;
+using DbModel.Engine;
 using DbModel.Location.Settings;
 using DbModel.Tools;
 using IModel.Enums;
@@ -259,10 +260,13 @@ namespace WPFClientControlLib
 
         public AreaEntity CurrentArea;
 
-        public void ShowArea(AreaEntity area)
+        List<bus_anchor_switch_area> _switchAreas;
+
+        public void ShowArea(AreaEntity area, List<bus_anchor_switch_area> switchAreas=null)
         {
             try
             {
+                _switchAreas = switchAreas;
                 CurrentArea = area;
                 CbView.SelectionChanged -= CbView_OnSelectionChanged;
                 CbView.SelectionChanged += CbView_OnSelectionChanged;
@@ -272,10 +276,18 @@ namespace WPFClientControlLib
                     SelectedArea = area;
                     int scale = 3;
                     DevSize = 3;
+
+                    Clear();
+                    
                     DrawPark(area, scale, DevSize);
+
                     InitCbScale(scale);
-                    InitCbDevSize(new double[] { 0.5, 1, 2, 3,4,5 }, DevSize);
+                    InitCbDevSize(new double[] { 0.5, 1, 2, 3, 4, 5 }, DevSize);
                     //ShowPersons(area.Persons);
+
+                    ShowSwitchArea(area, switchAreas, scale);
+
+
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
@@ -300,6 +312,49 @@ namespace WPFClientControlLib
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void ShowSwitchArea(AreaEntity area, List<bus_anchor_switch_area> switchAreas, int scale)
+        {
+            if (IsShowSwitchArea == false) return;
+            if (switchAreas != null)
+            {
+                var subSwitchAreas = switchAreas;
+                if (ShowFloor == 1)//1层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
+                }
+                else if (ShowFloor == 2)//2层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
+                }
+                else if (ShowFloor == 3)//3层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
+                }
+                else if (ShowFloor == 4)//4层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z >880);
+                }
+                else
+                {
+
+                }
+                foreach (var item in subSwitchAreas)
+                {
+                    AreaEntity switchArea = new AreaEntity();
+                    float x1 = item.start_x / 100.0f + 2059;
+                    float x2 = item.end_x / 100.0f + 2059;
+                    float y1 = item.start_y / 100.0f + 1565;
+                    float y2 = item.end_y / 100.0f + 1565;
+                    switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, item.min_z, item.max_z, false);
+                    switchArea.Parent = area;
+                    switchArea.Name = item.area_id;
+                    switchArea.Type = AreaTypes.SwitchArea;
+
+                    AddAreaRect(switchArea, null, scale);
+                }
             }
         }
 
@@ -408,10 +463,12 @@ namespace WPFClientControlLib
                 {
                     level1Item.Parent = area;
                     AddAreaRect(level1Item, area, scale, true);
+
+                    ShowDevs(level1Item.GetLeafNodes(), scale, devSize);//机房内设备
                 }
             }
 
-            ShowDevs(area.GetLeafNodes(), scale, devSize);
+            ShowDevs(area.GetLeafNodes(), scale, devSize);//楼层内设备
 
             AddZeroPoint(scale,new Vector(0,0));
         }
@@ -431,7 +488,7 @@ namespace WPFClientControlLib
 
         private void DrawPark(AreaEntity area,int scale,double devSize)
         {
-            Clear();
+            
             var bound = area.InitBound;
             //if (bound == null)
             //{
@@ -476,6 +533,7 @@ namespace WPFClientControlLib
                                             if (room == null) continue;
                                             room.Parent = floor;
                                             AddAreaRect(room, floor, scale);
+                                            ShowDevs(room.GetLeafNodes(), scale, devSize / 5);//机房内设备
                                         }
 
                                     ShowDevs(floor.GetLeafNodes(), scale, devSize/5);//楼层内设备
@@ -521,9 +579,16 @@ namespace WPFClientControlLib
                     foreach (var dev in devs)
                     {
                         if (dev == null) continue;
-                        if (dev.TypeCode != ArchorTypeCode) continue;
-                        count++;
-                        AddDevRect(dev, scale, devSize);
+                        if (dev.TypeCode == ArchorTypeCode)
+                        {
+                            count++;
+                            AddDevRect(dev, scale, devSize,ShowDevName);
+                        }
+                        else
+                        {
+                            AddDevRect(dev, scale, devSize*1.5,false);
+                        }
+                        
                     }
                     
                     LbState.Content = "基站设备数量:" + count;
@@ -532,7 +597,7 @@ namespace WPFClientControlLib
 
         public Func<DevEntity, ArchorSetting> GetSettingFunc;
 
-        private Rectangle AddDevRect(DevEntity dev,double scale, double size = 2)
+        private Rectangle AddDevRect(DevEntity dev,double scale, double size,bool showDevName)
         {
             if (DevDict.ContainsKey(dev.Id))
             {
@@ -545,18 +610,34 @@ namespace WPFClientControlLib
             double roomOffY = 0;
             if (DrawMode == 1)//大图模式
             {
-                if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)
+                if (parent != null)
                 {
-                    roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                    roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    if(parent.Type == AreaTypes.楼层 && parent.Parent != null)
+                    {
+                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
+                    else if (parent.Type == AreaTypes.机房 && parent.Parent != null)
+                    {
+                        roomOffX = parent.Parent.Parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.Parent.Parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
                 }
             }
             else //小图模式
             {
-                if (parent != null && parent.Type == AreaTypes.楼层)
+                if (parent != null)
                 {
-                    roomOffX = parent.InitBound.MinX;
-                    roomOffY = parent.InitBound.MinY;
+                    if (parent.Type == AreaTypes.楼层)
+                    {
+                        roomOffX = parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY;
+                    }
+                    else if (parent.Type == AreaTypes.机房)
+                    {
+                        roomOffX = parent.Parent.InitBound.MinX;
+                        roomOffY = parent.Parent.InitBound.MinY;
+                    }
                 }
             }
 
@@ -579,7 +660,7 @@ namespace WPFClientControlLib
             double y = (ay - OffsetY ) * scale - size * scale / 2;
 
             DevShape devShape = new DevShape(Canvas1);
-            if (ShowDevName)
+            if (showDevName)
             {
                 if (udpArchorList == null)
                 {
@@ -688,7 +769,7 @@ namespace WPFClientControlLib
             }
             else
             {
-                return Brushes.DeepSkyBlue;
+                return Brushes.CadetBlue;
             }
         }
 
@@ -829,6 +910,7 @@ namespace WPFClientControlLib
                 Canvas1.Children.Add(areaShape);
                 SetAreaStyle(area, areaShape);
                 areaShape.Tag = area;
+                areaShape.ToolTip = area.Name;
                 areaShape.ContextMenu = AreaContextMenu;
 
                 areaShape.MouseUp += Area_MouseDown;
@@ -865,7 +947,7 @@ namespace WPFClientControlLib
 
         private void ShowAreaName(AreaEntity area, double mX, double mY)
         {
-            if (IsShowAreaName && area.Type != AreaTypes.CAD)
+            if (IsShowAreaName && area.Type != AreaTypes.CAD&& !string.IsNullOrEmpty(area.Name))
             {
                 Label lb = new Label();
                 lb.Content = area.Name;
@@ -906,45 +988,50 @@ namespace WPFClientControlLib
             }
         }
 
-        private void SetAreaStyle(AreaEntity area, Shape polygon)
+        private void SetAreaStyle(AreaEntity area, Shape shape)
         {
             if (area.Type == AreaTypes.CAD)
             {
                 if (area.Name == "Block" || area.Name == "Polyline")
                 {
                     var brush = new SolidColorBrush(Color.FromArgb(128, 80, 80, 80));
-                    polygon.Fill = brush;
-                    polygon.Stroke = Brushes.Gray;
+                    shape.Fill = brush;
+                    shape.Stroke = Brushes.Gray;
                 }
                 else if (area.Name == "Line")
                 {
-                    polygon.Fill = Brushes.Transparent;
-                    polygon.Stroke = Brushes.Gray;
+                    shape.Fill = Brushes.Transparent;
+                    shape.Stroke = Brushes.Gray;
                 }
                 else
                 {
-                    polygon.Fill = Brushes.Transparent;
-                    polygon.Stroke = Brushes.Gray;
+                    shape.Fill = Brushes.Transparent;
+                    shape.Stroke = Brushes.Gray;
                 }
+            }
+            else if (area.Type == AreaTypes.SwitchArea)
+            {
+                shape.Fill = Brushes.Transparent;
+                shape.Stroke = Brushes.Green;
             }
             else if (area.Type == AreaTypes.大楼)
             {
-                polygon.Fill = Brushes.AliceBlue;
-                polygon.Stroke = Brushes.Blue;
+                shape.Fill = Brushes.AliceBlue;
+                shape.Stroke = Brushes.Blue;
             }
             else if(area.Type == AreaTypes.范围)
             {
-                polygon.Fill = Brushes.Transparent;
+                shape.Fill = Brushes.Transparent;
                 //SetShapeStrokeDash(polygon);
-                polygon.Stroke = Brushes.Orange;
+                shape.Stroke = Brushes.Orange;
             }
             else
             {
-                polygon.Fill = Brushes.Transparent;
-                polygon.Stroke = Brushes.Black;
+                shape.Fill = Brushes.Transparent;
+                shape.Stroke = Brushes.Black;
             }
 
-            polygon.StrokeThickness = 1;
+            shape.StrokeThickness = 1;
         }
 
         private FormattedText MeasureText(string text, double fontSize, string fontFamily)
@@ -982,9 +1069,13 @@ namespace WPFClientControlLib
         private void Area_MouseLeave(object sender, MouseEventArgs e)
         {
             var shape = sender as Shape;
+            var area = shape.Tag as AreaEntity;
+            if (area == null) return;
+
             if (SelectedRect != shape)
             {
-                UnSelectRectangle(shape);
+                //UnSelectRectangle(shape);
+                SetAreaStyle(area, shape);
             }
         }
 
@@ -1028,7 +1119,11 @@ namespace WPFClientControlLib
                 if (area == null) return;
                 if (area.ParentId == 1) //电厂
                 {
+                    Clear();
+                    
                     DrawPark(area, scale, DevSize);
+
+                    ShowSwitchArea(area, _switchAreas, scale);
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
@@ -1054,7 +1149,7 @@ namespace WPFClientControlLib
         {
             int scale = (int)CbScale.SelectedItem;
             
-            var rect=AddDevRect(dev, scale, DevSize);
+            var rect=AddDevRect(dev, scale, DevSize,ShowDevName);
             SelectDev(rect);
         }
 
@@ -1248,6 +1343,20 @@ namespace WPFClientControlLib
         private void CbShowPerson_Unchecked(object sender, RoutedEventArgs e)
         {
             IsShowPerson = (bool)CbShowPerson.IsChecked;
+            Refresh();
+        }
+
+        public bool IsShowSwitchArea = true;
+
+        private void CbShowSwitchArea_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowSwitchArea = (bool)CbShowSwitchArea.IsChecked;
+            Refresh();
+        }
+
+        private void CbShowSwitchArea_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowSwitchArea = (bool)CbShowSwitchArea.IsChecked;
             Refresh();
         }
     }

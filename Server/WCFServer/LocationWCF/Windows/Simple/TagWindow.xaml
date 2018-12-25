@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="TagWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Name="ToolBar1" Visibility="Collapsed">
+            <Button Name="BtnOk" Click="BtnOk_OnClick">确定</Button>
+        </StackPanel>
         <DataGrid Name="DataGrid1">
             <DataGrid.ContextMenu>
                 <ContextMenu>

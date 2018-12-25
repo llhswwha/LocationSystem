@@ -18,6 +18,10 @@ namespace DAL
         
         public DbSet<bus_anchor> bus_anchors { get; set; }
 
+        public DbSet<bus_anchor_config> bus_anchor_configs { get; set; }
+
+        public DbSet<bus_anchor_switch_area> bus_anchor_switch_areas { get; set; }
+
         public DbSet<bus_tag> bus_tags { get; set; }
 
     }

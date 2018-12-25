@@ -244,6 +244,8 @@ namespace LocationServer.Controls
         {
             var bll = AppContext.GetLocationBll();
 
+            
+
             var list0 = bll.bus_anchors.ToList();
             var list1 = new List<bus_anchor>();
             var list2 = new List<bus_anchor>();

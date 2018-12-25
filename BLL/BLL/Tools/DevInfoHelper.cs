@@ -31,6 +31,8 @@ namespace BLL.Tools
             }
             var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
             var areas = bll.Areas.ToList();
+            //var devs = bll.DevInfos.Where(i => i.Local_TypeCode != TypeCodes.Archor);
+            //bll.DevInfos.RemoveList(devs);//先清空所有设备
             foreach (var devInfo in initInfo.DevList)
             {
                 if (devInfo.TypeCode == TypeCodes.Archor+"")

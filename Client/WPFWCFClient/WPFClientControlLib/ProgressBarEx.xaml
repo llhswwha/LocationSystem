@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="400">
     <Grid>
-            <ProgressBar Name="ProgressBar1" Value="20"></ProgressBar>
+            <ProgressBar Name="ProgressBar1" Value="0"></ProgressBar>
         <Label VerticalAlignment="Center" Content="{Binding ElementName=ProgressBar1,Path=Value}" HorizontalAlignment="Center"></Label>
         <Label Name="LbTimer" Content="00:00:00" VerticalAlignment="Center"></Label>
     </Grid>
