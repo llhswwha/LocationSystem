@@ -16,6 +16,7 @@
             <MenuItem Header="读取数据">
                 <MenuItem Header="区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
                 <MenuItem Header="设备" Name="MenuInitDevs" Click="MenuInitDevs_Click"></MenuItem>
+                <MenuItem Header="标签卡" Name="MenuInitTags" Click="MenuInitTags_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuInitAA" Click="MenuInitAA_OnClick"></MenuItem>
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
                 <MenuItem Header="人员 标签" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>

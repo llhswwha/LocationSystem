@@ -529,12 +529,6 @@ namespace LocationServices.Locations
                 bac.anchor_bno = 0;
                 bac.syn_anchor_id = null;
                 bac.offset = 0;
-                bac.min_x = 90000000;
-                bac.max_x = 90000000;
-                bac.min_y = 90000000;
-                bac.max_y = 90000000;
-                bac.min_z = 90000000;
-                bac.max_z = 90000000;
                 bac.enabled = 1;
 
                 if (nFlag == 0)

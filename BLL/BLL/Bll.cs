@@ -148,6 +148,10 @@ namespace BLL
         /********************Engine********************************/
         public bus_anchorBll bus_anchors { get; set; }
 
+        public bus_anchor_switch_areaBll bus_anchor_switch_area { get; set; }
+
+        public bus_anchor_configBll bus_anchor_config { get; set; }
+
         public bus_tagBll bus_tags { get; set; }
 
         public Bll() : this(false, true, true,true)
@@ -232,7 +236,8 @@ namespace BLL
 
             bus_anchors = new bus_anchorBll(DbE);
             bus_tags = new bus_tagBll(DbE);
-
+            bus_anchor_config = new bus_anchor_configBll(DbE);
+            bus_anchor_switch_area = new bus_anchor_switch_areaBll(DbE);
 
             //LocationCards.ToList();
             //DevEntranceGuardCardActions.ToList();

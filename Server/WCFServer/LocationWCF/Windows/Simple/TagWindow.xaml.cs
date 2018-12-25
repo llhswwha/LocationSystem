@@ -38,6 +38,14 @@ namespace LocationServer.Windows
             DataGrid1.ItemsSource = service.GetList(true);
         }
 
+        public Tag SelectedItem
+        {
+            get
+            {
+                return DataGrid1.SelectedItem as Tag;
+            }
+        }
+
         private void MenuSetRole_OnClick(object sender, RoutedEventArgs e)
         {
             var tag = DataGrid1.SelectedItem as Tag;
@@ -57,7 +65,11 @@ namespace LocationServer.Windows
 
         private void MenuSetPerson_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var win = new PersonWindow();
+            if (win.ShowDialog() == true)
+            {
+
+            }
         }
 
         private void MenuAuthorization_Click(object sender, RoutedEventArgs e)
@@ -68,6 +80,16 @@ namespace LocationServer.Windows
             //if (role == null) return;
             //var win = new AreaAuthorizationWindow(role);
             //win.Show();
+        }
+
+        private void BtnOk_OnClick(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        public void ShowOkButton()
+        {
+            ToolBar1.Visibility = Visibility.Visible;
         }
     }
 }

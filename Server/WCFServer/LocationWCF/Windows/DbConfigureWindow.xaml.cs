@@ -482,7 +482,18 @@ namespace LocationServer.Windows
 
         private void MenuInitDevs_Click(object sender, RoutedEventArgs e)
         {
+            Bll bll = new Bll(false, false, false, false);
+            AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
+            initializer.InitDevs();
+            MessageBox.Show("完成");
+        }
 
+        private void MenuInitTags_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            DbInitializer initializer = new DbInitializer(bll);
+            initializer.InitTagPositions(false);
+            MessageBox.Show("完成");
         }
     }
 }
