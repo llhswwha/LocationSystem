@@ -21,6 +21,7 @@
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
                 <MenuItem Header="人员 标签" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
                 <MenuItem Header="基站测量配置信息" Name="MenuArchorSetting" Click="MenuArchorSetting_Click"></MenuItem>
+                <MenuItem Header="KKS" Name="MenuLoadKKS" Click="MenuLoadKKS_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="保存数据">
                 <MenuItem Header="区域" Name="MenuSaveTop" Click="MenuSaveTop_Click"></MenuItem>

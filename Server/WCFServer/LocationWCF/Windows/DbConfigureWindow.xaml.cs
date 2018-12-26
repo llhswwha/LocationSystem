@@ -495,5 +495,13 @@ namespace LocationServer.Windows
             initializer.InitTagPositions(false);
             MessageBox.Show("完成");
         }
+
+        private void MenuLoadKKS_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            DbInitializer initializer = new DbInitializer(bll);
+            initializer.InitAllKKSCode();
+            MessageBox.Show("完成");
+        }
     }
 }

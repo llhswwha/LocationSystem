@@ -81,7 +81,7 @@ namespace LocationServices.Locations.Services
                          select t1;
 
             var query3 = from t1 in db.LocationAlarms.DbSet
-                         where lst.Contains(t1.AreaId)
+                         where lst.Contains(t1.AreaId) && t1.AlarmLevel != 0
                          select t1;
 
             var query4 = from t1 in db.DevInfos.DbSet

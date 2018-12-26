@@ -81,6 +81,7 @@ namespace Location.BLL.Tool
             foreach (DataRow dr in dt.Rows)
             {
                 T kks1 = CreateKKSCodeFromDataRow<T>(mainType, dr);//根据表格内容创建KKS对象
+                if (kks1 == null) continue;
                 int nSplit = kks1.Code.Split(ch).Length - 1;
                 if (nSplit == 0)
                 {
