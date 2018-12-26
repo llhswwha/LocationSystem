@@ -500,7 +500,7 @@ namespace LocationServer.Windows
         {
             Bll bll = new Bll(false, false, false, false);
             DbInitializer initializer = new DbInitializer(bll);
-            initializer.InitAllKKSCode();
+            //initializer.InitAllKKSCode();
             MessageBox.Show("完成");
         }
     }
