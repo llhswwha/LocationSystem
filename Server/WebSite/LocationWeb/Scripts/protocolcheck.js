@@ -8,13 +8,13 @@
 		else if (typeof self !== "undefined") { g = self }
 		else { g = this }
 		g.protocolCheck = f()
-		console.log("protocolCheck");
+		//console.log("protocolCheck");
 	}
 })
 	(function () {
-		console.log("1");
+		//console.log("1");
 		var define, module, exports; return (function e(t, n, r) {
-			console.log("2");
+			//console.log("2");
 			function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s
 		})({
 			1: [function (require, module, exports) {
@@ -37,7 +37,7 @@
 				}
 
 				function _createHiddenIframe(target, uri) {
-				    console.log("_createHiddenIframe");
+				    //console.log("_createHiddenIframe");
 					var iframe = document.createElement("iframe");
 					iframe.src = uri;
 					iframe.id = "hiddenIframe";
@@ -48,7 +48,7 @@
 				}
 
 				function openUriWithHiddenFrame(uri, failCb, successCb) {
-				    console.log("openUriWithHiddenFrame");
+				    //console.log("openUriWithHiddenFrame");
 					var timeout = setTimeout(function () {
 						failCb();
 						handler.remove();
@@ -71,7 +71,7 @@
 				}
 
 				function openUriWithTimeoutHack(uri, failCb, successCb) {
-				    console.log("openUriWithTimeoutHack");
+				    //console.log("openUriWithTimeoutHack");
 					var timeout = setTimeout(function () {
 						failCb();
 						handler.remove();
@@ -95,7 +95,7 @@
 				}
 
 				function openUriUsingFirefox(uri, failCb, successCb) {
-				    console.log("openUriUsingFirefox");
+				    //console.log("openUriUsingFirefox");
 					var iframe = document.querySelector("#hiddenIframe");
 
 					if (!iframe) {
@@ -113,7 +113,7 @@
 					}
 				}
 				function openUriWithIE11UsingRegistry(uri, failCb, successCb) {
-				    console.log("openUriWithIE11UsingRegistry");
+				    //console.log("openUriWithIE11UsingRegistry");
 					var shell = new ActiveXObject("WScript.shell");
 					try {
 					    var reg = shell.RegRead("HKEY_CLASS_ROOT\\LocationSystem\\URL Protocol");
@@ -129,7 +129,7 @@
 				}
 
 				function openUriUsingIEInOlderWindows(uri, failCb, successCb) {
-				    console.log("openUriUsingIEInOlderWindows");
+				    //console.log("openUriUsingIEInOlderWindows");
 					if (getInternetExplorerVersion() === 10) {
 						openUriUsingIE10InWindows7(uri, failCb, successCb);
 					} else if (getInternetExplorerVersion() === 9 || getInternetExplorerVersion() === 11) {
@@ -141,7 +141,7 @@
 				}
 
 				function openUriUsingIE10InWindows7(uri, failCb, successCb) {
-				    console.log("openUriUsingIE10InWindows7");
+				    //console.log("openUriUsingIE10InWindows7");
 					var timeout = setTimeout(failCb, 6000);
 					window.addEventListener("blur", function () {
 						clearTimeout(timeout);
@@ -161,7 +161,7 @@
 				}
 
 				function openUriInNewWindowHack(uri, failCb, successCb) {
-				    console.log("openUriInNewWindowHack");
+				    //console.log("openUriInNewWindowHack");
 					var myWindow = window.open('', '', 'width=0,height=0');
 
 					myWindow.document.write("<iframe src='" + uri + "'></iframe>");
@@ -179,7 +179,7 @@
 				}
 
 				function openUriWithMsLaunchUri(uri, failCb, successCb) {
-				    console.log("openUriWithMsLaunchUri");
+				    //console.log("openUriWithMsLaunchUri");
 					navigator.msLaunchUri(uri,
 						successCb,
 						failCb
@@ -187,7 +187,7 @@
 				}
 
 				function checkBrowser() {
-				    console.log("checkBrowser");
+				    //console.log("checkBrowser");
 					var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 					return {
 						isOpera: isOpera,
@@ -199,7 +199,7 @@
 				}
 
 				function getInternetExplorerVersion() {
-				    console.log("getInternetExplorerVersion");
+				    //console.log("getInternetExplorerVersion");
 					var rv = -1;
 					if (navigator.appName === "Microsoft Internet Explorer") {
 						var ua = navigator.userAgent;

@@ -1,12 +1,14 @@
 ﻿using System.Data.Entity;
 using DbModel.Location.Person;
-using DAL.Migrations;
 using DbModel.Location.Authorizations;
 using DbModel.Location.Settings;
 using SQLite.CodeFirst;
+using DAL.LocationDbMigrations;
+using DbModel.Location.AreaAndDev;
 
 namespace DAL
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class LocationDb : DbContext
     {
         public static bool IsSqlite = false;
@@ -127,5 +129,7 @@ namespace DAL
         public DbSet<ArchorSetting> ArchorSettings { get; set; }
 
         public DbSet<CardRole> CardRoles { get; set; }
+
+        public DbSet<DevMonitorNode> DevMonitorNodes { get; set; }
     }
 }

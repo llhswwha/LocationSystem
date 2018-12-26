@@ -17,6 +17,7 @@ using BLL.Tools;
 using IModel.Enums;
 using TModel.LocationHistory.AreaAndDev;
 
+
 namespace LocationServices.Locations
 {
     //设备信息、位置信息相关的接口
@@ -377,12 +378,14 @@ namespace LocationServices.Locations
             List<LocationAlarm> alarms = new List<LocationAlarm>();
             for (int i = 0; i < count; i++)
             {
-                if(isAlarm)
+                Personnel person = null;
+                if (i < ps.Count) person = ps[i];
+                if (isAlarm)
                 {
                     alarms.Add(new LocationAlarm()
                     {
                         Id = i,
-                        TagId = 1,
+                        TagId = person == null ? 1 : (int)person.TagId,   //TagId = 1,
                         AlarmType = 0,
                         AlarmLevel = (LocationAlarmLevel)4,
                         Content = "定位告警" + i,
@@ -394,7 +397,7 @@ namespace LocationServices.Locations
                     alarms.Add(new LocationAlarm()
                     {
                         Id = i,
-                        TagId = 1,
+                        TagId = person == null ? 1 : (int)person.TagId,   //TagId = 1,
                         AlarmType = 0,
                         AlarmLevel = (LocationAlarmLevel)0,
                         Content = "定位消警" + i,
@@ -421,10 +424,10 @@ namespace LocationServices.Locations
             var devs = db.DevInfos.ToList();
             if (devs == null) return null;
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
-            alarms.Add(new DeviceAlarm() { Id = 0, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 1, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 2, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 3, Level = Abutment_DevAlarmLevel.中, Title = "告警4", Message = "设备告警4", CreateTime = new DateTime(2018, 9, 2, 14, 55, 20) }.SetDev(devs[2].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 927, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[926].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 8, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[7].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 1072, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1071].ToTModel()));
+            alarms.Add(new DeviceAlarm() { Id = 930, Level = Abutment_DevAlarmLevel.中, Title = "告警4", Message = "设备告警4", CreateTime = new DateTime(2018, 9, 2, 14, 55, 20) }.SetDev(devs[929].ToTModel()));
             alarms.Add(new DeviceAlarm() { Id = 4, Level = Abutment_DevAlarmLevel.低, Title = "告警5", Message = "设备告警5", CreateTime = new DateTime(2018, 9, 2, 13, 22, 44) }.SetDev(devs[3].ToTModel()));
             return alarms;
         }
@@ -443,7 +446,7 @@ namespace LocationServices.Locations
 
         public Archor GetArchorByDevId(int devId)
         {
-            return db.Archors.Find(i=>i.DevInfoId==devId).ToTModel();
+            return db.Archors.FirstOrDefault(i=>i.DevInfoId==devId).ToTModel();
         }
 
         public bool AddArchor(Archor archor)
@@ -469,6 +472,8 @@ namespace LocationServices.Locations
             }         
             if (Archor2 == null)
             {
+                LocationService service = new LocationService();
+                DbModel.Location.AreaAndDev.Area area = service.GetAreaById(ParentId);
                 Archor2 = Archor.ToDbModel();
 
                 DbModel.Location.AreaAndDev.DevInfo dev = new DbModel.Location.AreaAndDev.DevInfo();
@@ -476,7 +481,14 @@ namespace LocationServices.Locations
                 dev.IP = "";
                 dev.KKS = "";
                 dev.Name = Archor2.Name;
-                dev.ModelName = TypeNames.Archor;
+                if(area!=null)
+                {
+                    dev.ModelName = area.Name == DepNames.FactoryName ? TypeNames.ArchorOutdoor : TypeNames.Archor;//室外基站||室内基站
+                }
+                else
+                {
+                    dev.ModelName = TypeNames.Archor;
+                }                
                 dev.Status = 0;
                 dev.ParentId = ParentId;
                 dev.Local_TypeCode = TypeCodes.Archor;

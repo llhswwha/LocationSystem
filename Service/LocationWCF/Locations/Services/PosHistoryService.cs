@@ -165,9 +165,15 @@ namespace LocationServices.Locations.Services
                 return null;
             }
 
+            //var query = from t1 in db.LocationCardToPersonnels.DbSet
+            //            where t1.PersonnelId == personnelID
+            //            select (int?)t1.PersonnelId;
+            //List<int?> lst1 = query.ToList();
+
             var info = from u in dbSet.DbSet
-                       where personnelID == u.PersonnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
+                       where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
                        select u;
+
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
         }

@@ -17,17 +17,20 @@ namespace DbModel.LocationHistory.Data
     /// 位置信息 (历史位置记录）
     /// </summary>
     [DataContract]
-    public class Position:IId
+    public class Position : IId
     {
         private DateTime _dateTime;
 
         /// <summary>
         /// 主键Id
         /// </summary>
+        [Key, Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataMember]
         [Display(Name = "主键Id")]
         public int Id { get; set; }
 
+        [Index]
         [DataMember]
         [Display(Name = "标签卡Id")]
         public int? CardId { get; set; }
@@ -39,6 +42,7 @@ namespace DbModel.LocationHistory.Data
         /// <summary>
         /// 人员ID
         /// </summary>
+        [Index]
         [DataMember]
         [Display(Name = "人员ID")]
         public int? PersonnelID { get; set; }
@@ -78,19 +82,21 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "时间")]
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set
-            {
-                _dateTime = value;
-                DateTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
-            }
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set
+        //    {
+        //        _dateTime = value;
+        //        DateTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+        //    }
+        //}
 
-        /// <summary>
-        /// 时间戳（毫秒）
-        /// </summary>
+        ///// <summary>
+        ///// 时间戳（毫秒）
+        ///// </summary>
+        [Key, Column(Order = 2)]
+        [Index]
         [DataMember]
         [Display(Name = "时间戳")]
         public long DateTimeStamp { get; set; }

@@ -59,6 +59,7 @@
     <Compile Include="Engine\bus_anchor_switch_area.cs" />
     <Compile Include="Engine\bus_area.cs" />
     <Compile Include="Engine\bus_tag.cs" />
+    <Compile Include="Location\AreaAndDev\DevMonitorNode.cs" />
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Picture.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
     <Compile Include="Tools\InitInfos\CameraInfoBackUp.cs" />
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
+    <Compile Include="Tools\InitInfos\DoorAccessList.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />
     <Compile Include="Tools\InitInfos\LocationDevices.cs" />
     <Compile Include="Tools\InitInfos\PointInfo.cs" />

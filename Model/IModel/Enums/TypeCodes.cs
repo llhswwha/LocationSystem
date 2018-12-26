@@ -13,13 +13,21 @@ namespace IModel.Enums
 
 
     }
-
+    /// <summary>
+    /// 区域名称
+    /// </summary>
+    public class DepNames
+    {
+        public static string FactoryName="四会热电厂";
+    }
     public class TypeNames
     {
         /// <summary>
         /// 基站设备模型名称
         /// </summary>
         public static string Archor = "定位设备1_3D";
+
+        public static string ArchorOutdoor = "定位设备2_3D";
     }
 
     public class TypeCodeHelper

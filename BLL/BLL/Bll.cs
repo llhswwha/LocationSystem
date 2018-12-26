@@ -105,6 +105,8 @@ namespace BLL
 
         public CardRoleBll CardRoles { get; set; }
 
+        public DevMonitorNodeBll DevMonitorNodes { get; set; }
+
 
         /********************LocationHistory********************************/
 
@@ -211,6 +213,7 @@ namespace BLL
             Pictures = new PictureBll(Db);
             ArchorSettings = new ArchorSettingBll(Db);
             CardRoles = new CardRoleBll(Db);
+            DevMonitorNodes = new DevMonitorNodeBll(Db);
             //Shapes = new ShapeBll(Db);
             //ShapePoints = new ShapePointBll();
 

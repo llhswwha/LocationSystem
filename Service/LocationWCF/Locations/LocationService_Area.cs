@@ -8,6 +8,7 @@ using TModel.Location.Nodes;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
 using System.Linq;
+using DbModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations
 {
@@ -132,6 +133,16 @@ namespace LocationServices.Locations
             return db.Areas.Add(pt.ToDbModel());
         }
         
+        /// <summary>
+        /// 根据id，获取区域信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Area GetAreaById(int id)
+        {
+            return db.Areas.Find(i=>i.Id==id);
+        }
+
         public AreaStatistics GetAreaStatistics(int id)
         {
             List<int?> lst = new List<int?>();
@@ -156,6 +167,7 @@ namespace LocationServices.Locations
 
             return ast;
         }
+
 
         private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
         {

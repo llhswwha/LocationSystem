@@ -38,7 +38,7 @@ namespace BLL.Tools
                 {
                     continue;
                 }
-                AddLocationDev(devArea.DevList, archorBll, topo.Id);
+                AddLocationDev(devArea.DevList, archorBll, topo);
             }
             return true;
         }
@@ -48,15 +48,15 @@ namespace BLL.Tools
         /// <param name="devList">设备列表</param>
         /// <param name="devBlls">数据信息</param>
         /// <param name="areaId">设备所属区域ID</param>
-        private static void AddLocationDev(List<LocationDevice> devList, ArchorBll archorBll, int? areaId)
+        private static void AddLocationDev(List<LocationDevice> devList, ArchorBll archorBll,Area area)
         {
             for (int i = 0; i < devList.Count; i++)
             {
                 var locationDev = devList[i];
-                DevInfo devInfo = GetDevInfo(locationDev, areaId);
+                DevInfo devInfo = GetDevInfo(locationDev, area);
                 DevPos devPos = GetDevPos(locationDev, devInfo.Local_DevID);
                 Archor archor = GetAnchorInfo(locationDev, devInfo.Id);
-                archor.ParentId = areaId;
+                archor.ParentId = area.Id;
                 if (string.IsNullOrEmpty(archor.Code)||archor.Code.Contains("Code"))
                 {
                     archor.Code = "Code_" + i;
@@ -100,16 +100,16 @@ namespace BLL.Tools
         /// <param name="locationDev"></param>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        private static DevInfo GetDevInfo(LocationDevice locationDev,int? areaId)
+        private static DevInfo GetDevInfo(LocationDevice locationDev,Area area)
         {
             DevInfo dev = new DevInfo();
             dev.Local_DevID = Guid.NewGuid().ToString();
             dev.IP = "";
             dev.KKS = "";
             dev.Name = locationDev.Name;
-            dev.ModelName = TypeNames.Archor;
+            dev.ModelName = area.Name==DepNames.FactoryName?TypeNames.ArchorOutdoor:TypeNames.Archor;//室外基站||室内基站
             dev.Status = 0;
-            dev.ParentId = areaId;
+            dev.ParentId = area.Id;
             try
             {
                 dev.Local_TypeCode = TypeCodes.Archor;

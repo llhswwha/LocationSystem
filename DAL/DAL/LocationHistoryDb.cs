@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
-using DAL.Migrations;
 using SQLite.CodeFirst;
+using DAL.LocationHistoryDbMigrations;
 
 namespace DAL
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class LocationHistoryDb : DbContext
     {
         public static bool IsSqlite = false;
@@ -23,7 +24,8 @@ namespace DAL
             }
             else
             {
-                Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
+                //Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
+                Database.SetInitializer<LocationHistoryDb>(new MigrateDatabaseToLatestVersion<LocationHistoryDb, Configuration>());//自动数据迁移
             }
         }
 

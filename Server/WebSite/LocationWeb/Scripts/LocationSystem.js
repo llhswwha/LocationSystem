@@ -1,3 +1,4 @@
+//获取后台参数
 window.onload = function () {
     $.ajax({
         type: "get",
@@ -7,16 +8,16 @@ window.onload = function () {
         //dataType: "json",
         async: false,
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             $(function () {
-                $("#exe").attr("href", "LocationSystem:");
+                $("#openExe").attr("href", "LocationSystem:");
                 //当前href
-                var location = $("#exe").attr("href");
+                var location = $("#openExe").attr("href");
                 //console.log(location);
                 //连接字段
                 var newStr = location.concat(data);
                 //console.log(newStr);
-                $("#exe").attr("href", newStr);
+                $("#openExe").attr("href", newStr);
             });
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -29,35 +30,22 @@ window.onload = function () {
     });
 }
 
+//判断exe程序是否安装
 $(function () {
-    $("#exe[href]").click(function (event) {
-
-        console.log("LocationSystem.js");
+    $("#openExe[href]").click(function (event) {
+        //console.log("LocationSystem.js");
         window.protocolCheck($(this).attr("href"),
-            function () {
-                var downloadEXE = window.confirm("exe程序未安装,是否下载安装包!")
-                if (downloadEXE) {
-                    window.location.href = "/Exe/LocationSystem.exe";
-
-                    //$.ajax({
-                    //    type: "get",
-                    //    url: "Arg/GetDownloadLink?relativePath=/Exe/LocationSystem.exe",                   
-                    //    contentType: "text/html; charset=utf-8",
-                    //    //dataType: "json",
-                    //    async: false,
-                    //    success: function (data) {
-                    //        console.log(data);
-                    //        window.location.href = data;                            
-                    //    },
-                    //    error: function (XMLHttpRequest, textStatus, errorThrown) {                           
-                    //        alert("失败！");
-                    //    }
-                    //});
-                } 
-                //alert("exe程序未安装,请下载!");                               
+            function () {                
+                alert("三维程序未安装,请下载!");
             });
         event.preventDefault ? event.preventDefault() : event.returnValue = false;        
     });            
 });
 
+//下载三维程序安装包
+$(function () {
+    $("#downLoading").click(function () {        
+        window.location.href = "/Exe/LocationSystem.exe";                    
+    });
+});
 

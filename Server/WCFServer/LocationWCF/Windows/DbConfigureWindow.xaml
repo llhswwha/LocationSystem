@@ -25,6 +25,7 @@
             </MenuItem>
             <MenuItem Header="保存数据">
                 <MenuItem Header="区域" Name="MenuSaveTop" Click="MenuSaveTop_Click"></MenuItem>
+                <MenuItem Header="设备信息" Name="DevSaveTop" Click="DevSaveTop_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="整理初始化设备" Name="MenuRemoveArchor" Click="MenuRemoveArchor_Click"></MenuItem>

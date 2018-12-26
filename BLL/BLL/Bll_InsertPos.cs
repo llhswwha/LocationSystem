@@ -8,6 +8,7 @@ using DbModel.Location.Person;
 using DbModel.Location.Relation;
 using DbModel.LocationHistory.Data;
 using Location.BLL.Tool;
+using System.Threading;
 
 namespace BLL
 {
@@ -180,7 +181,14 @@ namespace BLL
             {
                 if (positions == null || positions.Count == 0) return false;
 
-                //AddPositionsBySql(positions);
+                AddPositionsBySql(positions);
+                if (PartitionThread == null)
+                {
+                    int count2 = DbHistory.U3DPositions.Count();
+                    PartitionThread = new Thread(InsertPartitionInfo);
+                    PartitionThread.Start();
+                    while (bPartitionInitFlag) { }
+                }
 
                 //1.批量插入历史数据数据
                 DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能

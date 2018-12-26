@@ -503,5 +503,14 @@ namespace LocationServer.Windows
             //initializer.InitAllKKSCode();
             MessageBox.Show("完成");
         }
+
+        private void DevSaveTop_Click(object sender, RoutedEventArgs e)
+        {
+            DevBackupHelper backup = new DevBackupHelper();
+            backup.BackupDevInfo(()=> 
+            {
+                MessageBox.Show("备份完成...");
+            });           
+        }
     }
 }

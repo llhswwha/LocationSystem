@@ -165,7 +165,9 @@ namespace BLL
             _bll.DevInfos.Clear();
             InitLocationDevice();//基站设备
             InitDevInfo();//设备信息（不包含基站设备）  
-            InitCameraInfo();//摄像头设备
+            InitCameraInfo();
+            InitDevMonitorNode();
+            Log.InfoEnd("InitAreaAndDev");
         }
 
         /// <summary>
@@ -188,7 +190,12 @@ namespace BLL
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
             bool value = DevInfoHelper.ImportDevInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入设备信息信息结果:{0}", value));
+            Log.Info(string.Format("导入设备信息结果:{0}", value));
+
+            Log.Info("导入门禁信息");
+            string doorAccessFilePath = basePath + "Data\\设备信息\\DoorAccessBackup.xml";
+            bool valueSub = DevInfoHelper.ImportDoorAccessInfoFromFile(doorAccessFilePath, _bll);
+            Log.Info(string.Format("导入门禁信息结果:{0}", valueSub));
         }
         private void InitCameraInfo()
         {
@@ -196,7 +203,7 @@ namespace BLL
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
             bool value = DevInfoHelper.ImportCameraInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入设备信息信息结果:{0}", value));
+            Log.Info(string.Format("导入摄像头信息结果:{0}", value));
         }
 
         private void InitTopoByEntities()
@@ -659,6 +666,16 @@ namespace BLL
             archor1.DevInfo = archor1Dev;
             DevInfos.Add(archor1Dev);
             Archors.Add(archor1);
+        }
+
+        private void InitDevMonitorNode()
+        {
+            //导入设备监控节点
+            Log.Info("导入设备监控节点");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            Log.Info("BaseDirectory:" + basePath);
+            string filePath = basePath + "Data\\EDOS.xls";
+            DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath));
         }
     }
 }

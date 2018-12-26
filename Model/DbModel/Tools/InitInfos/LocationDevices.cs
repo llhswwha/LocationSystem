@@ -23,7 +23,7 @@ namespace Location.Model.InitInfos
         [XmlAttribute("Name")]
         public string Name;
         /// <summary>
-        /// 区域列表
+        /// 设备列表
         /// </summary>
         [XmlElement("Device")]
         public List<LocationDevice> DevList;

@@ -220,6 +220,7 @@ namespace DbModel.Location.Data
             this.MoveState = pos.MoveState;
             this.ArchorsText = pos.ArchorsText;
             //this.AreaPath = pos.AreaPath;
+            this.PersonId = pos.PersonnelID;
         }
 
         public void Edit(LocationCardPosition pos)
@@ -240,6 +241,7 @@ namespace DbModel.Location.Data
             this.MoveState = pos.MoveState;
             this.ArchorsText = pos.ArchorsText;
             //this.AreaPath = pos.AreaPath;
+            this.PersonId = pos.PersonId;
         }
 
         public LocationCardPosition Clone()

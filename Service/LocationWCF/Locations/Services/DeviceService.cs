@@ -166,11 +166,20 @@ namespace LocationServices.Locations.Services
         public List<TEntity> GetListByPids(int[] pidList)
         {
             List<TEntity> devInfoList = new List<TEntity>();
+            DateTime recordT = DateTime.Now;
+            string value = "";
+            //List<DbModel.Location.AreaAndDev.DevInfo> InfoList = new List<DbModel.Location.AreaAndDev.DevInfo>();
             foreach (var pid in pidList)
             {
                 devInfoList.AddRange(dbSet.DbSet.Where(item => item.ParentId == pid).ToList().ToTModel());
+                //InfoList.AddRange(dbSet.DbSet.Where(item=>item.ParentId==pid).ToList());
+                value += string.Format("Find dev by id,id:{0} cost time:{1}ms \n",pid,(DateTime.Now-recordT).TotalMilliseconds);
+                recordT = DateTime.Now;
                 //BindingDev(devInfoList);
             }
+            //devInfoList = InfoList.ToTModel();
+            //value += string.Format("List to TModel,cost time:{0}ms \n", (DateTime.Now - recordT).TotalMilliseconds);
+            Console.WriteLine(value);
             return devInfoList.ToWCFList();
         }
 

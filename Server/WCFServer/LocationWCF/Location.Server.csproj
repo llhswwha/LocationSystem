@@ -196,6 +196,7 @@
       <DependentUpon>PointSelectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\ConfigurationHelper.cs" />
+    <Compile Include="Tools\DevBackupHelper.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Windows\AnchorCheckWindow.xaml.cs">
       <DependentUpon>AnchorCheckWindow.xaml</DependentUpon>
@@ -686,6 +687,7 @@
     </None>
     <None Include="Data\基站信息\基站信息.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\设备信息\DevInfoBackup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
