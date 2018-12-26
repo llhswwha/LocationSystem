@@ -83,13 +83,13 @@ namespace LocationServer
             else
             {
                 bll = new Bll();
-                if (isForce)
-                {
-                    //bll.Db.Database.Delete();
-                    //bll.Db.Database.Create();
-                    bll.DbHistory.Database.Delete();
-                    bll.DbHistory.Database.Create();
-                }
+                //if (isForce)
+                //{
+                //    //bll.Db.Database.Delete();
+                //    //bll.Db.Database.Create();
+                //    bll.DbHistory.Database.Delete();
+                //    bll.DbHistory.Database.Create();
+                //}
             }
             bll.InitAsync(mode,(b)=>
             {

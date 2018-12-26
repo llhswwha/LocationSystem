@@ -78,7 +78,7 @@ namespace LocationServer.Windows
             //XmlSerializeHelper.Save(xf, AppDomain.CurrentDomain.BaseDirectory + "\\Data\\XmlFile.xml");
 
 
-            AppContext.DeleteDb(0);
+            //AppContext.DeleteDb(0);
             AppContext.InitDbAsync(0, 0, (bll) =>
              {
                  InitImage(bll);

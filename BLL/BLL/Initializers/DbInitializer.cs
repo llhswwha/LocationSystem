@@ -147,7 +147,7 @@ namespace BLL
             InitDevModelAndType();
             InitAuthorization();
 
-            InitArchorSettings();
+            //InitArchorSettings();
         }
 
         public void InitCardAndPerson()
