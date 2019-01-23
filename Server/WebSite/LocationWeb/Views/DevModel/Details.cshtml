@@ -4,47 +4,65 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>t_SetModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModelId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModelId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Items)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Items)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-
-    </dl>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>t_SetModel</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModelId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModelId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Items)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Items)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Class)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Class)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "DevModel", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>

@@ -11,6 +11,8 @@ using Location.Model.DataObjects.ObjectAddList;
 using LocationServices.Converters;
 using TModel.BaseData;
 using WebApiLib.Clients;
+using TModel.Location.Work;
+using TModel.LocationHistory.Work;
 
 namespace LocationServices.Locations
 {
@@ -19,7 +21,8 @@ namespace LocationServices.Locations
     {
         private BaseDataClient GetClient()
         {
-            return new BaseDataClient("localhost","9347");
+            //return new BaseDataClient("localhost","9347");
+            return new BaseDataClient("ipms-demo.datacase.io", "api");
         }
 
         public Ticket GetTicketDetial(int id)
@@ -42,6 +45,32 @@ namespace LocationServices.Locations
                 return null;
             }
             return re.data.ToWcfModelList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dtBeginTime">起始时间</param>
+        /// <param name="dtEndTime">结束时间</param>
+        /// <param name="bFlag">值为True获取所有历史记录，值为False，按起始时间和结束时间获取历史记录</param>
+        /// <returns></returns>
+        public List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
+        {
+            List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
+            if (bFlag)
+            {
+                lst = db2.InspectionTrackHistorys.ToList();
+            }
+            else
+            {
+                long lBeginTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtBeginTime);
+                long lEndTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtEndTime);
+
+                lst = db2.InspectionTrackHistorys.Where(p=>p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
+
+            }
+
+            return lst.ToWcfModelList();
         }
     }
 }

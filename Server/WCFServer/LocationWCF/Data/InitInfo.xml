@@ -593,10 +593,10 @@
             <TopoInfo Name="Polyline" Type="CAD">
               <BoundInfo Thickness="4.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="10.8000994" Y="123.55" />
+                  <PointInfo X="10.8001" Y="123.55" />
                   <PointInfo X="35.89" Y="123.55" />
                   <PointInfo X="35.89" Y="131.75" />
-                  <PointInfo X="10.8000994" Y="131.75" />
+                  <PointInfo X="10.8001" Y="131.75" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -614,10 +614,10 @@
             <TopoInfo Name="Polyline" Type="CAD">
               <BoundInfo Thickness="4.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="10.8000994" Y="46.95" />
+                  <PointInfo X="10.8001" Y="46.95" />
                   <PointInfo X="35.89" Y="46.95" />
                   <PointInfo X="35.89" Y="55.15" />
-                  <PointInfo X="10.8000994" Y="55.15" />
+                  <PointInfo X="10.8001" Y="55.15" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -2465,10 +2465,10 @@
             <TopoInfo Name="Block" Type="CAD">
               <BoundInfo Thickness="4.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="36.0506248" Y="152.45079" />
-                  <PointInfo X="36.3493767" Y="152.45079" />
-                  <PointInfo X="36.3493767" Y="152.75" />
-                  <PointInfo X="36.0506248" Y="152.75" />
+                  <PointInfo X="36.0506" Y="152.451" />
+                  <PointInfo X="36.3494" Y="152.451" />
+                  <PointInfo X="36.3494" Y="152.75" />
+                  <PointInfo X="36.0506" Y="152.75" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -3955,10 +3955,10 @@
             <TopoInfo Name="Block" Type="CAD">
               <BoundInfo Thickness="6.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="4.10028267" Y="40.1" />
-                  <PointInfo X="4.30028248" Y="40.1" />
-                  <PointInfo X="4.30028248" Y="40.3" />
-                  <PointInfo X="4.10028267" Y="40.3" />
+                  <PointInfo X="4.10028" Y="40.1" />
+                  <PointInfo X="4.30028" Y="40.1" />
+                  <PointInfo X="4.30028" Y="40.3" />
+                  <PointInfo X="4.10028" Y="40.3" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -4035,10 +4035,10 @@
             <TopoInfo Name="Block" Type="CAD">
               <BoundInfo Thickness="6.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="19.3" Y="3.499513" />
-                  <PointInfo X="19.5" Y="3.499513" />
-                  <PointInfo X="19.5" Y="3.699513" />
-                  <PointInfo X="19.3" Y="3.699513" />
+                  <PointInfo X="19.3" Y="3.49951" />
+                  <PointInfo X="19.5" Y="3.49951" />
+                  <PointInfo X="19.5" Y="3.69951" />
+                  <PointInfo X="19.3" Y="3.69951" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -4075,10 +4075,10 @@
             <TopoInfo Name="Block" Type="CAD">
               <BoundInfo Thickness="6.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="4.10028267" Y="116.7" />
-                  <PointInfo X="4.30028248" Y="116.7" />
-                  <PointInfo X="4.30028248" Y="116.9" />
-                  <PointInfo X="4.10028267" Y="116.9" />
+                  <PointInfo X="4.10028" Y="116.7" />
+                  <PointInfo X="4.30028" Y="116.7" />
+                  <PointInfo X="4.30028" Y="116.9" />
+                  <PointInfo X="4.10028" Y="116.9" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -4155,10 +4155,10 @@
             <TopoInfo Name="Block" Type="CAD">
               <BoundInfo Thickness="6.5" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="19.3" Y="80.09952" />
-                  <PointInfo X="19.5" Y="80.09952" />
-                  <PointInfo X="19.5" Y="80.2995148" />
-                  <PointInfo X="19.3" Y="80.2995148" />
+                  <PointInfo X="19.3" Y="80.0995" />
+                  <PointInfo X="19.5" Y="80.0995" />
+                  <PointInfo X="19.5" Y="80.2995" />
+                  <PointInfo X="19.3" Y="80.2995" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -4820,7 +4820,7 @@
             </TopoInfo>
           </TopoInfo>
           <TopoInfo Name="集控楼13.1m层" KKS="J1UCA13" Type="楼层">
-            <BoundInfo Thickness="5.699999" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="true">
+            <BoundInfo Thickness="5.7" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="true">
               <Points>
                 <PointInfo X="-4.5" Y="0" />
                 <PointInfo X="36.3" Y="0" />
@@ -5044,7 +5044,7 @@
             </TopoInfo>
           </TopoInfo>
           <TopoInfo Name="联合车间4.5m层" KKS="J2UCA04" Type="楼层">
-            <BoundInfo Thickness="3.30000019" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
+            <BoundInfo Thickness="3.3" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
               <Points>
                 <PointInfo X="-4.4" Y="0" />
                 <PointInfo X="26" Y="0" />
@@ -5167,10 +5167,10 @@
         <TopoInfo Name="#1锅炉辅助间" KKS="11UTD" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2269.843" Y="1757.70007" />
-              <PointInfo X="2301.243" Y="1757.70007" />
-              <PointInfo X="2301.243" Y="1767.70007" />
-              <PointInfo X="2269.843" Y="1767.70007" />
+              <PointInfo X="2269.84" Y="1757.7" />
+              <PointInfo X="2301.24" Y="1757.7" />
+              <PointInfo X="2301.24" Y="1767.7" />
+              <PointInfo X="2269.84" Y="1767.7" />
             </Points>
           </BoundInfo>
           <TopoInfo Name="#1锅炉辅助间0m层" KKS="11UTD00" Type="楼层">
@@ -5204,7 +5204,7 @@
             </BoundInfo>
           </TopoInfo>
           <TopoInfo Name="#1锅炉辅助间8.5m层" KKS="11UTD08" Type="楼层">
-            <BoundInfo Thickness="4.64999962" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <BoundInfo Thickness="4.65" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="32.08" Y="0" />
@@ -5277,10 +5277,10 @@
         <TopoInfo Name="#3锅炉辅助间" KKS="21UTD" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2269.843" Y="1681.1001" />
-              <PointInfo X="2301.243" Y="1681.1001" />
-              <PointInfo X="2301.243" Y="1691.1001" />
-              <PointInfo X="2269.843" Y="1691.1001" />
+              <PointInfo X="2269.84" Y="1681.1" />
+              <PointInfo X="2301.24" Y="1681.1" />
+              <PointInfo X="2301.24" Y="1691.1" />
+              <PointInfo X="2269.84" Y="1691.1" />
             </Points>
           </BoundInfo>
           <TopoInfo Name="#3锅炉辅助间0m层" KKS="21UTD00" Type="楼层">
@@ -5314,7 +5314,7 @@
             </BoundInfo>
           </TopoInfo>
           <TopoInfo Name="#1锅炉辅助间8.5m层" KKS="21UTD08" Type="楼层">
-            <BoundInfo Thickness="4.64999962" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <BoundInfo Thickness="4.65" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="32.08" Y="0" />
@@ -5387,20 +5387,20 @@
         <TopoInfo Name="楼梯电梯间" KKS="11UHW" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2296.144" Y="1735.90015" />
-              <PointInfo X="2305.144" Y="1735.90015" />
-              <PointInfo X="2305.144" Y="1739.1" />
-              <PointInfo X="2296.144" Y="1739.1" />
+              <PointInfo X="2296.14" Y="1735.9" />
+              <PointInfo X="2305.14" Y="1735.9" />
+              <PointInfo X="2305.14" Y="1739.1" />
+              <PointInfo X="2296.14" Y="1739.1" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="楼梯电梯间" KKS="21UHW" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2296.144" Y="1659.3" />
-              <PointInfo X="2305.144" Y="1659.3" />
-              <PointInfo X="2305.144" Y="1662.50012" />
-              <PointInfo X="2296.144" Y="1662.50012" />
+              <PointInfo X="2296.14" Y="1659.3" />
+              <PointInfo X="2305.14" Y="1659.3" />
+              <PointInfo X="2305.14" Y="1662.5" />
+              <PointInfo X="2296.14" Y="1662.5" />
             </Points>
           </BoundInfo>
         </TopoInfo>
@@ -5593,22 +5593,22 @@
         <TopoInfo Name="#1锅炉房" KKS="11UHA" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2244.524" Y="1744.89575" />
-              <PointInfo X="2257.284" Y="1743.83716" />
-              <PointInfo X="2258.19922" Y="1743.83716" />
-              <PointInfo X="2269.243" Y="1740.90015" />
-              <PointInfo X="2294.64355" Y="1740.90015" />
-              <PointInfo X="2296.243" Y="1742.50012" />
-              <PointInfo X="2297.364" Y="1742.50012" />
-              <PointInfo X="2299.093" Y="1744.22827" />
-              <PointInfo X="2299.093" Y="1750.372" />
-              <PointInfo X="2297.364" Y="1752.1001" />
-              <PointInfo X="2296.243" Y="1752.1001" />
-              <PointInfo X="2294.64355" Y="1753.70007" />
-              <PointInfo X="2269.243" Y="1753.70007" />
-              <PointInfo X="2258.19922" Y="1750.76306" />
-              <PointInfo X="2257.284" Y="1750.76306" />
-              <PointInfo X="2244.524" Y="1749.70569" />
+              <PointInfo X="2244.52" Y="1744.9" />
+              <PointInfo X="2257.28" Y="1743.84" />
+              <PointInfo X="2258.2" Y="1743.84" />
+              <PointInfo X="2269.24" Y="1740.9" />
+              <PointInfo X="2294.64" Y="1740.9" />
+              <PointInfo X="2296.24" Y="1742.5" />
+              <PointInfo X="2297.36" Y="1742.5" />
+              <PointInfo X="2299.09" Y="1744.23" />
+              <PointInfo X="2299.09" Y="1750.37" />
+              <PointInfo X="2297.36" Y="1752.1" />
+              <PointInfo X="2296.24" Y="1752.1" />
+              <PointInfo X="2294.64" Y="1753.7" />
+              <PointInfo X="2269.24" Y="1753.7" />
+              <PointInfo X="2258.2" Y="1750.76" />
+              <PointInfo X="2257.28" Y="1750.76" />
+              <PointInfo X="2244.52" Y="1749.71" />
             </Points>
           </BoundInfo>
           <TopoInfo Name="#1锅炉房0m层" KKS="11UHA00" Type="楼层">
@@ -5649,9 +5649,9 @@
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
                   <PointInfo X="0" Y="0" />
-                  <PointInfo X="0.260000229" Y="0" />
-                  <PointInfo X="0.260000229" Y="0.309999943" />
-                  <PointInfo X="0" Y="0.309999943" />
+                  <PointInfo X="0.26" Y="0" />
+                  <PointInfo X="0.26" Y="0.31" />
+                  <PointInfo X="0" Y="0.31" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -5659,8 +5659,8 @@
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
                   <PointInfo X="0" Y="21.89" />
-                  <PointInfo X="0.260000229" Y="21.89" />
-                  <PointInfo X="0.260000229" Y="22.2" />
+                  <PointInfo X="0.26" Y="21.89" />
+                  <PointInfo X="0.26" Y="22.2" />
                   <PointInfo X="0" Y="22.2" />
                 </Points>
               </BoundInfo>
@@ -5668,10 +5668,10 @@
             <TopoInfo Name="柱子2" Type="CAD">
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="2.81200027" Y="-0.25" />
+                  <PointInfo X="2.812" Y="-0.25" />
                   <PointInfo X="2.822" Y="-0.25" />
                   <PointInfo X="2.822" Y="0.25" />
-                  <PointInfo X="2.81200027" Y="0.25" />
+                  <PointInfo X="2.812" Y="0.25" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -5790,22 +5790,22 @@
         <TopoInfo Name="#3锅炉房" KKS="21UHA" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2244.524" Y="1668.29565" />
-              <PointInfo X="2257.284" Y="1667.237" />
-              <PointInfo X="2258.19922" Y="1667.237" />
-              <PointInfo X="2269.243" Y="1664.3" />
-              <PointInfo X="2294.64355" Y="1664.3" />
-              <PointInfo X="2296.243" Y="1665.90015" />
-              <PointInfo X="2297.364" Y="1665.90015" />
-              <PointInfo X="2299.093" Y="1667.62817" />
-              <PointInfo X="2299.093" Y="1673.77185" />
-              <PointInfo X="2297.364" Y="1675.50012" />
-              <PointInfo X="2296.243" Y="1675.50012" />
-              <PointInfo X="2294.64355" Y="1677.1001" />
-              <PointInfo X="2269.243" Y="1677.1001" />
-              <PointInfo X="2258.19922" Y="1674.16309" />
-              <PointInfo X="2257.284" Y="1674.16309" />
-              <PointInfo X="2244.524" Y="1673.10559" />
+              <PointInfo X="2244.52" Y="1668.3" />
+              <PointInfo X="2257.28" Y="1667.24" />
+              <PointInfo X="2258.2" Y="1667.24" />
+              <PointInfo X="2269.24" Y="1664.3" />
+              <PointInfo X="2294.64" Y="1664.3" />
+              <PointInfo X="2296.24" Y="1665.9" />
+              <PointInfo X="2297.36" Y="1665.9" />
+              <PointInfo X="2299.09" Y="1667.63" />
+              <PointInfo X="2299.09" Y="1673.77" />
+              <PointInfo X="2297.36" Y="1675.5" />
+              <PointInfo X="2296.24" Y="1675.5" />
+              <PointInfo X="2294.64" Y="1677.1" />
+              <PointInfo X="2269.24" Y="1677.1" />
+              <PointInfo X="2258.2" Y="1674.16" />
+              <PointInfo X="2257.28" Y="1674.16" />
+              <PointInfo X="2244.52" Y="1673.11" />
             </Points>
           </BoundInfo>
           <TopoInfo Name="#3锅炉房0m层" KKS="21UHA00" Type="楼层">
@@ -5846,9 +5846,9 @@
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
                   <PointInfo X="0" Y="0" />
-                  <PointInfo X="0.260000229" Y="0" />
-                  <PointInfo X="0.260000229" Y="0.309999943" />
-                  <PointInfo X="0" Y="0.309999943" />
+                  <PointInfo X="0.26" Y="0" />
+                  <PointInfo X="0.26" Y="0.31" />
+                  <PointInfo X="0" Y="0.31" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -5856,8 +5856,8 @@
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
                   <PointInfo X="0" Y="21.89" />
-                  <PointInfo X="0.260000229" Y="21.89" />
-                  <PointInfo X="0.260000229" Y="22.2" />
+                  <PointInfo X="0.26" Y="21.89" />
+                  <PointInfo X="0.26" Y="22.2" />
                   <PointInfo X="0" Y="22.2" />
                 </Points>
               </BoundInfo>
@@ -5865,10 +5865,10 @@
             <TopoInfo Name="柱子2" Type="CAD">
               <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
                 <Points>
-                  <PointInfo X="2.81200027" Y="-0.25" />
+                  <PointInfo X="2.812" Y="-0.25" />
                   <PointInfo X="2.822" Y="-0.25" />
                   <PointInfo X="2.822" Y="0.25" />
-                  <PointInfo X="2.81200027" Y="0.25" />
+                  <PointInfo X="2.812" Y="0.25" />
                 </Points>
               </BoundInfo>
             </TopoInfo>
@@ -5987,20 +5987,20 @@
         <TopoInfo Name="#1烟囱" KKS="11UHN" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2299.093" Y="1744.22827" />
-              <PointInfo X="2303.39551" Y="1744.22827" />
-              <PointInfo X="2303.39551" Y="1750.372" />
-              <PointInfo X="2299.093" Y="1750.372" />
+              <PointInfo X="2299.09" Y="1744.23" />
+              <PointInfo X="2303.4" Y="1744.23" />
+              <PointInfo X="2303.4" Y="1750.37" />
+              <PointInfo X="2299.09" Y="1750.37" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="#3烟囱" KKS="21UHN" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2299.093" Y="1667.62817" />
-              <PointInfo X="2303.39551" Y="1667.62817" />
-              <PointInfo X="2303.39551" Y="1673.77185" />
-              <PointInfo X="2299.093" Y="1673.77185" />
+              <PointInfo X="2299.09" Y="1667.63" />
+              <PointInfo X="2303.4" Y="1667.63" />
+              <PointInfo X="2303.4" Y="1673.77" />
+              <PointInfo X="2299.09" Y="1673.77" />
             </Points>
           </BoundInfo>
         </TopoInfo>
@@ -6242,7 +6242,7 @@
             </TopoInfo>
           </TopoInfo>
           <TopoInfo Name="检修间及材料库8m层" KKS="Y1UYA08" Type="楼层">
-            <BoundInfo Thickness="4.10000038" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <BoundInfo Thickness="4.1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
               <Points>
                 <PointInfo X="0" Y="0" />
                 <PointInfo X="18.5" Y="0" />
@@ -6459,10 +6459,10 @@
         <TopoInfo Name="生活污水处理站" KKS="J1UGV" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2364.075" Y="1737.5" />
-              <PointInfo X="2372.075" Y="1737.5" />
-              <PointInfo X="2372.075" Y="1750" />
-              <PointInfo X="2364.075" Y="1750" />
+              <PointInfo X="2364.07" Y="1737.5" />
+              <PointInfo X="2372.07" Y="1737.5" />
+              <PointInfo X="2372.07" Y="1750" />
+              <PointInfo X="2364.07" Y="1750" />
             </Points>
           </BoundInfo>
           <TopoInfo Name="生活污水处理站0m层" KKS="J1UGV00" Type="楼层">
@@ -6851,32 +6851,32 @@
         <TopoInfo Name="循环水泵房" KKS="J1UQA" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2413.71973" Y="1686.1001" />
-              <PointInfo X="2435.82" Y="1686.1001" />
+              <PointInfo X="2413.72" Y="1686.1" />
+              <PointInfo X="2435.82" Y="1686.1" />
               <PointInfo X="2435.82" Y="1723.3" />
               <PointInfo X="2417.37" Y="1723.3" />
-              <PointInfo X="2417.37" Y="1717.1001" />
-              <PointInfo X="2413.71973" Y="1717.1001" />
+              <PointInfo X="2417.37" Y="1717.1" />
+              <PointInfo X="2413.72" Y="1717.1" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="自然通风冷却塔" KKS="J1URA" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2417.172" Y="1724.172" />
-              <PointInfo X="2490.828" Y="1724.172" />
-              <PointInfo X="2490.828" Y="1797.828" />
-              <PointInfo X="2417.172" Y="1797.828" />
+              <PointInfo X="2417.17" Y="1724.17" />
+              <PointInfo X="2490.83" Y="1724.17" />
+              <PointInfo X="2490.83" Y="1797.83" />
+              <PointInfo X="2417.17" Y="1797.83" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="自然通风冷却塔" KKS="J1URA" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2417.172" Y="1612.172" />
-              <PointInfo X="2490.828" Y="1612.172" />
-              <PointInfo X="2490.828" Y="1685.828" />
-              <PointInfo X="2417.172" Y="1685.828" />
+              <PointInfo X="2417.17" Y="1612.17" />
+              <PointInfo X="2490.83" Y="1612.17" />
+              <PointInfo X="2490.83" Y="1685.83" />
+              <PointInfo X="2417.17" Y="1685.83" />
             </Points>
           </BoundInfo>
         </TopoInfo>
@@ -7121,20 +7121,20 @@
               <PointInfo X="2516" Y="1723" />
               <PointInfo X="2516" Y="1715" />
               <PointInfo X="2512" Y="1715" />
-              <PointInfo X="2507.75732" Y="1717.25732" />
+              <PointInfo X="2507.76" Y="1717.26" />
               <PointInfo X="2506" Y="1722" />
-              <PointInfo X="2508.636" Y="1728.364" />
+              <PointInfo X="2508.64" Y="1728.36" />
               <PointInfo X="2515" Y="1731" />
-              <PointInfo X="2548.998" Y="1731" />
-              <PointInfo X="2555.28369" Y="1728.44128" />
-              <PointInfo X="2557.99536" Y="1722.22021" />
-              <PointInfo X="2558.46069" Y="1703.22021" />
-              <PointInfo X="2555.90454" Y="1696.71436" />
-              <PointInfo X="2549.46338" Y="1694" />
+              <PointInfo X="2549" Y="1731" />
+              <PointInfo X="2555.28" Y="1728.44" />
+              <PointInfo X="2558" Y="1722.22" />
+              <PointInfo X="2558.46" Y="1703.22" />
+              <PointInfo X="2555.9" Y="1696.71" />
+              <PointInfo X="2549.46" Y="1694" />
               <PointInfo X="2515" Y="1694" />
-              <PointInfo X="2508.636" Y="1696.636" />
+              <PointInfo X="2508.64" Y="1696.64" />
               <PointInfo X="2506" Y="1703" />
-              <PointInfo X="2507.75732" Y="1707.74255" />
+              <PointInfo X="2507.76" Y="1707.74" />
               <PointInfo X="2512" Y="1709.5" />
             </Points>
           </BoundInfo>
@@ -7205,12 +7205,12 @@
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
               <PointInfo X="2090" Y="1805" />
-              <PointInfo X="2096.53662" Y="1779.12024" />
-              <PointInfo X="2114.58081" Y="1759.44849" />
-              <PointInfo X="2135.97437" Y="1751.171" />
-              <PointInfo X="2138.03931" Y="1764.2085" />
-              <PointInfo X="2121.82544" Y="1770.4812" />
-              <PointInfo X="2108.24146" Y="1785.43591" />
+              <PointInfo X="2096.54" Y="1779.12" />
+              <PointInfo X="2114.58" Y="1759.45" />
+              <PointInfo X="2135.97" Y="1751.17" />
+              <PointInfo X="2138.04" Y="1764.21" />
+              <PointInfo X="2121.83" Y="1770.48" />
+              <PointInfo X="2108.24" Y="1785.44" />
               <PointInfo X="2103.2" Y="1805" />
             </Points>
           </BoundInfo>
@@ -7250,8 +7250,8 @@
         <TopoInfo Name="消防车库" KKS="Y1UYQ" Type="大楼">
           <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2512" Y="1576.705" />
-              <PointInfo X="2525.5" Y="1576.705" />
+              <PointInfo X="2512" Y="1576.7" />
+              <PointInfo X="2525.5" Y="1576.7" />
               <PointInfo X="2525.5" Y="1606.6" />
               <PointInfo X="2512" Y="1606.6" />
             </Points>
@@ -7267,65 +7267,116 @@
         <TopoInfo Name="SD01" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2166.956" Y="1801.108" />
-              <PointInfo X="2168.956" Y="1801.108" />
-              <PointInfo X="2168.956" Y="1803.108" />
-              <PointInfo X="2166.956" Y="1803.108" />
+              <PointInfo X="2166.96" Y="1801.11" />
+              <PointInfo X="2168.96" Y="1801.11" />
+              <PointInfo X="2168.96" Y="1803.11" />
+              <PointInfo X="2166.96" Y="1803.11" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="SD02" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2140.473" Y="1637.55" />
-              <PointInfo X="2142.473" Y="1637.55" />
-              <PointInfo X="2142.473" Y="1639.55" />
-              <PointInfo X="2140.473" Y="1639.55" />
+              <PointInfo X="2140.47" Y="1637.55" />
+              <PointInfo X="2142.47" Y="1637.55" />
+              <PointInfo X="2142.47" Y="1639.55" />
+              <PointInfo X="2140.47" Y="1639.55" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="SD03" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2285.789" Y="1817.971" />
-              <PointInfo X="2287.789" Y="1817.971" />
-              <PointInfo X="2287.789" Y="1819.971" />
-              <PointInfo X="2285.789" Y="1819.971" />
+              <PointInfo X="2285.79" Y="1817.97" />
+              <PointInfo X="2287.79" Y="1817.97" />
+              <PointInfo X="2287.79" Y="1819.97" />
+              <PointInfo X="2285.79" Y="1819.97" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="SD04" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2305.067" Y="1648.351" />
-              <PointInfo X="2307.067" Y="1648.351" />
-              <PointInfo X="2307.067" Y="1650.351" />
-              <PointInfo X="2305.067" Y="1650.351" />
+              <PointInfo X="2305.07" Y="1648.35" />
+              <PointInfo X="2307.07" Y="1648.35" />
+              <PointInfo X="2307.07" Y="1650.35" />
+              <PointInfo X="2305.07" Y="1650.35" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="SD05" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2496" Y="1805.993" />
-              <PointInfo X="2498" Y="1805.993" />
-              <PointInfo X="2498" Y="1807.993" />
-              <PointInfo X="2496" Y="1807.993" />
+              <PointInfo X="2496" Y="1805.99" />
+              <PointInfo X="2498" Y="1805.99" />
+              <PointInfo X="2498" Y="1807.99" />
+              <PointInfo X="2496" Y="1807.99" />
             </Points>
           </BoundInfo>
         </TopoInfo>
         <TopoInfo Name="SD06" Type="大楼">
           <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
             <Points>
-              <PointInfo X="2496.256" Y="1574.192" />
-              <PointInfo X="2498.256" Y="1574.192" />
-              <PointInfo X="2498.256" Y="1576.192" />
-              <PointInfo X="2496.256" Y="1576.192" />
+              <PointInfo X="2496.26" Y="1574.19" />
+              <PointInfo X="2498.26" Y="1574.19" />
+              <PointInfo X="2498.26" Y="1576.19" />
+              <PointInfo X="2496.26" Y="1576.19" />
             </Points>
           </BoundInfo>
         </TopoInfo>
       </TopoInfo>
-      <TopoInfo Name="测试1" Type="分组" />
+	  <TopoInfo Name="告警区域" Type="分组">
+        <TopoInfo Name="#1变主区域告警区域" Type="范围">
+          <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2168" Y="1746.4" />
+              <PointInfo X="2168" Y="1715.5" />
+              <PointInfo X="2200" Y="1715.5" />
+              <PointInfo X="2200" Y="1746.4" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2变主区域告警区域" Type="范围">
+          <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2177.9" Y="1776.95" />
+              <PointInfo X="2177.9" Y="1760.15" />
+              <PointInfo X="2200" Y="1760.15" />
+              <PointInfo X="2200" Y="1776.95" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#3变主区域告警区域" Type="范围">
+          <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2169" Y="1668.8" />
+              <PointInfo X="2169" Y="1651.9" />
+              <PointInfo X="2200" Y="1651.9" />
+              <PointInfo X="2200" Y="1668.8" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#4变主区域告警区域" Type="范围">
+          <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2177.9" Y="1700.35" />
+              <PointInfo X="2177.9" Y="1683.55" />
+              <PointInfo X="2200" Y="1683.55" />
+              <PointInfo X="2200" Y="1700.35" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="供氢站告警区域" Type="范围">
+          <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="2505" Y="1732" />
+              <PointInfo X="2505" Y="1693" />
+              <PointInfo X="2559.46" Y="1693" />
+              <PointInfo X="2559.46" Y="1732" />
+            </Points>
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
     </TopoInfo>
     <TopoInfo Name="高新软件园" Type="园区">
       <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">

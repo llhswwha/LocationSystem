@@ -69,20 +69,39 @@
                     <Button Name="GetEntranceActionInfoByPerson24Hours" Click="GetEntranceActionInfoByPerson24Hours_OnClick">获取人员24小时内经过的门禁 </Button>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="实时位置">
+            <TabItem Header="位置信息">
                 <DockPanel>
                     <Menu DockPanel.Dock="Top">
-                        <MenuItem Header="获取" Name="MenuGetRealPos" Click="MenuGetRealPos_Click"></MenuItem>
+                        <MenuItem Header="获取实时位置信息" Name="MenuGetRealPos" Click="MenuGetRealPos_Click"></MenuItem>
+                    </Menu>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取历史位置信息" Name="MenuGetHisPos" Click="MenuGetHisPos_Click"></MenuItem>
                     </Menu>
                     <DataGrid Name="DataGridRealPos"></DataGrid>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="历史位置">
+            <!--<TabItem Header="历史位置">
                 <DockPanel>
                     <Menu DockPanel.Dock="Top">
                         <MenuItem Header="获取" Name="MenuGetHisPos" Click="MenuGetHisPos_Click"></MenuItem>
                     </Menu>
                     <DataGrid Name="DataGridHisPos"></DataGrid>
+                </DockPanel>
+            </TabItem>-->
+            <TabItem Header="设备监控节点测试">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取" Name="GetDevMonitorInfoByKKS" Click="GetDevMonitorInfoByKKS_Click"></MenuItem>
+                    </Menu>
+                    <DataGrid Name="DataGridDevMonitorInfoPos"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="获取基础平台信息">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取移动巡检轨迹信息" Name="GetInspectionTrack" Click="GetInspectionTrack_Click"></MenuItem>
+                    </Menu>
+                    <DataGrid Name="BasicDataPlatFormInfo"></DataGrid>
                 </DockPanel>
             </TabItem>
         </TabControl>

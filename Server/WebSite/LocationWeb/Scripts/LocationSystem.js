@@ -2,29 +2,22 @@
 window.onload = function () {
     $.ajax({
         type: "get",
-        url: "Arg/GetLoginInfo",
+        url: "/Arg/GetLoginInfo",
         //data: 'locations',
         contentType: "text/html; charset=utf-8",
         //dataType: "json",
         async: false,
         success: function (data) {
-            //console.log(data);
             $(function () {
                 $("#openExe").attr("href", "LocationSystem:");
                 //当前href
-                var location = $("#openExe").attr("href");
-                //console.log(location);
+                var location = $("#openExe").attr("href");                
                 //连接字段
                 var newStr = location.concat(data);
-                //console.log(newStr);
                 $("#openExe").attr("href", newStr);
             });
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            //console.log("error");
-            //console.log(XMLHttpRequest.status);
-            //console.log(XMLHttpRequest.readyState);
-            //console.log(textStatus);
             alert("失败！");
         }
     });
@@ -35,8 +28,14 @@ $(function () {
     $("#openExe[href]").click(function (event) {
         //console.log("LocationSystem.js");
         window.protocolCheck($(this).attr("href"),
-            function () {                
-                alert("三维程序未安装,请下载!");
+            function () {
+                if (confirm("三维程序未安装,请下载!")) {
+                    window.location.href = "/Exe/LocationSystem.exe";
+                }
+                else {
+                    return false;
+                }
+                //alert("三维程序未安装,请下载!");
             });
         event.preventDefault ? event.preventDefault() : event.returnValue = false;        
     });            

@@ -129,7 +129,7 @@ namespace LocationServices.Tools
             {
                 while (true)
                 {
-                    Thread.Sleep(300);//300ms插入一次数据库
+                    Thread.Sleep(50);//300ms插入一次数据库
                     //todo:1.插入数据库时间写入配置文件,2.实时数据弄一个缓存，让客户端从缓存中取。
                     InsertPostions();
                 }
@@ -281,6 +281,7 @@ namespace LocationServices.Tools
             }
         }
 
+
         private void EngineDa_PositionListRecived(List<Position> posList)
         {
             //lock (Positions)//这里有lock的话会导致线程堵住，去掉发现似乎并不需要
@@ -289,6 +290,7 @@ namespace LocationServices.Tools
                 {
                     foreach (var item in posList)
                     {
+
                         if (item != null)
                         {
                             Positions.Add(item);

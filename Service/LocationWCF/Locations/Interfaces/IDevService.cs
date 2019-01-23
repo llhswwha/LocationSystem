@@ -259,7 +259,7 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         bool AddArchor(Archor archor);
         [OperationContract]
-        void DeleteArchor(int archorId);
+        bool DeleteArchor(int archorId);
 
         /// <summary>
         /// 附近设备（通用）
@@ -293,6 +293,7 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName);
 
-
+        [OperationContract]
+        Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag);
     }
 }

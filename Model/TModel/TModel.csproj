@@ -47,15 +47,20 @@
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
     <Compile Include="LocationHistory\AreaAndDev\EntranceGuardActionInfo.cs" />
+    <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationTicketHistory.cs" />
+    <Compile Include="LocationHistory\Work\PatrolPointHistory.cs" />
+    <Compile Include="LocationHistory\Work\PatrolPointItemHistory.cs" />
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionHistory.cs" />
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionItemHistory.cs" />
     <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
     <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
     <Compile Include="Location\AreaAndDev\Archor.cs" />
+    <Compile Include="Location\AreaAndDev\DevMonitorNode.cs" />
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
+    <Compile Include="Location\AreaAndDev\Dev_Monitor.cs" />
     <Compile Include="Location\AreaAndDev\ModelTypeItem.cs" />
     <Compile Include="Location\AreaAndDev\NearbyDev.cs" />
     <Compile Include="Location\AreaAndDev\ObjectAddList.cs" />
@@ -88,6 +93,7 @@
     <Compile Include="Location\Person\NearbyPerson.cs" />
     <Compile Include="Location\Person\Personnel.cs" />
     <Compile Include="Location\TransferOfAxesConfig.cs" />
+    <Compile Include="Location\Work\InspectionTrack.cs" />
     <Compile Include="Location\Work\JurisDiction.cs" />
     <Compile Include="Location\Work\JurisDictionRecord.cs" />
     <Compile Include="Location\Work\MobileInspection.cs" />
@@ -96,6 +102,8 @@
     <Compile Include="Location\Work\MobileInspectionItem.cs" />
     <Compile Include="Location\Work\OperationItem.cs" />
     <Compile Include="Location\Work\OperationTicket.cs" />
+    <Compile Include="Location\Work\PatrolPoint.cs" />
+    <Compile Include="Location\Work\PatrolPointItem.cs" />
     <Compile Include="Location\Work\PersonnelMobileInspection.cs" />
     <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
     <Compile Include="Location\Work\SafetyMeasures.cs" />
@@ -118,6 +126,9 @@
       <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
       <Name>IModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

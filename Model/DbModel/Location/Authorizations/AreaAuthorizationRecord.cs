@@ -10,6 +10,7 @@ using DbModel.Location.Authorizations;
 using DbModel.LocationHistory.Data;
 using Location.IModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using DbModel.Location.Person;
 
 namespace DbModel.Location.Work
 {
@@ -58,6 +59,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "起始时间点")]
+        [DataType(DataType.Time)]
         [XmlAttribute]
         public DateTime StartTime { get; set; }
 
@@ -66,6 +68,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "结束时间点")]
+        [DataType(DataType.Time)]
         [XmlAttribute]
         public DateTime EndTime { get; set; }
 
@@ -120,12 +123,19 @@ namespace DbModel.Location.Work
         [XmlAttribute]
         public int AreaId { get; set; }
 
-        [NotMapped]
-        public Area Area { get; set; }
+        //[NotMapped]
+        public virtual Area Area { get; set; }
 
+        /// <summary>
+        /// 进出类型，一般使用 AreaAccessType.EnterLeave ，只有特定的危险区域用 AreaAccessType.Leave
+        /// </summary>
+        [Display(Name = "进出类型")]
         [XmlAttribute]
         public AreaAccessType AccessType { get; set; }
 
+        /// <summary>
+        /// 当前只用到 AreaRangeType.Single
+        /// </summary>
         [XmlAttribute]
         public AreaRangeType RangeType { get; set; }
 
@@ -156,7 +166,9 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "标签角色")]
         [XmlAttribute]
-        public int CardRoleId { get; set; }
+        public int CardRoleId { get; set; }     
+
+        public virtual CardRole CardRole { get; set; }
 
         [DataMember]
         [Display(Name = "原权限Id")]
@@ -209,9 +221,33 @@ namespace DbModel.Location.Work
             return true;
         }
 
-        public bool IsTimeValid(DateTime time)
+        public bool IsTimeValid(DateTime dtBegin, DateTime dtEnd, int nTimeStamp)
         {
-            return true;
+            bool bReturn = false;
+
+            if (TimeType == TimeSettingType.时间长度)
+            {
+                if (nTimeStamp <= (TimeSpan + DelayTime))
+                {
+                    bReturn = true;
+                }
+            }
+            else
+            {
+                dtBegin = dtBegin.AddMinutes(DelayTime);
+                dtEnd = dtEnd.AddMinutes(-DelayTime);
+                int nStart = Convert.ToInt32(StartTime.ToString("HHmmss"));
+                int nEnd = Convert.ToInt32(EndTime.ToString("HHmmss"));
+                int nBegin = Convert.ToInt32(dtBegin.ToString("HHmmss"));
+                int nEnd2 = Convert.ToInt32(dtEnd.ToString("HHmmss"));
+
+                if (nBegin >= nStart && nEnd2 <= nEnd)
+                {
+                    bReturn = true;
+                }
+            }
+            
+            return bReturn;
         }
 
         public override string ToString()

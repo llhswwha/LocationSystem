@@ -222,8 +222,8 @@ namespace WebLocation.Controllers
 
             GetListToViewBag();
             PagedList<KKSCode> lst = bll.KKSCodes.DbSet.Where(p => (string.IsNullOrEmpty(MainType) ? true : p.MainType == MainType) && (string.IsNullOrEmpty(SubType) ? true : p.SubType == SubType) && (string.IsNullOrEmpty(System) ? true : p.System == System)).OrderBy(p=>p.MainType).ToPagedList<KKSCode>(pageIndex, pageSize);
-                                                                                                                                                                                
+
             return View("Index",lst);
-        }
+        }       
     }
 }

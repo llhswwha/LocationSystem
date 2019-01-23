@@ -14,6 +14,7 @@ namespace DbModel.Location.AreaAndDev
     ///     边界信息 地图和区域
     /// </summary>
     [DataContract]
+    [Serializable]
     public class Bound:IId
     {
         /// <summary>

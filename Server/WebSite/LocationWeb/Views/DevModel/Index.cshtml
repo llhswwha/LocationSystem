@@ -8,10 +8,30 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Create New", "Create", "DevModel", new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "modalContent",
+    InsertionMode = InsertionMode.Replace,
+    OnBegin = "onBegin",
+    OnSuccess = "onSuccess",
+    OnFailure = "onFailure",
+    OnComplete = "onComplete"
+})
 </p>
-<form action="/DevModel/SearchByItem"> 按大类查询:<input name="Item" type="text"/><input type="submit" value="查询"></form>
-<form action="/DevModel/SearchByName"> 按名称查询:<input name="ModelName" type="text" /><input type="submit" value="查询"></form>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/DevModel/SearchByClass"> 按大类查询：@Html.TextBox("Class") <input type="submit" value="查询"></form>
+<form action="/DevModel/SearchByItem"> 按大项查询：@Html.TextBox("Item") <input type="submit" value="查询"></form>
+<form action="/DevModel/SearchByName"> 按名称查询：@Html.TextBox("Name") <input type="submit" value="查询"></form>
 <table class="table">
     <tr>
         <th>
@@ -43,10 +63,39 @@
         <td>
             @Html.DisplayFor(modelItem => item.Class)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td>           
+            @Ajax.ActionLink("Edit", "Edit", "DevModel", new { id = item.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+
+            @Ajax.ActionLink("Details", "Details", "DevModel", new { id = item.Id }, new AjaxOptions
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           }) |
+
+            @Ajax.ActionLink("Delete", "Delete", "DevModel", new { id = item.Id }, new AjaxOptions
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           })
         </td>
     </tr>
 }
@@ -54,3 +103,11 @@
 </table>
 @Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

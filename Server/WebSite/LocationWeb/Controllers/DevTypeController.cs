@@ -44,13 +44,13 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
 
         // GET: ModelProperty/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: ModelProperty/Create
@@ -61,8 +61,16 @@ namespace WebLocation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bll.DevTypes.Add(Property);
-                    return RedirectToAction("Index");
+                    var result = bll.DevTypes.Add(Property);
+                    if (result)
+                    {
+                        return Json(new { success = result });
+                    }
+                    else
+                    {
+                        return Json(new { success = result, errors = bll.DevTypes.ErrorMessage });
+                    }
+                    //return RedirectToAction("Index");
                 }
                 return View(Property);
             }
@@ -84,7 +92,7 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
 
         // POST: ModelProperty/Edit/5
@@ -95,8 +103,16 @@ namespace WebLocation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bll.DevTypes.Edit(Property);
-                    return RedirectToAction("Index");
+                    var result = bll.DevTypes.Edit(Property);
+                    if (result)
+                    {
+                        return Json(new { success = result });
+                    }
+                    else
+                    {
+                        return Json(new { success = result, errors = bll.DevTypes.ErrorMessage });
+                    }
+                    //return RedirectToAction("Index");
                 }
                 return View(Property);
             }
@@ -118,8 +134,9 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
+
         // POST: Alarms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -129,6 +146,7 @@ namespace WebLocation.Controllers
             bll.DevTypes.DeleteById(id);
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -137,6 +155,7 @@ namespace WebLocation.Controllers
             }
             base.Dispose(disposing);
         }
+
         /// <summary>
         /// 按大类型搜索
         /// </summary>
@@ -145,13 +164,14 @@ namespace WebLocation.Controllers
         /// <returns></returns>
         public ActionResult SearchByClass(string Class, int pageIndex = 1)
         {
-            if (Class == "")
-            {
-                Class = null;
-            }
-            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (string.IsNullOrEmpty(Class) ? true : p.Class == Class)).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
+            //if (Class == "")
+            //{
+            //    Class = null;
+            //}
+            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (string.IsNullOrEmpty(Class) || p.Class.Contains(Class))).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
             return View("Index", lst);
         }
+
         /// <summary>
         /// 按类型名称搜索
         /// </summary>
@@ -160,14 +180,14 @@ namespace WebLocation.Controllers
         /// <returns></returns>
         public ActionResult SearchByTypeName(string TypeName, int pageIndex = 1)
         {
-            if (TypeName == "")
-            {
-                TypeName = null;
-            }
-            //GetListToViewBag();
-            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (string.IsNullOrEmpty(TypeName) ? true : p.TypeName == TypeName)).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
+            //if (TypeName == "")
+            //{
+            //    TypeName = null;
+            //}            
+            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (string.IsNullOrEmpty(TypeName) || p.TypeName.Contains(TypeName))).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
             return View("Index", lst);
         }
+
         /// <summary>
         /// 按Typecode搜索
         /// </summary>
@@ -184,7 +204,7 @@ namespace WebLocation.Controllers
             {
                 typeCodeTemp = null;
             }
-            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (typeCodeTemp == null ? true : p.TypeCode == typeCodeTemp)).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
+            PagedList<DevType> lst = bll.DevTypes.DbSet.Where(p => (typeCodeTemp == null || p.TypeCode == typeCodeTemp)).OrderBy(p => p.TypeCode).ToPagedList<DevType>(pageIndex, pageSize);
             return View("Index", lst);
         }
     }

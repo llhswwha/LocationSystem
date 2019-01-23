@@ -24,5 +24,10 @@ namespace LocationServer.Tools
         {
             return ConfigurationManager.AppSettings[key].ToBoolean();
         }
+
+        public static double GetDoubleValue(string key)
+        {
+            return ConfigurationManager.AppSettings[key].ToDouble();
+        }
     }
 }

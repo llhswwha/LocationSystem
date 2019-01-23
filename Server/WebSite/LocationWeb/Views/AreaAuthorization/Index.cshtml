@@ -39,11 +39,9 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Describe)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nFlag)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.StartTime)
         </th>
@@ -61,14 +59,12 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.RepeatType)
+            @Html.DisplayNameFor(model => model.RepeatDay)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AreaId)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationCardId)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.CreateTime)
         </th>
@@ -91,11 +87,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Describe)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nFlag)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.StartTime)
             </td>
@@ -113,14 +107,12 @@
                 @Html.DisplayFor(modelItem => item.ErrorDistance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RepeatType)
+                @Html.DisplayFor(modelItem => item.RepeatDay)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Area.Name)
+                @Html.DisplayFor(modelItem => item.AreaId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocationCard.Name)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
             </td>

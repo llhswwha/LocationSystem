@@ -13,6 +13,7 @@ namespace DbModel.Location.AreaAndDev
     /// <summary>
     /// 区域信息
     /// </summary>
+    [Serializable]
     public class Area : ITreeNodeEx<Area, DevInfo>
     {
         private Bound _initBound;
@@ -243,7 +244,7 @@ namespace DbModel.Location.AreaAndDev
 
         [DataMember]
         [ForeignKey("ParentId")]
-        [NotMapped]
+        [NotMapped]//不能去掉，Children关系由代码来主动关联起来
         public virtual List<Area> Children { get; set; }
 
         class AreaDistance : IComparable<AreaDistance>

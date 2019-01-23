@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using LocationServices.Locations.Services;
 using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
+using AEntity = DbModel.Location.AreaAndDev.Area;
 
 namespace WebApiService.Controllers
 {
@@ -79,6 +80,12 @@ namespace WebApiService.Controllers
         public TEntity Put(TEntity item)
         {
             return service.Put(item);
+        }
+
+        [Route("search/AreaTree/{role}")]
+        public IList<AEntity> GetAreaTreeByRole(string role)
+        {
+            return service.GetAreaTreeByRole(role);
         }
     }
 }

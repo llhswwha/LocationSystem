@@ -162,7 +162,7 @@ namespace BLL.Initializers
         {
             var aa = AreaAuthorization.New();
             aa.AreaId = areaId;//根节点
-            aa.AccessType = AreaAccessType.Leave; //不能进入
+            aa.AccessType = AreaAccessType.不能进入; //不能进入
             aa.RangeType = AreaRangeType.Single;
             aa.Name = string.Format("权限[不能进入]");
             aa.Description = string.Format("权限：告警区域");
@@ -184,7 +184,7 @@ namespace BLL.Initializers
                 {
                     var aa = AreaAuthorization.New();
                     aa.AreaId = area.Id;//根节点
-                    aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                    aa.AccessType = AreaAccessType.可以进出; //可进入的权限
                     aa.RangeType = AreaRangeType.WithParent;
                     aa.Name = string.Format("权限[机房]");
                     aa.Description = string.Format("权限：可以进入机房。");
@@ -202,7 +202,7 @@ namespace BLL.Initializers
             {
                 var aa = AreaAuthorization.New();
                 aa.AreaId = area.Id;//根节点
-                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.AccessType = AreaAccessType.可以进出; //可进入的权限
                 aa.RangeType = AreaRangeType.WithParent;
                 aa.Name = string.Format("权限[大楼内部]");
                 aa.Description = string.Format("权限：可以进入大楼内部，不能进入机房。");
@@ -218,7 +218,7 @@ namespace BLL.Initializers
             {
                 var aa = AreaAuthorization.New();
                 aa.AreaId = area.Id;//根节点
-                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.AccessType = AreaAccessType.可以进出; //可进入的权限
                 aa.RangeType = AreaRangeType.WithParent;
                 aa.Name = string.Format("权限[园区参观(高级)]");
                 aa.Description = string.Format("权限：可以进入园区参观，可以靠近建筑物。");
@@ -239,7 +239,7 @@ namespace BLL.Initializers
                         //  role7 = AddCardRole("参观人员(一般)", "能够进入生活区域和少部分生产区域");
                         var aa = AreaAuthorization.New();
                         aa.AreaId = area.Id;//根节点
-                        aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                        aa.AccessType = AreaAccessType.可以进出; //可进入的权限
                         aa.RangeType = AreaRangeType.Single;
                         aa.Name = string.Format("权限[园区参观(一般)]");
                         aa.Description = string.Format("权限：可以进入园区参观，不能靠近建筑物。");
@@ -257,7 +257,7 @@ namespace BLL.Initializers
             {
                 var aa = AreaAuthorization.New();
                 aa.AreaId = 1;//根节点
-                aa.AccessType = AreaAccessType.EnterLeave; //可进入的权限
+                aa.AccessType = AreaAccessType.可以进出; //可进入的权限
                 aa.RangeType = AreaRangeType.All;
                 aa.Name = string.Format("权限[全部区域]");
                 aa.Description = string.Format("权限：可以进入全部区域");
@@ -341,7 +341,7 @@ namespace BLL.Initializers
             aa.RangeType = AreaRangeType.WithParent;
             aa.Description = string.Format("权限[{0}][{1}]", accType, area.Name);
             aa.Name = string.Format("权限：[{0}]区域‘{1}’", accType, area.Name);
-            aa.RepeatDay = RepeatDay.All;
+            aa.RepeatDay = RepeatDay.每天;
             aa.SetTime(8, 30, 17, 30);
             return aa;
         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL;
 using TModel.Tools;
 using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
+using AEntity = DbModel.Location.AreaAndDev.Area;
 
 namespace LocationServices.Locations.Services
 {
@@ -18,6 +19,8 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByTag(string role);
 
         IList<TEntity> GetListByPerson(string role);
+
+        IList<AEntity> GetAreaTreeByRole(string role);
     }
     public class AreaAuthorizationRecordService
         : NameEntityService<TEntity>
@@ -75,6 +78,61 @@ namespace LocationServices.Locations.Services
             if (tag == null) return null;
             return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
         }
+
+        public IList<AEntity> GetAreaTreeByRole(string role)
+        {
+            int roleId = role.ToInt();
+            IList<AEntity> list = new List<AEntity>();
+
+            var query = from t1 in db.AreaAuthorizationRecords.DbSet
+                        join t2 in db.Areas.DbSet on t1.AreaId equals t2.Id
+                        where t1.CardRoleId == roleId
+                        select t2;
+
+            List<AEntity> alist = query.ToList();
+            List<AEntity> alist2 = query.ToList();
+            List<AEntity> ResultList = new List<AEntity>();
+
+            foreach (AEntity item in alist)
+            {
+                AEntity item2 = alist2.Find(p=>p.Id == item.ParentId);
+                if (item2 == null)
+                {
+                    ResultList.Add(item.Clone());
+                }
+            }
+
+            CreateAreaTree(ref alist2, ref ResultList);
+            
+            foreach (AEntity item in ResultList)
+            {
+                list.Add(item);
+            }
+
+            return list;
+        }
+
+        public void CreateAreaTree(ref List<AEntity> ContrastList, ref List<AEntity> ResultList)
+        {
+            foreach (AEntity item in ResultList)
+            {
+                List<AEntity> itemList = ContrastList.FindAll(p=>p.ParentId == item.Id);
+                if (item.Children == null)
+                {
+                    item.Children = new List<AEntity>();
+                }
+
+                if (itemList != null && itemList.Count > 0)
+                {
+                    CreateAreaTree(ref ContrastList, ref itemList);
+                    item.Children.AddRange(itemList);
+                }
+            }
+
+            return;
+        }
+
+
 
         //public TEntity PostByRole(string )
         //{

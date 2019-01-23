@@ -88,6 +88,7 @@ namespace LocationServer.Controls
             if (alarmReceiveThread == null)
             {
                 alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
+                alarmReceiveThread.IsBackground = true;
                 alarmReceiveThread.Start();
             }
         }

@@ -21,6 +21,7 @@ using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
 using WCFServiceForWPF.LocationServices;
 using TModel.LocationHistory.AreaAndDev;
+using TModel.Location.Work;
 
 namespace LocationWCFClient.Windows
 {
@@ -260,7 +261,23 @@ namespace LocationWCFClient.Windows
         private void MenuGetHisPos_Click(object sender, RoutedEventArgs e)
         {
             var list = client.GetHistoryPositons();
-            DataGridHisPos.ItemsSource = list;
+            //DataGridHisPos.ItemsSource = list;
+            DataGridRealPos.ItemsSource = list;
+        }
+
+        private void GetDevMonitorInfoByKKS_Click(object sender, RoutedEventArgs e)
+        {
+            Dev_Monitor sd = client.GetDevMonitorInfoByKKS("20MAA 12CT121A", true);
+            int nnn = 0;
+        }
+
+        private void GetInspectionTrack_Click(object sender, RoutedEventArgs e)
+        {
+        //    DateTime dt = DateTime.Now;
+        //    DateTime dtTime = DateTime.Now.AddHours(-10);
+        //    InspectionTrack[] lst = client.Getinspectionlist(dtTime, false);
+        //    DateTime dt2 = DateTime.Now;
+        //    int nn = 0;
         }
     }
 }

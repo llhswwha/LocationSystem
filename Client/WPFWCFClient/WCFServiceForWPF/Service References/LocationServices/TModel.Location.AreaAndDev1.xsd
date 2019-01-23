@@ -2,6 +2,27 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+  <xs:complexType name="ArrayOfDev_CameraInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Dev_CameraInfo" nillable="true" type="tns:Dev_CameraInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDev_CameraInfo" nillable="true" type="tns:ArrayOfDev_CameraInfo" />
+  <xs:complexType name="Dev_CameraInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CameraIndex" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="DevInfo" nillable="true" type="q1:DevInfo" />
+      <xs:element minOccurs="0" name="DevInfoId" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Local_DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PassWord" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Port" type="xs:int" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Dev_CameraInfo" nillable="true" type="tns:Dev_CameraInfo" />
   <xs:complexType name="ArrayOfArchor">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Archor" nillable="true" type="tns:Archor" />
@@ -12,9 +33,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AliveTime" type="xs:double" />
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="DevInfo" nillable="true" type="q1:DevInfo" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="DevInfo" nillable="true" type="q2:DevInfo" />
       <xs:element minOccurs="0" name="DevInfoId" type="xs:int" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Enable" type="q2:IsStart" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Enable" type="q3:IsStart" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Ip" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsAutoIp" type="xs:boolean" />
@@ -23,7 +44,7 @@
       <xs:element minOccurs="0" name="Power" type="xs:double" />
       <xs:element minOccurs="0" name="ServerIp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ServerPort" type="xs:int" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Type" type="q3:ArchorTypes" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Type" type="q4:ArchorTypes" />
       <xs:element minOccurs="0" name="X" type="xs:double" />
       <xs:element minOccurs="0" name="Y" type="xs:double" />
       <xs:element minOccurs="0" name="Z" type="xs:double" />
@@ -50,6 +71,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NearbyDev" nillable="true" type="tns:NearbyDev" />
+  <xs:complexType name="Dev_Monitor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChildrenList" nillable="true" type="tns:ArrayOfDev_Monitor" />
+      <xs:element minOccurs="0" name="KKSCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MonitorNodeList" nillable="true" type="tns:ArrayOfDevMonitorNode" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Dev_Monitor" nillable="true" type="tns:Dev_Monitor" />
+  <xs:complexType name="ArrayOfDev_Monitor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Dev_Monitor" nillable="true" type="tns:Dev_Monitor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDev_Monitor" nillable="true" type="tns:ArrayOfDev_Monitor" />
+  <xs:complexType name="ArrayOfDevMonitorNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDevMonitorNode" nillable="true" type="tns:ArrayOfDevMonitorNode" />
+  <xs:complexType name="DevMonitorNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataBaseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataBaseTagName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TagType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
   <xs:complexType name="Picture">
     <xs:sequence>
       <xs:element minOccurs="0" name="Info" nillable="true" type="xs:base64Binary" />

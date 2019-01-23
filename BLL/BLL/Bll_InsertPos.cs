@@ -35,6 +35,7 @@ namespace BLL
 
         public void AddTagPositionsByTags(List<LocationCard> tags)
         {
+            return;//cww_2019_01_18:不插入无位置的标签位置
             var tagPosList = LocationCardPositions.ToList();//事先取出全部到内存中，比每次都到数据库中查询快很多。 100个从6.4s->1.8s,1.8s中主要是第一次查询的一些初始工作
             var newPosList = new List<LocationCardPosition>();
 
@@ -49,9 +50,7 @@ namespace BLL
                 }
             }
 
-            //TagPositions.Db.BulkInsert(newPosList);//插件Z.EntityFramework.Extensions功能
-            //TagPositions.Db.BulkSaveChanges();
-
+            //根据标签数量初始化位置信息，插入没有位置信息的标签位置
             foreach (var tp in newPosList)
             {
                 LocationCardPositions.Add(tp);
@@ -181,11 +180,12 @@ namespace BLL
             {
                 if (positions == null || positions.Count == 0) return false;
 
-                AddPositionsBySql(positions);
+                //AddPositionsBySql(positions);//在Z.EntityFramework工具不能使用的情况下，自己写的简单的拼接sql语句。Z.EntityFramework能用的话，这个就不需要。
                 if (PartitionThread == null)
                 {
                     int count2 = DbHistory.U3DPositions.Count();
                     PartitionThread = new Thread(InsertPartitionInfo);
+                    PartitionThread.IsBackground = true;
                     PartitionThread.Start();
                     while (bPartitionInitFlag) { }
                 }

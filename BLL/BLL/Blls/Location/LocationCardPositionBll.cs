@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DbModel.Location.Data;
+using LocationServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,9 @@ namespace BLL.Blls.Location
             foreach (var tag1 in list)
             {
                 TimeSpan time = DateTime.Now - tag1.DateTime;
-                if (time.TotalSeconds > 30)//30s
+
+                double timeT = AppContext.PositionMoveStateWaitTime;
+                if (time.TotalSeconds > timeT)//4s
                 {
                     if (tag1.Flag == "0:0:0:0:1")
                     {
@@ -80,6 +83,31 @@ namespace BLL.Blls.Location
                 }
             }
             return list;
+        }
+
+        public override bool AddRange(IList<LocationCardPosition> list)
+        {
+            return base.AddRange(list);
+        }
+
+        public override bool AddRange(LocationDb Db, IEnumerable<LocationCardPosition> list)
+        {
+            return base.AddRange(Db, list);
+        }
+
+        public override bool AddRange(params LocationCardPosition[] list)
+        {
+            return base.AddRange(list);
+        }
+
+        public override bool Add(LocationCardPosition item, bool isSave = true)
+        {
+            return base.Add(item, isSave);
+        }
+
+        public override bool AddOrUpdate(LocationCardPosition item, bool isSave = true)
+        {
+            return base.AddOrUpdate(item, isSave);
         }
     }
 }

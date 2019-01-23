@@ -70,7 +70,7 @@ namespace DbModel.Location.Work
         {
             StartTime = new DateTime(2000, 1, 1, startH, startM, 0);
             EndTime = new DateTime(2000, 1, 1, endH, endM, endS);
-            TimeType = TimeSettingType.TimeRange;
+            TimeType = TimeSettingType.时间点范围;
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace DbModel.Location.Work
             var aa = new AreaAuthorization();
             aa.CreateTime = DateTime.Now;
             aa.ModifyTime = DateTime.Now;
-            aa.RepeatDay = RepeatDay.All;
+            aa.RepeatDay = RepeatDay.每天;
             aa.SetTime(8, 30, 17, 30);
             return aa;
         }
@@ -189,7 +189,7 @@ namespace DbModel.Location.Work
 
     public enum RepeatDay
     {
-        All=0,Mon=1,Tues=2,Wed=4,Thur=8,Fri=16,Sat=32,Sun=64,
+        每天=0,星期一=1,星期二=2,星期三=4,星期四=8,星期五=16,星期六=32,星期天=64,
     }
 
     /// <summary>
@@ -209,10 +209,7 @@ namespace DbModel.Location.Work
     /// </summary>
     public enum AreaAccessType
     {
-        EnterLeave,//可以进出
-        Enter,//可以进入,不能出去
-        Leave,//可以出去,不能进去
-        None,//不能进去不能出去
-        //可以进入,不能进入
+        可以进出,
+        不能进入,
     }
 }

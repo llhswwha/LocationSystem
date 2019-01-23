@@ -69,6 +69,9 @@ namespace DbModel.LocationHistory.AreaAndDev
         [Display(Name = "历史记录时间戳")]
         public long HistoryTimeStamp { get; set; }
 
+        [DataMember]
+        public bool IsActive { get; set; }
+
         public LocationCardHistory Clone()
         {
             LocationCardHistory copy = new LocationCardHistory();

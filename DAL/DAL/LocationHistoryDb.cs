@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using SQLite.CodeFirst;
 using DAL.LocationHistoryDbMigrations;
+using DbModel.LocationHistory.Work;
 
 namespace DAL
 {
@@ -64,6 +65,12 @@ namespace DAL
         public DbSet<DbModel.LocationHistory.Work.SafetyMeasuresHistory> SafetyMeasuresHistorys { get; set; }
 
         public DbSet<DbModel.LocationHistory.Work.WorkTicketHistory> WorkTicketHistorys { get; set; }
+
+        public DbSet<InspectionTrackHistory> InspectionTrackHistorys { get; set; }
+
+        public DbSet<PatrolPointHistory> PatrolPointHistorys { get; set; }
+
+        public DbSet<PatrolPointItemHistory> PatrolPointItemHistorys { get; set; }
 
     }
 }

@@ -97,6 +97,7 @@ namespace Location.BLL.Tool
             }
 
             logWatcher = new Thread(new ThreadStart(LogWatcher));
+            logWatcher.IsBackground = true;
             logWatcher.Start();
         }
 

@@ -112,6 +112,7 @@ namespace LocationServer.Windows
                 initializer.InitAreaAndDev();
                 MessageBox.Show("完成");
             });
+            thread.IsBackground = true;
             thread.Start();
         }
 

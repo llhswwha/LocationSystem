@@ -7,7 +7,8 @@ namespace IModel
 {
     public interface IDevMonitorNode : IId
     {
-         string TagName { get; set; }
+        string KKS { get; set; }
+        string TagName { get; set; }
          string DataBaseName { get; set; }
 
          string DataBaseTagName { get; set; }

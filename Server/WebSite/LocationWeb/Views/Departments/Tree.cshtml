@@ -7,8 +7,27 @@
 <h2>Tree</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Create New", "Create", "Departments", new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "modalContent",
+    InsertionMode = InsertionMode.Replace,
+    OnBegin = "onBegin",
+    OnSuccess = "onSuccess",
+    OnFailure = "onFailure",
+    OnComplete = "onComplete"
+})
 </p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     @Html.TreeEx(Model)
 </div>
@@ -25,6 +44,14 @@
         padding-left: 15px;
     }
 </style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>
 
 <script type="text/javascript">
     window.onload = function () {

@@ -44,6 +44,13 @@ namespace Location.TModel.Location.AreaAndDev
 
         [DataMember]
         public int CardRoleId { get; set; }
+
+        /// <summary>
+        /// 是否激活
+        /// </summary>
+        [DataMember]
+        public bool IsActive { get; set; }
+
         public override string ToString()
         {
             return Name;

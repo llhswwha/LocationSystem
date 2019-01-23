@@ -27,6 +27,7 @@ namespace LocationServices.Converters
             item2.Name = item1.Name;
             item2.Describe = item1.Describe;
             item2.CardRoleId = item1.CardRoleId ?? 0;
+            item2.IsActive = item1.IsActive;
             return item2;
         }
 
@@ -61,6 +62,7 @@ namespace LocationServices.Converters
             item2.Name = item1.Name;
             item2.Describe = item1.Describe;
             item2.CardRoleId = item1.CardRoleId;
+            item2.IsActive = item1.IsActive;
             return item2;
         }
 

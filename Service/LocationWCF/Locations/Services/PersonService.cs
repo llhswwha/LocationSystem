@@ -141,6 +141,10 @@ namespace LocationServices.Locations.Services
                     PersonnelId = personId,
                     LocationCardId = tagId
                 });
+
+                var tag=db.LocationCards.Find(tagId);
+                tag.IsActive = true;//发卡则激活
+                db.LocationCards.Edit(tag);
             }
         }
 

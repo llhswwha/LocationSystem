@@ -37,6 +37,7 @@ namespace LocationServices.Locations
     public partial class LocationService : ILocationService, IDisposable
     {
         private Bll db = new Bll(false, false, false,false);
+        private Bll db2 = new Bll();
 
         public static U3DPositionSP u3dositionSP;
 
@@ -65,7 +66,9 @@ namespace LocationServices.Locations
 
         public IList<Tag> GetTags()
         {
-            return new TagService(db).GetList();
+            IList<Tag> tagsT = new TagService(db).GetList(true);
+            return tagsT;
+            //return new TagService(db).GetList(true);
         }
 
         /// <summary>
@@ -660,8 +663,14 @@ namespace LocationServices.Locations
             }
             return os;
         }
-        
-
+        /// <summary>
+        /// SingnalR用，脚本更新至客户端
+        /// </summary>
+        /// <returns></returns>
+        public InspectionTrack GetInspectionTrack()
+        {
+            return new InspectionTrack();
+        }
         #endregion
     }
 }

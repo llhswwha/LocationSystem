@@ -63,7 +63,9 @@ namespace WebLocation.Controllers
 
         public ActionResult Tree()
         {
-            return View(bll.Areas.GetRoot());
+            var root = bll.GetAreaTree(false);//主动用代码建立Children关系
+            //var root = bll.Areas.GetRoot();//这里会为空
+            return View(root);
         }
 
         public ActionResult Details(int? id)

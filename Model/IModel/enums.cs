@@ -24,7 +24,7 @@ namespace DbModel.Tools
     public enum Sexs { 未知, 男, 女 }
 
     //权限类型
-    public enum TimeSettingType { TimeLength, TimeRange }
+    public enum TimeSettingType { 时间长度, 时间点范围 }
 
     //定位告警类型
     public enum LocationAlarmType { 区域告警, 消失告警, 低电告警, 传感器告警, 重启告警, 非法拆卸 }
@@ -42,4 +42,15 @@ namespace DbModel.Tools
     public enum IsStart { 否, 是 }
 
     public enum DepartType { 本厂, 外委单位 }
+
+    //巡检状态
+    public enum InspectionStatus
+    {
+        NewBuild,        //新建
+        AlreadyIssued,   //已下达
+        Completed,       //已完成
+        Cancelled,       //已取消
+        InExecution,     //执行中
+        Expired          //已过期
+    }
 }

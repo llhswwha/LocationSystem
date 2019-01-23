@@ -72,6 +72,7 @@ namespace LocationWCFServer
             if (aliveThread == null)
             {
                 aliveThread = new Thread(KeepAlive);
+                aliveThread.IsBackground = true;
                 aliveThread.Start();
             }
         }
@@ -95,10 +96,15 @@ namespace LocationWCFServer
             }
         }
 
+        /// <summary>
+        /// 心跳包发送的字符
+        /// </summary>
+        public string AliveText = "0";//当前项目所有标签的ID都是09开头的，发送1作为心跳包，有一定概率返回19开头的数据，改成0
+
         private void SendAlive()
         {
             //Log.Info("PositionEngineDA.SendAlive");
-            byte[] data = Encoding.UTF8.GetBytes("1");//当前项目所有标签的ID都是09开头的，发送1作为心跳包，有一定概率返回19开头的数据，改成0
+            byte[] data = Encoding.UTF8.GetBytes(AliveText);
             IPAddress ip = IPAddress.Parse(Login.EngineIp);
             ludp2.Send(data, new IPEndPoint(ip, Login.EnginePort));
 
@@ -142,7 +148,6 @@ namespace LocationWCFServer
                 {
                     posList.Add(pos);
                 }
-
             }
             if (PositionListRecived != null)
             {

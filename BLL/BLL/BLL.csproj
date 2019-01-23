@@ -58,8 +58,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Blls\Engine\bus_anchor_configBll.cs" />
+    <Compile Include="Blls\Engine\bus_anchor_switch_areaBll.cs" />
+    <Compile Include="Blls\LocationHistory\InspectionTrackHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PatrolPointHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PatrolPointItemHistoryBll.cs" />
     <Compile Include="Blls\Location\DevMonitorNodeBll.cs" />
     <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
+    <Compile Include="Blls\Location\InspectionTrackBll.cs" />
+    <Compile Include="Blls\Location\PatrolPointBll.cs" />
+    <Compile Include="Blls\Location\PatrolPointItemBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
     <Compile Include="Buffers\BaseBuffer.cs" />
     <Compile Include="Bll.cs" />

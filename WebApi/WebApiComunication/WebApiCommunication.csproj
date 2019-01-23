@@ -53,11 +53,14 @@
     <Compile Include="SihuiThermalPowerPlant\GetMethod.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\cards.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\cards_actions.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\org.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\position.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\results.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\tickets.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\users.cs" />

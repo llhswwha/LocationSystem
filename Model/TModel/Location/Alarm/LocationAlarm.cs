@@ -198,5 +198,13 @@ namespace Location.TModel.Location.Alarm
         //    return history;
         //}
 
+        public override string ToString()
+        {
+            if (Tag != null)
+            {
+                return Tag.Code;
+            }
+            return TagId+"";
+        }
     }
 }

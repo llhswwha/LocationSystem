@@ -36,5 +36,8 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         List<PersonnelMobileInspectionHistory> GetPersonnelMobileInspectionHistoryList();
 
+        [OperationContract]
+        InspectionTrack GetInspectionTrack();
+
     }
 }

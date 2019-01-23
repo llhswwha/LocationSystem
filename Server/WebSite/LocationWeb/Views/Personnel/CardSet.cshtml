@@ -1,0 +1,117 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model IEnumerable<DbModel.Location.AreaAndDev.LocationCard>
+
+@{
+    ViewBag.Title = "设定标签卡";
+}
+
+<div class="modal-header">
+    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+    <h2 class="modal-title" id="myModalLabel">设定标签卡 [@ViewBag.PersonName]</h2>
+</div>
+
+<div class="modal-body" style="height:500px; overflow-y:scroll;">
+    @*<form action="/Personnel/SearchByCardName"> 标签名称:@Html.TextBox("LocationCardName") <input type="submit" value="查询" /></form>*@
+    <input id="searchCardInput" type="text" placeholder="标签卡"/><input id="searchCard" type="button" value="查询" />
+
+    <table class="table" id="cardTable">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardRole)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>              
+                <td>
+                    @if (item.Id == ViewBag.CardId)
+                    {
+                        <input type="radio" name="choose" checked="checked" value="@item.Id" /> //选中当前角色
+                    }
+                    else
+                    {
+                        <input type="radio" name="choose" value="@item.Id" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CardRole.Name)
+                </td>
+            </tr>
+        }
+    </table>
+    
+    <div class="form-group">
+        <input type="button" value="确定" class="btn btn-default" id="btnCardId" />
+    </div>
+    <div>
+        @Html.ActionLink("返 回", "Index")
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<link href="~/Content/toastr.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+    //设置标签卡
+    $(function () {        
+        $("#btnCardId").click(function () {
+            var choosedCardId = $('input:radio[name="choose"]:checked').val(); //获取标签Id，和上面的item.Id对应，上面设置这里获取
+            var cardid = @ViewBag.CardId;
+            if (choosedCardId == null) {
+                alert("未选择，不修改标签卡！");
+            }
+            else if(choosedCardId == cardid){
+                alert("没有修改所属标签卡！");
+            }
+            else{
+                var cardset = {} //js创建对象
+                cardset.personId = @ViewBag.PersonId;
+                cardset.cardId = choosedCardId;
+                
+                $.ajax({
+                    type: "Post",
+                    url: "Personnel/SetLocardtionCard",
+                    data: cardset, //传递js对象作为参数
+                    dataType: "json",
+                    async: false,
+                    success:function(data){
+                        //console.log(data.success);
+                        if (data.success == true) {
+                            alert("标签角色设置成功！");                        
+                        }
+                        else {
+                            alert("标签角色设置失败！");
+                        }         
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                        alert("通信失败！");
+                    }
+                });
+            }
+        });              
+    });
+
+    //搜索标签卡
+    $(function(){
+        var searchCard = document.getElementById('searchCard');
+        $("#searchCard").click(function(){              
+            var cardText=  $("#searchCardInput").val();
+            $("#cardTable tr:contains("+ cardText+")").show();        
+            $("#cardTable tr:not(:contains("+ cardText+"))").hide();
+        }); 
+    });                                               
+</script>
+

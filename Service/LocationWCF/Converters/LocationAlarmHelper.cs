@@ -39,6 +39,7 @@ namespace LocationServices.Converters
             item2.HandleType = item1.HandleType;
             item2.AlarmId = item1.AlarmId;
             item2.CardRoleId = item1.CardRoleId;
+            item2.AreaId = item1.AreaId ?? 2;
             return item2;
         }
 
@@ -75,6 +76,7 @@ namespace LocationServices.Converters
             item2.HandleType = item1.HandleType;
             item2.AlarmId = item1.AlarmId;
             item2.CardRoleId = item1.CardRoleId;
+            item2.AreaId = item1.AreaId;
             return item2;
         }
 

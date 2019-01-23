@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
+using System;
 
 namespace DbModel.Location.Work
 {
@@ -42,6 +43,50 @@ namespace DbModel.Location.Work
         [Display(Name = "操作项")]
         [ForeignKey("PID")]
         public virtual List<MobileInspectionItem> Items { get; set; }
+
+
+        ///// <summary>
+        ///// 对接巡检单Id
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "对接巡检单Id")]
+        //public int? Abutment_Id { get; set; }
+
+        ///// <summary>
+        ///// 巡检单编号
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "巡检单编号")]
+        //public string Code { get; set; }
+
+        ///// <summary>
+        ///// 创建时间
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "创建时间")]
+        //public DateTime CreateTime { get; set; }
+
+        ///// <summary>
+        ///// 创建时间戳
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "创建时间戳")]
+        //public long CreateTimeStamp { get; set; }
+
+        ///// <summary>
+        ///// 工单状态
+        ///// </summary>
+        //public string State { get; set; }
+
+
+
+
+
+
+
+
+
+
 
         public MobileInspection Clone()
         {

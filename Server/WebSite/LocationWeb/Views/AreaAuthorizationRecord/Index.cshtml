@@ -1,0 +1,196 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model PagedList<DbModel.Location.Work.AreaAuthorizationRecord>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Ajax.ActionLink("Create New", "Create", "AreaAuthorizationRecord", new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "modalContent",
+    InsertionMode = InsertionMode.Replace,
+    OnBegin = "onBegin",
+    OnSuccess = "onSuccess",
+    OnFailure = "onFailure",
+    OnComplete = "onComplete"
+})
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="/AreaAuthorizationRecord/Search"> 
+    名称：@Html.TextBox("Name") &nbsp; 描述：@Html.TextBox("Description") &nbsp; 区域：@Html.TextBox("AreaName") &nbsp;
+    种类：@Html.DropDownList("TimeType", ViewBag.TimeSettingTypeList as IEnumerable<SelectListItem>, " ", 1) &nbsp;
+    重复天数：@Html.DropDownList("RepeatDay", ViewBag.EnumList as IEnumerable<SelectListItem>, " ", 1) &nbsp;
+    进出类型：@Html.DropDownList("AccessType", ViewBag.AreaAccessTypeList as IEnumerable<SelectListItem>, " ", 1) &nbsp; 
+    标签角色：@Html.DropDownList("CardRoleId", ViewBag.CardRoleList as IEnumerable<SelectListItem>, " ", 1)
+    <input type="submit" value="查询">
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeSpan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DelayTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ErrorDistance)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.RepeatDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AreaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccessType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifyTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeleteTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CardRoleId)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeSpan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DelayTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorDistance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepeatDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifyTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeleteTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardRole.Name)
+            </td>
+
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+           {
+               HttpMethod = "Get",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           }) |
+
+                @Ajax.ActionLink("Details", "Details", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           }) |
+
+                @Ajax.ActionLink("Delete", "Delete", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "modalContent",
+               InsertionMode = InsertionMode.Replace,
+               OnBegin = "onBegin",
+               OnSuccess = "onSuccess",
+               OnFailure = "onFailure",
+               OnComplete = "onComplete"
+           })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.Pager(Model, new PagerOptions { PageIndexParameterName = "pageIndex", Id = "htmlPager", FirstPageText = "首页", LastPageText = "尾页", NextPageText = ">", PrevPageText = "<", ContainerTagName = "ul", CssClass = "pagination pagination-sm", CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>", DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>", PagerItemTemplate = "<li>{0}</li>" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script>

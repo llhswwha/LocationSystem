@@ -175,6 +175,7 @@ namespace BLL
 
         private static void SetAreaByPosition(Position pos, Area area)
         {
+      //      if (pos.Code != "0918") return;
             if (area.IsPark()) //电厂园区,基站属于园区或者楼层
             {
                 var inArea = SetAreaInPark(pos, area);
@@ -200,6 +201,10 @@ namespace BLL
                     {
 
                     }
+                }
+                else
+                {
+                    int nn = 0;
                 }
             }
         }
@@ -326,7 +331,12 @@ namespace BLL
                 //}
                 //pos.SetArea(inArea);//同时处于一个告警区域和一个定位区域时 人员区域怎么判断？ 同时处于两个区域时 人员区域怎么判断?
 
-                pos.SetArea(containsAreas.ToArray());
+                var areaNode = containsAreas.Find(i => i.Type != AreaTypes.范围);
+                if (areaNode == null)
+                {
+                    containsAreas.Add(park);
+                }
+                inArea=pos.SetArea(containsAreas.ToArray());
             }
             if (inArea == null)
             {
@@ -409,10 +419,7 @@ namespace BLL
 
             if (r2)
             {
-                var perToCard = new LocationCardToPersonnel();
-                perToCard.LocationCard = tag;
-                perToCard.Personnel = person;
-                bool r3 = bll.LocationCardToPersonnels.Add(perToCard);
+                bll.BindCardToPerson(person, tag);
                 return person;
             }
             return null;

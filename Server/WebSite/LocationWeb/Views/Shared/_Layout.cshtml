@@ -6,6 +6,13 @@
     <title>@ViewBag.Title - 定位管理系统</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        body div.container {
+            margin: 0px 130px;
+            max-width: none;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,6 +40,7 @@
                             <li>@Html.ActionLink("定位告警", "Index", "Alarms")</li>
                             <li>@Html.ActionLink("定位图片", "Index", "Images")</li>
                             <li>@Html.ActionLink("标签角色", "Index", "CardRole")</li>
+                            <li>@Html.ActionLink("电子围栏", "Index", "AreaAuthorizationRecord")</li>
                         </ul>
                     </li>
                     <li>
@@ -72,33 +80,7 @@
                             <li>@Html.ActionLink("工作票", "Index", "WorkTicket")</li>
                             <li>@Html.ActionLink("巡检轨迹", "Index", "MobileInspection")</li>
                         </ul>
-                    </li>
-                    @*<li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            系统
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">系统监控</a>
-                            </li>
-                            <li>
-                                <a href="#">系统日志</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            帮助
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                        </ul>
-                    </li>*@
+                    </li>                 
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             测试

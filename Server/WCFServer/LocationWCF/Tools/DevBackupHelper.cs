@@ -49,6 +49,7 @@ namespace LocationServer.Tools
                 Log.Info(string.Format("Init DoorAccessDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
                 if (callBack != null) callBack();
             });
+            thread.IsBackground = true;
             thread.Start();          
         }
 

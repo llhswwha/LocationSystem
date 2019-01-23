@@ -12,14 +12,15 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Person" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.BaseData" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
     </xsd:schema>
   </wsdl:types>
@@ -269,6 +270,54 @@
   <wsdl:message name="ILocationService_GetAllDoorAccessInfo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllDoorAccessInfoResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_AddCameraInfoByList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCameraInfoByList" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddCameraInfoByList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCameraInfoByListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddCameraInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCameraInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddCameraInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCameraInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteCameraInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCameraInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteCameraInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCameraInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_ModifyCameraInfoByList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyCameraInfoByList" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_ModifyCameraInfoByList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyCameraInfoByListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_ModifyCameraInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyCameraInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_ModifyCameraInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyCameraInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByParent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByParent" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByParent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByParentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllCameraInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCameraInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllCameraInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCameraInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByDevInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByDevInfo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByDevInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByDevInfoResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetArchors_InputMessage">
     <wsdl:part name="parameters" element="tns:GetArchors" />
   </wsdl:message>
@@ -322,6 +371,18 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetEntranceActionInfoByPerson24Hours_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEntranceActionInfoByPerson24HoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevClassByDevModel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevClassByDevModel" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevClassByDevModel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevClassByDevModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevMonitorInfoByKKS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevMonitorInfoByKKS" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevMonitorInfoByKKS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevMonitorInfoByKKSResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetKKSInfoByNodeId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKKSInfoByNodeId" />
@@ -581,6 +642,12 @@
   <wsdl:message name="ILocationService_GetTicketDetial_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTicketDetialResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_Getinspectionhistorylist_InputMessage">
+    <wsdl:part name="parameters" element="tns:Getinspectionhistorylist" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Getinspectionhistorylist_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetinspectionhistorylistResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetOperationTicketList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOperationTicketList" />
   </wsdl:message>
@@ -670,6 +737,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetAreaStatistics_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAreaStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaById" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAreaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAreaByIdResponse" />
   </wsdl:message>
   <wsdl:portType name="ILocationService">
     <wsdl:operation name="Hello">
@@ -836,6 +909,38 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetAllDoorAccessInfo" message="tns:ILocationService_GetAllDoorAccessInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetAllDoorAccessInfoResponse" message="tns:ILocationService_GetAllDoorAccessInfo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AddCameraInfoByList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddCameraInfoByList" message="tns:ILocationService_AddCameraInfoByList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/AddCameraInfoByListResponse" message="tns:ILocationService_AddCameraInfoByList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCameraInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddCameraInfo" message="tns:ILocationService_AddCameraInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/AddCameraInfoResponse" message="tns:ILocationService_AddCameraInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCameraInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/DeleteCameraInfo" message="tns:ILocationService_DeleteCameraInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/DeleteCameraInfoResponse" message="tns:ILocationService_DeleteCameraInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyCameraInfoByList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/ModifyCameraInfoByList" message="tns:ILocationService_ModifyCameraInfoByList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/ModifyCameraInfoByListResponse" message="tns:ILocationService_ModifyCameraInfoByList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyCameraInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/ModifyCameraInfo" message="tns:ILocationService_ModifyCameraInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/ModifyCameraInfoResponse" message="tns:ILocationService_ModifyCameraInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByParent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByParent" message="tns:ILocationService_GetCameraInfoByParent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByParentResponse" message="tns:ILocationService_GetCameraInfoByParent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCameraInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetAllCameraInfo" message="tns:ILocationService_GetAllCameraInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetAllCameraInfoResponse" message="tns:ILocationService_GetAllCameraInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByDevInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfo" message="tns:ILocationService_GetCameraInfoByDevInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfoResponse" message="tns:ILocationService_GetCameraInfoByDevInfo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetArchors">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchors" message="tns:ILocationService_GetArchors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetArchorsResponse" message="tns:ILocationService_GetArchors_OutputMessage" />
@@ -871,6 +976,14 @@
     <wsdl:operation name="GetEntranceActionInfoByPerson24Hours">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours" message="tns:ILocationService_GetEntranceActionInfoByPerson24Hours_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24HoursResponse" message="tns:ILocationService_GetEntranceActionInfoByPerson24Hours_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevClassByDevModel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevClassByDevModel" message="tns:ILocationService_GetDevClassByDevModel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevClassByDevModelResponse" message="tns:ILocationService_GetDevClassByDevModel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevMonitorInfoByKKS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS" message="tns:ILocationService_GetDevMonitorInfoByKKS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevMonitorInfoByKKSResponse" message="tns:ILocationService_GetDevMonitorInfoByKKS_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKKSInfoByNodeId">
       <wsdl:input wsaw:Action="http://tempuri.org/IKKSService/GetKKSInfoByNodeId" message="tns:ILocationService_GetKKSInfoByNodeId_InputMessage" />
@@ -1044,6 +1157,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketDetial" message="tns:ILocationService_GetTicketDetial_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketDetialResponse" message="tns:ILocationService_GetTicketDetial_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Getinspectionhistorylist">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" message="tns:ILocationService_Getinspectionhistorylist_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse" message="tns:ILocationService_Getinspectionhistorylist_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketList" message="tns:ILocationService_GetOperationTicketList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketListResponse" message="tns:ILocationService_GetOperationTicketList_OutputMessage" />
@@ -1103,6 +1220,10 @@
     <wsdl:operation name="GetAreaStatistics">
       <wsdl:input wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatistics" message="tns:ILocationService_GetAreaStatistics_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAreaService/GetAreaStatisticsResponse" message="tns:ILocationService_GetAreaStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAreaService/GetAreaById" message="tns:ILocationService_GetAreaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAreaService/GetAreaByIdResponse" message="tns:ILocationService_GetAreaById_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ILocationService" type="tns:ILocationService">
@@ -1476,6 +1597,78 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddCameraInfoByList">
+      <soap:operation soapAction="http://tempuri.org/IDevService/AddCameraInfoByList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCameraInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/AddCameraInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCameraInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/DeleteCameraInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyCameraInfoByList">
+      <soap:operation soapAction="http://tempuri.org/IDevService/ModifyCameraInfoByList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyCameraInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/ModifyCameraInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByParent">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetCameraInfoByParent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCameraInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetAllCameraInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByDevInfo">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetCameraInfoByDevInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetArchors">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetArchors" style="document" />
       <wsdl:input>
@@ -1550,6 +1743,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetEntranceActionInfoByPerson24Hours">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetEntranceActionInfoByPerson24Hours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevClassByDevModel">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevClassByDevModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevMonitorInfoByKKS">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevMonitorInfoByKKS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1944,6 +2155,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getinspectionhistorylist">
+      <soap:operation soapAction="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <soap:operation soapAction="http://tempuri.org/IWorkService/GetOperationTicketList" style="document" />
       <wsdl:input>
@@ -2072,6 +2292,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAreaStatistics">
       <soap:operation soapAction="http://tempuri.org/IAreaService/GetAreaStatistics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAreaById">
+      <soap:operation soapAction="http://tempuri.org/IAreaService/GetAreaById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

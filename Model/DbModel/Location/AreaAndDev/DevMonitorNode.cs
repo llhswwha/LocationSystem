@@ -20,6 +20,11 @@ namespace DbModel.Location.AreaAndDev
         public int Id { get; set; }
 
         [DataMember]
+        [Display(Name = "KKS")]
+        [MaxLength(128)]
+        public string KKS { get; set; }
+
+        [DataMember]
         [Display(Name = "标签名")]
         [MaxLength(128)]
         public string TagName { get; set; }
@@ -61,6 +66,7 @@ namespace DbModel.Location.AreaAndDev
 
         public DevMonitorNode()
         {
+            KKS = "";
             TagName = "";
             DataBaseName = "";
             DataBaseTagName = "";

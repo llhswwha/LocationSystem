@@ -72,6 +72,7 @@ namespace LocationWCFService.ServiceHelper
                     InsertPostions();
                 }
             });
+            insertThread.IsBackground = true;
             insertThread.Start();
         }
 

@@ -36,13 +36,14 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
 
         // GET: TypeModel/Create
         public ActionResult Create()
         {
-            return View();
+            //return View();
+            return PartialView();
         }
 
         // POST: TypeModel/Create
@@ -53,8 +54,16 @@ namespace WebLocation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bll.DevModels.Add(model);
-                    return RedirectToAction("Index");
+                    var result = bll.DevModels.Add(model);
+                    if (result)
+                    {
+                        return Json(new { success = result });
+                    }
+                    else
+                    {
+                        return Json(new { success = result, errors = bll.DevModels.ErrorMessage });
+                    }
+                    //return RedirectToAction("Index");
                 }
                 return View(model);
             }
@@ -72,7 +81,7 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
 
         // POST: TypeModel/Edit/5
@@ -83,8 +92,16 @@ namespace WebLocation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bll.DevModels.Edit(model);
-                    return RedirectToAction("Index");
+                    var result = bll.DevModels.Edit(model);
+                    if (result)
+                    {
+                        return Json(new { success = result });
+                    }
+                    else
+                    {
+                        return Json(new { success = result, errors = bll.DevModels.ErrorMessage });
+                    }
+                    //return RedirectToAction("Index");
                 }
                
                 return View(model);
@@ -103,7 +120,7 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return PartialView(model);
         }
 
         // POST: Alarms/Delete/5
@@ -123,24 +140,30 @@ namespace WebLocation.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult SearchByItem(string Item, int pageIndex = 1)
-        {
-            if (Item == "")
-            {
-                Item = null;
-            }
-            
-            PagedList<DevModel> lst = bll.DevModels.DbSet.Where(p => (string.IsNullOrEmpty(Item) ? true : p.Items == Item)).OrderBy(p => p.Class).ToPagedList<DevModel>(pageIndex, pageSize);
+
+        public ActionResult SearchByClass(string Class, int pageIndex = 1)
+        {            
+            PagedList<DevModel> lst = bll.DevModels.DbSet.Where(p => (string.IsNullOrEmpty(Class) || p.Class.Contains(Class))).OrderBy(p => p.Class).ToPagedList<DevModel>(pageIndex, pageSize);
             return View("Index", lst);
         }
-        public ActionResult SearchByName(string ModelName, int pageIndex = 1)
+
+        public ActionResult SearchByItem(string Item, int pageIndex = 1)
         {
-            if (ModelName == "")
-            {
-                ModelName = null;
-            }
-            
-            PagedList<DevModel> lst = bll.DevModels.DbSet.Where(p => (string.IsNullOrEmpty(ModelName) ? true : p.ModelId.Contains(ModelName))).OrderBy(p => p.Class).ToPagedList<DevModel>(pageIndex, pageSize);
+            //if (Item == "")
+            //{
+            //    Item = null;
+            //}
+            PagedList<DevModel> lst = bll.DevModels.DbSet.Where(p => (string.IsNullOrEmpty(Item) || p.Items.Contains(Item))).OrderBy(p => p.Class).ToPagedList<DevModel>(pageIndex, pageSize);
+            return View("Index", lst);
+        }
+
+        public ActionResult SearchByName(string Name, int pageIndex = 1)
+        {
+            //if (Name == "")
+            //{
+            //    Name = null;
+            //}
+            PagedList<DevModel> lst = bll.DevModels.DbSet.Where(p => (string.IsNullOrEmpty(Name) || p.Name.Contains(Name))).OrderBy(p => p.Class).ToPagedList<DevModel>(pageIndex, pageSize);
             return View("Index", lst);
         }
     }

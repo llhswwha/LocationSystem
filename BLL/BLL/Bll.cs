@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Location.BLL.Tool;
+using DbModel.Location.Person;
+using DbModel.Location.AreaAndDev;
+using DbModel.Location.Relation;
 
 namespace BLL
 {
@@ -67,6 +70,20 @@ namespace BLL
 
         public LocationCardToPersonnelBll LocationCardToPersonnels { get; set; }
 
+        public void BindCardToPerson(Personnel person, LocationCard tag)
+        {
+            if (tag != null && person != null)
+            {
+                LocationCardToPersonnel cardToPerson = new LocationCardToPersonnel();
+                cardToPerson.PersonnelId = person.Id;
+                cardToPerson.LocationCardId = tag.Id;
+                LocationCardToPersonnels.Add(cardToPerson);
+
+                tag.IsActive = true;//绑定了人员就激活
+                LocationCards.Edit(tag);
+            }
+        }
+
         public MobileInspectionBll MobileInspections { get; set; }
 
         public MobileInspectionContentBll MobileInspectionContents { get; set; }
@@ -107,6 +124,12 @@ namespace BLL
 
         public DevMonitorNodeBll DevMonitorNodes { get; set; }
 
+        public InspectionTrackBll InspectionTracks { get; set; }
+
+        public PatrolPointBll PatrolPoints { get; set; }
+
+        public PatrolPointItemBll PatrolPointItems { get; set; }
+
 
         /********************LocationHistory********************************/
 
@@ -146,6 +169,11 @@ namespace BLL
 
         public WorkTicketHistoryBll WorkTicketHistorys { get; set; }
 
+        public InspectionTrackHistoryBll InspectionTrackHistorys { get; set; }
+
+        public PatrolPointHistoryBll PatrolPointHistorys { get; set; }
+
+        public PatrolPointItemHistoryBll PatrolPointItemHistorys { get; set; }
 
         /********************Engine********************************/
         public bus_anchorBll bus_anchors { get; set; }
@@ -214,6 +242,9 @@ namespace BLL
             ArchorSettings = new ArchorSettingBll(Db);
             CardRoles = new CardRoleBll(Db);
             DevMonitorNodes = new DevMonitorNodeBll(Db);
+            InspectionTracks = new InspectionTrackBll(Db);
+            PatrolPoints = new PatrolPointBll(Db);
+            PatrolPointItems = new PatrolPointItemBll(Db);
             //Shapes = new ShapeBll(Db);
             //ShapePoints = new ShapePointBll();
 
@@ -235,7 +266,9 @@ namespace BLL
             SafetyMeasuresHistorys = new SafetyMeasuresHistoryBll(DbHistory);
             U3DPositions = new U3DPositionBll(DbHistory);
             WorkTicketHistorys = new WorkTicketHistoryBll(DbHistory);
-
+            InspectionTrackHistorys = new InspectionTrackHistoryBll(DbHistory);
+            PatrolPointHistorys = new PatrolPointHistoryBll(DbHistory);
+            PatrolPointItemHistorys = new PatrolPointItemHistoryBll(DbHistory);
 
             bus_anchors = new bus_anchorBll(DbE);
             bus_tags = new bus_tagBll(DbE);

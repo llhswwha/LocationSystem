@@ -8,7 +8,10 @@
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Archors" nillable="true" type="q1:ArrayOfstring" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Area" nillable="true" type="q2:PhysicalTopology" />
       <xs:element minOccurs="0" name="AreaId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="AreaState" type="xs:int" />
+      <xs:element minOccurs="0" name="DateTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MoveState" type="xs:int" />
       <xs:element minOccurs="0" name="Number" type="xs:int" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q3:Personnel" />
       <xs:element minOccurs="0" name="PersonId" nillable="true" type="xs:int" />

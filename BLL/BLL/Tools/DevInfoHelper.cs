@@ -449,7 +449,8 @@ namespace BLL.Tools
             devmonitor1.Unit = dr[4].ToString();
             devmonitor1.DataType = dr[5].ToString();
             devmonitor1.TagType = dr[6].ToString();
-           
+            devmonitor1.KKS = dr[7].ToString();
+
             return devmonitor1;
         }
 

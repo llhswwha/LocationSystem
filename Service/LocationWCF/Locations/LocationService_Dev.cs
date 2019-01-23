@@ -16,7 +16,7 @@ using DAL;
 using BLL.Tools;
 using IModel.Enums;
 using TModel.LocationHistory.AreaAndDev;
-
+using System.Data.Entity.Infrastructure;
 
 namespace LocationServices.Locations
 {
@@ -426,7 +426,7 @@ namespace LocationServices.Locations
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
             alarms.Add(new DeviceAlarm() { Id = 927, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[926].ToTModel()));
             alarms.Add(new DeviceAlarm() { Id = 8, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[7].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 1072, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1071].ToTModel()));
+//            alarms.Add(new DeviceAlarm() { Id = 1072, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1071].ToTModel()));
             alarms.Add(new DeviceAlarm() { Id = 930, Level = Abutment_DevAlarmLevel.中, Title = "告警4", Message = "设备告警4", CreateTime = new DateTime(2018, 9, 2, 14, 55, 20) }.SetDev(devs[929].ToTModel()));
             alarms.Add(new DeviceAlarm() { Id = 4, Level = Abutment_DevAlarmLevel.低, Title = "告警5", Message = "设备告警5", CreateTime = new DateTime(2018, 9, 2, 13, 22, 44) }.SetDev(devs[3].ToTModel()));
             return alarms;
@@ -457,9 +457,15 @@ namespace LocationServices.Locations
             }
             return db.Archors.Add(archor.ToDbModel());
         }
-        public void DeleteArchor(int archorId)
+        public bool DeleteArchor(int devId)
         {
-            db.Archors.DeleteById(archorId);
+            //db.Archors.DeleteById(archorId);
+            bool value = true;           
+            var archor = db.Archors.DeleteByDev(devId);
+            var dev = db.DevInfos.DeleteById(devId);
+            bool valueTemp = archor != null && dev != null;
+            if (!valueTemp) value = valueTemp;
+            return value;
         }
         public bool EditArchor(Archor Archor, int ParentId)
         {
@@ -582,6 +588,7 @@ namespace LocationServices.Locations
                 lc.Name = Tag.Name;
                 lc.Describe = Tag.Describe;
                 lc.Abutment_Id = id;
+                lc.IsActive = Tag.IsActive;
                 bReturn = db.LocationCards.Edit(lc);
             }
             
@@ -694,6 +701,116 @@ namespace LocationServices.Locations
         {            
             DbModel.Location.AreaAndDev.DevModel devModel = db.DevModels.FirstOrDefault(dev=>dev.Name==devModelName);
             return devModel;
+        }
+
+        /// <summary>
+        /// 根据KKS获取设备的信息、监控项，及设备树
+        /// </summary>
+        /// <param name="KKS"></param>
+        /// <param name="bFlag"></param>
+        /// <returns></returns>
+        public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag)
+        {
+            Dev_Monitor send = new Dev_Monitor();
+            DbModel.Location.AreaAndDev.KKSCode dev = db.KKSCodes.FirstOrDefault(p=>p.Code == KKS);
+            if (dev == null)
+            {
+                send = null;
+                return send;
+            }
+
+            send.Name = dev.Name;
+            send.KKSCode = dev.Code;
+            send.MonitorNodeList = GetDevMonitorNodeListByKKS(send.KKSCode);
+            send.ChildrenList = GetChildMonitorDev(send.KKSCode, bFlag);
+
+            return send;
+        }
+
+        private List<Dev_Monitor> GetChildMonitorDev(string KKS, bool bFlag)
+        {
+            List<Dev_Monitor> child = new List<Dev_Monitor>();
+            List<DbModel.Location.AreaAndDev.KKSCode> DevList = db.KKSCodes.Where(p => p.ParentCode == KKS).ToList();
+            foreach (DbModel.Location.AreaAndDev.KKSCode item in DevList)
+            {
+                Dev_Monitor dev = new Dev_Monitor();
+                dev.Name = item.Name;
+                dev.KKSCode = item.Code;
+                dev.MonitorNodeList = GetDevMonitorNodeListByKKS(dev.KKSCode);
+                dev.ChildrenList = GetChildMonitorDev(dev.KKSCode, bFlag);
+                if (!bFlag && dev.MonitorNodeList == null && dev.ChildrenList == null)
+                {
+                    continue;
+                }
+
+                child.Add(dev);
+            }
+
+            if (child.Count == 0)
+            {
+                child = null;
+            }
+
+            return child;
+        }
+
+        private List<DevMonitorNode> GetDevMonitorNodeListByKKS(string KKS)
+        {
+            List<DevMonitorNode> NodeList = null;
+            List<DevMonitorNode> NodeList2 = new List<DevMonitorNode>();
+
+            string strKKS = KKS.Replace(" ","");
+            DbModel.Location.AreaAndDev.DevMonitorNode Node1 = db.DevMonitorNodes.FirstOrDefault(p => p.KKS == strKKS);
+            if (Node1 != null)
+            {
+                NodeList = new List<DevMonitorNode>();
+                DevMonitorNode Node = new DevMonitorNode();
+                Node.Id = Node1.Id;
+                Node.KKS = Node1.KKS;
+                Node.TagName = Node1.TagName;
+                Node.DataBaseName = Node1.DataBaseName;
+                Node.DataBaseTagName = Node1.DataBaseTagName;
+                Node.Describe = Node1.Describe;
+                Node.Value = Node1.Value;
+                Node.Unit = Node1.Unit;
+                Node.DataType = Node1.DataType;
+                Node.TagType = Node1.TagType;
+
+                NodeList.Add(Node);
+            }
+
+            DbRawSqlQuery<DbModel.Location.AreaAndDev.DevMonitorNode> query2 = db.Db.Database.SqlQuery<DbModel.Location.AreaAndDev.DevMonitorNode>("select * from DevMonitorNodes where KKS like '%" + strKKS + "_%' and Id != " + Convert.ToString(Node1.Id));
+            if (query2 == null)
+            {
+                return NodeList;
+            }
+
+
+            List<DbModel.Location.AreaAndDev.DevMonitorNode> MonitorNodeList = query2.ToList();
+           
+            foreach (DbModel.Location.AreaAndDev.DevMonitorNode item in MonitorNodeList)
+            {
+                if (NodeList == null)
+                {
+                    NodeList = new List<DevMonitorNode>();
+                }
+
+                DevMonitorNode NodeMonitor = new DevMonitorNode();
+                NodeMonitor.Id = item.Id;
+                NodeMonitor.KKS = item.KKS;
+                NodeMonitor.TagName = item.TagName;
+                NodeMonitor.DataBaseName = item.DataBaseName;
+                NodeMonitor.DataBaseTagName = item.DataBaseTagName;
+                NodeMonitor.Describe = item.Describe;
+                NodeMonitor.Value = item.Value;
+                NodeMonitor.Unit = item.Unit;
+                NodeMonitor.DataType = item.DataType;
+                NodeMonitor.TagType = item.TagType;
+
+                NodeList.Add(NodeMonitor);
+            }
+
+            return NodeList;
         }
     }
 }

@@ -9,12 +9,14 @@
 <div id="timeDiv"></div>
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script type="text/javascript">   
+<script type="text/javascript">      
     //获取顶视图url
     function freshPic() {
         var topView = document.getElementById('topView');
+        //topView.src = '/Data/Images/顶视图.png';
         topView.src = '/api/image?name=顶视图';
         //console.log('10s后顶视图获取成功！')
+
         //$.ajax({
         //    type: "GET",
         //    url: "/api/image?name=顶视图",
@@ -40,21 +42,19 @@
         //console.log(times);
         var timeDiv = document.getElementById('timeDiv');
         timeDiv.innerHTML = '当前时间：' + times;       
-    }      
+    }
+    presentTime();
     //当某个字段不是两位数时补0
     function addZero(str) {
         var num;
         str >= 10 ? num = str : num = "0" + str;
         return num;
     }
-    presentTime();
 
-    window.onload = function () {
-        //定时刷新顶视图、更新时间
-        setInterval(function () {
-            freshPic();
-            presentTime();
-        }, 10000);
-    }
+    //定时刷新顶视图、更新时间
+    setInterval(function () {
+        freshPic();
+        presentTime();
+    }, 10000);    
 </script>
 

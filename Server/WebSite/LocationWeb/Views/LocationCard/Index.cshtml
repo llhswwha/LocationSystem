@@ -66,10 +66,7 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                @*<td style="display:none;" class="locationcardId">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>*@
+            <tr>               
                 <td>
                     @Html.DisplayFor(modelItem => item.Code)
                 </td>
@@ -151,12 +148,11 @@
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jqueryui-1.12.1.js"></script>
-@*<script src="~/Scripts/indexmodal.js"></script>*@ 
+<script src="~/Scripts/indexmodal.js"></script> 
  
-    <script type="text/javascript">
+@*<script type="text/javascript">
         function onBegin() {
             //alert('begin');
-            $('#myModal').modal('show');
             $('#myModal').modal({
                 //点击背景空白处不被关闭
                 backdrop: 'static',
@@ -170,7 +166,8 @@
         }
 
         function onComplete() {
-            //alert('complete');      
+            //alert('complete');
+            $('#myModal').modal('show');
         }
 
         function onFailure() {
@@ -181,8 +178,8 @@
             $(this).draggable({
                 handle: ".modal-header"   // 只能点击头部拖动
             });
-            $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的    
+            $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
         });
-    </script>
+    </script>*@
 
 

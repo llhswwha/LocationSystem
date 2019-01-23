@@ -147,6 +147,7 @@ namespace Coldairarrow.Util.Sockets
                     try
                     {
                         List<BUDPGram> list = new List<BUDPGram>();
+                        //DateTime start = DateTime.Now;
                         while (udpc.Available > 0)  //如果接收缓冲区有信息才接收，防止接收线程阻塞
                         {
                             BUDPGram budpg = new BUDPGram();
@@ -156,6 +157,7 @@ namespace Coldairarrow.Util.Sockets
                         }//这里要用while，接收直到全部收完，而不是收一条，等100ms
                         if (list.Count > 0)
                         {
+                            //TimeSpan time = DateTime.Now - start;
                             recieveBW.ReportProgress(2, list);
                             //list.Clear();
                         }

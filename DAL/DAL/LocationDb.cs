@@ -5,6 +5,7 @@ using DbModel.Location.Settings;
 using SQLite.CodeFirst;
 using DAL.LocationDbMigrations;
 using DbModel.Location.AreaAndDev;
+using DbModel.Location.Work;
 
 namespace DAL
 {
@@ -131,5 +132,11 @@ namespace DAL
         public DbSet<CardRole> CardRoles { get; set; }
 
         public DbSet<DevMonitorNode> DevMonitorNodes { get; set; }
+
+        public DbSet<InspectionTrack> InspectionTracks { get; set; }
+
+        public DbSet<PatrolPoint> PatrolPoints { get; set; }
+
+        public DbSet<PatrolPointItem> PatrolPointItems { get; set; }
     }
 }

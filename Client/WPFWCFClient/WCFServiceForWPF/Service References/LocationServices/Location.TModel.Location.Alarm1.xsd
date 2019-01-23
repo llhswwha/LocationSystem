@@ -11,10 +11,12 @@
   <xs:element name="ArrayOfLocationAlarm" nillable="true" type="tns:ArrayOfLocationAlarm" />
   <xs:complexType name="LocationAlarm">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AlarmId" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="AlarmLevel" type="q1:LocationAlarmLevel" />
       <xs:element minOccurs="0" name="AlarmTimeStamp" type="xs:long" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="AlarmType" type="q2:LocationAlarmType" />
       <xs:element minOccurs="0" name="AreaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CardRoleId" type="xs:int" />
       <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="HandleTime" type="xs:dateTime" />

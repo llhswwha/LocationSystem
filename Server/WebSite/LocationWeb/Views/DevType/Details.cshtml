@@ -4,47 +4,67 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>DevType</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TypeCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TypeCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FrontElevation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FrontElevation)
-        </dd>
-
-    </dl>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>DevType</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TypeName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TypeName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TypeCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TypeCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Class)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Class)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FrontElevation)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FrontElevation)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "DevType", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>
+

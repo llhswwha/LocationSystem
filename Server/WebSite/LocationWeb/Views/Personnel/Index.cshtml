@@ -6,7 +6,6 @@
     ViewBag.Title = "Index";
 }
 
-
 <h2>Index</h2>
 
 <p>
@@ -31,7 +30,7 @@
     </div>
 </div>
 
-<form action="/Personnel/Search"> 主类:@Html.TextBox("Name")  部门:@Html.DropDownList("ParentId", ViewBag.DepList as IEnumerable<SelectListItem>, " ", 1)   岗位:@Html.DropDownList("Pst", ViewBag.PostList as IEnumerable<SelectListItem>, " ", 1)  <input type="submit" value="查询"></form>
+<form action="/Personnel/Search"> 姓名：@Html.TextBox("Name") &nbsp; 部门：@Html.DropDownList("ParentId", ViewBag.DepList as IEnumerable<SelectListItem>, " ", 1) &nbsp; 岗位：@Html.DropDownList("Pst", ViewBag.PostList as IEnumerable<SelectListItem>, " ", 1)  <input type="submit" value="查询"></form>
 
 <table class="table">
     <tr>
@@ -39,9 +38,15 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sex)
+           @Html.DisplayNameFor(model => model.LocationCardName)       
         </th>
         <th>
+            标签卡设置
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex)
+        </th>
+        <th> 
             @Html.DisplayNameFor(model => model.Photo)
         </th>
         <th>
@@ -83,6 +88,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationCardName)
+            </td>
+            <td>
+                @Ajax.ActionLink("设置", "CardSet", "Personnel", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "Get",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+            </td>           
             <td>
                 @Html.DisplayFor(modelItem => item.Sex)
             </td>

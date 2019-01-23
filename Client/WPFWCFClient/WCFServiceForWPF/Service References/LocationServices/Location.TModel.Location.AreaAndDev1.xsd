@@ -20,7 +20,6 @@
       <xs:element minOccurs="0" name="LeafNodes" nillable="true" type="tns:ArrayOfDevInfo" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Number" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Parent" nillable="true" type="tns:PhysicalTopology" />
       <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Persons" nillable="true" type="q1:ArrayOfPersonnel" />
       <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
@@ -39,7 +38,6 @@
   <xs:complexType name="Bound">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="IsRectangle" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsRelative" type="xs:boolean" />
       <xs:element minOccurs="0" name="MaxX" type="xs:float" />
       <xs:element minOccurs="0" name="MaxY" type="xs:float" />
@@ -48,6 +46,7 @@
       <xs:element minOccurs="0" name="MinY" type="xs:float" />
       <xs:element minOccurs="0" name="MinZ" type="xs:float" />
       <xs:element minOccurs="0" name="Points" nillable="true" type="tns:ArrayOfPoint" />
+      <xs:element minOccurs="0" name="Shape" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Bound" nillable="true" type="tns:Bound" />

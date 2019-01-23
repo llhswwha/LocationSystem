@@ -143,6 +143,7 @@ namespace WebApiService.Controllers
         [Route("svg")]
         public HttpResponseMessage GetAreaSvgXml(int Id)
         {
+            System.DateTime dt = System.DateTime.Now;
             AreaService asi = new AreaService();
             string strXml = "";
             strXml = asi.GetAreaSvgXml(Id);
@@ -158,6 +159,8 @@ namespace WebApiService.Controllers
             {
                 Content = new StringContent(strXml, Encoding.UTF8, "text/xml")
             };
+
+            System.DateTime dt2 = System.DateTime.Now;
             return result;
         }
     }

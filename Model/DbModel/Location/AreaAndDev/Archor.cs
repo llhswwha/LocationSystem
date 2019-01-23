@@ -23,7 +23,7 @@ namespace DbModel.Location.AreaAndDev
         /// 基站编号
         /// </summary>
         [DataMember]
-        [Display(Name = "基站编号")]
+        [Display(Name = "基站编号")]        
         [MaxLength(16)]
         public string Code { get; set; }
 
@@ -49,8 +49,17 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "基站名")]
+        [Required]
         [MaxLength(128)]
         public string Name { get; set; }
+
+        ///// <summary>
+        ///// 区域
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "区域")]
+        //public int AreaId { get; set; }
+        //public virtual Area Area { get; set; }
 
         /// <summary>
         /// 所在区域的Id,要和DevInfo.ParentId相同

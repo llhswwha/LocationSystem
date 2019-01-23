@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
+using DbModel.Location.AreaAndDev;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Person
 {
@@ -35,6 +37,15 @@ namespace DbModel.Location.Person
         [MaxLength(16)]
         [Required]
         public string Name { get; set; }
+
+
+        //[Display(Name = "标签卡")]
+        //public int? LocationCardId { get; set; }
+
+        [Display(Name = "标签卡")]
+        [NotMapped]
+        public string LocationCardName { get; set; }
+        //public LocationCard LocationCard { get; set; }        
 
         /// <summary>
         /// 性别

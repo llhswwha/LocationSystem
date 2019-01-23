@@ -75,6 +75,12 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(16)]
         public string Flag { get; set; }
 
+        /// <summary>
+        /// 是否激活
+        /// </summary>
+        [Display(Name = "是否激活")]
+        public bool IsActive { get; set; }
+
         public override string ToString()
         {
             return Name;
@@ -92,7 +98,8 @@ namespace DbModel.Location.AreaAndDev
             history.Abutment_Id = this.Abutment_Id;
             history.Code = this.Code;
             history.Name = this.Name;
-            history.Describe = this.Describe;            
+            history.Describe = this.Describe;
+            history.IsActive = this.IsActive;
             history.HistoryTime = DateTime.Now;
             history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
 

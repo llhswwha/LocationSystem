@@ -78,18 +78,22 @@
     <None Include="Properties\DataSources\TModel.BaseData.Ticket.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Archor.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.AreaStatistics.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_CameraInfo.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_Monitor.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.NearbyDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Picture.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Manage.LoginInfo.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Nodes.AreaNode.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Person.NearbyPerson.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Person.NearbyPerson_Currency.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Work.InspectionTrack.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspectionDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.OperationTicket.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.PersonnelMobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.WorkTicket.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo.datasource" />
+    <None Include="Properties\DataSources\TModel.LocationHistory.Work.InspectionTrackHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.OperationItemHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.OperationTicketHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.PersonnelMobileInspectionHistory.datasource" />
@@ -114,6 +118,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\DbModel.Location.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\DbModel.Tools1.xsd">
@@ -156,20 +163,26 @@
     <None Include="Service References\LocationServices\TModel.Location.Manage1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Nodes.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Nodes1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Person.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Person1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev.xsd">
+    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.LocationHistory.Work1.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.Area.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DevModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

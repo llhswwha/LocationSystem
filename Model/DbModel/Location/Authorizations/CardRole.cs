@@ -33,6 +33,7 @@ namespace DbModel.Location.Authorizations
         /// </summary>
         [Display(Name = "描述")]
         [MaxLength(64)]
+        [Required]
         public string Description { get; set; }
 
         public override string ToString()

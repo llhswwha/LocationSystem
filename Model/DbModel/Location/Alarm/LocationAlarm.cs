@@ -207,6 +207,30 @@ namespace DbModel.Location.Alarm
             return copy;
         }
 
+        public LocationAlarm Copy()
+        {
+            LocationAlarm copy = new LocationAlarm();
+            copy.Id = this.Id;
+            copy.AlarmId = this.AlarmId;
+            copy.AlarmType = this.AlarmType;
+            copy.AlarmLevel = this.AlarmLevel;
+            copy.LocationCardId = this.LocationCardId ?? 0;
+            copy.PersonnelId = this.PersonnelId ?? 0;
+            copy.AreaId = this.AreaId;
+            copy.CardRoleId = this.CardRoleId;
+            copy.Content = this.Content;
+            copy.AlarmTime = this.AlarmTime;
+            copy.AlarmTimeStamp = this.AlarmTimeStamp;
+            copy.HandleTime = this.HandleTime;
+            copy.HandleTimeStamp = this.HandleTimeStamp;
+            copy.Handler = this.Handler;
+            copy.HandleType = this.HandleType;
+            copy.AuzId = this.AuzId;
+            copy.AllAuzId = this.AllAuzId;
+
+            return copy;
+        }
+
         public void Update(LocationAlarm alarm)
         {
             //this.Id = alarm.Id;

@@ -27,7 +27,6 @@
     </NuGetPackageImportStamp>
     <WebGreaseLibPath>..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -307,6 +306,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AlarmsController.cs" />
     <Compile Include="Controllers\ArchorsController.cs" />
+    <Compile Include="Controllers\AreaAuthorizationRecordController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\ArgController.cs" />
     <Compile Include="Controllers\CardRoleController.cs" />
@@ -477,7 +477,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jqueryui-1.12.1.js" />
-    <Content Include="Scripts\launch_uri.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\position.js" />
     <Content Include="Scripts\protocolcheck.js" />
@@ -641,10 +640,15 @@
     <Content Include="Views\CardRole\Delete.cshtml" />
     <Content Include="Views\LocationCard\RoleSet.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
+    <Content Include="Views\Personnel\CardSet.cshtml" />
+    <Content Include="Views\AreaAuthorizationRecord\Index.cshtml" />
+    <Content Include="Views\AreaAuthorizationRecord\Create.cshtml" />
+    <Content Include="Views\AreaAuthorizationRecord\Details.cshtml" />
+    <Content Include="Views\AreaAuthorizationRecord\Delete.cshtml" />
+    <Content Include="Views\AreaAuthorizationRecord\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Arg\" />
     <Folder Include="Views\Location\" />
     <Folder Include="Views\RsetfulSvr\" />
     <Folder Include="Views\Svr\" />

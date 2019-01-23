@@ -17,6 +17,7 @@ using DbModel.Location.Work;
 using DbModel.Location.Alarm;
 using DbModel.Location.Data;
 using DbModel.LocationHistory.Data;
+using DbModel.LocationHistory.Work;
 
 namespace WebApiLib.Clients
 {
@@ -35,7 +36,8 @@ namespace WebApiLib.Clients
 
         public BaseDataClient(string host, string port)
         {
-            BaseUri = string.Format("http://{0}:{1}/", host, port);
+            //BaseUri = string.Format("http://{0}:{1}/", host, port);
+            BaseUri = string.Format("http://{0}/{1}/", host, port);
         }
 
         public BaseDataClient(string baseUri)
@@ -60,6 +62,61 @@ namespace WebApiLib.Clients
                 return null;
             }
             return recv;
+        }
+
+        public List<T> GetEntityList2<T>(string url)
+        {
+            var recv = new List<T>();
+            try
+            {
+                recv = WebApiHelper.GetEntity<List<T>>(url);
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                return null;
+            }
+            return recv;
+        }
+
+        public patrols GetEntityList3(string url)
+        {
+            patrols recv = new patrols();
+            try
+            {
+                recv = WebApiHelper.GetEntity<patrols>(url);
+                if (recv.route == null)
+                {
+                    recv.route = new List<checkpoints>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                return null;
+            }
+            return recv;
+
+        }
+
+        public checkpoints GetEntityList4(string url)
+        {
+            checkpoints recv = new checkpoints();
+            try
+            {
+                recv = WebApiHelper.GetEntity<checkpoints>(url);
+                if (recv.checks == null)
+                {
+                    recv.checks = new List<results>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                return null;
+            }
+            return recv;
+
         }
 
         public T GetEntityDetail<T>(string url)
@@ -1202,6 +1259,375 @@ namespace WebApiLib.Clients
             }
 
             return recv;
+        }
+
+       
+
+        
+        //public List<InspectionTrack> Getinspectionlist(DateTime dtTime, bool bFlag)
+        //{
+        //    List<patrols> recv = new List<patrols>();
+        //    List<InspectionTrack> send = new List<InspectionTrack>();
+
+        //    try
+        //    {
+        //        string path = "api/patrols";
+        //        string url = BaseUri + path;
+        //        if (bFlag)
+        //        {
+        //            DateTime dtEnd = dtTime.AddHours(-8);
+        //            DateTime dtBegin = dtEnd.AddDays(-1);
+
+        //            url += "?startDate=" + Convert.ToString(dtBegin);
+        //            url += "&endDate=" + Convert.ToString(dtEnd);
+        //        }
+
+        //        recv = GetEntityList2<patrols>(url);
+
+        //        foreach (patrols item in recv)
+        //        {
+        //            InspectionTrack now = bll.InspectionTracks.Find(p => p.Abutment_Id == item.id);
+        //            InspectionTrackHistory history = bll.InspectionTrackHistorys.Find(p => p.Abutment_Id == item.id);
+
+        //            InspectionStatus state =(InspectionStatus)Convert.ToInt32(item.state);
+        //            int nFlag = 0;
+        //            int nId = 0;
+
+        //            if (state == InspectionStatus.NewBuild || state == InspectionStatus.AlreadyIssued || state == InspectionStatus.InExecution)
+        //            {
+        //                if (now == null)
+        //                {
+        //                    now = new InspectionTrack();
+
+        //                    now.Abutment_Id = item.id;
+        //                    now.Code = item.code;
+        //                    now.Name = item.name;
+        //                    now.CreateTime = (item.createTime + nEightHourSecond) * 1000;
+        //                    now.dtCreateTime = TimeConvert.TimeStampToDateTime(now.CreateTime);
+        //                    now.State = state;
+        //                    now.StartTime = (item.startTime + nEightHourSecond) * 1000;
+        //                    now.dtStartTime = TimeConvert.TimeStampToDateTime(now.StartTime);
+        //                    now.EndTime = (item.endTime + nEightHourSecond) * 1000;
+        //                    now.dtEndTime = TimeConvert.TimeStampToDateTime(now.EndTime);
+        //                    bll.InspectionTracks.Add(now);
+        //                }
+        //                else
+        //                {
+        //                    now.State = state;
+        //                    bll.InspectionTracks.Edit(now);
+        //                }
+
+        //                nId = now.Id;
+        //            }
+        //            else
+        //            {
+        //                if (now != null)
+        //                {
+        //                    bll.InspectionTracks.DeleteById(now.Id);
+        //                }
+
+        //                if (history != null)
+        //                {
+        //                    nFlag = 1;
+        //                }
+        //                else
+        //                {
+        //                    history = new InspectionTrackHistory();
+
+        //                    history.Abutment_Id = item.id;
+        //                    history.Code = item.code;
+        //                    history.Name = item.name;
+        //                    history.CreateTime = (item.createTime + nEightHourSecond) * 1000;
+        //                    history.dtCreateTime = TimeConvert.TimeStampToDateTime(now.CreateTime);
+        //                    history.State = state;
+        //                    history.StartTime = (item.startTime + nEightHourSecond) * 1000;
+        //                    history.dtStartTime = TimeConvert.TimeStampToDateTime(now.StartTime);
+        //                    history.EndTime = (item.endTime + nEightHourSecond) * 1000;
+        //                    history.dtEndTime = TimeConvert.TimeStampToDateTime(now.EndTime);
+                            
+        //                    bll.InspectionTrackHistorys.Add(history);
+
+        //                    nFlag = 2;
+        //                }
+
+        //                nId = history.Id;
+        //            }
+
+        //            if (nFlag == 1)
+        //            {
+        //                continue;
+        //            }
+
+        //            List<PatrolPoint> Route = Getcheckpoints(item.id, nId, nFlag);
+        //            if (nFlag == 2 || Route.Count <= 0)
+        //            {
+        //                continue;
+        //            }
+
+        //            now.Route = Route;
+        //            send.Add(now);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string messgae = ex.Message;
+        //    }
+
+        //    return send;
+
+        //}
+
+        /// <summary>
+        /// 获取巡检轨迹列表
+        /// </summary>
+        /// <param name="dtBegin"></param>
+        /// <param name="dtEnd"></param>
+        /// <param name="bFlag">值为True，按时间获取，值为false,获取全部</param>
+        /// <returns></returns>
+        public List<patrols> Getinspectionlist(long lBegin, long lEnd, bool bFlag)
+        {
+            List<patrols> recv = new List<patrols>();
+       
+            try
+            {
+                string path = "api/patrols";
+                string url = BaseUri + path;
+                if (bFlag)
+                {
+                    url += "?startDate=" + Convert.ToString(lBegin);
+                    url += "&endDate=" + Convert.ToString(lEnd);
+                }
+
+                recv = GetEntityList2<patrols>(url);
+            }
+            catch (Exception ex)
+            {
+                string messgae = ex.Message;
+            }
+
+            return recv;
+
+        }
+
+        /// <summary>
+        /// 获取巡检节点列表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //public List<PatrolPoint> Getcheckpoints(int patrolId, int ParentId, int nFlag)
+        //{
+        //    patrols recv = new patrols();
+        //    List<PatrolPoint> send = new List<PatrolPoint>();
+
+        //    try
+        //    {
+        //        string path = "api/patrols/" + Convert.ToString(patrolId);
+        //        string url = BaseUri + path;
+                
+        //        recv = GetEntityList3(url);
+
+        //        foreach (checkpoints item in recv.route)
+        //        {
+        //            PatrolPoint now = bll.PatrolPoints.Find(p=>p.KksCode == item.kksCode && p.ParentId == ParentId);
+        //            PatrolPointHistory history = bll.PatrolPointHistorys.Find(p => p.KksCode == item.kksCode && p.ParentId == ParentId);
+        //            int nId = 0;
+
+        //            if (nFlag == 0)
+        //            {
+        //                if (now == null)
+        //                {
+        //                    now = new PatrolPoint();
+
+        //                    now.ParentId = ParentId;
+        //                    now.StaffCode = item.staffCode;
+        //                    now.KksCode = item.kksCode;
+        //                    now.DeviceCode = item.deviceCode;
+        //                    now.DeviceId = item.deviceId;
+
+        //                    bll.PatrolPoints.Add(now);
+        //                }
+
+        //                nId = now.Id;
+        //            }
+        //            else
+        //            {
+        //                if (history == null)
+        //                {
+        //                    history = new PatrolPointHistory();
+
+        //                    history.ParentId = ParentId;
+        //                    history.StaffCode = item.staffCode;
+        //                    history.KksCode = item.kksCode;
+        //                    history.DeviceCode = item.deviceCode;
+        //                    history.DeviceId = item.deviceId;
+
+        //                    bll.PatrolPointHistorys.Add(history);
+        //                }
+
+        //                nId = history.Id;
+        //            }
+
+        //            PatrolPoint pp = Getcheckresults(patrolId, item.deviceId, nId, nFlag);
+        //            if (nFlag == 0)
+        //            {
+        //                now.Success = pp.Success;
+        //                bll.PatrolPoints.Edit(now);
+        //                now.Checks = pp.Checks;
+        //                send.Add(now);
+        //            }
+        //            else
+        //            {
+        //                history.Success = pp.Success;
+        //                bll.PatrolPointHistorys.Edit(history);
+        //            }
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string messgae = ex.Message;
+        //    }
+
+        //    return send;
+
+        //}
+
+        public patrols Getcheckpoints(int patrolId)
+        {
+            patrols recv = new patrols();
+
+            try
+            {
+                string path = "api/patrols/" + Convert.ToString(patrolId);
+                string url = BaseUri + path;
+
+                recv = GetEntityList3(url);
+                
+            }
+            catch (Exception ex)
+            {
+                string messgae = ex.Message;
+            }
+
+            return recv;
+
+        }
+
+        /// <summary>
+        /// 获取巡检结果列表
+        /// </summary>
+        /// <param name="patrolId"></param>
+        /// <param name="deviceCode"></param>
+        /// <returns></returns>
+        //public PatrolPoint Getcheckresults(int patrolId, string deviceId, int parentId, int nFlag)
+        //{
+        //    checkpoints recv = new checkpoints();
+        //    PatrolPoint send = new PatrolPoint();
+
+        //    try
+        //    {
+        //        string path = "api/patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
+        //        //string path = "api/patrols/" + Convert.ToString(469) + "/checkpoints/100012/results";
+        //        string url = BaseUri + path;
+
+        //        recv = GetEntityList4(url);
+        //        send.Success = recv.success;
+
+        //        foreach (results item in recv.checks)
+        //        {
+        //            PatrolPointItem now = bll.PatrolPointItems.Find(p => p.CheckId == item.checkId && p.ParentId == parentId);
+        //            PatrolPointItemHistory history = bll.PatrolPointItemHistorys.Find(p => p.CheckId == item.checkId && p.ParentId == parentId);
+
+
+        //            if (nFlag == 0)
+        //            {
+        //                if (now == null)
+        //                {
+        //                    now = new PatrolPointItem();
+        //                    now.ParentId = parentId;
+        //                    now.KksCode = item.kksCode;
+        //                    now.CheckItem = item.checkItem;
+        //                    now.StaffCode = item.staffCode;
+        //                    now.CheckTime = null;
+        //                    now.dtCheckTime = null;
+        //                    if (item.checkTime != null)
+        //                    {
+        //                        now.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
+        //                        now.dtCheckTime = TimeConvert.TimeStampToDateTime((long)now.CheckTime);
+        //                    }
+        //                    now.CheckId = item.checkId;
+        //                    now.CheckResult = item.checkResult;
+        //                    bll.PatrolPointItems.Add(now);
+        //                }
+        //                else
+        //                {
+        //                    now.CheckTime = null;
+        //                    now.dtCheckTime = null;
+        //                    if (item.checkTime != null)
+        //                    {
+        //                        now.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
+        //                        now.dtCheckTime = TimeConvert.TimeStampToDateTime((long)now.CheckTime);
+        //                    }
+
+        //                    now.CheckResult = item.checkResult;
+        //                    bll.PatrolPointItems.Edit(now);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (history == null)
+        //                {
+        //                    history = new PatrolPointItemHistory();
+        //                    history.ParentId = parentId;
+        //                    history.KksCode = item.kksCode;
+        //                    history.CheckItem = item.checkItem;
+        //                    history.StaffCode = item.staffCode;
+        //                    history.CheckTime = null;
+        //                    history.dtCheckTime = null;
+        //                    if (item.checkTime != null)
+        //                    {
+        //                        history.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
+        //                        history.dtCheckTime = TimeConvert.TimeStampToDateTime((long)history.CheckTime);
+        //                    }
+        //                    history.CheckId = item.checkId;
+        //                    history.CheckResult = item.checkResult;
+        //                    bll.PatrolPointItemHistorys.Add(history);
+        //                }
+        //            }
+
+        //            if (nFlag == 0)
+        //            {
+        //                send.Checks.Add(now);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string messgae = ex.Message;
+        //    }
+
+        //    return send;
+
+        //}
+
+        public checkpoints Getcheckresults(int patrolId, string deviceId)
+        {
+            checkpoints recv = new checkpoints();
+
+            try
+            {
+                string path = "api/patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
+                string url = BaseUri + path;
+
+                recv = GetEntityList4(url);
+            }
+            catch (Exception ex)
+            {
+                string messgae = ex.Message;
+            }
+
+            return recv;
+
         }
     }
 }

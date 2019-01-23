@@ -109,14 +109,19 @@ namespace DbModel.LocationHistory.Data
         public int Power { get; set; }
 
 
-        public void SetArea(params Area[] areas)
+        public Area SetArea(params Area[] areas)
         {
+            //if (ToString() == "0918")
+            //{
+
+            //}
+            Area areaNode = null;
             if (areas == null)
             {
                 AllAreaId = null;
                 AreaPath = "";
                 AreaState = 1;
-                return;
+                return areaNode;
             }
             Areas = areas;
             //AreaId = areas.Id;
@@ -134,10 +139,12 @@ namespace DbModel.LocationHistory.Data
                 if (area.Type != Tools.AreaTypes.范围)
                 {
                     AreaId = area.Id;
+                    areaNode = area;
                 }
                 AllAreaId += area.Id + ";";
                 AreaPath = area.Name + ";";
             }
+            return areaNode;
         }
 
         /// <summary>
@@ -225,6 +232,7 @@ namespace DbModel.LocationHistory.Data
             }
             else
             {
+                if (string.IsNullOrEmpty(AllAreaId)) return false;
                 string[] parts = AllAreaId.Split(';');
                 foreach (var item in parts)
                 {
@@ -345,6 +353,7 @@ namespace DbModel.LocationHistory.Data
                 Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = long.Parse(parts[4]);
                 DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
+                TimeSpan time1 = DateTime.Now - DateTime;
                 long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
 
                 if (length > 5)

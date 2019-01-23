@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using TModel.BaseData;
+using TModel.Location.Work;
+using TModel.LocationHistory.Work;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -13,5 +15,8 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         Ticket GetTicketDetial(int id);
+
+        [OperationContract]
+        List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
     }
 }

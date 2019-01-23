@@ -19,10 +19,9 @@ namespace WebLocation.Controllers
             string port = ConfigurationHelper.GetValue("Port");
             string user = ConfigurationHelper.GetValue("User");
             string pass = ConfigurationHelper.GetValue("Password");
-            //return ""
 
             var locations = ip + "|" + port + "|" + user + "|" + pass;  
             return locations;  //  127.0.0.1|8733|admin|admin
-        }
+        }              
     }
 }

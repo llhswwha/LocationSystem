@@ -37,6 +37,10 @@ namespace LocationServices.Converters
             {
                 item2.Archors = item1.ArchorsText.Split('@').ToList();
             }
+            else
+            {
+                item2.Archors = null;
+            }
             item2.AreaId = item1.AreaId;
             //item2.AreaPath = item1.AreaPath;
             //item2.PersonId = item1.PersonId;
@@ -115,11 +119,16 @@ namespace LocationServices.Converters
             item2.Y = item1.Y;
             item2.Z = item1.Z;
             item2.DateTime = item1.DateTime;
+            //item2.DateTime = TimeConvert.TimeStampToDateTime(item1.DateTimeStamp);
             item2.Time = item1.DateTimeStamp;
             item2.Power = item1.Power;
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
-            item2.Archors = item1.Archors;
+            //item2.Archors = item1.Archors;
+            if (!string.IsNullOrEmpty(item1.ArchorsText))
+            {
+                item2.Archors = item1.ArchorsText.Split('@').ToList();
+            }
             item2.TopoNodeId = item1.AreaId;
             item2.AreaState = item1.AreaState;
             item2.PowerState = item1.PowerState;

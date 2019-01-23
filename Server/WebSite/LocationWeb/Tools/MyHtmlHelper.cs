@@ -52,54 +52,62 @@ namespace System.Web.Mvc
             StringBuilder sb = new StringBuilder();
             if (treeModel != null)
             {
-
-                List<T1> list = treeModel.Children.ToList();
-
-                
-                if (layer == 0)
+                if(treeModel.Children != null)
                 {
-                    sb.Append(string.Format("<ul onclick='{0}'>", "displayOrHide(event);"));
-                }
-                else
-                {
-                    if (HaveChildren(treeModel))
+                    List<T1> list = treeModel.Children.ToList();
+
+                    if (layer == 0)
                     {
-                        sb.Append(string.Format("<ul class='collapse' id='List{0}'>", treeModel.Id));
+                        sb.Append(string.Format("<ul onclick='{0}'>", "displayOrHide(event);"));
                     }
                     else
                     {
-                        sb.Append("<ul>");
-                    }
-                }
-
-
-                foreach (T1 item in list)
-                {
-                    bool haveChildren = HaveChildren(item);
-                    if (!haveChildren)
-                    {
-                        sb.Append("<li>");
-                    }
-                    else
-                    {
-                        sb.Append("<li style='list-style-image: url(\"../Img/TreeIcon/open.png\");cursor: pointer;'>");
+                        if (HaveChildren(treeModel))
+                        {
+                            sb.Append(string.Format("<ul class='collapse' id='List{0}'>", treeModel.Id));
+                        }
+                        else
+                        {
+                            sb.Append("<ul>");
+                        }
                     }
 
-                    sb.Append(item.Name);
-                    sb.Append("</li>");
-                    sb.Append(BindTreeEx(item, layer + 1));
-                }
 
-                    List<T2> leafs = treeModel.LeafNodes.ToList();
-                    foreach (T2 leaf in leafs)
+                    foreach (T1 item in list)
                     {
-                        sb.Append("<li>");
-                        sb.Append(leaf.Name);
+                        bool haveChildren = HaveChildren(item);
+                        if (!haveChildren)
+                        {
+                            sb.Append("<li>");
+                        }
+                        else
+                        {
+                            sb.Append("<li style='list-style-image: url(\"../Img/TreeIcon/open.png\");cursor: pointer;'>");
+                        }
+
+                        sb.Append(item.Name);
                         sb.Append("</li>");
+                        sb.Append(BindTreeEx(item, layer + 1));
                     }
+
+                    if (treeModel.LeafNodes != null)
+                    {
+                        List<T2> leafs = treeModel.LeafNodes.ToList();
+                        foreach (T2 leaf in leafs)
+                        {
+                            sb.Append("<li>");
+                            sb.Append(leaf.Name);
+                            sb.Append("</li>");
+                        }
+                    }
+                    
 
                     sb.Append("</ul>");
-                }  
+                }
+            }
+               
+
+                
 
             
             MvcHtmlString mstr = new MvcHtmlString(sb.ToString());

@@ -21,6 +21,7 @@ namespace DbModel.Location.AreaAndDev
         /// <summary>
         /// 图片
         /// </summary>
+        [MaxLength(128)]
         [DataMember]
         [Display(Name = "图片")]
         

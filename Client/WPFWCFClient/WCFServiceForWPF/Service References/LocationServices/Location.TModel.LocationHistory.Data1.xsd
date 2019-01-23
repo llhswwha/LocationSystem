@@ -10,10 +10,12 @@
   <xs:complexType name="Position">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Archors" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="AreaState" type="xs:int" />
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DateTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flag" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="MoveState" type="xs:int" />
       <xs:element minOccurs="0" name="Number" type="xs:int" />
       <xs:element minOccurs="0" name="PersonnelID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Power" type="xs:int" />

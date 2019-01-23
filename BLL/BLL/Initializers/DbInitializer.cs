@@ -69,7 +69,7 @@ namespace BLL
         }
 
         int maxPersonCount = 20;//初始人的数量
-        int maxTagCount = 200;//初始卡的数量
+        int maxTagCount = 100;//初始卡的数量
 
         public void InitDbData(int mode, bool isForce = false)
         {
@@ -177,13 +177,7 @@ namespace BLL
             Personnels.Add(person);
 
 
-            if (tag != null && person != null)
-            {
-                LocationCardToPersonnel cardToPerson = new LocationCardToPersonnel();
-                cardToPerson.PersonnelId = person.Id;
-                cardToPerson.LocationCardId = tag.Id;
-                LocationCardToPersonnels.Add(cardToPerson);
-            }
+            _bll.BindCardToPerson(person, tag);
         }
 
         Random r=new Random(DateTime.Now.Millisecond);
@@ -261,8 +255,50 @@ namespace BLL
             Log.Info("导入土建KKS");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info("BaseDirectory:" + basePath);
+            //土建
             string filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\土建\\中电四会热电有限责任公司KKS项目-土建系统-B.xls";
             KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //电气
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-电气一次总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-火灾报警系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-视频监控系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-照明检修箱系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //锅炉
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#1炉总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#3炉总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //化学
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\化学\\中电四会热电有限责任公司KKS项目-化学总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //暖通
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\暖通\\中电四会热电有限责任公司KKS项目-暖通系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //汽机
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#1汽机总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#3汽机总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //燃机
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#2燃机总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#4燃机总表-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-调压站系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //热控
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\热控\\中电四会热电有限责任公司KKS项目-热控盘柜系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+            //消防
+            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\消防\\中电四会热电有限责任公司KKS项目-消防系统-B.xls";
+            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
+
         }
 
         private CardRoleInitializer iniRole;
@@ -328,12 +364,22 @@ namespace BLL
             int startNumber = Convert.ToInt32(startCode, 16);
             for (int i = 0; i < maxTagCount; i++)//400张卡
             {
-                int number = startNumber + i;
-                string code = "0"+Convert.ToString(number, 16).ToUpper();
-                //var role = roles[r.Next(roles.Count)];//随机分配角色
-                //var tag1 = new LocationCard() { Name = code, Code = code, CardRoleId = role.Id };
-                var tag1=new LocationCard() { Name = code, Code = code };
-                tags.Add(tag1);
+
+                if (i >= 15)
+                {
+                    int number = startNumber + i;
+                    string code = "0" + Convert.ToString(number, 16).ToUpper();
+                    //var role = roles[r.Next(roles.Count)];//随机分配角色
+                    //var tag1 = new LocationCard() { Name = code, Code = code, CardRoleId = role.Id };
+                    var tag1 = new LocationCard() { Name = code, Code = code };
+                    tags.Add(tag1);
+                }
+                else
+                {
+                    var role = roles[r.Next(roles.Count)];//随机分配角色
+                    var tag1 = new LocationCard() { Name = "标签" + i, Code = "000" + (i + 1), CardRoleId = role.Id };
+                    tags.Add(tag1);
+                }
             }
             LocationCards.AddRange(tags);
 

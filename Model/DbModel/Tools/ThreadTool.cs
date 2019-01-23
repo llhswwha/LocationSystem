@@ -12,6 +12,7 @@ namespace DbModel.Tools
         public static Thread Start(ThreadStart action)
         {
             Thread thread=new Thread(action);
+            thread.IsBackground = true;
             thread.Start();
             return thread;
         }

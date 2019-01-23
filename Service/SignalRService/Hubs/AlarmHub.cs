@@ -25,7 +25,10 @@ namespace SignalRService.Hubs
             //}
             //IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
             //chatHubContext.Clients.All.GetDeviceAlarms(alarms);
-            SendDevAlarm(alarms);
+            if (alarms.Length > 0)
+            {
+                SendDevAlarm(alarms);
+            }
         }
        
         public static void SendLocationAlarms(params LocationAlarm[] alarms)
@@ -36,7 +39,12 @@ namespace SignalRService.Hubs
             //}
             //IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
             //chatHubContext.Clients.All.GetLocationAlarms(alarms);
-            SendDevAlarm(alarms);
+            if (alarms.Length > 0)
+            {
+                //if (alarms[0].AreaId == 2) { return; }
+                SendLocationAlarm(alarms);
+            }
+            
         }
 
         /// <summary>
@@ -52,10 +60,12 @@ namespace SignalRService.Hubs
         /// 异步发送设备告警
         /// </summary>
         /// <param name="alarms"></param>
-        private static async void SendDevAlarm(params LocationAlarm[] alarms)
+        private static async void SendLocationAlarm(params LocationAlarm[] alarms)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
-            await chatHubContext.Clients.All.GetDeviceAlarms(alarms);
+            await chatHubContext.Clients.All.GetLocationAlarms(alarms);
         }
+
+        
     }
 }

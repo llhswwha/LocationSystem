@@ -20,6 +20,8 @@ namespace LocationServer
 
         public static bool AutoStartServer { get; set; }
 
+        public static double PositionMoveStateWaitTime { get; set; }
+
         public static Bll GetLocationBll()
         {
             return new Bll(false, true, true);
