@@ -190,6 +190,7 @@ namespace BLL.Buffers
                     AddAlarm(p,0, null, "不在园区有效区域内。", LocationAlarmLevel.四级告警);
                     continue;
                 }
+
                 List<LocationAlarm> posAlarmState = new List<LocationAlarm>();//告警状态
                 List<LocationAlarm> posNormalState = new List<LocationAlarm>();//正常状态
                 List<Position> noAlarmPos = new List<Position>();
@@ -327,7 +328,7 @@ namespace BLL.Buffers
                     ReviseAlarm.AlarmLevel = LocationAlarmLevel.正常;
 
                     //当该卡片在数据库中在指定区域是异常告警时,出现正常告警或没有该区域的异常告警，则告警恢复；出现该区域的异常告警，则忽略
-
+                    
                     LocationAlarm item3 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
                     if (item3 != null)
                     {
@@ -335,19 +336,78 @@ namespace BLL.Buffers
                         DeleteList.Add(item);
                         hisAlarms.Add(item.RemoveToHistory());
                     }
+                    else
+                    {
+                        if (newAlarmList.Count() == 0)
+                        {
+                            continue;
+                        }
+                        
+                        int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
+                        if (nCount == 0)
+                        {
+                            ReviseAlarmList.Add(ReviseAlarm);
+                            DeleteList.Add(item);
+                            hisAlarms.Add(item.RemoveToHistory());
+                        }
+                        else
+                        {
+                            newAlarmList.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
+                        }
+                    }
 
-                    int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
-                    LocationAlarm item4 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId && p.AlarmLevel != LocationAlarmLevel.正常);
-                    if (nCount > 0 && item4 == null)
-                    {
-                        ReviseAlarmList.Add(ReviseAlarm);
-                        DeleteList.Add(item);
-                        hisAlarms.Add(item.RemoveToHistory());
-                    }
-                    else if(nCount > 0 && item4 != null)
-                    {
-                        newAlarmList.Remove(item4);
-                    }
+
+
+
+                    //int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
+                    //if (item3 != null || (item3 == null && nCount == 0))
+                    //{
+                    //    ReviseAlarmList.Add(ReviseAlarm);
+                    //    DeleteList.Add(item);
+                    //    hisAlarms.Add(item.RemoveToHistory());
+                    //}
+                    //else if(nCount > 0)
+                    //{
+                    //    LocationAlarm item4 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
+                    //    newAlarmList.Remove(item4);
+                    //}
+
+                    
+
+
+
+
+                    //LocationAlarm item4 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId && p.AlarmLevel != LocationAlarmLevel.正常);
+                    //if (nCount == 0)
+                    //{
+                    //    ReviseAlarmList.Add(ReviseAlarm);
+                    //    DeleteList.Add(item);
+                    //    hisAlarms.Add(item.RemoveToHistory());
+                    //}
+                    //else
+                    //{
+                    //    if (item4 == null)
+                    //    {
+                    //        ReviseAlarmList.Add(ReviseAlarm);
+                    //        DeleteList.Add(item);
+                    //        hisAlarms.Add(item.RemoveToHistory());
+                    //    }
+                    //    else
+                    //    {
+                    //        newAlarmList.Remove(item4);
+                    //    }
+                    //}
+
+                    //if (nCount > 0 && item4 == null)
+                    //{
+                    //    ReviseAlarmList.Add(ReviseAlarm);
+                    //    DeleteList.Add(item);
+                    //    hisAlarms.Add(item.RemoveToHistory());
+                    //}
+                    //else if(nCount > 0 && item4 != null)
+                    //{
+                    //    newAlarmList.Remove(item4);
+                    //}
                 }
             }
 
@@ -394,15 +454,16 @@ namespace BLL.Buffers
 
             foreach (Position p in list1)
             {
-                if (p== null || p.IsAreaNull())
+                if (p== null || p.IsAreaNull() || p.PersonnelID == null || p.AreaId == null)
                 {
                     continue;
                 }
-                
+
                 CardRole role = roles.Find(i => i.Id == p.RoleId);
                 if (role == null)
                 {
-                    RemoveDuplicateAlarms(p, 0, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警, ref newAlarmList);
+                    int pAreaId = (int)p.AreaId;
+                    RemoveDuplicateAlarms(p, pAreaId, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警, ref newAlarmList);
                     continue;
                 }
 

@@ -266,7 +266,7 @@ namespace BLL.Blls
             //return Save();
 
             //Db.BulkDelete(list);
-
+            if (list == null) return false;
             try
             {
                 Db.BulkDelete(list);

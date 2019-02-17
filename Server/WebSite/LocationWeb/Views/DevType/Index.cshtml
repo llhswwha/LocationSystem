@@ -48,6 +48,9 @@
         <th>
             @Html.DisplayNameFor(model => model.FrontElevation)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manufactor)
+        </th>
         <th></th>
     </tr>
 
@@ -64,6 +67,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FrontElevation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufactor)
         </td>
         <td>
             @Ajax.ActionLink("Edit", "Edit", "DevType", new { id = item.Id }, new AjaxOptions

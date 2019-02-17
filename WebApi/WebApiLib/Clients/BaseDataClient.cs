@@ -548,6 +548,7 @@ namespace WebApiLib.Clients
                         devinfo.RunStatus = (Abutment_RunStatus)item.running_state;
                         devinfo.Placed = item.placed;
                         devinfo.Abutment_DevID = item.raw_id;
+                        devinfo.Manufactor = "霍尼韦尔";
 
                         if (nFlag == 1)
                         {
@@ -649,6 +650,7 @@ namespace WebApiLib.Clients
                     devinfo.RunStatus = (Abutment_RunStatus)item.running_state;
                     devinfo.Placed = item.placed;
                     devinfo.Abutment_DevID = item.raw_id;
+                    devinfo.Manufactor = "霍尼韦尔";
 
                     if (nFlag == 1)
                     {
@@ -710,6 +712,7 @@ namespace WebApiLib.Clients
                 devinfo.RunStatus = (Abutment_RunStatus)recv.running_state;
                 devinfo.Placed = recv.placed;
                 devinfo.Abutment_DevID = recv.raw_id;
+                devinfo.Manufactor = "霍尼韦尔";
 
                 if (nFlag == 1)
                 {

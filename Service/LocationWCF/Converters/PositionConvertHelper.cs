@@ -124,7 +124,8 @@ namespace LocationServices.Converters
             item2.Power = item1.Power;
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
-            //item2.Archors = item1.Archors;
+            item2.Archors = item1.Archors;
+            item2.ArchorsText = item1.ArchorsText;
             if (!string.IsNullOrEmpty(item1.ArchorsText))
             {
                 item2.Archors = item1.ArchorsText.Split('@').ToList();
@@ -165,6 +166,7 @@ namespace LocationServices.Converters
             item2.Number = item1.Number;
             item2.Flag = item1.Flag;
             item2.Archors = item1.Archors;
+            item2.ArchorsText = item1.ArchorsText;
             item2.AreaId = item1.TopoNodeId;
             item2.AreaState = item1.AreaState;
             item2.PowerState = item1.PowerState;

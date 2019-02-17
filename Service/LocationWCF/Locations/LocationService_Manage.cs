@@ -27,7 +27,8 @@ using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.BaseData;
 using TModel.Location.Manage;
-
+using System.Configuration;
+using LocationServer.Tools;
 namespace LocationServices.Locations
 {
     //人员相关的接口
@@ -43,6 +44,14 @@ namespace LocationServices.Locations
         {
             info.Session = "";
             return info;
+        }
+
+        public VersionInfo GetVersionInfo()
+        {
+            VersionInfo version = new VersionInfo();
+            version.Version = ConfigurationManager.AppSettings["VersionCode"];
+            version.LocationURL = ConfigurationManager.AppSettings["LocationPackageURL"];
+            return version;
         }
     }
 }

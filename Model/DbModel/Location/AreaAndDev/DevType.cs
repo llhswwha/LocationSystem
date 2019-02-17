@@ -36,6 +36,14 @@ namespace DbModel.Location.AreaAndDev
         public string Class { get; set; }
 
         /// <summary>
+        /// 厂家
+        /// </summary>
+        [DataMember]
+        [Display(Name = "厂家")]
+        [MaxLength(128)]
+        public string Manufactor { get; set; }
+
+        /// <summary>
         /// 类型编号
         /// </summary>
         [DataMember]

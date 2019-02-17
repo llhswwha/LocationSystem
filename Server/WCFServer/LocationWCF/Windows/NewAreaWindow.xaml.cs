@@ -88,10 +88,12 @@ namespace LocationServer.Windows
             TbType.SelectedItem = (AreaTypes)((int)parent.Type + 1);
 
             var bound = parent.InitBound;
-            bound.SetMinMaxXY();
-            MinX = bound.MinX;
-            MinY = bound.MinY;
-
+            if (bound != null)
+            {
+                bound.SetMinMaxXY();
+                MinX = bound.MinX;
+                MinY = bound.MinY;
+            }
             TbZero.X = 0;
             TbZero.Y = 0;
             OnShowPoint();

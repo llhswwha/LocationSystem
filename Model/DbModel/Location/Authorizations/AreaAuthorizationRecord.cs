@@ -124,6 +124,7 @@ namespace DbModel.Location.Work
         public int AreaId { get; set; }
 
         //[NotMapped]
+        [XmlIgnore]
         public virtual Area Area { get; set; }
 
         /// <summary>

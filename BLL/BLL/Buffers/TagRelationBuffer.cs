@@ -204,6 +204,7 @@ namespace BLL
                 }
                 else
                 {
+                    pos.AreaId = 2;//设为园区
                     int nn = 0;
                 }
             }

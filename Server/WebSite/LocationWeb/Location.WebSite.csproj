@@ -312,6 +312,7 @@
     <Compile Include="Controllers\CardRoleController.cs" />
     <Compile Include="Controllers\DataInitController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DevInfoController.cs" />
     <Compile Include="Controllers\DevModelController.cs" />
     <Compile Include="Controllers\DevTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -357,6 +358,10 @@
     <None Include="Data\AuthorizationTree.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Content\img\line_conn.png" />
+    <Content Include="Content\img\metro.gif" />
+    <Content Include="Content\img\metro.png" />
+    <Content Include="Content\metroStyle.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Data\CADAreaInfo.xml" />
@@ -468,6 +473,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery.signalR-2.3.0.js" />
     <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -476,6 +482,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.ztree.core.js" />
     <Content Include="Scripts\jqueryui-1.12.1.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\position.js" />
@@ -646,6 +653,11 @@
     <Content Include="Views\AreaAuthorizationRecord\Details.cshtml" />
     <Content Include="Views\AreaAuthorizationRecord\Delete.cshtml" />
     <Content Include="Views\AreaAuthorizationRecord\Edit.cshtml" />
+    <Content Include="Views\DevInfo\Index.cshtml" />
+    <Content Include="Views\DevInfo\Edit.cshtml" />
+    <Content Include="Views\DevInfo\Create.cshtml" />
+    <Content Include="Views\DevInfo\Details.cshtml" />
+    <Content Include="Views\DevInfo\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -697,6 +709,10 @@
     <ProjectReference Include="..\..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
       <Name>WebApiCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WModel\WModel.csproj">
+      <Project>{9f4d4575-040e-45d2-b40a-7cca6650bfd5}</Project>
+      <Name>WModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

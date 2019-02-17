@@ -84,6 +84,7 @@
     <Compile Include="Location\Data\DoorAccessState.cs" />
     <Compile Include="Location\Data\TagPosition.cs" />
     <Compile Include="Location\Manage\LoginInfo.cs" />
+    <Compile Include="Location\Manage\VersionInfo.cs" />
     <Compile Include="Location\Nodes\AreaNode.cs" />
     <Compile Include="Location\Nodes\DevNode.cs" />
     <Compile Include="Location\Nodes\PersonNode.cs" />

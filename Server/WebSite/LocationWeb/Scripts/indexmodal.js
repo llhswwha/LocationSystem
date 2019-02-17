@@ -5,7 +5,7 @@
         backdrop: 'static',
         //触发键盘esc事件时不关闭
         keyboard: false
-    });
+    });   
 }
 
 function onSuccess() {
@@ -13,12 +13,12 @@ function onSuccess() {
 }
 
 function onComplete() {
-    //alert('complete'); 
-    $('#myModal').modal('show');
+    //alert('complete');    
 }
 
 function onFailure() {
     //alert('fail');
+    $('#myModal').modal('show');
 }
 
 $("#myModal").each(function () {

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebLocation.Models;
 
+
 namespace WebLocation.Controllers
 {
     [Authorize]
@@ -20,6 +21,7 @@ namespace WebLocation.Controllers
 
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )

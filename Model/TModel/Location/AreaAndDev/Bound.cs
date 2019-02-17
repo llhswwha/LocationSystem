@@ -103,6 +103,26 @@ namespace Location.TModel.Location.AreaAndDev
             IsRelative = isRelative;
         }
 
+        public void SetInitBound(TransformM tranM)
+        {
+            double bottomHeightT = tranM.Y - (tranM.SY / 2);
+            //Init((float)(bottomHeightT), (float)tranM.SY);
+
+            Point p1 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 0);
+            Point p2 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 1);
+            Point p3 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 2);
+            Point p4 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 3);
+
+            Point[] points = new Point[] { p1, p2, p3, p4 };
+
+            SetInitBound(points, (float)(bottomHeightT), (float)tranM.SY);
+
+            //double pX = (MinX + MaxX)/2.0;
+            //double pY = (MinY + MaxY)/2.0;
+            //double pZ = (MinZ + MaxZ)/2.0;
+
+        }
+
         /// <summary>
         /// 用两点(对角点)初始化区域范围
         /// </summary>
@@ -234,12 +254,23 @@ namespace Location.TModel.Location.AreaAndDev
         /// </summary>
         public void SetInitBound(Point[] points, float bottomHeightT, float thicknessT)
         {
-            Points = new List<Point>();
+            if (Points == null)
+            {
+                Points = new List<Point>();
+            }
             SetMinMax(points, bottomHeightT, thicknessT);
             for (int i = 0; i < points.Length; i++)
             {
                 Point point = points[i];
-                Points.Add(new Point(point));
+                Point pointT = Points.Find((j) => j.Index == point.Index);
+                if (pointT != null)
+                {
+                    pointT.SetPoint(point);
+                }
+                else
+                {
+                    Points.Add(new Point(point));
+                }
             }
         }
 

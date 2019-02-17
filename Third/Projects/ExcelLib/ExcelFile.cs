@@ -218,7 +218,7 @@ namespace ExcelLib
                     return AddSheet(sheetName);
                 }
                 else
-                {
+                {                    
                     Console.WriteLine(ex);
                     throw ex;
                     return hssfworkbook.GetSheetAt(hssfworkbook.NumberOfSheets - 1);

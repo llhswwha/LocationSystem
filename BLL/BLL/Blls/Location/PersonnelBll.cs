@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DbModel.Location.AreaAndDev;
 
 namespace BLL.Blls.Location
 {
@@ -46,6 +47,11 @@ namespace BLL.Blls.Location
                 return list;
             else
                 return null;
+        }
+
+        public object Edit(DevInfo devinfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

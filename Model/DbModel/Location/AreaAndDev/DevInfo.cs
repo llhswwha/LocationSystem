@@ -168,6 +168,15 @@ namespace DbModel.Location.AreaAndDev
         public string UserName { get; set; }
 
         /// <summary>
+        /// 厂家
+        /// </summary>
+        [DataMember]
+        [Display(Name = "厂家")]
+        [MaxLength(128)]
+        public string Manufactor { get; set; }
+
+
+        /// <summary>
         /// IP
         /// </summary>
         [DataMember]
@@ -286,7 +295,7 @@ namespace DbModel.Location.AreaAndDev
             DevInfo copy = new DevInfo();
             copy = this.CloneObjectByBinary();
             return copy;
-        }
+        }      
 
         public DevInfoHistory RemoveToHistory()
         {
@@ -311,6 +320,7 @@ namespace DbModel.Location.AreaAndDev
             history.ModifyTime = this.ModifyTime;
             history.ModifyTimeStamp = this.ModifyTimeStamp;
             history.UserName = this.UserName;
+            history.Manufactor = this.Manufactor;
             history.IP = this.IP;
             history.PosX = this.PosX;
             history.PosY = this.PosY;

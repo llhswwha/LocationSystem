@@ -180,6 +180,14 @@ namespace DbModel.LocationHistory.AreaAndDev
         public string UserName { get; set; }
 
         /// <summary>
+        /// 厂家
+        /// </summary>
+        [DataMember]
+        [Display(Name = "厂家")]
+        [MaxLength(128)]
+        public string Manufactor { get; set; }
+
+        /// <summary>
         /// IP
         /// </summary>
         [DataMember]

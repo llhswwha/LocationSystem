@@ -487,7 +487,7 @@ namespace BLL
             Areas.Edit(topo);
         }
 
-        private void SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
+        public void SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
             float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
         {
             Bound initBound = new Bound(points, bottomHeightT, thicknessT, isRelative);

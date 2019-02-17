@@ -167,6 +167,12 @@ namespace Location.TModel.Location.AreaAndDev
         public string UserName { get; set; }
 
         /// <summary>
+        /// 厂家
+        /// </summary>
+        [DataMember]
+        public string Manufactor { get; set; }
+
+        /// <summary>
         /// IP
         /// </summary>
         [DataMember]

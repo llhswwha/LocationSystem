@@ -123,6 +123,12 @@ namespace Location.TModel.LocationHistory.Data
         public List<string> Archors { get; set; }
 
         /// <summary>
+        /// 参与计算的基站编号
+        /// </summary>
+        [DataMember]
+        public string ArchorsText { get; set; }
+
+        /// <summary>
         /// 基站所在的区域、建筑、楼层编号Id
         /// </summary>
         [DataMember]

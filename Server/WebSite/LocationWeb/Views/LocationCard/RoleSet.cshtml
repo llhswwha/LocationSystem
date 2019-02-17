@@ -68,11 +68,10 @@
     $(function () {
         $("#btnRoleId").click(function () {
             var choosedRoleId = $('input:radio[name="choose"]:checked').val(); //获取角色Id，和上面的item.Id对应，上面设置这里获取   
-            var roleid = @ViewBag.RoleId;
             if (choosedRoleId == null) {
                 alert("未选择，不修改标签角色！");
             }
-            else if(choosedRoleId == roleid) {
+            else if(choosedRoleId == @ViewBag.RoleId) {
                 alert("没有修改所属角色");
             }                
             else {

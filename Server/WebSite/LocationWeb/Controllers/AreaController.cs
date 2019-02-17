@@ -7,10 +7,6 @@ using Location.BLL;
 using System.Net;
 using Location.Model;
 using System.Reflection;
-
-using WebLocation.Models;
-using System.IO;
-using System.Web.Services.Description;
 using BLL;
 using DbModel.Location.AreaAndDev;
 using ExcelLib;
@@ -22,6 +18,7 @@ using DbModel.Tools;
 
 namespace WebLocation.Controllers
 {
+
     public class AreaController : Controller
     {
         private Bll bll = new Bll();
@@ -50,23 +47,16 @@ namespace WebLocation.Controllers
             SelectList list = new SelectList(phts, "Id", "Name");
             ViewBag.List = list.AsEnumerable();
 
-            ViewBag.EnumList = EnumToList.EnumToListChoice<AreaTypes>();
-            //List<SelectListItem> list2 = new List<SelectListItem>();
-            //var enumtype = typeof(Types);
-            //foreach (var obj in Enum.GetValues(enumtype))
-            //{
-            //    list2.Add(new SelectListItem { Text = obj.ToString(), Value = obj.ToString() });
-            //}
-
-            //ViewBag.EnumList = list2;
+            ViewBag.EnumList = EnumToList.EnumToListChoice<AreaTypes>();            
         }
 
         public ActionResult Tree()
         {
             var root = bll.GetAreaTree(false);//主动用代码建立Children关系
             //var root = bll.Areas.GetRoot();//这里会为空
+            
             return View(root);
-        }
+        }      
 
         public ActionResult Details(int? id)
         {

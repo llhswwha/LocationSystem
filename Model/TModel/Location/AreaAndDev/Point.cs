@@ -92,6 +92,14 @@ namespace Location.TModel.Location.AreaAndDev
             Index = p.Index;
         }
 
+        public void SetPoint(Point p)
+        {
+            X = p.X;
+            Y = p.Y;
+            Z = p.Z;
+            Index = p.Index;
+        }
+
         public Point Clone()
         {
             Point copy = new Point();

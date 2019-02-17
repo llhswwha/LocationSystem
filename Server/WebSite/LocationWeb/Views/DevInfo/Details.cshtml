@@ -1,0 +1,165 @@
+﻿@model DbModel.Location.AreaAndDev.DevInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>DevInfo</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Parent)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Parent.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Code)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Code)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.KKS)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.KKS)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Local_DevID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Local_DevID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Local_CabinetID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Local_CabinetID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Local_TypeCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Local_TypeCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Abutment_Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Abutment_Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.RunStatus)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RunStatus)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModelName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModelName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModifyTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModifyTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Manufactor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Manufactor)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IP)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IP)
+                </dd>                  
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("Edit", "Edit", "DevInfo", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "Get",
+           UpdateTargetId = "modalContent",
+           InsertionMode = InsertionMode.Replace,
+           OnBegin = "onBegin",
+           OnSuccess = "onSuccess",
+           OnFailure = "onFailure",
+           OnComplete = "onComplete"
+       }) |
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>
+

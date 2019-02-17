@@ -1,8 +1,5 @@
 ﻿function creatSuccess(result) {
-    if (result.success) {
-        //页面加载的时间
-        //var msgTime = 2000;
-
+    if (result.success) {       
         //参数设置，若用默认值可以省略以下面代
         toastr.options = {
             closeButton: false, //是否显示关闭按钮
@@ -18,10 +15,9 @@
             hideMethod: "fadeOut" //消失时的动画方式
         };
 
-        //var msgTime=toastr.options.showDuration+toastr.options.hideDuration+toastr.options.timeOut;
-
         toastr.success("创建成功！");
-        $('#myModal').modal('hide');
+        //$('#myModal').modal('hide');
+        $('#myModal').hide('modal');
 
         //局部刷新        
         //$(function () {
@@ -32,7 +28,7 @@
         setTimeout(function () {
             location.reload();
         }, 1000);
-        //location.reload();
+
     } else {
         $.each(result.errors, function (key, val) {
             var container = $('span[data-valmsg-for="' + key + '"]');

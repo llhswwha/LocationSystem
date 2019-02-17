@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using IModel;
 using Location.IModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -53,6 +54,8 @@ namespace DbModel.Location.AreaAndDev
         [DataMember]
         [Display(Name = "边界")]
         public int BoundId { get; set; }
+
+        [NotMapped]
         public virtual Bound Bound { get; set; }
 
         public Point()

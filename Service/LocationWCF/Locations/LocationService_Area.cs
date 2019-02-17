@@ -9,6 +9,7 @@ using TModel.Location.AreaAndDev;
 using TModel.Location.Person;
 using System.Linq;
 using DbModel.Location.AreaAndDev;
+using BLL;
 
 namespace LocationServices.Locations
 {
@@ -45,7 +46,8 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
-            return new AreaService(db).GetTree(view);
+            BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
+            return new AreaService(dbpt).GetTree(view);
         }
 
         public AreaNode GetPhysicalTopologyTreeNode(int view)
@@ -58,7 +60,7 @@ namespace LocationServices.Locations
             return new AreaService(db).GetTree(id);
         }
 
-        public PhysicalTopology AddPhysicalTopology(string pid,PhysicalTopology item)
+        public PhysicalTopology AddPhysicalTopology(string pid, PhysicalTopology item)
         {
             return new AreaService(db).Post(pid, item);
         }
@@ -117,13 +119,80 @@ namespace LocationServices.Locations
         }
 
         /// <summary>
-        /// 根据节点添加监控范围
+        /// 根据节点修改监控范围
         /// </summary>
         public bool EditMonitorRange(PhysicalTopology pt)
         {
-            //db.TransformMs.Edit(pt.Transfrom);
-            return db.Areas.Edit(pt.ToDbModel());
+
+            var initializer = new AreaTreeInitializer(db);
+            Area area = db.Areas.Find((i) => i.Id == pt.Id);
+            if (area != null)
+            {
+                pt.InitBound.SetInitBound(pt.Transfrom);
+                area.SetTransform(pt.Transfrom.ToDbModel());
+                DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
+                db.Bounds.Edit(InitBoundT);
+                area.SetBound(InitBoundT);
+                var points = area.InitBound.Points;
+                //foreach (DbModel.Location.AreaAndDev.Point p in points)
+                //{
+                //    DbModel.Location.AreaAndDev.Point pointT = db.Points.Find((i) => i.BoundId == InitBoundT.Id && i.Index == p.Index);
+                //    if (pointT != null)
+                //    {
+                //        db.Points.Edit(pointT);
+                //    }
+                //    else
+                //    {
+                //        db.Points.Add(pointT);
+                //    }
+                //}
+                db.Points.EditRange(points);
+                return db.Areas.Edit(area);
+            }
+            else
+            {
+                return false;
+            }
+            //return db.Areas.Edit(pt.ToDbModel());
         }
+
+        //    private void SetInitBound(Area topo, DbModel.Location.AreaAndDev.Point[] points, float thicknessT, bool isRelative = true,
+        //float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
+        //    {
+        //        DbModel.Location.AreaAndDev.Bound initBound = new DbModel.Location.AreaAndDev.Bound(points, bottomHeightT, thicknessT, isRelative);
+        //        DbModel.Location.AreaAndDev.Bound editBound = new DbModel.Location.AreaAndDev.Bound(points, bottomHeightT, thicknessT, isRelative);
+        //        TransformM transfrom = new TransformM(initBound);
+        //        db.Bounds.Add(initBound);
+        //        db.Bounds.Add(editBound);
+        //        transfrom.IsCreateAreaByData = isOnNormalArea;
+        //        transfrom.IsOnAlarmArea = isOnAlarmArea;
+        //        transfrom.IsOnLocationArea = isOnLocationArea;
+        //        //TransformMs.Add(transfrom);
+
+        //        topo.SetTransform(transfrom);
+        //        topo.InitBound = initBound;
+        //        topo.EditBound = editBound;
+        //        Areas.Edit(topo);
+        //    }
+
+        ///// <summary>
+        ///// 根据节点修改监控范围
+        ///// </summary>
+        //public bool EditMonitorRangeTransformM(int physicalTopologyId, TransformM tranM)
+        //{
+        //    //db.TransformMs.Edit(pt.Transfrom);
+        //    Area area = db.Areas.Find((i) => i.Id == physicalTopologyId);
+        //    if (area != null)
+        //    {
+        //        area.SetTransform(tranM.ToDbModel());
+        //        return db.Areas.Edit(area);
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //    //return db.Areas.Edit(pt.ToDbModel());
+        //}
 
         /// <summary>
         /// 根据节点添加子监控范围
@@ -132,7 +201,7 @@ namespace LocationServices.Locations
         {
             return db.Areas.Add(pt.ToDbModel());
         }
-        
+
         /// <summary>
         /// 根据id，获取区域信息
         /// </summary>
@@ -140,7 +209,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public Area GetAreaById(int id)
         {
-            return db.Areas.Find(i=>i.Id==id);
+            return db.Areas.Find(i => i.Id == id);
         }
 
         public AreaStatistics GetAreaStatistics(int id)
@@ -153,7 +222,7 @@ namespace LocationServices.Locations
             if (a1 == null)
             {
                 return new AreaStatistics();
-            } 
+            }
 
             lst.Add(a1.Id);
             lstRecv = GetAreaStatisticsInner(a1.Id, areaList);
@@ -200,7 +269,7 @@ namespace LocationServices.Locations
             {
                 lst = new List<NearbyPerson>();
             }
-            
+
             return lst;
         }
 

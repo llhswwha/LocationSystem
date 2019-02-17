@@ -7,6 +7,7 @@ using Location.TModel.Tools;
 using IModel.Tools;
 using IModel;
 using Location.IModel;
+using Location.TModel.Location.AreaAndDev;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -227,6 +228,25 @@ namespace DbModel.Location.AreaAndDev
         {
             if(Points!=null)
                 SetMinMaxXY(Points.ToArray());
+        }
+
+        public void SetInitBound(TransformM tranM)
+        {
+            double bottomHeightT = tranM.Y - (tranM.SY / 2);
+            Init((float)(bottomHeightT), (float)tranM.SY);
+
+            Point p1 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 0);
+            Point p2 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 0);
+            Point p3 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 0);
+            Point p4 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 0);
+            Point[] points = new Point[] { p1, p2, p3, p4 };
+
+            SetInitBound(points);
+
+            //double pX = (MinX + MaxX)/2.0;
+            //double pY = (MinY + MaxY)/2.0;
+            //double pZ = (MinZ + MaxZ)/2.0;
+
         }
 
         /// <summary>

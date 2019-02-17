@@ -176,7 +176,9 @@
     <Compile Include="WebApiConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <None Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />

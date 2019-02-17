@@ -6,11 +6,11 @@
 }
 
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
     <h2 class="modal-title" id="myModalLabel">Create</h2>
 </div>
 
-<div class="modal-body">
+<div class="modal-body">  
     @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "creatSuccess(data)" }))
     {
         @Html.AntiForgeryToken()
@@ -18,7 +18,7 @@
         <div class="form-horizontal">
             <h4>电子围栏信息</h4>
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })                           
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -90,13 +90,17 @@
                     @Html.DropDownListFor(model => model.RepeatDay, ViewBag.EnumList as IEnumerable<SelectListItem>)
                     @Html.ValidationMessageFor(model => model.RepeatDay, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>                     
 
             <div class="form-group">
                 @Html.LabelFor(model => model.AreaId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.AreaId, ViewBag.PtList as IEnumerable<SelectListItem>, "", 1)
-                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                <div class="col-md-10">                    
+                    @Html.DropDownListFor(model => model.AreaId, ViewBag.PtList as IEnumerable<SelectListItem>, "", 1)                                                   
+                    <a id="menuBtn" href="#" onclick="showMenu(); return false;">选择</a>
+                    <div id="menuContent" class="menuContent">
+                        <ul id="treeDemo" class="ztree" style="border: 1px solid #000; background: #fff; width:180px; height:160px; overflow:auto;"></ul>
+                    </div>  
+                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })                  
                 </div>
             </div>
 
@@ -114,7 +118,7 @@
                     @Html.DropDownListFor(model => model.CardRoleId, ViewBag.CardRoleList as IEnumerable<SelectListItem>, "", 1)
                     @Html.ValidationMessageFor(model => model.CardRoleId, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>          
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -133,7 +137,93 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<style type="text/css">
+    #AreaId{
+        border:1px solid #000;
+        -webkit-appearance:none;
+        -moz-appearance:none;        
+        pointer-events:none;    
+    }
+
+    #menuContent{
+        display:none;
+        position:absolute;
+        z-index:99;
+    }
+
+    .ztree li ul{
+        width:260px;
+    }
+</style>
+
 <link href="~/Content/toastr.css" rel="stylesheet" />
 <script src="~/Scripts/toastr.js"></script>
-
 <script src="~/Scripts/createmodal.js"></script>
+
+<link href="~/Content/metroStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.4.4.min.js"></script>
+<script src="~/Scripts/jquery.ztree.core.js"></script>
+
+<script type="text/javascript">
+    var setting = {
+        view:{
+            dblClickExpand: false,
+            showLine: false
+        },
+        data:{
+            simpleData:{
+                enable:true
+            }
+        },
+        callback:{
+            beforeClick:beforeClick,
+            onClick:onClick
+        }       
+    };
+    var zNodes = [];   
+    $.ajax({
+        type: "GET",
+        url: "/AreaAuthorizationRecord/GetPartAreaList",
+        dataType: "json",
+        async: false,
+        //contentType: "application/json",
+        success: function (data) {      
+            zNodes = data;
+        }
+    })    
+
+    function beforeClick(treeId, treeNode) {
+        var isChecked = (treeNode || treeNode.isParent)
+        return isChecked;
+    }
+
+    function onClick(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = zTree.getSelectedNodes();
+        if (nodes.length > 0) {
+            var node = nodes[0];
+            var id = node.id;
+            $("#AreaId").val(id);
+        }    
+    }   
+
+    function showMenu() {
+        $("#menuContent").slideDown("fast");       
+        $("body").bind("mousedown", onBodyDown);        
+    }
+
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);        
+    }
+
+    function onBodyDown(event) {
+        if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+            hideMenu();
+        }
+    }
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+</script>

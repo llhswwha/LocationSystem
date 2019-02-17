@@ -43,6 +43,7 @@ namespace LocationServices.Converters
             item2.ModifyTime = item1.ModifyTime;
             item2.ModifyTimeStamp = item1.ModifyTimeStamp;
             item2.UserName = item1.UserName;
+            item2.Manufactor = item1.Manufactor;
             item2.IP = item1.IP;
             //item2.PosX = item1.PosX;
             //item2.PosY = item1.PosY;
@@ -125,6 +126,7 @@ namespace LocationServices.Converters
             item2.ModifyTime = item1.ModifyTime;
             item2.ModifyTimeStamp = item1.ModifyTimeStamp;
             item2.UserName = item1.UserName;
+            item2.Manufactor = item1.Manufactor;
             item2.IP = item1.IP;
             //item2.PosX = item1.PosX;
             //item2.PosY = item1.PosY;

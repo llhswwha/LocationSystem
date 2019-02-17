@@ -4,6 +4,7 @@ using DbModel.Location.Authorizations;
 using DbModel.Location.Person;
 using DbModel.Location.Work;
 using DbModel.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using Webdiyer.WebControls.Mvc;
 using WebLocation.Tools;
+using WArea = WModel.Location.AreaAndDev.Area;
 
 namespace WebLocation.Controllers
 {
@@ -22,7 +24,7 @@ namespace WebLocation.Controllers
         private int pageSize = StaticArgs.DefaultPageSize;
         // GET: AreaAuthorizationRecord
         public ActionResult Index(int pageIndex = 1)
-        {           
+        {
             List<Area> Arealst = bll2.Areas.ToList();
             List<AreaAuthorizationRecord> rlst = bll.AreaAuthorizationRecords.ToList();
             foreach (AreaAuthorizationRecord item in rlst)
@@ -51,6 +53,27 @@ namespace WebLocation.Controllers
             jd.Area = bll2.Areas.Find(p=>p.Id == jd.AreaId);
 
             return PartialView(jd);
+        }
+
+        public string GetPartAreaList()
+        {
+            List<Area> lst = bll2.Areas.ToList();
+            List<WArea> wlst = new List<WModel.Location.AreaAndDev.Area>();
+            foreach (Area item in lst)
+            {
+                WArea area = new WArea();
+                area.id = item.Id;
+                if (item.ParentId != null)
+                {
+                    area.pId = (int)item.ParentId;
+                }
+                area.name = item.Name;
+                wlst.Add(area);
+            }
+
+            string treeList = JsonConvert.SerializeObject(wlst);
+            return treeList;
+
         }
 
         private void GetListToViewBag()
