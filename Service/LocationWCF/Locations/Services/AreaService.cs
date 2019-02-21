@@ -213,6 +213,15 @@ namespace LocationServices.Locations.Services
         public AreaNode GetBasicTree(int view)
         {
             var areaList = dbSet.ToList();
+            List<Area> list2 = new List<Area>();
+            for (int i = 0; i < areaList.Count; i++)
+            {
+                if (areaList[i].Type != AreaTypes.CAD)
+                {
+                    list2.Add(areaList[i]);
+                }
+            }
+            areaList = list2;
             var list = areaList.ToTModelS();
 
             List<DevNode> devs = null;
@@ -386,6 +395,15 @@ namespace LocationServices.Locations.Services
         private TEntity GetTreeWithPerson(List<Location.TModel.Location.AreaAndDev.DevInfo> devs)
         {
             var list = GetListWithPerson().ToList();
+            List<TEntity> list2 = new List<TEntity>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Type != AreaTypes.CAD)
+                {
+                    list2.Add(list[i]);
+                }
+            }
+            list = list2;
             var roots = TreeHelper.CreateTree(list, devs);
             if (roots.Count > 0)
             {

@@ -220,15 +220,15 @@ namespace BLL.Buffers
                             }
                             else
                             {
-                                if (aar.IsTimeValid(dtBegin, dtEnd, nTimeStamp) == false)
-                                {
-                                    posAlarmState.Add(AddAlarm(p, area.Id, aar, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警));
-                                }
-                                else
-                                {
-                                    posNormalState.Add(AddAlarm(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
-                                    noAlarmPos.Add(p);
-                                }
+                                //if (aar.IsTimeValid(dtBegin, dtEnd, nTimeStamp) == false)
+                                //{
+                                //    posAlarmState.Add(AddAlarm(p, area.Id, aar, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警));
+                                //}
+                                //else
+                                //{
+                                //    posNormalState.Add(AddAlarm(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常));
+                                //    noAlarmPos.Add(p);
+                                //}
                             }
                         }
                         else
@@ -463,7 +463,7 @@ namespace BLL.Buffers
                 if (role == null)
                 {
                     int pAreaId = (int)p.AreaId;
-                    RemoveDuplicateAlarms(p, pAreaId, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警, ref newAlarmList);
+                    //RemoveDuplicateAlarms(p, pAreaId, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警, ref newAlarmList);
                     continue;
                 }
 
@@ -489,11 +489,11 @@ namespace BLL.Buffers
                         }
                         else
                         {
-                            if (aar.IsTimeValid(dtBegin, dtEnd, nTimeStamp) == false)
-                            {
-                                RemoveDuplicateAlarms(p, area.Id, aar, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警, ref newAlarmList);
-                            }
-                            else
+                            //if (aar.IsTimeValid(dtBegin, dtEnd, nTimeStamp) == false)
+                            //{
+                            //    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警, ref newAlarmList);
+                            //}
+                            //else
                             {
                                 RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList);
                             }

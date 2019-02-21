@@ -17,6 +17,7 @@ namespace ExcelLib
         public DataSet Load(FileInfo file, bool isFirtRowHeader)
         {
             Open(file.FullName, false);
+            if (file.Exists == false) return null;
             DataSet ds = ExcelHelper.GetDataSet(isFirtRowHeader, hssfworkbook);
             return ds;
         }

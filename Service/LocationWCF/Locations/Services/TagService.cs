@@ -106,7 +106,7 @@ namespace LocationServices.Locations.Services
                     entity.Pos = item.Pos.ToTModel();
                     list.Add(entity);
                 }
-                return list;
+                return list.ToWCFList() ;
             }
             else
             {

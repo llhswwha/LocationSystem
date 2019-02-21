@@ -9,6 +9,7 @@ using BLL.Blls.LocationHistory;
 using Location.TModel.LocationHistory.Data;
 using Location.TModel.Tools;
 using LocationServices.Converters;
+using MathNet.Numerics.Interpolation;
 using TModel.Tools;
 
 namespace LocationServices.Locations.Services
@@ -67,6 +68,44 @@ namespace LocationServices.Locations.Services
             else
             {
                 result = GetHistoryByTime(start.ToDateTime(), end.ToDateTime());
+            }
+            return result;
+        }
+
+        private List<Position> GetPoints(List<Position> points,int type)
+        {
+            List<Position> result = new List<Position>();
+            IInterpolationMethod method = null;
+            List<double> xs = new List<double>();
+            List<double> ys = new List<double>();
+            if (type > 0)
+            {
+                for (int i = 0; i < points.Count; i++)
+                {
+                    xs.Add(points[i].X);
+                    ys.Add(points[i].Z);
+                }
+            }
+            if (type == 0)
+            {
+                result.AddRange(points);
+            }
+            else if (type == 1)
+            {
+                method = Interpolation.CreateNaturalCubicSpline(xs, ys);
+            }
+            else if (type == 2)
+            {
+                method = Interpolation.CreateAkimaCubicSpline(xs, ys);
+            }
+            if (method != null)
+            {
+                for (int i = 0; i < points.Count; i++)
+                {
+                    Position p1 = points[i];
+                    Position p2 = points[i+1];
+                    double x = (p1.X + p2.X) / 2;
+                }
             }
             return result;
         }

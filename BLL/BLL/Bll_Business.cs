@@ -25,7 +25,15 @@ namespace BLL
             {
                 Log.InfoStart("GetPhysicalTopologyTree");
                 List<Area> list = Areas.ToList();
-
+                List<Area> list2 = new List<Area>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Type != AreaTypes.CAD)
+                    {
+                        list2.Add(list[i]);
+                    }
+                }
+                list = list2;
                 List<Bound> bounds = Bounds.ToList();
                 List<Point> points = Points.ToList();
                 BindBoundWithPoint(points, bounds);

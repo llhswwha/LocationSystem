@@ -41,7 +41,7 @@ namespace LocationServices.Converters
             item2.InitBoundId = item1.InitBoundId;
             item2.InitBound = item1.InitBound.ToTModel();
             item2.EditBoundId = item1.EditBoundId;
-            item2.EditBound = item1.EditBound.ToTModel();
+            //item2.EditBound = item1.EditBound.ToTModel();//这个没用 不用传递
 
             item2.IsRelative = item1.IsRelative;
             item2.IsCreateAreaByData = item1.IsCreateAreaByData;

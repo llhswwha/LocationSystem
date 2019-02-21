@@ -405,6 +405,7 @@ namespace BLL.Tools
             if (file.Exists == false)
             {
                 Log.Info("不存在文件:" + file.FullName);
+                return;
             }
             Bll bll = new Bll();
             List<DevMonitorNode> DevMonitorNodeList = bll.DevMonitorNodes.ToList();

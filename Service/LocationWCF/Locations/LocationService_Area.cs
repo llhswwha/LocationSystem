@@ -48,11 +48,15 @@ namespace LocationServices.Locations
         {
             BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
             return new AreaService(dbpt).GetTree(view);
+            //return null;
+            //return new PhysicalTopology() { Id = 1, Name = "root" };
         }
 
         public AreaNode GetPhysicalTopologyTreeNode(int view)
         {
             return new AreaService(db).GetBasicTree(view);
+            //return null;
+            //return new AreaNode() { Id = 1, Name = "root" };
         }
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)

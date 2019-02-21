@@ -54,6 +54,7 @@ namespace ExcelLib
 
         public static DataSet GetDataSet(bool isFirtRowHeader, IWorkbook hssfworkbook)
         {
+            if (hssfworkbook == null) return null;
             DataSet ds = new DataSet();
             for (int i = 0; i < hssfworkbook.NumberOfSheets; i++)
             {

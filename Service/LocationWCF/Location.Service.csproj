@@ -162,6 +162,10 @@
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Tools\Iridium\Iridium.csproj">
+      <Project>{51753246-d893-453c-ae47-30853665d3df}</Project>
+      <Name>Iridium</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
       <Name>WebApiCommunication</Name>
