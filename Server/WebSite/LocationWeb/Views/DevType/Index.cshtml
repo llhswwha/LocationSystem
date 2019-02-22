@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>设备类型</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "DevType", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "DevType", new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "modalContent",
@@ -72,7 +72,7 @@
             @Html.DisplayFor(modelItem => item.Manufactor)
         </td>
         <td>
-            @Ajax.ActionLink("Edit", "Edit", "DevType", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("编辑", "Edit", "DevType", new { id = item.Id }, new AjaxOptions
        {
            HttpMethod = "Get",
            UpdateTargetId = "modalContent",
@@ -83,7 +83,7 @@
            OnComplete = "onComplete"
        }) |
 
-            @Ajax.ActionLink("Details", "Details", "DevType", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("详情", "Details", "DevType", new { id = item.Id }, new AjaxOptions
        {
            HttpMethod = "GET",
            UpdateTargetId = "modalContent",
@@ -94,7 +94,7 @@
            OnComplete = "onComplete"
        }) |
 
-            @Ajax.ActionLink("Delete", "Delete", "DevType", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("删除", "Delete", "DevType", new { id = item.Id }, new AjaxOptions
        {
            HttpMethod = "GET",
            UpdateTargetId = "modalContent",

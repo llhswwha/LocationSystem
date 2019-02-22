@@ -28,13 +28,14 @@ namespace WebApiLib
             catch (Exception ex)
             {
                 Log.Error(ex.ToString());
-                return "";
+                return null;
             }
         }
 
         public static T GetEntity<T>(string uri)
         {
             string result = GetString(uri);
+            if (result == null) return default(T);
             T obj = JsonConvert.DeserializeObject<T>(result);
             return obj;
         }

@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>电子围栏</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "AreaAuthorizationRecord", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "AreaAuthorizationRecord", new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "modalContent",
@@ -147,7 +147,7 @@
             </td>
 
             <td>
-                @Ajax.ActionLink("Edit", "Edit", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("编辑", "Edit", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "Get",
                UpdateTargetId = "modalContent",
@@ -158,7 +158,7 @@
                OnComplete = "onComplete"
            }) |
 
-                @Ajax.ActionLink("Details", "Details", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("详情", "Details", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "GET",
                UpdateTargetId = "modalContent",
@@ -169,7 +169,7 @@
                OnComplete = "onComplete"
            }) |
 
-                @Ajax.ActionLink("Delete", "Delete", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("删除", "Delete", "AreaAuthorizationRecord", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "GET",
                UpdateTargetId = "modalContent",

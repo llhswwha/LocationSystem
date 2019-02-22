@@ -8,8 +8,10 @@ using System.Runtime.Serialization;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Data;
 using DbModel.Location.Settings;
+using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.Tools;
+using TModel.Tools;
 
 namespace DbModel.LocationHistory.Data
 {
@@ -335,10 +337,18 @@ namespace DbModel.LocationHistory.Data
                 Code = parts[0];
                 if (Code.StartsWith("1"))
                 {
-
+                    LogEvent.Info("Code.StartsWith(1)："+ info);
                 }
-                float x = float.Parse(parts[1]);
-                float y = float.Parse(parts[2]);
+                if (parts[1] == "-1.#IND0")
+                {
+                    parts[1] = "-1.0";
+                }
+                if (parts[2] == "-1.#IND0")
+                {
+                    parts[2] = "-1.0";
+                }
+                float x = parts[1].ToFloat();
+                float y = parts[2].ToFloat();
                 if (x < offsetX)
                 {
                     X = x + offsetX; //平面位置
@@ -350,16 +360,15 @@ namespace DbModel.LocationHistory.Data
                     Z = y;
                 }
                
-                Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
-                DateTimeStamp = long.Parse(parts[4]);
+                Y = parts[3].ToFloat();//高度位置，为了和Unity坐标信息一致，Y为高度轴
+                DateTimeStamp = parts[4].ToLong();
                 DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
-                TimeSpan time1 = DateTime.Now - DateTime;
-                long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
-
+                //TimeSpan time1 = DateTime.Now - DateTime;
+                //long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
                 if (length > 5)
-                    Power = int.Parse(parts[5]);
+                    Power = parts[5].ToInt();
                 if (length > 6)
-                    Number = int.Parse(parts[6]);
+                    Number = parts[6].ToInt();
                 if (length > 7)
                     Flag = parts[7];
                 if (length > 8)
@@ -386,7 +395,7 @@ namespace DbModel.LocationHistory.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                LogEvent.Info(ex.ToString());
                 return false;
             }
         }

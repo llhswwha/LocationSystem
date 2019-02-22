@@ -1,4 +1,10 @@
-﻿@model DbModel.Location.Work.MobileInspection
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.MobileInspection
+
+@{
+    ViewBag.Title = "Create";
+}
+
 
 <!DOCTYPE html>
 
@@ -15,10 +21,10 @@
             <span>@Html.DisplayNameFor(model => model.nOrder)：</span><input type="number" name="nOrder" min="1" max="100" value=@Model.nOrder /><br />
             <span>@Html.DisplayNameFor(model => model.Name)：</span><input type="text" name="Name" value=@Model.Name /><br />
         </fieldset>
-        <input type="submit" value="Create" />
-    </form>
-    <p>
-        @Html.ActionLink("BackToList", "Index")
-    </p>
+        <p>
+            <input type="submit" value="Create" /> |
+            @Html.ActionLink("返 回", "Index")
+        </p>       
+    </form>  
 </body>
 </html>

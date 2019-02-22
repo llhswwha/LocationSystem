@@ -91,7 +91,7 @@ namespace WebLocation.Controllers
                         return Json(new { success = false, errors = "这个上级KKS码不存在" });
                     }
                 }
-                
+
                 var result = bll.KKSCodes.Add(kks);
                 if (result)
                 {
@@ -221,7 +221,7 @@ namespace WebLocation.Controllers
             }
 
             GetListToViewBag();
-            PagedList<KKSCode> lst = bll.KKSCodes.DbSet.Where(p => (string.IsNullOrEmpty(MainType) ? true : p.MainType == MainType) && (string.IsNullOrEmpty(SubType) ? true : p.SubType == SubType) && (string.IsNullOrEmpty(System) ? true : p.System == System)).OrderBy(p=>p.MainType).ToPagedList<KKSCode>(pageIndex, pageSize);
+            PagedList<KKSCode> lst = bll.KKSCodes.DbSet.Where(p => (string.IsNullOrEmpty(MainType) || p.MainType == MainType) && (string.IsNullOrEmpty(SubType) || p.SubType == SubType) && (string.IsNullOrEmpty(System) || p.System == System)).OrderBy(p=>p.MainType).ToPagedList<KKSCode>(pageIndex, pageSize);
 
             return View("Index",lst);
         }       

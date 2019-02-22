@@ -7,10 +7,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>部门列表</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "Departments", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "Departments", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -69,7 +69,7 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Ajax.ActionLink("Edit", "Edit", "Departments", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("编辑", "Edit", "Departments", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "Get",
                UpdateTargetId = "modalContent",
@@ -80,7 +80,7 @@
                OnComplete = "onComplete"
            }) |
 
-            @Ajax.ActionLink("Details", "Details", "Departments", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("详情", "Details", "Departments", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "GET",
                UpdateTargetId = "modalContent",
@@ -91,7 +91,7 @@
                OnComplete = "onComplete"
            }) |
 
-            @Ajax.ActionLink("Delete", "Delete", "Departments", new { id = item.Id }, new AjaxOptions
+            @Ajax.ActionLink("删除", "Delete", "Departments", new { id = item.Id }, new AjaxOptions
            {
                HttpMethod = "GET",
                UpdateTargetId = "modalContent",

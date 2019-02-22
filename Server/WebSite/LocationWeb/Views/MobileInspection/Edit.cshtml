@@ -1,4 +1,10 @@
-﻿@model DbModel.Location.Work.MobileInspection
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.MobileInspection
+
+@{
+    ViewBag.Title = "Edit";
+}
+
 
 <!DOCTYPE html>
 
@@ -39,19 +45,20 @@
                         <td>@item.ItemName</td>
                         <td>@item.DevName</td>
                         <td>
-                            <a href="/MobileInspectionItem/Edit/@item.Id">Edit</a> |
-                            <a href="/MobileInspectionItem/Detail/@item.Id?backTarget=Edit">Detail</a> | 
-                            <a href="/MobileInspectionItem/Delete/@item.Id?pid=@item.PID">Delete</a>
+                            <a href="/MobileInspectionItem/Edit/@item.Id">编辑</a> |
+                            <a href="/MobileInspectionItem/Detail/@item.Id?backTarget=Edit">详情</a> | 
+                            <a href="/MobileInspectionItem/Delete/@item.Id?pid=@item.PID">删除</a>
                             
                         </td>
                     </tr>
                 }
             </table>
         </fieldset>
-        <hr />
-        <input type="submit" value="Save" />
+        <p>
+            <input type="submit" value="Save" /> |
+            <a href="/MobileInspection/Index">返 回</a>
+        </p>       
     </form>
-    <p><a href="/MobileInspection/Index">Back To List</a></p>
 </body>
 </html>
 

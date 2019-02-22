@@ -4,10 +4,10 @@
     ViewBag.Title = "Tree";
 }
 
-<h2>Tree</h2>
+<h2>部门树</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "Departments", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "Departments", new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "modalContent",
@@ -54,21 +54,12 @@
 <script src="~/Scripts/indexmodal.js"></script>
 
 <script type="text/javascript">
-    window.onload = function () {
-        console.log("onload");
-        //displayTreeDataList();
-        //displayOrHide(event);
-    };
-
     function displayTreeDataList() {
         var oLi = document.getElementsByTagName("li");
-        //console.log(oLi);
 
         for (var i = 0; i < oLi.length; i++) {
             var li = oLi[i];
-            console.log(li);
             var nextSibling = li.nextSibling;
-            console.log(nextSibling);
             if (nextSibling.nextSibling && nextSibling.nextSibling.nodeName.toUpperCase() == 'UL'
                      && nextSibling.nextSibling.innerHTML != "") {
                 li.style.listStyleImage = "url(../Img/TreeIcon/open.png)";
@@ -90,7 +81,6 @@
         var id = e.target.nextElementSibling.id;
         var List = document.getElementById(id);
         var hide = getComputedStyle(List, null).display;
-        //console.log(hide);
         if (hide == "none") {
             //显示
             List.style.display = "block";

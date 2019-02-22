@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<DbModel.Location.Work.OperationTicket>
 @using DbModel.Location.Work
 
+@{
+    ViewBag.Title = "Index";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -9,9 +13,9 @@
     <title>Index</title>
 </head>
 <body>
-    <h2>Index</h2>
+    <h2>操作票</h2>
     <p>
-      @Html.ActionLink("Create New", "Create")
+      @Html.ActionLink("新建", "Create")
     </p>
     <table class="table">
         <tr>
@@ -28,9 +32,9 @@
                 <td>@item.No</td>
                 <td>@item.OperationTask</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("详情", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.Id }) |
                     @Html.ActionLink("完成", "Finish", new { id = item.Id })
                 </td>
             </tr>

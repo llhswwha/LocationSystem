@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>区域权限</h2>
        
 <p>
-    @Ajax.ActionLink("Create New", "Create", "AreaAuthorization", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "AreaAuthorization", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -88,8 +88,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-           
+            </td>           
             <td>
                 @Html.DisplayFor(modelItem => item.StartTime)
             </td>
@@ -98,8 +97,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TimeSpan)
-            </td>
-            
+            </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.DelayTime)
             </td>
@@ -111,8 +109,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AreaId)
-            </td>
-           
+            </td>          
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
             </td>
@@ -124,7 +121,7 @@
             </td>
 
             <td>
-                @Ajax.ActionLink("Edit", "Edit", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("编辑", "Edit", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "Get",
                    UpdateTargetId = "modalContent",
@@ -135,7 +132,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Details", "Details", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("详情", "Details", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",
@@ -146,7 +143,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Delete", "Delete", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("删除", "Delete", "AreaAuthorization", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",

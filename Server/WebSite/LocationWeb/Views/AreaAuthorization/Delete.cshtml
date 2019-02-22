@@ -35,20 +35,12 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Describe)
+                    @Html.DisplayNameFor(model => model.Description)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Describe)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.nFlag)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.nFlag)
-                </dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>             
 
                 <dt>
                     @Html.DisplayNameFor(model => model.StartTime)
@@ -91,11 +83,11 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.RepeatType)
+                    @Html.DisplayNameFor(model => model.RepeatDay)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.RepeatType)
+                    @Html.DisplayFor(model => model.RepeatDay)
                 </dd>
 
                 <dt>
@@ -103,16 +95,16 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Area.Name)
+                    @Html.DisplayFor(model => model.AreaId)
                 </dd>
 
-                <dt>
+                @*<dt>
                     @Html.DisplayNameFor(model => model.LocationCardId)
                 </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.LocationCard.Name)
-                </dd>
+                </dd>*@
 
                 <dt>
                     @Html.DisplayNameFor(model => model.CreateTime)

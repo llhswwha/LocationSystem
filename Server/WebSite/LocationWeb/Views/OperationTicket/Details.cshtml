@@ -1,6 +1,10 @@
 ﻿@using DbModel.Location.Work
 @model DbModel.Location.Work.OperationTicket
 
+@{
+    ViewBag.Title = "Details";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -49,8 +53,8 @@
         </fieldset>
     </form>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("返 回", "Index")
     </p>
 </body>
 </html>

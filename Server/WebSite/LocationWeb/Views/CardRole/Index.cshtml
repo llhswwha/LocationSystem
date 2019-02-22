@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>标签角色</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "CardRole", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "CardRole", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -53,7 +53,7 @@
                 </td>
                                
                 <td>
-                    @Ajax.ActionLink("Edit", "Edit", "CardRole", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("编辑", "Edit", "CardRole", new { id = item.Id }, new AjaxOptions
                    {
                        HttpMethod = "Get",
                        UpdateTargetId = "modalContent",
@@ -64,7 +64,7 @@
                        OnComplete = "onComplete"
                    }) |
 
-                    @Ajax.ActionLink("Details", "Details", "CardRole", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("详情", "Details", "CardRole", new { id = item.Id }, new AjaxOptions
                    {
                        HttpMethod = "GET",
                        UpdateTargetId = "modalContent",
@@ -75,7 +75,7 @@
                        OnComplete = "onComplete"
                    }) |
 
-                    @Ajax.ActionLink("Delete", "Delete", "CardRole", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("删除", "Delete", "CardRole", new { id = item.Id }, new AjaxOptions
                    {
                        HttpMethod = "GET",
                        UpdateTargetId = "modalContent",

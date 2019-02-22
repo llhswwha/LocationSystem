@@ -1,4 +1,10 @@
-﻿@model DbModel.Location.Work.MobileInspection
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.MobileInspection
+
+@{
+    ViewBag.Title = "Detail";
+}
+
 
 <!DOCTYPE html>
 
@@ -45,7 +51,10 @@
             </table>
         </fieldset>
     </form>
-    <p><a href="/MobileInspection/Index">Back To List</a></p>
+    <p>
+        @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("返 回", "Index")
+    </p>
 </body>
 </html>
 

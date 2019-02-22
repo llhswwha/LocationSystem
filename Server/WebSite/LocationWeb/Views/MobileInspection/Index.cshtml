@@ -4,11 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>巡检轨迹</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/MobileInspectionDev/Index">设置巡检设备</a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/PersonnelMobileInspection/Index">人员巡检轨迹分配与查看</a>
-
+    @Html.ActionLink("新建", "Create")&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/MobileInspectionDev/Index">设置巡检设备</a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/PersonnelMobileInspection/Index">人员巡检轨迹分配与查看</a>
 </p>
 <table class="table">
     <tr>
@@ -33,9 +32,9 @@
             </td>
             <td>@item.Items.Count</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Detail", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("详情", "Detail", new { id = item.Id }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

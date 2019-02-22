@@ -13,12 +13,14 @@ using TModel.Tools;
 using LocationServer;
 using LocationServer.Tools;
 using System.Threading;
+using CommunicationClass.SihuiThermalPowerPlant.Models;
 using DbModel.Location.Work;
 using DbModel.LocationHistory.Work;
 using DbModel.Tools;
 using Location.TModel.Tools;
 using LocationServices.Converters;
 using DbModel.Location.AreaAndDev;
+using WebApiLib.Clients;
 
 namespace LocationWCFServer
 {
@@ -33,9 +35,10 @@ namespace LocationWCFServer
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             XmlConfigurator.Configure();
-            //Log.StartWatch();
-            //Log.AppStart();
-            //Log.Info("App_OnStartup");
+
+            Log.StartWatch();
+            Log.AppStart();
+            Log.Info("App_OnStartup");
 
             //LocationDbLite db = new LocationDbLite();
             ////db.Database.Create();
@@ -66,9 +69,17 @@ namespace LocationWCFServer
             AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
             AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
             AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
-
+            datacaseUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
+            InitGetInspectionTrack();
+        }
+
+        private string datacaseUrl = "ipms-demo.datacase.io";
+
+        private void InitGetInspectionTrack()
+        {
+            Log.Info("InitGetInspectionTrack");
             if (tGetInspectionTrack == null)
             {
                 tGetInspectionTrack = new Thread(GetInspectionTrackThread);
@@ -98,7 +109,7 @@ namespace LocationWCFServer
 
         private void GetInspectionTrackThread()
         {
-            WebApiLib.Clients.BaseDataClient client = new WebApiLib.Clients.BaseDataClient("ipms-demo.datacase.io", "api");
+            var client = new BaseDataClient(datacaseUrl, "api");
             bool bFirst = true;
             int nDay = -1;
             Bll bll = new Bll();
@@ -113,38 +124,27 @@ namespace LocationWCFServer
                     bFirst = false;
                 }
 
-                DealInspectionTrack(client, dtBegin, dtEnd, true);
+                if (DealInspectionTrack(client, dtBegin, dtEnd, true) == false)
+                {
+                    Log.Error("获取巡检轨迹失败！！ break!!");
+                    break;
+                }
                
                 List<InspectionTrack> send = bll.InspectionTracks.ToList();
                 //List<InspectionTrackHistory> send2 = bll.InspectionTrackHistorys.ToList();
                 if (send == null || send.Count() == 0)
                 {
-                    Thread.Sleep(5 * 60 * 1000);
+                    Thread.Sleep(5 * 60 * 1000);//等待5分钟
                     continue;
                 }
                 SignalRService.Hubs.InspectionTrackHub.SendInspectionTracks(send.ToWcfModelList().ToArray());
-                DateTime dt2 = DateTime.Now;
-                Thread.Sleep(5*60*1000);
+                //DateTime dt2 = DateTime.Now;
+                Thread.Sleep(5*60*1000);//等待5分钟
             }
         }
 
-        private void DealInspectionTrack(WebApiLib.Clients.BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag)
+        private bool DealInspectionTrack(BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag)
         {
-            
-            Bll bll = new Bll(false, false, true, false);//第三参数要设置为true
-
-            List<InspectionTrack> itList = bll.InspectionTracks.ToList();
-            List<InspectionTrackHistory> itHList = bll.InspectionTrackHistorys.ToList();
-            if (itList == null)
-            {
-                itList = new List<InspectionTrack>();
-            }
-
-            if (itHList == null)
-            {
-                itHList = new List<InspectionTrackHistory>(0);
-            }
-
             List<InspectionTrack> All = new List<InspectionTrack>();
             List<InspectionTrack> Add = new List<InspectionTrack>();
             List<InspectionTrack> Edit = new List<InspectionTrack>();
@@ -153,14 +153,26 @@ namespace LocationWCFServer
 
             long lBegin = TimeConvert.DateTimeToTimeStamp(dtBegin) / 1000;
             long lEnd = TimeConvert.DateTimeToTimeStamp(dtEnd) / 1000;
-            List<CommunicationClass.SihuiThermalPowerPlant.Models.patrols> recv = client.Getinspectionlist(lBegin, lEnd, true);
+            var recv = client.Getinspectionlist(lBegin, lEnd, true);
             if (recv == null)
             {
-                return;
+                return false;
             }
 
+            Bll bll = new Bll(false, false, true, false);//第三参数要设置为true
+            List<InspectionTrack> itList = bll.InspectionTracks.ToList();
+            if (itList == null)
+            {
+                itList = new List<InspectionTrack>();
+            }
 
-            foreach (CommunicationClass.SihuiThermalPowerPlant.Models.patrols item in recv)
+            List<InspectionTrackHistory> itHList = bll.InspectionTrackHistorys.ToList();
+            if (itHList == null)
+            {
+                itHList = new List<InspectionTrackHistory>(0);
+            }
+
+            foreach (patrols item in recv)
             {
                 InspectionTrack now = itList.Find(p => p.Abutment_Id == item.id);
                 InspectionTrackHistory history = itHList.Find(p => p.Abutment_Id == item.id);
@@ -224,9 +236,8 @@ namespace LocationWCFServer
             All.AddRange(Add);
             All.AddRange(Edit);
             DealPatrolPoint(bll, All, Delete, HAdd, client);
-
-
-            return;
+            
+            return true;
         }
 
         private void DealPatrolPoint(Bll bll, List<InspectionTrack> All, List<InspectionTrack> Delete, List<InspectionTrackHistory> HAdd, WebApiLib.Clients.BaseDataClient client)

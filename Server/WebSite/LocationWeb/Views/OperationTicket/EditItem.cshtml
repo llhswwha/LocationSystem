@@ -1,5 +1,9 @@
 ﻿@model DbModel.Location.Work.OperationItem
 
+@{
+    ViewBag.Title = "EditItem";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -12,10 +16,10 @@
             text-align: right;
         }
     </style>
-    <title>Edit</title>
+    <title>EditItem</title>
 </head>
 <body>
-    <h2>Edit</h2>
+    <h2>EditItem</h2>
     <form action="/OperationTicket/EditItem2">
         <input type="hidden" name="Id" value=@Model.Id />
         <input type="hidden" name="TicketId" value=@Model.TicketId />
@@ -23,7 +27,8 @@
         <span>记号：</span><input type="checkbox" name="Mark" value="true" /><br />
         <span>顺序：</span><input type="text" name="OrderNum" value=@Model.OrderNum /><br />
         <span>操作项目：</span><input type="text" name="Item" value=@Model.Item /><br />
-        <h6><input type="submit" value="Edit" /></h6>
+        <input type="submit" value="Save" /> |
+        <a href="/OperationTicket/Edit/@Model.TicketId">返 回</a>
     </form>
 </body>
 </html>

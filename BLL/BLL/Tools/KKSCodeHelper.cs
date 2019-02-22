@@ -140,7 +140,13 @@ namespace Location.BLL.Tool
                 foreach (FileInfo fileInfo in subDir.GetFiles())
                 {
                     string strFolderName = fileInfo.Directory.Name;
-                    DataTable dtTable = ExcelHelper.Load(new FileInfo(fileInfo.FullName), false).Tables[0].Copy();
+                    //DataTable dtTable = ExcelHelper.Load(new FileInfo(fileInfo.FullName), false).Tables[0].Copy();
+                    DataSet ds = ExcelHelper.Load(new FileInfo(fileInfo.FullName), false);
+                    if (ds == null || ds.Tables.Count < 1)
+                    {
+                        continue;
+                    }
+                    DataTable dtTable = ds.Tables[0].Copy();
                     dtTable.Rows.RemoveAt(0);
                     dtTable.Rows.RemoveAt(0);
                     List<T> list1 = CreateKKSCodeListFromDataTable<T>(strFolderName,

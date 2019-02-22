@@ -6,10 +6,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>人员信息</h2>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "Personnel", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "Personnel", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -134,13 +134,13 @@
                 @Html.DisplayFor(modelItem => item.Enabled)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
+                @Html.DisplayFor(modelItem => item.Parent.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pst)
             </td>
             <td>
-                @Ajax.ActionLink("Edit", "Edit", "Personnel", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("编辑", "Edit", "Personnel", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "Get",
                    UpdateTargetId = "modalContent",
@@ -151,7 +151,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Details", "Details", "Personnel", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("详情", "Details", "Personnel", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",
@@ -162,7 +162,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Delete", "Delete", "Personnel", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("删除", "Delete", "Personnel", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",

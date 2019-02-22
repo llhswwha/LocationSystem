@@ -29,20 +29,12 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Describe, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.nFlag, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.nFlag, ViewBag.EnumList as IEnumerable<SelectListItem>)
-                    @Html.ValidationMessageFor(model => model.nFlag, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            </div>           
 
             <div class="form-group">
                 @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -84,11 +76,10 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
-                @Html.LabelFor(model => model.RepeatType, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.RepeatDay, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
+                    @*<input type="checkbox" name="RepeatType" value="每天" /> <span>每天</span>
                     <input type="checkbox" name="RepeatType" value="星期一" /> <span>星期一</span>
                     <input type="checkbox" name="RepeatType" value="星期二" /> <span>星期二</span>
                     <input type="checkbox" name="RepeatType" value="星期三" /> <span>星期三</span>
@@ -96,11 +87,9 @@
                     <input type="checkbox" name="RepeatType" value="星期五" /> <span>星期五</span>
                     <input type="checkbox" name="RepeatType" value="星期六" /> <span>星期六</span>
                     <input type="checkbox" name="RepeatType" value="星期天" /> <span>星期天</span>
-                    <input type="checkbox" name="RepeatType" value="一次" /> <span>一次</span>
-
-
-                    @*@Html.EditorFor(model => model.RepeatType, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @Html.ValidationMessageFor(model => model.RepeatType, "", new { @class = "text-danger" })
+                    <input type="checkbox" name="RepeatType" value="一次" /> <span>一次</span>*@                    
+                    @Html.DropDownListFor(model => model.RepeatDay, ViewBag.RepeatTypeList as IEnumerable<SelectListItem>)
+                    @Html.ValidationMessageFor(model => model.RepeatDay, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -112,13 +101,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.LocationCardId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.LocationCardId, ViewBag.TagList as IEnumerable<SelectListItem>, "", 1)
                     @Html.ValidationMessageFor(model => model.LocationCardId, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

@@ -698,6 +698,7 @@
     </None>
     <None Include="Data\InitInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\Location.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

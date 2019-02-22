@@ -34,7 +34,14 @@ namespace WebLocation.Controllers
         {
             PagedList<LocationCard> lst = db.LocationCards.ToList().ToPagedList<LocationCard>(pageIndex, pageSize);                                  
             return View("Index", lst);
-        }       
+        }
+
+        private void GetListToViewBag()
+        {
+            List<CardRole> cardList = db.CardRoles.ToList();
+            SelectList selList = new SelectList(cardList, "Id", "Name");
+            ViewBag.selList = selList.AsEnumerable();
+        }
 
         public ActionResult Position()
         {
@@ -90,6 +97,7 @@ namespace WebLocation.Controllers
         // GET: Tags/Create
         public ActionResult Create()
         {
+            GetListToViewBag();
             return PartialView();
         }
 
@@ -127,7 +135,7 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-            
+            GetListToViewBag();
             return PartialView(tag);
         }
 

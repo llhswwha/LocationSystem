@@ -24,10 +24,7 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr>
-                @*<td style="display:none;" class="roleId">
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>*@
+            <tr>               
                 <td>
                     @if(item.Id == ViewBag.RoleId)
                     {

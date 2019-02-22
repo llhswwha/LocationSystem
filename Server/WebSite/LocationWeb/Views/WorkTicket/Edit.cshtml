@@ -1,5 +1,9 @@
-﻿@model DbModel.Location.Work.WorkTicket
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.WorkTicket
 
+@{
+    ViewBag.Title = "Edit";
+}
 
 <!DOCTYPE html>
 
@@ -48,17 +52,18 @@
                         <td>@item.LssuerContent</td>
                         <td>@item.LicensorContent</td>
                         <td>
-                            @Html.ActionLink("Edit", "EditSafetyMeasures", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "DeleteSafetyMeasures", new { id = item.Id, TicketId = item.WorkTicketId })
+                            @Html.ActionLink("编辑", "EditSafetyMeasures", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "DeleteSafetyMeasures", new { id = item.Id, TicketId = item.WorkTicketId })
                         </td>
                     </tr>
                 }
             </table>
         </fieldset>
-        <hr />
-        <input type="submit" value="Save" />
+        <p>
+            <input type="submit" value="Save" /> |
+            <a href="/WorkTicket/Index">返 回</a>
+        </p>        
     </form>
-    <p><a href="/WorkTicket/Index">Back To List</a></p>
 </body>
 </html>
 

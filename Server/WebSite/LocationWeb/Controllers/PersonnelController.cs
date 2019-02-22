@@ -36,7 +36,6 @@ namespace WebLocation.Controllers
             var query1 = from t1 in bll.Personnels.DbSet
                          join t2 in bll.LocationCardToPersonnels.DbSet on t1.Id equals t2.PersonnelId
                          join t3 in bll.LocationCards.DbSet on t2.LocationCardId equals t3.Id
-                         //select new Personnel { Id = t1.Id, Abutment_Id = t1.Abutment_Id, Name = t1.Name, LocationCardName = t3.Name, Sex = t1.Sex, Photo = t1.Photo, BirthDay = t1.BirthDay, BirthTimeStamp = t1.BirthTimeStamp, Nation = t1.Nation, Address = t1.Address, WorkNumber = t1.WorkNumber, Email = t1.Email, Phone = t1.Phone, Mobile = t1.Mobile, Enabled = t1.Enabled, ParentId = t1.ParentId, Pst = t1.Pst };
                          select new { Personnel = t1, LocationCard = t3 };
             var l1 = query1.ToList();
             List<Personnel> personList = new List<Personnel>();
@@ -54,7 +53,7 @@ namespace WebLocation.Controllers
           
             //PagedList < Personnel > lst = bll.Personnels.ToList().ToPagedList<Personnel>(pageIndex, pageSize);
             GetListToViewBag();            
-            return View(lst);
+            return View("Index",lst);
         }
 
         public ActionResult CardSet(int? id)//添加id，接收点击某一行的人员传递的参数
@@ -97,8 +96,7 @@ namespace WebLocation.Controllers
         {
             var query1 = from t1 in bll.Personnels.DbSet
                          join t2 in bll.LocationCardToPersonnels.DbSet on t1.Id equals t2.PersonnelId
-                         join t3 in bll.LocationCards.DbSet on t2.LocationCardId equals t3.Id
-                         //select new Personnel { Id = t1.Id, Abutment_Id = t1.Abutment_Id, Name = t1.Name, LocationCardName = t3.Name, Sex = t1.Sex, Photo = t1.Photo, BirthDay = t1.BirthDay, BirthTimeStamp = t1.BirthTimeStamp, Nation = t1.Nation, Address = t1.Address, WorkNumber = t1.WorkNumber, Email = t1.Email, Phone = t1.Phone, Mobile = t1.Mobile, Enabled = t1.Enabled, ParentId = t1.ParentId, Pst = t1.Pst };
+                         join t3 in bll.LocationCards.DbSet on t2.LocationCardId equals t3.Id                         
                          select new { Personnel = t1, LocationCard = t3 };
             var l1 = query1.ToList();
             List<Personnel> personList = new List<Personnel>();
@@ -141,6 +139,10 @@ namespace WebLocation.Controllers
             List<Post> PostList = bll.Posts.ToList();
             SelectList selList2 = new SelectList(PostList, "Name", "Name");
             ViewBag.PostList = selList2.AsEnumerable();
+
+            List<LocationCard> CardList = bll.LocationCards.ToList();
+            SelectList selList3 = new SelectList(CardList, "Id", "Name");
+            ViewBag.CardList = selList3.AsEnumerable();
         }
 
         public ActionResult Create()

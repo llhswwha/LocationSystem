@@ -55,6 +55,7 @@ namespace WebLocation.Controllers
             ViewBag.EnumList = EnumToList.EnumToListChoice<RepeatDay>();
 
             List<SelectListItem> RepeatTypeList = new List<SelectListItem>();
+            RepeatTypeList.Add(new SelectListItem { Text = "每天", Value = "每天" });
             RepeatTypeList.Add(new SelectListItem { Text = "星期一", Value = "星期一" });
             RepeatTypeList.Add(new SelectListItem { Text = "星期二", Value = "星期二" });
             RepeatTypeList.Add(new SelectListItem { Text = "星期三", Value = "星期三" });

@@ -6,12 +6,12 @@
 }
 
 
-<h2>Index</h2>
+<h2>KKS码</h2>
 
 <p>
     @Html.ActionLink("导入", "Import")
 
-    @Ajax.ActionLink("Create New", "Create", "KKSCode", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "KKSCode", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -91,7 +91,7 @@
                 @Html.DisplayFor(modelItem => item.System)
             </td>
             <td>
-                @Ajax.ActionLink("Edit", "Edit", "KKSCode", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("编辑", "Edit", "KKSCode", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "Get",
                    UpdateTargetId = "modalContent",
@@ -102,7 +102,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Details", "Details", "KKSCode", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("详情", "Details", "KKSCode", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",
@@ -113,7 +113,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                @Ajax.ActionLink("Delete", "Delete", "KKSCode", new { id = item.Id }, new AjaxOptions
+                @Ajax.ActionLink("删除", "Delete", "KKSCode", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",

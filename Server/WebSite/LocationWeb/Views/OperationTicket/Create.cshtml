@@ -1,6 +1,10 @@
 ﻿@using DbModel.Location.Work
 @model DbModel.Location.Work.OperationTicket
 
+@{
+    ViewBag.Title = "Create";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -50,8 +54,11 @@
                     </tr>
                 }
             </table>
-        </fieldset>
-        <input type="submit" value="Create"/>
+        </fieldset>      
+        <p>
+            <input type="submit" value="Create" /> |
+            @Html.ActionLink("返 回", "Index")
+        </p>
     </form>
 </body>
 </html>

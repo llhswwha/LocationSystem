@@ -56,11 +56,16 @@ namespace ExcelLib
         {
             if (hssfworkbook == null) return null;
             DataSet ds = new DataSet();
+            if (hssfworkbook == null)
+            {
+                return ds;
+            }
             for (int i = 0; i < hssfworkbook.NumberOfSheets; i++)
             {
                 var dt = GetDataTableFromBook(isFirtRowHeader, hssfworkbook, i);
                 ds.Tables.Add(dt);
             }
+
             return ds;
         }
 

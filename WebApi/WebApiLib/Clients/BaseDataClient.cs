@@ -51,6 +51,7 @@ namespace WebApiLib.Clients
             try
             {
                 recv = WebApiHelper.GetEntity<BaseTran<T>>(url);
+                if (recv == null) return null;
                 if (recv.data == null)
                 {
                     recv.data = new List<T>();
@@ -85,6 +86,7 @@ namespace WebApiLib.Clients
             try
             {
                 recv = WebApiHelper.GetEntity<patrols>(url);
+                if (recv == null) return null;
                 if (recv.route == null)
                 {
                     recv.route = new List<checkpoints>();
@@ -105,6 +107,7 @@ namespace WebApiLib.Clients
             try
             {
                 recv = WebApiHelper.GetEntity<checkpoints>(url);
+                if (recv == null) return null;
                 if (recv.checks == null)
                 {
                     recv.checks = new List<results>();
@@ -1390,7 +1393,6 @@ namespace WebApiLib.Clients
         public List<patrols> Getinspectionlist(long lBegin, long lEnd, bool bFlag)
         {
             List<patrols> recv = new List<patrols>();
-       
             try
             {
                 string path = "api/patrols";

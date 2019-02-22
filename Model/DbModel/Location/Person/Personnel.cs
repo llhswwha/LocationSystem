@@ -138,6 +138,10 @@ namespace DbModel.Location.Person
         public int? ParentId { get; set; }
 
         [DataMember]
+        [Display(Name = "部门")]
+        public virtual Department Parent { get; set; }
+
+        [DataMember]
         [Display(Name = "岗位")]
         [MaxLength(16)]
         public string Pst { get; set; }

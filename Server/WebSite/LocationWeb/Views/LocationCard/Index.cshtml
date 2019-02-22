@@ -8,9 +8,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>标签</h2>
 <p>
-    @Ajax.ActionLink("Create New", "Create", "LocationCard", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "LocationCard", new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "modalContent",
@@ -101,7 +101,7 @@
                     @Html.DisplayFor(modelItem => item.Flag)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Edit", "Edit", "LocationCard", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("编辑", "Edit", "LocationCard", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "Get",
                    UpdateTargetId = "modalContent",
@@ -112,7 +112,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                    @Ajax.ActionLink("Details", "Details", "LocationCard", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("详情", "Details", "LocationCard", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",
@@ -123,7 +123,7 @@
                    OnComplete = "onComplete"
                }) |
 
-                    @Ajax.ActionLink("Delete", "Delete", "LocationCard", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink("删除", "Delete", "LocationCard", new { id = item.Id }, new AjaxOptions
                {
                    HttpMethod = "GET",
                    UpdateTargetId = "modalContent",

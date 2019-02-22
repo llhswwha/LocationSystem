@@ -4,7 +4,7 @@
     ViewBag.Title = "Tree";
 }
 
-<h2>Tree</h2>
+<h2>区域树</h2>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
     <div class="modal-dialog">
@@ -16,7 +16,7 @@
 </div>
 
 <p>
-    @Ajax.ActionLink("Create New", "Create", "Area", new AjaxOptions
+    @Ajax.ActionLink("新建", "Create", "Area", new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "modalContent",
@@ -55,22 +55,13 @@
 <script src="~/Scripts/indexmodal.js"></script>
 
 
-<script type="text/javascript">
-    window.onload = function () {
-        console.log("onload");
-        //displayTreeDataList();
-        //displayOrHide(event);    
-    };
-
+<script type="text/javascript">   
     function displayTreeDataList() {
         var oLi = document.getElementsByTagName("li");
-        //console.log(oLi);
 
         for (var i = 0; i < oLi.length; i++) {
             var li = oLi[i];
-            console.log(li);
             var nextSibling = li.nextSibling;
-            console.log(nextSibling);
             if (nextSibling.nextSibling && nextSibling.nextSibling.nodeName.toUpperCase() == 'UL'
                      && nextSibling.nextSibling.innerHTML != "") {
                 li.style.listStyleImage = "url(../Img/TreeIcon/open.png)";

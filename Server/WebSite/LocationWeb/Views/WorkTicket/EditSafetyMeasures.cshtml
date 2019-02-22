@@ -1,5 +1,9 @@
 ﻿@model DbModel.Location.Work.SafetyMeasures
 
+@{
+    ViewBag.Title = "EditSafetyMeasures";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -12,16 +16,17 @@
             text-align: right;
         }
     </style>
-    <title>Edit</title>
+    <title>EditSafetyMeasures</title>
 </head>
 <body>
-    <h2>Edit</h2>
+    <h2>EditSafetyMeasures</h2>
     <form action="/WorkTicket/EditSafetyMeasures2">
         <input type="hidden" name="Id" value=@Model.Id />
         <input type="hidden" name="WorkTicketId" value=@Model.WorkTicketId />
         <span>签发人填写的安全措施：</span><input type="text" name="LssuerContent" value=@Model.LssuerContent /><br />
         <span>许可人填写的安全措施：</span><input type="text" name="LicensorContent" value=@Model.LicensorContent /><br />
-        <h6><input type="submit" value="Edit" /></h6>
+        <input type="submit" value="Save" /> |
+        <a href="/WorkTicket/Edit/@Model.WorkTicketId">返 回</a>
     </form>
 </body>
 </html>

@@ -64,6 +64,15 @@ namespace TModel.Tools
             return rec;
         }
 
+        public static long ToLong(this string input, int defaultValue = 0)
+        {
+            if (string.IsNullOrEmpty(input))
+                return defaultValue;
+            long rec;
+            long.TryParse(input, out rec);
+            return rec;
+        }
+
         public static float ToFloat(this string input, float defaultValue = 0)
         {
             if (string.IsNullOrEmpty(input))

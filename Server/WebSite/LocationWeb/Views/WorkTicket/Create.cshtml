@@ -1,5 +1,9 @@
-﻿@model DbModel.Location.Work.WorkTicket
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.WorkTicket
 
+@{
+    ViewBag.Title = "Create";
+}
 
 <!DOCTYPE html>
 
@@ -50,7 +54,10 @@
                 }
             </table>
         </fieldset>
-        <input type="submit" value="Create" />
+        <p>
+            <input type="submit" value="Create" /> |
+            @Html.ActionLink("返 回", "Index")
+        </p>     
     </form>
 </body>
 </html>

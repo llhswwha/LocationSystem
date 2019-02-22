@@ -351,7 +351,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                Log.Error(string.Format("EditTagPositionListOP1,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
+                Log.Error(string.Format("EditTagPositionListOP1 BulkUpdate,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
             }
             
             try
@@ -361,7 +361,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                Log.Error(string.Format("EditTagPositionListOP2,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
+                Log.Error(string.Format("EditTagPositionListOP2 BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
             }
 
         }

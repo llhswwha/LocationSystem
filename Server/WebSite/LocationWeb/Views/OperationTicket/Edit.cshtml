@@ -1,6 +1,10 @@
 ﻿@using DbModel.Location.Work
 @model DbModel.Location.Work.OperationTicket
 
+@{
+    ViewBag.Title = "Edit";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -51,17 +55,18 @@
                         <td>@item.OrderNum</td>
                         <td>@item.Item</td>
                         <td>
-                            @Html.ActionLink("Edit", "EditItem", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "DeleteItem", new { id = item.Id, TicketId = item.TicketId })
+                            @Html.ActionLink("编辑", "EditItem", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "DeleteItem", new { id = item.Id, TicketId = item.TicketId })
                         </td>
                     </tr>
                 }
             </table>
-        </fieldset>
-        <hr/>
-        <input type="submit" value="Save" />
-    </form>
-    <p><a href="/OperationTicket/Index">Back To List</a></p>
+        </fieldset>      
+        <p>
+            <input type="submit" value="Save" /> |
+            <a href="/OperationTicket/Index">返 回</a>
+        </p>
+    </form>   
 </body>
 </html>
 
