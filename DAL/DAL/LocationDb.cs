@@ -9,12 +9,13 @@ using DbModel.Location.Work;
 
 namespace DAL
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //发现nuget有安装MySql.Data.Entity(6.9.2)的话就需要这个DbConfigurationType了
     public class LocationDb : DbContext
     {
         public static bool IsSqlite = false;
 
-        public static string Name = "LocationConnection";
+        public static string Name = "Location_MySql";
 
         public LocationDb() : base(Name)
         {

@@ -79,7 +79,7 @@ namespace LocationServer.Windows
 
 
             //AppContext.DeleteDb(0);
-            AppContext.InitDbAsync(0, 0, (bll) =>
+            AppContext.InitDbAsync("SqlServer", 0, (bll) =>
              {
                  InitImage(bll);
                  MessageBox.Show("初始化完成");
@@ -97,7 +97,17 @@ namespace LocationServer.Windows
         private void MenuInitSqlite_Click(object sender, RoutedEventArgs e)
         {
             AppContext.DeleteDb(1);
-            AppContext.InitDbAsync(1, 0, (bll) =>
+            AppContext.InitDbAsync("SQLite", 0, (bll) =>
+            {
+                InitImage(bll);
+                MessageBox.Show("初始化完成");
+            });
+        }
+
+        private void MenuInitMySql_Click(object sender, RoutedEventArgs e)
+        {
+            AppContext.DeleteDb(1);
+            AppContext.InitDbAsync("MySql", 0, (bll) =>
             {
                 InitImage(bll);
                 MessageBox.Show("初始化完成");
@@ -513,5 +523,7 @@ namespace LocationServer.Windows
                 MessageBox.Show("备份完成...");
             });           
         }
+
+       
     }
 }

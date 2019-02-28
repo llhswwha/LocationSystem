@@ -33,6 +33,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "巡检员工号")]
         [MaxLength(16)]
+        [Required]
         public string StaffCode { get; set; }
 
         /// <summary>

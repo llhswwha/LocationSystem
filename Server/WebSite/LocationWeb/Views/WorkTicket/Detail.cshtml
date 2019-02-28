@@ -5,58 +5,126 @@
     ViewBag.Title = "Details";
 }
 
-<!DOCTYPE html>
+<h2>Details</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <style>
-        span {
-            display: inline-block;
-            width: 200px;
-            text-align: right;
+<div>
+    <h3>工作票</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.No)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.No)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonInCharge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonInCharge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeadOfWorkClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeadOfWorkClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTimeOfPlannedWork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTimeOfPlannedWork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTimeOfPlannedWork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTimeOfPlannedWork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lssuer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lssuer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Licensor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Licensor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Approver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approver)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+    </dl>
+</div>
+
+<div class="form-horizontal">
+    <h3>安全措施</h3>
+    <table class="table">       
+        <tr>
+            <th>签发人填写的安全措施</th>
+            <th>许可人填写的安全措施</th>
+        </tr>
+        @foreach (SafetyMeasures item in Model.SafetyMeasuress)
+        {
+            <tr>
+                <td>@item.LssuerContent</td>
+                <td>@item.LicensorContent</td>
+            </tr>
         }
-    </style>
-    <title>Details</title>
-</head>
-<body>
-    <h2>Details</h2>
-    <form>
-        <fieldset>
-            <legend>基本信息</legend>
-            <span>@Html.DisplayNameFor(model => model.No)：</span><input type="text" name="No" value=@Model.No /><br />
-            <span>@Html.DisplayNameFor(model => model.PersonInCharge)：</span><input type="text" name="PersonInCharge" value=@Model.PersonInCharge /><br />
-            <span>@Html.DisplayNameFor(model => model.HeadOfWorkClass)：</span><input type="text" name="HeadOfWorkClass" value=@Model.HeadOfWorkClass /><br />
-            <span>@Html.DisplayNameFor(model => model.WorkPlace)：</span><input type="text" name="WorkPlace" value=@Model.WorkPlace /><br />
-            <span>@Html.DisplayNameFor(model => model.JobContent)：</span><input type="text" name="JobContent" value=@Model.JobContent /><br />
-            <span>@Html.DisplayNameFor(model => model.StartTimeOfPlannedWork)：</span><input type="datetime-local" name="StartTimeOfPlannedWork" value=@Model.StartTimeOfPlannedWork.ToString("yyyy-MM-ddThh:mm:ss") />
-            <span>@Html.DisplayNameFor(model => model.EndTimeOfPlannedWork)：</span><input type="datetime-local" name="EndTimeOfPlannedWork" value=@Model.EndTimeOfPlannedWork.ToString("yyyy-MM-ddThh:mm:ss") /><br />
-            <span>@Html.DisplayNameFor(model => model.WorkCondition)：</span><input type="text" name="WorkCondition" value=@Model.WorkCondition /><br />
-            <span>@Html.DisplayNameFor(model => model.Lssuer)：</span><input type="text" name="Lssuer" value=@Model.Lssuer /><br />
-            <span>@Html.DisplayNameFor(model => model.Licensor)：</span><input type="text" name="Licensor" value=@Model.Licensor /><br />
-            <span>@Html.DisplayNameFor(model => model.Approver)：</span><input type="text" name="Approver" value=@Model.Approver /><br />
-            <span>@Html.DisplayNameFor(model => model.Comment)：</span><input type="text" name="Comment" value=@Model.Comment /><br />
-        </fieldset>
-        <fieldset>
-            <table class="table">
-                <caption><h2 style="text-align:left">安全措施</h2></caption>
-                <tr>
-                    <th>签发人填写的安全措施</th>
-                    <th>许可人填写的安全措施</th>
-                </tr>
-                @foreach (SafetyMeasures item in Model.SafetyMeasuress)
-                {
-                    <tr>
-                        <td>@item.LssuerContent</td>
-                        <td>@item.LicensorContent</td>
-                    </tr>
-                }
-            </table>
-        </fieldset>
-    </form>
-    <p>
-        @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("返 回", "Index")
-    </p>
-</body>
-</html>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("返 回", "Index")
+</p>

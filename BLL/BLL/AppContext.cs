@@ -27,26 +27,19 @@ namespace LocationServer
             return new Bll(false, true, true);
         }
 
-        public static int DbSource = 0;
+        public static string DbSource = "SqlServer";
 
-        public static void InitDbContext(int mode)
+        public static void InitDbContext(string dbType)
         {
-            DbSource = mode;
-            Log.Info("InitDbContext:" + mode);
-            if (mode == 0)
+            DbSource = dbType;
+            Log.Info("InitDbContext:" + dbType);
+            if (dbType == "SQLite")
             {
                 LocationDb.IsSqlite = false;
-                LocationDb.Name = "LocationConnection";
                 LocationHistoryDb.IsSqlite = false;
-                LocationHistoryDb.Name = "LocationHistoryConnection";
             }
-            else if (mode == 1)
-            {
-                LocationDb.IsSqlite = true;
-                LocationDb.Name = "LocationLite";
-                LocationHistoryDb.IsSqlite = true;
-                LocationHistoryDb.Name = "LocationHisLite";
-            }
+            LocationDb.Name = "Location_" + dbType;
+            LocationHistoryDb.Name = "LocationHistory_" + dbType;
         }
 
         public static void InitDb(int mode, bool isForce = false)
@@ -66,7 +59,7 @@ namespace LocationServer
         {
             Log.InfoStart("InitDb");
             Bll bll;
-            if (isForce&& DbSource==1)
+            if (isForce&& DbSource == "SQLite")
             {
                 string dir = AppDomain.CurrentDomain.BaseDirectory;
                 string file1 = dir + "location.db";
@@ -104,13 +97,13 @@ namespace LocationServer
             
         }
 
-        public static void InitDbAsync(int dbsource, int initMode,Action<Bll> callback)
+        public static void InitDbAsync(string dbsource, int initMode,Action<Bll> callback)
         {
             InitDbContext(dbsource);
             InitDbAsync(initMode, callback,true);
         }
 
-        public static void InitDb(int dbsource,int initMode)
+        public static void InitDb(string dbsource,int initMode)
         {
             InitDbContext(dbsource);
             InitDb(initMode);

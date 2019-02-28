@@ -47,12 +47,13 @@ namespace WebLocation.Controllers
             return View(WorkTicket);
         }
 
-        public ActionResult CreateTicket(WorkTicket WorkTicket)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(WorkTicket WorkTicket)
         {
-            if (WorkTicket != null)
+            if (ModelState.IsValid)
             {
                 bll.WorkTickets.Add(WorkTicket);
-                return RedirectToAction("Index");
             }
 
             WorkTicket = new WorkTicket();
@@ -60,7 +61,7 @@ namespace WebLocation.Controllers
             WorkTicket.EndTimeOfPlannedWork = DateTime.Now;
             WorkTicket.SafetyMeasuress = new List<SafetyMeasures>();
 
-            return RedirectToAction("Create", WorkTicket);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int? id)
@@ -79,9 +80,11 @@ namespace WebLocation.Controllers
 
         }
 
-        public ActionResult EditTicket(WorkTicket WorkTicket)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(WorkTicket WorkTicket)
         {
-            if (WorkTicket != null)
+            if (ModelState.IsValid)
             {
                 bll.WorkTickets.Edit(WorkTicket);
             }
@@ -158,10 +161,12 @@ namespace WebLocation.Controllers
             return View(SafetyMeasures);
         }
 
-        public ActionResult CreateSafetyMeasures2(SafetyMeasures SafetyMeasures)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSafetyMeasures(SafetyMeasures SafetyMeasures)
         {
             int? Id = SafetyMeasures.WorkTicketId;
-            if (SafetyMeasures != null)
+            if (ModelState.IsValid)
             {
                 bll.SafetyMeasuress.Add(SafetyMeasures);
             }
@@ -190,10 +195,12 @@ namespace WebLocation.Controllers
             return View(SafetyMeasures);
         }
 
-        public ActionResult EditSafetyMeasures2(SafetyMeasures SafetyMeasures)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSafetyMeasures(SafetyMeasures SafetyMeasures)
         {
             int? Id = SafetyMeasures.WorkTicketId;
-            if (SafetyMeasures != null)
+            if (ModelState.IsValid)
             {
                 bll.SafetyMeasuress.Edit(SafetyMeasures);
             }

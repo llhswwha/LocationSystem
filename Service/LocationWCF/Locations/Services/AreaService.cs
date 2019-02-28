@@ -213,6 +213,7 @@ namespace LocationServices.Locations.Services
         public AreaNode GetBasicTree(int view)
         {
             var areaList = dbSet.ToList();
+            if (areaList == null) return null;
             List<Area> list2 = new List<Area>();
             for (int i = 0; i < areaList.Count; i++)
             {
@@ -285,6 +286,7 @@ namespace LocationServices.Locations.Services
 
         private void SetChildrenNull(AreaNode node)
         {
+            if (node == null) return;
             if (node.Children != null)
             {
                 foreach (var subNode in node.Children)

@@ -5,12 +5,13 @@ using DbModel.LocationHistory.Work;
 
 namespace DAL
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    //发现nuget有安装MySql.Data.Entity(6.9.2)的话就需要这个DbConfigurationType了
     public class LocationHistoryDb : DbContext
     {
         public static bool IsSqlite = false;
 
-        public static string Name = "LocationHistoryConnection";
+        public static string Name = "LocationHistory_MySql";
 
         public LocationHistoryDb():base(Name)
         {

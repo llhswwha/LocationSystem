@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
+using DbModel.Location.Person;
+using DbModel.Location.AreaAndDev;
 
 namespace DbModel.Location.Data
 {
@@ -96,7 +98,7 @@ namespace DbModel.Location.Data
         /// <summary>
         /// 运动状态，0:运动，1:待机状态，2:静止状态，3.离线，4.长时间不动
         /// </summary>
-        [Display(Name = "区域状态")]
+        [Display(Name = "运动状态")]
         public int MoveState { get; set; }
 
         /// <summary>
@@ -144,6 +146,8 @@ namespace DbModel.Location.Data
         [Display(Name = "基站所在的区域、建筑、楼层")]
         public int? AreaId { get; set; }
 
+        public virtual Area Area { get; set; }
+
         public bool IsInArea(int areaId)
         {
             {
@@ -184,6 +188,8 @@ namespace DbModel.Location.Data
         [DataMember]
         [Display(Name = "关联的人员")]
         public int? PersonId { get; set; }
+
+        public virtual Personnel Person { get; set; }
 
         public LocationCardPosition()
         {

@@ -1,0 +1,46 @@
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.PatrolPoint
+
+@{
+    ViewBag.Title = "ItemDetails";
+}
+
+<h2>ItemDetails</h2>
+
+<div class="form-horizontal">
+    <h3>巡检项</h3>
+    <table class="table">
+        <tr>
+            <th>设备kks编码</th>
+            <th>巡检内容</th>
+            <th>巡检员工号</th>
+            <th>巡检时间</th>
+            <th>检查结果</th>
+        </tr>
+        @foreach (PatrolPointItem item in Model.Checks)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KksCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StaffCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtCheckTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckResult)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("编辑", "EditPoint", new { id = Model.Id }) |
+    <a href="/InspectionTrack/Details/@Model.ParentId">返 回</a>
+</p>

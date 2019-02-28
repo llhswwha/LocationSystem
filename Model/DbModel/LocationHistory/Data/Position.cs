@@ -164,7 +164,7 @@ namespace DbModel.LocationHistory.Data
         /// <summary>
         /// 运动状态，0:运动，1:待机状态，2:静止状态
         /// </summary>
-        [Display(Name = "区域状态")]
+        [Display(Name = "运动状态")]
         public int MoveState { get; set; }
 
         /// <summary>

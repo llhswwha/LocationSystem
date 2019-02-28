@@ -4,31 +4,82 @@
     ViewBag.Title = "EditItem";
 }
 
-<!DOCTYPE html>
+<h2>EditItem</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <style>
-        span {
-            display: inline-block;
-            width: 200px;
-            text-align: right;
-        }
-    </style>
-    <title>EditItem</title>
-</head>
-<body>
-    <h2>EditItem</h2>
-    <form action="/OperationTicket/EditItem2">
-        <input type="hidden" name="Id" value=@Model.Id />
-        <input type="hidden" name="TicketId" value=@Model.TicketId />
-        <span>操作时间：</span><input type="datetime-local" name="OperationTime" value=@Model.OperationTime.ToString("yyyy-MM-ddThh:mm:ss") /><br/>
-        <span>记号：</span><input type="checkbox" name="Mark" value="true" /><br />
-        <span>顺序：</span><input type="text" name="OrderNum" value=@Model.OrderNum /><br />
-        <span>操作项目：</span><input type="text" name="Item" value=@Model.Item /><br />
-        <input type="submit" value="Save" /> |
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>操作项</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.TicketId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OperationTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="datetime-local" class="form-control" name="OperationTime" value=@Model.OperationTime.ToString("yyyy-MM-ddThh:mm:ss") />
+                @*@Html.EditorFor(model => model.OperationTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })*@
+                @Html.ValidationMessageFor(model => model.OperationTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @type = "checkbox", @value = "true" } })
+                @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderNum, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderNum, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OrderNum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <div>
         <a href="/OperationTicket/Edit/@Model.TicketId">返 回</a>
-    </form>
-</body>
-</html>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+ @*<style>
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: right;
+    }
+</style>
+<form action="/OperationTicket/EditItem2">
+    <input type="hidden" name="Id" value=@Model.Id />
+    <input type="hidden" name="TicketId" value=@Model.TicketId />
+    <span>操作时间：</span><input type="datetime-local" name="OperationTime" value=@Model.OperationTime.ToString("yyyy-MM-ddThh:mm:ss") /><br />
+    <span>记号：</span><input type="checkbox" name="Mark" value="true" /><br />
+    <span>顺序：</span><input type="text" name="OrderNum" value=@Model.OrderNum /><br />
+    <span>操作项目：</span><input type="text" name="Item" value=@Model.Item /><br />
+    <input type="submit" value="Save" /> |
+    <a href="/OperationTicket/Edit/@Model.TicketId">返 回</a>
+</form>*@   

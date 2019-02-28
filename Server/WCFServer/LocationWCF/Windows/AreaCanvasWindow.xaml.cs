@@ -555,6 +555,7 @@ namespace LocationServer
         private void LoadPersonTree()
         {
             var tree = areaService.GetBasicTree(5);
+            if (tree == null) return;
             var depTree = ResourceTreeView1.PersonTree;
             depTree.LoadData(tree);
             depTree.ExpandLevel(4);

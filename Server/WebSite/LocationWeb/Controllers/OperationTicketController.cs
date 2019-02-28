@@ -43,16 +43,17 @@ namespace WebLocation.Controllers
             OperationTicket.OperationStartTime = DateTime.Now;
             OperationTicket.OperationEndTime = DateTime.Now;
             OperationTicket.OperationItems = new List<OperationItem>();
-           
+
             return View(OperationTicket);
         }
 
-        public ActionResult CreateTicket(OperationTicket OperationTicket)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(OperationTicket OperationTicket)
         {
-            if (OperationTicket != null)
+            if (ModelState.IsValid)
             {
                 bll.OperationTickets.Add(OperationTicket);
-                return RedirectToAction("Index");
             }
 
             OperationTicket = new OperationTicket();
@@ -60,7 +61,7 @@ namespace WebLocation.Controllers
             OperationTicket.OperationEndTime = DateTime.Now;
             OperationTicket.OperationItems = new List<OperationItem>();
 
-            return RedirectToAction("Create", OperationTicket);
+            return RedirectToAction("Index");
         }
         
         public ActionResult Edit(int? id)
@@ -79,9 +80,11 @@ namespace WebLocation.Controllers
 
         }
 
-        public ActionResult EditTicket(OperationTicket OperationTicket)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(OperationTicket OperationTicket)
         {
-            if (OperationTicket != null)
+            if (ModelState.IsValid)
             {
                 bll.OperationTickets.Edit(OperationTicket);
             }
@@ -156,10 +159,12 @@ namespace WebLocation.Controllers
             return View(OperationItem);
         }
 
-        public ActionResult CreateItem2(OperationItem OperationItem)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateItem(OperationItem OperationItem)
         {
             int? Id = OperationItem.TicketId;
-            if (OperationItem != null)
+            if (ModelState.IsValid)
             {
                 bll.OperationItems.Add(OperationItem);
             }
@@ -188,10 +193,12 @@ namespace WebLocation.Controllers
             return View(OperationItem);
         }
 
-        public ActionResult EditItem2(OperationItem OperationItem)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditItem(OperationItem OperationItem)
         {
             int? Id = OperationItem.TicketId;
-            if (OperationItem != null)
+            if (ModelState.IsValid)
             {
                 bll.OperationItems.Edit(OperationItem);
             }

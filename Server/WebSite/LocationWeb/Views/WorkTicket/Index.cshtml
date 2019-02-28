@@ -5,41 +5,30 @@
     ViewBag.Title = "Index";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <h2>工作票</h2>
-    <p>
-        @Html.ActionLink("新建", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.No)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JobContent)
-            </th>
-        </tr>
-        @foreach (WorkTicket item in Model)
+ <h2>工作票</h2>
+ <p>
+    @Html.ActionLink("新建", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.No)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobContent)
+        </th>
+    </tr>
+    @foreach (WorkTicket item in Model)
             {
-            <tr>
-                <td>@item.No</td>
-                <td>@item.JobContent</td>
-                <td>
-                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("详情", "Detail", new { id = item.Id }) |
-                    @Html.ActionLink("删除", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("完成", "Finish", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </table>
-
-</body>
-</html>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.No)</td>
+            <td>@Html.DisplayFor(modelItem => item.JobContent)</td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("详情", "Detail", new { id = item.Id }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("完成", "Finish", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

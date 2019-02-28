@@ -13,6 +13,8 @@ namespace DAL.LocationHistoryDbMigrations
             AutomaticMigrationDataLossAllowed = true;
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"LocationHistoryDbMigrations";
+
+            this.SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
         protected override void Seed(DAL.LocationHistoryDb context)

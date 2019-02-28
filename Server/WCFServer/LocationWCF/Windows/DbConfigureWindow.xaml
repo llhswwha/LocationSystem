@@ -11,6 +11,7 @@
             <MenuItem Header="数据库初始化">
                 <MenuItem Header="删除SqlServer" Name="MenuDeleteSqlServer" Click="MenuDeleteSqlServer_Click"></MenuItem>
                 <MenuItem Header="SqlServer" Name="MenuInitMSSql" Click="MenuInitMSSql_Click"></MenuItem>
+                <MenuItem Header="MySql" Name="MenuInitMySql" Click="MenuInitMySql_Click"></MenuItem>
                 <MenuItem Header="Sqlite" Name="MenuInitSqlite" Click="MenuInitSqlite_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="读取数据">

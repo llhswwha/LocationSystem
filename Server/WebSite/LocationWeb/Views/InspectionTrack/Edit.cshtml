@@ -1,0 +1,105 @@
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.InspectionTrack
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>巡检轨迹</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.dtCreateTime)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dtStartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="datetime-local" name="dtStartTime" value=@Model.dtStartTime.ToString("yyyy-MM-ddThh:mm:ss") />
+                @Html.ValidationMessageFor(model => model.dtStartTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dtEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="datetime-local" name="dtEndTime" value=@Model.dtEndTime.ToString("yyyy-MM-ddThh:mm:ss") />
+                @Html.ValidationMessageFor(model => model.dtEndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>                
+    </div>
+
+    <div class="form-horizontal">
+        <h3>巡检点</h3>        
+        <h4><a href="/InspectionTrack/CreatePoint/@Model.Id">Creat PatrolPoint</a></h4>
+        <table class="table">
+                <tr>
+                    <th>巡检员工号</th>
+                    <th>巡检员名称</th>
+                    <th>设备KKS编码</th>
+                    <th>巡检设备名称</th>
+                </tr>
+                @foreach (PatrolPoint item in Model.Route)
+                {
+                    <tr>                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KksCode)
+                        </td>                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DevName)
+                        </td>                                        
+                        <td>
+                            @Html.ActionLink("编辑", "EditPoint", new { id = item.Id }) |
+                            @Html.ActionLink("删除", "DeletePoint", new { id = item.Id, ParentId = item.ParentId })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        
+        <p>
+            <input type="submit" value="Save" /> |
+             @Html.ActionLink("返 回", "Index")
+        </p>      
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

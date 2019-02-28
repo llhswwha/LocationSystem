@@ -4,28 +4,46 @@
     ViewBag.Title = "CreateSafetyMeasures";
 }
 
-<!DOCTYPE html>
+<h2>CreateSafetyMeasures</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <style>
-        span {
-            display: inline-block;
-            width: 200px;
-            text-align: right;
-        }
-    </style>
-    <title>CreateSafetyMeasures</title>
-</head>
-<body>
-    <h2>CreateSafetyMeasures</h2>
-    <form action="/WorkTicket/CreateSafetyMeasures2">
-        <input type="hidden" name="WorkTicketId" value=@Model.WorkTicketId />
-        <span>签发人填写的安全措施：</span><input type="text" name="LssuerContent" value=@Model.LssuerContent /><br />
-        <span>许可人填写的安全措施：</span><input type="text" name="LicensorContent" value=@Model.LicensorContent /><br />
-        <input type="submit" value="Create" /> |
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>安全措施</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.WorkTicketId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LssuerContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LssuerContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LssuerContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LicensorContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LicensorContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LicensorContent, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <div>
         <a href="/WorkTicket/Edit/@Model.WorkTicketId">返 回</a>
-    </form>
-</body>
-</html>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

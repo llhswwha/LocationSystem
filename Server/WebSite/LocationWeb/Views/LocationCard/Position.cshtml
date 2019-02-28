@@ -5,15 +5,21 @@
 
 <h2>Position</h2>
 
-<div id="canvas" style="width:100%; height:800px"></div>
+<div id="showSvg">
+    <div id="canvas" style="width:100%; height:800px"></div>
+</div>
 
 <div>
     @Html.ActionLink("返回到定位卡页面", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<style type="text/css">
+   #showSvg{
+        background: url('../Img/MapPic/PowerPlant.png') no-repeat center!important;/*注意：最高权重必须要给，不然样式会被覆盖掉*/
+        background-size: 100% 100%!important; /*注意：背景图大小宽高都给到100%,且加上最高权重*/
+   }
+</style>
+
 <script src="~/Scripts/echarts.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 

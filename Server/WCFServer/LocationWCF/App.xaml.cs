@@ -90,8 +90,8 @@ namespace LocationWCFServer
 
         private static void InitDbContext()
         {
-            int mode = ConfigurationHelper.GetIntValue("DbSource");
-            AppContext.InitDbContext(mode);
+            string dbType = ConfigurationHelper.GetValue("DbSourceType");
+            AppContext.InitDbContext(dbType);
         }
 
         

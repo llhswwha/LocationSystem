@@ -1,0 +1,100 @@
+﻿@using DbModel.Location.Work
+@model DbModel.Location.Work.InspectionTrack
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h3>巡检轨迹</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtCreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtCreateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+       
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtStartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtStartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dtEndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dtEndTime)
+        </dd>
+    </dl>
+</div>
+
+<div class="form-horizontal">
+    <h3>巡检点</h3>
+    <table class="table">
+        <tr>
+            <th>巡检员工号</th>
+            <th>巡检员名称</th>
+            <th>设备KKS编码</th>
+            <th>巡检设备名称</th>
+        </tr>
+        @foreach (PatrolPoint item in Model.Route)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StaffCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StaffName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KksCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevName)
+                </td>   
+                <td>
+                    @Html.ActionLink("详情", "ItemDetails", new { id = item.Id })
+                </td>             
+            </tr>
+        }
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("返回", "Index")
+</p>
+
