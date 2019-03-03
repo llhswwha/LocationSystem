@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DbModel.Tools" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="Abutment_DevTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="无" />
+      <xs:enumeration value="固定设备">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">100</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="生产设备">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">101</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="摄像头">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">102</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="枪机">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1021</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="球机">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1022</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="半球">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1023</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="门禁">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">103</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="单向">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1031</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="双向">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1032</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="消防设备">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">104</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="危化品">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">105</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="定位基站">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">106</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="巡检点">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">107</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="停车位">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">108</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="移动设备">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">200</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="一卡通">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">201</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="人员定位终端">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">202</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="移动终端">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">203</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Abutment_DevTypes" nillable="true" type="tns:Abutment_DevTypes" />
+  <xs:simpleType name="Abutment_RunStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="正常" />
+      <xs:enumeration value="离线" />
+      <xs:enumeration value="报警" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Abutment_RunStatus" nillable="true" type="tns:Abutment_RunStatus" />
+  <xs:simpleType name="Abutment_Status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="正常" />
+      <xs:enumeration value="维修中" />
+      <xs:enumeration value="已报失" />
+      <xs:enumeration value="已作废">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Abutment_Status" nillable="true" type="tns:Abutment_Status" />
+  <xs:simpleType name="AreaTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="区域" />
+      <xs:enumeration value="分组" />
+      <xs:enumeration value="大楼" />
+      <xs:enumeration value="楼层" />
+      <xs:enumeration value="机房" />
+      <xs:enumeration value="设备" />
+      <xs:enumeration value="部件" />
+      <xs:enumeration value="范围" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AreaTypes" nillable="true" type="tns:AreaTypes" />
+  <xs:simpleType name="IsStart">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="否" />
+      <xs:enumeration value="是" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="IsStart" nillable="true" type="tns:IsStart" />
+  <xs:simpleType name="ArchorTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="副基站" />
+      <xs:enumeration value="主基站" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ArchorTypes" nillable="true" type="tns:ArchorTypes" />
+  <xs:simpleType name="LocationAlarmLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="正常" />
+      <xs:enumeration value="一级告警" />
+      <xs:enumeration value="二级告警" />
+      <xs:enumeration value="三级告警" />
+      <xs:enumeration value="四级告警" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmLevel" nillable="true" type="tns:LocationAlarmLevel" />
+  <xs:simpleType name="LocationAlarmType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="区域告警" />
+      <xs:enumeration value="消失告警" />
+      <xs:enumeration value="低电告警" />
+      <xs:enumeration value="传感器告警" />
+      <xs:enumeration value="重启告警" />
+      <xs:enumeration value="非法拆卸" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmType" nillable="true" type="tns:LocationAlarmType" />
+  <xs:simpleType name="LocationAlarmHandleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="误报" />
+      <xs:enumeration value="忽略" />
+      <xs:enumeration value="确认" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmHandleType" nillable="true" type="tns:LocationAlarmHandleType" />
+  <xs:simpleType name="Abutment_DevAlarmLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="无" />
+      <xs:enumeration value="低" />
+      <xs:enumeration value="中" />
+      <xs:enumeration value="高" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Abutment_DevAlarmLevel" nillable="true" type="tns:Abutment_DevAlarmLevel" />
+  <xs:simpleType name="Abutment_DevAlarmSrc">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="未知" />
+      <xs:enumeration value="视频监控" />
+      <xs:enumeration value="门禁" />
+      <xs:enumeration value="消防" />
+      <xs:enumeration value="SIS">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="人员定位">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Abutment_DevAlarmSrc" nillable="true" type="tns:Abutment_DevAlarmSrc" />
+</xs:schema>

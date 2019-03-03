@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.Work" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfOperationTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationTicket" nillable="true" type="tns:OperationTicket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperationTicket" nillable="true" type="tns:ArrayOfOperationTicket" />
+  <xs:complexType name="OperationTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Dispatch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DutyOfficer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Guardian" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationEndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OperationItems" nillable="true" type="tns:ArrayOfOperationItem" />
+      <xs:element minOccurs="0" name="OperationStartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OperationTask" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperatorPersonelId" type="xs:int" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperationTicket" nillable="true" type="tns:OperationTicket" />
+  <xs:complexType name="ArrayOfOperationItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationItem" nillable="true" type="tns:OperationItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperationItem" nillable="true" type="tns:ArrayOfOperationItem" />
+  <xs:complexType name="OperationItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Item" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mark" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OperationTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderNum" type="xs:int" />
+      <xs:element minOccurs="0" name="TicketId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperationItem" nillable="true" type="tns:OperationItem" />
+  <xs:complexType name="ArrayOfWorkTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkTicket" nillable="true" type="tns:WorkTicket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkTicket" nillable="true" type="tns:ArrayOfWorkTicket" />
+  <xs:complexType name="WorkTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Approver" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AreaId" type="xs:int" />
+      <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndTimeOfPlannedWork" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HeadOfWorkClass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="JobContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Licensor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Lssuer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonInCharge" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonInChargePersonelId" type="xs:int" />
+      <xs:element minOccurs="0" name="SafetyMeasuress" nillable="true" type="tns:ArrayOfSafetyMeasures" />
+      <xs:element minOccurs="0" name="StartTimeOfPlannedWork" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WorkCondition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkPlace" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkTicket" nillable="true" type="tns:WorkTicket" />
+  <xs:complexType name="ArrayOfSafetyMeasures">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SafetyMeasures" nillable="true" type="tns:SafetyMeasures" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSafetyMeasures" nillable="true" type="tns:ArrayOfSafetyMeasures" />
+  <xs:complexType name="SafetyMeasures">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LicensorContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LssuerContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="No" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkTicketId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SafetyMeasures" nillable="true" type="tns:SafetyMeasures" />
+  <xs:complexType name="ArrayOfMobileInspectionDev">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileInspectionDev" nillable="true" type="tns:MobileInspectionDev" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMobileInspectionDev" nillable="true" type="tns:ArrayOfMobileInspectionDev" />
+  <xs:complexType name="MobileInspectionDev">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileInspectionContents" nillable="true" type="tns:ArrayOfMobileInspectionContent" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MobileInspectionDev" nillable="true" type="tns:MobileInspectionDev" />
+  <xs:complexType name="ArrayOfMobileInspectionContent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileInspectionContent" nillable="true" type="tns:MobileInspectionContent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMobileInspectionContent" nillable="true" type="tns:ArrayOfMobileInspectionContent" />
+  <xs:complexType name="MobileInspectionContent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
+      <xs:element minOccurs="0" name="nOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MobileInspectionContent" nillable="true" type="tns:MobileInspectionContent" />
+  <xs:complexType name="ArrayOfMobileInspection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileInspection" nillable="true" type="tns:MobileInspection" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMobileInspection" nillable="true" type="tns:ArrayOfMobileInspection" />
+  <xs:complexType name="MobileInspection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfMobileInspectionItem" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MobileInspection" nillable="true" type="tns:MobileInspection" />
+  <xs:complexType name="ArrayOfMobileInspectionItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MobileInspectionItem" nillable="true" type="tns:MobileInspectionItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMobileInspectionItem" nillable="true" type="tns:ArrayOfMobileInspectionItem" />
+  <xs:complexType name="MobileInspectionItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevId" type="xs:int" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="ItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PID" type="xs:int" />
+      <xs:element minOccurs="0" name="nOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MobileInspectionItem" nillable="true" type="tns:MobileInspectionItem" />
+  <xs:complexType name="ArrayOfPersonnelMobileInspection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonnelMobileInspection" nillable="true" type="tns:PersonnelMobileInspection" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonnelMobileInspection" nillable="true" type="tns:ArrayOfPersonnelMobileInspection" />
+  <xs:complexType name="PersonnelMobileInspection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileInspectionId" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileInspectionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonnelId" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonnelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanEndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PlanStartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="bOverTime" type="xs:boolean" />
+      <xs:element minOccurs="0" name="list" nillable="true" type="tns:ArrayOfPersonnelMobileInspectionItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PersonnelMobileInspection" nillable="true" type="tns:PersonnelMobileInspection" />
+  <xs:complexType name="ArrayOfPersonnelMobileInspectionItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonnelMobileInspectionItem" nillable="true" type="tns:PersonnelMobileInspectionItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonnelMobileInspectionItem" nillable="true" type="tns:ArrayOfPersonnelMobileInspectionItem" />
+  <xs:complexType name="PersonnelMobileInspectionItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevId" type="xs:int" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="ItemId" type="xs:int" />
+      <xs:element minOccurs="0" name="ItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PID" type="xs:int" />
+      <xs:element minOccurs="0" name="PunchTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="nOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PersonnelMobileInspectionItem" nillable="true" type="tns:PersonnelMobileInspectionItem" />
+</xs:schema>

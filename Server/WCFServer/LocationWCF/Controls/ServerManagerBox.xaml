@@ -14,6 +14,8 @@
             <TextBox Width="50" Name="TbPort" VerticalContentAlignment="Center">8733</TextBox>
             <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务" Margin="2"></Button>
         </StackPanel>
-        <TextBox Name="TbResult1"></TextBox>
+        <ScrollViewer>
+            <TextBox Name="TbResult1"></TextBox>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

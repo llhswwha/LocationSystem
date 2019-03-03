@@ -36,12 +36,15 @@ namespace LocationServices.Locations
     {
         public LoginInfo Login(LoginInfo info)
         {
+           
             info.Session = Guid.NewGuid().ToString();
+            ShowLog(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
             return info;
         }
 
         public LoginInfo Logout(LoginInfo info)
         {
+            ShowLog(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
             info.Session = "";
             return info;
         }
@@ -52,6 +55,11 @@ namespace LocationServices.Locations
             version.Version = ConfigurationManager.AppSettings["VersionCode"];
             version.LocationURL = ConfigurationManager.AppSettings["LocationPackageURL"];
             return version;
+        }
+
+        public void DebugMessage(string msg)
+        {
+            ShowLog(msg);
         }
     }
 }

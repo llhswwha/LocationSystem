@@ -29,6 +29,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevPos> GetDevPositions()
         {
+
             List<DevPos> posList = new List<DevPos>();
             var devs = db.DevInfos.ToList();
             foreach (DbModel.Location.AreaAndDev.DevInfo dev in devs)

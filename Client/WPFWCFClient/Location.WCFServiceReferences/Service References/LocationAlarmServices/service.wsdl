@@ -90,7 +90,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8734/LocationServices/LocationAlarms/LocationAlarmService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-CLV0P90\caiwanwei</Upn>
+          <Upn>DESKTOP-BEPH93H\Admin_yzl</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

@@ -41,6 +41,7 @@ namespace LocationServices.Locations
         //[OperationContract]
         public List<Personnel> GetPersonList()
         {
+            ShowLog(">>>>> GetPersonList");
             var list = db.Personnels.ToList();
             if (list == null) return null;
             var tagToPersons = db.LocationCardToPersonnels.ToList();
@@ -87,6 +88,7 @@ namespace LocationServices.Locations
 
         public Personnel GetPerson(int id)
         {
+            ShowLog(">>>>> GetPerson id="+id);
             return db.Personnels.Find(id).ToTModel();
         }
 
@@ -113,6 +115,7 @@ namespace LocationServices.Locations
 
         public List<Post> GetPostList()
         {
+            ShowLog(">>>>> GetPostList");
             var posts = db.Posts.ToList();
             return posts.ToWcfModelList();
         }

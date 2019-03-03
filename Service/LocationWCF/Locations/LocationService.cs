@@ -29,6 +29,7 @@ using TModel.Location.Work;
 using TModel.LocationHistory.Work;
 using TModel.Tools;
 using LocationServices.Locations.Services;
+using TModel.Models.Settings;
 
 namespace LocationServices.Locations
 {
@@ -66,7 +67,9 @@ namespace LocationServices.Locations
 
         public IList<Tag> GetTags()
         {
+            ShowLog(">>>>> GetTags");
             IList<Tag> tagsT = new TagService(db).GetList(true);
+            ShowLog("<<<<< GetTags");
             return tagsT;
             //return new TagService(db).GetList(true);
         }
@@ -106,6 +109,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositons()
         {
+            ShowLog(">>>>> GetRealPositons");
             return new PosService(db).GetList();
         }
 
@@ -115,6 +119,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositonsByTags(List<string> tagCodes)
         {
+            ShowLog(">>>>> GetRealPositonsByTags");
             return new PosService(db).GetRealPositonsByTags(tagCodes);
         }
 
@@ -137,11 +142,13 @@ namespace LocationServices.Locations
 
         public IList<Department> GetDepartmentList()
         {
+            ShowLog(">>>>> GetDepartmentList");
             return new DepartmentService(db).GetList();
         }
 
         public Department GetDepartmentTree()
         {
+            ShowLog(">>>>> GetDepartmentTree");
             var leafNodes = GetPersonList();
             return new DepartmentService(db).GetTree(leafNodes);
         }
@@ -671,6 +678,16 @@ namespace LocationServices.Locations
         {
             return new InspectionTrack();
         }
+
         #endregion
+
+
+        public UnitySetting GetUnitySetting()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\UnitySetting.xml";
+            UnitySetting setting = XmlSerializeHelper.LoadFromFile<UnitySetting>(path);
+            return setting;
+        }
+
     }
 }

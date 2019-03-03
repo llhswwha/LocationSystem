@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" />
+  <xs:complexType name="PhysicalTopology">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Children" nillable="true" type="tns:ArrayOfPhysicalTopology" />
+      <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EditBound" nillable="true" type="tns:Bound" />
+      <xs:element minOccurs="0" name="EditBoundId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="InitBound" nillable="true" type="tns:Bound" />
+      <xs:element minOccurs="0" name="InitBoundId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LeafNodes" nillable="true" type="tns:ArrayOfDevInfo" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Number" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Parent" nillable="true" type="tns:PhysicalTopology" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Persons" nillable="true" type="q1:ArrayOfPersonnel" />
+      <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Transfrom" nillable="true" type="tns:TransformM" />
+      <xs:element minOccurs="0" name="TransfromId" nillable="true" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Type" type="q2:AreaTypes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PhysicalTopology" nillable="true" type="tns:PhysicalTopology" />
+  <xs:complexType name="ArrayOfPhysicalTopology">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PhysicalTopology" nillable="true" type="tns:PhysicalTopology" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhysicalTopology" nillable="true" type="tns:ArrayOfPhysicalTopology" />
+  <xs:complexType name="Bound">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsRectangle" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRelative" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MaxX" type="xs:float" />
+      <xs:element minOccurs="0" name="MaxY" type="xs:float" />
+      <xs:element minOccurs="0" name="MaxZ" type="xs:float" />
+      <xs:element minOccurs="0" name="MinX" type="xs:float" />
+      <xs:element minOccurs="0" name="MinY" type="xs:float" />
+      <xs:element minOccurs="0" name="MinZ" type="xs:float" />
+      <xs:element minOccurs="0" name="Points" nillable="true" type="tns:ArrayOfPoint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Bound" nillable="true" type="tns:Bound" />
+  <xs:complexType name="ArrayOfPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoint" nillable="true" type="tns:ArrayOfPoint" />
+  <xs:complexType name="Point">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bound" nillable="true" type="tns:Bound" />
+      <xs:element minOccurs="0" name="BoundId" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Index" type="xs:int" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Point" nillable="true" type="tns:Point" />
+  <xs:complexType name="ArrayOfDevInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DevInfo" nillable="true" type="tns:DevInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDevInfo" nillable="true" type="tns:ArrayOfDevInfo" />
+  <xs:complexType name="DevInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Abutment_Type" type="q3:Abutment_DevTypes" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreateTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKSCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Local_CabinetID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifyTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifyTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Path" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Placed" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Pos" nillable="true" type="tns:DevPos" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="RunStatus" type="q4:Abutment_RunStatus" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Status" type="q5:Abutment_Status" />
+      <xs:element minOccurs="0" name="TypeCode" type="xs:int" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevInfo" nillable="true" type="tns:DevInfo" />
+  <xs:complexType name="DevPos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosX" type="xs:float" />
+      <xs:element minOccurs="0" name="PosY" type="xs:float" />
+      <xs:element minOccurs="0" name="PosZ" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationX" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationY" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationZ" type="xs:float" />
+      <xs:element minOccurs="0" name="ScaleX" type="xs:float" />
+      <xs:element minOccurs="0" name="ScaleY" type="xs:float" />
+      <xs:element minOccurs="0" name="ScaleZ" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevPos" nillable="true" type="tns:DevPos" />
+  <xs:complexType name="TransformM">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsCreateAreaByData" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOnAlarmArea" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOnLocationArea" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRelative" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RX" type="xs:double" />
+      <xs:element minOccurs="0" name="RY" type="xs:double" />
+      <xs:element minOccurs="0" name="RZ" type="xs:double" />
+      <xs:element minOccurs="0" name="SX" type="xs:double" />
+      <xs:element minOccurs="0" name="SY" type="xs:double" />
+      <xs:element minOccurs="0" name="SZ" type="xs:double" />
+      <xs:element minOccurs="0" name="X" type="xs:double" />
+      <xs:element minOccurs="0" name="Y" type="xs:double" />
+      <xs:element minOccurs="0" name="Z" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TransformM" nillable="true" type="tns:TransformM" />
+  <xs:complexType name="Tag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q6:Personnel" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q7:TagPosition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Tag" nillable="true" type="tns:Tag" />
+</xs:schema>

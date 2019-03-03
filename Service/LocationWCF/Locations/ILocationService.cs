@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using LocationServices.Locations.Interfaces;
-using Location.TModel.Location.Person;
+using TModel.Models.Settings;
+
 namespace LocationServices.Locations
 {
     [ServiceContract]
@@ -26,7 +27,11 @@ namespace LocationServices.Locations
         IPictureService,
         IAreaService
     {
+        [OperationContract]
+        UnitySetting GetUnitySetting();
 
+        [OperationContract]
+        void DebugMessage(string msg);
     }
 
    

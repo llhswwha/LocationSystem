@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DbModel.Tools" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="LocationAlarmLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="正常" />
+      <xs:enumeration value="一级告警" />
+      <xs:enumeration value="二级告警" />
+      <xs:enumeration value="三级告警" />
+      <xs:enumeration value="四级告警" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmLevel" nillable="true" type="tns:LocationAlarmLevel" />
+  <xs:simpleType name="LocationAlarmType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="区域告警" />
+      <xs:enumeration value="消失告警" />
+      <xs:enumeration value="低电告警" />
+      <xs:enumeration value="传感器告警" />
+      <xs:enumeration value="重启告警" />
+      <xs:enumeration value="非法拆卸" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmType" nillable="true" type="tns:LocationAlarmType" />
+  <xs:simpleType name="LocationAlarmHandleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="误报" />
+      <xs:enumeration value="忽略" />
+      <xs:enumeration value="确认" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LocationAlarmHandleType" nillable="true" type="tns:LocationAlarmHandleType" />
+</xs:schema>

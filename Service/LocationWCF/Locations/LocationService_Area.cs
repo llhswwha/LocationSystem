@@ -10,6 +10,7 @@ using TModel.Location.Person;
 using System.Linq;
 using DbModel.Location.AreaAndDev;
 using BLL;
+using System.Diagnostics;
 
 namespace LocationServices.Locations
 {
@@ -22,21 +23,25 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<PhysicalTopology> GetPhysicalTopologyList()
         {
+            ShowLog(">>>>> GetPhysicalTopologyList");
             return new AreaService(db).GetList();
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
         {
+            ShowLog(">>>>> GetPhysicalTopology id"+id);
             return new AreaService(db).GetEntity(id, getChildren);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByName(string name)
         {
+            ShowLog(">>>>> GetPhysicalTopologyListByName name" + name);
             return new AreaService(db).GetListByName(name);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByPid(string pid)
         {
+            ShowLog(">>>>> GetPhysicalTopologyListByPid pid" + pid);
             return new AreaService(db).GetListByPid(pid);
         }
 
@@ -46,6 +51,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
+            ShowLog(">>>>> GetPhysicalTopologyTree view=" + view);
             BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
             return new AreaService(dbpt).GetTree(view);
             //return null;
@@ -54,13 +60,17 @@ namespace LocationServices.Locations
 
         public AreaNode GetPhysicalTopologyTreeNode(int view)
         {
-            return new AreaService(db).GetBasicTree(view);
+            ShowLog(">>>>> GetPhysicalTopologyTreeNode view=" + view);
+            var result= new AreaService(db).GetBasicTree(view);
+            ShowLog("<<<<< GetPhysicalTopologyTreeNode view=" + view);
+            return result;
             //return null;
             //return new AreaNode() { Id = 1, Name = "root" };
         }
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
         {
+            ShowLog(">>>>> GetPhysicalTopologyTreeById id=" + id);
             return new AreaService(db).GetTree(id);
         }
 
@@ -218,6 +228,9 @@ namespace LocationServices.Locations
 
         public AreaStatistics GetAreaStatistics(int id)
         {
+            ShowLog(">>>>> GetAreaStatistics id=" + id);
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             List<int?> lst = new List<int?>();
             List<int?> lstRecv;
 
@@ -237,7 +250,10 @@ namespace LocationServices.Locations
 
             AreaService asr = new AreaService();
             AreaStatistics ast = asr.GetAreaStatisticsCount(lst);
-
+            watch.Stop();
+            TimeSpan time = watch.Elapsed;
+            ShowLog("time:" + time);
+            ShowLog("<<<<<< GetAreaStatistics id=" + id);
             return ast;
         }
 

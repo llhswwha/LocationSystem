@@ -37,6 +37,7 @@ using LocationServices.Locations.Interfaces;
 using TModel.Location.Data;
 using TModel.Tools;
 using WebNSQLib;
+using LocationServer.Tools;
 
 namespace LocationServer.Controls
 {
@@ -48,6 +49,8 @@ namespace LocationServer.Controls
         public ServerManagerBox()
         {
             InitializeComponent();
+
+            LocationService.ShowLog_Action = WriteLog;
         }
 
         public void StopServices()
@@ -78,6 +81,7 @@ namespace LocationServer.Controls
             }
 
             StopReceiveAlarm();
+
         }
 
 
@@ -181,7 +185,8 @@ namespace LocationServer.Controls
         private void WriteLog(string txt)
         {
             Log.Info(txt);
-            TbResult1.AppendText(txt + "\n");
+            string log = string.Format("[{0}][{1}]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), txt);
+            TbResult1.AppendText(log + "\n");
         }
 
         HttpSelfHostServer httpHost;
@@ -214,13 +219,21 @@ namespace LocationServer.Controls
             locationServiceHost.AddServiceEndpoint(typeof(ILocationService), httpBinding, baseAddres);
             //httpBinding.MaxReceivedMessageSize = 2147483647;
             //httpBinding.MaxBufferPoolSize = 2147483647;
-
             Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), binding, "MEX");
             //开放数据交付终结点，客户端才能添加/更新服务引用。
 
-            locationServiceHost.Open();
+            ServiceThrottlingBehavior throttle = locationServiceHost.Description.Behaviors.Find<ServiceThrottlingBehavior>();
+            if (throttle == null)
+            {
+                throttle = new ServiceThrottlingBehavior();
+                locationServiceHost.Description.Behaviors.Add(throttle);
+            }
+            throttle.MaxConcurrentCalls = ConfigurationHelper.GetIntValue("MaxConcurrentCalls");
+            throttle.MaxConcurrentSessions = ConfigurationHelper.GetIntValue("MaxConcurrentSessions");
+            throttle.MaxConcurrentInstances = ConfigurationHelper.GetIntValue("MaxConcurrentInstances");
 
+            locationServiceHost.Open();
             WriteLog("LocationService: " + locationServiceHost.BaseAddresses[0]);
         }
 

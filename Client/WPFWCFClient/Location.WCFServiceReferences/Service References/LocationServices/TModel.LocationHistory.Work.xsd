@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfOperationTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationTicketHistory" nillable="true" type="tns:OperationTicketHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperationTicketHistory" nillable="true" type="tns:ArrayOfOperationTicketHistory" />
+  <xs:complexType name="OperationTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Dispatch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DutyOfficer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Guardian" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationEndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OperationItems" nillable="true" type="tns:ArrayOfOperationItemHistory" />
+      <xs:element minOccurs="0" name="OperationStartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OperationTask" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperationTicketHistory" nillable="true" type="tns:OperationTicketHistory" />
+  <xs:complexType name="ArrayOfOperationItemHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationItemHistory" nillable="true" type="tns:OperationItemHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOperationItemHistory" nillable="true" type="tns:ArrayOfOperationItemHistory" />
+  <xs:complexType name="OperationItemHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Item" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mark" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OperationTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OrderNum" type="xs:int" />
+      <xs:element minOccurs="0" name="TicketId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperationItemHistory" nillable="true" type="tns:OperationItemHistory" />
+  <xs:complexType name="ArrayOfWorkTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkTicketHistory" nillable="true" type="tns:WorkTicketHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkTicketHistory" nillable="true" type="tns:ArrayOfWorkTicketHistory" />
+  <xs:complexType name="WorkTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Approver" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndTimeOfPlannedWork" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HeadOfWorkClass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="JobContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Licensor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Lssuer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="No" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonInCharge" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SafetyMeasuress" nillable="true" type="tns:ArrayOfSafetyMeasuresHistory" />
+      <xs:element minOccurs="0" name="StartTimeOfPlannedWork" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="WorkCondition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkPlace" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkTicketHistory" nillable="true" type="tns:WorkTicketHistory" />
+  <xs:complexType name="ArrayOfSafetyMeasuresHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SafetyMeasuresHistory" nillable="true" type="tns:SafetyMeasuresHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSafetyMeasuresHistory" nillable="true" type="tns:ArrayOfSafetyMeasuresHistory" />
+  <xs:complexType name="SafetyMeasuresHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LicensorContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LssuerContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="No" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkTicketId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SafetyMeasuresHistory" nillable="true" type="tns:SafetyMeasuresHistory" />
+  <xs:complexType name="ArrayOfPersonnelMobileInspectionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonnelMobileInspectionHistory" nillable="true" type="tns:PersonnelMobileInspectionHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonnelMobileInspectionHistory" nillable="true" type="tns:ArrayOfPersonnelMobileInspectionHistory" />
+  <xs:complexType name="PersonnelMobileInspectionHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileInspectionId" type="xs:int" />
+      <xs:element minOccurs="0" name="MobileInspectionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonnelId" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonnelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanEndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PlanStartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="bOverTime" type="xs:boolean" />
+      <xs:element minOccurs="0" name="list" nillable="true" type="tns:ArrayOfPersonnelMobileInspectionItemHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PersonnelMobileInspectionHistory" nillable="true" type="tns:PersonnelMobileInspectionHistory" />
+  <xs:complexType name="ArrayOfPersonnelMobileInspectionItemHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonnelMobileInspectionItemHistory" nillable="true" type="tns:PersonnelMobileInspectionItemHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonnelMobileInspectionItemHistory" nillable="true" type="tns:ArrayOfPersonnelMobileInspectionItemHistory" />
+  <xs:complexType name="PersonnelMobileInspectionItemHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DevId" type="xs:int" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="ItemId" type="xs:int" />
+      <xs:element minOccurs="0" name="ItemName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PID" type="xs:int" />
+      <xs:element minOccurs="0" name="PunchTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="nOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PersonnelMobileInspectionItemHistory" nillable="true" type="tns:PersonnelMobileInspectionItemHistory" />
+</xs:schema>

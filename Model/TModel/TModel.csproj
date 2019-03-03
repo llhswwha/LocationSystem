@@ -109,6 +109,12 @@
     <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
     <Compile Include="Location\Work\SafetyMeasures.cs" />
     <Compile Include="Location\Work\WorkTicket.cs" />
+    <Compile Include="Models\Settings\CinemachineSetting.cs" />
+    <Compile Include="Models\Settings\CommunicationSetting.cs" />
+    <Compile Include="Models\Settings\RefreshSetting.cs" />
+    <Compile Include="Models\Settings\UnitySetting.cs" />
+    <Compile Include="Models\Settings\VersionSetting.cs" />
+    <Compile Include="Models\TagAndPostion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ByteHelper.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />

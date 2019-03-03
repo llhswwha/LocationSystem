@@ -21,6 +21,7 @@ using Location.TModel.Tools;
 using LocationServices.Converters;
 using DbModel.Location.AreaAndDev;
 using WebApiLib.Clients;
+using TModel.Models.Settings;
 
 namespace LocationWCFServer
 {
@@ -73,6 +74,9 @@ namespace LocationWCFServer
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
             InitGetInspectionTrack();
+
+            //SystemSetting setting = new SystemSetting();
+            //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";

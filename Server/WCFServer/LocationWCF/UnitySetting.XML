@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SystemSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <IsDebug>false</IsDebug>
+  <CinemachineSetting CMvcamFollow_X="0" CMvcamFollow_Y="20" CMvcamFollow_Z="-10" />
+  <CommunicationSetting Ip1="127.0.0.1" Port1="8733" Ip2="localhost" Port2="8735" />
+  <VersionSetting VersionNumber="1.0.20" />
+  <RefreshSetting TagPos="0.5" PersonTree="5" AreaStatistics="5" NearCamera="8" ScreenShot="3" DepartmentTree="60" />
+</SystemSetting>
