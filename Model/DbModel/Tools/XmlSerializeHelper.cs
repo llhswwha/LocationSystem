@@ -157,6 +157,7 @@ namespace DbModel.Tools
                 encoding = Encoding.Default;
             }
             Stream stream = Serialize(obj, encoding);
+            if (stream == null) return null;
             StreamReader reader = new StreamReader(stream, encoding);
             string text = reader.ReadToEnd();
 

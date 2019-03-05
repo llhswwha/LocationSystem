@@ -175,6 +175,35 @@ namespace LocationServices.Locations.Services
             return root;
         }
 
+
+        public IList<TEntity> GetList(int view)
+        {
+            //TEntity tree = null;
+            //if (view == 0)
+            //{
+            //    tree = GetTree();
+            //}
+            //else if (view == 1)
+            //{
+            //    tree = GetTreeWithDev();
+            //}
+            //else if (view == 2)
+            //{
+            //    tree = GetTreeWithPerson();
+            //}
+            //else if (view == 3)
+            //{
+            //    var leafNodes = db.DevInfos.ToList();
+            //    tree = GetTreeWithPerson(leafNodes.ToTModel());
+            //}
+            //if (tree != null)
+            //    tree.SetParent();
+            //return tree;
+
+            var list1 = dbSet.ToList();
+            return list1.ToWcfModelList();
+        }
+
         /// <summary>
         /// 获取树节点
         /// </summary>
@@ -202,6 +231,8 @@ namespace LocationServices.Locations.Services
             }
             if(tree!=null)
                 tree.SetParent();
+            string xml = XmlSerializeHelper.GetXmlText(tree);
+            int length = xml.Length;
             return tree;
         }
 
@@ -476,6 +507,27 @@ namespace LocationServices.Locations.Services
         {
             var list = dbSet.FindListByPid(pid.ToInt());
             return list.ToWcfModelList();
+        }
+
+        public AreaPoints GetPoints(string areaId)
+        {
+            TEntity area = GetEntity(areaId);
+            AreaPoints points = new AreaPoints(area);
+            return points;
+        }
+
+        public List<AreaPoints> GetPointsByPid(string pid)
+        {
+            var areas = GetListByPid(pid);
+            if (areas == null) return null;
+            List<AreaPoints> list = new List<AreaPoints>();
+            for (int i = 0; i < areas.Count; i++)
+            {
+                TEntity area = areas[i];
+                AreaPoints points = new AreaPoints(area);
+                list.Add(points);
+            }
+            return list;
         }
 
         public TEntity GetEntity(string id)

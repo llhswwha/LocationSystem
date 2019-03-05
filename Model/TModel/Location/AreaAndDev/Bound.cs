@@ -4,6 +4,7 @@ using Location.TModel.Tools;
 using System;
 using IModel.Tools;
 using IModel;
+using System.Xml.Serialization;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -79,8 +80,9 @@ namespace Location.TModel.Location.AreaAndDev
         /// <summary>
         /// 位置点
         /// </summary>
-        [DataMember]
+        //[DataMember]
         //[Display(Name = "位置点")]
+        [XmlIgnore]
         public List<Point> Points { get; set; }
 
         public Bound()

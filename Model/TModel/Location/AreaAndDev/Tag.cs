@@ -4,6 +4,7 @@ using Location.TModel.ConvertCodes;
 using System;
 using Location.TModel.Location.Data;
 using Location.TModel.Location.Person;
+using System.Xml.Serialization;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -15,20 +16,44 @@ namespace Location.TModel.Location.AreaAndDev
     [DataContract] [Serializable]
     public class Tag: ITag
     {
+        [XmlAttribute]
         [DataMember]
         public int Id { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Code { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Name { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Describe { get; set; }
 
+        private Personnel _person = null;
+
+        //[DataMember]
+        [XmlIgnore]
+        public Personnel Person
+        {
+            get
+            {
+                return _person;
+            }
+            set
+            {
+                _person = value;
+                if (_person != null)
+                {
+                    PersonId = _person.Id;
+                }
+            }
+        }
+
         [DataMember]
-        public Personnel Person { get; set; }
+        public int? PersonId { get; set; }
 
         [DataMember]
         public TagPosition Pos { get; set; }
@@ -36,6 +61,7 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public int Power { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public int PowerState { get; set; }
 

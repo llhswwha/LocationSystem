@@ -69,7 +69,9 @@ namespace LocationServices.Locations
         {
             ShowLog(">>>>> GetTags");
             IList<Tag> tagsT = new TagService(db).GetList(true);
-            ShowLog("<<<<< GetTags");
+            string xml = XmlSerializeHelper.GetXmlText(tagsT);
+            int length = xml.Length;
+            ShowLog("<<<<< GetTags:"+ length);
             return tagsT;
             //return new TagService(db).GetList(true);
         }

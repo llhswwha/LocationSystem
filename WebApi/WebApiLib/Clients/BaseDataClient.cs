@@ -122,6 +122,31 @@ namespace WebApiLib.Clients
 
         }
 
+        public BaseTran_Compact GetEntityList5(string url)
+        {
+            var recv = new BaseTran_Compact();
+            try
+            {
+                recv = WebApiHelper.GetEntity<BaseTran_Compact>(url);
+                if (recv == null) return null;
+                if (recv.schema == null)
+                {
+                    recv.schema = new sis_compact();
+                }
+
+                if (recv.data == null)
+                {
+                    recv.data = new List<List<string>>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                return null;
+            }
+            return recv;
+        }
+
         public T GetEntityDetail<T>(string url)
         {
             T recv = default(T);
@@ -141,19 +166,17 @@ namespace WebApiLib.Clients
         /// 获取人员列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<user> GetUserList()
+        public List<Personnel> GetUserList()
         {
-            //users recv = new users();
-            //BaseTran<user> recv2 = new BaseTran<user>();
             BaseTran<user> recv = new BaseTran<user>();
-
+            List<Personnel> send = new List<Personnel>();
 
             try
             {
                 string path = "api/users";
                 string url = BaseUri + path;
                 recv = GetEntityList<user>(url);
-                
+
                 foreach (user item in recv.data)
                 {
                     List<Personnel> PeList = bll.Personnels.DbSet.Where(p => p.Name == item.name).ToList();
@@ -219,6 +242,8 @@ namespace WebApiLib.Clients
                     {
                         bll.Personnels.Edit(Personnel);
                     }
+
+                    send.Add(Personnel);
                 }
             }
             catch (Exception ex)
@@ -226,16 +251,17 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
         /// 获取部门列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<org> GetorgList()
+        public List<Department> GetorgList()
         {
             BaseTran<org> recv = new BaseTran<org>();
+            List<Department> send = new List<Department>();
 
             try
             {
@@ -279,8 +305,14 @@ namespace WebApiLib.Clients
                 {
                     Department dp = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.id && p.Name == item.name).FirstOrDefault();
                     Department Parent = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.parent_id).FirstOrDefault();
-                    if (dp == null || Parent == null)
+                    if (dp == null )
                     {
+                        continue;
+                    }
+
+                    if (Parent == null)
+                    {
+                        send.Add(dp);
                         continue;
                     }
 
@@ -291,6 +323,7 @@ namespace WebApiLib.Clients
 
                     dp.ParentId = Parent.Id;
                     bll.Departments.Edit(dp);
+                    send.Add(dp);
                 }
 
             }
@@ -299,16 +332,17 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
         /// 获取区域列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<zone> GetzonesList()
+        public List<Area> GetzonesList()
         {
             BaseTran<zone> recv = new BaseTran<zone>();
+            List<Area> send = new List<Area>();
 
             try
             {
@@ -335,7 +369,7 @@ namespace WebApiLib.Clients
                     }
 
                     area.Name = item.name;
-                    area.KKS = item.kksCode;
+                    area.KKS = item.kks;
                     area.Abutment_ParentId = item.parent_id;
                     area.Describe = item.description;
 
@@ -359,10 +393,15 @@ namespace WebApiLib.Clients
                     Area Child = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
                     Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.parent_id).FirstOrDefault();
 
-                    if (Child != null && Parent != null)
+                    if (Child != null)
                     {
-                        Child.ParentId = Parent.Id;
-                        bll.Areas.Edit(Child);
+                        if (Parent != null)
+                        {
+                            Child.ParentId = Parent.Id;
+                            bll.Areas.Edit(Child);
+                        }
+
+                        send.Add(Child);
                     }
                 }
             }
@@ -371,19 +410,20 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
         /// 获取单个区域信息
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="view"></param>
+        /// <param name="id">区域Id</param>
+        /// <param name="view">视图掩码，要附加内容时将掩码加上，1附加子区域，2附加关联设备，3附加(危险)物资，如返回字区域，则view=1+2,即view=3</param>
         /// <returns></returns>
-        public zone GetSingleZonesInfo(int id, int view)
+        public Area GetSingleZonesInfo(int id, int view)
         {
             zone recv = new zone();
-            
+            Area send = new Area();
+
             string strId = Convert.ToString(id);
             string strView = Convert.ToString(view);
             try
@@ -396,7 +436,7 @@ namespace WebApiLib.Clients
                 {
                     recv = new zone();
                 }
-                
+
                 if (recv.zones == null)
                 {
                     recv.zones = new List<zone>();
@@ -420,7 +460,7 @@ namespace WebApiLib.Clients
 
                 area.Abutment_Id = recv.id;
                 area.Name = recv.name;
-                area.KKS = recv.kksCode;
+                area.KKS = recv.kks;
                 area.Abutment_ParentId = recv.parent_id;
                 area.Describe = recv.description;
 
@@ -438,6 +478,8 @@ namespace WebApiLib.Clients
                 {
                     bll.Areas.Edit(area);
                 }
+                
+                send = area.Clone();
 
                 foreach (zone item2 in recv.zones)
                 {
@@ -454,7 +496,7 @@ namespace WebApiLib.Clients
 
                     area2.ParentId = area.Id;
                     area2.Name = item2.name;
-                    area2.KKS = item2.kksCode;
+                    area2.KKS = item2.kks;
                     area2.Abutment_ParentId = item2.parent_id;
                     area2.Describe = item2.description;
 
@@ -466,11 +508,13 @@ namespace WebApiLib.Clients
                     {
                         bll.Areas.Edit(area2);
                     }
+
+                    send.Children.Add(area2);
                 }
 
                 foreach (device item3 in recv.devices)
                 {
-                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item3.kksCode).FirstOrDefault();
+                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item3.kks).FirstOrDefault();
                     nFlag = 0;
                     if (devinfo == null)
                     {
@@ -481,7 +525,7 @@ namespace WebApiLib.Clients
                     devinfo.ParentId = area.Id;
                     devinfo.Abutment_Id = item3.id;
                     devinfo.Code = item3.code;
-                    devinfo.KKS = item3.kksCode;
+                    devinfo.KKS = item3.kks;
                     devinfo.Name = item3.name;
                     devinfo.Abutment_Type = (Abutment_DevTypes)item3.type;
                     devinfo.Status = (Abutment_Status)item3.state;
@@ -497,6 +541,8 @@ namespace WebApiLib.Clients
                     {
                         bll.DevInfos.Edit(devinfo);
                     }
+
+                    send.LeafNodes.Add(devinfo);
                 }
             }
             catch (Exception ex)
@@ -504,7 +550,7 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
@@ -512,10 +558,11 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public BaseTran<device> GetZoneDevList(int id)
+        public List<DevInfo> GetZoneDevList(int id)
         {
             BaseTran<device> recv = new BaseTran<device>();
             string strId = Convert.ToString(id);
+            List<DevInfo> send = new List<DevInfo>();
 
             try
             {
@@ -533,7 +580,7 @@ namespace WebApiLib.Clients
                 {
                     foreach (device item in recv.data)
                     {
-                        DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kksCode).FirstOrDefault();
+                        DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
                         int nFlag = 0;
                         if (devinfo == null)
                         {
@@ -544,7 +591,7 @@ namespace WebApiLib.Clients
                         devinfo.ParentId = area.Id;
                         devinfo.Abutment_Id = item.id;
                         devinfo.Code = item.code;
-                        devinfo.KKS = item.kksCode;
+                        devinfo.KKS = item.kks;
                         devinfo.Name = item.name;
                         devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
                         devinfo.Status = (Abutment_Status)item.state;
@@ -570,6 +617,8 @@ namespace WebApiLib.Clients
 
                             bll.DevInfos.Edit(devinfo);
                         }
+
+                        send.Add(devinfo);
                     }
 
                 }
@@ -579,27 +628,26 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            
-
-            return recv;
+            return send;
         }
 
         /// <summary>
         /// 获取设备列表
         /// </summary>
-        /// <param name="types"></param>
+        /// <param name="types">设备类型，逗号分隔，只查询指定的设备类型</param>
         /// <param name="code"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public BaseTran<device> GetDeviceList(string types, string code, string name)
+        public List<DevInfo> GetDeviceList(string types, string code, string name)
         {
             BaseTran<device> recv = new BaseTran<device>();
+            List<DevInfo> send = new List<DevInfo>();
 
             try
             {
                 string path = "api/devices";
                 string url = BaseUri + path;
-                
+
                 if (types != null)
                 {
                     url += "?types=" + types;
@@ -636,7 +684,7 @@ namespace WebApiLib.Clients
 
                 foreach (device item in recv.data)
                 {
-                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kksCode).FirstOrDefault();
+                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
                     int nFlag = 0;
                     if (devinfo == null)
                     {
@@ -646,7 +694,7 @@ namespace WebApiLib.Clients
 
                     devinfo.Abutment_Id = item.id;
                     devinfo.Code = item.code;
-                    devinfo.KKS = item.kksCode;
+                    devinfo.KKS = item.kks;
                     devinfo.Name = item.name;
                     devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
                     devinfo.Status = (Abutment_Status)item.state;
@@ -672,6 +720,8 @@ namespace WebApiLib.Clients
 
                         bll.DevInfos.Edit(devinfo);
                     }
+
+                    send.Add(devinfo);
                 }
             }
             catch (Exception ex)
@@ -679,7 +729,7 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
@@ -687,18 +737,19 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public device GetSingleDeviceInfo(int id)
+        public DevInfo GetSingleDeviceInfo(int id)
         {
             device recv = new device();
             string strId = Convert.ToString(id);
+            DevInfo send = new DevInfo();
 
             try
             {
                 string path = "api/devices/" + strId;
                 string url = BaseUri + path;
                 recv = GetEntityDetail<device>(url);
-                
-                DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == recv.kksCode).FirstOrDefault();
+
+                DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == recv.kks).FirstOrDefault();
                 int nFlag = 0;
                 if (devinfo == null)
                 {
@@ -708,7 +759,7 @@ namespace WebApiLib.Clients
 
                 devinfo.Abutment_Id = recv.id;
                 devinfo.Code = recv.code;
-                devinfo.KKS = recv.kksCode;
+                devinfo.KKS = recv.kks;
                 devinfo.Name = recv.name;
                 devinfo.Abutment_Type = (Abutment_DevTypes)recv.type;
                 devinfo.Status = (Abutment_Status)recv.state;
@@ -734,13 +785,15 @@ namespace WebApiLib.Clients
 
                     bll.DevInfos.Edit(devinfo);
                 }
+
+                send = devinfo;
             }
             catch (Exception ex)
             {
                 string messgae = ex.Message;
             }
-            
-            return recv;
+
+            return send;
         }
 
         /// <summary>
@@ -750,9 +803,10 @@ namespace WebApiLib.Clients
         /// <param name="begin_date"></param>
         /// <param name="end_date"></param>
         /// <returns></returns>
-        public BaseTran<devices_actions> GetSingleDeviceActionHistory(int id, string begin_date, string end_date)
+        public List<DevEntranceGuardCardAction> GetSingleDeviceActionHistory(int id, string begin_date, string end_date)
         {
             BaseTran<devices_actions> recv = new BaseTran<devices_actions>();
+            List<DevEntranceGuardCardAction> send = new List<DevEntranceGuardCardAction>();
 
             string strId = Convert.ToString(id);
 
@@ -827,19 +881,22 @@ namespace WebApiLib.Clients
                     {
                         bll.DevEntranceGuardCardActions.Edit(degca);
                     }
+
+                    send.Add(degca);
                 }
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
         /// 获取门禁卡列表
         /// </summary>
         /// <returns></returns>
-        public BaseTran<cards> GetCardList()
+        public List<EntranceGuardCard> GetCardList()
         {
             BaseTran<cards> recv = new BaseTran<cards>();
+            List<EntranceGuardCard> send = new List<EntranceGuardCard>();
 
             try
             {
@@ -868,6 +925,8 @@ namespace WebApiLib.Clients
                     {
                         bll.EntranceGuardCards.Edit(egc);
                     }
+
+                    send.Add(egc);
 
                     if (item.emp_id == null)
                     {
@@ -907,7 +966,7 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
@@ -917,9 +976,10 @@ namespace WebApiLib.Clients
         /// <param name="begin_date"></param>
         /// <param name="end_date"></param>
         /// <returns></returns>
-        public BaseTran<cards_actions> GetSingleCardActionHistory(int id, string begin_date, string end_date)
+        public List<DevEntranceGuardCardAction> GetSingleCardActionHistory(int id, string begin_date, string end_date)
         {
             BaseTran<cards_actions> recv = new BaseTran<cards_actions>();
+            List<DevEntranceGuardCardAction> send = new List<DevEntranceGuardCardAction>();
 
             try
             {
@@ -993,6 +1053,8 @@ namespace WebApiLib.Clients
                         {
                             bll.DevEntranceGuardCardActions.Edit(degca);
                         }
+
+                        send.Add(degca);
                     }
                 }
             }
@@ -1001,9 +1063,9 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
-        
+
         /// <summary>
         /// 获取两票列表
         /// </summary>
@@ -1094,7 +1156,7 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public tickets GetTicketsDetail(int id)
+        public tickets GetTicketsDetail(int id, string begin_date, string end_date)
         {
             tickets recv = new tickets();
 
@@ -1102,6 +1164,24 @@ namespace WebApiLib.Clients
             {
                 string path = "api/tickets/" + id;
                 string url = BaseUri + path;
+                if (begin_date != null)
+                {
+                    url += "?begin_date=" + begin_date;
+                }
+                else
+                {
+                    url += "?begin_date";
+                }
+
+                if (end_date != null)
+                {
+                    url += "&end_date=" + end_date;
+                }
+                else
+                {
+                    url += "&end_date";
+                }
+
                 return GetEntityDetail<tickets>(url);
             }
             catch (Exception ex)
@@ -1120,9 +1200,10 @@ namespace WebApiLib.Clients
         /// <param name="begin_t"></param>
         /// <param name="end_t"></param>
         /// <returns></returns>
-        public BaseTran<events> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
+        public List<DevAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
             BaseTran<events> recv = new BaseTran<events>();
+            List<DevAlarm> send = new List<DevAlarm>();
 
             try
             {
@@ -1202,6 +1283,8 @@ namespace WebApiLib.Clients
                     {
                         bll.DevAlarms.Edit(da);
                     }
+
+                    send.Add(da);
                 }
             }
             catch (Exception ex)
@@ -1209,9 +1292,14 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
+        /// <summary>
+        /// 获取SIS传感数据
+        /// </summary>
+        /// <param name="kks"></param>
+        /// <returns></returns>
         public BaseTran<sis> GetSomesisList(string kks)
         {
             BaseTran<sis> recv = new BaseTran<sis>();
@@ -1242,17 +1330,18 @@ namespace WebApiLib.Clients
                         did = new DevInstantData();
                         did.Id = item.kks;
                         did.Value = item.value;
-                        did.DateTime = DateTime.Now;
-                        did.DateTimeStamp = TimeConvert.DateTimeToTimeStamp(did.DateTime);
+                        did.DateTimeStamp = item.t;
+                        did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
+                        did.Unit = item.unit;
                         bll.DevInstantDatas.Add(did);
                     }
                     else
                     {
                         DevInstantDataHistory didh = did.RemoveToHistory();
                         did.Value = item.value;
-                        did.DateTime = DateTime.Now;
-                        did.DateTimeStamp = TimeConvert.DateTimeToTimeStamp(did.DateTime);
-
+                        did.DateTimeStamp = item.t;
+                        did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
+                        did.Unit = item.unit;
                         bll.DevInstantDatas.Edit(did);
                         bll.DevInstantDataHistorys.Add(didh);
                     }
@@ -1267,9 +1356,122 @@ namespace WebApiLib.Clients
             return recv;
         }
 
-       
+        /// <summary>
+        /// 获取SIS历史数据，当compact为true时，获取紧凑型数据，当compact为false时，获取非紧凑型数据
+        /// </summary>
+        /// <param name="kks"></param>
+        /// <param name="compact"></param>
+        /// <returns></returns>
+        public List<DevInstantDataHistory> GetSomeSisHistoryList(string kks, bool compact)
+        {
+            BaseTran<sis> recv = new BaseTran<sis>();
+            BaseTran_Compact recv2 = new BaseTran_Compact();
+            List<DevInstantDataHistory> send = new List<DevInstantDataHistory>();
+            
+            try
+            {
+                string path = "api/rt/sis/" + kks + "/history?compact=" + Convert.ToString(compact);
+                string url = BaseUri + path;
+                if (!compact)
+                {
+                    recv = GetEntityList<sis>(url);
+                }
+                else
+                {
+                    recv2 = GetEntityList5(url);
+                    string strkks = recv2.schema.kks;
+                    string strunit = recv2.schema.unit;
+                    string field1 = recv2.schema.fields[0];
+                    string field2 = recv2.schema.fields[1];
+                    recv.total = recv2.total;
+                    recv.msg = recv2.msg;
 
-        
+                    foreach (List<string> item in recv2.data)
+                    {
+                        string strVal1 = item[0];
+                        string strVal2 = item[1];
+                        sis si = new sis();
+                        si.kks = strkks;
+                        si.unit = strunit;
+                        if (field1 == "t")
+                        {
+                            si.t = Convert.ToInt32(strVal1);
+                            si.value = strVal2;
+                        }
+                        else
+                        {
+                            si.t = Convert.ToInt32(strVal2);
+                            si.value = strVal1;
+                        }
+
+                        recv.data.Add(si);
+                    }
+                }
+
+                if (recv.data == null)
+                {
+                    recv.data = new List<sis>();
+                }
+
+                foreach (sis item in recv.data)
+                {
+                    DevInfo DevInfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    if (DevInfo == null)
+                    {
+                        continue;
+                    }
+
+                    DevInstantData did = bll.DevInstantDatas.DbSet.Where(p => p.Id == item.kks).FirstOrDefault();
+
+                    DevInstantDataHistory didh = did.RemoveToHistory();
+                    did.Value = item.value;
+                    did.DateTimeStamp = item.t;
+                    did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
+                    did.Unit = item.unit;
+                    bll.DevInstantDatas.Edit(did);
+                    bll.DevInstantDataHistorys.Add(didh);
+
+                    send.Add(didh);
+                }
+            }
+            catch (Exception ex)
+            {
+                string messgae = ex.Message;
+            }
+
+            return send;
+        }
+
+        /// <summary>
+        /// 获取SIS采样历史数据
+        /// </summary>
+        /// <param name="kks"></param>
+        /// <returns></returns>
+        public BaseTran<sis_sampling> GetSisSamplingHistoryList(string kks)
+        {
+            BaseTran<sis_sampling> recv = new BaseTran<sis_sampling>();
+
+            try
+            {
+                string path = "api/rt/sis/kks=" + kks + "/sample";
+                string url = BaseUri + path;
+                recv = GetEntityList<sis_sampling>(url);
+
+                if (recv.data == null)
+                {
+                    recv.data = new List<sis_sampling>();
+                }
+            }
+            catch (Exception ex)
+            {
+                string messgae = ex.Message;
+            }
+
+            return recv;
+        }
+
+
+
         //public List<InspectionTrack> Getinspectionlist(DateTime dtTime, bool bFlag)
         //{
         //    List<patrols> recv = new List<patrols>();
@@ -1350,7 +1552,7 @@ namespace WebApiLib.Clients
         //                    history.dtStartTime = TimeConvert.TimeStampToDateTime(now.StartTime);
         //                    history.EndTime = (item.endTime + nEightHourSecond) * 1000;
         //                    history.dtEndTime = TimeConvert.TimeStampToDateTime(now.EndTime);
-                            
+
         //                    bll.InspectionTrackHistorys.Add(history);
 
         //                    nFlag = 2;

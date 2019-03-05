@@ -21,7 +21,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// KKS编码
         /// </summary>
-        public string kksCode { get; set; }
+        public string kks { get; set; }
 
         /// <summary>
         /// 名称
@@ -58,7 +58,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             device copy = new device();
             copy.id = this.id;
             copy.code = this.code;
-            copy.kksCode = this.kksCode;
+            copy.kks = this.kks;
             copy.name = this.name;
             copy.type = this.type;
             copy.state = this.state;

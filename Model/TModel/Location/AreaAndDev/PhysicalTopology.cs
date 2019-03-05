@@ -6,6 +6,7 @@ using Location.TModel.ConvertCodes;
 using System;
 using Location.TModel.Location.Person;
 using Location.TModel.Tools;
+using System.Xml.Serialization;
 
 namespace Location.TModel.Location.AreaAndDev
 {
@@ -35,6 +36,7 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         public int? ParentId { get; set; }
 
+        [XmlIgnore]
         //[DataMember]
         public PhysicalTopology Parent { get; set; }
 

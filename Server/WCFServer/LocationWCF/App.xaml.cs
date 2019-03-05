@@ -22,6 +22,7 @@ using LocationServices.Converters;
 using DbModel.Location.AreaAndDev;
 using WebApiLib.Clients;
 using TModel.Models.Settings;
+using LocationServices.Locations;
 
 namespace LocationWCFServer
 {
@@ -71,6 +72,7 @@ namespace LocationWCFServer
             AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
             AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
             datacaseUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+            LocationService.url = datacaseUrl;
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
             InitGetInspectionTrack();

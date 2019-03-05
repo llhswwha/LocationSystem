@@ -83,6 +83,7 @@
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.NearbyDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Picture.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Manage.LoginInfo.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Manage.VersionInfo.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Nodes.AreaNode.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Person.NearbyPerson.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Person.NearbyPerson_Currency.datasource" />

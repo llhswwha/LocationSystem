@@ -57,6 +57,7 @@
     <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
     <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
     <Compile Include="Location\AreaAndDev\Archor.cs" />
+    <Compile Include="Location\AreaAndDev\AreaPoints.cs" />
     <Compile Include="Location\AreaAndDev\DevMonitorNode.cs" />
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />

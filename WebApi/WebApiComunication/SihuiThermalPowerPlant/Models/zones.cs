@@ -28,7 +28,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// KKS编码
         /// </summary>
         [Display(Name = "KKS编码")]
-        public string kksCode { get; set; }
+        public string kks { get; set; }
 
         /// <summary>
         /// 说明
@@ -75,7 +75,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             zone copy = new zone();
             copy.id = this.id;
             copy.name = this.name;
-            copy.kksCode = this.kksCode;
+            copy.kks = this.kks;
             copy.description = this.description;
             copy.x = this.x;
             copy.y = this.y;

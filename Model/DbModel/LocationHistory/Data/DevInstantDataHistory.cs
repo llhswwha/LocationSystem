@@ -44,6 +44,14 @@ namespace DbModel.LocationHistory.Data
         public string Value { get; set; }
 
         /// <summary>
+        /// 单位
+        /// </summary>
+        [DataMember]
+        [Display(Name = "单位")]
+        [MaxLength(8)]
+        public string Unit { get; set; }
+
+        /// <summary>
         /// 时间
         /// </summary>
         [DataMember]

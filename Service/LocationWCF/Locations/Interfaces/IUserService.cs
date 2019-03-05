@@ -18,6 +18,9 @@ namespace LocationServices.Locations.Interfaces
         LoginInfo Logout(LoginInfo info);
 
         [OperationContract]
+        LoginInfo KeepLive(LoginInfo info);
+
+        [OperationContract]
         VersionInfo GetVersionInfo();
     }
 }

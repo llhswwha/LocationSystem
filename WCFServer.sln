@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.Server", "Server\WCFServer\LocationWCF\Location.Server.csproj", "{3236F096-0351-411A-AD3E-9316B03AAD05}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -61,8 +61,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineClient", "Server\WCFS
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionSimulation", "Server\WCFServer\Tools\PositionSimulation\PositionSimulation.csproj", "{1D07F8B3-0C29-4257-B632-88E2BA92A265}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Location.WebSite", "Server\WebSite\LocationWeb\Location.WebSite.csproj", "{82CA49B0-D760-44BD-9B99-3F5F460CF688}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchorUDPTool", "Server\WCFServer\Tools\ArchorUDPTool\ArchorUDPTool.csproj", "{A88D0971-0C84-442A-A8AB-9D41594C81BE}"
 EndProject
@@ -382,22 +380,6 @@ Global
 		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|x86.ActiveCfg = Release|Any CPU
 		{1D07F8B3-0C29-4257-B632-88E2BA92A265}.Release|x86.Build.0 = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Debug|x86.Build.0 = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Design|Any CPU.ActiveCfg = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Design|Any CPU.Build.0 = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Design|x86.ActiveCfg = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Design|x86.Build.0 = Debug|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Integration Tests|Any CPU.ActiveCfg = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Integration Tests|Any CPU.Build.0 = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Integration Tests|x86.ActiveCfg = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Integration Tests|x86.Build.0 = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|x86.ActiveCfg = Release|Any CPU
-		{82CA49B0-D760-44BD-9B99-3F5F460CF688}.Release|x86.Build.0 = Release|Any CPU
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A88D0971-0C84-442A-A8AB-9D41594C81BE}.Debug|x86.ActiveCfg = Debug|Any CPU

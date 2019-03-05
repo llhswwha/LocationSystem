@@ -14,8 +14,8 @@ namespace LocationServices.Locations.Interfaces
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        [WebGet(UriTemplate = "/area", ResponseFormat = WebMessageFormat.Json)]
-        IList<PhysicalTopology> GetPhysicalTopologyList();
+        [WebGet(UriTemplate = "/area?view={view}", ResponseFormat = WebMessageFormat.Json)]
+        IList<PhysicalTopology> GetPhysicalTopologyList(int view);
 
         [WebGet(UriTemplate = "/area/{id}?getChildren={getChildren}", ResponseFormat = WebMessageFormat.Json)]
         PhysicalTopology GetPhysicalTopology(string id,bool getChildren);

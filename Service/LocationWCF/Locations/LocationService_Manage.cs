@@ -49,6 +49,12 @@ namespace LocationServices.Locations
             return info;
         }
 
+        public LoginInfo KeepLive(LoginInfo info)
+        {
+            return info;
+        }
+        
+
         public VersionInfo GetVersionInfo()
         {
             VersionInfo version = new VersionInfo();

@@ -9,4 +9,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LoginInfo" nillable="true" type="tns:LoginInfo" />
+  <xs:complexType name="VersionInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LocationURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VersionInfo" nillable="true" type="tns:VersionInfo" />
 </xs:schema>

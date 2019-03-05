@@ -22,6 +22,7 @@ using TModel.Location.Person;
 using WCFServiceForWPF.LocationServices;
 using TModel.LocationHistory.AreaAndDev;
 using TModel.Location.Work;
+using Location.TModel.Location.Person;
 
 namespace LocationWCFClient.Windows
 {
@@ -279,5 +280,170 @@ namespace LocationWCFClient.Windows
         //    DateTime dt2 = DateTime.Now;
         //    int nn = 0;
         }
+
+        private void GetAreaBasicList_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology pt = client.GetPhysicalTopologyTree(0);
+            int nn = 0;
+        }
+
+        private void GetAreaDevInfoList_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology pt = client.GetPhysicalTopologyTree(1);
+            int nn = 0;
+        }
+
+        private void GetAreaPersonnelInfoList_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology pt = client.GetPhysicalTopologyTree(2);
+            int nn = 0;
+        }
+
+        private void GetAreaDevPersonnelInfoList_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology pt = client.GetPhysicalTopologyTree(3);
+            int nn = 0;
+        }
+
+
+        #region 测试基础信息平台
+        //获取人员列表
+        private void GetUserList_Click(object sender, RoutedEventArgs e)
+        {
+            Personnel[] lst = client.GetUserList();
+            int nn = 0;
+        }
+
+        //获取部门列表
+        private void GetorgList_Click(object sender, RoutedEventArgs e)
+        {
+            Department[] lst = client.GetorgList();
+            int nn = 0;
+        }
+
+        //获取区域列表
+        private void GetzonesList_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology[] lst = client.GetzonesList();
+            int nn = 0;
+        }
+
+        //获取单个区域信息
+        private void GetSingleZonesInfo_Click(object sender, RoutedEventArgs e)
+        {
+            PhysicalTopology lst = client.GetSingleZonesInfo(1,7);
+            int nn = 0;
+        }
+
+        //获取指定区域下设备列表
+        private void GetZoneDevList_Click(object sender, RoutedEventArgs e)
+        {
+            Location.TModel.Location.AreaAndDev.DevInfo[] lst = client.GetZoneDevList(1);
+            int nn = 0;
+        }
+
+        //获取设备列表
+        private void GetDeviceList_Click(object sender, RoutedEventArgs e)
+        {
+            Location.TModel.Location.AreaAndDev.DevInfo[] lst = client.GetDeviceList(null,null,null);
+            int nn = 0;
+        }
+
+        //获取单个设备信息
+        private void GetSingleDeviceInfo_Click(object sender, RoutedEventArgs e)
+        {
+            Location.TModel.Location.AreaAndDev.DevInfo lst = client.GetSingleDeviceInfo(1);
+            int nn = 0;
+        }
+
+        //获取单台设备操作历史
+        private void GetSingleDeviceActionHistory_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetSingleDeviceActionHistory(1, null, null);
+            int nn = 0;
+        }
+
+        //获取门禁卡列表
+        private void GetCardList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetCardList();
+            int nn = 0;
+        }
+
+        //获取门禁卡操作历史
+        private void GetSingleCardActionHistory_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetSingleCardActionHistory(1, null, null);
+            int nn = 0;
+        }
+
+        //获取两票列表
+        private void GetTicketsList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetTicketsList("1", null, null);
+            int nn = 0;
+        }
+
+        //获取指定的两票详情
+        private void GetTicketsDetail_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetTicketsDetail(1, null, null);
+            int nn = 0;
+        }
+
+        //获取告警事件列表
+        private void GeteventsList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GeteventsList(null, null, null,null);
+            int nn = 0;
+        }
+
+        //获取SIS传感数据
+        private void GetSomesisList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetSomesisList("k01,k02");
+            int nn = 0;
+        }
+
+        //获取SIS历史数据
+        private void GetSomeSisHistoryList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetSomeSisHistoryList("k01", true);
+
+            client.GetSomeSisHistoryList("k01", false);
+            int nn = 0;
+        }
+
+        //获取SIS采样历史数据
+        private void GetSisSamplingHistoryList_Click(object sender, RoutedEventArgs e)
+        {
+            client.GetSisSamplingHistoryList("k01,k02");
+            int nn = 0;
+        }
+
+        //获取巡检轨迹列表
+        private void Getinspectionlist_Click(object sender, RoutedEventArgs e)
+        {
+            client.Getinspectionlist(1, 1, false);
+            int nn = 0;
+        }
+
+        //获取巡检节点列表
+        private void Getcheckpoints_Click(object sender, RoutedEventArgs e)
+        {
+            client.Getcheckpoints(134);
+            int nn = 0;
+        }
+
+        //获取巡检结果列表
+        private void Getcheckresults_Click(object sender, RoutedEventArgs e)
+        {
+            client.Getcheckresults(469, "100012");
+            int nn = 0;
+        }
+
+        #endregion
+
+
     }
 }

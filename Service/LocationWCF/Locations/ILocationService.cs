@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using LocationServices.Locations.Interfaces;
+using TModel.Location.AreaAndDev;
 using TModel.Models.Settings;
 
 namespace LocationServices.Locations
@@ -32,6 +33,12 @@ namespace LocationServices.Locations
 
         [OperationContract]
         void DebugMessage(string msg);
+
+        [OperationContract]
+        AreaPoints GetPoints(string areaId);
+
+        [OperationContract]
+        List<AreaPoints> GetPointsByPid(string pid);
     }
 
    

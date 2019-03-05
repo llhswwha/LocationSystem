@@ -32,6 +32,7 @@
   <xs:complexType name="PatrolPointHistory">
     <xs:sequence>
       <xs:element minOccurs="0" name="Checks" nillable="true" type="tns:ArrayOfPatrolPointItemHistory" />
+      <xs:element minOccurs="0" name="DevId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DeviceCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:string" />

@@ -182,11 +182,18 @@ namespace LocationServer.Controls
             }
         }
 
+        string logText = "";
+
         private void WriteLog(string txt)
         {
             Log.Info(txt);
             string log = string.Format("[{0}][{1}]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), txt);
-            TbResult1.AppendText(log + "\n");
+            if (logText.Length > 2000)
+            {
+                logText = "";
+            }
+            logText = log + "\n" + logText;
+            TbResult1.Text = logText;
         }
 
         HttpSelfHostServer httpHost;

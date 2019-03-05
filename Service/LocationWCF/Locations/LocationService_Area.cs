@@ -21,10 +21,11 @@ namespace LocationServices.Locations
         /// 获取物理逻辑拓扑
         /// </summary>
         /// <returns></returns>
-        public IList<PhysicalTopology> GetPhysicalTopologyList()
+        public IList<PhysicalTopology> GetPhysicalTopologyList(int view)
         {
             ShowLog(">>>>> GetPhysicalTopologyList");
-            return new AreaService(db).GetList();
+            BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
+            return new AreaService(dbpt).GetList(view);
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
@@ -43,6 +44,16 @@ namespace LocationServices.Locations
         {
             ShowLog(">>>>> GetPhysicalTopologyListByPid pid" + pid);
             return new AreaService(db).GetListByPid(pid);
+        }
+
+        public AreaPoints GetPoints(string areaId)
+        {
+            return new AreaService(db).GetPoints(areaId);
+        }
+
+        public List<AreaPoints> GetPointsByPid(string pid)
+        {
+            return new AreaService(db).GetPointsByPid(pid);
         }
 
         /// <summary>

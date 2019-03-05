@@ -17,15 +17,27 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         public string kks { get; set; }
 
         /// <summary>
+        /// 时间戳，单位秒
+        /// </summary>
+        public int t { get; set; }
+
+        /// <summary>
         /// 值，没找到数据时为null
         /// </summary>
         public string value { get; set; }
+
+        /// <summary>
+        /// 单位
+        /// </summary>
+        public string unit { get; set; }
 
         public sis Clone()
         {
             sis copy = new sis();
             copy.kks = this.kks;
+            copy.t = this.t;
             copy.value = this.value;
+            copy.unit = this.unit;
 
             return copy;
         }

@@ -87,6 +87,7 @@
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="KKSCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Local_CabinetID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Manufactor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModifyTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ModifyTimeStamp" type="xs:long" />
@@ -144,6 +145,7 @@
       <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Flag" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q6:Personnel" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q7:TagPosition" />

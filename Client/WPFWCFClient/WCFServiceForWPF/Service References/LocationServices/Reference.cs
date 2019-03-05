@@ -821,6 +821,9 @@ namespace WCFServiceForWPF.LocationServices {
         private int Local_TypeCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ManufactorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ModelNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1039,6 +1042,19 @@ namespace WCFServiceForWPF.LocationServices {
                 if ((this.Local_TypeCodeField.Equals(value) != true)) {
                     this.Local_TypeCodeField = value;
                     this.RaisePropertyChanged("Local_TypeCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Manufactor {
+            get {
+                return this.ManufactorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ManufactorField, value) != true)) {
+                    this.ManufactorField = value;
+                    this.RaisePropertyChanged("Manufactor");
                 }
             }
         }
@@ -1609,7 +1625,7 @@ namespace WCFServiceForWPF.LocationServices {
         bool AddArchor(TModel.Location.AreaAndDev.Archor archor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteArchor", ReplyAction="http://tempuri.org/IDevService/DeleteArchorResponse")]
-        void DeleteArchor(int archorId);
+        bool DeleteArchor(int archorId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetNearbyDev_Currency", ReplyAction="http://tempuri.org/IDevService/GetNearbyDev_CurrencyResponse")]
         TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag);
@@ -1754,10 +1770,67 @@ namespace WCFServiceForWPF.LocationServices {
         TModel.BaseData.Ticket[] GetTicketList(int type, System.DateTime start, System.DateTime end);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketDetial", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketDetialResponse")]
-        TModel.BaseData.Ticket GetTicketDetial(int id);
+        TModel.BaseData.Ticket GetTicketDetial(int id, string begin_date, string end_date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse")]
-        TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtTime, bool bFlag);
+        TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetUserList", ReplyAction="http://tempuri.org/IBaseDataService/GetUserListResponse")]
+        Location.TModel.Location.Person.Personnel[] GetUserList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetorgList", ReplyAction="http://tempuri.org/IBaseDataService/GetorgListResponse")]
+        Location.TModel.Location.Person.Department[] GetorgList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetzonesList", ReplyAction="http://tempuri.org/IBaseDataService/GetzonesListResponse")]
+        Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetzonesList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSingleZonesInfo", ReplyAction="http://tempuri.org/IBaseDataService/GetSingleZonesInfoResponse")]
+        Location.TModel.Location.AreaAndDev.PhysicalTopology GetSingleZonesInfo(int id, int view);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetZoneDevList", ReplyAction="http://tempuri.org/IBaseDataService/GetZoneDevListResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo[] GetZoneDevList(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetDeviceList", ReplyAction="http://tempuri.org/IBaseDataService/GetDeviceListResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo[] GetDeviceList(string types, string code, string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSingleDeviceInfo", ReplyAction="http://tempuri.org/IBaseDataService/GetSingleDeviceInfoResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo GetSingleDeviceInfo(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSingleDeviceActionHistory", ReplyAction="http://tempuri.org/IBaseDataService/GetSingleDeviceActionHistoryResponse")]
+        void GetSingleDeviceActionHistory(int id, string begin_date, string end_date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetCardList", ReplyAction="http://tempuri.org/IBaseDataService/GetCardListResponse")]
+        void GetCardList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSingleCardActionHistory", ReplyAction="http://tempuri.org/IBaseDataService/GetSingleCardActionHistoryResponse")]
+        void GetSingleCardActionHistory(int id, string begin_date, string end_date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketsList", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketsListResponse")]
+        void GetTicketsList(string type, string begin_date, string end_date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketsDetail", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketsDetailResponse")]
+        void GetTicketsDetail(int id, string begin_date, string end_date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GeteventsList", ReplyAction="http://tempuri.org/IBaseDataService/GeteventsListResponse")]
+        void GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSomesisList", ReplyAction="http://tempuri.org/IBaseDataService/GetSomesisListResponse")]
+        void GetSomesisList(string kks);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSomeSisHistoryList", ReplyAction="http://tempuri.org/IBaseDataService/GetSomeSisHistoryListResponse")]
+        void GetSomeSisHistoryList(string kks, bool compact);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSisSamplingHistoryList", ReplyAction="http://tempuri.org/IBaseDataService/GetSisSamplingHistoryListResponse")]
+        void GetSisSamplingHistoryList(string kks);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getinspectionlist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionlistResponse")]
+        void Getinspectionlist(long lBegin, long lEnd, bool bFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getcheckpoints", ReplyAction="http://tempuri.org/IBaseDataService/GetcheckpointsResponse")]
+        void Getcheckpoints(int patrolId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getcheckresults", ReplyAction="http://tempuri.org/IBaseDataService/GetcheckresultsResponse")]
+        void Getcheckresults(int patrolId, string deviceId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketListResponse")]
         TModel.Location.Work.OperationTicket[] GetOperationTicketList();
@@ -1783,11 +1856,17 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryList", ReplyAction="http://tempuri.org/IWorkService/GetPersonnelMobileInspectionHistoryListResponse")]
         TModel.LocationHistory.Work.PersonnelMobileInspectionHistory[] GetPersonnelMobileInspectionHistoryList();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetInspectionTrack", ReplyAction="http://tempuri.org/IWorkService/GetInspectionTrackResponse")]
+        TModel.Location.Work.InspectionTrack GetInspectionTrack();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
         TModel.Location.Manage.LoginInfo Login(TModel.Location.Manage.LoginInfo info);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Logout", ReplyAction="http://tempuri.org/IUserService/LogoutResponse")]
         TModel.Location.Manage.LoginInfo Logout(TModel.Location.Manage.LoginInfo info);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetVersionInfo", ReplyAction="http://tempuri.org/IUserService/GetVersionInfoResponse")]
+        TModel.Location.Manage.VersionInfo GetVersionInfo();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Ibus_anchor/EditBusAnchor", ReplyAction="http://tempuri.org/Ibus_anchor/EditBusAnchorResponse")]
         bool EditBusAnchor(TModel.Location.AreaAndDev.Archor archor, int parentId);
@@ -2051,8 +2130,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.AddArchor(archor);
         }
         
-        public void DeleteArchor(int archorId) {
-            base.Channel.DeleteArchor(archorId);
+        public bool DeleteArchor(int archorId) {
+            return base.Channel.DeleteArchor(archorId);
         }
         
         public TModel.Location.AreaAndDev.NearbyDev[] GetNearbyDev_Currency(int id, float fDis, int nFlag) {
@@ -2243,12 +2322,88 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetTicketList(type, start, end);
         }
         
-        public TModel.BaseData.Ticket GetTicketDetial(int id) {
-            return base.Channel.GetTicketDetial(id);
+        public TModel.BaseData.Ticket GetTicketDetial(int id, string begin_date, string end_date) {
+            return base.Channel.GetTicketDetial(id, begin_date, end_date);
         }
         
-        public TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtTime, bool bFlag) {
-            return base.Channel.Getinspectionhistorylist(dtTime, bFlag);
+        public TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag) {
+            return base.Channel.Getinspectionhistorylist(dtBeginTime, dtEndTime, bFlag);
+        }
+        
+        public Location.TModel.Location.Person.Personnel[] GetUserList() {
+            return base.Channel.GetUserList();
+        }
+        
+        public Location.TModel.Location.Person.Department[] GetorgList() {
+            return base.Channel.GetorgList();
+        }
+        
+        public Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetzonesList() {
+            return base.Channel.GetzonesList();
+        }
+        
+        public Location.TModel.Location.AreaAndDev.PhysicalTopology GetSingleZonesInfo(int id, int view) {
+            return base.Channel.GetSingleZonesInfo(id, view);
+        }
+        
+        public Location.TModel.Location.AreaAndDev.DevInfo[] GetZoneDevList(int id) {
+            return base.Channel.GetZoneDevList(id);
+        }
+        
+        public Location.TModel.Location.AreaAndDev.DevInfo[] GetDeviceList(string types, string code, string name) {
+            return base.Channel.GetDeviceList(types, code, name);
+        }
+        
+        public Location.TModel.Location.AreaAndDev.DevInfo GetSingleDeviceInfo(int id) {
+            return base.Channel.GetSingleDeviceInfo(id);
+        }
+        
+        public void GetSingleDeviceActionHistory(int id, string begin_date, string end_date) {
+            base.Channel.GetSingleDeviceActionHistory(id, begin_date, end_date);
+        }
+        
+        public void GetCardList() {
+            base.Channel.GetCardList();
+        }
+        
+        public void GetSingleCardActionHistory(int id, string begin_date, string end_date) {
+            base.Channel.GetSingleCardActionHistory(id, begin_date, end_date);
+        }
+        
+        public void GetTicketsList(string type, string begin_date, string end_date) {
+            base.Channel.GetTicketsList(type, begin_date, end_date);
+        }
+        
+        public void GetTicketsDetail(int id, string begin_date, string end_date) {
+            base.Channel.GetTicketsDetail(id, begin_date, end_date);
+        }
+        
+        public void GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t) {
+            base.Channel.GeteventsList(src, level, begin_t, end_t);
+        }
+        
+        public void GetSomesisList(string kks) {
+            base.Channel.GetSomesisList(kks);
+        }
+        
+        public void GetSomeSisHistoryList(string kks, bool compact) {
+            base.Channel.GetSomeSisHistoryList(kks, compact);
+        }
+        
+        public void GetSisSamplingHistoryList(string kks) {
+            base.Channel.GetSisSamplingHistoryList(kks);
+        }
+        
+        public void Getinspectionlist(long lBegin, long lEnd, bool bFlag) {
+            base.Channel.Getinspectionlist(lBegin, lEnd, bFlag);
+        }
+        
+        public void Getcheckpoints(int patrolId) {
+            base.Channel.Getcheckpoints(patrolId);
+        }
+        
+        public void Getcheckresults(int patrolId, string deviceId) {
+            base.Channel.Getcheckresults(patrolId, deviceId);
         }
         
         public TModel.Location.Work.OperationTicket[] GetOperationTicketList() {
@@ -2283,12 +2438,20 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetPersonnelMobileInspectionHistoryList();
         }
         
+        public TModel.Location.Work.InspectionTrack GetInspectionTrack() {
+            return base.Channel.GetInspectionTrack();
+        }
+        
         public TModel.Location.Manage.LoginInfo Login(TModel.Location.Manage.LoginInfo info) {
             return base.Channel.Login(info);
         }
         
         public TModel.Location.Manage.LoginInfo Logout(TModel.Location.Manage.LoginInfo info) {
             return base.Channel.Logout(info);
+        }
+        
+        public TModel.Location.Manage.VersionInfo GetVersionInfo() {
+            return base.Channel.GetVersionInfo();
         }
         
         public bool EditBusAnchor(TModel.Location.AreaAndDev.Archor archor, int parentId) {

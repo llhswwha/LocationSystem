@@ -41,6 +41,14 @@ namespace DbModel.Location.Data
         public string Value { get; set; }
 
         /// <summary>
+        /// 单位
+        /// </summary>
+        [DataMember]
+        [Display(Name = "单位")]
+        [MaxLength(8)]
+        public string Unit { get; set; }
+
+        /// <summary>
         /// 时间
         /// </summary>
         [DataMember]
@@ -74,6 +82,7 @@ namespace DbModel.Location.Data
             history.KKS = this.Id;
             history.Name = this.Name;
             history.Value = this.Value;
+            history.Unit = this.Unit;
             history.DateTime = this.DateTime;
             history.DateTimeStamp = this.DateTimeStamp;
             

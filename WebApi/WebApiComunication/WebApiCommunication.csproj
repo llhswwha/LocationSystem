@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryArg.cs" />
     <Compile Include="SihuiThermalPowerPlant\BaseTran.cs" />
+    <Compile Include="SihuiThermalPowerPlant\BaseTran_Compact.cs" />
     <Compile Include="SihuiThermalPowerPlant\Convert.cs" />
     <Compile Include="SihuiThermalPowerPlant\GetMethod.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\cards.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="SihuiThermalPowerPlant\Models\position.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\results.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\sis_compact.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\sis_sampling.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\tickets.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\users.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\zones.cs" />
