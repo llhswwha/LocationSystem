@@ -11,6 +11,8 @@ namespace TModel.Models.Settings
         [XmlElement]
         public bool IsDebug;
         [XmlElement]
+        public bool IsUseService;
+        [XmlElement]
         public CinemachineSetting CinemachineSetting;
         [XmlElement]
         public CommunicationSetting CommunicationSetting;

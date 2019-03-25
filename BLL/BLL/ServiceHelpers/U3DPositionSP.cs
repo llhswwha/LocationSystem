@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using BLL;
 using DbModel.LocationHistory.Data;
+using Location.BLL.Tool;
 
 namespace LocationWCFService.ServiceHelper
 {
@@ -153,15 +154,16 @@ namespace LocationWCFService.ServiceHelper
             return r;
         }
 
-        public static Action<string> ShowLog_Action;
+        //public static Action<string> ShowLog_Action;
 
 
         private void ShowLog(string txt)
         {
-            if (ShowLog_Action != null)
-            {
-                ShowLog_Action(txt);
-            }
+            //if (ShowLog_Action != null)
+            //{
+            //    ShowLog_Action(txt);
+            //}
+            Log.Info(txt);
         }
 
         private string GetInsertSql(List<U3DPosition> u3dpositions)

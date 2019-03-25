@@ -48,7 +48,7 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             var devInfoList = dbSet.ToList().ToTModel();
             return devInfoList.ToWCFList();

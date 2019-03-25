@@ -1,4 +1,5 @@
 ﻿
+using Location.BLL.Tool;
 using Location.TModel.Location.Person;
 using LocationServices.Locations.Services;
 using System;
@@ -23,7 +24,7 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return service.GetList();
         }
@@ -31,15 +32,22 @@ namespace WebApiService.Controllers
         {
             return service.GetTree(leafNodes);
         }
+
+        public static int count;
         [Route("tree")]
         public TEntity GetTree()
         {
+
+            Log.Info(string.Format("[{0}]DepartmentController.GetTree:{1}", Request.GetClientIpAddress(), count));
+            count++;
             return service.GetTree();
         }
 
         [Route("tree")]
         public TEntity GetTree(int view)
         {
+            Log.Info(string.Format("[{0}]DepartmentController.GetTree view={1}:{2}", Request.GetClientIpAddress(), view, count));
+            count++;
             return service.GetTree(view);
         }
 

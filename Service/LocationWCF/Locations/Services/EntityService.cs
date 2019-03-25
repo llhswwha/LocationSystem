@@ -44,7 +44,7 @@ namespace LocationServices.Locations.Services
             return dbSet.Find(id.ToInt());
         }
 
-        public IList<T> GetList()
+        public List<T> GetList()
         {
             return dbSet.ToList();
         }

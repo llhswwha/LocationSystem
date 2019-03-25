@@ -12,16 +12,10 @@ namespace TModel.Location.AreaAndDev
         public int Id { get; set; }
 
         [DataMember]
-        public string KKS { get; set; }
-
-        [DataMember]
         public string TagName { get; set; }
 
         [DataMember]
-        public string DataBaseName { get; set; }
-
-        [DataMember]
-        public string DataBaseTagName { get; set; }
+        public string DbTagName { get; set; }
 
         [DataMember]
         public string Describe { get; set; }
@@ -36,19 +30,25 @@ namespace TModel.Location.AreaAndDev
         public string DataType { get; set; }
 
         [DataMember]
-        public string TagType { get; set; }
+        public string KKS { get; set; }
+
+        [DataMember]
+        public string ParentKKS { get; set; }
+
+        [DataMember]
+        public int Time { get; set; }
 
         public DevMonitorNode()
         {
-            KKS = "";
             TagName = "";
-            DataBaseName = "";
-            DataBaseTagName = "";
+            DbTagName = "";
             Describe = "";
             Value = "";
             Unit = "";
             DataType = "";
-            TagType = "";
+            KKS = "";
+            ParentKKS = "";
+            Time = 0;
         }
     }
 }

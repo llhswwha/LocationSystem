@@ -36,6 +36,8 @@
                 <MenuItem Header="基站扫描" Name="MenuArchorScane" Click="MenuArchorScane_Click"></MenuItem>
                 <MenuItem Header="基站校对" Name="MenuArchorCheck" Click="MenuArchorCheck_Click"></MenuItem>
                 <MenuItem Header="基站搜索" Name="MenuArchorSearch" Click="MenuArchorSearch_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="转义KKS编码" Name="OriginalKKSCode" Click="OriginalKKSCode_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

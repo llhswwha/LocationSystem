@@ -26,7 +26,8 @@ namespace LocationServices.Locations
         Ibus_anchor,
         Ibus_tag,
         IPictureService,
-        IAreaService
+        IAreaService,
+        IInitDbService
     {
         [OperationContract]
         UnitySetting GetUnitySetting();
@@ -35,10 +36,10 @@ namespace LocationServices.Locations
         void DebugMessage(string msg);
 
         [OperationContract]
-        AreaPoints GetPoints(string areaId);
+        AreaPoints GetPoints(int areaId);
 
         [OperationContract]
-        List<AreaPoints> GetPointsByPid(string pid);
+        List<AreaPoints> GetPointsByPid(int pid);
     }
 
    

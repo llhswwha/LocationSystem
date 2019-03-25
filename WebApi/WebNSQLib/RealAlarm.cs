@@ -37,12 +37,12 @@ namespace WebNSQLib
         {
             string msg = Encoding.UTF8.GetString(message.Body);
             events recv = JsonConvert.DeserializeObject<events>(msg);
-            if (recv == null || recv.device_id == null)
+            if (recv == null || recv.deviceId == null)
             {
                 return;
             }
 
-            DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == recv.device_id).FirstOrDefault();
+            DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == recv.deviceId).FirstOrDefault();
             if (di == null)
             {
                 return;
@@ -63,7 +63,7 @@ namespace WebNSQLib
             da.Code = recv.code;
             da.Src = (Abutment_DevAlarmSrc)recv.src;
             da.DevInfoId = di.Id;
-            da.Device_desc = recv.device_desc;
+            da.Device_desc = recv.deviceDesc;
             da.AlarmTime = TimeConvert.TimeStampToDateTime(recv.t/1000);
             da.AlarmTimeStamp = recv.t;
 

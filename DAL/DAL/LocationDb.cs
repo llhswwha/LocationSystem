@@ -139,5 +139,7 @@ namespace DAL
         public DbSet<PatrolPoint> PatrolPoints { get; set; }
 
         public DbSet<PatrolPointItem> PatrolPointItems { get; set; }
+
+        public DbSet<HomePagePicture> HomePagePictures { get; set; }
     }
 }

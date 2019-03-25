@@ -8,6 +8,9 @@ namespace LocationServices.Locations.Interfaces
     public interface ITagService
     {
         [OperationContract]
+        Tag GetTag(int id);
+
+        [OperationContract]
         IList<Tag> GetTags();
 
         [OperationContract]

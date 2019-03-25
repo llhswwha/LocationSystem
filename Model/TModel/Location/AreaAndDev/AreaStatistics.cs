@@ -30,12 +30,18 @@ namespace TModel.Location.AreaAndDev
         /// </summary>
         public int DevAlarmNum { get; set; }
 
+        /// <summary>
+        /// 告警人员数量
+        /// </summary>
+        public int AlarmPersonNum { get; set; }
+
         public AreaStatistics()
         {
             PersonNum = 0;
             DevNum = 0;
             LocationAlarmNum = 0;
             DevAlarmNum = 0;
+            AlarmPersonNum = 0;
         }
 
         public void Add(AreaStatistics ast2)
@@ -44,6 +50,7 @@ namespace TModel.Location.AreaAndDev
             DevNum += ast2.DevNum;
             LocationAlarmNum += ast2.LocationAlarmNum;
             DevAlarmNum += ast2.DevAlarmNum;
+            AlarmPersonNum += ast2.AlarmPersonNum;
         }
     }
 }

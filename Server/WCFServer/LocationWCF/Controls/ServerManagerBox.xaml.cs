@@ -49,39 +49,50 @@ namespace LocationServer.Controls
         public ServerManagerBox()
         {
             InitializeComponent();
-
-            LocationService.ShowLog_Action = WriteLog;
         }
 
         public void StopServices()
         {
-            WriteLog("停止服务");
-            //StopConnectEngine();
-            if (LocationService.u3dositionSP != null)
+            try
             {
-                LocationService.u3dositionSP.Stop();
-                LocationService.u3dositionSP = null;
-            }
+                Location.BLL.Tool.Log.NewLogEvent -= ListenToLog;
 
-            if (httpHost != null)
+                WriteLog("停止服务");
+                //StopConnectEngine();
+                if (LocationService.u3dositionSP != null)
+                {
+                    LocationService.u3dositionSP.Stop();
+                    LocationService.u3dositionSP = null;
+                }
+                if (locationServiceHost != null)
+                {
+                    locationServiceHost.Close();
+                    locationServiceHost = null;
+                }
+                if (httpHost != null)
+                {
+                    httpHost.CloseAsync();
+                    httpHost = null;
+                }
+                if (SignalR != null)
+                {
+                    SignalR.Dispose();
+                    SignalR = null;
+                }
+
+                if (wcfApiHost != null)
+                {
+                    wcfApiHost.Close();
+                    wcfApiHost = null;
+                }
+                
+                StopReceiveAlarm();
+
+            }
+            catch (Exception ex)
             {
-                httpHost.CloseAsync();
-                httpHost = null;
+                ListenToLog(ex.ToString());
             }
-            if (SignalR != null)
-            {
-                SignalR.Dispose();
-                SignalR = null;
-            }
-
-            if (wcfApiHost != null)
-            {
-                wcfApiHost.Close();
-                wcfApiHost = null;
-            }
-
-            StopReceiveAlarm();
-
         }
 
 
@@ -138,19 +149,19 @@ namespace LocationServer.Controls
         {
             try
             {
+                Location.BLL.Tool.Log.NewLogEvent += ListenToLog;
                 WriteLog("启动服务");
+
                 StartLocationService(host, port);
                 StartLocationServiceApi(host, port);
                 StartLocationAlarmService();
                 StartWebApiService(host, port);
                 StartSignalRService(host, port);
-
-                //LocationService.ShowLog_Action += ShowTest;
-                U3DPositionSP.ShowLog_Action += ShowTest;
+                
             }
             catch (Exception ex)
             {
-                WriteLog(ex.ToString());
+                ListenToLog(ex.ToString());
             }
         }
 
@@ -186,14 +197,22 @@ namespace LocationServer.Controls
 
         private void WriteLog(string txt)
         {
-            Log.Info(txt);
-            string log = string.Format("[{0}][{1}]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), txt);
-            if (logText.Length > 2000)
+            //string log = string.Format("[{0}][{1}]", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), txt);
+            Location.BLL.Tool.Log.Info(txt);
+        }
+
+        private void ListenToLog(string log)
+        {
+
+            if (logText.Length > 20000)
             {
                 logText = "";
             }
             logText = log + "\n" + logText;
-            TbResult1.Text = logText;
+            TbResult1.Dispatcher.Invoke(() =>
+            {
+                TbResult1.Text = logText;
+            });
         }
 
         HttpSelfHostServer httpHost;
@@ -223,13 +242,14 @@ namespace LocationServer.Controls
             Uri baseAddres = new Uri(url);
             locationServiceHost = new ServiceHost(typeof(LocationService), baseAddres);
             BasicHttpBinding httpBinding = new BasicHttpBinding();
-            locationServiceHost.AddServiceEndpoint(typeof(ILocationService), httpBinding, baseAddres);
             //httpBinding.MaxReceivedMessageSize = 2147483647;
             //httpBinding.MaxBufferPoolSize = 2147483647;
+
+            //Binding httpBinding = new WSHttpBinding();
+            locationServiceHost.AddServiceEndpoint(typeof(ILocationService), httpBinding, baseAddres);
             Binding binding = MetadataExchangeBindings.CreateMexHttpBinding();
             locationServiceHost.AddServiceEndpoint(typeof(IMetadataExchange), binding, "MEX");
             //开放数据交付终结点，客户端才能添加/更新服务引用。
-
             ServiceThrottlingBehavior throttle = locationServiceHost.Description.Behaviors.Find<ServiceThrottlingBehavior>();
             if (throttle == null)
             {

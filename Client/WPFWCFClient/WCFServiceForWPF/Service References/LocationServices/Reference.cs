@@ -1470,6 +1470,9 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/GetDepartmentTree", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse")]
         Location.TModel.Location.Person.Department GetDepartmentTree();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/GetTag", ReplyAction="http://tempuri.org/ITagService/GetTagResponse")]
+        Location.TModel.Location.AreaAndDev.Tag GetTag(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/GetTags", ReplyAction="http://tempuri.org/ITagService/GetTagsResponse")]
         Location.TModel.Location.AreaAndDev.Tag[] GetTags();
         
@@ -1658,7 +1661,7 @@ namespace WCFServiceForWPF.LocationServices {
         string FindKKSCodeByName(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyList", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyListResponse")]
-        Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetPhysicalTopologyList();
+        Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetPhysicalTopologyList(int view);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopology", ReplyAction="http://tempuri.org/IPhysicalTopologyService/GetPhysicalTopologyResponse")]
         Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopology(string id, bool getChildren);
@@ -1701,7 +1704,10 @@ namespace WCFServiceForWPF.LocationServices {
         bool EditMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/AddMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/AddMonitorRangeResponse")]
-        bool AddMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt);
+        Location.TModel.Location.AreaAndDev.PhysicalTopology AddMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPhysicalTopologyService/DeleteMonitorRange", ReplyAction="http://tempuri.org/IPhysicalTopologyService/DeleteMonitorRangeResponse")]
+        bool DeleteMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IConfigArgService/AddConfigArg", ReplyAction="http://tempuri.org/IConfigArgService/AddConfigArgResponse")]
         bool AddConfigArg(Location.TModel.Location.AreaAndDev.ConfigArg config);
@@ -1815,7 +1821,7 @@ namespace WCFServiceForWPF.LocationServices {
         void GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSomesisList", ReplyAction="http://tempuri.org/IBaseDataService/GetSomesisListResponse")]
-        void GetSomesisList(string kks);
+        TModel.Location.AreaAndDev.DevMonitorNode[] GetSomesisList(string strTags);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSomeSisHistoryList", ReplyAction="http://tempuri.org/IBaseDataService/GetSomeSisHistoryListResponse")]
         void GetSomeSisHistoryList(string kks, bool compact);
@@ -1865,6 +1871,9 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Logout", ReplyAction="http://tempuri.org/IUserService/LogoutResponse")]
         TModel.Location.Manage.LoginInfo Logout(TModel.Location.Manage.LoginInfo info);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/KeepLive", ReplyAction="http://tempuri.org/IUserService/KeepLiveResponse")]
+        TModel.Location.Manage.LoginInfo KeepLive(TModel.Location.Manage.LoginInfo info);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/GetVersionInfo", ReplyAction="http://tempuri.org/IUserService/GetVersionInfoResponse")]
         TModel.Location.Manage.VersionInfo GetVersionInfo();
         
@@ -1880,11 +1889,32 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/GetPictureInfo", ReplyAction="http://tempuri.org/IPictureService/GetPictureInfoResponse")]
         TModel.Location.AreaAndDev.Picture GetPictureInfo(string strPictureName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/GetHomePageNameList", ReplyAction="http://tempuri.org/IPictureService/GetHomePageNameListResponse")]
+        string[] GetHomePageNameList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPictureService/GetHomePageByName", ReplyAction="http://tempuri.org/IPictureService/GetHomePageByNameResponse")]
+        byte[] GetHomePageByName(string strPictureName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAreaService/GetAreaStatistics", ReplyAction="http://tempuri.org/IAreaService/GetAreaStatisticsResponse")]
         TModel.Location.AreaAndDev.AreaStatistics GetAreaStatistics(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAreaService/GetAreaById", ReplyAction="http://tempuri.org/IAreaService/GetAreaByIdResponse")]
         WCFServiceForWPF.LocationServices.Area GetAreaById(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInitDbService/InitKksTable", ReplyAction="http://tempuri.org/IInitDbService/InitKksTableResponse")]
+        void InitKksTable();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetUnitySetting", ReplyAction="http://tempuri.org/ILocationService/GetUnitySettingResponse")]
+        TModel.Models.Settings.UnitySetting GetUnitySetting();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/DebugMessage", ReplyAction="http://tempuri.org/ILocationService/DebugMessageResponse")]
+        void DebugMessage(string msg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetPoints", ReplyAction="http://tempuri.org/ILocationService/GetPointsResponse")]
+        TModel.Location.AreaAndDev.AreaPoints GetPoints(int areaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetPointsByPid", ReplyAction="http://tempuri.org/ILocationService/GetPointsByPidResponse")]
+        TModel.Location.AreaAndDev.AreaPoints[] GetPointsByPid(int pid);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1924,6 +1954,10 @@ namespace WCFServiceForWPF.LocationServices {
         
         public Location.TModel.Location.Person.Department GetDepartmentTree() {
             return base.Channel.GetDepartmentTree();
+        }
+        
+        public Location.TModel.Location.AreaAndDev.Tag GetTag(int id) {
+            return base.Channel.GetTag(id);
         }
         
         public Location.TModel.Location.AreaAndDev.Tag[] GetTags() {
@@ -2174,8 +2208,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.FindKKSCodeByName(name);
         }
         
-        public Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetPhysicalTopologyList() {
-            return base.Channel.GetPhysicalTopologyList();
+        public Location.TModel.Location.AreaAndDev.PhysicalTopology[] GetPhysicalTopologyList(int view) {
+            return base.Channel.GetPhysicalTopologyList(view);
         }
         
         public Location.TModel.Location.AreaAndDev.PhysicalTopology GetPhysicalTopology(string id, bool getChildren) {
@@ -2230,8 +2264,12 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.EditMonitorRange(pt);
         }
         
-        public bool AddMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt) {
+        public Location.TModel.Location.AreaAndDev.PhysicalTopology AddMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt) {
             return base.Channel.AddMonitorRange(pt);
+        }
+        
+        public bool DeleteMonitorRange(Location.TModel.Location.AreaAndDev.PhysicalTopology pt) {
+            return base.Channel.DeleteMonitorRange(pt);
         }
         
         public bool AddConfigArg(Location.TModel.Location.AreaAndDev.ConfigArg config) {
@@ -2382,8 +2420,8 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.GeteventsList(src, level, begin_t, end_t);
         }
         
-        public void GetSomesisList(string kks) {
-            base.Channel.GetSomesisList(kks);
+        public TModel.Location.AreaAndDev.DevMonitorNode[] GetSomesisList(string strTags) {
+            return base.Channel.GetSomesisList(strTags);
         }
         
         public void GetSomeSisHistoryList(string kks, bool compact) {
@@ -2450,6 +2488,10 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.Logout(info);
         }
         
+        public TModel.Location.Manage.LoginInfo KeepLive(TModel.Location.Manage.LoginInfo info) {
+            return base.Channel.KeepLive(info);
+        }
+        
         public TModel.Location.Manage.VersionInfo GetVersionInfo() {
             return base.Channel.GetVersionInfo();
         }
@@ -2470,12 +2512,40 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetPictureInfo(strPictureName);
         }
         
+        public string[] GetHomePageNameList() {
+            return base.Channel.GetHomePageNameList();
+        }
+        
+        public byte[] GetHomePageByName(string strPictureName) {
+            return base.Channel.GetHomePageByName(strPictureName);
+        }
+        
         public TModel.Location.AreaAndDev.AreaStatistics GetAreaStatistics(int id) {
             return base.Channel.GetAreaStatistics(id);
         }
         
         public WCFServiceForWPF.LocationServices.Area GetAreaById(int id) {
             return base.Channel.GetAreaById(id);
+        }
+        
+        public void InitKksTable() {
+            base.Channel.InitKksTable();
+        }
+        
+        public TModel.Models.Settings.UnitySetting GetUnitySetting() {
+            return base.Channel.GetUnitySetting();
+        }
+        
+        public void DebugMessage(string msg) {
+            base.Channel.DebugMessage(msg);
+        }
+        
+        public TModel.Location.AreaAndDev.AreaPoints GetPoints(int areaId) {
+            return base.Channel.GetPoints(areaId);
+        }
+        
+        public TModel.Location.AreaAndDev.AreaPoints[] GetPointsByPid(int pid) {
+            return base.Channel.GetPointsByPid(pid);
         }
     }
 }

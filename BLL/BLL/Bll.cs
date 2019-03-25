@@ -130,6 +130,8 @@ namespace BLL
 
         public PatrolPointItemBll PatrolPointItems { get; set; }
 
+        public HomePagePictureBll HomePagePictures { get; set; }
+
 
         /********************LocationHistory********************************/
 
@@ -174,6 +176,8 @@ namespace BLL
         public PatrolPointHistoryBll PatrolPointHistorys { get; set; }
 
         public PatrolPointItemHistoryBll PatrolPointItemHistorys { get; set; }
+
+        public DevMonitorNodeHistoryBll DevMonitorNodeHistorys { get; set; }
 
         /********************Engine********************************/
         public bus_anchorBll bus_anchors { get; set; }
@@ -247,6 +251,7 @@ namespace BLL
             PatrolPointItems = new PatrolPointItemBll(Db);
             //Shapes = new ShapeBll(Db);
             //ShapePoints = new ShapePointBll();
+            HomePagePictures = new HomePagePictureBll(Db);
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);
@@ -269,6 +274,8 @@ namespace BLL
             InspectionTrackHistorys = new InspectionTrackHistoryBll(DbHistory);
             PatrolPointHistorys = new PatrolPointHistoryBll(DbHistory);
             PatrolPointItemHistorys = new PatrolPointItemHistoryBll(DbHistory);
+            DevMonitorNodeHistorys = new DevMonitorNodeHistoryBll(DbHistory);
+
 
             bus_anchors = new bus_anchorBll(DbE);
             bus_tags = new bus_tagBll(DbE);

@@ -7,18 +7,22 @@ namespace IModel
 {
     public interface IDevMonitorNode : IId
     {
-        string KKS { get; set; }
         string TagName { get; set; }
-         string DataBaseName { get; set; }
 
-         string DataBaseTagName { get; set; }
+        string DbTagName { get; set; }
+        
+        string Describe { get; set; }
+        
+        string Value { get; set; }
 
-         string Describe { get; set; }
+        string Unit { get; set; }
 
-         string Unit { get; set; }
+        string DataType { get; set; }
 
-         string DataType { get; set; }
+        string KKS { get; set; }
 
-         string TagType { get; set; }
+        string ParentKKS { get; set; }
+        
+        int Time { get; set; }
     }
 }

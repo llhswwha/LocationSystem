@@ -23,6 +23,7 @@ using WCFServiceForWPF.LocationServices;
 using TModel.LocationHistory.AreaAndDev;
 using TModel.Location.Work;
 using Location.TModel.Location.Person;
+using System.Windows.Threading;
 
 namespace LocationWCFClient.Windows
 {
@@ -45,6 +46,7 @@ namespace LocationWCFClient.Windows
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             client = AppContext.Instance.Client.InnerClient;
+
             var treeRoot1= client.GetPhysicalTopologyTree(0);
             var treeRoot2 = client.GetDepartmentTree();
             ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
@@ -85,6 +87,7 @@ namespace LocationWCFClient.Windows
 
         private void ShowLocationAlarms(LocationAlarm[] locAlarms)
         {
+            if (locAlarms == null) return;
             LocationAlarms.AddRange(locAlarms);
             DataGridLocationAlarms.ItemsSource = null;
             DataGridLocationAlarms.ItemsSource = LocationAlarms;
@@ -268,8 +271,232 @@ namespace LocationWCFClient.Windows
 
         private void GetDevMonitorInfoByKKS_Click(object sender, RoutedEventArgs e)
         {
-            Dev_Monitor sd = client.GetDevMonitorInfoByKKS("20MAA 12CT121A", true);
+            List<Dev_Monitor> lst = new List<Dev_Monitor>();
+            List<Dev_Monitor> nolst = new List<Dev_Monitor>();
+            Dictionary<string, Dev_Monitor> hasdict = new Dictionary<string, Dev_Monitor>();
+            Dictionary<string, Dev_Monitor> nodictHasMon = new Dictionary<string, Dev_Monitor>();
+            Dictionary<string, Dev_Monitor> nodictNoMon = new Dictionary<string, Dev_Monitor>();
+
+            Dev_Monitor sd = client.GetDevMonitorInfoByKKS("10LCE16", true);
+            Dev_Monitor sd2 = client.GetDevMonitorInfoByKKS("11MKG08", true);
+            Dev_Monitor sd3 = client.GetDevMonitorInfoByKKS("11MKF21", true);
+            Dev_Monitor sd4 = client.GetDevMonitorInfoByKKS("10LCE13", true);
+            Dev_Monitor sd5 = client.GetDevMonitorInfoByKKS("10PGA11", true);
+            Dev_Monitor sd6 = client.GetDevMonitorInfoByKKS("10MAJ21", true);
+            Dev_Monitor sd7 = client.GetDevMonitorInfoByKKS("10PGA34", true);
+            Dev_Monitor sd8 = client.GetDevMonitorInfoByKKS("21MKF21", true);
+            Dev_Monitor sd9 = client.GetDevMonitorInfoByKKS("20MAA50", true);
+            Dev_Monitor sd10 = client.GetDevMonitorInfoByKKS("20PGA11", true);
+            Dev_Monitor sd11 = client.GetDevMonitorInfoByKKS("20PGA34", true);
+            Dev_Monitor sd12 = client.GetDevMonitorInfoByKKS("20LCE13", true);
+            Dev_Monitor sd13 = client.GetDevMonitorInfoByKKS("21MKG08", true);
+            Dev_Monitor sd14 = client.GetDevMonitorInfoByKKS("20MAV10", true);
+            Dev_Monitor sd15 = client.GetDevMonitorInfoByKKS("20MAJ21", true);
+            Dev_Monitor sd16 = client.GetDevMonitorInfoByKKS("20PAH12", true);
+            Dev_Monitor sd17 = client.GetDevMonitorInfoByKKS("20LCA12", true);
+            Dev_Monitor sd18 = client.GetDevMonitorInfoByKKS("20MAC01", true);
+            Dev_Monitor sd19 = client.GetDevMonitorInfoByKKS("20LCE16", true);
+            Dev_Monitor sd20 = client.GetDevMonitorInfoByKKS("21MKG30", true);
+            Dev_Monitor sd21 = client.GetDevMonitorInfoByKKS("10PAH12", true);
+            Dev_Monitor sd22 = client.GetDevMonitorInfoByKKS("10PCB11", true);
+            Dev_Monitor sd23 = client.GetDevMonitorInfoByKKS("10MAV30", true);
+            Dev_Monitor sd24 = client.GetDevMonitorInfoByKKS("10MAV10", true);
+            Dev_Monitor sd25 = client.GetDevMonitorInfoByKKS("10MAX01", true);
+            Dev_Monitor sd26 = client.GetDevMonitorInfoByKKS("10LCA12", true);
+            Dev_Monitor sd27 = client.GetDevMonitorInfoByKKS("10LCE15", true);
+            Dev_Monitor sd28 = client.GetDevMonitorInfoByKKS("10LCA40", true);
+            Dev_Monitor sd29 = client.GetDevMonitorInfoByKKS("10LCA20", true);
+            Dev_Monitor sd30 = client.GetDevMonitorInfoByKKS("10MBH20", true);
+            Dev_Monitor sd31 = client.GetDevMonitorInfoByKKS("10QEA20", true);
+            Dev_Monitor sd32 = client.GetDevMonitorInfoByKKS("10MBA41", true);
+            Dev_Monitor sd33 = client.GetDevMonitorInfoByKKS("10PGA26", true);
+            Dev_Monitor sd34 = client.GetDevMonitorInfoByKKS("11MKG08", true);
+            Dev_Monitor sd35 = client.GetDevMonitorInfoByKKS("11MKG30", true);
+            Dev_Monitor sd36 = client.GetDevMonitorInfoByKKS("10MBV10", true);
+            Dev_Monitor sd37 = client.GetDevMonitorInfoByKKS("10MAV41", true);
+            Dev_Monitor sd38 = client.GetDevMonitorInfoByKKS("20PCB11", true);
+            Dev_Monitor sd39 = client.GetDevMonitorInfoByKKS("20MAV30", true);
+            Dev_Monitor sd40 = client.GetDevMonitorInfoByKKS("20MAX01", true);
+            Dev_Monitor sd41 = client.GetDevMonitorInfoByKKS("20LCE15", true);
+            Dev_Monitor sd42 = client.GetDevMonitorInfoByKKS("20LCA40", true);
+            Dev_Monitor sd43 = client.GetDevMonitorInfoByKKS("20LCA20", true);
+            Dev_Monitor sd44 = client.GetDevMonitorInfoByKKS("20MBH20", true);
+            Dev_Monitor sd45 = client.GetDevMonitorInfoByKKS("20QEA20", true);
+            Dev_Monitor sd46 = client.GetDevMonitorInfoByKKS("20MBA41", true);
+            Dev_Monitor sd47 = client.GetDevMonitorInfoByKKS("20PGA26", true);
+            Dev_Monitor sd48 = client.GetDevMonitorInfoByKKS("21MKG08", true);
+            Dev_Monitor sd49 = client.GetDevMonitorInfoByKKS("20MBV10", true);
+            Dev_Monitor sd50 = client.GetDevMonitorInfoByKKS("20MAV41", true);
+            Dev_Monitor sd51 = client.GetDevMonitorInfoByKKS("10MAA50", true);
+            Dev_Monitor sd52 = client.GetDevMonitorInfoByKKS("10MAC01", true);
+            lst.Add(sd);
+            lst.Add(sd2);
+            lst.Add(sd3);
+            lst.Add(sd4);
+            lst.Add(sd5);
+            lst.Add(sd6);
+            lst.Add(sd7);
+            lst.Add(sd8);
+            lst.Add(sd9);
+            lst.Add(sd10);
+            lst.Add(sd11);
+            lst.Add(sd12);
+            lst.Add(sd13);
+            lst.Add(sd14);
+            lst.Add(sd15);
+            lst.Add(sd16);
+            lst.Add(sd17);
+            lst.Add(sd18);
+            lst.Add(sd19);
+            lst.Add(sd20);
+            lst.Add(sd21);
+            lst.Add(sd22);
+            lst.Add(sd23);
+            lst.Add(sd24);
+            lst.Add(sd25);
+            lst.Add(sd26);
+            lst.Add(sd27);
+            lst.Add(sd28);
+            lst.Add(sd29);
+            lst.Add(sd30);
+            lst.Add(sd31);
+            lst.Add(sd32);
+            lst.Add(sd33);
+            lst.Add(sd34);
+            lst.Add(sd35);
+            lst.Add(sd36);
+            lst.Add(sd37);
+            lst.Add(sd38);
+            lst.Add(sd39);
+            lst.Add(sd40);
+            lst.Add(sd41);
+            lst.Add(sd42);
+            lst.Add(sd43);
+            lst.Add(sd44);
+            lst.Add(sd45);
+            lst.Add(sd46);
+            lst.Add(sd47);
+            lst.Add(sd48);
+            lst.Add(sd49);
+            lst.Add(sd50);
+            lst.Add(sd51);
+            lst.Add(sd52);
+
+            bool bReturn = false;
+            string strKKS1 = "";
+            string strKKS2 = "";
+            string strKKS3 = "";
+            foreach (Dev_Monitor item in lst)
+            {
+                bReturn = GetHasOrNo(item);
+                if (bReturn)
+                {
+                    hasdict[item.KKSCode] = item;
+                    strKKS1 += item.KKSCode + "\n";
+                }
+                else
+                {
+                    nolst.Add(item);
+                }
+            }
+
+            foreach (Dev_Monitor item2 in nolst)
+            {
+                bReturn = HasMonitorNode(item2);
+                if (bReturn)
+                {
+                    nodictHasMon[item2.KKSCode] = item2;
+                    strKKS2 += item2.KKSCode + "\n";
+                }
+                else
+                {
+                    nodictNoMon[item2.KKSCode] = item2;
+                    strKKS3 += item2.KKSCode + "\n";
+                }
+            }
+
             int nnn = 0;
+        }
+
+        private bool GetHasOrNo(Dev_Monitor dvm)
+        {
+            bool bReturn = false;
+
+            if (dvm.MonitorNodeList == null || dvm.MonitorNodeList.Count() == 0)
+            {
+                bReturn = false;
+            }
+            else
+            {
+                foreach (DevMonitorNode item2 in dvm.MonitorNodeList)
+                {
+                    if (item2.Value != "" && item2.Value != null && item2.Value != "null")
+                    {
+                        bReturn = true;
+                        break;
+                    }
+                }
+            }
+
+            if (bReturn)
+            {
+                return bReturn;
+            }
+            else
+            {
+                if (dvm.ChildrenList == null || dvm.ChildrenList.Count() == 0)
+                {
+                    bReturn = false;
+                    return bReturn;
+                }
+                else
+                {
+                    foreach (Dev_Monitor item in dvm.ChildrenList)
+                    {
+                        bReturn = GetHasOrNo(item);
+                        if (bReturn)
+                        {
+                            return bReturn;
+                        }
+                    }
+                }
+            }
+
+            return bReturn;
+        }
+
+        private bool HasMonitorNode(Dev_Monitor dvm)
+        {
+            bool bReturn = false;
+            if (dvm.MonitorNodeList == null || dvm.MonitorNodeList.Count() == 0)
+            {
+                bReturn = false;
+            }
+            else
+            {
+                bReturn = true;
+            }
+
+            if (bReturn)
+            {
+                return bReturn;
+            }
+            else
+            {
+                if (dvm.ChildrenList != null && dvm.ChildrenList.Count() > 0)
+                {
+                    foreach (Dev_Monitor item in dvm.ChildrenList)
+                    {
+                        bReturn = HasMonitorNode(item);
+                        if (bReturn)
+                        {
+                            return bReturn;
+                        }
+                    }
+                }
+            }
+
+            return bReturn;
         }
 
         private void GetInspectionTrack_Click(object sender, RoutedEventArgs e)
@@ -401,7 +628,7 @@ namespace LocationWCFClient.Windows
         //获取SIS传感数据
         private void GetSomesisList_Click(object sender, RoutedEventArgs e)
         {
-            client.GetSomesisList("k01,k02");
+            client.GetSomesisList("FW.J0GCK14AP001_F,N2DCS.20MAV42FP116A_DL12");
             int nn = 0;
         }
 
@@ -410,7 +637,7 @@ namespace LocationWCFClient.Windows
         {
             client.GetSomeSisHistoryList("k01", true);
 
-            client.GetSomeSisHistoryList("k01", false);
+            client.GetSomeSisHistoryList("N2DCS.20MAV42FP116A_DL12", false);
             int nn = 0;
         }
 
@@ -442,8 +669,45 @@ namespace LocationWCFClient.Windows
             int nn = 0;
         }
 
+
+        #endregion
+        DispatcherTimer timer;
+        private void TestGetTags_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(0.1f);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            var tags=client.GetTags();
+        }
+        #region 初始化数据库表
+        private void InitKksTable_Click(object sender, RoutedEventArgs e)
+        {
+            client.InitKksTable();
+            int nn = 0;
+        }
+
         #endregion
 
+        private void TestGetHomePage_Click(object sender, RoutedEventArgs e)
+        {
+            byte[] ds = client.GetHomePageByName("11.png");
+            int nn = 0;
+        }
 
+        private void TestGetHomePageName_Click(object sender, RoutedEventArgs e)
+        {
+            string[] ds = client.GetHomePageNameList();
+            int nn = 0;
+        }
+
+        private void EscapeKKS_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

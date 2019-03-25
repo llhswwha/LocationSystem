@@ -59,7 +59,7 @@ namespace LocationWCFServer
 
         private void LogEvent_InfoEvent(string obj)
         {
-            Log.Info(obj);
+            //Location.BLL.Tool.Log.Info(obj);
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();
@@ -277,6 +277,36 @@ namespace LocationWCFServer
         {
             var win = new ArchorWindow();
             win.Show();
+        }
+
+        private void OriginalKKSCode_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                    string filePath = basePath + "Data\\EDOSOriginalCode.xls";
+                    string createfilePath = basePath + "..\\..\\Data\\EDOS.xls";
+                    int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode(new FileInfo(filePath), createfilePath);
+                    if (nReturn == 0)
+                    {
+                        MessageBox.Show("KKS转义完成");
+                    }
+                    else
+                    {
+                        MessageBox.Show("原始KKS码文件不存在");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("KKS转义失败：" + ex.Message);
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
+            
+            return;
         }
     }
 }

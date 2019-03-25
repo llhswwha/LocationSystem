@@ -71,6 +71,9 @@ namespace LocationServices.Locations.Interfaces
         bool EditMonitorRange(PhysicalTopology pt);
 
         [OperationContract]
-        bool AddMonitorRange(PhysicalTopology pt);
+        PhysicalTopology AddMonitorRange(PhysicalTopology pt);
+
+        [OperationContract]
+        bool DeleteMonitorRange(PhysicalTopology pt);
     }
 }

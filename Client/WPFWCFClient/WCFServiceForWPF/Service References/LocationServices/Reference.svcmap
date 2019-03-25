@@ -42,6 +42,7 @@
     <MetadataFile FileName="TModel.LocationHistory.Work1.xsd" MetadataType="Schema" ID="b7d63d97-5346-48bf-b93f-2c7d176ad363" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.Location.Work1.xsd" MetadataType="Schema" ID="abb4304b-6a27-40eb-8c06-3b737a136c59" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.Location.Manage1.xsd" MetadataType="Schema" ID="a2af6cfd-5cb6-45f1-83f0-34a5c534eaf9" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="TModel.Models.Settings.xsd" MetadataType="Schema" ID="2aef5920-620d-488c-96b3-97bdd8f8c063" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

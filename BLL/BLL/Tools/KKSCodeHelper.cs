@@ -82,6 +82,12 @@ namespace Location.BLL.Tool
             {
                 T kks1 = CreateKKSCodeFromDataRow<T>(mainType, dr);//根据表格内容创建KKS对象
                 if (kks1 == null) continue;
+                int nCount = list.FindAll(p => p.Code == kks1.Code).Count;
+                if (nCount >= 1)
+                {
+                    continue;
+                }
+
                 int nSplit = kks1.Code.Split(ch).Length - 1;
                 if (nSplit == 0)
                 {
@@ -121,7 +127,7 @@ namespace Location.BLL.Tool
             }
             Bll bll = new Bll();
             List<KKSCode> kksList = bll.KKSCodes.ToList();
-            if (kksList != null && kksList.Count == 0)
+            if (kksList != null /*&& kksList.Count == 0*/)
             {
                 List<KKSCode> list = CreateKKSCodeListFromFile<KKSCode>(file);
                 bll.KKSCodes.AddRange(bll.Db, list); //新增的部分
@@ -224,5 +230,82 @@ namespace Location.BLL.Tool
             List<T> list1 = CreateKKSCodeListFromDataTable<T>(strFolderName,dtTable);
             return list1;
         }
+
+        #region
+        /// <summary>
+        /// 转义为KKS编码
+        /// </summary>
+        public static int OriginalKKSCode(FileInfo file, string createfilePath)
+        {
+            if (file.Exists == false)
+            {
+                return 1;
+            }
+            Bll bll = new Bll();
+            List<KKSCode> kksList = bll.KKSCodes.ToList();
+            if (kksList != null /*&& kksList.Count == 0*/)
+            {
+                string strFolderName = file.Directory.Name;
+                DataTable dtTableEDOS = new DataTable();
+                dtTableEDOS.Columns.Add("标签名", typeof(string));
+                dtTableEDOS.Columns.Add("数据库标签名", typeof(string));
+                dtTableEDOS.Columns.Add("描述", typeof(string));
+                dtTableEDOS.Columns.Add("单位", typeof(string));
+                dtTableEDOS.Columns.Add("类型", typeof(string));
+                dtTableEDOS.Columns.Add("转义后的KKS编码", typeof(string));
+                dtTableEDOS.Columns.Add("转义后的父类KKS编码", typeof(string));
+                
+                DataTable dtTable = ExcelHelper.Load(new FileInfo(file.FullName), false).Tables[0].Copy();
+                dtTable.Rows.RemoveAt(0);
+
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    string strTagName = dr[0].ToString();
+                    int index = strTagName.IndexOf('.');
+                    strTagName = strTagName.Substring(index + 1);
+                    strTagName = strTagName.Replace("_", " ");
+                    string strNodeKKS = strTagName;
+                    string strDevKKS = GetKKSCode(strTagName, ref kksList);
+                    if (strDevKKS == "")
+                    {
+                        continue;
+                    }
+
+                    DataRow dr2 = dtTableEDOS.NewRow();
+                    dr2["标签名"] = dr[0].ToString();
+                    dr2["数据库标签名"] = dr[2].ToString();
+                    dr2["描述"] = dr[3].ToString();
+                    dr2["单位"] = dr[4].ToString();
+                    dr2["类型"] = dr[5].ToString();
+                    dr2["转义后的KKS编码"] = strNodeKKS;
+                    dr2["转义后的父类KKS编码"] = strDevKKS;
+                    dtTableEDOS.Rows.Add(dr2);
+                }
+                
+                ExcelHelper.Save(dtTableEDOS, new FileInfo(createfilePath), null);
+            }
+
+            return 0;
+        }
+
+        private static string GetKKSCode(string strTageName, ref List<KKSCode> kksList)
+        {
+            if (strTageName == "")
+            {
+                return strTageName;
+            }
+
+            KKSCode Tag = kksList.Find(p => p.Code == strTageName);
+            if (Tag == null)
+            {
+                int nLength = strTageName.Length;
+                strTageName = strTageName.Substring(0, nLength-1);
+                strTageName = GetKKSCode(strTageName, ref kksList);
+            }
+
+            return strTageName;
+        } 
+        #endregion
+
     }
 }

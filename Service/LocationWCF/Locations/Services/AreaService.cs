@@ -20,6 +20,8 @@ using TPerson = Location.TModel.Location.Person.Personnel;
 using DbPerson = DbModel.Location.Person.Personnel;
 using Point = Location.TModel.Location.AreaAndDev.Point;
 using Bound = Location.TModel.Location.AreaAndDev.Bound;
+using TModel.Location.Person;
+using System.Diagnostics;
 
 namespace LocationServices.Locations.Services
 {
@@ -43,6 +45,14 @@ namespace LocationServices.Locations.Services
         /// <param name="view">0:基本数据;1:基本设备信息;2:基本人员信息;3:基本设备信息+基本人员信息;4:只显示设备的节点;5:只显示人员的节点;6:只显示人员或设备的节点</param>
         /// <returns></returns>
         AreaNode GetBasicTree(int view);
+
+        AreaStatistics GetAreaStatistics(int id);
+
+        Area GetAreaById(int id);
+
+        AreaPoints GetPoints(string areaId);
+
+        List<AreaPoints> GetPointsByPid(string pid);
     }
     public class AreaService : IAreaService
     {
@@ -62,7 +72,7 @@ namespace LocationServices.Locations.Services
             dbSet = db.Areas;
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             var list1 = dbSet.ToList();
             return list1.ToWcfModelList();
@@ -88,17 +98,23 @@ namespace LocationServices.Locations.Services
                          join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
                          where lst.Contains(t1.ParentId)
                          select t2;
-            
+
+            var query5 = (from t1 in db.LocationAlarms.DbSet
+                         where lst.Contains(t1.AreaId) && t1.AlarmLevel != 0
+                         select t1.PersonnelId).Distinct().ToList();
+
             var pList = query.ToList();
             var dvList = query2.ToList();
             var laList = query3.ToList();
             var daList = query4.ToList();
+            var apList = query5.ToList();
 
             var ass=new AreaStatistics();
             ass.PersonNum= pList.Count;
             ass.DevNum = dvList.Count;
             ass.LocationAlarmNum = laList.Count;
             ass.DevAlarmNum = daList.Count;
+            ass.AlarmPersonNum = apList.Count();
             return ass;
         }
 
@@ -229,10 +245,21 @@ namespace LocationServices.Locations.Services
                 var leafNodes = db.DevInfos.ToList();
                 tree = GetTreeWithPerson(leafNodes.ToTModel());
             }
+            else
+            {
+                Log.Error("GetTree View="+view);
+            }
             if(tree!=null)
                 tree.SetParent();
-            string xml = XmlSerializeHelper.GetXmlText(tree);
-            int length = xml.Length;
+            if (tree != null)
+            {
+                //string xml = XmlSerializeHelper.GetXmlText(tree);
+                //int length = xml.Length;
+            }
+            else
+            {
+                Log.Error("GetTree tree == null");
+            }
             return tree;
         }
 
@@ -787,6 +814,71 @@ namespace LocationServices.Locations.Services
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 根据id，获取区域信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Area GetAreaById(int id)
+        {
+            return db.Areas.Find(i => i.Id == id);
+        }
+
+        public AreaStatistics GetAreaStatistics(int id)
+        {
+            Log.Info(">>>>> GetAreaStatistics id=" + id);
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            List<int?> lst = new List<int?>();
+            List<int?> lstRecv;
+
+            var areaList = db.Areas.ToList();
+            var a1 = areaList.Find(p => p.Id == id);
+            if (a1 == null)
+            {
+                return new AreaStatistics();
+            }
+
+            lst.Add(a1.Id);
+            lstRecv = GetAreaStatisticsInner(a1.Id, areaList);
+            if (lstRecv != null || lstRecv.Count > 0)
+            {
+                lst.AddRange(lstRecv);
+            }
+
+            AreaService asr = new AreaService();
+            AreaStatistics ast = asr.GetAreaStatisticsCount(lst);
+            watch.Stop();
+            TimeSpan time = watch.Elapsed;
+            Log.Info("time:" + time);
+            Log.Info("<<<<<< GetAreaStatistics id=" + id);
+            return ast;
+        }
+
+
+        private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
+        {
+            List<int?> lst = new List<int?>();
+            List<DbModel.Location.AreaAndDev.Area> alist2 = areaList.FindAll(p => p.ParentId == id);
+            List<int?> lstRecv;
+            if (alist2 == null || alist2.Count <= 0)
+            {
+                return lst;
+            }
+
+            foreach (DbModel.Location.AreaAndDev.Area item in alist2)
+            {
+                lst.Add(item.Id);
+                lstRecv = GetAreaStatisticsInner(item.Id, areaList);
+                if (lstRecv != null || lstRecv.Count > 0)
+                {
+                    lst.AddRange(lstRecv);
+                }
+            }
+
+            return lst;
         }
     }
 }

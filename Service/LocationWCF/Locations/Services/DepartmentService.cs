@@ -119,7 +119,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             var list = dbSet.ToList();
             var list2 = list.ToTModel();
@@ -150,6 +150,8 @@ namespace LocationServices.Locations.Services
             return GetTree(new List<Personnel>());
         }
 
+        PersonService personService;
+
         public TEntity GetTree(int view)
         {
             if (view == 0)
@@ -159,6 +161,16 @@ namespace LocationServices.Locations.Services
             else if (view == 1)
             {
                 List<Personnel> leafNodes = db.Personnels.ToList().ToTModel();
+                return GetTree(leafNodes);
+            }
+            else if (view == 2)
+            {
+                
+                if (personService == null)
+                {
+                    personService = new PersonService();
+                }
+                List<Personnel> leafNodes = personService.GetList(true);
                 return GetTree(leafNodes);
             }
             else
@@ -175,6 +187,10 @@ namespace LocationServices.Locations.Services
                 var list = dbSet.ToList().ToTModel();
                 //var leafNodes = GetPersonList();
                 var roots = TreeHelper.CreateTree(list, leafNodes);
+                //foreach (var p in leafNodes)
+                //{
+                //    p.Parent = list.Find(i => i.Id == p.ParentId);
+                //}
                 if (roots.Count > 0)
                 {
                     return roots[0];

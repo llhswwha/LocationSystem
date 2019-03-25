@@ -54,7 +54,7 @@ namespace LocationServer
 
         public void StartConnectEngine()
         {
-            Log.Info("开始连接定位引擎");
+            Location.BLL.Tool.Log.Info("开始连接定位引擎");
             int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineClient == null)
             {

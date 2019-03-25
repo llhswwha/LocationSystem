@@ -63,6 +63,8 @@ namespace BLL
 
         private LocationCardToPersonnelBll LocationCardToPersonnels => _bll.LocationCardToPersonnels;
 
+        private HomePagePictureBll HomePagePictures => _bll.HomePagePictures;
+
         public DbInitializer(Bll bll)
         {
             _bll = bll;
@@ -127,6 +129,9 @@ namespace BLL
 
         public void InitByEntitys()
         {
+            //初始化首页图片信息
+            InitHomePage();
+
             InitKKSCode();
 
             InitTagPositions(true);
@@ -548,6 +553,23 @@ namespace BLL
             var list2 = DbInfoHelper.GetArchorSettings();
             _bll.ArchorSettings.Clear();
             _bll.ArchorSettings.AddRange(list2);
+        }
+
+        public void InitHomePage()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\");
+            FileInfo[] files = dirInfo.GetFiles();
+            HomePagePictures.Clear();
+            List<HomePagePicture> HppList = new List<HomePagePicture>();
+           
+            foreach (var file in files)
+            {
+                HomePagePicture Hpp = new HomePagePicture();
+                Hpp.Name = file.Name;
+                HppList.Add(Hpp);
+            }
+
+            HomePagePictures.AddRange(HppList);
         }
     }
 }

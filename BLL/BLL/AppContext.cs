@@ -119,7 +119,7 @@ namespace LocationServer
                 var db2 = new DbContext("LocationHistoryConnection");
                 var delResult2 = db2.Database.Delete();
             }
-            else
+            else if (type == 1)
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\");
                 FileInfo[] files = dirInfo.GetFiles("*.db");
@@ -128,7 +128,15 @@ namespace LocationServer
                     file.Delete();
                 }
             }
-            
+            else
+            {
+                LocationDb Ldb = new LocationDb();
+                LocationHistoryDb Lhdb = new LocationHistoryDb();
+               // Ldb.Database.ExecuteSqlCommand("drop database location");
+               // Lhdb.Database.ExecuteSqlCommand("drop database locationhistory");
+                Ldb.Database.Delete();
+                Lhdb.Database.Delete();
+            }
         }
     }
 }

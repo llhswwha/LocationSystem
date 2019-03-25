@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using TModel.BaseData;
+using TModel.Location.AreaAndDev;
 using TModel.Location.Work;
 using TModel.LocationHistory.Work;
 
@@ -61,7 +62,7 @@ namespace LocationServices.Locations.Interfaces
         void GeteventsList(int? src, int? level, long? begin_t, long? end_t);
 
         [OperationContract]
-        void GetSomesisList(string kks);
+        List<DevMonitorNode> GetSomesisList(string strTags);
 
         [OperationContract]
         void GetSomeSisHistoryList(string kks, bool compact);

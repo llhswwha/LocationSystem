@@ -12,7 +12,7 @@ namespace LocationServices.Locations.Services
 
         T GetEntity(string id);
 
-        IList<T> GetList();
+        List<T> GetList();
 
         T Post(T item);
 

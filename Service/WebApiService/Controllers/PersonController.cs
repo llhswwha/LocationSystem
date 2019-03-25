@@ -43,14 +43,14 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return service.GetList();
         }
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail)
         {
             return service.GetList(detail);
         }

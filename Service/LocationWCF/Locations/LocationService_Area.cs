@@ -23,37 +23,37 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<PhysicalTopology> GetPhysicalTopologyList(int view)
         {
-            ShowLog(">>>>> GetPhysicalTopologyList");
+            ShowLogEx(">>>>> GetPhysicalTopologyList");
             BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
             return new AreaService(dbpt).GetList(view);
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
         {
-            ShowLog(">>>>> GetPhysicalTopology id"+id);
+            ShowLogEx(">>>>> GetPhysicalTopology id" + id);
             return new AreaService(db).GetEntity(id, getChildren);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByName(string name)
         {
-            ShowLog(">>>>> GetPhysicalTopologyListByName name" + name);
+            ShowLogEx(">>>>> GetPhysicalTopologyListByName name" + name);
             return new AreaService(db).GetListByName(name);
         }
 
         public IList<PhysicalTopology> GetPhysicalTopologyListByPid(string pid)
         {
-            ShowLog(">>>>> GetPhysicalTopologyListByPid pid" + pid);
+            ShowLogEx(">>>>> GetPhysicalTopologyListByPid pid" + pid);
             return new AreaService(db).GetListByPid(pid);
         }
 
-        public AreaPoints GetPoints(string areaId)
+        public AreaPoints GetPoints(int areaId)
         {
-            return new AreaService(db).GetPoints(areaId);
+            return new AreaService(db).GetPoints(areaId + "");
         }
 
-        public List<AreaPoints> GetPointsByPid(string pid)
+        public List<AreaPoints> GetPointsByPid(int pid)
         {
-            return new AreaService(db).GetPointsByPid(pid);
+            return new AreaService(db).GetPointsByPid(pid + "");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
-            ShowLog(">>>>> GetPhysicalTopologyTree view=" + view);
+            ShowLogEx(">>>>> GetPhysicalTopologyTree view=" + view);
             BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
             return new AreaService(dbpt).GetTree(view);
             //return null;
@@ -71,9 +71,9 @@ namespace LocationServices.Locations
 
         public AreaNode GetPhysicalTopologyTreeNode(int view)
         {
-            ShowLog(">>>>> GetPhysicalTopologyTreeNode view=" + view);
-            var result= new AreaService(db).GetBasicTree(view);
-            ShowLog("<<<<< GetPhysicalTopologyTreeNode view=" + view);
+            ShowLogEx(">>>>> GetPhysicalTopologyTreeNode view=" + view);
+            var result = new AreaService(db).GetBasicTree(view);
+            ShowLogEx("<<<<< GetPhysicalTopologyTreeNode view=" + view);
             return result;
             //return null;
             //return new AreaNode() { Id = 1, Name = "root" };
@@ -81,7 +81,7 @@ namespace LocationServices.Locations
 
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
         {
-            ShowLog(">>>>> GetPhysicalTopologyTreeById id=" + id);
+            ShowLogEx(">>>>> GetPhysicalTopologyTreeById id=" + id);
             return new AreaService(db).GetTree(id);
         }
 
@@ -222,9 +222,49 @@ namespace LocationServices.Locations
         /// <summary>
         /// 根据节点添加子监控范围
         /// </summary>
-        public bool AddMonitorRange(PhysicalTopology pt)
+        public PhysicalTopology AddMonitorRange(PhysicalTopology pt)
         {
-            return db.Areas.Add(pt.ToDbModel());
+            //return db.Areas.Add(pt.ToDbModel());
+            var areaT = pt.ToDbModel();
+
+            pt.InitBound = new Location.TModel.Location.AreaAndDev.Bound();
+            pt.InitBound.IsRelative = pt.IsRelative;
+            pt.InitBound.SetInitBound(pt.Transfrom);
+            areaT.SetTransform(pt.Transfrom.ToDbModel());
+            DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
+            db.Bounds.Add(InitBoundT);
+            areaT.SetBound(InitBoundT);
+            var points = areaT.InitBound.Points;
+            //db.Points.AddRange(points);
+
+            var result = db.Areas.Add(areaT);
+
+            if (result)
+            {
+                return areaT.ToTModel();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 删除区域范围
+        /// </summary>
+        public bool DeleteMonitorRange(PhysicalTopology pt)
+        {
+            Area area = db.Areas.Find((i) => i.Id == pt.Id);
+            if (area != null)
+            {
+                //DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
+                //db.Bounds.Remove(InitBoundT);
+                db.Bounds.DeleteById(pt.InitBound.Id);
+                //var points = area.InitBound.Points;
+                //db.Points.RemoveList(points);
+                return db.Areas.Remove(area);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -234,62 +274,15 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public Area GetAreaById(int id)
         {
-            return db.Areas.Find(i => i.Id == id);
+            //return db.Areas.Find(i => i.Id == id);
+            AreaService asr = new AreaService();
+            return asr.GetAreaById(id);
         }
 
         public AreaStatistics GetAreaStatistics(int id)
         {
-            ShowLog(">>>>> GetAreaStatistics id=" + id);
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            List<int?> lst = new List<int?>();
-            List<int?> lstRecv;
-
-            var areaList = db.Areas.ToList();
-            var a1 = areaList.Find(p => p.Id == id);
-            if (a1 == null)
-            {
-                return new AreaStatistics();
-            }
-
-            lst.Add(a1.Id);
-            lstRecv = GetAreaStatisticsInner(a1.Id, areaList);
-            if (lstRecv != null || lstRecv.Count > 0)
-            {
-                lst.AddRange(lstRecv);
-            }
-
             AreaService asr = new AreaService();
-            AreaStatistics ast = asr.GetAreaStatisticsCount(lst);
-            watch.Stop();
-            TimeSpan time = watch.Elapsed;
-            ShowLog("time:" + time);
-            ShowLog("<<<<<< GetAreaStatistics id=" + id);
-            return ast;
-        }
-
-
-        private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
-        {
-            List<int?> lst = new List<int?>();
-            List<DbModel.Location.AreaAndDev.Area> alist2 = areaList.FindAll(p => p.ParentId == id);
-            List<int?> lstRecv;
-            if (alist2 == null || alist2.Count <= 0)
-            {
-                return lst;
-            }
-
-            foreach (DbModel.Location.AreaAndDev.Area item in alist2)
-            {
-                lst.Add(item.Id);
-                lstRecv = GetAreaStatisticsInner(item.Id, areaList);
-                if (lstRecv != null || lstRecv.Count > 0)
-                {
-                    lst.AddRange(lstRecv);
-                }
-            }
-
-            return lst;
+            return asr.GetAreaStatistics(id);
         }
 
         public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
@@ -314,6 +307,41 @@ namespace LocationServices.Locations
             }
 
             return lst;
+        }
+
+        /// <summary>
+        /// 获取首页图片名称
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetHomePageNameList()
+        {
+            Bll bll = new Bll(false, false, false, false);
+            List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
+            //if (lst == null || lst.Count == 0)
+            //{
+            //    lst = new List<string>();
+            //}
+
+            if (lst.Count == 0)
+            {
+                lst = null;
+            }
+
+            return lst;
+        }
+
+        /// <summary>
+        /// 根据图片名称获取首页图片信息
+        /// </summary>
+        /// <param name="strPictureName"></param>
+        /// <returns></returns>
+        public byte[] GetHomePageByName(string strPictureName)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
+            byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
+
+            return byteArray;
         }
     }
 }

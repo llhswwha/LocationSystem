@@ -60,12 +60,15 @@
     <Compile Include="AppContext.cs" />
     <Compile Include="Blls\Engine\bus_anchor_configBll.cs" />
     <Compile Include="Blls\Engine\bus_anchor_switch_areaBll.cs" />
+    <Compile Include="Blls\LocationHistory\DevMonitorNodeHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\InspectionTrackHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointItemHistoryBll.cs" />
     <Compile Include="Blls\Location\DevMonitorNodeBll.cs" />
     <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
+    <Compile Include="Blls\Location\HomePagePictureBll.cs" />
     <Compile Include="Blls\Location\InspectionTrackBll.cs" />
+    <Compile Include="Blls\Location\NodeKKSBll.cs" />
     <Compile Include="Blls\Location\PatrolPointBll.cs" />
     <Compile Include="Blls\Location\PatrolPointItemBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
@@ -118,7 +121,6 @@
     <Compile Include="Blls\Location\MobileInspectionContentBll.cs" />
     <Compile Include="Blls\Location\MobileInspectionDevBll.cs" />
     <Compile Include="Blls\Location\MobileInspectionItemBll.cs" />
-    <Compile Include="Blls\Location\NodeKKSBll.cs" />
     <Compile Include="Blls\Location\OperationItemBll.cs" />
     <Compile Include="Blls\Location\OperationTicketBll.cs" />
     <Compile Include="Blls\Location\PersonnelBll.cs" />
@@ -154,7 +156,9 @@
     <Compile Include="Tools\StaticEvents.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

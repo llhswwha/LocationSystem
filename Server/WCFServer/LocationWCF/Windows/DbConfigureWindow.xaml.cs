@@ -524,6 +524,18 @@ namespace LocationServer.Windows
             });           
         }
 
-       
+        private void MenuDeleteMySqlServer_Click(object sender, RoutedEventArgs e)
+        {
+            AppContext.DeleteDb(2);
+            MessageBox.Show("删除MySql完成");
+        }
+
+        private void MenuInitPic_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            DbInitializer initializer = new DbInitializer(bll);
+            initializer.InitHomePage();
+            MessageBox.Show("完成");
+        }
     }
 }

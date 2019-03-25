@@ -43,6 +43,8 @@ namespace ModelConvertCodeGenerator
         {
             Assembly assembly1 = typeof (Tag).Assembly;
             Assembly assembly2 = typeof (LocationCard).Assembly;
+            //Assembly assembly2 = typeof(sis).Assembly;
+            
             //Assembly assembly2 = typeof(tickets).Assembly;
             AssemblyTypeInfo1.Assembly = assembly1;
             AssemblyTypeInfo2.Assembly = assembly2;

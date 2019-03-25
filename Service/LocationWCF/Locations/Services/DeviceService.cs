@@ -88,7 +88,7 @@ namespace LocationServices.Locations.Services
             else return null;
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             var devInfoList = dbSet.ToList().ToTModel();
             BindingDev(devInfoList);

@@ -7,6 +7,9 @@ using TEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 using System.Net.Http;
 using System.Net;
 using System.Text;
+using DbModel.Location.AreaAndDev;
+using TModel.Location.AreaAndDev;
+using Location.BLL.Tool;
 
 namespace WebApiService.Controllers
 {
@@ -23,7 +26,7 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return service.GetList();
         }
@@ -56,6 +59,8 @@ namespace WebApiService.Controllers
         [Route("tree")]
         public AreaNode GetBasicTree(int view)
         {
+            Log.Info(string.Format("[{0}]AreaController.GetBasicTree view={1}:{2}", Request.GetClientIpAddress(),view, count));
+            count++;
             return service.GetBasicTree(view);
         }
 
@@ -162,6 +167,34 @@ namespace WebApiService.Controllers
 
             System.DateTime dt2 = System.DateTime.Now;
             return result;
+        }
+
+
+        static int count = 0;
+        [Route("statistics")]
+        public AreaStatistics GetAreaStatistics(int id)
+        {
+            Log.Info(string.Format("[{0}]AreaController.GetAreaStatistics:{1}", Request.GetClientIpAddress(), count));
+            count++;
+            return service.GetAreaStatistics(id);
+        }
+
+        [Route("getArea")]
+        public Area GetAreaById(int id)
+        {
+            return service.GetAreaById(id);
+        }
+
+        [Route("getPoints")]
+        public AreaPoints GetPoints(string areaId)
+        {
+            return service.GetPoints(areaId);
+        }
+
+        [Route("getPointsByPid")]
+        public List<AreaPoints> GetPointsByPid(string pid)
+        {
+            return service.GetPointsByPid(pid);
         }
     }
 }

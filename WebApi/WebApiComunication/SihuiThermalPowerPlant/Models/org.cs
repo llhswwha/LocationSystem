@@ -19,9 +19,9 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         public string name { get; set; }
 
         /// <summary>
-        /// 父部门ID,顶级部门为0
+        /// 父部门ID,顶级部门为0,公司为null
         /// </summary>
-        public int parent_id { get; set; }
+        public int? parentId { get; set; }
 
         /// <summary>
         /// 类型，0本厂，1外委单位
@@ -38,7 +38,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             org copy = new org();
             copy.id = this.id;
             copy.name = this.name;
-            copy.parent_id = this.parent_id;
+            copy.parentId = this.parentId;
             copy.type = this.type;
             copy.description = this.description;
 

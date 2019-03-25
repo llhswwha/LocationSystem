@@ -14,12 +14,12 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 标识
         /// </summary>
-        public int id { get; set; }
+        public int cardId { get; set; }
 
         /// <summary>
         /// 门禁卡号
         /// </summary>
-        public string code { get; set; }
+        public string cardCode { get; set; }
 
         /// <summary>
         /// 当前绑定人员标识
@@ -34,8 +34,8 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         public cards Clone()
         {
             cards copy = new cards();
-            copy.id = this.id;
-            copy.code = this.code;
+            copy.cardId = this.cardId;
+            copy.cardCode = this.cardCode;
             copy.emp_id = this.emp_id;
             copy.state = this.state;
 

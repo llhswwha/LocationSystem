@@ -34,7 +34,7 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return service.GetList();
         }

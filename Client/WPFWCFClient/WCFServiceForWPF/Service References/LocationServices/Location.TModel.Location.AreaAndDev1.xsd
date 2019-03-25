@@ -45,29 +45,10 @@
       <xs:element minOccurs="0" name="MinX" type="xs:float" />
       <xs:element minOccurs="0" name="MinY" type="xs:float" />
       <xs:element minOccurs="0" name="MinZ" type="xs:float" />
-      <xs:element minOccurs="0" name="Points" nillable="true" type="tns:ArrayOfPoint" />
       <xs:element minOccurs="0" name="Shape" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Bound" nillable="true" type="tns:Bound" />
-  <xs:complexType name="ArrayOfPoint">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPoint" nillable="true" type="tns:ArrayOfPoint" />
-  <xs:complexType name="Point">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Bound" nillable="true" type="tns:Bound" />
-      <xs:element minOccurs="0" name="BoundId" type="xs:int" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Index" type="xs:int" />
-      <xs:element minOccurs="0" name="X" type="xs:float" />
-      <xs:element minOccurs="0" name="Y" type="xs:float" />
-      <xs:element minOccurs="0" name="Z" type="xs:float" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Point" nillable="true" type="tns:Point" />
   <xs:complexType name="ArrayOfDevInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DevInfo" nillable="true" type="tns:DevInfo" />
@@ -147,8 +128,8 @@
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Person" nillable="true" type="q6:Personnel" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q7:TagPosition" />
+      <xs:element minOccurs="0" name="PersonId" nillable="true" type="xs:int" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q6:TagPosition" />
       <xs:element minOccurs="0" name="Power" type="xs:int" />
       <xs:element minOccurs="0" name="PowerState" type="xs:int" />
     </xs:sequence>
@@ -274,4 +255,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Post" nillable="true" type="tns:Post" />
+  <xs:complexType name="ArrayOfPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoint" nillable="true" type="tns:ArrayOfPoint" />
+  <xs:complexType name="Point">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bound" nillable="true" type="tns:Bound" />
+      <xs:element minOccurs="0" name="BoundId" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Index" type="xs:int" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Point" nillable="true" type="tns:Point" />
 </xs:schema>

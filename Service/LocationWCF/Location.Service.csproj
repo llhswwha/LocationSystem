@@ -45,10 +45,12 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\Server\WCFServer\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -88,6 +90,7 @@
     <Compile Include="Locations\Interfaces\IDepartmentService.cs" />
     <Compile Include="Locations\Interfaces\IDevDataService.cs" />
     <Compile Include="Locations\Interfaces\IDevService.cs" />
+    <Compile Include="Locations\Interfaces\IInitDbService.cs" />
     <Compile Include="Locations\Interfaces\IKKSService.cs" />
     <Compile Include="Locations\ILocationService.cs" />
     <Compile Include="LocationCallbacks\LocationCallbackService.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Locations\LocationService_Area.cs" />
     <Compile Include="Locations\LocationService_Dev.cs" />
     <Compile Include="Locations\LocationService_BaseData.cs" />
+    <Compile Include="Locations\LocationService_InitDb.cs" />
     <Compile Include="Locations\LocationService_Manage.cs" />
     <Compile Include="Locations\LocationService_Person.cs" />
     <Compile Include="Locations\LocationService_ConfigArg.cs" />
@@ -123,11 +127,11 @@
     <Compile Include="Locations\Services\PersonService.cs" />
     <Compile Include="Locations\Services\TagRoleService.cs" />
     <Compile Include="Locations\Services\TagService.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHostHelper.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />
     <Compile Include="Tools\DeviceInfoService.cs" />
+    <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\ObjectAddListService.cs" />
     <Compile Include="Tools\PositionEngineClient.cs" />
     <Compile Include="Tools\PositionEngineDA.cs" />
@@ -135,7 +139,9 @@
     <Compile Include="Tools\PositionMocker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,7 @@
       <Name>WebApiClients</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

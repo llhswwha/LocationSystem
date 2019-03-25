@@ -369,13 +369,20 @@ namespace ArchorUDPTool.Controls
 
         private void BtnCountByArea_Click(object sender, RoutedEventArgs e)
         {
-            string msg = _archorList.GetCountByArea();
-            DataTable dt = _archorList.GetCountByAreaTable();
-            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\基站数量按区域统计.xls");
-            ExcelLib.ExcelHelper.Save(dt, file, "");
-            System.Windows.Clipboard.SetText(msg);
-            MessageBox.Show(msg);
-            Process.Start(file.Directory.FullName);
+            try
+            {
+                string msg = _archorList.GetCountByArea();
+                DataTable dt = _archorList.GetCountByAreaTable();
+                FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\基站数量按区域统计.xls");
+                ExcelLib.ExcelHelper.Save(dt, file, "");
+                System.Windows.Clipboard.SetText(msg);
+                MessageBox.Show(msg);
+                Process.Start(file.Directory.FullName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void BtnFilter_Click(object sender, RoutedEventArgs e)

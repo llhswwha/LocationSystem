@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using DbModel.Location.Authorizations;
 using BLL.Tools;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
@@ -19,7 +20,7 @@ namespace LocationServices.Locations.Services
 
         bool AddList(List<TEntity> entities);
 
-        IList<TEntity> GetList(bool detail);
+        List<TEntity> GetList(bool detail);
 
         IList<TEntity> GetListByRole(string role);
 
@@ -66,13 +67,14 @@ namespace LocationServices.Locations.Services
             return item;
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return GetList(false);
         }
 
-        public IList<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail)
         {
+            Log.Info(" >>>>>>> TagService.GetList");
             if (detail)
             {
                 var list = new List<TEntity>();

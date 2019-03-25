@@ -94,14 +94,14 @@
   <xs:element name="ArrayOfDevMonitorNode" nillable="true" type="tns:ArrayOfDevMonitorNode" />
   <xs:complexType name="DevMonitorNode">
     <xs:sequence>
-      <xs:element minOccurs="0" name="DataBaseName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DataBaseTagName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DataType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DbTagName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Describe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentKKS" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TagType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Time" type="xs:int" />
       <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -116,6 +116,7 @@
   <xs:element name="Picture" nillable="true" type="tns:Picture" />
   <xs:complexType name="AreaStatistics">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AlarmPersonNum" type="xs:int" />
       <xs:element minOccurs="0" name="DevAlarmNum" type="xs:int" />
       <xs:element minOccurs="0" name="DevNum" type="xs:int" />
       <xs:element minOccurs="0" name="LocationAlarmNum" type="xs:int" />
@@ -123,4 +124,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AreaStatistics" nillable="true" type="tns:AreaStatistics" />
+  <xs:complexType name="AreaPoints">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Points" nillable="true" type="q5:ArrayOfPoint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AreaPoints" nillable="true" type="tns:AreaPoints" />
+  <xs:complexType name="ArrayOfAreaPoints">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AreaPoints" nillable="true" type="tns:AreaPoints" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAreaPoints" nillable="true" type="tns:ArrayOfAreaPoints" />
 </xs:schema>

@@ -59,7 +59,7 @@ namespace LocationServices.Locations.Services
             return tItem;
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             try
             {

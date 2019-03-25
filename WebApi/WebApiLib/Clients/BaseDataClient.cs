@@ -29,6 +29,8 @@ namespace WebApiLib.Clients
 
         public string BaseUri { get; set; }
 
+        public static int nEightHourSecond = 28800;
+
         public BaseDataClient()
         {
             BaseUri = "http://<host>:<port>/";
@@ -265,7 +267,7 @@ namespace WebApiLib.Clients
 
             try
             {
-                string path = "api/org";
+                string path = "api/orgs";
                 string url = BaseUri + path;
                 recv = GetEntityList<org>(url);
 
@@ -304,7 +306,7 @@ namespace WebApiLib.Clients
                 foreach (org item in recv.data)
                 {
                     Department dp = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.id && p.Name == item.name).FirstOrDefault();
-                    Department Parent = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.parent_id).FirstOrDefault();
+                    Department Parent = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.parentId).FirstOrDefault();
                     if (dp == null )
                     {
                         continue;
@@ -370,7 +372,7 @@ namespace WebApiLib.Clients
 
                     area.Name = item.name;
                     area.KKS = item.kks;
-                    area.Abutment_ParentId = item.parent_id;
+                    area.Abutment_ParentId = item.parent_Id;
                     area.Describe = item.description;
 
                     if (nFlag == 1)
@@ -385,13 +387,13 @@ namespace WebApiLib.Clients
 
                 foreach (zone item in recv.data)
                 {
-                    if (item.parent_id == null)
+                    if (item.parent_Id == null)
                     {
                         continue;
                     }
 
                     Area Child = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
-                    Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.parent_id).FirstOrDefault();
+                    Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.parent_Id).FirstOrDefault();
 
                     if (Child != null)
                     {
@@ -461,12 +463,12 @@ namespace WebApiLib.Clients
                 area.Abutment_Id = recv.id;
                 area.Name = recv.name;
                 area.KKS = recv.kks;
-                area.Abutment_ParentId = recv.parent_id;
+                area.Abutment_ParentId = recv.parent_Id;
                 area.Describe = recv.description;
 
-                if (recv.parent_id != null)
+                if (recv.parent_Id != null)
                 {
-                    Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == recv.parent_id).FirstOrDefault();
+                    Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == recv.parent_Id).FirstOrDefault();
                     area.ParentId = Parent.Id;
                 }
 
@@ -497,7 +499,7 @@ namespace WebApiLib.Clients
                     area2.ParentId = area.Id;
                     area2.Name = item2.name;
                     area2.KKS = item2.kks;
-                    area2.Abutment_ParentId = item2.parent_id;
+                    area2.Abutment_ParentId = item2.parent_Id;
                     area2.Describe = item2.description;
 
                     if (nFlag == 1)
@@ -905,7 +907,7 @@ namespace WebApiLib.Clients
                 recv = GetEntityList<cards>(url);
                 foreach (cards item in recv.data)
                 {
-                    EntranceGuardCard egc = bll.EntranceGuardCards.DbSet.FirstOrDefault(p => p.Abutment_Id == item.id);
+                    EntranceGuardCard egc = bll.EntranceGuardCards.DbSet.FirstOrDefault(p => p.Abutment_Id == item.cardId);
                     int nFlag = 0;
                     if (egc == null)
                     {
@@ -913,8 +915,8 @@ namespace WebApiLib.Clients
                         nFlag = 1;
                     }
 
-                    egc.Abutment_Id = item.id;
-                    egc.Code = item.code;
+                    egc.Abutment_Id = item.cardId;
+                    egc.Code = item.cardCode;
                     egc.State = item.state;
 
                     if (nFlag == 1)
@@ -1245,12 +1247,12 @@ namespace WebApiLib.Clients
 
                 foreach (events item in recv.data)
                 {
-                    if (item.device_id == null)
+                    if (item.deviceId == null)
                     {
                         continue;
                     }
 
-                    DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == item.device_id).FirstOrDefault();
+                    DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == item.deviceId).FirstOrDefault();
                     if (di == null)
                     {
                         continue;
@@ -1271,7 +1273,7 @@ namespace WebApiLib.Clients
                     da.Code = item.code;
                     da.Src = (Abutment_DevAlarmSrc)item.src;
                     da.DevInfoId = di.Id;
-                    da.Device_desc = item.device_desc;
+                    da.Device_desc = item.deviceDesc;
                     da.AlarmTime = TimeConvert.TimeStampToDateTime(item.t);
                     da.AlarmTimeStamp = item.t;
 
@@ -1300,14 +1302,19 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="kks"></param>
         /// <returns></returns>
-        public BaseTran<sis> GetSomesisList(string kks)
+        public List<DevMonitorNode> GetSomesisList(string strTags)
         {
             BaseTran<sis> recv = new BaseTran<sis>();
+            List<DevMonitorNode> send = new List<DevMonitorNode>();
 
             try
             {
-                string path = "api/rt/sis?kks=" + kks;
-                string url = BaseUri + path;
+                //string path = "api/rt/sis?kks=" + kks;
+                //string url = BaseUri + path;
+                string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
+                string BaseUri2 = sArray[0];
+               // BaseUri2 += "api-viz/";
+                string url = BaseUri2 + "rt/sis/" + strTags;
                 recv = GetEntityList<sis>(url);
 
                 if (recv.data == null)
@@ -1317,35 +1324,22 @@ namespace WebApiLib.Clients
 
                 foreach (sis item in recv.data)
                 {
-                    DevInfo DevInfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
-                    if (DevInfo == null)
+                    string strTag = item.kks;
+
+                    //DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.TagName == strTag).FirstOrDefault();
+                    if (Dmn == null)
                     {
                         continue;
                     }
 
-                    DevInstantData did = bll.DevInstantDatas.DbSet.Where(p => p.Id == item.kks).FirstOrDefault();
+                    Dmn.Value = item.value;
+                    Dmn.Time = item.t + nEightHourSecond;
+                    bll.DevMonitorNodes.Edit(Dmn);
+                    DevMonitorNodeHistory Dmnh = Dmn.ToHistory();
+                    bll.DevMonitorNodeHistorys.Add(Dmnh);
 
-                    if (did == null)
-                    {
-                        did = new DevInstantData();
-                        did.Id = item.kks;
-                        did.Value = item.value;
-                        did.DateTimeStamp = item.t;
-                        did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
-                        did.Unit = item.unit;
-                        bll.DevInstantDatas.Add(did);
-                    }
-                    else
-                    {
-                        DevInstantDataHistory didh = did.RemoveToHistory();
-                        did.Value = item.value;
-                        did.DateTimeStamp = item.t;
-                        did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
-                        did.Unit = item.unit;
-                        bll.DevInstantDatas.Edit(did);
-                        bll.DevInstantDataHistorys.Add(didh);
-                    }
-
+                    send.Add(Dmn);
                 }
             }
             catch (Exception ex)
@@ -1353,7 +1347,7 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
 
         /// <summary>
@@ -1362,16 +1356,19 @@ namespace WebApiLib.Clients
         /// <param name="kks"></param>
         /// <param name="compact"></param>
         /// <returns></returns>
-        public List<DevInstantDataHistory> GetSomeSisHistoryList(string kks, bool compact)
+        public List<DevMonitorNodeHistory> GetSomeSisHistoryList(string kks, bool compact)
         {
             BaseTran<sis> recv = new BaseTran<sis>();
             BaseTran_Compact recv2 = new BaseTran_Compact();
-            List<DevInstantDataHistory> send = new List<DevInstantDataHistory>();
+            List<DevMonitorNodeHistory> send = new List<DevMonitorNodeHistory>();
             
             try
             {
-                string path = "api/rt/sis/" + kks + "/history?compact=" + Convert.ToString(compact);
-                string url = BaseUri + path;
+                string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
+                string BaseUri2 = sArray[0];
+                BaseUri2 = BaseUri2 + "api-viz/";
+                string path = "/rt/sis/" + kks + "/history?compact=" + Convert.ToString(compact);
+                string url = BaseUri2 + path;
                 if (!compact)
                 {
                     recv = GetEntityList<sis>(url);
@@ -1415,23 +1412,18 @@ namespace WebApiLib.Clients
 
                 foreach (sis item in recv.data)
                 {
-                    DevInfo DevInfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
-                    if (DevInfo == null)
+                    DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    if (Dmn == null)
                     {
                         continue;
                     }
 
-                    DevInstantData did = bll.DevInstantDatas.DbSet.Where(p => p.Id == item.kks).FirstOrDefault();
-
-                    DevInstantDataHistory didh = did.RemoveToHistory();
-                    did.Value = item.value;
-                    did.DateTimeStamp = item.t;
-                    did.DateTime = TimeConvert.TimeStampToDateTime(did.DateTimeStamp);
-                    did.Unit = item.unit;
-                    bll.DevInstantDatas.Edit(did);
-                    bll.DevInstantDataHistorys.Add(didh);
-
-                    send.Add(didh);
+                    DevMonitorNodeHistory Dmnh = Dmn.ToHistory();
+                    Dmnh.Value = item.value;
+                    Dmnh.Time = item.t + nEightHourSecond;
+                    bll.DevMonitorNodeHistorys.Add(Dmnh);
+                    
+                    send.Add(Dmnh);
                 }
             }
             catch (Exception ex)
@@ -1447,19 +1439,68 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="kks"></param>
         /// <returns></returns>
-        public BaseTran<sis_sampling> GetSisSamplingHistoryList(string kks)
+        public List<DevMonitorNodeHistory> GetSisSamplingHistoryList(string kks)
         {
-            BaseTran<sis_sampling> recv = new BaseTran<sis_sampling>();
+            BaseTran<sis> recv = new BaseTran<sis>();
+            BaseTran_Compact recv2 = new BaseTran_Compact();
+            List<DevMonitorNodeHistory> send = new List<DevMonitorNodeHistory>();
 
             try
             {
-                string path = "api/rt/sis/kks=" + kks + "/sample";
-                string url = BaseUri + path;
-                recv = GetEntityList<sis_sampling>(url);
+                string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
+                string BaseUri2 = sArray[0];
+                BaseUri2 = BaseUri2 + "api-viz/";
+                string path = "rt/sis/" + kks + "/sample";
+                string url = BaseUri2 + path;
+
+                recv2 = GetEntityList5(url);
+                string strkks = recv2.schema.kks;
+                string strunit = recv2.schema.unit;
+                string field1 = recv2.schema.fields[0];
+                string field2 = recv2.schema.fields[1];
+                recv.total = recv2.total;
+                recv.msg = recv2.msg;
+
+                foreach (List<string> item in recv2.data)
+                {
+                    string strVal1 = item[0];
+                    string strVal2 = item[1];
+                    sis si = new sis();
+                    si.kks = strkks;
+                    si.unit = strunit;
+                    if (field1 == "t")
+                    {
+                        si.t = Convert.ToInt32(strVal1);
+                        si.value = strVal2;
+                    }
+                    else
+                    {
+                        si.t = Convert.ToInt32(strVal2);
+                        si.value = strVal1;
+                    }
+
+                    recv.data.Add(si);
+                }
 
                 if (recv.data == null)
                 {
-                    recv.data = new List<sis_sampling>();
+                    recv.data = new List<sis>();
+                }
+
+                foreach (sis item in recv.data)
+                {
+                    DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
+                    if (Dmn == null)
+                    {
+                        continue;
+                    }
+
+                    DevMonitorNodeHistory Dmnh = Dmn.ToHistory();
+                    Dmnh.Value = item.value;
+                    Dmnh.Time = item.t + nEightHourSecond;
+                    bll.DevMonitorNodeHistorys.Add(Dmnh);
+
+                    send.Add(Dmnh);
                 }
             }
             catch (Exception ex)
@@ -1467,10 +1508,8 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
-            return recv;
+            return send;
         }
-
-
 
         //public List<InspectionTrack> Getinspectionlist(DateTime dtTime, bool bFlag)
         //{

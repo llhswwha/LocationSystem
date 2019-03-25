@@ -177,8 +177,35 @@
                     <Menu DockPanel.Dock="Top">
                         <MenuItem Header="获取区域设备人员信息列表" Name="GetAreaDevPersonnelInfoList" Click="GetAreaDevPersonnelInfoList_Click"></MenuItem>
                     </Menu>
-                    
+
                     <DataGrid Name="AreaList"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="区域测试">
+                <StackPanel>
+                    <TextBox>0.1</TextBox>
+                    <Button Name="TestGetTags" Click="TestGetTags_Click">WCF GetTags</Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="初始化数据库表">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="初始化KKS表" Name="InitKksTable" Click="InitKksTable_Click"></MenuItem>
+                    </Menu>
+                  
+                    <DataGrid Name="InitDbTable"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="获取首页图片">
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="测试获取首页图片名称" Name="TestGetHomePageName" Click="TestGetHomePageName_Click"></MenuItem>
+                    </Menu>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="测试获取首页图片" Name="TestGetHomePage" Click="TestGetHomePage_Click"></MenuItem>
+                    </Menu>
+
+                    <DataGrid Name="GetHomePage"></DataGrid>
                 </DockPanel>
             </TabItem>
         </TabControl>

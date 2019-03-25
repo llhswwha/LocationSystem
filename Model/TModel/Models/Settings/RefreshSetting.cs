@@ -24,7 +24,7 @@ namespace TModel.Models.Settings
         /// <summary>
         /// 区域统计信息刷新间隔
         /// </summary>
-        public int AreaStatistics = 5;
+        public int AreaStatistics = 1;
 
         [XmlAttribute]
         /// <summary>

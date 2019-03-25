@@ -1,4 +1,5 @@
-﻿using IModel;
+﻿using DbModel.LocationHistory.AreaAndDev;
+using IModel;
 using Location.IModel;
 using System;
 using System.Collections.Generic;
@@ -20,29 +21,19 @@ namespace DbModel.Location.AreaAndDev
         public int Id { get; set; }
 
         [DataMember]
-        [Display(Name = "KKS")]
-        [MaxLength(128)]
-        public string KKS { get; set; }
-
-        [DataMember]
         [Display(Name = "标签名")]
         [MaxLength(128)]
         public string TagName { get; set; }
 
         [DataMember]
-        [Display(Name = "数据库名")]
-        [MaxLength(32)]
-        public string DataBaseName { get; set; }
-
-        [DataMember]
         [Display(Name = "数据库标签名")]
         [MaxLength(128)]
-        public string DataBaseTagName { get; set; }
+        public string DbTagName { get; set; }
 
         [DataMember]
         [Display(Name = "描述")]
         [MaxLength(128)]
-        public string  Describe{ get; set; }
+        public string Describe { get; set; }
 
         [DataMember]
         [Display(Name = "值")]
@@ -60,20 +51,47 @@ namespace DbModel.Location.AreaAndDev
         public string DataType { get; set; }
 
         [DataMember]
-        [Display(Name = "标签类型")]
-        [MaxLength(16)]
-        public string TagType { get; set; }
+        [Display(Name = "KKS")]
+        [MaxLength(128)]
+        public string KKS { get; set; }
+
+        [DataMember]
+        [Display(Name = "KKS")]
+        [MaxLength(128)]
+        public string ParentKKS { get; set; }
+
+        [DataMember]
+        [Display(Name = "时间戳")]
+        public int Time { get; set; }
+
 
         public DevMonitorNode()
         {
-            KKS = "";
             TagName = "";
-            DataBaseName = "";
-            DataBaseTagName = "";
+            DbTagName = "";
             Describe = "";
+            Value = "";
             Unit = "";
             DataType = "";
-            TagType = "";
+            KKS = "";
+            ParentKKS = "";
+            Time = 0;
+        }
+
+        public DevMonitorNodeHistory ToHistory()
+        {
+            DevMonitorNodeHistory history = new DevMonitorNodeHistory();
+            history.TagName = this.TagName;
+            history.DbTagName = this.DbTagName;
+            history.Describe = this.Describe;
+            history.Value = this.Value;
+            history.Unit = this.Unit;
+            history.DataType = this.DataType;
+            history.KKS = this.KKS;
+            history.ParentKKS = this.ParentKKS;
+            history.Time = this.Time;
+
+            return history;
         }
     }
 }

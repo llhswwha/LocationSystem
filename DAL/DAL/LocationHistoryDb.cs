@@ -2,6 +2,7 @@
 using SQLite.CodeFirst;
 using DAL.LocationHistoryDbMigrations;
 using DbModel.LocationHistory.Work;
+using DbModel.LocationHistory.AreaAndDev;
 
 namespace DAL
 {
@@ -73,5 +74,7 @@ namespace DAL
 
         public DbSet<PatrolPointItemHistory> PatrolPointItemHistorys { get; set; }
 
+        public DbSet<DevMonitorNodeHistory> DevMonitorNodeHistorys { get; set; }
+        
     }
 }

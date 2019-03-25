@@ -1722,5 +1722,65 @@ namespace LocationServices.Converters
         }
         #endregion
 
+        #region TModel.Location.AreaAndDev.DevMonitorNode <=> DbModel.Location.AreaAndDev.DevMonitorNode
+        public static List<TModel.Location.AreaAndDev.DevMonitorNode> ToWcfModelList(this List<DbModel.Location.AreaAndDev.DevMonitorNode> list1)
+        {
+            return list1.ToTModel().ToWCFList();
+        }
+        public static TModel.Location.AreaAndDev.DevMonitorNode ToTModel(this DbModel.Location.AreaAndDev.DevMonitorNode item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new TModel.Location.AreaAndDev.DevMonitorNode();
+            item2.Id = item1.Id;
+            item2.TagName = item1.TagName;
+            item2.DbTagName = item1.DbTagName;
+            item2.Describe = item1.Describe;
+            item2.Value = item1.Value;
+            item2.Unit = item1.Unit;
+            item2.DataType = item1.DataType;
+            item2.KKS = item1.KKS;
+            item2.ParentKKS = item1.ParentKKS;
+            item2.Time = item1.Time;
+            return item2;
+        }
+        public static List<TModel.Location.AreaAndDev.DevMonitorNode> ToTModel(this List<DbModel.Location.AreaAndDev.DevMonitorNode> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<TModel.Location.AreaAndDev.DevMonitorNode>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToTModel());
+            }
+            return list2;
+        }
+        public static DbModel.Location.AreaAndDev.DevMonitorNode ToDbModel(this TModel.Location.AreaAndDev.DevMonitorNode item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new DbModel.Location.AreaAndDev.DevMonitorNode();
+            item2.Id = item1.Id;
+            item2.TagName = item1.TagName;
+            item2.DbTagName = item1.DbTagName;
+            item2.Describe = item1.Describe;
+            item2.Value = item1.Value;
+            item2.Unit = item1.Unit;
+            item2.DataType = item1.DataType;
+            item2.KKS = item1.KKS;
+            item2.ParentKKS = item1.ParentKKS;
+            item2.Time = item1.Time;
+            return item2;
+        }
+        public static List<DbModel.Location.AreaAndDev.DevMonitorNode> ToDbModel(this List<TModel.Location.AreaAndDev.DevMonitorNode> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<DbModel.Location.AreaAndDev.DevMonitorNode>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToDbModel());
+            }
+            return list2;
+        }
+        #endregion
+
+
     }
 }

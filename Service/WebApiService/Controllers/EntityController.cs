@@ -27,7 +27,7 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<T> GetList()
+        public List<T> GetList()
         {
             return service.GetList();
         }

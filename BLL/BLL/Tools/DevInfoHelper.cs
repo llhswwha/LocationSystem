@@ -444,13 +444,12 @@ namespace BLL.Tools
         {
             T devmonitor1 = new T();
             devmonitor1.TagName = dr[0].ToString();
-            devmonitor1.DataBaseName = dr[1].ToString();
-            devmonitor1.DataBaseTagName = dr[2].ToString();
-            devmonitor1.Describe = dr[3].ToString();
-            devmonitor1.Unit = dr[4].ToString();
-            devmonitor1.DataType = dr[5].ToString();
-            devmonitor1.TagType = dr[6].ToString();
-            devmonitor1.KKS = dr[7].ToString();
+            devmonitor1.DbTagName = dr[1].ToString();
+            devmonitor1.Describe = dr[2].ToString();
+            devmonitor1.Unit = dr[3].ToString();
+            devmonitor1.DataType = dr[4].ToString();
+            devmonitor1.KKS = dr[5].ToString();
+            devmonitor1.ParentKKS = dr[6].ToString();
 
             return devmonitor1;
         }

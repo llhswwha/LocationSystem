@@ -8,12 +8,16 @@ using System.Web.Http;
 using DbModel.Location.Authorizations;
 using TEntity = Location.TModel.Location.AreaAndDev.Tag;
 using Location.TModel.Location.AreaAndDev;
+using Location.BLL.Tool;
+using System.Net.Http;
+using System.Web;
 
 namespace WebApiService.Controllers
 {
     [RoutePrefix("api/tags")]
-    public class TagController : ApiController, ITagService
+    public class TagController : ApiController, ITagService//, IDisposable
     {
+
         ITagService service;
 
         public TagController()
@@ -45,22 +49,27 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
+            Log.Info("TagController.GetList:"+count);
+            count++;
             return service.GetList();
         }
 
         [Route("")]
         [Route("list")]
-        public IList<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail)
         {
             return service.GetList(detail);
         }
 
+        static int count = 0;
         [Route("detail")]
         [Route("list/detail")]
         public IList<TEntity> GetListWithDetail()
         {
+            Log.Info(string.Format("[{0}]TagController.GetListWithDetail:{1}", Request.GetClientIpAddress(), count));
+            count++;
             return service.GetList(true);
         }
 

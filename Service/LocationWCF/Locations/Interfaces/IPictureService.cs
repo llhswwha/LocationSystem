@@ -26,5 +26,20 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         Picture GetPictureInfo(string strPictureName);
+
+        /// <summary>
+        /// 获取首页图片名称
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        List<string> GetHomePageNameList();
+
+        /// <summary>
+        /// 根据图片名称获取首页图片信息
+        /// </summary>
+        /// <param name="strPictureName"></param>
+        /// <returns></returns>
+        [OperationContract]
+        byte[] GetHomePageByName(string strPictureName);
     }
 }

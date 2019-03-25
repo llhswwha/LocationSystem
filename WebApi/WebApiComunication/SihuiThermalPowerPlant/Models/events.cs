@@ -28,10 +28,10 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         public int src { get; set; }
 
         //设备ID
-        public int? device_id { get; set; }
+        public int? deviceId { get; set; }
 
         //设备说明
-        public string device_desc { get; set; }
+        public string deviceDesc { get; set; }
 
         //时间戳
         public long t { get; set; }
@@ -45,8 +45,8 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             copy.level = this.level;
             copy.code = this.code;
             copy.src = this.src;
-            copy.device_id = this.device_id;
-            copy.device_desc = this.device_desc;
+            copy.deviceId = this.deviceId;
+            copy.deviceDesc = this.deviceDesc;
             copy.t = this.t;
 
             return copy;

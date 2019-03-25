@@ -30,11 +30,15 @@ using TModel.LocationHistory.Work;
 using TModel.Tools;
 using LocationServices.Locations.Services;
 using TModel.Models.Settings;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations
 {
     // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的类名“LocationService”。
     //[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    //[ServiceBehavior(InstanceContextMode=InstanceContextMode.PerSession)]
     public partial class LocationService : ILocationService, IDisposable
     {
         private Bll db = new Bll(false, false, false,false);
@@ -65,15 +69,35 @@ namespace LocationServices.Locations
             return null;
         }
 
+        public string GetClientIpAndPort()
+        {
+            OperationContext context = OperationContext.Current;
+            //if (context.SessionId == null)
+            //{
+            //    context.SessionId=GUID.
+            //}
+            MessageProperties properties = context.IncomingMessageProperties;
+            RemoteEndpointMessageProperty endpoint = properties[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
+            return string.Format("{0}:{1}[{2}]",endpoint.Address,endpoint.Port,context.SessionId);
+        }
+
+        public static int count = 0;
+
         public IList<Tag> GetTags()
         {
-            ShowLog(">>>>> GetTags");
+            ShowLogEx(">>>>> GetTags:"+ count);
+            count++;
             IList<Tag> tagsT = new TagService(db).GetList(true);
-            string xml = XmlSerializeHelper.GetXmlText(tagsT);
-            int length = xml.Length;
-            ShowLog("<<<<< GetTags:"+ length);
+            //string xml = XmlSerializeHelper.GetXmlText(tagsT);
+            //int length = xml.Length;
+            //ShowLog("<<<<< GetTags:"+ length);
             return tagsT;
             //return new TagService(db).GetList(true);
+        }
+
+        public Tag GetTag(int id)
+        {
+            return new TagService(db).GetEntity(id+"");
         }
 
         /// <summary>
@@ -111,7 +135,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositons()
         {
-            ShowLog(">>>>> GetRealPositons");
+            ShowLogEx(">>>>> GetRealPositons");
             return new PosService(db).GetList();
         }
 
@@ -121,7 +145,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<TagPosition> GetRealPositonsByTags(List<string> tagCodes)
         {
-            ShowLog(">>>>> GetRealPositonsByTags");
+            ShowLogEx(">>>>> GetRealPositonsByTags");
             return new PosService(db).GetRealPositonsByTags(tagCodes);
         }
 
@@ -144,13 +168,13 @@ namespace LocationServices.Locations
 
         public IList<Department> GetDepartmentList()
         {
-            ShowLog(">>>>> GetDepartmentList");
+            ShowLogEx(">>>>> GetDepartmentList");
             return new DepartmentService(db).GetList();
         }
 
         public Department GetDepartmentTree()
         {
-            ShowLog(">>>>> GetDepartmentTree");
+            ShowLogEx(">>>>> GetDepartmentTree");
             var leafNodes = GetPersonList();
             return new DepartmentService(db).GetTree(leafNodes);
         }
@@ -213,7 +237,7 @@ namespace LocationServices.Locations
         //    return db.Areas.DeleteById(id);
         //}
 
-        public static Action<string> ShowLog_Action;
+        //public static Action<string> ShowLog_Action;
 
         public string GetStrs(int n)
         {
@@ -229,14 +253,27 @@ namespace LocationServices.Locations
             return s;
         }
 
-        private void ShowLog(string txt)
+        private void ShowLogEx(string txt)
         {
-            if (ShowLog_Action != null)
-            {
-                ShowLog_Action(txt);
-            }
+            //if (ShowLog_Action != null)
+            //{
+            //    string ip = GetClientIpAndPort();
+            //    txt = ip + " LocationService " + txt;
+            //    ShowLog_Action(txt);
+            //}
+            string ip = GetClientIpAndPort();
+            txt = ip + " LocationService " + txt;
+            Log.Info(txt);
         }
 
+        private void ShowLog(string txt)
+        {
+            //if (ShowLog_Action != null)
+            //{
+            //    ShowLog_Action(txt);
+            //}
+            Log.Info(txt);
+        }
 
         /// <summary>
         /// 3D保存历史数据
@@ -344,7 +381,7 @@ namespace LocationServices.Locations
 
         public void Dispose()
         {
-
+            ShowLog("== Dispose ==");
         }
 
         #region ConfigArg

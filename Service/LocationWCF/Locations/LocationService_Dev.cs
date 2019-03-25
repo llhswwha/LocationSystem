@@ -720,15 +720,47 @@ namespace LocationServices.Locations
                 return send;
             }
 
-            send.Name = dev.Name;
-            send.KKSCode = dev.Code;
-            send.MonitorNodeList = GetDevMonitorNodeListByKKS(send.KKSCode);
-            send.ChildrenList = GetChildMonitorDev(send.KKSCode, bFlag);
+            string strDevName = dev.Name;
+            string strDevKKs = dev.Code;
+            send.Name = strDevName;
+            send.KKSCode = strDevKKs;
+            string strTags = "";
+            send.MonitorNodeList = GetDevMonitorNodeListByKKS(strDevKKs, ref strTags);
+            send.ChildrenList = GetChildMonitorDev(strDevKKs, bFlag, ref strTags);
+            
+            List<DevMonitorNode> dataList = GetSomesisList(strTags);
+            send = InsertDataToEveryDev(send, ref dataList);
 
             return send;
         }
 
-        private List<Dev_Monitor> GetChildMonitorDev(string KKS, bool bFlag)
+        private List<DevMonitorNode> GetDevMonitorNodeListByKKS(string KKS, ref string strTags)
+        {
+            List<DbModel.Location.AreaAndDev.DevMonitorNode> lst = db.DevMonitorNodes.FindAll(p => p.ParentKKS == KKS);
+            if (lst == null)
+            {
+                lst = new List<DbModel.Location.AreaAndDev.DevMonitorNode>();
+            }
+            else
+            {
+                foreach (DbModel.Location.AreaAndDev.DevMonitorNode item in lst)
+                {
+                    string strTagName = item.TagName;
+                    if (strTags == "")
+                    {
+                        strTags = strTagName;
+                    }
+                    else
+                    {
+                        strTags += "," + strTagName;
+                    }
+                }
+            }
+            
+            return lst.ToTModel();
+        }
+
+        private List<Dev_Monitor> GetChildMonitorDev(string KKS, bool bFlag, ref string strTags)
         {
             List<Dev_Monitor> child = new List<Dev_Monitor>();
             List<DbModel.Location.AreaAndDev.KKSCode> DevList = db.KKSCodes.Where(p => p.ParentCode == KKS).ToList();
@@ -737,12 +769,12 @@ namespace LocationServices.Locations
                 Dev_Monitor dev = new Dev_Monitor();
                 dev.Name = item.Name;
                 dev.KKSCode = item.Code;
-                dev.MonitorNodeList = GetDevMonitorNodeListByKKS(dev.KKSCode);
-                dev.ChildrenList = GetChildMonitorDev(dev.KKSCode, bFlag);
-                if (!bFlag && dev.MonitorNodeList == null && dev.ChildrenList == null)
-                {
-                    continue;
-                }
+                dev.MonitorNodeList = GetDevMonitorNodeListByKKS(dev.KKSCode, ref strTags);
+                dev.ChildrenList = GetChildMonitorDev(dev.KKSCode, bFlag, ref strTags);
+                //if (!bFlag && dev.ChildrenList == null)
+                //{
+                //    continue;
+                //}
 
                 child.Add(dev);
             }
@@ -755,63 +787,45 @@ namespace LocationServices.Locations
             return child;
         }
 
-        private List<DevMonitorNode> GetDevMonitorNodeListByKKS(string KKS)
+        private Dev_Monitor InsertDataToEveryDev(Dev_Monitor Dm, ref List<DevMonitorNode> dataList)
         {
-            List<DevMonitorNode> NodeList = null;
-            List<DevMonitorNode> NodeList2 = new List<DevMonitorNode>();
-
-            string strKKS = KKS.Replace(" ","");
-            DbModel.Location.AreaAndDev.DevMonitorNode Node1 = db.DevMonitorNodes.FirstOrDefault(p => p.KKS == strKKS);
-            if (Node1 != null)
+            Dev_Monitor send = new Dev_Monitor();
+            string strDevKKs = Dm.KKSCode;
+            List<DevMonitorNode> MonitorNodeList = dataList.FindAll(p => p.ParentKKS == strDevKKs);
+            foreach (DevMonitorNode item in Dm.MonitorNodeList)
             {
-                NodeList = new List<DevMonitorNode>();
-                DevMonitorNode Node = new DevMonitorNode();
-                Node.Id = Node1.Id;
-                Node.KKS = Node1.KKS;
-                Node.TagName = Node1.TagName;
-                Node.DataBaseName = Node1.DataBaseName;
-                Node.DataBaseTagName = Node1.DataBaseTagName;
-                Node.Describe = Node1.Describe;
-                Node.Value = Node1.Value;
-                Node.Unit = Node1.Unit;
-                Node.DataType = Node1.DataType;
-                Node.TagType = Node1.TagType;
-
-                NodeList.Add(Node);
-            }
-
-            DbRawSqlQuery<DbModel.Location.AreaAndDev.DevMonitorNode> query2 = db.Db.Database.SqlQuery<DbModel.Location.AreaAndDev.DevMonitorNode>("select * from DevMonitorNodes where KKS like '%" + strKKS + "_%' and Id != " + Convert.ToString(Node1.Id));
-            if (query2 == null)
-            {
-                return NodeList;
-            }
-
-
-            List<DbModel.Location.AreaAndDev.DevMonitorNode> MonitorNodeList = query2.ToList();
-           
-            foreach (DbModel.Location.AreaAndDev.DevMonitorNode item in MonitorNodeList)
-            {
-                if (NodeList == null)
+                string strNodeKKS = item.KKS;
+                DevMonitorNode data = MonitorNodeList.Find(p=>p.KKS == strNodeKKS);
+                if (data != null)
                 {
-                    NodeList = new List<DevMonitorNode>();
+                    item.Value = data.Value;
+                    item.Time = data.Time;
                 }
-
-                DevMonitorNode NodeMonitor = new DevMonitorNode();
-                NodeMonitor.Id = item.Id;
-                NodeMonitor.KKS = item.KKS;
-                NodeMonitor.TagName = item.TagName;
-                NodeMonitor.DataBaseName = item.DataBaseName;
-                NodeMonitor.DataBaseTagName = item.DataBaseTagName;
-                NodeMonitor.Describe = item.Describe;
-                NodeMonitor.Value = item.Value;
-                NodeMonitor.Unit = item.Unit;
-                NodeMonitor.DataType = item.DataType;
-                NodeMonitor.TagType = item.TagType;
-
-                NodeList.Add(NodeMonitor);
             }
 
-            return NodeList;
+            if (Dm.ChildrenList != null && Dm.ChildrenList.Count > 0)
+            {
+                foreach (Dev_Monitor item2 in Dm.ChildrenList)
+                {
+                    Dev_Monitor ChildDm = InsertDataToEveryDev(item2, ref dataList);
+                    if (ChildDm != null)
+                    {
+                        if (send.ChildrenList == null)
+                        {
+                            send.ChildrenList = new List<Dev_Monitor>();
+                        }
+                        send.ChildrenList.Add(ChildDm);
+                    }
+                }
+            }
+            
+            send.KKSCode = Dm.KKSCode;
+            send.Name = Dm.Name;
+            send.MonitorNodeList = Dm.MonitorNodeList;
+
+            return send;
         }
+
+        
     }
 }

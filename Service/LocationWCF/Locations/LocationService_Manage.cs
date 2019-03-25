@@ -38,13 +38,13 @@ namespace LocationServices.Locations
         {
            
             info.Session = Guid.NewGuid().ToString();
-            ShowLog(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
+            ShowLogEx(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
             return info;
         }
 
         public LoginInfo Logout(LoginInfo info)
         {
-            ShowLog(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
+            ShowLogEx(">>>>> Login !!!!!!!!!!!!!!!!!!!! :"+ info.Session);
             info.Session = "";
             return info;
         }
@@ -65,7 +65,7 @@ namespace LocationServices.Locations
 
         public void DebugMessage(string msg)
         {
-            ShowLog(msg);
+            ShowLogEx(msg);
         }
     }
 }

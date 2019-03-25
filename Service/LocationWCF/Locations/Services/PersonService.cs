@@ -27,7 +27,7 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        IList<TEntity> GetList(bool detail);
+        List<TEntity> GetList(bool detail);
 
         /// <summary>
         /// 获取一个区域下的所有人员
@@ -201,7 +201,7 @@ namespace LocationServices.Locations.Services
             return list.ToWCFList();
         }
 
-        public IList<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail)
         {
             if (detail)
             {
@@ -226,7 +226,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public IList<TEntity> GetList()
+        public List<TEntity> GetList()
         {
             return GetList(false);
         }

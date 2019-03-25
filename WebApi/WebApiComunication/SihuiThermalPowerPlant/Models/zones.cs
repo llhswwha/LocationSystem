@@ -58,7 +58,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 父ID
         /// </summary>
         [Display(Name = "父ID")]
-        public int? parent_id { get; set; }
+        public int? parent_Id { get; set; }
 
         /// <summary>
         /// 级联关系
@@ -80,7 +80,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             copy.x = this.x;
             copy.y = this.y;
             copy.z = this.z;
-            copy.parent_id = this.parent_id;
+            copy.parent_Id = this.parent_Id;
             copy.path = this.path;
             copy.zones = this.zones;
             copy.devices = this.devices;

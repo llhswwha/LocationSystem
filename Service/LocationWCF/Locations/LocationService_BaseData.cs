@@ -15,6 +15,7 @@ using TModel.Location.Work;
 using TModel.LocationHistory.Work;
 using Location.TModel.Location.Person;
 using Location.TModel.Location.AreaAndDev;
+using TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations
 {
@@ -296,17 +297,17 @@ namespace LocationServices.Locations
         /// <summary>
         /// 获取SIS传感数据
         /// </summary>
-        /// <param name="kks"></param>
-        public void GetSomesisList(string kks)
+        /// <param name="strTags"></param>
+        public List<DevMonitorNode> GetSomesisList(string strTags)
         {
             var client = GetClient();
-            var recv = client.GetSomesisList(kks);
+            var recv = client.GetSomesisList(strTags);
             if (recv == null)
             {
-                return;
+                return null;
             }
-
-            return;
+           
+            return recv.ToTModel();
         }
 
         /// <summary>

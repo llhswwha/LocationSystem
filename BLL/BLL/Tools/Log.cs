@@ -90,15 +90,18 @@ namespace Location.BLL.Tool
 
         public static void StartWatch()
         {
-            if (logger == null)
+            if (logWatcher == null)
             {
-                logger = new log4net.Appender.MemoryAppender();
-                log4net.Config.BasicConfigurator.Configure(logger);
-            }
+                if (logger == null)
+                {
+                    logger = new log4net.Appender.MemoryAppender();
+                    log4net.Config.BasicConfigurator.Configure(logger);
+                }
 
-            logWatcher = new Thread(new ThreadStart(LogWatcher));
-            logWatcher.IsBackground = true;
-            logWatcher.Start();
+                logWatcher = new Thread(new ThreadStart(LogWatcher));
+                logWatcher.IsBackground = true;
+                logWatcher.Start();
+            }
         }
 
 
@@ -125,7 +128,7 @@ namespace Location.BLL.Tool
                         //string line =ev.ToString();
                         //%d{yyyy-MM-dd HH:mm:ss,fff} %-5level [%c:%line] - %message%newline
                         //%d [%t] %-5p %c - %m%n
-                        string line = string.Format("{0} [{1}] {2} {3} - {4} {5}",ev.TimeStamp,ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject,ev.ExceptionObject);
+                        string line = string.Format("{0} [{1}] {2} {3} - {4} {5}",ev.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss,fff"),ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject,ev.ExceptionObject);
                         //string line = ev.LoggerName + ": " + ev.RenderedMessage + "\r\n";
                         if (NewLogEvent != null)
                         {

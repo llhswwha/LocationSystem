@@ -178,6 +178,11 @@ namespace LocationServer
                 var area = AreaCanvas1.SelectedArea;
                 RemoveAreaDevs(area);
             });
+            areaContextMenu.AddMenu("添加测量点", (tag) =>
+            {
+                var area = AreaCanvas1.SelectedArea;
+                RemoveAreaDevs(area);
+            });
             AreaCanvas1.AreaContextMenu = areaContextMenu;
 
             archorSettings = bll.ArchorSettings.ToList();
