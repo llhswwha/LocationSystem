@@ -71,12 +71,24 @@ namespace LocationServer.Windows
             _archor = bll.Archors.Find(i => i.DevInfoId == _dev.Id);
             if (_archor == null)
             {
-                return false;
+                _archor = new Archor();
+                _archor.Code = "Dev_" + _dev.Id;
+                _archor.Id = _dev.Id;
+                _archor.Name = _dev.Name;
             }
-            _code = _archor.GetCode();
+            if (_archor != null)
+            {
+                _code = _archor.GetCode();
+                _item = new ArchorSetting(_code, _archor.Id);
+                _item.Name = _archor.Name;
+            }
+            //else
+            //{
+            //    _code = "Dev_"+_dev.Id;
+            //    _item = new ArchorSetting(_code, _archor.Id);
+            //    _item.Name = _dev.Name;
+            //}
 
-            _item = new ArchorSetting(_code, _archor.Id);
-            _item.Name = _archor.Name;
             var area = _dev.Parent;
 
             x = _dev.PosX;
@@ -295,8 +307,7 @@ namespace LocationServer.Windows
 
             Bll bll = new Bll();
 
-            var archorNew = bll.Archors.Find(_archor.Id);
-
+            var archor = _archor;
             string code = _archor.Code;
 
             _archor.X = PcAbsolute.X;
@@ -306,12 +317,21 @@ namespace LocationServer.Windows
             _archor.Code = TbCode.Text;
             _archor.Ip = IPCode1.Text;
 
-            archorNew.X = PcAbsolute.X;
-            archorNew.Z = PcAbsolute.Y;
-            archorNew.Y = TbHeight2.Text.ToDouble();
-            archorNew.Name = TbName.Text;
-            archorNew.Code = TbCode.Text;
-            archorNew.Ip = IPCode1.Text;
+            var archorNew = bll.Archors.Find(_archor.Id);
+            if (archorNew != null)
+            {
+                archorNew.X = PcAbsolute.X;
+                archorNew.Z = PcAbsolute.Y;
+                archorNew.Y = TbHeight2.Text.ToDouble();
+                archorNew.Name = TbName.Text;
+                archorNew.Code = TbCode.Text;
+                archorNew.Ip = IPCode1.Text;
+                if (bll.Archors.Edit(archorNew) == false)
+                {
+                    MessageBox.Show("保存失败2");
+                    return;
+                }
+            }
 
             var devNew = bll.DevInfos.Find(_dev.Id);
 
@@ -325,18 +345,8 @@ namespace LocationServer.Windows
             _dev.PosZ = (float)PcArchor.Y;
             _dev.PosY = TbHeight.Text.ToFloat();
           
-
-            //if (bll.bus_anchors.Update(code, _archor) == false)
-            //{
-            //    MessageBox.Show("保存失败1");
-            //    return;
-            //}
             
-            if (bll.Archors.Edit(archorNew) == false)
-            {
-                MessageBox.Show("保存失败2");
-                return;
-            }
+
             if (bll.DevInfos.Edit(devNew) == false)
             {
                 MessageBox.Show("保存失败3");

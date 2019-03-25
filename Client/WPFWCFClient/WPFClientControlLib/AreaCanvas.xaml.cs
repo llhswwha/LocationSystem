@@ -441,6 +441,15 @@ namespace WPFClientControlLib
             return ellipse;
         }
 
+
+        private Location.TModel.Location.AreaAndDev.Point GetOriginalPoint(System.Windows.Point point)
+        {
+            double x = point.X / Scale + OffsetX;
+            double y= point.Y / Scale + OffsetX;
+            return new Location.TModel.Location.AreaAndDev.Point((float)x, (float)y,0);
+        }
+
+
         private void DrawFloor(AreaEntity area,double scale,double devSize)
         {
             Clear();
@@ -1359,5 +1368,30 @@ namespace WPFClientControlLib
             IsShowSwitchArea = (bool)CbShowSwitchArea.IsChecked;
             Refresh();
         }
+
+        private void Canvas1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var p1 = e.GetPosition(Canvas1);
+            SelectedPoint1 = p1;
+            Ellipse p = new Ellipse()
+            {
+                Margin = new Thickness(p1.X, p1.Y, 0, 0),
+                Width = 2,
+                Height = 2,
+                Fill = Brushes.Red,
+                Stroke = Brushes.Black,
+                StrokeThickness = 1,
+                ToolTip = Name
+            };
+            Canvas1.Children.Add(p);
+            var p2=GetOriginalPoint(p1);
+            var p3 = CurrentArea.InitBound.GetLeftBottomPoint();
+            //SelectedPoint2 = new Location.TModel.Location.AreaAndDev.Point(p3.X - p2.X, p3.Y - p2.Y, 0);
+            SelectedPoint2 = p2;
+        }
+
+        public System.Windows.Point SelectedPoint1;
+
+        public Location.TModel.Location.AreaAndDev.Point SelectedPoint2;
     }
 }

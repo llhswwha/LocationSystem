@@ -94,18 +94,28 @@ namespace BLL
         /// <returns></returns>
         public static Area GetDevRoom(Area floor, DevInfo dev)
         {
-            Bll bll = new Bll();
-            
-            var rooms = bll.Areas.FindAll(j => j.ParentId == floor.Id);
+            var rooms = GetFloorRooms(floor.Id);
             floor.Children = rooms;
+            return GetDevRoom(rooms, dev);
+        }
 
+        public static List<Area> GetFloorRooms(int floorId)
+        {
+            Bll bll = new Bll();
+            var rooms = bll.Areas.FindAll(j => j.ParentId == floorId);
             List<Bound> bounds = bll.Bounds.ToList();
             List<Point> points = bll.Points.ToList();
             BindBoundWithPoint(points, bounds);
             BindAreaWithBound(rooms, bounds);
-
-            return GetDevRoom(rooms, dev);
+            return rooms;
         }
+
+        public static Area GetRoomByPos(int floorId,float x,float z)
+        {
+            var rooms = GetFloorRooms(floorId);
+            return GetRoomByPos(rooms, x, z);
+        }
+
 
         /// <summary>
         /// 获取设备所在的机房
@@ -115,7 +125,18 @@ namespace BLL
         /// <returns></returns>
         public static Area GetDevRoom(List<Area> rooms, DevInfo dev)
         {
-            var inRooms = rooms.FindAll(j => j.InitBound != null && j.InitBound.Contains(dev.PosX, dev.PosZ));
+            return GetRoomByPos(rooms, dev.PosX, dev.PosZ);
+        }
+
+        /// <summary>
+        /// 获取设备所在的机房
+        /// </summary>
+        /// <param name="rooms"></param>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        public static Area GetRoomByPos(List<Area> rooms, float x,float z)
+        {
+            var inRooms = rooms.FindAll(j => j.InitBound != null && j.InitBound.Contains(x, z));
             if (inRooms.Count > 0)
             {
                 if (inRooms.Count == 1)
@@ -124,7 +145,7 @@ namespace BLL
                 }
                 else
                 {
-                    Log.Warn("设备有多个机房:" + dev.Name);
+                    Log.Warn("该位置有多个机房");
                     return inRooms[0];
                 }
             }

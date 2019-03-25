@@ -246,6 +246,7 @@ namespace BLL
             var childrenArea = area.Children;
             foreach (var item in childrenArea)
             {
+                if (item.Type == AreaTypes.CAD) continue;//过滤掉柱子等CAD物体
                 var x = pos.X - area.InitBound.MinX - building.InitBound.MinX;
                 var y = pos.Z - area.InitBound.MinY - building.InitBound.MinY;
                 if (item == null || item.InitBound == null)

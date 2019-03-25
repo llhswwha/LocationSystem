@@ -308,5 +308,11 @@ namespace LocationWCFServer
             
             return;
         }
+
+        private void MenuTrackPointList_Click(object sender, RoutedEventArgs e)
+        {
+            var wind = new TrackPointListWindow();
+            wind.Show();
+        }
     }
 }

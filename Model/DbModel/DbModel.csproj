@@ -72,7 +72,6 @@
     <Compile Include="Location\Authorizations\CardRole.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
     <Compile Include="Location\AreaAndDev\HomePagePicture.cs" />
-    <Compile Include="Location\Tool\TrackPoint.cs" />
     <Compile Include="Location\Work\PatrolPoint.cs" />
     <Compile Include="Location\Work\InspectionTrack.cs" />
     <Compile Include="Location\Work\PatrolPointItem.cs" />

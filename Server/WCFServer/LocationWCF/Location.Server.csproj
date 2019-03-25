@@ -312,6 +312,12 @@
     <Compile Include="Windows\Simple\TagWindow.xaml.cs">
       <DependentUpon>TagWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Simple\TrackPointListWindow.xaml.cs">
+      <DependentUpon>TrackPointListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Simple\TrackPointWindow.xaml.cs">
+      <DependentUpon>TrackPointWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ServerManagerBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -459,6 +465,14 @@
     <Page Include="Windows\Simple\TagWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Simple\TrackPointListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Simple\TrackPointWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -34,6 +34,8 @@ using LocationServer.Models.EngineTool;
 using DbModel.Location.Settings;
 using TArchor = TModel.Location.AreaAndDev.Archor;
 using Bound = Location.TModel.Location.AreaAndDev.Bound;
+using LocationServer.Windows.Simple;
+using Point = Location.TModel.Location.AreaAndDev.Point;
 
 namespace LocationServer
 {
@@ -181,7 +183,12 @@ namespace LocationServer
             areaContextMenu.AddMenu("添加测量点", (tag) =>
             {
                 var area = AreaCanvas1.SelectedArea;
-                RemoveAreaDevs(area);
+                TrackPointWindow win = new TrackPointWindow();
+                win.Show(area.Id, AreaCanvas1.SelectedPoint2);
+
+                //RoomArchorSettingWindow win = new RoomArchorSettingWindow();
+                //var dev = topoTree.SelectedObject as DevEntity;
+                //SetDevInfo(null, null);
             });
             AreaCanvas1.AreaContextMenu = areaContextMenu;
 
@@ -492,21 +499,6 @@ namespace LocationServer
                     archors.Add(archor);
                 }
                 bll.Archors.AddRange(archors.ToDbModel());
-                
-
-                //var archor = new TArchor();
-                //archor.X = 10;
-                //archor.Y = 10;
-                //archor.Name = "NewArchor";
-                //archor.Code = "";
-                //archor.Ip = "";
-                //archor.ParentId = area.Id;
-                //var archorNew = archorService.Post(archor);
-                //archorNew.Code = "Code_" + archorNew.Id;
-                //archorService.Put(archorNew);
-
-                //area.AddLeaf(archorNew.DevInfo);
-
                 topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
                 AreaCanvas1.Refresh();
             });
@@ -654,23 +646,24 @@ namespace LocationServer
 
         ParkArchorSettingWindow parkArchorSettingWnd;
 
+        //private void CreateDevInfo(int areaId,Point point)
+        //{
+        //    //DevEntity 
+
+        //    var area= areaId
+        //}
+
         private void SetDevInfo(Rectangle rect, DevEntity obj)
         {
             var parentArea = areaService.GetEntity(obj.ParentId + "");
-            //obj.Parent
             if (parentArea.IsPark()) //电厂
             {
                 var bound = parentArea.InitBound;
-                //if (bound.Points == null)
-                //{
-                //    bound.Points = new Bll().Points.FindAll(i => i.BoundId == bound.Id);
-                //}
                 var leftBottom = bound.GetLeftBottomPoint();
 
                 parkArchorSettingWnd = new ParkArchorSettingWindow();
                 ArchorSettingContext.ZeroX = leftBottom.X;
                 ArchorSettingContext.ZeroY = leftBottom.Y;
-                //win2.Owner = this;
                 parkArchorSettingWnd.RefreshDev += (dev) => {
                     archorSettings = bll.ArchorSettings.ToList();
                     AreaCanvas1.RefreshDev(dev);

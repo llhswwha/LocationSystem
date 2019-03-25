@@ -27,13 +27,25 @@ namespace LocationServer.Models.EngineTool
         }
 
         Area area;
-        DevInfo dev;
+        //DevInfo dev;
+        float x;
+        float y;
         int mode;
         public PointSelectWindow(Area area,DevInfo dev,int mode)
         {
             InitializeComponent();
             this.area = area;
-            this.dev = dev;
+            //this.dev = dev
+            x = dev.PosX;
+            y = dev.PosZ;
+            this.mode = mode;
+        }
+
+        public PointSelectWindow(Area area, float x,float y, int mode)
+        {
+            InitializeComponent();
+            this.area = area;
+            //this.dev = dev;
             this.mode = mode;
         }
 
@@ -46,9 +58,9 @@ namespace LocationServer.Models.EngineTool
             points.AddRange(bound.Points);
             points.Add(bound.GetCenter());
             List2.ItemsSource = points;
-            if (dev != null)
+            if (x != 0 && y != 0)
             {
-                List2.SelectedItem = bound.GetClosePoint(dev.PosX, dev.PosZ);
+                List2.SelectedItem = bound.GetClosePoint(x, y);
             }
 
             if (SelectedAreaChanged != null)
@@ -80,9 +92,9 @@ namespace LocationServer.Models.EngineTool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (dev != null)
+            if (x!=0&&y!=0)
             {
-                List1.ItemsSource = area.SortByPoint(dev.PosX, dev.PosZ);
+                List1.ItemsSource = area.SortByPoint(x, y);
             }
             else
             {
