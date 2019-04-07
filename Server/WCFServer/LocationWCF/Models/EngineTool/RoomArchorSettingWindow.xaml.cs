@@ -71,10 +71,7 @@ namespace LocationServer.Windows
             _archor = bll.Archors.Find(i => i.DevInfoId == _dev.Id);
             if (_archor == null)
             {
-                _archor = new Archor();
-                _archor.Code = "Dev_" + _dev.Id;
-                _archor.Id = _dev.Id;
-                _archor.Name = _dev.Name;
+                _archor = new Archor(_dev);
             }
             if (_archor != null)
             {

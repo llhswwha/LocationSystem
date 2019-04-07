@@ -11,7 +11,15 @@ namespace IModel.Enums
         /// </summary>
         public static int Archor = 20180821;
 
+        /// <summary>
+        /// 测点
+        /// </summary>
+        public static int TrackPoint = 100001;
 
+        /// <summary>
+        /// 测点
+        /// </summary>
+        public static int Camera = 3000201;
     }
     /// <summary>
     /// 区域名称

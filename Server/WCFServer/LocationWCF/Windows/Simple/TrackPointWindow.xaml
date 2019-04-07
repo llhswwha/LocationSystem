@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows.Simple"
         mc:Ignorable="d"
-        Title="定位测量点" Height="300" Width="350">
+        Title="定位测量点" Height="200" Width="350">
     <Grid>
         <StackPanel>
             <DockPanel>
@@ -19,53 +19,17 @@
                 <Label Width="100" DockPanel.Dock="Left">建筑</Label>
                 <TextBox Name="TbBuildingName" IsEnabled="False"></TextBox>
             </DockPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Width="100" DockPanel.Dock="Left" Grid.Column="0">楼层名称</Label>
-                <TextBox Name="TbFloorName" IsEnabled="False" Grid.Column="1"></TextBox>
-                <Label Width="100" DockPanel.Dock="Left" Grid.Column="2">楼层高度</Label>
-                <TextBox Name="TbFloorHeight"  IsEnabled="False" Grid.Column="3"></TextBox>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Width="100" DockPanel.Dock="Left" Grid.Column="0">相对高度</Label>
-                <TextBox Name="TbHeight"  Grid.Column="1" TextChanged="TbHeight_OnTextChanged"></TextBox>
-                <Label Width="100" DockPanel.Dock="Left" Grid.Column="2">绝对高度</Label>
-                <TextBox Name="TbHeight2"  Grid.Column="3"></TextBox>
-            </Grid>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">楼层</Label>
+                <TextBox Name="TbFloorName" IsEnabled="False"></TextBox>
+            </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">房间</Label>
                 <TextBox Name="TbRoomName" IsEnabled="False"></TextBox>
             </DockPanel>
-
-            <DockPanel>
-                <Label Width="100" DockPanel.Dock="Left">机房参考点坐标</Label>
-                <Button DockPanel.Dock="Right" Name="BtnShowPoint" Click="BtnShowPoint_OnClick">显示</Button>
-                <Button DockPanel.Dock="Right" Name="BtnAutoSelectPoint" Click="BtnAutoSelectPoint_Click">就近选择</Button>
-                <Button DockPanel.Dock="Right" Name="BtnSelectPoint" Click="BtnSelectPoint_Click">选择...</Button>
-                <WPFClientControlLib:PointControl x:Name="PcZero"/>
-            </DockPanel>
-            <DockPanel>
-                <Label Width="100" DockPanel.Dock="Left">相对参考点坐标</Label>
-                <WPFClientControlLib:PointControl x:Name="PcRelative"/>
-            </DockPanel>
             <DockPanel>
                 <Label Width="100" DockPanel.Dock="Left">(相对楼层)坐标</Label>
                 <WPFClientControlLib:PointControl x:Name="PcArchor" />
-            </DockPanel>
-            <DockPanel>
-                <Label Width="100" DockPanel.Dock="Left">绝对坐标(CAD)*</Label>
-                <WPFClientControlLib:PointControl x:Name="PcAbsolute"/>
             </DockPanel>
             <StackPanel>
                 <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>

@@ -1,4 +1,6 @@
 ﻿using BLL;
+using DbModel.Location.AreaAndDev;
+using IModel.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +31,7 @@ namespace LocationServer.Windows.Simple
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DataGrid1.ItemsSource = bll.DevInfos.Where(i => i.Local_TypeCode == 100001);
+            DataGrid1.ItemsSource = bll.DevInfos.Where(i => i.Local_TypeCode == TypeCodes.TrackPoint);
         }
 
         private void MenuClear_Click(object sender, RoutedEventArgs e)

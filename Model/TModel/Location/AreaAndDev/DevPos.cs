@@ -29,5 +29,18 @@ namespace Location.TModel.Location.AreaAndDev
         public float ScaleY { get; set; }
         [DataMember]
         public float ScaleZ { get; set; }
+
+        internal void Refresh(DevPos pos)
+        {
+            this.PosX = pos.PosX;
+            this.PosY = pos.PosY;
+            this.PosZ = pos.PosZ;
+            this.RotationX = pos.RotationX;
+            this.RotationY = pos.RotationY;
+            this.RotationZ = pos.RotationZ;
+            this.ScaleX = pos.ScaleX;
+            this.ScaleY = pos.ScaleY;
+            this.ScaleZ = pos.ScaleZ;
+        }
     }
 }

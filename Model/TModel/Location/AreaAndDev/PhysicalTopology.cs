@@ -102,6 +102,31 @@ namespace Location.TModel.Location.AreaAndDev
             return LeafNodes;
         }
 
+        public void AddLeafNode(DevInfo leafNode)
+        {
+            if (LeafNodes == null)
+            {
+                LeafNodes = new List<DevInfo>();
+            }
+            LeafNodes.Add(leafNode);
+        }
+
+
+        public bool RemoveLeafNode(int id)
+        {
+            if (LeafNodes == null) return true;
+            for (int i = 0; i < LeafNodes.Count; i++)
+            {
+                var leafNode = LeafNodes[i];
+                if (leafNode.Id == id)
+                {
+                    LeafNodes.RemoveAt(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// 区域内人员
         /// </summary>
@@ -262,6 +287,7 @@ namespace Location.TModel.Location.AreaAndDev
                 }
             }
         }
+
 
         ///// <summary>
         ///// 用两点(对角点)初始化区域范围

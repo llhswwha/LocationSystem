@@ -184,8 +184,12 @@ namespace LocationServer
             {
                 var area = AreaCanvas1.SelectedArea;
                 TrackPointWindow win = new TrackPointWindow();
-                win.Show(area.Id, AreaCanvas1.SelectedPoint2);
-
+                if(win.Show(area.Id, AreaCanvas1.SelectedPoint2) == true)
+                {
+                    var newDev = win._tp;
+                    area.AddLeafNode(newDev.ToTModel());
+                    AreaCanvas1.Refresh();
+                }
                 //RoomArchorSettingWindow win = new RoomArchorSettingWindow();
                 //var dev = topoTree.SelectedObject as DevEntity;
                 //SetDevInfo(null, null);
@@ -214,6 +218,8 @@ namespace LocationServer
                 {
                     MessageBox.Show("删除失败");
                 }
+                var area = AreaCanvas1.CurrentArea;
+                area.RemoveLeafNode(dev.Id);
                 AreaCanvas1.RemoveDev(dev.Id);
 
                 //topoTree.RefreshNode(dev.ParentId);
@@ -666,6 +672,7 @@ namespace LocationServer
                 ArchorSettingContext.ZeroY = leftBottom.Y;
                 parkArchorSettingWnd.RefreshDev += (dev) => {
                     archorSettings = bll.ArchorSettings.ToList();
+                    obj.Refresh(dev);
                     AreaCanvas1.RefreshDev(dev);
                 };
                 parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
@@ -685,6 +692,7 @@ namespace LocationServer
                 //roomArchorSettingWnd.Owner = this;
                 roomArchorSettingWnd.RefreshDev += (dev) => {
                     archorSettings = bll.ArchorSettings.ToList();
+                    obj.Refresh(dev);
                     AreaCanvas1.RefreshDev(dev);
                 };
                 roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };

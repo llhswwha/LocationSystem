@@ -22,6 +22,7 @@ using BLL;
 using DbModel.Engine;
 using DbModel.Location.Settings;
 using TModel.Tools;
+using IModel.Enums;
 
 namespace LocationServer.Controls
 {
@@ -38,7 +39,7 @@ namespace LocationServer.Controls
         private void MenuExport_OnClick(object sender, RoutedEventArgs e)
         {
             string fileName = string.Format("Archors_{0}.xls", DateTime.Now.ToString("yyyyMMddHHmmss"));
-            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\"+ fileName);
+            FileInfo file = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + fileName);
             list.Sort();
             ExcelHelper.ExportList(list, file);
             Process.Start(file.Directory.FullName);
@@ -61,7 +62,7 @@ namespace LocationServer.Controls
             }
             else
             {
-                
+
             }
         }
 
@@ -101,20 +102,43 @@ namespace LocationServer.Controls
 
         public bool CalculateAll = false;
 
+        public bool IsTrackPoint = false;
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            List<DevInfo> devs = null;
             worker.ReportProgress(0);
             var bll = new Bll(false, false, false, false);
-            if (areaId == 0)
+            if (IsTrackPoint)
             {
-                archors = bll.Archors.ToList();
+                if (areaId == 0)
+                {
+                    devs = bll.DevInfos.Where(i => i.Local_TypeCode == TypeCodes.TrackPoint);
+                }
+                else
+                {
+                    devs = bll.DevInfos.Where(i => i.Local_TypeCode == TypeCodes.TrackPoint && i.ParentId == areaId);
+                }
+                archors = new List<Archor>();
+                foreach (var item in devs)
+                {
+                    Archor anchor = new Archor(item);
+                    archors.Add(anchor);
+                }
             }
             else
             {
-                archors = bll.Archors.Where(i => i.ParentId == areaId);
+                if (areaId == 0)
+                {
+                    archors = bll.Archors.ToList();
+                }
+                else
+                {
+                    archors = bll.Archors.Where(i => i.ParentId == areaId);
+                }
             }
 
-            var devs = bll.DevInfos.ToList();
+            devs = bll.DevInfos.ToList();
             var areas = bll.Areas.GetWithBoundPoints(true);
             list = new List<ArchorSetting>();
             var list2 = bll.ArchorSettings.ToList();
@@ -188,11 +212,11 @@ namespace LocationServer.Controls
                                 }
                             }
                         }
-                       
+
                     }
                     else
                     {
-                        bool r=archorSetting.CalAbsolute();
+                        bool r = archorSetting.CalAbsolute();
                         if (r == false)
                         {
                             list3.Add(archorSetting);
@@ -207,18 +231,18 @@ namespace LocationServer.Controls
                         if (ShowAll)
                         {
                             //if (archorSetting.RelativeHeight != 2)//过滤掉2m的基站 未测量位置坐标的
-                                list.Add(archorSetting);
+                            list.Add(archorSetting);
                         }
                         else
                         {
                             if (archorSetting.RelativeHeight != 2)//过滤掉2m的基站 未测量位置坐标的
                                 list.Add(archorSetting);
                         }
-                        
+
                     }
 
-                    double percent = i*100f/archors.Count;
-                    worker.ReportProgress((int) percent);
+                    double percent = i * 100f / archors.Count;
+                    worker.ReportProgress((int)percent);
                 }
                 catch (Exception ex)
                 {
@@ -244,7 +268,7 @@ namespace LocationServer.Controls
         {
             var bll = AppContext.GetLocationBll();
 
-            
+
 
             var list0 = bll.bus_anchors.ToList();
             var list1 = new List<bus_anchor>();
@@ -261,9 +285,9 @@ namespace LocationServer.Controls
                 {
                     list2.Add(item);
                 }
-                item.anchor_x = (int) (setting.AbsoluteX.ToDouble()*100);
-                item.anchor_y = (int) (setting.AbsoluteY.ToDouble()*100);
-                item.anchor_z = (int) (setting.AbsoluteHeight*100);
+                item.anchor_x = (int)(setting.AbsoluteX.ToDouble() * 100);
+                item.anchor_y = (int)(setting.AbsoluteY.ToDouble() * 100);
+                item.anchor_z = (int)(setting.AbsoluteHeight * 100);
             }
 
             if (bll.bus_anchors.AddRange(list1) && bll.bus_anchors.EditRange(list2))

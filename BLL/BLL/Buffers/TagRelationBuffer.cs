@@ -135,79 +135,100 @@ namespace BLL
 
         private void SetArea(Position pos)
         {
-            //AddSimulateArchor(pos);
-            if (pos.Code == "00012")
+            try
             {
-                int i = 0;
-            }
-            if (pos.Archors != null && pos.Archors.Count > 0)
-            {
-                SetAreaByArchor(pos);
-                var area = areas.Find(i => pos.IsInArea(i.Id));
-                if (area != null)
+                //AddSimulateArchor(pos);
+                if (pos.Code == "00012")
                 {
-                    if (area.IsPark()) //电厂园区,基站属于园区或者楼层
+                    int i = 0;
+                }
+                if (pos.Archors != null && pos.Archors.Count > 0)
+                {
+                    SetAreaByArchor(pos);
+                    var area = areas.Find(i => pos.IsInArea(i.Id));
+                    if (area != null)
                     {
-                        SetAreaInPark(pos, area);
+                        if (area.IsPark()) //电厂园区,基站属于园区或者楼层
+                        {
+                            SetAreaInPark(pos, area);
+                        }
+                        else if (area.Type == DbModel.Tools.AreaTypes.楼层)
+                        {
+                            SetAreaInFloor(pos, area);
+                        }
                     }
-                    else if (area.Type == DbModel.Tools.AreaTypes.楼层)
+                    else
                     {
-                        SetAreaInFloor(pos, area);
+                        area = areas[1];
+                        SetAreaByPosition(pos, area);
                     }
                 }
                 else
                 {
-                    area = areas[1];
+                    var area = areas[1];
                     SetAreaByPosition(pos, area);
                 }
-            }
-            else
-            {
-                var area = areas[1];
-                SetAreaByPosition(pos, area);
-            }
 
-            if (pos.IsAreaNull())
-            {
-                Console.WriteLine("pos.IsAreaNull()");
+                if (pos.IsAreaNull())
+                {
+                    Console.WriteLine("pos.IsAreaNull()");
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Error("TagRelationBuffer.SetArea", ex);
+            }
+            
         }
 
         private static void SetAreaByPosition(Position pos, Area area)
         {
-      //      if (pos.Code != "0918") return;
-            if (area.IsPark()) //电厂园区,基站属于园区或者楼层
+            try
             {
-                var inArea = SetAreaInPark(pos, area);
-                if (inArea != null) //某个建筑物
+                //      if (pos.Code != "0918") return;
+                if (area.IsPark()) //电厂园区,基站属于园区或者楼层
                 {
-                    if (inArea.Type == AreaTypes.大楼)
+                    var inArea = SetAreaInPark(pos, area);
+                    if (inArea != null) //某个建筑物
                     {
-                        var floor = inArea.GetFloorByHeight(pos.Y);
-                        if (floor.Id == 62)
+                        if (inArea.Type == AreaTypes.大楼)
                         {
+                            var floor = inArea.GetFloorByHeight(pos.Y);
 
+                            if (floor != null)
+                            {
+                                SetAreaInFloor(pos, floor);
+                            }
+                            else//自然通风冷却塔这种的没有楼层
+                            {
+
+                            }
+                            //if (floor.Id == 62)
+                            //{
+
+                            //}
+                            if (pos.AreaId == 62)
+                            {
+
+                            }
                         }
-                        if (floor != null)
-                        {
-                            SetAreaInFloor(pos, floor);
-                        }
-                        if (pos.AreaId == 62)
+                        else//园区
                         {
 
                         }
                     }
-                    else//园区
+                    else
                     {
-
+                        pos.AreaId = 2;//设为园区
+                        int nn = 0;
                     }
-                }
-                else
-                {
-                    pos.AreaId = 2;//设为园区
-                    int nn = 0;
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Error("TagRelationBuffer.SetAreaByPosition", ex);
+            }
+      
         }
 
         private void SetAreaByArchor(Position pos)

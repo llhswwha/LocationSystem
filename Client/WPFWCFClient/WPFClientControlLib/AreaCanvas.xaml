@@ -17,10 +17,6 @@
             </ComboBox>
             <Label>设备大小:</Label>
             <ComboBox Name="CbDevSize" Width="50"></ComboBox>
-            <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
-            <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
-            <CheckBox Name="CbShowPerson" IsChecked="True" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
-            <CheckBox Name="CbShowSwitchArea" IsChecked="True" Checked="CbShowSwitchArea_Checked" Unchecked="CbShowSwitchArea_Unchecked">显示切换区域</CheckBox>
             <Label>楼层</Label>
             <ComboBox Width="50" Name="CbFloor" SelectionChanged="CbFloor_SelectionChanged">
                 <ComboBoxItem IsSelected="True">无</ComboBoxItem>
@@ -30,6 +26,18 @@
                 <ComboBoxItem>4层</ComboBoxItem>
             </ComboBox>
             <Label Name="LbState">State</Label>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
+            <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
+            <CheckBox Name="CbShowPerson" IsChecked="True" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
+            <CheckBox Name="CbShowSwitchArea" IsChecked="False" Checked="CbShowSwitchArea_Checked" Unchecked="CbShowSwitchArea_Unchecked">显示切换区域</CheckBox>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <CheckBox Name="CbDevAnchor" IsChecked="True" Checked="CbDevAnchor_Checked" Unchecked="CbDevAnchor_Unchecked">基站设备</CheckBox>
+            <CheckBox Name="CbDevCamera" IsChecked="True" Checked="CbDevCamera_Checked" Unchecked="CbDevCamera_Unchecked">摄像头</CheckBox>
+            <CheckBox Name="CbDevOther" IsChecked="False" Checked="CbDevOther_Checked" Unchecked="CbDevOther_Unchecked">其他设备</CheckBox>
+            <CheckBox Name="CbDevTrackPoint" IsChecked="True" Checked="CbDevTrackPoint_Checked" Unchecked="CbDevTrackPoint_Unchecked">测点</CheckBox>
         </StackPanel>
         <Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Name="ScrollViewer1">

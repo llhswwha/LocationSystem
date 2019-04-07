@@ -41,23 +41,30 @@ namespace LocationServices.Locations.Services
         {
             var devId = id.ToInt();
             var dev = dbSet.Find(devId);
-            if (dev.Local_TypeCode== TypeCodes.Archor)
+            if (dev != null)
             {
-                var archor=db.Archors.DeleteByDev(devId);
-                if (archor != null)
+                if (dev.Local_TypeCode == TypeCodes.Archor)
+                {
+                    var archor = db.Archors.DeleteByDev(devId);
+                    if (archor != null)
+                    {
+                        var item = dbSet.DeleteById(id.ToInt());
+                        return item.ToTModel();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
                 {
                     var item = dbSet.DeleteById(id.ToInt());
                     return item.ToTModel();
                 }
-                else
-                {
-                    return null;
-                }
             }
             else
             {
-                var item = dbSet.DeleteById(id.ToInt());
-                return item.ToTModel();
+                return null;
             }
         }
 

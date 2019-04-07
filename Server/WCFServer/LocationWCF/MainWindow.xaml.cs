@@ -311,8 +311,13 @@ namespace LocationWCFServer
 
         private void MenuTrackPointList_Click(object sender, RoutedEventArgs e)
         {
-            var wind = new TrackPointListWindow();
-            wind.Show();
+            //var wind = new TrackPointListWindow();
+            //wind.Show();
+
+            var win = new ArchorListExportWindow();
+            //win.CalculateAll = false;
+            win.IsTrackPoint = true;
+            win.Show();
         }
     }
 }

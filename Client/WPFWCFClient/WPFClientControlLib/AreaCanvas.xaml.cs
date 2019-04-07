@@ -579,6 +579,41 @@ namespace WPFClientControlLib
         /// 基站TypeCode
         /// </summary>
         private int ArchorTypeCode = TypeCodes.Archor;
+
+        private Rectangle AddDevRectEx(DevEntity dev, double scale, double devSize)
+        {
+            if (dev == null) return null;
+            if (dev.TypeCode == ArchorTypeCode)
+            {
+                if (IsShowAnchor)
+                {
+                    return AddDevRect(dev, scale, devSize, ShowDevName);
+                }
+            }
+            else if (dev.TypeCode == TypeCodes.TrackPoint)
+            {
+                if (IsShowTrackPoint)
+                {
+                    return AddDevRect(dev, scale, devSize * 0.5, false);
+                }
+            }
+            else if (dev.TypeCode == TypeCodes.Camera)
+            {
+                if (IsShowCamera)
+                {
+                    return AddDevRect(dev, scale, devSize * 0.8, false);
+                }
+            }
+            else
+            {
+                if (IsShowOtherDev)
+                {
+                    return AddDevRect(dev, scale, devSize * 1.5, false);
+                }
+            }
+            return null;
+        }
+
         private void ShowDevs(List<DevEntity> devs, double scale, double devSize)
         {
             if (ShowDev)
@@ -590,14 +625,12 @@ namespace WPFClientControlLib
                         if (dev == null) continue;
                         if (dev.TypeCode == ArchorTypeCode)
                         {
-                            count++;
-                            AddDevRect(dev, scale, devSize,ShowDevName);
+                            if (IsShowAnchor)
+                            {
+                                count++;
+                            }
                         }
-                        else
-                        {
-                            AddDevRect(dev, scale, devSize*1.5,false);
-                        }
-                        
+                        AddDevRectEx(dev, scale, devSize);
                     }
                     
                     LbState.Content = "基站设备数量:" + count;
@@ -1157,11 +1190,11 @@ namespace WPFClientControlLib
         public void RefreshDev(DevEntity dev)
         {
             int scale = (int)CbScale.SelectedItem;
-            
-            var rect=AddDevRect(dev, scale, DevSize,ShowDevName);
+
+            //var rect=AddDevRect(dev, scale, DevSize,ShowDevName);
+            var rect=AddDevRectEx(dev, scale, DevSize);
             SelectDev(rect);
         }
-
 
         private void CbDevSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1373,17 +1406,17 @@ namespace WPFClientControlLib
         {
             var p1 = e.GetPosition(Canvas1);
             SelectedPoint1 = p1;
-            Ellipse p = new Ellipse()
-            {
-                Margin = new Thickness(p1.X, p1.Y, 0, 0),
-                Width = 2,
-                Height = 2,
-                Fill = Brushes.Red,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                ToolTip = Name
-            };
-            Canvas1.Children.Add(p);
+            //Ellipse p = new Ellipse()
+            //{
+            //    Margin = new Thickness(p1.X, p1.Y, 0, 0),
+            //    Width = 2,
+            //    Height = 2,
+            //    Fill = Brushes.Red,
+            //    Stroke = Brushes.Black,
+            //    StrokeThickness = 1,
+            //    ToolTip = Name
+            //};
+            //Canvas1.Children.Add(p);
             var p2=GetOriginalPoint(p1);
             var p3 = CurrentArea.InitBound.GetLeftBottomPoint();
             //SelectedPoint2 = new Location.TModel.Location.AreaAndDev.Point(p3.X - p2.X, p3.Y - p2.Y, 0);
@@ -1393,5 +1426,66 @@ namespace WPFClientControlLib
         public System.Windows.Point SelectedPoint1;
 
         public Location.TModel.Location.AreaAndDev.Point SelectedPoint2;
+
+        public bool IsShowAnchor = true;
+
+        private void CbDevAnchor_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowAnchor = (bool)CbDevAnchor.IsChecked;
+            Refresh();
+        }
+
+        private void CbDevAnchor_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowAnchor = (bool)CbDevAnchor.IsChecked;
+            Refresh();
+        }
+
+        public bool IsShowOtherDev = false;
+
+        private void CbDevOther_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowOtherDev = (bool)CbDevOther.IsChecked;
+            Refresh();
+        }
+
+        private void CbDevOther_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowOtherDev = (bool)CbDevOther.IsChecked;
+            Refresh();
+        }
+
+        public bool IsShowTrackPoint = true;
+
+        private void CbDevTrackPoint_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowTrackPoint = (bool)CbDevTrackPoint.IsChecked;
+            Refresh();
+        }
+
+        private void CbDevTrackPoint_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowTrackPoint = (bool)CbDevTrackPoint.IsChecked;
+            Refresh();
+        }
+
+        bool IsShowCamera = true;
+
+        private void CbDevCamera_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowCamera = (bool)CbDevCamera.IsChecked;
+            Refresh();
+        }
+
+        private void CbDevCamera_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowCamera = (bool)CbDevCamera.IsChecked;
+            Refresh();
+        }
+
+        private void Canvas1_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

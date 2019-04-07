@@ -167,5 +167,23 @@ namespace DbModel.Location.AreaAndDev
 
             return copy;
         }
+
+        public Archor()
+        {
+
+        }
+
+        public Archor(DevInfo dev)
+        {
+            //_archor = new Archor();
+            Code = "Dev_" + dev.Id;
+            Id = dev.Id;
+            Name = dev.Name;
+            ParentId = dev.ParentId;
+            X = dev.PosX;
+            Y = dev.PosY;
+            Z = dev.PosZ;
+            DevInfoId = dev.Id;
+        }
     }
 }

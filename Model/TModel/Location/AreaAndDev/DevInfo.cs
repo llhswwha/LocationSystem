@@ -329,5 +329,11 @@ namespace Location.TModel.Location.AreaAndDev
         {
             return Name;
         }
+
+        public void Refresh(DevInfo dev)
+        {
+            Name = dev.Name;
+            Pos.Refresh(dev.Pos);
+        }
     }
 }

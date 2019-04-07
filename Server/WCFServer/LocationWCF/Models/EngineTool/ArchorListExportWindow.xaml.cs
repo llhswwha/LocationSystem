@@ -36,5 +36,22 @@ namespace LocationServer
             ArchorListExportControl1.LoadData();
         }
 
+        public bool IsTrackPoint
+        {
+            get
+            {
+                if (ArchorListExportControl1 == null)
+                {
+                    return false;
+                }
+                return ArchorListExportControl1.IsTrackPoint;
+            }
+            set
+            {
+                ArchorListExportControl1.IsTrackPoint = value;
+            }
+        }
+
+
     }
 }

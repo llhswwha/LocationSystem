@@ -64,5 +64,7 @@ namespace DbModel.Location.AreaAndDev
             var copy = this.CloneObjectByBinary();
             return copy;
         }
+
+        
     }
 }
