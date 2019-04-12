@@ -64,10 +64,10 @@ namespace DbModel.Location.AreaAndDev
 
 
         /// <summary>
-        /// 基站对应的设备主键Id
+        /// 摄像头在设备表中的ID
         /// </summary>
         [DataMember]
-        [Display(Name = "门禁对应的设备主键Id")]
+        [Display(Name = "摄像头在设备表中的ID")]
         public int DevInfoId { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(64)]
         public string Local_DevID { get; set; }
         /// <summary>
-        /// 门禁设备
+        /// 摄像头设备
         /// </summary>
         [DataMember]
         public virtual DevInfo DevInfo { get; set; }

@@ -81,10 +81,13 @@
     <Compile Include="Tools\InitInfos\AuthorizationArea.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
     <Compile Include="Tools\InitInfos\CameraInfoBackUp.cs" />
+    <Compile Include="Tools\InitInfos\DepartmentInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\DoorAccessList.cs" />
+    <Compile Include="Tools\InitInfos\EntranceGuardCardInfoBackup.cs.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />
     <Compile Include="Tools\InitInfos\LocationDevices.cs" />
+    <Compile Include="Tools\InitInfos\PersonnelInfoBackup.cs.cs" />
     <Compile Include="Tools\InitInfos\PointInfo.cs" />
     <Compile Include="Tools\InitInfos\TopoInfo.cs" />
     <Compile Include="LocationHistory\Alarm\DevAlarmHistory.cs" />

@@ -12,6 +12,16 @@ namespace LocationServices.Locations.Interfaces
 
         List<Post> GetPostList();
 
+        [OperationContract]
+        Post GetPost(int id);
 
+        [OperationContract]
+        int AddPost(Post p);
+
+        [OperationContract]
+        bool EditPost(Post p);
+
+        [OperationContract]
+        bool DeletePost(int id);
     }
 }

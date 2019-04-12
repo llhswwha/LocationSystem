@@ -82,6 +82,7 @@
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.DevMonitorNode.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_CameraInfo.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_Monitor.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.EntranceGuardCard.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.NearbyDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Picture.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Manage.LoginInfo.datasource" />

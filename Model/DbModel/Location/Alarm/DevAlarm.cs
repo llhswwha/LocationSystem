@@ -111,7 +111,7 @@ namespace DbModel.Location.Alarm
         public DevAlarmHistory RemoveToHistory()
         {
             DevAlarmHistory history = new DevAlarmHistory();
-            history.Id = this.Id;
+            //history.Id = this.Id;
             history.Abutment_Id = this.Abutment_Id;
             history.Title = this.Title;
             history.Msg = this.Msg;

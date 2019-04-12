@@ -166,6 +166,7 @@ namespace BLL
             InitLocationDevice();//基站设备
             InitDevInfo();//设备信息（不包含基站设备）  
             InitCameraInfo();
+            InitEntranceGuardCard();
             InitDevMonitorNode();
             Log.InfoEnd("InitAreaAndDev");
         }
@@ -204,6 +205,15 @@ namespace BLL
             string filePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
             bool value = DevInfoHelper.ImportCameraInfoFromFile(filePath, _bll);
             Log.Info(string.Format("导入摄像头信息结果:{0}", value));
+        }
+
+        private void InitEntranceGuardCard()
+        {
+            Log.Info("导入门禁卡信息");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupEntranceGuardCardInfo.xml";
+            bool value = EntranceGuardCardBackupHelper.ImportEntranceGuardCardInfoFromFile(filePath, _bll);
+            Log.Info(string.Format("导入门禁卡信息结果:{0}", value));
         }
 
         private void InitTopoByEntities()
@@ -674,7 +684,8 @@ namespace BLL
             Log.Info("导入设备监控节点");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info("BaseDirectory:" + basePath);
-            string filePath = basePath + "Data\\EDOS.xls";
+            //string filePath = basePath + "Data\\EDOS.xls";
+            string filePath = basePath + "Data\\EDOS_New.xls";
             DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath));
         }
     }

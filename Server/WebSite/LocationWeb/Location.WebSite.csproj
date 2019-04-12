@@ -383,9 +383,6 @@
     <Content Include="Data\基站信息\基站信息.xml" />
     <Content Include="Data\设备信息\DevInfoBackup.xml" />
     <Content Include="Data\设备模型信息\DevTypeModel.sql" />
-    <None Include="Exe\LocationSystem.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -678,6 +675,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Exe\" />
     <Folder Include="Views\Location\" />
     <Folder Include="Views\RsetfulSvr\" />
     <Folder Include="Views\Svr\" />

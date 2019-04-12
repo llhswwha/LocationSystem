@@ -286,9 +286,13 @@ namespace LocationWCFServer
                 try
                 {
                     string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                    string filePath = basePath + "Data\\EDOSOriginalCode.xls";
-                    string createfilePath = basePath + "..\\..\\Data\\EDOS.xls";
-                    int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode(new FileInfo(filePath), createfilePath);
+                    //string filePath = basePath + "Data\\EDOSOriginalCode.xls";
+                    //string createfilePath = basePath + "..\\..\\Data\\EDOS.xls";
+                    //int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode(new FileInfo(filePath), createfilePath);
+
+                    string filePath = basePath + "Data\\UDPoints20190321.xlsx";
+                    string createfilePath = basePath + "..\\..\\Data\\EDOS_New.xls";
+                    int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode_New(new FileInfo(filePath), createfilePath);
                     if (nReturn == 0)
                     {
                         MessageBox.Show("KKS转义完成");
@@ -318,6 +322,33 @@ namespace LocationWCFServer
             //win.CalculateAll = false;
             win.IsTrackPoint = true;
             win.Show();
+        }
+
+        private void GetAllNodeKKSData_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    Bll bll = new Bll();
+                    List<DbModel.Location.AreaAndDev.KKSCode> lst = bll.KKSCodes.ToList();
+                    LocationService ls = new LocationService();
+                    foreach (DbModel.Location.AreaAndDev.KKSCode item in lst)
+                    {
+                        ls.GetDevMonitorInfoByKKS(item.Code, true);
+                    }
+
+                    MessageBox.Show("获取数据完成！");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("获取监控点数据失败：" + ex.Message);
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
+
+            return;
         }
     }
 }

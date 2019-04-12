@@ -1806,10 +1806,10 @@ namespace WCFServiceForWPF.LocationServices {
         void GetSingleDeviceActionHistory(int id, string begin_date, string end_date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetCardList", ReplyAction="http://tempuri.org/IBaseDataService/GetCardListResponse")]
-        void GetCardList();
+        TModel.Location.AreaAndDev.EntranceGuardCard[] GetCardList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSingleCardActionHistory", ReplyAction="http://tempuri.org/IBaseDataService/GetSingleCardActionHistoryResponse")]
-        void GetSingleCardActionHistory(int id, string begin_date, string end_date);
+        TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo[] GetSingleCardActionHistory(int id, string begin_date, string end_date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketsList", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketsListResponse")]
         void GetTicketsList(string type, string begin_date, string end_date);
@@ -1818,7 +1818,7 @@ namespace WCFServiceForWPF.LocationServices {
         void GetTicketsDetail(int id, string begin_date, string end_date);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GeteventsList", ReplyAction="http://tempuri.org/IBaseDataService/GeteventsListResponse")]
-        void GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t);
+        Location.TModel.Location.Alarm.DeviceAlarm[] GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetSomesisList", ReplyAction="http://tempuri.org/IBaseDataService/GetSomesisListResponse")]
         TModel.Location.AreaAndDev.DevMonitorNode[] GetSomesisList(string strTags);
@@ -2400,12 +2400,12 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.GetSingleDeviceActionHistory(id, begin_date, end_date);
         }
         
-        public void GetCardList() {
-            base.Channel.GetCardList();
+        public TModel.Location.AreaAndDev.EntranceGuardCard[] GetCardList() {
+            return base.Channel.GetCardList();
         }
         
-        public void GetSingleCardActionHistory(int id, string begin_date, string end_date) {
-            base.Channel.GetSingleCardActionHistory(id, begin_date, end_date);
+        public TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo[] GetSingleCardActionHistory(int id, string begin_date, string end_date) {
+            return base.Channel.GetSingleCardActionHistory(id, begin_date, end_date);
         }
         
         public void GetTicketsList(string type, string begin_date, string end_date) {
@@ -2416,8 +2416,8 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.GetTicketsDetail(id, begin_date, end_date);
         }
         
-        public void GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t) {
-            base.Channel.GeteventsList(src, level, begin_t, end_t);
+        public Location.TModel.Location.Alarm.DeviceAlarm[] GeteventsList(System.Nullable<int> src, System.Nullable<int> level, System.Nullable<long> begin_t, System.Nullable<long> end_t) {
+            return base.Channel.GeteventsList(src, level, begin_t, end_t);
         }
         
         public TModel.Location.AreaAndDev.DevMonitorNode[] GetSomesisList(string strTags) {

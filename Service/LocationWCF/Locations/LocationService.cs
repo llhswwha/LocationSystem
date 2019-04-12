@@ -166,19 +166,6 @@ namespace LocationServices.Locations
             return "Hello:" + msg;
         }
 
-        public IList<Department> GetDepartmentList()
-        {
-            ShowLogEx(">>>>> GetDepartmentList");
-            return new DepartmentService(db).GetList();
-        }
-
-        public Department GetDepartmentTree()
-        {
-            ShowLogEx(">>>>> GetDepartmentTree");
-            var leafNodes = GetPersonList();
-            return new DepartmentService(db).GetTree(leafNodes);
-        }
-
         //public IList<Map> GetMaps(int? depId)
         //{
         //    IList<Map> maps = null;

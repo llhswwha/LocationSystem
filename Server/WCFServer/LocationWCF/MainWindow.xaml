@@ -39,6 +39,7 @@
                 <Separator></Separator>
                 <MenuItem Header="转义KKS编码" Name="OriginalKKSCode" Click="OriginalKKSCode_OnClick"></MenuItem>
                 <MenuItem Header="测量点列表" Name="MenuTrackPointList" Click="MenuTrackPointList_Click"></MenuItem>
+                <MenuItem Header="获取所有监控点数据" Name="GetAllNodeKKSData" Click="GetAllNodeKKSData_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

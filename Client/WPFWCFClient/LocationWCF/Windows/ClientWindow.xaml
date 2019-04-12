@@ -91,9 +91,17 @@
             <TabItem Header="设备监控节点测试">
                 <DockPanel>
                     <Menu DockPanel.Dock="Top">
-                        <MenuItem Header="获取" Name="GetDevMonitorInfoByKKS" Click="GetDevMonitorInfoByKKS_Click"></MenuItem>
+                        <Label Grid.Row="3" Grid.Column="0">KKS:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbKKS" Width="198"></TextBox>
+                        <Button Grid.Row="5" Grid.ColumnSpan="2" Name="GetDevMonitorInfoByKKS" Click="GetDevMonitorInfoByKKS_Click">获取</Button>
+                        <Label Grid.Row="3" Grid.Column="0">监控节点标签:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbNodeTag" Width="198"></TextBox>
+                        <Button Grid.Row="5" Grid.ColumnSpan="2" Name="GetDevMonitorInfoByNodeTag" Click="GetDevMonitorInfoByNodeTag_Click">获取2</Button>
+                        <!--<MenuItem Header="获取" Name="GetDevMonitorInfoByKKS" Click="GetDevMonitorInfoByKKS_Click"></MenuItem>-->
                     </Menu>
-                    <DataGrid Name="DataGridDevMonitorInfoPos"></DataGrid>
+                    <TextBox Name="TbKKSResult">
+                        
+                    </TextBox>
                 </DockPanel>
             </TabItem>
             <TabItem Header="获取基础平台信息">

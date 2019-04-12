@@ -155,5 +155,51 @@ namespace LocationServices.Converters
 
         #endregion
 
+        #region TModel.Location.AreaAndDev.EntranceGuardCard <=> DbModel.Location.AreaAndDev.EntranceGuardCard
+        public static List<TModel.Location.AreaAndDev.EntranceGuardCard> ToWcfModelList(this List<DbModel.Location.AreaAndDev.EntranceGuardCard> list1)
+        {
+            return list1.ToTModel().ToWCFList();
+        }
+        public static TModel.Location.AreaAndDev.EntranceGuardCard ToTModel(this DbModel.Location.AreaAndDev.EntranceGuardCard item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new TModel.Location.AreaAndDev.EntranceGuardCard();
+            item2.Id = item1.Id;
+            item2.Abutment_Id = item1.Abutment_Id;
+            item2.Code = item1.Code;
+            item2.State = item1.State;
+            return item2;
+        }
+        public static List<TModel.Location.AreaAndDev.EntranceGuardCard> ToTModel(this List<DbModel.Location.AreaAndDev.EntranceGuardCard> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<TModel.Location.AreaAndDev.EntranceGuardCard>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToTModel());
+            }
+            return list2;
+        }
+        public static DbModel.Location.AreaAndDev.EntranceGuardCard ToDbModel(this TModel.Location.AreaAndDev.EntranceGuardCard item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new DbModel.Location.AreaAndDev.EntranceGuardCard();
+            item2.Id = item1.Id;
+            item2.Abutment_Id = item1.Abutment_Id;
+            item2.Code = item1.Code;
+            item2.State = item1.State;
+            return item2;
+        }
+        public static List<DbModel.Location.AreaAndDev.EntranceGuardCard> ToDbModel(this List<TModel.Location.AreaAndDev.EntranceGuardCard> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<DbModel.Location.AreaAndDev.EntranceGuardCard>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToDbModel());
+            }
+            return list2;
+        }
+        #endregion
     }
 }

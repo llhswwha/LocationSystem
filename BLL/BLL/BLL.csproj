@@ -147,11 +147,14 @@
     <Compile Include="TestBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\DbInfoHelper.cs" />
+    <Compile Include="Tools\DepartmentsBackupHelper.cs" />
     <Compile Include="Tools\DevInfoHelper.cs" />
+    <Compile Include="Tools\EntranceGuardCardBackupHelper.cs" />
     <Compile Include="Tools\KKSCodeHelper.cs" />
     <Compile Include="Tools\LightUDP.cs" />
     <Compile Include="Tools\LocationDeviceHelper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\PersonBackupHelper.cs" />
     <Compile Include="Tools\RandomTool.cs" />
     <Compile Include="Tools\StaticEvents.cs" />
   </ItemGroup>

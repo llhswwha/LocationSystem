@@ -26,7 +26,20 @@ namespace WebNSQLib
                 //producer = new Producer("127.0.0.1:4150");
                 //producer = new Producer("http://127.0.0.1:4151/");
                 TimeSpan httpRequestTimeout = new TimeSpan(200000000);
-                 producer = new NsqdHttpClient("120.25.195.214:4151", httpRequestTimeout);
+                producer = new NsqdHttpClient("120.25.195.214:4151", httpRequestTimeout);
+                //producer = new Producer("120.25.195.214:4150");
+                //producer.Publish("position","测试语句");
+            }
+        }
+        public SynchronizedPosition(string host)
+        {
+            if (producer == null)
+            {
+                //Println
+                //producer = new Producer("127.0.0.1:4150");
+                //producer = new Producer("http://127.0.0.1:4151/");
+                TimeSpan httpRequestTimeout = new TimeSpan(200000000);
+                producer = new NsqdHttpClient(host, httpRequestTimeout);
                 //producer = new Producer("120.25.195.214:4150");
                 //producer.Publish("position","测试语句");
             }
@@ -61,7 +74,7 @@ namespace WebNSQLib
                 DbModel.Location.AreaAndDev.Area ae = bll.Areas.DbSet.Where(p => p.Id == item.AreaId).FirstOrDefault();
                 SendInfo.zoneKksCode = ae.KKS;
 
-                
+
                 string strJson = JsonConvert.SerializeObject(SendInfo);
                 producer.Publish("position", strJson);
                 //producer.Publish("http://127.0.0.1:4151/pub?topic=position", strJson);

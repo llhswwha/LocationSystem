@@ -36,6 +36,9 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         //时间戳
         public long t { get; set; }
 
+        //告警状态，0表示待处理，1表示已处理，2表示忽略
+        public int state { get; set; }
+
         public events Clone()
         {
             events copy = new events();
@@ -48,6 +51,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             copy.deviceId = this.deviceId;
             copy.deviceDesc = this.deviceDesc;
             copy.t = this.t;
+            copy.state = this.state;
 
             return copy;
         }

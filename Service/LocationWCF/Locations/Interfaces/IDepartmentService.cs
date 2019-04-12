@@ -16,5 +16,17 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         Department GetDepartmentTree();
+
+        [OperationContract]
+        Department GetDepartment(int id);
+
+        [OperationContract]
+        int AddDepartment(Department p);
+
+        [OperationContract]
+        bool EditDepartment(Department p);
+
+        [OperationContract]
+        bool DeleteDepartment(int id);
     }
 }

@@ -23,6 +23,8 @@ using DbModel.Location.AreaAndDev;
 using WebApiLib.Clients;
 using TModel.Models.Settings;
 using LocationServices.Locations;
+using WebNSQLib;
+using SignalRService.Hubs;
 
 namespace LocationWCFServer
 {
@@ -76,7 +78,6 @@ namespace LocationWCFServer
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
             InitGetInspectionTrack();
-
             //SystemSetting setting = new SystemSetting();
             //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
         }
@@ -522,8 +523,6 @@ namespace LocationWCFServer
             }
             return;
 
-        }
-
-        
+        }        
     }
 }

@@ -14,7 +14,7 @@ namespace TModel.LocationHistory.AreaAndDev
         public string Name { get; set; }
 
         //所属区域ID
-        public int AreadId { get; set; }
+        public int? AreadId { get; set; }
 
         //所属区域名称
         public string AreadName { get; set; }

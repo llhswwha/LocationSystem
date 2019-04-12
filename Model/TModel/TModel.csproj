@@ -62,6 +62,7 @@
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Dev_Monitor.cs" />
+    <Compile Include="Location\AreaAndDev\EntranceGuardCard.cs" />
     <Compile Include="Location\AreaAndDev\ModelTypeItem.cs" />
     <Compile Include="Location\AreaAndDev\NearbyDev.cs" />
     <Compile Include="Location\AreaAndDev\ObjectAddList.cs" />

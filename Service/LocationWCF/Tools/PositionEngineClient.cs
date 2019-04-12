@@ -18,6 +18,8 @@ using BLL.Buffers;
 using DbModel.Location.Alarm;
 using LocationServer;
 using BLL.Tools;
+using WebNSQLib;
+using LocationServices.Locations;
 
 namespace LocationServices.Tools
 {
@@ -214,6 +216,8 @@ namespace LocationServices.Tools
                 }
             }
 
+            SendNsqPos(list1);
+
             watch1.Stop();
             WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
             return r;
@@ -223,27 +227,29 @@ namespace LocationServices.Tools
 
         public List<LocationAlarm> NewAlarms = new List<LocationAlarm>();
 
-        private async void InsertPostionsAsync()
-        {
-            if (!isBusy && Positions.Count > 0)
-            {
-                isBusy = true;
+        //private async void InsertPostionsAsync()
+        //{
+        //    if (!isBusy && Positions.Count > 0)
+        //    {
+        //        isBusy = true;
 
-                WriteLogRight(GetLogText(string.Format("写入{0}条数据 Start", Positions.Count)));
-                List<Position> posList2 = new List<Position>();
-                posList2.AddRange(Positions);
-                Positions.Clear();
+        //        WriteLogRight(GetLogText(string.Format("写入{0}条数据 Start", Positions.Count)));
+        //        List<Position> posList2 = new List<Position>();
+        //        posList2.AddRange(Positions);
+        //        Positions.Clear();
 
-                InsertPostionsAsync(posList2);
+        //        InsertPostionsAsync(posList2);
 
-                isBusy = false;
-            }
-            else
-            {
-                if (Positions.Count > 0)
-                    WriteLogRight(GetLogText(string.Format("等待 当前{0}条数据", Positions.Count)));
-            }
-        }
+        //        isBusy = false;
+        //    }
+        //    else
+        //    {
+        //        if (Positions.Count > 0)
+        //            WriteLogRight(GetLogText(string.Format("等待 当前{0}条数据", Positions.Count)));
+        //    }
+        //}
+
+        SynchronizedPosition nsq;
 
         private async void InsertPostionsAsync(List<Position> posList)
         {
@@ -255,8 +261,19 @@ namespace LocationServices.Tools
                 await positionBll.AddPositionsAsyc(posList);
             }
 
+            SendNsqPos(posList);
+
             watch1.Stop();
             WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", posList.Count, watch1.Elapsed)));
+        }
+
+        private void SendNsqPos(List<Position> posList)
+        {
+            if (nsq == null)
+            {
+                nsq = new SynchronizedPosition(LocationService.url + ":4151");
+            }
+            nsq.SendPositionMsg(posList);
         }
 
         public bool Stop()

@@ -195,21 +195,28 @@ namespace BLL
             Personnels.Clear();
             Departments.Clear();
 
-            Department dep0 = new Department() { Name = "根节点", ShowOrder = 0, Parent = null, Type = DepartType.本厂 };
-            Departments.Add(dep0);
-            Department dep11 = new Department() { Name = "四会电厂", ShowOrder = 0, Parent = dep0, Type = DepartType.本厂 };
-            Departments.Add(dep11);
-            Department dep12 = new Department() { Name = "维修部门", ShowOrder = 0, Parent = dep11, Type = DepartType.本厂 };
-            Departments.Add(dep12);//单个添加可以只是设置Parent
-            Department dep13 = new Department() { Name = "发电部门", ShowOrder = 1, ParentId = dep11.Id, Type = DepartType.本厂 };//批量添加必须设置ParentId
-            Department dep14 = new Department() { Name = "外委人员", ShowOrder = 2, ParentId = dep11.Id, Type = DepartType.本厂 };
-            Department dep15 = new Department() { Name = "访客", ShowOrder = 0, ParentId = dep11.Id, Type = DepartType.本厂 };
+            Log.Info("导入部门信息");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupDepartmentsInfo.xml";
+            bool value = DepartmentsBackupHelper.ImportDepartmentInfoFromFile(filePath, _bll);
+            Log.Info(string.Format("导入部门信息结果:{0}", value));
+            
+            //Department dep0 = new Department() { Name = "根节点", ShowOrder = 0, Parent = null, Type = DepartType.本厂 };
+            //Departments.Add(dep0);
+            //Department dep11 = new Department() { Name = "四会电厂", ShowOrder = 0, Parent = dep0, Type = DepartType.本厂 };
+            //Departments.Add(dep11);
+            //Department dep12 = new Department() { Name = "维修部门", ShowOrder = 0, Parent = dep11, Type = DepartType.本厂 };
+            //Departments.Add(dep12);//单个添加可以只是设置Parent
+            //Department dep13 = new Department() { Name = "发电部门", ShowOrder = 1, ParentId = dep11.Id, Type = DepartType.本厂 };//批量添加必须设置ParentId
+            //Department dep14 = new Department() { Name = "外委人员", ShowOrder = 2, ParentId = dep11.Id, Type = DepartType.本厂 };
+            //Department dep15 = new Department() { Name = "访客", ShowOrder = 0, ParentId = dep11.Id, Type = DepartType.本厂 };
+            //Department dep16 = new Department() { Name = "未绑定", ShowOrder = 0, ParentId = null, Type = DepartType.本厂 };
 
-            List<Department> subDeps = new List<Department>() { dep12,dep13, dep14,dep15};
-            List<Department> subDeps2 = new List<Department>() { dep13, dep14, dep15 };
-            Departments.AddRange(subDeps2);
 
-            //Departments.AddRange(dep11, dep12, dep13, dep14, dep15);
+            // List<Department> subDeps = new List<Department>() { dep12,dep13, dep14,dep15,dep16};
+            // List<Department> subDeps2 = new List<Department>() { dep13, dep14, dep15 };
+            // Departments.AddRange(subDeps2);
+            //Departments.Add(dep16);
 
             Posts.Clear();
             Post post1 = new Post() { Name = "前台" };
@@ -219,29 +226,38 @@ namespace BLL
             Post post5 = new Post() { Name = "经理" };
             Post post6 = new Post() { Name = "电工" };
             Post post7 = new Post() { Name = "访客" };
-            var posts = new List<Post>() {post1,post2,post3,post4,post5,post6,post7};
+            Post post8 = new Post() { Name = "检修" };
+            var posts = new List<Post>() {post1,post2,post3,post4,post5,post6,post7, post8 };
             Posts.AddRange(posts);
             List<LocationCard> tagsT = LocationCards.ToList();
             RandomTool rt=new RandomTool();
 
-            for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
-            {
-                var tag = tagsT[i];
-                //int n = r.Next(1);
-                int n = i % 2;
-                var post = posts[r.Next(posts.Count)];
-                var dep = subDeps[r.Next(subDeps.Count)];
-                if (n == 0)
-                {
-                    AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i, rt.GetRandomTel());
-                }
-                else
-                {
-                    AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i, rt.GetRandomTel());
-                }
-            }
+
+            Log.Info("导入人员信息");
+            basePath = AppDomain.CurrentDomain.BaseDirectory;
+            filePath = basePath + "Data\\部门人员门禁卡信息\\BackupPersonnelInfo.xml";
+            value = PersonBackupHelper.ImportPersonInfoFromFile(filePath, _bll);
+            Log.Info(string.Format("导入人员信息结果:{0}", value));
 
 
+            
+
+            //for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
+            //{
+            //    var tag = tagsT[i];
+
+            //    int n = i % 2;
+            //    var post = posts[r.Next(posts.Count)];
+            //    var dep = subDeps[r.Next(subDeps.Count)];
+            //    if (n == 0)
+            //    {
+            //        AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i, rt.GetRandomTel());
+            //    }
+            //    else
+            //    {
+            //        AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i, rt.GetRandomTel());
+            //    }
+            //}
         }
 
         public void InitUsers()

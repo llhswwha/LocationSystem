@@ -727,7 +727,7 @@ namespace LocationServices.Locations
             string strTags = "";
             send.MonitorNodeList = GetDevMonitorNodeListByKKS(strDevKKs, ref strTags);
             send.ChildrenList = GetChildMonitorDev(strDevKKs, bFlag, ref strTags);
-            
+
             List<DevMonitorNode> dataList = GetSomesisList(strTags);
             send = InsertDataToEveryDev(send, ref dataList);
 
@@ -737,11 +737,7 @@ namespace LocationServices.Locations
         private List<DevMonitorNode> GetDevMonitorNodeListByKKS(string KKS, ref string strTags)
         {
             List<DbModel.Location.AreaAndDev.DevMonitorNode> lst = db.DevMonitorNodes.FindAll(p => p.ParentKKS == KKS);
-            if (lst == null)
-            {
-                lst = new List<DbModel.Location.AreaAndDev.DevMonitorNode>();
-            }
-            else
+            if (lst != null)
             {
                 foreach (DbModel.Location.AreaAndDev.DevMonitorNode item in lst)
                 {
@@ -756,8 +752,15 @@ namespace LocationServices.Locations
                     }
                 }
             }
-            
-            return lst.ToTModel();
+
+            if (lst == null || lst.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return lst.ToTModel();
+            }
         }
 
         private List<Dev_Monitor> GetChildMonitorDev(string KKS, bool bFlag, ref string strTags)
@@ -771,6 +774,7 @@ namespace LocationServices.Locations
                 dev.KKSCode = item.Code;
                 dev.MonitorNodeList = GetDevMonitorNodeListByKKS(dev.KKSCode, ref strTags);
                 dev.ChildrenList = GetChildMonitorDev(dev.KKSCode, bFlag, ref strTags);
+
                 //if (!bFlag && dev.ChildrenList == null)
                 //{
                 //    continue;
@@ -792,14 +796,17 @@ namespace LocationServices.Locations
             Dev_Monitor send = new Dev_Monitor();
             string strDevKKs = Dm.KKSCode;
             List<DevMonitorNode> MonitorNodeList = dataList.FindAll(p => p.ParentKKS == strDevKKs);
-            foreach (DevMonitorNode item in Dm.MonitorNodeList)
+            if (Dm.MonitorNodeList != null)
             {
-                string strNodeKKS = item.KKS;
-                DevMonitorNode data = MonitorNodeList.Find(p=>p.KKS == strNodeKKS);
-                if (data != null)
+                foreach (DevMonitorNode item in Dm.MonitorNodeList)
                 {
-                    item.Value = data.Value;
-                    item.Time = data.Time;
+                    string strNodeKKS = item.KKS;
+                    DevMonitorNode data = MonitorNodeList.Find(p => p.KKS == strNodeKKS);
+                    if (data != null)
+                    {
+                        item.Value = data.Value;
+                        item.Time = data.Time;
+                    }
                 }
             }
 

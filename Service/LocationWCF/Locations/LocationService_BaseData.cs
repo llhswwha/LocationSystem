@@ -16,6 +16,8 @@ using TModel.LocationHistory.Work;
 using Location.TModel.Location.Person;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
+using TModel.LocationHistory.AreaAndDev;
+using Location.TModel.Location.Alarm;
 
 namespace LocationServices.Locations
 {
@@ -211,16 +213,16 @@ namespace LocationServices.Locations
         /// <summary>
         /// 获取门禁卡列表
         /// </summary>
-        public void GetCardList()
+        public List<EntranceGuardCard> GetCardList()
         {
             var client = GetClient();
             var recv = client.GetCardList();
             if (recv == null)
             {
-                return;
+                return new List<EntranceGuardCard>();
             }
 
-            return;
+            return recv.ToTModel();
         }
 
         /// <summary>
@@ -229,17 +231,16 @@ namespace LocationServices.Locations
         /// <param name="id"></param>
         /// <param name="begin_date"></param>
         /// <param name="end_date"></param>
-        public void GetSingleCardActionHistory(int id, string begin_date, string end_date)
+        public List<EntranceGuardActionInfo> GetSingleCardActionHistory(int id, string begin_date, string end_date)
         {
             var client = GetClient();
             var recv = client.GetSingleCardActionHistory(id, begin_date, end_date);
             if (recv == null)
             {
-                return;
+                return new List<EntranceGuardActionInfo>();
             }
 
-            return;
-
+            return recv;
         }
 
         /// <summary>
@@ -281,17 +282,16 @@ namespace LocationServices.Locations
         /// <param name="level"></param>
         /// <param name="begin_t"></param>
         /// <param name="end_t"></param>
-        public void GeteventsList(int? src, int? level, long? begin_t, long? end_t)
+        public List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
             var client = GetClient();
             var recv = client.GeteventsList(src, level, begin_t, end_t);
             if (recv == null)
             {
-                return;
+                return new List<DeviceAlarm>();
             }
 
-            return;
-
+            return recv.ToTModel();
         }
 
         /// <summary>

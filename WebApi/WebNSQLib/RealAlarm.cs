@@ -20,7 +20,8 @@ namespace WebNSQLib
         {
             var consumer = new Consumer("honeywell", "channel-name");
             consumer.AddHandler(MessageHandler);
-            consumer.ConnectToNsqLookupd("ipms.datacase.io:4161");
+            //consumer.ConnectToNsqLookupd("ipms.datacase.io:4161");
+            consumer.ConnectToNsqLookupd("172.16.100.22:4161");
 
             while (true) { Thread.Sleep(6000); }
 

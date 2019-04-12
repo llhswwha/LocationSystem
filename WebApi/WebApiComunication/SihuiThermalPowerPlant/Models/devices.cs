@@ -53,6 +53,11 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// </summary>
         public string raw_id { get; set; }
 
+        /// <summary>
+        /// IP
+        /// </summary>
+        public string ip { get; set; }
+
         public device Clone()
         {
             device copy = new device();
@@ -65,6 +70,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             copy.running_state = this.running_state;
             copy.placed = this.placed;
             copy.raw_id = this.raw_id;
+            copy.ip = this.ip;
 
             return copy;
         }

@@ -48,7 +48,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         public DateTime? OperateTime { get; set; }
 
         /// <summary>
-        /// 操作时间戳
+        /// 操作时间戳，单位毫秒
         /// </summary>
         [DataMember]
         [Display(Name = "操作时间戳")]

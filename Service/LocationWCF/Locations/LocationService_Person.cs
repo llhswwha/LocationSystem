@@ -112,13 +112,6 @@ namespace LocationServices.Locations
             return db.Personnels.DeleteById(id) != null;
         }
 
-
-        public List<Post> GetPostList()
-        {
-            ShowLogEx(">>>>> GetPostList");
-            var posts = db.Posts.ToList();
-            return posts.ToWcfModelList();
-        }
         #endregion
     }
 }

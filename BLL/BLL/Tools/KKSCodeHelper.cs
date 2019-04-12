@@ -57,6 +57,8 @@ namespace Location.BLL.Tool
             Name = dr[1].ToString();
             Code = dr[2].ToString();
             DesinCode = dr[3].ToString();
+            Code = Code.Replace(" ","");
+
 
             if (Serial == "*" && Code == "")
             {
@@ -233,7 +235,7 @@ namespace Location.BLL.Tool
 
         #region
         /// <summary>
-        /// 转义为KKS编码
+        /// 转义为KKS编码,通过 EDOSOriginalCode.xls 文件转义
         /// </summary>
         public static int OriginalKKSCode(FileInfo file, string createfilePath)
         {
@@ -282,6 +284,65 @@ namespace Location.BLL.Tool
                     dtTableEDOS.Rows.Add(dr2);
                 }
                 
+                ExcelHelper.Save(dtTableEDOS, new FileInfo(createfilePath), null);
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// 转义为KKS编码,通过 UDPoints20190321.xlsx 文件转义
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="createfilePath"></param>
+        /// <returns></returns>
+        public static int OriginalKKSCode_New(FileInfo file, string createfilePath)
+        {
+            if (file.Exists == false)
+            {
+                return 1;
+            }
+            Bll bll = new Bll();
+            List<KKSCode> kksList = bll.KKSCodes.ToList();
+            if (kksList != null /*&& kksList.Count == 0*/)
+            {
+                string strFolderName = file.Directory.Name;
+                DataTable dtTableEDOS = new DataTable();
+                dtTableEDOS.Columns.Add("标签名", typeof(string));
+                dtTableEDOS.Columns.Add("数据库标签名", typeof(string));
+                dtTableEDOS.Columns.Add("描述", typeof(string));
+                dtTableEDOS.Columns.Add("单位", typeof(string));
+                dtTableEDOS.Columns.Add("类型", typeof(string));
+                dtTableEDOS.Columns.Add("转义后的KKS编码", typeof(string));
+                dtTableEDOS.Columns.Add("转义后的父类KKS编码", typeof(string));
+
+                DataTable dtTable = ExcelHelper.Load(new FileInfo(file.FullName), false).Tables[0].Copy();
+                dtTable.Rows.RemoveAt(0);
+
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    string strTagName = dr[0].ToString();
+                    int index = strTagName.IndexOf('.');
+                    strTagName = strTagName.Substring(index + 1);
+                    strTagName = strTagName.Replace("_", " ");
+                    string strNodeKKS = strTagName;
+                    string strDevKKS = GetKKSCode(strTagName, ref kksList);
+                    if (strDevKKS == "")
+                    {
+                        continue;
+                    }
+
+                    DataRow dr2 = dtTableEDOS.NewRow();
+                    dr2["标签名"] = dr[0].ToString();
+                    dr2["数据库标签名"] = "";
+                    dr2["描述"] = dr[2].ToString();
+                    dr2["单位"] = dr[3].ToString();
+                    dr2["类型"] = dr[4].ToString();
+                    dr2["转义后的KKS编码"] = strNodeKKS;
+                    dr2["转义后的父类KKS编码"] = strDevKKS;
+                    dtTableEDOS.Rows.Add(dr2);
+                }
+
                 ExcelHelper.Save(dtTableEDOS, new FileInfo(createfilePath), null);
             }
 

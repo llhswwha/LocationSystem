@@ -107,6 +107,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
+  <xs:complexType name="ArrayOfEntranceGuardCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EntranceGuardCard" nillable="true" type="tns:EntranceGuardCard" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEntranceGuardCard" nillable="true" type="tns:ArrayOfEntranceGuardCard" />
+  <xs:complexType name="EntranceGuardCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="State" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EntranceGuardCard" nillable="true" type="tns:EntranceGuardCard" />
   <xs:complexType name="Picture">
     <xs:sequence>
       <xs:element minOccurs="0" name="Info" nillable="true" type="xs:base64Binary" />

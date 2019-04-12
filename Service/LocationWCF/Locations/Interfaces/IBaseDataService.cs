@@ -1,4 +1,5 @@
-﻿using Location.TModel.Location.AreaAndDev;
+﻿using Location.TModel.Location.Alarm;
+using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Location.Person;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ServiceModel;
 using TModel.BaseData;
 using TModel.Location.AreaAndDev;
 using TModel.Location.Work;
+using TModel.LocationHistory.AreaAndDev;
 using TModel.LocationHistory.Work;
 
 namespace LocationServices.Locations.Interfaces
@@ -47,10 +49,10 @@ namespace LocationServices.Locations.Interfaces
         void GetSingleDeviceActionHistory(int id, string begin_date, string end_date);
 
         [OperationContract]
-        void GetCardList();
+        List<EntranceGuardCard> GetCardList();
 
         [OperationContract]
-        void GetSingleCardActionHistory(int id, string begin_date, string end_date);
+        List<EntranceGuardActionInfo> GetSingleCardActionHistory(int id, string begin_date, string end_date);
 
         [OperationContract]
         void GetTicketsList(string type, string begin_date, string end_date);
@@ -59,7 +61,7 @@ namespace LocationServices.Locations.Interfaces
         void GetTicketsDetail(int id, string begin_date, string end_date);
         
         [OperationContract]
-        void GeteventsList(int? src, int? level, long? begin_t, long? end_t);
+        List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t);
 
         [OperationContract]
         List<DevMonitorNode> GetSomesisList(string strTags);

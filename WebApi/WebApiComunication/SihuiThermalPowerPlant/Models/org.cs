@@ -19,7 +19,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         public string name { get; set; }
 
         /// <summary>
-        /// 父部门ID,顶级部门为0,公司为null
+        /// 父部门ID,顶级部门的parentId为null
         /// </summary>
         public int? parentId { get; set; }
 

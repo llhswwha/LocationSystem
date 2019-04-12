@@ -537,5 +537,32 @@ namespace LocationServer.Windows
             initializer.InitHomePage();
             MessageBox.Show("完成");
         }
+
+        private void DepSaveTop_Click(object sender, RoutedEventArgs e)
+        {
+            Tools.DepartmentsBackupHelper backup = new Tools.DepartmentsBackupHelper();
+            backup.BackupDepartmentsInfo(() =>
+            {
+                MessageBox.Show("备份完成...");
+            });
+        }
+
+        private void PersonSaveTop_Click(object sender, RoutedEventArgs e)
+        {
+            Tools.PersonBackupHelper backup = new Tools.PersonBackupHelper();
+            backup.BackupPersonInfo(() =>
+            {
+                MessageBox.Show("备份完成...");
+            });
+        }
+
+        private void EntranceGuardCardSaveTop_Click(object sender, RoutedEventArgs e)
+        {
+            Tools.EntranceGuardCardBackupHelper backup = new Tools.EntranceGuardCardBackupHelper();
+            backup.BackupEntranceGuardCardInfo(() =>
+            {
+                MessageBox.Show("备份完成...");
+            });
+        }
     }
 }

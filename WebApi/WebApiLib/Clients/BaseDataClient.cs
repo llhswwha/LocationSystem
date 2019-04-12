@@ -29,7 +29,7 @@ namespace WebApiLib.Clients
 
         public string BaseUri { get; set; }
 
-        public static int nEightHourSecond = 28800;
+        public static int nEightHourSecond = 0;
 
         public BaseDataClient()
         {
@@ -170,75 +170,70 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<Personnel> GetUserList()
         {
+            Bll bll = new Bll(false,false,false,false);
+            List<Personnel> plst = bll.Personnels.ToList();
+            List<Department> dlst = bll.Departments.ToList();
+
             BaseTran<user> recv = new BaseTran<user>();
             List<Personnel> send = new List<Personnel>();
+            List<string> errorlst = new List<string>();
 
             try
             {
-                string path = "api/users";
+                string path = "users";
                 string url = BaseUri + path;
                 recv = GetEntityList<user>(url);
 
                 foreach (user item in recv.data)
                 {
-                    List<Personnel> PeList = bll.Personnels.DbSet.Where(p => p.Name == item.name).ToList();
-                    Personnel Personnel = null;
-                    int nFlag = 0;
-                    int nCount = 0;
-                    if (PeList.Count == 0)
+                    //0表示添加，1表示修改
+                    int nFlag = 1;
+
+                    //先根据人员Id获取
+                    Personnel Personnel = plst.Find(p => p.Abutment_Id == item.id);
+                    if (Personnel == null)
                     {
                         Personnel = new Personnel();
-                        Personnel.ParentId = null;
+                        Personnel.Pst = "检修";
                         nFlag = 0;
                     }
-                    else
-                    {
-                        foreach (Personnel item2 in PeList)
-                        {
-                            if (item2.Abutment_Id == item.id)
-                            {
-                                nFlag = 1;
-                                Personnel = item2;
-                                break;
-                            }
-                            else
-                            {
-                                nFlag = 2;
-                                Personnel = item2;
-                                nCount++;
-                            }
-                        }
-                    }
 
-                    if (nFlag == 2 && nCount > 1)
+                    Sexs nSex = Sexs.未知;
+                    if (item.gender != null)
                     {
-                        FileStream fs = System.IO.File.Create(@"a.txt");
-                        StreamWriter sw = new StreamWriter(fs);
-                        sw.WriteLine("id=" + item.id + "  Name=" + item.name + " Depart=" + item.dept_name);
-                        sw.Close();
-                        fs.Close();
-                        continue;
+                        nSex = (Sexs)item.gender;
                     }
 
                     Personnel.Abutment_Id = item.id;
                     Personnel.Name = item.name;
-                    Personnel.Sex = (Sexs)item.gender;
+                    Personnel.Sex = nSex;
                     Personnel.Email = item.email;
                     Personnel.Phone = item.phone;
                     Personnel.Mobile = item.mobile;
                     Personnel.Enabled = item.enabled;
-                    if (item.dept_name != null)
+
+                    if (item.dept_name == null)
                     {
-                        Department Department = bll.Departments.DbSet.Where(p => p.Name == item.dept_name).FirstOrDefault();
-                        if (Department != null)
+                        Department Department = dlst.Find(p => p.Name == "未绑定");
+                        Personnel.ParentId = Department.Id;
+                    }
+                    else
+                    {
+                        Department Department = dlst.Find(p => p.Name == item.dept_name);
+                        if (Department == null)
                         {
-                            Personnel.ParentId = Department.Id;
+                            string strInfo = "获取人员列表错误信息：找不到匹配的部门  id=" + item.id + "  Name=" + item.name + " Depart=" + item.dept_name;
+                            errorlst.Add(strInfo);
+                            continue;
                         }
+
+                        Personnel.ParentId = Department.Id;
                     }
 
                     if (nFlag == 0)
                     {
                         bll.Personnels.Add(Personnel);
+                        plst.Add(Personnel);
                     }
                     else
                     {
@@ -253,6 +248,12 @@ namespace WebApiLib.Clients
                 string messgae = ex.Message;
             }
 
+
+            if (errorlst.Count > 0)
+            {
+                WriteWrongInfo(errorlst, "Discard_PersonList.txt");
+            }
+
             return send;
         }
 
@@ -262,12 +263,15 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<Department> GetorgList()
         {
+            Bll bll = new Bll(false, false, false, false);
+            List<Department> dlst = bll.Departments.ToList();
+
             BaseTran<org> recv = new BaseTran<org>();
             List<Department> send = new List<Department>();
 
             try
             {
-                string path = "api/orgs";
+                string path = "orgs";
                 string url = BaseUri + path;
                 recv = GetEntityList<org>(url);
 
@@ -278,56 +282,58 @@ namespace WebApiLib.Clients
 
                 foreach (org item in recv.data)
                 {
-                    var dp = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.id && p.Name == item.name).FirstOrDefault();
-                    int nFlag = 0;
-                    if (dp == null)
+                    //0表示添加，1表示修改
+                    int nFlag = 1;
+
+                    Department Dpt = dlst.Find(p => p.Abutment_Id == item.id);
+                    if (Dpt == null)
                     {
-                        dp = new Department();
-                        dp.ParentId = null;
-                        dp.ShowOrder = 0;
-                        nFlag = 1;
+                        Dpt = new Department();
+                        Dpt.ShowOrder = 0;
+                        nFlag = 0;
                     }
 
-                    dp.Abutment_Id = item.id;
-                    dp.Name = item.name;
-                    dp.Type = (DepartType)item.type;
-                    dp.Description = item.description;
+                    Dpt.Abutment_Id = item.id;
+                    Dpt.Name = item.name;
+                    Dpt.Abutment_ParentId = item.parentId;
+                    Dpt.Type = (DepartType)item.type;
+                    Dpt.Description = item.description;
 
-                    if (nFlag == 1)
+                    if (nFlag == 0)
                     {
-                        bll.Departments.Add(dp);
+                        bll.Departments.Add(Dpt);
+                        dlst.Add(Dpt);
                     }
                     else
                     {
-                        bll.Departments.Edit(dp);
+                        bll.Departments.Edit(Dpt);
                     }
+
+                    send.Add(Dpt);
                 }
 
-                foreach (org item in recv.data)
+                foreach (Department item2 in send)
                 {
-                    Department dp = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.id && p.Name == item.name).FirstOrDefault();
-                    Department Parent = bll.Departments.DbSet.Where(p => p.Abutment_Id == item.parentId).FirstOrDefault();
-                    if (dp == null )
+                    if (item2.Abutment_ParentId == null)
                     {
                         continue;
                     }
 
+                    Department Parent = dlst.Find(p => p.Abutment_Id == item2.Abutment_ParentId);
                     if (Parent == null)
                     {
-                        send.Add(dp);
                         continue;
                     }
 
-                    if (dp.Abutment_Id == 0 && Parent.Abutment_Id == 0)
+                    int nCount = dlst.FindAll(p => p.ParentId == Parent.Id).Count();
+                    if (item2.ParentId == Parent.Id)
                     {
                         continue;
                     }
-
-                    dp.ParentId = Parent.Id;
-                    bll.Departments.Edit(dp);
-                    send.Add(dp);
+                    item2.ParentId = Parent.Id;
+                    item2.ShowOrder = nCount;
+                    bll.Departments.Edit(item2);
                 }
-
             }
             catch (Exception ex)
             {
@@ -343,12 +349,17 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<Area> GetzonesList()
         {
+            Bll bll = new Bll();
+            List<Area> alst = bll.Areas.ToList();
+
             BaseTran<zone> recv = new BaseTran<zone>();
             List<Area> send = new List<Area>();
+            List<string> errorlst = new List<string>();
+
 
             try
             {
-                string path = "api/zones?struct=LIST";
+                string path = "zones?struct=LIST";
                 string url = BaseUri + path;
                 recv = GetEntityList<zone>(url);
 
@@ -359,58 +370,59 @@ namespace WebApiLib.Clients
 
                 foreach (zone item in recv.data)
                 {
-                    Area area = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
-                    int nFlag = 0;
+                    if (item.kks == null)
+                    {
+                        string strInfo = "获取获取区域列表错误信息：KKS为null  id=" + item.id + "  Name=" + item.name + " KKS=" + item.kks;
+                        errorlst.Add(strInfo);
+                        continue;
+                    }
+
+                    Area area = alst.Find(p=>p.KKS == item.kks);
                     if (area == null)
                     {
-                        area = new Area();
-                        area.Abutment_Id = item.id;
-                        area.IsRelative = false;
-                        area.Type = 0;
-                        nFlag = 1;
+                        string strInfo = "获取获取区域列表错误信息：根据KKS找不到对应的区域 id=" + item.id + "  Name=" + item.name + " KKS=" + item.kks;
+                        errorlst.Add(strInfo);
+                        continue;
                     }
 
-                    area.Name = item.name;
-                    area.KKS = item.kks;
+                    area.Abutment_Id = item.id;
                     area.Abutment_ParentId = item.parent_Id;
-                    area.Describe = item.description;
-
-                    if (nFlag == 1)
-                    {
-                        bll.Areas.Add(area);
-                    }
-                    else
-                    {
-                        bll.Areas.Edit(area);
-                    }
+                    send.Add(area);
                 }
 
-                foreach (zone item in recv.data)
+                foreach (Area item2 in send)
                 {
-                    if (item.parent_Id == null)
+                    if (item2.Abutment_ParentId == null)
                     {
                         continue;
                     }
 
-                    Area Child = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
-                    Area Parent = bll.Areas.DbSet.Where(p => p.Abutment_Id == item.parent_Id).FirstOrDefault();
-
-                    if (Child != null)
+                    Area parent = alst.Find(p => p.Abutment_Id == item2.Abutment_ParentId);
+                    if (parent == null)
                     {
-                        if (Parent != null)
-                        {
-                            Child.ParentId = Parent.Id;
-                            bll.Areas.Edit(Child);
-                        }
-
-                        send.Add(Child);
+                        continue;
                     }
+
+                    if (item2.ParentId == parent.Id)
+                    {
+                        continue;
+                    }
+
+                    item2.ParentId = parent.Id;
+                    bll.Areas.Edit(item2);
                 }
             }
             catch (Exception ex)
             {
                 string messgae = ex.Message;
             }
+
+            if (errorlst.Count > 0)
+            {
+                WriteWrongInfo(errorlst, "Discard_AreaList.txt");
+            }
+
+
 
             return send;
         }
@@ -426,11 +438,12 @@ namespace WebApiLib.Clients
             zone recv = new zone();
             Area send = new Area();
 
+            return send;
             string strId = Convert.ToString(id);
             string strView = Convert.ToString(view);
             try
             {
-                string path = "api/zones/" + strId + "?view=" + strView;
+                string path = "zones/" + strId + "?view=" + strView;
                 string url = BaseUri + path;
                 recv = GetEntityDetail<zone>(url);
 
@@ -534,6 +547,7 @@ namespace WebApiLib.Clients
                     devinfo.RunStatus = (Abutment_RunStatus)item3.running_state;
                     devinfo.Placed = item3.placed;
                     devinfo.Abutment_DevID = item3.raw_id;
+                    devinfo.IP = item3.ip;
 
                     if (nFlag == 1)
                     {
@@ -566,6 +580,7 @@ namespace WebApiLib.Clients
             string strId = Convert.ToString(id);
             List<DevInfo> send = new List<DevInfo>();
 
+            return send;
             try
             {
                 string path = "api/zones/" + strId + "/devices";
@@ -600,6 +615,7 @@ namespace WebApiLib.Clients
                         devinfo.RunStatus = (Abutment_RunStatus)item.running_state;
                         devinfo.Placed = item.placed;
                         devinfo.Abutment_DevID = item.raw_id;
+                        devinfo.IP = item.ip;
                         devinfo.Manufactor = "霍尼韦尔";
 
                         if (nFlag == 1)
@@ -642,12 +658,16 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<DevInfo> GetDeviceList(string types, string code, string name)
         {
+            Bll bll = new Bll();
+            List<DevInfo> dlst = bll.DevInfos.ToList();
+            List<Dev_CameraInfo> dclst = bll.Dev_CameraInfos.ToList();
             BaseTran<device> recv = new BaseTran<device>();
             List<DevInfo> send = new List<DevInfo>();
+            List<string> errorLst = new List<string>();
 
             try
             {
-                string path = "api/devices";
+                string path = "devices";
                 string url = BaseUri + path;
 
                 if (types != null)
@@ -686,42 +706,50 @@ namespace WebApiLib.Clients
 
                 foreach (device item in recv.data)
                 {
-                    DevInfo devinfo = bll.DevInfos.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
-                    int nFlag = 0;
+                    if (item.type != 102 && item.type != 1021 && item.type != 1022 && item.type != 1023)
+                    {
+                        string strInfo = "获取设备列表错误信息：不是摄像头  id=" + item.id + "  Name=" + item.name + "  Type=" + Convert.ToString(item.type) + "  Code=" + item.code + " KKS=" + item.kks;
+                        errorLst.Add(strInfo);
+                        continue;
+                    }
+
+                    if (item.ip == null || item.ip == "")
+                    {
+                        string strInfo = "获取设备列表错误信息：IP为空  id=" + item.id + "  Name=" + item.name + "  Code=" + item.code + " KKS=" + item.kks;
+                        errorLst.Add(strInfo);
+                        continue;
+                    }
+
+                    Dev_CameraInfo dc = dclst.Find(p => p.Ip == item.ip);
+                    if (dc == null)
+                    {
+                        string strInfo = "获取设备列表错误信息：找不到匹配的IP  id=" + item.id + "  Name=" + item.name + "  Code=" + item.code + " KKS=" + item.kks;
+                        errorLst.Add(strInfo);
+                        continue;
+                    }
+
+                    DevInfo devinfo = dlst.Find(p => p.Id == dc.DevInfoId);
                     if (devinfo == null)
                     {
-                        devinfo = new DevInfo();
-                        nFlag = 1;
+                        string strInfo = "获取设备列表错误信息：摄像头找不到匹配的设备  id=" + item.id + "  Name=" + item.name + "  Code=" + item.code + " KKS=" + item.kks;
+                        errorLst.Add(strInfo);
+                        continue;
                     }
 
                     devinfo.Abutment_Id = item.id;
                     devinfo.Code = item.code;
-                    devinfo.KKS = item.kks;
-                    devinfo.Name = item.name;
                     devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
                     devinfo.Status = (Abutment_Status)item.state;
                     devinfo.RunStatus = (Abutment_RunStatus)item.running_state;
                     devinfo.Placed = item.placed;
                     devinfo.Abutment_DevID = item.raw_id;
+                    devinfo.IP = item.ip;
                     devinfo.Manufactor = "霍尼韦尔";
 
-                    if (nFlag == 1)
-                    {
-                        devinfo.CreateTime = DateTime.Now;
-                        devinfo.ModifyTime = DateTime.Now;
+                    devinfo.ModifyTime = DateTime.Now;
+                    devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
 
-                        devinfo.CreateTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.CreateTime);
-                        devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
-
-                        bll.DevInfos.Add(devinfo);
-                    }
-                    else
-                    {
-                        devinfo.ModifyTime = DateTime.Now;
-                        devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
-
-                        bll.DevInfos.Edit(devinfo);
-                    }
+                    bll.DevInfos.Edit(devinfo);
 
                     send.Add(devinfo);
                 }
@@ -729,6 +757,11 @@ namespace WebApiLib.Clients
             catch (Exception ex)
             {
                 string messgae = ex.Message;
+            }
+
+            if (errorLst.Count > 0)
+            {
+                WriteWrongInfo(errorLst, "Discard_DevList.txt");
             }
 
             return send;
@@ -768,6 +801,7 @@ namespace WebApiLib.Clients
                 devinfo.RunStatus = (Abutment_RunStatus)recv.running_state;
                 devinfo.Placed = recv.placed;
                 devinfo.Abutment_DevID = recv.raw_id;
+                devinfo.IP = recv.ip;
                 devinfo.Manufactor = "霍尼韦尔";
 
                 if (nFlag == 1)
@@ -897,31 +931,36 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<EntranceGuardCard> GetCardList()
         {
+            Bll bll = new Bll();
+            List<EntranceGuardCard> elst = bll.EntranceGuardCards.ToList();
+            List<Personnel> plst = bll.Personnels.ToList();
+            List<EntranceGuardCardToPersonnel> eglst = bll.EntranceGuardCardToPersonnels.ToList();
             BaseTran<cards> recv = new BaseTran<cards>();
             List<EntranceGuardCard> send = new List<EntranceGuardCard>();
 
             try
             {
-                string path = "api/cards";
+                string path = "cards";
                 string url = BaseUri + path;
                 recv = GetEntityList<cards>(url);
                 foreach (cards item in recv.data)
                 {
-                    EntranceGuardCard egc = bll.EntranceGuardCards.DbSet.FirstOrDefault(p => p.Abutment_Id == item.cardId);
-                    int nFlag = 0;
+                    EntranceGuardCard egc = elst.Find(p=>p.Code == item.cardCode);
+                    int nFlag = 1;
                     if (egc == null)
                     {
                         egc = new EntranceGuardCard();
-                        nFlag = 1;
+                        nFlag = 0;
                     }
 
                     egc.Abutment_Id = item.cardId;
                     egc.Code = item.cardCode;
                     egc.State = item.state;
 
-                    if (nFlag == 1)
+                    if (nFlag == 0)
                     {
                         bll.EntranceGuardCards.Add(egc);
+                        elst.Add(egc);
                     }
                     else
                     {
@@ -935,32 +974,37 @@ namespace WebApiLib.Clients
                         continue;
                     }
 
-                    Personnel personnel = bll.Personnels.DbSet.FirstOrDefault(p => p.Abutment_Id == item.emp_id);
+                    Personnel personnel = plst.Find(p=>p.Abutment_Id == item.emp_id);
                     if (personnel == null)
                     {
                         continue;
                     }
 
-                    EntranceGuardCardToPersonnel egctp = bll.EntranceGuardCardToPersonnels.DbSet.FirstOrDefault(p => p.EntranceGuardCardId == egc.Id);
-                    nFlag = 0;
-                    if (egctp == null)
+                    EntranceGuardCardToPersonnel egctp = eglst.Find(p=>p.PersonnelId == personnel.Id && p.EntranceGuardCardId == egc.Id);
+                    if (egctp != null)
                     {
-                        egctp = new EntranceGuardCardToPersonnel();
-                        egctp.EntranceGuardCardId = egc.Id;
-                        nFlag = 1;
+                        continue;
                     }
 
+                    EntranceGuardCardToPersonnel egctp1 = eglst.Find(p => p.PersonnelId == personnel.Id);
+                    EntranceGuardCardToPersonnel egctp2 = eglst.Find(p => p.EntranceGuardCardId == egc.Id);
+                    if (egctp1 != null)
+                    {
+                        eglst.Remove(egctp1);
+                        bll.EntranceGuardCardToPersonnels.DeleteById(egctp1.Id);
+                    }
+
+                    if (egctp2 != null)
+                    {
+                        eglst.Remove(egctp2);
+                        bll.EntranceGuardCardToPersonnels.DeleteById(egctp2.Id);
+                    }
+
+                    egctp = new EntranceGuardCardToPersonnel();
                     egctp.PersonnelId = personnel.Id;
-
-                    if (nFlag == 1)
-                    {
-                        bll.EntranceGuardCardToPersonnels.Add(egctp);
-                    }
-                    else
-                    {
-                        bll.EntranceGuardCardToPersonnels.Edit(egctp);
-                    }
-
+                    egctp.EntranceGuardCardId = egc.Id;
+                    bll.EntranceGuardCardToPersonnels.Add(egctp);
+                    eglst.Add(egctp);
                 }
             }
             catch (Exception ex)
@@ -978,14 +1022,19 @@ namespace WebApiLib.Clients
         /// <param name="begin_date"></param>
         /// <param name="end_date"></param>
         /// <returns></returns>
-        public List<DevEntranceGuardCardAction> GetSingleCardActionHistory(int id, string begin_date, string end_date)
+        public List<TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo> GetSingleCardActionHistory(int id, string begin_date, string end_date)
         {
+            Bll bll = new Bll();
+            List<EntranceGuardCard> elst = bll.EntranceGuardCards.ToList();
+            List<DevEntranceGuardCardAction> delst = bll.DevEntranceGuardCardActions.ToList();
+            List<DevInfo> dlst = bll.DevInfos.ToList();
             BaseTran<cards_actions> recv = new BaseTran<cards_actions>();
-            List<DevEntranceGuardCardAction> send = new List<DevEntranceGuardCardAction>();
+            //List<DevEntranceGuardCardAction> send = new List<DevEntranceGuardCardAction>();
+            List<TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo> send = new List<TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo>();
 
             try
             {
-                string path = "api/cards/" + Convert.ToString(id) + "/actions";
+                string path = "cards/" + Convert.ToString(id) + "/actions";
                 string url = BaseUri + path;
                 if (begin_date != null)
                 {
@@ -1012,52 +1061,60 @@ namespace WebApiLib.Clients
                     recv.data = new List<cards_actions>();
                 }
 
-                EntranceGuardCard egc = bll.EntranceGuardCards.DbSet.FirstOrDefault(p => p.Abutment_Id == id);
-
-                if (egc != null)
+                EntranceGuardCard egc = elst.Find(p => p.Abutment_Id == id);
+                if (egc == null)
                 {
-                    foreach (cards_actions item in recv.data)
+                    return send;
+                }
+
+                foreach (cards_actions item in recv.data)
+                {
+                    if (item.card_code != egc.Code)
                     {
-                        DevEntranceGuardCardAction degca = bll.DevEntranceGuardCardActions.DbSet.FirstOrDefault(p => p.Abutment_Id == item.id);
-                        DevInfo devinfo = bll.DevInfos.DbSet.FirstOrDefault(p => p.Abutment_Id == item.device_id);
-                        if (devinfo == null)
-                        {
-                            continue;
-                        }
+                        continue;
+                    }
 
-                        int nFlag = 0;
-                        if (degca == null)
-                        {
-                            degca = new DevEntranceGuardCardAction();
-                            degca.OperateTime = null;
-                            nFlag = 1;
-                        }
+                    DevEntranceGuardCardAction degca = delst.Find(p=>p.Abutment_Id == item.id);
+                    DevInfo devinfo = dlst.Find(p=>p.Abutment_Id == item.device_id);
+                    if (devinfo == null)
+                    {
+                        continue;
+                    }
 
+                    if (degca == null)
+                    {
+                        degca = new DevEntranceGuardCardAction();
                         degca.Abutment_Id = item.id;
                         degca.DevInfoId = devinfo.Id;
                         degca.EntranceGuardCardId = egc.Id;
                         degca.code = item.code;
                         degca.description = item.description;
-                        degca.OperateTimeStamp = item.t;
                         degca.nInOutState = 0;
 
                         if (item.t != null)
                         {
-                            long t = (long)item.t;
+                            long t = (long)item.t + nEightHourSecond;
+                            t = 1000 * t;
+                            degca.OperateTimeStamp = t;
                             degca.OperateTime = TimeConvert.TimeStampToDateTime(t);
                         }
 
-                        if (nFlag == 1)
-                        {
-                            bll.DevEntranceGuardCardActions.Add(degca);
-                        }
-                        else
-                        {
-                            bll.DevEntranceGuardCardActions.Edit(degca);
-                        }
-
-                        send.Add(degca);
+                        bll.DevEntranceGuardCardActions.Add(degca);
+                        delst.Add(degca);
                     }
+
+                    TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo sendElement = new TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo();
+                    sendElement.Id = degca.Id;
+                    sendElement.Name = devinfo.Name;
+                    sendElement.AreadId = devinfo.ParentId;
+                    if (devinfo.Parent != null)
+                    {
+                        sendElement.AreadName = devinfo.Parent.Name;
+                    }
+                    sendElement.Code = egc.Code;
+                    sendElement.OperateTime = degca.OperateTime;
+
+                    send.Add(sendElement);
                 }
             }
             catch (Exception ex)
@@ -1204,12 +1261,15 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<DevAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
+            Bll bll = new Bll();
+            List<DevInfo> dlst = bll.DevInfos.ToList();
+            List<DevAlarm> dalst = bll.DevAlarms.ToList();
             BaseTran<events> recv = new BaseTran<events>();
             List<DevAlarm> send = new List<DevAlarm>();
 
             try
             {
-                string path = "api/events";
+                string path = "events";
                 string url = BaseUri + path;
                 if (src != null)
                 {
@@ -1247,23 +1307,22 @@ namespace WebApiLib.Clients
 
                 foreach (events item in recv.data)
                 {
-                    if (item.deviceId == null)
+                    if (item.deviceId == null ||item.state == 1 || item.state == 2)
                     {
                         continue;
                     }
 
-                    DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == item.deviceId).FirstOrDefault();
+                    DevInfo di = dlst.Find(p => p.Abutment_Id == item.deviceId);
                     if (di == null)
                     {
                         continue;
                     }
 
-                    DevAlarm da = bll.DevAlarms.DbSet.Where(p => p.Abutment_Id == item.id).FirstOrDefault();
-                    int nFlag = 0;
-                    if (da == null)
+                    DevAlarm da = dalst.Find(p => p.Abutment_Id == item.id);
+                    if (da != null)
                     {
-                        da = new DevAlarm();
-                        nFlag = 1;
+                        send.Add(da);
+                        continue;
                     }
 
                     da.Abutment_Id = item.id;
@@ -1276,15 +1335,7 @@ namespace WebApiLib.Clients
                     da.Device_desc = item.deviceDesc;
                     da.AlarmTime = TimeConvert.TimeStampToDateTime(item.t);
                     da.AlarmTimeStamp = item.t;
-
-                    if (nFlag == 1)
-                    {
-                        bll.DevAlarms.Add(da);
-                    }
-                    else
-                    {
-                        bll.DevAlarms.Edit(da);
-                    }
+                    bll.DevAlarms.Add(da);
 
                     send.Add(da);
                 }
@@ -1511,119 +1562,6 @@ namespace WebApiLib.Clients
             return send;
         }
 
-        //public List<InspectionTrack> Getinspectionlist(DateTime dtTime, bool bFlag)
-        //{
-        //    List<patrols> recv = new List<patrols>();
-        //    List<InspectionTrack> send = new List<InspectionTrack>();
-
-        //    try
-        //    {
-        //        string path = "api/patrols";
-        //        string url = BaseUri + path;
-        //        if (bFlag)
-        //        {
-        //            DateTime dtEnd = dtTime.AddHours(-8);
-        //            DateTime dtBegin = dtEnd.AddDays(-1);
-
-        //            url += "?startDate=" + Convert.ToString(dtBegin);
-        //            url += "&endDate=" + Convert.ToString(dtEnd);
-        //        }
-
-        //        recv = GetEntityList2<patrols>(url);
-
-        //        foreach (patrols item in recv)
-        //        {
-        //            InspectionTrack now = bll.InspectionTracks.Find(p => p.Abutment_Id == item.id);
-        //            InspectionTrackHistory history = bll.InspectionTrackHistorys.Find(p => p.Abutment_Id == item.id);
-
-        //            InspectionStatus state =(InspectionStatus)Convert.ToInt32(item.state);
-        //            int nFlag = 0;
-        //            int nId = 0;
-
-        //            if (state == InspectionStatus.NewBuild || state == InspectionStatus.AlreadyIssued || state == InspectionStatus.InExecution)
-        //            {
-        //                if (now == null)
-        //                {
-        //                    now = new InspectionTrack();
-
-        //                    now.Abutment_Id = item.id;
-        //                    now.Code = item.code;
-        //                    now.Name = item.name;
-        //                    now.CreateTime = (item.createTime + nEightHourSecond) * 1000;
-        //                    now.dtCreateTime = TimeConvert.TimeStampToDateTime(now.CreateTime);
-        //                    now.State = state;
-        //                    now.StartTime = (item.startTime + nEightHourSecond) * 1000;
-        //                    now.dtStartTime = TimeConvert.TimeStampToDateTime(now.StartTime);
-        //                    now.EndTime = (item.endTime + nEightHourSecond) * 1000;
-        //                    now.dtEndTime = TimeConvert.TimeStampToDateTime(now.EndTime);
-        //                    bll.InspectionTracks.Add(now);
-        //                }
-        //                else
-        //                {
-        //                    now.State = state;
-        //                    bll.InspectionTracks.Edit(now);
-        //                }
-
-        //                nId = now.Id;
-        //            }
-        //            else
-        //            {
-        //                if (now != null)
-        //                {
-        //                    bll.InspectionTracks.DeleteById(now.Id);
-        //                }
-
-        //                if (history != null)
-        //                {
-        //                    nFlag = 1;
-        //                }
-        //                else
-        //                {
-        //                    history = new InspectionTrackHistory();
-
-        //                    history.Abutment_Id = item.id;
-        //                    history.Code = item.code;
-        //                    history.Name = item.name;
-        //                    history.CreateTime = (item.createTime + nEightHourSecond) * 1000;
-        //                    history.dtCreateTime = TimeConvert.TimeStampToDateTime(now.CreateTime);
-        //                    history.State = state;
-        //                    history.StartTime = (item.startTime + nEightHourSecond) * 1000;
-        //                    history.dtStartTime = TimeConvert.TimeStampToDateTime(now.StartTime);
-        //                    history.EndTime = (item.endTime + nEightHourSecond) * 1000;
-        //                    history.dtEndTime = TimeConvert.TimeStampToDateTime(now.EndTime);
-
-        //                    bll.InspectionTrackHistorys.Add(history);
-
-        //                    nFlag = 2;
-        //                }
-
-        //                nId = history.Id;
-        //            }
-
-        //            if (nFlag == 1)
-        //            {
-        //                continue;
-        //            }
-
-        //            List<PatrolPoint> Route = Getcheckpoints(item.id, nId, nFlag);
-        //            if (nFlag == 2 || Route.Count <= 0)
-        //            {
-        //                continue;
-        //            }
-
-        //            now.Route = Route;
-        //            send.Add(now);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string messgae = ex.Message;
-        //    }
-
-        //    return send;
-
-        //}
-
         /// <summary>
         /// 获取巡检轨迹列表
         /// </summary>
@@ -1634,9 +1572,10 @@ namespace WebApiLib.Clients
         public List<patrols> Getinspectionlist(long lBegin, long lEnd, bool bFlag)
         {
             List<patrols> recv = new List<patrols>();
+
             try
             {
-                string path = "api/patrols";
+                string path = "patrols";
                 string url = BaseUri + path;
                 if (bFlag)
                 {
@@ -1645,6 +1584,34 @@ namespace WebApiLib.Clients
                 }
 
                 recv = GetEntityList2<patrols>(url);
+
+                //if (recv == null || recv.Count == 0)
+                //{
+                //    return recv;
+                //}
+
+                //foreach (patrols item in recv)
+                //{
+                //    InspectionTrack it = itlst.Find(p=>p.Abutment_Id == item.id);
+                //    if (it != null)
+                //    {
+                //        send.Add(it);
+                //        continue;
+                //    }
+
+                //    it = new InspectionTrack();
+                //    it.Abutment_Id = item.id;
+                //    it.Code = item.code;
+                //    it.Name = item.name;
+                //    it.CreateTime = item.createTime;
+                //    it.StartTime = item.startTime;
+                //    it.EndTime = item.endTime;
+                //    it.dtCreateTime = TimeConvert.TimeStampToDateTime(1000* item.createTime);
+                //    it.dtStartTime = TimeConvert.TimeStampToDateTime(1000* item.startTime);
+                //    it.dtEndTime = TimeConvert.TimeStampToDateTime(1000* item.endTime);
+                //    bll.InspectionTracks.Add(it);
+                //    send.Add(it);
+                //}
             }
             catch (Exception ex)
             {
@@ -1660,91 +1627,13 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        //public List<PatrolPoint> Getcheckpoints(int patrolId, int ParentId, int nFlag)
-        //{
-        //    patrols recv = new patrols();
-        //    List<PatrolPoint> send = new List<PatrolPoint>();
-
-        //    try
-        //    {
-        //        string path = "api/patrols/" + Convert.ToString(patrolId);
-        //        string url = BaseUri + path;
-                
-        //        recv = GetEntityList3(url);
-
-        //        foreach (checkpoints item in recv.route)
-        //        {
-        //            PatrolPoint now = bll.PatrolPoints.Find(p=>p.KksCode == item.kksCode && p.ParentId == ParentId);
-        //            PatrolPointHistory history = bll.PatrolPointHistorys.Find(p => p.KksCode == item.kksCode && p.ParentId == ParentId);
-        //            int nId = 0;
-
-        //            if (nFlag == 0)
-        //            {
-        //                if (now == null)
-        //                {
-        //                    now = new PatrolPoint();
-
-        //                    now.ParentId = ParentId;
-        //                    now.StaffCode = item.staffCode;
-        //                    now.KksCode = item.kksCode;
-        //                    now.DeviceCode = item.deviceCode;
-        //                    now.DeviceId = item.deviceId;
-
-        //                    bll.PatrolPoints.Add(now);
-        //                }
-
-        //                nId = now.Id;
-        //            }
-        //            else
-        //            {
-        //                if (history == null)
-        //                {
-        //                    history = new PatrolPointHistory();
-
-        //                    history.ParentId = ParentId;
-        //                    history.StaffCode = item.staffCode;
-        //                    history.KksCode = item.kksCode;
-        //                    history.DeviceCode = item.deviceCode;
-        //                    history.DeviceId = item.deviceId;
-
-        //                    bll.PatrolPointHistorys.Add(history);
-        //                }
-
-        //                nId = history.Id;
-        //            }
-
-        //            PatrolPoint pp = Getcheckresults(patrolId, item.deviceId, nId, nFlag);
-        //            if (nFlag == 0)
-        //            {
-        //                now.Success = pp.Success;
-        //                bll.PatrolPoints.Edit(now);
-        //                now.Checks = pp.Checks;
-        //                send.Add(now);
-        //            }
-        //            else
-        //            {
-        //                history.Success = pp.Success;
-        //                bll.PatrolPointHistorys.Edit(history);
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string messgae = ex.Message;
-        //    }
-
-        //    return send;
-
-        //}
-
         public patrols Getcheckpoints(int patrolId)
         {
             patrols recv = new patrols();
 
             try
             {
-                string path = "api/patrols/" + Convert.ToString(patrolId);
+                string path = "patrols/" + Convert.ToString(patrolId);
                 string url = BaseUri + path;
 
                 recv = GetEntityList3(url);
@@ -1765,104 +1654,13 @@ namespace WebApiLib.Clients
         /// <param name="patrolId"></param>
         /// <param name="deviceCode"></param>
         /// <returns></returns>
-        //public PatrolPoint Getcheckresults(int patrolId, string deviceId, int parentId, int nFlag)
-        //{
-        //    checkpoints recv = new checkpoints();
-        //    PatrolPoint send = new PatrolPoint();
-
-        //    try
-        //    {
-        //        string path = "api/patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
-        //        //string path = "api/patrols/" + Convert.ToString(469) + "/checkpoints/100012/results";
-        //        string url = BaseUri + path;
-
-        //        recv = GetEntityList4(url);
-        //        send.Success = recv.success;
-
-        //        foreach (results item in recv.checks)
-        //        {
-        //            PatrolPointItem now = bll.PatrolPointItems.Find(p => p.CheckId == item.checkId && p.ParentId == parentId);
-        //            PatrolPointItemHistory history = bll.PatrolPointItemHistorys.Find(p => p.CheckId == item.checkId && p.ParentId == parentId);
-
-
-        //            if (nFlag == 0)
-        //            {
-        //                if (now == null)
-        //                {
-        //                    now = new PatrolPointItem();
-        //                    now.ParentId = parentId;
-        //                    now.KksCode = item.kksCode;
-        //                    now.CheckItem = item.checkItem;
-        //                    now.StaffCode = item.staffCode;
-        //                    now.CheckTime = null;
-        //                    now.dtCheckTime = null;
-        //                    if (item.checkTime != null)
-        //                    {
-        //                        now.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
-        //                        now.dtCheckTime = TimeConvert.TimeStampToDateTime((long)now.CheckTime);
-        //                    }
-        //                    now.CheckId = item.checkId;
-        //                    now.CheckResult = item.checkResult;
-        //                    bll.PatrolPointItems.Add(now);
-        //                }
-        //                else
-        //                {
-        //                    now.CheckTime = null;
-        //                    now.dtCheckTime = null;
-        //                    if (item.checkTime != null)
-        //                    {
-        //                        now.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
-        //                        now.dtCheckTime = TimeConvert.TimeStampToDateTime((long)now.CheckTime);
-        //                    }
-
-        //                    now.CheckResult = item.checkResult;
-        //                    bll.PatrolPointItems.Edit(now);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (history == null)
-        //                {
-        //                    history = new PatrolPointItemHistory();
-        //                    history.ParentId = parentId;
-        //                    history.KksCode = item.kksCode;
-        //                    history.CheckItem = item.checkItem;
-        //                    history.StaffCode = item.staffCode;
-        //                    history.CheckTime = null;
-        //                    history.dtCheckTime = null;
-        //                    if (item.checkTime != null)
-        //                    {
-        //                        history.CheckTime = (item.checkTime + nEightHourSecond) * 1000;
-        //                        history.dtCheckTime = TimeConvert.TimeStampToDateTime((long)history.CheckTime);
-        //                    }
-        //                    history.CheckId = item.checkId;
-        //                    history.CheckResult = item.checkResult;
-        //                    bll.PatrolPointItemHistorys.Add(history);
-        //                }
-        //            }
-
-        //            if (nFlag == 0)
-        //            {
-        //                send.Checks.Add(now);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string messgae = ex.Message;
-        //    }
-
-        //    return send;
-
-        //}
-
         public checkpoints Getcheckresults(int patrolId, string deviceId)
         {
             checkpoints recv = new checkpoints();
 
             try
             {
-                string path = "api/patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
+                string path = "patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
                 string url = BaseUri + path;
 
                 recv = GetEntityList4(url);
@@ -1874,6 +1672,27 @@ namespace WebApiLib.Clients
 
             return recv;
 
+        }
+
+        private void WriteWrongInfo(List<string> lstInfo, string filename)
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "Data\\" + filename;
+            FileStream fs = System.IO.File.Create(filePath);
+            //FileStream fs = new FileStream(filePath, FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs);
+            DateTime dt = DateTime.Now;
+            int nCount = lstInfo.Count;
+            string strInfo = "";
+            for (int i = 0; i < nCount; ++i)
+            {
+                strInfo = lstInfo[i];
+                strInfo += "      产生时间:" + dt;
+                sw.WriteLine(strInfo);
+            }
+
+            sw.Close();
+            fs.Close();
         }
     }
 }

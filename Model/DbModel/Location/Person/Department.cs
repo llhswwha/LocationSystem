@@ -45,6 +45,13 @@ namespace DbModel.Location.Person
         public virtual Department Parent { get; set; }
 
         /// <summary>
+        /// 对接父Id
+        /// </summary>
+        [DataMember]
+        [Display(Name = "对接父Id")]
+        public int? Abutment_ParentId { get; set; }
+
+        /// <summary>
         /// 排序
         /// </summary>
         [DataMember]

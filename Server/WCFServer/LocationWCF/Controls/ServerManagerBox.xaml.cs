@@ -154,6 +154,7 @@ namespace LocationServer.Controls
 
                 StartLocationService(host, port);
                 StartLocationServiceApi(host, port);
+                StartReceiveAlarm();
                 StartLocationAlarmService();
                 StartWebApiService(host, port);
                 StartSignalRService(host, port);
