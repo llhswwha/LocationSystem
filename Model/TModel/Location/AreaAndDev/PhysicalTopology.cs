@@ -191,10 +191,11 @@ namespace Location.TModel.Location.AreaAndDev
             if (InitBound != null)
             {
                 var points = InitBound.Points;
-                foreach (var item in points)
-                {
-                    item.Bound = InitBound;
-                }
+                if(points!=null)
+                    foreach (var item in points)
+                    {
+                        item.Bound = InitBound;
+                    }
                 return points;
             }
             return null;
@@ -223,11 +224,12 @@ namespace Location.TModel.Location.AreaAndDev
         {
             var x = InitBound.MinX;
             var y = InitBound.MinY;
-            foreach (var item in points)
-            {
-                item.X += x;
-                item.Y += y;
-            }
+            if(points!=null)
+                foreach (var item in points)
+                {
+                    item.X += x;
+                    item.Y += y;
+                }
         }
 
         [DataMember]
@@ -332,7 +334,7 @@ namespace Location.TModel.Location.AreaAndDev
         /// <returns></returns>
         public bool IsPark()
         {
-            return Name == "四会热电厂";
+            return Name == "四会热电厂" || Type == AreaTypes.园区;
         }
 
         public List<Personnel> GetAllPerson()

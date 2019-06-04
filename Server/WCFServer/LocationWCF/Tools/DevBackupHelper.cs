@@ -65,10 +65,11 @@ namespace LocationServer.Tools
             foreach (var item in devInfoList)
             {
                 string typeCodeT = item.TypeCode.ToString();
-                if (TypeCodeHelper.IsLocationDev(typeCodeT) || TypeCodeHelper.IsCamera(typeCodeT)||TypeCodeHelper.IsDoorAccess(item.ModelName)) continue;
+                if (TypeCodeHelper.IsLocationDev(typeCodeT) || TypeCodeHelper.IsCamera(typeCodeT)||TypeCodeHelper.IsDoorAccess(item.ModelName)||TypeCodeHelper.IsFireFightDevType(typeCodeT)) continue;
                 DevInfoBackup dev = new DevInfoBackup();
                 dev.DevId = item.DevID;
                 dev.KKSCode = item.KKSCode;
+                dev.Abutment_DevID = item.Abutment_DevID;
                 dev.ModelName = item.ModelName;
                 dev.Name = item.Name;
                 dev.ParentName = GetAreaPath((int)item.ParentId,service);
@@ -132,6 +133,7 @@ namespace LocationServer.Tools
                 CameraInfoBackup dev = new CameraInfoBackup();
                 dev.DevId = item.DevInfo.DevID;
                 dev.KKSCode = item.DevInfo.KKSCode;
+                dev.Abutment_DevID = item.DevInfo.Abutment_DevID;
                 dev.ModelName = item.DevInfo.ModelName;
                 dev.Name = item.DevInfo.Name;
                 dev.ParentName = GetAreaPath((int)item.ParentId, service);
@@ -216,6 +218,7 @@ namespace LocationServer.Tools
                 if (areaList.DevList == null) areaList.DevList = new List<LocationDevice>();
                 LocationDevice dev = new LocationDevice();
                 dev.Name = item.Name;
+                dev.Abutment_DevID = item.DevInfo.Abutment_DevID;
                 dev.AnchorId = item.Code;
                 dev.IP = item.Ip;
                 dev.AbsolutePosX = item.X.ToString("f2");
@@ -281,10 +284,16 @@ namespace LocationServer.Tools
                 DoorAccess dev = new DoorAccess();
                 dev.DevId = item.DevInfo.DevID;
                 dev.KKSCode = item.DevInfo.KKSCode;
+                dev.Abutment_DevID = item.DevInfo.Abutment_DevID;
                 dev.ModelName = item.DevInfo.ModelName;
                 dev.Name = item.DevInfo.Name;
                 dev.ParentName = GetAreaPath((int)item.ParentId, service);
                 dev.TypeCode = item.DevInfo.TypeCode.ToString();
+
+                if(dev.Name== "集控楼4.5米集控室大门(左)")
+                {
+                    int idc = 0;
+                }
 
                 DevPos pos = item.DevInfo.Pos;
 

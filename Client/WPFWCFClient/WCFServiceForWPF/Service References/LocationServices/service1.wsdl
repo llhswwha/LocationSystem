@@ -22,6 +22,7 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" />
     </xsd:schema>
   </wsdl:types>
@@ -43,6 +44,30 @@
   <wsdl:message name="ILocationService_GetDepartmentTree_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDepartmentTreeResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditDepartmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteDepartment_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDepartment" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteDepartment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDepartmentResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetTag_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTag" />
   </wsdl:message>
@@ -54,6 +79,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetTags_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTagsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddTag_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTag" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddTag_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTagResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_AddTags_InputMessage">
     <wsdl:part name="parameters" element="tns:AddTags" />
@@ -78,6 +109,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_EditTag_OutputMessage">
     <wsdl:part name="parameters" element="tns:EditTagResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditTagById_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditTagById" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditTagById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditTagByIdResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetRealPositons_InputMessage">
     <wsdl:part name="parameters" element="tns:GetRealPositons" />
@@ -643,6 +680,30 @@
   <wsdl:message name="ILocationService_GetPostList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPostListResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPost" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPost" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditPost" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeletePost_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePost" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeletePost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePostResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetTicketList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTicketList" />
   </wsdl:message>
@@ -907,6 +968,48 @@
   <wsdl:message name="ILocationService_InitKksTable_OutputMessage">
     <wsdl:part name="parameters" element="tns:InitKksTableResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRoleList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRoleList" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRoleList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRoleListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRole" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddCardRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCardRole" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_AddCardRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCardRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditCardRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditCardRole" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_EditCardRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditCardRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteCardRole_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCardRole" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteCardRole_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCardRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRoleAccessAreas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRoleAccessAreas" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCardRoleAccessAreas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardRoleAccessAreasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_SetCardRoleAccessAreas_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetCardRoleAccessAreas" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_SetCardRoleAccessAreas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetCardRoleAccessAreasResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetUnitySetting_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUnitySetting" />
   </wsdl:message>
@@ -944,6 +1047,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentTree" message="tns:ILocationService_GetDepartmentTree_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse" message="tns:ILocationService_GetDepartmentTree_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartment" message="tns:ILocationService_GetDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/GetDepartmentResponse" message="tns:ILocationService_GetDepartment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/AddDepartment" message="tns:ILocationService_AddDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/AddDepartmentResponse" message="tns:ILocationService_AddDepartment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/EditDepartment" message="tns:ILocationService_EditDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/EditDepartmentResponse" message="tns:ILocationService_EditDepartment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDepartment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDepartmentService/DeleteDepartment" message="tns:ILocationService_DeleteDepartment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDepartmentService/DeleteDepartmentResponse" message="tns:ILocationService_DeleteDepartment_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetTag">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/GetTag" message="tns:ILocationService_GetTag_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITagService/GetTagResponse" message="tns:ILocationService_GetTag_OutputMessage" />
@@ -951,6 +1070,10 @@
     <wsdl:operation name="GetTags">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/GetTags" message="tns:ILocationService_GetTags_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITagService/GetTagsResponse" message="tns:ILocationService_GetTags_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTag">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITagService/AddTag" message="tns:ILocationService_AddTag_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITagService/AddTagResponse" message="tns:ILocationService_AddTag_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddTags">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/AddTags" message="tns:ILocationService_AddTags_InputMessage" />
@@ -967,6 +1090,10 @@
     <wsdl:operation name="EditTag">
       <wsdl:input wsaw:Action="http://tempuri.org/ITagService/EditTag" message="tns:ILocationService_EditTag_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITagService/EditTagResponse" message="tns:ILocationService_EditTag_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditTagById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITagService/EditTagById" message="tns:ILocationService_EditTagById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITagService/EditTagByIdResponse" message="tns:ILocationService_EditTagById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetRealPositons">
       <wsdl:input wsaw:Action="http://tempuri.org/IPositionService/GetRealPositons" message="tns:ILocationService_GetRealPositons_InputMessage" />
@@ -1344,6 +1471,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPostService/GetPostList" message="tns:ILocationService_GetPostList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPostService/GetPostListResponse" message="tns:ILocationService_GetPostList_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPostService/GetPost" message="tns:ILocationService_GetPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPostService/GetPostResponse" message="tns:ILocationService_GetPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPostService/AddPost" message="tns:ILocationService_AddPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPostService/AddPostResponse" message="tns:ILocationService_AddPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditPost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPostService/EditPost" message="tns:ILocationService_EditPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPostService/EditPostResponse" message="tns:ILocationService_EditPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPostService/DeletePost" message="tns:ILocationService_DeletePost_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPostService/DeletePostResponse" message="tns:ILocationService_DeletePost_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetTicketList">
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketList" message="tns:ILocationService_GetTicketList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetTicketListResponse" message="tns:ILocationService_GetTicketList_OutputMessage" />
@@ -1520,6 +1663,34 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IInitDbService/InitKksTable" message="tns:ILocationService_InitKksTable_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IInitDbService/InitKksTableResponse" message="tns:ILocationService_InitKksTable_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCardRoleList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICardRoleService/GetCardRoleList" message="tns:ILocationService_GetCardRoleList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICardRoleService/GetCardRoleListResponse" message="tns:ILocationService_GetCardRoleList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCardRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICardRoleService/GetCardRole" message="tns:ILocationService_GetCardRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICardRoleService/GetCardRoleResponse" message="tns:ILocationService_GetCardRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCardRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICardRoleService/AddCardRole" message="tns:ILocationService_AddCardRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICardRoleService/AddCardRoleResponse" message="tns:ILocationService_AddCardRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditCardRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICardRoleService/EditCardRole" message="tns:ILocationService_EditCardRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICardRoleService/EditCardRoleResponse" message="tns:ILocationService_EditCardRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCardRole">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICardRoleService/DeleteCardRole" message="tns:ILocationService_DeleteCardRole_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICardRoleService/DeleteCardRoleResponse" message="tns:ILocationService_DeleteCardRole_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCardRoleAccessAreas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorizationService/GetCardRoleAccessAreas" message="tns:ILocationService_GetCardRoleAccessAreas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorizationService/GetCardRoleAccessAreasResponse" message="tns:ILocationService_GetCardRoleAccessAreas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetCardRoleAccessAreas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas" message="tns:ILocationService_SetCardRoleAccessAreas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreasResponse" message="tns:ILocationService_SetCardRoleAccessAreas_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetUnitySetting">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetUnitySetting" message="tns:ILocationService_GetUnitySetting_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILocationService/GetUnitySettingResponse" message="tns:ILocationService_GetUnitySetting_OutputMessage" />
@@ -1566,6 +1737,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDepartment">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/GetDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDepartment">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/AddDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditDepartment">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/EditDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDepartment">
+      <soap:operation soapAction="http://tempuri.org/IDepartmentService/DeleteDepartment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTag">
       <soap:operation soapAction="http://tempuri.org/ITagService/GetTag" style="document" />
       <wsdl:input>
@@ -1577,6 +1784,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetTags">
       <soap:operation soapAction="http://tempuri.org/ITagService/GetTags" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTag">
+      <soap:operation soapAction="http://tempuri.org/ITagService/AddTag" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1613,6 +1829,15 @@
     </wsdl:operation>
     <wsdl:operation name="EditTag">
       <soap:operation soapAction="http://tempuri.org/ITagService/EditTag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditTagById">
+      <soap:operation soapAction="http://tempuri.org/ITagService/EditTagById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2466,6 +2691,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPost">
+      <soap:operation soapAction="http://tempuri.org/IPostService/GetPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPost">
+      <soap:operation soapAction="http://tempuri.org/IPostService/AddPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditPost">
+      <soap:operation soapAction="http://tempuri.org/IPostService/EditPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePost">
+      <soap:operation soapAction="http://tempuri.org/IPostService/DeletePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTicketList">
       <soap:operation soapAction="http://tempuri.org/IBaseDataService/GetTicketList" style="document" />
       <wsdl:input>
@@ -2855,6 +3116,69 @@
     </wsdl:operation>
     <wsdl:operation name="InitKksTable">
       <soap:operation soapAction="http://tempuri.org/IInitDbService/InitKksTable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCardRoleList">
+      <soap:operation soapAction="http://tempuri.org/ICardRoleService/GetCardRoleList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCardRole">
+      <soap:operation soapAction="http://tempuri.org/ICardRoleService/GetCardRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCardRole">
+      <soap:operation soapAction="http://tempuri.org/ICardRoleService/AddCardRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditCardRole">
+      <soap:operation soapAction="http://tempuri.org/ICardRoleService/EditCardRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCardRole">
+      <soap:operation soapAction="http://tempuri.org/ICardRoleService/DeleteCardRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCardRoleAccessAreas">
+      <soap:operation soapAction="http://tempuri.org/IAuthorizationService/GetCardRoleAccessAreas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCardRoleAccessAreas">
+      <soap:operation soapAction="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -22,6 +22,20 @@ namespace WebLocation.Controllers
 
             var locations = ip + "|" + port + "|" + user + "|" + pass;  
             return locations;  //  127.0.0.1|8733|admin|admin
-        }              
+        }
+
+        // GET: Arg            
+        public string GetLoginInfo_Guest()
+        {
+            string ip = ConfigurationHelper.GetValue("Ip"); //动态获取后端Ip
+            //string ip = ConfigurationManager.AppSettings["Ip"];
+            //ConfigurationManager.AppSettings[key]
+            string port = ConfigurationHelper.GetValue("Port");
+            string user = "Guest";// ConfigurationHelper.GetValue("Guset");//写死的
+            string pass = "Guest@123";// ConfigurationHelper.GetValue("Guset@123");
+
+            var locations = ip + "|" + port + "|" + user + "|" + pass;
+            return locations;  //  127.0.0.1|8733|admin|admin
+        }
     }
 }

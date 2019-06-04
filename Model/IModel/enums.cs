@@ -3,7 +3,8 @@
 namespace DbModel.Tools
 {
     //对接方的设备分类
-    public enum Abutment_DevTypes { 无=0,固定设备 = 100, 生产设备, 摄像头, 枪机 = 1021, 球机, 半球, 门禁 = 103, 单向 = 1031, 双向, 消防设备 = 104, 危化品, 定位基站, 巡检点, 停车位, 移动设备 = 200, 一卡通, 人员定位终端, 移动终端 }
+    //public enum Abutment_DevTypes { 无=0,固定设备 = 100, 生产设备, 摄像头, 枪机 = 1021, 球机, 半球, 门禁 = 103, 单向 = 1031, 双向, 消防设备 = 104, 危化品, 定位基站, 巡检点, 停车位, 移动设备 = 200, 一卡通, 人员定位终端, 移动终端 }
+    public enum Abutment_DevTypes { 无 = 0, 固定设备 = 100, 生产设备, 摄像头, 枪机 = 1021, 球机, 半球, 门禁 = 103, 单向 = 1031, 双向, 消防设备 = 104, 烟感 = 1041, 温感, 普通温感模块, 感温电缆, 控制, 监视火警, 监管, 手报, 手动报警按钮, 危化品 = 105, 定位基站, 巡检点, 停车位, 移动设备 = 200, 一卡通, 人员定位终端, 移动终端 }
 
     //对接方设备状态
     public enum Abutment_Status { 正常, 维修中, 已报失, 已作废 = 9 }
@@ -12,7 +13,7 @@ namespace DbModel.Tools
     public enum Abutment_RunStatus { 正常, 离线, 报警 }
 
     //对接方设备告警级别
-    public enum Abutment_DevAlarmLevel { 无, 低, 中, 高 }
+    public enum Abutment_DevAlarmLevel { 无, 低, 中, 高, 未定 }
 
     //对接方设备告警级别
     public enum Abutment_DevAlarmSrc { 未知, 视频监控, 门禁, 消防, SIS = 11, 人员定位 }

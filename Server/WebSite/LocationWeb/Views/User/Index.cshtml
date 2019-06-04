@@ -1,0 +1,151 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using Location.Model;
+@model IEnumerable<DbModel.Location.Manage.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>用户管理</h2>
+
+<p>
+    @Ajax.ActionLink("新建", "Create", "User", new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "modalContent",
+    InsertionMode = InsertionMode.Replace,
+    OnBegin = "onBegin",
+    OnSuccess = "onSuccess",
+    OnFailure = "onFailure",
+    OnComplete = "onComplete"
+})
+</p>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEncrypted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Session)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Authority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientPort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoginTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LiveTime)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEncrypted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Session)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Authority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientIp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientPort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiveTime)
+            </td>
+            <td>
+                @Ajax.ActionLink("编辑", "Edit", "User", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "Get",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("详情", "Details", "User", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               }) |
+
+                @Ajax.ActionLink("删除", "Delete", "User", new { id = item.Id }, new AjaxOptions
+               {
+                   HttpMethod = "GET",
+                   UpdateTargetId = "modalContent",
+                   InsertionMode = InsertionMode.Replace,
+                   OnBegin = "onBegin",
+                   OnSuccess = "onSuccess",
+                   OnFailure = "onFailure",
+                   OnComplete = "onComplete"
+               })
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jqueryui-1.12.1.js"></script>
+<script src="~/Scripts/indexmodal.js"></script> 
+

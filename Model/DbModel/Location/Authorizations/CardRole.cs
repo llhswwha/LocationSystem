@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Location.IModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+
+using DbModel.Location.AreaAndDev;
 
 namespace DbModel.Location.Authorizations
 {
@@ -35,6 +38,13 @@ namespace DbModel.Location.Authorizations
         [MaxLength(64)]
         [Required]
         public string Description { get; set; }
+
+        /// <summary>
+        /// 区域
+        /// </summary>
+        [Display(Name = "区域")]
+        [NotMapped]
+        public int[] AreaIds { get; set; }       
 
         public override string ToString()
         {

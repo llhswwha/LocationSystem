@@ -59,7 +59,7 @@ namespace LocationServer
             if (engineClient == null)
             {
                 EngineLogin login=new EngineLogin("127.0.0.1",2323, "192.168.10.155",3456);
-                engineClient = new PositionEngineClient();
+                engineClient = PositionEngineClient.Instance();
                 engineClient.Logs = Logs;
                 engineClient.MockCount = mockCount;
                 engineClient.StartConnectEngine(login);//todo:ip写到配置文件中

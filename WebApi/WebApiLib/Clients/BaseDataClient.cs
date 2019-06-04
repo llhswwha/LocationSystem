@@ -18,6 +18,7 @@ using DbModel.Location.Alarm;
 using DbModel.Location.Data;
 using DbModel.LocationHistory.Data;
 using DbModel.LocationHistory.Work;
+using DbModel.LocationHistory.Alarm;
 
 namespace WebApiLib.Clients
 {
@@ -1262,8 +1263,8 @@ namespace WebApiLib.Clients
         public List<DevAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
             Bll bll = new Bll();
-            List<DevInfo> dlst = bll.DevInfos.ToList();
-            List<DevAlarm> dalst = bll.DevAlarms.ToList();
+            List<DevInfo> DevList = bll.DevInfos.ToList();
+            List<DevAlarm> DaList = bll.DevAlarms.Where(p => p.Src == Abutment_DevAlarmSrc.视频监控 || p.Src == Abutment_DevAlarmSrc.门禁 || p.Src == Abutment_DevAlarmSrc.消防).ToList();
             BaseTran<events> recv = new BaseTran<events>();
             List<DevAlarm> send = new List<DevAlarm>();
 
@@ -1307,37 +1308,90 @@ namespace WebApiLib.Clients
 
                 foreach (events item in recv.data)
                 {
-                    if (item.deviceId == null ||item.state == 1 || item.state == 2)
+                    int nsrc = item.src;
+                    DevInfo di = null;
+
+                    if (nsrc == 1 || nsrc == 2)
                     {
-                        continue;
+                        if (item.raw_id == null || item.raw_id == "")
+                        {
+                            continue;
+                        }
+
+                        di = DevList.Find(p => p.Abutment_DevID == item.raw_id);
+                    }
+                    else if (nsrc == 3)
+                    {
+                        if (item.node == null || item.node == "")
+                        {
+                            continue;
+                        }
+
+                        di = DevList.Find(p => p.Code == item.node);
                     }
 
-                    DevInfo di = dlst.Find(p => p.Abutment_Id == item.deviceId);
                     if (di == null)
                     {
                         continue;
                     }
 
-                    DevAlarm da = dalst.Find(p => p.Abutment_Id == item.id);
-                    if (da != null)
+                    bool bFlag = false;
+                    int nLevel = (int)item.level;
+                    Abutment_DevAlarmLevel adLevel = (Abutment_DevAlarmLevel)nLevel;
+
+                    long lTimeStamp = item.t;
+
+                    if (nLevel == 0)
                     {
-                        send.Add(da);
-                        continue;
+                        adLevel = Abutment_DevAlarmLevel.未定;
                     }
 
-                    da.Abutment_Id = item.id;
-                    da.Title = item.title;
-                    da.Msg = item.msg;
-                    da.Level = (Abutment_DevAlarmLevel)item.level;
-                    da.Code = item.code;
-                    da.Src = (Abutment_DevAlarmSrc)item.src;
-                    da.DevInfoId = di.Id;
-                    da.Device_desc = item.deviceDesc;
-                    da.AlarmTime = TimeConvert.TimeStampToDateTime(item.t);
-                    da.AlarmTimeStamp = item.t;
-                    bll.DevAlarms.Add(da);
+                    DevAlarm da = DaList.Find(p => p.Abutment_Id == item.id);
+                    if (da == null)
+                    {
+                        if (item.state == 0)
+                        {
+                            da = new DevAlarm();
+                            da.Abutment_Id = item.id;
+                            da.Title = item.title;
+                            da.Msg = item.msg;
+                            da.Level = adLevel;
+                            da.Code = item.code;
+                            da.Src = (Abutment_DevAlarmSrc)item.src;
+                            da.DevInfoId = di.Id;
+                            da.Device_desc = item.deviceDesc;
+                            da.AlarmTime = TimeConvert.TimeStampToDateTime(lTimeStamp);
+                            da.AlarmTimeStamp = lTimeStamp;
+                            bll.DevAlarms.Add(da);
+                            DaList.Add(da);
+                            bFlag = true;
+                        }
+                    }
+                    else
+                    {
+                        if (item.state == 1 || item.state == 2)
+                        {
+                            DevAlarmHistory da_history = da.RemoveToHistory();
+                            bll.DevAlarms.DeleteById(da.Id);
+                            bll.DevAlarmHistorys.Add(da_history);
+                            DaList.Remove(da);
+                            da.Level = Abutment_DevAlarmLevel.无;
+                            bFlag = true;
+                        }
+                        else if (adLevel != da.Level)
+                        {
+                            da.Level = adLevel;
+                            da.Title = item.title;
+                            da.Msg = item.msg;
+                            bll.DevAlarms.Edit(da);
+                            bFlag = true;
+                        }
+                    }
 
-                    send.Add(da);
+                    if (bFlag)
+                    {
+                        send.Add(da);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1362,10 +1416,10 @@ namespace WebApiLib.Clients
             {
                 //string path = "api/rt/sis?kks=" + kks;
                 //string url = BaseUri + path;
-                string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
-                string BaseUri2 = sArray[0];
+                //string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
+                //string BaseUri2 = sArray[0];
                // BaseUri2 += "api-viz/";
-                string url = BaseUri2 + "rt/sis/" + strTags;
+                string url = BaseUri + "rt/sis/" + strTags;
                 recv = GetEntityList<sis>(url);
 
                 if (recv.data == null)

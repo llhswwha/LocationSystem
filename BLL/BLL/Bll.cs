@@ -132,6 +132,7 @@ namespace BLL
 
         public HomePagePictureBll HomePagePictures { get; set; }
 
+        public UserBll Users { get; set; }
 
         /********************LocationHistory********************************/
 
@@ -252,6 +253,7 @@ namespace BLL
             //Shapes = new ShapeBll(Db);
             //ShapePoints = new ShapePointBll();
             HomePagePictures = new HomePagePictureBll(Db);
+            Users = new UserBll(Db);
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);

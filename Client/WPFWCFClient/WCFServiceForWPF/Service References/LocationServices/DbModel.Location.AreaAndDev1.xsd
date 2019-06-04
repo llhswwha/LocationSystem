@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+  <xs:complexType name="DevModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Class" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Items" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModelId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevModel" nillable="true" type="tns:DevModel" />
+  <xs:complexType name="Area">
+    <xs:sequence>
+      <xs:element name="_editBound" nillable="true" type="tns:Bound" />
+      <xs:element name="_initBound" nillable="true" type="tns:Bound" />
+      <xs:element name="_kks" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Abutment_Id_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Abutment_ParentId_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Children_x003E_k__BackingField" nillable="true" type="tns:ArrayOfArea" />
+      <xs:element name="_x003C_Describe_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_EditBoundId_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_InitBoundId_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_IsCreateAreaByData_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_IsOnAlarmArea_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_IsOnLocationArea_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_IsRelative_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_LeafNodes_x003E_k__BackingField" nillable="true" type="tns:ArrayOfDevInfo" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Number_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_ParentId_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Parent_x003E_k__BackingField" nillable="true" type="tns:Area" />
+      <xs:element name="_x003C_RX_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_RY_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_RZ_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_SX_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_SY_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_SZ_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DbModel.Tools" name="_x003C_Type_x003E_k__BackingField" type="q1:AreaTypes" />
+      <xs:element name="_x003C_X_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_Y_x003E_k__BackingField" nillable="true" type="xs:float" />
+      <xs:element name="_x003C_Z_x003E_k__BackingField" nillable="true" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Area" nillable="true" type="tns:Area" />
+  <xs:complexType name="Bound">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsRelative" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MaxX" type="xs:float" />
+      <xs:element minOccurs="0" name="MaxY" type="xs:float" />
+      <xs:element minOccurs="0" name="MaxZ" type="xs:float" />
+      <xs:element minOccurs="0" name="MinX" type="xs:float" />
+      <xs:element minOccurs="0" name="MinY" type="xs:float" />
+      <xs:element minOccurs="0" name="MinZ" type="xs:float" />
+      <xs:element minOccurs="0" name="Points" nillable="true" type="tns:ArrayOfPoint" />
+      <xs:element minOccurs="0" name="Shape" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Bound" nillable="true" type="tns:Bound" />
+  <xs:complexType name="ArrayOfPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" nillable="true" type="tns:Point" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoint" nillable="true" type="tns:ArrayOfPoint" />
+  <xs:complexType name="Point">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bound" nillable="true" type="tns:Bound" />
+      <xs:element minOccurs="0" name="BoundId" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Index" type="xs:int" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Point" nillable="true" type="tns:Point" />
+  <xs:complexType name="ArrayOfArea">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Area" nillable="true" type="tns:Area" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArea" nillable="true" type="tns:ArrayOfArea" />
+  <xs:complexType name="ArrayOfDevInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DevInfo" nillable="true" type="tns:DevInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDevInfo" nillable="true" type="tns:ArrayOfDevInfo" />
+  <xs:complexType name="DevInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Abutment_Type" type="q2:Abutment_DevTypes" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreateTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Local_CabinetID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Local_DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Local_TypeCode" type="xs:int" />
+      <xs:element minOccurs="0" name="Manufactor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifyTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifyTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Parent" nillable="true" type="tns:Area" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Placed" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PosX" type="xs:float" />
+      <xs:element minOccurs="0" name="PosY" type="xs:float" />
+      <xs:element minOccurs="0" name="PosZ" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationX" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationY" type="xs:float" />
+      <xs:element minOccurs="0" name="RotationZ" type="xs:float" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="RunStatus" type="q3:Abutment_RunStatus" />
+      <xs:element minOccurs="0" name="ScaleX" type="xs:float" />
+      <xs:element minOccurs="0" name="ScaleY" type="xs:float" />
+      <xs:element minOccurs="0" name="ScaleZ" type="xs:float" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Status" type="q4:Abutment_Status" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevInfo" nillable="true" type="tns:DevInfo" />
+</xs:schema>

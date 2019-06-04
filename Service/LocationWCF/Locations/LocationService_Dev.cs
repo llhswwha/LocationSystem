@@ -17,6 +17,10 @@ using BLL.Tools;
 using IModel.Enums;
 using TModel.LocationHistory.AreaAndDev;
 using System.Data.Entity.Infrastructure;
+using Location.BLL.Tool;
+using TModel.BaseData;
+using Location.TModel.Tools;
+//using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
 {
@@ -109,7 +113,9 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> GetAllDevInfos()
         {
-            return new DeviceService(db).GetList();
+            var service = new DeviceService(db);
+            var devList= service.GetList();
+            return devList;
         }
 
         /// <summary>
@@ -118,7 +124,9 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<DevInfo> GetDevInfos(int[] typeList)
         {
-            return new DeviceService(db).GetListByTypes(typeList);
+            var service = new DeviceService(db);
+            var devList = service.GetListByTypes(typeList);
+            return devList;
         }
 
         /// <summary>
@@ -208,9 +216,12 @@ namespace LocationServices.Locations
         /// </summary>
         /// <param name="doorAccess"></param>
         /// <returns></returns>
-        public bool AddDoorAccess(Dev_DoorAccess doorAccess)
+        public Dev_DoorAccess AddDoorAccess(Dev_DoorAccess doorAccess)
         {
-            return db.Dev_DoorAccess.Add(doorAccess.ToDbModel());
+            DbModel.Location.AreaAndDev.Dev_DoorAccess access = doorAccess.ToDbModel();
+            bool value = db.Dev_DoorAccess.Add(access);
+            return value == true ? access.ToTModel() : null;
+            //return db.Dev_DoorAccess.Add(doorAccess.ToDbModel());
         }
         /// <summary>
         /// 删除门禁信息
@@ -375,7 +386,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<LocationAlarm> GetLocationAlarms(int count,bool isAlarm=true)
         {
-            List<Personnel> ps = GetPersonList();
+            List<Personnel> ps = GetPersonList(false);
             List<LocationAlarm> alarms = new List<LocationAlarm>();
             for (int i = 0; i < count; i++)
             {
@@ -422,15 +433,61 @@ namespace LocationServices.Locations
 
         public List<DeviceAlarm> GetDeviceAlarms(AlarmSearchArg arg)
         {
+
+            DateTime start = DateTime.Now;
             var devs = db.DevInfos.ToList();
-            if (devs == null) return null;
+            if (devs == null||devs.Count==0) return null;
+            var dict = new Dictionary<int, DbModel.Location.AreaAndDev.DevInfo>();
+            foreach (var item in devs)
+            {
+                if(item.ParentId!=null)
+                dict.Add(item.Id, item);
+            }
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
-            alarms.Add(new DeviceAlarm() { Id = 927, Level = Abutment_DevAlarmLevel.低, Title = "告警1", Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[926].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 8, Level = Abutment_DevAlarmLevel.中, Title = "告警2", Message = "设备告警2", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[7].ToTModel()));
-//            alarms.Add(new DeviceAlarm() { Id = 1072, Level = Abutment_DevAlarmLevel.高, Title = "告警3", Message = "设备告警3", CreateTime = new DateTime(2018, 9, 1, 13, 44, 11) }.SetDev(devs[1071].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 930, Level = Abutment_DevAlarmLevel.中, Title = "告警4", Message = "设备告警4", CreateTime = new DateTime(2018, 9, 2, 14, 55, 20) }.SetDev(devs[929].ToTModel()));
-            alarms.Add(new DeviceAlarm() { Id = 4, Level = Abutment_DevAlarmLevel.低, Title = "告警5", Message = "设备告警5", CreateTime = new DateTime(2018, 9, 2, 13, 22, 44) }.SetDev(devs[3].ToTModel()));
+            List<DbModel.Location.Alarm.DevAlarm> alarms1 = null;
+
+            DateTime now = DateTime.Now;
+            DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
+            DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
+
+            var startStamp=TimeConvert.DateTimeToTimeStamp(todayStart);
+            var endStamp = TimeConvert.DateTimeToTimeStamp(todayEnd);
+
+            if (arg.AreaId != 0)
+            {
+                var areas = db.Areas.GetAllSubAreas(arg.AreaId);//获取所有子区域
+                alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+            }
+            else
+            {
+                alarms1= db.DevAlarms.Where(i=> i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+            }
+            alarms = alarms1.ToTModel();
+            if (alarms.Count == 0) return null;
+            foreach (var item in alarms)
+            {
+                try
+                {
+                    if(dict.ContainsKey(item.DevId))
+                    {
+                        var dev = dict[item.DevId];
+                        item.SetDev(dev.ToTModel());
+                    }  
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.ToString());
+                }
+            }
+            TimeSpan time = DateTime.Now - start;
             return alarms;
+        }
+
+        public Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg)
+        {
+            Page<DeviceAlarm> page = new Page<DeviceAlarm>();
+            page.Content = GetDeviceAlarms(arg);
+            return page;
         }
 
 
@@ -571,61 +628,6 @@ namespace LocationServices.Locations
                 string strError = ex.Message;
             }
             
-            return bDeal;
-        }
-
-        public bool EditTag(Tag Tag, int? id)
-        {
-            bool bReturn = false;
-            var lc = db.LocationCards.FirstOrDefault(p => p.Code == Tag.Code);
-            if (lc == null)
-            {
-                lc = Tag.ToDbModel();
-                lc.Abutment_Id = id;
-                bReturn = db.LocationCards.Add(lc);
-            }
-            else
-            {
-                lc.Name = Tag.Name;
-                lc.Describe = Tag.Describe;
-                lc.Abutment_Id = id;
-                lc.IsActive = Tag.IsActive;
-                bReturn = db.LocationCards.Edit(lc);
-            }
-            
-            return bReturn;
-        }
-
-        public bool EditBusTag(Tag Tag)
-        {
-            bool bDeal = false;
-            int nFlag = 0;
-            var btag = db.bus_tags.FirstOrDefault(p => p.tag_id == Tag.Code);
-            if (btag == null)
-            {
-                btag = new DbModel.Engine.bus_tag();
-                nFlag = 1;
-            }
-
-            btag.tag_id = Tag.Code;
-            
-            if (nFlag == 0)
-            {
-                bDeal = db.bus_tags.Edit(btag);
-                
-            }
-            else
-            {
-                bDeal = db.bus_tags.Add(btag);
-            }
-
-            if (!bDeal)
-            {
-                return bDeal;
-            }
-
-            bDeal = EditTag(Tag, btag.Id);
-
             return bDeal;
         }
 

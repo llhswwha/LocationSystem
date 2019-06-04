@@ -1,8 +1,8 @@
 ﻿function onBegin() {
     //alert('begin');
-    $('#myModal').modal({
+    $("#myModal").modal({
         //点击背景空白处不被关闭
-        backdrop: 'static',
+        backdrop: "static",
         //触发键盘esc事件时不关闭
         keyboard: false
     });   
@@ -13,12 +13,13 @@ function onSuccess() {
 }
 
 function onComplete() {
-    //alert('complete');    
+    //alert('complete');   
+    //$('#myModal').modal('show');
+    $("#myModal").show();
 }
 
 function onFailure() {
-    //alert('fail');
-    $('#myModal').modal('show');
+    //alert('fail');   
 }
 
 $("#myModal").each(function () {

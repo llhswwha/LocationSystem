@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UnitySetting">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CinemachineSetting" nillable="true" type="tns:CinemachineSetting" />
+      <xs:element minOccurs="0" name="CommunicationSetting" nillable="true" type="tns:CommunicationSetting" />
+      <xs:element minOccurs="0" name="IsDebug" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsUseService" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RefreshSetting" nillable="true" type="tns:RefreshSetting" />
+      <xs:element minOccurs="0" name="VersionSetting" nillable="true" type="tns:VersionSetting" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnitySetting" nillable="true" type="tns:UnitySetting" />
+  <xs:complexType name="CinemachineSetting">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CMvcamFollow_X" type="xs:float" />
+      <xs:element minOccurs="0" name="CMvcamFollow_Y" type="xs:float" />
+      <xs:element minOccurs="0" name="CMvcamFollow_Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CinemachineSetting" nillable="true" type="tns:CinemachineSetting" />
+  <xs:complexType name="CommunicationSetting">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Ip1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ip2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Port1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Port2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CommunicationSetting" nillable="true" type="tns:CommunicationSetting" />
+  <xs:complexType name="RefreshSetting">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AreaStatistics" type="xs:int" />
+      <xs:element minOccurs="0" name="DepartmentTree" type="xs:int" />
+      <xs:element minOccurs="0" name="NearCamera" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonTree" type="xs:int" />
+      <xs:element minOccurs="0" name="ScreenShot" type="xs:int" />
+      <xs:element minOccurs="0" name="TagPos" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RefreshSetting" nillable="true" type="tns:RefreshSetting" />
+  <xs:complexType name="VersionSetting">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="VersionNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="VersionSetting" nillable="true" type="tns:VersionSetting" />
+</xs:schema>

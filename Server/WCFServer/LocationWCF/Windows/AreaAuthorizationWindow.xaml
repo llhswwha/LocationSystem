@@ -16,7 +16,7 @@
                 <MenuItem Header="添加" Name="MenuAdd" Click="MenuAdd_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
-        <WPFClientControlLib:TopoTreeView Name="TopoTreeView1" Width="200"/>
+        <WPFClientControlLib:TopoTreeView Name="TopoTreeView1" Width="200" Loaded="TopoTreeView1_Loaded"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

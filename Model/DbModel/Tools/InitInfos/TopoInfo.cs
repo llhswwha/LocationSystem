@@ -31,7 +31,7 @@ namespace Location.Model.InitInfos
             Children.Add(child);
         }
 
-        public TopoInfo(Area topo)
+        public TopoInfo(Area topo,bool containCAD=true)
         {
             Name = topo.Name;
             KKS = topo.KKS;
@@ -46,7 +46,7 @@ namespace Location.Model.InitInfos
             else
             {
 
-                BoundInfo = new BoundInfo(topo.InitBound);
+                BoundInfo = new BoundInfo(topo);
                 BoundInfo.IsCreateAreaByData = topo.IsCreateAreaByData;
                 BoundInfo.IsOnAlarmArea = topo.IsOnAlarmArea;
                 BoundInfo.IsOnLocationArea = topo.IsOnLocationArea;
@@ -55,7 +55,14 @@ namespace Location.Model.InitInfos
             if(topo.Children!=null)
                 foreach (Area child in topo.Children)
                 {
-                    AddChild(new TopoInfo(child));
+                    if (containCAD == false&& Type == AreaTypes.CAD)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        AddChild(new TopoInfo(child));
+                    }
                 }
         }
 

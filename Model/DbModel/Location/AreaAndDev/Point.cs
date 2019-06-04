@@ -100,6 +100,15 @@ namespace DbModel.Location.AreaAndDev
             return copy;
         }
 
+        public void SetPoint(float x, float y, float z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+
+            return;
+        }
+
         public override string ToString()
         {
             return string.Format("{0},{1}",X,Y);

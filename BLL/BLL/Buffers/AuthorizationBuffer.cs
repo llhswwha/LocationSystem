@@ -16,14 +16,37 @@ namespace BLL.Buffers
     {
         Bll _bll;
 
+        public static AuthorizationBuffer Single = null;
+
         List<AreaAuthorizationRecord> aarList;
         List<CardRole> roles;
         private List<LocationAlarm> realAlarms;
         private List<LocationAlarmHistory> hisAlarms = new List<LocationAlarmHistory>();
-        public AuthorizationBuffer(Bll bll)
+
+        public static AuthorizationBuffer Instance(Bll bll)
         {
+            if (Single == null)
+            {
+                Single = new AuthorizationBuffer(bll);
+            }
+
+            return Single;
+        }
+
+        private AuthorizationBuffer(Bll bll)
+        {
+            if (Single == null)
+            {
+                Single = this;
+            }
+
             _bll = bll;
             UpdateInterval = 10;
+        }
+
+        public void PubUpdateData()
+        {
+            UpdateData();
         }
 
         protected override void UpdateData()
@@ -332,6 +355,12 @@ namespace BLL.Buffers
                     LocationAlarm item3 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
                     if (item3 != null)
                     {
+                        if (item3.PersonnelId == 246)
+                        {
+                            Location.BLL.Tool.Log.InfoStart("告警恢复，告警Id" + Convert.ToInt32(item3.Id));
+                            
+                        }
+
                         ReviseAlarmList.Add(ReviseAlarm);
                         DeleteList.Add(item);
                         hisAlarms.Add(item.RemoveToHistory());
@@ -344,16 +373,20 @@ namespace BLL.Buffers
                         }
                         
                         int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
-                        if (nCount == 0)
-                        {
-                            ReviseAlarmList.Add(ReviseAlarm);
-                            DeleteList.Add(item);
-                            hisAlarms.Add(item.RemoveToHistory());
-                        }
-                        else
+                        if (nCount >= 1)
                         {
                             newAlarmList.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
                         }
+                        //if (nCount == 0)
+                        //{
+                        //    ReviseAlarmList.Add(ReviseAlarm);
+                        //    DeleteList.Add(item);
+                        //    hisAlarms.Add(item.RemoveToHistory());
+                        //}
+                        //else
+                        //{
+                        //    newAlarmList.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
+                        //}
                     }
 
 
@@ -435,7 +468,12 @@ namespace BLL.Buffers
             {
                 newAlarmList.AddRange(ReviseAlarmList);
             }
-            
+
+
+            if (newAlarmList.Count > 0)
+            {
+                int nn = 0;
+            }
 
             return newAlarmList;
         }
@@ -558,5 +596,6 @@ namespace BLL.Buffers
 
             return;
         }
+        
     }
 }

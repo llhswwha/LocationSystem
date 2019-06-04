@@ -30,9 +30,10 @@ namespace WPFClientControlLib
             InitializeComponent();
             
         }
-        public void LoadDataEx<TD,TF>(TD root, bool onlyBuilding = false) where TD : ITreeNodeEx<TD,TF>
+        public void LoadDataEx<TD,TF>(TD root, bool onlyBuilding = false) where TD : ITreeNodeEx<TD,TF> where TF : IId
         {
             AreaNodeDict.Clear();
+            DevNodeDict.Clear();
             if (root == null)
             {
                 ShowTreeEx<TD,TF>(TreeView1, null);
@@ -51,7 +52,7 @@ namespace WPFClientControlLib
             }
         }
 
-        private void ShowTreeEx<TD, TF>(ItemsControl control, List<TD> list) where TD : ITreeNodeEx<TD, TF>
+        private void ShowTreeEx<TD, TF>(ItemsControl control, List<TD> list) where TD : ITreeNodeEx<TD, TF> where TF : IId
         {
             control.Items.Clear();
             if (list == null) return;
@@ -63,6 +64,7 @@ namespace WPFClientControlLib
                 node.Tag = item;
                 node.ContextMenu = AreaMenu;
                 control.Items.Add(node);
+                AreaNodeDict[item.Id] = node;
 
                 ShowTreeEx<TD, TF>(node, item.Children);
 
@@ -76,12 +78,13 @@ namespace WPFClientControlLib
                         subNode.Foreground = Brushes.Blue;
                         subNode.ContextMenu = DevMenu;
                         node.Items.Add(subNode);
+                        DevNodeDict[leaf.Id] = subNode;
                     }
                 }
             }
         }
 
-        private void ShowTreeEx<TD, TF>(ItemsControl control, TD root) where TD : ITreeNodeEx<TD, TF>
+        private void ShowTreeEx<TD, TF>(ItemsControl control, TD root) where TD : ITreeNodeEx<TD, TF> where TF : IId
         {
             control.Items.Clear();
 
@@ -105,7 +108,65 @@ namespace WPFClientControlLib
 
         }
 
-        private void ShowLeafNodesEx<TD, TF>(TD item, ItemsControl control) where TD : ITreeNodeEx<TD, TF>
+        public void SetCheckByIds(List<int> areas)
+        {
+            ClearCheckState();
+            foreach (var id in areas)
+            {
+                var r = FindNode(id,null);
+                if (r == null) continue;
+                CheckBox cb = r.Header as CheckBox;
+                if (cb != null)
+                {
+                    cb.IsChecked = true;
+                }
+            }
+        }
+
+        private void ClearCheckState()
+        {
+            ClearCheckState(TreeView1.Items);
+        }
+
+        public void ClearCheckState(ItemCollection nodes)
+        {
+            foreach (TreeViewItem node in nodes)
+            {
+                CheckBox cb = node.Header as CheckBox;
+                if (cb != null)
+                {
+                    cb.IsChecked = false;
+                }
+                ClearCheckState(node.Items);
+            }
+        }
+
+        public List<TreeViewItem> GetCheckedItems()
+        {
+            List<TreeViewItem> list = GetCheckedItems(TreeView1.Items);
+            return list;
+        }
+
+        public List<TreeViewItem> GetCheckedItems(ItemCollection nodes)
+        {
+            List<TreeViewItem> result = new List<TreeViewItem>();
+            foreach (TreeViewItem node in nodes)
+            {
+                CheckBox cb = node.Header as CheckBox;
+                if (cb != null)
+                {
+                    if(cb.IsChecked == true)
+                    {
+                        result.Add(node);
+                    }
+                }
+                var subResult = GetCheckedItems(node.Items);
+                result.AddRange(subResult);
+            }
+            return result;
+        }
+
+        private void ShowLeafNodesEx<TD, TF>(TD item, ItemsControl control) where TD : ITreeNodeEx<TD, TF> where TF : IId
         {
             if (item.LeafNodes != null)
             {
@@ -116,33 +177,36 @@ namespace WPFClientControlLib
                     subNode.Tag = leaf;
                     subNode.Foreground = Brushes.Blue;
                     subNode.ContextMenu = DevMenu;
+
                     control.Items.Add(subNode);
+
+                    DevNodeDict[leaf.Id] = subNode;
                 }
             }
         }
 
-        public void LoadData<T>(T root, bool onlyBuilding = false) where T : ITreeNode<T>
+        public void LoadData<T>(T root, bool onlyBuilding = false,bool showCheckBox=false) where T : ITreeNode<T>
         {
             AreaNodeDict.Clear();
             if (root == null)
             {
-                ShowTree<T>(TreeView1, null);
+                ShowTree<T>(TreeView1, null, showCheckBox);
             }
             else
             {
                 if (onlyBuilding)
                 {
-                    ShowTree(TreeView1, root.GetAllChildren((int)AreaTypes.大楼));
+                    ShowTree(TreeView1, root.GetAllChildren((int)AreaTypes.大楼), showCheckBox);
 
                 }
                 else
                 {
-                    ShowTree(TreeView1, root.Children);
+                    ShowTree(TreeView1, root.Children, showCheckBox);
                 }
             }
         }
 
-        private void ShowTree<T>(ItemsControl control, List<T> list) where T : ITreeNode<T>
+        private void ShowTree<T>(ItemsControl control, List<T> list,bool showCheckBox=false) where T : ITreeNode<T>
         {
             control.Items.Clear();
 
@@ -151,22 +215,56 @@ namespace WPFClientControlLib
             {
                 var item = list[i];
                 TreeViewItem node = new TreeViewItem();
-                node.Header = item.Name;
+
+
+                if (showCheckBox)
+                {
+                    CheckBox cb = new CheckBox();
+                    cb.Content = item.Name;
+                    node.Header = cb;
+                }
+                else
+                {
+                    node.Header = item.Name;
+                }
+
                 node.Tag = item;
                 node.ContextMenu = AreaMenu;
+                //node.IsCheck = true;
                 control.Items.Add(node);
                 AreaNodeDict[item.Id] = node;
-                ShowTree(node, item.Children);
+                ShowTree(node, item.Children,showCheckBox);
             }
         }
 
         public Dictionary<int, TreeViewItem> AreaNodeDict = new Dictionary<int, TreeViewItem>();
+
+        public Dictionary<int, TreeViewItem> DevNodeDict = new Dictionary<int, TreeViewItem>();
 
         public TreeViewItem GetAreaNode(int id)
         {
             if (AreaNodeDict.ContainsKey(id))
             {
                 return AreaNodeDict[id];
+            }
+            return null;
+        }
+
+        public TreeViewItem GetDevNode(int id)
+        {
+            if (DevNodeDict.ContainsKey(id))
+            {
+                return DevNodeDict[id];
+            }
+            return null;
+        }
+
+        public TreeViewItem RemoveDevNode(int id)
+        {
+            if (DevNodeDict.ContainsKey(id))
+            {
+                TreeViewItem devNode= DevNodeDict[id];
+                (devNode.Parent as TreeViewItem).Items.Remove(devNode);
             }
             return null;
         }
@@ -232,11 +330,12 @@ namespace WPFClientControlLib
             (node.Parent as TreeViewItem).Items.Remove(node);
         }
 
-        public bool SelectNode(int id,int subId)
+        public bool SelectNode(Type nodeType,int id,int subId)
         {
-            var r= SelectNode(id, TreeView1.Items);
+            var r= FindNode(id, nodeType);
             if (r != null)
             {
+                SetSelectedState(r);
                 ExpandParent(r);
 
                 r.IsExpanded = true;
@@ -265,29 +364,64 @@ namespace WPFClientControlLib
         public ContextMenu AreaMenu;
         public ContextMenu DevMenu;
 
-        public TreeViewItem SelectNode(int id,ItemCollection nodes)
+        public TreeViewItem FindNode(int id, Type nodeType)
+        {
+            return FindNode(id, nodeType,TreeView1.Items);
+        }
+
+        public TreeViewItem FindNode(int id, Type nodeType, ItemCollection nodes)
         {
             foreach (TreeViewItem node in nodes)
             {
                 IEntity idObj = node.Tag as IEntity;
-                if (idObj.Id == id)
+                if (nodeType == null)
                 {
-                    node.IsSelected = true;
-                    node.Foreground = Brushes.Red;
-                    return node;
+                    if (idObj.Id == id)
+                    {
+                        //SetSelectedState(node);
+                        return node;
+                    }
+                }
+                else
+                {
+                    if (idObj.Id == id && idObj.GetType() == nodeType)
+                    {
+                        //SetSelectedState(node);
+                        return node;
+                    }
                 }
 
-                var r = SelectNode(id, node.Items);
-                if (r!=null) return r;
+
+                var r = FindNode(id, nodeType, node.Items);
+                if (r != null) return r;
             }
             return null;
         }
 
-        public void RefreshCurrentNode<TD, TF>(TD entity) where TD : ITreeNodeEx<TD, TF>
+        private void SetSelectedState(TreeViewItem node)
+        {
+            node.IsSelected = true;
+            node.Foreground = Brushes.Red;
+        }
+
+        public void RefreshCurrentNode<TD, TF>(TD entity) where TD : ITreeNodeEx<TD, TF> where TF : IId
         {
             TreeViewItem item = TreeView1.SelectedItem as TreeViewItem;
             var tag = (TD)item.Tag;
             ShowTreeEx<TD,TF>(item, tag);
+        }
+
+        public void SelectNodeById(IId iId)
+        {
+            if (iId == null) return;
+            int nodeType = 0;
+            var r = FindNode(iId.Id, iId.GetType());
+            if (r != null)
+            {
+                //TreeView1.SelectedItem = r;
+                r.IsSelected = true;
+                ExpandParent(r);
+            }
         }
     }
 }

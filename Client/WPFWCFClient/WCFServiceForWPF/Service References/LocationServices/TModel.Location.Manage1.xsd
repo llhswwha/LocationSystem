@@ -3,7 +3,13 @@
   <xs:complexType name="LoginInfo">
     <xs:sequence>
       <xs:element minOccurs="0" name="Authority" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientIp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientPort" type="xs:int" />
+      <xs:element minOccurs="0" name="IsEncrypted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LiveTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LoginTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:boolean" />
       <xs:element minOccurs="0" name="Session" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
     </xs:sequence>

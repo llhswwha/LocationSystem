@@ -327,7 +327,7 @@ namespace Location.TModel.Location.AreaAndDev
 
         public override string ToString()
         {
-            return Name;
+            return string.Format("{0},{1}",Name,TypeName);
         }
 
         public void Refresh(DevInfo dev)

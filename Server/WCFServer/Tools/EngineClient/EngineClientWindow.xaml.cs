@@ -90,7 +90,7 @@ namespace EngineClient
                     return;
                 }
 
-                engineClient = new PositionEngineClient();
+                engineClient = PositionEngineClient.Instance();
                 engineClient.Logs = Logs;
                 engineClient.IsWriteToDb = (bool)CbWriteToDb.IsChecked;
                 engineClient.StartConnectEngine(login);

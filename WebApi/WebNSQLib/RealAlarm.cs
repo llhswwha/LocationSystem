@@ -2,11 +2,13 @@
 using CommunicationClass.SihuiThermalPowerPlant.Models;
 using DbModel.Location.Alarm;
 using DbModel.Location.AreaAndDev;
+using DbModel.LocationHistory.Alarm;
 using DbModel.Tools;
 using Location.TModel.Tools;
 using Newtonsoft.Json;
 using NsqSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -33,51 +35,112 @@ namespace WebNSQLib
     {
         private Bll bll = Bll.Instance();
 
+        private List<DevInfo> DevList = new List<DevInfo>();
+        private List<DevAlarm> DaList = new List<DevAlarm>();
+
+        public MessageHandler()
+        {
+            bll = new Bll();
+            DevList = bll.DevInfos.ToList();
+            DaList = bll.DevAlarms.Where(p => p.Src == Abutment_DevAlarmSrc.视频监控 || p.Src == Abutment_DevAlarmSrc.门禁 || p.Src == Abutment_DevAlarmSrc.消防).ToList();
+        }
+
         /// <summary>Handles a message.</summary>
         public void HandleMessage(IMessage message)
         {
             string msg = Encoding.UTF8.GetString(message.Body);
             events recv = JsonConvert.DeserializeObject<events>(msg);
-            if (recv == null || recv.deviceId == null)
+
+            if (recv == null)
             {
                 return;
             }
 
-            DevInfo di = bll.DevInfos.DbSet.Where(p => p.Abutment_Id == recv.deviceId).FirstOrDefault();
+            int nsrc = recv.src;
+
+            DevInfo di = null;
+
+            if (nsrc == 1 || nsrc == 2)
+            {
+                if (recv.raw_id == null || recv.raw_id == "")
+                {
+                    return;
+                }
+                di = DevList.Find(p => p.Abutment_DevID == recv.raw_id);
+            }
+            else if (nsrc == 3)
+            {
+                if (recv.node == null || recv.node == "")
+                {
+                    return;
+                }
+
+                di = DevList.Find(p => p.Code == recv.node);
+            }
+
             if (di == null)
             {
                 return;
             }
 
-            DevAlarm da = bll.DevAlarms.DbSet.Where(p => p.Abutment_Id == recv.id).FirstOrDefault();
-            int nFlag = 0;
-            if (da == null)
+            bool bFlag = false;
+            int nLevel = (int)recv.level;
+            Abutment_DevAlarmLevel adLevel = (Abutment_DevAlarmLevel)nLevel;
+
+            long lTimeStamp = recv.t * 1000;
+
+            if (nLevel == 0)
             {
-                da = new DevAlarm();
-                nFlag = 1;
+                adLevel = Abutment_DevAlarmLevel.未定;
             }
 
-            da.Abutment_Id = recv.id;
-            da.Title = recv.title;
-            da.Msg = recv.msg;
-            da.Level = (Abutment_DevAlarmLevel)recv.level;
-            da.Code = recv.code;
-            da.Src = (Abutment_DevAlarmSrc)recv.src;
-            da.DevInfoId = di.Id;
-            da.Device_desc = recv.deviceDesc;
-            da.AlarmTime = TimeConvert.TimeStampToDateTime(recv.t/1000);
-            da.AlarmTimeStamp = recv.t;
-
-            if (nFlag == 1)
+            DevAlarm da = DaList.Find(p => p.DevInfoId == di.Id && p.AlarmTimeStamp == lTimeStamp);
+            if (da == null)
             {
-                bll.DevAlarms.Add(da);
+                if (recv.state == 0)
+                {
+                    da = new DevAlarm();
+                    da.Abutment_Id = recv.id;
+                    da.Title = recv.title;
+                    da.Msg = recv.msg;
+                    da.Level = adLevel;
+                    da.Code = recv.code;
+                    da.Src = (Abutment_DevAlarmSrc)recv.src;
+                    da.DevInfoId = di.Id;
+                    da.Device_desc = recv.deviceDesc;
+                    da.AlarmTime = TimeConvert.TimeStampToDateTime(lTimeStamp);
+                    da.AlarmTimeStamp = lTimeStamp;
+                    bll.DevAlarms.Add(da);
+                    DaList.Add(da);
+                    bFlag = true;
+                }
             }
             else
             {
-                bll.DevAlarms.Edit(da);
+                if (recv.state == 1 || recv.state == 2)
+                {
+                    DevAlarmHistory da_history = da.RemoveToHistory();
+                    DaList.Remove(da);
+                    bll.DevAlarms.DeleteById(da.Id);
+                    bll.DevAlarmHistorys.Add(da_history);
+                    da.Level = Abutment_DevAlarmLevel.无;
+                    bFlag = true;
+                }
+                else if (adLevel != da.Level)
+                {
+                    da.Level = adLevel;
+                    da.Title = recv.title;
+                    da.Msg = recv.msg;
+                    bll.DevAlarms.Edit(da);
+                    bFlag = true;
+                }
             }
 
-            OnDevAlarmReceived(da);
+            if (bFlag)
+            {
+                OnDevAlarmReceived(da);
+            }
+
             return;
         }
 

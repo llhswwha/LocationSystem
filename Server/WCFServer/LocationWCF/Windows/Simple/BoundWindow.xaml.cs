@@ -47,7 +47,48 @@ namespace LocationServer.Windows.Simple
         {
             if (Area == null) return;
             var bound = Area.InitBound;
-            if(bound.MaxX==0)
+            if (bound == null)
+            {
+                if (MessageBox.Show("不存在边界信息，是否创建","初始化", MessageBoxButton.YesNo)== MessageBoxResult.Yes)
+                {
+                    var bll = AppContext.GetLocationBll();
+                    var dbBound = new DbModel.Location.AreaAndDev.Bound();
+                    bool r=bll.Bounds.Add(dbBound);
+                    if (r)
+                    {
+                        var dbArea = Area.ToDbModel();
+                        dbArea.InitBound = dbBound;
+                        bool r2 = bll.Areas.Edit(dbArea);
+                        if (r2)
+                        {
+                            bound = dbBound.ToTModel();
+                            DrawArea(bound);
+                        }
+                        else
+                        {
+                            MessageBox.Show("修改Area失败");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("添加Bound失败");
+                    }
+                    
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                DrawArea(bound);
+            }
+        }
+
+        private void DrawArea(Bound bound)
+        {
+            if (bound.MaxX == 0)
                 bound.SetMinMaxXY();
 
             PropertyGrid1.SelectedObject = bound;
@@ -58,7 +99,7 @@ namespace LocationServer.Windows.Simple
             ListBox2.ItemsSource = null;
             ListBox2.ItemsSource = Area.GetAbsolutePoints();
 
-            
+
             BoundCanvas1.Show(bound);
 
 
@@ -116,8 +157,6 @@ namespace LocationServer.Windows.Simple
             var bll = AppContext.GetLocationBll();
             bll.Points.DeleteById(point.Id);
             DrawArea();
-
-
         }
 
         private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -143,7 +182,22 @@ namespace LocationServer.Windows.Simple
 
             //bound.ModifSize(pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
 
-            new AreaService().ModifySize(bound,pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
+            bool r=new AreaService().ModifySize(bound,pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
+            if (r == false)
+            {
+                MessageBox.Show("修改失败");
+            }
+            else
+            {
+                Area = new AreaService().GetEntity(Area.Id + "");
+                DrawArea();
+                if (AreaModified != null)
+                {
+                    AreaModified(Area);
+                }
+            }
         }
+
+        public event Action<PhysicalTopology> AreaModified;
     }
 }

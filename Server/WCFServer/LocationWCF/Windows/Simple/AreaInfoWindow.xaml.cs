@@ -63,7 +63,19 @@ namespace LocationServer.Windows
             //win.Bound = area.InitBound;
             win.Area = area;
             win.Show();
+            win.AreaModified += Win_AreaModified;
         }
+
+        private void Win_AreaModified(TEntity area)
+        {
+            ShowInfo(area);
+            if (AreaModified != null)
+            {
+                AreaModified(area);
+            }
+        }
+
+        public event Action<TEntity> AreaModified;
 
         private void MenuSetAlarmArea_Click(object sender, RoutedEventArgs e)
         {

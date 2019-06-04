@@ -5,7 +5,7 @@
 }
 
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
     <h2 class="modal-title" id="myModalLabel">Details</h2>
 </div>
 
@@ -31,11 +31,23 @@
 
                 <dd>
                     @Html.DisplayFor(model => model.Description)
-                </dd>                              
+                </dd>     
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.AreaIds)
+                </dt>
+
+                <dd style="height:180px;">
+                    @*@Html.DisplayFor(model => model.AreaIds)*@
+                    @Html.ListBoxFor(model => model.AreaIds, ViewBag.PtList as IEnumerable<SelectListItem>, new { @style = "display:none"})
+                    <div id="menuContent" class="menuContent">
+                        <ul id="treeDemo" class="ztree" style="border: 1px solid #000; background: #fff; width:200px; height:180px; overflow:auto;"></ul>
+                    </div>
+                </dd>                                  
             </dl>
         </div>
-        <p>
-            @Ajax.ActionLink("编辑", "Edit", "CardRole", new { id = Model.Id }, new AjaxOptions
+        <p>                
+            @*@Ajax.ActionLink("编辑", "Edit", "CardRole", new { id = Model.Id }, new AjaxOptions
            {
                HttpMethod = "Get",
                UpdateTargetId = "modalContent",
@@ -44,12 +56,80 @@
                OnSuccess = "onSuccess",
                OnFailure = "onFailure",
                OnComplete = "onComplete"
-           }) |
+           }) |*@                
 
             @Html.ActionLink("返 回", "Index")
         </p>
     }
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style type="text/css">
+    #menuContent {
+        display: none;
+        position: absolute;
+        z-index: 99;
+    }
+
+    .ztree li ul {
+        width: 280px;
+    }
+</style>
+
+<link href="~/Content/metroStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.4.4.min.js"></script>
+<script src="~/Scripts/jquery.ztree.core.js"></script>
+<script src="~/Scripts/jquery.ztree.excheck.js"></script>
+
+<script type="text/javascript">
+    var setting = {
+        check: {
+            enable: true,
+            chkboxType: { "Y": "", "N": "" } //父子节点不关联
+        },
+        view:{
+            dblClickExpand: false,
+            showLine: false
+        },
+        data:{
+            simpleData:{
+                enable: true
+            }
+        },
+        callback:{          
+            beforeCheck: zTreeBeforeCheck
+        }
+    };
+    var zNodes = [];
+    $.ajax({
+        type: "GET",
+        url: "/CardRole/GetPartAreaList",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            zNodes = data;
+        }
+    });
+    function zTreeBeforeCheck(treeId, treeNode) {
+        return false;
+    };        
+
+    $(document).ready(function () {
+        $("#menuContent").slideDown("fast");
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);//初始化
+
+        var zTreeMenu = $.fn.zTree.getZTreeObj("treeDemo");
+        var checkIds = $("#AreaIds").val();
+        //console.log(checkIds);
+        for (var i = 0; i < checkIds.length; i++) {
+            var node = zTreeMenu.getNodeByParam("id", checkIds[i]);//根据节点数据的id属性搜索，获取条件完全匹配的节点数据
+            zTreeMenu.checkNode(node, true);//选中指定节点        
+        }       
+    });
+</script>
 
 
 

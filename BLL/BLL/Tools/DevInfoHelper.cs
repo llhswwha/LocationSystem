@@ -40,7 +40,7 @@ namespace BLL.Tools
             //bll.DevInfos.RemoveList(devs);//先清空所有设备
             foreach (var devInfo in initInfo.DevList)
             {
-                if (devInfo.TypeCode == TypeCodes.Archor+"")
+                if (devInfo.TypeCode == TypeCodes.Archor+""|| TypeCodeHelper.IsFireFightDevType(devInfo.TypeCode))
                 {
                     continue;
                 }
@@ -48,7 +48,11 @@ namespace BLL.Tools
                 if(parentID!=null)
                 {
                     devInfo.ParentId = (int)parentID;
-                    AddDevInfo(devInfo, bll.DevInfos);
+                    bool r=AddDevInfo(devInfo, bll.DevInfos);
+                    if (r == false)
+                    {
+                        Console.WriteLine("ImportDevInfoFromFile Error:" + devInfo.Name);
+                    }
                 }               
             }
             return true;
@@ -75,18 +79,37 @@ namespace BLL.Tools
         /// </summary>
         /// <param name="dev"></param>
         /// <param name="devBll"></param>
-        private static void AddDevInfo(DevInfoBackup dev,DevInfoBll devBll)
+        private static bool AddDevInfo(DevInfoBackup dev,DevInfoBll devBll)
         {
             try
             {
                 DevInfo devInfo = GetDevInfo(dev);
                 DevPos devPos = GetDevPos(dev);
                 devInfo.SetPos(devPos);
-                devBll.Add(devInfo);
+                //if (string.IsNullOrEmpty(devInfo.Local_DevID))
+                //{
+
+                //}
+                DevInfo infoTemp = devBll.Find(i => i.Local_DevID == devInfo.Local_DevID);
+                if(infoTemp==null)
+                {
+                    return devBll.Add(devInfo);//新设备，加入
+                }
+                else
+                {
+                    UpgradeDevInfo(infoTemp, devInfo);//已经存在的设备，更新
+                    bool value = devBll.Edit(infoTemp);
+                    if (!value)
+                    {
+                        Console.WriteLine("Error: EditDevinfo Error");
+                    }
+                    return value;
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DevInfoHelper.AddDevInfo:"+e.ToString());   
+                Console.WriteLine("Error in DevInfoHelper.AddDevInfo:"+e.ToString());
+                return false;
             }
         }
         /// <summary>
@@ -101,6 +124,7 @@ namespace BLL.Tools
                 Name = dev.Name,
                 ParentId = dev.ParentId,
                 KKS = dev.KKSCode,
+                Abutment_DevID = dev.Abutment_DevID,
                 Local_DevID = dev.DevId,
                 Local_TypeCode = dev.TypeCode.ToInt(),
                 Status = Abutment_Status.正常,
@@ -211,14 +235,59 @@ namespace BLL.Tools
                 DevInfo devInfo = GetDevInfo(dev);
                 DevPos devPos = GetDevPos(dev);
                 devInfo.SetPos(devPos);
-                bll.DevInfos.Add(devInfo);
-                Dev_CameraInfo camera = GetCameraInfo(cameraDev,devInfo);
-                bll.Dev_CameraInfos.Add(camera);
+                DevInfo infoTemp = bll.DevInfos.Find(i => i.Local_DevID == devInfo.Local_DevID);
+                //Devinfo中，能通过Devid找到的就更新。找不到就新增
+                if (infoTemp == null)
+                {
+                    bll.DevInfos.Add(devInfo);
+                    Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, devInfo);
+                    bll.Dev_CameraInfos.Add(cameraBackup);
+                }
+                else
+                {
+                    UpgradeDevInfo(infoTemp, devInfo);
+                    bool value = bll.DevInfos.Edit(infoTemp);
+                    if (!value)
+                    {
+                        Console.WriteLine("Error: EditDevinfo Error");
+                    }
+                    Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, infoTemp);
+                    Dev_CameraInfo cameraDatabase = bll.Dev_CameraInfos.Find(cameraT => cameraT.Local_DevID == infoTemp.Local_DevID);
+                    if (cameraDatabase == null)
+                    {
+                        bll.Dev_CameraInfos.Add(cameraBackup);
+                    }
+                    else
+                    {
+                        UpgradeCameraInfo(cameraBackup, cameraDatabase);
+                        bool valueT = bll.Dev_CameraInfos.Edit(cameraDatabase);
+                        if (!valueT)
+                        {
+                            Console.WriteLine("Error: EditDevinfo Error");
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
             }
+        }
+        /// <summary>
+        /// 更新门禁数据库信息
+        /// </summary>
+        /// <param name="backup"></param>
+        /// <param name="database"></param>
+        private static void UpgradeCameraInfo(Dev_CameraInfo backup, Dev_CameraInfo database)
+        {
+            database.Ip = backup.Ip;
+            database.UserName = backup.UserName;
+            database.PassWord = backup.PassWord;
+            database.CameraIndex = backup.CameraIndex;
+            database.Port = backup.Port;
+            database.DevInfoId = backup.DevInfoId;
+            database.ParentId = backup.ParentId;
+            database.Local_DevID = backup.Local_DevID;
         }
         /// <summary>
         /// 获取摄像头数据
@@ -254,6 +323,7 @@ namespace BLL.Tools
             dev.ParentId = camera.ParentId;
             dev.ModelName = camera.ModelName;
             dev.KKSCode = camera.KKSCode;
+            dev.Abutment_DevID = camera.Abutment_DevID;
 
             dev.XPos = camera.XPos;
             dev.YPos = camera.YPos;
@@ -308,16 +378,86 @@ namespace BLL.Tools
                 DevInfoBackup dev = DoorAccessToDevInfo(doorAccess);
                 DevInfo devInfo = GetDevInfo(dev);
                 DevPos devPos = GetDevPos(dev);
-                devInfo.SetPos(devPos);
-                bll.DevInfos.Add(devInfo);
-                DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessDev = GetDoorAccessInfo(doorAccess, devInfo);
-                bll.Dev_DoorAccess.Add(doorAccessDev);
+                devInfo.SetPos(devPos);                
+                DevInfo infoTemp = bll.DevInfos.Find(i => i.Local_DevID == devInfo.Local_DevID);                
+                if (infoTemp==null)
+                {
+                    bll.DevInfos.Add(devInfo);
+                    DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessDev = GetDoorAccessInfo(doorAccess, devInfo);
+                    bll.Dev_DoorAccess.Add(doorAccessDev);
+                }
+                else
+                {
+                    UpgradeDevInfo(infoTemp,devInfo);
+                    bool value = bll.DevInfos.Edit(infoTemp);
+                    if(!value)
+                    {
+                        Console.WriteLine("Error: EditDevinfo Error");
+                    }
+                    DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessBackup = GetDoorAccessInfo(doorAccess, infoTemp);
+                    DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessDatabase=bll.Dev_DoorAccess.Find(door=>door.Local_DevID==devInfo.Local_DevID);
+                    if(doorAccessDatabase==null)
+                    {
+                        bll.Dev_DoorAccess.Add(doorAccessBackup);
+                    }
+                    else
+                    {
+                        UpgradeDoorAccessInfo(doorAccessBackup,doorAccessDatabase);
+                        bool valueT = bll.Dev_DoorAccess.Edit(doorAccessDatabase);
+                        if(!valueT)
+                        {
+                            Console.WriteLine("Error:Edit Dev_DoorAccess Error");
+                        }
+                    }
+                }
+                
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
             }
         }
+        /// <summary>
+        /// 更新门禁数据库信息
+        /// </summary>
+        /// <param name="backup"></param>
+        /// <param name="database"></param>
+        private static void UpgradeDoorAccessInfo(DbModel.Location.AreaAndDev.Dev_DoorAccess backup, DbModel.Location.AreaAndDev.Dev_DoorAccess database)
+        {
+            database.ParentId = backup.ParentId;
+            database.DoorId = backup.DoorId;
+            database.DevInfoId = backup.DevInfoId;
+            database.Local_DevID = backup.Local_DevID;
+        }
+        /// <summary>
+        /// 更新DevInfo信息
+        /// </summary>
+        /// <param name="dbInfo"></param>
+        /// <param name="backupInfo"></param>
+        private static void UpgradeDevInfo(DevInfo dbInfo,DevInfo backupInfo)
+        {
+            dbInfo.Name = backupInfo.Name;
+            dbInfo.ParentId = backupInfo.ParentId;
+            dbInfo.KKS = backupInfo.KKS;
+            dbInfo.Abutment_DevID = backupInfo.Abutment_DevID;
+            dbInfo.Local_DevID = backupInfo.Local_DevID;
+            dbInfo.Local_TypeCode = backupInfo.Local_TypeCode;
+            dbInfo.Status = backupInfo.Status;
+            dbInfo.ModelName = backupInfo.ModelName;
+            dbInfo.IP = backupInfo.IP;
+            dbInfo.UserName = backupInfo.UserName;
+
+            dbInfo.PosX = backupInfo.PosX;
+            dbInfo.PosY = backupInfo.PosY;
+            dbInfo.PosZ = backupInfo.PosZ;
+            dbInfo.RotationX = backupInfo.RotationX;
+            dbInfo.RotationY = backupInfo.RotationY;
+            dbInfo.RotationZ = backupInfo.RotationZ;
+            dbInfo.ScaleX = backupInfo.ScaleX;
+            dbInfo.ScaleY = backupInfo.ScaleY;
+            dbInfo.ScaleZ = backupInfo.ScaleZ;
+        }
+
         /// <summary>
         /// 获取门禁信息
         /// </summary>
@@ -348,6 +488,7 @@ namespace BLL.Tools
             dev.ParentId = doorAccess.ParentId;
             dev.ModelName = doorAccess.ModelName;
             dev.KKSCode = doorAccess.KKSCode;
+            dev.Abutment_DevID = doorAccess.Abutment_DevID;
 
             dev.XPos = doorAccess.XPos;
             dev.YPos = doorAccess.YPos;
@@ -396,7 +537,50 @@ namespace BLL.Tools
             }
             return null;
         }
-		
+
+
+        /// <summary>
+        /// 通过区域路径，获取区域ID
+        /// </summary>
+        /// <param name="areaPath"></param>
+        /// <param name="areas"></param>
+        /// <returns></returns>
+        private static int? GetAreaIdByPath2(string areaPath, List<Area> areas)
+        {
+            if (areas == null || areas.Count == 0) return null;
+            string[] value = areaPath.Split('|');
+            if (value.Length <= 0) return null;
+            string parentName = value[0];
+            Area areaParent = areas.Find(i => i.Name == parentName);
+
+            if (areaParent == null)
+            {
+                return null;
+            }
+
+            if (value.Length == 1)
+            {
+                return areaParent.Id;
+            }
+
+            List<Area> areaChildList = areas.FindAll(i => i.ParentId == areaParent.Id);
+            if (areaChildList == null || areaChildList.Count == 0)
+            {
+                return null;
+            }
+
+            foreach (Area areaChild in areaChildList)
+            {
+                if (areaChild.Name == value[1])
+                {
+                    return areaChild.Id;
+                }
+            }
+
+            return null;
+        }
+
+
         #region 设备监控点
         public static void ImportDevMonitorNodeFromFile<T>(FileInfo file)
             where T : DevMonitorNode, new()
@@ -453,6 +637,103 @@ namespace BLL.Tools
 
             return devmonitor1;
         }
+
+        #endregion
+
+
+        #region 消防设备
+        /// <summary>
+        /// 通过文件导入设备信息
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="devBll"></param>
+        /// <returns></returns>
+        public static bool ImportFireFightDevInfoFromFile(string filePath, Bll bll)
+        {
+            if (!File.Exists(filePath) || bll == null)
+            {
+                Log.Error("文件不存在:" + filePath);
+                return false;
+            }
+            var initInfo = XmlSerializeHelper.LoadFromFile<FireFightDevInfoBackupList>(filePath);
+            if (initInfo == null || initInfo.DevList == null || initInfo.DevList.Count == 0) return false;
+            var areas = bll.Areas.ToList();
+            foreach (var devInfo in initInfo.DevList)
+            {
+                if (devInfo.ParentName == "")
+                {
+                    continue;
+                }
+
+                int? parentID = GetAreaIdByPath2(devInfo.ParentName, areas);
+                if (parentID != null)
+                {
+                    devInfo.ParentId = Convert.ToString(parentID);
+                    AddFireFightDevInfo(devInfo, bll);
+                }
+
+            }
+
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 添加设备信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <param name="devBll"></param>
+        private static void AddFireFightDevInfo(FireFightDevInfoBackup dev, Bll bll)
+        {
+            try
+            {
+                int nAbutment_Type = Convert.ToInt32(dev.Abutment_Type);
+
+                DevInfo devInfo = new DevInfo();
+                devInfo.Id = 0;
+                devInfo.Name = dev.Name;
+                devInfo.ParentId = Convert.ToInt32(dev.ParentId);
+                devInfo.Code = dev.Code;
+                devInfo.KKS = "";
+                devInfo.Local_DevID = "";
+                devInfo.Local_CabinetID = "";
+                devInfo.Local_TypeCode = Convert.ToInt32(dev.Local_TypeCode);
+                devInfo.Abutment_Id = null;
+                devInfo.Abutment_DevID = "";
+                devInfo.Abutment_Type = (Abutment_DevTypes)nAbutment_Type;
+                devInfo.Status = 0;
+                devInfo.RunStatus = 0;
+                devInfo.Placed = null;
+                devInfo.ModelName = "";
+                devInfo.CreateTime = DateTime.Now;
+                devInfo.CreateTimeStamp = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(devInfo.CreateTime);
+                devInfo.ModifyTime = DateTime.Now;
+                devInfo.ModifyTimeStamp = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(devInfo.ModifyTime);
+                devInfo.UserName = "admin";
+                devInfo.IP = "";
+                devInfo.PosX = 0;
+                devInfo.PosY = 0;
+                devInfo.PosZ = 0;
+                devInfo.RotationX = 0;
+                devInfo.RotationY = 0;
+                devInfo.RotationZ = 0;
+                devInfo.ScaleX = 0;
+                devInfo.ScaleY = 0;
+                devInfo.ScaleZ = 0;
+                devInfo.Manufactor = "";
+
+                bll.DevInfos.Add(devInfo);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in DevInfoHelper.AddFireFightDevInfo:" + e.ToString());
+            }
+
+            return;
+        }
+
 
         #endregion
     }

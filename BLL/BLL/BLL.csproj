@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +72,7 @@
     <Compile Include="Blls\Location\NodeKKSBll.cs" />
     <Compile Include="Blls\Location\PatrolPointBll.cs" />
     <Compile Include="Blls\Location\PatrolPointItemBll.cs" />
+    <Compile Include="Blls\Location\UserBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
     <Compile Include="Buffers\BaseBuffer.cs" />
     <Compile Include="Bll.cs" />
@@ -149,11 +151,14 @@
     <Compile Include="Tools\DbInfoHelper.cs" />
     <Compile Include="Tools\DepartmentsBackupHelper.cs" />
     <Compile Include="Tools\DevInfoHelper.cs" />
+    <Compile Include="Tools\EFExtensions.cs" />
     <Compile Include="Tools\EntranceGuardCardBackupHelper.cs" />
     <Compile Include="Tools\KKSCodeHelper.cs" />
     <Compile Include="Tools\LightUDP.cs" />
+    <Compile Include="Tools\LocationCardToPersonnelsBackupHelper.cs" />
     <Compile Include="Tools\LocationDeviceHelper.cs" />
     <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\MD5Encrypter.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
     <Compile Include="Tools\RandomTool.cs" />
     <Compile Include="Tools\StaticEvents.cs" />

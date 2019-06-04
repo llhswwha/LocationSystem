@@ -191,9 +191,20 @@ namespace LocationServices.Locations.Services
                 //{
                 //    p.Parent = list.Find(i => i.Id == p.ParentId);
                 //}
+
                 if (roots.Count > 0)
                 {
-                    return roots[0];
+                    Department d = new Department();
+                    if (d.Children == null)
+                    {
+                        d.Children = new List<Department>();
+                    }
+                    foreach (Department t in roots)
+                    {
+                        d.Children.Add(t);
+                    }
+                    return d;
+                    //return roots[0];
                 }
                 else
                 {

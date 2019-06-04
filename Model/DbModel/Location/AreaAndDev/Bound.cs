@@ -194,6 +194,20 @@ namespace DbModel.Location.AreaAndDev
             //Points.Add(new Point(MinX - MinX, MaxY - MinY, 3));
         }
 
+        public void SetInitBound(Bound Bd)
+        {
+            MinX = Bd.MinX;
+            MaxX = Bd.MaxX;
+            MinY = Bd.MinY;
+            MaxY = Bd.MaxY;
+            MinZ = Bd.MinZ;
+            MaxZ = Bd.MaxZ;
+            Shape = Bd.Shape;
+            IsRelative = Bd.IsRelative;
+
+            return;
+        }
+
         private void SetMinMaxXY(Point[] points)
         {
             MinX = float.MaxValue;
@@ -277,6 +291,13 @@ namespace DbModel.Location.AreaAndDev
 
         public void SetInitBound(Point[] points)
         {
+            if (points.Length == 0)
+            {
+                MinX = 0;
+                MinY = 0;
+                MaxX = 0;
+                MaxY = 0;
+            }
             for (int i = 0; i < points.Length; i++)
             {
                 Point point = points[i];

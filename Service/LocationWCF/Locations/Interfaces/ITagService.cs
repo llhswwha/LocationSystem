@@ -14,6 +14,9 @@ namespace LocationServices.Locations.Interfaces
         IList<Tag> GetTags();
 
         [OperationContract]
+        int AddTag(Tag tag);
+
+        [OperationContract]
         bool AddTags(List<Tag> tags);
 
         [OperationContract]
@@ -23,7 +26,10 @@ namespace LocationServices.Locations.Interfaces
         bool DeleteAllTags();
 
         [OperationContract]
-        bool EditTag(Tag Tag, int? id);
+        bool EditTag(Tag tag);
+
+        [OperationContract]
+        bool EditTagById(Tag Tag, int? id);
     }
 
 }

@@ -125,7 +125,10 @@
     <None Include="Service References\LocationServices\Arrays1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\DbModel.Location.AreaAndDev.xsd">
+    <None Include="Service References\LocationServices\DbModel.Location.AreaAndDev1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\DbModel.Location.Authorizations.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\DbModel.Tools1.xsd">
@@ -168,25 +171,28 @@
     <None Include="Service References\LocationServices\TModel.Location.Manage1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Nodes1.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Nodes.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Location.Person1.xsd">
+    <None Include="Service References\LocationServices\TModel.Location.Person.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev1.xsd">
+    <None Include="Service References\LocationServices\TModel.LocationHistory.AreaAndDev.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.LocationHistory.Work1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\TModel.Models.Settings.xsd">
+    <None Include="Service References\LocationServices\TModel.Models.Settings1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.Area.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.CardRole.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DevModel.datasource">

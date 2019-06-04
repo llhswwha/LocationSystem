@@ -166,6 +166,14 @@ namespace DbModel.Location.Settings
         [NotMapped]
         public int Height100 { get; set; }
 
+        [Display(Name = "测量坐标X(测量点)")]
+        [MaxLength(64)]
+        public string MeasureX { get; set; }
+
+        [Display(Name = "测量坐标Y(测量点)")]
+        [MaxLength(64)]
+        public string MeasureY { get; set; }
+
         public void SetAbsolute(double x, double y)
         {
             AbsoluteX = x.ToString("F3");

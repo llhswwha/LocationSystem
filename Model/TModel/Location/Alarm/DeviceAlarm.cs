@@ -81,9 +81,18 @@ namespace Location.TModel.Location.Alarm
         [ByName("DevInfoId")]
         public int DevId { get; set; }
 
+        //[DataMember]
+        //[ByName("DevInfo")]
+        //public DevInfo Dev { get; set; }
+
         [DataMember]
-        [ByName("DevInfo")]
-        public DevInfo Dev { get; set; }
+        public string DevTypeName { get; set; }
+
+        [DataMember]
+        public int DevTypeCode { get; set; }
+
+        [DataMember]
+        public string DevName { get; set; }
 
         /// <summary>
         /// 设备说明
@@ -97,7 +106,14 @@ namespace Location.TModel.Location.Alarm
         [DataMember]
         //[Display(Name = "设备告警产生时间")]
         [ByName("AlarmTime")]
-        public DateTime CreateTime { get; set; }
+        public DateTime CreateTime { get { return _createTime; } set
+            {
+                _createTime = value;
+                AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+            } }
+
+        private DateTime _createTime;
+
 
         /// <summary>
         /// 告警时间戳
@@ -106,14 +122,17 @@ namespace Location.TModel.Location.Alarm
         //[Display(Name = "时间戳")]
         public long AlarmTimeStamp { get; set; }
 
+        [DataMember]
+        public int AreaId { get; set; }
+
         public DeviceAlarm Clone()
         {
             DeviceAlarm copy = new DeviceAlarm();
             copy = this.CloneObjectByBinary();
-            if (this.Dev != null)
-            {
-                copy.Dev = this.Dev;
-            }
+            //if (this.Dev != null)
+            //{
+            //    copy.Dev = this.Dev;
+            //}
             
             return copy;
         }
@@ -140,8 +159,13 @@ namespace Location.TModel.Location.Alarm
 
         public DeviceAlarm SetDev(DevInfo dev)
         {
-            Dev = dev;
+            if (dev == null) return this;
+            //Dev = dev;
             DevId = dev.Id;
+            DevName = dev.Name;
+            DevTypeName = dev.TypeName;
+            DevTypeCode = dev.TypeCode;
+            AreaId = dev.ParentId==null?  0 :(int)dev.ParentId;
             return this;
         }
     }

@@ -160,6 +160,7 @@ namespace NsqSharp.Api
         {
             string endpoint = GetFullUrl(route);
             var bytes = Request(endpoint, HttpMethod.Post, _timeoutMilliseconds, body);
+            if (bytes == null) return null;
             return Encoding.UTF8.GetString(bytes);
         }
 
@@ -194,10 +195,18 @@ namespace NsqSharp.Api
                 webRequest.ContentType = "application/x-www-form-urlencoded";
                 webRequest.ContentLength = body.Length;
 
-                using (var request = webRequest.GetRequestStream())
+                try
                 {
-                    request.Write(body, 0, body.Length);
+                    using (var request = webRequest.GetRequestStream())
+                    {
+                        request.Write(body, 0, body.Length);
+                    }
                 }
+                catch (Exception)
+                {
+                    return null;//超时
+                }
+                
             }
 
             using (var httpResponse = (HttpWebResponse)webRequest.GetResponse())

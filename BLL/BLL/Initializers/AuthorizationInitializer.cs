@@ -177,6 +177,9 @@ namespace BLL.Initializers
 
         private void SetRoleAuthorization5(List<Area> areaList)
         {
+
+            List<AreaAuthorization> temp = new List<AreaAuthorization>();
+            List<CardRole> temp2 = new List<CardRole>();
             for (int j = 1; j <= 4; j++)
             {
                 var role = _roles[j];
@@ -189,9 +192,57 @@ namespace BLL.Initializers
                     aa.Name = string.Format("权限[机房]");
                     aa.Description = string.Format("权限：可以进入机房。");
                     areaAuthorizations.Add(aa);
-                    AreaAuthorizations.Add(aa);
 
-                    AddAAR(role, aa);
+                    temp.Add(aa);
+                    temp2.Add(role);
+
+                    //AreaAuthorizations.Add(aa);
+                    //AddAAR(role, aa);
+                }
+            }
+            AreaAuthorizations.AddRange(temp);
+
+            if (authorizationRecords == null)
+            {
+                authorizationRecords = new List<AreaAuthorizationRecord>();
+            }
+
+            List<AreaAuthorizationRecord> temp3 = new List<AreaAuthorizationRecord>();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var role = temp2[i];
+                var aa = temp[i];
+                //AddAAR(role, aa);
+
+                var aar = new AreaAuthorizationRecord(aa, role);
+
+                authorizationRecords.Add(aar);
+
+                temp3.Add(aar);
+
+                //AreaAuthorizationRecords.Add(aar);
+
+                //if (authorizationAreas != null)
+                //{
+                //    var aa2 = authorizationAreas.Find(item => item.Id == aa.AreaId);
+                //    if (aa2 != null)
+                //    {
+                //        aa2.Records.Add(aar);
+                //    }
+                //}
+            }
+
+            AreaAuthorizationRecords.AddRange(temp3);
+
+            foreach (var aar in temp3)
+            {
+                if (authorizationAreas != null)
+                {
+                    var aa2 = authorizationAreas.Find(item => item.Id == aar.AreaId);
+                    if (aa2 != null)
+                    {
+                        aa2.Records.Add(aar);
+                    }
                 }
             }
         }

@@ -36,6 +36,11 @@ namespace Location.Model.InitInfos
         [XmlAttribute("Name")]
         public string Name;
         /// <summary>
+        /// 对接设备ID
+        /// </summary>
+        [XmlAttribute("Abutment_DevID")]
+        public string Abutment_DevID;
+        /// <summary>
         /// 基站ID
         /// </summary>
         [XmlAttribute("AnchorId")]

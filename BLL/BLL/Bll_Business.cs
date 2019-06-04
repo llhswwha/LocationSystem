@@ -19,7 +19,7 @@ namespace BLL
         /// 获取物理逻辑拓扑
         /// </summary>
         /// <returns></returns>
-        public Area GetAreaTree(bool isWithDev = true,int? id=null)
+        public Area GetAreaTree(bool isWithDev = true,int? id=null,bool containCAD=false)
         {
             try
             {
@@ -28,9 +28,16 @@ namespace BLL
                 List<Area> list2 = new List<Area>();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    if (list[i].Type != AreaTypes.CAD)
+                    if (containCAD)
                     {
                         list2.Add(list[i]);
+                    }
+                    else
+                    {
+                        if (list[i].Type != AreaTypes.CAD)//过滤掉柱子等CAD形状
+                        {
+                            list2.Add(list[i]);
+                        }
                     }
                 }
                 list = list2;
@@ -51,7 +58,8 @@ namespace BLL
 
                 if (roots.Count > 0)
                 {
-                    return roots[0].FindChild(id);
+                    var result= roots[0].FindChild(id);
+                    return result;
                 }
                 else
                 {

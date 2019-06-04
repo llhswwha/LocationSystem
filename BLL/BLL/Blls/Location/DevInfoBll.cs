@@ -36,7 +36,7 @@ namespace BLL.Blls.Location
             {
                 Remove(item, false);
             }
-            bool r = Save();
+            bool r = Save(true);
             if (r)
                 return list;
             else

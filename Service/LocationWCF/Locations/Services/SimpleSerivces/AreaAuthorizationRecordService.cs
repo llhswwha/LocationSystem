@@ -7,6 +7,7 @@ using BLL;
 using TModel.Tools;
 using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
 using AEntity = DbModel.Location.AreaAndDev.Area;
+using DbModel.Location.Work;
 
 namespace LocationServices.Locations.Services
 {
@@ -15,6 +16,8 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByArea(string area);
 
         IList<TEntity> GetListByRole(string role);
+
+        IList<TEntity> GetAccessListByRole(string role);
 
         IList<TEntity> GetListByTag(string role);
 
@@ -52,6 +55,25 @@ namespace LocationServices.Locations.Services
                         join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
                         from area2 in AreaLst.DefaultIfEmpty()
                         where aar.CardRoleId == roleId
+                        select new { AreaAuzRcd = aar, Area = area2 };
+            var result = query.ToList();
+            IList<TEntity> list = new List<TEntity>();
+            foreach (var item in result)
+            {
+                item.AreaAuzRcd.Area = item.Area;
+                list.Add(item.AreaAuzRcd);
+            }
+            return list;
+        }
+
+        public IList<TEntity> GetAccessListByRole(string role)
+        {
+            int roleId = role.ToInt();
+            //return dbSet.Where(i => i.CardRoleId == roleId);
+            var query = from aar in dbSet.DbSet
+                        join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
+                        from area2 in AreaLst.DefaultIfEmpty()
+                        where aar.CardRoleId == roleId && aar.AccessType == AreaAccessType.可以进出
                         select new { AreaAuzRcd = aar, Area = area2 };
             var result = query.ToList();
             IList<TEntity> list = new List<TEntity>();

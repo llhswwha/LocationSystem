@@ -41,7 +41,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "工艺相关标识")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         [Required]
         public string Code { get; set; }
 
@@ -50,7 +50,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "上级工艺相关标识")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string ParentCode { get; set; }
 
         /// <summary>

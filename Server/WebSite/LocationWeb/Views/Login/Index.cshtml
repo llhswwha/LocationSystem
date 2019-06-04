@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>定位管理系统登录</title>
+    <style>
+        .loginPic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            min-width: 70%;
+            min-height: 70%;
+            background-size: cover;
+        }
+
+        .loginContent {
+            width: 380px;
+            height: 450px;
+            background: #fff;
+            position: absolute;
+            right: 360px;
+            top: 155px;
+        }
+
+        .loginIcon {
+            width: 184px;
+            height: 93px;
+            margin: 40px 0 0 100px;
+            vertical-align: middle;
+        }
+
+        .userName {
+            margin-left: 20px;
+            width: 320px !important;
+        }
+
+        .userPswd {
+            margin-left: 20px;
+            width: 320px !important;
+        }
+
+        .inputCode {
+            display: inline-block !important;
+            margin-left: 20px;
+            width: 160px !important;
+        }
+
+        .btnSubmit {
+            margin-top: 10px;
+            margin-left: 30px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loginPic" style="background-image: url('../Img/MapPic/LoginPic.jpg');">
+        <div class="loginContent">
+            <img alt="" src="../Img/MapPic/LoginIcon.png" class="loginIcon">
+            <h3 style="text-align:center;margin-bottom:20px;">四会热电厂定位管理系统</h3>
+            <!--用户名-->
+            <p>
+                <input type="text" class="form-control userName" name="username" value="" placeholder="用户名" required>
+            </p>
+            <!--密码-->
+            <p>
+                <input type="password" class="form-control userPswd" name="password" value="" placeholder="密码" required>
+            </p>
+            <!--验证码-->
+            <div>
+                <input type="text" class="form-control inputCode" placeholder="验证码" />
+                <img id="img" src="code" />
+                <span style="font-size:14px;color:#41a0f1;cursor: pointer;" onclick="changeImg()">换一组</span>
+            </div>
+            <!--提交登录信息-->
+            <p>
+                <input type="submit" value="登录" class="btn btn-default btnSubmit" />
+            </p>
+        </div>
+    </div>
+
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+    <script>
+    $(".btnSubmit").click(function () {
+        var userName = $(".userName").val(); //获取用户名
+        var userPswd = $(".userPswd").val(); //获取密码
+        data = {};
+        data.UserName = userName;
+        data.Password = userPswd;
+        $.ajax({
+            type: "get",
+            url: "/Login/LoginMessage",
+            data:data,
+            success: function (result) {
+                console.log(result);
+                var loginResult = result.Result;
+                console.log(loginResult);
+                if (loginResult == true) {
+                    window.location.href = '/'; //正确登录后页面跳转至首页
+                }
+                else {
+                    alert("用户名密码错误！");
+                    $(".userName").val(""); //登录失败,清空用户名和密码
+                    $(".userPswd").val("");
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>

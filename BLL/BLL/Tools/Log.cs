@@ -48,38 +48,58 @@ namespace Location.BLL.Tool
 
         public static void InfoStart(string tag,bool isGroup=false)
         {
-            LogInfo info=new LogInfo() {Tag = tag,Time = DateTime.Now ,IsGroup = isGroup};
-            if (infos.ContainsKey(tag))
+            try
             {
-                infos[tag] = info;
+                LogInfo info = new LogInfo() { Tag = tag, Time = DateTime.Now, IsGroup = isGroup };
+                if (infos.ContainsKey(tag))
+                {
+                    infos[tag] = info;
+                }
+                else
+                {
+                    infos.Add(tag, info);
+                }
+
+                if (info.IsGroup)
+                {
+                    TabCount++;
+                }
+                if (Logger != null)
+                {
+                    string msg = GetBefore() + tag + " Start " + GetAfter();
+                    Logger.Info(msg);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                infos.Add(tag, info);
+                Console.WriteLine(ex);
             }
-            
-            if (info.IsGroup)
-            {
-                TabCount++;
-            }
-            Logger.Info(GetBefore()+tag +" Start "+ GetAfter());
         }
 
         public static void InfoEnd(string tag)
         {
-            if (infos.ContainsKey(tag))
+            try
             {
-                LogInfo info = infos[tag];
-                TimeSpan timeSpan = DateTime.Now - info.Time;
-
-                Logger.Info(GetBefore() + tag + " End Time:" + timeSpan + GetAfter());
-
-                if (info.IsGroup)
+                if (infos.ContainsKey(tag))
                 {
-                    TabCount--;
+                    LogInfo info = infos[tag];
+                    TimeSpan timeSpan = DateTime.Now - info.Time;
+
+                    if (Logger != null)
+                    {
+                        Logger.Info(GetBefore() + tag + " End Time:" + timeSpan + GetAfter());
+                    }
+
+                    if (info.IsGroup)
+                    {
+                        TabCount--;
+                    }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
         #endregion
 
@@ -88,8 +108,11 @@ namespace Location.BLL.Tool
 
         //}
 
+        public static int LogCount = 0;
+
         public static void StartWatch()
         {
+            LogCount++;
             if (logWatcher == null)
             {
                 if (logger == null)
@@ -107,10 +130,14 @@ namespace Location.BLL.Tool
 
         public static void StopWatch()
         {
-            if (logWatcher != null)
+            LogCount--;
+            if (LogCount <= 0)
             {
-                logWatcher.Abort();
-                logWatcher = null;
+                if (logWatcher != null)
+                {
+                    logWatcher.Abort();
+                    logWatcher = null;
+                }
             }
         }
 

@@ -11,6 +11,9 @@ using System.Linq;
 using DbModel.Location.AreaAndDev;
 using BLL;
 using System.Diagnostics;
+using DbModel.Location.Alarm;
+using DbModel.LocationHistory.Alarm;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations
 {
@@ -148,37 +151,43 @@ namespace LocationServices.Locations
         /// </summary>
         public bool EditMonitorRange(PhysicalTopology pt)
         {
-
-            var initializer = new AreaTreeInitializer(db);
-            Area area = db.Areas.Find((i) => i.Id == pt.Id);
-            if (area != null)
+            try
             {
-                pt.InitBound.SetInitBound(pt.Transfrom);
-                area.SetTransform(pt.Transfrom.ToDbModel());
-                DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
-                db.Bounds.Edit(InitBoundT);
-                area.SetBound(InitBoundT);
-                var points = area.InitBound.Points;
-                //foreach (DbModel.Location.AreaAndDev.Point p in points)
-                //{
-                //    DbModel.Location.AreaAndDev.Point pointT = db.Points.Find((i) => i.BoundId == InitBoundT.Id && i.Index == p.Index);
-                //    if (pointT != null)
-                //    {
-                //        db.Points.Edit(pointT);
-                //    }
-                //    else
-                //    {
-                //        db.Points.Add(pointT);
-                //    }
-                //}
-                db.Points.EditRange(points);
-                return db.Areas.Edit(area);
+                Area area = db.Areas.Find((i) => i.Id == pt.Id);
+                if (area != null && pt.InitBound != null)
+                {
+                    pt.InitBound.SetInitBound(pt.Transfrom);
+                    area.SetTransform(pt.Transfrom.ToDbModel());
+                    db.Areas.Edit(area);
+
+                    DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
+                    DbModel.Location.AreaAndDev.Bound InitBound = db.Bounds.Find(p => p.Id == InitBoundT.Id);
+                    InitBound.SetInitBound(InitBoundT);
+                    db.Bounds.Edit(InitBound);
+
+                    List<DbModel.Location.AreaAndDev.Point> lst = db.Points.FindAll(p => p.BoundId == InitBound.Id);
+                    foreach (var item in InitBoundT.Points)
+                    {
+                        DbModel.Location.AreaAndDev.Point pi = lst.Find(p => p.Index == item.Index);
+                        pi.SetPoint(item.X, item.Y, item.Z);
+                    }
+
+                    db.Points.EditRange(lst);
+
+                    TagRelationBuffer.Instance().PuUpdateData();
+                    BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
                 return false;
             }
-            //return db.Areas.Edit(pt.ToDbModel());
+
+            return true;
         }
 
         //    private void SetInitBound(Area topo, DbModel.Location.AreaAndDev.Point[] points, float thicknessT, bool isRelative = true,
@@ -241,6 +250,9 @@ namespace LocationServices.Locations
 
             if (result)
             {
+                TagRelationBuffer.Instance().PuUpdateData();
+                BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
+
                 return areaT.ToTModel();
             }
             return null;
@@ -251,20 +263,38 @@ namespace LocationServices.Locations
         /// </summary>
         public bool DeleteMonitorRange(PhysicalTopology pt)
         {
-            Area area = db.Areas.Find((i) => i.Id == pt.Id);
-            if (area != null)
+            try
             {
-                //DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
-                //db.Bounds.Remove(InitBoundT);
-                db.Bounds.DeleteById(pt.InitBound.Id);
-                //var points = area.InitBound.Points;
-                //db.Points.RemoveList(points);
-                return db.Areas.Remove(area);
+                if (pt == null) return false;
+                int AreaId = pt.Id;
+                Area aa = db.Areas.Find(p => p.Id == AreaId);
+                if (aa != null)
+                {
+                    db.Areas.Remove(aa);
+                }
+
+                if (pt.InitBound != null)
+                {
+                    int BoundId = pt.InitBound.Id;
+
+                    db.Bounds.DeleteById(BoundId);
+
+                    List<DbModel.Location.AreaAndDev.Point> lst = db.Points.FindAll(p => p.BoundId == BoundId);
+                    if (lst != null)
+                    {
+                        db.Points.RemoveList(lst);
+                    }
+                }
+
+                TagRelationBuffer.Instance().PuUpdateData();
+                BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
             }
-            else
+            catch (Exception ex)
             {
                 return false;
             }
+
+            return true;
         }
 
         /// <summary>
@@ -279,9 +309,11 @@ namespace LocationServices.Locations
             return asr.GetAreaById(id);
         }
 
+        //AreaService asr = new AreaService();
+
         public AreaStatistics GetAreaStatistics(int id)
         {
-            AreaService asr = new AreaService();
+            AreaService asr = new AreaService(db);
             return asr.GetAreaStatistics(id);
         }
 
@@ -315,19 +347,28 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<string> GetHomePageNameList()
         {
-            Bll bll = new Bll(false, false, false, false);
-            List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
-            //if (lst == null || lst.Count == 0)
-            //{
-            //    lst = new List<string>();
-            //}
-
-            if (lst.Count == 0)
+            try
             {
-                lst = null;
-            }
+                Bll bll = new Bll(false, false, false, false);
+                List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
+                //if (lst == null || lst.Count == 0)
+                //{
+                //    lst = new List<string>();
+                //}
 
-            return lst;
+                if (lst.Count == 0)
+                {
+                    lst = null;
+                }
+
+                return lst;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("LocationService.GetHomePageNameList",ex);
+                return null;
+            }
+            
         }
 
         /// <summary>

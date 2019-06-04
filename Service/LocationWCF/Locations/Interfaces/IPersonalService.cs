@@ -14,7 +14,7 @@ namespace LocationServices.Locations.Interfaces
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        List<Personnel> GetPersonList();
+        List<Personnel> GetPersonList(bool isFilterByTag);
 
         /// <summary>
         /// 人员查找

@@ -17,6 +17,7 @@ using DbModel.Tools;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Location.Data;
 using TModel.Location.Person;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
@@ -131,20 +132,47 @@ namespace LocationServices.Locations.Services
             var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId == personId);
             if (relation != null)
             {
-                relation.LocationCardId = tagId;
-                return db.LocationCardToPersonnels.Edit(relation);
+                if (tagId == 0)//解除绑定
+                {
+                    var tag = db.LocationCards.Find(tagId);
+                    if (tag != null)
+                    {
+                        tag.IsActive = false;//解除卡则不激活
+                        db.LocationCards.Edit(tag);
+
+                        bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+                        return r;
+                    }
+                    else//找不到卡 应该不可能
+                    {
+                        bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+                        return r;
+                    }
+                    
+                }
+                else
+                {
+                    relation.LocationCardId = tagId;
+                    return db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
+                }
+                
             }
             else
             {
-                return db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
+                bool r= db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
                 {
                     PersonnelId = personId,
                     LocationCardId = tagId
                 });
 
                 var tag=db.LocationCards.Find(tagId);
-                tag.IsActive = true;//发卡则激活
-                db.LocationCards.Edit(tag);
+                if (tag != null)
+                {
+                    tag.IsActive = true;//发卡则激活
+                    db.LocationCards.Edit(tag);
+                }
+                return r;
+               
             }
         }
 
@@ -203,26 +231,34 @@ namespace LocationServices.Locations.Services
 
         public List<TEntity> GetList(bool detail)
         {
-            if (detail)
+            try
             {
-                var list = new List<TEntity>();
-                var query = from p in dbSet.DbSet
-                            join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
-                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                            select new { Person = p, Tag = tag,Pos=pos };
-                foreach (var item in query)
+                if (detail)
                 {
-                    TEntity entity = item.Person.ToTModel();
-                    entity.Tag = item.Tag.ToTModel();
-                    entity.Pos = item.Pos.ToTModel();
-                    list.Add(entity);
+                    var list = new List<TEntity>();
+                    var query = from p in dbSet.DbSet
+                                join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
+                                join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                                select new { Person = p, Tag = tag, Pos = pos };
+                    foreach (var item in query)
+                    {
+                        TEntity entity = item.Person.ToTModel();
+                        entity.Tag = item.Tag.ToTModel();
+                        entity.Pos = item.Pos.ToTModel();
+                        list.Add(entity);
+                    }
+                    return list;
                 }
-                return list;
+                else
+                {
+                    return dbSet.DbSet.ToList().ToTModel();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return dbSet.DbSet.ToList().ToTModel();
+                Log.Error("PersonService.GetList:"+ex);
+                return null;
             }
         }
 

@@ -238,7 +238,7 @@ namespace DbModel.LocationHistory.Data
                 string[] parts = AllAreaId.Split(';');
                 foreach (var item in parts)
                 {
-                    if(item== areaId + "")
+                    if (item == areaId + "")
                     {
                         return true;
                     }
@@ -326,7 +326,7 @@ namespace DbModel.LocationHistory.Data
         /// <param name="offsetX">偏移量X 和定位引擎约定好具体偏移数值</param>
         /// <param name="offsetY">偏移量Y 和定位引擎约定好具体偏移数值</param>
         /// <returns></returns>
-        public bool Parse(string info,float offsetX, float offsetY)
+        public bool Parse(string info, float offsetX, float offsetY)
         {
             try
             {
@@ -337,7 +337,7 @@ namespace DbModel.LocationHistory.Data
                 Code = parts[0];
                 if (Code.StartsWith("1"))
                 {
-                    LogEvent.Info("Code.StartsWith(1)："+ info);
+                    LogEvent.Info("Code.StartsWith(1)：" + info);
                 }
                 if (parts[1] == "-1.#IND0")
                 {
@@ -359,14 +359,25 @@ namespace DbModel.LocationHistory.Data
                     X = x;
                     Z = y;
                 }
-               
+
                 Y = parts[3].ToFloat();//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = parts[4].ToLong();
                 DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
                 //TimeSpan time1 = DateTime.Now - DateTime;
                 //long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
                 if (length > 5)
+                {
                     Power = parts[5].ToInt();
+                    if (Power >= 400)
+                    {
+                        PowerState = 0;
+                    }
+                    else
+                    {
+                        PowerState = 1;
+                    }
+                }
+
                 if (length > 6)
                     Number = parts[6].ToInt();
                 if (length > 7)
@@ -374,7 +385,7 @@ namespace DbModel.LocationHistory.Data
                 if (length > 8)
                 {
                     ArchorsText = parts[8];
-                    Archors = ArchorsText.Split(new [] { '@'},StringSplitOptions.RemoveEmptyEntries).ToList();
+                    Archors = ArchorsText.Split(new[] { '@' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                     if (Archors.Count > 1)
                     {
                         Console.Write("Archors.Count > 1");
@@ -382,14 +393,20 @@ namespace DbModel.LocationHistory.Data
                     IsSimulate = ArchorsText == "@0000" || string.IsNullOrEmpty(ArchorsText);
                 }
 
-                if (Power >= 400)
+                if (Code == "092D" && (ArchorsText == null || Archors == null))
                 {
-                    PowerState = 0;
+                    int i = 0;
+                }
+
+                if (length > 8)
+                {
                 }
                 else
                 {
-                    PowerState = 1;
+                    LogEvent.Info("位置信息数据可能被截断！！！！:" + info);
+                    return false;
                 }
+
 
                 return true;
             }

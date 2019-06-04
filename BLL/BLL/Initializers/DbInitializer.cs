@@ -20,6 +20,8 @@ using BLL.Initializers;
 using DbModel.Location.Authorizations;
 using DbModel.Location.Work;
 using DbModel.Tools.InitInfos;
+using System.Configuration;
+using DbModel;
 
 namespace BLL
 {
@@ -71,7 +73,7 @@ namespace BLL
         }
 
         int maxPersonCount = 20;//初始人的数量
-        int maxTagCount = 100;//初始卡的数量
+        int maxTagCount = 200;//初始卡的数量
 
         public void InitDbData(int mode, bool isForce = false)
         {
@@ -191,9 +193,10 @@ namespace BLL
         {
             Log.InfoStart("InitDepartments");
 
-            LocationCardToPersonnels.Clear();
-            Personnels.Clear();
-            Departments.Clear();
+            bool r1 = LocationCardToPersonnels.Clear();
+            bool r2 = LocationCardPositions.Clear();
+            bool r3 = Personnels.Clear();
+            bool r4 = Departments.Clear();
 
             Log.Info("导入部门信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -239,9 +242,27 @@ namespace BLL
             value = PersonBackupHelper.ImportPersonInfoFromFile(filePath, _bll);
             Log.Info(string.Format("导入人员信息结果:{0}", value));
 
+            List<Personnel> pList = Personnels.ToList();
 
-            
 
+            Log.Info("开始  导入人员和定位卡关联关系");
+            //人员和定位卡关联关系
+            filePath = basePath + "Data\\部门人员门禁卡信息\\人员和定位卡对应关系.xlsx";
+            LocationCardToPersonnelsBackupHelper.ImportRelationFromFile(new FileInfo(filePath));
+            Log.Info("结束 导入人员和定位卡关联关系");
+            List<LocationCardToPersonnel> rList = LocationCardToPersonnels.ToList();
+
+            List<LocationCard> tagsTemp = new List<LocationCard>();
+            foreach (LocationCardToPersonnel ctp in rList)
+            {
+                LocationCard card = tagsT.Find((item) => item.Id == ctp.LocationCardId);
+                if (card != null)
+                {
+                    card.IsActive = true;
+                    tagsTemp.Add(card);
+                }
+            }
+            LocationCards.EditRange(tagsTemp);
             //for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
             //{
             //    var tag = tagsT[i];
@@ -336,20 +357,40 @@ namespace BLL
             List<LocationCardPosition> tagpositions = new List<LocationCardPosition>();
             var cardPersons = _bll.LocationCardToPersonnels.ToList();//和卡绑定的人才有位置信息
             var cards = _bll.LocationCards.ToList();
-            var area = _bll.Areas.Find(2);//电厂
-            var bound = area.InitBound;
+            var parkName = AppSetting.ParkName;
+            Area park = null;
+            if (!string.IsNullOrEmpty(parkName))
+            {
+                park = _bll.Areas.Find(i => i.Name == parkName);
+            }
+            if (park == null)
+            {
+                park = _bll.Areas.Find(2);//默认四会热电厂
+            }
+            if (park == null)
+            {
+                Log.Error("InitRealTimePositions park == null");
+                return;
+            }
+
+            var bound = park.InitBound;
+            if (bound == null)
+            {
+                Log.Error("InitRealTimePositions bound == null");
+                return;
+            }
             bound.Points = _bll.Points.FindAll(i => i.BoundId == bound.Id);
 
             for (int i = 0; i < cardPersons.Count; i++)
             {
                 var cp = cardPersons[i];
                 var card = cards.Find(j => j.Id == cp.LocationCardId);
-                if (i < 10)//这部分固定初始位置
-                {
-                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = 2292.5f+i, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = 2, PersonId = cp.Id };
-                    tagpositions.Add(tagposition);
-                }
-                else//这部分随机初始位置
+                //if (i < 10)//这部分固定初始位置
+                //{
+                //    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = 2292.5f+i, Y = 2, Z = 1715.5f, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", AreaId = 2, PersonId = cp.Id };
+                //    tagpositions.Add(tagposition);
+                //}
+                //else//这部分随机初始位置
                 {
                     var x = r.Next((int)bound.GetSizeX()) + bound.MinX;
                     var z = r.Next((int)bound.GetSizeY()) + bound.MinY;
@@ -358,7 +399,7 @@ namespace BLL
                         x = r.Next((int)bound.GetSizeX()) + bound.MinX;
                         z = r.Next((int)bound.GetSizeY()) + bound.MinY;
                     }
-                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0",  PersonId = cp.Id };
+                    var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0",  PersonId = cp.Id , AreaId = park.Id};
                     tagpositions.Add(tagposition);
                 }
             }
@@ -367,12 +408,12 @@ namespace BLL
 
         public void InitTagPositions(bool initRoles)
         {
-            LocationAlarms.Clear();//清空告警
-            LocationCards.Clear();//清空标签卡
+            bool r1=LocationAlarms.Clear();//清空告警
+            bool r2 = LocationCards.Clear();//清空标签卡
 
             if (initRoles)
             {
-                CardRoles.Clear();//清空角色
+                bool r3 = CardRoles.Clear();//清空角色
                 iniRole = new CardRoleInitializer(_bll);
                 iniRole.InitData();//初始化标签角色
             }
@@ -386,21 +427,23 @@ namespace BLL
             for (int i = 0; i < maxTagCount; i++)//400张卡
             {
 
-                if (i >= 15)
-                {
+                //if (i >= 15)
+                //{
                     int number = startNumber + i;
                     string code = "0" + Convert.ToString(number, 16).ToUpper();
-                    //var role = roles[r.Next(roles.Count)];//随机分配角色
-                    //var tag1 = new LocationCard() { Name = code, Code = code, CardRoleId = role.Id };
-                    var tag1 = new LocationCard() { Name = code, Code = code };
+                //var role = roles[r.Next(roles.Count)];//随机分配角色
+                    string CardRoleId = ConfigurationManager.AppSettings["CardRoleId"];
+                    int nCardRoleId = Convert.ToInt32(CardRoleId);
+                    var tag1 = new LocationCard() { Name = code, Code = code, CardRoleId = nCardRoleId };
+                    //var tag1 = new LocationCard() { Name = code, Code = code };
                     tags.Add(tag1);
-                }
-                else
-                {
-                    var role = roles[r.Next(roles.Count)];//随机分配角色
-                    var tag1 = new LocationCard() { Name = "标签" + i, Code = "000" + (i + 1), CardRoleId = role.Id };
-                    tags.Add(tag1);
-                }
+                //}
+                //else
+                //{
+                //    var role = roles[r.Next(roles.Count)];//随机分配角色
+                //    var tag1 = new LocationCard() { Name = "标签" + i, Code = "000" + (i + 1), CardRoleId = role.Id };
+                //    tags.Add(tag1);
+                //}
             }
             LocationCards.AddRange(tags);
 

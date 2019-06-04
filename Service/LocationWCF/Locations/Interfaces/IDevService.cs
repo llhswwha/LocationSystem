@@ -142,7 +142,7 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="doorAccess"></param>
         /// <returns></returns>
         [OperationContract]
-        bool AddDoorAccess(Dev_DoorAccess doorAccess);
+        Dev_DoorAccess AddDoorAccess(Dev_DoorAccess doorAccess);
         /// <summary>
         /// 删除门禁
         /// </summary>

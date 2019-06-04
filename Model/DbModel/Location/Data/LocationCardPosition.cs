@@ -256,5 +256,42 @@ namespace DbModel.Location.Data
             return copy;
         }
 
+        /// <summary>
+        /// 设置的移动状态
+        /// </summary>
+        public void SetState()
+        {
+            LocationCardPosition tag1 = this;
+            TimeSpan time = DateTime.Now - tag1.DateTime;
+
+            double timeT = AppSetting.PositionMoveStateWaitTime;
+            if (time.TotalSeconds > timeT)//4s
+            {
+                if (tag1.Flag == "0:0:0:0:1")
+                {
+                    tag1.MoveState = 1;
+                    if (time.TotalSeconds > 300)//5m 长时间不动，在三维中显示为告警
+                    {
+                        tag1.MoveState = 3;
+                    }
+                    //else
+                    //{
+                    //    tag1.MoveState = 2;
+                    //}
+                }
+                else
+                {
+                    if (time.TotalSeconds > 50)//5m 长时间不动，在三维中显示为告警
+                    {
+                        tag1.MoveState = 3;
+                        //tag1.AreaState = 1;//这里因为是运动突然消失，时间超过300秒，可能是人已经离开，或卡失去联系
+                    }
+                    else
+                    {
+                        tag1.MoveState = 2;
+                    }
+                }
+            }
+        }
     }
 }

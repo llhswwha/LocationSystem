@@ -77,6 +77,10 @@ namespace LocationServer.Windows.Simple
                 _room = area;
                 _floor = _room.Parent;
             }
+            else
+            {
+                return false;
+            }
             
             TbBuildingName.Text = _floor.Parent.Name;
             TbFloorName.Text = _floor.Name;
@@ -93,7 +97,14 @@ namespace LocationServer.Windows.Simple
             _tp.Local_TypeCode = TypeCodes.TrackPoint;
             _tp.PosX = point.X;
             _tp.PosZ = point.Y;
-            _tp.Name = _room.Name+"_测点_"+ (devs.Count+1);
+            if (_room != null)
+            {
+                _tp.Name = _room.Name + "_测点_" + (devs.Count + 1);
+            }
+            else
+            {
+                _tp.Name = _floor.Name + "_测点_" + (devs.Count + 1);
+            }
             _tp.ParentId = _floor.Id;
 
             TbName.Text = _tp.Name;

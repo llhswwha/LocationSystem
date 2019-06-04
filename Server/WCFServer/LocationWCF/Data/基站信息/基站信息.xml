@@ -543,4 +543,29 @@
     <Device Name="8AAA" AnchorId="8AAA" XPos="21.195" YPos="3.46" ZPos="21.18" IP="192.168.4.130" AbsolutePosX="2288.185" AbsolutePosY="32.96" AbsolutePosZ="1680.98" />
     <Device Name="8AD4" AnchorId="8AD4" XPos="27.215" YPos="3.52" ZPos="21.3" IP="192.168.4.147" AbsolutePosX="2294.205" AbsolutePosY="33.02" AbsolutePosZ="1681.1" />
   </DeviceList>
+    <DeviceList Name="燃料准备车间0m层">
+    <Device Name="BX0M" AnchorId="BX0M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间3.2m层">
+    <Device Name="BX3_2M" AnchorId="BX3_2M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间7.5m层">
+    <Device Name="BX7_5M" AnchorId="BX7_5M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间11.4m层">
+    <Device Name="BX11_4M" AnchorId="BX11_4M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间16m层">
+    <Device Name="BX16M" AnchorId="BX16M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间20m层">
+    <Device Name="BX20M" AnchorId="BX20M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+      <DeviceList Name="燃料准备车间23.2m层">
+    <Device Name="BX23_2M" AnchorId="BX23_2M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+        <DeviceList Name="燃料准备车间30m层">
+    <Device Name="BX30M" AnchorId="BX30M" XPos="1.552" YPos="3.46" ZPos="0.82" IP="192.168.4.153" AbsolutePosX="2268.542" AbsolutePosY="32.96" AbsolutePosZ="1660.62" />
+  </DeviceList>
+
 </DepList>

@@ -53,7 +53,7 @@ namespace DbModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "KKS编码")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string KKS { get; set; }
 
 
@@ -355,6 +355,11 @@ namespace DbModel.Location.AreaAndDev
             strReturn = "<rect id = \"" + Convert.ToString(Id) + "\" name=\"" + Name + "\" class=\"cls-1\" x=\"" + strX + "\" y=\"" + strY + "\" width=\"" + strW + "\" height=\"" + strH + "\" />";
         
             return strReturn;
+        }
+
+        public override string ToString()
+        {
+            return Name + ", " + Local_TypeCode;
         }
     }
 }

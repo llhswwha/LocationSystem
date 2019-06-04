@@ -23,17 +23,44 @@ namespace BLL
         private List<Area> areas;
         private Bll bll;
 
+        private static TagRelationBuffer Single = null;
 
-        public TagRelationBuffer(Bll bll)
+        public static TagRelationBuffer Instance()
+        {
+            if (Single == null)
+            {
+                Single = new TagRelationBuffer();
+            }
+
+            return Single;
+        }
+
+        public static TagRelationBuffer Instance(Bll bll)
+        {
+            if (Single == null)
+            {
+                Single = new TagRelationBuffer(bll);
+            }
+
+            return Single;
+
+        }
+
+        private TagRelationBuffer(Bll bll)
         {
             this.bll = bll;
             LoadData();
         }
 
-        public TagRelationBuffer()
+        private TagRelationBuffer()
         {
             this.bll = new Bll(false, false, false, false);
             LoadData();
+        }
+
+        public void PuUpdateData()
+        {
+            UpdateData();
         }
 
         protected override void UpdateData()
@@ -41,7 +68,6 @@ namespace BLL
             RefreshTags();
 
             archors = bll.Archors.ToList();//基站
-
             areas = bll.Areas.GetWithBoundPoints(true);
             roles = bll.CardRoles.ToList();
         }
@@ -138,7 +164,7 @@ namespace BLL
             try
             {
                 //AddSimulateArchor(pos);
-                if (pos.Code == "00012")
+                if (pos.Code == "092D")
                 {
                     int i = 0;
                 }
@@ -167,6 +193,11 @@ namespace BLL
                 {
                     var area = areas[1];
                     SetAreaByPosition(pos, area);
+                }
+
+                if (pos.Code == "092D" && pos.AreaId == 2)
+                {
+                    int i = 0;
                 }
 
                 if (pos.IsAreaNull())
@@ -295,6 +326,7 @@ namespace BLL
             }
             else
             {
+                pos.SetArea(area);
                 pos.AreaPath = building.Name + "." + area.Name;
             }
         }
@@ -358,6 +390,10 @@ namespace BLL
                 if (areaNode == null)
                 {
                     containsAreas.Add(park);
+                    if (pos.Code == "092D" && pos.AreaId == 2)
+                    {
+                        int i = 0;
+                    }
                 }
                 inArea=pos.SetArea(containsAreas.ToArray());
             }
@@ -367,6 +403,10 @@ namespace BLL
                 {
                     inArea = park;
                     pos.SetArea(inArea);
+                    if (pos.Code == "092D" && pos.AreaId == 2)
+                    {
+                        int i = 0;
+                    }
                 }
             }
             if (inArea == null)

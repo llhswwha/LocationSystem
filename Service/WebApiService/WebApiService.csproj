@@ -172,6 +172,7 @@
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TagRoleController.cs" />
     <Compile Include="Controllers\TreeEntityController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="HttpRequestMessageExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiConfiguration.cs" />

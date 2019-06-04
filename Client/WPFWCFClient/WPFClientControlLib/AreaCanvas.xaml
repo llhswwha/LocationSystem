@@ -24,6 +24,10 @@
                 <ComboBoxItem>2层</ComboBoxItem>
                 <ComboBoxItem>3层</ComboBoxItem>
                 <ComboBoxItem>4层</ComboBoxItem>
+                <ComboBoxItem>5层</ComboBoxItem>
+                <ComboBoxItem>6层</ComboBoxItem>
+                <ComboBoxItem>7层</ComboBoxItem>
+                <ComboBoxItem>8层</ComboBoxItem>
             </ComboBox>
             <Label Name="LbState">State</Label>
         </StackPanel>
@@ -32,6 +36,7 @@
             <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
             <CheckBox Name="CbShowPerson" IsChecked="True" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
             <CheckBox Name="CbShowSwitchArea" IsChecked="False" Checked="CbShowSwitchArea_Checked" Unchecked="CbShowSwitchArea_Unchecked">显示切换区域</CheckBox>
+            <CheckBox Name="CbShowAlarmArea" IsChecked="False" Checked="CbShowAlarmArea_Checked" Unchecked="CbShowAlarmArea_Unchecked">显示告警区域</CheckBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <CheckBox Name="CbDevAnchor" IsChecked="True" Checked="CbDevAnchor_Checked" Unchecked="CbDevAnchor_Unchecked">基站设备</CheckBox>

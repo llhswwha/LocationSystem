@@ -135,6 +135,8 @@ namespace WCFServiceForWPF.LocationServices {
         
         private WCFServiceForWPF.LocationServices.Bound _initBoundField;
         
+        private string _kksField;
+        
         private System.Nullable<int> Abutment_Idk__BackingFieldField;
         
         private System.Nullable<int> Abutment_ParentIdk__BackingFieldField;
@@ -156,8 +158,6 @@ namespace WCFServiceForWPF.LocationServices {
         private bool IsOnLocationAreak__BackingFieldField;
         
         private bool IsRelativek__BackingFieldField;
-        
-        private string KKSk__BackingFieldField;
         
         private WCFServiceForWPF.LocationServices.DevInfo[] LeafNodesk__BackingFieldField;
         
@@ -221,6 +221,19 @@ namespace WCFServiceForWPF.LocationServices {
                 if ((object.ReferenceEquals(this._initBoundField, value) != true)) {
                     this._initBoundField = value;
                     this.RaisePropertyChanged("_initBound");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string _kks {
+            get {
+                return this._kksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this._kksField, value) != true)) {
+                    this._kksField = value;
+                    this.RaisePropertyChanged("_kks");
                 }
             }
         }
@@ -364,19 +377,6 @@ namespace WCFServiceForWPF.LocationServices {
                 if ((this.IsRelativek__BackingFieldField.Equals(value) != true)) {
                     this.IsRelativek__BackingFieldField = value;
                     this.RaisePropertyChanged("IsRelativek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<KKS>k__BackingField", IsRequired=true)]
-        public string KKSk__BackingField {
-            get {
-                return this.KKSk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.KKSk__BackingFieldField, value) != true)) {
-                    this.KKSk__BackingFieldField = value;
-                    this.RaisePropertyChanged("KKSk__BackingField");
                 }
             }
         }
@@ -1457,6 +1457,115 @@ namespace WCFServiceForWPF.LocationServices {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CardRole", Namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations")]
+    [System.SerializableAttribute()]
+    public partial class CardRole : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int[] AreaIdsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsCheckedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int[] AreaIds {
+            get {
+                return this.AreaIdsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AreaIdsField, value) != true)) {
+                    this.AreaIdsField = value;
+                    this.RaisePropertyChanged("AreaIds");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsChecked {
+            get {
+                return this.IsCheckedField;
+            }
+            set {
+                if ((this.IsCheckedField.Equals(value) != true)) {
+                    this.IsCheckedField = value;
+                    this.RaisePropertyChanged("IsChecked");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LocationServices.ILocationService")]
     public interface ILocationService {
@@ -1470,11 +1579,26 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/GetDepartmentTree", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentTreeResponse")]
         Location.TModel.Location.Person.Department GetDepartmentTree();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/GetDepartment", ReplyAction="http://tempuri.org/IDepartmentService/GetDepartmentResponse")]
+        Location.TModel.Location.Person.Department GetDepartment(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/AddDepartment", ReplyAction="http://tempuri.org/IDepartmentService/AddDepartmentResponse")]
+        int AddDepartment(Location.TModel.Location.Person.Department p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/EditDepartment", ReplyAction="http://tempuri.org/IDepartmentService/EditDepartmentResponse")]
+        bool EditDepartment(Location.TModel.Location.Person.Department p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDepartmentService/DeleteDepartment", ReplyAction="http://tempuri.org/IDepartmentService/DeleteDepartmentResponse")]
+        bool DeleteDepartment(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/GetTag", ReplyAction="http://tempuri.org/ITagService/GetTagResponse")]
         Location.TModel.Location.AreaAndDev.Tag GetTag(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/GetTags", ReplyAction="http://tempuri.org/ITagService/GetTagsResponse")]
         Location.TModel.Location.AreaAndDev.Tag[] GetTags();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/AddTag", ReplyAction="http://tempuri.org/ITagService/AddTagResponse")]
+        int AddTag(Location.TModel.Location.AreaAndDev.Tag tag);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/AddTags", ReplyAction="http://tempuri.org/ITagService/AddTagsResponse")]
         bool AddTags(Location.TModel.Location.AreaAndDev.Tag[] tags);
@@ -1486,7 +1610,10 @@ namespace WCFServiceForWPF.LocationServices {
         bool DeleteAllTags();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/EditTag", ReplyAction="http://tempuri.org/ITagService/EditTagResponse")]
-        bool EditTag(Location.TModel.Location.AreaAndDev.Tag Tag, System.Nullable<int> id);
+        bool EditTag(Location.TModel.Location.AreaAndDev.Tag tag);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITagService/EditTagById", ReplyAction="http://tempuri.org/ITagService/EditTagByIdResponse")]
+        bool EditTagById(Location.TModel.Location.AreaAndDev.Tag Tag, System.Nullable<int> id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetRealPositons", ReplyAction="http://tempuri.org/IPositionService/GetRealPositonsResponse")]
         Location.TModel.Location.Data.TagPosition[] GetRealPositons();
@@ -1574,7 +1701,7 @@ namespace WCFServiceForWPF.LocationServices {
         bool AddDoorAccessByList(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDoorAccess", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessResponse")]
-        bool AddDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess doorAccess);
+        Location.TModel.Location.AreaAndDev.Dev_DoorAccess AddDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess doorAccess);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/DeleteDoorAccess", ReplyAction="http://tempuri.org/IDevService/DeleteDoorAccessResponse")]
         bool DeleteDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList);
@@ -1740,7 +1867,7 @@ namespace WCFServiceForWPF.LocationServices {
         bool SetTransferOfAxesConfig(Location.TModel.Location.TransferOfAxesConfig config);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/GetPersonList", ReplyAction="http://tempuri.org/IPersonalService/GetPersonListResponse")]
-        Location.TModel.Location.Person.Personnel[] GetPersonList();
+        Location.TModel.Location.Person.Personnel[] GetPersonList(bool isFilterByTag);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPersonalService/FindPersonList", ReplyAction="http://tempuri.org/IPersonalService/FindPersonListResponse")]
         Location.TModel.Location.Person.Personnel[] FindPersonList(string key);
@@ -1771,6 +1898,18 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/GetPostList", ReplyAction="http://tempuri.org/IPostService/GetPostListResponse")]
         Location.TModel.Location.AreaAndDev.Post[] GetPostList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/GetPost", ReplyAction="http://tempuri.org/IPostService/GetPostResponse")]
+        Location.TModel.Location.AreaAndDev.Post GetPost(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/AddPost", ReplyAction="http://tempuri.org/IPostService/AddPostResponse")]
+        int AddPost(Location.TModel.Location.AreaAndDev.Post p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/EditPost", ReplyAction="http://tempuri.org/IPostService/EditPostResponse")]
+        bool EditPost(Location.TModel.Location.AreaAndDev.Post p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/DeletePost", ReplyAction="http://tempuri.org/IPostService/DeletePostResponse")]
+        bool DeletePost(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetTicketList", ReplyAction="http://tempuri.org/IBaseDataService/GetTicketListResponse")]
         TModel.BaseData.Ticket[] GetTicketList(int type, System.DateTime start, System.DateTime end);
@@ -1904,6 +2043,27 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInitDbService/InitKksTable", ReplyAction="http://tempuri.org/IInitDbService/InitKksTableResponse")]
         void InitKksTable();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICardRoleService/GetCardRoleList", ReplyAction="http://tempuri.org/ICardRoleService/GetCardRoleListResponse")]
+        WCFServiceForWPF.LocationServices.CardRole[] GetCardRoleList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICardRoleService/GetCardRole", ReplyAction="http://tempuri.org/ICardRoleService/GetCardRoleResponse")]
+        WCFServiceForWPF.LocationServices.CardRole GetCardRole(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICardRoleService/AddCardRole", ReplyAction="http://tempuri.org/ICardRoleService/AddCardRoleResponse")]
+        int AddCardRole(WCFServiceForWPF.LocationServices.CardRole p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICardRoleService/EditCardRole", ReplyAction="http://tempuri.org/ICardRoleService/EditCardRoleResponse")]
+        bool EditCardRole(WCFServiceForWPF.LocationServices.CardRole p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICardRoleService/DeleteCardRole", ReplyAction="http://tempuri.org/ICardRoleService/DeleteCardRoleResponse")]
+        bool DeleteCardRole(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthorizationService/GetCardRoleAccessAreas", ReplyAction="http://tempuri.org/IAuthorizationService/GetCardRoleAccessAreasResponse")]
+        int[] GetCardRoleAccessAreas(int role);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas", ReplyAction="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreasResponse")]
+        bool SetCardRoleAccessAreas(int role, int[] areaIds);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetUnitySetting", ReplyAction="http://tempuri.org/ILocationService/GetUnitySettingResponse")]
         TModel.Models.Settings.UnitySetting GetUnitySetting();
         
@@ -1956,12 +2116,32 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetDepartmentTree();
         }
         
+        public Location.TModel.Location.Person.Department GetDepartment(int id) {
+            return base.Channel.GetDepartment(id);
+        }
+        
+        public int AddDepartment(Location.TModel.Location.Person.Department p) {
+            return base.Channel.AddDepartment(p);
+        }
+        
+        public bool EditDepartment(Location.TModel.Location.Person.Department p) {
+            return base.Channel.EditDepartment(p);
+        }
+        
+        public bool DeleteDepartment(int id) {
+            return base.Channel.DeleteDepartment(id);
+        }
+        
         public Location.TModel.Location.AreaAndDev.Tag GetTag(int id) {
             return base.Channel.GetTag(id);
         }
         
         public Location.TModel.Location.AreaAndDev.Tag[] GetTags() {
             return base.Channel.GetTags();
+        }
+        
+        public int AddTag(Location.TModel.Location.AreaAndDev.Tag tag) {
+            return base.Channel.AddTag(tag);
         }
         
         public bool AddTags(Location.TModel.Location.AreaAndDev.Tag[] tags) {
@@ -1976,8 +2156,12 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.DeleteAllTags();
         }
         
-        public bool EditTag(Location.TModel.Location.AreaAndDev.Tag Tag, System.Nullable<int> id) {
-            return base.Channel.EditTag(Tag, id);
+        public bool EditTag(Location.TModel.Location.AreaAndDev.Tag tag) {
+            return base.Channel.EditTag(tag);
+        }
+        
+        public bool EditTagById(Location.TModel.Location.AreaAndDev.Tag Tag, System.Nullable<int> id) {
+            return base.Channel.EditTagById(Tag, id);
         }
         
         public Location.TModel.Location.Data.TagPosition[] GetRealPositons() {
@@ -2092,7 +2276,7 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.AddDoorAccessByList(doorAccessList);
         }
         
-        public bool AddDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess doorAccess) {
+        public Location.TModel.Location.AreaAndDev.Dev_DoorAccess AddDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess doorAccess) {
             return base.Channel.AddDoorAccess(doorAccess);
         }
         
@@ -2312,8 +2496,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.SetTransferOfAxesConfig(config);
         }
         
-        public Location.TModel.Location.Person.Personnel[] GetPersonList() {
-            return base.Channel.GetPersonList();
+        public Location.TModel.Location.Person.Personnel[] GetPersonList(bool isFilterByTag) {
+            return base.Channel.GetPersonList(isFilterByTag);
         }
         
         public Location.TModel.Location.Person.Personnel[] FindPersonList(string key) {
@@ -2354,6 +2538,22 @@ namespace WCFServiceForWPF.LocationServices {
         
         public Location.TModel.Location.AreaAndDev.Post[] GetPostList() {
             return base.Channel.GetPostList();
+        }
+        
+        public Location.TModel.Location.AreaAndDev.Post GetPost(int id) {
+            return base.Channel.GetPost(id);
+        }
+        
+        public int AddPost(Location.TModel.Location.AreaAndDev.Post p) {
+            return base.Channel.AddPost(p);
+        }
+        
+        public bool EditPost(Location.TModel.Location.AreaAndDev.Post p) {
+            return base.Channel.EditPost(p);
+        }
+        
+        public bool DeletePost(int id) {
+            return base.Channel.DeletePost(id);
         }
         
         public TModel.BaseData.Ticket[] GetTicketList(int type, System.DateTime start, System.DateTime end) {
@@ -2530,6 +2730,34 @@ namespace WCFServiceForWPF.LocationServices {
         
         public void InitKksTable() {
             base.Channel.InitKksTable();
+        }
+        
+        public WCFServiceForWPF.LocationServices.CardRole[] GetCardRoleList() {
+            return base.Channel.GetCardRoleList();
+        }
+        
+        public WCFServiceForWPF.LocationServices.CardRole GetCardRole(int id) {
+            return base.Channel.GetCardRole(id);
+        }
+        
+        public int AddCardRole(WCFServiceForWPF.LocationServices.CardRole p) {
+            return base.Channel.AddCardRole(p);
+        }
+        
+        public bool EditCardRole(WCFServiceForWPF.LocationServices.CardRole p) {
+            return base.Channel.EditCardRole(p);
+        }
+        
+        public bool DeleteCardRole(int id) {
+            return base.Channel.DeleteCardRole(id);
+        }
+        
+        public int[] GetCardRoleAccessAreas(int role) {
+            return base.Channel.GetCardRoleAccessAreas(role);
+        }
+        
+        public bool SetCardRoleAccessAreas(int role, int[] areaIds) {
+            return base.Channel.SetCardRoleAccessAreas(role, areaIds);
         }
         
         public TModel.Models.Settings.UnitySetting GetUnitySetting() {

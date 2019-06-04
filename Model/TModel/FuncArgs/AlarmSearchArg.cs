@@ -7,8 +7,9 @@ namespace Location.TModel.FuncArgs
     /// <summary>
     /// 告警查询参数
     /// </summary>
-    [DataContract] [Serializable]
-    public class AlarmSearchArg: IAlarmSearchArg
+    [DataContract]
+    [Serializable]
+    public class AlarmSearchArg : IAlarmSearchArg
     {
         [DataMember]
         public DateTime Start { get; set; }
@@ -23,5 +24,23 @@ namespace Location.TModel.FuncArgs
 
         [DataMember]
         public string Keyword { get; set; }
+
+        [DataMember]
+        public int AreaId { get; set; }
+
+        [DataMember]
+        public PageInfo Page { get; set; }
+    }
+
+    [DataContract]
+    public class PageInfo
+    {
+
+        [DataMember]
+        public int Number { get; set; }
+
+        [DataMember]
+        public int Size { get; set; }
     }
 }
+

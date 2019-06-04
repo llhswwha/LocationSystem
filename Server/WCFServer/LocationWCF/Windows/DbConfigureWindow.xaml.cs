@@ -354,7 +354,7 @@ namespace LocationServer.Windows
         {
             Bll bll = new Bll(false, false, false, false);
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
-            initializer.SaveInitInfoXml();
+            initializer.SaveInitInfoXml(false);
             MessageBox.Show("完成");
         }
 
@@ -563,6 +563,62 @@ namespace LocationServer.Windows
             {
                 MessageBox.Show("备份完成...");
             });
+        }
+
+        private void MenuInitMySqlKKSAndDevMonitorNodes_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll();
+            DbInitializer dil = new DbInitializer(bll);
+            dil.InitKKSCode();
+            AreaTreeInitializer ati = new AreaTreeInitializer(bll);
+            ati.PubInitDevMonitorNode();
+        }
+
+        private void MenuInitMySqlKKSCode_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                Bll bll = new Bll();
+                DbInitializer dil = new DbInitializer(bll);
+                dil.InitKKSCode();
+                MessageBox.Show("初始化KKSCode点完成");
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private void MenuInitMySqlDevMonitorNodes_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                Bll bll = new Bll();
+                AreaTreeInitializer ati = new AreaTreeInitializer(bll);
+                ati.PubInitDevMonitorNode();
+                MessageBox.Show("初始化监控节点完成");
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private void MenuSaveTopCAD_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
+            initializer.SaveInitInfoXml();
+            MessageBox.Show("完成");
+        }
+
+        private void MenuInitMySqlNoramlDev_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                Bll bll = new Bll();
+                AreaTreeInitializer area = new AreaTreeInitializer(bll);
+                area.InitDevInfo(false);
+                MessageBox.Show("更新设备、门禁、摄像头信息完成。");
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }

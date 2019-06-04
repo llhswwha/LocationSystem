@@ -145,12 +145,12 @@ namespace LocationServer.Windows
 
             PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + x;
             PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + z;
-
+            ArchorSetting setting = null;
             if (_room != null)
             {
                 TbRoomName.Text = _room.Name;
                 PcArchor.IsEnabled = false;
-                var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
+                setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
                 if (setting != null)
                 {
                     SetZeroPoint(setting.ZeroX.ToFloat(), setting.ZeroY.ToFloat());
@@ -170,7 +170,7 @@ namespace LocationServer.Windows
             }
             else
             {
-                var setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
+                setting = bll.ArchorSettings.GetByCode(_code, _archor.Id);
                 if (setting != null)
                 {
                     SetZeroPoint(setting.ZeroX.ToFloat(), setting.ZeroY.ToFloat());
@@ -194,6 +194,12 @@ namespace LocationServer.Windows
             PcZero.ValueChanged += PcZero_ValueChanged;
             PcRelative.ValueChanged += PcRelative_ValueChanged;
             PcArchor.ValueChanged += PcArchor_ValueChanged;
+
+            if (setting != null)
+            {
+                PcMeasure.X = setting.MeasureX.ToDouble();
+                PcMeasure.Y = setting.MeasureY.ToDouble();
+            }
 
             //OnShowPoint();
             return true;
@@ -286,6 +292,11 @@ namespace LocationServer.Windows
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            SaveInfo(true);
+        }
+
+        public void SaveInfo(bool showMessage)
+        {
             //LocationService service = new LocationService();
             //service.EditBusAnchor();
             if (string.IsNullOrEmpty(TbCode.Text))
@@ -341,8 +352,8 @@ namespace LocationServer.Windows
             _dev.PosX = (float)PcArchor.X;
             _dev.PosZ = (float)PcArchor.Y;
             _dev.PosY = TbHeight.Text.ToFloat();
-          
-            
+
+
 
             if (bll.DevInfos.Edit(devNew) == false)
             {
@@ -362,7 +373,8 @@ namespace LocationServer.Windows
             archorSetting.Name = _archor.Name;
             archorSetting.RelativeHeight = TbHeight.Text.ToDouble();
             archorSetting.AbsoluteHeight = TbHeight2.Text.ToDouble();
-
+            archorSetting.MeasureX = PcMeasure.X.ToString();
+            archorSetting.MeasureY = PcMeasure.Y.ToString();
             GetDevRoom();
             if (_room != null)
             {
@@ -406,10 +418,11 @@ namespace LocationServer.Windows
 
             OnRefreshDev();
 
-            MessageBox.Show("保存完成");
+            if (showMessage)
+            {
+                MessageBox.Show("保存完成");
+            }
         }
-
-
 
         public bool EditBusAnchor(Archor archor)
         {

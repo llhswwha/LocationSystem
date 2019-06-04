@@ -32,9 +32,9 @@
             <ComboBoxItem >53506</ComboBoxItem>
         </ComboBox>
         <Label Grid.Row="3" Grid.Column="0">User</Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="TbUser">admin</TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TbUser">Admin</TextBox>
         <Label Grid.Row="4" Grid.Column="0">Password</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TbPass">admin</TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TbPass">Admin@123456</TextBox>
         <Button Grid.Row="5" Grid.ColumnSpan="2" Name="BtnLogin" Click="BtnLogin_OnClick">登录</Button>
     </Grid>
 </Window>

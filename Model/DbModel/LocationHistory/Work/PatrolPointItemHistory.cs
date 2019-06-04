@@ -34,7 +34,7 @@ namespace DbModel.LocationHistory.Work
         /// </summary>
         [DataMember]
         [Display(Name = "设备kks编码")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string KksCode { get; set; }
 
         /// <summary>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DepartmentInfoBackupList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DepList Abutment_Id="-1" Name="未绑定" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="本厂" />
+  <DepList Abutment_Id="0" Name="中电四会热电有限公司" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="本厂" />
+  <DepList Abutment_Id="2" Name="广州东康物业服务有限公司" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="外委单位" />
+  <DepList Abutment_Id="3" Name="广东院" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="外委单位" />
+  <DepList Abutment_Id="4" Name="大连明日环境工程有限公司" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="外委单位" />
+  <DepList Abutment_Id="5" Name="广州市苏源电力设备有限公司" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="外委单位" />
+  <DepList Abutment_Id="6" Name="清电检修" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="外委单位" />
+  <DepList Abutment_Id="7" Name="综合部（纪检监察与风险内控部）" ParentId="2" Abutment_ParentId="0" ShowOrder="0" Type="本厂" />
+  <DepList Abutment_Id="8" Name="计划经营部" ParentId="2" Abutment_ParentId="0" ShowOrder="1" Type="本厂" />
+  <DepList Abutment_Id="9" Name="财务部" ParentId="2" Abutment_ParentId="0" ShowOrder="2" Type="本厂" />
+  <DepList Abutment_Id="10" Name="HSE（安健环）部" ParentId="2" Abutment_ParentId="0" ShowOrder="3" Type="本厂" />
+  <DepList Abutment_Id="11" Name="生产技术部（工程部）" ParentId="2" Abutment_ParentId="0" ShowOrder="4" Type="本厂" />
+  <DepList Abutment_Id="12" Name="运行部" ParentId="2" Abutment_ParentId="0" ShowOrder="5" Type="本厂" />
+</DepartmentInfoBackupList>

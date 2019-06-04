@@ -82,19 +82,44 @@ namespace DbModel.Location.Alarm
         [MaxLength(128)]
         public string Device_desc { get; set; }
 
+        private DateTime _alarmTime;
+
         /// <summary>
         /// 设备告警产生时间
         /// </summary>
         [DataMember]
         [Display(Name = "设备告警产生时间")]
-        public DateTime AlarmTime { get; set; }
+        public DateTime AlarmTime
+        {
+            get
+            {
+                return _alarmTime;
+            }
+            set
+            {
+                _alarmTime = value;
+                AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+            }
+        }
+
+        private long _alarmTimeStamp;
 
         /// <summary>
         /// 告警时间戳
         /// </summary>
         [DataMember]
         [Display(Name = "时间戳")]
-        public long AlarmTimeStamp { get; set; }
+        public long AlarmTimeStamp
+        {
+            get
+            {
+                return _alarmTimeStamp;
+            }
+            set
+            {
+                _alarmTimeStamp = value;
+            }
+        }
 
         public DevAlarm Clone()
         {

@@ -40,6 +40,39 @@ namespace IModel.Enums
 
     public class TypeCodeHelper
     {
+
+        public static string GetTypeName(string code, string modelName)
+        {
+            if (IsLocationDev(code))
+            {
+                return "基站";
+            }
+            else if (IsCamera(code))
+            {
+                return "摄像头";
+            }
+            else if (IsStaticDev(code))
+            {
+                return "生产设备";
+            }
+            else if (IsAlarmDev(code))
+            {
+                return "警报设备";
+            }
+            else
+            {
+                if (IsDoorAccess(modelName))
+                {
+                    return "门禁";
+                }
+                else
+                {
+                    return "其他设备";
+
+                }
+            }
+        }
+
         private static string CameraType = "3000201|14|3000610|1000102";
 
         /// <summary>
@@ -118,6 +151,19 @@ namespace IModel.Enums
             return IsTypeCodeContains(typeCode, BorderAlarmDev);
         }
 
+
+        private static string FireFightDevType = "104|";
+
+        /// <summary>
+        /// 是否包含消防设备
+        /// </summary>
+        /// <param name="typeCode"></param>
+        /// <returns></returns>
+        public static bool IsFireFightDevType(string typeCode)
+        {
+            if (string.IsNullOrEmpty(typeCode)) return false;
+            return IsTypeCodeContains(typeCode, FireFightDevType);
+        }
 
         /// <summary>
         /// 是否包含TypeCode

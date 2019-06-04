@@ -67,7 +67,7 @@
                             <li>@Html.ActionLink("部门列表", "Index", "Departments")</li>
                             <li>@Html.ActionLink("部门树", "Tree", "Departments")</li>
                             <li>@Html.ActionLink("人员信息", "Index", "Personnel")</li>
-                            <li>@Html.ActionLink("岗位", "Index", "Post")</li>
+                            <li>@Html.ActionLink("岗位", "Index", "Post")</li>                           
                         </ul>
                     </li>
                     <li>
@@ -78,11 +78,19 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("KKS码", "Index", "KKSCode")</li>
                             <li>@Html.ActionLink("操作票", "Index", "OperationTicket")</li>
-                            <li>@Html.ActionLink("工作票", "Index", "WorkTicket")</li>
-                            @*<li>@Html.ActionLink("巡检轨迹", "Index", "MobileInspection")</li>*@
+                            <li>@Html.ActionLink("工作票", "Index", "WorkTicket")</li>                         
                             <li>@Html.ActionLink("巡检轨迹", "Index", "InspectionTrack")</li>
                         </ul>
-                    </li>                 
+                    </li> 
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("用户管理", "Index", "User")</li>
+                        </ul>
+                    </li>                   
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             测试
@@ -97,7 +105,7 @@
                             <li>@Html.ActionLink("保存初始数据", "SaveInitInfoXml", "DataInit")</li>
                             <li>@Html.ActionLink("读取初始数据", "LoadInitInfoXml", "DataInit")</li>
                         </ul>
-                    </li>
+                    </li>                   
                     <li>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             三维程序
@@ -105,16 +113,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="LocationSystem:" id="openExe">启动</a>
+                                <a href="LocationSystem:" id="openExe">启动(管理)</a>
+                            </li>
+                            <li>
+                                <a href="LocationSystem:" id="openExe_guest">启动(一般)</a>
                             </li>
                             <li>
                                 <a id="downLoading">下载</a>
-                            </li>                            
+                            </li>
                         </ul>
                     </li>                                                                                                                       
                 </ul>
                              
-                @Html.Partial("_LoginPartial")
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

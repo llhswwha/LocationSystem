@@ -8,6 +8,7 @@ using Location.BLL.Tool;
 using DAL;
 using System.IO;
 using System.Data.Entity;
+using DbModel;
 
 namespace LocationServer
 {
@@ -16,11 +17,25 @@ namespace LocationServer
         /// <summary>
         /// 是否将定位引擎获取的数据写入日志
         /// </summary>
-        public static bool WritePositionLog { get; set; }
+        public static bool WritePositionLog
+        {
+            get { return AppSetting.WritePositionLog; }
+            set { AppSetting.WritePositionLog = value; }
+        }
 
         public static bool AutoStartServer { get; set; }
 
-        public static double PositionMoveStateWaitTime { get; set; }
+        public static double PositionMoveStateWaitTime
+        {
+            get { return AppSetting.PositionMoveStateWaitTime; }
+            set { AppSetting.PositionMoveStateWaitTime = value; }
+        }
+
+        public static string ParkName
+        {
+            get { return AppSetting.ParkName; }
+            set { AppSetting.ParkName = value; }
+        }
 
         public static Bll GetLocationBll()
         {

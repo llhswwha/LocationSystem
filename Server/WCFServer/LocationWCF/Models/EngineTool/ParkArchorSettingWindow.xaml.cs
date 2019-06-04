@@ -142,6 +142,11 @@ namespace LocationServer.Windows
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            SaveInfo(true);
+        }
+
+        public void SaveInfo(bool showMessage)
+        {
             //LocationService service = new LocationService();
             //service.EditBusAnchor();
             if (string.IsNullOrEmpty(TbCode.Text))
@@ -223,7 +228,7 @@ namespace LocationServer.Windows
 
             if (isAdd)
             {
-                if (bll.ArchorSettings.Add(archorSetting)==false)
+                if (bll.ArchorSettings.Add(archorSetting) == false)
                 {
                     MessageBox.Show("保存失败4");
                     return;
@@ -240,7 +245,10 @@ namespace LocationServer.Windows
 
             OnRefreshDev(devNew);
 
-            MessageBox.Show("保存完成");
+            if (showMessage)
+            {
+                MessageBox.Show("保存完成");
+            }
         }
 
 

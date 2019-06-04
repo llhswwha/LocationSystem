@@ -26,6 +26,7 @@ using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
 using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.BaseData;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -39,7 +40,7 @@ namespace LocationServices.Locations
         /// </summary>
         /// <returns></returns>
         //[OperationContract]
-        public List<Personnel> GetPersonList()
+        public List<Personnel> GetPersonList(bool isFilterByTag)
         {
             ShowLogEx(">>>>> GetPersonList");
             var list = db.Personnels.ToList();
@@ -73,7 +74,8 @@ namespace LocationServices.Locations
                 }
                 else
                 {
-
+                    if (!isFilterByTag)//如果不过滤的话，显示全部人员列表；过滤的话，只返回有绑定标签的人员列表
+                        ps2.Add(p);
                 }
                 //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
                 p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
@@ -88,22 +90,46 @@ namespace LocationServices.Locations
 
         public Personnel GetPerson(int id)
         {
-            ShowLogEx(">>>>> GetPerson id="+id);
-            return db.Personnels.Find(id).ToTModel();
+            ShowLogEx(">>>>> GetPerson id=" + id);
+            var person = db.Personnels.Find(id);
+            //if (person.Parent == null && person.ParentId!=null)
+            //{
+            //    person.Parent = db.Departments.Find(person.ParentId);
+            //}
+
+            var tPerson = person.ToTModel();
+
+            DbModel.Location.Relation.LocationCardToPersonnel locationCardToPersonnel = db.LocationCardToPersonnels.Find((i) => i.PersonnelId == id);
+            if (locationCardToPersonnel != null)
+            {
+                tPerson.TagId = locationCardToPersonnel.LocationCardId;
+            }
+            var tagT = db.LocationCards.Find(tPerson.TagId);
+            tPerson.Tag = tagT.ToTModel();
+
+            if (person.Parent == null && person.ParentId != null)
+            {
+                var parent = db.Departments.Find(person.ParentId);
+                tPerson.Parent = parent.ToTModel();
+            }
+            return tPerson;
         }
 
         public int AddPerson(Personnel p)
         {
-            bool r = db.Personnels.Add(p.ToDbModel());
+            var dbP = p.ToDbModel();
+            bool r = db.Personnels.Add(dbP);
             if (r == false)
             {
                 return -1;
             }
-            return p.Id;
+            return dbP.Id;
         }
 
         public bool EditPerson(Personnel p)
         {
+            var s = new PersonService(db);
+            var r = s.BindWithTag(p.Id, (p.TagId == null ? 0 : (int)p.TagId));//修改人员和卡的关联关系
             return db.Personnels.Edit(p.ToDbModel());
         }
 

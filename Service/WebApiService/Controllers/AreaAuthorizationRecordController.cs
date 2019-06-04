@@ -70,6 +70,12 @@ namespace WebApiService.Controllers
             return service.GetListByRole(role);
         }
 
+        [Route("accessList")]
+        public IList<TEntity> GetAccessListByRole(string role)
+        {
+            return service.GetAccessListByRole(role);
+        }
+
         [Route]
         public TEntity Post(TEntity item)
         {

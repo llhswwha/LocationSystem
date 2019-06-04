@@ -48,8 +48,9 @@ namespace BLL.Blls.Location
 
         public List<Area> GetWithBoundPoints(bool withPoints)
         {
-            var bounds = Db.Bounds.ToList();
-            
+            //var bounds = Db.Bounds.ToList();
+            var bounds = Db.Bounds.AsNoTracking().ToList();
+
             List<Area> list = ToList();
             foreach (var area in list)
             {
@@ -75,6 +76,52 @@ namespace BLL.Blls.Location
                 }
             }
             return list;
-        } 
+        }
+
+        /// <summary>
+        /// 获取所有的子区域，和自身
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<int?> GetAllSubAreas(int id)
+        {
+            List<int?> lst = new List<int?>();
+            var areaList = ToList();
+            var a1 = areaList.Find(p => p.Id == id);
+            if (a1 == null)
+            {
+                return lst;
+            }
+
+            lst.Add(a1.Id);
+            List<int?> lstRecv = GetSubAreas(a1.Id, areaList);
+            if (lstRecv != null || lstRecv.Count > 0)
+            {
+                lst.AddRange(lstRecv);
+            }
+            return lst;
+        }
+        private List<int?> GetSubAreas(int id, List<Area> areaList)
+        {
+            List<int?> lst = new List<int?>();
+            List<Area> alist2 = areaList.FindAll(p => p.ParentId == id);
+            List<int?> lstRecv;
+            if (alist2 == null || alist2.Count <= 0)
+            {
+                return lst;
+            }
+
+            foreach (Area item in alist2)
+            {
+                lst.Add(item.Id);
+                lstRecv = GetSubAreas(item.Id, areaList);
+                if (lstRecv != null || lstRecv.Count > 0)
+                {
+                    lst.AddRange(lstRecv);
+                }
+            }
+
+            return lst;
+        }
     }
 }

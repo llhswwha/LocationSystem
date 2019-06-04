@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
+  <xs:complexType name="AreaNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Children" nillable="true" type="tns:ArrayOfAreaNode" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LeafNodes" nillable="true" type="tns:ArrayOfDevNode" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Persons" nillable="true" type="tns:ArrayOfPersonNode" />
+      <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalDevCount" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalPersonCount" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Type" type="q1:AreaTypes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AreaNode" nillable="true" type="tns:AreaNode" />
+  <xs:complexType name="ArrayOfAreaNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AreaNode" nillable="true" type="tns:AreaNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAreaNode" nillable="true" type="tns:ArrayOfAreaNode" />
+  <xs:complexType name="ArrayOfDevNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DevNode" nillable="true" type="tns:DevNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDevNode" nillable="true" type="tns:ArrayOfDevNode" />
+  <xs:complexType name="DevNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DevID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TypeCode" type="xs:int" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DevNode" nillable="true" type="tns:DevNode" />
+  <xs:complexType name="ArrayOfPersonNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonNode" nillable="true" type="tns:PersonNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonNode" nillable="true" type="tns:ArrayOfPersonNode" />
+  <xs:complexType name="PersonNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Parent" nillable="true" type="q2:Department" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q3:Tag" />
+      <xs:element minOccurs="0" name="TagId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PersonNode" nillable="true" type="tns:PersonNode" />
+</xs:schema>

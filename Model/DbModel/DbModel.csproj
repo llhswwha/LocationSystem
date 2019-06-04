@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSetting.cs" />
     <Compile Include="CADEntitys\CADAreaList.cs" />
     <Compile Include="CADEntitys\CADEntity.cs" />
     <Compile Include="CADEntitys\CADPoint.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Location\AreaAndDev\Picture.cs" />
     <Compile Include="Location\AreaAndDev\Shape.cs" />
     <Compile Include="Location\Authorizations\CardRole.cs" />
+    <Compile Include="Location\Manage\User.cs" />
     <Compile Include="Location\Settings\ArchorSetting.cs" />
     <Compile Include="Location\AreaAndDev\HomePagePicture.cs" />
     <Compile Include="Location\Work\PatrolPoint.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\DoorAccessList.cs" />
     <Compile Include="Tools\InitInfos\EntranceGuardCardInfoBackup.cs.cs" />
+    <Compile Include="Tools\InitInfos\FireFightDevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />
     <Compile Include="Tools\InitInfos\LocationDevices.cs" />
     <Compile Include="Tools\InitInfos\PersonnelInfoBackup.cs.cs" />

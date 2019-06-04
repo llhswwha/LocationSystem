@@ -61,7 +61,18 @@ namespace LocationServices.Converters
             item2.Code = item1.Code;
             item2.Name = item1.Name;
             item2.Describe = item1.Describe;
-            item2.CardRoleId = item1.CardRoleId;
+            int roleId = item1.CardRoleId;
+
+            if(roleId == 0)
+            {
+                item2.CardRoleId = null;
+            }
+            else
+            {
+                item2.CardRoleId = roleId;
+            }
+
+            //item2.CardRoleId = roleId;
             item2.IsActive = item1.IsActive;
             return item2;
         }

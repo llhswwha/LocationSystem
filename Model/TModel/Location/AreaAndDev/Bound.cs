@@ -326,6 +326,7 @@ namespace Location.TModel.Location.AreaAndDev
 
         public void SetMinMaxXY()
         {
+            if (Points == null) return;
             SetMinMaxXY(Points.ToArray());
         }
 

@@ -42,16 +42,19 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="AlarmTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="AreaId" type="xs:int" />
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Dev" nillable="true" type="q6:DevInfo" />
       <xs:element minOccurs="0" name="DevId" type="xs:int" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DevTypeCode" type="xs:int" />
+      <xs:element minOccurs="0" name="DevTypeName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Device_desc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Level" type="q7:Abutment_DevAlarmLevel" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Level" type="q6:Abutment_DevAlarmLevel" />
       <xs:element minOccurs="0" name="LevelName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Src" type="q8:Abutment_DevAlarmSrc" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Src" type="q7:Abutment_DevAlarmSrc" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

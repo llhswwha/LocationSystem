@@ -8,6 +8,10 @@ using CommunicationClass.SihuiThermalPowerPlant.Models;
 using BLL;
 using Newtonsoft.Json;
 using NsqSharp.Api;
+using System.Threading;
+using Location.BLL.Tool;
+using DbModel.Location.AreaAndDev;
+using DbModel.Location.Person;
 
 namespace WebNSQLib
 {
@@ -45,42 +49,84 @@ namespace WebNSQLib
             }
         }
 
-        public void SendPositionMsg(List<DbModel.LocationHistory.Data.Position> Info)
-        {
-            string strSendInfo = "";
+        private bool isNsqEnabled = true;
 
+        public void SendPositionMsgAsync(List<DbModel.LocationHistory.Data.Position> Info)
+        {
+            if (isNsqEnabled)
+            {
+                ThreadPool.QueueUserWorkItem((st) =>
+                {
+                    isNsqEnabled=SendPositionMsg(Info);
+                }, null);
+            }
+            else
+            {
+
+            }
+        }
+
+        private List<Area> areaList;
+
+        private List<Personnel> personList;
+
+        private bool isBusy = false;
+
+        public bool SendPositionMsg(List<DbModel.LocationHistory.Data.Position> Info)
+        {
+            if (isBusy) return false;
+            if (personList == null)
+            {
+                personList = bll.Personnels.ToList();
+            }
+            if (areaList == null)
+            {
+                areaList = bll.Areas.ToList();
+            }
             foreach (DbModel.LocationHistory.Data.Position item in Info)
             {
-                position SendInfo = new position();
-
-                if (item.Code == "" || item.AreaId == null)
+                try
                 {
-                    continue;
+                    
+                    position SendInfo = new position();
+                    if (item.Code == "" || item.AreaId == null)
+                    {
+                        continue;
+                    }
+                    SetSendInfo(item, SendInfo);
+                    if (item.PersonnelID != null)
+                    {
+                        var ps = personList.FirstOrDefault(p => p.Id == item.PersonnelID);
+                        if (ps != null)
+                            SendInfo.staffCode = Convert.ToString(ps.WorkNumber);
+                    }
+                    var ae = areaList.FirstOrDefault(p => p.Id == item.AreaId);
+                    if (ae != null)
+                        SendInfo.zoneKksCode = ae.KKS;
+
+                    string strJson = JsonConvert.SerializeObject(SendInfo);
+                    isBusy = true;
+                    string result = producer.Publish("position", strJson);//这里可能会卡住
+                    isBusy = false;
+                    if (result == null) return false;
+                    //producer.Publish("http://127.0.0.1:4151/pub?topic=position", strJson);
                 }
-
-                SendInfo.deviceCode = item.Code;
-                SendInfo.t = item.DateTimeStamp;
-                SendInfo.x = item.X;
-                SendInfo.y = item.Z;
-                SendInfo.z = item.Y;
-                SendInfo.staffCode = null;
-
-                if (item.PersonnelID != null)
+                catch (Exception ex)
                 {
-                    DbModel.Location.Person.Personnel ps = bll.Personnels.DbSet.Where(p => p.Id == item.PersonnelID).FirstOrDefault();
-                    SendInfo.staffCode = Convert.ToString(ps.WorkNumber);
+                    Log.Error("SendPositionMsg", ex);
                 }
-
-                DbModel.Location.AreaAndDev.Area ae = bll.Areas.DbSet.Where(p => p.Id == item.AreaId).FirstOrDefault();
-                SendInfo.zoneKksCode = ae.KKS;
-
-
-                string strJson = JsonConvert.SerializeObject(SendInfo);
-                producer.Publish("position", strJson);
-                //producer.Publish("http://127.0.0.1:4151/pub?topic=position", strJson);
-                strSendInfo = "";
             }
-            return;
+            return true;
+        }
+
+        private static void SetSendInfo(DbModel.LocationHistory.Data.Position item, position SendInfo)
+        {
+            SendInfo.deviceCode = item.Code;
+            SendInfo.t = item.DateTimeStamp;
+            SendInfo.x = item.X;
+            SendInfo.y = item.Z;
+            SendInfo.z = item.Y;
+            SendInfo.staffCode = null;
         }
     }
 }

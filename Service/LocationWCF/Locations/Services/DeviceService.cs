@@ -2,6 +2,7 @@
 using BLL.Blls.Location;
 using DbModel.Tools;
 using IModel.Enums;
+using Location.BLL.Tool;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Tools;
 using LocationServices.Converters;
@@ -170,23 +171,25 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public List<TEntity> GetListByPids(int[] pidList)
+        public List<TEntity> GetListByPids(int[] pidArray)
         {
+            List<int> pidList = pidArray.ToList();
             List<TEntity> devInfoList = new List<TEntity>();
-            DateTime recordT = DateTime.Now;
-            string value = "";
-            //List<DbModel.Location.AreaAndDev.DevInfo> InfoList = new List<DbModel.Location.AreaAndDev.DevInfo>();
-            foreach (var pid in pidList)
-            {
-                devInfoList.AddRange(dbSet.DbSet.Where(item => item.ParentId == pid).ToList().ToTModel());
-                //InfoList.AddRange(dbSet.DbSet.Where(item=>item.ParentId==pid).ToList());
-                value += string.Format("Find dev by id,id:{0} cost time:{1}ms \n",pid,(DateTime.Now-recordT).TotalMilliseconds);
-                recordT = DateTime.Now;
-                //BindingDev(devInfoList);
-            }
-            //devInfoList = InfoList.ToTModel();
-            //value += string.Format("List to TModel,cost time:{0}ms \n", (DateTime.Now - recordT).TotalMilliseconds);
-            Console.WriteLine(value);
+            //DateTime recordT = DateTime.Now;
+            //string value = "";
+            //foreach (var pid in pidList)
+            //{
+            //    var dbDevList = dbSet.DbSet.Where(item => item.ParentId == pid && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
+            //    devInfoList.AddRange(dbDevList.ToTModel());
+            //    value += string.Format("Find dev by id,id:{0} cost time:{1}ms \n",pid,(DateTime.Now-recordT).TotalMilliseconds);
+            //    recordT = DateTime.Now;
+            //    //BindingDev(devInfoList);
+            //}
+            //Log.Info(value);
+            //return devInfoList.ToWCFList();
+
+            var dbDevs = dbSet.DbSet.Where(item => item.ParentId!=null && pidList.Contains((int)item.ParentId) && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
+            devInfoList = dbDevs.ToTModel();
             return devInfoList.ToWCFList();
         }
 
@@ -210,6 +213,11 @@ namespace LocationServices.Locations.Services
         private void BindingDev(List<TEntity> devInfoList)
         {
             BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());
+
+            foreach (var item in devInfoList)
+            {
+                item.TypeName = TypeCodeHelper.GetTypeName(item.TypeCode+"",item.ModelName);
+            }
         }
 
         #region static 

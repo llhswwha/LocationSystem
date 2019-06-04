@@ -61,7 +61,11 @@
             </TabItem>
             <TabItem Header="部分界面信息">
                 <StackPanel>
-                    <Button Name="BtnGetAreaStatistics" Click="BtnGetAreaStatistics_OnClick">获取园区统计信息</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="150" Name="TbStatisticArea" Text="1"></TextBox>
+                        <Button Name="BtnGetAreaStatistics" Click="BtnGetAreaStatistics_OnClick">获取园区统计信息</Button>
+                    </StackPanel>
+                    
                     <Button Name="GetNearbyPerson_Currency" Click="GetNearbyPerson_Currency_OnClick">获取附近人员（通用）</Button>
                     <Button Name="GetNearbyPerson_Alarm" Click="GetNearbyPerson_Alarm_OnClick">获取附近人员（告警）</Button>
                     <Button Name="GetNearbyDev_Currency" Click="GetNearbyDev_Currency_OnClick">获取附近设备（通用）</Button>

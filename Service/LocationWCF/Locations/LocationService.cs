@@ -81,54 +81,6 @@ namespace LocationServices.Locations
             return string.Format("{0}:{1}[{2}]",endpoint.Address,endpoint.Port,context.SessionId);
         }
 
-        public static int count = 0;
-
-        public IList<Tag> GetTags()
-        {
-            ShowLogEx(">>>>> GetTags:"+ count);
-            count++;
-            IList<Tag> tagsT = new TagService(db).GetList(true);
-            //string xml = XmlSerializeHelper.GetXmlText(tagsT);
-            //int length = xml.Length;
-            //ShowLog("<<<<< GetTags:"+ length);
-            return tagsT;
-            //return new TagService(db).GetList(true);
-        }
-
-        public Tag GetTag(int id)
-        {
-            return new TagService(db).GetEntity(id+"");
-        }
-
-        /// <summary>
-        /// 添加标签
-        /// </summary>
-        /// <returns></returns>
-        public bool AddTags(List<Tag> tags)
-        {
-            return new TagService(db).AddList(tags);
-        }
-
-        /// <summary>
-        /// 删除某一个标签
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public bool DeleteTag(int id)
-        {
-            return new TagService(db).Delete(id + "") != null;
-        }
-
-        /// <summary>
-        /// 清空标签数据库表
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public bool DeleteAllTags()
-        {
-            return new TagService(db).DeleteAll();
-        }
-
         /// <summary>
         /// 获取标签实时位置
         /// </summary>

@@ -67,27 +67,30 @@ namespace BLL
         }
 
         // GET: DataInit
-        public void SaveInitInfoXml()
+        public void SaveInitInfoXml(bool containCAD=true)
         {
             Log.InfoStart("SaveInitInfoXml");
-            var root = _bll.GetAreaTree(false);
+            var root = _bll.GetAreaTree(false,null, containCAD);
             InitInfo initInfo = new InitInfo();
-            initInfo.TopoInfo = new TopoInfo(root);
+            initInfo.TopoInfo = new TopoInfo(root, containCAD);
             string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
             XmlSerializeHelper.Save(initInfo, initFile, Encoding.UTF8);
             Log.InfoEnd("SaveInitInfoXml");
         }
 
-        public void ClearTopoTable()
+        public bool ClearTopoTable()
         {
             Log.InfoStart("ClearTopoTable");
-            _bll.Archors.Clear();
-            _bll.DevInfos.Clear();
-            _bll.NodeKKSs.Clear();
-            _bll.Points.Clear();
-            _bll.Areas.Clear();
-            _bll.Bounds.Clear();
+            bool r1=_bll.Archors.Clear();
+            bool r2 = _bll.DevInfos.Clear();
+            bool r3 = _bll.NodeKKSs.Clear();
+            bool r4 = _bll.Points.Clear();
+            bool r5 = _bll.LocationCardPositions.Clear();
+            bool r6 = _bll.Areas.Clear();
+            bool r7 = _bll.Bounds.Clear();
+            bool r = r1 && r2 && r3 && r4 && r5 && r6 && r7;
             Log.InfoEnd("ClearTopoTable");
+             return r;
         }
 
         public void InitTopo(TopoInfo topoInfo)
@@ -125,15 +128,25 @@ namespace BLL
                 bool isRelative = boundInfo.IsRelative;
                 float thickness = boundInfo.Thickness;
                 List<PointInfo> points = boundInfo.Points;
-                if (points != null && points.Count > 0)
+                if (points != null)
                 {
+                    var r = false;
                     if (points.Count == 4) //四边点
                     {
-                        SetInitBound(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        //r = SetInitBound(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+
+                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
                     }
                     else if (points.Count == 2) //对角点
                     {
-                        SetInitBound(chidNode, points[0].X, points[0].Y, points[1].X, points[1].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        //r = SetInitBound(chidNode, points[0].X, points[0].Y, points[1].X, points[1].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+
+                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                    }
+                    else if (points.Count == 0) //没有点
+                    {
+                        List<Point> ps = new List<Point>();
+                        r = SetInitBound(chidNode, ps.ToArray(), thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
                     }
                     else //全部点
                     {
@@ -145,6 +158,14 @@ namespace BLL
                         }
                         SetInitBound(chidNode, ps.ToArray(), thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
                     }
+                }
+                else//没有点
+                {
+                    chidNode.IsRelative = boundInfo.IsRelative;
+                    chidNode.IsCreateAreaByData = boundInfo.IsCreateAreaByData;
+                    chidNode.IsOnAlarmArea = boundInfo.IsOnAlarmArea;
+                    chidNode.IsOnLocationArea = boundInfo.IsOnLocationArea;
+                    Areas.Edit(chidNode);
                 }
             }
         }
@@ -165,7 +186,6 @@ namespace BLL
             _bll.DevInfos.Clear();
             InitLocationDevice();//基站设备
             InitDevInfo();//设备信息（不包含基站设备）  
-            InitCameraInfo();
             InitEntranceGuardCard();
             InitDevMonitorNode();
             Log.InfoEnd("InitAreaAndDev");
@@ -185,7 +205,7 @@ namespace BLL
         /// <summary>
         /// 初始化设备信息
         /// </summary>
-        private void InitDevInfo()
+        public void InitDevInfo(bool isUpgradeFireDev=true)
         {
             Log.Info("导入设备信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -197,14 +217,19 @@ namespace BLL
             string doorAccessFilePath = basePath + "Data\\设备信息\\DoorAccessBackup.xml";
             bool valueSub = DevInfoHelper.ImportDoorAccessInfoFromFile(doorAccessFilePath, _bll);
             Log.Info(string.Format("导入门禁信息结果:{0}", valueSub));
-        }
-        private void InitCameraInfo()
-        {
+
             Log.Info("导入摄像头信息");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
-            bool value = DevInfoHelper.ImportCameraInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入摄像头信息结果:{0}", value));
+            string cameraFilePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
+            bool valueCamera = DevInfoHelper.ImportCameraInfoFromFile(cameraFilePath, _bll);
+            Log.Info(string.Format("导入摄像头信息结果:{0}", valueCamera));
+
+            if(isUpgradeFireDev)
+            {
+                Log.Info("导入消防信息");
+                string FireFightDevfilePath = basePath + "Data\\设备信息\\FireFightInfoBackup.xml";
+                bool valueFireFightDev = DevInfoHelper.ImportFireFightDevInfoFromFile(FireFightDevfilePath, _bll);
+                Log.Info(string.Format("导入设备信息结果:{0}", valueFireFightDev));
+            }            
         }
 
         private void InitEntranceGuardCard()
@@ -467,25 +492,25 @@ namespace BLL
 
         }
 
-        private void SetInitBound(Area topo, double x1, double y1, double x2, double y2, double thicknessT,
+        private bool SetInitBound(Area topo, double x1, double y1, double x2, double y2, double thicknessT,
             bool isRelative = true,
             double bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false,
             bool isOnLocationArea = false)
         {
-            SetInitBound(topo, (float)x1, (float)y1, (float)x2, (float)y2, (float)thicknessT,
+            return SetInitBound(topo, (float)x1, (float)y1, (float)x2, (float)y2, (float)thicknessT,
                 isRelative,
                 (float)bottomHeightT, isOnNormalArea, isOnAlarmArea,
                 isOnLocationArea);
         }
 
-        private void SetInitBound(Area topo, float x1, float y1, float x2, float y2, float thicknessT, bool isRelative = true,
+        private bool SetInitBound(Area topo, float x1, float y1, float x2, float y2, float thicknessT, bool isRelative = true,
             float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
         {
             Bound initBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
             Bound editBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
             var transfrom = new TransformM(initBound);
-            Bounds.Add(initBound);
-            Bounds.Add(editBound);
+            var b1 = Bounds.Add(initBound);
+            var b2 = Bounds.Add(editBound);
             transfrom.IsCreateAreaByData = isOnNormalArea;
             transfrom.IsOnAlarmArea = isOnAlarmArea;
             transfrom.IsOnLocationArea = isOnLocationArea;
@@ -494,26 +519,47 @@ namespace BLL
             topo.SetTransform(transfrom);
             topo.InitBound = initBound;
             topo.EditBound = editBound;
-            Areas.Edit(topo);
+            var b3 = Areas.Edit(topo);
+            return b1 && b2 && b3;
         }
 
-        public void SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
+        private async void SetInitBoundAsync(Area topo, float x1, float y1, float x2, float y2, float thicknessT, bool isRelative = true,
+            float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
+        {
+            Bound initBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
+            Bound editBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
+            var transfrom = new TransformM(initBound);
+            var b1 = await Bounds.AddAsync(initBound);
+            var b2 = await Bounds.AddAsync(editBound);
+            transfrom.IsCreateAreaByData = isOnNormalArea;
+            transfrom.IsOnAlarmArea = isOnAlarmArea;
+            transfrom.IsOnLocationArea = isOnLocationArea;
+            //TransformMs.Add(transfrom);
+
+            topo.SetTransform(transfrom);
+            topo.InitBound = initBound;
+            topo.EditBound = editBound;
+            var b3 = Areas.EditAsync(topo);
+            //var b = b1 && b2 && b3;
+        }
+
+        public bool SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
             float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
         {
             Bound initBound = new Bound(points, bottomHeightT, thicknessT, isRelative);
             Bound editBound = new Bound(points, bottomHeightT, thicknessT, isRelative);
             var transfrom = new TransformM(initBound);
-            Bounds.Add(initBound);
-            Bounds.Add(editBound);
+            var b1=Bounds.Add(initBound);
+            var b2 = Bounds.Add(editBound);
             transfrom.IsCreateAreaByData = isOnNormalArea;
             transfrom.IsOnAlarmArea = isOnAlarmArea;
             transfrom.IsOnLocationArea = isOnLocationArea;
             //TransformMs.Add(transfrom);
-
             topo.SetTransform(transfrom);
             topo.InitBound = initBound;
             topo.EditBound = editBound;
-            Areas.Edit(topo);
+            var b3=Areas.Edit(topo);
+            return b1 && b2 && b3;
         }
 
         #endregion
@@ -596,7 +642,7 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(kks))
             {
-                KKSCode kksCode = KKSCodes.DbSet.FirstOrDefault(i => i.Name.Contains(name));
+                KKSCode kksCode = KKSCodes.DbSet.FirstOrDefault(i => i.Name.Contains(name) && i.MainType=="土建");
                 if (kksCode != null)
                 {
                     kks = kksCode.Code;
@@ -676,6 +722,11 @@ namespace BLL
             archor1.DevInfo = archor1Dev;
             DevInfos.Add(archor1Dev);
             Archors.Add(archor1);
+        }
+
+        public void PubInitDevMonitorNode()
+        {
+            InitDevMonitorNode();
         }
 
         private void InitDevMonitorNode()

@@ -49,7 +49,7 @@ namespace DbModel.Location.Work
         /// </summary>
         [DataMember]
         [Display(Name = "设备KKS编码")]
-        [MaxLength(16)]
+        [MaxLength(128)]
         public string KksCode { get; set; }
 
         /// <summary>

@@ -32,8 +32,11 @@
                         <WPFClientControlLib:PointControl x:Name="TbZero"/>
                     </DockPanel>
                     <DockPanel>
-                        <Label Width="100">中心坐标</Label>
-                        <WPFClientControlLib:PointControl x:Name="TbCenterPosition"/>
+                        <ComboBox Width="100" SelectedIndex="0" Name="CbPostionType">
+                            <ComboBoxItem>中心坐标</ComboBoxItem>
+                            <ComboBoxItem>左下角坐标</ComboBoxItem>
+                        </ComboBox>
+                        <WPFClientControlLib:PointControl x:Name="TbPosition"/>
                     </DockPanel>
                     <DockPanel>
                         <Label Width="100">大小</Label>

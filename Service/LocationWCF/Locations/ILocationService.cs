@@ -27,7 +27,9 @@ namespace LocationServices.Locations
         Ibus_tag,
         IPictureService,
         IAreaService,
-        IInitDbService
+        IInitDbService,
+        ICardRoleService,
+        IAuthorizationService
     {
         [OperationContract]
         UnitySetting GetUnitySetting();

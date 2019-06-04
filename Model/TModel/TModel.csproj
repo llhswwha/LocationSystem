@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseData\EntityList.cs" />
+    <Compile Include="BaseData\Page.cs" />
+    <Compile Include="BaseData\ReturnInfo.cs" />
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />

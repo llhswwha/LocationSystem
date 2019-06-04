@@ -101,12 +101,25 @@ namespace LocationServices.Locations.Services
                             from p2 in pLst.DefaultIfEmpty()
                             select new { Tag = tag, Person = p2, Pos = pos2 };
                 var result = query.ToList();
+
+                var list2 = new List<int>();
+
                 foreach (var item in query)
                 {
-                    var entity = item.Tag.ToTModel();
-                    entity.Person = item.Person.ToTModel();
-                    entity.Pos = item.Pos.ToTModel();
-                    list.Add(entity);
+                    if (!list2.Contains(item.Tag.Id))
+                    {
+                        list2.Add(item.Tag.Id);
+
+                        var entity = item.Tag.ToTModel();
+                        entity.Person = item.Person.ToTModel();
+                        if (item.Pos != null)
+                        {
+                            item.Pos.SetState();
+                        }
+                        entity.Pos = item.Pos.ToTModel();
+                        list.Add(entity);
+                    }
+                    
                 }
                 return list.ToWCFList() ;
             }

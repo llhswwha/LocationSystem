@@ -49,10 +49,9 @@ namespace LocationServer.Windows
             areaService = new AreaService(bll);
             aarService = new AreaAuthorizationRecordService(bll);
             aaService=new AreaAuthorizationService(bll);
-
             if (_role != null)
             {
-                var list1 = aarService.GetListByRole(_role.Id + "");
+                var list1 = aarService.GetAccessListByRole(_role.Id + "");
                 var aaIds = new List<int>();
                 foreach (var item in list1)
                 {
@@ -156,17 +155,33 @@ namespace LocationServer.Windows
             win.ShowOkButton();
             if (win.ShowDialog() == true)
             {
-                var roles = win.GetSelectedRoles();
-                foreach (var role in roles)
+                //var roles = win.GetSelectedRoles();
+                //foreach (var role in roles)
+                //{
+                //    AreaAuthorizationRecord aar = new AreaAuthorizationRecord(aa, role);
+                //    if (aarService.Post(aar) == null)
+                //    {
+                //        MessageBox.Show("分配权限失败");
+                //        break;
+                //    }
+                //}
+
+                var role = win.Role;
+                if (role != null)
                 {
                     AreaAuthorizationRecord aar = new AreaAuthorizationRecord(aa, role);
                     if (aarService.Post(aar) == null)
                     {
                         MessageBox.Show("分配权限失败");
-                        break;
+
                     }
                 }
             }
+        }
+
+        private void TopoTreeView1_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

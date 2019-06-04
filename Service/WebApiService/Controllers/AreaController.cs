@@ -65,9 +65,9 @@ namespace WebApiService.Controllers
         }
 
         [Route("tree/withDev")]
-        public TEntity GetTreeWithDev()
+        public TEntity GetTreeWithDev(bool containCAD = false)
         {
-            return service.GetTreeWithDev();
+            return service.GetTreeWithDev(containCAD);
         }
 
         [Route("tree/withPerson")]

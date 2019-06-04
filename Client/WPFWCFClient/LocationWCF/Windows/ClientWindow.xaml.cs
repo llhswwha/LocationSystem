@@ -25,6 +25,7 @@ using TModel.Location.Work;
 using Location.TModel.Location.Person;
 using System.Windows.Threading;
 using System.IO;
+using TModel.Tools;
 
 namespace LocationWCFClient.Windows
 {
@@ -56,7 +57,7 @@ namespace LocationWCFClient.Windows
              var devList = client.GetDevInfos(null);
             DeviceListBox1.LoadData(devList);
 
-            var personList = client.GetPersonList();
+            var personList = client.GetPersonList(false);
             PersonListBox1.LoadData(personList);
 
             var tagList = client.GetTags();
@@ -96,6 +97,7 @@ namespace LocationWCFClient.Windows
 
         private void ShowDeviceAlarms(DeviceAlarm[] devAlarms)
         {
+            if (devAlarms == null) return;
             DeviceAlarms.AddRange(devAlarms);
             DeviceAlarmListBox1.LoadData(DeviceAlarms.ToArray());
         }
@@ -225,11 +227,23 @@ namespace LocationWCFClient.Windows
 
         private void BtnGetAreaStatistics_OnClick(object sender, RoutedEventArgs e)
         {
-            AreaStatistics recv = client.GetAreaStatistics(1);
-            int PersonNum = recv.PersonNum;
-            int DevNum = recv.DevNum;
-            int LocationAlarmNum = recv.LocationAlarmNum;
-            int DevAlarmNum = recv.DevAlarmNum;
+            try
+            {
+                DateTime start = DateTime.Now;
+                AreaStatistics recv = client.GetAreaStatistics(TbStatisticArea.Text.ToInt());
+                int PersonNum = recv.PersonNum;
+                int DevNum = recv.DevNum;
+                int LocationAlarmNum = recv.LocationAlarmNum;
+                int DevAlarmNum = recv.DevAlarmNum;
+                TimeSpan time = DateTime.Now - start;
+
+                MessageBox.Show(string.Format("PersonNum:{0};DevNum:{1};LocationAlarmNum:{2};DevAlarmNum:{3}.Time:{4}", PersonNum, DevNum, LocationAlarmNum, DevAlarmNum, time));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private void GetNearbyPerson_Currency_OnClick(object sender, RoutedEventArgs e)

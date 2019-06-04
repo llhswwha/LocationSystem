@@ -161,7 +161,8 @@ namespace BLL
             //var tagRelation = new TagRelationBuffer(this);
             if (tagRelation == null)
             {
-                tagRelation = new TagRelationBuffer();
+                //tagRelation = new TagRelationBuffer();
+                tagRelation = TagRelationBuffer.Instance();
             }
             tagRelation.SetPositionInfo(positions2);
             //3.写入数据库

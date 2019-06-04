@@ -31,5 +31,10 @@ namespace WPFClientControlLib
             DataGrid1.ItemsSource = null;
             DataGrid1.ItemsSource = list;
         }
+
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

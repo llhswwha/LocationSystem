@@ -25,7 +25,19 @@ namespace LocationServices.Tools
 {
     public class PositionEngineClient
     {
-        public PositionEngineClient()
+        public static PositionEngineClient Single = null;
+
+        public static PositionEngineClient Instance()
+        {
+            if (Single == null)
+            {
+                Single = new PositionEngineClient();
+            }
+
+            return Single;
+        }
+        
+        private PositionEngineClient()
         {
             StaticEvents.DbDataChanged += StaticEvents_DbDataChanged;
         }
@@ -145,6 +157,28 @@ namespace LocationServices.Tools
             return DateTime.Now.ToString("HH:mm:ss.fff") + ":" + msg;
         }
 
+        /// <summary>
+        /// 删除重复的数据
+        /// </summary>
+        /// <param name="list1"></param>
+        /// <returns></returns>
+        private List<Position> RemoveRepeatPosition(List<Position> list1)
+        {
+            Dictionary<string, Position> dict = new Dictionary<string, Position>();
+            foreach (Position pos in list1)
+            {
+                if (pos == null) continue;
+                try
+                {
+                    dict[pos.Code] = pos;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("RemoveRepeatPosition", ex);
+                }
+            }
+            return dict.Values.ToList();
+        }
 
         private void InsertPostions()
         {
@@ -156,6 +190,8 @@ namespace LocationServices.Tools
                     
                     try
                     {
+                        Positions = RemoveRepeatPosition(Positions);//删除重复的数据 这个原来在InsertPostions也有
+
                         List<Position> posList2 = new List<Position>();
                         posList2.AddRange(Positions);
                         if (InsertPostions(posList2))
@@ -171,6 +207,7 @@ namespace LocationServices.Tools
                     catch (Exception ex)
                     {
                         Log.Error("InsertPostions", ex);
+                        Positions.Clear();
                     }
 
                     isBusy = false;
@@ -186,7 +223,7 @@ namespace LocationServices.Tools
         Bll bll;
 
         AuthorizationBuffer ab;
-
+        
         private bool InsertPostions(List<Position> list1)
         {
             //if (list1.Count < 20) return false;
@@ -199,7 +236,7 @@ namespace LocationServices.Tools
             }
             if (ab == null)
             {
-                ab = new AuthorizationBuffer(bll);
+                ab = AuthorizationBuffer.Instance(bll);
             }
             //using (var bll = GetLocationBll())
             {
@@ -273,7 +310,8 @@ namespace LocationServices.Tools
             {
                 nsq = new SynchronizedPosition(LocationService.url + ":4151");
             }
-            nsq.SendPositionMsg(posList);
+
+            nsq.SendPositionMsgAsync(posList);
         }
 
         public bool Stop()

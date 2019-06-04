@@ -6,6 +6,7 @@ using SQLite.CodeFirst;
 using DAL.LocationDbMigrations;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Work;
+using DbModel.Location.Manage;
 
 namespace DAL
 {
@@ -20,11 +21,13 @@ namespace DAL
         public LocationDb() : base(Name)
         {
             IsCreateDb = true;
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public LocationDb(bool isCreateDb) : base(Name)
         {
             IsCreateDb = isCreateDb;
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public bool IsCreateDb { get; set; }
@@ -141,5 +144,7 @@ namespace DAL
         public DbSet<PatrolPointItem> PatrolPointItems { get; set; }
 
         public DbSet<HomePagePicture> HomePagePictures { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

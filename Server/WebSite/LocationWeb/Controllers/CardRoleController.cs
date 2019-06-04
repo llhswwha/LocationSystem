@@ -20,12 +20,17 @@ using Webdiyer.WebControls.Mvc;
 using WebLocation.Tools;
 using DbModel.Location.Authorizations;
 using LocationServices.Locations.Services;
+using WArea = WModel.Location.AreaAndDev.Area;
+using Newtonsoft.Json;
+using LocationServices.Locations;
 
 namespace WebLocation.Controllers
 {
     public class CardRoleController : Controller
     {
+        private Bll bll2 = new Bll(false, false, false, false);
         private Bll db = new Bll();
+        private Bll bll = new Bll();
         //private int pageSize = StaticArgs.DefaultPageSize;
         //private int pageSize = 4;
 
@@ -36,6 +41,34 @@ namespace WebLocation.Controllers
             return View(cardRoleList);
             //PagedList<CardRole> lst = db.CardRoles.ToList().ToPagedList<CardRole>(pageIndex, pageSize);            
             //return View("Index", lst);
+        }
+
+        private void GetListToViewBag()
+        {
+            List<Area> Pts = bll.Areas.ToList();
+            SelectList PtList = new SelectList(Pts, "Id", "Name");
+            ViewBag.PtList = PtList.AsEnumerable();
+        }
+
+        public string GetPartAreaList()
+        {
+            List<Area> lst = bll2.Areas.ToList();
+            List<WArea> wlst = new List<WModel.Location.AreaAndDev.Area>();
+            foreach (Area item in lst)
+            {
+                WArea area = new WArea();
+                area.id = item.Id;
+                if (item.ParentId != null)
+                {
+                    area.pId = (int)item.ParentId;
+                }
+                area.name = item.Name;
+                wlst.Add(area);
+            }
+
+            string treeList = JsonConvert.SerializeObject(wlst);
+            return treeList;
+
         }
 
         // GET: CardRole/Details/5
@@ -50,13 +83,17 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
-
+            var areas = new LocationService().GetCardRoleAccessAreas(cardRole.Id);
+            if(areas!=null)
+                cardRole.AreaIds = areas.ToArray();
+            GetListToViewBag();
             return PartialView(cardRole);
         } 
         
         //GET: CardRoles/Create
         public ActionResult Create()
         {
+            GetListToViewBag();
             return PartialView();
         }
 
@@ -72,6 +109,10 @@ namespace WebLocation.Controllers
                 var result = db.CardRoles.Add(cardRole);
                 if (result)
                 {
+                    if (cardRole.AreaIds!=null && cardRole.AreaIds.Length > 0)
+                    {
+                        var result2 = new LocationService().SetCardRoleAccessAreas(cardRole.Id, cardRole.AreaIds.ToList());
+                    }                
                     return Json(new { success = result });
                 }
                 else
@@ -79,6 +120,7 @@ namespace WebLocation.Controllers
                     return Json(new { success = result, errors = db.CardRoles.ErrorMessage });
                 }
             }
+            GetListToViewBag();
             return View(cardRole);
         }
 
@@ -94,6 +136,10 @@ namespace WebLocation.Controllers
             {
                 return HttpNotFound();
             }
+            var areas = new LocationService().GetCardRoleAccessAreas(cardRole.Id);
+            if (areas != null)
+                cardRole.AreaIds = areas.ToArray();
+            GetListToViewBag();
             return PartialView(cardRole);
         }
 
@@ -109,6 +155,10 @@ namespace WebLocation.Controllers
                 var result = db.CardRoles.Edit(cardRole);
                 if (result)
                 {
+                    if (cardRole.AreaIds != null && cardRole.AreaIds.Length > 0)
+                    {
+                        var result2 = new LocationService().SetCardRoleAccessAreas(cardRole.Id, cardRole.AreaIds.ToList());
+                    }
                     return Json(new { success = result });
                 }
                 else
@@ -116,6 +166,7 @@ namespace WebLocation.Controllers
                     return Json(new { success = result, erroes = db.CardRoles.ErrorMessage });
                 }
             }
+            GetListToViewBag();
             return View(cardRole);
         }
 

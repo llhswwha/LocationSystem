@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using DbModel.Location.AreaAndDev;
+using TModel.Tools;
 
 namespace Location.Model.InitInfos
 {
@@ -51,11 +52,17 @@ namespace Location.Model.InitInfos
 
         public BoundInfo(Bound bound):this()
         {
+            SetBound(bound);
+        }
+
+        private void SetBound(Bound bound)
+        {
             if (bound != null)
             {
-                Thickness = bound.MaxZ - bound.MinZ;
+                Thickness = (float)((decimal)bound.MaxZ - (decimal)bound.MinZ);
                 IsRelative = bound.IsRelative;
-
+                BottomHeight = bound.MinZ;
+                
                 if (bound.Points != null)
                     foreach (Point point in bound.Points)
                     {
@@ -65,6 +72,23 @@ namespace Location.Model.InitInfos
                 //{
                 //    Points.Add(new PointInfo());
                 //}
+            }
+        }
+
+        public BoundInfo(Area topo) : this()
+        {
+            if(topo.Name== "集控楼13.1m层")
+            {
+
+            }
+            if (topo != null)
+            {
+                IsRelative = topo.IsRelative;
+                IsCreateAreaByData = topo.IsCreateAreaByData;
+                IsOnAlarmArea = topo.IsOnAlarmArea;
+                IsOnLocationArea = topo.IsOnLocationArea;
+
+                SetBound(topo.InitBound);
             }
         }
     }

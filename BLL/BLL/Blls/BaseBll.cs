@@ -1,9 +1,12 @@
-﻿using Location.BLL.Tool;
+﻿using BLL.Tools;
+using Location.BLL.Tool;
 using Location.IModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
@@ -11,7 +14,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
-
+using System.Threading.Tasks;
 
 namespace BLL.Blls
 {
@@ -73,14 +76,15 @@ namespace BLL.Blls
             if (DbSet == null) return false;
             if (item == null) return false;
             DbSet.Add(item);
-            if (isSave)
-            {
-                return Save();
-            }
-            else
-            {
-                return true;
-            }
+            return Save(isSave);
+        }
+
+        public virtual async Task<bool> AddAsync(T item, bool isSave = true)
+        {
+            if (DbSet == null) return false;
+            if (item == null) return false;
+            DbSet.Add(item);
+            return await SaveAsync(isSave);
         }
 
         public virtual bool AddOrUpdate(T item, bool isSave = true)
@@ -88,18 +92,39 @@ namespace BLL.Blls
             if (DbSet == null) return false;
             if (item == null) return false;
             DbSet.AddOrUpdate(item);
-            if (isSave)
-            {
-                return Save();
-            }
-            else
-            {
-                return true;
-            }
+            return Save(isSave);
         }
 
-        public bool Save()
+        private string GetErrorMessage(DbEntityValidationException ex)
         {
+            StringBuilder errors = new StringBuilder();
+            IEnumerable<DbEntityValidationResult> validationResult = ex.EntityValidationErrors;
+            foreach (DbEntityValidationResult result in validationResult)
+            {
+                ICollection<DbValidationError> validationError = result.ValidationErrors;
+                foreach (DbValidationError err in validationError)
+                {
+                    errors.Append(err.PropertyName + ":" + err.ErrorMessage + "\r\n");
+                }
+            }
+            return errors.ToString();
+        }
+
+        private string GetErrorMessage(DbUpdateException ex)
+        {
+            Exception innerEx = ex.InnerException;
+            while (innerEx is DbUpdateException || innerEx is UpdateException)
+            {
+                if (innerEx.InnerException == null) break;
+                innerEx = innerEx.InnerException;
+            }
+            Log.Error("BaseBll.Save DbUpdateException", innerEx);
+            return innerEx.ToString();
+        }
+
+        public bool Save(bool isSave)
+        {
+            if (isSave == false) return true;
             try
             {
                 int r = Db.SaveChanges();
@@ -107,35 +132,42 @@ namespace BLL.Blls
             }
             catch (DbEntityValidationException ex)
             {
-                StringBuilder errors = new StringBuilder();
-                IEnumerable<DbEntityValidationResult> validationResult = ex.EntityValidationErrors;
-                foreach (DbEntityValidationResult result in validationResult)
-                {
-                    ICollection<DbValidationError> validationError = result.ValidationErrors;
-                    foreach (DbValidationError err in validationError)
-                    {
-                        errors.Append(err.PropertyName + ":" + err.ErrorMessage + "\r\n");
-                    }
-                }
-                ErrorMessage = errors.ToString();
-                //Console.WriteLine(ErrorMessage);
+                ErrorMessage = GetErrorMessage(ex);
                 Log.Error("BaseBll.Save DbEntityValidationException:\n" + ErrorMessage);
-                //简写
-                //var validerr = ex.EntityValidationErrors.First().ValidationErrors.First();
-                //Console.WriteLine(validerr.PropertyName + ":" + validerr.ErrorMessage);
-
                 return false;
             }
             catch (DbUpdateException ex)
             {
-                Exception innerEx = ex.InnerException;
-                while (innerEx is DbUpdateException || innerEx is UpdateException)
-                {
-                    if (innerEx.InnerException == null) break;
-                    innerEx = innerEx.InnerException;
-                }
-                Log.Error("BaseBll.Save DbUpdateException", innerEx);
-                ErrorMessage = innerEx.ToString();
+                ErrorMessage = GetErrorMessage(ex);
+                Log.Error("BaseBll.Save DbUpdateException:\n"+ErrorMessage);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("BaseBll.Save Exception", ex);
+                ErrorMessage = ex.ToString();
+                return false;
+            }
+        }
+
+        public async Task<bool> SaveAsync(bool isSave)
+        {
+            if (isSave == false) return true;
+            try
+            {
+                int r = await Db.SaveChangesAsync();
+                return r > 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                ErrorMessage = GetErrorMessage(ex);
+                Log.Error("BaseBll.Save DbEntityValidationException:\n" + ErrorMessage);
+                return false;
+            }
+            catch (DbUpdateException ex)
+            {
+                ErrorMessage = GetErrorMessage(ex);
+                Log.Error("BaseBll.Save DbUpdateException:\n" + ErrorMessage);
                 return false;
             }
             catch (Exception ex)
@@ -239,7 +271,7 @@ namespace BLL.Blls
                 T obj = DbSet.Find(id);
                 if (obj == null) return null;
                 DbSet.Remove(obj);
-                bool r= Save();
+                bool r= Save(true);
                 if (r)
                 {
                     return obj;
@@ -259,18 +291,15 @@ namespace BLL.Blls
 
         public bool RemoveList(List<T> list)
         {
-            //foreach (T item in list)
-            //{
-            //    DbSet.Remove(item);
-            //}
-            //return Save();
-
-            //Db.BulkDelete(list);
             if (list == null) return false;
+            if (list.Count == 0) return true;
             try
             {
-                Db.BulkDelete(list);
-                return true;
+                //Db.BulkDelete(list);
+                //return true;
+
+                DbSet.RemoveRange(list);
+                return Save(true);
             }
             catch (Exception ex)
             {
@@ -295,14 +324,7 @@ namespace BLL.Blls
             {
                 ErrorMessage = "";
                 DbSet.Remove(obj);
-                if (isSave)
-                {
-                    return Save();
-                }
-                else
-                {
-                    return true;
-                }
+                return Save(isSave);
             }
             catch (Exception ex)
             {
@@ -316,7 +338,21 @@ namespace BLL.Blls
         {
             List<T> list = ToList(true);
             return RemoveList(list);
+            //老的
+
+            //bool r = Db.DeleteAllRows<T>();
+            ////bool r = Db.DropTable<T>();
+            //if (r == false)
+            //{
+            //    var ex = EFExtensions.Exception.Message;
+            //    List<T> list = ToList(true);
+            //    if (list == null) return false;
+            //    DbSet.RemoveRange(list);
+            //    return Save(true);
+            //}
+            //return r;
         }
+       
 
         public virtual bool Edit(T entity,bool isSave=true)
         {
@@ -326,14 +362,7 @@ namespace BLL.Blls
                 if (DbSet == null) return false;
                 DbEntityEntry<T> entry = Db.Entry<T>(entity);
                 entry.State = EntityState.Modified;
-                if (isSave)
-                {
-                    return Save();
-                }
-                else
-                {
-                    return true;
-                }
+                return Save(isSave);
             }
             catch (Exception ex)
             {
@@ -341,7 +370,24 @@ namespace BLL.Blls
                 ErrorMessage = ex.ToString();
                 return false;
             }
+        }
 
+        public virtual async Task<bool> EditAsync(T entity, bool isSave = true)
+        {
+            try
+            {
+                ErrorMessage = "";
+                if (DbSet == null) return false;
+                DbEntityEntry<T> entry = Db.Entry<T>(entity);
+                entry.State = EntityState.Modified;
+                return await SaveAsync(isSave);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("BaseBll.Edit", ex);
+                ErrorMessage = ex.ToString();
+                return false;
+            }
         }
 
         public virtual bool AddRange(TDb Db, IEnumerable<T> list)

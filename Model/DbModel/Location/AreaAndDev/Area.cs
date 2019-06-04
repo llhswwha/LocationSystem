@@ -41,14 +41,30 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(32)]
         [Required]
         public string Name { get; set; }
-        
+
+        private string _kks = null;
+
         /// <summary>
         /// KKS编码
         /// </summary>
         [DataMember]
         [Display(Name = "KKS编码")]
-        [MaxLength(32)]
-        public string KKS { get; set; }
+        [MaxLength(128)]
+        public string KKS
+        {
+            get
+            {
+                return _kks;
+            }
+            set
+            {
+                _kks = value;
+                if(_kks== "J0CYE11EG901")
+                {
+
+                }
+            }
+        }
 
         public Area FindChild(int? id)
         {

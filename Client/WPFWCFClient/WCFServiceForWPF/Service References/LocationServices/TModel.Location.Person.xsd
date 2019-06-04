@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.Person" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.Person" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfNearbyPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NearbyPerson" nillable="true" type="tns:NearbyPerson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNearbyPerson" nillable="true" type="tns:ArrayOfNearbyPerson" />
+  <xs:complexType name="NearbyPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DepartMent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Distance" type="xs:float" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Position" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkNumber" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NearbyPerson" nillable="true" type="tns:NearbyPerson" />
+</xs:schema>

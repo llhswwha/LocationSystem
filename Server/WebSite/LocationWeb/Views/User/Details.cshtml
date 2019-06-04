@@ -1,0 +1,116 @@
+﻿@model DbModel.Location.Manage.User
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+    <h2 class="modal-title" id="myModalLabel">Details</h2>
+</div>
+
+<div class="modal-body">
+    @using (@Ajax.BeginForm(new AjaxOptions() { HttpMethod = "Post", OnSuccess = "saveSuccess(data)" }))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h4>User</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Password)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Password)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsEncrypted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IsEncrypted)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Session)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Session)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Authority)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Authority)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Result)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Result)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ClientIp)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ClientIp)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ClientPort)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ClientPort)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LoginTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LoginTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LiveTime)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LiveTime)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Ajax.ActionLink("编辑", "Edit", "User", new { id = Model.Id }, new AjaxOptions
+                {
+                    HttpMethod = "Get",
+                    UpdateTargetId = "modalContent",
+                    InsertionMode = InsertionMode.Replace,
+                    OnBegin = "onBegin",
+                    OnSuccess = "onSuccess",
+                    OnFailure = "onFailure",
+                    OnComplete = "onComplete"
+                }) |
+            @Html.ActionLink("返 回", "Index")
+        </p>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

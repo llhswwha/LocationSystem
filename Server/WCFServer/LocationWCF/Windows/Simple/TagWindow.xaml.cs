@@ -50,7 +50,7 @@ namespace LocationServer.Windows
         {
             var tag = DataGrid1.SelectedItem as Tag;
             if (tag == null) return;
-            var win = new CardRoleWindow();
+            var win = new CardRoleWindow(tag.CardRoleId);
             win.ShowOkButton();
             if (win.ShowDialog()==true)
             {

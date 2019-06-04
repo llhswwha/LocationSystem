@@ -106,6 +106,7 @@ namespace BLL.Tools
             dev.Local_DevID = Guid.NewGuid().ToString();
             dev.IP = "";
             dev.KKS = "";
+            dev.Abutment_DevID = locationDev.Abutment_DevID;
             dev.Name = locationDev.Name;
             dev.ModelName = area.Name==DepNames.FactoryName?TypeNames.ArchorOutdoor:TypeNames.Archor;//室外基站||室内基站
             dev.Status = 0;

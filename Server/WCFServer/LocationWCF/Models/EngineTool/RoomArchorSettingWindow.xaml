@@ -80,6 +80,10 @@
                 <Label Width="100" DockPanel.Dock="Left">绝对坐标(CAD)*</Label>
                 <WPFClientControlLib:PointControl x:Name="PcAbsolute"/>
             </DockPanel>
+            <DockPanel>
+                <Label Width="100" DockPanel.Dock="Left">测量坐标</Label>
+                <WPFClientControlLib:PointControl x:Name="PcMeasure"/>
+            </DockPanel>
             <StackPanel>
                 <Button Name="BtnSave" Click="BtnSave_Click">保存</Button>
                 <!--<Button Name="BtnRefresh" Click="BtnRefresh_Click">刷新视图</Button>-->

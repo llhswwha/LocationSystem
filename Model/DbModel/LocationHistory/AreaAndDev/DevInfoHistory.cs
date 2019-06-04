@@ -51,7 +51,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         /// </summary>
         [DataMember]
         [Display(Name = "KKS编码")]
-        [MaxLength(32)]
+        [MaxLength(128)]
         public string KKS { get; set; }
 
 

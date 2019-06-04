@@ -22,6 +22,7 @@ using Point = Location.TModel.Location.AreaAndDev.Point;
 using Bound = Location.TModel.Location.AreaAndDev.Bound;
 using TModel.Location.Person;
 using System.Diagnostics;
+using Location.TModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
@@ -29,7 +30,7 @@ namespace LocationServices.Locations.Services
     {
         IList<TEntity> GetListWithPerson();
 
-        TEntity GetTreeWithDev();
+        TEntity GetTreeWithDev(bool containCAD = false);
         TEntity GetTreeWithPerson();
 
         /// <summary>
@@ -94,14 +95,65 @@ namespace LocationServices.Locations.Services
                          where lst.Contains(t1.AreaId) && t1.AlarmLevel != 0
                          select t1;
 
+            DateTime now = DateTime.Now;
+            DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
+            DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
+            var startStamp = TimeConvert.DateTimeToTimeStamp(todayStart);
+            var endStamp = TimeConvert.DateTimeToTimeStamp(todayEnd);
+
             var query4 = from t1 in db.DevInfos.DbSet
                          join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
-                         where lst.Contains(t1.ParentId)
+                         where lst.Contains(t1.ParentId) && t2.AlarmTimeStamp >= startStamp && t2.AlarmTimeStamp <= endStamp
                          select t2;
 
             var query5 = (from t1 in db.LocationAlarms.DbSet
                          where lst.Contains(t1.AreaId) && t1.AlarmLevel != 0
                          select t1.PersonnelId).Distinct().ToList();
+
+            //var pList = query.ToList();
+            //var dvList = query2.ToList();
+            //var laList = query3.ToList();
+            //var daList = query4.ToList();
+            //var apList = query5.ToList();
+
+            //var ass=new AreaStatistics();
+            //ass.PersonNum= pList.Count;
+            //ass.DevNum = dvList.Count;
+            //ass.LocationAlarmNum = laList.Count;
+            //ass.DevAlarmNum = daList.Count;
+            //ass.AlarmPersonNum = apList.Count();
+
+            var ass = new AreaStatistics();
+            ass.PersonNum = query.Count();
+            ass.DevNum = query2.Count();
+            ass.LocationAlarmNum = query3.Count();
+            ass.DevAlarmNum = query4.Count();
+            ass.AlarmPersonNum = query5.Count();//只需要数量信息，不要用ToList()，避免大量数据时封装到实体类的消耗
+
+            return ass;
+        }
+
+        public AreaStatistics GetAreaStatisticsCount()
+        {
+
+            var query = from t1 in db.LocationCardPositions.DbSet
+                        join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
+                        select t2;
+
+            var query2 = from t1 in db.DevInfos.DbSet
+                         select t1;
+
+            var query3 = from t1 in db.LocationAlarms.DbSet
+                         where t1.AlarmLevel != 0
+                         select t1;
+
+            var query4 = from t1 in db.DevInfos.DbSet
+                         join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
+                         select t2;
+
+            var query5 = (from t1 in db.LocationAlarms.DbSet
+                          where t1.AlarmLevel != 0
+                          select t1.PersonnelId).Distinct().ToList();
 
             var pList = query.ToList();
             var dvList = query2.ToList();
@@ -109,8 +161,8 @@ namespace LocationServices.Locations.Services
             var daList = query4.ToList();
             var apList = query5.ToList();
 
-            var ass=new AreaStatistics();
-            ass.PersonNum= pList.Count;
+            var ass = new AreaStatistics();
+            ass.PersonNum = pList.Count;
             ass.DevNum = dvList.Count;
             ass.LocationAlarmNum = laList.Count;
             ass.DevAlarmNum = daList.Count;
@@ -145,30 +197,37 @@ namespace LocationServices.Locations.Services
             return list;
         }
 
-        public bool ModifySize(Bound bound,double cx1, double cy1, double sx2, double sy2)
+        public bool ModifySize(Bound bound, double cx1, double cy1, double sx2, double sy2)
         {
-            if (bound.Points == null || bound.Points.Count != 4)
+            if (bound.Points != null && bound.Points.Count != 4)
             {
                 return false;
             }
-            var points=db.Points.FindAll(i => i.BoundId == bound.Id);
-            db.Points.RemoveList(points);
-
-            bound.Points.Clear();
+            if (bound.Points != null)
+            {
+                var points = db.Points.FindAll(i => i.BoundId == bound.Id);
+                db.Points.RemoveList(points);
+                bound.Points.Clear();
+            }
 
             float x1 = (float)(cx1 - sx2 / 2);
             float y1 = (float)(cy1 - sy2 / 2);
             float x2 = (float)(cx1 + sx2 / 2);
             float y2 = (float)(cy1 + sy2 / 2);
 
-            var pointsNew=bound.SetInitBound(x1, y1, x2, y2);
+            var pointsNew = bound.SetInitBound(x1, y1, x2, y2);
+
             var dbPointsNew = pointsNew.ToDbModel();
-            db.Points.AddRange(dbPointsNew);
+            bool r1 = db.Points.AddRange(dbPointsNew);
             for (int i = 0; i < dbPointsNew.Count; i++)
             {
                 pointsNew[i].Id = dbPointsNew[i].Id;
             }
-            return true;
+
+            var dbBound = bound.ToDbModel();
+            bool r2 = db.Bounds.Edit(dbBound);
+
+            return r1 && r2;
         }
 
         class PersonArea
@@ -223,7 +282,7 @@ namespace LocationServices.Locations.Services
         /// <summary>
         /// 获取树节点
         /// </summary>
-        /// <param name="view">0:基本数据;1:设备信息;2:人员信息;3:设备信息+人员信息</param>
+        /// <param name="view">0:基本数据;1:设备信息;2:人员信息;3:设备信息+人员信息;4:1+CAD</param>
         /// <returns></returns>
         public TEntity GetTree(int view)
         {
@@ -236,6 +295,10 @@ namespace LocationServices.Locations.Services
             {
                 tree = GetTreeWithDev();
             }
+            else if (view == 4)
+            {
+                tree = GetTreeWithDev(true);
+            }
             else if (view == 2)
             {
                 tree = GetTreeWithPerson();
@@ -245,6 +308,7 @@ namespace LocationServices.Locations.Services
                 var leafNodes = db.DevInfos.ToList();
                 tree = GetTreeWithPerson(leafNodes.ToTModel());
             }
+            
             else
             {
                 Log.Error("GetTree View="+view);
@@ -323,7 +387,8 @@ namespace LocationServices.Locations.Services
                     park.Persons.Clear();
                 }
                 park.Children.Add(otherArea);
-                root = park;//将电厂做为根节点
+                //root = park;//将电厂做为根节点
+                //考虑多种场景切换，这里还是不设置哪个为根节点了
             }
             if (view == 4 || view == 5 || view == 6)
             {
@@ -440,9 +505,9 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public TEntity GetTreeWithDev()
+        public TEntity GetTreeWithDev(bool containCAD=false)
         {
-            var root0 = db.GetAreaTree(true);
+            var root0 = db.GetAreaTree(true,null, containCAD);
             var root = root0.ToTModel();
             return root;
         }
@@ -831,25 +896,16 @@ namespace LocationServices.Locations.Services
             Log.Info(">>>>> GetAreaStatistics id=" + id);
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            List<int?> lst = new List<int?>();
-            List<int?> lstRecv;
 
-            var areaList = db.Areas.ToList();
-            var a1 = areaList.Find(p => p.Id == id);
-            if (a1 == null)
+             var lst = db.Areas.GetAllSubAreas(id);//获取所有的子区域，和自身
+            if (lst.Count == 0)
             {
                 return new AreaStatistics();
             }
 
-            lst.Add(a1.Id);
-            lstRecv = GetAreaStatisticsInner(a1.Id, areaList);
-            if (lstRecv != null || lstRecv.Count > 0)
-            {
-                lst.AddRange(lstRecv);
-            }
-
-            AreaService asr = new AreaService();
-            AreaStatistics ast = asr.GetAreaStatisticsCount(lst);
+            //AreaService asr = new AreaService();
+            AreaStatistics ast = GetAreaStatisticsCount(lst);
+            //AreaStatistics ast2 = GetAreaStatisticsCount();
             watch.Stop();
             TimeSpan time = watch.Elapsed;
             Log.Info("time:" + time);
@@ -858,27 +914,27 @@ namespace LocationServices.Locations.Services
         }
 
 
-        private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
-        {
-            List<int?> lst = new List<int?>();
-            List<DbModel.Location.AreaAndDev.Area> alist2 = areaList.FindAll(p => p.ParentId == id);
-            List<int?> lstRecv;
-            if (alist2 == null || alist2.Count <= 0)
-            {
-                return lst;
-            }
+        //private List<int?> GetAreaStatisticsInner(int id, List<DbModel.Location.AreaAndDev.Area> areaList)
+        //{
+        //    List<int?> lst = new List<int?>();
+        //    List<DbModel.Location.AreaAndDev.Area> alist2 = areaList.FindAll(p => p.ParentId == id);
+        //    List<int?> lstRecv;
+        //    if (alist2 == null || alist2.Count <= 0)
+        //    {
+        //        return lst;
+        //    }
 
-            foreach (DbModel.Location.AreaAndDev.Area item in alist2)
-            {
-                lst.Add(item.Id);
-                lstRecv = GetAreaStatisticsInner(item.Id, areaList);
-                if (lstRecv != null || lstRecv.Count > 0)
-                {
-                    lst.AddRange(lstRecv);
-                }
-            }
+        //    foreach (DbModel.Location.AreaAndDev.Area item in alist2)
+        //    {
+        //        lst.Add(item.Id);
+        //        lstRecv = GetAreaStatisticsInner(item.Id, areaList);
+        //        if (lstRecv != null || lstRecv.Count > 0)
+        //        {
+        //            lst.AddRange(lstRecv);
+        //        }
+        //    }
 
-            return lst;
-        }
+        //    return lst;
+        //}
     }
 }

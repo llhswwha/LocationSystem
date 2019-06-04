@@ -6,7 +6,7 @@ $.ajax({
     //contentType: "text/html; charset=utf-8",
     async: true,
     success: function (data) {
-        console.log(data)
+        //console.log(data)
         $("#showSvg").html(data);
     }
 });

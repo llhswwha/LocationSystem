@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:WPFClientControlLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <TextBox Width="100"></TextBox>
+            <Button Content="查询" Name="BtnSearch" Click="BtnSearch_Click"></Button>
+        </StackPanel>
         <DataGrid Name="DataGrid1" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
@@ -20,5 +24,5 @@
                 <DataGridTextColumn Header="Src" Binding="{Binding Src}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </DockPanel>
 </UserControl>

@@ -17,6 +17,7 @@
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" />
   <xs:element name="Hello">
     <xs:complexType>
@@ -56,6 +57,62 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetDepartment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDepartmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetDepartmentResult" nillable="true" type="q3:Department" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDepartment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q4:Department" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDepartmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddDepartmentResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditDepartment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q5:Department" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditDepartmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EditDepartmentResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDepartment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDepartmentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteDepartmentResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetTag">
     <xs:complexType>
       <xs:sequence>
@@ -66,7 +123,7 @@
   <xs:element name="GetTagResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetTagResult" nillable="true" type="q3:Tag" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetTagResult" nillable="true" type="q6:Tag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -78,14 +135,28 @@
   <xs:element name="GetTagsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetTagsResult" nillable="true" type="q4:ArrayOfTag" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetTagsResult" nillable="true" type="q7:ArrayOfTag" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddTag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="tag" nillable="true" type="q8:Tag" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddTagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddTagResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddTags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="tags" nillable="true" type="q5:ArrayOfTag" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="tags" nillable="true" type="q9:ArrayOfTag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -125,8 +196,7 @@
   <xs:element name="EditTag">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q6:Tag" />
-        <xs:element minOccurs="0" name="id" nillable="true" type="xs:int" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="tag" nillable="true" type="q10:Tag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -134,6 +204,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="EditTagResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditTagById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q11:Tag" />
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditTagByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EditTagByIdResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -145,21 +230,21 @@
   <xs:element name="GetRealPositonsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="GetRealPositonsResult" nillable="true" type="q7:ArrayOfTagPosition" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="GetRealPositonsResult" nillable="true" type="q12:ArrayOfTagPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetRealPositonsByTags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="tagCodes" nillable="true" type="q8:ArrayOfstring" />
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="tagCodes" nillable="true" type="q13:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetRealPositonsByTagsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="GetRealPositonsByTagsResult" nillable="true" type="q9:ArrayOfTagPosition" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="GetRealPositonsByTagsResult" nillable="true" type="q14:ArrayOfTagPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -171,7 +256,7 @@
   <xs:element name="GetHistoryPositonsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsResult" nillable="true" type="q10:ArrayOfPosition" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsResult" nillable="true" type="q15:ArrayOfPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -187,7 +272,7 @@
   <xs:element name="GetHistoryPositonsByPersonnelIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByPersonnelIDResult" nillable="true" type="q11:ArrayOfPosition" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByPersonnelIDResult" nillable="true" type="q16:ArrayOfPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -195,7 +280,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="personnelID" type="xs:int" />
-        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="topoNodeIds" nillable="true" type="q12:ArrayOfint" />
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="topoNodeIds" nillable="true" type="q17:ArrayOfint" />
         <xs:element minOccurs="0" name="start" type="xs:dateTime" />
         <xs:element minOccurs="0" name="end" type="xs:dateTime" />
       </xs:sequence>
@@ -204,7 +289,7 @@
   <xs:element name="GetHistoryPositonsByPidAndTopoNodeIdsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByPidAndTopoNodeIdsResult" nillable="true" type="q13:ArrayOfPosition" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByPidAndTopoNodeIdsResult" nillable="true" type="q18:ArrayOfPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -220,7 +305,7 @@
   <xs:element name="GetHistoryPositonsByTimeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByTimeResult" nillable="true" type="q14:ArrayOfPosition" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryPositonsByTimeResult" nillable="true" type="q19:ArrayOfPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -241,7 +326,7 @@
   <xs:element name="AddU3DPosition">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="pList" nillable="true" type="q15:ArrayOfU3DPosition" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="pList" nillable="true" type="q20:ArrayOfU3DPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -253,7 +338,7 @@
   <xs:element name="AddU3DPositions">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="list" nillable="true" type="q16:ArrayOfU3DPosition" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="list" nillable="true" type="q21:ArrayOfU3DPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -274,7 +359,7 @@
   <xs:element name="GetHistoryU3DPositonsByTimeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryU3DPositonsByTimeResult" nillable="true" type="q17:ArrayOfU3DPosition" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Location.TModel.LocationHistory.Data" minOccurs="0" name="GetHistoryU3DPositonsByTimeResult" nillable="true" type="q22:ArrayOfU3DPosition" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -286,7 +371,7 @@
   <xs:element name="GetObjectAddListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetObjectAddListResult" nillable="true" type="q18:ArrayOfObjectAddList_Type" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetObjectAddListResult" nillable="true" type="q23:ArrayOfObjectAddList_Type" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -298,14 +383,14 @@
   <xs:element name="GetDevPositionsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevPositionsResult" nillable="true" type="q19:ArrayOfDevPos" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevPositionsResult" nillable="true" type="q24:ArrayOfDevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDevPosInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q20:DevPos" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q25:DevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -319,7 +404,7 @@
   <xs:element name="AddDevPosByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="posList" nillable="true" type="q21:ArrayOfDevPos" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="posList" nillable="true" type="q26:ArrayOfDevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -333,7 +418,7 @@
   <xs:element name="ModifyPosInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q22:DevPos" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q27:DevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -347,7 +432,7 @@
   <xs:element name="ModifyPosByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="posList" nillable="true" type="q23:ArrayOfDevPos" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="posList" nillable="true" type="q28:ArrayOfDevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -361,7 +446,7 @@
   <xs:element name="DeletePosInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q24:DevPos" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pos" nillable="true" type="q29:DevPos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -380,21 +465,21 @@
   <xs:element name="GetAllDevInfosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetAllDevInfosResult" nillable="true" type="q25:ArrayOfDevInfo" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetAllDevInfosResult" nillable="true" type="q30:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDevInfos">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="typeList" nillable="true" type="q26:ArrayOfint" />
+        <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="typeList" nillable="true" type="q31:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDevInfosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevInfosResult" nillable="true" type="q27:ArrayOfDevInfo" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevInfosResult" nillable="true" type="q32:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -408,42 +493,42 @@
   <xs:element name="FindDevInfosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindDevInfosResult" nillable="true" type="q28:ArrayOfDevInfo" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindDevInfosResult" nillable="true" type="q33:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDevInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q29:DevInfo" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q34:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDevInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddDevInfoResult" nillable="true" type="q30:DevInfo" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddDevInfoResult" nillable="true" type="q35:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDevInfoByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfoList" nillable="true" type="q31:ArrayOfDevInfo" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfoList" nillable="true" type="q36:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDevInfoByListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddDevInfoByListResult" nillable="true" type="q32:ArrayOfDevInfo" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddDevInfoByListResult" nillable="true" type="q37:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ModifyDevInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q33:DevInfo" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q38:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -457,7 +542,7 @@
   <xs:element name="DeleteDevInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q34:DevInfo" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="devInfo" nillable="true" type="q39:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -471,14 +556,14 @@
   <xs:element name="GetDevInfoByParent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q35:ArrayOfint" />
+        <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q40:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDevInfoByParentResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevInfoByParentResult" nillable="true" type="q36:ArrayOfDevInfo" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevInfoByParentResult" nillable="true" type="q41:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -492,7 +577,7 @@
   <xs:element name="GetDevByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevByIDResult" nillable="true" type="q37:DevInfo" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevByIDResult" nillable="true" type="q42:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -506,14 +591,14 @@
   <xs:element name="GetDevByiIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevByiIdResult" nillable="true" type="q38:DevInfo" />
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDevByiIdResult" nillable="true" type="q43:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDoorAccessByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q39:ArrayOfDev_DoorAccess" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q44:ArrayOfDev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -527,21 +612,21 @@
   <xs:element name="AddDoorAccess">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccess" nillable="true" type="q40:Dev_DoorAccess" />
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccess" nillable="true" type="q45:Dev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddDoorAccessResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="AddDoorAccessResult" type="xs:boolean" />
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddDoorAccessResult" nillable="true" type="q46:Dev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteDoorAccess">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q41:ArrayOfDev_DoorAccess" />
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q47:ArrayOfDev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -555,7 +640,7 @@
   <xs:element name="ModifyDoorAccess">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q42:ArrayOfDev_DoorAccess" />
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="doorAccessList" nillable="true" type="q48:ArrayOfDev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -569,14 +654,14 @@
   <xs:element name="GetDoorAccessInfoByParent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q43="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q43:ArrayOfint" />
+        <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q49:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDoorAccessInfoByParentResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDoorAccessInfoByParentResult" nillable="true" type="q44:ArrayOfDev_DoorAccess" />
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDoorAccessInfoByParentResult" nillable="true" type="q50:ArrayOfDev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -588,14 +673,14 @@
   <xs:element name="GetAllDoorAccessInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetAllDoorAccessInfoResult" nillable="true" type="q45:ArrayOfDev_DoorAccess" />
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetAllDoorAccessInfoResult" nillable="true" type="q51:ArrayOfDev_DoorAccess" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddCameraInfoByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q46:ArrayOfDev_CameraInfo" />
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q52:ArrayOfDev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -609,21 +694,21 @@
   <xs:element name="AddCameraInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfo" nillable="true" type="q47:Dev_CameraInfo" />
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfo" nillable="true" type="q53:Dev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddCameraInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="AddCameraInfoResult" nillable="true" type="q48:Dev_CameraInfo" />
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="AddCameraInfoResult" nillable="true" type="q54:Dev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteCameraInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q49:ArrayOfDev_CameraInfo" />
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q55:ArrayOfDev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -637,7 +722,7 @@
   <xs:element name="ModifyCameraInfoByList">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q50:ArrayOfDev_CameraInfo" />
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="cameraInfoList" nillable="true" type="q56:ArrayOfDev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -651,7 +736,7 @@
   <xs:element name="ModifyCameraInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="camInfo" nillable="true" type="q51:Dev_CameraInfo" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="camInfo" nillable="true" type="q57:Dev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -665,14 +750,14 @@
   <xs:element name="GetCameraInfoByParent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q52:ArrayOfint" />
+        <xs:element xmlns:q58="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="pids" nillable="true" type="q58:ArrayOfint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCameraInfoByParentResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCameraInfoByParentResult" nillable="true" type="q53:ArrayOfDev_CameraInfo" />
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCameraInfoByParentResult" nillable="true" type="q59:ArrayOfDev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -684,21 +769,21 @@
   <xs:element name="GetAllCameraInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetAllCameraInfoResult" nillable="true" type="q54:ArrayOfDev_CameraInfo" />
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetAllCameraInfoResult" nillable="true" type="q60:ArrayOfDev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCameraInfoByDevInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="dev" nillable="true" type="q55:DevInfo" />
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="dev" nillable="true" type="q61:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCameraInfoByDevInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCameraInfoByDevInfoResult" nillable="true" type="q56:Dev_CameraInfo" />
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCameraInfoByDevInfoResult" nillable="true" type="q62:Dev_CameraInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -710,7 +795,7 @@
   <xs:element name="GetArchorsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorsResult" nillable="true" type="q57:ArrayOfArchor" />
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorsResult" nillable="true" type="q63:ArrayOfArchor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -724,7 +809,7 @@
   <xs:element name="GetArchorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorResult" nillable="true" type="q58:Archor" />
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorResult" nillable="true" type="q64:Archor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -738,14 +823,14 @@
   <xs:element name="GetArchorByDevIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorByDevIdResult" nillable="true" type="q59:Archor" />
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetArchorByDevIdResult" nillable="true" type="q65:Archor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditArchor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="Archor" nillable="true" type="q60:Archor" />
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="Archor" nillable="true" type="q66:Archor" />
         <xs:element minOccurs="0" name="ParentId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -760,7 +845,7 @@
   <xs:element name="AddArchor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="archor" nillable="true" type="q61:Archor" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="archor" nillable="true" type="q67:Archor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -797,7 +882,7 @@
   <xs:element name="GetNearbyDev_CurrencyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetNearbyDev_CurrencyResult" nillable="true" type="q62:ArrayOfNearbyDev" />
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetNearbyDev_CurrencyResult" nillable="true" type="q68:ArrayOfNearbyDev" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -812,7 +897,7 @@
   <xs:element name="GetNearbyCamera_AlarmResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetNearbyCamera_AlarmResult" nillable="true" type="q63:ArrayOfNearbyDev" />
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetNearbyCamera_AlarmResult" nillable="true" type="q69:ArrayOfNearbyDev" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -826,7 +911,7 @@
   <xs:element name="GetEntranceActionInfoByPerson24HoursResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" minOccurs="0" name="GetEntranceActionInfoByPerson24HoursResult" nillable="true" type="q64:ArrayOfEntranceGuardActionInfo" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" minOccurs="0" name="GetEntranceActionInfoByPerson24HoursResult" nillable="true" type="q70:ArrayOfEntranceGuardActionInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -840,7 +925,7 @@
   <xs:element name="GetDevClassByDevModelResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" minOccurs="0" name="GetDevClassByDevModelResult" nillable="true" type="q65:DevModel" />
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" minOccurs="0" name="GetDevClassByDevModelResult" nillable="true" type="q71:DevModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -855,7 +940,7 @@
   <xs:element name="GetDevMonitorInfoByKKSResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetDevMonitorInfoByKKSResult" nillable="true" type="q66:Dev_Monitor" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetDevMonitorInfoByKKSResult" nillable="true" type="q72:Dev_Monitor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -869,7 +954,7 @@
   <xs:element name="GetKKSInfoByNodeIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetKKSInfoByNodeIdResult" nillable="true" type="q67:KKSCode" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetKKSInfoByNodeIdResult" nillable="true" type="q73:KKSCode" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -883,7 +968,7 @@
   <xs:element name="GetKKSInfoByCodeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetKKSInfoByCodeResult" nillable="true" type="q68:KKSCode" />
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetKKSInfoByCodeResult" nillable="true" type="q74:KKSCode" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -897,7 +982,7 @@
   <xs:element name="FindKKSInfoByNameResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindKKSInfoByNameResult" nillable="true" type="q69:KKSCode" />
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindKKSInfoByNameResult" nillable="true" type="q75:KKSCode" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -939,7 +1024,7 @@
   <xs:element name="GetPhysicalTopologyListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListResult" nillable="true" type="q70:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListResult" nillable="true" type="q76:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -954,7 +1039,7 @@
   <xs:element name="GetPhysicalTopologyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyResult" nillable="true" type="q71:PhysicalTopology" />
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyResult" nillable="true" type="q77:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -968,7 +1053,7 @@
   <xs:element name="GetPhysicalTopologyListByNameResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListByNameResult" nillable="true" type="q72:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListByNameResult" nillable="true" type="q78:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -982,7 +1067,7 @@
   <xs:element name="GetPhysicalTopologyListByPidResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListByPidResult" nillable="true" type="q73:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyListByPidResult" nillable="true" type="q79:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -996,7 +1081,7 @@
   <xs:element name="GetPhysicalTopologyTreeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyTreeResult" nillable="true" type="q74:PhysicalTopology" />
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyTreeResult" nillable="true" type="q80:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1010,7 +1095,7 @@
   <xs:element name="GetPhysicalTopologyTreeNodeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" minOccurs="0" name="GetPhysicalTopologyTreeNodeResult" nillable="true" type="q75:AreaNode" />
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/TModel.Location.Nodes" minOccurs="0" name="GetPhysicalTopologyTreeNodeResult" nillable="true" type="q81:AreaNode" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1024,35 +1109,35 @@
   <xs:element name="GetPhysicalTopologyTreeByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyTreeByIdResult" nillable="true" type="q76:PhysicalTopology" />
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPhysicalTopologyTreeByIdResult" nillable="true" type="q82:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPhysicalTopology">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="item" nillable="true" type="q77:PhysicalTopology" />
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="item" nillable="true" type="q83:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPhysicalTopologyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddPhysicalTopologyResult" nillable="true" type="q78:PhysicalTopology" />
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddPhysicalTopologyResult" nillable="true" type="q84:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditPhysicalTopology">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="item" nillable="true" type="q79:PhysicalTopology" />
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="item" nillable="true" type="q85:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditPhysicalTopologyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="EditPhysicalTopologyResult" nillable="true" type="q80:PhysicalTopology" />
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="EditPhysicalTopologyResult" nillable="true" type="q86:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1066,7 +1151,7 @@
   <xs:element name="RemovePhysicalTopologyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="RemovePhysicalTopologyResult" nillable="true" type="q81:PhysicalTopology" />
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="RemovePhysicalTopologyResult" nillable="true" type="q87:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1078,7 +1163,7 @@
   <xs:element name="GetParkMonitorRangeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetParkMonitorRangeResult" nillable="true" type="q82:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetParkMonitorRangeResult" nillable="true" type="q88:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1090,7 +1175,7 @@
   <xs:element name="GetFloorMonitorRangeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetFloorMonitorRangeResult" nillable="true" type="q83:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetFloorMonitorRangeResult" nillable="true" type="q89:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1104,14 +1189,14 @@
   <xs:element name="GetFloorMonitorRangeByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetFloorMonitorRangeByIdResult" nillable="true" type="q84:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetFloorMonitorRangeByIdResult" nillable="true" type="q90:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditMonitorRange">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q85:PhysicalTopology" />
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q91:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1125,21 +1210,21 @@
   <xs:element name="AddMonitorRange">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q86:PhysicalTopology" />
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q92:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddMonitorRangeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddMonitorRangeResult" nillable="true" type="q87:PhysicalTopology" />
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="AddMonitorRangeResult" nillable="true" type="q93:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteMonitorRange">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q88:PhysicalTopology" />
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="pt" nillable="true" type="q94:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1153,7 +1238,7 @@
   <xs:element name="AddConfigArg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q89:ConfigArg" />
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q95:ConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1167,7 +1252,7 @@
   <xs:element name="EditConfigArg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q90:ConfigArg" />
+        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q96:ConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1181,7 +1266,7 @@
   <xs:element name="DeleteConfigArg">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q91:ConfigArg" />
+        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="config" nillable="true" type="q97:ConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1202,7 +1287,7 @@
   <xs:element name="GetConfigArgResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgResult" nillable="true" type="q92:ConfigArg" />
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgResult" nillable="true" type="q98:ConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1214,7 +1299,7 @@
   <xs:element name="GetConfigArgListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgListResult" nillable="true" type="q93:ArrayOfConfigArg" />
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgListResult" nillable="true" type="q99:ArrayOfConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1228,7 +1313,7 @@
   <xs:element name="GetConfigArgByKeyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgByKeyResult" nillable="true" type="q94:ConfigArg" />
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetConfigArgByKeyResult" nillable="true" type="q100:ConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1242,7 +1327,7 @@
   <xs:element name="FindConfigArgListByKeyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindConfigArgListByKeyResult" nillable="true" type="q95:ArrayOfConfigArg" />
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindConfigArgListByKeyResult" nillable="true" type="q101:ArrayOfConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1256,7 +1341,7 @@
   <xs:element name="FindConfigArgListByClassifyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindConfigArgListByClassifyResult" nillable="true" type="q96:ArrayOfConfigArg" />
+        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="FindConfigArgListByClassifyResult" nillable="true" type="q102:ArrayOfConfigArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1268,14 +1353,14 @@
   <xs:element name="GetTransferOfAxesConfigResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/Location.TModel.Location" minOccurs="0" name="GetTransferOfAxesConfigResult" nillable="true" type="q97:TransferOfAxesConfig" />
+        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Location.TModel.Location" minOccurs="0" name="GetTransferOfAxesConfigResult" nillable="true" type="q103:TransferOfAxesConfig" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SetTransferOfAxesConfig">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Location.TModel.Location" minOccurs="0" name="config" nillable="true" type="q98:TransferOfAxesConfig" />
+        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/Location.TModel.Location" minOccurs="0" name="config" nillable="true" type="q104:TransferOfAxesConfig" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1288,13 +1373,15 @@
   </xs:element>
   <xs:element name="GetPersonList">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isFilterByTag" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetPersonListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetPersonListResult" nillable="true" type="q99:ArrayOfPersonnel" />
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetPersonListResult" nillable="true" type="q105:ArrayOfPersonnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1308,7 +1395,7 @@
   <xs:element name="FindPersonListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="FindPersonListResult" nillable="true" type="q100:ArrayOfPersonnel" />
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="FindPersonListResult" nillable="true" type="q106:ArrayOfPersonnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1322,14 +1409,14 @@
   <xs:element name="GetPersonResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetPersonResult" nillable="true" type="q101:Personnel" />
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetPersonResult" nillable="true" type="q107:Personnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPerson">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q102:Personnel" />
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q108:Personnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1343,7 +1430,7 @@
   <xs:element name="EditPerson">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q103:Personnel" />
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="p" nillable="true" type="q109:Personnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1379,7 +1466,7 @@
   <xs:element name="GetNearbyPerson_CurrencyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/TModel.Location.Person" minOccurs="0" name="GetNearbyPerson_CurrencyResult" nillable="true" type="q104:ArrayOfNearbyPerson" />
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/TModel.Location.Person" minOccurs="0" name="GetNearbyPerson_CurrencyResult" nillable="true" type="q110:ArrayOfNearbyPerson" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1394,35 +1481,35 @@
   <xs:element name="GetNearbyPerson_AlarmResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/TModel.Location.Person" minOccurs="0" name="GetNearbyPerson_AlarmResult" nillable="true" type="q105:ArrayOfNearbyPerson" />
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/TModel.Location.Person" minOccurs="0" name="GetNearbyPerson_AlarmResult" nillable="true" type="q111:ArrayOfNearbyPerson" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLocationAlarms">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" minOccurs="0" name="arg" nillable="true" type="q106:AlarmSearchArg" />
+        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" minOccurs="0" name="arg" nillable="true" type="q112:AlarmSearchArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLocationAlarmsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GetLocationAlarmsResult" nillable="true" type="q107:ArrayOfLocationAlarm" />
+        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GetLocationAlarmsResult" nillable="true" type="q113:ArrayOfLocationAlarm" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDeviceAlarms">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" minOccurs="0" name="arg" nillable="true" type="q108:AlarmSearchArg" />
+        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" minOccurs="0" name="arg" nillable="true" type="q114:AlarmSearchArg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDeviceAlarmsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GetDeviceAlarmsResult" nillable="true" type="q109:ArrayOfDeviceAlarm" />
+        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GetDeviceAlarmsResult" nillable="true" type="q115:ArrayOfDeviceAlarm" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1434,7 +1521,63 @@
   <xs:element name="GetPostListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPostListResult" nillable="true" type="q110:ArrayOfPost" />
+        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPostListResult" nillable="true" type="q116:ArrayOfPost" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetPostResult" nillable="true" type="q117:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="p" nillable="true" type="q118:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddPostResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="p" nillable="true" type="q119:Post" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EditPostResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeletePostResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1450,7 +1593,7 @@
   <xs:element name="GetTicketListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/TModel.BaseData" minOccurs="0" name="GetTicketListResult" nillable="true" type="q111:ArrayOfTicket" />
+        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/TModel.BaseData" minOccurs="0" name="GetTicketListResult" nillable="true" type="q120:ArrayOfTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1466,7 +1609,7 @@
   <xs:element name="GetTicketDetialResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/TModel.BaseData" minOccurs="0" name="GetTicketDetialResult" nillable="true" type="q112:Ticket" />
+        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/TModel.BaseData" minOccurs="0" name="GetTicketDetialResult" nillable="true" type="q121:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1482,7 +1625,7 @@
   <xs:element name="GetinspectionhistorylistResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetinspectionhistorylistResult" nillable="true" type="q113:ArrayOfInspectionTrackHistory" />
+        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetinspectionhistorylistResult" nillable="true" type="q122:ArrayOfInspectionTrackHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1494,7 +1637,7 @@
   <xs:element name="GetUserListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetUserListResult" nillable="true" type="q114:ArrayOfPersonnel" />
+        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetUserListResult" nillable="true" type="q123:ArrayOfPersonnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1506,7 +1649,7 @@
   <xs:element name="GetorgListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetorgListResult" nillable="true" type="q115:ArrayOfDepartment" />
+        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="GetorgListResult" nillable="true" type="q124:ArrayOfDepartment" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1518,7 +1661,7 @@
   <xs:element name="GetzonesListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetzonesListResult" nillable="true" type="q116:ArrayOfPhysicalTopology" />
+        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetzonesListResult" nillable="true" type="q125:ArrayOfPhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1533,7 +1676,7 @@
   <xs:element name="GetSingleZonesInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetSingleZonesInfoResult" nillable="true" type="q117:PhysicalTopology" />
+        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetSingleZonesInfoResult" nillable="true" type="q126:PhysicalTopology" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1547,7 +1690,7 @@
   <xs:element name="GetZoneDevListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetZoneDevListResult" nillable="true" type="q118:ArrayOfDevInfo" />
+        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetZoneDevListResult" nillable="true" type="q127:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1563,7 +1706,7 @@
   <xs:element name="GetDeviceListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDeviceListResult" nillable="true" type="q119:ArrayOfDevInfo" />
+        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetDeviceListResult" nillable="true" type="q128:ArrayOfDevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1577,7 +1720,7 @@
   <xs:element name="GetSingleDeviceInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetSingleDeviceInfoResult" nillable="true" type="q120:DevInfo" />
+        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="GetSingleDeviceInfoResult" nillable="true" type="q129:DevInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1603,7 +1746,7 @@
   <xs:element name="GetCardListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCardListResult" nillable="true" type="q121:ArrayOfEntranceGuardCard" />
+        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetCardListResult" nillable="true" type="q130:ArrayOfEntranceGuardCard" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1619,7 +1762,7 @@
   <xs:element name="GetSingleCardActionHistoryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" minOccurs="0" name="GetSingleCardActionHistoryResult" nillable="true" type="q122:ArrayOfEntranceGuardActionInfo" />
+        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.AreaAndDev" minOccurs="0" name="GetSingleCardActionHistoryResult" nillable="true" type="q131:ArrayOfEntranceGuardActionInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1664,7 +1807,7 @@
   <xs:element name="GeteventsListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GeteventsListResult" nillable="true" type="q123:ArrayOfDeviceAlarm" />
+        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="GeteventsListResult" nillable="true" type="q132:ArrayOfDeviceAlarm" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1678,7 +1821,7 @@
   <xs:element name="GetSomesisListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetSomesisListResult" nillable="true" type="q124:ArrayOfDevMonitorNode" />
+        <xs:element xmlns:q133="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetSomesisListResult" nillable="true" type="q133:ArrayOfDevMonitorNode" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1754,7 +1897,7 @@
   <xs:element name="GetOperationTicketListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetOperationTicketListResult" nillable="true" type="q125:ArrayOfOperationTicket" />
+        <xs:element xmlns:q134="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetOperationTicketListResult" nillable="true" type="q134:ArrayOfOperationTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1766,7 +1909,7 @@
   <xs:element name="GetWorkTicketListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetWorkTicketListResult" nillable="true" type="q126:ArrayOfWorkTicket" />
+        <xs:element xmlns:q135="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetWorkTicketListResult" nillable="true" type="q135:ArrayOfWorkTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1778,7 +1921,7 @@
   <xs:element name="GetMobileInspectionDevListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetMobileInspectionDevListResult" nillable="true" type="q127:ArrayOfMobileInspectionDev" />
+        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetMobileInspectionDevListResult" nillable="true" type="q136:ArrayOfMobileInspectionDev" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1790,7 +1933,7 @@
   <xs:element name="GetMobileInspectionListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetMobileInspectionListResult" nillable="true" type="q128:ArrayOfMobileInspection" />
+        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetMobileInspectionListResult" nillable="true" type="q137:ArrayOfMobileInspection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1802,7 +1945,7 @@
   <xs:element name="GetPersonnelMobileInspectionListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetPersonnelMobileInspectionListResult" nillable="true" type="q129:ArrayOfPersonnelMobileInspection" />
+        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetPersonnelMobileInspectionListResult" nillable="true" type="q138:ArrayOfPersonnelMobileInspection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1814,7 +1957,7 @@
   <xs:element name="GetOperationTicketHistoryListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetOperationTicketHistoryListResult" nillable="true" type="q130:ArrayOfOperationTicketHistory" />
+        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetOperationTicketHistoryListResult" nillable="true" type="q139:ArrayOfOperationTicketHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1826,7 +1969,7 @@
   <xs:element name="GetWorkTicketHistoryListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetWorkTicketHistoryListResult" nillable="true" type="q131:ArrayOfWorkTicketHistory" />
+        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetWorkTicketHistoryListResult" nillable="true" type="q140:ArrayOfWorkTicketHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1838,7 +1981,7 @@
   <xs:element name="GetPersonnelMobileInspectionHistoryListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetPersonnelMobileInspectionHistoryListResult" nillable="true" type="q132:ArrayOfPersonnelMobileInspectionHistory" />
+        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/TModel.LocationHistory.Work" minOccurs="0" name="GetPersonnelMobileInspectionHistoryListResult" nillable="true" type="q141:ArrayOfPersonnelMobileInspectionHistory" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1850,49 +1993,49 @@
   <xs:element name="GetInspectionTrackResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q133="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetInspectionTrackResult" nillable="true" type="q133:InspectionTrack" />
+        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/TModel.Location.Work" minOccurs="0" name="GetInspectionTrackResult" nillable="true" type="q142:InspectionTrack" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Login">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q134="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q134:LoginInfo" />
+        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q143:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="LoginResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q135="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LoginResult" nillable="true" type="q135:LoginInfo" />
+        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LoginResult" nillable="true" type="q144:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Logout">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q136:LoginInfo" />
+        <xs:element xmlns:q145="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q145:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="LogoutResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LogoutResult" nillable="true" type="q137:LoginInfo" />
+        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="LogoutResult" nillable="true" type="q146:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="KeepLive">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q138:LoginInfo" />
+        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="info" nillable="true" type="q147:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="KeepLiveResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="KeepLiveResult" nillable="true" type="q139:LoginInfo" />
+        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="KeepLiveResult" nillable="true" type="q148:LoginInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1904,14 +2047,14 @@
   <xs:element name="GetVersionInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="GetVersionInfoResult" nillable="true" type="q140:VersionInfo" />
+        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" minOccurs="0" name="GetVersionInfoResult" nillable="true" type="q149:VersionInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EditBusAnchor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="archor" nillable="true" type="q141:Archor" />
+        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="archor" nillable="true" type="q150:Archor" />
         <xs:element minOccurs="0" name="parentId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -1926,7 +2069,7 @@
   <xs:element name="EditBusTag">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q142:Tag" />
+        <xs:element xmlns:q151="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q151:Tag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1940,7 +2083,7 @@
   <xs:element name="EditPictureInfo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="pc" nillable="true" type="q143:Picture" />
+        <xs:element xmlns:q152="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="pc" nillable="true" type="q152:Picture" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1961,7 +2104,7 @@
   <xs:element name="GetPictureInfoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPictureInfoResult" nillable="true" type="q144:Picture" />
+        <xs:element xmlns:q153="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPictureInfoResult" nillable="true" type="q153:Picture" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1973,7 +2116,7 @@
   <xs:element name="GetHomePageNameListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q145="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetHomePageNameListResult" nillable="true" type="q145:ArrayOfstring" />
+        <xs:element xmlns:q154="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetHomePageNameListResult" nillable="true" type="q154:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2001,7 +2144,7 @@
   <xs:element name="GetAreaStatisticsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetAreaStatisticsResult" nillable="true" type="q146:AreaStatistics" />
+        <xs:element xmlns:q155="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetAreaStatisticsResult" nillable="true" type="q155:AreaStatistics" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2015,7 +2158,7 @@
   <xs:element name="GetAreaByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" minOccurs="0" name="GetAreaByIdResult" nillable="true" type="q147:Area" />
+        <xs:element xmlns:q156="http://schemas.datacontract.org/2004/07/DbModel.Location.AreaAndDev" minOccurs="0" name="GetAreaByIdResult" nillable="true" type="q156:Area" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2029,6 +2172,103 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCardRoleList">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardRoleListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q157="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" minOccurs="0" name="GetCardRoleListResult" nillable="true" type="q157:ArrayOfCardRole" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q158="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" minOccurs="0" name="GetCardRoleResult" nillable="true" type="q158:CardRole" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCardRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q159="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" minOccurs="0" name="p" nillable="true" type="q159:CardRole" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCardRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddCardRoleResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditCardRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q160="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" minOccurs="0" name="p" nillable="true" type="q160:CardRole" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditCardRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EditCardRoleResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCardRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCardRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteCardRoleResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardRoleAccessAreas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="role" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCardRoleAccessAreasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q161="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetCardRoleAccessAreasResult" nillable="true" type="q161:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetCardRoleAccessAreas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="role" type="xs:int" />
+        <xs:element xmlns:q162="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="areaIds" nillable="true" type="q162:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetCardRoleAccessAreasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetCardRoleAccessAreasResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetUnitySetting">
     <xs:complexType>
       <xs:sequence />
@@ -2037,7 +2277,7 @@
   <xs:element name="GetUnitySettingResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" minOccurs="0" name="GetUnitySettingResult" nillable="true" type="q148:UnitySetting" />
+        <xs:element xmlns:q163="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" minOccurs="0" name="GetUnitySettingResult" nillable="true" type="q163:UnitySetting" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2063,7 +2303,7 @@
   <xs:element name="GetPointsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsResult" nillable="true" type="q149:AreaPoints" />
+        <xs:element xmlns:q164="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsResult" nillable="true" type="q164:AreaPoints" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2077,7 +2317,7 @@
   <xs:element name="GetPointsByPidResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsByPidResult" nillable="true" type="q150:ArrayOfAreaPoints" />
+        <xs:element xmlns:q165="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsByPidResult" nillable="true" type="q165:ArrayOfAreaPoints" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

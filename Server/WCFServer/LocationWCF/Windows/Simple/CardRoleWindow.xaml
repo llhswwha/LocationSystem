@@ -4,21 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
+        xmlns:wpfclientcontrollib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"
         mc:Ignorable="d"
         Title="标签角色" Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File"></MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="新增角色" Name="MenuNew" Click="MenuNew_Click"></MenuItem>
+                <MenuItem Header="保存权限修改" Name="MenuSave" Click="MenuSave_Click"></MenuItem>
+            </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Name="ToolBar1" Visibility="Collapsed">
             <Button Name="BtnOk" Click="BtnOk_OnClick">确定</Button>
         </StackPanel>
-        <DataGrid Name="DataGrid1">
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="设置区域权限" Click="MenuItem_OnClick"></MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-        </DataGrid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Name="DataGrid1" Grid.Column="0" SelectionChanged="DataGrid1_SelectionChanged">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="设置区域权限" Click="MenuItem_OnClick"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            <wpfclientcontrollib:TopoTreeView Grid.Column="1" x:Name="TopoTreeView1"></wpfclientcontrollib:TopoTreeView>
+        </Grid>
     </DockPanel>
 </Window>

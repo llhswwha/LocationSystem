@@ -36,6 +36,7 @@ using TArchor = TModel.Location.AreaAndDev.Archor;
 using Bound = Location.TModel.Location.AreaAndDev.Bound;
 using LocationServer.Windows.Simple;
 using Point = Location.TModel.Location.AreaAndDev.Point;
+using Location.IModel;
 
 namespace LocationServer
 {
@@ -151,16 +152,18 @@ namespace LocationServer
                 var dev2=devService.Post(dev);
 
                 var archor = dev.DevDetail as TArchor;
-                archor.X += 5;
-                archor.Y += 5;
-                archor.Name += " Copy";
-                archor.Code = "";
-                archor.Ip = "";
-                archor.DevInfoId = dev2.Id;
-                var archorNew=archorService.Post(archor);
-                archorNew.Code = "Code_" + archorNew.Id;
-                archorService.Put(archorNew);
-
+                if (archor != null)
+                {
+                    archor.X += 5;
+                    archor.Y += 5;
+                    archor.Name += " Copy";
+                    archor.Code = "";
+                    archor.Ip = "";
+                    archor.DevInfoId = dev2.Id;
+                    var archorNew = archorService.Post(archor);
+                    archorNew.Code = "Code_" + archorNew.Id;
+                    archorService.Put(archorNew);
+                }
                 LoadData();
             });
             AreaCanvas1.DevContextMenu = devContextMenu;
@@ -189,6 +192,13 @@ namespace LocationServer
                     var newDev = win._tp;
                     area.AddLeafNode(newDev.ToTModel());
                     AreaCanvas1.Refresh();
+                    var newDevRect=AreaCanvas1.GetDev(newDev.Id);
+                    Window wnd=SetDevInfo(newDevRect, newDevRect.Tag as DevEntity);
+                    if(wnd is RoomArchorSettingWindow)
+                    {
+                        (wnd as RoomArchorSettingWindow).SaveInfo(false);
+                        //wnd.Close();
+                    }
                 }
                 //RoomArchorSettingWindow win = new RoomArchorSettingWindow();
                 //var dev = topoTree.SelectedObject as DevEntity;
@@ -209,7 +219,7 @@ namespace LocationServer
             };
         }
 
-        private void RemoveDev(DevEntity dev)
+        private bool RemoveDev(DevEntity dev)
         {
             if (MessageBox.Show("确认删除设备:" + dev.Name + "?", "警告", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
@@ -217,13 +227,21 @@ namespace LocationServer
                 if (r == null)
                 {
                     MessageBox.Show("删除失败");
+                    return false;
                 }
                 var area = AreaCanvas1.CurrentArea;
                 area.RemoveLeafNode(dev.Id);
                 AreaCanvas1.RemoveDev(dev.Id);
 
+                var topoTree = ResourceTreeView1.TopoTree;
+                topoTree.RemoveDevNode(dev.Id);
+                return true;
                 //topoTree.RefreshNode(dev.ParentId);
                 //ResourceTreeView1.TopoTree.RemoveCurrentNode();
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -236,6 +254,29 @@ namespace LocationServer
                 area.Children = areaService.GetListByPid(area.Id + "");
             }
             win.ShowInfo(area);
+            win.AreaModified += Win_AreaModified;
+        }
+
+        private void Win_AreaModified(AreaEntity obj)
+        {
+            LoadData();
+            foreach(DevEntity leaf in obj.LeafNodes)
+            {
+                if (leaf.TypeName == "基站")
+                {
+                    var newDevRect = AreaCanvas1.GetDev(leaf.Id);
+                    Window wnd = SetDevInfo(newDevRect, newDevRect.Tag as DevEntity,false);
+                    if (wnd is RoomArchorSettingWindow)
+                    {
+                        (wnd as RoomArchorSettingWindow).SaveInfo(false);
+                    }
+                    if (wnd is ParkArchorSettingWindow)
+                    {
+                        (wnd as ParkArchorSettingWindow).SaveInfo(false);
+                    }
+                    //wnd.Close();
+                }
+            }
         }
 
         List<ArchorSetting> archorSettings;
@@ -352,22 +393,73 @@ namespace LocationServer
 
         private void LoadAreaTree()
         {
-            var tree = areaService.GetTree(1);
+            var tree = areaService.GetTree(4);//4有CAD信息
             if (tree == null) return;
             var devList = tree.GetAllDev();
             var archorList = archorService.GetList();
             foreach (var dev in devList)
             {
-                if(archorList!=null)
+                if (archorList != null)
                     dev.DevDetail = archorList.FirstOrDefault(i => i.DevInfoId == dev.Id);
             }
             var topoTree = ResourceTreeView1.TopoTree;
+            var iId = topoTree.SelectedObject as IId;
+            InitTopoTreeAreaMenu(topoTree);
+            InitTopoTreeDevMenu(topoTree);
+            topoTree.LoadDataEx<AreaEntity, DevEntity>(tree);
+            topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
+            topoTree.ExpandLevel(2);
 
+            if (_archors != null)
+            {
+                List<int> ids = new List<int>();
+                foreach (var archor in _archors)
+                {
+                    topoTree.SelectNode(typeof(AreaEntity),(int)archor.ParentId, archor.DevInfoId);
+                    ids.Add(archor.DevInfoId);
+                }
+                AreaCanvas1.SelectDevsById(ids);
+            }
+            else
+            {
+                if (iId == null)
+                {
+                    topoTree.SelectFirst();
+                }
+                else
+                {
+                    topoTree.SelectNodeById(iId);
+                }
+            }
+        }
+
+        private void InitTopoTreeDevMenu(WPFClientControlLib.TopoTreeView topoTree)
+        {
+            topoTree.DevMenu = new ContextMenu();
+            topoTree.DevMenu.AddMenu("设置设备", (tag) =>
+            {
+                var dev = topoTree.SelectedObject as DevEntity;
+                SetDevInfo(null, dev);
+            });
+            topoTree.DevMenu.AddMenu("基站配置", (tag) =>
+            {
+                //var dev = topoTree.SelectedObject as DevEntity;
+                //SetDevInfo(null, dev);
+            });
+            topoTree.DevMenu.AddMenu("删除设备", (tag) =>
+            {
+                var dev = topoTree.SelectedObject as DevEntity;
+                RemoveDev(dev);
+            });
+        }
+
+        private void InitTopoTreeAreaMenu(WPFClientControlLib.TopoTreeView topoTree)
+        {
             topoTree.AreaMenu = new ContextMenu();
             topoTree.AreaMenu.AddMenu("添加区域", (obj) =>
             {
                 var area = topoTree.SelectedObject as AreaEntity;
-                var win = new NewAreaWindow(area);
+                var win = new NewAreaWindow(area,0);
                 win.ShowPointEvent += (x, y) =>
                 {
                     AreaCanvas1.ShowPoint(x, y);
@@ -376,7 +468,24 @@ namespace LocationServer
                 {
                     var newArea = win.NewArea;
                     area.AddChild(newArea.ToTModel());
-                    topoTree.RefreshCurrentNode<AreaEntity,DevEntity>(area);
+                    topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
+                    AreaCanvas1.Refresh();
+                }
+            });
+
+            topoTree.AreaMenu.AddMenu("添加区域(柱子)", (obj) =>
+            {
+                var area = topoTree.SelectedObject as AreaEntity;
+                var win = new NewAreaWindow(area,1);
+                win.ShowPointEvent += (x, y) =>
+                {
+                    AreaCanvas1.ShowPoint(x, y);
+                };
+                if (win.ShowDialog() == true)
+                {
+                    var newArea = win.NewArea;
+                    area.AddChild(newArea.ToTModel());
+                    topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
                     AreaCanvas1.Refresh();
                 }
             });
@@ -448,7 +557,7 @@ namespace LocationServer
                 area.InitBound.SetMinMaxXY();
                 bll.Bounds.Edit(area.InitBound.ToDbModel());
 
-                var children=area1.Children.CloneObjectList().ToList();
+                var children = area1.Children.CloneObjectList().ToList();
 
                 var newBounds = new List<Bound>();
                 foreach (var item in children)
@@ -470,7 +579,7 @@ namespace LocationServer
                 }
                 foreach (var item in dbBounds)
                 {
-                   
+
                     var points = item.Points.CloneObjectList();
                     foreach (var point in points)
                     {
@@ -508,43 +617,6 @@ namespace LocationServer
                 topoTree.RefreshCurrentNode<AreaEntity, DevEntity>(area);
                 AreaCanvas1.Refresh();
             });
-
-            topoTree.DevMenu = new ContextMenu();
-            topoTree.DevMenu.AddMenu("设置设备", (tag) =>
-            {
-                var dev=topoTree.SelectedObject as DevEntity;
-                SetDevInfo(null, dev);
-            });
-            topoTree.DevMenu.AddMenu("基站配置", (tag) =>
-            {
-                //var dev = topoTree.SelectedObject as DevEntity;
-                //SetDevInfo(null, dev);
-            });
-            topoTree.DevMenu.AddMenu("删除设备", (tag) =>
-            {
-                var dev = topoTree.SelectedObject as DevEntity;
-                RemoveDev(dev);
-            });
-
-            topoTree.LoadDataEx<AreaEntity,DevEntity>(tree);
-            topoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
-            topoTree.ExpandLevel(2);
-            
-
-            if (_archors != null)
-            {
-                List<int> ids = new List<int>();
-                foreach (var archor in _archors)
-                {
-                    topoTree.SelectNode((int)archor.ParentId, archor.DevInfoId);
-                    ids.Add(archor.DevInfoId);
-                }
-                AreaCanvas1.SelectDevsById(ids);
-            }
-            else
-            {
-                topoTree.SelectFirst();
-            }
         }
 
         private void LoadDepTree()
@@ -659,7 +731,7 @@ namespace LocationServer
         //    var area= areaId
         //}
 
-        private void SetDevInfo(Rectangle rect, DevEntity obj)
+        private Window SetDevInfo(Rectangle rect, DevEntity obj,bool isShow=true)
         {
             var parentArea = areaService.GetEntity(obj.ParentId + "");
             if (parentArea.IsPark()) //电厂
@@ -677,14 +749,16 @@ namespace LocationServer
                 };
                 parkArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 parkArchorSettingWnd.Closed += (sender, e) => { parkArchorSettingWnd = null; };
-                parkArchorSettingWnd.Show();
+
+                if(isShow)
+                    parkArchorSettingWnd.Show();
 
                 if (parkArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
                 {
                     parkArchorSettingWnd.Close();
                     parkArchorSettingWnd = null;
-                    return;
                 }
+                return parkArchorSettingWnd;
             }
             else
             {
@@ -697,14 +771,14 @@ namespace LocationServer
                 };
                 roomArchorSettingWnd.ShowPointEvent += (x, y) => { AreaCanvas1.ShowPoint(x, y); };
                 roomArchorSettingWnd.Closed += (sender, e) => { roomArchorSettingWnd = null; };
-                roomArchorSettingWnd.Show();
+                if (isShow)
+                    roomArchorSettingWnd.Show();
                 if (roomArchorSettingWnd.ShowInfo(rect, obj.Id) == false)
                 {
                     roomArchorSettingWnd.Close();
                     roomArchorSettingWnd = null;
-                    return;
                 }
-
+                return roomArchorSettingWnd;
             }
         }
 
@@ -773,7 +847,7 @@ namespace LocationServer
                     return;
                 }
 
-                engineClient = new PositionEngineClient();
+                engineClient = PositionEngineClient.Instance();
                 //engineClient.Logs = Logs;
                 engineClient.IsWriteToDb = true;
                 engineClient.StartConnectEngine(login);

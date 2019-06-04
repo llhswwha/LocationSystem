@@ -138,6 +138,18 @@ namespace WPFClientControlLib
             }
         }
 
+        public Rectangle GetDev(int id)
+        {
+            if (DevDict.ContainsKey(id))
+            {
+                return DevDict[id].Rect;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void SelectDevsById(List<int> list)
         {
             if (list == null) return;
@@ -275,25 +287,27 @@ namespace WPFClientControlLib
                 {
                     SelectedArea = area;
                     int scale = 3;
+                    if (area.Name == "宝刚园区")
+                    {
+                        scale = 1;
+                    }
                     DevSize = 3;
-
                     Clear();
-                    
                     DrawPark(area, scale, DevSize);
-
                     InitCbScale(scale);
                     InitCbDevSize(new double[] { 0.5, 1, 2, 3, 4, 5 }, DevSize);
                     //ShowPersons(area.Persons);
-
                     ShowSwitchArea(area, switchAreas, scale);
-
-
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
                     //GetSettingFunc = null;
                     SelectedArea = area;
                     int scale = 20;
+                    if (area.Name.Contains("燃料准备车间"))
+                    {
+                        scale = 2;
+                    }
                     DevSize = 0.4;
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
@@ -444,8 +458,9 @@ namespace WPFClientControlLib
 
         private Location.TModel.Location.AreaAndDev.Point GetOriginalPoint(System.Windows.Point point)
         {
-            double x = point.X / Scale + OffsetX;
-            double y= point.Y / Scale + OffsetX;
+            if (CurrentArea.InitBound == null) return null;
+            double x = point.X / Scale + OffsetX- CurrentArea.InitBound.MinX;
+            double y= point.Y / Scale + OffsetX - CurrentArea.InitBound.MinY;
             return new Location.TModel.Location.AreaAndDev.Point((float)x, (float)y,0);
         }
 
@@ -470,6 +485,7 @@ namespace WPFClientControlLib
                 area.Children.Sort();
                 foreach (var level1Item in area.Children) //机房
                 {
+                    if (IsShowAlarmArea==false&&level1Item.Type == AreaTypes.范围) continue;
                     level1Item.Parent = area;
                     AddAreaRect(level1Item, area, scale, true);
 
@@ -524,6 +540,8 @@ namespace WPFClientControlLib
                     if (level1Item.Children != null)
                         foreach (var level2Item in level1Item.Children) //建筑
                         {
+                            if (IsShowAlarmArea == false && level2Item.Type == AreaTypes.范围) continue;
+
                             level2Item.Parent = level1Item;
                             AddAreaRect(level2Item, level1Item, scale);
 
@@ -650,43 +668,12 @@ namespace WPFClientControlLib
 
             double roomOffX = 0;
             double roomOffY = 0;
-            if (DrawMode == 1)//大图模式
-            {
-                if (parent != null)
-                {
-                    if(parent.Type == AreaTypes.楼层 && parent.Parent != null)
-                    {
-                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
-                    }
-                    else if (parent.Type == AreaTypes.机房 && parent.Parent != null)
-                    {
-                        roomOffX = parent.Parent.Parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                        roomOffY = parent.Parent.Parent.InitBound.MinY + parent.Parent.InitBound.MinY;
-                    }
-                }
-            }
-            else //小图模式
-            {
-                if (parent != null)
-                {
-                    if (parent.Type == AreaTypes.楼层)
-                    {
-                        roomOffX = parent.InitBound.MinX;
-                        roomOffY = parent.InitBound.MinY;
-                    }
-                    else if (parent.Type == AreaTypes.机房)
-                    {
-                        roomOffX = parent.Parent.InitBound.MinX;
-                        roomOffY = parent.Parent.InitBound.MinY;
-                    }
-                }
-            }
+            GetRoomOffXY(parent, ref roomOffX, ref roomOffY);
 
             double ax = dev.Pos.PosX + roomOffX;
             double ay = dev.Pos.PosZ + roomOffY;
 
-            if (DrawMode==1 && GetSettingFunc != null)//大图模式
+            if (DrawMode == 1 && GetSettingFunc != null)//大图模式
             {
                 ArchorSetting setting = GetSettingFunc(dev);
                 if (setting != null)
@@ -698,8 +685,8 @@ namespace WPFClientControlLib
             }
 
 
-            double x = (ax - OffsetX) * scale-size*scale/2;
-            double y = (ay - OffsetY ) * scale - size * scale / 2;
+            double x = (ax - OffsetX) * scale - size * scale / 2;
+            double y = (ay - OffsetY) * scale - size * scale / 2;
 
             DevShape devShape = new DevShape(Canvas1);
             if (showDevName)
@@ -711,7 +698,7 @@ namespace WPFClientControlLib
                 }
                 Label lb = new Label();
                 lb.Content = GetDevName(dev);
-                Canvas.SetLeft(lb, x+ size * scale);
+                Canvas.SetLeft(lb, x + size * scale);
                 Canvas.SetTop(lb, y);
                 Canvas1.Children.Add(lb);
                 lb.LayoutTransform = ScaleTransform1;
@@ -755,6 +742,42 @@ namespace WPFClientControlLib
             Canvas1.Children.Add(devRect);
 
             return devRect;
+        }
+
+        private void GetRoomOffXY(AreaEntity parent, ref double roomOffX, ref double roomOffY)
+        {
+            if (DrawMode == 1)//大图模式
+            {
+                if (parent != null)
+                {
+                    if (parent.Type == AreaTypes.楼层 && parent.Parent != null)
+                    {
+                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
+                    else if (parent.Type == AreaTypes.机房 && parent.Parent != null)
+                    {
+                        roomOffX = parent.Parent.Parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.Parent.Parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
+                }
+            }
+            else //小图模式
+            {
+                if (parent != null)
+                {
+                    if (parent.Type == AreaTypes.楼层)
+                    {
+                        roomOffX = parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY;
+                    }
+                    else if (parent.Type == AreaTypes.机房)
+                    {
+                        roomOffX = parent.Parent.InitBound.MinX;
+                        roomOffY = parent.Parent.InitBound.MinY;
+                    }
+                }
+            }
         }
 
         UDPArchorList udpArchorList;
@@ -1011,13 +1034,19 @@ namespace WPFClientControlLib
             {
                 if (parent != null && parent.Type == AreaTypes.楼层 && parent.Parent != null)//当前是机房
                 {
-                    roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
-                    roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    if (parent.InitBound.IsRelative)
+                    {
+                        roomOffX = parent.InitBound.MinX + parent.Parent.InitBound.MinX;
+                        roomOffY = parent.InitBound.MinY + parent.Parent.InitBound.MinY;
+                    }
                 }
                 if (area.Type == AreaTypes.楼层 && parent != null && parent.InitBound != null)//当前是楼层
                 {
-                    roomOffX = /*area.InitBound.MinX + */ parent.InitBound.MinX;
-                    roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
+                    if (area.InitBound.IsRelative)
+                    {
+                        roomOffX = /*area.InitBound.MinX + */ parent.InitBound.MinX;
+                        roomOffY = /*area.InitBound.MinY +*/ parent.InitBound.MinY;
+                    } 
                 }
             }
             else//小图模式
@@ -1388,7 +1417,7 @@ namespace WPFClientControlLib
             Refresh();
         }
 
-        public bool IsShowSwitchArea = true;
+        public bool IsShowSwitchArea = false;
 
         private void CbShowSwitchArea_Checked(object sender, RoutedEventArgs e)
         {
@@ -1486,6 +1515,20 @@ namespace WPFClientControlLib
         private void Canvas1_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        bool IsShowAlarmArea = false;
+
+        private void CbShowAlarmArea_Checked(object sender, RoutedEventArgs e)
+        {
+            IsShowAlarmArea = (bool)CbShowAlarmArea.IsChecked;
+            Refresh();
+        }
+
+        private void CbShowAlarmArea_Unchecked(object sender, RoutedEventArgs e)
+        {
+            IsShowAlarmArea = (bool)CbShowAlarmArea.IsChecked;
+            Refresh();
         }
     }
 }

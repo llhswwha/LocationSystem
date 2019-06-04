@@ -38,7 +38,8 @@ namespace DbModel.Tools.InitInfos
         public string ModelName;
         [XmlAttribute("KKSCode")]
         public string KKSCode;
-
+        [XmlAttribute("Abutment_DevID")]
+        public string Abutment_DevID;
         //位置信息
         [XmlAttribute("XPos")]
         public string XPos;

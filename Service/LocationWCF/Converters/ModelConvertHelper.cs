@@ -445,7 +445,8 @@ namespace LocationServices.Converters
             item2.Code = item1.Code;
             item2.Src = item1.Src;
             item2.DevId = item1.DevInfoId;
-            item2.Dev = item1.DevInfo.ToTModel();
+            item2.SetDev(item1.DevInfo.ToTModel());
+            //item2.Dev = item1.DevInfo.ToTModel();
             item2.Device_desc = item1.Device_desc;
             item2.CreateTime = item1.AlarmTime;
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;
@@ -476,7 +477,7 @@ namespace LocationServices.Converters
             item2.Code = item1.Code;
             item2.Src = item1.Src;
             item2.DevInfoId = item1.DevId;
-            item2.DevInfo = item1.Dev.ToDbModel();
+            //item2.DevInfo = item1.Dev.ToDbModel();
             item2.Device_desc = item1.Device_desc;
             item2.AlarmTime = item1.CreateTime;
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;

@@ -492,12 +492,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Data\部门人员门禁卡信息\BackupPersonnelInfo.xml">
+    <None Include="Data\设备信息\FireFightInfoBackup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\设备信息\DoorAccessBackup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
+    <None Include="Data\部门人员门禁卡信息\BackupPersonnelInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Data\部门人员门禁卡信息\BackupDepartmentsInfo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -511,6 +519,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\UDPoints20190321.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="UnitySetting.XML">
@@ -612,6 +623,14 @@
     <None Include="Data\HomePages\锅炉4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Data\InitInfoBranch\ShangHaiBaoXin\InitInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\InitInfoBranch\SiHui\InitInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Data\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

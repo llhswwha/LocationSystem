@@ -21,7 +21,7 @@ namespace LocationServices.Locations
         public Department GetDepartmentTree()
         {
             ShowLogEx(">>>>> GetDepartmentTree");
-            var leafNodes = GetPersonList();
+            var leafNodes = GetPersonList(false);
             return new DepartmentService(db).GetTree(leafNodes);
         }
 

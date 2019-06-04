@@ -49,7 +49,7 @@ namespace LocationWCFServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -92,6 +92,7 @@ namespace LocationWCFServer
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             ServerManagerBox1.StopServices();
+            ServerManagerBox1.StopListenLog();
         }
 
 
@@ -242,7 +243,7 @@ namespace LocationWCFServer
         private void MenuArchorScane_Click(object sender, RoutedEventArgs e)
         {
 
-            Bll bll = new Bll(false,false,false,false);
+            Bll bll = new Bll(false, false, false, false);
             var list3 = bll.Archors.ToList();
             var areas = bll.Areas.ToList();
             foreach (var item in list3)
@@ -309,7 +310,7 @@ namespace LocationWCFServer
             });
             thread.IsBackground = true;
             thread.Start();
-            
+
             return;
         }
 
@@ -349,6 +350,62 @@ namespace LocationWCFServer
             thread.Start();
 
             return;
+        }
+
+        private void MenuCache_OnClick(object sender, RoutedEventArgs e)
+        {
+            Bll bll = new Bll(false, false, false, false);
+            var bound1 = bll.Bounds.Find(i => i.Id == 1449);
+
+            var bound2 = bll.Bounds.Find(i => i.Id == 1449);
+
+            var bound3 = bll.Bounds.Find(i => i.Id == 1449);
+
+            int nn = 0;
+        }
+
+        private void MenuClearDevAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            Bll db = new Bll(false, false, false, false);
+            db.DevAlarms.Clear();
+        }
+
+        private void MenuGenerateDevAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            Bll db = new Bll(false, false, false, false);
+            var devs = db.DevInfos.ToList();
+            if (devs == null || devs.Count == 0) return;
+            Random r = new Random((int)DateTime.Now.Ticks);
+            DateTime now = DateTime.Now;
+            for (int j = 0; j < 10; j++)
+            {
+                List<DeviceAlarm> alarms = new List<DeviceAlarm>();
+                for (int i = 0; i < 10; i++)
+                {
+                    int devIndex = r.Next(devs.Count);
+                    int month = r.Next(12) + 1;
+                    int day = r.Next(28) + 1;
+                    int hour = r.Next(24);
+                    int m = r.Next(60);
+                    int s = r.Next(60);
+                    int lv = r.Next(5);
+                    alarms.Add(new DeviceAlarm() { Level = (Abutment_DevAlarmLevel)lv, Title = "告警"+i, Message = "设备告警"+i, CreateTime = new DateTime(now.Year, now.Month, now.Day, hour, m, s) }.SetDev(devs[devIndex].ToTModel()));
+                }
+                db.DevAlarms.AddRange(alarms.ToDbModel());
+            }
+            MessageBox.Show("初始化成功");
+        }
+
+        private void MenuClearHisAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            Bll db = new Bll(false, false, false, false);
+            DateTime now = DateTime.Now;
+            //DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
+            DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
+            DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
+            var alarms=db.DevAlarms.Where(i => i.AlarmTime.Ticks < todayStart.Ticks);
+            bool r=db.DevAlarms.RemoveList(alarms);
+            MessageBox.Show("清空成功");
         }
     }
 }
