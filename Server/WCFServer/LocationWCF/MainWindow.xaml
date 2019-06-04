@@ -42,6 +42,7 @@
                 <MenuItem Header="获取所有监控点数据" Name="GetAllNodeKKSData" Click="GetAllNodeKKSData_OnClick"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="清空历史设备告警" Name="MenuClearHisAlarms" Click="MenuClearHisAlarms_Click"></MenuItem>
+                <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="测试指令">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

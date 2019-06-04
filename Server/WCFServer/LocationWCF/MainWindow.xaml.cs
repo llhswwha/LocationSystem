@@ -407,5 +407,11 @@ namespace LocationWCFServer
             bool r=db.DevAlarms.RemoveList(alarms);
             MessageBox.Show("清空成功");
         }
+
+        private void MenuUpdatePersons_Click(object sender, RoutedEventArgs e)
+        {
+            UpdatePersonWindow wnd = new UpdatePersonWindow();
+            wnd.Show();
+        }
     }
 }

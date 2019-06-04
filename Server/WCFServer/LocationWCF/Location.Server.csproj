@@ -321,6 +321,9 @@
     <Compile Include="Windows\Simple\TrackPointWindow.xaml.cs">
       <DependentUpon>TrackPointWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\UpdatePersonWindow.xaml.cs">
+      <DependentUpon>UpdatePersonWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ServerManagerBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -476,6 +479,10 @@
     <Page Include="Windows\Simple\TrackPointWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\UpdatePersonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
