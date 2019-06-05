@@ -63,6 +63,8 @@ namespace DbModel.Tools
 
         public static bool IsSameDomain(string ip1,string ip2)
         {
+            if (ip1 == null) return false;
+            if (ip2 == null) return false;
             string[] parts1 = ip1.Split('.');
             string[] parts2 = ip2.Split('.');
             if (parts1.Length == 4 && parts2.Length == 4)

@@ -25,6 +25,8 @@ namespace LocationServices.Tools
 {
     public class PositionEngineClient
     {
+
+
         public static PositionEngineClient Single = null;
 
         public static PositionEngineClient Instance()

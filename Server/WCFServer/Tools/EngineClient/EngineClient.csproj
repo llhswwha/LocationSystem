@@ -107,6 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EngineClientSetting.cs" />
     <Compile Include="RealPositionWindow.xaml.cs">
       <DependentUpon>RealPositionWindow.xaml</DependentUpon>
     </Compile>

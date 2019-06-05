@@ -25,6 +25,7 @@ using TModel.Models.Settings;
 using LocationServices.Locations;
 using WebNSQLib;
 using SignalRService.Hubs;
+using EngineClient;
 
 namespace LocationWCFServer
 {
@@ -75,7 +76,9 @@ namespace LocationWCFServer
             LocationService.url = datacaseUrl;
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
-           
+            EngineClientSetting.LocalIp = ConfigurationHelper.GetValue("Ip");
+            EngineClientSetting.EngineIp = ConfigurationHelper.GetValue("EngineIp");
+            EngineClientSetting.AutoStart = ConfigurationHelper.GetBoolValue("AutoConnectEngine");
             //SystemSetting setting = new SystemSetting();
             //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
         }
@@ -87,8 +90,6 @@ namespace LocationWCFServer
             string dbType = ConfigurationHelper.GetValue("DbSourceType");
             AppContext.InitDbContext(dbType);
         }
-
-        
 
         private void InitData()
         {

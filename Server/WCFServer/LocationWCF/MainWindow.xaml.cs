@@ -74,6 +74,11 @@ namespace LocationWCFServer
                 ServerManagerBox1.ClickStart();
             }
 
+            if (EngineClientSetting.AutoStart)
+            {
+                ShowEngineClientWindow();
+            }
+
             //var hex = "10 01 C0 01 02 85 A4 F4 8C C0 3A";
             //var bytes = ByteHelper.HexToBytes(hex);
             //var str = "85A4";
@@ -182,6 +187,11 @@ namespace LocationWCFServer
         }
 
         private void MenuEngineClient_OnClick(object sender, RoutedEventArgs e)
+        {
+            ShowEngineClientWindow();
+        }
+
+        private void ShowEngineClientWindow()
         {
             var win = new EngineClientWindow();
             win.Show();

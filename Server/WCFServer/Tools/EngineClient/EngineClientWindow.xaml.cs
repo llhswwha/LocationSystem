@@ -63,6 +63,11 @@ namespace EngineClient
 
         private void BtnStart_OnClick(object sender, RoutedEventArgs e)
         {
+            StartConnect();
+        }
+
+        private void StartConnect()
+        {
             if (BtnStart.Content.ToString() == "启动")
             {
                 Start();
@@ -135,6 +140,13 @@ namespace EngineClient
 
             TbEnginePort.ItemsSource = new string[] { "3456","3455"};
             TbEnginePort.SelectedIndex = 0;
+
+            if(EngineClientSetting.AutoStart)
+            {
+                TbLocalIp.SelectedItem = EngineClientSetting.LocalIp;
+                TbEngineIp.SelectedItem = EngineClientSetting.EngineIp;
+                StartConnect();
+            }
         }
 
         private void MenuOpenSimulation3D_OnClick(object sender, RoutedEventArgs e)
