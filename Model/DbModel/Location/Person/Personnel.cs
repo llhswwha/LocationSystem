@@ -97,7 +97,16 @@ namespace DbModel.Location.Person
         /// </summary>
         [DataMember]
         [Display(Name = "工号")]
-        public int? WorkNumber { get; set; }
+        [MaxLength(64)]
+        public string WorkNumber { get; set; }
+
+        ///// <summary>
+        ///// 工号
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "工号")]
+        //[MaxLength(64)]
+        //public string WorkNumberNew { get; set; }
 
         /// <summary>
         /// 邮箱
@@ -151,6 +160,15 @@ namespace DbModel.Location.Person
             BirthDay = DateTime.Now;
             BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(BirthDay);
             Enabled = true;
+            Sex = Sexs.男;
+            Pst = "检修";
+        }
+
+        public Personnel(string name,Department parent,string num):this()
+        {
+            this.Name = name;
+            this.ParentId = parent.Id;
+            this.WorkNumber = num;
         }
 
         public Personnel Clone()

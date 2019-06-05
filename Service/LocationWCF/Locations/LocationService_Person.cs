@@ -123,6 +123,14 @@ namespace LocationServices.Locations
             {
                 return -1;
             }
+            else
+            {
+                if(p.TagId!=null)//如果新增的人，设置了定位卡ID。得把关系添加到cardToPersonnel
+                {
+                    var s = new PersonService(db);
+                    var value = s.BindWithTag(dbP.Id, (int)p.TagId);
+                }                
+            }
             return dbP.Id;
         }
 

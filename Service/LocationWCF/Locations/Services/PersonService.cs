@@ -134,7 +134,7 @@ namespace LocationServices.Locations.Services
             {
                 if (tagId == 0)//解除绑定
                 {
-                    var tag = db.LocationCards.Find(tagId);
+                    var tag = db.LocationCards.Find(relation.LocationCardId);
                     if (tag != null)
                     {
                         tag.IsActive = false;//解除卡则不激活
@@ -152,8 +152,37 @@ namespace LocationServices.Locations.Services
                 }
                 else
                 {
-                    relation.LocationCardId = tagId;
-                    return db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
+                    var tag = db.LocationCards.Find(relation.LocationCardId);
+                    if(tag.Id!= relation.LocationCardId)
+                    {
+                        Log.Error("tag.Id!= relation.LocationCardId");
+                    }
+                    if (tag != null)
+                    {
+                        
+
+                        relation.LocationCardId = tagId;
+                        bool r2= db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
+                        if (r2 == false)
+                        {
+                            Log.Error("修改绑定失败:" + relation.LocationCardId);
+                        }
+                        if (tag.IsActive == false)
+                        {
+                            tag.IsActive = true;//激活
+                            bool r1 = db.LocationCards.Edit(tag);
+                            if (r1 == false)
+                            {
+                                Log.Error("修改激活失败:" + relation.LocationCardId);
+                            }
+                        }
+                        return r2;
+                    }
+                    else
+                    {
+                        Log.Error("找不到定位卡:"+ relation.LocationCardId);
+                        return false;
+                    }
                 }
                 
             }
@@ -240,7 +269,8 @@ namespace LocationServices.Locations.Services
                                 join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
                                 join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
                                 join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                                select new { Person = p, Tag = tag, Pos = pos };
+                                    into posList from pos2 in posList.DefaultIfEmpty() //left join
+                                select new { Person = p, Tag = tag, Pos = pos2 };
                     foreach (var item in query)
                     {
                         TEntity entity = item.Person.ToTModel();

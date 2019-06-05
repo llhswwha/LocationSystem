@@ -115,5 +115,24 @@ namespace DbModel.Location.Person
                 GetSubChildren(list, child, type);
             }
         }
+
+        public Department()
+        {
+
+        }
+
+        public Department(string name, int parentId)
+        {
+            Name = name;
+            ParentId = parentId;
+            Description = name;
+        }
+
+        //public Department(string name, Department parent)
+        //{
+        //    Name = name;
+        //    Parent = parent;//这里这样设置会导致parent也被添加一次，奇怪了。。。
+        //    Description = name;
+        //}
     }
 }

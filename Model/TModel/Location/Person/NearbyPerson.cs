@@ -28,7 +28,7 @@ namespace TModel.Location.Person
         /// 编号
         /// </summary>
         [DataMember]
-        public int? WorkNumber { get; set; }
+        public string WorkNumber { get; set; }
 
         /// <summary>
         /// 距离
@@ -71,7 +71,7 @@ namespace TModel.Location.Person
         {
             id = 0;
             Name = "";
-            WorkNumber = 0;
+            WorkNumber = "0";
             Distance = 0;
             DepartMent = "";
             Position = "";

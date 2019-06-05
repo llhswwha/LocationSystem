@@ -1,6 +1,7 @@
 ﻿using BLL;
 using BLL.Blls.Location;
 using DbModel.Tools;
+using Location.BLL.Tool;
 using Location.TModel.Location.Person;
 using LocationServices.Converters;
 using System;
@@ -213,7 +214,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Log.Error(ex.ToString());
                 return null;
             }
         }

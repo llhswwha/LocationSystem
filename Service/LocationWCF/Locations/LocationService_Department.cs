@@ -22,7 +22,9 @@ namespace LocationServices.Locations
         {
             ShowLogEx(">>>>> GetDepartmentTree");
             var leafNodes = GetPersonList(false);
-            return new DepartmentService(db).GetTree(leafNodes);
+            var s = new DepartmentService(db);
+            var dep= s.GetTree(leafNodes);
+            return dep;
         }
 
         

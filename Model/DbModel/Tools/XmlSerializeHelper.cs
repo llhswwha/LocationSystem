@@ -306,7 +306,7 @@ namespace DbModel.Tools
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex);
+                //Log.Error(ex.ToString());
                 ExceptionText = ex.ToString();
                 //if (EnableLog)
                 //    Log.Error("SerializeHelper.Deserialize", "Xml:"+ LastXml+"\n"+ex);

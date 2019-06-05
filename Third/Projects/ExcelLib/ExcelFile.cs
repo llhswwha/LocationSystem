@@ -220,7 +220,7 @@ namespace ExcelLib
                 }
                 else
                 {                    
-                    Console.WriteLine(ex);
+                    //Log.Error(ex.ToString());
                     throw ex;
                     return hssfworkbook.GetSheetAt(hssfworkbook.NumberOfSheets - 1);
                 }

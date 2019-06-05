@@ -80,13 +80,14 @@ namespace BLL.Tools
             Per.Nation = PerB.Nation;
             Per.Address = PerB.Address;
 
-            if (PerB.WorkNumber != -1)
+            if (PerB.WorkNumber != null)
             {
                 Per.WorkNumber = PerB.WorkNumber;
             }
             else
             {
                 Per.WorkNumber = null;
+                //Per.WorkNumberNew = null;
             }
 
             Per.Email = PerB.Email;

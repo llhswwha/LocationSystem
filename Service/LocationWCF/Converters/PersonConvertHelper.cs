@@ -34,7 +34,7 @@ namespace LocationServices.Converters
             item2.BirthTimeStamp = item1.BirthTimeStamp;
             item2.Nation = item1.Nation;
             item2.Address = item1.Address;
-            item2.WorkNumber = item1.WorkNumber ?? 0;
+            item2.WorkNumber = item1.WorkNumber;
             item2.Email = item1.Email;
             item2.PhoneNumber = item1.Phone;
             item2.Mobile = item1.Mobile;

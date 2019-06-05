@@ -59,11 +59,11 @@ namespace LocationServer.Tools
 
                 if (item.WorkNumber != null)
                 {
-                    Per.WorkNumber = (int)item.WorkNumber;
+                    Per.WorkNumber = item.WorkNumber;
                 }
                 else
                 {
-                    Per.WorkNumber = -1;
+                    Per.WorkNumber = null;
                 }
 
                 Per.Email = item.Email;

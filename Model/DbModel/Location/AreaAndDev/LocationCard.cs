@@ -105,5 +105,21 @@ namespace DbModel.Location.AreaAndDev
 
             return history;
         }
+
+        public LocationCard()
+        {
+
+        }
+
+        public LocationCard(string code,int roleId)
+        {
+            this.Code = code;
+            this.Name = code;
+            this.Describe = code;
+            this.CardRoleId = roleId;
+            IsActive = true;
+        }
+
+        
     }
 }

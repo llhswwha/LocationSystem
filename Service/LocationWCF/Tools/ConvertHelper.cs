@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using DbModel.Tools;
+using Location.BLL.Tool;
 
 namespace LocationServices.Tools
 {
@@ -88,7 +89,7 @@ namespace LocationServices.Tools
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Log.Error(ex.ToString());
                 return default(T2);
             }
         }

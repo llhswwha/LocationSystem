@@ -88,7 +88,16 @@ namespace DbModel.LocationHistory.Person
         /// </summary>
         [DataMember]
         [Display(Name = "工号")]
-        public int? WorkNumber { get; set; }
+        [MaxLength(64)]
+        public string WorkNumber { get; set; }
+
+        ///// <summary>
+        ///// 工号
+        ///// </summary>
+        //[DataMember]
+        //[Display(Name = "工号")]
+        //[MaxLength(64)]
+        //public string WorkNumberNew { get; set; }
 
         /// <summary>
         /// 邮箱

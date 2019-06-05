@@ -306,7 +306,7 @@ namespace ExcelLib
         //    }
         //    catch (Exception ex)
         //    {
-        //        Console.WriteLine(ex);
+        //        Log.Error(ex.ToString());
         //        return false;
         //    }
         //}
@@ -321,7 +321,7 @@ namespace ExcelLib
         //    }
         //    catch (Exception ex)
         //    {
-        //        Console.WriteLine(ex);
+        //        Log.Error(ex.ToString());
         //        return false;
         //    }
         //}
@@ -404,7 +404,7 @@ namespace ExcelLib
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                //Log.Error(ex.ToString());
                 return false;
             }
         }

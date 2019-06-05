@@ -72,7 +72,7 @@ namespace Location.BLL.Tool
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Log.Error(ex.ToString());
             }
         }
 
@@ -98,7 +98,7 @@ namespace Location.BLL.Tool
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Log.Error(ex.ToString());
             }
         }
         #endregion

@@ -76,11 +76,19 @@ namespace Location.TModel.Location.Person
         [DataMember]
         public string Address { get; set; }
 
+        private string _workNumber = "";
+
         /// <summary>
         /// 工号
         /// </summary>
         [DataMember]
-        public int WorkNumber { get; set; }
+        public string WorkNumber
+        {
+            get {
+                if (_workNumber == null) return "";//不能为null不然客户的那边要判断
+                return _workNumber; }
+            set { _workNumber = value; }
+        }
 
         /// <summary>
         /// 邮箱

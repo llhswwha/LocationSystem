@@ -94,7 +94,7 @@ namespace Location.TModel.Tools
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                //LogEvent.Error(ex.ToString());
                 return false;
             }
         }

@@ -169,7 +169,7 @@ namespace BLL
             InitRealTimePositions();//初始化定位卡初始实时位置
         }
 
-        private void AddPerson(string name, Sexs sex, LocationCard tag, Department dep, Post pst, int worknumber, string phone)
+        private void AddPerson(string name, Sexs sex, LocationCard tag, Department dep, Post pst, string worknumber, string phone)
         {
             Personnel person = new Personnel()
             {
@@ -379,6 +379,7 @@ namespace BLL
                 Log.Error("InitRealTimePositions bound == null");
                 return;
             }
+            if (bound == null) return;//区域初始化出错，bound会为空
             bound.Points = _bll.Points.FindAll(i => i.BoundId == bound.Id);
 
             for (int i = 0; i < cardPersons.Count; i++)

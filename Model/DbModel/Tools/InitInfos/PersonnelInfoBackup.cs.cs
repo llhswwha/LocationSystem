@@ -41,7 +41,7 @@ namespace DbModel.Tools.InitInfos
         public string Address { get; set; }
 
         [XmlAttribute("WorkNumber")]
-        public int WorkNumber { get; set; }
+        public string WorkNumber { get; set; }
 
         [XmlAttribute("Email")]
         public string Email { get; set; }
