@@ -44,11 +44,12 @@
                 <MenuItem Header="清空历史设备告警" Name="MenuClearHisAlarms" Click="MenuClearHisAlarms_Click"></MenuItem>
                 <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="测试指令">
+            <MenuItem Header="测试">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>
                 <MenuItem Header="缓存" Name="MenuCache" Click="MenuCache_OnClick"></MenuItem>
                 <MenuItem Header="清空设备告警" Name="MenuClearDevAlarms" Click="MenuClearDevAlarms_Click"></MenuItem>
                 <MenuItem Header="生成设备告警" Name="MenuGenerateDevAlarms" Click="MenuGenerateDevAlarms_Click"></MenuItem>
+                <MenuItem Header="异常崩溃" Name="MenuException" Click="MenuException_Click"></MenuItem>
             </MenuItem>
 
         </Menu>

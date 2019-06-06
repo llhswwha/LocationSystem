@@ -423,5 +423,14 @@ namespace LocationWCFServer
             UpdatePersonWindow wnd = new UpdatePersonWindow();
             wnd.Show();
         }
+
+        private void MenuException_Click(object sender, RoutedEventArgs e)
+        {
+            string s = null;
+            double a = 1;
+            double b = 0;
+            double c = a / b;
+            string s2 = s.ToString();
+        }
     }
 }
