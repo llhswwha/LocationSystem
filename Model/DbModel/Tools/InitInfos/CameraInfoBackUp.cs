@@ -31,6 +31,8 @@ namespace Assets.z_Test.BackUpDevInfo
         public string KKSCode;
         [XmlAttribute("Abutment_DevID")]
         public string Abutment_DevID;
+        [XmlAttribute("RtspURL")]
+        public string RtspURL;
 
         //位置信息
         [XmlAttribute("XPos")]

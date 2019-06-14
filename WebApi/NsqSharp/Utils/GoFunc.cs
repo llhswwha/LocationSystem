@@ -12,6 +12,24 @@ namespace NsqSharp.Utils
     public static class GoFunc
     {
         /// <summary>
+        /// 日志信息
+        /// </summary>
+        public static event Action<string> InfoEvent;
+
+        /// <summary>
+        /// 日志信息
+        /// </summary>
+        /// <param name="msg"></param>
+        public static void Info(string msg)
+        {
+            Console.WriteLine(msg);
+            if (InfoEvent != null)
+            {
+                InfoEvent(msg);
+            }
+        }
+
+        /// <summary>
         /// Run a new "goroutine".
         /// </summary>
         /// <param name="action">The method to execute.</param>
@@ -32,11 +50,12 @@ namespace NsqSharp.Utils
                                    }
                                    catch (Exception ex)
                                    {
-                                       var logger = new TraceLogger();
-                                       logger.Output(LogLevel.Critical, string.Format("{0} - {1}", threadName, ex));
-                                       logger.Flush();
-                                       Trace.Flush();
-                                       throw;
+                                       //var logger = new TraceLogger();
+                                       //logger.Output(LogLevel.Critical, string.Format("{0} - {1}", threadName, ex));
+                                       //logger.Flush();
+                                       //Trace.Flush();
+                                       //throw;
+                                       Info(string.Format("{0} - {1}", threadName, ex));
                                    }
                                }
                 );

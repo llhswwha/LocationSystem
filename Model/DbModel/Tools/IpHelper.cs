@@ -24,8 +24,22 @@ namespace DbModel.Tools
                 LocalList.AddRange(ipadrlist);
             }
             return LocalList;
-        } 
-        
+        }
+
+        public static List<string> GetLocalIpList()
+        {
+
+            string name = Dns.GetHostName();
+            IPAddress[] ipadrlist = Dns.GetHostAddresses(name);
+            List<string> list = new List<string>();
+            list.Add("127.0.0.1");
+            foreach (IPAddress item in ipadrlist)
+            {
+                list.Add(item.ToString());
+            }
+            return list;
+        }
+
         /// <summary>
         /// 获取和ip同一网段的当前电脑上的Ip
         /// </summary>

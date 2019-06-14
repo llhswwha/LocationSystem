@@ -36,7 +36,7 @@ namespace BLL
 
         public void InitDb()
         {
-            Log.InfoStart("InitDb");
+            Log.InfoStart(LogTags.DbGet, "InitDb");
             //List<Department> list = Departments.ToList();
             int count = Departments.DbSet.Count();//调试时，第一次使用EF获取数据要占用15-20s的时间，部署后不会。
             Log.Info("Count:" + count);

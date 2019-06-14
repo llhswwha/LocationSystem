@@ -18,6 +18,7 @@ using LocationServices.Locations;
 using SignalRService.Hubs;
 using TModel.Location.Data;
 using IModel.Enums;
+using Location.TModel.FuncArgs;
 
 namespace LocationServer.Windows
 {
@@ -34,6 +35,7 @@ namespace LocationServer.Windows
         private void EventSendTestWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             LoadDevList();
+            LoadDeviceAlarms();
         }
 
         private void BtnPushAlarm_OnClick(object sender, RoutedEventArgs e)
@@ -176,6 +178,21 @@ namespace LocationServer.Windows
                 DevInfo info = devList.Find(i => i.DevID == door.DevID);
                 if (info != null) door.DevInfo = info;
             }
+        }
+
+        private void LoadDeviceAlarms()
+        {
+            var service = new LocationService();
+            AlarmSearchArg arg = new AlarmSearchArg();
+            arg.IsAll = true;
+            var alarms = service.GetDeviceAlarms(arg);
+            DeviceAlarms.ItemsSource = alarms;
+        }
+
+        private void MenuSendDeviceAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            var alarm = DeviceAlarms.SelectedItem as DeviceAlarm;
+            AlarmHub.SendDeviceAlarms(alarm);
         }
     }
 }

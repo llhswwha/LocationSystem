@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hubs\AlarmHub.cs" />
+    <Compile Include="Hubs\CameraAlarmHub.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\DoorAccessHub.cs" />
     <Compile Include="Hubs\EchoHub.cs" />
@@ -118,6 +119,10 @@
     <ProjectReference Include="..\..\Model\TModel\TModel.csproj">
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
+      <Project>{474692D2-FC7E-4835-87A0-089BC2F88AF0}</Project>
+      <Name>WebApiCommunication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

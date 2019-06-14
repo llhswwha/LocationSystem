@@ -79,15 +79,15 @@ namespace BLL
         {
             if (isForce == false && isInited)
             {
-                Log.Info("IsInited");
+                Log.Info(LogTags.DbInit, "IsInited");
                 return;
             }
             isInited = true;
 
-            Log.InfoStart("InitDbData", true);
+            Log.InfoStart(LogTags.DbInit, "InitDbData", true);
             if (!_bll.HasData())
             {
-                Log.InfoStart("初始化数据库", true);
+                Log.InfoStart(LogTags.DbInit, "初始化数据库", true);
                 if (mode == 0)
                 {
                     InitByEntitys();
@@ -110,7 +110,7 @@ namespace BLL
             string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\Location.sql";
             if (File.Exists(initFile))
             {
-                Log.Info("从sql文件读取");
+                Log.Info(LogTags.DbInit, "从sql文件读取");
                 try
                 {
                     string txt = File.ReadAllText(initFile);
@@ -123,7 +123,7 @@ namespace BLL
             }
             else
             {
-                Log.Info("sql文件不存在:" + initFile);
+                Log.Info(LogTags.DbInit, "sql文件不存在:" + initFile);
 
                 InitByEntitys();
             }
@@ -191,18 +191,18 @@ namespace BLL
 
         public void InitDepartments()
         {
-            Log.InfoStart("InitDepartments");
+            Log.InfoStart(LogTags.DbInit, "InitDepartments");
 
             bool r1 = LocationCardToPersonnels.Clear();
             bool r2 = LocationCardPositions.Clear();
             bool r3 = Personnels.Clear();
             bool r4 = Departments.Clear();
 
-            Log.Info("导入部门信息");
+            Log.Info(LogTags.DbInit, "导入部门信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupDepartmentsInfo.xml";
             bool value = DepartmentsBackupHelper.ImportDepartmentInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入部门信息结果:{0}", value));
+            Log.Info(LogTags.DbInit, string.Format("导入部门信息结果:{0}", value));
             
             //Department dep0 = new Department() { Name = "根节点", ShowOrder = 0, Parent = null, Type = DepartType.本厂 };
             //Departments.Add(dep0);
@@ -236,20 +236,20 @@ namespace BLL
             RandomTool rt=new RandomTool();
 
 
-            Log.Info("导入人员信息");
+            Log.Info(LogTags.DbInit, "导入人员信息");
             basePath = AppDomain.CurrentDomain.BaseDirectory;
             filePath = basePath + "Data\\部门人员门禁卡信息\\BackupPersonnelInfo.xml";
             value = PersonBackupHelper.ImportPersonInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入人员信息结果:{0}", value));
+            Log.Info(LogTags.DbInit, string.Format("导入人员信息结果:{0}", value));
 
             List<Personnel> pList = Personnels.ToList();
 
 
-            Log.Info("开始  导入人员和定位卡关联关系");
+            Log.Info(LogTags.DbInit, "开始  导入人员和定位卡关联关系");
             //人员和定位卡关联关系
             filePath = basePath + "Data\\部门人员门禁卡信息\\人员和定位卡对应关系.xlsx";
             LocationCardToPersonnelsBackupHelper.ImportRelationFromFile(new FileInfo(filePath));
-            Log.Info("结束 导入人员和定位卡关联关系");
+            Log.Info(LogTags.DbInit, "结束 导入人员和定位卡关联关系");
             List<LocationCardToPersonnel> rList = LocationCardToPersonnels.ToList();
 
             List<LocationCard> tagsTemp = new List<LocationCard>();
@@ -283,7 +283,7 @@ namespace BLL
 
         public void InitUsers()
         {
-            Log.InfoStart("InitUsers");
+            Log.InfoStart(LogTags.DbInit, "InitUsers");
             //User user1 = new User() { Name = "管理员", LoginName = "admin", Password = "admin" };
             //User user2 = new User() { Name = "用户1", LoginName = "user1", Password = "user1" };
             //Users.AddRange(new List<Model.User>() { user1, user2 });
@@ -294,9 +294,9 @@ namespace BLL
         {
 
             //先导入KKS再初始化其他数据
-            Log.Info("导入土建KKS");
+            Log.Info(LogTags.DbInit, "导入土建KKS");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            Log.Info("BaseDirectory:" + basePath);
+            Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
             //土建
             string filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\土建\\中电四会热电有限责任公司KKS项目-土建系统-B.xls";
             KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
@@ -421,7 +421,7 @@ namespace BLL
             var roles = GetRoles();
 
             Random r=new Random(DateTime.Now.Millisecond);
-            Log.InfoStart("InitTagPositions");
+            Log.InfoStart(LogTags.DbInit, "InitTagPositions");
             List<LocationCard> tags = new List<LocationCard>();
             string startCode = "0906";
             int startNumber = Convert.ToInt32(startCode, 16);
@@ -528,26 +528,6 @@ namespace BLL
         /// </summary>
         public void InitDevModelAndType()
         {
-            ////设备模型信息\\DevTypeModel.sql
-            //string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备模型信息\\DevTypeModel.sql";
-            //if (File.Exists(initFile))
-            //{
-            //    try
-            //    {
-            //        string txt = File.ReadAllText(initFile);
-            //        int count = Db.Database.ExecuteNonQuery(txt);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Log.Error("执行sql语句失败", ex);
-            //    }
-            //}
-            //else
-            //{
-            //    Log.Info("sql文件不存在:" + initFile);
-            //}
-            //因为sqlite不支持改成从表格导入
-
             var list = DbInfoHelper.GetDevModels();
             DevModels.AddRange(list);
 

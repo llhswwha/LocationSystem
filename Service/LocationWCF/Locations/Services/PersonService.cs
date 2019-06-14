@@ -134,6 +134,11 @@ namespace LocationServices.Locations.Services
             {
                 if (tagId == 0)//解除绑定
                 {
+                    var tagPos = db.LocationCardPositions.FirstOrDefault(i=>i.CardId!=null&&i.CardId==relation.LocationCardId);
+                    if(tagPos!=null)
+                    {
+                        db.LocationCardPositions.Remove(tagPos);
+                    }
                     var tag = db.LocationCards.Find(relation.LocationCardId);
                     if (tag != null)
                     {
@@ -188,20 +193,28 @@ namespace LocationServices.Locations.Services
             }
             else
             {
-                bool r= db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
+                if (tagId != 0)//解除绑定
                 {
-                    PersonnelId = personId,
-                    LocationCardId = tagId
-                });
+                    bool r = db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
+                    {
+                        PersonnelId = personId,
+                        LocationCardId = tagId
+                    });
 
-                var tag=db.LocationCards.Find(tagId);
-                if (tag != null)
-                {
-                    tag.IsActive = true;//发卡则激活
-                    db.LocationCards.Edit(tag);
+                    var tag = db.LocationCards.Find(tagId);
+                    if (tag != null)
+                    {
+                        tag.IsActive = true;//发卡则激活
+                        db.LocationCards.Edit(tag);
+                    }
+                    return r;
                 }
-                return r;
-               
+                else
+                {
+                    return true;
+
+                }
+
             }
         }
 

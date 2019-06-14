@@ -107,6 +107,7 @@
     <Compile Include="Locations\Interfaces\IBaseDataService.cs" />
     <Compile Include="Locations\Interfaces\Ibus_anchor.cs" />
     <Compile Include="Locations\Interfaces\Ibus_tag.cs" />
+    <Compile Include="Locations\Interfaces\ICameraAlarmService.cs" />
     <Compile Include="Locations\Interfaces\IConfigArgService.cs" />
     <Compile Include="Locations\Interfaces\IDepartmentService.cs" />
     <Compile Include="Locations\Interfaces\IDevDataService.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Locations\LocationService_Area.cs" />
     <Compile Include="Locations\LocationService_Authorization.cs" />
     <Compile Include="Locations\LocationService_CardRole.cs" />
+    <Compile Include="Locations\LocationService_CameraAlarm.cs" />
     <Compile Include="Locations\LocationService_Department.cs" />
     <Compile Include="Locations\LocationService_Dev.cs" />
     <Compile Include="Locations\LocationService_BaseData.cs" />

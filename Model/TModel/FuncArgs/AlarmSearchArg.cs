@@ -11,6 +11,12 @@ namespace Location.TModel.FuncArgs
     [Serializable]
     public class AlarmSearchArg : IAlarmSearchArg
     {
+        /// <summary>
+        /// 是否获取全部
+        /// </summary>
+        [DataMember]
+        public bool IsAll { get; set; }
+
         [DataMember]
         public DateTime Start { get; set; }
         [DataMember]

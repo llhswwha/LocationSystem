@@ -346,7 +346,7 @@ namespace LocationWCFServer
                     LocationService ls = new LocationService();
                     foreach (DbModel.Location.AreaAndDev.KKSCode item in lst)
                     {
-                        ls.GetDevMonitorInfoByKKS(item.Code, true);
+                        var monitor=ls.GetDevMonitorInfoByKKS(item.Code, true);
                     }
 
                     MessageBox.Show("获取数据完成！");
@@ -431,6 +431,12 @@ namespace LocationWCFServer
             double b = 0;
             double c = a / b;
             string s2 = s.ToString();
+        }
+
+        private void SyncAllData_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new SyncAllDataWindow();
+            win.Show();
         }
     }
 }

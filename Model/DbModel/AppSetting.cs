@@ -19,5 +19,10 @@ namespace DbModel
         /// 园区节点名称
         /// </summary>
         public static string ParkName { get; set; }
+
+        /// <summary>
+        /// 基础平台对接ApiURL
+        /// </summary>
+        public static string DatacaseWebApiUrl { get; set; }
     }
 }

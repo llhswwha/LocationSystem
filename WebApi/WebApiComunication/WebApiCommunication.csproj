@@ -46,31 +46,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtremeVision\CameraAlarmInfo.cs" />
+    <Compile Include="ExtremeVision\FlameData.cs" />
+    <Compile Include="ExtremeVision\HeadData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryArg.cs" />
     <Compile Include="SihuiThermalPowerPlant\BaseTran.cs" />
     <Compile Include="SihuiThermalPowerPlant\BaseTran_Compact.cs" />
     <Compile Include="SihuiThermalPowerPlant\Convert.cs" />
     <Compile Include="SihuiThermalPowerPlant\GetMethod.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\cards.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\cards_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\devices.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\org.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\position.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\results.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis_compact.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis_sampling.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\tickets.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\users.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\zones.cs" />
     <Compile Include="SihuiThermalPowerPlant\PostMethod.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Model\DbModel\DbModel.csproj">
+      <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
+      <Name>DbModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\TModel\TModel.csproj">
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
@@ -78,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExtremeVision\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

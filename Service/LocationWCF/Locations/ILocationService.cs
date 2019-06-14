@@ -29,7 +29,8 @@ namespace LocationServices.Locations
         IAreaService,
         IInitDbService,
         ICardRoleService,
-        IAuthorizationService
+        IAuthorizationService,
+        ICameraAlarmService
     {
         [OperationContract]
         UnitySetting GetUnitySetting();

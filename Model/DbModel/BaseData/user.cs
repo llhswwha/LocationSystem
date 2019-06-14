@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationClass.SihuiThermalPowerPlant.Models
+namespace DbModel.BaseData
 {
     /// <summary>
     /// 获取人员列表
     /// </summary>
     public class user
     {
+        [Key]
+        public int dbId { get; set; }
+
         /// <summary>
         /// 标识
         /// </summary>
@@ -22,6 +25,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 姓名
         /// </summary>
         [Display(Name = "姓名")]
+        [MaxLength(256)]
         public string name { get; set; }
 
         /// <summary>
@@ -34,18 +38,21 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 邮箱
         /// </summary>
         [Display(Name = "邮箱")]
+        [MaxLength(256)]
         public string email { get; set; }
 
         /// <summary>
         /// 电话
         /// </summary>
         [Display(Name = "电话")]
+        [MaxLength(256)]
         public string phone { get; set; }
 
         /// <summary>
         /// 手机
         /// </summary>
         [Display(Name = "手机")]
+        [MaxLength(256)]
         public string mobile { get; set; }
 
         /// <summary>
@@ -58,6 +65,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 部门名称
         /// </summary>
         [Display(Name = "部门名称")]
+        [MaxLength(256)]
         public string dept_name { get; set; }
     }
 

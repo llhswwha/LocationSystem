@@ -78,7 +78,35 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetEntity(string id)
         {
-            return dbSet.Find(id.ToInt()).ToTModel();
+            DbEntity depDep = dbSet.Find(id.ToInt());
+
+            SetNull(depDep);
+
+            if (depDep.Children != null)
+            {
+                foreach (var subDep in depDep.Children)//子部门
+                {
+                    subDep.Parent = null;//切除关联防止序列化出错
+                    subDep.Children = null;//切除关联防止序列化出错
+
+                    SetNull(subDep);
+                }
+            }
+            TEntity dep = depDep.ToTModel();
+            return dep;
+        }
+
+        private static void SetNull(DbEntity depDep)
+        {
+            if (depDep.Children != null && depDep.Children.Count == 0)
+            {
+                depDep.Children = null;
+            }
+
+            if (depDep.LeafNodes != null && depDep.LeafNodes.Count == 0)
+            {
+                depDep.LeafNodes = null;
+            }
         }
 
         public TEntity GetEntity(string id, bool getChildren)

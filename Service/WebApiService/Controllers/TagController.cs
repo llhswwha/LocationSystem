@@ -51,7 +51,7 @@ namespace WebApiService.Controllers
         [Route("list")]
         public List<TEntity> GetList()
         {
-            Log.Info("TagController.GetList:"+count);
+            Log.Info(LogTags.WebApi, "TagController.GetList:" +count);
             count++;
             return service.GetList();
         }
@@ -68,9 +68,15 @@ namespace WebApiService.Controllers
         [Route("list/detail")]
         public IList<TEntity> GetListWithDetail()
         {
-            Log.Info(string.Format("[{0}]TagController.GetListWithDetail:{1}", Request.GetClientIpAddress(), count));
+            var list = service.GetList(true);
+            var listCount = 0;
+            if (list != null)
+            {
+                listCount = list.Count();
+            }
+            Log.Info(LogTags.WebApi, string.Format("[{0}]TagController.GetListWithDetail: listCount={1} , getCount={2}", Request.GetClientIpAddress(), listCount, count));
             count++;
-            return service.GetList(true);
+            return list;
         }
 
         [Route("")]//search?name=主

@@ -38,7 +38,7 @@ namespace WebApiService.Controllers
         public TEntity GetTree()
         {
 
-            Log.Info(string.Format("[{0}]DepartmentController.GetTree:{1}", Request.GetClientIpAddress(), count));
+            Log.Info(LogTags.WebApi, string.Format("[{0}]DepartmentController.GetTree:{1}", Request.GetClientIpAddress(), count));
             count++;
             return service.GetTree();
         }
@@ -46,7 +46,7 @@ namespace WebApiService.Controllers
         [Route("tree")]
         public TEntity GetTree(int view)
         {
-            Log.Info(string.Format("[{0}]DepartmentController.GetTree view={1}:{2}", Request.GetClientIpAddress(), view, count));
+            Log.Info(LogTags.WebApi, string.Format("[{0}]DepartmentController.GetTree view={1}:{2}", Request.GetClientIpAddress(), view, count));
             count++;
             return service.GetTree(view);
         }

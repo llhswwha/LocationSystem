@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Tools;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -280,6 +281,8 @@ namespace DbModel.Location.AreaAndDev
 
         #endregion
 
+        [NotMapped]
+        public object DevDetail { get; set; }
 
         public DevInfo()
         {

@@ -31,7 +31,7 @@ namespace LocationServices.Locations.Interfaces
         List<Department> GetorgList();
 
         [OperationContract]
-        List<PhysicalTopology> GetzonesList();
+        List<PhysicalTopology> GetZonesList();
 
         [OperationContract]
         PhysicalTopology GetSingleZonesInfo(int id, int view);

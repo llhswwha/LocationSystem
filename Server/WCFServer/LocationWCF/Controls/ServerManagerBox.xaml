@@ -13,9 +13,20 @@
             <Label>Port:</Label>
             <TextBox Width="50" Name="TbPort" VerticalContentAlignment="Center">8733</TextBox>
             <Button Name="BtnStartService" Click="BtnStartService_Click" Content="启动服务" Margin="2"></Button>
+
         </StackPanel>
-        <ScrollViewer>
-            <TextBox Name="TbResult1"></TextBox>
-        </ScrollViewer>
+
+        <TabControl>
+            <TabItem Header="服务端日志">
+                <ScrollViewer>
+                    <TextBox Name="TbServerLog"></TextBox>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="客户端消息">
+                <ScrollViewer>
+                    <TextBox Name="TbClientLog"></TextBox>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>

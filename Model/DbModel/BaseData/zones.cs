@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CommunicationClass.SihuiThermalPowerPlant.Models
+namespace DbModel.BaseData
 {
     /// <summary>
     /// 获取区域列表
     /// </summary>
     public class zone
     {
+        [Key]
+        public int dbId { get; set; }
+
         /// <summary>
         /// 标识
         /// </summary>
@@ -22,18 +22,21 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 名称
         /// </summary>
         [Display(Name = "名称")]
+        [MaxLength(256)]
         public string name { get; set; }
 
         /// <summary>
         /// KKS编码
         /// </summary>
         [Display(Name = "KKS编码")]
+        [MaxLength(256)]
         public string kks { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
         [Display(Name = "说明")]
+        [MaxLength(256)]
         public string description { get; set; }
 
         /// <summary>
@@ -64,10 +67,13 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// 级联关系
         /// </summary>
         [Display(Name = "级联关系")]
+        [MaxLength(256)]
         public string path { get; set; }
 
+        [NotMapped]
         public List<zone> zones { get; set; }
 
+        [NotMapped]
         public List<device> devices { get; set; }
 
         public zone Clone()

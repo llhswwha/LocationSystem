@@ -18,17 +18,19 @@ using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
 using TModel.LocationHistory.AreaAndDev;
 using Location.TModel.Location.Alarm;
+using LocationServer;
 
 namespace LocationServices.Locations
 {
     //基础平台相关的接口
     public partial class LocationService : ILocationService, IDisposable
     {
-        public static string url = "";
+        //public static string url = "";
         private BaseDataClient GetClient()
         {
+            var url = AppContext.DatacaseWebApiUrl;
             //return new BaseDataClient("localhost","9347");
-            return new BaseDataClient(url, "api");
+            return new BaseDataClient(url,null, "api");
         }
 
         public Ticket GetTicketDetial(int id, string begin_date, string end_date)
@@ -86,7 +88,7 @@ namespace LocationServices.Locations
         public List<Personnel> GetUserList()
         {
             var client = GetClient();
-            var recv = client.GetUserList();
+            var recv = client.GetPersonnelList(true);
             if (recv == null)
             {
                 return null;
@@ -102,7 +104,7 @@ namespace LocationServices.Locations
         public List<Department> GetorgList()
         {
             var client = GetClient();
-            var recv = client.GetorgList();
+            var recv = client.GetDepList(true);
             if (recv == null)
             {
                 return null;
@@ -114,10 +116,10 @@ namespace LocationServices.Locations
         /// <summary>
         /// 获取区域列表
         /// </summary>
-        public List<PhysicalTopology> GetzonesList()
+        public List<PhysicalTopology> GetZonesList()
         {
             var client = GetClient();
-            var recv = client.GetzonesList();
+            var recv = client.GetAreaList(true);
             if (recv == null)
             {
                 return null;
@@ -133,7 +135,7 @@ namespace LocationServices.Locations
         public PhysicalTopology GetSingleZonesInfo(int id, int view)
         {
             var client = GetClient();
-            var recv = client.GetSingleZonesInfo(id, view);
+            var recv = client.GetAreaDetail(id, view);
             if (recv == null)
             {
                 return null;
@@ -168,7 +170,7 @@ namespace LocationServices.Locations
         public List<DevInfo> GetDeviceList(string types, string code, string name)
         {
             var client = GetClient();
-            var recv = client.GetDeviceList(types, code, name);
+            var recv = client.GetDevInfoList(types, code, name,true);
             if (recv == null)
             {
                 return null;
@@ -184,7 +186,7 @@ namespace LocationServices.Locations
         public DevInfo GetSingleDeviceInfo(int id)
         {
             var client = GetClient();
-            var recv = client.GetSingleDeviceInfo(id);
+            var recv = client.GetDevInfoDetail(id);
             if (recv == null)
             {
                 return null;
@@ -216,7 +218,7 @@ namespace LocationServices.Locations
         public List<EntranceGuardCard> GetCardList()
         {
             var client = GetClient();
-            var recv = client.GetCardList();
+            var recv = client.GetGuardCardList(true);
             if (recv == null)
             {
                 return new List<EntranceGuardCard>();
@@ -285,7 +287,7 @@ namespace LocationServices.Locations
         public List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
             var client = GetClient();
-            var recv = client.GeteventsList(src, level, begin_t, end_t);
+            var recv = client.GetDevAlarmList(src, level, begin_t, end_t);
             if (recv == null)
             {
                 return new List<DeviceAlarm>();

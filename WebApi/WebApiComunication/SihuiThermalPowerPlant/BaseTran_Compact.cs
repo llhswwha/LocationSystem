@@ -11,7 +11,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant
     /// <summary>
     /// 用于sis历史数据的，紧凑型
     /// </summary>
-    public class BaseTran_Compact
+    public class SisData_Compact
     {
         [Display(Name = "id")]
         public int id { get; set; }
@@ -31,7 +31,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant
         [Display(Name = "数据")]
         public List<List<string>> data { get; set; }
 
-        public BaseTran_Compact()
+        public SisData_Compact()
         {
             msg = "ok";
             schema = new sis_compact();

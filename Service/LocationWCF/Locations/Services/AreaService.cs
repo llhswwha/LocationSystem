@@ -893,7 +893,7 @@ namespace LocationServices.Locations.Services
 
         public AreaStatistics GetAreaStatistics(int id)
         {
-            Log.Info(">>>>> GetAreaStatistics id=" + id);
+            Log.Info(LogTags.DbGet,">>>>> GetAreaStatistics id=" + id);
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
@@ -908,8 +908,8 @@ namespace LocationServices.Locations.Services
             //AreaStatistics ast2 = GetAreaStatisticsCount();
             watch.Stop();
             TimeSpan time = watch.Elapsed;
-            Log.Info("time:" + time);
-            Log.Info("<<<<<< GetAreaStatistics id=" + id);
+            Log.Info(LogTags.DbGet, "time:" + time);
+            Log.Info(LogTags.DbGet, "<<<<<< GetAreaStatistics id=" + id);
             return ast;
         }
 

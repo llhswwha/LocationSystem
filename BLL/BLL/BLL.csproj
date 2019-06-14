@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
+    <Compile Include="Blls\DbHelper.cs" />
     <Compile Include="Blls\Engine\bus_anchor_configBll.cs" />
     <Compile Include="Blls\Engine\bus_anchor_switch_areaBll.cs" />
     <Compile Include="Blls\LocationHistory\DevMonitorNodeHistoryBll.cs" />

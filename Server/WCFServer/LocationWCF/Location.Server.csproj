@@ -225,6 +225,7 @@
     <Compile Include="Tools\DevBackupHelper.cs" />
     <Compile Include="Tools\EntranceGuardCardBackupHelper.cs.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
+    <Compile Include="Tools\MyHttpListener.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
     <Compile Include="Windows\AnchorCheckWindow.xaml.cs">
       <DependentUpon>AnchorCheckWindow.xaml</DependentUpon>
@@ -243,6 +244,9 @@
     </Compile>
     <Compile Include="Models\EngineTool\RoomArchorSettingWindow.xaml.cs">
       <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\GetKKSMonitorDataWindow.xaml.cs">
+      <DependentUpon>GetKKSMonitorDataWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\KKSWindow.xaml.cs">
       <DependentUpon>KKSWindow.xaml</DependentUpon>
@@ -321,6 +325,9 @@
     <Compile Include="Windows\Simple\TrackPointWindow.xaml.cs">
       <DependentUpon>TrackPointWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\SyncAllDataWindow.xaml.cs">
+      <DependentUpon>SyncAllDataWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UpdatePersonWindow.xaml.cs">
       <DependentUpon>UpdatePersonWindow.xaml</DependentUpon>
     </Compile>
@@ -365,6 +372,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\RoomArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\GetKKSMonitorDataWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -479,6 +490,10 @@
     <Page Include="Windows\Simple\TrackPointWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SyncAllDataWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\UpdatePersonWindow.xaml">
       <SubType>Designer</SubType>

@@ -355,11 +355,10 @@ namespace BLL.Buffers
                     LocationAlarm item3 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
                     if (item3 != null)
                     {
-                        if (item3.PersonnelId == 246)
-                        {
-                            Location.BLL.Tool.Log.InfoStart("告警恢复，告警Id" + Convert.ToInt32(item3.Id));
-                            
-                        }
+                        //if (item3.PersonnelId == 246)
+                        //{
+                        //    Location.BLL.Tool.Log.InfoStart("告警恢复，告警Id" + Convert.ToInt32(item3.Id));
+                        //}
 
                         ReviseAlarmList.Add(ReviseAlarm);
                         DeleteList.Add(item);

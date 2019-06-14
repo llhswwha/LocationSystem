@@ -1,4 +1,5 @@
-﻿using Location.TModel.Location.Person;
+﻿using BLL;
+using Location.TModel.Location.Person;
 using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,9 @@ namespace LocationServices.Locations
         
         public Department GetDepartment(int id)
         {
-            return new DepartmentService(db).GetEntity(id+"");
+            Bll db = new Bll(false, true, false, true);
+            Department dep= new DepartmentService(db).GetEntity(id+"");
+            return dep;
         }
 
 

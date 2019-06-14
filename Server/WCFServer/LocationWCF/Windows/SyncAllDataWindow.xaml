@@ -1,0 +1,54 @@
+﻿<Window x:Class="LocationServer.Windows.SyncAllDataWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        mc:Ignorable="d"
+        Title="SyncAllDataWindow" Height="500" Width="1000" Loaded="Window_Loaded" Closed="Window_Closed">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="获取Rtsp" Name="MenuGetRtsp" Click="MenuGetRtsp_Click"></MenuItem>
+            <MenuItem Header="生成模拟数据" Name="MenuCreateSimulateData" Click="MenuCreateSimulateData_Click"></MenuItem>
+            <MenuItem Header="获取数据" Name="MenuGet" Click="MenuGet_Click"></MenuItem>
+            <MenuItem Header="同步数据" Name="MenuSync" Click="MenuSync_Click"></MenuItem>
+        </Menu>
+        <TextBox Name="TbLogs" DockPanel.Dock="Bottom" Height="150"></TextBox>
+        <TabControl Name="TabControl1">
+            <TabItem Header="摄像头">
+                <DataGrid Name="dg_camera">
+                    
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="人员">
+                <DataGrid Name="dg_user"></DataGrid>
+            </TabItem>
+            <TabItem Header="组织">
+                <DataGrid Name="dg_org"></DataGrid>
+            </TabItem>
+            <TabItem Header="区域">
+                <DataGrid Name="dg_zone"></DataGrid>
+            </TabItem>
+            <TabItem Header="设备">
+                <DataGrid Name="dg_dev"></DataGrid>
+            </TabItem>
+            <TabItem Header="门禁卡">
+                <DataGrid Name="dg_card"></DataGrid>
+            </TabItem>
+            <TabItem Header="门禁卡历史">
+                <DataGrid Name="dg_card_history"></DataGrid>
+            </TabItem>
+            <TabItem Header="报警">
+                <DataGrid Name="dg_event"></DataGrid>
+            </TabItem>
+            <TabItem Header="SIS">
+                <DataGrid Name="dg_sis"></DataGrid>
+            </TabItem>
+            <TabItem Header="巡检"></TabItem>
+            <TabItem Header="两票">
+                <DataGrid Name="dg_ticket"></DataGrid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+</Window>

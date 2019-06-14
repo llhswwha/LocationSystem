@@ -64,7 +64,7 @@ namespace WebLocation.Controllers
 
         public ActionResult InitDb()
         {
-            Log.InfoStart("InitDb");
+            Log.InfoStart(LogTags.DbInit,"InitDb");
             test.db.Db.Database.Initialize(true);
             Log.InfoEnd("InitDb");
             return View();
@@ -72,7 +72,7 @@ namespace WebLocation.Controllers
 
         public ActionResult InitDbData()
         {
-            Log.InfoStart("DataInitController.InitDbData");
+            Log.InfoStart(LogTags.DbInit, "DataInitController.InitDbData");
             int mode = int.Parse(ConfigurationManager.AppSettings["DataInitMode"]);//0:EF,1:Sql
             test.InitDbData(mode,true);
             Log.InfoEnd("DataInitController.InitDbData");

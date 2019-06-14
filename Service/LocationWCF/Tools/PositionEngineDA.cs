@@ -67,7 +67,7 @@ namespace LocationWCFServer
         
         public void Start()
         {
-            Log.Info("PositionEngineDA.Start");
+            Log.Info(LogTags.Engine, "PositionEngineDA.Start");
             Stop();
             if (aliveThread == null)
             {
@@ -77,22 +77,24 @@ namespace LocationWCFServer
             }
         }
 
+        public int aliveInterval = 750;//心跳包的时间间隔
+
         private void KeepAlive()
         {
-            Log.Info("PositionEngineDA.KeepAlive");
+            Log.Info(LogTags.Engine, "PositionEngineDA.KeepAlive");
             while (true)
             {
                 try
                 {
                     InitUdp();
                     SendAlive();
-                    Thread.Sleep(500);
                 }
                 catch (Exception ex)
                 {
                     //Log.Error("PositionEngineDA.KeepAlive", ex);
                     //break;
                 }
+                Thread.Sleep(aliveInterval);
             }
         }
 
@@ -103,7 +105,7 @@ namespace LocationWCFServer
 
         private void SendAlive()
         {
-            //Log.Info("PositionEngineDA.SendAlive");
+            //Log.Info(LogTags.Engine,"PositionEngineDA.SendAlive");
             byte[] data = Encoding.UTF8.GetBytes(AliveText);
             IPAddress ip = IPAddress.Parse(Login.EngineIp);
             ludp2.Send(data, new IPEndPoint(ip, Login.EnginePort));
@@ -118,7 +120,7 @@ namespace LocationWCFServer
         {
             if (ludp2 == null)
             {
-                Log.Info("PositionEngineDA.InitUdp");
+                Log.Info(LogTags.Engine,"PositionEngineDA.InitUdp");
                 ludp2 = new LightUDP(IPAddress.Parse(Login.LocalIp), Login.LocalPort); //建立UDP  监听端口
                 //ludp2.DGramRecieved += Ludp2_DGramRecieved;
                 ludp2.DGramListRecieved += Ludp2_DGramListRecieved;
@@ -139,10 +141,6 @@ namespace LocationWCFServer
                 {
                     MessageReceived(msg);
                 }
-                //if (msg.Contains("002"))
-                //{
-                //    Log.Info("002");
-                //}
                 Position pos = new Position();
                 if (pos.Parse(msg, LocationContext.OffsetX, LocationContext.OffsetY))
                 {
@@ -162,10 +160,6 @@ namespace LocationWCFServer
             {
                 MessageReceived(msg);
             }
-            //if (msg.Contains("002"))
-            //{
-            //    Log.Info("002");
-            //}
             Position pos = new Position();
             if (pos.Parse(msg,LocationContext.OffsetX, LocationContext.OffsetY))
             {

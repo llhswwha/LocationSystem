@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationClass.SihuiThermalPowerPlant.Models
+namespace DbModel.BaseData
 {
     public class org
     {
+        [Key]
+        public int dbId { get; set; }
+
         /// <summary>
         /// 标识
         /// </summary>
@@ -16,6 +20,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 名称
         /// </summary>
+        [MaxLength(256)]
         public string name { get; set; }
 
         /// <summary>
@@ -31,6 +36,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 说明
         /// </summary>
+        [MaxLength(512)]
         public string description { get; set; }
 
         public org Clone()

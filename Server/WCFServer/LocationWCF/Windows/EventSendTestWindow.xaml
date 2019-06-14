@@ -14,9 +14,20 @@
                 <Button Content="消除告警" Name="BtnRemoveAlarm" Click="BtnRemoveAlarm_Click"></Button>
             </StackPanel>
         </TabItem>
-        <TabItem Header="设备告警">
+        <TabItem Header="设备列表">
             <wpfClientControlLib:DeviceListBox x:Name="DeviceListBox1" Loaded="DeviceListBox1_Loaded" >
             </wpfClientControlLib:DeviceListBox>
+        </TabItem>
+        <TabItem Header="设备告警">
+            <DockPanel>
+                <DataGrid Name="DeviceAlarms">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="发送" Name="MenuSendDeviceAlarm" Click="MenuSendDeviceAlarm_Click"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
         </TabItem>
         <TabItem Header="SignalRClients">
             <DockPanel>

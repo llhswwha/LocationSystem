@@ -31,5 +31,17 @@ namespace WebApiLib.Clients
         {
             return WebApiHelper.GetString(string.Format("{0}{1}", BaseUri, path),Accept);
         }
+
+        public string PostEntity<T>(string uri, T data, bool withResult)
+        {
+            string fullUri = string.Format("{0}{1}", BaseUri, uri);
+            return WebApiHelper.PostEntity<T>(fullUri, data, withResult);
+        }
+
+        public string PutEntity<T>(string uri, T data, bool withResult)
+        {
+            string fullUri = string.Format("{0}{1}", BaseUri, uri);
+            return WebApiHelper.PutEntity<T>(fullUri, data, withResult);
+        }
     }
 }

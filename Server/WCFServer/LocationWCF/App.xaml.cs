@@ -26,6 +26,7 @@ using LocationServices.Locations;
 using WebNSQLib;
 using SignalRService.Hubs;
 using EngineClient;
+using WebApiLib;
 
 namespace LocationWCFServer
 {
@@ -72,8 +73,7 @@ namespace LocationWCFServer
             AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
             AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
-            datacaseUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
-            LocationService.url = datacaseUrl;
+            AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
 
             EngineClientSetting.LocalIp = ConfigurationHelper.GetValue("Ip");
@@ -81,6 +81,12 @@ namespace LocationWCFServer
             EngineClientSetting.AutoStart = ConfigurationHelper.GetBoolValue("AutoConnectEngine");
             //SystemSetting setting = new SystemSetting();
             //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
+
+            //WebApiHelper.IsSaveJsonToFile = ConfigurationHelper.GetBoolValue("IsSaveJsonToFile");
+
+            RealAlarm.NsqLookupdUrl= ConfigurationHelper.GetValue("NsqLookupdUrl");
+            RealAlarm.NsqLookupdTopic = ConfigurationHelper.GetValue("NsqLookupdTopic");
+            RealAlarm.NsqLookupdChannel = ConfigurationHelper.GetValue("NsqLookupdChannel");
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";

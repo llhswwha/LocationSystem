@@ -420,7 +420,7 @@ namespace LocationServices.Locations
             return alarms;
         }
 
-        public List<DeviceAlarm> GetDeviceAlarms(int count)
+        public List<DeviceAlarm> GetSimulateDeviceAlarms(int count)
         {
             var devs = db.DevInfos.ToList();
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
@@ -456,11 +456,27 @@ namespace LocationServices.Locations
             if (arg.AreaId != 0)
             {
                 var areas = db.Areas.GetAllSubAreas(arg.AreaId);//获取所有子区域
-                alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                if (arg.IsAll)
+                {
+                    alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
+                }
+                else
+                {
+                    alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                }
+                
             }
             else
             {
-                alarms1= db.DevAlarms.Where(i=> i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                if (arg.IsAll)
+                {
+                    alarms1 = db.DevAlarms.ToList();
+                }
+                else
+                {
+                    alarms1 = db.DevAlarms.Where(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                }
+                
             }
             alarms = alarms1.ToTModel();
             if (alarms.Count == 0) return null;

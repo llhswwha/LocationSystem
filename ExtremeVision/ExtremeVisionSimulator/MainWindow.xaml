@@ -1,0 +1,38 @@
+﻿<Window x:Class="ExtremeVisionSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExtremeVisionSimulator"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="加载">
+                <MenuItem Header="安全帽" Name="LoadHeadInfo" Click="LoadHeadInfo_Click"></MenuItem>
+                <MenuItem Header="火焰" Name="LoadFlameInfo" Click="LoadFlameInfo_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="发送">
+                <MenuItem Header="WebApi(Pos)" Name="MenuSendToWebApiPost" Click="MenuSendToWebApiPost_Click"></MenuItem>
+                <!--<MenuItem Header="WebApi(Get)" Name="MenuSendToWebApiGet" Click="MenuSendToWebApiGet_Click"></MenuItem>-->
+                <MenuItem Header="HttpListener" Name="MenuSendToListener" Click="MenuSendToListener_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <TabControl>
+            <TabItem Header="文本">
+                <TextBox Name="TbContent"></TextBox>
+            </TabItem>
+            <TabItem Header="控件">
+                <ScrollViewer>
+                    <DockPanel Background="Gray">
+                        <StackPanel DockPanel.Dock="Top">
+                            <xctk:PropertyGrid Name="grid1"></xctk:PropertyGrid>
+                        </StackPanel>
+                        <Image Name="Image1"></Image>
+                    </DockPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

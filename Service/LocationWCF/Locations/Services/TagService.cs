@@ -74,7 +74,9 @@ namespace LocationServices.Locations.Services
 
         public List<TEntity> GetList(bool detail)
         {
-            Log.Info(" >>>>>>> TagService.GetList");
+            DateTime start = DateTime.Now;
+            Log.Info(LogTags.DbGet, " >>>>>>> TagService.GetList");
+            List<TEntity> returnList = null;
             if (detail)
             {
                 var list = new List<TEntity>();
@@ -121,12 +123,15 @@ namespace LocationServices.Locations.Services
                     }
                     
                 }
-                return list.ToWCFList() ;
+                returnList= list.ToWCFList() ;
             }
             else
             {
-                return dbSet.ToList().ToWcfModelList();
+                returnList= dbSet.ToList().ToWcfModelList();
             }
+            TimeSpan time = DateTime.Now - start;
+            Log.Info(LogTags.DbGet, " <<<<< TagService.GetList time:" + time);
+            return returnList;
         }
 
         public IList<TEntity> GetListByName(string name)

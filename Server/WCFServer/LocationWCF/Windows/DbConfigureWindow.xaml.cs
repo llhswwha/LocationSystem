@@ -52,7 +52,7 @@ namespace LocationServer.Windows
             Log.NewLogEvent -= Log_NewLogEvent;
         }
 
-        private void Log_NewLogEvent(string obj)
+        private void Log_NewLogEvent(string tag,string obj)
         {
             this.Dispatcher.Invoke(new Action(() => {
                 TbConsole.Text = obj + "\n" + TbConsole.Text;

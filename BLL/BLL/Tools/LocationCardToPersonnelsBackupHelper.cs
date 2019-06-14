@@ -17,7 +17,7 @@ namespace BLL.Tools
     {
         public static void ImportRelationFromFile(FileInfo file)
         {
-            Log.InfoStart("LocationCardToPersonnelsBackupHelper.ImportRelationFromFile");
+            Log.InfoStart(LogTags.DbInit, "LocationCardToPersonnelsBackupHelper.ImportRelationFromFile");
             if (file.Exists == false)
             {
                 Log.Info("不存在文件:" + file.FullName);

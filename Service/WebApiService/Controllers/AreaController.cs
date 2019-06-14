@@ -59,7 +59,7 @@ namespace WebApiService.Controllers
         [Route("tree")]
         public AreaNode GetBasicTree(int view)
         {
-            Log.Info(string.Format("[{0}]AreaController.GetBasicTree view={1}:{2}", Request.GetClientIpAddress(),view, count));
+            Log.Info(LogTags.WebApi, string.Format("[{0}]AreaController.GetBasicTree view={1}:{2}", Request.GetClientIpAddress(),view, count));
             count++;
             return service.GetBasicTree(view);
         }
@@ -174,7 +174,7 @@ namespace WebApiService.Controllers
         [Route("statistics")]
         public AreaStatistics GetAreaStatistics(int id)
         {
-            Log.Info(string.Format("[{0}]AreaController.GetAreaStatistics:{1}", Request.GetClientIpAddress(), count));
+            Log.Info(LogTags.WebApi, string.Format("[{0}]AreaController.GetAreaStatistics:{1}", Request.GetClientIpAddress(), count));
             count++;
             return service.GetAreaStatistics(id);
         }

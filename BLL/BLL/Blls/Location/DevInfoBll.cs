@@ -1,5 +1,6 @@
 ﻿using DAL;
 using DbModel.Location.AreaAndDev;
+using IModel.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,40 @@ namespace BLL.Blls.Location
         public List<DevInfo> GetListByName(string name)
         {
             return DbSet.Where(i => i.Name.Contains(name)).ToList();
+        }
+
+        public List<DevInfo> GetListWithDetail(List<Archor> archors,List<Dev_CameraInfo> cameras)
+        {
+            var list = this.ToList();
+            foreach (var dev in list)
+            {
+                var type = TypeCodeHelper.GetTypeName(dev.Local_TypeCode + "", dev.ModelName);
+                if (type == "基站")
+                {
+                    dev.DevDetail = archors.FirstOrDefault(i => i.DevInfoId == dev.Id);
+                }
+                else if (type == "摄像头")
+                {
+                    dev.DevDetail = cameras.FirstOrDefault(i => i.DevInfoId == dev.Id);
+                }
+                else if (type == "生产设备")
+                {
+                    //return (int)Abutment_DevTypes.生产设备;
+                }
+                else if (type == "门禁")
+                {
+                    //return (int)Abutment_DevTypes.门禁;
+                }
+                else if (type == "警报设备")
+                {
+                    //return (int)Abutment_DevTypes.消防设备;
+                }
+                else if (type == "其他设备")
+                {
+                    //return (int)Abutment_DevTypes.无;
+                }
+            }
+            return list;
         }
     }
 }

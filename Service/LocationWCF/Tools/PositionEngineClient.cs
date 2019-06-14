@@ -67,7 +67,7 @@ namespace LocationServices.Tools
             Logs.WriteLogLeft(txt);
             if (AppContext.WritePositionLog)
             {
-                Log.Info(txt);
+                Log.Info(LogTags.Engine, txt);
             }
         }
 
@@ -92,7 +92,8 @@ namespace LocationServices.Tools
 
         public void StartConnectEngine(EngineLogin login)
         {
-            Log.Info("StartConnectEngine:"+ login.EngineIp);
+            //Log.Info(LogTags.Engine,"StartConnectEngine:" + login.EngineIp);
+            WriteLogLeft(GetLogText("StartConnectEngine:" + login.EngineIp));
             //int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineDa == null)
             {
@@ -176,7 +177,7 @@ namespace LocationServices.Tools
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("RemoveRepeatPosition", ex);
+                    Log.Error(LogTags.Engine, "RemoveRepeatPosition:"+ex);
                 }
             }
             return dict.Values.ToList();
@@ -310,7 +311,7 @@ namespace LocationServices.Tools
         {
             if (nsq == null)
             {
-                nsq = new SynchronizedPosition(LocationService.url + ":4151");
+                nsq = new SynchronizedPosition(AppContext.DatacaseWebApiUrl + ":4151");
             }
 
             nsq.SendPositionMsgAsync(posList);
@@ -324,11 +325,15 @@ namespace LocationServices.Tools
                 if (engineDa != null)
                 {
                     engineDa.Stop();
+                    engineDa = null;
                 }
                 if (insertThread != null)
                 {
                     insertThread.Abort();
+                    insertThread = null;
                 }
+                isBusy = false;
+                Positions.Clear();
                 return true;
             }
             catch (Exception ex)

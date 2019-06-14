@@ -11,6 +11,9 @@ namespace WebApiLib
 {
     public static class WebApiHelper
     {
+
+        public static bool IsSaveJsonToFile = false;
+
         public static string GetString(string uri, string accept = "")
         {
             try
@@ -27,48 +30,102 @@ namespace WebApiLib
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString());
-                return null;
+                //Log.Error(LogTags.Server, string.Format("WebApiHelper.GetString:uri={0},error={1}",uri,ex.Message));
+                //return null;
+                throw ex;
             }
         }
 
-        public static T GetEntity<T>(string uri)
+
+        public static T GetEntity<T>(string url)
         {
-            string result = GetString(uri);
+            string result = GetString(url);
             if (result == null) return default(T);
+
+            if (IsSaveJsonToFile)
+            {
+                SaveJson(url, result);
+            }
+
+            if (result.Contains("404 Not Found"))
+            {
+                throw new Exception("404 Not Found");
+            }
             T obj = JsonConvert.DeserializeObject<T>(result);
             return obj;
         }
 
-        public static string PostEntity<T>(string uri, T data)
+        private static void SaveJson(string url, string result)
         {
-            return Invoke(uri, data, "POST");
+            try
+            {
+                Uri uri = new Uri(url);
+                DateTime now = DateTime.Now;
+                string name = uri.Segments[uri.Segments.Length - 1];
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + name+"__"+now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
+                string content = "//" + url + "\n" + result;
+                File.WriteAllText(path, content);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("SaveJson:"+ex);
+            }
         }
 
-        public static string PutEntity<T>(string uri, T data)
+        public static string PostEntity<T>(string uri, T data, bool withResult)
         {
-
-            return Invoke(uri, data, "PUT");
+            return InvokeEntity(uri, data, "POST", withResult);
         }
 
-        public static string Invoke<T>(string uri, T data, string method)
+        public static string PutEntity<T>(string uri, T data, bool withResult)
         {
-            string json = JsonConvert.SerializeObject(data);
-            return Invoke(uri, json, method);
+
+            return InvokeEntity(uri, data, "PUT", withResult);
         }
 
-        public static string Invoke(string uri, string data, string method)
+        public static string InvokeEntity<T>(string uri, T data, string method, bool withResult)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = method;
-            request.ContentType = "application/json";
-            Stream dataStream = request.GetRequestStream();
-            dataStream.Write(bytes, 0, bytes.Length);
-            dataStream.Close();
-            WebResponse response = request.GetResponse();
-            string location = response.Headers["Location"];
-            string result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            string json = "";
+            if (typeof(T) == typeof(string))
+            {
+                json = data+"";
+            }
+            else
+            {
+                json = JsonConvert.SerializeObject(data);
+            }
+            
+            return Invoke(uri, json, method, withResult);
+        }
+
+        public static string Invoke(string uri, string data, string method,bool withResult)
+        {
+            string result = null;
+            try
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(data);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                request.Method = method;
+                request.ContentType = "application/json";
+                Stream dataStream = request.GetRequestStream();
+                dataStream.Write(bytes, 0, bytes.Length);
+                dataStream.Close();
+
+                if (withResult)
+                {
+                    WebResponse response = request.GetResponse();//这里可能会卡住
+                                                                 //string location = response.Headers["Location"];
+                    result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                }
+                else
+                {
+                    result = null;//只管发送，发送好了，就不管结果
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("WebApiHelper.Invoke:"+ex);
+            }
 
             return result;
         }

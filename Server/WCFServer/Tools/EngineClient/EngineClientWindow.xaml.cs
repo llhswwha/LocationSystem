@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using DbModel.Tools;
+using Location.BLL.Tool;
 using LocationServices.Converters;
 using LocationServices.Tools;
 using LocationWCFServer;
@@ -42,11 +43,22 @@ namespace EngineClient
         public EngineClientWindow()
         {
             InitializeComponent();
+            Location.BLL.Tool.Log.NewLogEvent += Log_NewLogEvent;
+
             Closed += EngineClientWindow_Closed;
             LogTimer = new DispatcherTimer();
             LogTimer.Interval = TimeSpan.FromMilliseconds(200);
             LogTimer.Tick += LogTimer_Tick;
             LogTimer.Start();
+        }
+
+        private void Log_NewLogEvent(string arg1, string arg2)
+        {
+            //Location.BLL.Tool.Log.NewLogEvent -= ListenToLog;
+            if (arg1 == LogTags.Engine)
+            {
+                Logs.WriteLogLeft(arg2);
+            }
         }
 
         private void EngineClientWindow_Closed(object sender, EventArgs e)
@@ -89,11 +101,11 @@ namespace EngineClient
                 login.LocalPort = TbLocalPort.Text.ToInt();
                 login.EngineIp = TbEngineIp.Text;
                 login.EnginePort = TbEnginePort.Text.ToInt();
-                if (login.Valid() == false)
-                {
-                    MessageBox.Show("本地Ip和对端Ip必须是同一个Ip段的");
-                    return;
-                }
+                //if (login.Valid() == false)
+                //{
+                //    MessageBox.Show("本地Ip和对端Ip必须是同一个Ip段的");
+                //    return;
+                //}
 
                 engineClient = PositionEngineClient.Instance();
                 engineClient.Logs = Logs;
@@ -132,10 +144,11 @@ namespace EngineClient
 
         private void EngineClientWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            TbLocalIp.ItemsSource = IpHelper.GetLocalList();
+            TbLocalIp.ItemsSource = IpHelper.GetLocalIpList();
             TbLocalIp.SelectedIndex = 0;
 
-            TbEngineIp.ItemsSource = new string[] {"127.0.0.1", "192.168.10.155","172.16.100.25"};
+            var list = new List<string>() { "127.0.0.1", "192.168.10.155", "172.16.100.25" };
+            TbEngineIp.ItemsSource = list;
             TbEngineIp.SelectedIndex = 0;
 
             TbEnginePort.ItemsSource = new string[] { "3456","3455"};
@@ -143,6 +156,12 @@ namespace EngineClient
 
             if(EngineClientSetting.AutoStart)
             {
+                if (!list.Contains(EngineClientSetting.EngineIp))
+                {
+                    list.Add(EngineClientSetting.EngineIp);
+                    TbEngineIp.ItemsSource = list;
+                }
+                
                 TbLocalIp.SelectedItem = EngineClientSetting.LocalIp;
                 TbEngineIp.SelectedItem = EngineClientSetting.EngineIp;
                 StartConnect();

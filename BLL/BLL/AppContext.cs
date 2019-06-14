@@ -37,6 +37,15 @@ namespace LocationServer
             set { AppSetting.ParkName = value; }
         }
 
+        /// <summary>
+        /// 基础平台对接IP 测试用ipms-demo.datacase.io，正式用172.16.100.22，本地模拟用 simulate
+        /// </summary>
+        public static string DatacaseWebApiUrl
+        {
+            get { return AppSetting.DatacaseWebApiUrl; }
+            set { AppSetting.DatacaseWebApiUrl = value; }
+        }
+
         public static Bll GetLocationBll()
         {
             return new Bll(false, true, true);
@@ -47,7 +56,7 @@ namespace LocationServer
         public static void InitDbContext(string dbType)
         {
             DbSource = dbType;
-            Log.Info("InitDbContext:" + dbType);
+            Log.Info(LogTags.DbInit, "InitDbContext:" + dbType);
             if (dbType == "SQLite")
             {
                 LocationDb.IsSqlite = false;
@@ -59,7 +68,7 @@ namespace LocationServer
 
         public static void InitDb(int mode, bool isForce = false)
         {
-            Log.InfoStart("InitDb");
+            Log.InfoStart(LogTags.DbInit,"InitDb");
             Bll bll = new Bll();
             if (isForce)
             {
@@ -72,7 +81,7 @@ namespace LocationServer
 
         public static void InitDbAsync(int mode,Action<Bll> callBack,bool isForce=false)
         {
-            Log.InfoStart("InitDb");
+            Log.InfoStart(LogTags.DbInit, "InitDb");
             Bll bll;
             if (isForce&& DbSource == "SQLite")
             {

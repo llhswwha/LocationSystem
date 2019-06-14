@@ -76,6 +76,7 @@ namespace LocationServices.Locations
             //{
             //    context.SessionId=GUID.
             //}
+            if (context == null) return "";//服务端测试LocationService指令时为空
             MessageProperties properties = context.IncomingMessageProperties;
             RemoteEndpointMessageProperty endpoint = properties[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
             return string.Format("{0}:{1}[{2}]",endpoint.Address,endpoint.Port,context.SessionId);
@@ -114,7 +115,7 @@ namespace LocationServices.Locations
 
         public string Hello(string msg)
         {
-            Log.Info("[Hello] msg:" + msg);
+            Log.Info(LogTags.DbGet, "[Hello] msg:" + msg);
             return "Hello:" + msg;
         }
 
@@ -202,7 +203,7 @@ namespace LocationServices.Locations
             //}
             string ip = GetClientIpAndPort();
             txt = ip + " LocationService " + txt;
-            Log.Info(txt);
+            Log.Info(LogTags.DbGet, txt);
         }
 
         private void ShowLog(string txt)
@@ -211,7 +212,7 @@ namespace LocationServices.Locations
             //{
             //    ShowLog_Action(txt);
             //}
-            Log.Info(txt);
+            Log.Info(LogTags.DbGet, txt);
         }
 
         /// <summary>

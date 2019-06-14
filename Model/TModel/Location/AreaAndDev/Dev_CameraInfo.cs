@@ -66,6 +66,12 @@ namespace TModel.Location.AreaAndDev
         /// </summary>
         [DataMember]
         public string Local_DevID { get; set; }
+
+        /// <summary>
+        /// RTSP地址
+        /// </summary>
+        [DataMember]
+        public string RtspUrl { get; set; }
         /// <summary>
         /// 门禁设备
         /// </summary>

@@ -77,6 +77,14 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "门禁对应的本地设备ID")]
         [MaxLength(64)]
         public string Local_DevID { get; set; }
+
+        /// <summary>
+        /// RTSP地址
+        /// </summary>
+        [DataMember]
+        [Display(Name = "RTSP地址")]
+        [MaxLength(128)]
+        public string RtspUrl { get; set; }
         /// <summary>
         /// 摄像头设备
         /// </summary>

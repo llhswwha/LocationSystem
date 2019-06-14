@@ -24,29 +24,29 @@ namespace LocationServer.Tools
             {
                 LocationService service = new LocationService();
                 var devlist = service.GetAllDevInfos().ToList();
-                Log.Info("Init NoramlDev...");
+                Log.Info(LogTags.DbInit, "Init NoramlDev...");
                 DateTime recordT = DateTime.Now;
                 //1.备份普通设备
                 SaveNormalDev(devlist, service);
-                Log.Info(string.Format("Init NormalDev complete,cost time: {0}s.",(DateTime.Now-recordT).TotalSeconds.ToString("f2")));
+                Log.Info(LogTags.DbInit, string.Format("Init NormalDev complete,cost time: {0}s.",(DateTime.Now-recordT).TotalSeconds.ToString("f2")));
               
-                Log.Info("Init CameraDev... \n");
+                Log.Info(LogTags.DbInit, "Init CameraDev... \n");
                 recordT = DateTime.Now;
                 //2.摄像头备份
                 BackupCameraDev(service);
-                Log.Info(string.Format("Init CameraDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
+                Log.Info(LogTags.DbInit, string.Format("Init CameraDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
 
-                Log.Info("Init ArchorDev... \n");
+                Log.Info(LogTags.DbInit, "Init ArchorDev... \n");
                 recordT = DateTime.Now;
                 //3.备份基站信息
                 BackupArchorDev(service);
-                Log.Info(string.Format("Init ArchorDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
+                Log.Info(LogTags.DbInit, string.Format("Init ArchorDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
 
-                Log.Info("Init DoorAccess... \n");
+                Log.Info(LogTags.DbInit, "Init DoorAccess... \n");
                 recordT = DateTime.Now;
                 //4.备份门禁设备
                 BackupDoorAccess(service);
-                Log.Info(string.Format("Init DoorAccessDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
+                Log.Info(LogTags.DbInit, string.Format("Init DoorAccessDev complete,cost time: {0}s.", (DateTime.Now - recordT).TotalSeconds.ToString("f2")));
                 if (callBack != null) callBack();
             });
             thread.IsBackground = true;
@@ -158,7 +158,7 @@ namespace LocationServer.Tools
                 dev.PassWord = item.PassWord;
                 dev.CameraIndex = item.CameraIndex.ToString();
                 dev.Port = item.Port.ToString();
-
+                dev.RtspURL = item.RtspUrl;
 
                 backUpList.DevList.Add(dev);
             }

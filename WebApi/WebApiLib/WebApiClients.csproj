@@ -56,6 +56,8 @@
     <Compile Include="ApiDocs\ApiDocument.cs" />
     <Compile Include="ApiDocs\ApiPath.cs" />
     <Compile Include="Clients\BaseDataClient.cs" />
+    <Compile Include="Clients\BaseDataInnerClient.cs" />
+    <Compile Include="Clients\InspectionTrackClient.cs" />
     <Compile Include="Clients\LocationClient.cs" />
     <Compile Include="Clients\ApiDocClient.cs" />
     <Compile Include="Clients\WebApiClient.cs" />

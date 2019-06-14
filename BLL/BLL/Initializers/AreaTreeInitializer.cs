@@ -43,7 +43,7 @@ namespace BLL
 
         public bool InitTopoFromXml()
         {
-            Log.InfoStart("InitTopoFromXml");
+            Log.InfoStart(LogTags.DbInit,"InitTopoFromXml");
             try
             {
                 string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
@@ -69,7 +69,7 @@ namespace BLL
         // GET: DataInit
         public void SaveInitInfoXml(bool containCAD=true)
         {
-            Log.InfoStart("SaveInitInfoXml");
+            Log.InfoStart(LogTags.DbInit, "SaveInitInfoXml");
             var root = _bll.GetAreaTree(false,null, containCAD);
             InitInfo initInfo = new InitInfo();
             initInfo.TopoInfo = new TopoInfo(root, containCAD);
@@ -80,7 +80,7 @@ namespace BLL
 
         public bool ClearTopoTable()
         {
-            Log.InfoStart("ClearTopoTable");
+            Log.InfoStart(LogTags.DbInit, "ClearTopoTable");
             bool r1=_bll.Archors.Clear();
             bool r2 = _bll.DevInfos.Clear();
             bool r3 = _bll.NodeKKSs.Clear();
@@ -95,14 +95,14 @@ namespace BLL
 
         public void InitTopo(TopoInfo topoInfo)
         {
-            Log.InfoStart("InitTopo");
+            Log.InfoStart(LogTags.DbInit, "InitTopo");
             ClearTopoTable();
 
             Area root = new Area() { Name = topoInfo.Name, Type = topoInfo.Type };
             Areas.Add(root);
-            Log.InfoStart("InitTopoChildren");
+            Log.InfoStart(LogTags.DbInit, "InitTopoChildren");
             InitTopoChildren(root, topoInfo, 0);
-            Log.InfoStart("InitTopoChildren");
+            Log.InfoStart(LogTags.DbInit, "InitTopoChildren");
             Log.InfoEnd("InitTopo");
         }
 
@@ -112,7 +112,7 @@ namespace BLL
             {
                 if (level < 3)
                 {
-                    Log.Info("InitNode:" + childInfo.Name);
+                    Log.Info(LogTags.DbInit, "InitNode:" + childInfo.Name);
                 }
                 var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
                 SetInitBound(childInfo.BoundInfo, childNode);
@@ -172,7 +172,7 @@ namespace BLL
 
         public void InitAreaAndDev()
         {
-            Log.InfoStart("InitAreaAndDev");
+            Log.InfoStart(LogTags.DbInit,"InitAreaAndDev");
             if (!InitTopoFromXml())
             {
                 InitTopoByEntities();
@@ -196,49 +196,49 @@ namespace BLL
         /// </summary>
         private void InitLocationDevice()
         {
-            Log.Info("导入基站信息");
+            Log.Info(LogTags.DbInit,"导入基站信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\基站信息\\基站信息.xml";
             bool value = LocationDeviceHelper.ImportLocationDeviceFromFile(filePath, Archors, Areas);
-            Log.Info(string.Format("导入基站信息结果:{0}", value));
+            Log.Info(LogTags.DbInit, string.Format("导入基站信息结果:{0}", value));
         }
         /// <summary>
         /// 初始化设备信息
         /// </summary>
         public void InitDevInfo(bool isUpgradeFireDev=true)
         {
-            Log.Info("导入设备信息");
+            Log.Info(LogTags.DbInit, "导入设备信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
             bool value = DevInfoHelper.ImportDevInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入设备信息结果:{0}", value));
+            Log.Info(LogTags.DbInit, string.Format("导入设备信息结果:{0}", value));
 
-            Log.Info("导入门禁信息");
+            Log.Info(LogTags.DbInit, "导入门禁信息");
             string doorAccessFilePath = basePath + "Data\\设备信息\\DoorAccessBackup.xml";
             bool valueSub = DevInfoHelper.ImportDoorAccessInfoFromFile(doorAccessFilePath, _bll);
-            Log.Info(string.Format("导入门禁信息结果:{0}", valueSub));
+            Log.Info(LogTags.DbInit, string.Format("导入门禁信息结果:{0}", valueSub));
 
-            Log.Info("导入摄像头信息");
+            Log.Info(LogTags.DbInit, "导入摄像头信息");
             string cameraFilePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
             bool valueCamera = DevInfoHelper.ImportCameraInfoFromFile(cameraFilePath, _bll);
-            Log.Info(string.Format("导入摄像头信息结果:{0}", valueCamera));
+            Log.Info(LogTags.DbInit, string.Format("导入摄像头信息结果:{0}", valueCamera));
 
             if(isUpgradeFireDev)
             {
-                Log.Info("导入消防信息");
+                Log.Info(LogTags.DbInit, "导入消防信息");
                 string FireFightDevfilePath = basePath + "Data\\设备信息\\FireFightInfoBackup.xml";
                 bool valueFireFightDev = DevInfoHelper.ImportFireFightDevInfoFromFile(FireFightDevfilePath, _bll);
-                Log.Info(string.Format("导入设备信息结果:{0}", valueFireFightDev));
+                Log.Info(LogTags.DbInit, string.Format("导入设备信息结果:{0}", valueFireFightDev));
             }            
         }
 
         private void InitEntranceGuardCard()
         {
-            Log.Info("导入门禁卡信息");
+            Log.Info(LogTags.DbInit, "导入门禁卡信息");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupEntranceGuardCardInfo.xml";
             bool value = EntranceGuardCardBackupHelper.ImportEntranceGuardCardInfoFromFile(filePath, _bll);
-            Log.Info(string.Format("导入门禁卡信息结果:{0}", value));
+            Log.Info(LogTags.DbInit, string.Format("导入门禁卡信息结果:{0}", value));
         }
 
         private void InitTopoByEntities()
@@ -732,9 +732,9 @@ namespace BLL
         private void InitDevMonitorNode()
         {
             //导入设备监控节点
-            Log.Info("导入设备监控节点");
+            Log.Info(LogTags.DbInit, "导入设备监控节点");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            Log.Info("BaseDirectory:" + basePath);
+            Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
             //string filePath = basePath + "Data\\EDOS.xls";
             string filePath = basePath + "Data\\EDOS_New.xls";
             DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath));

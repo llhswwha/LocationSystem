@@ -241,6 +241,7 @@ namespace BLL.Tools
                 {
                     bll.DevInfos.Add(devInfo);
                     Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, devInfo);
+                    cameraBackup.RtspUrl = cameraDev.RtspURL;
                     bll.Dev_CameraInfos.Add(cameraBackup);
                 }
                 else
@@ -252,6 +253,7 @@ namespace BLL.Tools
                         Console.WriteLine("Error: EditDevinfo Error");
                     }
                     Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, infoTemp);
+                    cameraBackup.RtspUrl = cameraDev.RtspURL;
                     Dev_CameraInfo cameraDatabase = bll.Dev_CameraInfos.Find(cameraT => cameraT.Local_DevID == infoTemp.Local_DevID);
                     if (cameraDatabase == null)
                     {
@@ -585,17 +587,17 @@ namespace BLL.Tools
         public static void ImportDevMonitorNodeFromFile<T>(FileInfo file)
             where T : DevMonitorNode, new()
         {
-            Log.InfoStart("DevInfoHelper.ImportDevMonitorNodeFromFile");
+            Log.InfoStart(LogTags.DbInit, "DevInfoHelper.ImportDevMonitorNodeFromFile");
             if (file.Exists == false)
             {
                 Log.Info("不存在文件:" + file.FullName);
                 return;
             }
             Bll bll = new Bll();
-            List<DevMonitorNode> DevMonitorNodeList = bll.DevMonitorNodes.ToList();
+            var DevMonitorNodeList = bll.DevMonitorNodes.ToList();
             if (DevMonitorNodeList != null && DevMonitorNodeList.Count == 0)
             {
-                List<DevMonitorNode> list = CreateDevMonitorNodeListFromFile<DevMonitorNode>(file);
+                var list = CreateDevMonitorNodeListFromFile<DevMonitorNode>(file);
                 bll.DevMonitorNodes.AddRange(bll.Db, list); //新增的部分
             }
             Log.InfoEnd("DevInfoHelper.ImportDevMonitorNodeFromFile");

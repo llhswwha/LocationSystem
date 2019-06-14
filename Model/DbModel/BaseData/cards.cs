@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationClass.SihuiThermalPowerPlant.Models
+namespace DbModel.BaseData
 {
     /// <summary>
     /// 获取门禁卡列表
     /// </summary>
     public class cards
     {
+        [Key]
+        public int dbId { get; set; }
+
         /// <summary>
         /// 标识
         /// </summary>
@@ -19,6 +23,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 门禁卡号
         /// </summary>
+        [MaxLength(256)]
         public string cardCode { get; set; }
 
         /// <summary>

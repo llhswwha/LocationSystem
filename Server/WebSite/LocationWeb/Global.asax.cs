@@ -79,7 +79,7 @@ namespace WebLocation
             Log.Info("DataInitMode:" + mode);
             if (mode >= 0)
             {
-                Log.InfoStart("MvcApplication.InitData");
+                Log.InfoStart(LogTags.DbInit, "MvcApplication.InitData");
                 Bll bll = new Bll();
                 bll.Init(mode);
                 Log.InfoEnd("MvcApplication.InitData");

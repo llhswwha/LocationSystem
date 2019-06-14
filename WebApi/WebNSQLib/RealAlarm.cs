@@ -17,15 +17,32 @@ namespace WebNSQLib
 {
     public class RealAlarm
     {
-        public MessageHandler MessageHandler = new MessageHandler();
+        public static string NsqLookupdUrl = "172.16.100.22:4161";
+        public static string NsqLookupdTopic = "honeywell";
+        public static string NsqLookupdChannel = "channel-name";
+
+        public MessageHandler MessageHandler =null;
+
+        public Action<DevAlarm> callback;
+
+        public RealAlarm(Action<DevAlarm> action)
+        {
+            callback = action;
+        }
+
         public void ReceiveRealAlarmInfo()
         {
-            var consumer = new Consumer("honeywell", "channel-name");
+            MessageHandler = new MessageHandler();
+            if(callback!=null)
+                MessageHandler.DevAlarmReceived += callback;
+            var consumer = new Consumer(NsqLookupdTopic, NsqLookupdChannel);
             consumer.AddHandler(MessageHandler);
             //consumer.ConnectToNsqLookupd("ipms.datacase.io:4161");
-            consumer.ConnectToNsqLookupd("172.16.100.22:4161");
+            consumer.ConnectToNsqLookupd(NsqLookupdUrl);
 
-            while (true) { Thread.Sleep(6000); }
+            while (true) {
+                Thread.Sleep(6000);
+            }
 
             consumer.Stop();
         }

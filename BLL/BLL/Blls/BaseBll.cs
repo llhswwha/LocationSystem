@@ -240,26 +240,12 @@ namespace BLL.Blls
 
         public virtual List<T> ToList(bool isTracking=false)
         {
-            if (DbSet == null) return null;
-            try
+            var list = DbSet.ToListEx(isTracking);
+            if (list == null)
             {
-                List<T> list = null;
-                if (isTracking)
-                {
-                    list = DbSet.ToList();
-                }
-                else
-                {
-                    list = DbSet.AsNoTracking().ToList();
-                }
-                return list;
+                ErrorMessage = DbHelper.ErrorMessage;
             }
-            catch (Exception ex)
-            {
-                Log.Error("BaseBll.ToList", ex);
-                ErrorMessage = ex.Message;
-                return null;
-            }
+            return list;
         }
 
         public virtual T DeleteById(object id)

@@ -122,7 +122,7 @@ namespace Location.BLL.Tool
         public static void ImportKKSFromFile<T>(FileInfo file)
             where T : IKKSCode, new()
         {
-            Log.InfoStart("KKSCodeHelper.ImportKKSFromFile");
+            Log.InfoStart(LogTags.DbInit, "KKSCodeHelper.ImportKKSFromFile");
             if (file.Exists == false)
             {
                 Log.Info("不存在文件:" + file.FullName);
@@ -248,14 +248,14 @@ namespace Location.BLL.Tool
             if (kksList != null /*&& kksList.Count == 0*/)
             {
                 string strFolderName = file.Directory.Name;
-                DataTable dtTableEDOS = new DataTable();
-                dtTableEDOS.Columns.Add("标签名", typeof(string));
-                dtTableEDOS.Columns.Add("数据库标签名", typeof(string));
-                dtTableEDOS.Columns.Add("描述", typeof(string));
-                dtTableEDOS.Columns.Add("单位", typeof(string));
-                dtTableEDOS.Columns.Add("类型", typeof(string));
-                dtTableEDOS.Columns.Add("转义后的KKS编码", typeof(string));
-                dtTableEDOS.Columns.Add("转义后的父类KKS编码", typeof(string));
+                DataTable table = new DataTable();
+                table.Columns.Add("标签名", typeof(string));
+                table.Columns.Add("数据库标签名", typeof(string));
+                table.Columns.Add("描述", typeof(string));
+                table.Columns.Add("单位", typeof(string));
+                table.Columns.Add("类型", typeof(string));
+                table.Columns.Add("转义后的KKS编码", typeof(string));
+                table.Columns.Add("转义后的父类KKS编码", typeof(string));
                 
                 DataTable dtTable = ExcelHelper.Load(new FileInfo(file.FullName), false).Tables[0].Copy();
                 dtTable.Rows.RemoveAt(0);
@@ -273,7 +273,7 @@ namespace Location.BLL.Tool
                         continue;
                     }
 
-                    DataRow dr2 = dtTableEDOS.NewRow();
+                    DataRow dr2 = table.NewRow();
                     dr2["标签名"] = dr[0].ToString();
                     dr2["数据库标签名"] = dr[2].ToString();
                     dr2["描述"] = dr[3].ToString();
@@ -281,10 +281,10 @@ namespace Location.BLL.Tool
                     dr2["类型"] = dr[5].ToString();
                     dr2["转义后的KKS编码"] = strNodeKKS;
                     dr2["转义后的父类KKS编码"] = strDevKKS;
-                    dtTableEDOS.Rows.Add(dr2);
+                    table.Rows.Add(dr2);
                 }
                 
-                ExcelHelper.Save(dtTableEDOS, new FileInfo(createfilePath), null);
+                ExcelHelper.Save(table, new FileInfo(createfilePath), null);
             }
 
             return 0;
@@ -307,14 +307,14 @@ namespace Location.BLL.Tool
             if (kksList != null /*&& kksList.Count == 0*/)
             {
                 string strFolderName = file.Directory.Name;
-                DataTable dtTableEDOS = new DataTable();
-                dtTableEDOS.Columns.Add("标签名", typeof(string));
-                dtTableEDOS.Columns.Add("数据库标签名", typeof(string));
-                dtTableEDOS.Columns.Add("描述", typeof(string));
-                dtTableEDOS.Columns.Add("单位", typeof(string));
-                dtTableEDOS.Columns.Add("类型", typeof(string));
-                dtTableEDOS.Columns.Add("转义后的KKS编码", typeof(string));
-                dtTableEDOS.Columns.Add("转义后的父类KKS编码", typeof(string));
+                DataTable table = new DataTable();
+                table.Columns.Add("标签名", typeof(string));
+                table.Columns.Add("数据库标签名", typeof(string));
+                table.Columns.Add("描述", typeof(string));
+                table.Columns.Add("单位", typeof(string));
+                table.Columns.Add("类型", typeof(string));
+                table.Columns.Add("转义后的KKS编码", typeof(string));
+                table.Columns.Add("转义后的父类KKS编码", typeof(string));
 
                 DataTable dtTable = ExcelHelper.Load(new FileInfo(file.FullName), false).Tables[0].Copy();
                 dtTable.Rows.RemoveAt(0);
@@ -332,7 +332,7 @@ namespace Location.BLL.Tool
                         continue;
                     }
 
-                    DataRow dr2 = dtTableEDOS.NewRow();
+                    DataRow dr2 = table.NewRow();
                     dr2["标签名"] = dr[0].ToString();
                     dr2["数据库标签名"] = "";
                     dr2["描述"] = dr[2].ToString();
@@ -340,10 +340,10 @@ namespace Location.BLL.Tool
                     dr2["类型"] = dr[4].ToString();
                     dr2["转义后的KKS编码"] = strNodeKKS;
                     dr2["转义后的父类KKS编码"] = strDevKKS;
-                    dtTableEDOS.Rows.Add(dr2);
+                    table.Rows.Add(dr2);
                 }
 
-                ExcelHelper.Save(dtTableEDOS, new FileInfo(createfilePath), null);
+                ExcelHelper.Save(table, new FileInfo(createfilePath), null);
             }
 
             return 0;

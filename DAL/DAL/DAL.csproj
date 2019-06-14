@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDataDb.cs" />
     <Compile Include="EngineDb.cs" />
     <Compile Include="LocationDb.cs" />
     <Compile Include="LocationDbLite.cs" />
