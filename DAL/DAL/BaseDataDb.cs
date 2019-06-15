@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DbModel.BaseData;
-
+using BLL.Blls;
 namespace DAL
 {
     public class BaseDataDb : DbContext
@@ -41,5 +41,12 @@ namespace DAL
         public DbSet<device> devices { get; set; }
 
         public DbSet<cards> cards { get; set; }
+
+        public int SetTable<T>(DbSet<T> ds,List<T> list) where T :class
+        {
+            this.Clear(ds);
+            ds.AddRange(list);
+            return this.SaveChanges();
+        }
     }
 }

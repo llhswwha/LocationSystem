@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="GetKKSMonitorDataWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <DockPanel>
-        <Menu DockPanel.Dock="Top"></Menu>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="获取全部测点数据" Name="MenuGetAllMonitorData" Click="MenuGetAllMonitorData_Click"></MenuItem>
+        </Menu>
         
         <DataGrid Name="dg_kks"></DataGrid>
     </DockPanel>

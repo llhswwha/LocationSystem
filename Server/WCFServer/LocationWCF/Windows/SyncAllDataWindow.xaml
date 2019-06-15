@@ -10,6 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="获取Rtsp" Name="MenuGetRtsp" Click="MenuGetRtsp_Click"></MenuItem>
             <MenuItem Header="生成模拟数据" Name="MenuCreateSimulateData" Click="MenuCreateSimulateData_Click"></MenuItem>
+            <MenuItem Header="生成真实数据" Name="MenuCreateRealData" Click="MenuCreateRealData_Click"></MenuItem>
             <MenuItem Header="获取数据" Name="MenuGet" Click="MenuGet_Click"></MenuItem>
             <MenuItem Header="同步数据" Name="MenuSync" Click="MenuSync_Click"></MenuItem>
         </Menu>

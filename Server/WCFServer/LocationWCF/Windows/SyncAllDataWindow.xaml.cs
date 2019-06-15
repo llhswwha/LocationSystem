@@ -71,25 +71,19 @@ namespace LocationServer.Windows
 
         private void MenuCreateSimulateData_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker simulateWorker = new BackgroundWorker();
-            simulateWorker.DoWork += SimulateWorker_DoWork;
-            simulateWorker.RunWorkerCompleted += SimulateWorker_RunWorkerCompleted;
-            simulateWorker.RunWorkerAsync();
-        }
-
-        private void SimulateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            Log.Info(LogTags.BaseData, "创建完成!");
-            MessageBox.Show("创建完成");
-        }
-
-        private void SimulateWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            client.SaveDepToOrg();
-            client.SavePersonnelToUser();
-            client.SaveAreaToZone();
-            client.SaveDevInfoToDevice();
-            client.SaveGuardCardToCard();
+            Worker.Run(() =>
+            {
+                BaseDataSimulator simulator = new BaseDataSimulator();
+                simulator.SaveDepToOrg();
+                simulator.SavePersonnelToUser();
+                simulator.SaveAreaToZone();
+                simulator.SaveDevInfoToDevice();
+                simulator.SaveGuardCardToCard();
+            }, () =>
+             {
+                 Log.Info(LogTags.BaseData, "创建完成!");
+                 MessageBox.Show("创建完成");
+             });
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";
@@ -109,21 +103,45 @@ namespace LocationServer.Windows
 
         private void Sync()
         {
-            BackgroundWorker syncWorker = new BackgroundWorker();
-            syncWorker.DoWork += SyncWorker_DoWork;
-            syncWorker.RunWorkerCompleted += SyncWorker_RunWorkerCompleted;
-            syncWorker.RunWorkerAsync();
-        }
+            Worker.Run(() =>
+            {
+                try
+                {
+                    //bool isSave1 = true;
+                    bool isSave2 = true;
 
-        private void SyncWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //dg_zone.ItemsSource = zoneList;
-            //dg_org.ItemsSource = orgList;
-            //dg_user.ItemsSource = userList;
-            //dg_dev.ItemsSource = deviceList;
-            //dg_event.ItemsSource = eventList;
-            Log.Info(LogTags.BaseData, "同步完成!");
-            MessageBox.Show("同步完成");
+                    //区域
+                    //zoneList = client.GetZoneList();
+                    areaList = client.GetAreaList(isSave2);
+
+                    //组织
+                    //orgList = client.GetOrgList();
+                    depList = client.GetDepList(isSave2);
+
+                    //人员
+                    //userList = client.GetUserList();
+                    personnelList = client.GetPersonnelList(isSave2);
+
+                    //设备
+                    //deviceList = client.GetDeviceList(null, null, null);
+                    devInfoList = client.GetDevInfoList(null, null, null, isSave2);
+
+                    //门禁
+                    //cardList = client.GetCardList();
+                    guardCardList = client.GetGuardCardList(isSave2);
+
+                    //告警事件
+                    eventList = client.GetEventList(null, null, null, null);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(LogTags.BaseData, "Worker_DoWork:" + ex);
+                }
+            }, () =>
+            {
+                Log.Info(LogTags.BaseData, "同步完成!");
+                MessageBox.Show("同步完成");
+            });
         }
 
         BaseDataClient client;
@@ -140,42 +158,6 @@ namespace LocationServer.Windows
         List<EntranceGuardCard> guardCardList;
         List<events> eventList;
 
-        private void SyncWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                //bool isSave1 = true;
-                bool isSave2 = true;
-
-                //区域
-                //zoneList = client.GetZoneList();
-                areaList = client.GetAreaList(isSave2);
-
-                //组织
-                //orgList = client.GetOrgList();
-                depList = client.GetDepList(isSave2);
-
-                //人员
-                //userList = client.GetUserList();
-                personnelList = client.GetPersonnelList(isSave2);
-
-                //设备
-                //deviceList = client.GetDeviceList(null, null, null);
-                devInfoList = client.GetDevInfoList(null, null, null, isSave2);
-
-                //门禁
-                //cardList = client.GetCardList();
-                guardCardList = client.GetGuardCardList(isSave2);
-
-                //告警事件
-                eventList = client.GetEventList(null, null, null, null);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(LogTags.BaseData, "Worker_DoWork:" + ex);
-            }
-        }
-
         private void MenuGet_Click(object sender, RoutedEventArgs e)
         {
             GetDate();
@@ -183,80 +165,87 @@ namespace LocationServer.Windows
 
         private void GetDate()
         {
-            BackgroundWorker getWorker = new BackgroundWorker();
-            getWorker.DoWork += GetWorker_DoWork;
-            getWorker.RunWorkerCompleted += GetWorker_RunWorkerCompleted;  
-            getWorker.RunWorkerAsync();
-        }
-
-        private void GetWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            dg_zone.ItemsSource = zoneList;
-            dg_org.ItemsSource = orgList;
-            dg_user.ItemsSource = userList;
-            dg_dev.ItemsSource = deviceList;
-            dg_event.ItemsSource = eventList;
-        }
-
-        private void GetWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
+            Worker.Run(() =>
             {
-                WebApiHelper.IsSaveJsonToFile = true;
-                bool isSave1 = true;
-                bool isSave2 = false;
+                try
+                {
+                    WebApiHelper.IsSaveJsonToFile = true;//保存数据到文件中
+                    bool isSave1 = true;
+                    bool isSave2 = false;
 
-                //区域
-                zoneList = client.GetZoneList();
-                //areaList = client.GetAreaList(isSave2);
+                    //区域
+                    zoneList = client.GetZoneList();
+                    //areaList = client.GetAreaList(isSave2);
 
-                //组织
-                orgList = client.GetOrgList();
-                //depList = client.GetDepList(isSave2);
+                    //组织
+                    orgList = client.GetOrgList();
+                    //depList = client.GetDepList(isSave2);
 
-                //人员
-                userList = client.GetUserList();
-                //personnelList = client.GetPersonnelList(isSave2);
+                    //人员
+                    userList = client.GetUserList();
+                    //personnelList = client.GetPersonnelList(isSave2);
 
-                //设备
-                deviceList = client.GetDeviceList(null, null, null);
-                //devInfoList = client.GetDevInfoList(null, null, null, isSave2);
+                    //设备
+                    deviceList = client.GetDeviceList(null, null, null);
+                    //devInfoList = client.GetDevInfoList(null, null, null, isSave2);
 
-                //门禁
-                cardList = client.GetCardList();
-                //guardCardList = client.GetGuardCardList(isSave2);
+                    //门禁
+                    cardList = client.GetCardList();
+                    //guardCardList = client.GetGuardCardList(isSave2);
 
-                //告警事件
-                eventList = client.GetEventList(null, null, null, null);
+                    //告警事件
+                    eventList = client.GetEventList(null, null, null, null);
 
-                WebApiHelper.IsSaveJsonToFile = false;
-            }
-            catch (Exception ex)
+                    WebApiHelper.IsSaveJsonToFile = false;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(LogTags.BaseData, "Worker_DoWork:" + ex);
+                }
+            }, () =>
             {
-                Log.Error(LogTags.BaseData, "Worker_DoWork:" + ex);
-            }
+                dg_zone.ItemsSource = zoneList;
+                dg_org.ItemsSource = orgList;
+                dg_user.ItemsSource = userList;
+                dg_dev.ItemsSource = deviceList;
+                dg_event.ItemsSource = eventList;
+            });
         }
 
         private void MenuGetRtsp_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker rtspWorker = new BackgroundWorker();
-            rtspWorker.DoWork += RtspWorker_DoWork;
-            rtspWorker.RunWorkerCompleted += RtspWorker_RunWorkerCompleted;
-            rtspWorker.RunWorkerAsync();
+            Worker.Run(() =>
+            {
+                var list1 = client.GetCameraInfoList(null, null, null, true);
+                var list2 = client.GetCameraInfoList("1021,1022,1023", null, null, true);
+            }, () =>
+            {
+                Bll bll = Bll.Instance();
+                List<Dev_CameraInfo> dclst = bll.Dev_CameraInfos.ToList();
+                dg_camera.ItemsSource = dclst;
+                Log.Info(LogTags.BaseData, "完成!");
+                MessageBox.Show("完成");
+            });
         }
 
-        private void RtspWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void MenuCreateRealData_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = Bll.Instance();
-            List<Dev_CameraInfo> dclst = bll.Dev_CameraInfos.ToList();
-            dg_camera.ItemsSource = dclst;
-            Log.Info(LogTags.BaseData, "完成!");
-            MessageBox.Show("完成");
-        }
+            Worker.Run(() =>
+            {
+                BaseDataInitializer initializer = new BaseDataInitializer();
+                deviceList=initializer.InitDevices();
 
-        private void RtspWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var list = client.GetCameraInfoList(null, null, null, true);
+            }, () =>
+            {
+                dg_zone.ItemsSource = zoneList;
+                dg_org.ItemsSource = orgList;
+                dg_user.ItemsSource = userList;
+                dg_dev.ItemsSource = deviceList;
+                dg_event.ItemsSource = eventList;
+
+                Log.Info(LogTags.BaseData, "完成!");
+                MessageBox.Show("完成");
+            });
         }
     }
 }

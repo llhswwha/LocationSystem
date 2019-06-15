@@ -107,40 +107,6 @@ namespace WebApiLib.Clients
             return client.GetUserList();
         }
 
-        private void SetUser(Personnel person, user item)
-        {
-            item.id = person.Abutment_Id ?? 0;
-            item.name = person.Name;
-            item.gender = (int)person.Sex;
-            item.email = person.Email;
-            item.phone = person.Phone;
-            item.mobile = person.Mobile;
-            item.enabled = person.Enabled;
-            if (person.Parent != null)
-            { item.dept_name = person.Parent.Name; }
-            else
-            {
-                item.dept_name = person.ParentId + "";
-            }
-        }
-
-        private void SetPersonnel(Personnel person, user item)
-        {
-            Sexs nSex = Sexs.未知;
-            if (item.gender != null)
-            {
-                nSex = (Sexs)item.gender;
-            }
-
-            person.Abutment_Id = item.id;
-            person.Name = item.name;
-            person.Sex = nSex;
-            person.Email = item.email;
-            person.Phone = item.phone;
-            person.Mobile = item.mobile;
-            person.Enabled = item.enabled;
-        }
-
         /// <summary>
         /// 获取人员列表
         /// </summary>
@@ -172,7 +138,7 @@ namespace WebApiLib.Clients
                         nFlag = 0;
                     }
 
-                    SetPersonnel(person, item);
+                    BaseDataHelper.SetPersonnel(person, item);
 
                     if (item.dept_name == null)
                     {
@@ -221,171 +187,6 @@ namespace WebApiLib.Clients
             return personnelList;
         }
 
-        public void SaveDepToOrg()
-        {
-            BaseDataDb db = new BaseDataDb();
-            List<Department> dlst = bll.Departments.ToList();
-            db.Clear(db.orgs);
-            List<org> orgs = new List<org>();
-            for (int i = 0; i < dlst.Count; i++)
-            {
-                Department dept = dlst[i];
-                org org = new org();
-
-                org.id = dept.Abutment_Id ?? 0;
-                org.name = dept.Name;
-                org.parentId = dept.Abutment_ParentId;
-                if (org.parentId == null)
-                {
-                    org.parentId = dept.ParentId;
-                }
-                org.type = (int)dept.Type;
-                org.description= dept.Description;
-
-                //db.orgs.Add(org);
-
-                orgs.Add(org);
-
-                //if (i % 10 == 0)
-                {
-                    Log.Info(LogTags.BaseData, string.Format("dept:{0}({1}/{2})",dept.Name,i+1, dlst.Count));
-                }
-                
-            }
-            Log.Info(LogTags.BaseData, "保存区域信息...");
-
-            db.orgs.AddRange(orgs);
-            var r=db.SaveChanges();
-
-            //db.AddRange(orgs);
-        }
-
-        public void SavePersonnelToUser()
-        {
-            Log.Info(LogTags.BaseData, "获取人员信息...");
-            BaseDataDb db = new BaseDataDb();
-            db.Clear(db.users);
-            Bll bll = new Bll(false, false, false, false);
-            List<Personnel> list = bll.Personnels.ToList();
-            List<user> users = new List<user>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                Personnel p = list[i];
-                user user = new user();
-                SetUser(p, user);
-                users.Add(user);
-
-                if (i % 5 == 0)
-                {
-                    Log.Info(LogTags.BaseData, string.Format("device:{0}({1}/{2})", user.name, i, list.Count));
-                }
-            }
-
-            Log.Info(LogTags.BaseData, "保存人员信息...");
-
-            db.users.AddRange(users);
-            var r = db.SaveChanges();
-        }
-
-        public void SaveAreaToZone()
-        {
-            Log.Info(LogTags.BaseData, "获取区域信息...");
-            BaseDataDb db = new BaseDataDb();
-            db.Clear(db.zones);
-
-            Bll bll = new Bll();
-            List<Area> list = bll.Areas.ToList();
-            List<zone> zones = new List<zone>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                Area area = list[i];
-                zone zone = new zone();
-                zone.name = area.Name;
-                zone.id = area.Abutment_Id ?? 0;
-                zone.parent_Id = area.ParentId;
-                zone.kks = area.KKS;
-                zone.description = area.Describe;
-                zone.x = area.X;
-                zone.y = area.Y;
-                zone.z = area.Z;
-                zones.Add(zone);
-
-                if (i % 20 == 0)
-                {
-                    Log.Info(LogTags.BaseData, string.Format("device:{0}({1}/{2})", zone.name, i, list.Count));
-                }
-            }
-
-            Log.Info(LogTags.BaseData, "保存区域信息...");
-            db.zones.AddRange(zones);
-            var r = db.SaveChanges();
-        }
-
-        public void SaveGuardCardToCard()
-        {
-            Log.Info(LogTags.BaseData, "获取门禁信息...");
-            BaseDataDb db = new BaseDataDb();
-            db.Clear(db.cards);
-
-            List<EntranceGuardCard> elst = bll.EntranceGuardCards.ToList();
-            List<Personnel> plst = bll.Personnels.ToList();
-            List<EntranceGuardCardToPersonnel> eglst = bll.EntranceGuardCardToPersonnels.ToList();
-            List<cards> cardsList = new List<cards>();
-            for (int i = 0; i < elst.Count; i++)
-            {
-                var item = elst[i];
-                cards card = new cards();
-                card.cardId = item.Abutment_Id ?? 0;
-                card.cardCode = item.Code;
-                card.state = item.State;
-                var r = eglst.Find(j => j.EntranceGuardCardId == item.Id);
-                if (r != null)
-                {
-                    card.emp_id = r.Personnel.Abutment_Id ?? r.PersonnelId;
-                }
-                cardsList.Add(card);
-
-                //if (i % 20 == 0)
-                {
-                    Log.Info(LogTags.BaseData, string.Format("device:{0}({1}/{2})", card.cardCode, i, elst.Count));
-                }
-            }
-
-            Log.Info(LogTags.BaseData, "保存门禁信息...");
-            db.cards.AddRange(cardsList);
-            var r2 = db.SaveChanges();
-        }
-
-        public void SaveDevInfoToDevice()
-        {
-            Log.Info(LogTags.BaseData, "获取设备信息...");
-            BaseDataDb db = new BaseDataDb();
-            db.Clear(db.devices);
-            var archors = bll.Archors.ToList();
-            var cameras = bll.Dev_CameraInfos.ToList();
-            var list = bll.DevInfos.GetListWithDetail(archors,cameras);
-
-
-            List<device> devices = new List<device>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                DevInfo item = list[i];
-                device device = new device();
-                SetDevice(device, item);
-                //db.devices.Add(device);
-                devices.Add(device);
-                if (i % 20 == 0)
-                {
-                    Log.Info(LogTags.BaseData, string.Format("device:{0}({1}/{2})", device.name, i, list.Count));
-                }
-            }
-            Log.Info(LogTags.BaseData, "保存设备信息...");
-           
-            db.devices.AddRange(devices);
-            var r = db.SaveChanges();
-
-            //db.AddRange(devices);
-        }
 
         /// <summary>
         /// 获取部门列表
@@ -713,7 +514,7 @@ namespace WebApiLib.Clients
                         }
 
                         devinfo.ParentId = area.Id;
-                        SetDeivInfo(devinfo, item);
+                        BaseDataHelper.SetDeivInfo(devinfo, item);
 
                         if (nFlag == 1)
                         {
@@ -763,94 +564,6 @@ namespace WebApiLib.Clients
         public void Error(string error)
         {
             errorLst.Add(error);
-        }
-
-        public void SetDeivInfo(DevInfo devinfo, device item)
-        {
-            devinfo.Abutment_Id = item.id;
-            devinfo.Code = item.code;
-            devinfo.Abutment_Type = (Abutment_DevTypes)item.type;
-            devinfo.Status = (Abutment_Status)item.state;
-            devinfo.RunStatus = (Abutment_RunStatus)item.running_state;
-            devinfo.Placed = item.placed;
-            devinfo.Abutment_DevID = item.raw_id;
-            devinfo.IP = item.ip;
-            devinfo.Manufactor = "霍尼韦尔";
-
-            devinfo.ModifyTime = DateTime.Now;
-            devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
-
-            //devinfo.ParentId = area.Id;
-            devinfo.KKS = item.kks;
-            devinfo.Name = item.name;
-        }
-
-        private int GetDeviceType(DevInfo devinfo)
-        {
-            var type = TypeCodeHelper.GetTypeName(devinfo.Local_TypeCode + "", devinfo.ModelName);
-            if (type == "基站")
-            {
-                return (int)Abutment_DevTypes.定位基站;
-            }
-            else if (type == "摄像头")
-            {
-                return (int)Abutment_DevTypes.摄像头;
-            }
-            else if (type == "生产设备")
-            {
-                return (int)Abutment_DevTypes.生产设备;
-            }
-            else if (type == "门禁")
-            {
-                return (int)Abutment_DevTypes.门禁;
-            }
-            else if (type == "警报设备")
-            {
-                return (int)Abutment_DevTypes.消防设备;
-            }
-            else if (type == "其他设备")
-            {
-                return (int)Abutment_DevTypes.无;
-            }
-            return 0;
-        }
-
-        public void SetDevice(device item,DevInfo devinfo)
-        {
-            item.id = devinfo.Abutment_Id ?? 0;
-            item.code = devinfo.Code;
-            item.type=(int)devinfo.Abutment_Type;
-            if (item.type == 0)
-            {
-                item.type = GetDeviceType(devinfo);
-            }
-            item.state=(int)devinfo.Status;
-            item.running_state=(int)devinfo.RunStatus;
-            item.placed=devinfo.Placed;
-            item.raw_id=devinfo.Abutment_DevID;
-            item.ip=devinfo.IP;
-            //devinfo.Manufactor = "霍尼韦尔";
-
-            //devinfo.ModifyTime = DateTime.Now;
-            //devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
-
-            //devinfo.ParentId = area.Id;
-            item.kks= devinfo.KKS;
-            item.name=devinfo.Name;
-            item.pid = devinfo.ParentId??0;
-
-            if(devinfo.DevDetail is Dev_CameraInfo)
-            {
-                Dev_CameraInfo camera = devinfo.DevDetail as Dev_CameraInfo;
-                item.uri = camera.RtspUrl;
-
-                if (string.IsNullOrEmpty(item.uri))
-                {
-                    item.uri = "rtsp://admin:admin12345@192.168.1.56/h264/ch1/main/av_stream";
-                }
-
-                item.ip = camera.Ip;
-            }
         }
 
         /// <summary>
@@ -909,7 +622,7 @@ namespace WebApiLib.Clients
                         continue;
                     }
 
-                    SetDeivInfo(devinfo, item);
+                    BaseDataHelper.SetDeivInfo(devinfo, item);
 
                     if (isSave)
                         bll.DevInfos.Edit(devinfo);
@@ -987,7 +700,7 @@ namespace WebApiLib.Clients
                         continue;
                     }
 
-                    SetDeivInfo(devinfo, item);
+                    BaseDataHelper.SetDeivInfo(devinfo, item);
 
                     if (isSave)
                         bll.DevInfos.Edit(devinfo);

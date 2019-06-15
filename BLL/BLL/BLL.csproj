@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppContext.cs" />
-    <Compile Include="Blls\DbHelper.cs" />
     <Compile Include="Blls\Engine\bus_anchor_configBll.cs" />
     <Compile Include="Blls\Engine\bus_anchor_switch_areaBll.cs" />
     <Compile Include="Blls\LocationHistory\DevMonitorNodeHistoryBll.cs" />
@@ -158,7 +157,6 @@
     <Compile Include="Tools\LightUDP.cs" />
     <Compile Include="Tools\LocationCardToPersonnelsBackupHelper.cs" />
     <Compile Include="Tools\LocationDeviceHelper.cs" />
-    <Compile Include="Tools\Log.cs" />
     <Compile Include="Tools\MD5Encrypter.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
     <Compile Include="Tools\RandomTool.cs" />

@@ -45,7 +45,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("devices")]
-        public BaseTran<device> GetDeviceList(string types, string code, string name)
+        public BaseTran<device> GetDeviceList(Dictionary<string,string> paramList)
         {
             BaseDataDb db = new BaseDataDb();
             var list = db.devices.AsNoTracking().ToList();

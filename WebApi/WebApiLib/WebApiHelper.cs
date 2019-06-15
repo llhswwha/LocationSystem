@@ -19,6 +19,7 @@ namespace WebApiLib
             try
             {
                 if (uri == null) return null;
+                Log.Info(LogTags.BaseData, "uri:" + uri);
                 var client = new HttpClient();
                 if (!string.IsNullOrEmpty(accept))
                 {
@@ -39,6 +40,16 @@ namespace WebApiLib
 
         public static T GetEntity<T>(string url)
         {
+            if (url == null) return default(T);
+            if (url.Contains("?"))
+            {
+                url += "&offset=0&limit=10000";
+            }
+            else
+            {
+                url += "?offset=0&limit=10000";
+            }
+
             string result = GetString(url);
             if (result == null) return default(T);
 
@@ -62,7 +73,12 @@ namespace WebApiLib
                 Uri uri = new Uri(url);
                 DateTime now = DateTime.Now;
                 string name = uri.Segments[uri.Segments.Length - 1];
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + name+"__"+now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Json\\" + name+"__"+now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
+                FileInfo fi = new FileInfo(path);
+                if (!fi.Directory.Exists)
+                {
+                    fi.Directory.Create();
+                }
                 string content = "//" + url + "\n" + result;
                 File.WriteAllText(path, content);
             }

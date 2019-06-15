@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSetting.cs" />
+    <Compile Include="BaseData\BaseDataHelper.cs" />
     <Compile Include="CADEntitys\CADAreaList.cs" />
     <Compile Include="CADEntitys\CADEntity.cs" />
     <Compile Include="CADEntitys\CADPoint.cs" />

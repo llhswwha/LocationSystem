@@ -27,7 +27,7 @@ namespace WebApiLib.Clients
 
         public BaseTran<T> GetEntityList<T>(string url) where T :new()
         {
-            Log.Info(LogTags.BaseData, "BaseDataInnerClient.GetEntityList:" + url);
+            
             var recv = new BaseTran<T>();
             try
             {
@@ -93,32 +93,49 @@ namespace WebApiLib.Clients
             string path = "devices";
             string url = BaseUri + path;
 
-            if (types != null)
+            if(types==null && code ==null && name == null)
             {
-                url += "?types=" + types;
-            }
-            else
-            {
-                url += "?types";
-            }
 
-            if (code != null)
-            {
-                url += "&code=" + code;
             }
             else
             {
-                url += "&code";
-            }
+                if (types != null)
+                {
+                    url += "?types=" + types;
+                }
+                else
+                {
+                    url += "?types";
+                }
 
-            if (name != null)
-            {
-                url += "&name=" + name;
+                if (code == null && name == null)
+                {
+
+                }
+                else
+                {
+                    if (code != null)
+                    {
+                        url += "&code=" + code;
+                    }
+                    else
+                    {
+                        url += "&code";
+                    }
+
+                    if (name != null)
+                    {
+                        url += "&name=" + name;
+                    }
+                    else
+                    {
+                        url += "&name";
+                    }
+                }
+
+
             }
-            else
-            {
-                url += "&name";
-            }
+            
 
             recv = GetEntityList<device>(url);
             if (recv.data == null)

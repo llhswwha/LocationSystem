@@ -337,29 +337,9 @@ namespace LocationWCFServer
 
         private void GetAllNodeKKSData_OnClick(object sender, RoutedEventArgs e)
         {
-            Thread thread = new Thread(() =>
-            {
-                try
-                {
-                    Bll bll = new Bll();
-                    List<DbModel.Location.AreaAndDev.KKSCode> lst = bll.KKSCodes.ToList();
-                    LocationService ls = new LocationService();
-                    foreach (DbModel.Location.AreaAndDev.KKSCode item in lst)
-                    {
-                        var monitor=ls.GetDevMonitorInfoByKKS(item.Code, true);
-                    }
-
-                    MessageBox.Show("获取数据完成！");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("获取监控点数据失败：" + ex.Message);
-                }
-            });
-            thread.IsBackground = true;
-            thread.Start();
-
-            return;
+            var window = new GetKKSMonitorDataWindow();
+            window.Show();
+            
         }
 
         private void MenuCache_OnClick(object sender, RoutedEventArgs e)
