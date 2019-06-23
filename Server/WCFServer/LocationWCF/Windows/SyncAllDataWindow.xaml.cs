@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WebApiLib;
 using WebApiLib.Clients;
+using WPFClientControlLib;
 
 namespace LocationServer.Windows
 {
@@ -32,36 +33,16 @@ namespace LocationServer.Windows
         public SyncAllDataWindow()
         {
             InitializeComponent();
-            Location.BLL.Tool.Log.NewLogEvent += Log_NewLogEvent;
+            
+
+            logController.Init(TbLogs, LogTags.BaseData);
         }
 
+        LogTextBoxController logController = new LogTextBoxController();
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Location.BLL.Tool.Log.NewLogEvent -= Log_NewLogEvent;
-        }
-
-        private int MaxLength = 100000;
-        private int MaxLength2 = 50000;
-
-        private string logs = "";
-
-        private void Log_NewLogEvent(string tag, string log)
-        {
-            if (logs.Length > MaxLength)
-            {
-                logs = logs.Substring(0, MaxLength2);
-            }
-
-            //string[] parts = log.Split('|');
-            if (tag == LogTags.BaseData)
-            {
-                logs = log + "\n" + logs;
-                TbLogs.Dispatcher.Invoke(() =>
-                {
-                    TbLogs.Text = logs;
-                });
-            }
+            logController.Dispose();
         }
 
         private void MenuSync_Click(object sender, RoutedEventArgs e)

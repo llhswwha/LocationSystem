@@ -26,10 +26,13 @@ namespace WPFClientControlLib
             InitializeComponent();
         }
 
-        public void LoadData(IEnumerable<DevInfo> list)
+        public void LoadData(List<DevInfo> list)
         {
+            DeviceList = list;
             DataGrid1.ItemsSource = list;
         }
+
+        public List<DevInfo> DeviceList { get; set; }
 
         private void MenuDelete_Click(object sender, RoutedEventArgs e)
         {

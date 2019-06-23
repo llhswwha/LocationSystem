@@ -55,7 +55,6 @@ namespace WebApiLib.Clients
             var client = new BaseDataClient(webApiUrl, null,"api");
             bool bFirst = true;
             int nDay = -1;
-            
 
             while (true)
             {
@@ -67,15 +66,15 @@ namespace WebApiLib.Clients
                     dtBegin = dtEnd.AddDays(-3);
                     bFirst = false;
                 }
-
-                if (DealInspectionTrack(client, dtBegin, dtEnd, true) == false)
+                //获取一天前或者3天前到现在的巡检轨迹
+                if (DealInspectionTrack(client, dtBegin, dtEnd, true) == false)//获取巡检轨迹
                 {
                     Log.Info(LogTags.Server,"获取巡检轨迹失败！！ break!!");
                     break;
                 }
 
                 Bll bll = Bll.Instance();
-                List<DbModel.Location.Work.InspectionTrack> trackList = bll.InspectionTracks.ToList();
+                List<DbModel.Location.Work.InspectionTrack> trackList = bll.InspectionTracks.ToList();//从数据库取
                 //List<InspectionTrackHistory> send2 = bll.InspectionTrackHistorys.ToList();
                 if (trackList == null || trackList.Count() == 0)
                 {
@@ -95,29 +94,29 @@ namespace WebApiLib.Clients
 
         private bool DealInspectionTrack(WebApiLib.Clients.BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag)
         {
-            List<DbModel.Location.Work.InspectionTrack> All = new List<DbModel.Location.Work.InspectionTrack>();
-            List<DbModel.Location.Work.InspectionTrack> Add = new List<DbModel.Location.Work.InspectionTrack>();
-            List<DbModel.Location.Work.InspectionTrack> Edit = new List<DbModel.Location.Work.InspectionTrack>();
-            List<DbModel.Location.Work.InspectionTrack> Delete = new List<DbModel.Location.Work.InspectionTrack>();
-            List<DbModel.LocationHistory.Work.InspectionTrackHistory> HAdd = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
+            var All = new List<DbModel.Location.Work.InspectionTrack>();
+            var newList = new List<DbModel.Location.Work.InspectionTrack>();
+            var changedList = new List<DbModel.Location.Work.InspectionTrack>();
+            var deleteList = new List<DbModel.Location.Work.InspectionTrack>();
+            var newHisList = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
 
             long lBegin = Location.TModel.Tools.TimeConvert.ToStamp(dtBegin) / 1000;
             long lEnd = Location.TModel.Tools.TimeConvert.ToStamp(dtEnd) / 1000;
 
-            var recv = client.Getinspectionlist(lBegin, lEnd, true);
+            var recv = client.Getinspectionlist(lBegin, lEnd, true);//从WebApi获取
             if (recv == null)
             {
                 return false;
             }
 
-            Bll bll = Bll.NewBllNoRelation();//第三参数要设置为true
-            List<DbModel.Location.Work.InspectionTrack> itList = bll.InspectionTracks.ToList();
+            Bll bll = Bll.NewBllNoRelation();
+            var itList = bll.InspectionTracks.ToList();//当前的巡检轨迹
             if (itList == null)
             {
                 itList = new List<DbModel.Location.Work.InspectionTrack>();
             }
 
-            List<DbModel.LocationHistory.Work.InspectionTrackHistory> itHList = bll.InspectionTrackHistorys.ToList();
+            var itHList = bll.InspectionTrackHistorys.ToList();//历史巡检轨迹
             if (itHList == null)
             {
                 itHList = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>(0);
@@ -125,8 +124,8 @@ namespace WebApiLib.Clients
 
             foreach (CommunicationClass.SihuiThermalPowerPlant.Models.patrols item in recv)
             {
-                DbModel.Location.Work.InspectionTrack now = itList.Find(p => p.Abutment_Id == item.id);
-                DbModel.LocationHistory.Work.InspectionTrackHistory history = itHList.Find(p => p.Abutment_Id == item.id);
+                var now = itList.Find(p => p.Abutment_Id == item.id);//数据库中已经存在该轨迹
+                var history = itHList.Find(p => p.Abutment_Id == item.id);
 
                 if (item.state == "新建" || item.state == "已下达" || item.state == "执行中")
                 {
@@ -144,19 +143,19 @@ namespace WebApiLib.Clients
                         now.dtStartTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.StartTime);
                         now.EndTime = (item.endTime + nEightHourSecond) * 1000;
                         now.dtEndTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.EndTime);
-                        Add.Add(now);
+                        newList.Add(now);
                     }
                     else
                     {
                         now.State = item.state;
-                        Edit.Add(now);
+                        changedList.Add(now);
                     }
                 }
                 else
                 {
                     if (now != null)
                     {
-                        Delete.Add(now);
+                        deleteList.Add(now);
                     }
 
                     if (history == null)
@@ -174,20 +173,19 @@ namespace WebApiLib.Clients
                         history.EndTime = (item.endTime + nEightHourSecond) * 1000;
                         history.dtEndTime = Location.TModel.Tools.TimeConvert.ToDateTime(history.EndTime);
 
-                        HAdd.Add(history);
+                        newHisList.Add(history);
                     }
                 }
             }
 
-            bll.InspectionTracks.AddRange(Add);
-            bll.InspectionTracks.EditRange(Edit);
-            bll.InspectionTracks.RemoveList(Delete);
-            bll.InspectionTrackHistorys.AddRange(HAdd);
+            bll.InspectionTracks.AddRange(newList);//添加
+            bll.InspectionTracks.EditRange(changedList);//修改
+            bll.InspectionTracks.RemoveList(deleteList);//删除
+            bll.InspectionTrackHistorys.AddRange(newHisList);//历史轨迹
 
-            All.AddRange(Add);
-            All.AddRange(Edit);
-            DealPatrolPoint(bll, All, Delete, HAdd, client);
-
+            All.AddRange(newList);
+            All.AddRange(changedList);
+            DealPatrolPoint(bll, All, deleteList, newHisList, client);
             return true;
         }
 

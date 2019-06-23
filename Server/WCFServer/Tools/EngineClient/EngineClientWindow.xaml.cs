@@ -24,6 +24,7 @@ using LocationWCFServer;
 using PositionSimulation;
 using SignalRService.Hubs;
 using TModel.Tools;
+using WPFClientControlLib;
 
 namespace EngineClient
 {
@@ -44,13 +45,14 @@ namespace EngineClient
         {
             InitializeComponent();
             Location.BLL.Tool.Log.NewLogEvent += Log_NewLogEvent;
-
             Closed += EngineClientWindow_Closed;
             LogTimer = new DispatcherTimer();
             LogTimer.Interval = TimeSpan.FromMilliseconds(200);
             LogTimer.Tick += LogTimer_Tick;
             LogTimer.Start();
         }
+
+        LogTextBoxController logTbController = new LogTextBoxController();
 
         private void Log_NewLogEvent(string arg1, string arg2)
         {

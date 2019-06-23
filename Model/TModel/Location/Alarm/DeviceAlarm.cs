@@ -168,5 +168,10 @@ namespace Location.TModel.Location.Alarm
             AreaId = dev.ParentId==null?  0 :(int)dev.ParentId;
             return this;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Id:{0},Name:{1},Title:{2},Msg:{3}", DevId, DevName,Title,Message);
+        }
     }
 }

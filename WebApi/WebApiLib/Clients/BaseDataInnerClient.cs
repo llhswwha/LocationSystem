@@ -26,9 +26,8 @@ namespace WebApiLib.Clients
             BaseUri = baseUri;
         }
 
-        public BaseTran<T> GetEntityList<T>(string url) where T :new()
+        public BaseTran<T> GetEntityList<T>(string url,bool nullable=false) where T :new()
         {
-            
             var recv = new BaseTran<T>();
             try
             {
@@ -46,10 +45,15 @@ namespace WebApiLib.Clients
                 Log.Error(LogTags.BaseData, "BaseDataInnerClient.GetEntityList:"+url+"\n"+Message);
                 recv= new BaseTran<T>();
             }
-            //if (recv.data == null)
-            //{
-            //    recv.data = new List<T>();
-            //}
+
+            if (nullable == false)//列表不能为null，因为返回后有要放到foreach里面
+            {
+                if (recv.data == null)
+                {
+                    recv.data = new List<T>();
+                }
+            }
+
             return recv;
         }
 
@@ -406,7 +410,7 @@ namespace WebApiLib.Clients
             BaseTran<sis> recv = new BaseTran<sis>();
             string url = BaseUri + "rt/sis/" + strTags;
             int length=url.Length;//max:2083
-            recv = GetEntityList<sis>(url);
+            recv = GetEntityList<sis>(url,true);
 
             //if (recv.data == null)
             //{
@@ -622,39 +626,10 @@ namespace WebApiLib.Clients
                 string url = BaseUri + path;
                 if (bFlag)
                 {
-                    url += "?startDate=" + Convert.ToString(lBegin);
-                    url += "&endDate=" + Convert.ToString(lEnd);
+                    url += "?startDate=" + lBegin;
+                    url += "&endDate=" + lEnd;
                 }
-
                 recv = GetEntityList2<patrols>(url);
-
-                //if (recv == null || recv.Count == 0)
-                //{
-                //    return recv;
-                //}
-
-                //foreach (patrols item in recv)
-                //{
-                //    InspectionTrack it = itlst.Find(p=>p.Abutment_Id == item.id);
-                //    if (it != null)
-                //    {
-                //        send.Add(it);
-                //        continue;
-                //    }
-
-                //    it = new InspectionTrack();
-                //    it.Abutment_Id = item.id;
-                //    it.Code = item.code;
-                //    it.Name = item.name;
-                //    it.CreateTime = item.createTime;
-                //    it.StartTime = item.startTime;
-                //    it.EndTime = item.endTime;
-                //    it.dtCreateTime = TimeConvert.TimeStampToDateTime(1000* item.createTime);
-                //    it.dtStartTime = TimeConvert.TimeStampToDateTime(1000* item.startTime);
-                //    it.dtEndTime = TimeConvert.TimeStampToDateTime(1000* item.endTime);
-                //    bll.InspectionTracks.Add(it);
-                //    send.Add(it);
-                //}
             }
             catch (Exception ex)
             {

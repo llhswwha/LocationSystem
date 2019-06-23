@@ -51,6 +51,11 @@ namespace Location.BLL.Tool
         /// KKS
         /// </summary>
         public static string KKS = "[KKS]";
+
+        /// <summary>
+        /// 告警事件测试
+        /// </summary>
+        public static string EventTest = "[EventTest]";
     }
 
     public  static class Log

@@ -87,6 +87,10 @@
     <Compile Include="DbAchorListBox.xaml.cs">
       <DependentUpon>DbAchorListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LogTextBox.xaml.cs">
+      <DependentUpon>LogTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LogTextBoxController.cs" />
     <Compile Include="TreeViews\PersonTreeView.xaml.cs">
       <DependentUpon>PersonTreeView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +169,10 @@
     <Page Include="DbAchorListBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LogTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TreeViews\PersonTreeView.xaml">
       <SubType>Designer</SubType>
@@ -261,6 +269,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\DAL\DAL\DAL.csproj">
+      <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Model\DbModel\DbModel.csproj">
       <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
       <Name>DbModel</Name>

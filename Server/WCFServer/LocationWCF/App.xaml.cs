@@ -75,7 +75,7 @@ namespace LocationWCFServer
             AppContext.PositionMoveStateOfflineTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateOfflineTime");
             AppContext.LowPowerFlag = ConfigurationHelper.GetIntValue("LowPowerFlag");
 
-            AppContext.SisTagPackageCount = ConfigurationHelper.GetIntValue("SisTagPackageCount");
+            AppContext.UrlMaxLength = ConfigurationHelper.GetIntValue("UrlMaxLength");
             
 
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");

@@ -58,10 +58,10 @@ namespace LocationServer
             set { AppSetting.LowPowerFlag = value; }
         }
 
-        public static int SisTagPackageCount
+        public static int UrlMaxLength
         {
-            get { return AppSetting.SisTagPackageCount; }
-            set { AppSetting.SisTagPackageCount = value; }
+            get { return AppSetting.UrlMaxLength; }
+            set { AppSetting.UrlMaxLength = value; }
         }
 
         public static Bll GetLocationBll()

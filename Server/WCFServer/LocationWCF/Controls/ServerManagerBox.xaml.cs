@@ -435,7 +435,7 @@ namespace LocationServer.Controls
                 trackClient = new InspectionTrackClient(strIp);
                 trackClient.ListGot += (list) =>
                 {
-                    SignalRService.Hubs.InspectionTrackHub.SendInspectionTracks(list.ToWcfModelList().ToArray());
+                    InspectionTrackHub.SendInspectionTracks(list.ToWcfModelList().ToArray());//发送给客户端
                 };
                 trackClient.Start();
 
@@ -443,16 +443,16 @@ namespace LocationServer.Controls
             }
         }
 
-        private void GetInspectionTrack()
-        {
-            string strIp = AppContext.DatacaseWebApiUrl;
-            InspectionTrackClient client = new InspectionTrackClient(strIp);
-            client.ListGot += (list) =>
-            {
-                SignalRService.Hubs.InspectionTrackHub.SendInspectionTracks(list.ToWcfModelList().ToArray());
-            };
-            client.Start();
-        }
+        //private void GetInspectionTrack()
+        //{
+        //    string strIp = AppContext.DatacaseWebApiUrl;
+        //    InspectionTrackClient client = new InspectionTrackClient(strIp);
+        //    client.ListGot += (list) =>
+        //    {
+        //        SignalRService.Hubs.InspectionTrackHub.SendInspectionTracks(list.ToWcfModelList().ToArray());
+        //    };
+        //    client.Start();
+        //}
 
     }
 }

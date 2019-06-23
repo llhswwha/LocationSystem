@@ -20,6 +20,12 @@ using SignalRService.Hubs;
 using TModel.Location.Data;
 using IModel.Enums;
 using Location.TModel.FuncArgs;
+using TModel.Tools;
+using LocationServer.Tools;
+using System.Threading;
+using System.ComponentModel;
+using Location.BLL.Tool;
+using WPFClientControlLib;
 
 namespace LocationServer.Windows
 {
@@ -37,6 +43,8 @@ namespace LocationServer.Windows
         {
             LoadDevList();
             LoadDeviceAlarms();
+
+            tbLogController.Init(TbLogs, LogTags.EventTest);
         }
 
         private void BtnPushAlarm_OnClick(object sender, RoutedEventArgs e)
@@ -79,21 +87,14 @@ namespace LocationServer.Windows
         {
             LocationService service = new LocationService();
             var devlist = service.GetAllDevInfos();
-            DeviceListBox1.LoadData(devlist);
+            DeviceListBox1.LoadData(devlist.ToList());
 
             DeviceListBox1.AddMenu("告警", (se, arg) =>
             {
                 //MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
                 //todo:告警事件推送
                 var dev = DeviceListBox1.CurrentDev;
-                DeviceAlarm alarm = new DeviceAlarm()
-                {
-                    Id = dev.Id,
-                    Level = Abutment_DevAlarmLevel.低,
-                    Title = "告警" + dev.Id,                  
-                    Message = GetAlarmMsg(dev),
-                    CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
-                }.SetDev(dev);
+                DeviceAlarm alarm = CreateDevAlarm(dev);
                 AlarmHub.SendDeviceAlarms(alarm);
             });
             DeviceListBox1.AddMenu("消警", (se, arg) =>
@@ -111,6 +112,19 @@ namespace LocationServer.Windows
                 AlarmHub.SendDeviceAlarms(alarm);
             });
         }
+
+        private DeviceAlarm CreateDevAlarm(DevInfo dev)
+        {
+            return new DeviceAlarm()
+            {
+                Id = dev.Id,
+                Level = Abutment_DevAlarmLevel.低,
+                Title = "告警" + dev.Id,
+                Message = GetAlarmMsg(dev),
+                CreateTime = new DateTime(2018, 8, 28, 9, 5, 34)
+            }.SetDev(dev);
+        }
+
         /// <summary>
         /// 获取告警信息
         /// </summary>
@@ -187,7 +201,7 @@ namespace LocationServer.Windows
             AlarmSearchArg arg = new AlarmSearchArg();
             arg.IsAll = true;
             deviceAlarms = service.GetDeviceAlarms(arg);
-            DeviceAlarms.ItemsSource = deviceAlarms;
+            DataGridDeviceAlarms.ItemsSource = deviceAlarms;
 
             var alarmHistory=Bll.Instance().DevAlarmHistorys.ToList();
             DeviceAlarmsHistory.ItemsSource = alarmHistory;
@@ -197,14 +211,8 @@ namespace LocationServer.Windows
 
         private void MenuSendDeviceAlarm_Click(object sender, RoutedEventArgs e)
         {
-            var alarm = DeviceAlarms.SelectedItem as DeviceAlarm;
+            var alarm = DataGridDeviceAlarms.SelectedItem as DeviceAlarm;
             AlarmHub.SendDeviceAlarms(alarm);
-        }
-
-        private void BtnOnShowNoDev_OnClick(object sender, RoutedEventArgs e)
-        {
-            var alarms = deviceAlarms.FindAll(i => i.DevId == 0);
-            DeviceAlarms.ItemsSource = alarms;
         }
 
         private void BtnOnShowNoDevInHistory_OnClick(object sender, RoutedEventArgs e)
@@ -215,6 +223,115 @@ namespace LocationServer.Windows
         private void MenuSendDeviceAlarmOfHistory_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnLoadDevAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            LoadDeviceAlarms();
+        }
+
+        private void BtnRandomSelect100_OnClick(object sender, RoutedEventArgs e)
+        {
+            List<DeviceAlarm> alarms = new List<DeviceAlarm>();
+            int count = 100;
+            Random r = new Random((int)DateTime.Now.Ticks);
+            for (int i = 0; i < count; i++)
+            {
+                int index = r.Next(deviceAlarms.Count);
+                DeviceAlarm alarm = deviceAlarms[i];
+                alarms.Add(alarm);
+            }
+            DataGridDeviceAlarms.ItemsSource = alarms;
+        }
+
+        private void BtnFilterRepeatDev_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<int, DeviceAlarm> alarmDic = new Dictionary<int, DeviceAlarm>();
+            foreach (var item in deviceAlarms)
+            {
+                if (alarmDic.ContainsKey(item.DevId))
+                {
+
+                }
+                else
+                {
+                    alarmDic.Add(item.DevId, item);
+                }
+            }
+            DataGridDeviceAlarms.ItemsSource = alarmDic.Values.ToList();
+        }
+        BackgroundWorker sendDevAlarmsWorker;
+        private void BtnSendDevAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            if(BtnSendDevAlarms.Content.ToString()== "逐个发送告警")
+            {
+                BtnSendDevAlarms.Content = "逐个发送告警";
+                int interval = TxtSendDevAlarmInterval.Text.ToInt();
+                int onceCount = TxtSendDevAlarmInterval.Text.ToInt();
+
+                var currentDevAlarms = DataGridDeviceAlarms.ItemsSource as List<DeviceAlarm>;
+                sendDevAlarmsWorker=Worker.Run(() =>
+                {
+                    List<DeviceAlarm> sendAlarms = new List<DeviceAlarm>();
+                    for (int i = 0; i < currentDevAlarms.Count; i++)
+                    {
+                        var devAlarm = currentDevAlarms[i];
+                        sendAlarms.Add(devAlarm);
+                        if ((i + 1) % onceCount == 0)
+                        {
+                            Log.Info(LogTags.EventTest, string.Format("发送告警:{0}({1}/{2})", devAlarm,i+1, currentDevAlarms.Count));
+                            AlarmHub.SendDeviceAlarms(devAlarm);
+                            Thread.Sleep(interval);
+                        }
+                    }
+                }, null);
+            }
+            else
+            {
+                BtnSendDevAlarms.Content = "逐个发送告警";
+                sendDevAlarmsWorker.CancelAsync();
+            }
+        }
+
+        LogTextBoxController tbLogController = new LogTextBoxController();
+
+        BackgroundWorker sendSimulateDevAlarmsWorker;
+        private void BtnSendDevSimulateAlarms_Click(object sender, RoutedEventArgs e)
+        {
+            if (BtnSendDevSimulateAlarms.Content.ToString() == "逐个发送告警")
+            {
+                BtnSendDevSimulateAlarms.Content = "逐个发送告警";
+                int interval = TxtSendDevAlarmInterval.Text.ToInt();
+                int onceCount = TxtSendDevAlarmInterval.Text.ToInt();
+
+                var devList = DeviceListBox1.DeviceList;
+                sendSimulateDevAlarmsWorker = Worker.Run(() =>
+                {
+                    List<DeviceAlarm> sendAlarms = new List<DeviceAlarm>();
+                    for (int i = 0; i < devList.Count; i++)
+                    {
+                        var dev = devList[i];
+                        DeviceAlarm devAlarm = CreateDevAlarm(dev);//创建设备告警
+                        sendAlarms.Add(devAlarm);
+                        if ((i + 1) % onceCount == 0)
+                        {
+                            Log.Info(LogTags.EventTest, string.Format("发送告警:{0}({1}/{2})", devAlarm, i + 1, devList.Count));
+                            AlarmHub.SendDeviceAlarms(devAlarm);
+                            Thread.Sleep(interval);
+                        }
+                    }
+                }, null);
+            }
+            else
+            {
+                BtnSendDevSimulateAlarms.Content = "逐个发送告警";
+                sendSimulateDevAlarmsWorker.CancelAsync();
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            tbLogController.Dispose();
         }
     }
 }

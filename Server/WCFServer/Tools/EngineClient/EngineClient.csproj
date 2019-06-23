@@ -168,6 +168,10 @@
       <Project>{c3d77c78-c78f-4e18-8ae1-bb29d3e30a9b}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Client\WPFWCFClient\WPFClientControlLib\WPFClientControlLib.csproj">
+      <Project>{2f461217-f714-4546-9302-d17c3f730ded}</Project>
+      <Name>WPFClientControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\DAL\DAL\DAL.csproj">
       <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
       <Name>DAL</Name>

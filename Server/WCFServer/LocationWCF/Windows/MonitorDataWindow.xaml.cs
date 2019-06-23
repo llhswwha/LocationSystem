@@ -23,6 +23,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TModel.Location.AreaAndDev;
+using WPFClientControlLib;
 using static Location.BLL.Tool.KKSCodeHelper;
 using DevMonitorNode = DbModel.Location.AreaAndDev.DevMonitorNode;
 
@@ -36,30 +37,11 @@ namespace LocationServer.Windows
         public KKSMonitorDataWindow()
         {
             InitializeComponent();
-            Location.BLL.Tool.Log.NewLogEvent += ListenToLog;
+            //Location.BLL.Tool.Log.NewLogEvent += ListenToLog;
+            logTbController.Init(TbLogs, LogTags.KKS);
         }
 
-        private int MaxLength = int.MaxValue;
-        private int MaxLength2 = int.MaxValue/2;
-
-        public string logs = "";
-
-        private void ListenToLog(string tag, string log)
-        {
-            if (logs.Length > MaxLength)
-            {
-                logs = logs.Substring(0, MaxLength2);
-            }
-            if (tag == LogTags.KKS)
-            {
-                logs = log + "\n" + logs;
-                TbLogs.Dispatcher.Invoke(() =>
-                {
-                    TbLogs.Text = logs;
-                });
-            }
-        }
-
+        LogTextBoxController logTbController = new LogTextBoxController();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -109,7 +91,8 @@ namespace LocationServer.Windows
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Location.BLL.Tool.Log.NewLogEvent -= ListenToLog;
+            //Location.BLL.Tool.Log.NewLogEvent -= ListenToLog;
+            logTbController.Dispose();
         }
 
         private void MenuGetKKSData_Click(object sender, RoutedEventArgs e)

@@ -1318,7 +1318,7 @@ namespace WebApiLib.Clients
             {
                 SisDataSaveClient.Instance.Save(sisList);
             }
-            if (sisList != null)
+            if (sisList != null)//这里判断是不是null，能够判断出来是否通信正常，包括url是否正确。
             {
                 foreach (sis sis in sisList)
                 {

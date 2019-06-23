@@ -124,20 +124,20 @@ namespace WebNSQLib
 
             if (di == null)
             {
-                DevAlarm da2 = new DevAlarm();
-                da2.Abutment_Id = recv.id;
-                da2.Title = recv.title;
-                da2.Msg = recv.msg;
-                da2.Level = adLevel;
-                da2.Code = recv.code;
-                da2.Src = (Abutment_DevAlarmSrc)recv.src;
-                da2.DevInfoId = 0;//未找到设备
-                da2.Device_desc = recv.deviceDesc;
-                da2.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
-                da2.AlarmTimeStamp = lTimeStamp;
+                //DevAlarm da2 = new DevAlarm();
+                //da2.Abutment_Id = recv.id;
+                //da2.Title = recv.title;
+                //da2.Msg = recv.msg;
+                //da2.Level = adLevel;
+                //da2.Code = recv.code;
+                //da2.Src = (Abutment_DevAlarmSrc)recv.src;
+                //da2.DevInfoId = 0;//未找到设备
+                //da2.Device_desc = recv.deviceDesc;
+                //da2.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
+                //da2.AlarmTimeStamp = lTimeStamp;
                 //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
                 //Log. bv
-
+                LogEvent.Info(string.Format("没找到设备信息,json:{0}", msg));
                 return;//没找到设备信息，则不做任何处理，
             }
 

@@ -6,60 +6,87 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         xmlns:wpfClientControlLib="clr-namespace:WPFClientControlLib;assembly=WPFClientControlLib"
         mc:Ignorable="d"
-        Title="EventSendTestWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="EventSendTestWindow_OnLoaded">
-    <TabControl>
-        <TabItem Header="定位告警">
-            <StackPanel>
-                <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
-                <Button Content="消除告警" Name="BtnRemoveAlarm" Click="BtnRemoveAlarm_Click"></Button>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="设备列表">
-            <wpfClientControlLib:DeviceListBox x:Name="DeviceListBox1" Loaded="DeviceListBox1_Loaded" >
-            </wpfClientControlLib:DeviceListBox>
-        </TabItem>
-        <TabItem Header="设备告警">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Top">
-                    <Button Content="只显示无设备id的" Name="BtnOnShowNoDev" Click="BtnOnShowNoDev_OnClick"></Button>
+        Title="EventSendTestWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" Loaded="EventSendTestWindow_OnLoaded" Closed="Window_Closed">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="3"></Setter>
+            <Setter Property="Margin" Value="3"></Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+            <Label>发送间隔(ms)</Label>
+            <TextBox Width="50" Text="1000" Name="TxtSendDevAlarmInterval" VerticalContentAlignment="Center"></TextBox>
+            <Label>|</Label>
+            <Label>一次数量</Label>
+            <TextBox Width="25" Text="1" Name="TxtOnceSendCount" VerticalContentAlignment="Center"></TextBox>
+        </StackPanel>
+        <ScrollViewer DockPanel.Dock="Bottom">
+            <TextBox Name="TbLogs"></TextBox>
+        </ScrollViewer>
+        <TabControl>
+            <TabItem Header="定位告警">
+                <StackPanel>
+                    <Button Content="推送告警" Name="BtnPushAlarm" Click="BtnPushAlarm_OnClick"></Button>
+                    <Button Content="消除告警" Name="BtnRemoveAlarm" Click="BtnRemoveAlarm_Click"></Button>
                 </StackPanel>
-                <DataGrid Name="DeviceAlarms">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="发送" Name="MenuSendDeviceAlarm" Click="MenuSendDeviceAlarm_Click"></MenuItem>
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                </DataGrid>
-            </DockPanel>
-        </TabItem>
-        <TabItem Header="设备告警历史">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Top">
-                    <Button Content="只显示无设备id的" Name="BtnOnShowNoDevInHistory" Click="BtnOnShowNoDevInHistory_OnClick"></Button>
-                </StackPanel>
-                <DataGrid Name="DeviceAlarmsHistory">
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="发送" Name="MenuSendDeviceAlarmOfHistory" Click="MenuSendDeviceAlarmOfHistory_Click"></MenuItem>
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                </DataGrid>
-            </DockPanel>
-        </TabItem>
-        <TabItem Header="SignalRClients">
-            <DockPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                    <Label>Message:</Label>
-                    <TextBox Name="TbMessage" Width="200"></TextBox>
-                    <Button Name="BtnSendMessage" Click="BtnSendMessage_OnClick">SendMessage</Button>
-                </StackPanel>
-                <RichTextBox></RichTextBox>
-            </DockPanel>
+            </TabItem>
+            <TabItem Header="设备列表">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+                        <Button Content="逐个发送告警" Name="BtnSendDevSimulateAlarms" Click="BtnSendDevSimulateAlarms_Click"></Button>
+                    </StackPanel>
+                    <wpfClientControlLib:DeviceListBox x:Name="DeviceListBox1" Loaded="DeviceListBox1_Loaded" >
+                    </wpfClientControlLib:DeviceListBox>
+                </DockPanel>
 
-        </TabItem>
-        <TabItem Header="门禁信息推送">
-            <wpfClientControlLib:DoorAccessListBox x:Name="DoorAccessListBox1"   Margin="0,20,0,0">
-            </wpfClientControlLib:DoorAccessListBox>
-        </TabItem>
-    </TabControl>
+            </TabItem>
+            <TabItem Header="设备告警">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+                        <Button Content="刷新" Name="BtnLoadDevAlarms" Click="BtnLoadDevAlarms_Click"></Button>
+                        <Button Content="随机选择100个" Name="BtnRandomSelect100" Click="BtnRandomSelect100_OnClick"></Button>
+                        <Button Content="过滤重复设备" Name="BtnFilterRepeatDev" Click="BtnFilterRepeatDev_Click" ></Button>
+                        <Button Content="逐个发送告警" Name="BtnSendDevAlarms" Click="BtnSendDevAlarms_Click"></Button>
+                    </StackPanel>
+                    <DataGrid Name="DataGridDeviceAlarms">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="发送" Name="MenuSendDeviceAlarm" Click="MenuSendDeviceAlarm_Click"></MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="设备告警历史">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <Button Content="只显示无设备id的" Name="BtnOnShowNoDevInHistory" Click="BtnOnShowNoDevInHistory_OnClick"></Button>
+                    </StackPanel>
+                    <DataGrid Name="DeviceAlarmsHistory">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="发送" Name="MenuSendDeviceAlarmOfHistory" Click="MenuSendDeviceAlarmOfHistory_Click"></MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="SignalRClients">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                        <Label>Message:</Label>
+                        <TextBox Name="TbMessage" Width="200"></TextBox>
+                        <Button Name="BtnSendMessage" Click="BtnSendMessage_OnClick">SendMessage</Button>
+                    </StackPanel>
+                    <RichTextBox></RichTextBox>
+                </DockPanel>
+
+            </TabItem>
+            <TabItem Header="门禁信息推送">
+                <wpfClientControlLib:DoorAccessListBox x:Name="DoorAccessListBox1"   Margin="0,20,0,0">
+                </wpfClientControlLib:DoorAccessListBox>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>

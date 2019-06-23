@@ -32,6 +32,7 @@ using LocationServer.Tools;
 using TModel.Tools;
 using DbModel;
 using IModel.Enums;
+using WPFClientControlLib;
 
 namespace LocationServer.Windows
 {
@@ -44,23 +45,19 @@ namespace LocationServer.Windows
         {
             InitializeComponent();
             //Debug.Listeners.Add(new TraceListener());
-            Log.NewLogEvent += Log_NewLogEvent;
+            //Log.NewLogEvent += Log_NewLogEvent;
+            logTbController.Init(TbConsole, LogTags.DbInit);
             Log.StartWatch();
             this.Closing += DbConfigureWindow_Closing   ;
         }
 
+        LogTextBoxController logTbController = new LogTextBoxController();
+
         private void DbConfigureWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Log.StopWatch();
-            Log.NewLogEvent -= Log_NewLogEvent;
-        }
-
-        private void Log_NewLogEvent(string tag,string obj)
-        {
-            this.Dispatcher.Invoke(new Action(() => {
-                TbConsole.Text = obj + "\n" + TbConsole.Text;
-                //TbConsole.AppendText(obj);
-            }));
+            logTbController.Dispose();
+            //Log.NewLogEvent -= Log_NewLogEvent;
         }
 
         private void MenuInitMSSql_Click(object sender, RoutedEventArgs e)
@@ -123,7 +120,7 @@ namespace LocationServer.Windows
             {
                 AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
                 initializer.InitTopoFromXml(AppSetting.ParkName);
-            }, () => { MessageBox.Show("完成"); }, LogTags.DbInit);
+            }, () => { MessageBox.Show("完成"); },null, LogTags.DbInit);
         }
 
         private void MenuRemoveArchor_Click(object sender, RoutedEventArgs e)

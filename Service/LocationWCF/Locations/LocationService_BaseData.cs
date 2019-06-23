@@ -316,7 +316,7 @@ namespace LocationServices.Locations
         }
 
         /// <summary>
-        /// 获取SIS传感数据
+        /// 获取SIS传感数据，分批获取，因为有url长度限制
         /// </summary>
         /// <param name="strTags"></param>
         public List<DevMonitorNode> GetSomesisList(List<string> tags)
@@ -330,25 +330,17 @@ namespace LocationServices.Locations
                 
                 if (tag.Contains("/"))
                 {
-                    tag = tag.Replace("/", "");
-                    //Log.Error(LogTags.KKS,"存在非法字符'/':"+tag);
-                    //continue;
+                    tag = tag.Replace("/", "");//todo:有其他办法吗？
                 }
-                //if (tag.Contains("_"))
-                //{
-                //    tag = tag.Replace("_", "");
-                //    //Log.Error(LogTags.KKS,"存在非法字符'/':"+tag);
-                //    //continue;
-                //}
 
                 if (tmp == "")
                 {
-                    tmp = tag;
+                    tmp = tag;//第一个
                     continue;
                 }
 
                 string url = client.GetSisUrl(tmp + "," + tag);
-                if (url.Length >200)
+                if (url.Length > AppSetting.UrlMaxLength)
                 {
                     var recv = client.GetSomesisList(tmp, true);
                     if (recv != null)
@@ -361,22 +353,10 @@ namespace LocationServices.Locations
                 {
                     tmp += "," + tag;
                 }
-                //if ((i + 1) % AppSetting.SisTagPackageCount == 0)
-                //{
-                //    var recv = client.GetSomesisList(tmp, true);
-                //    if (recv != null)
-                //    {
-                //        result.AddRange(recv.ToTModel());
-                //    }
-                //    tmp = "";
-                //}
-                //else
-                //{
-                //}
             }
 
             {
-                if (tmp != "")
+                if (tmp != "")//把剩下的也获取
                 {
                     var recv = client.GetSomesisList(tmp, true);
                     if (recv != null)
