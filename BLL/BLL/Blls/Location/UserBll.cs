@@ -35,6 +35,16 @@ namespace BLL.Blls.Location
             {
                 list=Init();
             }
+
+            var admin = list.Find(i => i.Name == "admin" && i.Password == "admin");//兼容原来的admin admin账号
+            if (admin == null)
+            {
+                User user = new User("admin", "admin", "admin");
+                DbSet.Add(user);
+
+                list = base.ToList(isTracking);
+            }
+
             return list;
         }
 

@@ -320,23 +320,47 @@ namespace BLL.Blls
             }
         }
 
-        public bool Clear()
+        public bool Clear(int mode=0)
         {
-            List<T> list = ToList(true);
-            return RemoveList(list);
-            //老的
-
-            //bool r = Db.DeleteAllRows<T>();
-            ////bool r = Db.DropTable<T>();
-            //if (r == false)
-            //{
-            //    var ex = EFExtensions.Exception.Message;
-            //    List<T> list = ToList(true);
-            //    if (list == null) return false;
-            //    DbSet.RemoveRange(list);
-            //    return Save(true);
-            //}
-            //return r;
+            if (mode == 0)//RemoveList //老的,但是通用的
+            {
+                List<T> list = ToList(true);
+                return RemoveList(list);
+            }
+            else
+            {
+                //新的快速的 但有局限的 可能出错
+                if (mode == 1) //DeleteAllRows
+                {
+                    bool r = Db.DeleteAllRows<T>();
+                    if (r == false)
+                    {
+                        var ex = EFExtensions.Exception.Message;
+                        List<T> list = ToList(true);
+                        if (list == null) return false;
+                        DbSet.RemoveRange(list);
+                        return Save(true);
+                    }
+                    return r;
+                }
+                else if (mode == 2) //DropTable
+                {
+                    bool r = Db.DropTable<T>();
+                    if (r == false)
+                    {
+                        var ex = EFExtensions.Exception.Message;
+                        List<T> list = ToList(true);
+                        if (list == null) return false;
+                        DbSet.RemoveRange(list);
+                        return Save(true);
+                    }
+                    return r;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
        
 
@@ -414,6 +438,7 @@ namespace BLL.Blls
                     catch (Exception ex3)
                     {
                         Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex3.Message));
+                        ErrorMessage = ex3.Message;
                         return false;
                     }
                 }

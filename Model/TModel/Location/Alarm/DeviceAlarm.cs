@@ -109,7 +109,7 @@ namespace Location.TModel.Location.Alarm
         public DateTime CreateTime { get { return _createTime; } set
             {
                 _createTime = value;
-                AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+                AlarmTimeStamp = TimeConvert.ToStamp(value);
             } }
 
         private DateTime _createTime;

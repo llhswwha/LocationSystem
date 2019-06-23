@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using Location.TModel.Location.Data;
+using Location.TModel.Tools;
+using LocationServer.Tools;
 using LocationServices.Locations.Services;
 
 namespace LocationServer.Windows
@@ -25,10 +29,124 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
+        private List<TagPosition> posList = new List<TagPosition>();
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var service = new PosService();
-            DataGrid1.ItemsSource = service.GetList();
+            RefreshData();
+        }
+
+        private DispatcherTimer timer;
+
+        private void MenuRefreshOnTheSpot_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (timer == null)
+            {
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(300);
+                timer.Tick += Timer_Tick;
+            }
+
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //SimulateOnTheSpot();
+            Worker.Run(() => { SimulateOnTheSpot(); }, () => { RefreshData();});
+        }
+
+        private void SimulateOnTheSpot()
+        {
+            PosService service = new PosService();
+            foreach (TagPosition position in posList)
+            {
+                if (offlinePos.Contains(position.Tag))
+                {
+                    continue;//离线不更新
+                }
+                position.DateTime = DateTime.Now;
+                position.Time = DateTime.Now.ToStamp();
+                //service.Put(position);
+            }
+
+            service.PutRange(posList);
+        }
+
+        private void MenuStopSimulate_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+            }  
+        }
+
+        private void MenuRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            PosService service = new PosService();
+            posList = service.GetList();
+            DataGrid1.ItemsSource = posList;
+        }
+
+        private void RealPosWindow_OnClosed(object sender, EventArgs e)
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+            }
+        }
+
+        private void SetFlag(string flag,int power=0)
+        {
+            TagPosition pos = DataGrid1.SelectedItem as TagPosition;
+            if (pos == null) return;
+            pos.Flag = flag;
+            if (power > 0)
+            {
+                pos.Power = power;
+            }
+            
+            PosService service = new PosService();
+            service.Put(pos);
+            RefreshData();
+        }
+
+        private void MenuSetOffline_OnClick(object sender, RoutedEventArgs e)
+        {
+            TagPosition pos = DataGrid1.SelectedItem as TagPosition;
+            if (pos == null) return;
+            //SetFlag("0:0:0:0:1");
+            if (!offlinePos.Contains(pos.Tag))
+            {
+                offlinePos.Add(pos.Tag);
+            }
+        }
+
+        public List<string> offlinePos = new List<string>();
+
+        private void MenuSetWait_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetFlag("0:0:0:0:1");
+        }
+
+        private void MenuSetPowerAlarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetFlag("0:0:0:0:0",360);
+        }
+
+        private void MenuSetNormal_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetFlag("0:0:0:0:0",380);
+
+            TagPosition pos = DataGrid1.SelectedItem as TagPosition;
+            if (pos == null) return;
+            offlinePos.Remove(pos.Tag);
         }
     }
 }

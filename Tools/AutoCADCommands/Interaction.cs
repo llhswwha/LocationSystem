@@ -194,7 +194,7 @@ namespace Dreambuild.AutoCAD
         }
 
         /// <summary>
-        /// Gets point.
+        /// Gets point.这个获取的是用户坐标系
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>The point.</returns>

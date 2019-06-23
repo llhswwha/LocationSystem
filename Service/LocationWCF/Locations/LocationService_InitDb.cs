@@ -14,7 +14,7 @@ namespace LocationServices.Locations
     {
         public void InitKksTable()
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             DbInitializer initializer = new DbInitializer(bll);
             bll.Db.Database.ExecuteSqlCommand("TRUNCATE TABLE kkscodes");
             initializer.InitKKSCode();

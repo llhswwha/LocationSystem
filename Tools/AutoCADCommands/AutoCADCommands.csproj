@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="ModelExtensions\ModelExtension.cs" />
     <Compile Include="MyCmds.cs" />
+    <Compile Include="MyTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickSelection.cs" />
     <Compile Include="SymbolPack.cs" />

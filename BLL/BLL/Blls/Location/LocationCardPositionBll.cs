@@ -1,4 +1,5 @@
 ﻿using DAL;
+using DbModel;
 using DbModel.Location.Data;
 using LocationServer;
 using System;
@@ -52,38 +53,71 @@ namespace BLL.Blls.Location
             if(list!=null)
                 foreach (var tag1 in list)
                 {
-                    TimeSpan time = DateTime.Now - tag1.DateTime;
-
-                    double timeT = AppContext.PositionMoveStateWaitTime;
-                    if (time.TotalSeconds > timeT)//4s
-                    {
-                        if (tag1.Flag == "0:0:0:0:1")
-                        {
-                            tag1.MoveState = 1;
-                            if (time.TotalSeconds > 300)//5m 长时间不动，在三维中显示为告警
-                            {
-                                tag1.MoveState = 3;
-                            }
-                            //else
-                            //{
-                            //    tag1.MoveState = 2;
-                            //}
-                        }
-                        else
-                        {
-                            if (time.TotalSeconds > 50)//5m 长时间不动，在三维中显示为告警
-                            {
-                                tag1.MoveState = 3;
-                                //tag1.AreaState = 1;//这里因为是运动突然消失，时间超过300秒，可能是人已经离开，或卡失去联系
-                            }
-                            else
-                            {
-                                tag1.MoveState = 2;
-                            }  
-                        }
-                    }
+                    SetPostionState(tag1);
                 }
             return list;
+        }
+
+        /// <summary>
+        /// 设置位置信息的状态
+        /// </summary>
+        /// <param name="tag1"></param>
+        public static void SetPostionState(LocationCardPosition tag1)
+        {
+            if (tag1 == null) return;
+            TimeSpan time = DateTime.Now - tag1.DateTime;
+
+            double timeT = AppContext.PositionMoveStateWaitTime;
+
+            double offlineTime = AppContext.PositionMoveStateOfflineTime;
+            tag1.MoveState = 0;
+
+            //0:运动 4s内有数据且不是待机状态
+            //1.待机 有标志位0:0:0:0:1且4s-5分钟内不动
+            //2.静止 4s-5分钟内不动
+            //3.离线 5分钟以上不动
+            if (time.TotalSeconds > timeT)//4s多没有位置
+            {
+                if (tag1.Flag == "0:0:0:0:1")
+                {
+                    if (time.TotalSeconds > offlineTime)//5m 长时间不动，在三维中显示为告警
+                    {
+                        tag1.MoveState = 3;
+                    }
+                    else
+                    {
+                        tag1.MoveState = 1;//待机状态
+                    }
+                }
+                else
+                {
+                    if (time.TotalSeconds > offlineTime)//5m 长时间不动，在三维中显示为告警
+                    {
+                        tag1.MoveState = 3;
+                        //tag1.AreaState = 1;//这里因为是运动突然消失，时间超过300秒，可能是人已经离开，或卡失去联系
+                    }
+                    else
+                    {
+                        tag1.MoveState = 2;
+                    }
+                }
+            }
+            else
+            {
+                if (tag1.Flag == "0:0:0:0:1")//4s内的待机状态
+                {
+                    tag1.MoveState = 1;
+                }
+            }
+
+            if (tag1.Power >= AppSetting.LowPowerFlag)
+            {
+                tag1.PowerState = 0;
+            }
+            else
+            {
+                tag1.PowerState = 1;
+            }
         }
 
         public override bool AddRange(IList<LocationCardPosition> list)

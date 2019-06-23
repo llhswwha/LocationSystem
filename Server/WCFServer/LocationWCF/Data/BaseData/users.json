@@ -1,2 +1,4849 @@
 //http://172.16.100.22/api/users
-{"total":534,"msg":"ok","data":[{"id":3144,"name":"刘袁新","gender":0,"email":null,"mobile":"18826909525","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3143,"name":"杨醒智","gender":0,"email":null,"mobile":"18818655248","enabled":1,"dep_name":"计划经营部"},{"id":3142,"name":"谷春艳","gender":0,"email":null,"mobile":"18818655056","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3141,"name":"王湛森","gender":0,"email":null,"mobile":"13926957061","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3140,"name":"何永献","gender":0,"email":null,"mobile":"18688199860","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3139,"name":"许业成","gender":0,"email":null,"mobile":"13631235647","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3138,"name":"邢越","gender":0,"email":null,"mobile":"18826909517","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3137,"name":"高颖","gender":0,"email":null,"mobile":"13825662116","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3136,"name":"张宇飞","gender":0,"email":null,"mobile":"18218330987","enabled":1,"dep_name":"运行部"},{"id":3135,"name":"朱俊","gender":0,"email":null,"mobile":"13902864665","enabled":1,"dep_name":"运行部"},{"id":3134,"name":"谢伦武","gender":0,"email":null,"mobile":"15367615932","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3133,"name":"曾贺湛","gender":0,"email":null,"mobile":"18818655317","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3132,"name":"国洋","gender":0,"email":null,"mobile":"17841639170","enabled":1,"dep_name":"运行部"},{"id":3131,"name":"肖桂林","gender":0,"email":null,"mobile":"18818655275","enabled":1,"dep_name":"运行部"},{"id":3130,"name":"赵思敏","gender":0,"email":null,"mobile":"17520243209","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3129,"name":"李晓东","gender":0,"email":null,"mobile":"18826909500","enabled":1,"dep_name":"运行部"},{"id":3128,"name":"蔡佳龙","gender":0,"email":null,"mobile":"13411545192","enabled":1,"dep_name":"运行部"},{"id":3127,"name":"韩涛","gender":0,"email":null,"mobile":"18818655240","enabled":1,"dep_name":"运行部"},{"id":3126,"name":"冯恬睿","gender":0,"email":null,"mobile":"15916288967","enabled":1,"dep_name":"运行部"},{"id":3125,"name":"于海洋","gender":0,"email":null,"mobile":"18818655273","enabled":1,"dep_name":"运行部"},{"id":3124,"name":"赵佳骏","gender":0,"email":null,"mobile":"18826909511","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3123,"name":"欧阳辉","gender":0,"email":null,"mobile":"18818655307","enabled":1,"dep_name":"运行部"},{"id":3122,"name":"关一飞","gender":0,"email":null,"mobile":"18620901668","enabled":1,"dep_name":"财务部"},{"id":3121,"name":"黄东柱","gender":0,"email":null,"mobile":"18818655053","enabled":1,"dep_name":"计划经营部"},{"id":3120,"name":"韩铁鹰","gender":0,"email":null,"mobile":"13702763879","enabled":1,"dep_name":"计划经营部"},{"id":3119,"name":"修志坚","gender":0,"email":null,"mobile":"18826909521","enabled":1,"dep_name":"计划经营部"},{"id":3118,"name":"陈国梁","gender":0,"email":null,"mobile":"18578731366","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3117,"name":"余静","gender":0,"email":null,"mobile":"18818655051","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3116,"name":"郑银福","gender":0,"email":null,"mobile":"18826909533","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3115,"name":"姜红卫","gender":0,"email":null,"mobile":"18818655085","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3114,"name":"冯华","gender":0,"email":null,"mobile":"13112375151","enabled":1,"dep_name":"运行部"},{"id":3113,"name":"吴嘉烨","gender":0,"email":null,"mobile":"15889870602","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3112,"name":"王红续","gender":0,"email":null,"mobile":"13018488111","enabled":1,"dep_name":"运行部"},{"id":3111,"name":"丁子康","gender":0,"email":null,"mobile":"18818655241","enabled":1,"dep_name":"运行部"},{"id":3110,"name":"毛曦","gender":0,"email":null,"mobile":"18818655257","enabled":1,"dep_name":"运行部"},{"id":3109,"name":"张田丰","gender":0,"email":null,"mobile":"18818659370","enabled":1,"dep_name":"运行部"},{"id":3108,"name":"丁国强","gender":0,"email":null,"mobile":"13807318986","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3107,"name":"张志鹏","gender":0,"email":null,"mobile":"18818655272","enabled":1,"dep_name":"运行部"},{"id":3106,"name":"李美斌","gender":0,"email":null,"mobile":"18818655287","enabled":1,"dep_name":"运行部"},{"id":3105,"name":"王希同","gender":0,"email":null,"mobile":"18818655243","enabled":1,"dep_name":"运行部"},{"id":3104,"name":"宋群","gender":0,"email":null,"mobile":"15019943596","enabled":1,"dep_name":"运行部"},{"id":3103,"name":"李云峰","gender":0,"email":null,"mobile":"18818655067","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3102,"name":"王嘉岳","gender":0,"email":null,"mobile":"18826909393","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3101,"name":"刘传宝","gender":0,"email":null,"mobile":"18620900567","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3100,"name":"杨禹","gender":0,"email":null,"mobile":"16607561346","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3099,"name":"李健","gender":0,"email":null,"mobile":"13845089002","enabled":1,"dep_name":"运行部"},{"id":3098,"name":"于金江","gender":0,"email":null,"mobile":"18666132780","enabled":1,"dep_name":"运行部"},{"id":3097,"name":"陈丽华","gender":0,"email":null,"mobile":"18826909395","enabled":1,"dep_name":"运行部"},{"id":3096,"name":"王一新","gender":0,"email":null,"mobile":"18666919507","enabled":1,"dep_name":"运行部"},{"id":3095,"name":"袁庆龙","gender":0,"email":null,"mobile":"18666919539","enabled":1,"dep_name":"运行部"},{"id":3094,"name":"肖昌","gender":0,"email":null,"mobile":"18826909365","enabled":1,"dep_name":"运行部"},{"id":3093,"name":"谭勤学","gender":0,"email":null,"mobile":"18818655373","enabled":1,"dep_name":"运行部"},{"id":3092,"name":"郭文俊","gender":0,"email":null,"mobile":"13631297330","enabled":1,"dep_name":"运行部"},{"id":3091,"name":"郑金明","gender":0,"email":null,"mobile":"18826909390","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3090,"name":"吴桐","gender":0,"email":null,"mobile":"13570638268","enabled":1,"dep_name":"运行部"},{"id":3089,"name":"卜世杰","gender":0,"email":null,"mobile":"18666919569","enabled":1,"dep_name":"运行部"},{"id":3088,"name":"严琨","gender":0,"email":null,"mobile":"13392691686","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3087,"name":"冯晓雷","gender":0,"email":null,"mobile":"18666919568","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3086,"name":"吕继周","gender":0,"email":null,"mobile":"18818655237","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3085,"name":"丁志华","gender":0,"email":null,"mobile":"18818655151","enabled":1,"dep_name":"运行部"},{"id":3084,"name":"姚庆炜","gender":0,"email":null,"mobile":"15818993866","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3083,"name":"蔡刘阳","gender":0,"email":null,"mobile":"13570621236","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3082,"name":"董家华","gender":0,"email":null,"mobile":"13112351371","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3081,"name":"崔启惠","gender":0,"email":null,"mobile":"13672742922","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3080,"name":"秦祖志","gender":0,"email":null,"mobile":"18826208866","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3079,"name":"陈诚明","gender":0,"email":null,"mobile":"13750015933","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3078,"name":"何艳","gender":0,"email":null,"mobile":"13410667601","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3077,"name":"李勇","gender":0,"email":null,"mobile":"18818655277","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3076,"name":"戴冬生","gender":0,"email":null,"mobile":"15015052901","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3075,"name":"王付枚","gender":0,"email":null,"mobile":"18818655358","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3074,"name":"黄丽春","gender":0,"email":null,"mobile":"18666998007","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3073,"name":"姚金才","gender":0,"email":null,"mobile":"18818655059","enabled":1,"dep_name":"运行部"},{"id":3072,"name":"刘腾腾","gender":0,"email":null,"mobile":"18666919396","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3071,"name":"钟继涛","gender":0,"email":null,"mobile":"18818655397","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3070,"name":"罗永峰","gender":0,"email":null,"mobile":"18818655095","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3069,"name":"唐敏","gender":0,"email":null,"mobile":"13570841870","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3068,"name":"刘洪南","gender":0,"email":null,"mobile":"18023763643","enabled":1,"dep_name":"财务部"},{"id":3067,"name":"叶志勇","gender":0,"email":null,"mobile":"13825683820","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3066,"name":"罗浩","gender":0,"email":null,"mobile":"13828019560","enabled":1,"dep_name":"运行部"},{"id":3065,"name":"徐文斌","gender":0,"email":null,"mobile":"18818655075","enabled":1,"dep_name":"运行部"},{"id":3064,"name":"杨伟泉","gender":0,"email":null,"mobile":"18826909376","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3063,"name":"章乾","gender":0,"email":null,"mobile":"18826909383","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3062,"name":"巫山云","gender":0,"email":null,"mobile":"18826909528","enabled":1,"dep_name":"运行部"},{"id":3061,"name":"李笑光","gender":0,"email":null,"mobile":"18818655343","enabled":1,"dep_name":"运行部"},{"id":3060,"name":"华趣仪","gender":0,"email":null,"mobile":"13825601294","enabled":1,"dep_name":"运行部"},{"id":3059,"name":"张超贤","gender":0,"email":null,"mobile":"18666919385","enabled":1,"dep_name":"运行部"},{"id":3058,"name":"胡乔艳","gender":0,"email":null,"mobile":"18818655285","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3057,"name":"郑质凡","gender":0,"email":null,"mobile":"18666919550","enabled":1,"dep_name":"运行部"},{"id":3056,"name":"严超敏","gender":0,"email":null,"mobile":"13823084503","enabled":1,"dep_name":"财务部"},{"id":3055,"name":"李辉(女)","gender":0,"email":null,"mobile":"18826909508","enabled":1,"dep_name":"财务部"},{"id":3054,"name":"张馨元","gender":0,"email":null,"mobile":"13809232527","enabled":1,"dep_name":"财务部"},{"id":3053,"name":"梁韵","gender":0,"email":null,"mobile":"18826919727","enabled":1,"dep_name":"财务部"},{"id":3052,"name":"汪际闽","gender":0,"email":null,"mobile":"18826909356","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3051,"name":"宫晓龙","gender":0,"email":null,"mobile":"13632536949","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3050,"name":"王博","gender":0,"email":null,"mobile":"18818655270","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3049,"name":"邓碧华","gender":0,"email":null,"mobile":"18826909512","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3048,"name":"陈宇鑫","gender":0,"email":null,"mobile":"18666919386","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3047,"name":"李东伟","gender":0,"email":null,"mobile":"18826909363","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3046,"name":"朱琳","gender":0,"email":null,"mobile":"13672676129","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3045,"name":"李辉(男)","gender":0,"email":null,"mobile":"18826909350","enabled":1,"dep_name":"财务部"},{"id":3044,"name":"周广彪","gender":0,"email":null,"mobile":"1","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3043,"name":"黄磊","gender":0,"email":null,"mobile":"18826909518","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3042,"name":"梁友","gender":0,"email":null,"mobile":"15018330890","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3041,"name":"王保营","gender":0,"email":null,"mobile":"18818655325","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3040,"name":"罗肖","gender":0,"email":null,"mobile":"13823030611","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3039,"name":"王瑞","gender":0,"email":null,"mobile":"13168661666","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3038,"name":"吴锐炎","gender":0,"email":null,"mobile":"18666139221","enabled":1,"dep_name":"运行部"},{"id":3037,"name":"罗飞","gender":0,"email":null,"mobile":"18826909501","enabled":1,"dep_name":"运行部"},{"id":3036,"name":"黄细梅","gender":0,"email":null,"mobile":"18666139211","enabled":1,"dep_name":"运行部"},{"id":3035,"name":"李瑞峰","gender":0,"email":null,"mobile":"18818655256","enabled":1,"dep_name":"运行部"},{"id":3034,"name":"陈亚鹏","gender":0,"email":null,"mobile":"18818655315","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3033,"name":"焦翔","gender":0,"email":null,"mobile":"15976948808","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3032,"name":"张海耀","gender":0,"email":null,"mobile":"18818655057","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3031,"name":"林卓圳","gender":0,"email":null,"mobile":"18665529607","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3030,"name":"刘广辉","gender":0,"email":null,"mobile":"17390653330","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3029,"name":"徐晓锐","gender":0,"email":null,"mobile":"18818655242","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3028,"name":"张晓莺","gender":0,"email":null,"mobile":"18666999070","enabled":1,"dep_name":"财务部"},{"id":3027,"name":"李锋","gender":0,"email":null,"mobile":"18826909516","enabled":1,"dep_name":"计划经营部"},{"id":3026,"name":"王国忠","gender":0,"email":null,"mobile":"13928009733","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3025,"name":"熊萌","gender":0,"email":null,"mobile":"13631804719","enabled":1,"dep_name":"运行部"},{"id":3024,"name":"徐子薇","gender":0,"email":null,"mobile":"18826909353","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3023,"name":"杨哲","gender":0,"email":null,"mobile":"18826909392","enabled":1,"dep_name":"运行部"},{"id":3022,"name":"田浩然","gender":0,"email":null,"mobile":"18688172726","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3021,"name":"欧志才","gender":0,"email":null,"mobile":"18818655337","enabled":1,"dep_name":"运行部"},{"id":3020,"name":"彭志兵","gender":0,"email":null,"mobile":"18826909358","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3019,"name":"吴鹏良","gender":0,"email":null,"mobile":"18620900527","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3018,"name":"包可心","gender":0,"email":null,"mobile":"18688171110","enabled":1,"dep_name":"运行部"},{"id":3017,"name":"毛世权","gender":0,"email":null,"mobile":"13600368826","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3016,"name":"伍韬憬","gender":0,"email":null,"mobile":"13825669315","enabled":1,"dep_name":"运行部"},{"id":3015,"name":"黄翠媚","gender":0,"email":null,"mobile":"18826208833","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3014,"name":"付文双","gender":0,"email":null,"mobile":"13823006793","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3013,"name":"赵峥涛","gender":0,"email":null,"mobile":"18664670292","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3012,"name":"蒋守涵","gender":0,"email":null,"mobile":"13923237949","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3011,"name":"吕冰","gender":0,"email":null,"mobile":"13823760387","enabled":1,"dep_name":"财务部"},{"id":3010,"name":"陈伟强","gender":0,"email":null,"mobile":"18988999211","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3009,"name":"黎华少","gender":0,"email":null,"mobile":"13672660369","enabled":1,"dep_name":"运行部"},{"id":3008,"name":"王林","gender":0,"email":null,"mobile":"18671548287","enabled":1,"dep_name":"运行部"},{"id":3007,"name":"陈露露","gender":0,"email":null,"mobile":"18277795200","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3006,"name":"韩宇波","gender":0,"email":null,"mobile":"18826909507","enabled":1,"dep_name":"运行部"},{"id":3005,"name":"李海波","gender":0,"email":null,"mobile":"18818655246","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3004,"name":"鲁楠","gender":0,"email":null,"mobile":"18826909352","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3003,"name":"黄飞强","gender":0,"email":null,"mobile":"13672779146","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3002,"name":"崔亮","gender":0,"email":null,"mobile":"13530331103","enabled":1,"dep_name":"财务部"},{"id":3001,"name":"常润民","gender":0,"email":null,"mobile":"18818655370","enabled":1,"dep_name":"中电（四会）热电有限责任公司"},{"id":3000,"name":"曾宪龙","gender":0,"email":null,"mobile":"18826906020","enabled":1,"dep_name":"运行部"},{"id":2999,"name":"陈天华","gender":0,"email":null,"mobile":"15262801123","enabled":1,"dep_name":"运行部"},{"id":2998,"name":"董彬","gender":0,"email":null,"mobile":"18688166011","enabled":1,"dep_name":"运行部"},{"id":2991,"name":"张熙堂","gender":0,"email":null,"mobile":"15907583112","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2988,"name":"王本省","gender":0,"email":null,"mobile":"15907583270","enabled":1,"dep_name":"运行部"},{"id":2973,"name":"孙玲","gender":0,"email":null,"mobile":"15907583293","enabled":1,"dep_name":"HSE（安健环）部"},{"id":2968,"name":"潘安","gender":0,"email":null,"mobile":"15907583310","enabled":1,"dep_name":"HSE（安健环）部"},{"id":2964,"name":"张云璐","gender":0,"email":null,"mobile":"15907583073","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2956,"name":"吴贵","gender":0,"email":null,"mobile":"15907583038","enabled":1,"dep_name":null},{"id":2950,"name":"许晓丹","gender":0,"email":null,"mobile":"15907583200","enabled":1,"dep_name":"计划经营部"},{"id":2943,"name":"郑道亮","gender":0,"email":null,"mobile":"13560360340","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2937,"name":"李宽庭","gender":0,"email":null,"mobile":"15907583315","enabled":1,"dep_name":"运行部"},{"id":2933,"name":"杨程","gender":0,"email":null,"mobile":"15907583272","enabled":1,"dep_name":"运行部"},{"id":2924,"name":"刘昱旻","gender":0,"email":null,"mobile":"15907583096","enabled":1,"dep_name":"运行部"},{"id":2922,"name":"李羡","gender":0,"email":null,"mobile":"15907583260","enabled":1,"dep_name":"运行部"},{"id":2915,"name":"杨仲杰","gender":0,"email":null,"mobile":"15907583636","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2913,"name":"廖位达","gender":0,"email":null,"mobile":"15907583093","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2908,"name":"邱秀丽","gender":0,"email":null,"mobile":"15907583030","enabled":1,"dep_name":"运行部"},{"id":2902,"name":"卢松阳","gender":0,"email":null,"mobile":"15907583138","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2898,"name":"曾桂玲","gender":0,"email":null,"mobile":"15907583255","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2897,"name":"李克为","gender":0,"email":null,"mobile":"15907583243","enabled":1,"dep_name":"运行部"},{"id":2896,"name":"苏兴跃","gender":0,"email":null,"mobile":"15907583029","enabled":1,"dep_name":"运行部"},{"id":2895,"name":"罗智斌","gender":0,"email":null,"mobile":"15907583051","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2889,"name":"毛庆龙","gender":0,"email":null,"mobile":"15907583156","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2888,"name":"刘少明","gender":0,"email":null,"mobile":"13286290286","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2871,"name":"邱建飞","gender":0,"email":null,"mobile":"15907583933","enabled":1,"dep_name":"公司领导"},{"id":2866,"name":"谭竣泽","gender":0,"email":null,"mobile":"15907583040","enabled":1,"dep_name":"运行部"},{"id":2858,"name":"吕文臣","gender":0,"email":null,"mobile":"15907583079","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2854,"name":"李洪名","gender":0,"email":null,"mobile":"15907583133","enabled":1,"dep_name":"计划经营部"},{"id":2847,"name":"朱烁","gender":0,"email":null,"mobile":"15907583273","enabled":1,"dep_name":"运行部"},{"id":2846,"name":"郑鑫烨","gender":0,"email":null,"mobile":"15907583259","enabled":1,"dep_name":"运行部"},{"id":2837,"name":"彭振","gender":0,"email":null,"mobile":"15907583177","enabled":1,"dep_name":"HSE（安健环）部"},{"id":2830,"name":"覃圣雄","gender":0,"email":null,"mobile":"15907583019","enabled":1,"dep_name":"运行部"},{"id":2829,"name":"张红","gender":0,"email":null,"mobile":"15907583176","enabled":1,"dep_name":"运行部"},{"id":2826,"name":"臧淮北","gender":0,"email":null,"mobile":"15907583170","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2821,"name":"马延锋","gender":0,"email":null,"mobile":"15907583048","enabled":1,"dep_name":"运行部"},{"id":2816,"name":"刘颖","gender":0,"email":null,"mobile":"15907583011","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2815,"name":"徐东升","gender":0,"email":null,"mobile":"15907583280","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2814,"name":"尚德风","gender":0,"email":null,"mobile":"18538839957","enabled":1,"dep_name":"运行部"},{"id":2813,"name":"唐滔","gender":0,"email":null,"mobile":"15907583246","enabled":1,"dep_name":"市场营销部"},{"id":2812,"name":"朱茂南","gender":0,"email":null,"mobile":"15907583248","enabled":1,"dep_name":"运行部"},{"id":2809,"name":"杨洋","gender":0,"email":null,"mobile":"15907583253","enabled":1,"dep_name":"计划经营部"},{"id":2791,"name":"李永杰","gender":0,"email":null,"mobile":"15907583063","enabled":1,"dep_name":"运行部"},{"id":2786,"name":"刘钢","gender":0,"email":null,"mobile":"15907583023","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2783,"name":"李宗翰","gender":0,"email":null,"mobile":"18937144568","enabled":1,"dep_name":"财务部"},{"id":2781,"name":"李清杰","gender":0,"email":null,"mobile":"13829761921","enabled":1,"dep_name":"公司领导"},{"id":2772,"name":"叶锦聪","gender":0,"email":null,"mobile":"13425390073","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2762,"name":"王闯","gender":0,"email":null,"mobile":"13539581666","enabled":1,"dep_name":null},{"id":2759,"name":"孙雨荷","gender":0,"email":null,"mobile":"15345543787","enabled":1,"dep_name":"财务部"},{"id":2753,"name":"宋一丁","gender":0,"email":null,"mobile":"15907583150","enabled":1,"dep_name":"运行部"},{"id":2752,"name":"李杨","gender":0,"email":null,"mobile":"15907583131","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2748,"name":"马明","gender":0,"email":null,"mobile":"13560906191","enabled":1,"dep_name":"公司领导"},{"id":2743,"name":"沈启华","gender":0,"email":null,"mobile":"15907583606","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2734,"name":"杨玖园","gender":0,"email":null,"mobile":"15907583070","enabled":1,"dep_name":"财务部"},{"id":2729,"name":"张志武","gender":0,"email":null,"mobile":"15907583263","enabled":1,"dep_name":"运行部"},{"id":2726,"name":"王黎明","gender":0,"email":null,"mobile":"15907583077","enabled":1,"dep_name":"计划经营部"},{"id":2722,"name":"孟相明","gender":0,"email":null,"mobile":"13863515626","enabled":1,"dep_name":"运行部"},{"id":2721,"name":"文勇","gender":0,"email":null,"mobile":"15907583080","enabled":1,"dep_name":"运行部"},{"id":2720,"name":"朱浩源","gender":0,"email":null,"mobile":"15907583233","enabled":1,"dep_name":"运行部"},{"id":2719,"name":"李昊燃","gender":0,"email":null,"mobile":"15907583090","enabled":1,"dep_name":"运行部"},{"id":2717,"name":"路杰","gender":0,"email":null,"mobile":"15907583076","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2710,"name":"李彦玲","gender":0,"email":null,"mobile":"15907583106","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2704,"name":"赵鑫","gender":0,"email":null,"mobile":"15907583101","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2702,"name":"梁晓强","gender":0,"email":null,"mobile":"15907583179","enabled":1,"dep_name":"运行部"},{"id":2698,"name":"钟武强","gender":0,"email":null,"mobile":"13787644110","enabled":1,"dep_name":"运行部"},{"id":2695,"name":"郑淑芳","gender":0,"email":null,"mobile":"15907583186","enabled":1,"dep_name":"计划经营部"},{"id":2690,"name":"孙小飞","gender":0,"email":null,"mobile":"15907583013","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2687,"name":"王波","gender":0,"email":null,"mobile":"15907583370","enabled":1,"dep_name":"HSE（安健环）部"},{"id":2682,"name":"袁春艳","gender":0,"email":null,"mobile":"15907583033","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2680,"name":"孟凡生","gender":0,"email":null,"mobile":"15907583008","enabled":1,"dep_name":"财务部"},{"id":2670,"name":"刘智敖","gender":0,"email":null,"mobile":"15907583238","enabled":1,"dep_name":"财务部"},{"id":2669,"name":"梁晓兰","gender":0,"email":null,"mobile":"15907583083","enabled":1,"dep_name":"运行部"},{"id":2663,"name":"张钊武","gender":0,"email":null,"mobile":"15907583082","enabled":1,"dep_name":"运行部"},{"id":2660,"name":"齐笑妍","gender":0,"email":null,"mobile":"15907583060","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2659,"name":"谭振洲","gender":0,"email":null,"mobile":"15907581153","enabled":1,"dep_name":"计划经营部"},{"id":2658,"name":"孙敏","gender":0,"email":null,"mobile":"15907583118","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2656,"name":"王斌","gender":0,"email":null,"mobile":"18565002990","enabled":1,"dep_name":"公司领导"},{"id":2647,"name":"刘川","gender":0,"email":null,"mobile":"15907583055","enabled":1,"dep_name":"运行部"},{"id":2641,"name":"刘九江","gender":0,"email":null,"mobile":"15907583160","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2633,"name":"康淇威","gender":0,"email":null,"mobile":"15907583059","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2632,"name":"黄景研","gender":0,"email":null,"mobile":"15907583158","enabled":1,"dep_name":"运行部"},{"id":2614,"name":"黄景参","gender":0,"email":null,"mobile":"15907583116","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2613,"name":"瞿俊","gender":0,"email":null,"mobile":"15907583902","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2607,"name":"凤雷","gender":0,"email":null,"mobile":"15907583232","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2604,"name":"黄智宏","gender":0,"email":null,"mobile":"15907583173","enabled":1,"dep_name":"运行部"},{"id":2596,"name":"李栋树","gender":0,"email":null,"mobile":"15109919282","enabled":1,"dep_name":"运行部"},{"id":2594,"name":"金轶群","gender":0,"email":null,"mobile":"18807583593","enabled":1,"dep_name":"公司领导"},{"id":2587,"name":"雷婉嘉","gender":0,"email":null,"mobile":"15907583223","enabled":1,"dep_name":"运行部"},{"id":2582,"name":"何定晖","gender":0,"email":null,"mobile":"15907583236","enabled":1,"dep_name":"计划经营部"},{"id":2578,"name":"金小煜","gender":0,"email":null,"mobile":"15907583109","enabled":1,"dep_name":"财务部"},{"id":2566,"name":"江洋","gender":0,"email":null,"mobile":"15907583926","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2564,"name":"陈栋宏","gender":0,"email":null,"mobile":"15907583169","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2562,"name":"金铄","gender":0,"email":null,"mobile":"15907583086","enabled":1,"dep_name":"计划经营部"},{"id":2550,"name":"陈春光","gender":0,"email":null,"mobile":"15907583278","enabled":1,"dep_name":"计划经营部"},{"id":2537,"name":"陈鹏","gender":0,"email":null,"mobile":"15907583209","enabled":1,"dep_name":"运行部"},{"id":2534,"name":"曹雷","gender":0,"email":null,"mobile":"15907583032","enabled":1,"dep_name":"运行部"},{"id":2533,"name":"陈春","gender":0,"email":null,"mobile":"15099083764","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2525,"name":"冯家堃","gender":0,"email":null,"mobile":"15907583135","enabled":1,"dep_name":"生产技术部（工程部）"},{"id":2515,"name":"陈城杰","gender":0,"email":null,"mobile":"15907583058","enabled":1,"dep_name":"运行部"},{"id":2510,"name":"杜丹","gender":0,"email":null,"mobile":"15907583268","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":2501,"name":"郭旭东","gender":0,"email":null,"mobile":"15907580777","enabled":1,"dep_name":null},{"id":2491,"name":"李昌权","gender":0,"email":null,"mobile":"15907583258","enabled":1,"dep_name":null},{"id":2483,"name":"傅长明","gender":0,"email":null,"mobile":"15907583009","enabled":1,"dep_name":null},{"id":2482,"name":"胡春","gender":0,"email":null,"mobile":"13557780002","enabled":1,"dep_name":"运行部"},{"id":2474,"name":"李北峰","gender":0,"email":null,"mobile":"15907583161","enabled":1,"dep_name":"运行部"},{"id":2470,"name":"陈旭","gender":0,"email":null,"mobile":"15907583251","enabled":1,"dep_name":"计划经营部"},{"id":2469,"name":"黄俊鸣","gender":0,"email":null,"mobile":"13580622037","enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":283,"name":"马明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":282,"name":"刘静","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":281,"name":"汪晓辉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":280,"name":"马超","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":279,"name":"顾长明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":278,"name":"张纪","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":277,"name":"张世权","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":276,"name":"王元楚","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":275,"name":"唐博","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":274,"name":"史明鹤","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":273,"name":"李洪波","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":272,"name":"江麟蛟","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":271,"name":"刘勃","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":270,"name":"代鹏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":269,"name":"陈萍","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":268,"name":"张颂","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":267,"name":"荣玉芬","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":266,"name":"张磊","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"大连明日环境工程有限公司"},{"id":265,"name":"罗敏杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":264,"name":"杨春莉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":263,"name":"吕航","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":262,"name":"余水","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":261,"name":"王莉莉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":260,"name":"赖峰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":259,"name":"陈利芳","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":258,"name":"李俊","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":257,"name":"李志","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":256,"name":"林少冰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":255,"name":"廖位达","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":254,"name":"王小维","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":253,"name":"梅生强","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":252,"name":"姚建武","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":251,"name":"卢梅芬","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":250,"name":"吴燕英","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":249,"name":"黄森苟","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":248,"name":"张召明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":247,"name":"苏颖","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":246,"name":"丁丽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":245,"name":"贾晓红","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":244,"name":"高建宇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":243,"name":"莫达明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":242,"name":"张晓发","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":241,"name":"刘大雄","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":240,"name":"孙印夺","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":239,"name":"陆瑶","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":238,"name":"李元丰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":237,"name":"富军","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":236,"name":"吴辉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":235,"name":"李海涛","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":234,"name":"赵明军","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":233,"name":"马丽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":232,"name":"马晓辉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":231,"name":"张亮","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":230,"name":"曹蒙","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":229,"name":"郑学民","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":228,"name":"蒋俊","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":227,"name":"王闯","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":226,"name":"窦建和","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":225,"name":"王飞","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":224,"name":"陈雨","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":223,"name":"李昊丞","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":222,"name":"邓守泽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":221,"name":"苑尚平","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":220,"name":"李文刚","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":219,"name":"姚天利","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":218,"name":"宁洋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":217,"name":"赵忠伟","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":216,"name":"顾瞻","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":215,"name":"吴杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":214,"name":"李长清","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":213,"name":"王辉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":212,"name":"王新","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":211,"name":"聂凯","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":210,"name":"宋辑","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":209,"name":"张晓锋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":208,"name":"安佰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":207,"name":"柏超","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":206,"name":"姜龙","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":205,"name":"刘文林","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":204,"name":"李闯","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":203,"name":"王勉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":202,"name":"高虹","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":201,"name":"韩维胜","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":200,"name":"张树军","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":199,"name":"田熙","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":198,"name":"汪洋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":197,"name":"李伟东","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":196,"name":"张琦","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":195,"name":"于涛","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":194,"name":"谭向国","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":193,"name":"代英杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":192,"name":"李松","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":191,"name":"许涛","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":190,"name":"王福平","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":189,"name":"钟声","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":188,"name":"朱徳澍","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":187,"name":"田明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":186,"name":"张辽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":185,"name":"宁邹亚","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":184,"name":"李茂豪","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":183,"name":"郑鑫","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":182,"name":"李正彬","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州市苏源电力设备有限公司"},{"id":181,"name":"莫言","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"大连明日环境工程有限公司"},{"id":180,"name":"何恒彪","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":179,"name":"陈辉雄","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":178,"name":"刘勇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":177,"name":"陈楚鹏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":176,"name":"罗婉婷","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":175,"name":"黄佳颖","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":174,"name":"唐文琪","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":173,"name":"舒云华","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":172,"name":"郭业苏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":171,"name":"刘斌","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":170,"name":"黄世光","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":169,"name":"邱文勇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":168,"name":"张建宇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":167,"name":"张楠","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":166,"name":"王顺宝","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":165,"name":"陈勇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":164,"name":"金欢","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":163,"name":"纪卓贤","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":162,"name":"王小琼","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":161,"name":"孙冬梅","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":160,"name":"刘国廷","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":159,"name":"袁丽雅","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":158,"name":"袁保民","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":157,"name":"宗纪州","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":156,"name":"邝华键","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":155,"name":"邵丽爱","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":154,"name":"洪秀英","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":153,"name":"彭志敏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":152,"name":"蒋海燕","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":151,"name":"陈志荣","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":150,"name":"梁晓兰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":149,"name":"苏兴跃","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":148,"name":"陈城杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":147,"name":"郑鑫烨","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":146,"name":"张钊武","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":145,"name":"孙嘉奇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"运行部"},{"id":144,"name":"唐滔","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":143,"name":"黄景研","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":142,"name":"郑道亮","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":141,"name":"臧淮北","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":140,"name":"毛庆龙","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":139,"name":"吕文臣","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":138,"name":"孙小飞","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":137,"name":"金小煜","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":136,"name":"孟凡生","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":135,"name":"杨洋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":134,"name":"陈春光","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":133,"name":"孙敏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":132,"name":"李昌权","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":131,"name":"邱建飞","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":130,"name":"王斌","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":129,"name":"吴文博","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"清电检修"},{"id":128,"name":"彭其润","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广东院"},{"id":127,"name":"王雅平","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":126,"name":"张四妹","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":125,"name":"谢连英","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":124,"name":"周玉群","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":123,"name":"李国常","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":122,"name":"程肖凤","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":121,"name":"陈盛华","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":120,"name":"李五娇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":119,"name":"朱肖英","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":118,"name":"何燕欢","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":117,"name":"黄庆文","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":116,"name":"张丽勤","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":115,"name":"胡灶容","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":114,"name":"郑丽贤","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":113,"name":"陈瑞平","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":112,"name":"刘娟英","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":111,"name":"谭少容","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":110,"name":"刘家欣","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":109,"name":"王伟亮","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":108,"name":"宋超","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":107,"name":"刘贤桥","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":106,"name":"黄艳丽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":105,"name":"贾晓明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":104,"name":"何秋连","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":103,"name":"谢秋珍","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":102,"name":"梁玉好","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":101,"name":"武秀荣","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":100,"name":"罗汉连","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":99,"name":"黄素芬","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":98,"name":"黄沛莲","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":97,"name":"李艳红","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":96,"name":"周从理","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":95,"name":"鲁瑞立","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":94,"name":"胡祖进","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"广州东康物业服务有限公司"},{"id":93,"name":"陶丹","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":92,"name":"李立夫","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"计划经营部"},{"id":91,"name":"叶锦聪","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":90,"name":"李竺晏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"综合部（纪检监察与风险内控部）"},{"id":89,"name":"黄俊鸣","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":88,"name":"杨绍龙","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"运行部"},{"id":87,"name":"刘继东","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"运行部"},{"id":86,"name":"雷婉嘉","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":85,"name":"朱浩源","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":84,"name":"李栋树","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":83,"name":"张红","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":82,"name":"刘昱旻","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":81,"name":"马延锋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":80,"name":"曹雷","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":79,"name":"覃圣雄","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":78,"name":"李永杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":77,"name":"谭竣泽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":76,"name":"杨程","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":75,"name":"陈逸桐","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"运行部"},{"id":74,"name":"宋一丁","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":73,"name":"李克为","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":72,"name":"钟武强","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":71,"name":"尚德风","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":70,"name":"孟相明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":69,"name":"黄智宏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":68,"name":"王本省","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":67,"name":"段赫","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":"运行部"},{"id":66,"name":"朱烁","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":65,"name":"李羡","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":64,"name":"邱秀丽","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":63,"name":"陈鹏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":62,"name":"朱茂南","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":61,"name":"李北峰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":60,"name":"梁晓强","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":59,"name":"李昊燃","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":58,"name":"李宽庭","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":57,"name":"张志武","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":56,"name":"刘川","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":55,"name":"文勇","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":54,"name":"胡春","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":53,"name":"吴贵","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":52,"name":"赵鑫","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":51,"name":"陈春","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":50,"name":"张熙堂","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":49,"name":"康淇威","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":48,"name":"陈栋宏","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":47,"name":"罗智斌","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":46,"name":"江洋","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":45,"name":"李彦玲","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":44,"name":"李杨","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":43,"name":"徐东升","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":42,"name":"刘少明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":41,"name":"冯家堃","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":40,"name":"刘颖","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":39,"name":"路杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":38,"name":"刘钢","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":37,"name":"瞿俊","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":36,"name":"黄景参","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":35,"name":"沈启华","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":34,"name":"刘九江","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":33,"name":"卢松阳","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":32,"name":"潘安","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":31,"name":"孙玲","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":30,"name":"王波","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":29,"name":"彭振","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":28,"name":"刘智敖","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":27,"name":"孙雨荷","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":26,"name":"杨玖园","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":25,"name":"李宗翰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":24,"name":"郑淑芳","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":23,"name":"陈旭","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":22,"name":"王黎明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":21,"name":"许晓丹","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":20,"name":"何定晖","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":19,"name":"金铄","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":18,"name":"李洪名","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":17,"name":"谭振洲","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":16,"name":"袁春艳","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":15,"name":"张云璐","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":14,"name":"齐笑妍","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":13,"name":"曾桂玲","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":12,"name":"杜丹","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":11,"name":"杨仲杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":10,"name":"凤雷","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":9,"name":"傅长明","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":8,"name":"郭旭东","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":7,"name":"李清杰","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":6,"name":"金轶群","gender":0,"email":null,"mobile":null,"enabled":1,"dep_name":null},{"id":5,"name":"safety","gender":0,"email":"safety@163.com","mobile":"13688883288","enabled":1,"dep_name":null},{"id":4,"name":"prof","gender":0,"email":"prof@163.com","mobile":"13216887988","enabled":1,"dep_name":null},{"id":3,"name":"sysadmin","gender":0,"email":"sysadmin@163.com","mobile":"13895334955","enabled":1,"dep_name":null},{"id":2,"name":"demo","gender":0,"email":"demo@163.com","mobile":"13456065904","enabled":1,"dep_name":null},{"id":1,"name":"本部测试","gender":0,"email":"admin@163.com","mobile":"15007892636","enabled":1,"dep_name":null}]}
+{
+  "total": 538,
+  "msg": "ok",
+  "data": [
+    {
+      "id": 3148,
+      "name": "刘献章",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672766815",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3147,
+      "name": "刘献章",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672766815",
+      "enabled": 0,
+      "dep_name": null
+    },
+    {
+      "id": 3146,
+      "name": "陶泽谚",
+      "gender": 0,
+      "email": null,
+      "mobile": "18607592838",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3145,
+      "name": "周勇攀",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655332",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3144,
+      "name": "刘袁新",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909525",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3143,
+      "name": "杨醒智",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655248",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 3142,
+      "name": "谷春艳",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655056",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3141,
+      "name": "王湛森",
+      "gender": 0,
+      "email": null,
+      "mobile": "13926957061",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3140,
+      "name": "何永献",
+      "gender": 0,
+      "email": null,
+      "mobile": "18688199860",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3139,
+      "name": "许业成",
+      "gender": 0,
+      "email": null,
+      "mobile": "13631235647",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3138,
+      "name": "邢越",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909517",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3137,
+      "name": "高颖",
+      "gender": 0,
+      "email": null,
+      "mobile": "13825662116",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3136,
+      "name": "张宇飞",
+      "gender": 0,
+      "email": null,
+      "mobile": "18218330987",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3135,
+      "name": "朱俊",
+      "gender": 0,
+      "email": null,
+      "mobile": "13902864665",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3134,
+      "name": "谢伦武",
+      "gender": 0,
+      "email": null,
+      "mobile": "15367615932",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3133,
+      "name": "曾贺湛",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655317",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3132,
+      "name": "国洋",
+      "gender": 0,
+      "email": null,
+      "mobile": "17841639170",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3131,
+      "name": "肖桂林",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655275",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3130,
+      "name": "赵思敏",
+      "gender": 0,
+      "email": null,
+      "mobile": "17520243209",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3129,
+      "name": "李晓东",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909500",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3128,
+      "name": "蔡佳龙",
+      "gender": 0,
+      "email": null,
+      "mobile": "13411545192",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3127,
+      "name": "韩涛",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655240",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3126,
+      "name": "冯恬睿",
+      "gender": 0,
+      "email": null,
+      "mobile": "15916288967",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3125,
+      "name": "于海洋",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655273",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3124,
+      "name": "赵佳骏",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909511",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3123,
+      "name": "欧阳辉",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655307",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3122,
+      "name": "关一飞",
+      "gender": 0,
+      "email": null,
+      "mobile": "18620901668",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3121,
+      "name": "黄东柱",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655053",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 3120,
+      "name": "韩铁鹰",
+      "gender": 0,
+      "email": null,
+      "mobile": "13702763879",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 3119,
+      "name": "修志坚",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909521",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 3118,
+      "name": "陈国梁",
+      "gender": 0,
+      "email": null,
+      "mobile": "18578731366",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3117,
+      "name": "余静",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655051",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3116,
+      "name": "郑银福",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909533",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3115,
+      "name": "姜红卫",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655085",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3114,
+      "name": "冯华",
+      "gender": 0,
+      "email": null,
+      "mobile": "13112375151",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3113,
+      "name": "吴嘉烨",
+      "gender": 0,
+      "email": null,
+      "mobile": "15889870602",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3112,
+      "name": "王红续",
+      "gender": 0,
+      "email": null,
+      "mobile": "13018488111",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3111,
+      "name": "丁子康",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655241",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3110,
+      "name": "毛曦",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655257",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3109,
+      "name": "张田丰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818659370",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3108,
+      "name": "丁国强",
+      "gender": 0,
+      "email": null,
+      "mobile": "13807318986",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3107,
+      "name": "张志鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655272",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3106,
+      "name": "李美斌",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655287",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3105,
+      "name": "王希同",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655243",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3104,
+      "name": "宋群",
+      "gender": 0,
+      "email": null,
+      "mobile": "15019943596",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3103,
+      "name": "李云峰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655067",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3102,
+      "name": "王嘉岳",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909393",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3101,
+      "name": "刘传宝",
+      "gender": 0,
+      "email": null,
+      "mobile": "18620900567",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3100,
+      "name": "杨禹",
+      "gender": 0,
+      "email": null,
+      "mobile": "16607561346",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3099,
+      "name": "李健",
+      "gender": 0,
+      "email": null,
+      "mobile": "13845089002",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3098,
+      "name": "于金江",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666132780",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3097,
+      "name": "陈丽华",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909395",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3096,
+      "name": "王一新",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919507",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3095,
+      "name": "袁庆龙",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919539",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3094,
+      "name": "肖昌",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909365",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3093,
+      "name": "谭勤学",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655373",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3092,
+      "name": "郭文俊",
+      "gender": 0,
+      "email": null,
+      "mobile": "13631297330",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3091,
+      "name": "郑金明",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909390",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3090,
+      "name": "吴桐",
+      "gender": 0,
+      "email": null,
+      "mobile": "13570638268",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3089,
+      "name": "卜世杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919569",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3088,
+      "name": "严琨",
+      "gender": 0,
+      "email": null,
+      "mobile": "13392691686",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3087,
+      "name": "冯晓雷",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919568",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3086,
+      "name": "吕继周",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655237",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3085,
+      "name": "丁志华",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655151",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3084,
+      "name": "姚庆炜",
+      "gender": 0,
+      "email": null,
+      "mobile": "15818993866",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3083,
+      "name": "蔡刘阳",
+      "gender": 0,
+      "email": null,
+      "mobile": "13570621236",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3082,
+      "name": "董家华",
+      "gender": 0,
+      "email": null,
+      "mobile": "13112351371",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3081,
+      "name": "崔启惠",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672742922",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3080,
+      "name": "秦祖志",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826208866",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3079,
+      "name": "陈诚明",
+      "gender": 0,
+      "email": null,
+      "mobile": "13750015933",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3078,
+      "name": "何艳",
+      "gender": 0,
+      "email": null,
+      "mobile": "13410667601",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3077,
+      "name": "李勇",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655277",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3076,
+      "name": "戴冬生",
+      "gender": 0,
+      "email": null,
+      "mobile": "15015052901",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3075,
+      "name": "王付枚",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655358",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3074,
+      "name": "黄丽春",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666998007",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3073,
+      "name": "姚金才",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655059",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3072,
+      "name": "刘腾腾",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919396",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3071,
+      "name": "钟继涛",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655397",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3070,
+      "name": "罗永峰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655095",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3069,
+      "name": "唐敏",
+      "gender": 0,
+      "email": null,
+      "mobile": "13570841870",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3068,
+      "name": "刘洪南",
+      "gender": 0,
+      "email": null,
+      "mobile": "18023763643",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3067,
+      "name": "叶志勇",
+      "gender": 0,
+      "email": null,
+      "mobile": "13825683820",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3066,
+      "name": "罗浩",
+      "gender": 0,
+      "email": null,
+      "mobile": "13828019560",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3065,
+      "name": "徐文斌",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655075",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3064,
+      "name": "杨伟泉",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909376",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3063,
+      "name": "章乾",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909383",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3062,
+      "name": "巫山云",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909528",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3061,
+      "name": "李笑光",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655343",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3060,
+      "name": "华趣仪",
+      "gender": 0,
+      "email": null,
+      "mobile": "13825601294",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3059,
+      "name": "张超贤",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919385",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3058,
+      "name": "胡乔艳",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655285",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3057,
+      "name": "郑质凡",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919550",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3056,
+      "name": "严超敏",
+      "gender": 0,
+      "email": null,
+      "mobile": "13823084503",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3055,
+      "name": "李辉(女)",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909508",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3054,
+      "name": "张馨元",
+      "gender": 0,
+      "email": null,
+      "mobile": "13809232527",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3053,
+      "name": "梁韵",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826919727",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3052,
+      "name": "汪际闽",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909356",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3051,
+      "name": "宫晓龙",
+      "gender": 0,
+      "email": null,
+      "mobile": "13632536949",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3050,
+      "name": "王博",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655270",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3049,
+      "name": "邓碧华",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909512",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3048,
+      "name": "陈宇鑫",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666919386",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3047,
+      "name": "李东伟",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909363",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3046,
+      "name": "朱琳",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672676129",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3045,
+      "name": "李辉(男)",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909350",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3044,
+      "name": "周广彪",
+      "gender": 0,
+      "email": null,
+      "mobile": "1",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3043,
+      "name": "黄磊",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909518",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3042,
+      "name": "梁友",
+      "gender": 0,
+      "email": null,
+      "mobile": "15018330890",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3041,
+      "name": "王保营",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655325",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3040,
+      "name": "罗肖",
+      "gender": 0,
+      "email": null,
+      "mobile": "13823030611",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3039,
+      "name": "王瑞",
+      "gender": 0,
+      "email": null,
+      "mobile": "13168661666",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3038,
+      "name": "吴锐炎",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666139221",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3037,
+      "name": "罗飞",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909501",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3036,
+      "name": "黄细梅",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666139211",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3035,
+      "name": "李瑞峰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655256",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3034,
+      "name": "陈亚鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655315",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3033,
+      "name": "焦翔",
+      "gender": 0,
+      "email": null,
+      "mobile": "15976948808",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3032,
+      "name": "张海耀",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655057",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3031,
+      "name": "林卓圳",
+      "gender": 0,
+      "email": null,
+      "mobile": "18665529607",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3030,
+      "name": "刘广辉",
+      "gender": 0,
+      "email": null,
+      "mobile": "17390653330",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3029,
+      "name": "徐晓锐",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655242",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3028,
+      "name": "张晓莺",
+      "gender": 0,
+      "email": null,
+      "mobile": "18666999070",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3027,
+      "name": "李锋",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909516",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 3026,
+      "name": "王国忠",
+      "gender": 0,
+      "email": null,
+      "mobile": "13928009733",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3025,
+      "name": "熊萌",
+      "gender": 0,
+      "email": null,
+      "mobile": "13631804719",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3024,
+      "name": "徐子薇",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909353",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3023,
+      "name": "杨哲",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909392",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3022,
+      "name": "田浩然",
+      "gender": 0,
+      "email": null,
+      "mobile": "18688172726",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3021,
+      "name": "欧志才",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655337",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3020,
+      "name": "彭志兵",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909358",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3019,
+      "name": "吴鹏良",
+      "gender": 0,
+      "email": null,
+      "mobile": "18620900527",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3018,
+      "name": "包可心",
+      "gender": 0,
+      "email": null,
+      "mobile": "18688171110",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3017,
+      "name": "毛世权",
+      "gender": 0,
+      "email": null,
+      "mobile": "13600368826",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3016,
+      "name": "伍韬憬",
+      "gender": 0,
+      "email": null,
+      "mobile": "13825669315",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3015,
+      "name": "黄翠媚",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826208833",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3014,
+      "name": "付文双",
+      "gender": 0,
+      "email": null,
+      "mobile": "13823006793",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3013,
+      "name": "赵峥涛",
+      "gender": 0,
+      "email": null,
+      "mobile": "18664670292",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3012,
+      "name": "蒋守涵",
+      "gender": 0,
+      "email": null,
+      "mobile": "13923237949",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3011,
+      "name": "吕冰",
+      "gender": 0,
+      "email": null,
+      "mobile": "13823760387",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3010,
+      "name": "陈伟强",
+      "gender": 0,
+      "email": null,
+      "mobile": "18988999211",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3009,
+      "name": "黎华少",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672660369",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3008,
+      "name": "王林",
+      "gender": 0,
+      "email": null,
+      "mobile": "18671548287",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3007,
+      "name": "陈露露",
+      "gender": 0,
+      "email": null,
+      "mobile": "18277795200",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3006,
+      "name": "韩宇波",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909507",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 3005,
+      "name": "李海波",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655246",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3004,
+      "name": "鲁楠",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826909352",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3003,
+      "name": "黄飞强",
+      "gender": 0,
+      "email": null,
+      "mobile": "13672779146",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3002,
+      "name": "崔亮",
+      "gender": 0,
+      "email": null,
+      "mobile": "13530331103",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 3001,
+      "name": "常润民",
+      "gender": 0,
+      "email": null,
+      "mobile": "18818655370",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    },
+    {
+      "id": 3000,
+      "name": "曾宪龙",
+      "gender": 0,
+      "email": null,
+      "mobile": "18826906020",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2999,
+      "name": "陈天华",
+      "gender": 0,
+      "email": null,
+      "mobile": "15262801123",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2998,
+      "name": "董彬",
+      "gender": 0,
+      "email": null,
+      "mobile": "18688166011",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2991,
+      "name": "张熙堂",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583112",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2988,
+      "name": "王本省",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583270",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2973,
+      "name": "孙玲",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583293",
+      "enabled": 1,
+      "dep_name": "HSE（安健环）部"
+    },
+    {
+      "id": 2968,
+      "name": "潘安",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583310",
+      "enabled": 1,
+      "dep_name": "HSE（安健环）部"
+    },
+    {
+      "id": 2964,
+      "name": "张云璐",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583073",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2956,
+      "name": "吴贵",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583038",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2950,
+      "name": "许晓丹",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583200",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2943,
+      "name": "郑道亮",
+      "gender": 0,
+      "email": null,
+      "mobile": "13560360340",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2937,
+      "name": "李宽庭",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583315",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2933,
+      "name": "杨程",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583272",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2924,
+      "name": "刘昱旻",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583096",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2922,
+      "name": "李羡",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583260",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2915,
+      "name": "杨仲杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583636",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2913,
+      "name": "廖位达",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583093",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2908,
+      "name": "邱秀丽",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583030",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2902,
+      "name": "卢松阳",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583138",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2898,
+      "name": "曾桂玲",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583255",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2897,
+      "name": "李克为",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583243",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2896,
+      "name": "苏兴跃",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583029",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2895,
+      "name": "罗智斌",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583051",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2889,
+      "name": "毛庆龙",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583156",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2888,
+      "name": "刘少明",
+      "gender": 0,
+      "email": null,
+      "mobile": "13286290286",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2871,
+      "name": "邱建飞",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583933",
+      "enabled": 1,
+      "dep_name": "公司领导"
+    },
+    {
+      "id": 2866,
+      "name": "谭竣泽",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583040",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2858,
+      "name": "吕文臣",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583079",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2854,
+      "name": "李洪名",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583133",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2847,
+      "name": "朱烁",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583273",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2846,
+      "name": "郑鑫烨",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583259",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2837,
+      "name": "彭振",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583177",
+      "enabled": 1,
+      "dep_name": "HSE（安健环）部"
+    },
+    {
+      "id": 2830,
+      "name": "覃圣雄",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583019",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2829,
+      "name": "张红",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583176",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2826,
+      "name": "臧淮北",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583170",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2821,
+      "name": "马延锋",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583048",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2816,
+      "name": "刘颖",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583011",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2815,
+      "name": "徐东升",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583280",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2814,
+      "name": "尚德风",
+      "gender": 0,
+      "email": null,
+      "mobile": "18538839957",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2813,
+      "name": "唐滔",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583246",
+      "enabled": 1,
+      "dep_name": "市场营销部"
+    },
+    {
+      "id": 2812,
+      "name": "朱茂南",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583248",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2809,
+      "name": "杨洋",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583253",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2791,
+      "name": "李永杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583063",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2786,
+      "name": "刘钢",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583023",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2783,
+      "name": "李宗翰",
+      "gender": 0,
+      "email": null,
+      "mobile": "18937144568",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2781,
+      "name": "李清杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "13829761921",
+      "enabled": 1,
+      "dep_name": "公司领导"
+    },
+    {
+      "id": 2772,
+      "name": "叶锦聪",
+      "gender": 0,
+      "email": null,
+      "mobile": "13425390073",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2762,
+      "name": "王闯",
+      "gender": 0,
+      "email": null,
+      "mobile": "13539581666",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2759,
+      "name": "孙雨荷",
+      "gender": 0,
+      "email": null,
+      "mobile": "15345543787",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2753,
+      "name": "宋一丁",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583150",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2752,
+      "name": "李杨",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583131",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2748,
+      "name": "马明",
+      "gender": 0,
+      "email": null,
+      "mobile": "13560906191",
+      "enabled": 1,
+      "dep_name": "公司领导"
+    },
+    {
+      "id": 2743,
+      "name": "沈启华",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583606",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2734,
+      "name": "杨玖园",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583070",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2729,
+      "name": "张志武",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583263",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2726,
+      "name": "王黎明",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583077",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2722,
+      "name": "孟相明",
+      "gender": 0,
+      "email": null,
+      "mobile": "13863515626",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2721,
+      "name": "文勇",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583080",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2720,
+      "name": "朱浩源",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583233",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2719,
+      "name": "李昊燃",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583090",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2717,
+      "name": "路杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583076",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2710,
+      "name": "李彦玲",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583106",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2704,
+      "name": "赵鑫",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583101",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2702,
+      "name": "梁晓强",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583179",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2698,
+      "name": "钟武强",
+      "gender": 0,
+      "email": null,
+      "mobile": "13787644110",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2695,
+      "name": "郑淑芳",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583186",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2690,
+      "name": "孙小飞",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583013",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2687,
+      "name": "王波",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583370",
+      "enabled": 1,
+      "dep_name": "HSE（安健环）部"
+    },
+    {
+      "id": 2682,
+      "name": "袁春艳",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583033",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2680,
+      "name": "孟凡生",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583008",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2670,
+      "name": "刘智敖",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583238",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2669,
+      "name": "梁晓兰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583083",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2663,
+      "name": "张钊武",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583082",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2660,
+      "name": "齐笑妍",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583060",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2659,
+      "name": "谭振洲",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907581153",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2658,
+      "name": "孙敏",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583118",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2656,
+      "name": "王斌",
+      "gender": 0,
+      "email": null,
+      "mobile": "18565002990",
+      "enabled": 1,
+      "dep_name": "公司领导"
+    },
+    {
+      "id": 2647,
+      "name": "刘川",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583055",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2641,
+      "name": "刘九江",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583160",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2633,
+      "name": "康淇威",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583059",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2632,
+      "name": "黄景研",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583158",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2614,
+      "name": "黄景参",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583116",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2613,
+      "name": "瞿俊",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583902",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2607,
+      "name": "凤雷",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583232",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2604,
+      "name": "黄智宏",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583173",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2596,
+      "name": "李栋树",
+      "gender": 0,
+      "email": null,
+      "mobile": "15109919282",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2594,
+      "name": "金轶群",
+      "gender": 0,
+      "email": null,
+      "mobile": "18807583593",
+      "enabled": 1,
+      "dep_name": "公司领导"
+    },
+    {
+      "id": 2587,
+      "name": "雷婉嘉",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583223",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2582,
+      "name": "何定晖",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583236",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2578,
+      "name": "金小煜",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583109",
+      "enabled": 1,
+      "dep_name": "财务部"
+    },
+    {
+      "id": 2566,
+      "name": "江洋",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583926",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2564,
+      "name": "陈栋宏",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583169",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2562,
+      "name": "金铄",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583086",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2550,
+      "name": "陈春光",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583278",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2537,
+      "name": "陈鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583209",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2534,
+      "name": "曹雷",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583032",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2533,
+      "name": "陈春",
+      "gender": 0,
+      "email": null,
+      "mobile": "15099083764",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2525,
+      "name": "冯家堃",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583135",
+      "enabled": 1,
+      "dep_name": "生产技术部（工程部）"
+    },
+    {
+      "id": 2515,
+      "name": "陈城杰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583058",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2510,
+      "name": "杜丹",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583268",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 2501,
+      "name": "郭旭东",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907580777",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2491,
+      "name": "李昌权",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583258",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2483,
+      "name": "傅长明",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583009",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2482,
+      "name": "胡春",
+      "gender": 0,
+      "email": null,
+      "mobile": "13557780002",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2474,
+      "name": "李北峰",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583161",
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 2470,
+      "name": "陈旭",
+      "gender": 0,
+      "email": null,
+      "mobile": "15907583251",
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 2469,
+      "name": "黄俊鸣",
+      "gender": 0,
+      "email": null,
+      "mobile": "13580622037",
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 283,
+      "name": "马明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 282,
+      "name": "刘静",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 281,
+      "name": "汪晓辉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 280,
+      "name": "马超",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 279,
+      "name": "顾长明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 278,
+      "name": "张纪",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 277,
+      "name": "张世权",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 276,
+      "name": "王元楚",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 275,
+      "name": "唐博",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 274,
+      "name": "史明鹤",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 273,
+      "name": "李洪波",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 272,
+      "name": "江麟蛟",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 271,
+      "name": "刘勃",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 270,
+      "name": "代鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 269,
+      "name": "陈萍",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 268,
+      "name": "张颂",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 267,
+      "name": "荣玉芬",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 266,
+      "name": "张磊",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "大连明日环境工程有限公司"
+    },
+    {
+      "id": 265,
+      "name": "罗敏杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 264,
+      "name": "杨春莉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 263,
+      "name": "吕航",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 262,
+      "name": "余水",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 261,
+      "name": "王莉莉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 260,
+      "name": "赖峰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 259,
+      "name": "陈利芳",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 258,
+      "name": "李俊",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 257,
+      "name": "李志",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 256,
+      "name": "林少冰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 255,
+      "name": "廖位达",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 254,
+      "name": "王小维",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 253,
+      "name": "梅生强",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 252,
+      "name": "姚建武",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 251,
+      "name": "卢梅芬",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 250,
+      "name": "吴燕英",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 249,
+      "name": "黄森苟",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 248,
+      "name": "张召明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 247,
+      "name": "苏颖",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 246,
+      "name": "丁丽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 245,
+      "name": "贾晓红",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 244,
+      "name": "高建宇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 243,
+      "name": "莫达明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 242,
+      "name": "张晓发",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 241,
+      "name": "刘大雄",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 240,
+      "name": "孙印夺",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 239,
+      "name": "陆瑶",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 238,
+      "name": "李元丰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 237,
+      "name": "富军",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 236,
+      "name": "吴辉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 235,
+      "name": "李海涛",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 234,
+      "name": "赵明军",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 233,
+      "name": "马丽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 232,
+      "name": "马晓辉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 231,
+      "name": "张亮",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 230,
+      "name": "曹蒙",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 229,
+      "name": "郑学民",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 228,
+      "name": "蒋俊",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 227,
+      "name": "王闯",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 226,
+      "name": "窦建和",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 225,
+      "name": "王飞",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 224,
+      "name": "陈雨",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 223,
+      "name": "李昊丞",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 222,
+      "name": "邓守泽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 221,
+      "name": "苑尚平",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 220,
+      "name": "李文刚",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 219,
+      "name": "姚天利",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 218,
+      "name": "宁洋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 217,
+      "name": "赵忠伟",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 216,
+      "name": "顾瞻",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 215,
+      "name": "吴杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 214,
+      "name": "李长清",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 213,
+      "name": "王辉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 212,
+      "name": "王新",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 211,
+      "name": "聂凯",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 210,
+      "name": "宋辑",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 209,
+      "name": "张晓锋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 208,
+      "name": "安佰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 207,
+      "name": "柏超",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 206,
+      "name": "姜龙",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 205,
+      "name": "刘文林",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 204,
+      "name": "李闯",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 203,
+      "name": "王勉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 202,
+      "name": "高虹",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 201,
+      "name": "韩维胜",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 200,
+      "name": "张树军",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 199,
+      "name": "田熙",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 198,
+      "name": "汪洋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 197,
+      "name": "李伟东",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 196,
+      "name": "张琦",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 195,
+      "name": "于涛",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 194,
+      "name": "谭向国",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 193,
+      "name": "代英杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 192,
+      "name": "李松",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 191,
+      "name": "许涛",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 190,
+      "name": "王福平",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 189,
+      "name": "钟声",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 188,
+      "name": "朱徳澍",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 187,
+      "name": "田明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 186,
+      "name": "张辽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 185,
+      "name": "宁邹亚",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 184,
+      "name": "李茂豪",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 183,
+      "name": "郑鑫",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 182,
+      "name": "李正彬",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州市苏源电力设备有限公司"
+    },
+    {
+      "id": 181,
+      "name": "莫言",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "大连明日环境工程有限公司"
+    },
+    {
+      "id": 180,
+      "name": "何恒彪",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 179,
+      "name": "陈辉雄",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 178,
+      "name": "刘勇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 177,
+      "name": "陈楚鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 176,
+      "name": "罗婉婷",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 175,
+      "name": "黄佳颖",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 174,
+      "name": "唐文琪",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 173,
+      "name": "舒云华",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 172,
+      "name": "郭业苏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 171,
+      "name": "刘斌",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 170,
+      "name": "黄世光",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 169,
+      "name": "邱文勇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 168,
+      "name": "张建宇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 167,
+      "name": "张楠",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 166,
+      "name": "王顺宝",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 165,
+      "name": "陈勇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 164,
+      "name": "金欢",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 163,
+      "name": "纪卓贤",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 162,
+      "name": "王小琼",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 161,
+      "name": "孙冬梅",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 160,
+      "name": "刘国廷",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 159,
+      "name": "袁丽雅",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 158,
+      "name": "袁保民",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 157,
+      "name": "宗纪州",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 156,
+      "name": "邝华键",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 155,
+      "name": "邵丽爱",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 154,
+      "name": "洪秀英",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 153,
+      "name": "彭志敏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 152,
+      "name": "蒋海燕",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 151,
+      "name": "陈志荣",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 150,
+      "name": "梁晓兰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 149,
+      "name": "苏兴跃",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 148,
+      "name": "陈城杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 147,
+      "name": "郑鑫烨",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 146,
+      "name": "张钊武",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 145,
+      "name": "孙嘉奇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 144,
+      "name": "唐滔",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 143,
+      "name": "黄景研",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 142,
+      "name": "郑道亮",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 141,
+      "name": "臧淮北",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 140,
+      "name": "毛庆龙",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 139,
+      "name": "吕文臣",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 138,
+      "name": "孙小飞",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 137,
+      "name": "金小煜",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 136,
+      "name": "孟凡生",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 135,
+      "name": "杨洋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 134,
+      "name": "陈春光",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 133,
+      "name": "孙敏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 132,
+      "name": "李昌权",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 131,
+      "name": "邱建飞",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 130,
+      "name": "王斌",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 129,
+      "name": "吴文博",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "清电检修"
+    },
+    {
+      "id": 128,
+      "name": "彭其润",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广东院"
+    },
+    {
+      "id": 127,
+      "name": "王雅平",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 126,
+      "name": "张四妹",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 125,
+      "name": "谢连英",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 124,
+      "name": "周玉群",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 123,
+      "name": "李国常",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 122,
+      "name": "程肖凤",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 121,
+      "name": "陈盛华",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 120,
+      "name": "李五娇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 119,
+      "name": "朱肖英",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 118,
+      "name": "何燕欢",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 117,
+      "name": "黄庆文",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 116,
+      "name": "张丽勤",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 115,
+      "name": "胡灶容",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 114,
+      "name": "郑丽贤",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 113,
+      "name": "陈瑞平",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 112,
+      "name": "刘娟英",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 111,
+      "name": "谭少容",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 110,
+      "name": "刘家欣",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 109,
+      "name": "王伟亮",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 108,
+      "name": "宋超",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 107,
+      "name": "刘贤桥",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 106,
+      "name": "黄艳丽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 105,
+      "name": "贾晓明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 104,
+      "name": "何秋连",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 103,
+      "name": "谢秋珍",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 102,
+      "name": "梁玉好",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 101,
+      "name": "武秀荣",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 100,
+      "name": "罗汉连",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 99,
+      "name": "黄素芬",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 98,
+      "name": "黄沛莲",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 97,
+      "name": "李艳红",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 96,
+      "name": "周从理",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 95,
+      "name": "鲁瑞立",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 94,
+      "name": "胡祖进",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "广州东康物业服务有限公司"
+    },
+    {
+      "id": 93,
+      "name": "陶丹",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 92,
+      "name": "李立夫",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "计划经营部"
+    },
+    {
+      "id": 91,
+      "name": "叶锦聪",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 90,
+      "name": "李竺晏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "综合部（纪检监察与风险内控部）"
+    },
+    {
+      "id": 89,
+      "name": "黄俊鸣",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 88,
+      "name": "杨绍龙",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 87,
+      "name": "刘继东",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 86,
+      "name": "雷婉嘉",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 85,
+      "name": "朱浩源",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 84,
+      "name": "李栋树",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 83,
+      "name": "张红",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 82,
+      "name": "刘昱旻",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 81,
+      "name": "马延锋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 80,
+      "name": "曹雷",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 79,
+      "name": "覃圣雄",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 78,
+      "name": "李永杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 77,
+      "name": "谭竣泽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 76,
+      "name": "杨程",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 75,
+      "name": "陈逸桐",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 74,
+      "name": "宋一丁",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 73,
+      "name": "李克为",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 72,
+      "name": "钟武强",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 71,
+      "name": "尚德风",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 70,
+      "name": "孟相明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 69,
+      "name": "黄智宏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 68,
+      "name": "王本省",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 67,
+      "name": "段赫",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": "运行部"
+    },
+    {
+      "id": 66,
+      "name": "朱烁",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 65,
+      "name": "李羡",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 64,
+      "name": "邱秀丽",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 63,
+      "name": "陈鹏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 62,
+      "name": "朱茂南",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 61,
+      "name": "李北峰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 60,
+      "name": "梁晓强",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 59,
+      "name": "李昊燃",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 58,
+      "name": "李宽庭",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 57,
+      "name": "张志武",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 56,
+      "name": "刘川",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 55,
+      "name": "文勇",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 54,
+      "name": "胡春",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 53,
+      "name": "吴贵",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 52,
+      "name": "赵鑫",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 51,
+      "name": "陈春",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 50,
+      "name": "张熙堂",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 49,
+      "name": "康淇威",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 48,
+      "name": "陈栋宏",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 47,
+      "name": "罗智斌",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 46,
+      "name": "江洋",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 45,
+      "name": "李彦玲",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 44,
+      "name": "李杨",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 43,
+      "name": "徐东升",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 42,
+      "name": "刘少明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 41,
+      "name": "冯家堃",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 40,
+      "name": "刘颖",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 39,
+      "name": "路杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 38,
+      "name": "刘钢",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 37,
+      "name": "瞿俊",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 36,
+      "name": "黄景参",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 35,
+      "name": "沈启华",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 34,
+      "name": "刘九江",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 33,
+      "name": "卢松阳",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 32,
+      "name": "潘安",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 31,
+      "name": "孙玲",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 30,
+      "name": "王波",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 29,
+      "name": "彭振",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 28,
+      "name": "刘智敖",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 27,
+      "name": "孙雨荷",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 26,
+      "name": "杨玖园",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 25,
+      "name": "李宗翰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 24,
+      "name": "郑淑芳",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 23,
+      "name": "陈旭",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 22,
+      "name": "王黎明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 21,
+      "name": "许晓丹",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 20,
+      "name": "何定晖",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 19,
+      "name": "金铄",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 18,
+      "name": "李洪名",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 17,
+      "name": "谭振洲",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 16,
+      "name": "袁春艳",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 15,
+      "name": "张云璐",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 14,
+      "name": "齐笑妍",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 13,
+      "name": "曾桂玲",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 12,
+      "name": "杜丹",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 11,
+      "name": "杨仲杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 10,
+      "name": "凤雷",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 9,
+      "name": "傅长明",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 8,
+      "name": "郭旭东",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 7,
+      "name": "李清杰",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 6,
+      "name": "金轶群",
+      "gender": 0,
+      "email": null,
+      "mobile": null,
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 5,
+      "name": "safety",
+      "gender": 0,
+      "email": "safety@163.com",
+      "mobile": "13688883288",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 4,
+      "name": "prof",
+      "gender": 0,
+      "email": "prof@163.com",
+      "mobile": "13216887988",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 3,
+      "name": "sysadmin",
+      "gender": 0,
+      "email": "sysadmin@163.com",
+      "mobile": "13895334955",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 2,
+      "name": "demo",
+      "gender": 0,
+      "email": "demo@163.com",
+      "mobile": "13456065904",
+      "enabled": 1,
+      "dep_name": null
+    },
+    {
+      "id": 1,
+      "name": "本部测试",
+      "gender": 0,
+      "email": "admin@163.com",
+      "mobile": "15007892636",
+      "enabled": 1,
+      "dep_name": null
+    }
+  ]
+}

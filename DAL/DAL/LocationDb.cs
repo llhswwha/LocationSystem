@@ -24,13 +24,13 @@ namespace DAL
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        public LocationDb(bool isCreateDb) : base(Name)
-        {
-            IsCreateDb = isCreateDb;
-            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-        }
+        //public LocationDb(bool isCreateDb) : base(Name)
+        //{
+        //    IsCreateDb = isCreateDb;
+        //    this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+        //}
 
-        public bool IsCreateDb { get; set; }
+        public bool IsCreateDb = true;//固定为true
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -45,6 +45,7 @@ namespace DAL
                 {
                     //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
                     Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+                    //从代码来看，这里面会创建LocationDb对象的，
                 }
                 else
                 {

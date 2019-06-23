@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TopoInfo Name="根节点" Type="区域">
+    <TopoInfo Name="高新软件园" Type="园区">
+      <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+        <Points />
+      </BoundInfo>
+      <TopoInfo Name="左侧区域" Type="分组">
+        <TopoInfo Name="初灵大楼" Type="大楼">
+          <BoundInfo Thickness="14" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="0" Y="0" />
+              <PointInfo X="59.68" Y="0" />
+              <PointInfo X="59.68" Y="20.08" />
+              <PointInfo X="0" Y="20.08" />
+            </Points>
+          </BoundInfo>
+          <TopoInfo Name="初灵大楼一层" Type="楼层">
+            <BoundInfo Thickness="4.6" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="59.68" Y="0" />
+                <PointInfo X="59.68" Y="20.08" />
+                <PointInfo X="0" Y="20.08" />
+              </Points>
+            </BoundInfo>
+            <TopoInfo Name="莘科机房" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="莘科储物间" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="莘科办公室" Type="机房">
+              <BoundInfo Thickness="4.6" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
+                <Points>
+                  <PointInfo X="35.5" Y="8.28" />
+                  <PointInfo X="50.48" Y="8.28" />
+                  <PointInfo X="50.48" Y="20.08" />
+                  <PointInfo X="35.5" Y="20.08" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="莘科办公室(小)" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="一楼走道" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="范围3" Type="范围">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="true" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="43.5" Y="16.28" />
+                  <PointInfo X="47.48" Y="16.28" />
+                  <PointInfo X="47.48" Y="20.08" />
+                  <PointInfo X="43.5" Y="20.08" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="范围4" Type="范围">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
+                <Points>
+                  <PointInfo X="0" Y="0" />
+                  <PointInfo X="1" Y="0" />
+                  <PointInfo X="1" Y="1" />
+                  <PointInfo X="0" Y="1" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="初灵大楼二层" Type="楼层">
+            <BoundInfo Thickness="4.6" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="59.68" Y="0" />
+                <PointInfo X="59.68" Y="20.08" />
+                <PointInfo X="0" Y="20.08" />
+              </Points>
+            </BoundInfo>
+            <TopoInfo Name="财务室" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="健身区" Type="机房">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points />
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="监控区域2" Type="机房">
+              <BoundInfo Thickness="4.6" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
+                <Points>
+                  <PointInfo X="49.68" Y="16" />
+                  <PointInfo X="54.68" Y="16" />
+                  <PointInfo X="54.68" Y="20.08" />
+                  <PointInfo X="49.68" Y="20.08" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="范围5" Type="范围">
+              <BoundInfo Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="true">
+                <Points>
+                  <PointInfo X="0" Y="0" />
+                  <PointInfo X="1" Y="0" />
+                  <PointInfo X="1" Y="1" />
+                  <PointInfo X="0" Y="1" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+        </TopoInfo>
+      </TopoInfo>
+    </TopoInfo>
+  </TopoInfo>
+</InitInfo>

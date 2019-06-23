@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="DbConfigureWindow" Height="400" Width="600">
+        Title="DbConfigureWindow" Height="400" Width="600" Loaded="DbConfigureWindow_OnLoaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="数据库初始化">
@@ -21,6 +21,7 @@
             </MenuItem>
             <MenuItem Header="读取数据">
                 <MenuItem Header="区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
+                <MenuItem Header="区域和设备" Name="MenuInitTopoDev" Click="MenuInitTopoDev_Click"></MenuItem>
                 <MenuItem Header="设备" Name="MenuInitDevs" Click="MenuInitDevs_Click"></MenuItem>
                 <MenuItem Header="标签卡" Name="MenuInitTags" Click="MenuInitTags_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuInitAA" Click="MenuInitAA_OnClick"></MenuItem>
@@ -46,6 +47,7 @@
                 <MenuItem Header="合并部分基站" Name="MenuMergeArchorInfo" Click="MenuMergeArchorInfo_Click"></MenuItem>
                 <MenuItem Header="读取室外基站位置" Name="MenuLoadOutArchorPoints" Click="MenuLoadOutArchorPoints_Click"></MenuItem>
                 <MenuItem Header="保存室外基站位置" Name="MenuSaveOutArchorPoints" Click="MenuSaveOutArchorPoints_Click"></MenuItem>
+                <MenuItem Header="读取基站CAD信息" Name="MenuLoadCADArchorList" Click="MenuLoadCADArchorList_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="新数据">
                 <MenuItem Header="照片" Name="MenuInitPic" Click="MenuInitPic_Click"></MenuItem>

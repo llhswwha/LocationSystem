@@ -19,6 +19,8 @@ using TModel.Location.AreaAndDev;
 using TModel.LocationHistory.AreaAndDev;
 using Location.TModel.Location.Alarm;
 using LocationServer;
+using DbModel;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations
 {
@@ -26,11 +28,18 @@ namespace LocationServices.Locations
     public partial class LocationService : ILocationService, IDisposable
     {
         //public static string url = "";
+
+        BaseDataClient client = null;
+
         private BaseDataClient GetClient()
         {
-            var url = AppContext.DatacaseWebApiUrl;
-            //return new BaseDataClient("localhost","9347");
-            return new BaseDataClient(url,null, "api");
+            if (client == null)
+            {
+                var url = AppContext.DatacaseWebApiUrl;
+                //return new BaseDataClient("localhost","9347");
+                client= new BaseDataClient(url, null, "api");
+            }
+            return client;
         }
 
         public Ticket GetTicketDetial(int id, string begin_date, string end_date)
@@ -67,14 +76,14 @@ namespace LocationServices.Locations
             List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
             if (bFlag)
             {
-                lst = db2.InspectionTrackHistorys.ToList();
+                lst = dbEx.InspectionTrackHistorys.ToList();
             }
             else
             {
-                long lBeginTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtBeginTime);
-                long lEndTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtEndTime);
+                long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
+                long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
 
-                lst = db2.InspectionTrackHistorys.Where(p=>p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
+                lst = dbEx.InspectionTrackHistorys.Where(p=>p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
 
             }
 
@@ -302,14 +311,82 @@ namespace LocationServices.Locations
         /// <param name="strTags"></param>
         public List<DevMonitorNode> GetSomesisList(string strTags)
         {
+            var tagList = strTags.Split(',').ToList();
+            return GetSomesisList(tagList);
+        }
+
+        /// <summary>
+        /// 获取SIS传感数据
+        /// </summary>
+        /// <param name="strTags"></param>
+        public List<DevMonitorNode> GetSomesisList(List<string> tags)
+        {
             var client = GetClient();
-            var recv = client.GetSomesisList(strTags);
-            if (recv == null)
+            List<DevMonitorNode> result = new List<DevMonitorNode>();
+            string tmp = "";
+            for (int i = 0; i < tags.Count; i++)
             {
-                return null;
+                var tag = tags[i];
+                
+                if (tag.Contains("/"))
+                {
+                    tag = tag.Replace("/", "");
+                    //Log.Error(LogTags.KKS,"存在非法字符'/':"+tag);
+                    //continue;
+                }
+                //if (tag.Contains("_"))
+                //{
+                //    tag = tag.Replace("_", "");
+                //    //Log.Error(LogTags.KKS,"存在非法字符'/':"+tag);
+                //    //continue;
+                //}
+
+                if (tmp == "")
+                {
+                    tmp = tag;
+                    continue;
+                }
+
+                string url = client.GetSisUrl(tmp + "," + tag);
+                if (url.Length >200)
+                {
+                    var recv = client.GetSomesisList(tmp, true);
+                    if (recv != null)
+                    {
+                        result.AddRange(recv.ToTModel());
+                    }
+                    tmp = tag;
+                }
+                else
+                {
+                    tmp += "," + tag;
+                }
+                //if ((i + 1) % AppSetting.SisTagPackageCount == 0)
+                //{
+                //    var recv = client.GetSomesisList(tmp, true);
+                //    if (recv != null)
+                //    {
+                //        result.AddRange(recv.ToTModel());
+                //    }
+                //    tmp = "";
+                //}
+                //else
+                //{
+                //}
+            }
+
+            {
+                if (tmp != "")
+                {
+                    var recv = client.GetSomesisList(tmp, true);
+                    if (recv != null)
+                    {
+                        result.AddRange(recv.ToTModel());
+                    }
+                }
             }
            
-            return recv.ToTModel();
+            return result;
         }
 
         /// <summary>

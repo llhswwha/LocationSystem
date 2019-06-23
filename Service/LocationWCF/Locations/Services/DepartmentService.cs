@@ -32,7 +32,7 @@ namespace LocationServices.Locations.Services
 
         public DepartmentService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             dbSet = db.Departments;
         }
 

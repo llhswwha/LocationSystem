@@ -36,10 +36,19 @@ namespace LocationServer.Windows
 
         private object _item;
 
-        public void ShowInfo(object item)
+        public void ShowInfo(TEntity item)
         {
             _item = item;
             PropertyGrid1.SelectedObject = _item;
+            
+            if (item.Parent != null)
+            {
+                this.Title = item.Parent.Name + "->" + item.Name;
+            }
+            else
+            {
+                this.Title = item.Name;
+            }
         }
 
         private void MenuSave_Click(object sender, RoutedEventArgs e)

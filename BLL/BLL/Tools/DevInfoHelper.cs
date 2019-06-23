@@ -584,7 +584,7 @@ namespace BLL.Tools
 
 
         #region 设备监控点
-        public static void ImportDevMonitorNodeFromFile<T>(FileInfo file)
+        public static void ImportDevMonitorNodeFromFile<T>(FileInfo file,bool force)
             where T : DevMonitorNode, new()
         {
             Log.InfoStart(LogTags.DbInit, "DevInfoHelper.ImportDevMonitorNodeFromFile");
@@ -594,9 +594,14 @@ namespace BLL.Tools
                 return;
             }
             Bll bll = new Bll();
+
+            if(force)
+                bll.DevMonitorNodes.Clear(1);
+
             var DevMonitorNodeList = bll.DevMonitorNodes.ToList();
             if (DevMonitorNodeList != null && DevMonitorNodeList.Count == 0)
             {
+                
                 var list = CreateDevMonitorNodeListFromFile<DevMonitorNode>(file);
                 bll.DevMonitorNodes.AddRange(bll.Db, list); //新增的部分
             }
@@ -606,7 +611,7 @@ namespace BLL.Tools
         public static List<T> CreateDevMonitorNodeListFromFile<T>(FileInfo fileInfo) where T : IDevMonitorNode, new()
         {
             string strFolderName = fileInfo.Directory.Name;
-            DataTable dtTable = ExcelHelper.Load(new FileInfo(fileInfo.FullName), false).Tables[0].Copy();
+            DataTable dtTable = ExcelHelper.Load(new FileInfo(fileInfo.FullName), true).Tables[0].Copy();
             dtTable.Rows.RemoveAt(0);
             dtTable.Rows.RemoveAt(0);
             List<T> list1 = CreateDevMonitorNodeListFromDataTable<T>(dtTable);
@@ -636,7 +641,7 @@ namespace BLL.Tools
             devmonitor1.DataType = dr[4].ToString();
             devmonitor1.KKS = dr[5].ToString();
             devmonitor1.ParentKKS = dr[6].ToString();
-
+            devmonitor1.ParseResult = dr[7].ToString().ToInt();
             return devmonitor1;
         }
 
@@ -709,9 +714,9 @@ namespace BLL.Tools
                 devInfo.Placed = null;
                 devInfo.ModelName = "";
                 devInfo.CreateTime = DateTime.Now;
-                devInfo.CreateTimeStamp = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(devInfo.CreateTime);
+                devInfo.CreateTimeStamp = Location.TModel.Tools.TimeConvert.ToStamp(devInfo.CreateTime);
                 devInfo.ModifyTime = DateTime.Now;
-                devInfo.ModifyTimeStamp = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(devInfo.ModifyTime);
+                devInfo.ModifyTimeStamp = Location.TModel.Tools.TimeConvert.ToStamp(devInfo.ModifyTime);
                 devInfo.UserName = "admin";
                 devInfo.IP = "";
                 devInfo.PosX = 0;

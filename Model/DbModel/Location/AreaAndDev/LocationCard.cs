@@ -101,7 +101,7 @@ namespace DbModel.Location.AreaAndDev
             history.Describe = this.Describe;
             history.IsActive = this.IsActive;
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

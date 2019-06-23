@@ -189,16 +189,25 @@ namespace BLL
 
         public bus_tagBll bus_tags { get; set; }
 
-        public Bll() : this(false, true, true,true)
+        public Bll() : this(false, true, true)
         {
 
         }
 
+        /// <summary>
+        /// 获取不会自动获取关联实体类的属性的Bll
+        /// </summary>
+        /// <returns></returns>
+        public static Bll NewBllNoRelation()
+        {
+            return new Bll(false, false, false);
+        }
+
         public static bool ShowLog { get; set; }
 
-        public Bll(bool autoDetectChangesEnabled, bool lazyLoadingEnabled, bool isCreateDb,bool useProxy=true)
+        public Bll(bool autoDetectChangesEnabled, bool lazyLoadingEnabled, bool useProxy=true)
         {
-            Db = new LocationDb(isCreateDb);
+            Db = new LocationDb();
             Db.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
             Db.Configuration.LazyLoadingEnabled = lazyLoadingEnabled; //关闭延迟加载
             Db.Configuration.ProxyCreationEnabled = useProxy;

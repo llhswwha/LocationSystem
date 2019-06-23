@@ -36,7 +36,7 @@ namespace TModel.Location.AreaAndDev
         public string ParentKKS { get; set; }
 
         [DataMember]
-        public int Time { get; set; }
+        public long Time { get; set; }
 
         public DevMonitorNode()
         {
@@ -50,5 +50,15 @@ namespace TModel.Location.AreaAndDev
             ParentKKS = "";
             Time = 0;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}", Describe, TagName, KKS, Value);
+        }
+    }
+
+    public class DevMonitorNodeList:List<DevMonitorNode>
+    {
+
     }
 }

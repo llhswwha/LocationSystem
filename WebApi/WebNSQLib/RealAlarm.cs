@@ -36,6 +36,14 @@ namespace WebNSQLib
             if(callback!=null)
                 MessageHandler.DevAlarmReceived += callback;
             var consumer = new Consumer(NsqLookupdTopic, NsqLookupdChannel);
+            consumer.AfterQueryLookupdException = ex =>
+            {
+                if (ex != null && ex.Message != null && ex.Message.Contains("请求被中止: 操作超时。")) //Nsq本地测试时连接不上
+                {
+                    LogEvent.Info("请求被中止: 操作超时。Nsq连接不上。等待60s。");
+                    Thread.Sleep(60000); //60s，后再继续
+                }
+            };
             consumer.AddHandler(MessageHandler);
             //consumer.ConnectToNsqLookupd("ipms.datacase.io:4161");
             consumer.ConnectToNsqLookupd(NsqLookupdUrl);
@@ -50,21 +58,31 @@ namespace WebNSQLib
 
     public class MessageHandler : IHandler
     {
-        private Bll bll = Bll.Instance();
+        private Bll bll = null;
 
         private List<DevInfo> DevList = new List<DevInfo>();
         private List<DevAlarm> DaList = new List<DevAlarm>();
 
         public MessageHandler()
         {
-            bll = new Bll();
-            DevList = bll.DevInfos.ToList();
-            DaList = bll.DevAlarms.Where(p => p.Src == Abutment_DevAlarmSrc.视频监控 || p.Src == Abutment_DevAlarmSrc.门禁 || p.Src == Abutment_DevAlarmSrc.消防).ToList();
+            
+        }
+
+        private void Init()
+        {
+            if (bll == null)
+            {
+                bll = new Bll();
+                DevList = bll.DevInfos.ToList();
+                if (DevList == null) return;
+                DaList = bll.DevAlarms.Where(p => p.Src == Abutment_DevAlarmSrc.视频监控 || p.Src == Abutment_DevAlarmSrc.门禁 || p.Src == Abutment_DevAlarmSrc.消防).ToList();
+            }
         }
 
         /// <summary>Handles a message.</summary>
         public void HandleMessage(IMessage message)
         {
+            Init();
             string msg = Encoding.UTF8.GetString(message.Body);
             events recv = JsonConvert.DeserializeObject<events>(msg);
 
@@ -95,20 +113,32 @@ namespace WebNSQLib
                 di = DevList.Find(p => p.Code == recv.node);
             }
 
-            if (di == null)
-            {
-                return;
-            }
-
+            long lTimeStamp = recv.t * 1000;
             bool bFlag = false;
             int nLevel = (int)recv.level;
             Abutment_DevAlarmLevel adLevel = (Abutment_DevAlarmLevel)nLevel;
-
-            long lTimeStamp = recv.t * 1000;
-
             if (nLevel == 0)
             {
                 adLevel = Abutment_DevAlarmLevel.未定;
+            }
+
+            if (di == null)
+            {
+                DevAlarm da2 = new DevAlarm();
+                da2.Abutment_Id = recv.id;
+                da2.Title = recv.title;
+                da2.Msg = recv.msg;
+                da2.Level = adLevel;
+                da2.Code = recv.code;
+                da2.Src = (Abutment_DevAlarmSrc)recv.src;
+                da2.DevInfoId = 0;//未找到设备
+                da2.Device_desc = recv.deviceDesc;
+                da2.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
+                da2.AlarmTimeStamp = lTimeStamp;
+                //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
+                //Log. bv
+
+                return;//没找到设备信息，则不做任何处理，
             }
 
             DevAlarm da = DaList.Find(p => p.DevInfoId == di.Id && p.AlarmTimeStamp == lTimeStamp);
@@ -125,7 +155,7 @@ namespace WebNSQLib
                     da.Src = (Abutment_DevAlarmSrc)recv.src;
                     da.DevInfoId = di.Id;
                     da.Device_desc = recv.deviceDesc;
-                    da.AlarmTime = TimeConvert.TimeStampToDateTime(lTimeStamp);
+                    da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
                     da.AlarmTimeStamp = lTimeStamp;
                     bll.DevAlarms.Add(da);
                     DaList.Add(da);
@@ -139,7 +169,7 @@ namespace WebNSQLib
                     DevAlarmHistory da_history = da.RemoveToHistory();
                     DaList.Remove(da);
                     bll.DevAlarms.DeleteById(da.Id);
-                    bll.DevAlarmHistorys.Add(da_history);
+                    bll.DevAlarmHistorys.Add(da_history);//告警恢复 放到历史数据中
                     da.Level = Abutment_DevAlarmLevel.无;
                     bFlag = true;
                 }

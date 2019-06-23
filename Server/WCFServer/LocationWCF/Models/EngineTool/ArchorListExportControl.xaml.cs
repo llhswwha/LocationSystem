@@ -108,7 +108,7 @@ namespace LocationServer.Controls
         {
             List<DevInfo> devs = null;
             worker.ReportProgress(0);
-            var bll = new Bll(false, false, false, false);
+            var bll = Bll.NewBllNoRelation();
             if (IsTrackPoint)
             {
                 if (areaId == 0)

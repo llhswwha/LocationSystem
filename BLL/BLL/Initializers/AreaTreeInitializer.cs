@@ -12,6 +12,8 @@ using DbModel.Tools.InitInfos;
 using Location.Model;
 using Location.Model.InitInfos;
 using System.Text;
+using IModel.Enums;
+using Location.TModel.Tools;
 
 namespace BLL
 {
@@ -41,19 +43,82 @@ namespace BLL
 
         }
 
-        public bool InitTopoFromXml()
+        public bool InitTopoFromXml(string parkName = "")
         {
             Log.InfoStart(LogTags.DbInit,"InitTopoFromXml");
             try
             {
                 string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
+                if (!string.IsNullOrEmpty(parkName))
+                {
+                    initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfos\\" + parkName+ "\\InitInfo.xml";
+                }
+
                 if (!File.Exists(initFile))
                 {
-                    Log.Warn("InitTopoFromXml找不到文件:" + initFile);
+                    Log.Error("InitTopoFromXml找不到文件:" + initFile);
                     return false;
                 }
                 InitInfo initInfo = XmlSerializeHelper.LoadFromFile<InitInfo>(initFile);
+                if (initInfo == null)
+                {
+                    Log.Error("解析失败:"+ XmlSerializeHelper.ExceptionText);
+                }
                 TopoInfo topoInfo = initInfo.TopoInfo;
+
+                //if(!string.IsNullOrEmpty(parkName))
+                //    for (int i = 0; i < topoInfo.Children.Count; i++)
+                //    {
+                //        var child = topoInfo.Children[i];
+                //        if (child.Name != parkName)
+                //        {
+                //            topoInfo.Children.RemoveAt(i);
+                //            i--;
+                //        }
+                //    }
+
+                var nodes=topoInfo.GetAllTopos();
+                foreach (TopoInfo node in nodes)
+                {
+                    if (node.Type != AreaTypes.园区)
+                    {
+                        if (node.BoundInfo != null)
+                        {
+                            if (node.BoundInfo.Points != null)
+                            {
+                                foreach (PointInfo point in node.BoundInfo.Points)
+                                {
+                                    LocationContext.Transform(point);//设置位置偏移
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (TopoInfo node in nodes)
+                {
+                    if (node.Type == AreaTypes.大楼)
+                    {
+                        if (node.IsCommon == true)
+                        {
+                            var floor1 = node.Children[0];
+                            if (floor1.IsCommon == true)
+                            {
+                                List<TopoInfo> commonList = floor1.Children.FindAll(i => i.IsCommon);
+                                for (int i = 1; i < node.Children.Count; i++)//拷贝第一层的柱子给下面所有层
+                                {
+                                    var floor = node.Children[i];
+                                    IList<TopoInfo> cloneList = ConvertHelper.CloneObjectList(commonList);
+                                    foreach (TopoInfo item in cloneList)
+                                    {
+                                        floor.Children.Add(item);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 InitTopo(topoInfo);
                 Log.InfoEnd("InitTopoFromXml");
                 return true;
@@ -73,7 +138,7 @@ namespace BLL
             var root = _bll.GetAreaTree(false,null, containCAD);
             InitInfo initInfo = new InitInfo();
             initInfo.TopoInfo = new TopoInfo(root, containCAD);
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
+            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitTopo_Save.xml";
             XmlSerializeHelper.Save(initInfo, initFile, Encoding.UTF8);
             Log.InfoEnd("SaveInitInfoXml");
         }
@@ -108,15 +173,64 @@ namespace BLL
 
         private void InitTopoChildren(Area root, TopoInfo topoInfo, int level)
         {
-            foreach (TopoInfo childInfo in topoInfo.Children)
+            List<TopoInfo> childList1 = new List<TopoInfo>(); //没有子节点的
+
+            List<TopoInfo> childList2 = new List<TopoInfo>(); //有子节点的
+
+            for (int i = 0; i < topoInfo.Children.Count; i++)
             {
-                if (level < 3)
+                TopoInfo childInfo = topoInfo.Children[i];
+                if (childInfo.Children == null || childInfo.Children.Count == 0)
                 {
-                    Log.Info(LogTags.DbInit, "InitNode:" + childInfo.Name);
+                    childList1.Add(childInfo);
                 }
+                else
+                {
+                    childList2.Add(childInfo);
+                }
+                //if (level <= 3)
+                //{
+                //    Log.Info(LogTags.DbInit, "InitNode:" + childInfo.Name);
+                //}
+                //else
+                //{
+
+                //}
+
+            }
+
+            //List<Area> areas = new List<Area>();
+            //foreach (TopoInfo childInfo in childList1)
+            //{
+            //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
+            //    SetInitBound(childInfo.BoundInfo, childNode);
+            //}
+
+            //foreach (TopoInfo childInfo in childList2)
+            //{
+            //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
+            //    SetInitBound(childInfo.BoundInfo, childNode);
+            //    childInfo.Area = childNode;
+            //}
+
+            //foreach (TopoInfo childInfo in childList2)
+            //{
+            //    InitTopoChildren(childInfo.Area, childInfo, level++);
+            //}
+
+            for (int i = 0; i < topoInfo.Children.Count; i++)
+            {
+                TopoInfo childInfo = topoInfo.Children[i];
                 var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
                 SetInitBound(childInfo.BoundInfo, childNode);
-                InitTopoChildren(childNode, childInfo, level++);
+                childInfo.Area = childNode;
+                Log.Info(LogTags.DbInit, string.Format("InitNode:{0}->{1}({2}/{3})" , topoInfo.Name,childInfo.Name,i, topoInfo.Children.Count));
+            }
+
+            for (int i = 0; i < topoInfo.Children.Count; i++)
+            {
+                TopoInfo childInfo = topoInfo.Children[i];
+                InitTopoChildren(childInfo.Area, childInfo, level++);
             }
         }
 
@@ -125,8 +239,8 @@ namespace BLL
 
             if (boundInfo != null)
             {
-                bool isRelative = boundInfo.IsRelative;
-                float thickness = boundInfo.Thickness;
+                //bool isRelative = boundInfo.IsRelative;
+                //float thickness = boundInfo.Thickness;
                 List<PointInfo> points = boundInfo.Points;
                 if (points != null)
                 {
@@ -135,18 +249,18 @@ namespace BLL
                     {
                         //r = SetInitBound(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
 
-                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, boundInfo);
                     }
                     else if (points.Count == 2) //对角点
                     {
                         //r = SetInitBound(chidNode, points[0].X, points[0].Y, points[1].X, points[1].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
 
-                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, boundInfo);
                     }
                     else if (points.Count == 0) //没有点
                     {
                         List<Point> ps = new List<Point>();
-                        r = SetInitBound(chidNode, ps.ToArray(), thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        r = SetInitBound(chidNode, ps.ToArray(), boundInfo);
                     }
                     else //全部点
                     {
@@ -156,7 +270,7 @@ namespace BLL
                             PointInfo p = points[i];
                             ps.Add(new Point(p.X, p.Y, 0, i));
                         }
-                        SetInitBound(chidNode, ps.ToArray(), thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
+                        SetInitBound(chidNode, ps.ToArray(), boundInfo);
                     }
                 }
                 else//没有点
@@ -170,10 +284,10 @@ namespace BLL
             }
         }
 
-        public void InitAreaAndDev()
+        public void InitAreaAndDev(string parkName = "")
         {
             Log.InfoStart(LogTags.DbInit,"InitAreaAndDev");
-            if (!InitTopoFromXml())
+            if (!InitTopoFromXml(parkName))
             {
                 InitTopoByEntities();
             }
@@ -523,17 +637,16 @@ namespace BLL
             return b1 && b2 && b3;
         }
 
-        private async void SetInitBoundAsync(Area topo, float x1, float y1, float x2, float y2, float thicknessT, bool isRelative = true,
-            float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
+        private async void SetInitBoundAsync(Area topo, float x1, float y1, float x2, float y2, BoundInfo boundInfo)
         {
-            Bound initBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
-            Bound editBound = new Bound(x1, y1, x2, y2, bottomHeightT, thicknessT, isRelative);
+            Bound initBound = new Bound(x1, y1, x2, y2, boundInfo);
+            Bound editBound = new Bound(x1, y1, x2, y2, boundInfo);
             var transfrom = new TransformM(initBound);
             var b1 = await Bounds.AddAsync(initBound);
             var b2 = await Bounds.AddAsync(editBound);
-            transfrom.IsCreateAreaByData = isOnNormalArea;
-            transfrom.IsOnAlarmArea = isOnAlarmArea;
-            transfrom.IsOnLocationArea = isOnLocationArea;
+            transfrom.IsCreateAreaByData = boundInfo.IsCreateAreaByData;
+            transfrom.IsOnAlarmArea = boundInfo.IsOnAlarmArea;
+            transfrom.IsOnLocationArea = boundInfo.IsOnLocationArea;
             //TransformMs.Add(transfrom);
 
             topo.SetTransform(transfrom);
@@ -543,22 +656,39 @@ namespace BLL
             //var b = b1 && b2 && b3;
         }
 
-        public bool SetInitBound(Area topo, Point[] points, float thicknessT, bool isRelative = true,
-            float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
+        public bool SetInitBound(Area topo, Point[] points, BoundInfo boundInfo)
         {
-            Bound initBound = new Bound(points, bottomHeightT, thicknessT, isRelative);
-            Bound editBound = new Bound(points, bottomHeightT, thicknessT, isRelative);
+            Bound initBound = new Bound(points, boundInfo);
+            Bound editBound = new Bound(points, boundInfo);
             var transfrom = new TransformM(initBound);
             var b1=Bounds.Add(initBound);
             var b2 = Bounds.Add(editBound);
-            transfrom.IsCreateAreaByData = isOnNormalArea;
-            transfrom.IsOnAlarmArea = isOnAlarmArea;
-            transfrom.IsOnLocationArea = isOnLocationArea;
+            transfrom.IsCreateAreaByData = boundInfo.IsCreateAreaByData;
+            transfrom.IsOnAlarmArea = boundInfo.IsOnAlarmArea;
+            transfrom.IsOnLocationArea = boundInfo.IsOnLocationArea;
             //TransformMs.Add(transfrom);
             topo.SetTransform(transfrom);
             topo.InitBound = initBound;
             topo.EditBound = editBound;
             var b3=Areas.Edit(topo);
+            return b1 && b2 && b3;
+        }
+
+        public bool SetInitBound(Area topo, Point[] points, float thicknessT)
+        {
+            Bound initBound = new Bound(points, 0, thicknessT, true);
+            Bound editBound = new Bound(points, 0, thicknessT, true);
+            var transfrom = new TransformM(initBound);
+            var b1 = Bounds.Add(initBound);
+            var b2 = Bounds.Add(editBound);
+            transfrom.IsCreateAreaByData = true;
+            transfrom.IsOnAlarmArea = false;
+            transfrom.IsOnLocationArea = false;
+            //TransformMs.Add(transfrom);
+            topo.SetTransform(transfrom);
+            topo.InitBound = initBound;
+            topo.EditBound = editBound;
+            var b3 = Areas.Edit(topo);
             return b1 && b2 && b3;
         }
 
@@ -708,7 +838,7 @@ namespace BLL
             }
             return nodes;
         }
-        private void AddArchorDevs(List<Archor> archors, Area parent)
+        public void AddArchorDevs(List<Archor> archors, Area parent)
         {
             foreach (var item in archors)
             {
@@ -716,9 +846,9 @@ namespace BLL
             }
         }
 
-        private void AddArchorDev(Archor archor1, Area parent)
+        public void AddArchorDev(Archor archor1, Area parent)
         {
-            DevInfo archor1Dev = new DevInfo() { Name = archor1.Name, Local_DevID = Guid.NewGuid().ToString(), ParentId = parent.Id, Local_TypeCode = 6345 };
+            DevInfo archor1Dev = new DevInfo() { Name = archor1.Name, Local_DevID = Guid.NewGuid().ToString(), ParentId = parent.Id, Local_TypeCode = TypeCodes.Archor,PosX = (float)archor1.X,PosY = (float)archor1.Y,PosZ = (float)archor1.Z};
             archor1.DevInfo = archor1Dev;
             DevInfos.Add(archor1Dev);
             Archors.Add(archor1);
@@ -729,15 +859,17 @@ namespace BLL
             InitDevMonitorNode();
         }
 
+        /// <summary>
+        /// 导入设备监控节点
+        /// </summary>
         private void InitDevMonitorNode()
         {
-            //导入设备监控节点
             Log.Info(LogTags.DbInit, "导入设备监控节点");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
-            //string filePath = basePath + "Data\\EDOS.xls";
-            string filePath = basePath + "Data\\EDOS_New.xls";
-            DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath));
+            //string filePath = basePath + "Data\\KKS\\EDOS.xls";
+            string filePath = basePath + "Data\\KKS\\EDOS_New.xls";
+            DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath),false);
         }
     }
 }

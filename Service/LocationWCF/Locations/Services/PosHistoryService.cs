@@ -26,7 +26,7 @@ namespace LocationServices.Locations.Services
 
         public PosHistoryService()
         {
-            db = new Bll(false, true, false, true);
+            db = new Bll();
             dbSet = db.Positions;
         }
 
@@ -315,7 +315,7 @@ namespace LocationServices.Locations.Services
             //    msStamp = 0;
             //}
 
-            long msStamp2 = TimeConvert.DateTimeToTimeStamp(time);//秒
+            long msStamp2 = TimeConvert.ToStamp(time);//秒
             return msStamp2;
         }
     }

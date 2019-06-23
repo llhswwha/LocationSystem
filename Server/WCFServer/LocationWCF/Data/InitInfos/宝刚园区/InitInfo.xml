@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TopoInfo Name="根节点" Type="区域">
+    <TopoInfo Name="宝刚园区" Type="园区">
+      <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="0" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+        <Points>
+          <PointInfo X="-50" Y="-50" />
+          <PointInfo X="700" Y="-50" />
+          <PointInfo X="700" Y="450" />
+          <PointInfo X="-50" Y="450" />
+        </Points>
+      </BoundInfo>
+      <TopoInfo Name="三烧结区域" Type="分组">
+        <TopoInfo Name="燃料准备车间" Type="大楼" IsCommon="true">
+          <BoundInfo ZeroX="0" ZeroY="0" Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points>
+              <PointInfo X="-94.5021" Y="-5.0024" />
+              <PointInfo X="-8.9782" Y="-5.0024" />
+              <PointInfo X="-8.9782" Y="-8.9747" />
+              <PointInfo X="474.049" Y="-8.9747" />
+              <PointInfo X="474.049" Y="58.9886" />
+              <PointInfo X="563.023" Y="58.9986" />
+              <PointInfo X="563.023" Y="382.023" />
+              <PointInfo X="182.023" Y="382.023" />
+              <PointInfo X="182.023" Y="262.975" />
+              <PointInfo X="-8.9782" Y="262.975" />
+              <PointInfo X="-8.9782" Y="88.9741" />
+              <PointInfo X="-94.5021" Y="88.9741" />
+            </Points>
+          </BoundInfo>
+          <TopoInfo Name="燃料准备车间0m层" Type="楼层" IsCommon="true">
+            <BoundInfo ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="464.972" Y="0" />
+                <PointInfo X="464.972" Y="67.9732" />
+                <PointInfo X="553.974" Y="67.9732" />
+                <PointInfo X="553.974" Y="373.451" />
+                <PointInfo X="190.997" Y="373.451" />
+                <PointInfo X="190.997" Y="254" />
+                <PointInfo X="0" Y="254" />
+              </Points>
+            </BoundInfo>
+            <TopoInfo Name="Block01" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="3.048" Y="3.048" />
+                  <PointInfo X="12.0227" Y="3.048" />
+                  <PointInfo X="12.0227" Y="12.0227" />
+                  <PointInfo X="3.048" Y="12.0227" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block02" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="93.0487" Y="3.048" />
+                  <PointInfo X="102.024" Y="3.048" />
+                  <PointInfo X="102.024" Y="12.023" />
+                  <PointInfo X="93.0487" Y="12.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block03" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="184.475" Y="3.048" />
+                  <PointInfo X="193.548" Y="3.048" />
+                  <PointInfo X="193.548" Y="12.023" />
+                  <PointInfo X="184.475" Y="12.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block04" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="273.547" Y="3.048" />
+                  <PointInfo X="281.524" Y="3.048" />
+                  <PointInfo X="281.524" Y="10.9996" />
+                  <PointInfo X="273.547" Y="10.9996" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block05" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="363.474" Y="3.048" />
+                  <PointInfo X="371.524" Y="3.048" />
+                  <PointInfo X="371.524" Y="10.9996" />
+                  <PointInfo X="363.474" Y="10.9996" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block06" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="453.972" Y="3.048" />
+                  <PointInfo X="462.022" Y="3.048" />
+                  <PointInfo X="462.022" Y="10.9996" />
+                  <PointInfo X="453.972" Y="10.9996" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block07" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="-86.4517" Y="72.9721" />
+                  <PointInfo X="-78.5001" Y="72.9721" />
+                  <PointInfo X="-78.5001" Y="81.0225" />
+                  <PointInfo X="-86.4517" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block08" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="-86.4517" Y="3.048" />
+                  <PointInfo X="-78.5001" Y="3.048" />
+                  <PointInfo X="-78.5001" Y="10.9996" />
+                  <PointInfo X="-86.4517" Y="10.9996" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block09" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="3.048" Y="72.0478" />
+                  <PointInfo X="12.0227" Y="72.0478" />
+                  <PointInfo X="12.0227" Y="81.0225" />
+                  <PointInfo X="3.048" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block10" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="93.0487" Y="72.0478" />
+                  <PointInfo X="102.023" Y="72.0478" />
+                  <PointInfo X="102.023" Y="81.0225" />
+                  <PointInfo X="93.0487" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block11" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="184.475" Y="71.0248" />
+                  <PointInfo X="193.548" Y="71.0248" />
+                  <PointInfo X="193.548" Y="81.0225" />
+                  <PointInfo X="184.475" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block12" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="273.05" Y="71.0248" />
+                  <PointInfo X="282.025" Y="71.0248" />
+                  <PointInfo X="282.025" Y="81.0225" />
+                  <PointInfo X="273.05" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block13" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="363.047" Y="71.0248" />
+                  <PointInfo X="372.022" Y="71.0248" />
+                  <PointInfo X="372.022" Y="81.0225" />
+                  <PointInfo X="363.047" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block14" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="453.048" Y="71.0248" />
+                  <PointInfo X="462.026" Y="71.0248" />
+                  <PointInfo X="462.026" Y="81.0225" />
+                  <PointInfo X="453.048" Y="81.0225" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block15" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="541.023" Y="71.0248" />
+                  <PointInfo X="551" Y="71.0248" />
+                  <PointInfo X="551" Y="81.0255" />
+                  <PointInfo X="541.023" Y="81.0255" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block16" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="32.9248" Y="97.5254" />
+                  <PointInfo X="91.5987" Y="97.5254" />
+                  <PointInfo X="91.5987" Y="105.498" />
+                  <PointInfo X="32.9248" Y="105.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block17" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="122.922" Y="97.5254" />
+                  <PointInfo X="181.599" Y="97.5254" />
+                  <PointInfo X="181.599" Y="105.498" />
+                  <PointInfo X="122.922" Y="105.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block18" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="212.923" Y="97.5254" />
+                  <PointInfo X="271.522" Y="97.5254" />
+                  <PointInfo X="271.522" Y="105.498" />
+                  <PointInfo X="212.923" Y="105.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block19" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="302.923" Y="97.5254" />
+                  <PointInfo X="360.523" Y="97.5254" />
+                  <PointInfo X="360.523" Y="105.498" />
+                  <PointInfo X="302.923" Y="105.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block20" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="392.924" Y="97.5254" />
+                  <PointInfo X="451.524" Y="97.5254" />
+                  <PointInfo X="451.524" Y="105.498" />
+                  <PointInfo X="392.924" Y="105.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block21" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="32.9248" Y="137.499" />
+                  <PointInfo X="91.5987" Y="137.499" />
+                  <PointInfo X="91.5987" Y="145.549" />
+                  <PointInfo X="32.9248" Y="145.549" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block22" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="122.922" Y="137.499" />
+                  <PointInfo X="181.599" Y="137.499" />
+                  <PointInfo X="181.599" Y="145.459" />
+                  <PointInfo X="122.922" Y="145.459" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block23" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="212.923" Y="137.499" />
+                  <PointInfo X="271.522" Y="137.499" />
+                  <PointInfo X="271.522" Y="145.549" />
+                  <PointInfo X="212.923" Y="145.549" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block24" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="302.923" Y="137.499" />
+                  <PointInfo X="361.523" Y="137.499" />
+                  <PointInfo X="361.523" Y="145.549" />
+                  <PointInfo X="302.923" Y="145.549" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block25" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="392.924" Y="137.499" />
+                  <PointInfo X="449.072" Y="137.499" />
+                  <PointInfo X="449.072" Y="145.549" />
+                  <PointInfo X="392.924" Y="145.549" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block26" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="3.048" Y="161.974" />
+                  <PointInfo X="12.0227" Y="161.974" />
+                  <PointInfo X="12.0227" Y="171.023" />
+                  <PointInfo X="3.048" Y="171.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block27" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="93.0487" Y="161.974" />
+                  <PointInfo X="102.023" Y="161.974" />
+                  <PointInfo X="102.023" Y="171.023" />
+                  <PointInfo X="93.0487" Y="171.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block28" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="183.974" Y="161.974" />
+                  <PointInfo X="194.049" Y="161.974" />
+                  <PointInfo X="194.049" Y="172.05" />
+                  <PointInfo X="183.974" Y="172.05" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block29" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="272.549" Y="161.974" />
+                  <PointInfo X="282.522" Y="161.974" />
+                  <PointInfo X="282.522" Y="172.05" />
+                  <PointInfo X="272.549" Y="172.05" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block30" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="362.55" Y="161.974" />
+                  <PointInfo X="372.523" Y="161.974" />
+                  <PointInfo X="372.523" Y="172.05" />
+                  <PointInfo X="362.55" Y="172.05" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block31" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="452.547" Y="161.974" />
+                  <PointInfo X="462.523" Y="161.974" />
+                  <PointInfo X="462.523" Y="172.05" />
+                  <PointInfo X="452.547" Y="172.05" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block32" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="541.023" Y="161.974" />
+                  <PointInfo X="550.323" Y="161.974" />
+                  <PointInfo X="550.323" Y="172.05" />
+                  <PointInfo X="541.023" Y="172.05" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block33" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="194.049" Y="177.024" />
+                  <PointInfo X="200.999" Y="177.024" />
+                  <PointInfo X="200.999" Y="188.048" />
+                  <PointInfo X="194.049" Y="188.048" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block34" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="273.974" Y="177.024" />
+                  <PointInfo X="280.998" Y="177.024" />
+                  <PointInfo X="280.998" Y="188.048" />
+                  <PointInfo X="273.974" Y="188.048" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block35" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="363.975" Y="177.024" />
+                  <PointInfo X="370.999" Y="177.024" />
+                  <PointInfo X="370.999" Y="188.048" />
+                  <PointInfo X="363.975" Y="188.048" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block36" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="453.972" Y="177.024" />
+                  <PointInfo X="460.999" Y="177.024" />
+                  <PointInfo X="460.999" Y="188.048" />
+                  <PointInfo X="453.972" Y="188.048" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block37" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="543.973" Y="177.024" />
+                  <PointInfo X="551" Y="177.024" />
+                  <PointInfo X="551" Y="190.997" />
+                  <PointInfo X="543.973" Y="190.997" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block38" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="205.472" Y="204.975" />
+                  <PointInfo X="213.522" Y="204.975" />
+                  <PointInfo X="213.522" Y="211.998" />
+                  <PointInfo X="205.472" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block39" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="261.274" Y="204.975" />
+                  <PointInfo X="269.222" Y="204.975" />
+                  <PointInfo X="269.222" Y="211.998" />
+                  <PointInfo X="261.274" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block40" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="295.473" Y="204.975" />
+                  <PointInfo X="303.523" Y="204.975" />
+                  <PointInfo X="303.523" Y="211.998" />
+                  <PointInfo X="295.473" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block41" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="351.275" Y="204.975" />
+                  <PointInfo X="359.248" Y="204.975" />
+                  <PointInfo X="359.248" Y="211.998" />
+                  <PointInfo X="351.275" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block42" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="385.473" Y="204.975" />
+                  <PointInfo X="393.524" Y="204.975" />
+                  <PointInfo X="393.524" Y="211.998" />
+                  <PointInfo X="385.473" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block43" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="441.272" Y="204.975" />
+                  <PointInfo X="449.248" Y="204.975" />
+                  <PointInfo X="449.248" Y="211.998" />
+                  <PointInfo X="441.272" Y="211.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block44" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="205.472" Y="230.974" />
+                  <PointInfo X="213.575" Y="230.974" />
+                  <PointInfo X="213.575" Y="237.998" />
+                  <PointInfo X="205.472" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block45" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="261.274" Y="230.974" />
+                  <PointInfo X="269.254" Y="230.974" />
+                  <PointInfo X="269.254" Y="237.998" />
+                  <PointInfo X="261.274" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block46" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="295.473" Y="230.974" />
+                  <PointInfo X="303.523" Y="230.974" />
+                  <PointInfo X="303.523" Y="237.998" />
+                  <PointInfo X="295.473" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block47" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="351.275" Y="230.974" />
+                  <PointInfo X="359.248" Y="230.974" />
+                  <PointInfo X="359.248" Y="237.998" />
+                  <PointInfo X="351.275" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block48" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="385.473" Y="230.974" />
+                  <PointInfo X="393.524" Y="230.974" />
+                  <PointInfo X="393.524" Y="237.998" />
+                  <PointInfo X="385.473" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block49" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="441.272" Y="230.974" />
+                  <PointInfo X="449.248" Y="230.974" />
+                  <PointInfo X="449.248" Y="237.998" />
+                  <PointInfo X="441.272" Y="237.998" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block50" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="3.048" Y="241.974" />
+                  <PointInfo X="12.0227" Y="241.974" />
+                  <PointInfo X="12.0227" Y="251.023" />
+                  <PointInfo X="3.048" Y="251.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block51" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="93.0487" Y="241.974" />
+                  <PointInfo X="102.023" Y="241.974" />
+                  <PointInfo X="102.023" Y="251.023" />
+                  <PointInfo X="93.0487" Y="251.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block52" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="184.475" Y="241.974" />
+                  <PointInfo X="193.548" Y="241.974" />
+                  <PointInfo X="193.548" Y="251.023" />
+                  <PointInfo X="184.475" Y="251.023" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block53" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="194.049" Y="257.972" />
+                  <PointInfo X="203.024" Y="257.972" />
+                  <PointInfo X="203.024" Y="264.996" />
+                  <PointInfo X="194.049" Y="264.996" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block54" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="273.974" Y="257.972" />
+                  <PointInfo X="280.998" Y="257.972" />
+                  <PointInfo X="280.998" Y="265" />
+                  <PointInfo X="273.974" Y="265" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block55" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="363.975" Y="257.972" />
+                  <PointInfo X="370.999" Y="257.972" />
+                  <PointInfo X="370.999" Y="265" />
+                  <PointInfo X="363.975" Y="265" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block56" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="453.972" Y="257.972" />
+                  <PointInfo X="460.999" Y="257.972" />
+                  <PointInfo X="460.999" Y="265" />
+                  <PointInfo X="453.972" Y="265" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block57" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="537.972" Y="258.473" />
+                  <PointInfo X="551" Y="258.473" />
+                  <PointInfo X="551" Y="264.499" />
+                  <PointInfo X="537.972" Y="264.499" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block58" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="211.497" Y="284.822" />
+                  <PointInfo X="218.422" Y="284.822" />
+                  <PointInfo X="218.422" Y="291.849" />
+                  <PointInfo X="211.497" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block59" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="246.549" Y="284.822" />
+                  <PointInfo X="253.573" Y="284.822" />
+                  <PointInfo X="253.573" Y="291.849" />
+                  <PointInfo X="246.549" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block60" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="301.498" Y="284.822" />
+                  <PointInfo X="308.448" Y="284.822" />
+                  <PointInfo X="308.448" Y="291.849" />
+                  <PointInfo X="301.498" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block61" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="336.55" Y="284.822" />
+                  <PointInfo X="343.574" Y="284.822" />
+                  <PointInfo X="343.574" Y="291.849" />
+                  <PointInfo X="336.55" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block62" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="391.499" Y="284.822" />
+                  <PointInfo X="398.448" Y="284.822" />
+                  <PointInfo X="398.448" Y="291.849" />
+                  <PointInfo X="391.499" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block63" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="426.547" Y="284.822" />
+                  <PointInfo X="433.574" Y="284.822" />
+                  <PointInfo X="433.574" Y="291.849" />
+                  <PointInfo X="426.547" Y="291.849" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block64" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="194.049" Y="356.45" />
+                  <PointInfo X="200.999" Y="356.45" />
+                  <PointInfo X="200.999" Y="370.498" />
+                  <PointInfo X="194.049" Y="370.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block65" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="211.497" Y="350.347" />
+                  <PointInfo X="218.422" Y="350.347" />
+                  <PointInfo X="218.422" Y="357.3" />
+                  <PointInfo X="211.497" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block66" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="246.549" Y="350.347" />
+                  <PointInfo X="253.573" Y="350.347" />
+                  <PointInfo X="253.573" Y="357.3" />
+                  <PointInfo X="246.549" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block67" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="273.974" Y="356.45" />
+                  <PointInfo X="280.998" Y="356.45" />
+                  <PointInfo X="280.998" Y="370.498" />
+                  <PointInfo X="273.974" Y="370.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block68" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="301.498" Y="350.347" />
+                  <PointInfo X="308.448" Y="350.347" />
+                  <PointInfo X="308.448" Y="357.3" />
+                  <PointInfo X="301.498" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block69" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="336.55" Y="350.347" />
+                  <PointInfo X="343.574" Y="350.347" />
+                  <PointInfo X="343.574" Y="357.3" />
+                  <PointInfo X="336.55" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block70" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="363.975" Y="356.45" />
+                  <PointInfo X="370.999" Y="356.45" />
+                  <PointInfo X="370.999" Y="370.498" />
+                  <PointInfo X="363.975" Y="370.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block71" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="391.499" Y="350.347" />
+                  <PointInfo X="398.448" Y="350.347" />
+                  <PointInfo X="398.448" Y="357.3" />
+                  <PointInfo X="391.499" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block72" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="426.574" Y="350.347" />
+                  <PointInfo X="433.574" Y="350.347" />
+                  <PointInfo X="433.574" Y="357.3" />
+                  <PointInfo X="426.574" Y="357.3" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block73" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="453.972" Y="356.45" />
+                  <PointInfo X="460.999" Y="356.45" />
+                  <PointInfo X="460.999" Y="370.498" />
+                  <PointInfo X="453.972" Y="370.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+            <TopoInfo Name="Block74" Type="CAD" IsCommon="true">
+              <BoundInfo Thickness="0.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+                <Points>
+                  <PointInfo X="543.973" Y="356.45" />
+                  <PointInfo X="551.045" Y="356.45" />
+                  <PointInfo X="551.045" Y="370.498" />
+                  <PointInfo X="543.973" Y="370.498" />
+                </Points>
+              </BoundInfo>
+            </TopoInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间3.2m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="3.2" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="464.972" Y="0" />
+                <PointInfo X="464.972" Y="67.9732" />
+                <PointInfo X="553.974" Y="67.9732" />
+                <PointInfo X="553.974" Y="373.451" />
+                <PointInfo X="190.997" Y="373.451" />
+                <PointInfo X="190.997" Y="254" />
+                <PointInfo X="0" Y="254" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间7.5m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="7.5" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="464.972" Y="0" />
+                <PointInfo X="464.972" Y="67.9732" />
+                <PointInfo X="553.974" Y="67.9732" />
+                <PointInfo X="553.974" Y="373.451" />
+                <PointInfo X="190.997" Y="373.451" />
+                <PointInfo X="190.997" Y="254" />
+                <PointInfo X="0" Y="254" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间11.4m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="11.4" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="464.972" Y="0" />
+                <PointInfo X="464.972" Y="67.9732" />
+                <PointInfo X="553.974" Y="67.9732" />
+                <PointInfo X="553.974" Y="373.451" />
+                <PointInfo X="190.997" Y="373.451" />
+                <PointInfo X="190.997" Y="254" />
+                <PointInfo X="0" Y="254" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间16m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="16" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points>
+                <PointInfo X="0" Y="0" />
+                <PointInfo X="464.972" Y="0" />
+                <PointInfo X="464.972" Y="67.9732" />
+                <PointInfo X="553.974" Y="67.9732" />
+                <PointInfo X="553.974" Y="373.451" />
+                <PointInfo X="190.997" Y="373.451" />
+                <PointInfo X="190.997" Y="254" />
+                <PointInfo X="0" Y="254" />
+              </Points>
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间20m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="20" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间23.2m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="23.2" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+          <TopoInfo Name="燃料准备车间30m层" Type="楼层">
+            <BoundInfo  ZeroX="0" ZeroY="0" Thickness="1" BottomHeight="30" IsRelative="true" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+              <Points />
+            </BoundInfo>
+          </TopoInfo>
+        </TopoInfo>
+      </TopoInfo>
+    </TopoInfo>
+  </TopoInfo>
+</InitInfo>

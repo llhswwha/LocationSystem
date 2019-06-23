@@ -41,8 +41,38 @@ namespace LocationServices.Locations
     //[ServiceBehavior(InstanceContextMode=InstanceContextMode.PerSession)]
     public partial class LocationService : ILocationService, IDisposable
     {
-        private Bll db = new Bll(false, false, false,false);
-        private Bll db2 = new Bll();
+        private Bll _db = null;
+
+        /// <summary>
+        /// 无关联实体属性的
+        /// </summary>
+        protected Bll db
+        {
+            get
+            {
+                if (_db == null)
+                {
+                    _db = Bll.NewBllNoRelation();
+                }
+                return _db;
+            }
+        }
+
+        private Bll _dbEx = null;
+        /// <summary>
+        /// 有关联实体属性的
+        /// </summary>
+        protected Bll dbEx
+        {
+            get
+            {
+                if (_dbEx == null)
+                {
+                    _dbEx = new Bll();
+                }
+                return _db;
+            }
+        }
 
         public static U3DPositionSP u3dositionSP;
 

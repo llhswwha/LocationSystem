@@ -45,7 +45,7 @@ namespace LocationServices.Locations.Services
 
         public KKSCodeService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             dbSet = db.KKSCodes;
         }
 

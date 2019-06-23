@@ -73,7 +73,17 @@ namespace WebApiLib
                 Uri uri = new Uri(url);
                 DateTime now = DateTime.Now;
                 string name = uri.Segments[uri.Segments.Length - 1];
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Json\\" + name+"__"+now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
+
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\Json\\" + name + "__" +
+                              now.ToString("yyyy_mm_dd_HH_MM_ss_fff");
+
+                if (path.Length > 240)
+                {
+                    path = path.Substring(0, 240);
+                }
+
+                path += ".json";
+
                 FileInfo fi = new FileInfo(path);
                 if (!fi.Directory.Exists)
                 {

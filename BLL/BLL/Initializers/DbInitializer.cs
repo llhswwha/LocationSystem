@@ -290,57 +290,84 @@ namespace BLL
             Log.InfoEnd("InitUsers");
         }
 
+        public void ImportKKSFromFile(string file)
+        {
+            Log.Info(LogTags.KKS, string.Format("加载文件:")+file);
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\"+file;
+            KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+        }
+
         public void InitKKSCode()
         {
+            Log.Info(LogTags.KKS, string.Format("清空数据"));
+            bool r1 = _bll.KKSCodes.Clear(1);
 
             //先导入KKS再初始化其他数据
             Log.Info(LogTags.DbInit, "导入土建KKS");
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
-            //土建
-            string filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\土建\\中电四会热电有限责任公司KKS项目-土建系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //电气
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-电气一次总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-火灾报警系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-视频监控系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\电气\\中电四会热电有限责任公司KKS项目-照明检修箱系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //锅炉
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#1炉总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#3炉总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //化学
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\化学\\中电四会热电有限责任公司KKS项目-化学总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //暖通
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\暖通\\中电四会热电有限责任公司KKS项目-暖通系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //汽机
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#1汽机总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#3汽机总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //燃机
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#2燃机总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#4燃机总表-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-调压站系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //热控
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\热控\\中电四会热电有限责任公司KKS项目-热控盘柜系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
-            //消防
-            filePath = basePath + "Data\\中电四会部件级KKS编码2017.5.24\\消防\\中电四会热电有限责任公司KKS项目-消防系统-B.xls";
-            KKSCodeHelper.ImportKKSFromFile<KKSCode>(new FileInfo(filePath));
 
+            DirectoryInfo dir=new DirectoryInfo(basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\");
+            FileInfo[] files = dir.GetFiles("*.xls", SearchOption.AllDirectories);
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                FileInfo file = files[i];
+                Log.Info(LogTags.KKS, string.Format("加载文件:{0}({1}/{2})",file,i+1,files.Length));
+                KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(file);
+            }
+
+            ////土建
+            //ImportKKSCodeFromFile("土建\\中电四会热电有限责任公司KKS项目-土建系统-B.xls");
+
+            ////电气
+            //ImportKKSCodeFromFile("电气\\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls");
+            //ImportKKSCodeFromFile("电气\\中电四会热电有限责任公司KKS项目-电气一次总表-B.xls");
+            //ImportKKSCodeFromFile("电气\\中电四会热电有限责任公司KKS项目-火灾报警系统-B.xls");
+            //ImportKKSCodeFromFile("电气\\中电四会热电有限责任公司KKS项目-视频监控系统-B.xls");
+            //ImportKKSCodeFromFile("电气\\中电四会热电有限责任公司KKS项目-照明检修箱系统-B.xls");
+
+            ////锅炉
+            //string filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#1炉总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\锅炉\\中电四会热电有限责任公司KKS项目-#3炉总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////化学
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\化学\\中电四会热电有限责任公司KKS项目-化学总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////暖通
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\暖通\\中电四会热电有限责任公司KKS项目-暖通系统-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////汽机
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#1汽机总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\汽机\\中电四会热电有限责任公司KKS项目-#3汽机总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////燃机
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#2燃机总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-#4燃机总表-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\燃机\\中电四会热电有限责任公司KKS项目-调压站系统-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////热控
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\热控\\中电四会热电有限责任公司KKS项目-热控盘柜系统-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+            ////消防
+            //filePath = basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\消防\\中电四会热电有限责任公司KKS项目-消防系统-B.xls";
+            //KKSCodeHelper.ImportKKSCodeFromFile<KKSCode>(new FileInfo(filePath));
+        }
+
+        public void InitKKSNode()
+        {
+            //先导入KKS再初始化其他数据
+            Log.Info(LogTags.DbInit, "导入土建KKS");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
+            string filePath = basePath + "Data\\KKS\\四会热电KKS和设备编码清册_KKS.xlsx";
+            FileInfo file=new FileInfo(filePath);
+            KKSCodeHelper.ImportKKSNodeFromFile<KKSCode>(file);
         }
 
         private CardRoleInitializer iniRole;
@@ -351,7 +378,7 @@ namespace BLL
         public void InitRealTimePositions()
         {
             DateTime dt = DateTime.Now;
-            long TimeStamp = TimeConvert.DateTimeToTimeStamp(dt);
+            long TimeStamp = TimeConvert.ToStamp(dt);
 
             LocationCardPositions.Clear();
             List<LocationCardPosition> tagpositions = new List<LocationCardPosition>();

@@ -27,7 +27,7 @@ namespace LocationServices.Locations.Services
 
         public PosService()
         {
-            db = new Bll(false, true, false, true);
+            db = new Bll();
             dbSet = db.LocationCardPositions;
         }
 
@@ -113,6 +113,13 @@ namespace LocationServices.Locations.Services
             var dbItem = item.ToDbModel();
             var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
+        }
+
+        public bool PutRange(List<TEntity> list)
+        {
+            var list2 = list.ToDbModel();
+            var result = dbSet.EditRange(list2);
+            return result;
         }
 
         /// <summary>

@@ -77,7 +77,7 @@ namespace LocationServices.Locations.Services
 
         public PersonService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             dbSet = db.Personnels;
         }
 

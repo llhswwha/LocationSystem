@@ -41,6 +41,14 @@ namespace Location.TModel.Location.AreaAndDev
         [DataMember]
         //[Display(Name = "工艺相关标识")]
         //[Required]
+        public string RawCode { get; set; }
+
+        /// <summary>
+        /// 工艺相关标识
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "工艺相关标识")]
+        //[Required]
         public string Code { get; set; }
 
         /// <summary>

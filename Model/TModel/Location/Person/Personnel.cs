@@ -19,7 +19,7 @@ namespace Location.TModel.Location.Person
         public Personnel()
         {
             BirthDay = new DateTime(2000, 1, 1);
-            BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(BirthDay);
+            BirthTimeStamp = TimeConvert.ToStamp(BirthDay);
         }
 
         /// <summary>

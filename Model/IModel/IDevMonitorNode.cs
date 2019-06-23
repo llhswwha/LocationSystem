@@ -22,7 +22,9 @@ namespace IModel
         string KKS { get; set; }
 
         string ParentKKS { get; set; }
-        
-        int Time { get; set; }
+
+        int? ParseResult { get; set; }
+
+        long Time { get; set; }
     }
 }

@@ -21,8 +21,21 @@ namespace TModel.Location.AreaAndDev
         [DataMember]
         public List<Dev_Monitor> ChildrenList { get; set; }
 
+        private List<DevMonitorNode> _monitorNodeList;
+
         [DataMember]
-        public List<DevMonitorNode> MonitorNodeList { get; set; }
+        public List<DevMonitorNode> MonitorNodeList
+        {
+            get { return _monitorNodeList; }
+            set
+            {
+                _monitorNodeList = value;
+                Tags = GetMonitorTags();
+            }
+        }
+
+        //[DataMember]
+        public string Tags { get; set; }
 
         public Dev_Monitor()
         {
@@ -32,5 +45,76 @@ namespace TModel.Location.AreaAndDev
             MonitorNodeList = null;
         }
 
+        public override string ToString()
+        {
+            bool haveChildren = ChildrenList != null && ChildrenList.Count > 0;
+            bool haveMonitor = MonitorNodeList != null && MonitorNodeList.Count > 0;
+            return string.Format("{0},{1}[{2}][{3}]", Name, KKSCode, haveChildren, haveMonitor);
+        }
+
+        public string GetAllTags()
+        {
+            List<DevMonitorNode> nodes = GetAllNodes();
+            string tags = "";
+            foreach (var node in nodes)
+            {
+                if (tags == "")
+                {
+                    tags = node.TagName;
+                }
+                else
+                {
+                    tags += "," + node.TagName;
+                }
+            }
+            return tags;
+        }
+
+        public List<string> GetAllTagList()
+        {
+            List<DevMonitorNode> nodes = GetAllNodes();
+            List<string> tags = new List<string>();
+            foreach (var node in nodes)
+            {
+                tags.Add(node.TagName);
+            }
+            return tags;
+        }
+
+        public string GetMonitorTags()
+        {
+            string tags = "";
+            if (MonitorNodeList != null)
+                foreach (var item in MonitorNodeList)
+                {
+                    if (tags == "")
+                    {
+                        tags = item.TagName;
+                    }
+                    else
+                    {
+                        tags += "," + item.TagName;
+                    }
+                }
+            return tags;
+        }
+
+        public List<DevMonitorNode> GetAllNodes()
+        {
+            List<DevMonitorNode> nodes = new List<DevMonitorNode>();
+            if (MonitorNodeList != null)
+            {
+                nodes.AddRange(MonitorNodeList);
+            }
+            if (ChildrenList != null)
+            {
+                foreach (var item in ChildrenList)
+                {
+                    List<DevMonitorNode> subNodes = item.GetAllNodes();
+                    nodes.AddRange(subNodes);
+                }
+            }
+            return nodes;
+        }
     }
 }

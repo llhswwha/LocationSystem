@@ -152,7 +152,7 @@ namespace Location.TModel.LocationHistory.Data
                 Z = float.Parse(parts[2]);//平面位置
                 Y = float.Parse(parts[3]);//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 Time = long.Parse(parts[4]);
-                DateTime = TimeConvert.TimeStampToDateTime(Time / 1000);
+                DateTime = TimeConvert.ToDateTime(Time / 1000);
 
                 if (length > 5)
                     Power = int.Parse(parts[5]);

@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BLL;
 using DAL;
+using DbModel;
 using ExcelLib;
 
 namespace LocationServer.Windows

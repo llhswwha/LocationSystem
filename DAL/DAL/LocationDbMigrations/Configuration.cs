@@ -14,7 +14,9 @@ namespace DAL.LocationDbMigrations
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"LocationDbMigrations";
 
-            this.SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
+            MySql.Data.Entity.MySqlMigrationSqlGenerator sqlGenerator =
+                new MySql.Data.Entity.MySqlMigrationSqlGenerator();
+            this.SetSqlGenerator("MySql.Data.MySqlClient", sqlGenerator);
         }
 
         protected override void Seed(DAL.LocationDb context)
@@ -23,6 +25,8 @@ namespace DAL.LocationDbMigrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+
         }
     }
 }

@@ -23,9 +23,6 @@ namespace BLL.Tools
         /// <returns></returns>
         public static bool DropTable<T>(this DbContext context)
         {
-            //List<T> list = ToList(true);
-            //return RemoveList(list);
-            //老的
             try
             {
                 var tableName = context.GetTableName<T>();

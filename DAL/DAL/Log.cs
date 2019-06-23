@@ -46,6 +46,11 @@ namespace Location.BLL.Tool
         /// 定位引擎
         /// </summary>
         public static string Engine = "[Engine]";
+
+        /// <summary>
+        /// KKS
+        /// </summary>
+        public static string KKS = "[KKS]";
     }
 
     public  static class Log

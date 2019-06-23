@@ -52,13 +52,18 @@ namespace DbModel.LocationHistory.AreaAndDev
         public string KKS { get; set; }
 
         [DataMember]
-        [Display(Name = "KKS")]
+        [Display(Name = "ParentKKS")]
         [MaxLength(128)]
         public string ParentKKS { get; set; }
 
         [DataMember]
+        [Display(Name = "ParseResult")]
+        //[MaxLength(10)]
+        public int? ParseResult { get; set; }
+
+        [DataMember]
         [Display(Name = "时间戳")]
-        public int Time { get; set; }
+        public long Time { get; set; }
 
         public DevMonitorNodeHistory()
         {

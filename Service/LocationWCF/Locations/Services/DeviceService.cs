@@ -28,7 +28,7 @@ namespace LocationServices.Locations.Services
 
         public DeviceService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             dbSet = db.DevInfos;
         }
 
@@ -141,7 +141,7 @@ namespace LocationServices.Locations.Services
         {
             var dbItem = item.ToDbModel();
             dbItem.ModifyTime = DateTime.Now;
-            dbItem.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(dbItem.ModifyTime);
+            dbItem.ModifyTimeStamp = TimeConvert.ToStamp(dbItem.ModifyTime);
             var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
         }
@@ -436,8 +436,8 @@ namespace LocationServices.Locations.Services
             DateTime dtNow = DateTime.Now;
             DateTime dtOld = DateTime.Now.AddHours(-24);
 
-            long lNow = TimeConvert.DateTimeToTimeStamp(dtNow);
-            long lOld = TimeConvert.DateTimeToTimeStamp(dtOld);
+            long lNow = TimeConvert.ToStamp(dtNow);
+            long lOld = TimeConvert.ToStamp(dtOld);
 
             List<EntranceGuardActionInfo> lst = new List<EntranceGuardActionInfo>();
             List<int> lst2 = db.EntranceGuardCardToPersonnels.DbSet.Where(p => p.PersonnelId == id).Select(p=>p.EntranceGuardCardId).ToList();

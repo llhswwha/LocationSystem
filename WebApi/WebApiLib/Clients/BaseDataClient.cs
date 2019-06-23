@@ -24,33 +24,46 @@ using DAL;
 using BLL.Blls;
 using Location.BLL.Tool;
 using IModel.Enums;
+using System.Threading;
 
 namespace WebApiLib.Clients
 {
     public class BaseDataClient
     {
-        private Bll bll = Bll.Instance();
+        private Bll _bll = null;
+
+        protected Bll bll
+        {
+            get
+            {
+                if (_bll == null)
+                {
+                    _bll = Bll.Instance();
+                }
+                return _bll;
+            }
+        }
 
         private string Message;
 
         public string BaseUri { get; set; }
 
-        public static int nEightHourSecond = 0;
+        public static long nEightHourSecond = 0;
 
         BaseDataInnerClient client;
 
-        public BaseDataClient()
-        {
-            BaseUri = "http://<host>:<port>/";
-            client = new BaseDataInnerClient(BaseUri);
-        }
+        //public BaseDataClient()
+        //{
+        //    BaseUri = "http://<host>:<port>/";
+        //    client = new BaseDataInnerClient(BaseUri);
+        //}
 
-        public BaseDataClient(string host, string port)
-        {
-            //BaseUri = string.Format("http://{0}:{1}/", host, port);
-            BaseUri = string.Format("http://{0}:{1}/", host, port);
-            client = new BaseDataInnerClient(BaseUri);
-        }
+        //public BaseDataClient(string host, string port)
+        //{
+        //    //BaseUri = string.Format("http://{0}:{1}/", host, port);
+        //    BaseUri = string.Format("http://{0}:{1}/", host, port);
+        //    client = new BaseDataInnerClient(BaseUri);
+        //}
 
         public BaseDataClient(string host, string port,string suffix)
         {
@@ -66,10 +79,10 @@ namespace WebApiLib.Clients
             client = new BaseDataInnerClient(BaseUri);
         }
 
-        public BaseDataClient(string baseUri)
-        {
-            BaseUri = baseUri;
-        }
+        //public BaseDataClient(string baseUri)
+        //{
+        //    BaseUri = baseUri;
+        //}
 
         public BaseTran<T> GetEntityList<T>(string url)
         {
@@ -113,7 +126,7 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<Personnel> GetPersonnelList(bool isSave)
         {
-            Bll bll = new Bll(false,false,false,false);
+            Bll bll = Bll.NewBllNoRelation();
             List<Personnel> plst = bll.Personnels.ToList();
             List<Department> dlst = bll.Departments.ToList();
             
@@ -194,7 +207,7 @@ namespace WebApiLib.Clients
         /// <returns></returns>
         public List<Department> GetDepList(bool isSave)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             List<Department> dlst = bll.Departments.ToList();
             List<Department> depList = new List<Department>();
             try
@@ -521,15 +534,15 @@ namespace WebApiLib.Clients
                             devinfo.CreateTime = DateTime.Now;
                             devinfo.ModifyTime = DateTime.Now;
 
-                            devinfo.CreateTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.CreateTime);
-                            devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
+                            devinfo.CreateTimeStamp = TimeConvert.ToStamp(devinfo.CreateTime);
+                            devinfo.ModifyTimeStamp = TimeConvert.ToStamp(devinfo.ModifyTime);
 
                             bll.DevInfos.Add(devinfo);
                         }
                         else
                         {
                             devinfo.ModifyTime = DateTime.Now;
-                            devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
+                            devinfo.ModifyTimeStamp = TimeConvert.ToStamp(devinfo.ModifyTime);
 
                             bll.DevInfos.Edit(devinfo);
                         }
@@ -770,15 +783,15 @@ namespace WebApiLib.Clients
                     devinfo.CreateTime = DateTime.Now;
                     devinfo.ModifyTime = DateTime.Now;
 
-                    devinfo.CreateTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.CreateTime);
-                    devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
+                    devinfo.CreateTimeStamp = TimeConvert.ToStamp(devinfo.CreateTime);
+                    devinfo.ModifyTimeStamp = TimeConvert.ToStamp(devinfo.ModifyTime);
 
                     bll.DevInfos.Add(devinfo);
                 }
                 else
                 {
                     devinfo.ModifyTime = DateTime.Now;
-                    devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
+                    devinfo.ModifyTimeStamp = TimeConvert.ToStamp(devinfo.ModifyTime);
 
                     bll.DevInfos.Edit(devinfo);
                 }
@@ -851,7 +864,7 @@ namespace WebApiLib.Clients
                     if (item.t != null)
                     {
                         long t = (long)item.t;
-                        degca.OperateTime = TimeConvert.TimeStampToDateTime(t);
+                        degca.OperateTime = TimeConvert.ToDateTime(t);
 
                     }
 
@@ -1040,7 +1053,7 @@ namespace WebApiLib.Clients
                             long t = (long)item.t + nEightHourSecond;
                             t = 1000 * t;
                             degca.OperateTimeStamp = t;
-                            degca.OperateTime = TimeConvert.TimeStampToDateTime(t);
+                            degca.OperateTime = TimeConvert.ToDateTime(t);
                         }
 
                         bll.DevEntranceGuardCardActions.Add(degca);
@@ -1235,7 +1248,7 @@ namespace WebApiLib.Clients
                             da.Src = (Abutment_DevAlarmSrc)item.src;
                             da.DevInfoId = di.Id;
                             da.Device_desc = item.deviceDesc;
-                            da.AlarmTime = TimeConvert.TimeStampToDateTime(lTimeStamp);
+                            da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
                             da.AlarmTimeStamp = lTimeStamp;
                             bll.DevAlarms.Add(da);
                             DaList.Add(da);
@@ -1287,42 +1300,44 @@ namespace WebApiLib.Clients
             return client.GetSisList(strTags);
         }
 
+        public string GetSisUrl(string tags)
+        {
+            return client.GetSisUrl(tags);
+        }
+
         /// <summary>
         /// 获取SIS传感数据
         /// </summary>
         /// <param name="kks"></param>
         /// <returns></returns>
-        public List<DevMonitorNode> GetSomesisList(string strTags)
+        public List<DevMonitorNode> GetSomesisList(string tags, bool isSaveToDb)
         {
-            List<DevMonitorNode> send = new List<DevMonitorNode>();
-            try
+            List<DevMonitorNode> monitorNodes = new List<DevMonitorNode>();
+            var sisList = GetSisList(tags);//到基础平台获取数据
+            if (isSaveToDb)
             {
-                var sisList = GetSisList(strTags);
-                foreach (sis item in sisList)
+                SisDataSaveClient.Instance.Save(sisList);
+            }
+            if (sisList != null)
+            {
+                foreach (sis sis in sisList)
                 {
-                    string strTag = item.kks;
-                    //DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.KKS == item.kks).FirstOrDefault();
-                    DevMonitorNode Dmn = bll.DevMonitorNodes.DbSet.Where(p => p.TagName == strTag).FirstOrDefault();
-                    if (Dmn == null)
-                    {
-                        continue;
-                    }
-                    Dmn.Value = item.value;
-                    Dmn.Time = item.t + nEightHourSecond;
-                    bll.DevMonitorNodes.Edit(Dmn);
-                    DevMonitorNodeHistory Dmnh = Dmn.ToHistory();
-                    bll.DevMonitorNodeHistorys.Add(Dmnh);
-
-                    send.Add(Dmn);
+                    DevMonitorNode monitor=new DevMonitorNode();
+                    monitor.TagName = sis.kks;
+                    monitor.Value = sis.value;
+                    monitor.Unit = sis.unit;
+                    monitor.Time = sis.t;
+                    monitorNodes.Add(monitor);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                string messgae = ex.Message;
+                Log.Error(LogTags.KKS, string.Format("获取数据失败[{0}]:{1}",tags.Length,tags));
             }
-
-            return send;
+            return monitorNodes;
         }
+
+
 
         /// <summary>
         /// 获取SIS历史数据，当compact为true时，获取紧凑型数据，当compact为false时，获取非紧凑型数据

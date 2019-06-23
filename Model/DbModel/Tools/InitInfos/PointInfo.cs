@@ -1,8 +1,10 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 using DbModel.Location.AreaAndDev;
 
 namespace Location.Model.InitInfos
 {
+    [Serializable]
     public class PointInfo
     {
         [XmlAttribute]

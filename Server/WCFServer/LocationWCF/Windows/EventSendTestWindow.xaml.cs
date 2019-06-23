@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BLL;
 using DbModel.Tools;
 using Location.TModel.Location.Alarm;
 using Location.TModel.Location.AreaAndDev;
@@ -185,14 +186,35 @@ namespace LocationServer.Windows
             var service = new LocationService();
             AlarmSearchArg arg = new AlarmSearchArg();
             arg.IsAll = true;
-            var alarms = service.GetDeviceAlarms(arg);
-            DeviceAlarms.ItemsSource = alarms;
+            deviceAlarms = service.GetDeviceAlarms(arg);
+            DeviceAlarms.ItemsSource = deviceAlarms;
+
+            var alarmHistory=Bll.Instance().DevAlarmHistorys.ToList();
+            DeviceAlarmsHistory.ItemsSource = alarmHistory;
         }
+
+        private List<DeviceAlarm> deviceAlarms;
 
         private void MenuSendDeviceAlarm_Click(object sender, RoutedEventArgs e)
         {
             var alarm = DeviceAlarms.SelectedItem as DeviceAlarm;
             AlarmHub.SendDeviceAlarms(alarm);
+        }
+
+        private void BtnOnShowNoDev_OnClick(object sender, RoutedEventArgs e)
+        {
+            var alarms = deviceAlarms.FindAll(i => i.DevId == 0);
+            DeviceAlarms.ItemsSource = alarms;
+        }
+
+        private void BtnOnShowNoDevInHistory_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuSendDeviceAlarmOfHistory_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 时间戳，单位秒
         /// </summary>
-        public int t { get; set; }
+        public long t { get; set; }
 
         /// <summary>
         /// 值，没找到数据时为null
@@ -40,6 +40,11 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
             copy.unit = this.unit;
 
             return copy;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1}", kks, value);
         }
     }
 }

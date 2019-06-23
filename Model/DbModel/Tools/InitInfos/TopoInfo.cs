@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 
 namespace Location.Model.InitInfos
 {
+    [Serializable]
     public class TopoInfo
     {
         [XmlAttribute]
@@ -20,6 +22,27 @@ namespace Location.Model.InitInfos
 
         [XmlElement("TopoInfo")]
         public List<TopoInfo> Children { get; set; }
+
+        [XmlIgnore]
+        public Area Area { get; set; }
+
+        /// <summary>
+        /// 公用的，柱子，从第一层到最上层都有
+        /// </summary>
+        [XmlAttribute]
+        public bool IsCommon { get; set; }
+
+        public List<TopoInfo> GetAllTopos()
+        {
+            List<TopoInfo> all = new List<TopoInfo>();
+            all.Add(this);
+            if(Children!=null)
+                foreach (TopoInfo child in Children)
+                {
+                    all.AddRange(child.GetAllTopos());
+                }
+            return all;
+        }
 
 
         public void AddChild(TopoInfo child)

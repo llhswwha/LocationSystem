@@ -4,6 +4,7 @@ using Location.IModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -61,9 +62,22 @@ namespace DbModel.Location.AreaAndDev
         public string ParentKKS { get; set; }
 
         [DataMember]
-        [Display(Name = "时间戳")]
-        public int Time { get; set; }
+        [Display(Name = "ParseResult")]
+        //[MaxLength(10)]
+        public int? ParseResult { get; set; }
 
+        [DataMember]
+        [Display(Name = "时间戳")]
+        public long Time { get; set; }
+
+        [NotMapped]
+        public KKSCode KKSCode { get; set; }
+
+        [NotMapped]
+        public DevMonitorNode PreNode { get; set; }
+
+        [NotMapped]
+        public DevMonitorNode NextMode { get; set; }
 
         public DevMonitorNode()
         {
@@ -93,5 +107,15 @@ namespace DbModel.Location.AreaAndDev
 
             return history;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2}", Describe, KKS, ParentKKS);
+        }
+    }
+
+    public class DevMonitorNodeList : List<DevMonitorNode>
+    {
+
     }
 }

@@ -21,7 +21,7 @@ namespace LocationServices.Locations.Services
 
         public EntityService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             SetDbSet();
         }
 

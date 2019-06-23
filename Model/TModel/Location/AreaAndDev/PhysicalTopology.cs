@@ -222,9 +222,9 @@ namespace Location.TModel.Location.AreaAndDev
 
         public void SetAbsolutePoints(IList<Point> points)
         {
-            var x = InitBound.MinX;
-            var y = InitBound.MinY;
-            if(points!=null)
+            var x = InitBound.GetZeroX();
+            var y = InitBound.GetZeroY();
+            if (points!=null)
                 foreach (var item in points)
                 {
                     item.X += x;

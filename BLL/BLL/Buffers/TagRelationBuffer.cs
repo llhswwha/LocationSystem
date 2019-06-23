@@ -54,7 +54,7 @@ namespace BLL
 
         private TagRelationBuffer()
         {
-            this.bll = new Bll(false, false, false, false);
+            this.bll = Bll.NewBllNoRelation();
             LoadData();
         }
 

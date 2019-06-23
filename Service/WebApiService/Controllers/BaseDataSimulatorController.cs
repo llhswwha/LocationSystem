@@ -1,6 +1,9 @@
-﻿using CommunicationClass.SihuiThermalPowerPlant;
+﻿using BLL;
+using CommunicationClass.SihuiThermalPowerPlant;
+using CommunicationClass.SihuiThermalPowerPlant.Models;
 using DAL;
 using DbModel.BaseData;
+using Location.TModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +62,35 @@ namespace WebApiService.Controllers
             BaseDataDb db = new BaseDataDb();
             var list = db.cards.AsNoTracking().ToList();
             var data = new BaseTran<cards>(list);
+            return data;
+        }
+
+        [Route("rt/sis/{tags}")]
+        public BaseTran<sis> GetSis(string tags)
+        {
+            BaseDataDb db = new BaseDataDb();
+            var list = new List<sis>();
+            string[] tagList = tags.Split(',');
+            Bll bll = new Bll();
+            foreach (var tag in tagList)
+            {
+               var monitor=bll.DevMonitorNodes.Find(p => p.TagName == tag);
+                sis sis = new sis();
+                sis.kks = tag;
+                sis.t = DateTime.Now.ToStamp();
+                if (monitor != null)
+                {
+                    sis.value = monitor.Value;
+                    sis.unit = monitor.Unit;
+                }
+
+                if (string.IsNullOrEmpty(sis.value))
+                {
+                    sis.value = "-1";//代表模拟数据
+                }
+                list.Add(sis);
+            }
+            var data = new BaseTran<sis>(list);
             return data;
         }
     }

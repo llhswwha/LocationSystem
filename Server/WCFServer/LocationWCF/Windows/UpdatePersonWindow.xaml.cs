@@ -61,7 +61,7 @@ namespace LocationServer.Windows
                     return;
                 }
 
-                db = new Bll(false, false, true, false);//第三个参数要true，不然数据迁移无法用
+                db = Bll.NewBllNoRelation();//第三个参数要true，不然数据迁移无法用
                 departments = db.Departments.ToList();
 
                 var parentDepName = "中电四会热电有限公司";

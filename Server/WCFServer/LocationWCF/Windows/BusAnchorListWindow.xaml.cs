@@ -27,7 +27,7 @@ namespace LocationServer
 
         private void ArchorListWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DataGrid1.ItemsSource = new Bll(false,false,false,false).bus_anchors.ToList();
+            DataGrid1.ItemsSource = Bll.NewBllNoRelation().bus_anchors.ToList();
         }
     }
 }

@@ -158,7 +158,7 @@ namespace WebLocation.Controllers
         {
             if (ModelState.IsValid)
             {
-                pel.BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(pel.BirthDay);
+                pel.BirthTimeStamp = TimeConvert.ToStamp(pel.BirthDay);
 
                 var result = bll.Personnels.Add(pel);
                 if (result)
@@ -200,7 +200,7 @@ namespace WebLocation.Controllers
         {
             if (ModelState.IsValid)
             {
-                pel.BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(pel.BirthDay);
+                pel.BirthTimeStamp = TimeConvert.ToStamp(pel.BirthDay);
 
                 var result = bll.Personnels.Edit(pel);
                 if (result)

@@ -97,7 +97,7 @@ namespace DbModel.LocationHistory.Data
                 Y = double.Parse(parts[2]);
                 Z = double.Parse(parts[3]);
                 DateTimeStamp = long.Parse(parts[4]);
-                DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp / 1000);
+                DateTime = TimeConvert.ToDateTime(DateTimeStamp / 1000);
                 
                 if (length > 4)
                     Power = int.Parse(parts[5]);

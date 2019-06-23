@@ -20,10 +20,27 @@
         </TabItem>
         <TabItem Header="设备告警">
             <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="只显示无设备id的" Name="BtnOnShowNoDev" Click="BtnOnShowNoDev_OnClick"></Button>
+                </StackPanel>
                 <DataGrid Name="DeviceAlarms">
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="发送" Name="MenuSendDeviceAlarm" Click="MenuSendDeviceAlarm_Click"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </DockPanel>
+        </TabItem>
+        <TabItem Header="设备告警历史">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="只显示无设备id的" Name="BtnOnShowNoDevInHistory" Click="BtnOnShowNoDevInHistory_OnClick"></Button>
+                </StackPanel>
+                <DataGrid Name="DeviceAlarmsHistory">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="发送" Name="MenuSendDeviceAlarmOfHistory" Click="MenuSendDeviceAlarmOfHistory_Click"></MenuItem>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

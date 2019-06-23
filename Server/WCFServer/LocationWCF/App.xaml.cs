@@ -72,9 +72,18 @@ namespace LocationWCFServer
             AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
             AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
             AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
+            AppContext.PositionMoveStateOfflineTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateOfflineTime");
+            AppContext.LowPowerFlag = ConfigurationHelper.GetIntValue("LowPowerFlag");
+
+            AppContext.SisTagPackageCount = ConfigurationHelper.GetIntValue("SisTagPackageCount");
+            
+
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
             AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
+            LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));
+            LocationContext.Power = ConfigurationHelper.GetIntValue("InitTopoPower");
 
             EngineClientSetting.LocalIp = ConfigurationHelper.GetValue("Ip");
             EngineClientSetting.EngineIp = ConfigurationHelper.GetValue("EngineIp");

@@ -147,10 +147,10 @@ namespace DbModel.Location.Alarm
         private void SetTime()
         {
             AlarmTime = DateTime.Now;
-            AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(AlarmTime);
+            AlarmTimeStamp = TimeConvert.ToStamp(AlarmTime);
 
             HandleTime = new DateTime(2000,1,1);
-            HandleTimeStamp = TimeConvert.DateTimeToTimeStamp(HandleTime);
+            HandleTimeStamp = TimeConvert.ToStamp(HandleTime);
         }
 
         public LocationAlarm(Position p,int area,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level)
@@ -272,7 +272,7 @@ namespace DbModel.Location.Alarm
             history.AuzId = this.AuzId;
             history.AllAuzId = this.AllAuzId;
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

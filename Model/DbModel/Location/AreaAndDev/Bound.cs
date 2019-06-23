@@ -7,7 +7,9 @@ using Location.TModel.Tools;
 using IModel.Tools;
 using IModel;
 using Location.IModel;
+using Location.Model.InitInfos;
 using Location.TModel.Location.AreaAndDev;
+using TModel.Tools;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -82,6 +84,21 @@ namespace DbModel.Location.AreaAndDev
         public bool IsRelative { get; set; }
 
         /// <summary>
+        /// 子坐标系的原点坐标
+        /// </summary>
+        [DataMember]
+        [Display(Name = "最小X值")]
+        public float? ZeroX { get; set; }
+
+        /// <summary>
+        /// 子坐标系的原点坐标
+        /// </summary>
+        [DataMember]
+        [Display(Name = "最大X值")]
+        public float? ZeroY { get; set; }
+
+
+        /// <summary>
         /// 位置点
         /// </summary>
         [DataMember]
@@ -124,11 +141,33 @@ namespace DbModel.Location.AreaAndDev
             IsRelative = isRelative;
         }
 
+        public Bound(float x1, float y1, float x2, float y2, BoundInfo info) : this()
+        {
+            SetInitBound(x1, y1, x2, y2, info.BottomHeight, info.Thickness);
+            Shape = 0;
+            IsRelative = info.IsRelative;
+            if(info.ZeroX!=null)
+                ZeroX = info.ZeroX.ToFloat();
+            if (info.ZeroY != null)
+                ZeroY = info.ZeroY.ToFloat();
+        }
+
         public Bound(Point[] points, float bottomHeightT, float thicknessT, bool isRelative) : this()
         {
             SetInitBound(points, bottomHeightT, thicknessT);
             Shape = 1;
             IsRelative = isRelative;
+        }
+
+        public Bound(Point[] points,BoundInfo info) : this()
+        {
+            SetInitBound(points, info.BottomHeight, info.Thickness);
+            Shape = 1;
+            IsRelative = info.IsRelative;
+            if (info.ZeroX != null)
+                ZeroX = info.ZeroX.ToFloat();
+            if (info.ZeroY != null)
+                ZeroY = info.ZeroY.ToFloat();
         }
 
         /// <summary>

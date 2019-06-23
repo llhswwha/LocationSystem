@@ -253,7 +253,7 @@ namespace LocationWCFServer
         private void MenuArchorScane_Click(object sender, RoutedEventArgs e)
         {
 
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             var list3 = bll.Archors.ToList();
             var areas = bll.Areas.ToList();
             foreach (var item in list3)
@@ -290,40 +290,6 @@ namespace LocationWCFServer
             win.Show();
         }
 
-        private void OriginalKKSCode_OnClick(object sender, RoutedEventArgs e)
-        {
-            Thread thread = new Thread(() =>
-            {
-                try
-                {
-                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
-                    //string filePath = basePath + "Data\\EDOSOriginalCode.xls";
-                    //string createfilePath = basePath + "..\\..\\Data\\EDOS.xls";
-                    //int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode(new FileInfo(filePath), createfilePath);
-
-                    string filePath = basePath + "Data\\UDPoints20190321.xlsx";
-                    string createfilePath = basePath + "..\\..\\Data\\EDOS_New.xls";
-                    int nReturn = Location.BLL.Tool.KKSCodeHelper.OriginalKKSCode_New(new FileInfo(filePath), createfilePath);
-                    if (nReturn == 0)
-                    {
-                        MessageBox.Show("KKS转义完成");
-                    }
-                    else
-                    {
-                        MessageBox.Show("原始KKS码文件不存在");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("KKS转义失败：" + ex.Message);
-                }
-            });
-            thread.IsBackground = true;
-            thread.Start();
-
-            return;
-        }
-
         private void MenuTrackPointList_Click(object sender, RoutedEventArgs e)
         {
             //var wind = new TrackPointListWindow();
@@ -337,14 +303,14 @@ namespace LocationWCFServer
 
         private void GetAllNodeKKSData_OnClick(object sender, RoutedEventArgs e)
         {
-            var window = new GetKKSMonitorDataWindow();
+            var window = new KKSMonitorDataWindow();
             window.Show();
             
         }
 
         private void MenuCache_OnClick(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             var bound1 = bll.Bounds.Find(i => i.Id == 1449);
 
             var bound2 = bll.Bounds.Find(i => i.Id == 1449);
@@ -356,13 +322,13 @@ namespace LocationWCFServer
 
         private void MenuClearDevAlarms_Click(object sender, RoutedEventArgs e)
         {
-            Bll db = new Bll(false, false, false, false);
+            Bll db = Bll.NewBllNoRelation();
             db.DevAlarms.Clear();
         }
 
         private void MenuGenerateDevAlarms_Click(object sender, RoutedEventArgs e)
         {
-            Bll db = new Bll(false, false, false, false);
+            Bll db = Bll.NewBllNoRelation();
             var devs = db.DevInfos.ToList();
             if (devs == null || devs.Count == 0) return;
             Random r = new Random((int)DateTime.Now.Ticks);
@@ -388,7 +354,7 @@ namespace LocationWCFServer
 
         private void MenuClearHisAlarms_Click(object sender, RoutedEventArgs e)
         {
-            Bll db = new Bll(false, false, false, false);
+            Bll db = Bll.NewBllNoRelation();
             DateTime now = DateTime.Now;
             //DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
             DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
@@ -417,6 +383,12 @@ namespace LocationWCFServer
         {
             var win = new SyncAllDataWindow();
             win.Show();
+        }
+
+        private void KKSMonitorManager_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new KKSMonitorDataWindow();
+            window.Show();
         }
     }
 }

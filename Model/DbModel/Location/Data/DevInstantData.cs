@@ -65,7 +65,7 @@ namespace DbModel.Location.Data
         public DevInstantData()
         {
             DateTime = DateTime.Now;
-            DateTimeStamp = TimeConvert.DateTimeToTimeStamp(DateTime);
+            DateTimeStamp = TimeConvert.ToStamp(DateTime);
         }
 
         public DevInstantData Clone()

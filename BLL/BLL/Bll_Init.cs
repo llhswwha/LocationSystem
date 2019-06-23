@@ -86,7 +86,7 @@ namespace BLL
                     string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions'";
 
                     dtNextDay = dtNextDay.Date;
-                    long lTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtNextDay);
+                    long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtNextDay);
                     string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
                     
                     DbRawSqlQuery<string> result1 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
@@ -113,7 +113,7 @@ namespace BLL
                     string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions' and PARTITION_NAME = '" + strDay + "';";
 
                     dtThirdDay = dtThirdDay.Date;
-                    long lTime = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtThirdDay);
+                    long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtThirdDay);
                     string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
                     
                     DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");

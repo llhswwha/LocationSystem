@@ -63,7 +63,7 @@ namespace LocationServices.Locations.Services
 
         public AreaService()
         {
-            db = new Bll(false, false, false, false);
+            db = Bll.NewBllNoRelation();
             dbSet = db.Areas;
         }
 
@@ -98,8 +98,8 @@ namespace LocationServices.Locations.Services
             DateTime now = DateTime.Now;
             DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
             DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
-            var startStamp = TimeConvert.DateTimeToTimeStamp(todayStart);
-            var endStamp = TimeConvert.DateTimeToTimeStamp(todayEnd);
+            var startStamp = TimeConvert.ToStamp(todayStart);
+            var endStamp = TimeConvert.ToStamp(todayEnd);
 
             var query4 = from t1 in db.DevInfos.DbSet
                          join t2 in db.DevAlarms.DbSet on t1.Id equals t2.DevInfoId
@@ -633,7 +633,10 @@ namespace LocationServices.Locations.Services
             if (item.InitBound == null)
             {
                 item.InitBound=db.Bounds.Find(item.InitBoundId);
-                item.InitBound.Points = db.Points.FindAll(i => i.BoundId == item.InitBoundId);
+                if (item.InitBound != null)
+                {
+                    item.InitBound.Points = db.Points.FindAll(i => i.BoundId == item.InitBoundId);
+                }
             }
             if (getChildren)
             {
@@ -897,9 +900,15 @@ namespace LocationServices.Locations.Services
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
-             var lst = db.Areas.GetAllSubAreas(id);//获取所有的子区域，和自身
+            if (id == 0)
+            {
+                id = 2;
+                Log.Info(LogTags.DbGet, "0=>2");//四会热电厂
+            }
+            var lst = db.Areas.GetAllSubAreas(id);//获取所有的子区域，和自身
             if (lst.Count == 0)
             {
+                Log.Error(LogTags.DbGet, "Count == 0 !!");
                 return new AreaStatistics();
             }
 

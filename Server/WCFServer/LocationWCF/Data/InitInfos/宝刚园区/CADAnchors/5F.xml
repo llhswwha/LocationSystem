@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CADAnchorList ParentName="燃料准备车间16m层" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Anchors>
+    <Shape Name="4F-10" Type="BlockReference" Layer="-人员定位" Num="1" Text="4F-10">
+      <Points X="342.88175122883331" Y="215.61597256513232" />
+      <Points X="350.46854887554673" Y="215.61597256513232" />
+      <Points X="350.46854887554673" Y="222.57229666339845" />
+      <Points X="342.88175122883331" Y="222.57229666339845" />
+    </Shape>
+    <Shape Name="4F-11" Type="BlockReference" Layer="-人员定位" Num="2" Text="4F-11">
+      <Points X="375.53690341571746" Y="216.58795511869084" />
+      <Points X="382.49322751398358" Y="216.58795511869084" />
+      <Points X="382.49322751398358" Y="224.17475276540426" />
+      <Points X="375.53690341571746" Y="224.17475276540426" />
+    </Shape>
+    <Shape Name="4F-12" Type="BlockReference" Layer="-人员定位" Num="3" Text="4F-12">
+      <Points X="432.44015045272681" Y="215.50989427884451" />
+      <Points X="440.02694809944023" Y="215.50989427884451" />
+      <Points X="440.02694809944023" Y="222.46621837711064" />
+      <Points X="432.44015045272681" Y="222.46621837711064" />
+    </Shape>
+    <Shape Name="4F-13" Type="BlockReference" Layer="-人员定位" Num="4" Text="4F-13">
+      <Points X="465.750738948494" Y="216.72372050597369" />
+      <Points X="472.70706304676014" Y="216.72372050597369" />
+      <Points X="472.70706304676014" Y="224.31051815268711" />
+      <Points X="465.750738948494" Y="224.31051815268711" />
+    </Shape>
+    <Shape Name="4F-14" Type="BlockReference" Layer="-人员定位" Num="5" Text="4F-14">
+      <Points X="522.03292581883215" Y="215.57101660113221" />
+      <Points X="529.61972346554558" Y="215.57101660113221" />
+      <Points X="529.61972346554558" Y="222.52734069939834" />
+      <Points X="522.03292581883215" Y="222.52734069939834" />
+    </Shape>
+    <Shape Name="4F-9" Type="BlockReference" Layer="-人员定位" Num="6" Text="4F-9">
+      <Points X="283.55614344265496" Y="216.59926074539362" />
+      <Points X="290.51246754092108" Y="216.59926074539362" />
+      <Points X="290.51246754092108" Y="224.18605839210704" />
+      <Points X="283.55614344265496" Y="224.18605839210704" />
+    </Shape>
+  </Anchors>
+</CADAnchorList>

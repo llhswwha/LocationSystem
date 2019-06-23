@@ -26,9 +26,12 @@ using DbModel.Location.AreaAndDev;
 using DbModel.CADEntitys;
 using Point = DbModel.Location.AreaAndDev.Point;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using DbModel.Location.Settings;
 using LocationServer.Tools;
 using TModel.Tools;
+using DbModel;
+using IModel.Enums;
 
 namespace LocationServer.Windows
 {
@@ -116,14 +119,11 @@ namespace LocationServer.Windows
 
         private void MenuInitTopo_Click(object sender, RoutedEventArgs e)
         {
-            Thread thread = new Thread(()=>
+            Worker.Run(() =>
             {
-                AreaTreeInitializer initializer=new AreaTreeInitializer(new Bll());
-                initializer.InitAreaAndDev();
-                MessageBox.Show("完成");
-            });
-            thread.IsBackground = true;
-            thread.Start();
+                AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
+                initializer.InitTopoFromXml(AppSetting.ParkName);
+            }, () => { MessageBox.Show("完成"); }, LogTags.DbInit);
         }
 
         private void MenuRemoveArchor_Click(object sender, RoutedEventArgs e)
@@ -352,7 +352,7 @@ namespace LocationServer.Windows
 
         private void MenuSaveTop_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
             initializer.SaveInitInfoXml(false);
             MessageBox.Show("完成");
@@ -403,7 +403,7 @@ namespace LocationServer.Windows
 
         private void MenuLoadOutArchorPoints_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             var archors=bll.Archors.ToList().Where(i => i.ParentId == 2).ToList();
             var devs = bll.DevInfos.ToList().Where(i => i.ParentId == 2).ToList();
             var archorSettings = bll.ArchorSettings.ToList();
@@ -480,7 +480,7 @@ namespace LocationServer.Windows
 
         private void MenuSaveOutArchorPoints_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             var archorSettings = bll.ArchorSettings.Where(i=>string.IsNullOrEmpty(i.BuildingName)&&!string.IsNullOrEmpty(i.Code) && i.AbsoluteHeight !=2).ToList();
             string txt = "";
             foreach (var item in archorSettings)
@@ -493,7 +493,7 @@ namespace LocationServer.Windows
 
         private void MenuInitDevs_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
             initializer.InitDevs();
             MessageBox.Show("完成");
@@ -501,7 +501,7 @@ namespace LocationServer.Windows
 
         private void MenuInitTags_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             DbInitializer initializer = new DbInitializer(bll);
             initializer.InitTagPositions(false);
             MessageBox.Show("完成");
@@ -509,7 +509,7 @@ namespace LocationServer.Windows
 
         private void MenuLoadKKS_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             DbInitializer initializer = new DbInitializer(bll);
             //initializer.InitAllKKSCode();
             MessageBox.Show("完成");
@@ -532,7 +532,7 @@ namespace LocationServer.Windows
 
         private void MenuInitPic_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             DbInitializer initializer = new DbInitializer(bll);
             initializer.InitHomePage();
             MessageBox.Show("完成");
@@ -602,7 +602,7 @@ namespace LocationServer.Windows
 
         private void MenuSaveTopCAD_Click(object sender, RoutedEventArgs e)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
             initializer.SaveInitInfoXml();
             MessageBox.Show("完成");
@@ -619,6 +619,82 @@ namespace LocationServer.Windows
             });
             thread.IsBackground = true;
             thread.Start();
+        }
+
+        private void MenuInitTopoDev_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
+                initializer.InitAreaAndDev(AppSetting.ParkName);
+            }, () =>
+            {
+                MessageBox.Show("完成");
+            });
+        }
+
+        private void DbConfigureWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.Title = AppSetting.ParkName;
+        }
+
+        private void MenuLoadCADArchorList_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            string dir = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfos\\" + AppSetting.ParkName +
+                         "\\CADAnchors";
+            DirectoryInfo dirInfo = new DirectoryInfo(dir);
+            if (dirInfo.Exists == false)
+            {
+                MessageBox.Show("不存在文件夹:" + dir);
+                return;
+            }
+            Worker.Run(() =>
+            {
+                Bll bll = new Bll();
+                bll.Archors.Clear();
+                var anchorDevs = bll.DevInfos.Where(i => i.Local_TypeCode == TypeCodes.Archor);
+                bll.DevInfos.RemoveList(anchorDevs);
+                AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
+                FileInfo[] files = dirInfo.GetFiles("*.xml");
+                foreach (FileInfo file in files)
+                {
+                    CADAnchorList archorList = XmlSerializeHelper.LoadFromFile<CADAnchorList>(file.FullName);
+                    if (archorList != null)
+                    {
+                        var area = bll.Areas.FindByName(archorList.ParentName);
+                        if (area != null)
+                        {
+                            List<Archor> anchors = new List<Archor>();
+                            foreach (var item in archorList.Anchors)
+                            {
+                                Archor anchor = new Archor();
+                                anchor.Code = item.Name;
+                                anchor.Name = item.Name;
+                                var p = item.GetCenter();
+                                anchor.X = p.X;
+                                anchor.Z = p.Y;
+                                anchor.Y = 2;
+                                anchors.Add(anchor);
+                                Log.Info(LogTags.DbInit, "初始化基站:" + item.Name);
+                                initializer.AddArchorDev(anchor, area);
+                            }
+
+                            //initializer.AddArchorDevs(anchors, area);
+
+                        }
+                        else
+                        {
+                            Log.Error("未找到区域:" + archorList.ParentName);
+                        }
+                    }
+                    else
+                    {
+                        Log.Error("解析失败:" + file.FullName);
+                    }
+                }
+            }, () => { MessageBox.Show("完成"); });
+            
         }
     }
 }

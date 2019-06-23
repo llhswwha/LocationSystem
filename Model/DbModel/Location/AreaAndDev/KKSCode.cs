@@ -3,6 +3,8 @@ using Location.IModel;
 using System.Runtime.Serialization;
 using DbModel.Tools;
 using Location.TModel.Tools;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -35,6 +37,15 @@ namespace DbModel.Location.AreaAndDev
         [MaxLength(128)]
         [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 工艺相关标识
+        /// </summary>
+        [DataMember]
+        [Display(Name = "工艺相关标识")]
+        [MaxLength(128)]
+        [Required]
+        public string RawCode { get; set; }
 
         /// <summary>
         /// 工艺相关标识
@@ -88,9 +99,106 @@ namespace DbModel.Location.AreaAndDev
         [Required]
         public string System { get; set; }
 
+        [NotMapped]
+        public KKSCode Parent { get; set; }
+
+        public List<KKSCode> GetAncestors()
+        {
+            List<KKSCode> ancestors = new List<KKSCode>();
+            KKSCode p = Parent;
+            while (p!=null)
+            {
+                ancestors.Add(p);
+                p = p.Parent;
+            }
+            return ancestors;
+        }
+
+        public KKSCode GetAncestor(string type)
+        {
+            KKSCode p = Parent;
+            while (p != null && p.MainType != type)
+            {
+                p = p.Parent;
+            }
+            return p;
+        }
+
+        public void SetSystem(KKSCode sys, KKSCode subSys)
+        {
+            if (System == "")
+            {
+                if (subSys != null && subSys!=this)
+                {
+                    System = subSys.Name;
+                }
+                else if (sys != null)
+                {
+                    System = sys.Name;
+                }
+            }
+        }
+
+        public void SetParent(KKSCode parent)
+        {
+            if (parent == null) return;
+            Parent = parent;
+            ParentCode = parent.Code;
+            Parent.AddChild(this);
+        }
+
+        [NotMapped]
+        public List<KKSCode> Children { get; set; }
+
+        public void AddChild(KKSCode code)
+        {
+            if (Children == null)
+            {
+                Children = new List<KKSCode>();
+            }
+            Children.Add(code);
+            code.Parent = this;
+        }
+
         public KKSCode Clone()
         {
             return this.CloneObjectByBinary();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{2}]{0},{1},{3}",Name,Code,MainType,ParentCode);
+        }
+
+        public KKSCode()
+        {
+            Serial = "";
+            Name = "";
+            RawCode = "";
+            Code = "";
+            ParentCode = "";
+            DesinCode = "";
+            MainType = "";
+            SubType = "";
+            System = "";
+        }
+
+        public static Dictionary<string, KKSCode> ToDict(List<KKSCode> list)
+        {
+            List<KKSCode> error = new List<KKSCode>();
+            Dictionary<string, KKSCode> dic = new Dictionary<string, KKSCode>();
+            foreach (KKSCode code in list)
+            {
+                if (dic.ContainsKey(code.Code))
+                {
+                    error.Add(code);
+                }
+                else
+                {
+                    dic.Add(code.Code, code);
+                }
+            }
+            return dic;
         }
     }
 }

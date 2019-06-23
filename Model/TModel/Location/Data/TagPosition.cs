@@ -64,12 +64,30 @@ namespace Location.TModel.Location.Data
         [DataMember]
         public int AreaState { get; set; }
 
+        private int _moveState;
         /// <summary>
-        /// 运动状态，0:运动，1:待机状态，2:静止状态
+        /// 运动状态，0:运动，1:待机状态，2:静止状态 3:离线状态
         /// </summary>
         //[Display(Name = "区域状态")]
         [DataMember]
-        public int MoveState { get; set; }
+        public int MoveState {
+            get
+            {
+                return _moveState;
+            }
+            set
+            {
+                _moveState = value;
+                IsHide = _moveState >= 2; //是否隐藏人员，当前0和1是显示人员的，2和3是隐藏人员的。可能改为0、1、2是显示人员的。
+            }
+
+        }
+
+        /// <summary>
+        /// 是否隐藏人员，当前0和1是显示人员的，2和3是隐藏人员的。可能改为0、1、2是显示人员的。
+        /// </summary>
+        [DataMember]
+        public bool IsHide { get; set; }
 
         /// <summary>
         /// 序号（新的卡才有的）

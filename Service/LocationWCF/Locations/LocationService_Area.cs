@@ -27,7 +27,7 @@ namespace LocationServices.Locations
         public IList<PhysicalTopology> GetPhysicalTopologyList(int view)
         {
             ShowLogEx(">>>>> GetPhysicalTopologyList");
-            BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
+            BLL.Bll dbpt = Bll.NewBllNoRelation();
             return new AreaService(dbpt).GetList(view);
         }
 
@@ -66,7 +66,7 @@ namespace LocationServices.Locations
         public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
             ShowLogEx(">>>>> GetPhysicalTopologyTree view=" + view);
-            BLL.Bll dbpt = new BLL.Bll(false, false, false, false);
+            BLL.Bll dbpt = Bll.NewBllNoRelation();
             return new AreaService(dbpt).GetTree(view);
             //return null;
             //return new PhysicalTopology() { Id = 1, Name = "root" };
@@ -349,7 +349,7 @@ namespace LocationServices.Locations
         {
             try
             {
-                Bll bll = new Bll(false, false, false, false);
+                Bll bll = Bll.NewBllNoRelation();
                 List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
                 //if (lst == null || lst.Count == 0)
                 //{
@@ -378,7 +378,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public byte[] GetHomePageByName(string strPictureName)
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
             byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
 

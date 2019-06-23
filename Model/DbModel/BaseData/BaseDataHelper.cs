@@ -60,7 +60,7 @@ namespace DbModel.BaseData
             devinfo.Manufactor = "霍尼韦尔";
 
             devinfo.ModifyTime = DateTime.Now;
-            devinfo.ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(devinfo.ModifyTime);
+            devinfo.ModifyTimeStamp = TimeConvert.ToStamp(devinfo.ModifyTime);
 
             //devinfo.ParentId = area.Id;
             devinfo.KKS = item.kks;

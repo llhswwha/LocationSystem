@@ -9,6 +9,7 @@ using DbModel.Location.Relation;
 using DbModel.LocationHistory.Data;
 using Location.BLL.Tool;
 using System.Threading;
+using DbModel;
 
 namespace BLL
 {
@@ -291,7 +292,7 @@ namespace BLL
                 {
                     lc.Flag = position.Flag;
                     lc.Power = position.Power;
-                    if (lc.Power >= 400)
+                    if (lc.Power >= AppSetting.LowPowerFlag)
                     {
                         lc.PowerState = 0;
                     }

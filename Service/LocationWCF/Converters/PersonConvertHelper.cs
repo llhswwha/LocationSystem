@@ -100,7 +100,7 @@ namespace LocationServices.Converters
             item2.Sex = item1.Sex == "男" ? Sexs.男 : item1.Sex == "女" ? Sexs.女 : Sexs.未知;
             item2.Photo = item1.Photo;
             item2.BirthDay = item1.BirthDay;
-            item2.BirthTimeStamp = TimeConvert.DateTimeToTimeStamp((DateTime)item1.BirthDay);
+            item2.BirthTimeStamp = TimeConvert.ToStamp((DateTime)item1.BirthDay);
             item2.Nation = item1.Nation;
             item2.Address = item1.Address;
             item2.WorkNumber = item1.WorkNumber;

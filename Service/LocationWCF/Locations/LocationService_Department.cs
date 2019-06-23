@@ -31,7 +31,7 @@ namespace LocationServices.Locations
         
         public Department GetDepartment(int id)
         {
-            Bll db = new Bll(false, true, false, true);
+            Bll db = new Bll();
             Department dep= new DepartmentService(db).GetEntity(id+"");
             return dep;
         }

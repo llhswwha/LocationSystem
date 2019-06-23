@@ -31,6 +31,12 @@ namespace LocationServer
             set { AppSetting.PositionMoveStateWaitTime = value; }
         }
 
+        public static double PositionMoveStateOfflineTime
+        {
+            get { return AppSetting.PositionMoveStateOfflineTime; }
+            set { AppSetting.PositionMoveStateOfflineTime = value; }
+        }
+
         public static string ParkName
         {
             get { return AppSetting.ParkName; }
@@ -44,6 +50,18 @@ namespace LocationServer
         {
             get { return AppSetting.DatacaseWebApiUrl; }
             set { AppSetting.DatacaseWebApiUrl = value; }
+        }
+
+        public static int LowPowerFlag
+        {
+            get { return AppSetting.LowPowerFlag; }
+            set { AppSetting.LowPowerFlag = value; }
+        }
+
+        public static int SisTagPackageCount
+        {
+            get { return AppSetting.SisTagPackageCount; }
+            set { AppSetting.SisTagPackageCount = value; }
         }
 
         public static Bll GetLocationBll()

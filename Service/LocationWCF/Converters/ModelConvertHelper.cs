@@ -36,6 +36,8 @@ namespace LocationServices.Converters
             item2.MaxY = item1.MaxY;
             item2.MinZ = item1.MinZ;
             item2.MaxZ = item1.MaxZ;
+            item2.ZeroX = item1.ZeroX;
+            item2.ZeroY = item1.ZeroY;
             item2.Shape = item1.Shape;
             item2.IsRelative = item1.IsRelative;
             item2.Points = item1.Points.ToTModel();
@@ -72,6 +74,8 @@ namespace LocationServices.Converters
             item2.MaxY = item1.MaxY;
             item2.MinZ = item1.MinZ;
             item2.MaxZ = item1.MaxZ;
+            item2.ZeroX = item1.ZeroX;
+            item2.ZeroY = item1.ZeroY;
             item2.Shape = item1.Shape;
             item2.IsRelative = item1.IsRelative;
             item2.Points = item1.Points.ToDbModel();

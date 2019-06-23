@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using DbModel.Location.Authorizations;
 using BLL.Tools;
+using DbModel.Location.Data;
 using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
@@ -34,7 +35,7 @@ namespace LocationServices.Locations.Services
 
         public TagService()
         {
-            db = new Bll(false, true, false, true);
+            db = new Bll();
             dbSet = db.LocationCards;
         }
 
@@ -111,13 +112,14 @@ namespace LocationServices.Locations.Services
                     if (!list2.Contains(item.Tag.Id))
                     {
                         list2.Add(item.Tag.Id);
-
+                        LocationCardPosition pos = item.Pos;
+                        LocationCardPositionBll.SetPostionState(pos);
                         var entity = item.Tag.ToTModel();
                         entity.Person = item.Person.ToTModel();
-                        if (item.Pos != null)
-                        {
-                            item.Pos.SetState();
-                        }
+                        //if (item.Pos != null)
+                        //{
+                        //    item.Pos.SetState();
+                        //}
                         entity.Pos = item.Pos.ToTModel();
                         list.Add(entity);
                     }

@@ -55,7 +55,7 @@ namespace WebApiLib.Clients
             var client = new BaseDataClient(webApiUrl, null,"api");
             bool bFirst = true;
             int nDay = -1;
-            Bll bll = new Bll();
+            
 
             while (true)
             {
@@ -74,6 +74,7 @@ namespace WebApiLib.Clients
                     break;
                 }
 
+                Bll bll = Bll.Instance();
                 List<DbModel.Location.Work.InspectionTrack> trackList = bll.InspectionTracks.ToList();
                 //List<InspectionTrackHistory> send2 = bll.InspectionTrackHistorys.ToList();
                 if (trackList == null || trackList.Count() == 0)
@@ -100,8 +101,8 @@ namespace WebApiLib.Clients
             List<DbModel.Location.Work.InspectionTrack> Delete = new List<DbModel.Location.Work.InspectionTrack>();
             List<DbModel.LocationHistory.Work.InspectionTrackHistory> HAdd = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
 
-            long lBegin = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtBegin) / 1000;
-            long lEnd = Location.TModel.Tools.TimeConvert.DateTimeToTimeStamp(dtEnd) / 1000;
+            long lBegin = Location.TModel.Tools.TimeConvert.ToStamp(dtBegin) / 1000;
+            long lEnd = Location.TModel.Tools.TimeConvert.ToStamp(dtEnd) / 1000;
 
             var recv = client.Getinspectionlist(lBegin, lEnd, true);
             if (recv == null)
@@ -109,7 +110,7 @@ namespace WebApiLib.Clients
                 return false;
             }
 
-            Bll bll = new Bll(false, false, true, false);//第三参数要设置为true
+            Bll bll = Bll.NewBllNoRelation();//第三参数要设置为true
             List<DbModel.Location.Work.InspectionTrack> itList = bll.InspectionTracks.ToList();
             if (itList == null)
             {
@@ -137,12 +138,12 @@ namespace WebApiLib.Clients
                         now.Code = item.code;
                         now.Name = item.name;
                         now.CreateTime = (item.createTime + nEightHourSecond) * 1000;
-                        now.dtCreateTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(now.CreateTime);
+                        now.dtCreateTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.CreateTime);
                         now.State = item.state;
                         now.StartTime = (item.startTime + nEightHourSecond) * 1000;
-                        now.dtStartTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(now.StartTime);
+                        now.dtStartTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.StartTime);
                         now.EndTime = (item.endTime + nEightHourSecond) * 1000;
-                        now.dtEndTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(now.EndTime);
+                        now.dtEndTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.EndTime);
                         Add.Add(now);
                     }
                     else
@@ -166,12 +167,12 @@ namespace WebApiLib.Clients
                         history.Code = item.code;
                         history.Name = item.name;
                         history.CreateTime = (item.createTime + nEightHourSecond) * 1000;
-                        history.dtCreateTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(history.CreateTime);
+                        history.dtCreateTime = Location.TModel.Tools.TimeConvert.ToDateTime(history.CreateTime);
                         history.State = item.state;
                         history.StartTime = (item.startTime + nEightHourSecond) * 1000;
-                        history.dtStartTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(history.StartTime);
+                        history.dtStartTime = Location.TModel.Tools.TimeConvert.ToDateTime(history.StartTime);
                         history.EndTime = (item.endTime + nEightHourSecond) * 1000;
-                        history.dtEndTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime(history.EndTime);
+                        history.dtEndTime = Location.TModel.Tools.TimeConvert.ToDateTime(history.EndTime);
 
                         HAdd.Add(history);
                     }
@@ -383,7 +384,7 @@ namespace WebApiLib.Clients
                             if (item2.checkTime != null)
                             {
                                 now.CheckTime = (item2.checkTime + nEightHourSecond) * 1000;
-                                now.dtCheckTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime((long)now.CheckTime);
+                                now.dtCheckTime = Location.TModel.Tools.TimeConvert.ToDateTime((long)now.CheckTime);
                             }
                             now.CheckId = item2.checkId;
                             now.CheckResult = item2.checkResult;
@@ -394,7 +395,7 @@ namespace WebApiLib.Clients
                             if (item2.checkTime != null)
                             {
                                 now.CheckTime = (item2.checkTime + nEightHourSecond) * 1000;
-                                now.dtCheckTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime((long)now.CheckTime);
+                                now.dtCheckTime = Location.TModel.Tools.TimeConvert.ToDateTime((long)now.CheckTime);
                             }
 
                             now.CheckResult = item2.checkResult;
@@ -447,7 +448,7 @@ namespace WebApiLib.Clients
                             if (item2.checkTime != null)
                             {
                                 history.CheckTime = (item2.checkTime + nEightHourSecond) * 1000;
-                                history.dtCheckTime = Location.TModel.Tools.TimeConvert.TimeStampToDateTime((long)history.CheckTime);
+                                history.dtCheckTime = Location.TModel.Tools.TimeConvert.ToDateTime((long)history.CheckTime);
                             }
                             history.CheckId = item2.checkId;
                             history.CheckResult = item2.checkResult;

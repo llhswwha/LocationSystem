@@ -71,7 +71,7 @@ namespace LocationServices.Converters
             item2.X = item1.X;
             item2.Y = item1.Y;
             item2.Z = item1.Z;
-            item2.DateTime = TimeConvert.TimeStampToDateTime(item1.Time);
+            item2.DateTime = TimeConvert.ToDateTime(item1.Time);
             item2.DateTimeStamp = item1.Time;
             item2.Power = item1.Power;
             item2.Number = item1.Number;

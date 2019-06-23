@@ -3,6 +3,7 @@ window.onload = function () {
     $.ajax({
         type: "get",
         url: "/Arg/GetLoginInfo",//获取登陆信息 加到链接中
+        //这里用其他平台集成的话要改成http://172.16.100.26/Arg/GetLoginInfo
         //data: 'locations',
         contentType: "text/html; charset=utf-8",
         //dataType: "json",
@@ -15,7 +16,7 @@ window.onload = function () {
                 //连接字段
                 var newStr = location.concat(data);
                 $("#openExe").attr("href", newStr);
-                //最终页面上的内容是 <a id="openExe" href="LocationSystem:192.168.1.16|8733|admin|admin">启动</a>
+                //最终页面上的内容是 <a id="openExe" href="LocationSystem:192.168.1.16|8733|Admin|Admin@123456">启动</a>
             });
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -25,6 +26,7 @@ window.onload = function () {
     $.ajax({
         type: "get",
         url: "/Arg/GetLoginInfo_Guest",//获取登陆信息 加到链接中
+        //这里用其他平台集成的话要改成http://172.16.100.26/Arg/GetLoginInfo_Guest
         //data: 'locations',
         contentType: "text/html; charset=utf-8",
         //dataType: "json",
@@ -37,7 +39,7 @@ window.onload = function () {
                 //连接字段
                 var newStr = location.concat(data);
                 $("#openExe_guest").attr("href", newStr);
-                //最终页面上的内容是 <a id="openExe" href="LocationSystem:192.168.1.16|8733|admin|admin">启动</a>
+                //最终页面上的内容是 <a id="openExe" href="LocationSystem:192.168.1.16|8733|Quest|Quest@123">启动</a>
             });
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

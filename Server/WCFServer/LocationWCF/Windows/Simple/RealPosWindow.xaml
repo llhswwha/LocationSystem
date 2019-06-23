@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows"
         mc:Ignorable="d"
-        Title="RealPosWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
-    <Grid>
-        <DataGrid Name="DataGrid1"></DataGrid>
-    </Grid>
+        Title="RealPosWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closed="RealPosWindow_OnClosed">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_OnClick"></MenuItem>
+            <MenuItem Header="原地踏步" Name="MenuRefreshOnTheSpot" Click="MenuRefreshOnTheSpot_OnClick"></MenuItem>
+            <MenuItem Header="停止踏步" Name="MenuStopSimulate" Click="MenuStopSimulate_OnClick"></MenuItem>
+        </Menu>
+        <DataGrid Name="DataGrid1">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="待机" Name="MenuSetWait" Click="MenuSetWait_OnClick"></MenuItem>
+                    <MenuItem Header="正常" Name="MenuSetNormal" Click="MenuSetNormal_OnClick"></MenuItem>
+                    <MenuItem Header="离线" Name="MenuSetOffline" Click="MenuSetOffline_OnClick"></MenuItem>
+                    <MenuItem Header="低电" Name="MenuSetPowerAlarm" Click="MenuSetPowerAlarm_OnClick"></MenuItem>
+                </ContextMenu>
+               
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </DockPanel>
 </Window>

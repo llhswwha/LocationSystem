@@ -98,7 +98,7 @@ namespace DbModel.Location.Alarm
             set
             {
                 _alarmTime = value;
-                AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(value);
+                AlarmTimeStamp = TimeConvert.ToStamp(value);
             }
         }
 
@@ -148,7 +148,7 @@ namespace DbModel.Location.Alarm
             history.AlarmTime = this.AlarmTime;
             history.AlarmTimeStamp = this.AlarmTimeStamp;
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

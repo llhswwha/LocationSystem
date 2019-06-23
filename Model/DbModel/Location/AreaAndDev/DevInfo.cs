@@ -289,8 +289,8 @@ namespace DbModel.Location.AreaAndDev
             CreateTime = DateTime.Now;
             ModifyTime = DateTime.Now;
 
-            CreateTimeStamp = TimeConvert.DateTimeToTimeStamp(CreateTime);
-            ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(ModifyTime);
+            CreateTimeStamp = TimeConvert.ToStamp(CreateTime);
+            ModifyTimeStamp = TimeConvert.ToStamp(ModifyTime);
         }
 
         public DevInfo Clone()
@@ -335,7 +335,7 @@ namespace DbModel.Location.AreaAndDev
             history.ScaleY = this.ScaleY;
             history.ScaleZ = this.ScaleZ;
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

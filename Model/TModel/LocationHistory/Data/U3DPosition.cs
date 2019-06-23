@@ -94,7 +94,7 @@ namespace Location.TModel.LocationHistory.Data
                 Y = double.Parse(parts[2]);
                 Z = double.Parse(parts[3]);
                 Time = long.Parse(parts[4]);
-                DateTime = TimeConvert.TimeStampToDateTime(Time / 1000);
+                DateTime = TimeConvert.ToDateTime(Time / 1000);
                 
                 if (length > 4)
                     Power = int.Parse(parts[5]);

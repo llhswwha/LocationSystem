@@ -59,7 +59,7 @@ namespace DbModel.Location.AreaAndDev
             history.State = this.State;
            
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

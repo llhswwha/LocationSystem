@@ -303,8 +303,8 @@ namespace DbModel.LocationHistory.Data
         public void SetTime()
         {
             DateTime now = DateTime.Now;
-            DateTimeStamp = TimeConvert.DateTimeToTimeStamp(now);
-            DateTime now2 = TimeConvert.TimeStampToDateTime(DateTimeStamp);
+            DateTimeStamp = TimeConvert.ToStamp(now);
+            DateTime now2 = TimeConvert.ToDateTime(DateTimeStamp);
         }
 
         public void AddArchor(string archor)
@@ -362,13 +362,13 @@ namespace DbModel.LocationHistory.Data
 
                 Y = parts[3].ToFloat();//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = parts[4].ToLong();
-                DateTime = TimeConvert.TimeStampToDateTime(DateTimeStamp);
+                DateTime = TimeConvert.ToDateTime(DateTimeStamp);
                 //TimeSpan time1 = DateTime.Now - DateTime;
                 //long DateTimeStamp2 = TimeConvert.DateTimeToTimeStamp(DateTime);
                 if (length > 5)
                 {
                     Power = parts[5].ToInt();
-                    if (Power >= 400)
+                    if (Power >= AppSetting.LowPowerFlag)
                     {
                         PowerState = 0;
                     }

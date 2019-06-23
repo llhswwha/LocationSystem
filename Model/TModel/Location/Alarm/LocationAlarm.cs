@@ -133,7 +133,7 @@ namespace Location.TModel.Location.Alarm
         public LocationAlarm()
         {
             CreateTime = DateTime.Now;
-            AlarmTimeStamp = TimeConvert.DateTimeToTimeStamp(CreateTime);
+            AlarmTimeStamp = TimeConvert.ToStamp(CreateTime);
         }
 
         //public LocationAlarm SetPerson(LocationCardToPersonnel p)

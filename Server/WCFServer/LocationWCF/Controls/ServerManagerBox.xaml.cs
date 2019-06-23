@@ -116,6 +116,7 @@ namespace LocationServer.Controls
                 StopLocationAlarmService();
                 StopGetInspectionTrack();
                 StopExtremeVisionListener();
+                SisDataSaveClient.Stop();
             }
             catch (Exception ex)
             {
@@ -190,7 +191,6 @@ namespace LocationServer.Controls
             try
             {
                 WriteLog("启动服务");
-
                 StartLocationService(host, port);
                 StartLocationServiceApi(host, port);
                 StartReceiveAlarm();
@@ -201,6 +201,12 @@ namespace LocationServer.Controls
 
                 string port2 = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
                 StartExtremeVisionListener(host, port2);//端口要不同
+
+                Worker.Run(() =>
+                {
+                    var count = Bll.Instance().Areas.DbSet.Count();//用于做数据迁移用，查询一下
+                },null);
+                
             }
             catch (Exception ex)
             {

@@ -15,6 +15,8 @@ namespace DbModel
 
         public static double PositionMoveStateWaitTime { get; set; }
 
+        public static double PositionMoveStateOfflineTime { get; set; }
+
         /// <summary>
         /// 园区节点名称
         /// </summary>
@@ -24,5 +26,9 @@ namespace DbModel
         /// 基础平台对接ApiURL
         /// </summary>
         public static string DatacaseWebApiUrl { get; set; }
+
+        public static int SisTagPackageCount = 15;
+
+        public static int LowPowerFlag = 370;
     }
 }

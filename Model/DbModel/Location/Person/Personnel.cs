@@ -158,10 +158,10 @@ namespace DbModel.Location.Person
         public Personnel()
         {
             BirthDay = DateTime.Now;
-            BirthTimeStamp = TimeConvert.DateTimeToTimeStamp(BirthDay);
+            BirthTimeStamp = TimeConvert.ToStamp(BirthDay);
             Enabled = true;
             Sex = Sexs.男;
-            Pst = "检修";
+            //Pst = "检修";
         }
 
         public Personnel(string name,Department parent,string num):this()
@@ -196,7 +196,7 @@ namespace DbModel.Location.Person
             history.ParentId = this.ParentId;
             
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }

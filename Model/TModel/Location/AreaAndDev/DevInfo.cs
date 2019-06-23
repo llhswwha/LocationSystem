@@ -275,8 +275,8 @@ namespace Location.TModel.Location.AreaAndDev
             CreateTime = DateTime.Now;
             ModifyTime = DateTime.Now;
 
-            CreateTimeStamp = TimeConvert.DateTimeToTimeStamp(CreateTime);
-            ModifyTimeStamp = TimeConvert.DateTimeToTimeStamp(ModifyTime);
+            CreateTimeStamp = TimeConvert.ToStamp(CreateTime);
+            ModifyTimeStamp = TimeConvert.ToStamp(ModifyTime);
         }
 
         public DevInfo Clone()

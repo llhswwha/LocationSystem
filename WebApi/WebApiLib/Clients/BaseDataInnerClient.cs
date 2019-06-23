@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TModel.BaseData;
 
 namespace WebApiLib.Clients
 {
@@ -45,10 +46,10 @@ namespace WebApiLib.Clients
                 Log.Error(LogTags.BaseData, "BaseDataInnerClient.GetEntityList:"+url+"\n"+Message);
                 recv= new BaseTran<T>();
             }
-            if (recv.data == null)
-            {
-                recv.data = new List<T>();
-            }
+            //if (recv.data == null)
+            //{
+            //    recv.data = new List<T>();
+            //}
             return recv;
         }
 
@@ -404,13 +405,20 @@ namespace WebApiLib.Clients
 
             BaseTran<sis> recv = new BaseTran<sis>();
             string url = BaseUri + "rt/sis/" + strTags;
+            int length=url.Length;//max:2083
             recv = GetEntityList<sis>(url);
 
-            if (recv.data == null)
-            {
-                recv.data = new List<sis>();
-            }
+            //if (recv.data == null)
+            //{
+            //    recv.data = new List<sis>();
+            //}
             return recv.data;
+        }
+
+        public string GetSisUrl(string tags)
+        {
+            string url = BaseUri + "rt/sis/" + tags;
+            return url;
         }
 
         /// <summary>

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DbModel.Location.AreaAndDev;
 using TModel.Tools;
 
 namespace Location.Model.InitInfos
 {
+    [Serializable]
     public class BoundInfo
     {
         /// <summary>
@@ -42,6 +44,18 @@ namespace Location.Model.InitInfos
 
         //[XmlElement]
         public List<PointInfo> Points { get; set; }
+
+        [XmlAttribute]
+        public string ZeroX { get; set; }
+
+        [XmlAttribute]
+        public string ZeroY { get; set; }
+
+        [XmlAttribute]
+        public string OffsetX { get; set; }
+
+        [XmlAttribute]
+        public string OffsetY { get; set; }
 
         public BoundInfo()
         {

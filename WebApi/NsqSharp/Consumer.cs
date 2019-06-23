@@ -585,6 +585,11 @@ namespace NsqSharp
             return addr;
         }
 
+        /// <summary>
+        /// 等待时间 出错后 如连接不上
+        /// </summary>
+        public Action<Exception> AfterQueryLookupdException;
+
         private void queryLookupd()
         {
             string endpoint = nextLookupdEndpoint();
@@ -632,6 +637,10 @@ namespace NsqSharp
                 }
 
                 log(LogLevel.Error, string.Format("error querying nsqlookupd ({0}) - {1}", endpoint, ex));
+                if (AfterQueryLookupdException != null)
+                {
+                    AfterQueryLookupdException(ex);
+                }
                 return;
             }
 

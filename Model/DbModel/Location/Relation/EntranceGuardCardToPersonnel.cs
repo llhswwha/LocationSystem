@@ -65,7 +65,7 @@ namespace DbModel.Location.Relation
             history.EntranceGuardCardId = this.EntranceGuardCardId;
             history.PersonnelId = this.PersonnelId;
             history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.DateTimeToTimeStamp(history.HistoryTime);
+            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 
             return history;
         }
