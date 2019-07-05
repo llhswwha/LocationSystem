@@ -106,6 +106,12 @@ namespace LocationServer.Controls
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
+
+            if (AppContext.ParkName == "宝刚园区")
+            {
+                pow = 1;
+            }
+
             List<DevInfo> devs = null;
             worker.ReportProgress(0);
             var bll = Bll.NewBllNoRelation();
@@ -185,8 +191,8 @@ namespace LocationServer.Controls
                                 archorSetting.RelativeHeight = archor.Y;
                                 archorSetting.AbsoluteHeight = (archor.Y + building.GetFloorHeight(floor.Id));
 
-                                var minX = floor.InitBound.MinX + building.InitBound.MinX;
-                                var minY = floor.InitBound.MinY + building.InitBound.MinY;
+                                var minX = floor.InitBound.GetZeroX() + building.InitBound.GetZeroX();
+                                var minY = floor.InitBound.GetZeroY() + building.InitBound.GetZeroY();
 
                                 archorSetting.AbsoluteX = (x + minX).ToString("F3");
                                 archorSetting.AbsoluteY = (y + minY).ToString("F3");
@@ -195,8 +201,8 @@ namespace LocationServer.Controls
                                 if (room != null)
                                 {
                                     archorSetting.RelativeMode = RelativeMode.相对机房;
-                                    var roomX = room.InitBound.MinX;
-                                    var roomY = room.InitBound.MinY;
+                                    var roomX = room.InitBound.GetZeroX();
+                                    var roomY = room.InitBound.GetZeroY();
                                     archorSetting.SetPath(room, floor, building);
                                     archorSetting.SetZero(roomX, roomY);
                                     archorSetting.SetRelative((x - roomX), (y - roomY));
@@ -226,7 +232,7 @@ namespace LocationServer.Controls
                     if (archorSetting != null)
                     {
 
-                        archorSetting.SetExtensionInfo(LocationContext.OffsetX, LocationContext.OffsetY);
+                        archorSetting.SetExtensionInfo(LocationContext.OffsetX, LocationContext.OffsetY,pow);
 
                         if (ShowAll)
                         {
@@ -235,7 +241,12 @@ namespace LocationServer.Controls
                         }
                         else
                         {
-                            if (archorSetting.RelativeHeight != 2)//过滤掉2m的基站 未测量位置坐标的
+                            int defaultHeight = 2;
+                            if (AppContext.ParkName == "宝刚园区")
+                            {
+                                defaultHeight = 200;
+                            }
+                            if (archorSetting.RelativeHeight != defaultHeight)//过滤掉2m的基站 未测量位置坐标的
                                 list.Add(archorSetting);
                         }
 
@@ -264,11 +275,10 @@ namespace LocationServer.Controls
             }
         }
 
+        public int pow = 100;
         private void MenuSave2_OnClick(object sender, RoutedEventArgs e)
         {
             var bll = AppContext.GetLocationBll();
-
-
 
             var list0 = bll.bus_anchors.ToList();
             var list1 = new List<bus_anchor>();
@@ -285,9 +295,9 @@ namespace LocationServer.Controls
                 {
                     list2.Add(item);
                 }
-                item.anchor_x = (int)(setting.AbsoluteX.ToDouble() * 100);
-                item.anchor_y = (int)(setting.AbsoluteY.ToDouble() * 100);
-                item.anchor_z = (int)(setting.AbsoluteHeight * 100);
+                item.anchor_x = (int)(setting.AbsoluteX.ToDouble() * pow);
+                item.anchor_y = (int)(setting.AbsoluteY.ToDouble() * pow);
+                item.anchor_z = (int)(setting.AbsoluteHeight * pow);
             }
 
             if (bll.bus_anchors.AddRange(list1) && bll.bus_anchors.EditRange(list2))

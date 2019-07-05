@@ -99,10 +99,6 @@
       <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
       <Name>IModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Model\Location\Location.Model.csproj">
-      <Project>{18d3e2c1-9a5b-4558-b8d2-894ddcf77370}</Project>
-      <Name>Location.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

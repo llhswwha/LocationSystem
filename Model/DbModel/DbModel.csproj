@@ -71,6 +71,7 @@
     <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\PatrolPointHistory.cs" />
     <Compile Include="LocationHistory\Work\PatrolPointItemHistory.cs" />
+    <Compile Include="Location\Alarm\CameraAlarmJson.cs" />
     <Compile Include="Location\AreaAndDev\DevMonitorNode.cs" />
     <Compile Include="Location\AreaAndDev\Dev_CameraInfo.cs" />
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />

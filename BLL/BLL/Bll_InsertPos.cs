@@ -452,6 +452,5 @@ namespace BLL
         }
 
         public string ErrorMessage { get; set; }
-        
     }
 }

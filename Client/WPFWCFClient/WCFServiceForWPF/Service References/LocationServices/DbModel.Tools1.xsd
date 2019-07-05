@@ -201,6 +201,7 @@
       <xs:enumeration value="正常" />
       <xs:enumeration value="离线" />
       <xs:enumeration value="报警" />
+      <xs:enumeration value="未知" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Abutment_RunStatus" nillable="true" type="tns:Abutment_RunStatus" />

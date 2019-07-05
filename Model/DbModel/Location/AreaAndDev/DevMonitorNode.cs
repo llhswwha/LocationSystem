@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DbModel.Location.AreaAndDev
 {
@@ -19,55 +20,66 @@ namespace DbModel.Location.AreaAndDev
     {
         [DataMember]
         [Display(Name = "Id")]
+        [XmlAttribute]
         public int Id { get; set; }
 
         [DataMember]
         [Display(Name = "标签名")]
         [MaxLength(128)]
+        [XmlAttribute]
         public string TagName { get; set; }
 
         [DataMember]
         [Display(Name = "数据库标签名")]
         [MaxLength(128)]
+        [XmlAttribute]
         public string DbTagName { get; set; }
 
         [DataMember]
         [Display(Name = "描述")]
         [MaxLength(128)]
+        [XmlAttribute]
         public string Describe { get; set; }
 
         [DataMember]
         [Display(Name = "值")]
         [MaxLength(32)]
+        [XmlAttribute]
         public string Value { get; set; }
 
         [DataMember]
         [Display(Name = "单位")]
         [MaxLength(16)]
+        [XmlAttribute]
         public string Unit { get; set; }
 
         [DataMember]
         [Display(Name = "数据类型")]
         [MaxLength(16)]
+        [XmlAttribute]
         public string DataType { get; set; }
 
         [DataMember]
         [Display(Name = "KKS")]
         [MaxLength(128)]
+        [XmlAttribute]
         public string KKS { get; set; }
 
         [DataMember]
         [Display(Name = "KKS")]
         [MaxLength(128)]
+        [XmlAttribute]
         public string ParentKKS { get; set; }
 
         [DataMember]
         [Display(Name = "ParseResult")]
-        //[MaxLength(10)]
-        public int? ParseResult { get; set; }
+        [MaxLength(10)]
+        [XmlAttribute]
+        public string ParseResult { get; set; }
 
         [DataMember]
         [Display(Name = "时间戳")]
+        [XmlAttribute]
         public long Time { get; set; }
 
         [NotMapped]
@@ -89,6 +101,21 @@ namespace DbModel.Location.AreaAndDev
             DataType = "";
             KKS = "";
             ParentKKS = "";
+            ParseResult = "";
+            Time = 0;
+        }
+
+        public void SetNull()
+        {
+            TagName = null;
+            DbTagName = null;
+            Describe = null;
+            Value = null;
+            Unit = null;
+            DataType = null;
+            KKS = null;
+            ParentKKS = null;
+            ParseResult = null;
             Time = 0;
         }
 
@@ -114,6 +141,7 @@ namespace DbModel.Location.AreaAndDev
         }
     }
 
+    [XmlRoot("DevMonitorNodeList")]
     public class DevMonitorNodeList : List<DevMonitorNode>
     {
 

@@ -253,7 +253,7 @@ namespace BLL.Tools
                         Console.WriteLine("Error: EditDevinfo Error");
                     }
                     Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, infoTemp);
-                    cameraBackup.RtspUrl = cameraDev.RtspURL;
+                    if(!string.IsNullOrEmpty(cameraDev.RtspURL))cameraBackup.RtspUrl = cameraDev.RtspURL;
                     Dev_CameraInfo cameraDatabase = bll.Dev_CameraInfos.Find(cameraT => cameraT.Local_DevID == infoTemp.Local_DevID);
                     if (cameraDatabase == null)
                     {
@@ -290,6 +290,7 @@ namespace BLL.Tools
             database.DevInfoId = backup.DevInfoId;
             database.ParentId = backup.ParentId;
             database.Local_DevID = backup.Local_DevID;
+            if (!string.IsNullOrEmpty(backup.RtspUrl)) database.RtspUrl = backup.RtspUrl;
         }
         /// <summary>
         /// 获取摄像头数据
@@ -641,7 +642,7 @@ namespace BLL.Tools
             devmonitor1.DataType = dr[4].ToString();
             devmonitor1.KKS = dr[5].ToString();
             devmonitor1.ParentKKS = dr[6].ToString();
-            devmonitor1.ParseResult = dr[7].ToString().ToInt();
+            devmonitor1.ParseResult = dr[7].ToString();
             return devmonitor1;
         }
 

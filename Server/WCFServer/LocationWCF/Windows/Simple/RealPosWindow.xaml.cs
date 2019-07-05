@@ -44,17 +44,29 @@ namespace LocationServer.Windows
             if (timer == null)
             {
                 timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromMilliseconds(300);
+                timer.Interval = TimeSpan.FromMilliseconds(300);//300毫秒
                 timer.Tick += Timer_Tick;
             }
 
             timer.Start();
         }
 
+        private int simulateType = 0;
         private void Timer_Tick(object sender, EventArgs e)
         {
             //SimulateOnTheSpot();
-            Worker.Run(() => { SimulateOnTheSpot(); }, () => { RefreshData();});
+            Worker.Run(() =>
+            {
+                if (simulateType == 0)
+                {
+                    SimulateOnTheSpot();
+                }
+                else
+                {
+                    MoveRandom();
+                }
+                
+            }, () => { RefreshData();});
         }
 
         private void SimulateOnTheSpot()
@@ -68,6 +80,35 @@ namespace LocationServer.Windows
                 }
                 position.DateTime = DateTime.Now;
                 position.Time = DateTime.Now.ToStamp();
+                //service.Put(position);
+            }
+
+            service.PutRange(posList);
+        }
+
+        private Random r = null;
+
+        private void MoveRandom()
+        {
+            if (r == null)
+            {
+                r = new Random((int)DateTime.Now.Ticks);
+            }
+
+            var speed = r.Next(4);
+            PosService service = new PosService();
+            foreach (TagPosition position in posList)
+            {
+                if (offlinePos.Contains(position.Tag))
+                {
+                    continue;//离线不更新
+                }
+                position.DateTime = DateTime.Now;
+                position.Time = DateTime.Now.ToStamp();
+
+                position.X += r.Next(speed);
+                position.Y += (float)r.NextDouble();
+                position.Z += r.Next(speed);
                 //service.Put(position);
             }
 
@@ -147,6 +188,11 @@ namespace LocationServer.Windows
             TagPosition pos = DataGrid1.SelectedItem as TagPosition;
             if (pos == null) return;
             offlinePos.Remove(pos.Tag);
+        }
+
+        private void MenuRandomMove_OnClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

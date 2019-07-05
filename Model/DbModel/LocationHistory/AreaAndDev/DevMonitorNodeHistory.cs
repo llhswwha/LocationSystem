@@ -58,8 +58,8 @@ namespace DbModel.LocationHistory.AreaAndDev
 
         [DataMember]
         [Display(Name = "ParseResult")]
-        //[MaxLength(10)]
-        public int? ParseResult { get; set; }
+        [MaxLength(10)]
+        public string ParseResult { get; set; }
 
         [DataMember]
         [Display(Name = "时间戳")]

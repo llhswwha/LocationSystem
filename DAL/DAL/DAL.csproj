@@ -80,6 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataDb.cs" />
+    <Compile Include="BaseDataDbMigrations\201906250202426_InitialCreate.cs" />
+    <Compile Include="BaseDataDbMigrations\201906250202426_InitialCreate.Designer.cs">
+      <DependentUpon>201906250202426_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDataDbMigrations\Configuration.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="EngineDb.cs" />
     <Compile Include="LocationDb.cs" />
@@ -117,10 +122,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BaseDataDbMigrations\201906250202426_InitialCreate.resx">
+      <DependentUpon>201906250202426_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocationDbMigrations\201812190614078_InitInsert.resx">
       <DependentUpon>201812190614078_InitInsert.cs</DependentUpon>
     </EmbeddedResource>

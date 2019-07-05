@@ -265,9 +265,9 @@ namespace LocationServer.Windows
         {
             if(BtnSendDevAlarms.Content.ToString()== "逐个发送告警")
             {
-                BtnSendDevAlarms.Content = "逐个发送告警";
+                BtnSendDevAlarms.Content = "停止发送告警";
                 int interval = TxtSendDevAlarmInterval.Text.ToInt();
-                int onceCount = TxtSendDevAlarmInterval.Text.ToInt();
+                int onceCount = TxtOnceSendCount.Text.ToInt();
 
                 var currentDevAlarms = DataGridDeviceAlarms.ItemsSource as List<DeviceAlarm>;
                 sendDevAlarmsWorker=Worker.Run(() =>
@@ -302,7 +302,7 @@ namespace LocationServer.Windows
             {
                 BtnSendDevSimulateAlarms.Content = "逐个发送告警";
                 int interval = TxtSendDevAlarmInterval.Text.ToInt();
-                int onceCount = TxtSendDevAlarmInterval.Text.ToInt();
+                int onceCount = TxtOnceSendCount.Text.ToInt();
 
                 var devList = DeviceListBox1.DeviceList;
                 sendSimulateDevAlarmsWorker = Worker.Run(() =>

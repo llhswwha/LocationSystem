@@ -103,6 +103,10 @@ namespace LocationServer.Windows
                 _building.Children = bll.Areas.Where(i => i.ParentId == _building.Id);
             }
             floorHeight = _floor.InitBound.MinZ;
+            if (AppContext.ParkName == "宝刚园区")
+            {
+                floorHeight *= 100;
+            }
             TbFloorHeight.Text = floorHeight.ToString("F3");
 
             //var building = areas.Find(j => j.Id == floor.ParentId);
@@ -117,8 +121,8 @@ namespace LocationServer.Windows
                 floorBound.SetMinMaxXY();
                 bll.Bounds.Edit(floorBound);
             }
-            var minX = floorBound.MinX + _building.InitBound.MinX;
-            var minY = floorBound.MinY + _building.InitBound.MinY;
+            var minX = floorBound.GetZeroX() + _building.InitBound.GetZeroX();
+            var minY = floorBound.GetZeroY() + _building.InitBound.GetZeroY();
 
             _item.AbsoluteX = (x + minX).ToString("F3");
             _item.AbsoluteY = (z + minY).ToString("F3");
@@ -132,6 +136,10 @@ namespace LocationServer.Windows
             TbCode.Text = _archor.GetCode();
             IPCode1.Text = _archor.Ip;
             double height = _item.RelativeHeight;
+            if (AppContext.ParkName == "宝刚园区" && height==2)
+            {
+                height = 200;
+            }
             //if (height == 2)
             //{
             //    height = 2.6;//现场实际一般高度是2.6左右
@@ -143,8 +151,8 @@ namespace LocationServer.Windows
             TbBuildingName.Text = _building.Name;
             TbFloorName.Text = _floor.Name;
 
-            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + x;
-            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + z;
+            PcAbsolute.X = _building.InitBound.GetZeroX() + _floor.InitBound.GetZeroX() + x;
+            PcAbsolute.Y = _building.InitBound.GetZeroY() + _floor.InitBound.GetZeroY() + z;
             ArchorSetting setting = null;
             if (_room != null)
             {
@@ -164,7 +172,7 @@ namespace LocationServer.Windows
                     }
                     else
                     {
-                        SetZeroPoint(_room.InitBound.MinX, _room.InitBound.MinY);
+                        SetZeroPoint(_room.InitBound.GetZeroX(), _room.InitBound.GetZeroY());
                     }
                 }
             }
@@ -227,8 +235,8 @@ namespace LocationServer.Windows
 
         private void PcArchor_ValueChanged(WPFClientControlLib.PointControl obj)
         {
-            PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
-            PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+            PcAbsolute.X = _building.InitBound.GetZeroX() + _floor.InitBound.GetZeroX() + obj.X;
+            PcAbsolute.Y = _building.InitBound.GetZeroY() + _floor.InitBound.GetZeroY() + obj.Y;
 
             PcRelative.ValueChanged -= PcRelative_ValueChanged;
             PcRelative.X = obj.X - PcZero.X;
@@ -272,16 +280,16 @@ namespace LocationServer.Windows
             GetDevRoom();
             //if (_room != null)
             {
-                PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + PcZero.X + obj.X;
-                PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + PcZero.Y + obj.Y;
+                PcAbsolute.X = _building.InitBound.GetZeroX() + _floor.InitBound.GetZeroX() + PcZero.X + obj.X;
+                PcAbsolute.Y = _building.InitBound.GetZeroY() + _floor.InitBound.GetZeroY() + PcZero.Y + obj.Y;
 
                 PcArchor.X = PcZero.X + obj.X;
                 PcArchor.Y = PcZero.Y + obj.Y;
             }
             //else
             //{
-            //    PcAbsolute.X = _building.InitBound.MinX + _floor.InitBound.MinX + obj.X;
-            //    PcAbsolute.Y = _building.InitBound.MinY + _floor.InitBound.MinY + obj.Y;
+            //    PcAbsolute.X = _building.InitBound.GetZeroX() + _floor.InitBound.GetZeroX() + obj.X;
+            //    PcAbsolute.Y = _building.InitBound.GetZeroY() + _floor.InitBound.GetZeroY() + obj.Y;
 
             //    PcArchor.X = PcZero.X + obj.X;
             //    PcArchor.Y = PcZero.Y + obj.Y;
@@ -519,7 +527,7 @@ namespace LocationServer.Windows
         {
             if (ShowPointEvent != null)
             {
-                ShowPointEvent(PcZero.X+_floor.InitBound.MinX, PcZero.Y+ _floor.InitBound.MinY);
+                ShowPointEvent(PcZero.X+_floor.InitBound.GetZeroX(), PcZero.Y+ _floor.InitBound.GetZeroY());
             }
         }
 

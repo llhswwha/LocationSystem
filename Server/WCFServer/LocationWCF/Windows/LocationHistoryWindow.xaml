@@ -1,0 +1,61 @@
+﻿<Window x:Class="LocationServer.Windows.LocationHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="LocationHistoryWindow" Height="450" Width="1200">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <!--<Button Name="BtnGetAll" Click="BtnGetAll_OnClick" Content="获取全部"></Button>-->
+            <Button Name="BtnGetAllActiveDay" Click="BtnGetAllActiveDay_OnClick" Content="获取统计数据"></Button>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>卡号</Label>
+            <ComboBox Name="CbCardList" Width="100"></ComboBox>
+            <Label>人名</Label>
+            <ComboBox Name="CbPersonList" Width="100"></ComboBox>
+            <Label>区域</Label>
+            <ComboBox Name="CbAreaList" Width="100"></ComboBox>
+            <Label>日期</Label>
+            <DatePicker Name="DpDay"></DatePicker>
+            <Label>开始时间</Label>
+            <xctk:TimePicker Width="100" Name="TpStart"></xctk:TimePicker>
+            <Label>结束时间</Label>
+            <xctk:TimePicker Width="100" Name="TpEnd"></xctk:TimePicker>
+            <Button Name="BtnSearch" Click="BtnSearch_OnClick" Content="查询"></Button>
+        </StackPanel>
+        <TabControl>
+            <TabItem Header="时间统计">
+                <DockPanel>
+                    <DataGrid Name="DataGridStatisticDay" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDay_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticDayPerson" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPerson_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticDayPersonTime" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPersonTime_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridDayPersonPosList"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="人员统计">
+                <DockPanel>
+                    <DataGrid Name="DataGridStatisticPerson" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticPerson_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticPersonDay" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticPersonDay_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticPersonDayHour" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticPersonDayHour_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridPersonDayPosList"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="区域统计">
+                <DockPanel>
+                    <DataGrid Name="DataGridStatisticArea" DockPanel.Dock="Left" Width="450" SelectionChanged="DataGridStatisticArea_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticAreaPerson" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticAreaPerson_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticAreaDayHour" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticAreaDayHour_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridAreaPosList"></DataGrid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="列表">
+                <DataGrid Name="DataGridLocationHistory"></DataGrid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+</Window>

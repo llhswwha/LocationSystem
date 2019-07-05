@@ -11,6 +11,10 @@ using Location.TModel.Tools;
 using LocationServices.Converters;
 using MathNet.Numerics.Interpolation;
 using TModel.Tools;
+using PositionDb = DbModel.LocationHistory.Data.Position;
+using PositionListDb = DbModel.LocationHistory.Data.PositionList;
+using PersonnelDb = DbModel.Location.Person.Personnel;
+using System.Threading;
 
 namespace LocationServices.Locations.Services
 {
@@ -318,5 +322,214 @@ namespace LocationServices.Locations.Services
             long msStamp2 = TimeConvert.ToStamp(time);//秒
             return msStamp2;
         }
+
+        private static List<PositionDb> allPoslist;
+
+        public void GetHistoryPositonThread()
+        {
+            bool bFirst = false;
+            bool bGet = false;
+            int nSleepTime = 1000 * 60;
+
+            while (true)
+            {
+                try
+                {
+                    DateTime dt = DateTime.Now;
+                    int nHour = dt.Hour;
+
+                    if (!bFirst)
+                    {
+                        bFirst = true;
+                        GetAllData();
+                        Thread.Sleep(nSleepTime);
+                        continue;
+                    }
+
+                    if (nHour != 23)
+                    {
+                        bGet = false;
+                        Thread.Sleep(nSleepTime);
+                        continue;
+                    }
+
+                    if (bGet)
+                    {
+                        Thread.Sleep(nSleepTime);
+                        continue;
+                    }
+
+                    GetAllData();
+
+                    bGet = true;
+
+                    Thread.Sleep(nSleepTime);
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    string strError = ex.Message;
+                }
+            }
+        }
+
+        private void GetAllData()
+        {
+            try
+            {
+                Bll bll = Bll.Instance();
+                //bll.history
+                allPoslist = bll.Positions.ToList();
+                var personnels = bll.Personnels.ToDictionary();
+                foreach (var pos in allPoslist)
+                {
+                    var pid = pos.PersonnelID;
+                    if (pid != null && personnels.ContainsKey((int)pid))
+                    {
+                        var p = personnels[(int)pid];
+                        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
+                    }
+                    else
+                    {
+                        pos.PersonnelName = pos.Code;//有些卡对应的人员不存在
+                    }
+
+
+                }
+
+                var areas = bll.Areas.ToDictionary();
+                foreach (var pos in allPoslist)
+                {
+                    var areaId = pos.AreaId;
+                    if (areaId != null && areas.ContainsKey((int)areaId))
+                    {
+                        var area = areas[(int)areaId];
+                        pos.Area = area;
+                        pos.AreaPath = area.GetToBuilding(">");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+            }
+
+            return;
+        }
+
+        /// <summary>
+        /// 获取历史位置信息统计
+        /// </summary>
+        /// <param name="nFlag"></param>
+        /// <param name="strName"></param>
+        /// <param name="strName2"></param>
+        /// <returns></returns>
+        public List<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2)
+        {
+            List<PositionListDb> SendList = null;
+            if (nFlag != 1 && nFlag != 2 && nFlag != 3)
+            {
+                return null;
+            }
+
+            int nFlag2 = 0;
+            int nFlag3 = 0;
+
+            if (nFlag == 1)
+            {
+                nFlag2 = 2;
+                nFlag3 = 4;
+            }
+            else if (nFlag == 2)
+            {
+                nFlag2 = 1;
+                nFlag3 = 4;
+            }
+            else
+            {
+                nFlag2 = 2;
+                nFlag3 = 1;
+            }
+
+            //获取第一层数据
+            SendList = GetDayOperate(nFlag, allPoslist);
+            if (SendList == null)
+            {
+                return null;
+            }
+
+            if (strName == "")
+            {
+                return SendList.ToTModel();
+            }
+
+            //获取第二层数据
+            PositionListDb Result = SendList.Find(p => p.Name == strName);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            SendList = GetDayOperate(nFlag2, Result.Items);
+            if (SendList == null)
+            {
+                return null;
+            }
+
+            if (strName2 == "")
+            {
+                return SendList.ToTModel();
+            }
+
+            //获取第三层数据
+            Result = SendList.Find(p => p.Name == strName2);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            SendList = GetDayOperate(nFlag3, Result.Items);
+            if (SendList == null)
+            {
+                return null;
+            }
+
+            if (strName2 == "")
+            {
+                return SendList.ToTModel();
+            }
+
+            return SendList.ToTModel();
+        }
+
+        public List<PositionListDb> GetDayOperate(int nFlag, List<PositionDb> SourceList)
+        {
+            List<PositionListDb> Send = null;
+            if (SourceList == null)
+            {
+                return Send;
+            }
+
+            switch (nFlag)
+            {
+                case 1:
+                    Send = PositionListDb.GetListByDay(SourceList);
+                    break;
+                case 2:
+                    Send = PositionListDb.GetListByPerson(SourceList);
+                    break;
+                case 3:
+                    Send = PositionListDb.GetListByArea(SourceList);
+                    break;
+                case 4:
+                    Send = PositionListDb.GetListByHour(SourceList);
+                    break;
+                default:
+                    break;
+            }
+
+            return Send;
+        }
+
     }
 }

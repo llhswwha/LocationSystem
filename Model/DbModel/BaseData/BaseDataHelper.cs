@@ -23,10 +23,10 @@ namespace DbModel.BaseData
             item.mobile = person.Mobile;
             item.enabled = person.Enabled;
             if (person.Parent != null)
-            { item.dept_name = person.Parent.Name; }
+            { item.dep_name = person.Parent.Name; }
             else
             {
-                item.dept_name = person.ParentId + "";
+                item.dep_name = person.ParentId + "";
             }
         }
 

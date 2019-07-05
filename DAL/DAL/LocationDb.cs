@@ -3,10 +3,10 @@ using DbModel.Location.Person;
 using DbModel.Location.Authorizations;
 using DbModel.Location.Settings;
 using SQLite.CodeFirst;
-using DAL.LocationDbMigrations;
 using DbModel.Location.AreaAndDev;
 using DbModel.Location.Work;
 using DbModel.Location.Manage;
+using DbModel.Location.Alarm;
 
 namespace DAL
 {
@@ -44,7 +44,7 @@ namespace DAL
                 if (IsCreateDb)
                 {
                     //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());//自动数据迁移
                     //从代码来看，这里面会创建LocationDb对象的，
                 }
                 else
@@ -147,5 +147,6 @@ namespace DAL
         public DbSet<HomePagePicture> HomePagePictures { get; set; }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<CameraAlarmJson> CameraAlarmJsonBll { get; set; }
     }
 }

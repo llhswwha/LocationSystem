@@ -17,11 +17,21 @@
         <TextBox Name="TbLogs" DockPanel.Dock="Bottom" Height="150"></TextBox>
         <TabControl Name="TabControl1">
             <TabItem Header="摄像头">
-                <DataGrid Name="dg_camera">
-                    
-                </DataGrid>
+
+                
+
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Label>数量:</Label>
+                        <Label Name="LbCameraInfoCount">0</Label>
+                    </StackPanel>
+                    <DataGrid Name="dg_camera">
+
+                    </DataGrid>
+                </DockPanel>
             </TabItem>
             <TabItem Header="人员">
+                
                 <DataGrid Name="dg_user"></DataGrid>
             </TabItem>
             <TabItem Header="组织">
@@ -31,7 +41,14 @@
                 <DataGrid Name="dg_zone"></DataGrid>
             </TabItem>
             <TabItem Header="设备">
-                <DataGrid Name="dg_dev"></DataGrid>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Label>数量:</Label>
+                        <Label Name="LbDevCount">0</Label>
+                        <Button Content="显示摄像头" Name="BtnShowCameras" Click="BtnShowCameras_OnClick"></Button>
+                    </StackPanel>
+                    <DataGrid Name="dg_dev"></DataGrid>
+                </DockPanel>
             </TabItem>
             <TabItem Header="门禁卡">
                 <DataGrid Name="dg_card"></DataGrid>

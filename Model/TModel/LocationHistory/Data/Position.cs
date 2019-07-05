@@ -10,7 +10,8 @@ namespace Location.TModel.LocationHistory.Data
     /// <summary>
     /// 位置信息 (历史位置记录）
     /// </summary>
-    [DataContract] [Serializable]
+    [DataContract]
+    [Serializable]
     public class Position
     {
         /// <summary>
@@ -183,5 +184,20 @@ namespace Location.TModel.LocationHistory.Data
 
             return copy;
         }
+    }
+
+
+    [DataContract]
+    [Serializable]
+    public class PositionList
+    {
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public int Count { get; set; }
+
+        //[DataMember]
+        //public List<Position> Items { get; set; }
     }
 }

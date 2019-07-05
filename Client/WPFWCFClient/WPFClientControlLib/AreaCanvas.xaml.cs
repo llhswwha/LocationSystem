@@ -315,10 +315,23 @@ namespace WPFClientControlLib
                     {
                         scale = 2;
                     }
+
+                    double[] devSizeList = new double[] { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 };
                     DevSize = 0.4;
+
+                    //if (area.Name == "宝刚园区")
+                    {
+                        //scale = 2;
+                        //ShowFloor = 1;
+                        //CbFloor.SelectedIndex = 1;
+
+                        devSizeList = new double[] { 1,2,3,4,5,6,7,8,9,10 };
+                        DevSize = 4;
+                    }
+                    
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);
-                    InitCbDevSize(new double[] { 0.1, 0.2, 0.3, 0.4, 0.5,0.6 }, DevSize);
+                    InitCbDevSize(devSizeList, DevSize);
                     //ShowPersons(area.Persons);
                 }
                 else if (area.Type == AreaTypes.分组)
@@ -465,7 +478,8 @@ namespace WPFClientControlLib
 
         private Location.TModel.Location.AreaAndDev.Point GetOriginalPoint(System.Windows.Point point)
         {
-            if (CurrentArea.InitBound == null) return null;
+
+            if (CurrentArea==null || CurrentArea.InitBound == null) return null;
             double x = point.X / Scale + OffsetX- CurrentArea.InitBound.GetZeroX();
             double y= point.Y / Scale + OffsetX - CurrentArea.InitBound.GetZeroY();
             return new Location.TModel.Location.AreaAndDev.Point((float)x, (float)y,0);
@@ -1441,6 +1455,7 @@ namespace WPFClientControlLib
 
         private void Canvas1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (CurrentArea == null) return;
             var p1 = e.GetPosition(Canvas1);
             SelectedPoint1 = p1;
             //Ellipse p = new Ellipse()

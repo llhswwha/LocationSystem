@@ -173,24 +173,33 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<TEntity> GetListByPids(int[] pidArray)
         {
-            List<int> pidList = pidArray.ToList();
-            List<TEntity> devInfoList = new List<TEntity>();
-            //DateTime recordT = DateTime.Now;
-            //string value = "";
-            //foreach (var pid in pidList)
-            //{
-            //    var dbDevList = dbSet.DbSet.Where(item => item.ParentId == pid && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
-            //    devInfoList.AddRange(dbDevList.ToTModel());
-            //    value += string.Format("Find dev by id,id:{0} cost time:{1}ms \n",pid,(DateTime.Now-recordT).TotalMilliseconds);
-            //    recordT = DateTime.Now;
-            //    //BindingDev(devInfoList);
-            //}
-            //Log.Info(value);
-            //return devInfoList.ToWCFList();
+            try
+            {
+                List<int> pidList = pidArray.ToList();
+                List<TEntity> devInfoList = new List<TEntity>();
+                //DateTime recordT = DateTime.Now;
+                //string value = "";
+                //foreach (var pid in pidList)
+                //{
+                //    var dbDevList = dbSet.DbSet.Where(item => item.ParentId == pid && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
+                //    devInfoList.AddRange(dbDevList.ToTModel());
+                //    value += string.Format("Find dev by id,id:{0} cost time:{1}ms \n",pid,(DateTime.Now-recordT).TotalMilliseconds);
+                //    recordT = DateTime.Now;
+                //    //BindingDev(devInfoList);
+                //}
+                //Log.Info(value);
+                //return devInfoList.ToWCFList();
 
-            var dbDevs = dbSet.DbSet.Where(item => item.ParentId!=null && pidList.Contains((int)item.ParentId) && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
-            devInfoList = dbDevs.ToTModel();
-            return devInfoList.ToWCFList();
+                var dbDevs = dbSet.DbSet.Where(item => item.ParentId != null && pidList.Contains((int)item.ParentId) && item.Local_TypeCode != TypeCodes.TrackPoint).ToList();
+                devInfoList = dbDevs.ToTModel();
+                var list= devInfoList.ToWCFList();
+                //string xml = XmlSerializeHelper.GetXmlText(list);
+                return list;
+            }catch(Exception e)
+            {
+                Log.Error("DeviceService.GetListByPids.Exception:"+e.ToString());
+                return null;
+            }
         }
 
         /// <summary>

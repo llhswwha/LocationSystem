@@ -70,7 +70,7 @@ namespace WebApiCommunication.ExtremeVision
         /// </summary>
         [JsonProperty("pic_data")]
         [DataMember]
-        [NotMapped]
+        //[NotMapped]
         public string pic_data { get; set; }
 
         /// <summary>
@@ -87,6 +87,7 @@ namespace WebApiCommunication.ExtremeVision
         public HeadData HeadData { get; set; }
 
         [DataMember]
+        [NotMapped]
         public string Error { get; set; }
 
         public override string ToString()

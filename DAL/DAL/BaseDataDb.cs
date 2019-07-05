@@ -8,11 +8,12 @@ using DbModel.BaseData;
 using BLL.Blls;
 namespace DAL
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]//处理“No MigrationSqlGenerator found for provider 'MySql.Data.MySqlClient'. Use the SetSqlGenerator method in the target migrations configuration class to register additional SQL generators.”问题
     public class BaseDataDb : DbContext
     {
         public static string Name = "BaseData_MySql";
 
-        public bool IsCreateDb;
+        public bool IsCreateDb = true;
         public BaseDataDb() : base(Name)
         {
             IsCreateDb = true;
@@ -23,12 +24,12 @@ namespace DAL
         {
             if (IsCreateDb)
             {
-                Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                                                                                                        //Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, Configuration>());//自动数据迁移
+                //Database.SetInitializer<BaseDataDb>(new MigrateDatabaseToLatestVersion<BaseDataDb, DAL.BaseDataDbMigrations.Configuration>());//自动数据迁移
+                Database.SetInitializer<BaseDataDb>(new DropCreateDatabaseIfModelChanges<BaseDataDb>());//数据模型发生变化是重新创建数据库
             }
             else
             {
-                Database.SetInitializer<LocationDb>(null);
+                Database.SetInitializer<BaseDataDb>(null);
             }
         }
 

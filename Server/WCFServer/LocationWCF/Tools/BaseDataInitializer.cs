@@ -25,7 +25,7 @@ namespace LocationServer.Tools
         {
             var devices = GetDevices();
             BaseDataDb db = new BaseDataDb();
-            db.SetTable(db.devices,devices);
+            db.SetTable(db.devices, devices);
             return devices;
         }
     }

@@ -333,6 +333,11 @@ namespace LocationServices.Locations
                     tag = tag.Replace("/", "");//todo:有其他办法吗？
                 }
 
+                if (tag.Contains("#"))
+                {
+                    tag = tag.Replace("#", "");//todo:有其他办法吗？
+                }
+
                 if (tmp == "")
                 {
                     tmp = tag;//第一个

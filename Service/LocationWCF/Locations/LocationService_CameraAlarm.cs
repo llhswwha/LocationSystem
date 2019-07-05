@@ -26,6 +26,8 @@ using KKSCode = Location.TModel.Location.AreaAndDev.KKSCode;
 using Post = Location.TModel.Location.AreaAndDev.Post;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using WebApiCommunication.ExtremeVision;
+using DbModel.Location.Alarm;
+using Newtonsoft.Json;
 
 namespace LocationServices.Locations
 {
@@ -34,7 +36,17 @@ namespace LocationServices.Locations
     {
         public List<CameraAlarmInfo> GetCameraAlarms(AlarmSearchArg arg)
         {
-            return null;
+            List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
+            List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
+            //todo:list2=>list3
+            foreach (CameraAlarmJson camera in list2)
+            {
+                byte[] byte1 = camera.Json;
+                string json = Encoding.UTF8.GetString(byte1);
+                CameraAlarmInfo cameraAlarmInfo = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                list3.Add(cameraAlarmInfo);
+            }         
+            return list3;
         }
     }
 }

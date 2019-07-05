@@ -21,7 +21,7 @@
             <Label>一次数量</Label>
             <TextBox Width="25" Text="1" Name="TxtOnceSendCount" VerticalContentAlignment="Center"></TextBox>
         </StackPanel>
-        <ScrollViewer DockPanel.Dock="Bottom">
+        <ScrollViewer DockPanel.Dock="Bottom" Height="100">
             <TextBox Name="TbLogs"></TextBox>
         </ScrollViewer>
         <TabControl>

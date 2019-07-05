@@ -26,12 +26,20 @@ namespace TModel.Location.AreaAndDev
         [DataMember]
         public List<DevMonitorNode> MonitorNodeList
         {
-            get { return _monitorNodeList; }
+            get
+            {
+                return _monitorNodeList;
+            }
             set
             {
                 _monitorNodeList = value;
                 Tags = GetMonitorTags();
             }
+        }
+
+        public bool HaveMonitorNode()
+        {
+            return MonitorNodeList != null && MonitorNodeList.Count > 0;
         }
 
         //[DataMember]
@@ -115,6 +123,55 @@ namespace TModel.Location.AreaAndDev
                 }
             }
             return nodes;
+        }
+
+        public List<Dev_Monitor> GetChildNodes()
+        {
+            List<Dev_Monitor> nodes = new List<Dev_Monitor>();
+            if (ChildrenList != null)
+            {
+                foreach (var item in ChildrenList)
+                {
+                    nodes.Add(item);
+                    List<Dev_Monitor> subNodes = item.GetChildNodes();
+                    nodes.AddRange(subNodes);
+                }
+            }
+            return nodes;
+        }
+
+
+        public void RemoveEmpty()
+        {
+            if (ChildrenList != null)
+            {
+                foreach (Dev_Monitor devMonitor in ChildrenList)
+                {
+                    devMonitor.RemoveEmpty();
+                }
+                for (int i = 0; i < ChildrenList.Count; i++)
+                {
+                    var child = ChildrenList[i];
+                    if (child.HaveMonitorNode()==false)
+                    {
+                        ChildrenList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+        public void AddChildrenMonitorNodes()
+        {
+            var nodes = GetAllNodes();
+            if (MonitorNodeList == null)
+            {
+                MonitorNodeList = nodes;
+            }
+            else
+            {
+                MonitorNodeList.AddRange(nodes);
+            }
         }
     }
 }

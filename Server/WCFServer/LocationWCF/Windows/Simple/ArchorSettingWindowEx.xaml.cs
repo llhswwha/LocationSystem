@@ -80,15 +80,15 @@ namespace LocationServer.Windows
                     archorSetting.RelativeHeight = archor.Y;
                     archorSetting.AbsoluteHeight = (archor.Y + building.GetFloorHeight(floor.Id));
 
-                    var minX = floor.InitBound.MinX + building.InitBound.MinX;
-                    var minY = floor.InitBound.MinY + building.InitBound.MinY;
+                    var minX = floor.InitBound.GetZeroX() + building.InitBound.GetZeroX();
+                    var minY = floor.InitBound.GetZeroY() + building.InitBound.GetZeroY();
 
                     var room = Bll.GetDevRoom(floor, dev);
                     if (room != null)
                     {
                         archorSetting.RelativeMode = RelativeMode.相对机房;
-                        var roomX = room.InitBound.MinX;
-                        var roomY = room.InitBound.MinY;
+                        var roomX = room.InitBound.GetZeroX();
+                        var roomY = room.InitBound.GetZeroY();
                         archorSetting.SetPath(room, floor, building);
                         archorSetting.SetZero(roomX, roomY);
                         archorSetting.SetRelative((x - roomX), (y - roomY));

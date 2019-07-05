@@ -26,6 +26,7 @@ using Location.TModel.Location.Person;
 using System.Windows.Threading;
 using System.IO;
 using TModel.Tools;
+using Location.TModel.LocationHistory.Data;
 
 namespace LocationWCFClient.Windows
 {
@@ -54,8 +55,8 @@ namespace LocationWCFClient.Windows
             ResourceTreeView1.LoadData(treeRoot1, treeRoot2);
             ResourceTreeView1.TopoTree.Tree.SelectedItemChanged += Tree_SelectedItemChanged;
 
-             var devList = client.GetDevInfos(null);
-            DeviceListBox1.LoadData(devList);
+            // var devList = client.GetDevInfos(null);
+            //DeviceListBox1.LoadData(devList.ToList());
 
             var personList = client.GetPersonList(false);
             PersonListBox1.LoadData(personList);
@@ -595,7 +596,7 @@ namespace LocationWCFClient.Windows
         //获取区域列表
         private void GetzonesList_Click(object sender, RoutedEventArgs e)
         {
-            PhysicalTopology[] lst = client.GetzonesList();
+            PhysicalTopology[] lst = client.GetZonesList();
             int nn = 0;
         }
 
@@ -775,6 +776,42 @@ namespace LocationWCFClient.Windows
 
             TbKKSResult.Text = strResult;
             
+        }
+
+        private void BtnGetDevsByPid_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            var list=client.GetDevByiId(2);
+        }
+
+        private void MenuGetHisPosStatics_Click(object sender, RoutedEventArgs e)
+        {
+            string strFlag = TbFlag.Text;
+            int nFlag = Convert.ToInt32(strFlag);
+            string strSecondName = TbSecondName.Text;
+            string strThirdName = TbThirdName.Text;
+
+
+            PositionList[] lst = client.GetHistoryPositonStatistics(nFlag, strSecondName, strThirdName);
+            string strResult = "";
+            if (lst != null && lst.Count() > 0)
+            {
+                int nCount = lst.Count();
+                for (int i = 0; i < nCount; i++)
+                {
+                    PositionList item = lst[i];
+                    strResult += "{\"Name\":\"" + item.Name + "\",\"Count\":" + item.Count + "\"},\r\n";
+                }
+            }
+
+            TbPosStaticsResult.Text = strResult;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AlarmSearchArg arg = new AlarmSearchArg();
+               var list = client.GetCameraAlarms(arg);
+            DateCameraAlarmInfo.ItemsSource = list;
         }
     }
 }

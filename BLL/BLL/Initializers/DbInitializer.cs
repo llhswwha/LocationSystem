@@ -308,7 +308,7 @@ namespace BLL
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
 
-            DirectoryInfo dir=new DirectoryInfo(basePath + "KKS\\Data\\中电四会部件级KKS编码2017.5.24\\");
+            DirectoryInfo dir=new DirectoryInfo(basePath + "Data\\KKS\\中电四会部件级KKS编码2017.5.24\\");
             FileInfo[] files = dir.GetFiles("*.xls", SearchOption.AllDirectories);
 
             for (int i = 0; i < files.Length; i++)

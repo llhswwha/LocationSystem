@@ -27,7 +27,13 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="设备列表">
-                <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <ListBox Name="CbAreaList"></ListBox>
+                        <Button Content="获取区域下设备" Name="BtnGetDevsByPid" Click="BtnGetDevsByPid_OnClick"></Button>
+                    </StackPanel>
+                    <WPFClientControlLib:DeviceListBox x:Name="DeviceListBox1"/>
+                </DockPanel>
             </TabItem>
             <TabItem Header="人员列表">
                 <WPFClientControlLib:PersonListBox x:Name="PersonListBox1"/>
@@ -81,6 +87,17 @@
                     <Menu DockPanel.Dock="Top">
                         <MenuItem Header="获取历史位置信息" Name="MenuGetHisPos" Click="MenuGetHisPos_Click"></MenuItem>
                     </Menu>
+                    <Menu DockPanel.Dock="Top">
+                        <Label Grid.Row="3" Grid.Column="0">标志位:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbFlag" Width="198"></TextBox>
+                        <Label Grid.Row="3" Grid.Column="0">第二层名称:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbSecondName" Width="198"></TextBox>
+                        <Label Grid.Row="3" Grid.Column="0">第三层名称:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbThirdName" Width="198"></TextBox>
+                        <Button Grid.Row="5" Grid.ColumnSpan="2" Name="MenuGetHisPosStatics" Click="MenuGetHisPosStatics_Click">获取历史位置信息统计2</Button>
+                        
+                    </Menu>
+                    <TextBox Name="TbPosStaticsResult"></TextBox>
                     <DataGrid Name="DataGridRealPos"></DataGrid>
                 </DockPanel>
             </TabItem>
@@ -190,7 +207,7 @@
                         <MenuItem Header="获取区域设备人员信息列表" Name="GetAreaDevPersonnelInfoList" Click="GetAreaDevPersonnelInfoList_Click"></MenuItem>
                     </Menu>
 
-                    <DataGrid Name="AreaList"></DataGrid>
+                    <DataGrid Name="DataGridAreaList"></DataGrid>
                 </DockPanel>
             </TabItem>
             <TabItem Header="区域测试">
@@ -220,7 +237,15 @@
                     <DataGrid Name="GetHomePage"></DataGrid>
                 </DockPanel>
             </TabItem>
+
+            <TabItem Header="json测试">
+                <DockPanel>
+                    <Button Width="100" Height="30" DockPanel.Dock="Top" HorizontalAlignment="Left" Click="Button_Click">获取json</Button>
+                    <TextBox DockPanel.Dock="Top" Height="200" Name="txtBoxjson"></TextBox>
+                    <DataGrid Name="DateCameraAlarmInfo"></DataGrid>  
+                </DockPanel>
+            </TabItem>
         </TabControl>
-        
+       
     </DockPanel>
 </Window>

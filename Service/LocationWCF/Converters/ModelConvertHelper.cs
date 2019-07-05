@@ -586,6 +586,7 @@ namespace LocationServices.Converters
             item2.ParentId = item1.ParentId;
             item2.DevInfoId = item1.DevInfoId;
             item2.Local_DevID = item1.Local_DevID;
+            item2.RtspUrl = item1.RtspUrl;
             item2.DevInfo = item1.DevInfo.ToTModel();
             item2.RtspUrl = item1.RtspUrl;
             return item2;
@@ -617,6 +618,7 @@ namespace LocationServices.Converters
             item2.ParentId = item1.ParentId;
             item2.DevInfoId = item1.DevInfoId;
             item2.Local_DevID = item1.Local_DevID;
+            item2.RtspUrl = item1.RtspUrl;
             item2.DevInfo = item1.DevInfo.ToDbModel();
             item2.RtspUrl = item1.RtspUrl;
             return item2;

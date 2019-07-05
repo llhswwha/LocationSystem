@@ -83,20 +83,20 @@ namespace DbModel.Location.Settings
             if (room != null)
             {
                 RoomName = room.Name;
-                RoomMinX = room.InitBound.MinX.ToString("F3");
-                RoomMinY = room.InitBound.MinY.ToString("F3");
+                RoomMinX = room.InitBound.GetZeroX().ToString("F3");
+                RoomMinY = room.InitBound.GetZeroY().ToString("F3");
             }
             if (floor != null)
             {
                 FloorName = floor.Name;
-                FloorMinX = floor.InitBound.MinX.ToString("F3");
-                FloorMinY = floor.InitBound.MinY.ToString("F3");
+                FloorMinX = floor.InitBound.GetZeroX().ToString("F3");
+                FloorMinY = floor.InitBound.GetZeroY().ToString("F3");
             }
             if (building != null)
             {
                 BuildingName = building.Name;
-                BuildingMinX = building.InitBound.MinX.ToString("F3");
-                BuildingMinY = building.InitBound.MinY.ToString("F3");
+                BuildingMinX = building.InitBound.GetZeroX().ToString("F3");
+                BuildingMinY = building.InitBound.GetZeroY().ToString("F3");
             }
            
         }
@@ -184,7 +184,7 @@ namespace DbModel.Location.Settings
         /// <summary>
         /// 设置附加信息（给品铂用）
         /// </summary>
-        public void SetExtensionInfo(double offx,double offy)
+        public void SetExtensionInfo(double offx,double offy,int pow)
         {
             ParkOffsetX = offx;
             ParkOffsetY = offy;
@@ -192,9 +192,9 @@ namespace DbModel.Location.Settings
             double y = AbsoluteY.ToDouble();
             ArchorX = (x - offx);
             ArchorY = (y - offy);
-            ArchorX100 = (ArchorX * 100).ToString("F0").ToInt();
-            ArchorY100 = (ArchorY * 100).ToString("F0").ToInt();
-            Height100 = (AbsoluteHeight*100).ToString("F0").ToInt();
+            ArchorX100 = (ArchorX * pow).ToString("F0").ToInt();
+            ArchorY100 = (ArchorY * pow).ToString("F0").ToInt();
+            Height100 = (AbsoluteHeight* pow).ToString("F0").ToInt();
         }
 
 
@@ -257,15 +257,15 @@ namespace DbModel.Location.Settings
                 RelativeHeight = archor.Y;
                 AbsoluteHeight = (archor.Y + building.GetFloorHeight(floor.Id));
 
-                var minX = floor.InitBound.MinX + building.InitBound.MinX;
-                var minY = floor.InitBound.MinY + building.InitBound.MinY;
+                var minX = floor.InitBound.GetZeroX() + building.InitBound.GetZeroX();
+                var minY = floor.InitBound.GetZeroY() + building.InitBound.GetZeroY();
 
                 var room = GetDevRoom(floor.Children, dev);
                 if (room != null)
                 {
                     RelativeMode = RelativeMode.相对机房;
-                    var roomX = room.InitBound.MinX;
-                    var roomY = room.InitBound.MinY;
+                    var roomX = room.InitBound.GetZeroX();
+                    var roomY = room.InitBound.GetZeroY();
                     SetPath(room, floor, building);
                     SetZero(roomX, roomY);
                     SetRelative((x - roomX), (y - roomY));

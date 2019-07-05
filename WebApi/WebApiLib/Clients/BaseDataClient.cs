@@ -28,6 +28,9 @@ using System.Threading;
 
 namespace WebApiLib.Clients
 {
+    /// <summary>
+    /// 基础数据平台对接客户端，BaseDataClient->BaseDataInnerClient->WebApiHelper
+    /// </summary>
     public class BaseDataClient
     {
         private Bll _bll = null;
@@ -50,7 +53,7 @@ namespace WebApiLib.Clients
 
         public static long nEightHourSecond = 0;
 
-        BaseDataInnerClient client;
+        public BaseDataInnerClient client;
 
         //public BaseDataClient()
         //{
@@ -67,6 +70,7 @@ namespace WebApiLib.Clients
 
         public BaseDataClient(string host, string port,string suffix)
         {
+
             //BaseUri = string.Format("http://{0}:{1}/", host, port);
             if (string.IsNullOrEmpty(port))
             {
@@ -153,17 +157,17 @@ namespace WebApiLib.Clients
 
                     BaseDataHelper.SetPersonnel(person, item);
 
-                    if (item.dept_name == null)
+                    if (item.dep_name == null)
                     {
                         Department Department = dlst.Find(p => p.Name == "未绑定");
                         person.ParentId = Department.Id;
                     }
                     else
                     {
-                        Department Department = dlst.Find(p => p.Name == item.dept_name);
+                        Department Department = dlst.Find(p => p.Name == item.dep_name);
                         if (Department == null)
                         {
-                            string strInfo = "获取人员列表错误信息：找不到匹配的部门  id=" + item.id + "  Name=" + item.name + " Depart=" + item.dept_name;
+                            string strInfo = "获取人员列表错误信息：找不到匹配的部门  id=" + item.id + "  Name=" + item.name + " Depart=" + item.dep_name;
                             Error(strInfo);
                             continue;
                         }
@@ -1332,7 +1336,7 @@ namespace WebApiLib.Clients
             }
             else
             {
-                Log.Error(LogTags.KKS, string.Format("获取数据失败[{0}]:{1}",tags.Length,tags));
+                Log.Error(LogTags.KKS, string.Format("获取数据失败[{0}]:{1}",tags.Length,GetSisUrl(tags)));
             }
             return monitorNodes;
         }

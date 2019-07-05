@@ -212,6 +212,7 @@
       <xs:element minOccurs="0" name="MainType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ParentCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RawCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Serial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="System" nillable="true" type="xs:string" />

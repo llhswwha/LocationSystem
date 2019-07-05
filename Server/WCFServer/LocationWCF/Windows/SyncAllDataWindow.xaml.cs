@@ -8,6 +8,7 @@ using LocationServer.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,15 +72,34 @@ namespace LocationServer.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            datacaseUrl = AppContext.DatacaseWebApiUrl;
-            client = new BaseDataClient(datacaseUrl, null, "api");
+            try
+            {
+                datacaseUrl = AppContext.DatacaseWebApiUrl;
 
-            //Sync();
-            GetDate();
+                Log.Info(LogTags.BaseData, "datacaseUrl:" + datacaseUrl);
 
+
+                client = new BaseDataClient(datacaseUrl, null, "api");
+
+                //Sync();
+                GetDate();
+
+                SetCameraInfoDataGrid();
+            }
+            catch (Exception exception)
+            {
+                Log.Info(LogTags.BaseData, "启动同步窗口出错 url:"+ client.client.BaseUri+" error:" + exception);
+            }
+
+        }
+
+        private void SetCameraInfoDataGrid()
+        {
             Bll bll = Bll.Instance();
             List<Dev_CameraInfo> dclst = bll.Dev_CameraInfos.ToList();
             dg_camera.ItemsSource = dclst;
+            if(dclst!=null)
+                LbCameraInfoCount.Content = dclst.Count;
         }
 
         private void Sync()
@@ -201,9 +221,7 @@ namespace LocationServer.Windows
                 var list2 = client.GetCameraInfoList("1021,1022,1023", null, null, true);
             }, () =>
             {
-                Bll bll = Bll.Instance();
-                List<Dev_CameraInfo> dclst = bll.Dev_CameraInfos.ToList();
-                dg_camera.ItemsSource = dclst;
+                SetCameraInfoDataGrid();
                 Log.Info(LogTags.BaseData, "完成!");
                 MessageBox.Show("完成");
             });
@@ -227,6 +245,13 @@ namespace LocationServer.Windows
                 Log.Info(LogTags.BaseData, "完成!");
                 MessageBox.Show("完成");
             });
+        }
+
+        private void BtnShowCameras_OnClick(object sender, RoutedEventArgs e)
+        {
+            var list = deviceList.Where(i => i.type == 1021 || i.type == 1022 || i.type == 1023 || i.type ==102).ToList();
+            LbDevCount.Content = list.Count;
+            dg_dev.ItemsSource = list;
         }
     }
 }

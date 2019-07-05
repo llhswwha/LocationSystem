@@ -3,38 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace TModel.Location.AreaAndDev
 {
     public class DevMonitorNode
     {
+        [XmlAttribute]
         [DataMember]
         public int Id { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string TagName { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string DbTagName { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Describe { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Value { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string Unit { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string DataType { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string KKS { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public string ParentKKS { get; set; }
 
+        [XmlAttribute]
         [DataMember]
         public long Time { get; set; }
 
@@ -57,6 +68,7 @@ namespace TModel.Location.AreaAndDev
         }
     }
 
+    [XmlRoot("DevMonitorNodeList")]
     public class DevMonitorNodeList:List<DevMonitorNode>
     {
 

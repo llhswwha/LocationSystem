@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TModel.Location.AreaAndDev;
+using TModel.Tools;
 using WebApiLib;
 using static Location.BLL.Tool.KKSCodeHelper;
 
@@ -193,13 +194,13 @@ namespace LocationServer.Tools
                 }
             }
 
-            var monitors1 = monitors.Where(i => i.ParseResult == 0).ToList();
-            var monitors2 = monitors.Where(i => i.ParseResult == 1).ToList();
-            var monitors31 = monitors.Where(i => i.ParseResult == -1).ToList();
+            var monitors1 = monitors.Where(i => i.ParseResult == "0").ToList();
+            var monitors2 = monitors.Where(i => i.ParseResult == "1").ToList();
+            var monitors31 = monitors.Where(i => i.ParseResult == "-1").ToList();
             var monitors311 = monitors31.Where(i => i.Unit != "").ToList();
-            var monitors32 = monitors.Where(i => i.ParseResult == -2).ToList();
+            var monitors32 = monitors.Where(i => i.ParseResult == "-2").ToList();
             var monitors321 = monitors32.Where(i => i.Unit != "").ToList();
-            var monitors4 = monitors.Where(i => i.ParseResult > 1).ToList();
+            var monitors4 = monitors.Where(i => i.ParseResult.ToInt() > 1).ToList();
 
             List<DbModel.Location.AreaAndDev.DevMonitorNode> editMonitorNodes =
                 new List<DbModel.Location.AreaAndDev.DevMonitorNode>();
@@ -216,7 +217,7 @@ namespace LocationServer.Tools
                     if (info.Type == 1 || info.Type == 0)
                     {
                         monitorNode.ParentKKS = code;
-                        monitorNode.ParseResult = 1; //这里统一为1
+                        monitorNode.ParseResult = "1"; //这里统一为1
                         editMonitorNodes.Add(monitorNode);
 
                         Log.Info(LogTags.KKS,
@@ -232,7 +233,7 @@ namespace LocationServer.Tools
                                 if (kksCode != null)
                                 {
                                     monitorNode.ParentKKS = kksCode.Code;
-                                    monitorNode.ParseResult = 1; //感觉这里要区分开来了
+                                    monitorNode.ParseResult = "1"; //感觉这里要区分开来了
                                     editMonitorNodes.Add(monitorNode);
                                 }
                                 else

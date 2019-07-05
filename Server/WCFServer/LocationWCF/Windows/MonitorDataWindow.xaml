@@ -8,7 +8,7 @@
         Title="KKSMonitorDataWindow" Height="550" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="加载数据" Name="MenuLoadData" Click="MenuLoadData_OnClick"></MenuItem>
+            <MenuItem Header="刷新" Name="MenuLoadData" Click="MenuLoadData_OnClick"></MenuItem>
             <MenuItem Header ="更新数据..">
                 <MenuItem Header="更新(1)到(5)" Name="MenuUpdateAllDate" Click="MenuUpdateAllDate_OnClick"></MenuItem>
                 <Separator></Separator>
@@ -24,6 +24,7 @@
             <MenuItem Header="测点..">
                 <MenuItem Header="获取发电机、燃气机测点" Name="GetJ1F2DevMonitors" Click="GetJ1F2DevMonitors_Click"></MenuItem>
                 <MenuItem Header="获取全部相关测点" Name="GetAllMonitorNodes" Click="GetAllMonitorNodes_Click"></MenuItem>
+                <MenuItem Header="读取测点文件" Name="MenuLoadMonitorNodeFile" Click="MenuLoadMonitorNodeFile_OnClick"></MenuItem>
             </MenuItem>
            
           

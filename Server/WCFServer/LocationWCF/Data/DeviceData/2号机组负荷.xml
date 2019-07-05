@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList>
+  <DevMonitorNode Id="0" TagName="N2DCS.TOTALMW" Describe="关联冷却塔/总负荷" ParentKKS="2号机组负荷" Time="0" />
+</DevMonitorNodeList>

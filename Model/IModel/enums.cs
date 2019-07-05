@@ -10,7 +10,7 @@ namespace DbModel.Tools
     public enum Abutment_Status { 正常, 维修中, 已报失, 已作废 = 9 }
 
     //对接方设备运行状态
-    public enum Abutment_RunStatus { 正常, 离线, 报警 }
+    public enum Abutment_RunStatus { 正常, 离线, 报警,未知 }
 
     //对接方设备告警级别
     public enum Abutment_DevAlarmLevel { 无, 低, 中, 高, 未定 }

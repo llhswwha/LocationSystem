@@ -248,6 +248,23 @@ namespace BLL.Blls
             return list;
         }
 
+        public virtual Dictionary<TKey, T> ToDictionary(bool isTracking = false)
+        {
+            Dictionary<TKey, T> dic=new Dictionary<TKey, T>();
+            var list = DbSet.ToListEx(isTracking);
+            if (list == null)
+            {
+                ErrorMessage = DbHelper.ErrorMessage;
+            }
+
+            foreach (T item in list)
+            {
+                var id = item.Id;
+                dic.Add(id, item);
+            }
+            return dic;
+        }
+
         public virtual T DeleteById(object id)
         {
             if (id == null) return null;

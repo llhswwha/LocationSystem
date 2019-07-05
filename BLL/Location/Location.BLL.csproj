@@ -132,10 +132,6 @@
       <Project>{6D2404C0-7F69-4A66-8326-253AED706620}</Project>
       <Name>IModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Model\Location\Location.Model.csproj">
-      <Project>{18d3e2c1-9a5b-4558-b8d2-894ddcf77370}</Project>
-      <Name>Location.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>

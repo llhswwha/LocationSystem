@@ -66,7 +66,12 @@ namespace DbModel.BaseData
         /// </summary>
         [Display(Name = "部门名称")]
         [MaxLength(256)]
-        public string dept_name { get; set; }
+        public string dep_name { get; set; }//不是dept_name
+
+        public override string ToString()
+        {
+            return string.Format("{0}", name);
+        }
     }
 
     public class users

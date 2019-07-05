@@ -56,6 +56,8 @@ namespace WebApiLib.Clients
             bool bFirst = true;
             int nDay = -1;
 
+            Log.Info(LogTags.Server, "InnerOperate："+client.client.BaseUri);
+
             while (true)
             {
 

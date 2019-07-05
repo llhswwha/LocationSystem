@@ -18,6 +18,7 @@ namespace WebApiLib
         {
             try
             {
+                LastUrl = uri;
                 if (uri == null) return null;
                 Log.Info(LogTags.BaseData, "uri:" + uri);
                 var client = new HttpClient();
@@ -27,6 +28,7 @@ namespace WebApiLib
                 }
                 var resMsg = client.GetAsync(uri).Result;
                 var result = resMsg.Content.ReadAsStringAsync().Result;
+                LastJson = result;
                 return result;
             }
             catch (Exception ex)
@@ -37,21 +39,29 @@ namespace WebApiLib
             }
         }
 
+        public static string LastJson = "";
 
-        public static T GetEntity<T>(string url)
+        public static string LastUrl = "";
+
+        public static T GetEntity<T>(string url,bool addLimit=true)
         {
+            
             if (url == null) return default(T);
-            if (url.Contains("?"))
+            if (addLimit)
             {
-                url += "&offset=0&limit=10000";
+                if (url.Contains("?"))
+                {
+                    url += "&offset=0&limit=10000";
+                }
+                else
+                {
+                    url += "?offset=0&limit=10000";
+                }
             }
-            else
-            {
-                url += "?offset=0&limit=10000";
-            }
-
+            
             string result = GetString(url);
             if (result == null) return default(T);
+            LastJson = result;
 
             if (IsSaveJsonToFile)
             {

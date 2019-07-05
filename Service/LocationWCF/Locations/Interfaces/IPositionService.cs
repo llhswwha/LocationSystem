@@ -88,5 +88,10 @@ namespace LocationServices.Locations.Interfaces
         /// <returns></returns>
         [OperationContract]
         IList<U3DPosition> GetHistoryU3DPositonsByTime(string tagcode, DateTime start, DateTime end);
+
+        //获取历史位置信息统计
+        [OperationContract]
+        IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2);
+
     }
 }

@@ -16,6 +16,7 @@
       <xs:element name="_editBound" nillable="true" type="tns:Bound" />
       <xs:element name="_initBound" nillable="true" type="tns:Bound" />
       <xs:element name="_kks" nillable="true" type="xs:string" />
+      <xs:element name="_path" nillable="true" type="xs:string" />
       <xs:element name="_x003C_Abutment_Id_x003E_k__BackingField" nillable="true" type="xs:int" />
       <xs:element name="_x003C_Abutment_ParentId_x003E_k__BackingField" nillable="true" type="xs:int" />
       <xs:element name="_x003C_Children_x003E_k__BackingField" nillable="true" type="tns:ArrayOfArea" />
@@ -57,6 +58,8 @@
       <xs:element minOccurs="0" name="MinZ" type="xs:float" />
       <xs:element minOccurs="0" name="Points" nillable="true" type="tns:ArrayOfPoint" />
       <xs:element minOccurs="0" name="Shape" type="xs:int" />
+      <xs:element minOccurs="0" name="ZeroX" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="ZeroY" nillable="true" type="xs:float" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Bound" nillable="true" type="tns:Bound" />
@@ -98,6 +101,7 @@
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="CreateTimeStamp" type="xs:long" />
+      <xs:element minOccurs="0" name="DevDetail" nillable="true" type="xs:anyType" />
       <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />

@@ -27,7 +27,7 @@ namespace DbModel
         /// </summary>
         public static string DatacaseWebApiUrl { get; set; }
 
-        public static int UrlMaxLength = 15;
+        public static int UrlMaxLength = 200;
 
         public static int LowPowerFlag = 370;
     }

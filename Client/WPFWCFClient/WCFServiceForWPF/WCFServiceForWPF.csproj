@@ -74,6 +74,7 @@
     <None Include="Properties\DataSources\Location.TModel.Location.Person.Personnel.datasource" />
     <None Include="Properties\DataSources\Location.TModel.Location.TransferOfAxesConfig.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.Position.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.PositionList.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.U3DPosition.datasource" />
     <None Include="Properties\DataSources\TModel.BaseData.Ticket.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Archor.datasource" />
@@ -103,6 +104,9 @@
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.PersonnelMobileInspectionHistory.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.Work.WorkTicketHistory.datasource" />
     <None Include="Properties\DataSources\TModel.Models.Settings.UnitySetting.datasource" />
+    <None Include="Service References\LocationCallbackServices\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LocationCallbackServices\DbModel.Tools.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -110,6 +114,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationCallbackServices\Location.TModel.Location.AreaAndDev.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationCallbackServices\Location.TModel.Location.Data.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationCallbackServices\Location.TModel.Location.Person.xsd">
@@ -192,11 +199,17 @@
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.Area.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.CameraAlarmInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.CardRole.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DevModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\WebApiCommunication.ExtremeVision.xsd">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

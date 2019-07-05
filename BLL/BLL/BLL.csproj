@@ -65,6 +65,7 @@
     <Compile Include="Blls\LocationHistory\InspectionTrackHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointItemHistoryBll.cs" />
+    <Compile Include="Blls\Location\CameraAlarmJsonBll.cs" />
     <Compile Include="Blls\Location\DevMonitorNodeBll.cs" />
     <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
     <Compile Include="Blls\Location\HomePagePictureBll.cs" />

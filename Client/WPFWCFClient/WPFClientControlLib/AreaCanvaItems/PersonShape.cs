@@ -29,15 +29,18 @@ namespace WPFClientControlLib.AreaCanvaItems
 
         public PersonShape(AreaCanvas canvas, int id,string name, TagPosition pos, double scale, double size = 2)
         {
+            
             Id = id;
             Name = name;
             _canvas = canvas;
             Pos = pos;
             _scale = scale;
             _size = size;
-
-            PosX = Pos.X;
-            PosY = Pos.Z;
+            if (pos != null)
+            {
+                PosX = Pos.X;
+                PosY = Pos.Z;
+            }              
         }
 
         public double PosX { get; set; }

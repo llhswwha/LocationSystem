@@ -81,8 +81,8 @@ namespace LocationServer.Windows
 
             park = area;
 
-            var minX = park.InitBound.MinX;
-            var minY = park.InitBound.MinY;
+            var minX = park.InitBound.GetZeroX();
+            var minY = park.InitBound.GetZeroY();
 
             _item.SetAbsolute(x + minX, z + minY);
 
@@ -136,8 +136,8 @@ namespace LocationServer.Windows
 
         private void PcArchor_ValueChanged(WPFClientControlLib.PointControl obj)
         {
-            //PcAbsolute.X = _building.InitBound.MinX + park.InitBound.MinX + obj.X;
-            //PcAbsolute.Y = _building.InitBound.MinY + park.InitBound.MinY + obj.Y;
+            //PcAbsolute.X = _building.InitBound.GetZeroX() + park.InitBound.GetZeroX() + obj.X;
+            //PcAbsolute.Y = _building.InitBound.GetZeroY() + park.InitBound.GetZeroY() + obj.Y;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)

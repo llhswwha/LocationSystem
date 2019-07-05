@@ -494,14 +494,62 @@ namespace DbModel.Location.AreaAndDev
                 }
         }
 
-        public string GetPath()
+        private string _path = "";
+
+        public string GetPath(AreaTypes stopType,string interval)
         {
-            if (this.Id == 2) return Name;
+            if (!string.IsNullOrEmpty(_path)) return _path;
+            if (this.Id == 2)
+            {
+                _path = Name;
+            }
+
             if (Parent != null)
             {
-                return Parent.GetPath() + "." + Name;
+                if (Parent.Type == stopType)
+                {
+                    _path = Parent.Name + interval + Name;
+                }
+                else
+                {
+                    _path = Parent.GetPath(stopType, interval) + interval + Name;
+                }
             }
-            return Name;
+            else
+            {
+                _path = Name;
+            }
+            return _path;
+        }
+
+        public string GetToBuilding(string interval)
+        {
+            if (!string.IsNullOrEmpty(_path)) return _path;
+            if (this.Id == 2)
+            {
+                _path = Name;
+            }
+
+            if (Parent != null)
+            {
+                if (Parent.Type == AreaTypes.大楼)
+                {
+                    _path = Parent.Name + interval + Name;
+                }
+                else if (this.Type == AreaTypes.机房)
+                {
+                    _path = Parent.GetToBuilding(interval);
+                }
+                else 
+                {
+                    _path = Parent.GetToBuilding(interval) + interval + Name;
+                }
+            }
+            else
+            {
+                _path = Name;
+            }
+            return _path;
         }
 
         public Bound CreateBoundByChildren()

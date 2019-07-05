@@ -40,6 +40,7 @@ using TModel.Tools;
 using WebNSQLib;
 using LocationServer.Models.EngineTool;
 using System.Text;
+using LocationServer.Tools;
 using LocationServer.Windows.Simple;
 
 namespace LocationWCFServer
@@ -87,6 +88,10 @@ namespace LocationWCFServer
             //byte[] bytes4 = Encoding.ASCII.GetBytes(str);
             //byte[] bytes5 = Encoding.UTF7.GetBytes(str);
             //byte[] bytes6 = Encoding.Default.GetBytes(str);
+
+            var version = ConfigurationHelper.GetValue("ServerVersionCode");
+
+            this.Title += "    -v" + version;
         }
 
         private void InitData()
@@ -176,7 +181,7 @@ namespace LocationWCFServer
 
         private void MenuLocationHistoryTest_OnClick(object sender, RoutedEventArgs e)
         {
-            var win = new LocationHistoryTestWindow();
+            var win = new LocationHistoryWindow();
             win.Show();
         }
 
@@ -256,10 +261,12 @@ namespace LocationWCFServer
             Bll bll = Bll.NewBllNoRelation();
             var list3 = bll.Archors.ToList();
             var areas = bll.Areas.ToList();
-            foreach (var item in list3)
-            {
-                item.Parent = areas.Find(i => i.Id == item.ParentId);
-            }
+            if (list3 != null && areas != null)
+                foreach (var item in list3)
+                {
+                    item.Parent = areas.Find(i => i.Id == item.ParentId);
+                }
+
             var win = new ArchorConfigureWindow(list3);
             win.Show();
 

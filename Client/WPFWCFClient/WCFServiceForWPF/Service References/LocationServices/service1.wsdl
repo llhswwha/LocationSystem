@@ -23,6 +23,7 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" />
     </xsd:schema>
   </wsdl:types>
@@ -175,6 +176,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetHistoryU3DPositonsByTime_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetHistoryU3DPositonsByTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetHistoryPositonStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistoryPositonStatistics" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetHistoryPositonStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHistoryPositonStatisticsResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetObjectAddList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetObjectAddList" />
@@ -674,6 +681,12 @@
   <wsdl:message name="ILocationService_GetDeviceAlarms_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDeviceAlarmsResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetDeviceAlarmsPage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeviceAlarmsPage" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDeviceAlarmsPage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeviceAlarmsPageResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetPostList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPostList" />
   </wsdl:message>
@@ -734,11 +747,11 @@
   <wsdl:message name="ILocationService_GetorgList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetorgListResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetzonesList_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetzonesList" />
+  <wsdl:message name="ILocationService_GetZonesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetZonesList" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetzonesList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetzonesListResponse" />
+  <wsdl:message name="ILocationService_GetZonesList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetZonesListResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetSingleZonesInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSingleZonesInfo" />
@@ -1010,6 +1023,12 @@
   <wsdl:message name="ILocationService_SetCardRoleAccessAreas_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetCardRoleAccessAreasResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraAlarms_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraAlarms" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraAlarms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraAlarmsResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetUnitySetting_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUnitySetting" />
   </wsdl:message>
@@ -1134,6 +1153,10 @@
     <wsdl:operation name="GetHistoryU3DPositonsByTime">
       <wsdl:input wsaw:Action="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTime" message="tns:ILocationService_GetHistoryU3DPositonsByTime_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTimeResponse" message="tns:ILocationService_GetHistoryU3DPositonsByTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoryPositonStatistics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPositionService/GetHistoryPositonStatistics" message="tns:ILocationService_GetHistoryPositonStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPositionService/GetHistoryPositonStatisticsResponse" message="tns:ILocationService_GetHistoryPositonStatistics_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetObjectAddList">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetObjectAddList" message="tns:ILocationService_GetObjectAddList_InputMessage" />
@@ -1467,6 +1490,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarms" message="tns:ILocationService_GetDeviceAlarms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsResponse" message="tns:ILocationService_GetDeviceAlarms_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDeviceAlarmsPage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsPage" message="tns:ILocationService_GetDeviceAlarmsPage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsPageResponse" message="tns:ILocationService_GetDeviceAlarmsPage_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPostList">
       <wsdl:input wsaw:Action="http://tempuri.org/IPostService/GetPostList" message="tns:ILocationService_GetPostList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPostService/GetPostListResponse" message="tns:ILocationService_GetPostList_OutputMessage" />
@@ -1507,9 +1534,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetorgList" message="tns:ILocationService_GetorgList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetorgListResponse" message="tns:ILocationService_GetorgList_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetzonesList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetzonesList" message="tns:ILocationService_GetzonesList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetzonesListResponse" message="tns:ILocationService_GetzonesList_OutputMessage" />
+    <wsdl:operation name="GetZonesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetZonesList" message="tns:ILocationService_GetZonesList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetZonesListResponse" message="tns:ILocationService_GetZonesList_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetSingleZonesInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetSingleZonesInfo" message="tns:ILocationService_GetSingleZonesInfo_InputMessage" />
@@ -1690,6 +1717,10 @@
     <wsdl:operation name="SetCardRoleAccessAreas">
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas" message="tns:ILocationService_SetCardRoleAccessAreas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreasResponse" message="tns:ILocationService_SetCardRoleAccessAreas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraAlarms">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarms" message="tns:ILocationService_GetCameraAlarms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarmsResponse" message="tns:ILocationService_GetCameraAlarms_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUnitySetting">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetUnitySetting" message="tns:ILocationService_GetUnitySetting_InputMessage" />
@@ -1928,6 +1959,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetHistoryU3DPositonsByTime">
       <soap:operation soapAction="http://tempuri.org/IPositionService/GetHistoryU3DPositonsByTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoryPositonStatistics">
+      <soap:operation soapAction="http://tempuri.org/IPositionService/GetHistoryPositonStatistics" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2682,6 +2722,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDeviceAlarmsPage">
+      <soap:operation soapAction="http://tempuri.org/IAlarmService/GetDeviceAlarmsPage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostList">
       <soap:operation soapAction="http://tempuri.org/IPostService/GetPostList" style="document" />
       <wsdl:input>
@@ -2772,8 +2821,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetzonesList">
-      <soap:operation soapAction="http://tempuri.org/IBaseDataService/GetzonesList" style="document" />
+    <wsdl:operation name="GetZonesList">
+      <soap:operation soapAction="http://tempuri.org/IBaseDataService/GetZonesList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3179,6 +3228,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetCardRoleAccessAreas">
       <soap:operation soapAction="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraAlarms">
+      <soap:operation soapAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

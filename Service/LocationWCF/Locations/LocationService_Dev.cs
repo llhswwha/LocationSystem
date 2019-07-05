@@ -20,6 +20,7 @@ using System.Data.Entity.Infrastructure;
 using Location.BLL.Tool;
 using TModel.BaseData;
 using Location.TModel.Tools;
+using System.IO;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
@@ -257,12 +258,19 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pidList)
         {
-            List<Dev_DoorAccess> devInfoList = new List<Dev_DoorAccess>();
-            foreach (var pId in pidList)
+            try
             {
-                devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.ParentId == pId).ToList().ToTModel());
-            }
-            return devInfoList.ToWCFList();
+                List<Dev_DoorAccess> devInfoList = new List<Dev_DoorAccess>();
+                foreach (var pId in pidList)
+                {
+                    devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.ParentId != null && item.ParentId == pId).ToList().ToTModel());
+                }
+                return devInfoList.ToWCFList();
+            }catch(Exception e)
+            {
+                Log.Error("LocationService_Dev.GetDoorAccessInfoByParent.Exception:"+e.ToString());
+                return null;
+            }           
         }
         /// <summary>
         /// 获取所有的门禁信息
@@ -755,34 +763,54 @@ namespace LocationServices.Locations
         /// 根据KKS获取设备的信息、监控项，及设备树
         /// </summary>
         /// <param name="KKS"></param>
-        /// <param name="bFlag"></param>
+        /// <param name="isShowAll"></param>
         /// <returns></returns>
-        public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag)
+        public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool isShowAll)
         {
             DateTime start = DateTime.Now;
-            Dev_Monitor monitor = GetDevMonitor(KKS, bFlag);
+            Dev_Monitor monitor = GetDevMonitor(KKS, isShowAll);
+            if (monitor == null) return null;
             var tags=monitor.GetAllTagList();
             TimeSpan time = DateTime.Now - start;
             //Log.Info(LogTags.KKS, string.Format("[{2}]KKS:{0},测点:{1}", KKS, tags, time));
             List<DevMonitorNode> dataList = GetSomesisList(tags);//到基础平台获取数据
             //Log.Info(LogTags.KKS, string.Format("获取sis数据"));
-            monitor = InsertDataToEveryDev(monitor, ref dataList);
+            monitor = InsertDataToEveryDev(monitor,dataList);
             return monitor;
         }
 
-        public Dev_Monitor GetDevMonitor(string KKS, bool bFlag)
+        public Dev_Monitor GetDevMonitor(string KKS, bool isShowAll)
         {
+            Dev_Monitor monitor = new Dev_Monitor();
             DbModel.Location.AreaAndDev.KKSCode kksCode = KKSCodes.FirstOrDefault(p => p.Code == KKS);
             if (kksCode == null)
             {
-                return null;
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\"+ KKS+".xml";
+                if (File.Exists(dirPath))
+                {
+                    var list=XmlSerializeHelper.LoadFromFile<DevMonitorNodeList>(dirPath);
+                    monitor.Name = KKS;
+                    monitor.KKSCode = KKS;
+                    monitor.MonitorNodeList = list;
+                }
+                else
+                {
+                    monitor = null;
+                }
             }
-            Dev_Monitor monitor = new Dev_Monitor();
-            monitor.Name = kksCode.Name;
-            monitor.KKSCode = kksCode.Code;
-            var monitorNodeList = GetDevMonitorNodeListByKKS(kksCode.Code);
-            monitor.MonitorNodeList = monitorNodeList;
-            monitor.ChildrenList = GetChildMonitorDev(kksCode, bFlag);
+            else
+            {
+                monitor.Name = kksCode.Name;
+                monitor.KKSCode = kksCode.Code;
+                var monitorNodeList = GetDevMonitorNodeListByKKS(kksCode.Code);
+                monitor.MonitorNodeList = monitorNodeList;
+                monitor.ChildrenList = GetChildMonitorDev(kksCode);
+                if (isShowAll == false)
+                {
+                    monitor.RemoveEmpty();
+                }
+                monitor.AddChildrenMonitorNodes();
+            }
             return monitor;
         }
 
@@ -849,7 +877,7 @@ namespace LocationServices.Locations
             }
         }
 
-        private List<Dev_Monitor> GetChildMonitorDev(DbModel.Location.AreaAndDev.KKSCode KKS, bool bFlag)
+        private List<Dev_Monitor> GetChildMonitorDev(DbModel.Location.AreaAndDev.KKSCode KKS)
         {
             Dictionary<string,Dev_Monitor> devMoniters = new Dictionary<string, Dev_Monitor>();
             List<DbModel.Location.AreaAndDev.KKSCode> childrenKKS = KKS.Children;
@@ -885,7 +913,7 @@ namespace LocationServices.Locations
                     foreach (DbModel.Location.AreaAndDev.KKSCode item in childrenKKS)
                     {
                         Dev_Monitor dev = devMoniters[item.Code];
-                        dev.ChildrenList = GetChildMonitorDev(item, bFlag);//递归找子物体
+                        dev.ChildrenList = GetChildMonitorDev(item);//递归找子物体
                     }
                 }
             }
@@ -897,7 +925,7 @@ namespace LocationServices.Locations
             return devMoniters.Values.ToList();
         }
 
-        private Dev_Monitor InsertDataToEveryDev(Dev_Monitor Dm, ref List<DevMonitorNode> dataList)
+        private Dev_Monitor InsertDataToEveryDev(Dev_Monitor Dm, List<DevMonitorNode> dataList)
         {
             Dev_Monitor send = new Dev_Monitor();
             string strDevKKs = Dm.KKSCode;
@@ -906,8 +934,18 @@ namespace LocationServices.Locations
             {
                 foreach (DevMonitorNode item in Dm.MonitorNodeList)
                 {
-                    string strNodeKKS = item.KKS;
-                    DevMonitorNode data = MonitorNodeList.Find(p => p.KKS == strNodeKKS);
+                    //string strNodeKKS = item.KKS;
+                    DevMonitorNode data = MonitorNodeList.Find(p => p.KKS == item.KKS);
+                    //DevMonitorNode data = dataList.Find(p => p.TagName == item.TagName);
+                    if (data == null || MonitorNodeList.Count == 0)
+                    {
+                        data = dataList.Find(p => p.TagName == item.TagName);
+                    }
+                    else
+                    {
+
+                    }
+
                     if (data != null)
                     {
                         item.Value = data.Value;
@@ -920,18 +958,19 @@ namespace LocationServices.Locations
             {
                 foreach (Dev_Monitor item2 in Dm.ChildrenList)
                 {
-                    Dev_Monitor ChildDm = InsertDataToEveryDev(item2, ref dataList);
+                    Dev_Monitor ChildDm = InsertDataToEveryDev(item2, dataList);
                     if (ChildDm != null)
                     {
                         if (send.ChildrenList == null)
                         {
                             send.ChildrenList = new List<Dev_Monitor>();
                         }
+
                         send.ChildrenList.Add(ChildDm);
                     }
                 }
             }
-            
+
             send.KKSCode = Dm.KKSCode;
             send.Name = Dm.Name;
             send.MonitorNodeList = Dm.MonitorNodeList;
@@ -939,6 +978,6 @@ namespace LocationServices.Locations
             return send;
         }
 
-        
+
     }
 }

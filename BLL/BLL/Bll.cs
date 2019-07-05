@@ -134,6 +134,9 @@ namespace BLL
 
         public UserBll Users { get; set; }
 
+
+        public CameraAlarmJsonBll CameraAlarmJsons { get; set; }
+
         /********************LocationHistory********************************/
 
         public DevAlarmHistoryBll DevAlarmHistorys { get; set; }
@@ -263,6 +266,7 @@ namespace BLL
             //ShapePoints = new ShapePointBll();
             HomePagePictures = new HomePagePictureBll(Db);
             Users = new UserBll(Db);
+            CameraAlarmJsons = new CameraAlarmJsonBll(Db);
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);
@@ -286,7 +290,7 @@ namespace BLL
             PatrolPointHistorys = new PatrolPointHistoryBll(DbHistory);
             PatrolPointItemHistorys = new PatrolPointItemHistoryBll(DbHistory);
             DevMonitorNodeHistorys = new DevMonitorNodeHistoryBll(DbHistory);
-
+            
 
             bus_anchors = new bus_anchorBll(DbE);
             bus_tags = new bus_tagBll(DbE);

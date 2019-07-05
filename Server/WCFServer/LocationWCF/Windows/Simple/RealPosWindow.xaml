@@ -11,6 +11,7 @@
             <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_OnClick"></MenuItem>
             <MenuItem Header="原地踏步" Name="MenuRefreshOnTheSpot" Click="MenuRefreshOnTheSpot_OnClick"></MenuItem>
             <MenuItem Header="停止踏步" Name="MenuStopSimulate" Click="MenuStopSimulate_OnClick"></MenuItem>
+            <MenuItem Header="随机移动" Name="MenuRandomMove" Click="MenuRandomMove_OnClick"></MenuItem>
         </Menu>
         <DataGrid Name="DataGrid1">
             <DataGrid.ContextMenu>

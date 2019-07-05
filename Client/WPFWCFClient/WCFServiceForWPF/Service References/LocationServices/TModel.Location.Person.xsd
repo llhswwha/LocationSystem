@@ -12,7 +12,7 @@
       <xs:element minOccurs="0" name="Distance" type="xs:float" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Position" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="WorkNumber" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="WorkNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="X" type="xs:float" />
       <xs:element minOccurs="0" name="Y" type="xs:float" />
       <xs:element minOccurs="0" name="Z" type="xs:float" />

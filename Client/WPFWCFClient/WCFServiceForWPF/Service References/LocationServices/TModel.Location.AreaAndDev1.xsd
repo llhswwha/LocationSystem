@@ -19,6 +19,7 @@
       <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PassWord" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Port" type="xs:int" />
+      <xs:element minOccurs="0" name="RtspUrl" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -101,7 +102,7 @@
       <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ParentKKS" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Time" type="xs:int" />
+      <xs:element minOccurs="0" name="Time" type="xs:long" />
       <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
     </xs:sequence>

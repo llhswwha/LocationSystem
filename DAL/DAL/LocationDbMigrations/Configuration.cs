@@ -7,6 +7,10 @@ namespace DAL.LocationDbMigrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<DAL.LocationDb>
     {
+        //数据迁移出现already exists问题处理
+        //add-migration -ConfigurationTypeName DAL.LocationDbMigrations.Configuration "Reset" -ignorechanges
+        //Update-database -ConfigurationTypeName DAL.LocationDbMigrations.Configuration -force
+
         public Configuration()
         {
             //AutomaticMigrationsEnabled = false;

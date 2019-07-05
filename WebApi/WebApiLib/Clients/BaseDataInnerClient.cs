@@ -3,6 +3,7 @@ using CommunicationClass.SihuiThermalPowerPlant;
 using CommunicationClass.SihuiThermalPowerPlant.Models;
 using DbModel.BaseData;
 using Location.BLL.Tool;
+using LocationServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,13 @@ namespace WebApiLib.Clients
 
         public BaseDataInnerClient(string baseUri)
         {
+//#if DEBUG
+//            if (System.Diagnostics.Debugger.IsAttached)
+//            {
+//                baseUri = string.Format("http://{0}:{1}/datacase/api/", AppContext.CurrentHost, AppContext.CurrentPort);
+//            }
+//#endif
+
             BaseUri = baseUri;
         }
 

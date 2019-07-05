@@ -14,6 +14,10 @@ namespace LocationServer
 {
     public static class AppContext
     {
+        public static string CurrentHost { get; set; }
+
+        public static string CurrentPort { get; set; }
+
         /// <summary>
         /// 是否将定位引擎获取的数据写入日志
         /// </summary>

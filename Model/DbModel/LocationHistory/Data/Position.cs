@@ -49,6 +49,9 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "人员ID")]
         public int? PersonnelID { get; set; }
 
+        [NotMapped]
+        public string PersonnelName { get; set; }
+
         /// <summary>
         /// 定位卡编号
         /// </summary>
@@ -212,6 +215,9 @@ namespace DbModel.LocationHistory.Data
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
         public int? AreaId { get; set; }
+
+        [NotMapped]
+        public Area Area { get; set; }
 
         public bool IsAreaNull()
         {
@@ -449,6 +455,91 @@ namespace DbModel.LocationHistory.Data
             Number = pos.Number;
             Flag = pos.Flag;
             Archors = pos.Archors;
+        }
+    }
+
+    public class PositionList:IComparable<PositionList>
+    {
+        public string Name { get; set; }
+
+        public int Count
+        {
+            get
+            {
+                if (Items == null) return -1;
+                return Items.Count;
+            }
+        }
+
+        public List<Position> Items { get; set; }
+
+        public PositionList(string name)
+        {
+            this.Name = name;
+        }
+
+        public void Add(Position pos)
+        {
+            if (Items == null)
+            {
+                Items = new List<Position>();
+            }
+
+            Items.Add(pos);
+        }
+
+        public static List<PositionList> GetList(List<Position> posList,Func<Position,string> actionGetName)
+        {
+            Dictionary<string, PositionList> dateDict = new Dictionary<string, PositionList>();
+            for (int i = 0; i < posList.Count; i++)
+            {
+                var pos = posList[i];
+
+                var name = actionGetName(pos);
+                if (name == null)
+                {
+                    name = "NULL";
+                }
+                if (!dateDict.ContainsKey(name))
+                {
+                    dateDict.Add(name, new PositionList(name));
+                }
+                var list = dateDict[name];
+                list.Add(pos);
+            }
+            var result = dateDict.Values.ToList();
+            result.Sort();
+            return result;
+        }
+
+        public static List<PositionList> GetListByDay(List<Position> posList)
+        {
+            return GetList(posList, i => i.DateTime.ToString("yyyy-MM-dd"));
+        }
+
+        public static List<PositionList> GetListByHour(List<Position> posList)
+        {
+            return GetList(posList, i => i.DateTime.ToString("yyyy-MM-dd HH"));
+        }
+
+        public static List<PositionList> GetListByCode(List<Position> posList)
+        {
+            return GetList(posList, i => i.Code);
+        }
+
+        public static List<PositionList> GetListByPerson(List<Position> posList)
+        {
+            return GetList(posList, i => i.PersonnelName);
+        }
+
+        public static List<PositionList> GetListByArea(List<Position> posList)
+        {
+            return GetList(posList, i => i.AreaPath);
+        }
+
+        public int CompareTo(PositionList other)
+        {
+            return other.Count.CompareTo(this.Count);
         }
     }
 }

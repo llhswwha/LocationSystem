@@ -97,6 +97,29 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "最大X值")]
         public float? ZeroY { get; set; }
 
+        /// <summary>
+        /// 获取子坐标系的原点坐标，原本的MinX在原点左边也包括在包围盒的上时是可以的，但是不在上面时就会出问题。
+        /// </summary>
+        /// <returns></returns>
+        public float GetZeroX()
+        {
+            if (ZeroX != null)
+            {
+                return (float)ZeroX;
+            }
+            return MinX;
+        }
+
+        public float GetZeroY()
+        {
+            if (ZeroY != null)
+            {
+                return (float)ZeroY;
+            }
+            return MinY;
+        }
+
+
 
         /// <summary>
         /// 位置点

@@ -50,4 +50,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="U3DPosition" nillable="true" type="tns:U3DPosition" />
+  <xs:complexType name="ArrayOfPositionList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PositionList" nillable="true" type="tns:PositionList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPositionList" nillable="true" type="tns:ArrayOfPositionList" />
+  <xs:complexType name="PositionList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfPosition" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PositionList" nillable="true" type="tns:PositionList" />
 </xs:schema>

@@ -32,6 +32,7 @@ using LocationServer.Tools;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading;
 
 namespace LocationServices.Locations
 {
@@ -39,7 +40,7 @@ namespace LocationServices.Locations
     public partial class LocationService : ILocationService, IDisposable
     {
         public static List<LoginInfo> loginInfos = new List<LoginInfo>();
-
+        
         public static RemoteEndpointMessageProperty GetClientEndPoint()
         {
             //提供方法执行的上下文环境
@@ -103,7 +104,7 @@ namespace LocationServices.Locations
         public VersionInfo GetVersionInfo()
         {
             VersionInfo version = new VersionInfo();
-            version.Version = ConfigurationManager.AppSettings["VersionCode"];
+            version.Version = ConfigurationManager.AppSettings["ClientVersionCode"];
             version.LocationURL = ConfigurationManager.AppSettings["LocationPackageURL"];
             return version;
         }
@@ -112,5 +113,6 @@ namespace LocationServices.Locations
         {
             ShowLogEx(msg);
         }
+
     }
 }

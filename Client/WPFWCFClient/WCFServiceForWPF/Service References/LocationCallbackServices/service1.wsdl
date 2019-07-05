@@ -40,6 +40,8 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
     </xsd:schema>
   </wsdl:types>
@@ -125,7 +127,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8734/LocationCallbackService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-CLV0P90\caiwanwei</Upn>
+          <Upn>PC-20180117AGTG\Administrator</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

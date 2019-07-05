@@ -45,6 +45,9 @@ using Location.BLL.Tool;
 using System.Text;
 using WebApiLib.Clients;
 using NsqSharp.Utils;
+using BLL.Blls.Location;
+using BLL.Blls;
+using DbModel.Location.Alarm;
 
 namespace LocationServer.Controls
 {
@@ -116,6 +119,7 @@ namespace LocationServer.Controls
                 StopLocationAlarmService();
                 StopGetInspectionTrack();
                 StopExtremeVisionListener();
+                StopGetHistoryPositon();
                 SisDataSaveClient.Stop();
             }
             catch (Exception ex)
@@ -190,23 +194,58 @@ namespace LocationServer.Controls
         {
             try
             {
+                AppContext.CurrentHost = host;
+                AppContext.CurrentPort = port;
+
                 WriteLog("启动服务");
+
+                //WCF服务 项目：Location.Service
                 StartLocationService(host, port);
+                //基于WCF接口同时兼容的WebApi服务 http://{0}:8733/LocationService/api WebServiceHost 项目：Location.Service
                 StartLocationServiceApi(host, port);
-                StartReceiveAlarm();
+                //定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
                 StartLocationAlarmService();
+
+                //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
+                StartReceiveAlarm();
+                
+                //WebApi服务 主要是和这个 //http://{0}:{1}/ HttpSelfHostServer
                 StartWebApiService(host, port);
+                //用来代替StartLocationAlarmService发送信息给unity，推送消息给客户端。项目：SignalRService
                 StartSignalRService(host, port);
+
+                //移动巡检信息获取客户端 轮询获取 WebApi 项目：WebApiClients
                 StartGetInspectionTrack();
 
+                //上海宝信项目对接视频行为告警 基于HttpListener 端口8736
                 string port2 = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
                 StartExtremeVisionListener(host, port2);//端口要不同
 
                 Worker.Run(() =>
                 {
-                    var count = Bll.Instance().Areas.DbSet.Count();//用于做数据迁移用，查询一下
+                    try
+                    {
+                        Bll bll = Bll.Instance();
+                        var count = bll.Areas.DbSet.Count();//用于做数据迁移用，查询一下
+                        if (count == 0)
+                        {
+                            Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
+                        }
+
+                        //var list = bll.Areas.ToList();
+                        //if (list == null)
+                        //{
+                        //    Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
+                        //}
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        Log.Error(LogTags.Server, "数据迁移出错！！："+e.Message);
+                    }
                 },null);
-                
+
+                StartGetHistoryPositon();
             }
             catch (Exception ex)
             {
@@ -229,7 +268,17 @@ namespace LocationServer.Controls
                     DateTime now = DateTime.Now;
                     string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
                     File.WriteAllText(path, json);
+                  
                     CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                    //todo:存到数据库中，EF
+                    
+                    byte[] byte1= Encoding.UTF8.GetBytes(json);
+                    CameraAlarmJson camera = new CameraAlarmJson();
+                    camera.Json = byte1;
+                    if (camera != null)
+                    {
+                        bool result = Bll.NewBllNoRelation().CameraAlarmJsons.Add(camera);
+                    }      
                     //todo：发送告警
                     CameraAlarmHub.SendInfo(info);
                     return info.ToString();
@@ -439,7 +488,7 @@ namespace LocationServer.Controls
                 };
                 trackClient.Start();
 
-                WriteLog("StartGetInspectionTrack");
+                WriteLog("StartGetInspectionTrack:"+ strIp);
             }
         }
 
@@ -454,5 +503,27 @@ namespace LocationServer.Controls
         //    client.Start();
         //}
 
+
+        private Thread HPThread;
+        private void StartGetHistoryPositon()
+        {
+            if (HPThread == null)
+            {
+                LocationServices.Locations.Services.PosHistoryService Phs = new LocationServices.Locations.Services.PosHistoryService();
+                
+                HPThread = new Thread(Phs.GetHistoryPositonThread);
+                HPThread.IsBackground = true;
+                HPThread.Start();
+            }
+        }
+  
+        private void StopGetHistoryPositon()
+        {
+            if (HPThread != null)
+            {
+                HPThread.Abort();
+                HPThread = null;
+            }
+        }
     }
 }
