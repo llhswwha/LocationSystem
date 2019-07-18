@@ -99,6 +99,7 @@
     <Compile Include="Location\Person\Personnel.cs" />
     <Compile Include="Location\TransferOfAxesConfig.cs" />
     <Compile Include="Location\Work\InspectionTrack.cs" />
+    <Compile Include="Location\Work\InspectionTrackList.cs" />
     <Compile Include="Location\Work\JurisDiction.cs" />
     <Compile Include="Location\Work\JurisDictionRecord.cs" />
     <Compile Include="Location\Work\MobileInspection.cs" />

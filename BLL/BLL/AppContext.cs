@@ -40,6 +40,10 @@ namespace LocationServer
             get { return AppSetting.PositionMoveStateOfflineTime; }
             set { AppSetting.PositionMoveStateOfflineTime = value; }
         }
+        /// <summary>
+        /// 显示未在定位区域的位置点
+        /// </summary>
+        public static bool ShowUnLocatedAreaPoint { get; set; }
 
         public static string ParkName
         {

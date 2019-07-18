@@ -273,17 +273,23 @@
   <wsdl:message name="ILocationService_GetDevInfoByParent_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDevInfoByParentResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDevByID_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDevByID" />
+  <wsdl:message name="ILocationService_GetDevByGUID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByGUID" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDevByID_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDevByIDResponse" />
+  <wsdl:message name="ILocationService_GetDevByGUID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByGUIDResponse" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDevByiId_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDevByiId" />
+  <wsdl:message name="ILocationService_GetDevById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevById" />
   </wsdl:message>
-  <wsdl:message name="ILocationService_GetDevByiId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDevByiIdResponse" />
+  <wsdl:message name="ILocationService_GetDevById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByGameName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByGameName" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetDevByGameName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDevByGameNameResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_AddDoorAccessByList_InputMessage">
     <wsdl:part name="parameters" element="tns:AddDoorAccessByList" />
@@ -368,6 +374,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetCameraInfoByDevInfo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCameraInfoByDevInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByIp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByIp" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraInfoByIp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraInfoByIpResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetArchors_InputMessage">
     <wsdl:part name="parameters" element="tns:GetArchors" />
@@ -1023,11 +1035,23 @@
   <wsdl:message name="ILocationService_SetCardRoleAccessAreas_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetCardRoleAccessAreasResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllCameraAlarms_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCameraAlarms" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetAllCameraAlarms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCameraAlarmsResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetCameraAlarms_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCameraAlarms" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetCameraAlarms_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCameraAlarmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraAlarm" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetCameraAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCameraAlarmResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetUnitySetting_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUnitySetting" />
@@ -1218,13 +1242,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevInfoByParent" message="tns:ILocationService_GetDevInfoByParent_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevInfoByParentResponse" message="tns:ILocationService_GetDevInfoByParent_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDevByID">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByID" message="tns:ILocationService_GetDevByID_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByIDResponse" message="tns:ILocationService_GetDevByID_OutputMessage" />
+    <wsdl:operation name="GetDevByGUID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByGUID" message="tns:ILocationService_GetDevByGUID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByGUIDResponse" message="tns:ILocationService_GetDevByGUID_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDevByiId">
-      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByiId" message="tns:ILocationService_GetDevByiId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByiIdResponse" message="tns:ILocationService_GetDevByiId_OutputMessage" />
+    <wsdl:operation name="GetDevById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevById" message="tns:ILocationService_GetDevById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByIdResponse" message="tns:ILocationService_GetDevById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDevByGameName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetDevByGameName" message="tns:ILocationService_GetDevByGameName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetDevByGameNameResponse" message="tns:ILocationService_GetDevByGameName_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddDoorAccessByList">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/AddDoorAccessByList" message="tns:ILocationService_AddDoorAccessByList_InputMessage" />
@@ -1281,6 +1309,10 @@
     <wsdl:operation name="GetCameraInfoByDevInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfo" message="tns:ILocationService_GetCameraInfoByDevInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfoResponse" message="tns:ILocationService_GetCameraInfoByDevInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByIp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByIp" message="tns:ILocationService_GetCameraInfoByIp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDevService/GetCameraInfoByIpResponse" message="tns:ILocationService_GetCameraInfoByIp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetArchors">
       <wsdl:input wsaw:Action="http://tempuri.org/IDevService/GetArchors" message="tns:ILocationService_GetArchors_InputMessage" />
@@ -1718,9 +1750,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas" message="tns:ILocationService_SetCardRoleAccessAreas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreasResponse" message="tns:ILocationService_SetCardRoleAccessAreas_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllCameraAlarms">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraAlarmService/GetAllCameraAlarms" message="tns:ILocationService_GetAllCameraAlarms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraAlarmService/GetAllCameraAlarmsResponse" message="tns:ILocationService_GetAllCameraAlarms_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCameraAlarms">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarms" message="tns:ILocationService_GetCameraAlarms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarmsResponse" message="tns:ILocationService_GetCameraAlarms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarm" message="tns:ILocationService_GetCameraAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarmResponse" message="tns:ILocationService_GetCameraAlarm_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUnitySetting">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetUnitySetting" message="tns:ILocationService_GetUnitySetting_InputMessage" />
@@ -2110,8 +2150,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDevByID">
-      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByID" style="document" />
+    <wsdl:operation name="GetDevByGUID">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByGUID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2119,8 +2159,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetDevByiId">
-      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByiId" style="document" />
+    <wsdl:operation name="GetDevById">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDevByGameName">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetDevByGameName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2247,6 +2296,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCameraInfoByDevInfo">
       <soap:operation soapAction="http://tempuri.org/IDevService/GetCameraInfoByDevInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraInfoByIp">
+      <soap:operation soapAction="http://tempuri.org/IDevService/GetCameraInfoByIp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3235,8 +3293,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllCameraAlarms">
+      <soap:operation soapAction="http://tempuri.org/ICameraAlarmService/GetAllCameraAlarms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCameraAlarms">
       <soap:operation soapAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCameraAlarm">
+      <soap:operation soapAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarm" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

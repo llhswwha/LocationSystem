@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000007","checkItem":"第一套机组高压给水泵变频器系统各表计正常","checkResult":"","checkTime":null,"checkId":1006412,"kksCode":"SH11UTD08R005"},{"staffCode":"80000007","checkItem":"第一套机组高压给水泵变频器系统各表计正常","checkResult":"","checkTime":null,"checkId":1006412,"kksCode":"SH11UTD08R005"}]}

@@ -1811,13 +1811,25 @@ namespace WCFServiceForWPF.LocationServices {
         private string cid_urlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int endIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string pic_dataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string pic_nameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int startIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime timeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long time_stampField;
@@ -1911,6 +1923,32 @@ namespace WCFServiceForWPF.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int endId {
+            get {
+                return this.endIdField;
+            }
+            set {
+                if ((this.endIdField.Equals(value) != true)) {
+                    this.endIdField = value;
+                    this.RaisePropertyChanged("endId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string pic_data {
             get {
                 return this.pic_dataField;
@@ -1937,6 +1975,19 @@ namespace WCFServiceForWPF.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int startId {
+            get {
+                return this.startIdField;
+            }
+            set {
+                if ((this.startIdField.Equals(value) != true)) {
+                    this.startIdField = value;
+                    this.RaisePropertyChanged("startId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int status {
             get {
                 return this.statusField;
@@ -1945,6 +1996,19 @@ namespace WCFServiceForWPF.LocationServices {
                 if ((this.statusField.Equals(value) != true)) {
                     this.statusField = value;
                     this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime time {
+            get {
+                return this.timeField;
+            }
+            set {
+                if ((this.timeField.Equals(value) != true)) {
+                    this.timeField = value;
+                    this.RaisePropertyChanged("time");
                 }
             }
         }
@@ -2880,8 +2944,14 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreas", ReplyAction="http://tempuri.org/IAuthorizationService/SetCardRoleAccessAreasResponse")]
         bool SetCardRoleAccessAreas(int role, int[] areaIds);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICameraAlarmService/GetAllCameraAlarms", ReplyAction="http://tempuri.org/ICameraAlarmService/GetAllCameraAlarmsResponse")]
+        WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetAllCameraAlarms(bool merge);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarms", ReplyAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarmsResponse")]
-        WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetCameraAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg);
+        WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetCameraAlarms(string ip, bool merge);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarm", ReplyAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarmResponse")]
+        WCFServiceForWPF.LocationServices.CameraAlarmInfo GetCameraAlarm(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetUnitySetting", ReplyAction="http://tempuri.org/ILocationService/GetUnitySettingResponse")]
         TModel.Models.Settings.UnitySetting GetUnitySetting();
@@ -3587,8 +3657,16 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.SetCardRoleAccessAreas(role, areaIds);
         }
         
-        public WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetCameraAlarms(Location.TModel.FuncArgs.AlarmSearchArg arg) {
-            return base.Channel.GetCameraAlarms(arg);
+        public WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetAllCameraAlarms(bool merge) {
+            return base.Channel.GetAllCameraAlarms(merge);
+        }
+        
+        public WCFServiceForWPF.LocationServices.CameraAlarmInfo[] GetCameraAlarms(string ip, bool merge) {
+            return base.Channel.GetCameraAlarms(ip, merge);
+        }
+        
+        public WCFServiceForWPF.LocationServices.CameraAlarmInfo GetCameraAlarm(int id) {
+            return base.Channel.GetCameraAlarm(id);
         }
         
         public TModel.Models.Settings.UnitySetting GetUnitySetting() {

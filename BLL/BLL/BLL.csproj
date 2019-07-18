@@ -187,6 +187,10 @@
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SelfBatchImport\SelfBatchImport.csproj">
+      <Project>{1a45ee0a-4247-4918-8ddf-2848fa5049cb}</Project>
+      <Name>SelfBatchImport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Third\Projects\ExcelLib\ExcelLib.csproj">
       <Project>{a1b87d98-60df-4f13-976c-b776f6415626}</Project>
       <Name>ExcelLib</Name>

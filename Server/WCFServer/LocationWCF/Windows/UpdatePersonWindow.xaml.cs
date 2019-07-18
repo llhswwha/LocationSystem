@@ -64,7 +64,7 @@ namespace LocationServer.Windows
                 db = Bll.NewBllNoRelation();//第三个参数要true，不然数据迁移无法用
                 departments = db.Departments.ToList();
 
-                var parentDepName = "中电四会热电有限公司";
+                var parentDepName = "3DL粉焦区域";//"中电四会热电有限公司"
                 var parentDep = departments.Find(i => i.Name.Trim() == parentDepName);
                 if (parentDep == null)
                 {
@@ -93,27 +93,31 @@ namespace LocationServer.Windows
                         }
                         if (parentDep == null) return;
 
-                        LocationCard card = db.LocationCards.Find(i => i.Code.Trim() == cardCode);
-                        if (card == null)
+                        LocationCard card = null;
+                        if (!string.IsNullOrEmpty(cardCode))
                         {
-                            //MessageBox.Show("未找到定位卡:" + cardCode + "\n请确认数据是否正确！");//必须有正确的卡号
-                            //return;
-
-                            card = new LocationCard(cardCode, 2);//管理人员卡
-                            var r1 = db.LocationCards.Add(card);
-                            if (r1 == false)
+                            card = db.LocationCards.Find(i => i.Code.Trim() == cardCode);
+                            if (card == null)
                             {
-                                MessageBox.Show("添加定位卡失败:" + cardCode + "\n" + db.LocationCards.ErrorMessage);
-                                return;
+                                //MessageBox.Show("未找到定位卡:" + cardCode + "\n请确认数据是否正确！");//必须有正确的卡号
+                                //return;
+
+                                card = new LocationCard(cardCode, 2);//管理人员卡
+                                var r1 = db.LocationCards.Add(card);
+                                if (r1 == false)
+                                {
+                                    MessageBox.Show("添加定位卡失败:" + cardCode + "\n" + db.LocationCards.ErrorMessage);
+                                    return;
+                                }
+                                else
+                                {
+                                    Log.Info("添加定位卡:" + cardCode);
+                                }
                             }
                             else
                             {
-                                Log.Info("添加定位卡:" + cardCode);
+
                             }
-                        }
-                        else
-                        {
-                            
                         }
 
                         if(personName== "刘钢")
@@ -122,50 +126,54 @@ namespace LocationServer.Windows
                         }
 
                         Personnel person = db.Personnels.Find(i => i.Name.Trim() == personName);
-
-                        var cTpList = db.LocationCardToPersonnels.Where(i => i.LocationCardId == card.Id);
-                        if (cTpList != null && cTpList.Count>0)//已经存在关系
+                        var list = db.LocationCardToPersonnels.ToList();
+                        if (list != null && card!=null)
                         {
-                            if (cTpList.Count == 1)//只有一个关系
+                            var cTpList = list.Where(i => i.LocationCardId == card.Id).ToList();
+                            if (cTpList != null && cTpList.Count > 0)//已经存在关系
                             {
-                                var cTp0 = cTpList[0];
-
-                                Personnel person2 = db.Personnels.Find(i => i.Id == cTp0.PersonnelId);
-                                if (person2 != null)
+                                if (cTpList.Count == 1)//只有一个关系
                                 {
-                                    if (person2.Name.StartsWith("Tag_"))//自动创建的
+                                    var cTp0 = cTpList[0];
+
+                                    Personnel person2 = db.Personnels.Find(i => i.Id == cTp0.PersonnelId);
+                                    if (person2 != null)
                                     {
-                                        EditPerson(person2, department, personName, personNumber, post);//更新人员信息
-                                        return;
+                                        if (person2.Name.StartsWith("Tag_"))//自动创建的
+                                        {
+                                            EditPerson(person2, department, personName, personNumber, post);//更新人员信息
+                                            return;
+                                        }
+                                        else
+                                        {
+
+                                        }
                                     }
                                     else
                                     {
 
                                     }
-                                }
-                                else
-                                {
 
                                 }
-
-                            }
-                            else//多个关系
-                            {
-                                foreach (LocationCardToPersonnel cpt in cTpList)
+                                else//多个关系
                                 {
-                                    if (person != null)
+                                    foreach (LocationCardToPersonnel cpt in cTpList)
                                     {
-                                        if (cpt.PersonnelId == person.Id)
-                                            continue;
+                                        if (person != null)
+                                        {
+                                            if (cpt.PersonnelId == person.Id)
+                                                continue;
+                                        }
+                                        db.LocationCardToPersonnels.Remove(cpt);//清空以前的卡关联关系
                                     }
-                                    db.LocationCardToPersonnels.Remove(cpt);//清空以前的卡关联关系
                                 }
                             }
-                        }
-                        else
-                        {
+                            else
+                            {
 
+                            }
                         }
+ 
 
                         //Personnel person = db.Personnels.Find(i => i.Name.Trim() == personName);
                         if (person == null)
@@ -178,21 +186,24 @@ namespace LocationServer.Windows
                             EditPerson(person, department, personName, personNumber, post);
                         }
 
-                        var cTp1 = db.LocationCardToPersonnels.Find(i => i.LocationCardId == card.Id);
-                        var cTp2 = db.LocationCardToPersonnels.Find(i => i.PersonnelId == person.Id);
-
-                        var r2 = ps.BindWithTag(person.Id, card.Id);
-
-                        var cTpList2 = db.LocationCardToPersonnels.Where(i => i.LocationCardId == card.Id);
-
-                        if (r2 == false)
+                        if (card != null)
                         {
-                            //MessageBox.Show("设置绑定失败:" + personName + "," + cardCode + "\n" + db.Personnels.ErrorMessage);
-                            continue;
-                        }
-                        else
-                        {
-                            Log.Info("设置绑定:" + personName + "," + cardCode);
+                            var cTp1 = list.Find(i => i.LocationCardId == card.Id);
+                            var cTp2 = list.Find(i => i.PersonnelId == person.Id);
+
+                            var r2 = ps.BindWithTag(person.Id, card.Id);
+
+                            var cTpList2 = db.LocationCardToPersonnels.Where(i => i.LocationCardId == card.Id);
+
+                            if (r2 == false)
+                            {
+                                //MessageBox.Show("设置绑定失败:" + personName + "," + cardCode + "\n" + db.Personnels.ErrorMessage);
+                                continue;
+                            }
+                            else
+                            {
+                                Log.Info("设置绑定:" + personName + "," + cardCode);
+                            }
                         }
                     }
                     catch (Exception ex)

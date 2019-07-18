@@ -73,12 +73,15 @@ namespace LocationServices.Locations.Interfaces
         void GetSisSamplingHistoryList(string kks);
 
         [OperationContract]
-        void Getinspectionlist(long lBegin, long lEnd, bool bFlag);
+        List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
 
         [OperationContract]
-        void Getcheckpoints(int patrolId);
+        List<PatrolPoint> Getcheckpoints(int InspectionId);
 
         [OperationContract]
-        void Getcheckresults(int patrolId, string deviceId);
+        List<PatrolPointItem> Getcheckresults(int patrolId);
+
+        [OperationContract]
+        void Trys(InspectionTrackList aa);
     }
 }

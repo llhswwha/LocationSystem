@@ -184,24 +184,31 @@ namespace LocationServices.Locations
         }
 
         /// <summary>
-        /// 通过设备Id,获取设备
+        /// 通过设备Id,获取设备(字符串Id,GUID那部分)
         /// </summary>
         /// <param name="devId"></param>
         /// <returns></returns>
-        public DevInfo GetDevByID(string devId)
+        public DevInfo GetDevByGUID(string devId)
         {
             return new DeviceService(db).GetEntityByDevId(devId);
         }
 
         /// <summary>
-        /// 通过设备Id,获取设备
+        /// 通过设备Id,获取设备(数字Id,主键)
         /// </summary>
         /// <param name="devId"></param>
         /// <returns></returns>
-        public DevInfo GetDevByiId(int id)
+        public DevInfo GetDevById(int id)
         {
-            return new DeviceService(db).GetEntityByid(id);
+            return new DeviceService(db).GetEntityById(id);
         }
+
+        public DevInfo GetDevByGameName(string nameName)
+        {
+            return new DeviceService(db).GetDevByGameName(nameName);
+        }
+
+        
 
         /// <summary>
         /// 添加门禁设备
@@ -330,9 +337,18 @@ namespace LocationServices.Locations
             //好像没用
             return db.Dev_CameraInfos.EditRange(db.Db, cameraInfoList.ToList().ToDbModel());
         }
-        public bool ModifyCameraInfo(Dev_CameraInfo camInfo)
+        public Dev_CameraInfo ModifyCameraInfo(Dev_CameraInfo camInfo)
         {
-            return db.Dev_CameraInfos.Edit(camInfo.ToDbModel());
+            camInfo.AutoGenerateRtsp();
+            var dbModel = camInfo.ToDbModel();
+            if (db.Dev_CameraInfos.Edit(dbModel))
+            {
+                return camInfo;
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 通过区域ID，获取所有摄像头信息
@@ -365,6 +381,12 @@ namespace LocationServices.Locations
         public Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev)
         {
             Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item=>item.DevInfoId==dev.Id).ToTModel();
+            return cameraInfo;
+        }
+
+        public Dev_CameraInfo GetCameraInfoByIp(string ip)
+        {
+            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => !(string.IsNullOrEmpty(item.Ip))&&item.Ip == ip).ToTModel();
             return cameraInfo;
         }
         #endregion
@@ -443,9 +465,9 @@ namespace LocationServices.Locations
         {
 
             DateTime start = DateTime.Now;
-            var devs = db.DevInfos.ToList();
+            var devs = db.DevInfos.ToList().ToTModel();
             if (devs == null||devs.Count==0) return null;
-            var dict = new Dictionary<int, DbModel.Location.AreaAndDev.DevInfo>();
+            var dict = new Dictionary<int,DevInfo>();
             foreach (var item in devs)
             {
                 if(item.ParentId!=null)
@@ -486,7 +508,9 @@ namespace LocationServices.Locations
                 }
                 
             }
+            if (alarms1 == null) return null;
             alarms = alarms1.ToTModel();
+            alarms.Sort();
             if (alarms.Count == 0) return null;
             foreach (var item in alarms)
             {
@@ -495,7 +519,7 @@ namespace LocationServices.Locations
                     if(dict.ContainsKey(item.DevId))
                     {
                         var dev = dict[item.DevId];
-                        item.SetDev(dev.ToTModel());
+                        item.SetDev(dev);//这里设置DevId,AreaId等
                     }  
                 }
                 catch (Exception ex)
@@ -776,6 +800,7 @@ namespace LocationServices.Locations
             List<DevMonitorNode> dataList = GetSomesisList(tags);//到基础平台获取数据
             //Log.Info(LogTags.KKS, string.Format("获取sis数据"));
             monitor = InsertDataToEveryDev(monitor,dataList);
+            
             return monitor;
         }
 
@@ -811,6 +836,12 @@ namespace LocationServices.Locations
                 }
                 monitor.AddChildrenMonitorNodes();
             }
+
+            if (monitor != null)
+            {
+                monitor.SetEmpty();
+            }
+           
             return monitor;
         }
 

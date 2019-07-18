@@ -26,6 +26,7 @@ namespace DbModel
         /// 基础平台对接ApiURL
         /// </summary>
         public static string DatacaseWebApiUrl { get; set; }
+        public static string ExtremeVisionListenerIP { get; set; }
 
         public static int UrlMaxLength = 200;
 

@@ -38,6 +38,10 @@
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -62,12 +66,15 @@
     <Compile Include="BaseData\org.cs" />
     <Compile Include="BaseData\user.cs" />
     <Compile Include="BaseData\zones.cs" />
+    <Compile Include="Location\Work\InspectionTrackList.cs" />
+    <Compile Include="Others\CidMap.cs" />
     <Compile Include="Engine\bus_anchor.cs" />
     <Compile Include="Engine\bus_anchor_config.cs" />
     <Compile Include="Engine\bus_anchor_switch_area.cs" />
     <Compile Include="Engine\bus_area.cs" />
     <Compile Include="Engine\bus_tag.cs" />
     <Compile Include="LocationHistory\AreaAndDev\DevMonitorNodeHistory.cs" />
+    <Compile Include="LocationHistory\Data\PositionJson.cs" />
     <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\PatrolPointHistory.cs" />
     <Compile Include="LocationHistory\Work\PatrolPointItemHistory.cs" />

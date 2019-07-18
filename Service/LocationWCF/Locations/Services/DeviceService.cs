@@ -81,7 +81,12 @@ namespace LocationServices.Locations.Services
             if (item == null) return null;
             return new AreaService(db).GetEntity(item.ParentId+"");
         }
-
+        
+        /// <summary>
+        /// 字符串Id,GUID那部分
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public TEntity GetEntityByDevId(string id)
         {
             List<TEntity> devInfo = dbSet.DbSet.Where(item => item.Local_DevID == id).ToList().ToTModel();
@@ -89,9 +94,21 @@ namespace LocationServices.Locations.Services
             else return null;
         }
 
-        public TEntity GetEntityByid(int id)
+        /// <summary>
+        /// 数字Id,主键
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TEntity GetEntityById(int id)
         {
             List<TEntity> devInfo = dbSet.DbSet.Where(item => item.Id == id).ToList().ToTModel();
+            if (devInfo != null && devInfo.Count != 0) return devInfo[0];
+            else return null;
+        }
+
+        public TEntity GetDevByGameName(string nameName)
+        {
+            List<TEntity> devInfo = dbSet.DbSet.Where(item => item.ModelName == nameName).ToList().ToTModel();
             if (devInfo != null && devInfo.Count != 0) return devInfo[0];
             else return null;
         }

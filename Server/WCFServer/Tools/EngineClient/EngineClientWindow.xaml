@@ -14,6 +14,7 @@
                 <MenuItem Header="数据写入测试"></MenuItem>
                 <MenuItem Header="历史数据查询" Name="MenuHistory" Click="MenuHistory_OnClick"></MenuItem>
                 <MenuItem Header="实时数据查询" Name="MenuReal" Click="MenuReal_OnClick"></MenuItem>
+                <MenuItem Header="模拟Json" Name="MenuSimulateJson" Click="MenuSimulateJson_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">

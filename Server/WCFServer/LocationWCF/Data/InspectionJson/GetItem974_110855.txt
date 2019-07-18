@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000004","checkItem":"连接线无松脱现象，室内照明完好","checkResult":"","checkTime":null,"checkId":1006277,"kksCode":"SHJ1UBA01R004"},{"staffCode":"80000004","checkItem":"连接线无松脱现象，室内照明完好","checkResult":"","checkTime":null,"checkId":1006277,"kksCode":"SHJ1UBA01R004"}]}

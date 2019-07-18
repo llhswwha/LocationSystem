@@ -194,5 +194,16 @@ namespace LocationServer.Windows
         {
 
         }
+
+        private void MenuRefreshOnTheSpotOne_OnClick(object sender, RoutedEventArgs e)
+        {
+            TagPosition position = DataGrid1.SelectedItem as TagPosition;
+            if (position == null) return;
+            position.DateTime = DateTime.Now;
+            position.Time = DateTime.Now.ToStamp();
+            PosService service = new PosService();
+            service.Put(position);
+            RefreshData();
+        }
     }
 }

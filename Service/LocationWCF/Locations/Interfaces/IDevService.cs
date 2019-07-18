@@ -112,20 +112,28 @@ namespace LocationServices.Locations.Interfaces
         IList<DevInfo> GetDevInfoByParent(int[] pids);
 
         /// <summary>
-        /// 通过设备ID,获取设备信息
+        /// 通过设备ID,获取设备信息(字符串Id,GUID那部分)
         /// </summary>
         /// <param name="devId"></param>
         /// <returns></returns>
         [OperationContract]
-        DevInfo GetDevByID(string devId);
+        DevInfo GetDevByGUID(string devId);
 
         /// <summary>
-        /// 通过设备ID,获取设备信息
+        /// 通过设备ID,获取设备信息(数字Id,主键)
         /// </summary>
         /// <param name="devId"></param>
         /// <returns></returns>
         [OperationContract]
-        DevInfo GetDevByiId(int id);
+        DevInfo GetDevById(int id);
+
+        /// <summary>
+        /// 通过设备物体名称获取信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        DevInfo GetDevByGameName(string nameName);
 
         //门禁设备的增删改查
 
@@ -207,7 +215,7 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="camInfo"></param>
         /// <returns></returns>
         [OperationContract]
-        bool ModifyCameraInfo(Dev_CameraInfo camInfo);
+        Dev_CameraInfo ModifyCameraInfo(Dev_CameraInfo camInfo);
         /// <summary>
         /// 通过区域ID，获取所有摄像头信息
         /// </summary>
@@ -230,6 +238,13 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev);
 
+        /// <summary>
+        /// 通过设备信息，获取摄像头信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        [OperationContract]
+        Dev_CameraInfo GetCameraInfoByIp(string ip);
         #endregion
 
         [OperationContract]

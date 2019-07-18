@@ -16,6 +16,7 @@
         <DataGrid Name="DataGrid1">
             <DataGrid.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="原地踏步" Name="MenuRefreshOnTheSpotOne" Click="MenuRefreshOnTheSpotOne_OnClick"></MenuItem>
                     <MenuItem Header="待机" Name="MenuSetWait" Click="MenuSetWait_OnClick"></MenuItem>
                     <MenuItem Header="正常" Name="MenuSetNormal" Click="MenuSetNormal_OnClick"></MenuItem>
                     <MenuItem Header="离线" Name="MenuSetOffline" Click="MenuSetOffline_OnClick"></MenuItem>

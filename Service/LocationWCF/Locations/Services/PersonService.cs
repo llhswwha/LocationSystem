@@ -28,7 +28,7 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        List<TEntity> GetList(bool detail);
+        List<TEntity> GetList(bool detail, bool showAll);
 
         /// <summary>
         /// 获取一个区域下的所有人员
@@ -271,43 +271,72 @@ namespace LocationServices.Locations.Services
             return list.ToWCFList();
         }
 
-        public List<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail, bool showAll)
         {
             try
             {
-                if (detail)
+                var list = new List<TEntity>();
+                var query = from p in dbSet.DbSet
+                    join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
+                    join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                    join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                        into posList
+                    from pos2 in posList.DefaultIfEmpty() //left join
+                    select new {Person = p, Tag = tag, Pos = pos2};
+                var pList = query.ToList();
+                foreach (var item in pList)
                 {
-                    var list = new List<TEntity>();
-                    var query = from p in dbSet.DbSet
-                                join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
-                                join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                                    into posList from pos2 in posList.DefaultIfEmpty() //left join
-                                select new { Person = p, Tag = tag, Pos = pos2 };
-                    foreach (var item in query)
+                    try
                     {
-                        TEntity entity = item.Person.ToTModel();
-                        entity.Tag = item.Tag.ToTModel();
-                        entity.Pos = item.Pos.ToTModel();
-                        list.Add(entity);
+                        LocationCardPositionBll.SetPostionState(item.Pos);
+                        TEntity p = item.Person.ToTModel();
+                        var tag = item.Tag.ToTModel();
+                        var pos = item.Pos.ToTModel();
+                        if (pos != null)
+                            p.AreaId = pos.AreaId ?? 2; //要是AreaId为空就改为四会电厂区域
+
+                        if (showAll == false)
+                        {
+                            if (pos == null || (pos != null && pos.IsHide))
+                            {
+                                //隐藏待机的人员
+                            }
+                            else
+                            {
+                                list.Add(p);
+                            }
+                        }
+                        else
+                        {
+                            list.Add(p);
+                        }
+
+                        if (detail)
+                        {
+                            p.Tag = tag;
+                            p.Pos = pos;
+                            //tag.Pos = pos;
+                        }
                     }
-                    return list;
+                    catch (Exception  ex1)
+                    {
+                        Log.Error("PersonService.GetList Item:" + ex1);
+                    }
+                   
                 }
-                else
-                {
-                    return dbSet.DbSet.ToList().ToTModel();
-                }
+
+                return list;
             }
             catch (Exception ex)
             {
-                Log.Error("PersonService.GetList:"+ex);
+                Log.Error("PersonService.GetList:" + ex);
                 return null;
             }
         }
 
         public List<TEntity> GetList()
         {
-            return GetList(false);
+            return GetList(false,true);
         }
 
         public IList<TEntity> GetListByName(string name)

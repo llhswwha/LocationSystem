@@ -144,7 +144,7 @@ namespace BLL
             InitUsers();
             //登录人员
 
-            new AreaTreeInitializer(_bll).InitAreaAndDev();
+            new AreaTreeInitializer(_bll).InitAreaAndDev(LocationServer.AppContext.ParkName);
             //区域、设备
 
             InitRealTimePositions();//初始化定位卡初始实时位置
@@ -377,6 +377,7 @@ namespace BLL
         /// </summary>
         public void InitRealTimePositions()
         {
+            return;//正式发布时不需要模拟数据
             DateTime dt = DateTime.Now;
             long TimeStamp = TimeConvert.ToStamp(dt);
 
@@ -446,6 +447,8 @@ namespace BLL
                 iniRole.InitData();//初始化标签角色
             }
             var roles = GetRoles();
+
+            return;//正式发布时不需要模拟数据
 
             Random r=new Random(DateTime.Now.Millisecond);
             Log.InfoStart(LogTags.DbInit, "InitTagPositions");

@@ -38,6 +38,7 @@ namespace LocationServices.Converters
             item2.Email = item1.Email;
             item2.PhoneNumber = item1.Phone;
             item2.Mobile = item1.Mobile;
+            item2.RtspUrl = item1.RtspUrl;
             item2.Enabled = item1.Enabled;
             item2.ParentId = item1.ParentId;
             item2.Pst = item1.Pst;
@@ -107,6 +108,7 @@ namespace LocationServices.Converters
             item2.Email = item1.Email;
             item2.Phone = item1.PhoneNumber;
             item2.Mobile = item1.Mobile;
+            item2.RtspUrl = item1.RtspUrl;
             item2.Enabled = item1.Enabled;
             item2.ParentId = item1.ParentId;
             item2.Pst = item1.Pst;

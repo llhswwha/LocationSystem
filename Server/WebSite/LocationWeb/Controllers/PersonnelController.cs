@@ -25,7 +25,7 @@ namespace WebLocation.Controllers
 {
     public class PersonnelController : Controller
     {
-        private Bll bll = new Bll(false,true,true,true);
+        private Bll bll = Bll.NewBllNoRelation();
         private Bll db = new Bll();
         private int pageSize = StaticArgs.DefaultPageSize;
         //private int pageSize = 1;

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using NsqSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -79,6 +80,29 @@ namespace WebNSQLib
             }
         }
 
+        private void SaveMessageToFile(string msg,string subDir)
+        {
+            try
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\json\\alarms\\";
+                if (!string.IsNullOrEmpty(subDir))
+                {
+                    path += subDir + "\\";
+                }
+                DirectoryInfo dir = new DirectoryInfo(path);
+                if (dir.Exists == false)
+                {
+                    dir.Create();
+                }
+                string filePath = string.Format("{0}{1}.json",path,DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff"));
+                File.WriteAllText(filePath, msg);//保存告警
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Info("RealAlarm.SaveMessageToFile:" + ex.Message);
+            }
+        }
+
         /// <summary>Handles a message.</summary>
         public void HandleMessage(IMessage message)
         {
@@ -138,8 +162,17 @@ namespace WebNSQLib
                 //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
                 //Log. bv
                 LogEvent.Info(string.Format("没找到设备信息,json:{0}", msg));
+                SaveMessageToFile(msg, "noDev");
                 return;//没找到设备信息，则不做任何处理，
             }
+
+            if (recv.title.Contains("防拆") || recv.msg.Contains("防拆"))
+            {
+                SaveMessageToFile(msg, "filter");
+                return;//过滤掉有“防拆”字段的告警，没有意义。
+            }
+
+            SaveMessageToFile(msg,"");
 
             DevAlarm da = DaList.Find(p => p.DevInfoId == di.Id && p.AlarmTimeStamp == lTimeStamp);
             if (da == null)
@@ -154,9 +187,11 @@ namespace WebNSQLib
                     da.Code = recv.code;
                     da.Src = (Abutment_DevAlarmSrc)recv.src;
                     da.DevInfoId = di.Id;
+                    da.DevInfo = di;
                     da.Device_desc = recv.deviceDesc;
                     da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
                     da.AlarmTimeStamp = lTimeStamp;
+                    
                     bll.DevAlarms.Add(da);
                     DaList.Add(da);
                     bFlag = true;

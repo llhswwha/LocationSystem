@@ -48,6 +48,7 @@ using NsqSharp.Utils;
 using BLL.Blls.Location;
 using BLL.Blls;
 using DbModel.Location.Alarm;
+using DbModel.Others;
 
 namespace LocationServer.Controls
 {
@@ -218,8 +219,8 @@ namespace LocationServer.Controls
                 StartGetInspectionTrack();
 
                 //上海宝信项目对接视频行为告警 基于HttpListener 端口8736
-                string port2 = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
-                StartExtremeVisionListener(host, port2);//端口要不同
+                
+                //StartExtremeVisionListener();//端口要不同
 
                 Worker.Run(() =>
                 {
@@ -231,12 +232,6 @@ namespace LocationServer.Controls
                         {
                             Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
                         }
-
-                        //var list = bll.Areas.ToList();
-                        //if (list == null)
-                        //{
-                        //    Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
-                        //}
                     }
                     catch (Exception e)
                     {
@@ -255,33 +250,65 @@ namespace LocationServer.Controls
 
         MyHttpListener httpListener;
 
-        private void StartExtremeVisionListener(string host, string port)
+        public CidMapList mapList;
+
+        private string ParseCameraAlarm(string url,string json)
         {
+            try
+            {
+                if (mapList == null)
+                {
+                    string mapFile = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarmMap\\CidMap.xml";
+                    mapList = XmlSerializeHelper.LoadFromFile<CidMapList>(mapFile);
+                }
+
+                Log.Info(LogTags.ExtremeVision, string.Format("收到消息({0})", url));
+                Log.Info(LogTags.ExtremeVision, json);
+                DateTime now = DateTime.Now;
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
+                File.WriteAllText(path, json);
+
+                CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                //todo:存到数据库中，EF
+
+                byte[] byte1 = Encoding.UTF8.GetBytes(json);
+                CameraAlarmJson camera = new CameraAlarmJson();
+                camera.Json = byte1;
+                if (camera != null)
+                {
+                    bool result = Bll.NewBllNoRelation().CameraAlarmJsons.Add(camera);
+                }
+
+                //if (mapList != null)
+                //{
+                //    var map = mapList.Find(i => i.cid == info.cid);
+                //    if (map != null)
+                //    {
+                //        info.cid = map.id;
+                //    }
+                //}
+                //todo：发送告警
+                CameraAlarmHub.SendInfo(info);
+                return info.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "error:" + ex.Message;
+            }
+            
+        }
+
+        private void StartExtremeVisionListener()
+        {
+            string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
+            string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP") ;
             if (httpListener == null)
             {
                 string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/",host,port);
                 httpListener = new MyHttpListener(url);
                 httpListener.OnReceived += (json) =>
                 {
-                    Log.Info(LogTags.ExtremeVision,string.Format("收到消息({0})", url));
-                    Log.Info(LogTags.ExtremeVision, json);
-                    DateTime now = DateTime.Now;
-                    string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
-                    File.WriteAllText(path, json);
-                  
-                    CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
-                    //todo:存到数据库中，EF
-                    
-                    byte[] byte1= Encoding.UTF8.GetBytes(json);
-                    CameraAlarmJson camera = new CameraAlarmJson();
-                    camera.Json = byte1;
-                    if (camera != null)
-                    {
-                        bool result = Bll.NewBllNoRelation().CameraAlarmJsons.Add(camera);
-                    }      
-                    //todo：发送告警
-                    CameraAlarmHub.SendInfo(info);
-                    return info.ToString();
+                    return ParseCameraAlarm(url,json);
                 };
                 httpListener.Start();
                 WriteLog("ExtremeVisionListener: " + url);
@@ -482,9 +509,9 @@ namespace LocationServer.Controls
             {
                 string strIp = AppContext.DatacaseWebApiUrl;
                 trackClient = new InspectionTrackClient(strIp);
-                trackClient.ListGot += (list) =>
+                trackClient.ListGot += (TrackList) =>
                 {
-                    InspectionTrackHub.SendInspectionTracks(list.ToWcfModelList().ToArray());//发送给客户端
+                    InspectionTrackHub.SendInspectionTracks(TrackList.ToTModel());//发送给客户端
                 };
                 trackClient.Start();
 

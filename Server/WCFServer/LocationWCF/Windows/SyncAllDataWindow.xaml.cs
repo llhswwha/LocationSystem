@@ -253,5 +253,14 @@ namespace LocationServer.Windows
             LbDevCount.Content = list.Count;
             dg_dev.ItemsSource = list;
         }
+        /// <summary>
+        /// json获取用户信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuGetUserOfJson_Click(object sender, RoutedEventArgs e)
+        {
+            personnelList=client.GetPersonnelList(true);
+        }
     }
 }

@@ -13,6 +13,7 @@
             <MenuItem Header="生成真实数据" Name="MenuCreateRealData" Click="MenuCreateRealData_Click"></MenuItem>
             <MenuItem Header="获取数据" Name="MenuGet" Click="MenuGet_Click"></MenuItem>
             <MenuItem Header="同步数据" Name="MenuSync" Click="MenuSync_Click"></MenuItem>
+            <MenuItem Header="Json同步用户" Name="MenuGetUserOfJson" Click="MenuGetUserOfJson_Click"></MenuItem>
         </Menu>
         <TextBox Name="TbLogs" DockPanel.Dock="Bottom" Height="150"></TextBox>
         <TabControl Name="TabControl1">

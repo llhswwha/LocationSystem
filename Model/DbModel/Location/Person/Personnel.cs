@@ -133,11 +133,21 @@ namespace DbModel.Location.Person
         public string Mobile { get; set; }
 
         /// <summary>
+        /// Rtsp地址
+        /// </summary>
+        [DataMember]
+        [Display(Name = "Rtsp地址")]
+        [MaxLength(512)]
+        [NotMapped]
+        public string RtspUrl { get; set; }
+
+        /// <summary>
         /// 是否启用
         /// </summary>
         [DataMember]
         [Display(Name = "是否启用")]
         public bool Enabled { get; set; }
+
 
         /// <summary>
         /// 部门

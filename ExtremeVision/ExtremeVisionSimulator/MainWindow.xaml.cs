@@ -50,8 +50,12 @@ namespace ExtremeVisionSimulator
             try
             {
                 CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(content);
-                grid1.SelectedObject = info;
                 GetImage(info.pic_data);
+
+                info.time = GetDataTime(info.time_stamp);
+                info.pic_data = "";
+                grid1.SelectedObject = info;
+                
                 info.ParseData();
                 string json = JsonConvert.SerializeObject(info);
                 CameraAlarmInfo info2 = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
@@ -60,6 +64,15 @@ namespace ExtremeVisionSimulator
             {
                 MessageBox.Show("解析失败:"+ex);
             }
+        }
+
+        public DateTime GetDataTime(long time_stamp)
+        {
+            DateTime dtStart = new DateTime(1970, 1, 1);
+            long lTime = ((long)time_stamp * 10000000);
+            TimeSpan toNow = new TimeSpan(lTime);
+            DateTime AlarmTime = dtStart.Add(toNow);
+            return AlarmTime;
         }
 
         public void GetImage(string base64)
@@ -105,6 +118,26 @@ namespace ExtremeVisionSimulator
             string content = TbContent.Text;
             string result = client.PostEntity<string>("api/ExtremeVision/callback/", content, true);
             MessageBox.Show("result1:" + result);
+        }
+
+        private void LoadTestInfo_Click(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\Test";
+            DirectoryInfo dir = new DirectoryInfo(path);
+            FileInfo[] files = dir.GetFiles();
+
+            string host = ConfigurationManager.AppSettings["TargetHost"];
+            string port = ConfigurationManager.AppSettings["Port2"];
+
+            foreach (FileInfo file in files)
+            {
+                string content = File.ReadAllText(file.FullName);
+                //CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(content);
+                //info.ParseData();
+                WebApiClient client2 = new WebApiClient(host, port);
+                string result2 = client2.PostEntity<string>("listener/ExtremeVision/callback/", content, true);
+                //MessageBox.Show("result2:" + result2);
+            }
         }
     }
 }

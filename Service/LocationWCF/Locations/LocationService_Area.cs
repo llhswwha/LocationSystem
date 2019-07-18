@@ -156,6 +156,7 @@ namespace LocationServices.Locations
                 Area area = db.Areas.Find((i) => i.Id == pt.Id);
                 if (area != null && pt.InitBound != null)
                 {
+                    area.Name = pt.Name;//2019_07_18_cww:添加名称，区域名称可以修改的
                     pt.InitBound.SetInitBound(pt.Transfrom);
                     area.SetTransform(pt.Transfrom.ToDbModel());
                     db.Areas.Edit(area);

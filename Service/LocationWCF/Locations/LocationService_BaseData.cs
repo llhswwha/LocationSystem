@@ -413,32 +413,64 @@ namespace LocationServices.Locations
         /// <param name="lBegin"></param>
         /// <param name="lEnd"></param>
         /// <param name="bFlag"></param>
-        public void Getinspectionlist(long lBegin, long lEnd, bool bFlag)
+        //public void Getinspectionlist(long lBegin, long lEnd, bool bFlag)
+        //{
+        //    var client = GetClient();
+        //    var recv = client.Getinspectionlist(lBegin, lEnd, bFlag);
+        //    if (recv == null)
+        //    {
+        //        return;
+        //    }
+
+        //    return;
+        //}
+
+
+        //获取巡检轨迹列表
+        public List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
         {
-            var client = GetClient();
-            var recv = client.Getinspectionlist(lBegin, lEnd, bFlag);
-            if (recv == null)
+            List<DbModel.Location.Work.InspectionTrack> lst = new List<DbModel.Location.Work.InspectionTrack>();
+            try
             {
-                return;
+                if (!bFlag)
+                {
+                    lst = dbEx.InspectionTracks.ToList();
+                }
+                else
+                {
+                    long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
+                    long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
+
+                    lst = dbEx.InspectionTracks.Where(p => p.CreateTime >= lBeginTime && p.CreateTime <= lEndTime).ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
             }
 
-            return;
+            return lst.ToWcfModelList();
         }
 
         /// <summary>
         /// 获取巡检节点列表
         /// </summary>
         /// <param name="patrolId"></param>
-        public void Getcheckpoints(int patrolId)
+        public List<PatrolPoint> Getcheckpoints(int InspectionId)
         {
-            var client = GetClient();
-            var recv = client.Getcheckpoints(patrolId);
-            if (recv == null)
-            {
-                return;
-            }
+            List<DbModel.Location.Work.PatrolPoint> lst = new List<DbModel.Location.Work.PatrolPoint>();
 
-            return;
+            try
+            {
+                lst = dbEx.PatrolPoints.Where(p => p.ParentId == InspectionId).ToList();
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+            }
+            
+            return lst.ToWcfModelList();
         }
 
         /// <summary>
@@ -446,16 +478,23 @@ namespace LocationServices.Locations
         /// </summary>
         /// <param name="patrolId"></param>
         /// <param name="deviceId"></param>
-        public void Getcheckresults(int patrolId, string deviceId)
+        public List<PatrolPointItem> Getcheckresults(int patrolId)
         {
-            var client = GetClient();
-            var recv = client.Getcheckresults(patrolId, deviceId);
-            if (recv == null)
+
+            List<DbModel.Location.Work.PatrolPointItem> lst = new List<DbModel.Location.Work.PatrolPointItem>();
+
+            try
             {
-                return;
+                lst = dbEx.PatrolPointItems.Where(p => p.ParentId == patrolId).ToList();
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
             }
 
-            return;
+            return lst.ToWcfModelList();
         }
+
+        public void Trys(InspectionTrackList aa) { }
     }
 }

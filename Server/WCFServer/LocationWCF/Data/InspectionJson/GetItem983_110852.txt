@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000007","checkItem":"#3机励磁系统各表计正常","checkResult":"","checkTime":null,"checkId":1006482,"kksCode":"SHJ1UMA04R007"},{"staffCode":"80000007","checkItem":"#3机励磁系统各表计正常","checkResult":"","checkTime":null,"checkId":1006482,"kksCode":"SHJ1UMA04R007"}]}

@@ -10,12 +10,12 @@ namespace SignalRService.Hubs
 {
     public class InspectionTrackHub : Hub
     {
-        public static void SendInspectionTracks(params InspectionTrack[] it)
+        public static void SendInspectionTracks(TModel.Location.Work.InspectionTrackList it)
         {
             SendInspectionTrack(it);
         }
 
-        private static async void SendInspectionTrack(params InspectionTrack[] it)
+        private static async void SendInspectionTrack(TModel.Location.Work.InspectionTrackList it)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<InspectionTrackHub>();
             await chatHubContext.Clients.All.GetInspectionTrack(it);

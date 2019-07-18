@@ -192,8 +192,11 @@ namespace BLL
                     while (bPartitionInitFlag) { }
                 }
 
-                //1.批量插入历史数据数据
-                DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
+                ////1.批量插入历史数据数据
+                //DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
+
+                //DbHistory.Positions.AddRange(positions);
+                this.Positions.AddRange(positions);
 
                 //修改实时数据
                 EditTagPositionListOP(positions);
@@ -201,6 +204,7 @@ namespace BLL
             catch (Exception ex)
             {
                 r = false;
+                ErrorMessage = ex.Message;
             }
             return r;
         }

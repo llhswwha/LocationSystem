@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000004","checkItem":"各开关运行正常，柜门锁好，照明完好","checkResult":"","checkTime":null,"checkId":1006285,"kksCode":"SHJ2UCA07R003"}]}

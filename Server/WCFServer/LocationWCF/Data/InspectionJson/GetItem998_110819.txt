@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000008","checkItem":"#1仪用储气罐","checkResult":"","checkTime":null,"checkId":1006568,"kksCode":"SHJ0QFA41BB001"},{"staffCode":"80000008","checkItem":"#1仪用储气罐","checkResult":"","checkTime":null,"checkId":1006568,"kksCode":"SHJ0QFA41BB001"}]}

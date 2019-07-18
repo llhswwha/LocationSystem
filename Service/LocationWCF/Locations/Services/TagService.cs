@@ -112,8 +112,7 @@ namespace LocationServices.Locations.Services
                     if (!list2.Contains(item.Tag.Id))
                     {
                         list2.Add(item.Tag.Id);
-                        LocationCardPosition pos = item.Pos;
-                        LocationCardPositionBll.SetPostionState(pos);
+                        LocationCardPositionBll.SetPostionState(item.Pos);
                         var entity = item.Tag.ToTModel();
                         entity.Person = item.Person.ToTModel();
                         //if (item.Pos != null)

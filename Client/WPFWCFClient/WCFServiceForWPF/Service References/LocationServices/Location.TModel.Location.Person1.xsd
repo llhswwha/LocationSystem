@@ -48,6 +48,7 @@
       <xs:element minOccurs="0" name="Photo" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Data" minOccurs="0" name="Pos" nillable="true" type="q1:TagPosition" />
       <xs:element minOccurs="0" name="Pst" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RtspUrl" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q2:Tag" />
       <xs:element minOccurs="0" name="TagId" nillable="true" type="xs:int" />

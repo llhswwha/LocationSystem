@@ -124,12 +124,25 @@ namespace LocationServices.Locations.Services
             //ass.AlarmPersonNum = apList.Count();
 
             var ass = new AreaStatistics();
+
+           
             ass.PersonNum = query.Count();
             ass.DevNum = query2.Count();
             ass.LocationAlarmNum = query3.Count();
             ass.DevAlarmNum = query4.Count();
             ass.AlarmPersonNum = query5.Count();//只需要数量信息，不要用ToList()，避免大量数据时封装到实体类的消耗
 
+
+            PersonService personService = new PersonService(db);
+            var list = personService.GetList(false, false);
+            if (list != null)
+            {
+                ass.PersonNum = list.Count;
+            }
+            else
+            {
+                ass.PersonNum = 0;
+            }
             return ass;
         }
 
@@ -155,18 +168,18 @@ namespace LocationServices.Locations.Services
                           where t1.AlarmLevel != 0
                           select t1.PersonnelId).Distinct().ToList();
 
-            var pList = query.ToList();
-            var dvList = query2.ToList();
-            var laList = query3.ToList();
-            var daList = query4.ToList();
-            var apList = query5.ToList();
+            //var pList = query.ToList();
+            //var dvList = query2.ToList();
+            //var laList = query3.ToList();
+            //var daList = query4.ToList();
+            //var apList = query5.ToList();
 
             var ass = new AreaStatistics();
-            ass.PersonNum = pList.Count;
-            ass.DevNum = dvList.Count;
-            ass.LocationAlarmNum = laList.Count;
-            ass.DevAlarmNum = daList.Count;
-            ass.AlarmPersonNum = apList.Count();
+            ass.PersonNum = query.Count();
+            ass.DevNum = query2.Count();
+            ass.LocationAlarmNum = query3.Count();
+            ass.DevAlarmNum = query4.Count();
+            ass.AlarmPersonNum = query5.Count();
             return ass;
         }
 
@@ -177,24 +190,44 @@ namespace LocationServices.Locations.Services
             return list;
         }
 
+        bool showHidePerson = false;//隐藏待机的人员
+
         private List<TPerson> GetPersonAreaList()
         {
-            var query = from r in db.LocationCardToPersonnels.DbSet
-                        join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
-                        join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                        select new PersonArea { Person = p, AreaId = pos.AreaId,Tag=tag,Pos=pos };
-            var pList = query.ToList();
-            var list = new List<TPerson>();
-            foreach (var item in pList)
-            {
-                var p = item.Person.ToTModel();
-                p.Tag = item.Tag.ToTModel();
-                p.Tag.Pos = item.Pos.ToTModel();
-                p.AreaId = item.AreaId ?? 2;//要是AreaId为空就改为四会电厂区域
-                list.Add(p);
-            }
-            return list;
+            //var query = from r in db.LocationCardToPersonnels.DbSet
+            //            join p in db.Personnels.DbSet on r.PersonnelId equals p.Id
+            //            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+            //            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+            //            select new PersonArea { Person = p, AreaId = pos.AreaId,Tag=tag,Pos=pos };
+            //var pList = query.ToList();
+            //var list = new List<TPerson>();
+            //foreach (var item in pList)
+            //{
+            //    LocationCardPositionBll.SetPostionState(item.Pos);
+            //    var p = item.Person.ToTModel();
+            //    p.Tag = item.Tag.ToTModel();
+            //    p.Tag.Pos = item.Pos.ToTModel();
+            //    p.AreaId = item.AreaId ?? 2;//要是AreaId为空就改为四会电厂区域
+            //    if (showHidePerson == false)
+            //    {
+            //        if (p.Tag.Pos == null || (p.Tag.Pos != null && p.Tag.Pos.IsHide))
+            //        {
+            //            //隐藏待机的人员
+            //        }
+            //        else
+            //        {
+            //            list.Add(p);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        list.Add(p);
+            //    }
+                
+            //}
+            //return list;
+            PersonService personService = new PersonService(db);
+            return personService.GetList(true, showHidePerson);
         }
 
         public bool ModifySize(Bound bound, double cx1, double cy1, double sx2, double sy2)
@@ -286,6 +319,8 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public TEntity GetTree(int view)
         {
+            showHidePerson = false;//隐藏待机的人员
+
             TEntity tree = null;
             if (view == 0)
             {
@@ -482,27 +517,29 @@ namespace LocationServices.Locations.Services
         private void BindPerson(IList<AreaNode> list)
         {
             var personList = GetPersonAreaList();
-            foreach (var item in personList)
-            {
-                var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
-                if (entity != null)
+            if(personList!=null)
+                foreach (var item in personList)
                 {
-                    entity.AddPerson(item.ToTModelS());
+                    var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
+                    if (entity != null)
+                    {
+                        entity.AddPerson(item.ToTModelS());
+                    }
                 }
-            }
         }
 
         private void BindPerson(IList<TEntity> list)
         {
             var personList = GetPersonAreaList();
-            foreach (var item in personList)
-            {
-                var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
-                if (entity != null)
+            if (personList != null)
+                foreach (var item in personList)
                 {
-                    entity.AddPerson(item);
+                    var entity = list.FirstOrDefault(i => i.Id == item.AreaId);
+                    if (entity != null)
+                    {
+                        entity.AddPerson(item);
+                    }
                 }
-            }
         }
 
         public TEntity GetTreeWithDev(bool containCAD=false)

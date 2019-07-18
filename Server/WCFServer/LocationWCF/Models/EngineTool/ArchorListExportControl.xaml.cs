@@ -107,7 +107,7 @@ namespace LocationServer.Controls
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
 
-            if (AppContext.ParkName == "宝刚园区")
+            if (AppContext.ParkName == "宝钢园区")
             {
                 pow = 1;
             }
@@ -242,7 +242,7 @@ namespace LocationServer.Controls
                         else
                         {
                             int defaultHeight = 2;
-                            if (AppContext.ParkName == "宝刚园区")
+                            if (AppContext.ParkName == "宝钢园区")
                             {
                                 defaultHeight = 200;
                             }

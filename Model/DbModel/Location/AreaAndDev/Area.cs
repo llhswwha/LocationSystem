@@ -623,7 +623,7 @@ namespace DbModel.Location.AreaAndDev
         /// <returns></returns>
         public bool IsPark()
         {
-            return Name == "四会热电厂";
+            return Name == AppSetting.ParkName;
         }
 
 

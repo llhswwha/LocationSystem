@@ -242,7 +242,7 @@
                 <DockPanel>
                     <Button Width="100" Height="30" DockPanel.Dock="Top" HorizontalAlignment="Left" Click="Button_Click">获取json</Button>
                     <TextBox DockPanel.Dock="Top" Height="200" Name="txtBoxjson"></TextBox>
-                    <DataGrid Name="DateCameraAlarmInfo"></DataGrid>  
+                    <DataGrid Name="DateCameraAlarmInfo" SelectionChanged="DateCameraAlarmInfo_OnSelectionChanged"></DataGrid>  
                 </DockPanel>
             </TabItem>
         </TabControl>

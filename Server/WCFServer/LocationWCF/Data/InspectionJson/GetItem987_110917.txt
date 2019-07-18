@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000017","checkItem":"测量#2机扩散段外部温度","checkResult":"","checkTime":null,"checkId":1007240,"kksCode":"SH10MBR20BR001"}]}

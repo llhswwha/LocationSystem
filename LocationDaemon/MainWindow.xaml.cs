@@ -65,7 +65,7 @@ namespace LocationDaemon
                 return;
             }
             int keepDay= ConfigurationHelper.GetIntValue("logKeepDay");
-            FileInfo[] logFiles = new DirectoryInfo(logDir).GetFiles();
+            FileInfo[] logFiles = new DirectoryInfo(logDir).GetFiles("*.*", SearchOption.AllDirectories);
             foreach (FileInfo file in logFiles)
             {
                 try
@@ -74,7 +74,7 @@ namespace LocationDaemon
                     if (time.TotalDays > keepDay)
                     {
                         file.Delete();
-                        TxtLog.Text = string.Format("[{0}]删除日志:{1}\n{2}", DateTime.Now.ToLongTimeString(), file.Name, TxtLog.Text);
+                        TxtLog.Text = string.Format("[{0}]删除日志:{1}\n{2}", DateTime.Now, file.Name, TxtLog.Text);
                         Thread.Sleep(100);
                     }
                 }

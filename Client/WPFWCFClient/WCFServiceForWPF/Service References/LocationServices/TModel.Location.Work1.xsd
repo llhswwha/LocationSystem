@@ -1,5 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.Work" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.Work" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfInspectionTrack">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InspectionTrack" nillable="true" type="tns:InspectionTrack" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInspectionTrack" nillable="true" type="tns:ArrayOfInspectionTrack" />
+  <xs:complexType name="InspectionTrack">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateTime" type="xs:long" />
+      <xs:element minOccurs="0" name="EndTime" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Route" nillable="true" type="tns:ArrayOfPatrolPoint" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:long" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dtCreateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dtEndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dtStartTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InspectionTrack" nillable="true" type="tns:InspectionTrack" />
+  <xs:complexType name="ArrayOfPatrolPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PatrolPoint" nillable="true" type="tns:PatrolPoint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPatrolPoint" nillable="true" type="tns:ArrayOfPatrolPoint" />
+  <xs:complexType name="PatrolPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Checks" nillable="true" type="tns:ArrayOfPatrolPointItem" />
+      <xs:element minOccurs="0" name="DevId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeviceCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KksCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
+      <xs:element minOccurs="0" name="StaffCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StaffName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PatrolPoint" nillable="true" type="tns:PatrolPoint" />
+  <xs:complexType name="ArrayOfPatrolPointItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PatrolPointItem" nillable="true" type="tns:PatrolPointItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPatrolPointItem" nillable="true" type="tns:ArrayOfPatrolPointItem" />
+  <xs:complexType name="PatrolPointItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckItem" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckResult" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckTime" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="KksCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
+      <xs:element minOccurs="0" name="StaffCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dtCheckTime" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PatrolPointItem" nillable="true" type="tns:PatrolPointItem" />
   <xs:complexType name="ArrayOfOperationTicket">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationTicket" nillable="true" type="tns:OperationTicket" />
@@ -188,62 +252,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PersonnelMobileInspectionItem" nillable="true" type="tns:PersonnelMobileInspectionItem" />
-  <xs:complexType name="InspectionTrack">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CreateTime" type="xs:long" />
-      <xs:element minOccurs="0" name="EndTime" type="xs:long" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Route" nillable="true" type="tns:ArrayOfPatrolPoint" />
-      <xs:element minOccurs="0" name="StartTime" type="xs:long" />
-      <xs:element minOccurs="0" name="State" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="dtCreateTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="dtEndTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="dtStartTime" type="xs:dateTime" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="InspectionTrack" nillable="true" type="tns:InspectionTrack" />
-  <xs:complexType name="ArrayOfPatrolPoint">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PatrolPoint" nillable="true" type="tns:PatrolPoint" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPatrolPoint" nillable="true" type="tns:ArrayOfPatrolPoint" />
-  <xs:complexType name="PatrolPoint">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Checks" nillable="true" type="tns:ArrayOfPatrolPointItem" />
-      <xs:element minOccurs="0" name="DevId" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DeviceCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="KksCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
-      <xs:element minOccurs="0" name="StaffCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="StaffName" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PatrolPoint" nillable="true" type="tns:PatrolPoint" />
-  <xs:complexType name="ArrayOfPatrolPointItem">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="PatrolPointItem" nillable="true" type="tns:PatrolPointItem" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPatrolPointItem" nillable="true" type="tns:ArrayOfPatrolPointItem" />
-  <xs:complexType name="PatrolPointItem">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CheckId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CheckItem" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CheckResult" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CheckTime" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="KksCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ParentId" type="xs:int" />
-      <xs:element minOccurs="0" name="StaffCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="dtCheckTime" nillable="true" type="xs:dateTime" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PatrolPointItem" nillable="true" type="tns:PatrolPointItem" />
 </xs:schema>

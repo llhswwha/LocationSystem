@@ -1,0 +1,25 @@
+﻿<Window x:Class="LocationServer.Windows.InspectionChoiceWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        mc:Ignorable="d"
+        Title="InspectionChoiceWindows" Height="300" Width="300">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <!--<Button Name="BtnGetAll" Click="BtnGetAll_OnClick" Content="获取全部"></Button>-->
+            <Button Name="BtnGetAllInspectionTrack" Click="BtnGetAllInspectionTrack_OnClick" Content="获取巡检轨迹"></Button>
+        </StackPanel>
+
+        <TabControl>
+            <TabItem Header="逐条发送">
+                <DataGrid Name="SendByItem"  SelectionChanged="SendByItem_OnSelectionChanged"></DataGrid>
+            </TabItem>
+            <TabItem Header="全部发送">
+                <DataGrid Name="SendAllItem"  SelectionChanged="SendAllItem_OnSelectionChanged"></DataGrid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
+</Window>

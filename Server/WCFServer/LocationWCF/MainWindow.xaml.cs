@@ -397,5 +397,11 @@ namespace LocationWCFServer
             var window = new KKSMonitorDataWindow();
             window.Show();
         }
+
+        private void MenuInspectionTest_OnClick(object sender, RoutedEventArgs e)
+        {
+            var win = new InspectionChoiceWindows();
+            win.Show();
+        }
     }
 }

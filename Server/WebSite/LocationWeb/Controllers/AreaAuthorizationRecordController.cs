@@ -20,7 +20,7 @@ namespace WebLocation.Controllers
     public class AreaAuthorizationRecordController : Controller
     {
         private Bll bll = new Bll();
-        private Bll bll2 = new Bll(false, false, false, false);
+        private Bll bll2 = Bll.NewBllNoRelation();
         private int pageSize = StaticArgs.DefaultPageSize;
         // GET: AreaAuthorizationRecord
         public ActionResult Index(int pageIndex = 1)

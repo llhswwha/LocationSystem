@@ -12,7 +12,7 @@ namespace Location.TModel.Location.Alarm
     /// </summary>
     [ByName("DevAlarm")]
     [DataContract] [Serializable]
-    public class DeviceAlarm
+    public class DeviceAlarm:IComparable<DeviceAlarm>
     {
         private Abutment_DevAlarmLevel _level;
 
@@ -165,13 +165,19 @@ namespace Location.TModel.Location.Alarm
             DevName = dev.Name;
             DevTypeName = dev.TypeName;
             DevTypeCode = dev.TypeCode;
-            AreaId = dev.ParentId==null?  0 :(int)dev.ParentId;
+            AreaId = dev.ParentId==null ?  0 :(int)dev.ParentId;
             return this;
         }
 
         public override string ToString()
         {
             return string.Format("Id:{0},Name:{1},Title:{2},Msg:{3}", DevId, DevName,Title,Message);
+        }
+
+        public int CompareTo(DeviceAlarm other)
+        {
+            if (other == null) return -1;
+            return other.AlarmTimeStamp.CompareTo(this.AlarmTimeStamp);
         }
     }
 }

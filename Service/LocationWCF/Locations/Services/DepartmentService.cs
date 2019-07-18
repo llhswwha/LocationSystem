@@ -30,16 +30,22 @@ namespace LocationServices.Locations.Services
 
         private DepartmentBll dbSet;
 
+
+        PersonService personService;
+
         public DepartmentService()
         {
             db = Bll.NewBllNoRelation();
             dbSet = db.Departments;
+
+            personService = new PersonService(db);
         }
 
         public DepartmentService(Bll bll)
         {
             this.db = bll;
             dbSet = db.Departments;
+            personService = new PersonService(db);
         }
 
         public TEntity Delete(string id)
@@ -120,6 +126,7 @@ namespace LocationServices.Locations.Services
             return item.ToTModel();
         }
 
+
         private List<DbModel.Location.Person.Personnel> GetLeafNodes(DbEntity entity)
         {
             if (entity != null)
@@ -133,6 +140,32 @@ namespace LocationServices.Locations.Services
                 return new List<DbModel.Location.Person.Personnel>();
             }
         }
+
+        //public bool showHidePerson = false;
+
+        //private List<DbModel.Location.Person.Personnel> FilterPersonList(List<DbModel.Location.Person.Personnel> list)
+        //{
+        //    List<DbModel.Location.Person.Personnel> list2 = new List<DbModel.Location.Person.Personnel>();
+        //    foreach (DbModel.Location.Person.Personnel p in list)
+        //    {
+        //        if (showHidePerson == false)
+        //        {
+        //            if (p.Tag.Pos == null || (p.Tag.Pos != null && p.Tag.Pos.IsHide))
+        //            {
+        //                //隐藏待机的人员
+        //            }
+        //            else
+        //            {
+        //                list2.Add(p);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            list2.Add(p);
+        //        }
+        //    }
+        //    return list2;
+        //}
 
         private List<DbEntity> GetChildren(DbEntity item)
         {
@@ -179,7 +212,7 @@ namespace LocationServices.Locations.Services
             return GetTree(new List<Personnel>());
         }
 
-        PersonService personService;
+        public bool showHidePerson = true;
 
         public TEntity GetTree(int view)
         {
@@ -189,17 +222,13 @@ namespace LocationServices.Locations.Services
             }
             else if (view == 1)
             {
-                List<Personnel> leafNodes = db.Personnels.ToList().ToTModel();
+                List<Personnel> leafNodes = personService.GetList(false, showHidePerson);
                 return GetTree(leafNodes);
             }
             else if (view == 2)
             {
-                
-                if (personService == null)
-                {
-                    personService = new PersonService();
-                }
-                List<Personnel> leafNodes = personService.GetList(true);
+               
+                List<Personnel> leafNodes = personService.GetList(true, showHidePerson);
                 return GetTree(leafNodes);
             }
             else

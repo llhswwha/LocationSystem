@@ -33,7 +33,7 @@ namespace WebLocation.Controllers
         // GET: DataInit
         public ActionResult SaveInitInfoXml()
         {
-            Bll bll = new Bll(false, false, false, false);
+            Bll bll = Bll.NewBllNoRelation();
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
             initializer.SaveInitInfoXml();
             return View();

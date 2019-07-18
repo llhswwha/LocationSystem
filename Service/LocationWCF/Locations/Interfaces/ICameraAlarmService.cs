@@ -18,6 +18,12 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="arg"></param>
         /// <returns></returns>
         [OperationContract]
-        List<CameraAlarmInfo> GetCameraAlarms(AlarmSearchArg arg);
+        List<CameraAlarmInfo> GetAllCameraAlarms(bool merge);
+
+        [OperationContract]
+        List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge);
+
+        [OperationContract]
+        CameraAlarmInfo GetCameraAlarm(int id);
     }
 }

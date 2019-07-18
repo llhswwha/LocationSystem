@@ -28,7 +28,7 @@ namespace WebLocation.Controllers
 {
     public class CardRoleController : Controller
     {
-        private Bll bll2 = new Bll(false, false, false, false);
+        private Bll bll2 = Bll.NewBllNoRelation();
         private Bll db = new Bll();
         private Bll bll = new Bll();
         //private int pageSize = StaticArgs.DefaultPageSize;

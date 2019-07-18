@@ -25,6 +25,9 @@ using PositionSimulation;
 using SignalRService.Hubs;
 using TModel.Tools;
 using WPFClientControlLib;
+using System.IO;
+using DbModel.LocationHistory.Data;
+using BLL;
 
 namespace EngineClient
 {
@@ -117,6 +120,12 @@ namespace EngineClient
             }
         }
 
+        public void TestJson(string json)
+        {
+            Position pos = new Position();
+            pos.Parse(json, LocationContext.OffsetX, LocationContext.OffsetY);
+        }
+
         private void EngineClient_NewAlarmsFired(List<DbModel.Location.Alarm.LocationAlarm> obj)
         {
             AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
@@ -187,6 +196,13 @@ namespace EngineClient
         {
             var win = new SimulationWindow();
             win.Show();
+        }
+
+        private void MenuSimulateJson_Click(object sender, RoutedEventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\PositionJson\\json.txt";
+            string json = File.ReadAllText(path);
+            TestJson(json);
         }
     }
 }

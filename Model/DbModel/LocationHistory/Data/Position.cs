@@ -12,6 +12,7 @@ using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.Tools;
 using TModel.Tools;
+using Newtonsoft.Json;
 
 namespace DbModel.LocationHistory.Data
 {
@@ -334,6 +335,20 @@ namespace DbModel.LocationHistory.Data
         /// <returns></returns>
         public bool Parse(string info, float offsetX, float offsetY)
         {
+            if (info == null) return false;
+            info = info.Trim();
+            if (info.Contains("{"))
+            {
+                return ParseJson(info, offsetX, offsetY);
+            }
+            else
+            {
+                return ParseText(info, offsetX, offsetY);
+            }
+        }
+
+        private bool ParseText(string info, float offsetX, float offsetY)
+        {
             try
             {
                 _info = info;
@@ -421,6 +436,29 @@ namespace DbModel.LocationHistory.Data
                 LogEvent.Info(ex.ToString());
                 return false;
             }
+        }
+
+        private bool ParseJson(string json, float offsetX, float offsetY)
+        {
+            try
+            {
+                PositionJson p = JsonConvert.DeserializeObject<PositionJson>(json);
+                Code = p.tag_id;
+                X = p.x.ToFloat() * 10;
+                Y = p.z.ToFloat() * 10;
+                Z = p.y.ToFloat() * 10;
+                //Y = p.y.ToFloat() * 10;
+                //Z = p.z.ToFloat() * 10;
+                DateTimeStamp = p.timestamp.ToLong();
+                DateTime = DateTimeStamp.ToDateTime();
+                Number = p.sn.ToInt();
+                Power = (int)(p.bettery.ToFloat() * 100);
+                return true;
+            }catch(Exception e)
+            {
+                LogEvent.Info("Error->DbModel.Position.Exception:"+e.ToString());
+                return false;
+            }          
         }
 
         public string GetText()

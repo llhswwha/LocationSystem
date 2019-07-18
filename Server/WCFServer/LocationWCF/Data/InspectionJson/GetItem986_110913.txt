@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000018","checkItem":"观察记录#2精过滤器差压","checkResult":"","checkTime":null,"checkId":1007222,"kksCode":"SH10MBP22"},{"staffCode":"80000018","checkItem":"观察记录#2精过滤器差压","checkResult":"","checkTime":null,"checkId":1007222,"kksCode":"SH10MBP22"}]}

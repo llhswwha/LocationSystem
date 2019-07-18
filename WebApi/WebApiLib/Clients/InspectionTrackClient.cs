@@ -18,7 +18,7 @@ namespace WebApiLib.Clients
 
         private int nEightHourSecond = 28800;
 
-        public event Action<List<DbModel.Location.Work.InspectionTrack>> ListGot;
+        public event Action<DbModel.Location.Work.InspectionTrackList> ListGot;
 
         public InspectionTrackClient(string url)
         {
@@ -68,17 +68,26 @@ namespace WebApiLib.Clients
                     dtBegin = dtEnd.AddDays(-3);
                     bFirst = false;
                 }
+
+                DbModel.Location.Work.InspectionTrackList TrackList = new DbModel.Location.Work.InspectionTrackList();
+
                 //获取一天前或者3天前到现在的巡检轨迹
-                if (DealInspectionTrack(client, dtBegin, dtEnd, true) == false)//获取巡检轨迹
+                if (DealInspectionTrack(client, dtBegin, dtEnd, true, ref TrackList) == false)//获取巡检轨迹
                 {
                     Log.Info(LogTags.Server,"获取巡检轨迹失败！！ break!!");
                     break;
                 }
 
-                Bll bll = Bll.Instance();
-                List<DbModel.Location.Work.InspectionTrack> trackList = bll.InspectionTracks.ToList();//从数据库取
-                //List<InspectionTrackHistory> send2 = bll.InspectionTrackHistorys.ToList();
-                if (trackList == null || trackList.Count() == 0)
+                //Bll bll = Bll.Instance();
+                //List<DbModel.Location.Work.InspectionTrack> trackList = bll.InspectionTracks.ToList();//从数据库取
+                ////List<InspectionTrackHistory> send2 = bll.InspectionTrackHistorys.ToList();
+                //if (trackList == null || trackList.Count() == 0)
+                //{
+                //    Thread.Sleep(5 * 60 * 1000);//等待5分钟
+                //    continue;
+                //}
+
+                if (TrackList.AddTrack.Count == 0 && TrackList.ReviseTrack.Count == 0 && TrackList.DeleteTrack.Count == 0)
                 {
                     Thread.Sleep(5 * 60 * 1000);//等待5分钟
                     continue;
@@ -86,7 +95,7 @@ namespace WebApiLib.Clients
 
                 if (ListGot != null)
                 {
-                    ListGot(trackList);
+                    ListGot(TrackList);
                 }
                 //SignalRService.Hubs.InspectionTrackHub.SendInspectionTracks(trackList.ToWcfModelList().ToArray());
                 //DateTime dt2 = DateTime.Now;
@@ -94,7 +103,7 @@ namespace WebApiLib.Clients
             }
         }
 
-        private bool DealInspectionTrack(WebApiLib.Clients.BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag)
+        private bool DealInspectionTrack(WebApiLib.Clients.BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag, ref DbModel.Location.Work.InspectionTrackList TrackList)
         {
             var All = new List<DbModel.Location.Work.InspectionTrack>();
             var newList = new List<DbModel.Location.Work.InspectionTrack>();
@@ -105,7 +114,12 @@ namespace WebApiLib.Clients
             long lBegin = Location.TModel.Tools.TimeConvert.ToStamp(dtBegin) / 1000;
             long lEnd = Location.TModel.Tools.TimeConvert.ToStamp(dtEnd) / 1000;
 
+            DateTime dtNow = DateTime.Now;
+            long lNow = Location.TModel.Tools.TimeConvert.ToStamp(dtNow);
+            lNow = lNow - nEightHourSecond;
+
             var recv = client.Getinspectionlist(lBegin, lEnd, true);//从WebApi获取
+           // var recv = Getinspectionlist();
             if (recv == null)
             {
                 return false;
@@ -129,12 +143,18 @@ namespace WebApiLib.Clients
                 var now = itList.Find(p => p.Abutment_Id == item.id);//数据库中已经存在该轨迹
                 var history = itHList.Find(p => p.Abutment_Id == item.id);
 
-                if (item.state == "新建" || item.state == "已下达" || item.state == "执行中")
+                bool bEnd = false;
+                if (item.endTime < lNow)
+                {
+                    bEnd = true;
+                }
+
+                if (!bEnd && (item.state == "新建" || item.state == "已下达" || item.state == "执行中"))
                 {
                     if (now == null)
                     {
                         now = new DbModel.Location.Work.InspectionTrack();
-
+                        
                         now.Abutment_Id = item.id;
                         now.Code = item.code;
                         now.Name = item.name;
@@ -188,6 +208,11 @@ namespace WebApiLib.Clients
             All.AddRange(newList);
             All.AddRange(changedList);
             DealPatrolPoint(bll, All, deleteList, newHisList, client);
+
+            TrackList.AddTrack = newList;
+            TrackList.ReviseTrack = changedList;
+            TrackList.DeleteTrack = deleteList;
+
             return true;
         }
 
@@ -223,6 +248,8 @@ namespace WebApiLib.Clients
                 int Id = item.Id;
                 int patrolId = (int)item.Abutment_Id;
                 CommunicationClass.SihuiThermalPowerPlant.Models.patrols recv = client.Getcheckpoints(patrolId);
+               // CommunicationClass.SihuiThermalPowerPlant.Models.patrols recv = Getcheckpoints(patrolId);
+
                 if (recv == null || recv.route.Count() <= 0)
                 {
                     continue;
@@ -284,6 +311,7 @@ namespace WebApiLib.Clients
                 int Id = item.Id;
                 int patrolId = (int)item.Abutment_Id;
                 CommunicationClass.SihuiThermalPowerPlant.Models.patrols recv = client.Getcheckpoints(patrolId);
+                //CommunicationClass.SihuiThermalPowerPlant.Models.patrols recv = Getcheckpoints(patrolId);
                 if (recv == null || recv.route.Count() <= 0)
                 {
                     continue;
@@ -363,6 +391,7 @@ namespace WebApiLib.Clients
 
                     int patrolId = (int)it.Abutment_Id;
                     CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = client.Getcheckresults(patrolId, deviceId);
+                  //  CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = Getcheckresults(patrolId, deviceId);
                     if (recv == null || recv.checks.Count() <= 0)
                     {
                         continue;
@@ -427,6 +456,8 @@ namespace WebApiLib.Clients
 
                     int patrolId = (int)ith.Abutment_Id;
                     CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = client.Getcheckresults(patrolId, deviceId);
+                    //CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = Getcheckresults(patrolId, deviceId);
+
                     if (recv == null || recv.checks.Count() <= 0)
                     {
                         continue;
@@ -468,6 +499,61 @@ namespace WebApiLib.Clients
             }
             return;
 
+        }
+
+        private List<CommunicationClass.SihuiThermalPowerPlant.Models.patrols> Getinspectionlist()
+        {
+            string strResult = "";
+
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string strPath = basePath + "Data\\InspectionJson\\InspectionList.txt";
+            strResult = System.IO.File.ReadAllText(strPath, Encoding.Default);
+
+            if (strResult.Contains("404 Not Found"))
+            {
+                throw new Exception("404 Not Found");
+            }
+
+        
+            List<CommunicationClass.SihuiThermalPowerPlant.Models.patrols> obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CommunicationClass.SihuiThermalPowerPlant.Models.patrols>>(strResult);
+            return obj;
+        }
+
+        private CommunicationClass.SihuiThermalPowerPlant.Models.patrols Getcheckpoints(int id)
+        {
+            string strResult = "";
+
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string strPath = basePath + "Data\\InspectionJson\\PatrolPoint" + Convert.ToString(id) + ".txt";
+            strResult = System.IO.File.ReadAllText(strPath, Encoding.Default);
+
+            if (strResult.Contains("404 Not Found"))
+            {
+                throw new Exception("404 Not Found");
+            }
+
+            CommunicationClass.SihuiThermalPowerPlant.Models.patrols obj = Newtonsoft.Json.JsonConvert.DeserializeObject<CommunicationClass.SihuiThermalPowerPlant.Models.patrols>(strResult);
+
+           return obj;
+
+        }
+
+        private CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints Getcheckresults(int patrolId, string deviceId)
+        {
+            string strResult = "";
+
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string strPath = basePath + "Data\\InspectionJson\\GetItem" + Convert.ToString(patrolId) + "_" + deviceId + ".txt";
+            strResult = System.IO.File.ReadAllText(strPath, Encoding.Default);
+
+            if (strResult.Contains("404 Not Found"))
+            {
+                throw new Exception("404 Not Found");
+            }
+
+            CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints obj = Newtonsoft.Json.JsonConvert.DeserializeObject<CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints>(strResult);
+
+            return obj;
         }
     }
 }

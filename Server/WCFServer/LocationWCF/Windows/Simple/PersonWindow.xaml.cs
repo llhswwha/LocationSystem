@@ -35,7 +35,7 @@ namespace LocationServer.Windows
         private void LoadData()
         {
             
-            DataGrid1.ItemsSource = service.GetList(true);
+            DataGrid1.ItemsSource = service.GetList(true,true);
         }
 
         public Personnel SelectedItem

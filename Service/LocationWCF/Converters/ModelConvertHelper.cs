@@ -454,6 +454,8 @@ namespace LocationServices.Converters
             item2.Device_desc = item1.Device_desc;
             item2.CreateTime = item1.AlarmTime;
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;
+            if(item1.DevInfo!=null)
+                item2.AreaId = item1.DevInfo.ParentId ?? 0;
             return item2;
         }
 

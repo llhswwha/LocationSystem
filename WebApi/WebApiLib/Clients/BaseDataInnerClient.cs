@@ -159,6 +159,9 @@ namespace WebApiLib.Clients
             return recv.data;
         }
 
+       
+
+
         public T GetEntityDetail<T>(string url)
         {
             T recv = default(T);

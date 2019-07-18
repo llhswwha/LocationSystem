@@ -173,5 +173,27 @@ namespace TModel.Location.AreaAndDev
                 MonitorNodeList.AddRange(nodes);
             }
         }
+
+        public void SetEmpty()
+        {
+            if(MonitorNodeList!=null&& MonitorNodeList.Count == 0)
+            {
+                MonitorNodeList = null;
+            }
+            if(ChildrenList!=null)
+            {
+                if (ChildrenList.Count == 0)
+                {
+                    ChildrenList = null;
+                }
+                else
+                {
+                    foreach (var item in ChildrenList)
+                    {
+                        item.SetEmpty();
+                    }
+                }
+            }
+        }
     }
 }

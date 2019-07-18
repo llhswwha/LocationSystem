@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000001","checkItem":"#2燃机电子设备间内柜门关闭","checkResult":"","checkTime":null,"checkId":1005894,"kksCode":"SHJ1UMA04R005"},{"staffCode":"80000001","checkItem":"#2燃机电子设备间内柜门关闭","checkResult":"","checkTime":null,"checkId":1005894,"kksCode":"SHJ1UMA04R005"}]}

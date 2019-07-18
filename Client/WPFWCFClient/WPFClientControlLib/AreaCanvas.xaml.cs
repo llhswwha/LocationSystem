@@ -289,7 +289,7 @@ namespace WPFClientControlLib
                     int scale = 3;
                     DevSize = 3;
                     double[] devSizeList = new double[] {0.5, 1, 2, 3, 4, 5};
-                    if (area.Name == "宝刚园区")
+                    if (area.Name == "宝钢园区")
                     {
                         scale = 2;
                         ShowFloor = 1;
@@ -319,7 +319,7 @@ namespace WPFClientControlLib
                     double[] devSizeList = new double[] { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 };
                     DevSize = 0.4;
 
-                    //if (area.Name == "宝刚园区")
+                    //if (area.Name == "宝钢园区")
                     {
                         //scale = 2;
                         //ShowFloor = 1;

@@ -27,6 +27,8 @@ using WebNSQLib;
 using SignalRService.Hubs;
 using EngineClient;
 using WebApiLib;
+using System.IO;
+using Location.Server;
 
 namespace LocationWCFServer
 {
@@ -35,6 +37,38 @@ namespace LocationWCFServer
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            string dir = AppDomain.CurrentDomain.BaseDirectory + "\\Logs\\ErrorInfo\\";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string path = dir + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")+"_Error.txt";
+            File.WriteAllText(path, "App.CurrentDomain_UnhandledException:" + e.ExceptionObject + "");
+            //Log.Error("App.CurrentDomain_UnhandledException", e.ExceptionObject + "");
+
+            string path2 = string.Format("{0}{1}_0.dmp", dir, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+            MiniDump.TryDump(path2, MiniDumpType.None);
+            string path3 = string.Format("{0}{1}_1.dmp", dir, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+            MiniDump.TryDump(path3, MiniDumpType.WithFullMemory);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "None"), MiniDumpType.None);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "Normal"), MiniDumpType.Normal);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithDataSegs"), MiniDumpType.WithDataSegs);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithCodeSegs"), MiniDumpType.WithCodeSegs);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithHandleData"), MiniDumpType.WithHandleData);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "FilterMemory"), MiniDumpType.FilterMemory);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "ScanMemory"), MiniDumpType.ScanMemory);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithThreadInfo"), MiniDumpType.WithThreadInfo);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithFullMemoryInfo"), MiniDumpType.WithFullMemoryInfo);
+            //MiniDump.TryDump(string.Format("{0}{1}.dmp", dir, "WithFullMemory"), MiniDumpType.WithFullMemory);
+        }
+
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             XmlConfigurator.Configure();
@@ -80,6 +114,7 @@ namespace LocationWCFServer
 
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
             AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+            AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
 
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
             LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));

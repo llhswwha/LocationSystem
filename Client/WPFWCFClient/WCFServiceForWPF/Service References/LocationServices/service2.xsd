@@ -2300,10 +2300,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAllCameraAlarms">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="merge" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCameraAlarmsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q166="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" minOccurs="0" name="GetAllCameraAlarmsResult" nillable="true" type="q166:ArrayOfCameraAlarmInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetCameraAlarms">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q166="http://schemas.datacontract.org/2004/07/Location.TModel.FuncArgs" minOccurs="0" name="arg" nillable="true" type="q166:AlarmSearchArg" />
+        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="merge" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2311,6 +2326,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q167="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" minOccurs="0" name="GetCameraAlarmsResult" nillable="true" type="q167:ArrayOfCameraAlarmInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCameraAlarm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCameraAlarmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q168="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" minOccurs="0" name="GetCameraAlarmResult" nillable="true" type="q168:CameraAlarmInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2322,7 +2351,7 @@
   <xs:element name="GetUnitySettingResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q168="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" minOccurs="0" name="GetUnitySettingResult" nillable="true" type="q168:UnitySetting" />
+        <xs:element xmlns:q169="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" minOccurs="0" name="GetUnitySettingResult" nillable="true" type="q169:UnitySetting" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2348,7 +2377,7 @@
   <xs:element name="GetPointsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q169="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsResult" nillable="true" type="q169:AreaPoints" />
+        <xs:element xmlns:q170="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsResult" nillable="true" type="q170:AreaPoints" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2362,7 +2391,7 @@
   <xs:element name="GetPointsByPidResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q170="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsByPidResult" nillable="true" type="q170:ArrayOfAreaPoints" />
+        <xs:element xmlns:q171="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" minOccurs="0" name="GetPointsByPidResult" nillable="true" type="q171:ArrayOfAreaPoints" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

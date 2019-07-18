@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DbModel.Location.Work;
+using Location.BLL.Tool;
 using LocationServer;
 using LocationServices.Locations.Interfaces;
 using LocationServices.Locations.Services;
@@ -35,9 +36,9 @@ namespace LocationServices.Locations
             return areas;
         }
 
-        public bool SetCardRoleAccessAreas(int roleId,List<int> areaIds)
+        public bool SetCardRoleAccessAreas(int roleId, List<int> areaIds)
         {
-            
+
             try
             {
                 var bll = AppContext.GetLocationBll();
@@ -55,7 +56,7 @@ namespace LocationServices.Locations
                 for (int i = 0; i < aarList.Count; i++)
                 {
                     var aar = aarList[i];
-                    if (aar.AccessType== AreaAccessType.不能进入)//设置的是可以进入的权限，同时要把不能进入的权限都删了
+                    if (aar.AccessType == AreaAccessType.不能进入)//设置的是可以进入的权限，同时要把不能进入的权限都删了
                     {
                         //removeList.Add(aarList[i].Id);
                         var r = aarService.Delete(aar.Id + "");
@@ -101,7 +102,19 @@ namespace LocationServices.Locations
 
                 foreach (var areaId in newList)
                 {
-                    var list=aaService.GetListByArea(areaId + "");
+                    var list = aaService.GetListByArea(areaId + "");
+                    if (list.Count == 0)//新增的区域没有对应的权限设置数据
+                    {
+                        var aaNew = AreaAuthorization.New();
+                        aaNew.AreaId = areaId;//根节点
+                        aaNew.AccessType = AreaAccessType.可以进出; //可进入的权限
+                        aaNew.RangeType = AreaRangeType.Single;
+                        string areaType = "区域";
+                        aaNew.Name = string.Format("权限[" + areaType + "]");
+                        aaNew.Description = string.Format("权限：可以进入" + areaType + "。");
+                        var aaNewR = aaService.Post(aaNew);
+                        list.Add(aaNewR);//后续挪动到aaService里面。
+                    }
                     var aa = list.FirstOrDefault(i => i.AccessType == AreaAccessType.可以进出);
                     if (aa != null)
                     {
@@ -110,7 +123,7 @@ namespace LocationServices.Locations
                     }
                     else
                     {
-
+                        Log.Error("SetCardRoleAccessAreas", "为找到区域对应的权限数据:" + areaId);
                     }
                 }
             }

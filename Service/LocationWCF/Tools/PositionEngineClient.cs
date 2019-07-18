@@ -20,6 +20,7 @@ using LocationServer;
 using BLL.Tools;
 using WebNSQLib;
 using LocationServices.Locations;
+using System.Collections.Concurrent;
 
 namespace LocationServices.Tools
 {
@@ -84,7 +85,7 @@ namespace LocationServices.Tools
 
         //public System.Collections.Concurrent.list
 
-        public List<Position> Positions = new List<Position>();
+        public ConcurrentBag<Position> Positions = new ConcurrentBag<Position>();
 
         public int MockCount = 0;
 
@@ -165,7 +166,7 @@ namespace LocationServices.Tools
         /// </summary>
         /// <param name="list1"></param>
         /// <returns></returns>
-        private List<Position> RemoveRepeatPosition(List<Position> list1)
+        private ConcurrentBag<Position> RemoveRepeatPosition(ConcurrentBag<Position> list1)
         {
             Dictionary<string, Position> dict = new Dictionary<string, Position>();
             foreach (Position pos in list1)
@@ -180,7 +181,9 @@ namespace LocationServices.Tools
                     Log.Error(LogTags.Engine, "RemoveRepeatPosition:"+ex);
                 }
             }
-            return dict.Values.ToList();
+            //return dict.Values.ToList();
+            ConcurrentBag<Position> posBagT = new ConcurrentBag<Position>(dict.Values);
+            return posBagT;
         }
 
         private void InsertPostions()
@@ -200,17 +203,26 @@ namespace LocationServices.Tools
                         if (InsertPostions(posList2))
                         {
                             WriteLogRight(GetLogText(string.Format("写入{0}条数据", Positions.Count)));
-                            Positions.Clear();
+                            //Positions.Clear();
+                            Positions = new ConcurrentBag<Position>();
                         }
                         else
                         {
-                            WriteLogRight(GetLogText(string.Format("当前有{0}条数据", Positions.Count)));
+                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count,ErrorMessage)));
                         }
                     }
                     catch (Exception ex)
                     {
                         Log.Error("InsertPostions", ex);
-                        Positions.Clear();
+                        //Positions.Clear();
+                        Thread.Sleep(100);
+                        try
+                        {
+                            Positions = new ConcurrentBag<Position>();
+                        }catch(Exception e)
+                        {
+                            Log.Error("PositionEngineClient.InsertPostions.Exception",e);
+                        }
                     }
 
                     isBusy = false;
@@ -260,8 +272,15 @@ namespace LocationServices.Tools
 
             watch1.Stop();
             WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
+
+            if (r == false)
+            {
+                ErrorMessage = bll.ErrorMessage;
+            }
             return r;
         }
+
+        public string ErrorMessage;
 
         public event Action<List<LocationAlarm>> NewAlarmsFired;
 
@@ -333,7 +352,8 @@ namespace LocationServices.Tools
                     insertThread = null;
                 }
                 isBusy = false;
-                Positions.Clear();
+                //Positions.Clear();
+                Positions = new ConcurrentBag<Position>();
                 return true;
             }
             catch (Exception ex)

@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000016","checkItem":"#3机#2闭式水泵轴承温度正常，轴承震动正常，无泄漏点","checkResult":"","checkTime":null,"checkId":1007219,"kksCode":"SH20PGA12AP001"},{"staffCode":"80000016","checkItem":"#3机#2闭式水泵轴承温度正常，轴承震动正常，无泄漏点","checkResult":"","checkTime":null,"checkId":1007219,"kksCode":"SH20PGA12AP001"}]}

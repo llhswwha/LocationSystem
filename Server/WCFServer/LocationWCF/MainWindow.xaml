@@ -32,6 +32,7 @@
                 <Separator></Separator>
                 <MenuItem Header="定位历史数据" Name="MenuLocationHistoryTest" Click="MenuLocationHistoryTest_OnClick"></MenuItem>
                 <MenuItem Header="事件发送测试" Name="MenuEventSendTest" Click="MenuEventSendTest_OnClick"></MenuItem>
+                <MenuItem Header="巡检记录测试" Name="MenuInspectionTest" Click="MenuInspectionTest_OnClick"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="基站扫描" Name="MenuArchorScane" Click="MenuArchorScane_Click"></MenuItem>
                 <MenuItem Header="基站校对" Name="MenuArchorCheck" Click="MenuArchorCheck_Click"></MenuItem>

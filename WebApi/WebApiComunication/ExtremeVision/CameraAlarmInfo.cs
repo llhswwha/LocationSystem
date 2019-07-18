@@ -14,8 +14,27 @@ namespace WebApiCommunication.ExtremeVision
     /// 摄像头行为分析告警
     /// </summary>
     [DataContract]
-    public class CameraAlarmInfo
+    public class CameraAlarmInfo:IComparable<CameraAlarmInfo>
     {
+        /// <summary>
+        /// id
+        /// </summary>
+        [JsonIgnore]
+        [DataMember]
+        public int id { get; set; }
+
+        /// <summary>
+        /// 相同告警合并，但是记录一下一系列告警的开始的数据，最终给的是结束的数据
+        /// </summary>
+        [JsonIgnore]
+        [DataMember]
+        public CameraAlarmInfo startInfo { get; set; }
+
+
+        [JsonIgnore]
+        [DataMember]
+        public DateTime time { get; set; }
+
         /// <summary>
         /// 算法ID，由极视角定义的算法ID，只读
         /// </summary>
@@ -48,6 +67,7 @@ namespace WebApiCommunication.ExtremeVision
         [JsonProperty("time_stamp")]
         [DataMember]
         public long time_stamp { get; set; }
+
 
         /// <summary>
         /// 状态值，0/无报警，1/有报警
@@ -92,7 +112,7 @@ namespace WebApiCommunication.ExtremeVision
 
         public override string ToString()
         {
-            return string.Format("Id:{0},Cid:{1}", aid, cid);
+            return string.Format("Id:{0},Cid:{1} time:{2}", aid, cid,time);
         }
 
         public FlameData GetFlameData()
@@ -116,9 +136,9 @@ namespace WebApiCommunication.ExtremeVision
 
         private bool IsHeadInfo()
         {
-            JArray arr = data as JArray;
-            if (arr != null)
+            if (data is JArray)//9510安全帽识别算法回调参数说明.md 协议
             {
+                JArray arr = data as JArray;
                 foreach (JToken child in arr.First.Children())
                 {
                     var property = child as JProperty;
@@ -133,6 +153,26 @@ namespace WebApiCommunication.ExtremeVision
 
                 return false;
             }
+            else if (data is JObject)//实际收到的
+            {
+                JObject obj = data as JObject;
+
+                foreach (JToken child in obj.Children())
+                {
+                    var property = child as JProperty;
+                    if (property == null) continue;
+                    //var str = property + "";
+                    var name = (property).Name;
+                    if (name == "headInfo")
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+
+            }
+
             return false;
         }
 
@@ -140,11 +180,18 @@ namespace WebApiCommunication.ExtremeVision
         {
             try
             {
-                JArray obj = data as JArray;
-                if (obj != null)
+               
+                if (data is JArray)
                 {
+                    JArray obj = data as JArray;
                     var result = obj.ToObject<HeadData[]>();
                     return result[0];
+                }
+                else if(data is JObject)
+                {
+                    JObject obj = data as JObject;
+                    var result = obj.ToObject<HeadData>();
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -157,14 +204,24 @@ namespace WebApiCommunication.ExtremeVision
 
         public void ParseData()
         {
-            if (IsHeadInfo())
+            if (IsHeadInfo())//判断是不是头盔告警
             {
-                HeadData = GetHeadData();
+                HeadData = GetHeadData();//解析头盔数据
             }
             else
             {
-                FlameData = GetFlameData();
+                FlameData = GetFlameData();//解析火焰数据
             }
+        }
+
+        public int CompareTo(CameraAlarmInfo other)
+        {
+            return GetCompareId().CompareTo(other.GetCompareId());
+        }
+
+        public string GetCompareId()
+        {
+            return ("" + cid + time_stamp);
         }
     }
 }

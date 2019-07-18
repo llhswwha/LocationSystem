@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000016","checkItem":"#3机#2开式水泵轴承温度正常，轴承震动正常，无泄漏点","checkResult":"","checkTime":null,"checkId":1007217,"kksCode":"SH20PCB11AP002"},{"staffCode":"80000016","checkItem":"#3机#2开式水泵轴承温度正常，轴承震动正常，无泄漏点","checkResult":"","checkTime":null,"checkId":1007217,"kksCode":"SH20PCB11AP002"}]}

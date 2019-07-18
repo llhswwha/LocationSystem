@@ -412,5 +412,28 @@ namespace LocationServices.Converters
         }
         #endregion
 
+        #region TModel.Location.Work.InspectionTrackList <=> DbModel.Location.Work.InspectionTrackList
+       
+        public static TModel.Location.Work.InspectionTrackList ToTModel(this DbModel.Location.Work.InspectionTrackList item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new TModel.Location.Work.InspectionTrackList();
+            item2.AddTrack = item1.AddTrack.ToTModel();
+            item2.ReviseTrack = item1.ReviseTrack.ToTModel();
+            item2.DeleteTrack = item1.DeleteTrack.ToTModel();
+            return item2;
+        }
+    
+        public static DbModel.Location.Work.InspectionTrackList ToDbModel(this TModel.Location.Work.InspectionTrackList item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new DbModel.Location.Work.InspectionTrackList();
+            item2.AddTrack = item1.AddTrack.ToDbModel();
+            item2.ReviseTrack = item1.ReviseTrack.ToDbModel();
+            item2.DeleteTrack = item1.DeleteTrack.ToDbModel();
+            return item2;
+        }
+       
+        #endregion
     }
 }

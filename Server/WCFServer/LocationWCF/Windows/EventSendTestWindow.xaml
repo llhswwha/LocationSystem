@@ -1,4 +1,4 @@
-﻿<Window x:Class="LocationServer.Windows.EventSendTestWindow"
+﻿<Window xmlns:Controls="clr-namespace:LocationServer.Controls"  x:Class="LocationServer.Windows.EventSendTestWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -42,21 +42,7 @@
 
             </TabItem>
             <TabItem Header="设备告警">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
-                        <Button Content="刷新" Name="BtnLoadDevAlarms" Click="BtnLoadDevAlarms_Click"></Button>
-                        <Button Content="随机选择100个" Name="BtnRandomSelect100" Click="BtnRandomSelect100_OnClick"></Button>
-                        <Button Content="过滤重复设备" Name="BtnFilterRepeatDev" Click="BtnFilterRepeatDev_Click" ></Button>
-                        <Button Content="逐个发送告警" Name="BtnSendDevAlarms" Click="BtnSendDevAlarms_Click"></Button>
-                    </StackPanel>
-                    <DataGrid Name="DataGridDeviceAlarms">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="发送" Name="MenuSendDeviceAlarm" Click="MenuSendDeviceAlarm_Click"></MenuItem>
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-                    </DataGrid>
-                </DockPanel>
+                <Controls:DeviceAlarmListBox x:Name="DeviceAlarmListBox1"/>
             </TabItem>
             <TabItem Header="设备告警历史">
                 <DockPanel>

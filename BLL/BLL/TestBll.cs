@@ -15,7 +15,7 @@ namespace BLL
         public void InitTopo()
         {
             var initializer = new AreaTreeInitializer(db);
-            initializer.InitAreaAndDev();
+            initializer.InitAreaAndDev(LocationServer.AppContext.ParkName);
         }
 
         public void InitTopo(TopoInfo topoInfo)

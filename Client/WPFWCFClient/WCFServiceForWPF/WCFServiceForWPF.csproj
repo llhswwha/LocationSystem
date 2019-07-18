@@ -95,6 +95,8 @@
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.MobileInspectionDev.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.OperationTicket.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Work.PatrolPoint.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Work.PatrolPointItem.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.PersonnelMobileInspection.datasource" />
     <None Include="Properties\DataSources\TModel.Location.Work.WorkTicket.datasource" />
     <None Include="Properties\DataSources\TModel.LocationHistory.AreaAndDev.EntranceGuardActionInfo.datasource" />

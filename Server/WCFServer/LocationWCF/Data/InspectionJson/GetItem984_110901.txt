@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000015","checkItem":"第二套直流系统蓄电池室空调运行是否正常、出风口温度、房间温度、排水管是否通畅","checkResult":"","checkTime":null,"checkId":1007159,"kksCode":"SHJ2UCA07"}]}

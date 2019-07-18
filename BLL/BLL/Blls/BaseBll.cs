@@ -1,6 +1,7 @@
 ﻿using BLL.Tools;
 using Location.BLL.Tool;
 using Location.IModel;
+using SelfBatchImport;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -429,32 +430,31 @@ namespace BLL.Blls
             }
             try
             {
-                Db.BulkInsert(list);
-                
+                BulkInsert(list);
             }
             catch (Exception ex)
             {
-                Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex.Message));
+                Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex1,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex.Message));
 
                 try
                 {
                     Thread.Sleep(100);
-                    Db.BulkInsert(list);
+                    BulkInsert(list);
                     return true;//有一定概率先失败后成功
                 }
                 catch (Exception ex2)
                 {
-                    Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex2.Message));
+                    Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex2,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex2.Message));
 
                     try
                     {
                         Thread.Sleep(100);
-                        Db.BulkInsert(list);
+                        BulkInsert(list);
                         return true;//有一定概率先失败后成功
                     }
                     catch (Exception ex3)
                     {
-                        Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex3.Message));
+                        Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex3,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex3.Message));
                         ErrorMessage = ex3.Message;
                         return false;
                     }
@@ -462,16 +462,22 @@ namespace BLL.Blls
                 return false;
             }
 
-            try
-            {
-                Db.BulkSaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format("BaseBll.AddRange.BulkSaveChanges,Type:{0},Count:{1}", typeof(T), list.Count()), ex);
-                return false;
-            }
+            //try
+            //{
+            //    Db.BulkSaveChanges();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Error(string.Format("BaseBll.AddRange.BulkSaveChanges,Type:{0},Count:{1}", typeof(T), list.Count()), ex);
+            //    return false;
+            //}
             return true;
+        }
+
+        private void BulkInsert(IEnumerable<T> list)
+        {
+            //BatchImport.Insert<T>(Db.Database, DbSet, (List<T>)list);
+            Db.BulkInsert(list);
         }
 
         public virtual bool EditRange(List<T> list)

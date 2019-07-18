@@ -686,15 +686,19 @@ namespace LocationServer
             //{
             //    persons = service.GetListByArea("");
             //}
-            var persons = service.GetList(true);
+            var persons = service.GetList(true,true);
             var posService = new PosService();
             var posList = posService.GetList();//todo:实时数据以后从缓存中取
-            foreach (var item in persons)
+            if (posList!= null)
             {
-                var pos= posList.FirstOrDefault(i => i.Tag == item.Tag.Code);
-                item.Pos = pos;
+                foreach (var item in persons)
+                {
+                    var pos = posList.FirstOrDefault(i => i.Tag == item.Tag.Code);
+                    item.Pos = pos;
+                }
+                AreaCanvas1.ShowPersons(persons);
             }
-            AreaCanvas1.ShowPersons(persons);
+            
         }
 
         private void AreaListBox1_SelectedItemChanged(AreaEntity obj)

@@ -88,5 +88,21 @@ namespace TModel.Location.AreaAndDev
             }
             return copy;
         }
+
+        public string AutoGenerateRtsp()
+        {
+            if (string.IsNullOrEmpty(RtspUrl))
+            {
+                RtspUrl = GenerateRtsp();
+            }
+            return RtspUrl;
+        }
+
+        public string GenerateRtsp()
+        {
+            if(!string.IsNullOrEmpty(UserName)&& !string.IsNullOrEmpty(PassWord) && !string.IsNullOrEmpty(Ip))
+                return string.Format("rtsp://{0}:{1}@{2}", UserName, PassWord, Ip);
+            return "";
+        }
     }
 }

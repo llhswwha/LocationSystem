@@ -59,7 +59,6 @@
   <xs:complexType name="PositionList">
     <xs:sequence>
       <xs:element minOccurs="0" name="Count" type="xs:int" />
-      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfPosition" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

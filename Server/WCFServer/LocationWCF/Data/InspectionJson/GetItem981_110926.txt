@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000004","checkItem":"各电动机运行正常","checkResult":"","checkTime":null,"checkId":1006303,"kksCode":"SHJ0GKB11AP001"}]}

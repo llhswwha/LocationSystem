@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000004","checkItem":"各控制柜柜门锁好","checkResult":"","checkTime":null,"checkId":1006280,"kksCode":"SHJ1UGH"},{"staffCode":"80000004","checkItem":"各控制柜柜门锁好","checkResult":"","checkTime":null,"checkId":1006280,"kksCode":"SHJ1UGH"}]}

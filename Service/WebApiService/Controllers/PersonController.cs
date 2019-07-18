@@ -50,16 +50,16 @@ namespace WebApiService.Controllers
 
         [Route("")]
         [Route("list")]
-        public List<TEntity> GetList(bool detail)
+        public List<TEntity> GetList(bool detail,bool showAll)
         {
-            return service.GetList(detail);
+            return service.GetList(detail, showAll);
         }
 
         [Route("detail")]
         [Route("list/detail")]
         public IList<TEntity> GetListWithDetail()
         {
-            return service.GetList(true);
+            return service.GetList(true,true);
         }
 
         [Route("")]//search/?name=主

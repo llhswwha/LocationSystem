@@ -47,6 +47,22 @@ namespace LocationServer.Windows
             tbLogController.Init(TbLogs, LogTags.EventTest);
         }
 
+        public void LoadDeviceAlarms()
+        {
+            DeviceAlarmListBox1.LoadDeviceAlarms(()=>
+            {
+                Worker.Run(() =>
+                {
+                    Log.Info(LogTags.EventTest, "加载设备告警数据（历史）");
+                    return Bll.Instance().DevAlarmHistorys.ToList();
+                }, alarmHistory =>
+                {
+                    Log.Info(LogTags.EventTest, "加载设备告警数据（历史）-完成");
+                    DeviceAlarmsHistory.ItemsSource = alarmHistory;
+                });
+            });
+        }
+
         private void BtnPushAlarm_OnClick(object sender, RoutedEventArgs e)
         {
             //LocationCallbackService.NotifyServiceStop();
@@ -195,25 +211,6 @@ namespace LocationServer.Windows
             }
         }
 
-        private void LoadDeviceAlarms()
-        {
-            var service = new LocationService();
-            AlarmSearchArg arg = new AlarmSearchArg();
-            arg.IsAll = true;
-            deviceAlarms = service.GetDeviceAlarms(arg);
-            DataGridDeviceAlarms.ItemsSource = deviceAlarms;
-
-            var alarmHistory=Bll.Instance().DevAlarmHistorys.ToList();
-            DeviceAlarmsHistory.ItemsSource = alarmHistory;
-        }
-
-        private List<DeviceAlarm> deviceAlarms;
-
-        private void MenuSendDeviceAlarm_Click(object sender, RoutedEventArgs e)
-        {
-            var alarm = DataGridDeviceAlarms.SelectedItem as DeviceAlarm;
-            AlarmHub.SendDeviceAlarms(alarm);
-        }
 
         private void BtnOnShowNoDevInHistory_OnClick(object sender, RoutedEventArgs e)
         {
@@ -223,74 +220,6 @@ namespace LocationServer.Windows
         private void MenuSendDeviceAlarmOfHistory_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void BtnLoadDevAlarms_Click(object sender, RoutedEventArgs e)
-        {
-            LoadDeviceAlarms();
-        }
-
-        private void BtnRandomSelect100_OnClick(object sender, RoutedEventArgs e)
-        {
-            List<DeviceAlarm> alarms = new List<DeviceAlarm>();
-            int count = 100;
-            Random r = new Random((int)DateTime.Now.Ticks);
-            for (int i = 0; i < count; i++)
-            {
-                int index = r.Next(deviceAlarms.Count);
-                DeviceAlarm alarm = deviceAlarms[i];
-                alarms.Add(alarm);
-            }
-            DataGridDeviceAlarms.ItemsSource = alarms;
-        }
-
-        private void BtnFilterRepeatDev_Click(object sender, RoutedEventArgs e)
-        {
-            Dictionary<int, DeviceAlarm> alarmDic = new Dictionary<int, DeviceAlarm>();
-            foreach (var item in deviceAlarms)
-            {
-                if (alarmDic.ContainsKey(item.DevId))
-                {
-
-                }
-                else
-                {
-                    alarmDic.Add(item.DevId, item);
-                }
-            }
-            DataGridDeviceAlarms.ItemsSource = alarmDic.Values.ToList();
-        }
-        BackgroundWorker sendDevAlarmsWorker;
-        private void BtnSendDevAlarms_Click(object sender, RoutedEventArgs e)
-        {
-            if(BtnSendDevAlarms.Content.ToString()== "逐个发送告警")
-            {
-                BtnSendDevAlarms.Content = "停止发送告警";
-                int interval = TxtSendDevAlarmInterval.Text.ToInt();
-                int onceCount = TxtOnceSendCount.Text.ToInt();
-
-                var currentDevAlarms = DataGridDeviceAlarms.ItemsSource as List<DeviceAlarm>;
-                sendDevAlarmsWorker=Worker.Run(() =>
-                {
-                    List<DeviceAlarm> sendAlarms = new List<DeviceAlarm>();
-                    for (int i = 0; i < currentDevAlarms.Count; i++)
-                    {
-                        var devAlarm = currentDevAlarms[i];
-                        sendAlarms.Add(devAlarm);
-                        if ((i + 1) % onceCount == 0)
-                        {
-                            Log.Info(LogTags.EventTest, string.Format("发送告警:{0}({1}/{2})", devAlarm,i+1, currentDevAlarms.Count));
-                            AlarmHub.SendDeviceAlarms(devAlarm);
-                            Thread.Sleep(interval);
-                        }
-                    }
-                }, null);
-            }
-            else
-            {
-                BtnSendDevAlarms.Content = "逐个发送告警";
-                sendDevAlarmsWorker.CancelAsync();
-            }
         }
 
         LogTextBoxController tbLogController = new LogTextBoxController();

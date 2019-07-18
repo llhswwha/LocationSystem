@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000004","checkItem":"#1汽机MCC 各开关运行正常，柜门锁好，照明完好","checkResult":"","checkTime":null,"checkId":1006306,"kksCode":"SH10BJA"}]}

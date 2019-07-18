@@ -70,7 +70,7 @@ namespace LocationServices.Locations
                 {
                     _dbEx = new Bll();
                 }
-                return _db;
+                return _dbEx;
             }
         }
 
@@ -485,7 +485,9 @@ namespace LocationServices.Locations
             IList < PositionList > send = new PosHistoryService(db).GetHistoryPositonStatistics(nFlag, strName, strName2);
             DateTime dt2 = DateTime.Now;
 
-            string xml = XmlSerializeHelper.GetXmlText(send);
+            //string xml = XmlSerializeHelper.GetXmlText(send);
+
+            var time = dt2 - dt1;
 
 
             return send;

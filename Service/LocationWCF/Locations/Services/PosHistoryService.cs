@@ -15,6 +15,7 @@ using PositionDb = DbModel.LocationHistory.Data.Position;
 using PositionListDb = DbModel.LocationHistory.Data.PositionList;
 using PersonnelDb = DbModel.Location.Person.Personnel;
 using System.Threading;
+using LocationServer;
 
 namespace LocationServices.Locations.Services
 {
@@ -131,8 +132,9 @@ namespace LocationServices.Locations.Services
             {
                 return null;
             }
+            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
             var info = from u in dbSet.DbSet
-                       where u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
+                       where u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp && (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
                        select u;
             var tempList = info.ToList();
 
@@ -148,8 +150,9 @@ namespace LocationServices.Locations.Services
             {
                 return null;
             }
+            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
             var info = from u in dbSet.DbSet
-                       where u.Code.Contains(tag) && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
+                       where u.Code.Contains(tag) && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp && (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
                        select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
@@ -212,9 +215,9 @@ namespace LocationServices.Locations.Services
             //            where t1.PersonnelId == personnelID
             //            select (int?)t1.PersonnelId;
             //List<int?> lst1 = query.ToList();
-
+            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
             var info = from u in dbSet.DbSet
-                       where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
+                       where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&(showUnLocatedAreaPoint||!showUnLocatedAreaPoint&&u.AreaState != 1)
                        select u;
 
             var tempList = info.ToList();
@@ -301,10 +304,11 @@ namespace LocationServices.Locations.Services
             {
                 return null;
             }
+            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
             var info = from u in dbSet.DbSet
                 where
                     topoNode == u.AreaId && u.DateTimeStamp >= startStamp &&
-                    u.DateTimeStamp <= endStamp
+                    u.DateTimeStamp <= endStamp && (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
                 select u;
             var tempList = info.ToList();
             return tempList.ToWcfModelList();
@@ -325,12 +329,49 @@ namespace LocationServices.Locations.Services
 
         private static List<PositionDb> allPoslist;
 
+        private static Dictionary<int, List<PositionListDb>> buffer = new Dictionary<int, List<PositionListDb>>();
+
+        private void RefreshBuffer()
+        {
+            RefreshBuffer(1);
+            RefreshBuffer(2);
+            RefreshBuffer(3);
+        }
+
+        private void RefreshBuffer(int flag)
+        {
+            var list1 = GetDayOperate(flag, allPoslist);
+            if (buffer.ContainsKey(flag))
+            {
+                buffer[flag] = list1;
+            }
+            else
+            {
+                buffer.Add(flag, list1);
+            }
+        }
+
+        private List<PositionListDb> GetFromBuffer(int flag)
+        {
+            if (buffer.ContainsKey(flag))
+            {
+                return buffer[flag];
+            }
+            else
+            {
+                var list1 = GetDayOperate(flag, allPoslist);
+                buffer.Add(flag, list1);
+                return list1;
+            }
+        }
+
+
         public void GetHistoryPositonThread()
         {
             bool bFirst = false;
             bool bGet = false;
-            int nSleepTime = 1000 * 60;
-
+            int nSleepTime = 1000 * 60;//60s，
+            nSleepTime *= 10;//10分钟
             while (true)
             {
                 try
@@ -377,9 +418,14 @@ namespace LocationServices.Locations.Services
         {
             try
             {
+                DateTime start=DateTime.Now;
+
                 Bll bll = Bll.Instance();
                 //bll.history
                 allPoslist = bll.Positions.ToList();
+
+                var time1 = DateTime.Now - start;
+
                 var personnels = bll.Personnels.ToDictionary();
                 foreach (var pos in allPoslist)
                 {
@@ -408,6 +454,8 @@ namespace LocationServices.Locations.Services
                         pos.AreaPath = area.GetToBuilding(">");
                     }
                 }
+
+                RefreshBuffer();
             }
             catch (Exception ex)
             {
@@ -452,7 +500,8 @@ namespace LocationServices.Locations.Services
             }
 
             //获取第一层数据
-            SendList = GetDayOperate(nFlag, allPoslist);
+            //SendList = GetDayOperate(nFlag, allPoslist);
+            SendList = GetFromBuffer(nFlag);//从缓存取，避免重复。
             if (SendList == null)
             {
                 return null;

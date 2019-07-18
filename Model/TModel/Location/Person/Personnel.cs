@@ -110,6 +110,12 @@ namespace Location.TModel.Location.Person
         public string Mobile { get; set; }
 
         /// <summary>
+        /// Rtsp地址
+        /// </summary>
+        [DataMember]
+        public string RtspUrl { get; set; }
+
+        /// <summary>
         /// 是否启用
         /// </summary>
         [DataMember]

@@ -25,6 +25,8 @@ using BLL.Blls;
 using Location.BLL.Tool;
 using IModel.Enums;
 using System.Threading;
+using WebApiCommunication.ExtremeVision;
+using Newtonsoft.Json;
 
 namespace WebApiLib.Clients
 {
@@ -139,55 +141,64 @@ namespace WebApiLib.Clients
 
             try
             {
-                var users = GetUserList();
-
+                 // var users = GetUserList();
+                var users = getUserTest();
                 foreach (user item in users)
                 {
-                    //0表示添加，1表示修改
-                    int nFlag = 1;
-
-                    //先根据人员Id获取
-                    Personnel person = plst.Find(p => p.Abutment_Id == item.id);
-                    if (person == null)
+                    //可用
+                    if (item.enabled == true)
                     {
-                        person = new Personnel();
-                        person.Pst = "检修";
-                        nFlag = 0;
-                    }
+                        //0表示添加，1表示修改
+                        int nFlag = 1;
 
-                    BaseDataHelper.SetPersonnel(person, item);
-
-                    if (item.dep_name == null)
-                    {
-                        Department Department = dlst.Find(p => p.Name == "未绑定");
-                        person.ParentId = Department.Id;
-                    }
-                    else
-                    {
-                        Department Department = dlst.Find(p => p.Name == item.dep_name);
-                        if (Department == null)
+                        //先根据人员Id获取
+                        Personnel person = plst.Find(p => p.Abutment_Id == item.id);
+                        if (person == null)
                         {
-                            string strInfo = "获取人员列表错误信息：找不到匹配的部门  id=" + item.id + "  Name=" + item.name + " Depart=" + item.dep_name;
-                            Error(strInfo);
-                            continue;
+                            //根据姓名查找
+                            Personnel person1 = plst.Find(p=>p.Name==item.name);
+
+                            person = new Personnel();
+                            person.Pst = "检修";
+                            nFlag = 0;
                         }
 
-                        person.ParentId = Department.Id;
-                    }
+                        BaseDataHelper.SetPersonnel(person, item);
 
-                    if (nFlag == 0)
-                    {
-                        if(isSave)
-                            bll.Personnels.Add(person);
-                        plst.Add(person);
-                    }
-                    else
-                    {
-                        if (isSave)
-                            bll.Personnels.Edit(person);
-                    }
+                        if (item.dep_name == null)
+                        {
+                            Department Department = dlst.Find(p => p.Name == "未绑定");
+                            person.ParentId = Department.Id;
+                        }
+                        else
+                        {
+                            Department Department = dlst.Find(p => p.Name == item.dep_name);
+                            if (Department == null)
+                            {
+                                string strInfo = "获取人员列表错误信息：找不到匹配的部门  id=" + item.id + "  Name=" + item.name + " Depart=" + item.dep_name;
+                                Error(strInfo);
+                                continue;
+                            }
 
-                    personnelList.Add(person);
+                            person.ParentId = Department.Id;
+                        }
+
+
+
+                        if (nFlag == 0)
+                        {
+                            if (isSave)
+                                bll.Personnels.Add(person);
+                            plst.Add(person);
+                        }
+                        else
+                        {
+                            if (isSave)
+                                bll.Personnels.Edit(person);
+                        }
+
+                        personnelList.Add(person);
+                    }
                 }
             }
             catch (Exception ex)
@@ -203,6 +214,56 @@ namespace WebApiLib.Clients
 
             return personnelList;
         }
+
+
+        public List<user> getUserTest()
+        {
+            try
+            {
+                string fileName = "users.json";
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\BaseData\\" + fileName;
+                if (File.Exists(path))
+                {
+                    string json = File.ReadAllText(path);
+                    BaseTran<user> recv = JsonConvert.DeserializeObject<BaseTran<user>>(json);
+                    List<user> users = recv.data;
+                    List<user> userList = new List<user>();
+                    foreach (user item in users)
+                    {
+                        if (item.dep_name != null)
+                        {
+                            userList.Add(item);
+                        }
+                    }
+                    //int count = userList.Count;
+                    //string names = "";
+                    //for (int i = 0; i < userList.Count; i++)
+                    //{
+                    //    if (userList[i].enabled = true)
+                    //    {
+                    //        for (int j = i + 1; j < userList.Count; j++)
+                    //        {
+                    //            if (userList[j].enabled == true)
+                    //            {
+                    //                if (userList[i].name == userList[j].name)
+                    //                {
+                    //                    names += userList[i].name + ",";
+                    //                }
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //Log.Info(names);
+                    return userList;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
 
         /// <summary>
@@ -600,7 +661,8 @@ namespace WebApiLib.Clients
 
             try
             {
-                var deviceList = GetDeviceList(types, code, name);
+                // var deviceList = GetDeviceList(types, code, name);
+                var deviceList= getDevListByJson();
                 foreach (device item in deviceList)
                 {
                     if (item.type != 102 && item.type != 1021 && item.type != 1022 && item.type != 1023)
@@ -658,6 +720,28 @@ namespace WebApiLib.Clients
             }
 
             return send;
+        }
+
+        public List<device> getDevListByJson()
+        {
+            try
+            {
+                string fileName = "devices.json";
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\BaseData\\" + fileName;
+                if (File.Exists(path))
+                {
+                    string json = File.ReadAllText(path);
+                    BaseTran<device> recv = JsonConvert.DeserializeObject<BaseTran<device>>(json);
+                    List<device> devices = recv.data;
+                    return devices;
+                }
+                return null;
+                }
+            catch (Exception ex)
+            {
+                Log.Info(ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>

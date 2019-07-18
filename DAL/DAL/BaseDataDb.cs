@@ -22,15 +22,17 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            if (IsCreateDb)
-            {
-                //Database.SetInitializer<BaseDataDb>(new MigrateDatabaseToLatestVersion<BaseDataDb, DAL.BaseDataDbMigrations.Configuration>());//自动数据迁移
-                Database.SetInitializer<BaseDataDb>(new DropCreateDatabaseIfModelChanges<BaseDataDb>());//数据模型发生变化是重新创建数据库
-            }
-            else
-            {
-                Database.SetInitializer<BaseDataDb>(null);
-            }
+            Database.SetInitializer<BaseDataDb>(null);//手动操作
+
+            //if (IsCreateDb)
+            //{
+            //    //Database.SetInitializer<BaseDataDb>(new MigrateDatabaseToLatestVersion<BaseDataDb, DAL.BaseDataDbMigrations.Configuration>());//自动数据迁移
+            //    Database.SetInitializer<BaseDataDb>(new DropCreateDatabaseIfModelChanges<BaseDataDb>());//数据模型发生变化是重新创建数据库
+            //}
+            //else
+            //{
+            //    Database.SetInitializer<BaseDataDb>(null);
+            //}
         }
 
         public DbSet<user> users { get; set; }

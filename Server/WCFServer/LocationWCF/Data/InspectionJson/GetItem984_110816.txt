@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000015","checkItem":"#4机电子设备间空调运行是否正常、出风口温度、房间温度、排水管是否通畅","checkResult":"","checkTime":null,"checkId":1007168,"kksCode":"SHJ1UMA04"}]}

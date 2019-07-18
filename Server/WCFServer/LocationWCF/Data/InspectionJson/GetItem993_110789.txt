@@ -1,0 +1,1 @@
+﻿{"success":"true","checks":[{"staffCode":"80000002","checkItem":"第二套机组电源监视画面有无异常","checkResult":"","checkTime":null,"checkId":1006021,"kksCode":"SH10CWD"},{"staffCode":"80000002","checkItem":"第二套机组电源监视画面有无异常","checkResult":"","checkTime":null,"checkId":1006021,"kksCode":"SH10CWD"}]}

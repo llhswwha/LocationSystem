@@ -696,21 +696,23 @@ namespace LocationWCFClient.Windows
         //获取巡检轨迹列表
         private void Getinspectionlist_Click(object sender, RoutedEventArgs e)
         {
-            client.Getinspectionlist(1, 1, false);
+            DateTime dt = DateTime.Now;
+            DateTime dt2 = DateTime.Now;
+            InspectionTrack[] lst = client.Getinspectionlist(dt, dt2, false);
             int nn = 0;
         }
 
         //获取巡检节点列表
         private void Getcheckpoints_Click(object sender, RoutedEventArgs e)
         {
-            client.Getcheckpoints(134);
+            PatrolPoint[] lst = client.Getcheckpoints(32);
             int nn = 0;
         }
 
         //获取巡检结果列表
         private void Getcheckresults_Click(object sender, RoutedEventArgs e)
         {
-            client.Getcheckresults(469, "100012");
+            PatrolPointItem[] lst = client.Getcheckresults(10);
             int nn = 0;
         }
 
@@ -781,7 +783,7 @@ namespace LocationWCFClient.Windows
         private void BtnGetDevsByPid_OnClick(object sender, RoutedEventArgs e)
         {
 
-            var list=client.GetDevByiId(2);
+           // var list=client.GetDevByiId(2);
         }
 
         private void MenuGetHisPosStatics_Click(object sender, RoutedEventArgs e)
@@ -809,9 +811,24 @@ namespace LocationWCFClient.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AlarmSearchArg arg = new AlarmSearchArg();
-               var list = client.GetCameraAlarms(arg);
-            DateCameraAlarmInfo.ItemsSource = list;
+            try
+            {
+                AlarmSearchArg arg = new AlarmSearchArg();
+                var list = client.GetAllCameraAlarms(true);
+                DateCameraAlarmInfo.ItemsSource = list;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+            
+        }
+
+        private void DateCameraAlarmInfo_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var info = DateCameraAlarmInfo.SelectedItem as CameraAlarmInfo;
+            if (info == null) return;
+            client.GetCameraAlarm(info.id);
         }
     }
 }

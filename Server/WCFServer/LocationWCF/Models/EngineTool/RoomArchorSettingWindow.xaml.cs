@@ -103,7 +103,7 @@ namespace LocationServer.Windows
                 _building.Children = bll.Areas.Where(i => i.ParentId == _building.Id);
             }
             floorHeight = _floor.InitBound.MinZ;
-            if (AppContext.ParkName == "宝刚园区")
+            if (AppContext.ParkName == "宝钢园区")
             {
                 floorHeight *= 100;
             }
@@ -136,7 +136,7 @@ namespace LocationServer.Windows
             TbCode.Text = _archor.GetCode();
             IPCode1.Text = _archor.Ip;
             double height = _item.RelativeHeight;
-            if (AppContext.ParkName == "宝刚园区" && height==2)
+            if (AppContext.ParkName == "宝钢园区" && height==2)
             {
                 height = 200;
             }
