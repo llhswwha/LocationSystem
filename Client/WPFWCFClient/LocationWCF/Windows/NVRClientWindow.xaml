@@ -1,0 +1,20 @@
+﻿<Window x:Class="LocationClient.Windows.NVRClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationClient.Windows"
+        mc:Ignorable="d"
+        Title="NVRClientWindow" Height="450" Width="800">
+    <StackPanel>
+        <TextBox Name="TbCid" Text="4"></TextBox>
+        <TextBox Name="TbIp" Text="192.168.108.107"></TextBox>
+        <TextBox Name="TbChannel" Text="1"></TextBox>
+        <TextBox Name="TbStart" Text="2019-07-20 14:49:00"></TextBox>
+        <TextBox Name="TbEnd" Text="2019-07-20 14:50:00"></TextBox>
+        <Button Content="下载" Click="ButtonBase_OnClick"></Button>
+        <TextBox Height="100" Name="TbResult"></TextBox>
+        <ProgressBar Name="ProgressBar1" Height="20"></ProgressBar>
+        <TextBox Name="TbURL" Text=""></TextBox>
+    </StackPanel>
+</Window>

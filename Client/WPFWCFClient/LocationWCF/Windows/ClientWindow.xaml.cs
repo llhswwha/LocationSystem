@@ -792,9 +792,10 @@ namespace LocationWCFClient.Windows
             int nFlag = Convert.ToInt32(strFlag);
             string strSecondName = TbSecondName.Text;
             string strThirdName = TbThirdName.Text;
+            string strFourthName = TbFourthName.Text;
 
 
-            PositionList[] lst = client.GetHistoryPositonStatistics(nFlag, strSecondName, strThirdName);
+            PositionList[] lst = client.GetHistoryPositonStatistics(nFlag, strSecondName, strThirdName, strFourthName);
             string strResult = "";
             if (lst != null && lst.Count() > 0)
             {
@@ -828,7 +829,7 @@ namespace LocationWCFClient.Windows
         {
             var info = DateCameraAlarmInfo.SelectedItem as CameraAlarmInfo;
             if (info == null) return;
-            client.GetCameraAlarm(info.id);
+            var r=client.GetCameraAlarm(info.id);
         }
     }
 }

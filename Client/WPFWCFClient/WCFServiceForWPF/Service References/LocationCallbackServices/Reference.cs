@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Location.TModel.Location.Alarm;
+using WCFServiceForWPF.LocationServices;
+
 namespace WCFServiceForWPF.LocationCallbackServices {
     
     
@@ -29,7 +32,7 @@ namespace WCFServiceForWPF.LocationCallbackServices {
     public interface ILocationAlarmServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILocationAlarmService/AlarmInfo")]
-        void AlarmInfo(Location.TModel.Location.Alarm.LocationAlarm[] localAlarms);
+        void AlarmInfo(LocationAlarm[] localAlarms);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

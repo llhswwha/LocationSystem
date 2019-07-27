@@ -94,6 +94,9 @@
                         <TextBox Grid.Row="3" Grid.Column="1" Name="TbSecondName" Width="198"></TextBox>
                         <Label Grid.Row="3" Grid.Column="0">第三层名称:</Label>
                         <TextBox Grid.Row="3" Grid.Column="1" Name="TbThirdName" Width="198"></TextBox>
+                        <Label Grid.Row="3" Grid.Column="0">第四层名称:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="TbFourthName" Width="198"></TextBox>
+
                         <Button Grid.Row="5" Grid.ColumnSpan="2" Name="MenuGetHisPosStatics" Click="MenuGetHisPosStatics_Click">获取历史位置信息统计2</Button>
                         
                     </Menu>

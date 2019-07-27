@@ -336,15 +336,26 @@ namespace DbModel.LocationHistory.Data
         public bool Parse(string info, float offsetX, float offsetY)
         {
             if (info == null) return false;
+
+            bool r = false;
             info = info.Trim();
             if (info.Contains("{"))
             {
-                return ParseJson(info, offsetX, offsetY);
+                r= ParseJson(info, offsetX, offsetY);
             }
             else
             {
-                return ParseText(info, offsetX, offsetY);
+                r= ParseText(info, offsetX, offsetY);
             }
+
+            TimeSpan t = DateTime.Now - this.DateTime;
+            if (t.TotalSeconds > 30)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
+            {
+                //this.DateTime = DateTime.Now;
+                //this.DateTimeStamp = this.DateTime.ToStamp();
+                LogEvent.Info("定位引擎电脑和服务端电脑时间相差很大:"+t.TotalSeconds+"s");
+            }
+            return r;
         }
 
         private bool ParseText(string info, float offsetX, float offsetY)

@@ -44,6 +44,7 @@
     <MetadataFile FileName="TModel.Location.Manage1.xsd" MetadataType="Schema" ID="a2af6cfd-5cb6-45f1-83f0-34a5c534eaf9" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="DbModel.Location.Authorizations.xsd" MetadataType="Schema" ID="c60cc60d-01e1-4a22-b7f9-a2f639365f15" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="WebApiCommunication.ExtremeVision.xsd" MetadataType="Schema" ID="f3e2c1d9-1ce3-4681-9edb-bbee67fb9546" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
+    <MetadataFile FileName="LocationServices.Locations.Plugins.xsd" MetadataType="Schema" ID="c15d8eed-90e1-4ee3-8902-25af0c3108f0" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
     <MetadataFile FileName="TModel.Models.Settings1.xsd" MetadataType="Schema" ID="d19aac86-abd3-4e33-bee9-3535d01ce453" SourceId="1" SourceUrl="http://localhost:8733/LocationService/mex" />
   </Metadata>
   <Extensions>

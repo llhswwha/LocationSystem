@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LocationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LocationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
@@ -24,6 +24,7 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Location.Manage" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Location.Authorizations" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/LocationServices.Locations.Plugins" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/TModel.Models.Settings" />
     </xsd:schema>
   </wsdl:types>
@@ -861,6 +862,12 @@
   <wsdl:message name="ILocationService_Getcheckresults_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetcheckresultsResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_Trys_InputMessage">
+    <wsdl:part name="parameters" element="tns:Trys" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_Trys_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TrysResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetOperationTicketList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOperationTicketList" />
   </wsdl:message>
@@ -1052,6 +1059,24 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_GetCameraAlarm_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCameraAlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_StopGetNVSVideo_InputMessage">
+    <wsdl:part name="parameters" element="tns:StopGetNVSVideo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_StopGetNVSVideo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopGetNVSVideoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_StartGetNVSVideo_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartGetNVSVideo" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_StartGetNVSVideo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartGetNVSVideoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNVSProgress_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNVSProgress" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetNVSProgress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNVSProgressResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetUnitySetting_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUnitySetting" />
@@ -1634,6 +1659,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/Getcheckresults" message="tns:ILocationService_Getcheckresults_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetcheckresultsResponse" message="tns:ILocationService_Getcheckresults_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Trys">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/Trys" message="tns:ILocationService_Trys_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/TrysResponse" message="tns:ILocationService_Trys_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <wsdl:input wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketList" message="tns:ILocationService_GetOperationTicketList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IWorkService/GetOperationTicketListResponse" message="tns:ILocationService_GetOperationTicketList_OutputMessage" />
@@ -1761,6 +1790,18 @@
     <wsdl:operation name="GetCameraAlarm">
       <wsdl:input wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarm" message="tns:ILocationService_GetCameraAlarm_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarmResponse" message="tns:ILocationService_GetCameraAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StopGetNVSVideo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INVSPlayer/StopGetNVSVideo" message="tns:ILocationService_StopGetNVSVideo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INVSPlayer/StopGetNVSVideoResponse" message="tns:ILocationService_StopGetNVSVideo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartGetNVSVideo">
+      <wsdl:input wsaw:Action="http://tempuri.org/INVSPlayer/StartGetNVSVideo" message="tns:ILocationService_StartGetNVSVideo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INVSPlayer/StartGetNVSVideoResponse" message="tns:ILocationService_StartGetNVSVideo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNVSProgress">
+      <wsdl:input wsaw:Action="http://tempuri.org/INVSPlayer/GetNVSProgress" message="tns:ILocationService_GetNVSProgress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INVSPlayer/GetNVSProgressResponse" message="tns:ILocationService_GetNVSProgress_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUnitySetting">
       <wsdl:input wsaw:Action="http://tempuri.org/ILocationService/GetUnitySetting" message="tns:ILocationService_GetUnitySetting_InputMessage" />
@@ -3032,6 +3073,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Trys">
+      <soap:operation soapAction="http://tempuri.org/IBaseDataService/Trys" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOperationTicketList">
       <soap:operation soapAction="http://tempuri.org/IWorkService/GetOperationTicketList" style="document" />
       <wsdl:input>
@@ -3313,6 +3363,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCameraAlarm">
       <soap:operation soapAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopGetNVSVideo">
+      <soap:operation soapAction="http://tempuri.org/INVSPlayer/StopGetNVSVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartGetNVSVideo">
+      <soap:operation soapAction="http://tempuri.org/INVSPlayer/StartGetNVSVideo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNVSProgress">
+      <soap:operation soapAction="http://tempuri.org/INVSPlayer/GetNVSProgress" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

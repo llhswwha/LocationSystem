@@ -164,6 +164,9 @@
     <None Include="Service References\LocationServices\Location.TModel.LocationHistory.Data1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\LocationServices\LocationServices.Locations.Plugins.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LocationServices\service1.wsdl" />
     <None Include="Service References\LocationServices\service2.xsd">
       <SubType>Designer</SubType>
@@ -210,6 +213,12 @@
     <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DevModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DownloadInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\LocationServices\WCFServiceForWPF.LocationServices.DownloadProgress.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\LocationServices\WebApiCommunication.ExtremeVision.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -217,16 +226,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\LocationCallbackServices\" />
     <WCFMetadataStorage Include="Service References\LocationServices\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Model\IModel\IModel.csproj">
-      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
-      <Name>IModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Model\TModel\TModel.csproj">
-      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
-      <Name>TModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\LocationServices\configuration91.svcinfo" />
@@ -251,6 +250,16 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Model\IModel\IModel.csproj">
+      <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
+      <Name>IModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Model\TModel\TModel.csproj">
+      <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
+      <Name>TModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

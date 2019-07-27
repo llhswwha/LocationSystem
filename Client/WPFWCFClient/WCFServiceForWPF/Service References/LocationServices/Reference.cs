@@ -938,6 +938,13 @@ namespace WCFServiceForWPF.LocationServices {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.LocationHistory.Work.PersonnelMobileInspectionHistory))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.LocationHistory.Work.PersonnelMobileInspectionItemHistory))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.InspectionTrack[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.InspectionTrack))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPoint[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPoint))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPointItem[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPointItem))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.InspectionTrackList))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.OperationTicket[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.OperationTicket))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.OperationItem[]))]
@@ -958,11 +965,6 @@ namespace WCFServiceForWPF.LocationServices {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PersonnelMobileInspection))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PersonnelMobileInspectionItem[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PersonnelMobileInspectionItem))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.InspectionTrack))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPoint[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPoint))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPointItem[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Work.PatrolPointItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Manage.LoginInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Location.Manage.VersionInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.CardRole[]))]
@@ -975,6 +977,8 @@ namespace WCFServiceForWPF.LocationServices {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.HeadData))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.HeadInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.HeadInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.DownloadInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(WCFServiceForWPF.LocationServices.DownloadProgress))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Models.Settings.UnitySetting))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Models.Settings.CinemachineSetting))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(TModel.Models.Settings.CommunicationSetting))]
@@ -1811,9 +1815,6 @@ namespace WCFServiceForWPF.LocationServices {
         private string cid_urlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int endIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1823,7 +1824,7 @@ namespace WCFServiceForWPF.LocationServices {
         private string pic_nameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int startIdField;
+        private WCFServiceForWPF.LocationServices.CameraAlarmInfo startInfoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int statusField;
@@ -1923,19 +1924,6 @@ namespace WCFServiceForWPF.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int endId {
-            get {
-                return this.endIdField;
-            }
-            set {
-                if ((this.endIdField.Equals(value) != true)) {
-                    this.endIdField = value;
-                    this.RaisePropertyChanged("endId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int id {
             get {
                 return this.idField;
@@ -1975,14 +1963,14 @@ namespace WCFServiceForWPF.LocationServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int startId {
+        public WCFServiceForWPF.LocationServices.CameraAlarmInfo startInfo {
             get {
-                return this.startIdField;
+                return this.startInfoField;
             }
             set {
-                if ((this.startIdField.Equals(value) != true)) {
-                    this.startIdField = value;
-                    this.RaisePropertyChanged("startId");
+                if ((object.ReferenceEquals(this.startInfoField, value) != true)) {
+                    this.startInfoField = value;
+                    this.RaisePropertyChanged("startInfo");
                 }
             }
         }
@@ -2440,6 +2428,288 @@ namespace WCFServiceForWPF.LocationServices {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DownloadInfo", Namespace="http://schemas.datacontract.org/2004/07/LocationServices.Locations.Plugins")]
+    [System.SerializableAttribute()]
+    public partial class DownloadInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChannelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IpField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StartTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CId {
+            get {
+                return this.CIdField;
+            }
+            set {
+                if ((this.CIdField.Equals(value) != true)) {
+                    this.CIdField = value;
+                    this.RaisePropertyChanged("CId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Channel {
+            get {
+                return this.ChannelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChannelField, value) != true)) {
+                    this.ChannelField = value;
+                    this.RaisePropertyChanged("Channel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DId {
+            get {
+                return this.DIdField;
+            }
+            set {
+                if ((this.DIdField.Equals(value) != true)) {
+                    this.DIdField = value;
+                    this.RaisePropertyChanged("DId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EndTimeField, value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Ip {
+            get {
+                return this.IpField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IpField, value) != true)) {
+                    this.IpField = value;
+                    this.RaisePropertyChanged("Ip");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((this.ResultField.Equals(value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StartTimeField, value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Url {
+            get {
+                return this.UrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlField, value) != true)) {
+                    this.UrlField = value;
+                    this.RaisePropertyChanged("Url");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DownloadProgress", Namespace="http://schemas.datacontract.org/2004/07/LocationServices.Locations.Plugins")]
+    [System.SerializableAttribute()]
+    public partial class DownloadProgress : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsFinishedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProgressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProgressTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DId {
+            get {
+                return this.DIdField;
+            }
+            set {
+                if ((this.DIdField.Equals(value) != true)) {
+                    this.DIdField = value;
+                    this.RaisePropertyChanged("DId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsFinished {
+            get {
+                return this.IsFinishedField;
+            }
+            set {
+                if ((this.IsFinishedField.Equals(value) != true)) {
+                    this.IsFinishedField = value;
+                    this.RaisePropertyChanged("IsFinished");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Progress {
+            get {
+                return this.ProgressField;
+            }
+            set {
+                if ((this.ProgressField.Equals(value) != true)) {
+                    this.ProgressField = value;
+                    this.RaisePropertyChanged("Progress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ProgressText {
+            get {
+                return this.ProgressTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProgressTextField, value) != true)) {
+                    this.ProgressTextField = value;
+                    this.RaisePropertyChanged("ProgressText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Url {
+            get {
+                return this.UrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlField, value) != true)) {
+                    this.UrlField = value;
+                    this.RaisePropertyChanged("Url");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LocationServices.ILocationService")]
     public interface ILocationService {
@@ -2521,7 +2791,7 @@ namespace WCFServiceForWPF.LocationServices {
         Location.TModel.LocationHistory.Data.U3DPosition[] GetHistoryU3DPositonsByTime(string tagcode, System.DateTime start, System.DateTime end);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPositionService/GetHistoryPositonStatistics", ReplyAction="http://tempuri.org/IPositionService/GetHistoryPositonStatisticsResponse")]
-        Location.TModel.LocationHistory.Data.PositionList[] GetHistoryPositonStatistics(int nFlag, string strName, string strName2);
+        Location.TModel.LocationHistory.Data.PositionList[] GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetObjectAddList", ReplyAction="http://tempuri.org/IDevService/GetObjectAddListResponse")]
         Location.TModel.Location.AreaAndDev.ObjectAddList_Type[] GetObjectAddList();
@@ -2568,11 +2838,14 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetDevInfoByParentResponse")]
         Location.TModel.Location.AreaAndDev.DevInfo[] GetDevInfoByParent(int[] pids);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByID", ReplyAction="http://tempuri.org/IDevService/GetDevByIDResponse")]
-        Location.TModel.Location.AreaAndDev.DevInfo GetDevByID(string devId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByGUID", ReplyAction="http://tempuri.org/IDevService/GetDevByGUIDResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo GetDevByGUID(string devId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByiId", ReplyAction="http://tempuri.org/IDevService/GetDevByiIdResponse")]
-        Location.TModel.Location.AreaAndDev.DevInfo GetDevByiId(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevById", ReplyAction="http://tempuri.org/IDevService/GetDevByIdResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo GetDevById(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetDevByGameName", ReplyAction="http://tempuri.org/IDevService/GetDevByGameNameResponse")]
+        Location.TModel.Location.AreaAndDev.DevInfo GetDevByGameName(string nameName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/AddDoorAccessByList", ReplyAction="http://tempuri.org/IDevService/AddDoorAccessByListResponse")]
         bool AddDoorAccessByList(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList);
@@ -2605,7 +2878,7 @@ namespace WCFServiceForWPF.LocationServices {
         bool ModifyCameraInfoByList(TModel.Location.AreaAndDev.Dev_CameraInfo[] cameraInfoList);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/ModifyCameraInfo", ReplyAction="http://tempuri.org/IDevService/ModifyCameraInfoResponse")]
-        bool ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo);
+        TModel.Location.AreaAndDev.Dev_CameraInfo ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetCameraInfoByParent", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByParentResponse")]
         TModel.Location.AreaAndDev.Dev_CameraInfo[] GetCameraInfoByParent(int[] pids);
@@ -2615,6 +2888,9 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetCameraInfoByDevInfo", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByDevInfoResponse")]
         TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(Location.TModel.Location.AreaAndDev.DevInfo dev);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetCameraInfoByIp", ReplyAction="http://tempuri.org/IDevService/GetCameraInfoByIpResponse")]
+        TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByIp(string ip);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDevService/GetArchors", ReplyAction="http://tempuri.org/IDevService/GetArchorsResponse")]
         TModel.Location.AreaAndDev.Archor[] GetArchors();
@@ -2849,13 +3125,16 @@ namespace WCFServiceForWPF.LocationServices {
         void GetSisSamplingHistoryList(string kks);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getinspectionlist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionlistResponse")]
-        void Getinspectionlist(long lBegin, long lEnd, bool bFlag);
+        TModel.Location.Work.InspectionTrack[] Getinspectionlist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getcheckpoints", ReplyAction="http://tempuri.org/IBaseDataService/GetcheckpointsResponse")]
-        void Getcheckpoints(int patrolId);
+        TModel.Location.Work.PatrolPoint[] Getcheckpoints(int InspectionId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getcheckresults", ReplyAction="http://tempuri.org/IBaseDataService/GetcheckresultsResponse")]
-        void Getcheckresults(int patrolId, string deviceId);
+        TModel.Location.Work.PatrolPointItem[] Getcheckresults(int patrolId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Trys", ReplyAction="http://tempuri.org/IBaseDataService/TrysResponse")]
+        void Trys(TModel.Location.Work.InspectionTrackList aa);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkService/GetOperationTicketList", ReplyAction="http://tempuri.org/IWorkService/GetOperationTicketListResponse")]
         TModel.Location.Work.OperationTicket[] GetOperationTicketList();
@@ -2952,6 +3231,15 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICameraAlarmService/GetCameraAlarm", ReplyAction="http://tempuri.org/ICameraAlarmService/GetCameraAlarmResponse")]
         WCFServiceForWPF.LocationServices.CameraAlarmInfo GetCameraAlarm(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INVSPlayer/StopGetNVSVideo", ReplyAction="http://tempuri.org/INVSPlayer/StopGetNVSVideoResponse")]
+        WCFServiceForWPF.LocationServices.DownloadInfo StopGetNVSVideo(WCFServiceForWPF.LocationServices.DownloadInfo info);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INVSPlayer/StartGetNVSVideo", ReplyAction="http://tempuri.org/INVSPlayer/StartGetNVSVideoResponse")]
+        WCFServiceForWPF.LocationServices.DownloadInfo StartGetNVSVideo(WCFServiceForWPF.LocationServices.DownloadInfo info);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/INVSPlayer/GetNVSProgress", ReplyAction="http://tempuri.org/INVSPlayer/GetNVSProgressResponse")]
+        WCFServiceForWPF.LocationServices.DownloadProgress GetNVSProgress(WCFServiceForWPF.LocationServices.DownloadInfo info);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILocationService/GetUnitySetting", ReplyAction="http://tempuri.org/ILocationService/GetUnitySettingResponse")]
         TModel.Models.Settings.UnitySetting GetUnitySetting();
@@ -3093,8 +3381,8 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetHistoryU3DPositonsByTime(tagcode, start, end);
         }
         
-        public Location.TModel.LocationHistory.Data.PositionList[] GetHistoryPositonStatistics(int nFlag, string strName, string strName2) {
-            return base.Channel.GetHistoryPositonStatistics(nFlag, strName, strName2);
+        public Location.TModel.LocationHistory.Data.PositionList[] GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3) {
+            return base.Channel.GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
         }
         
         public Location.TModel.Location.AreaAndDev.ObjectAddList_Type[] GetObjectAddList() {
@@ -3157,12 +3445,16 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetDevInfoByParent(pids);
         }
         
-        public Location.TModel.Location.AreaAndDev.DevInfo GetDevByID(string devId) {
-            return base.Channel.GetDevByID(devId);
+        public Location.TModel.Location.AreaAndDev.DevInfo GetDevByGUID(string devId) {
+            return base.Channel.GetDevByGUID(devId);
         }
         
-        public Location.TModel.Location.AreaAndDev.DevInfo GetDevByiId(int id) {
-            return base.Channel.GetDevByiId(id);
+        public Location.TModel.Location.AreaAndDev.DevInfo GetDevById(int id) {
+            return base.Channel.GetDevById(id);
+        }
+        
+        public Location.TModel.Location.AreaAndDev.DevInfo GetDevByGameName(string nameName) {
+            return base.Channel.GetDevByGameName(nameName);
         }
         
         public bool AddDoorAccessByList(Location.TModel.Location.AreaAndDev.Dev_DoorAccess[] doorAccessList) {
@@ -3205,7 +3497,7 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.ModifyCameraInfoByList(cameraInfoList);
         }
         
-        public bool ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo) {
+        public TModel.Location.AreaAndDev.Dev_CameraInfo ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo) {
             return base.Channel.ModifyCameraInfo(camInfo);
         }
         
@@ -3219,6 +3511,10 @@ namespace WCFServiceForWPF.LocationServices {
         
         public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(Location.TModel.Location.AreaAndDev.DevInfo dev) {
             return base.Channel.GetCameraInfoByDevInfo(dev);
+        }
+        
+        public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByIp(string ip) {
+            return base.Channel.GetCameraInfoByIp(ip);
         }
         
         public TModel.Location.AreaAndDev.Archor[] GetArchors() {
@@ -3529,16 +3825,20 @@ namespace WCFServiceForWPF.LocationServices {
             base.Channel.GetSisSamplingHistoryList(kks);
         }
         
-        public void Getinspectionlist(long lBegin, long lEnd, bool bFlag) {
-            base.Channel.Getinspectionlist(lBegin, lEnd, bFlag);
+        public TModel.Location.Work.InspectionTrack[] Getinspectionlist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag) {
+            return base.Channel.Getinspectionlist(dtBeginTime, dtEndTime, bFlag);
         }
         
-        public void Getcheckpoints(int patrolId) {
-            base.Channel.Getcheckpoints(patrolId);
+        public TModel.Location.Work.PatrolPoint[] Getcheckpoints(int InspectionId) {
+            return base.Channel.Getcheckpoints(InspectionId);
         }
         
-        public void Getcheckresults(int patrolId, string deviceId) {
-            base.Channel.Getcheckresults(patrolId, deviceId);
+        public TModel.Location.Work.PatrolPointItem[] Getcheckresults(int patrolId) {
+            return base.Channel.Getcheckresults(patrolId);
+        }
+        
+        public void Trys(TModel.Location.Work.InspectionTrackList aa) {
+            base.Channel.Trys(aa);
         }
         
         public TModel.Location.Work.OperationTicket[] GetOperationTicketList() {
@@ -3667,6 +3967,18 @@ namespace WCFServiceForWPF.LocationServices {
         
         public WCFServiceForWPF.LocationServices.CameraAlarmInfo GetCameraAlarm(int id) {
             return base.Channel.GetCameraAlarm(id);
+        }
+        
+        public WCFServiceForWPF.LocationServices.DownloadInfo StopGetNVSVideo(WCFServiceForWPF.LocationServices.DownloadInfo info) {
+            return base.Channel.StopGetNVSVideo(info);
+        }
+        
+        public WCFServiceForWPF.LocationServices.DownloadInfo StartGetNVSVideo(WCFServiceForWPF.LocationServices.DownloadInfo info) {
+            return base.Channel.StartGetNVSVideo(info);
+        }
+        
+        public WCFServiceForWPF.LocationServices.DownloadProgress GetNVSProgress(WCFServiceForWPF.LocationServices.DownloadInfo info) {
+            return base.Channel.GetNVSProgress(info);
         }
         
         public TModel.Models.Settings.UnitySetting GetUnitySetting() {

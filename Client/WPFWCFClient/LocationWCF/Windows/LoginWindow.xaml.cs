@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LocationClient.Windows;
 using WCFClientLib;
 using WCFServiceForWPF.LocationServices;
 
@@ -37,8 +38,11 @@ namespace LocationWCFClient.Windows
 
             if (AppContext.Instance.Login(ip, port, hostType, user, pass))
             {
-                ClientWindow clientWindow = new ClientWindow();
+                var clientWindow = new ClientWindow();
                 clientWindow.Show();
+
+                //var clientWindow = new NVRClientWindow();
+                //clientWindow.Show();
                 this.Close();
             }
             else

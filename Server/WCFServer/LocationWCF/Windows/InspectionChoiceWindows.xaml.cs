@@ -30,17 +30,6 @@ namespace LocationServer.Windows
 
         private List<InspectionTrack> trackList;
 
-        private void SendByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            InspectionTrack it = SendByItem.SelectedItem as InspectionTrack;
-            if (it == null) return;
-
-            InspectionTrackList TrackList2 = new InspectionTrackList();
-            TrackList2.ReviseTrack.Add(it);
-            InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
-            
-        }
-
         private void SendAllItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (trackList == null || trackList.Count == 0) return;
@@ -63,8 +52,42 @@ namespace LocationServer.Windows
                 }
             }
 
-            SendByItem.ItemsSource = trackList;
+            SendAddByItem.ItemsSource = trackList;
+            SendReviseByItem.ItemsSource = trackList;
+            SendDeleteByItem.ItemsSource = trackList;
             SendAllItem.ItemsSource = trackList;
+        }
+
+        private void SendAddByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InspectionTrack it = SendAddByItem.SelectedItem as InspectionTrack;
+            if (it == null) return;
+            InspectionTrackList TrackList2 = new InspectionTrackList();
+            TrackList2.AddTrack.Add(it);
+
+            InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
+        }
+
+        private void SendReviseByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InspectionTrack it = SendReviseByItem.SelectedItem as InspectionTrack;
+            if (it == null) return;
+
+            it.Name += "这是在测试";
+            InspectionTrackList TrackList2 = new InspectionTrackList();
+            TrackList2.ReviseTrack.Add(it);
+
+            InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
+        }
+
+        private void SendDeleteByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InspectionTrack it = SendDeleteByItem.SelectedItem as InspectionTrack;
+            if (it == null) return;
+            InspectionTrackList TrackList2 = new InspectionTrackList();
+            TrackList2.DeleteTrack.Add(it);
+
+            InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
         }
     }
 }

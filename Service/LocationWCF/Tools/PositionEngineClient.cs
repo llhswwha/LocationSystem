@@ -72,13 +72,13 @@ namespace LocationServices.Tools
             }
         }
 
-        public void WriteLogRight(string txt)
+        public void WriteLogRight(string txt,bool isError=false)
         {
             if (Logs == null)
             {
                 Logs = new PositionEngineLog();
             }
-            Logs.WriteLogRight(txt);
+            Logs.WriteLogRight(txt, isError);
         }
 
         public PositionEngineDA engineDa;
@@ -208,7 +208,7 @@ namespace LocationServices.Tools
                         }
                         else
                         {
-                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count,ErrorMessage)));
+                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count,ErrorMessage)),true);
                         }
                     }
                     catch (Exception ex)

@@ -91,7 +91,10 @@ namespace LocationServices.Locations.Interfaces
 
         //获取历史位置信息统计
         [OperationContract]
-        IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2);
+        IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3);
+
+        [OperationContract]
+        IList<Pos> GetHistoryPositonData(int nFlag, string strName, string strName2, string strName3);
 
     }
 }

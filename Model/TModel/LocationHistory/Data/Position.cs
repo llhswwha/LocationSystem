@@ -200,4 +200,46 @@ namespace Location.TModel.LocationHistory.Data
         //[DataMember]
         //public List<Position> Items { get; set; }
     }
+
+    [DataContract]
+    [Serializable]
+    public class Pos
+    {
+        /// <summary>
+        /// 定位卡编号
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "定位卡编号")]
+        //[Required]
+        public string Code { get; set; }
+
+        /// <summary>
+        /// X
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "X")]
+        public float X { get; set; }
+
+        /// <summary>
+        /// Y
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "Y")]
+        public float Y { get; set; }
+
+        /// <summary>
+        /// Z
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "Z")]
+        public float Z { get; set; }
+
+        /// <summary>
+        /// 时间戳（毫秒）
+        /// </summary>
+        [DataMember]
+        //[Display(Name = "时间戳")]
+        [ByName("DateTimeStamp")]
+        public long Time { get; set; }
+    }
 }

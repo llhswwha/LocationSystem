@@ -80,11 +80,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataDb.cs" />
+    <Compile Include="BaseDataDbMigrations\201906250202426_InitialCreate.cs" />
+    <Compile Include="BaseDataDbMigrations\201906250202426_InitialCreate.Designer.cs">
+      <DependentUpon>201906250202426_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDataDbMigrations\Configuration.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="EngineDb.cs" />
     <Compile Include="LocationDb.cs" />
     <Compile Include="LocationDbLite.cs" />
+    <Compile Include="LocationDbMigrations\201812190614078_InitInsert.cs" />
+    <Compile Include="LocationDbMigrations\201812190614078_InitInsert.Designer.cs">
+      <DependentUpon>201812190614078_InitInsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationDbMigrations\201812190617016_Init.cs" />
+    <Compile Include="LocationDbMigrations\201812190617016_Init.Designer.cs">
+      <DependentUpon>201812190617016_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationDbMigrations\Configuration.cs" />
     <Compile Include="LocationHistoryDb.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201115277_InitInsert.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201115277_InitInsert.Designer.cs">
+      <DependentUpon>201812201115277_InitInsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationHistoryDbMigrations\201812201117391_Init.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201117391_Init.Designer.cs">
+      <DependentUpon>201812201117391_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationHistoryDbMigrations\Configuration.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +126,23 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseDataDbMigrations\201906250202426_InitialCreate.resx">
+      <DependentUpon>201906250202426_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationDbMigrations\201812190614078_InitInsert.resx">
+      <DependentUpon>201812190614078_InitInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationDbMigrations\201812190617016_Init.resx">
+      <DependentUpon>201812190617016_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationHistoryDbMigrations\201812201115277_InitInsert.resx">
+      <DependentUpon>201812201115277_InitInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationHistoryDbMigrations\201812201117391_Init.resx">
+      <DependentUpon>201812201117391_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />

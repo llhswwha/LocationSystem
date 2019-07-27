@@ -141,7 +141,7 @@ namespace WebApiLib.Clients
 
             try
             {
-                 // var users = GetUserList();
+                  //var users = GetUserList();
                 var users = getUserTest();
                 foreach (user item in users)
                 {
@@ -661,8 +661,8 @@ namespace WebApiLib.Clients
 
             try
             {
-                // var deviceList = GetDeviceList(types, code, name);
-                var deviceList= getDevListByJson();
+                 var deviceList = GetDeviceList(types, code, name);
+               // var deviceList= getDevListByJson();
                 foreach (device item in deviceList)
                 {
                     if (item.type != 102 && item.type != 1021 && item.type != 1022 && item.type != 1023)

@@ -13,6 +13,7 @@ using BLL;
 using System.Diagnostics;
 using DbModel.Location.Alarm;
 using DbModel.LocationHistory.Alarm;
+using DbModel.Tools;
 using Location.BLL.Tool;
 
 namespace LocationServices.Locations
@@ -157,14 +158,24 @@ namespace LocationServices.Locations
                 if (area != null && pt.InitBound != null)
                 {
                     area.Name = pt.Name;//2019_07_18_cww:添加名称，区域名称可以修改的
+                    var transform = pt.Transfrom;
+
+                    //var parent = db.Areas.Find(area.ParentId);//父区域
+                    //var parentBound = db.Bounds.Find(parent.InitBoundId);//父区域的范围
+                    //if (parent.Type == AreaTypes.楼层 && pt.IsRelative)//加上偏移量
+                    //{
+                    //    transform.X += parentBound.MinX;
+                    //    transform.Z += parentBound.MinY;
+                    //}
+
                     pt.InitBound.SetInitBound(pt.Transfrom);
                     area.SetTransform(pt.Transfrom.ToDbModel());
                     db.Areas.Edit(area);
 
-                    DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
-                    DbModel.Location.AreaAndDev.Bound InitBound = db.Bounds.Find(p => p.Id == InitBoundT.Id);
+                    var InitBoundT = pt.InitBound.ToDbModel();
+                    var InitBound = db.Bounds.Find(p => p.Id == InitBoundT.Id);
                     InitBound.SetInitBound(InitBoundT);
-                    db.Bounds.Edit(InitBound);
+                    db.Bounds.Edit(InitBound);//修改
 
                     List<DbModel.Location.AreaAndDev.Point> lst = db.Points.FindAll(p => p.BoundId == InitBound.Id);
                     foreach (var item in InitBoundT.Points)
@@ -191,72 +202,66 @@ namespace LocationServices.Locations
             return true;
         }
 
-        //    private void SetInitBound(Area topo, DbModel.Location.AreaAndDev.Point[] points, float thicknessT, bool isRelative = true,
-        //float bottomHeightT = 0, bool isOnNormalArea = true, bool isOnAlarmArea = false, bool isOnLocationArea = false)
-        //    {
-        //        DbModel.Location.AreaAndDev.Bound initBound = new DbModel.Location.AreaAndDev.Bound(points, bottomHeightT, thicknessT, isRelative);
-        //        DbModel.Location.AreaAndDev.Bound editBound = new DbModel.Location.AreaAndDev.Bound(points, bottomHeightT, thicknessT, isRelative);
-        //        TransformM transfrom = new TransformM(initBound);
-        //        db.Bounds.Add(initBound);
-        //        db.Bounds.Add(editBound);
-        //        transfrom.IsCreateAreaByData = isOnNormalArea;
-        //        transfrom.IsOnAlarmArea = isOnAlarmArea;
-        //        transfrom.IsOnLocationArea = isOnLocationArea;
-        //        //TransformMs.Add(transfrom);
-
-        //        topo.SetTransform(transfrom);
-        //        topo.InitBound = initBound;
-        //        topo.EditBound = editBound;
-        //        Areas.Edit(topo);
-        //    }
-
-        ///// <summary>
-        ///// 根据节点修改监控范围
-        ///// </summary>
-        //public bool EditMonitorRangeTransformM(int physicalTopologyId, TransformM tranM)
-        //{
-        //    //db.TransformMs.Edit(pt.Transfrom);
-        //    Area area = db.Areas.Find((i) => i.Id == physicalTopologyId);
-        //    if (area != null)
-        //    {
-        //        area.SetTransform(tranM.ToDbModel());
-        //        return db.Areas.Edit(area);
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //    //return db.Areas.Edit(pt.ToDbModel());
-        //}
+        private Location.TModel.Location.AreaAndDev.Bound NewBound(PhysicalTopology pt)
+        {
+            var bound = new Location.TModel.Location.AreaAndDev.Bound();
+            bound.IsRelative = pt.IsRelative;
+            bound.SetInitBound(pt.Transfrom);
+            return bound;
+        }
 
         /// <summary>
         /// 根据节点添加子监控范围
         /// </summary>
         public PhysicalTopology AddMonitorRange(PhysicalTopology pt)
         {
-            //return db.Areas.Add(pt.ToDbModel());
-            var areaT = pt.ToDbModel();
-
-            pt.InitBound = new Location.TModel.Location.AreaAndDev.Bound();
-            pt.InitBound.IsRelative = pt.IsRelative;
-            pt.InitBound.SetInitBound(pt.Transfrom);
-            areaT.SetTransform(pt.Transfrom.ToDbModel());
-            DbModel.Location.AreaAndDev.Bound InitBoundT = pt.InitBound.ToDbModel();
-            db.Bounds.Add(InitBoundT);
-            areaT.SetBound(InitBoundT);
-            var points = areaT.InitBound.Points;
-            //db.Points.AddRange(points);
-
-            var result = db.Areas.Add(areaT);
-
-            if (result)
+            try
             {
-                TagRelationBuffer.Instance().PuUpdateData();
-                BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
+                if (pt == null) return null;
+                var transform = pt.Transfrom;
 
-                return areaT.ToTModel();
+                //var parent = db.Areas.Find(pt.ParentId);//父区域
+                //var parentBound = db.Bounds.Find(parent.InitBoundId);//父区域的范围
+                //if (parent.Type == AreaTypes.楼层 && pt.IsRelative)//加上偏移量
+                //{
+                //    transform.X += parentBound.MinX;
+                //    transform.Z += parentBound.MinY;
+                //}
+
+                //return db.Areas.Add(pt.ToDbModel());
+                var areaNew = pt.ToDbModel();
+                pt.InitBound = NewBound(pt);
+                var newTransform = transform.ToDbModel();
+                areaNew.SetTransform(newTransform);
+                var newBound = pt.InitBound.ToDbModel();
+                db.Bounds.Add(newBound);
+                areaNew.SetBound(newBound);
+                var points = areaNew.InitBound.Points;
+                //db.Points.AddRange(points);
+
+                var addR = db.Areas.Add(areaNew);
+
+                if (addR)
+                {
+                    TagRelationBuffer.Instance().PuUpdateData();
+                    BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
+
+                    var result= areaNew.ToTModel();
+
+                    //if (parent.Type == AreaTypes.楼层 && pt.IsRelative)//减去偏移量
+                    //{
+                    //    result.Transfrom.X -= parentBound.MinX;
+                    //    result.Transfrom.Z -= parentBound.MinY;
+                    //}
+                    return result;
+                }
+                return null;
             }
-            return null;
+            catch (Exception e)
+            {
+                Log.Error("AddMonitorRange",e.ToString());
+                return null;
+            }
         }
 
         /// <summary>

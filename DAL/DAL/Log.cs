@@ -48,6 +48,11 @@ namespace Location.BLL.Tool
         public static string Engine = "[Engine]";
 
         /// <summary>
+        /// 定位数据写入数据库
+        /// </summary>
+        public static string Engine2Db = "[Engine2Db]";
+
+        /// <summary>
         /// KKS
         /// </summary>
         public static string KKS = "[KKS]";

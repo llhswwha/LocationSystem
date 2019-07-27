@@ -8,30 +8,39 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SelfBatchImport
 {
     public static class BatchImport
     {
 
-        public static void Insert<T>(Database Db, DbSet<T> Ds, List<T> list) where T : class
+        public static string Error;
+
+        public static bool Insert<T>(Database Db, DbSet<T> Ds, List<T> list) where T : class
         {
-            Stopwatch watch4 = Stopwatch.StartNew();
-            
-            string strTableName = GetTableName(Ds);
-            string strKeyName = "";
-            int nId = 0;
-            bool bFlag = GetMaxKey<T>(Db, strTableName, ref strKeyName, ref nId);
-            string strSql = BulkInsertSql<T>(list, strTableName);
-            Db.ExecuteSqlCommand(strSql);
-            if (bFlag)
+            try
             {
-                GetAddRows<T>(Db, strTableName, strKeyName, nId, list);
+                Stopwatch watch4 = Stopwatch.StartNew();
+
+                string strTableName = GetTableName(Ds);
+                string strKeyName = "";
+                int nId = 0;
+                bool bFlag = GetMaxKey<T>(Db, strTableName, ref strKeyName, ref nId);
+                string strSql = BulkInsertSql<T>(list, strTableName);
+                Db.ExecuteSqlCommand(strSql);
+                if (bFlag)
+                {
+                    GetAddRows<T>(Db, strTableName, strKeyName, nId, list);
+                }
+                watch4.Stop();
+                long tt = watch4.ElapsedMilliseconds;
+                return true;
             }
-            watch4.Stop();
-            long tt = watch4.ElapsedMilliseconds;
-            return;
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
         }
 
         private static string GetTableName<T>(DbSet<T> Ds) where T : class
@@ -151,6 +160,7 @@ namespace SelfBatchImport
                     }
                     if (v != null)
                     {
+
                         return string.Format("'{0}'",
                             Type.Equals(v.GetType(), typeof(DateTime))
                                 ? Convert.ToDateTime(v).ToString("yyyy-MM-dd HH:mm:ss")
@@ -158,11 +168,13 @@ namespace SelfBatchImport
                     }
                     else
                     {
-                        v = "";
-                        return string.Format("'{0}'",
-                            Type.Equals(v.GetType(), typeof(DateTime))
-                                ? Convert.ToDateTime(v).ToString("yyyy-MM-dd HH:mm:ss")
-                                : v);
+                        v = "NULL";
+                        return v;
+                        //v = "";
+                        //return string.Format("'{0}'",
+                        //    Type.Equals(v.GetType(), typeof(DateTime))
+                        //        ? Convert.ToDateTime(v).ToString("yyyy-MM-dd HH:mm:ss")
+                        //        : v);
                     }
                     
                 }).ToArray());

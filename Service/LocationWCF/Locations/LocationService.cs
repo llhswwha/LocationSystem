@@ -479,10 +479,10 @@ namespace LocationServices.Locations
         /// <param name="strName"></param>
         /// <param name="strName2"></param>
         /// <returns></returns>
-        public IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2)
+        public IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3)
         {
             DateTime dt1 = DateTime.Now;
-            IList < PositionList > send = new PosHistoryService(db).GetHistoryPositonStatistics(nFlag, strName, strName2);
+            IList < PositionList > send = new PosHistoryService(db).GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
             DateTime dt2 = DateTime.Now;
 
             //string xml = XmlSerializeHelper.GetXmlText(send);
@@ -490,6 +490,24 @@ namespace LocationServices.Locations
             var time = dt2 - dt1;
 
 
+            return send;
+        }
+
+        /// <summary>
+        /// 获取历史位置信息统计
+        /// </summary>
+        /// <param name="nFlag">表示第一层数据的类型，1表示时间统计，2表示人员统计，3表示区域统计</param>
+        /// <param name="strName"></param>
+        /// <param name="strName2"></param>
+        /// <returns></returns>
+        public IList<Pos> GetHistoryPositonData(int nFlag, string strName, string strName2, string strName3)
+        {
+            DateTime dt1 = DateTime.Now;
+            var list1 = new PosHistoryService(db).GetHistoryPositonData(nFlag, strName, strName2, strName3);
+            var send = list1.ToPos();
+            DateTime dt2 = DateTime.Now;
+            //string xml = XmlSerializeHelper.GetXmlText(send);
+            var time = dt2 - dt1;
             return send;
         }
 

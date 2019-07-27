@@ -35,6 +35,11 @@ namespace LocationServices.Converters
             item2.LeafNodes = item1.LeafNodes.ToTModel();
             item2.KKS = item1.KKS;
 
+
+            //if (item1.Type == AreaTypes.范围|| item1.Type == AreaTypes.机房)//宝信项目偏移修改
+            //{
+
+            //}
             item2.TransfromId = item1.Id;
             item2.Transfrom = item1.GetTransformM().ToTModel();
 

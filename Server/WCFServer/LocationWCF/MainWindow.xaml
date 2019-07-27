@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
-        Title="服务端" Height="400" Width="800" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen">
+        Title="服务端" Height="400" Width="800" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen" Topmost="True">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="窗口">
@@ -43,6 +43,9 @@
                 <Separator></Separator>
                 <MenuItem Header="清空历史设备告警" Name="MenuClearHisAlarms" Click="MenuClearHisAlarms_Click"></MenuItem>
                 <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="NVSPlayer" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>
+                <MenuItem Header="分离告警图片" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="同步"  Name="SyncAllData" Click="SyncAllData_Click">
             </MenuItem>

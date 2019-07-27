@@ -33,6 +33,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -61,7 +62,8 @@ namespace LocationServices.Locations
                 info.ClientIp = endpoint.Address;
                 info.ClientPort = endpoint.Port;
             }
-            db.Users.Login(info);
+            //db.Users.Login(info);
+            new UserService(db).Login(info);
             ShowLogEx(">>>>> Login !!!!!!!!!!!!!!!!!!!! :" + info.Session);
             return info;
         }
@@ -70,34 +72,36 @@ namespace LocationServices.Locations
         public LoginInfo Logout(LoginInfo info)
         {
             ShowLogEx(">>>>> Logout !!!!!!!!!!!!!!!!!!!! :" + info.Session);
-            var login = loginInfos.Find(i => i.Session == info.Session);
-            if (login == null)
-            {
-                info.Result = false;
-            }
-            else
-            {
-                info.Result = true;
-                loginInfos.Remove(login);
-            }
+            //var login = loginInfos.Find(i => i.Session == info.Session);
+            //if (login == null)
+            //{
+            //    info.Result = false;
+            //}
+            //else
+            //{
+            //    info.Result = true;
+            //    loginInfos.Remove(login);
+            //}
 
-            info.Session = "";
-            return info;
+            //info.Session = "";
+            //return info;
+            return new UserService(db).Logout(info);
         }
 
         public LoginInfo KeepLive(LoginInfo info)
         {
-            var login = loginInfos.Find(i => i.Session == info.Session);
-            if (login == null)
-            {
-                info.Result = false;
-            }
-            else
-            {
-                info.Result = true;
-                login.LiveTime = DateTime.Now;
-            }
-            return info;
+            //var login = loginInfos.Find(i => i.Session == info.Session);
+            //if (login == null)
+            //{
+            //    info.Result = false;
+            //}
+            //else
+            //{
+            //    info.Result = true;
+            //    login.LiveTime = DateTime.Now;
+            //}
+            //return info;
+            return new UserService(db).KeepLive(info); 
         }
         
 

@@ -10,6 +10,7 @@ using DbModel.LocationHistory.Data;
 using Location.BLL.Tool;
 using System.Threading;
 using DbModel;
+using SelfBatchImport;
 
 namespace BLL
 {
@@ -196,7 +197,18 @@ namespace BLL
                 //DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
 
                 //DbHistory.Positions.AddRange(positions);
-                this.Positions.AddRange(positions);
+
+                //bool r1=this.Positions.AddRange(positions);
+                //if (r1)
+                //{
+                //    bool r2 = BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
+                //}
+
+                bool r2=BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
+                if (r2 == false)
+                {
+                    Log.Error("Bll_InsertPos.AddPositions", "BatchImport.Insert Error:" + BatchImport.Error);
+                }
 
                 //修改实时数据
                 EditTagPositionListOP(positions);

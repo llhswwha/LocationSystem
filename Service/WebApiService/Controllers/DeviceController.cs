@@ -17,6 +17,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("{id}")]
+        [HttpDelete]
         public TEntity Delete(string id)
         {
             return service.Delete(id);

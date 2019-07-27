@@ -34,7 +34,6 @@ using LocationServer;
 using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Interfaces;
-using TModel.Location.AreaAndDev;
 using TModel.Location.Data;
 using TModel.Tools;
 using WebNSQLib;
@@ -42,6 +41,13 @@ using LocationServer.Models.EngineTool;
 using System.Text;
 using LocationServer.Tools;
 using LocationServer.Windows.Simple;
+using NVSPlayer;
+using LocationServer.Plugins.NVSPlayer.SDK;
+using DbModel.Location.Alarm;
+using WebApiCommunication.ExtremeVision;
+using Newtonsoft.Json;
+using DbModel.Location.AreaAndDev;
+using Location.BLL.Tool;
 
 namespace LocationWCFServer
 {
@@ -218,7 +224,7 @@ namespace LocationWCFServer
         private void MenuCmd1_OnClick(object sender, RoutedEventArgs e)
         {
             LocationService client = new LocationService();
-            AreaStatistics recv = client.GetAreaStatistics(1);
+            var recv = client.GetAreaStatistics(1);
             int PersonNum = recv.PersonNum;
             int DevNum = recv.DevNum;
             int LocationAlarmNum = recv.LocationAlarmNum;
@@ -402,6 +408,121 @@ namespace LocationWCFServer
         {
             var win = new InspectionChoiceWindows();
             win.Show();
+        }
+
+        private void MenuNVSPlayer_OnClick(object sender, RoutedEventArgs e)
+        {
+            //因为dll是64位的，程序生成也要是64位的，幸亏没有引用其他32位的dll
+
+            //NVSPlayerForm form = new NVSPlayerForm();
+            //form.Show();
+
+            //NVSSDK.NetClient_Startup_V4(0, 0, 0);
+
+            //NVRPlayerClientWindow window = new NVRPlayerClientWindow();
+            //window.Show();
+        }
+
+        private void MenuSaveCameraAlarmPicture_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                Log.Info("开始");
+
+                LocationService s = new LocationService();
+                //var list=s.GetAllCameraAlarms(true);
+                var bll = Bll.NewBllNoRelation();
+                int count = bll.CameraAlarmJsons.DbSet.Count();
+                Log.Info("count:" + count);
+                List<CameraAlarmJson> list2 = bll.CameraAlarmJsons.ToList();
+                Log.Info("获取到列表");
+                if (list2 != null)
+                {
+                    Log.Info("成功");
+                    for (int i1 = 0; i1 < list2.Count; i1++)
+                    {
+                        Log.Info(string.Format("进度:{0}/{1}", i1, list2.Count));
+                        CameraAlarmJson camera = list2[i1];
+                        SavePicture(camera, bll);
+                    }
+                }
+                else
+                {
+                    Log.Info("失败");
+                    Log.Info("太多了取不出来，一个一个取");
+                    for (int i = 0; i < count; i++)
+                    {
+                        Log.Info(string.Format("进度:{0}/{1}", i, count));
+                        CameraAlarmJson camera = bll.CameraAlarmJsons.Find(i + 1);
+                        if (camera == null)
+                        {
+                            Log.Info("找不到id:" + (i + 1));
+                            continue;
+                        }
+
+                        SavePicture(camera, bll);
+                    }
+                }
+
+                Log.Info("完成");
+
+            }, () => { MessageBox.Show("完成"); });
+
+        }
+
+        private void SavePicture(CameraAlarmJson camera, Bll bll)
+        {
+            byte[] byte1 = camera.Json;
+            string json = Encoding.UTF8.GetString(byte1);
+            CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+            info.id = camera.Id; //增加了id,这样能够获取到详情
+
+            string pic = info.pic_data;
+            if (!string.IsNullOrEmpty(pic))
+            {
+                info.pic_data = ""; //图片分开存
+                string json2 = JsonConvert.SerializeObject(info); //新的没有图片的json
+                camera.Json = Encoding.UTF8.GetBytes(json2);
+                bll.CameraAlarmJsons.Edit(camera);
+                var picName = info.pic_name;
+                var picture = bll.Pictures.Find(i => i.Name == picName);
+                if (picture == null)
+                {
+                    picture = new Picture();
+                    picture.Name = info.pic_name;
+                    picture.Info = Encoding.UTF8.GetBytes(pic);
+                    bll.Pictures.Add(picture); //保存图片
+                }
+                else
+                {
+                    picture.Name = info.pic_name;
+                    picture.Info = Encoding.UTF8.GetBytes(pic);
+                    bll.Pictures.Edit(picture); //保存图片
+                }
+            }
+            else
+            {
+                Log.Info("没有图片");
+
+                DateTime now = GetDataTime(info.time_stamp);
+
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\" + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".json";
+                FileInfo fi = new FileInfo(path);
+                if (!fi.Directory.Exists)
+                    fi.Directory.Create();
+
+                File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
+            }
+        }
+
+        public DateTime GetDataTime(long time_stamp)
+        {
+            DateTime dtStart = new DateTime(1970, 1, 1);
+            long lTime = ((long)time_stamp * 10000000);
+            TimeSpan toNow = new TimeSpan(lTime);
+            var toNowNew = toNow.Add(TimeSpan.FromHours(8));
+            DateTime AlarmTime = dtStart.Add(toNowNew);
+            return AlarmTime;
         }
     }
 }

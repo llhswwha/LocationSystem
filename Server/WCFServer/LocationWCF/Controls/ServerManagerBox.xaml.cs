@@ -49,6 +49,8 @@ using BLL.Blls.Location;
 using BLL.Blls;
 using DbModel.Location.Alarm;
 using DbModel.Others;
+using NVSPlayer;
+using DbModel.Location.AreaAndDev;
 
 namespace LocationServer.Controls
 {
@@ -122,6 +124,8 @@ namespace LocationServer.Controls
                 StopExtremeVisionListener();
                 StopGetHistoryPositon();
                 SisDataSaveClient.Stop();
+
+                NVSManage.Stop();
             }
             catch (Exception ex)
             {
@@ -191,6 +195,14 @@ namespace LocationServer.Controls
             }
         }
 
+        private void CheckCardRole()
+        {
+            var bll = Bll.NewBllNoRelation();
+            var cards = bll.LocationCards.ToList();
+            var roles = bll.Roles.ToList();
+            //var noRoleCards = cards.Where(i => i.CardRoleId == null);
+        }
+
         private void StartService(string host, string port)
         {
             try
@@ -200,8 +212,11 @@ namespace LocationServer.Controls
 
                 WriteLog("启动服务");
 
+                CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
+
                 //WCF服务 项目：Location.Service
                 StartLocationService(host, port);
+
                 //基于WCF接口同时兼容的WebApi服务 http://{0}:8733/LocationService/api WebServiceHost 项目：Location.Service
                 StartLocationServiceApi(host, port);
                 //定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
@@ -209,7 +224,7 @@ namespace LocationServer.Controls
 
                 //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
                 StartReceiveAlarm();
-                
+
                 //WebApi服务 主要是和这个 //http://{0}:{1}/ HttpSelfHostServer
                 StartWebApiService(host, port);
                 //用来代替StartLocationAlarmService发送信息给unity，推送消息给客户端。项目：SignalRService
@@ -219,7 +234,7 @@ namespace LocationServer.Controls
                 StartGetInspectionTrack();
 
                 //上海宝信项目对接视频行为告警 基于HttpListener 端口8736
-                
+
                 //StartExtremeVisionListener();//端口要不同
 
                 Worker.Run(() =>
@@ -227,7 +242,7 @@ namespace LocationServer.Controls
                     try
                     {
                         Bll bll = Bll.Instance();
-                        var count = bll.Areas.DbSet.Count();//用于做数据迁移用，查询一下
+                        var count = bll.Areas.DbSet.Count(); //用于做数据迁移用，查询一下
                         if (count == 0)
                         {
                             Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
@@ -236,11 +251,14 @@ namespace LocationServer.Controls
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
-                        Log.Error(LogTags.Server, "数据迁移出错！！："+e.Message);
+                        Log.Error(LogTags.Server, "数据迁移出错！！：" + e.Message);
                     }
-                },null);
+                }, null);
 
                 StartGetHistoryPositon();
+
+
+                StartPlayBackManage();
             }
             catch (Exception ex)
             {
@@ -248,54 +266,91 @@ namespace LocationServer.Controls
             }
         }
 
+        public void StartPlayBackManage()
+        {
+            var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
+            if (EnabelNVS)
+            {
+                NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
+
+                NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
+                NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
+                NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
+                NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
+                NVSManage.Init();//启动天地伟业Playback界面
+
+                string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
+                if (File.Exists(nginx))
+                {
+                    Process.Start(nginx);//启动nginx-rtmp
+                }
+                else
+                {
+                    WriteLog("找不到nginx启动文件:"+ nginx);
+                }
+            }
+        }
+
         MyHttpListener httpListener;
 
         public CidMapList mapList;
 
-        private string ParseCameraAlarm(string url,string json)
+        private string ParseCameraAlarm(string url, string json)
         {
             try
             {
-                if (mapList == null)
-                {
-                    string mapFile = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarmMap\\CidMap.xml";
-                    mapList = XmlSerializeHelper.LoadFromFile<CidMapList>(mapFile);
-                }
-
                 Log.Info(LogTags.ExtremeVision, string.Format("收到消息({0})", url));
-                Log.Info(LogTags.ExtremeVision, json);
+                //Log.Info(LogTags.ExtremeVision, json);
                 DateTime now = DateTime.Now;
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
-                File.WriteAllText(path, json);
+
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\" + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".json";
+                FileInfo fi = new FileInfo(path);
+                if (!fi.Directory.Exists)
+                    fi.Directory.Create();
+
+                File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
 
                 CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
-                //todo:存到数据库中，EF
+                CameraAlarmHub.SendInfo(info);//发送告警给客户端
 
-                byte[] byte1 = Encoding.UTF8.GetBytes(json);
+                Bll bll = Bll.NewBllNoRelation();
+
+                string pic = info.pic_data;
+                info.pic_data = "";//图片分开存
+
+                string json2 = JsonConvert.SerializeObject(info);//新的没有图片的json
+                Log.Info(LogTags.ExtremeVision, json2);
+
+
+                byte[] byte1 = Encoding.UTF8.GetBytes(json2);
                 CameraAlarmJson camera = new CameraAlarmJson();
                 camera.Json = byte1;
-                if (camera != null)
-                {
-                    bool result = Bll.NewBllNoRelation().CameraAlarmJsons.Add(camera);
-                }
+                bool result = bll.CameraAlarmJsons.Add(camera);//存到数据库中    
 
-                //if (mapList != null)
-                //{
-                //    var map = mapList.Find(i => i.cid == info.cid);
-                //    if (map != null)
-                //    {
-                //        info.cid = map.id;
-                //    }
-                //}
-                //todo：发送告警
-                CameraAlarmHub.SendInfo(info);
+                var picName = info.pic_name;
+
+                Picture picture = null;
+                picture = bll.Pictures.Find(i => i.Name == picName);
+                if (picture == null)
+                {
+                    picture = new Picture();
+                    picture.Name = info.pic_name;
+                    picture.Info = Encoding.UTF8.GetBytes(pic);
+                    bll.Pictures.Add(picture);//保存图片
+                }
+                else
+                {
+                    picture.Name = info.pic_name;
+                    picture.Info = Encoding.UTF8.GetBytes(pic);
+                    bll.Pictures.Edit(picture);//保存图片
+                }
                 return info.ToString();
             }
             catch (Exception ex)
             {
                 return "error:" + ex.Message;
             }
-            
+
         }
 
         private void StartExtremeVisionListener()

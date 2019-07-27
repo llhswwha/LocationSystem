@@ -64,6 +64,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PatrolPointItem" nillable="true" type="tns:PatrolPointItem" />
+  <xs:complexType name="InspectionTrackList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddTrack" nillable="true" type="tns:ArrayOfInspectionTrack" />
+      <xs:element minOccurs="0" name="DeleteTrack" nillable="true" type="tns:ArrayOfInspectionTrack" />
+      <xs:element minOccurs="0" name="ReviseTrack" nillable="true" type="tns:ArrayOfInspectionTrack" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InspectionTrackList" nillable="true" type="tns:InspectionTrackList" />
   <xs:complexType name="ArrayOfOperationTicket">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationTicket" nillable="true" type="tns:OperationTicket" />

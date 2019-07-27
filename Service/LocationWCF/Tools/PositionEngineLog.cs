@@ -22,8 +22,13 @@ namespace LocationServices.Tools
             }
         }
 
-        public void WriteLogRight(string txt)
+        public void WriteLogRight(string txt,bool isError)
         {
+            if (isError)
+            {
+                Log.Error(LogTags.Engine2Db, txt);
+            }
+            
             //Log.Info("WriteLogRight:" + txt);
             LogRight = txt + "\n" + LogRight;
             if (LogRight.Length > 3000)

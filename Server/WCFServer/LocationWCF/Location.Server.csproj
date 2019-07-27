@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -177,6 +177,7 @@
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.6\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -226,6 +227,9 @@
     <Compile Include="Models\EngineTool\PointSelectWindow.xaml.cs">
       <DependentUpon>PointSelectWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\NVSPlayer\SDK\Class1.cs" />
+    <Compile Include="Plugins\NVSPlayer\SDK\CommonStruct.cs" />
+    <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Tools\BaseDataInitializer.cs" />
     <Compile Include="Tools\BaseDataSimulator.cs" />
     <Compile Include="Tools\ConfigurationHelper.cs" />
@@ -273,6 +277,9 @@
     </Compile>
     <Compile Include="Windows\NewAreaWindow.xaml.cs">
       <DependentUpon>NewAreaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NVRPlayerClientWindow.xaml.cs">
+      <DependentUpon>NVRPlayerClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Simple\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
@@ -417,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NewAreaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NVRPlayerClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2514,6 +2525,10 @@
     <ProjectReference Include="..\..\..\Model\TModel\TModel.csproj">
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\NVS\NVSPlayer\NVSPlayer.csproj">
+      <Project>{611C87DF-6410-4B4A-A605-85C7DC099AA8}</Project>
+      <Name>NVSPlayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Service\LocationWCF\Location.Service.csproj">
       <Project>{39d91b65-547f-401a-a2c7-9df2ee514225}</Project>

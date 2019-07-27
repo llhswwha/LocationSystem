@@ -173,6 +173,49 @@ namespace LocationServices.Converters
             return item2;
         }
 
+        public static List<Location.TModel.LocationHistory.Data.Pos> ToPos(
+            this List<DbModel.LocationHistory.Data.Position> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<Location.TModel.LocationHistory.Data.Pos>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToPos());
+            }
+            return list2;
+        }
+
+        public static Location.TModel.LocationHistory.Data.Pos ToPos(
+            this DbModel.LocationHistory.Data.Position item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new Location.TModel.LocationHistory.Data.Pos();
+            //item2.Id = item1.Id;
+            //item2.PersonnelID = item1.PersonnelID;
+            item2.Code = item1.Code;
+            item2.X = item1.X;
+            item2.Y = item1.Y;
+            item2.Z = item1.Z;
+            //item2.DateTime = item1.DateTime;
+            item2.Time = item1.DateTimeStamp;
+            //item2.Power = item1.Power;
+            //item2.Number = item1.Number;
+            //item2.Flag = item1.Flag;
+            //item2.Archors = item1.Archors;
+            //item2.ArchorsText = item1.ArchorsText;
+            //if (!string.IsNullOrEmpty(item1.ArchorsText))
+            //{
+            //    item2.Archors = item1.ArchorsText.Split('@').ToList();
+            //}
+            //item2.TopoNodeId = item1.AreaId;
+            //item2.AreaState = item1.AreaState;
+            //item2.PowerState = item1.PowerState;
+            //item2.MoveState = item1.MoveState;
+            return item2;
+        }
+
+
+
         public static List<DbModel.LocationHistory.Data.Position> ToDbModel(
             this List<Location.TModel.LocationHistory.Data.Position> list1)
         {

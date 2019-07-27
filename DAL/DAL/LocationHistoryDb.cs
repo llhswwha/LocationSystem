@@ -26,10 +26,8 @@ namespace DAL
             }
             else
             {
-                Database.SetInitializer<LocationHistoryDb>(null);//手动操作
-
-                ////Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
-                //Database.SetInitializer<LocationHistoryDb>(new MigrateDatabaseToLatestVersion<LocationHistoryDb, DAL.LocationHistoryDbMigrations.Configuration>());//自动数据迁移
+                //Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//数据模型发生变化是重新创建数据库
+                Database.SetInitializer<LocationHistoryDb>(new MigrateDatabaseToLatestVersion<LocationHistoryDb, DAL.LocationHistoryDbMigrations.Configuration>());//自动数据迁移
             }
         }
 

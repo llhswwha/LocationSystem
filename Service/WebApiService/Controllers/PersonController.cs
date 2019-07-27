@@ -23,6 +23,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("{id}")]
+        [HttpDelete]
         public TEntity Delete(string id)
         {
             return service.Delete(id);
@@ -63,7 +64,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("")]//search/?name=主
-        [Route("search/{name}")]//search/1,直接中文不行
+        [Route("search/{name}")]//search/1,直接中文不行   
         public IList<TEntity> GetListByName(string name)
         {
             return service.GetListByName(name);

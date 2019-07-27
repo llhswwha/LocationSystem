@@ -320,14 +320,14 @@ namespace WPFClientControlLib
                     DevSize = 0.4;
 
                     //if (area.Name == "宝钢园区")
-                    {
-                        //scale = 2;
-                        //ShowFloor = 1;
-                        //CbFloor.SelectedIndex = 1;
+                    //{
+                    //    //scale = 2;
+                    //    //ShowFloor = 1;
+                    //    //CbFloor.SelectedIndex = 1;
 
-                        devSizeList = new double[] { 1,2,3,4,5,6,7,8,9,10 };
-                        DevSize = 4;
-                    }
+                    //    devSizeList = new double[] { 1,2,3,4,5,6,7,8,9,10 };
+                    //    DevSize = 4;
+                    //}
                     
                     DrawFloor(area, scale, DevSize);
                     InitCbScale(scale);

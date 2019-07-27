@@ -13,8 +13,15 @@
         </StackPanel>
 
         <TabControl>
-            <TabItem Header="逐条发送">
-                <DataGrid Name="SendByItem"  SelectionChanged="SendByItem_OnSelectionChanged"></DataGrid>
+            
+            <TabItem Header="逐条添加发送">
+                <DataGrid Name="SendAddByItem"  SelectionChanged="SendAddByItem_OnSelectionChanged"></DataGrid>
+            </TabItem>
+            <TabItem Header="逐条修改发送">
+                <DataGrid Name="SendReviseByItem"  SelectionChanged="SendReviseByItem_OnSelectionChanged"></DataGrid>
+            </TabItem>
+            <TabItem Header="逐条删除发送">
+                <DataGrid Name="SendDeleteByItem"  SelectionChanged="SendDeleteByItem_OnSelectionChanged"></DataGrid>
             </TabItem>
             <TabItem Header="全部发送">
                 <DataGrid Name="SendAllItem"  SelectionChanged="SendAllItem_OnSelectionChanged"></DataGrid>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using LocationServices.Locations.Interfaces;
+using LocationServices.Locations.Plugins;
 using TModel.Location.AreaAndDev;
 using TModel.Models.Settings;
 
@@ -30,7 +31,8 @@ namespace LocationServices.Locations
         IInitDbService,
         ICardRoleService,
         IAuthorizationService,
-        ICameraAlarmService
+        ICameraAlarmService,
+        INVSPlayer
     {
         [OperationContract]
         UnitySetting GetUnitySetting();

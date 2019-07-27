@@ -119,6 +119,9 @@
     <Compile Include="Windows\EchoHubWindow.xaml.cs">
       <DependentUpon>EchoHubWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\NVRClientWindow.xaml.cs">
+      <DependentUpon>NVRClientWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="WebApi\WebApiWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\EchoHubWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NVRClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
