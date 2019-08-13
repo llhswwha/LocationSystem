@@ -22,7 +22,7 @@ namespace NsqSharp.Utils.Channels
     ///     int count = 0;
     ///     foreach (var msg in c)
     ///     {
-    ///         Console.WriteLine(msg);
+    ///         Log.Info(msg);
     ///
     ///         if (count > 100)
     ///         {

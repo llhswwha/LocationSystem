@@ -405,5 +405,19 @@ namespace Location.TModel.Location.AreaAndDev
             LeafNodes.Add(devInfo);
         }
 
+
+        /// <summary>
+        /// 获取TransfromM信息
+        /// </summary>
+        /// <returns></returns>
+        public TransformM SetTransformM()
+        {
+            Transfrom = new TransformM(InitBound);
+            Transfrom.IsRelative = this.IsRelative;
+            Transfrom.IsCreateAreaByData = this.IsCreateAreaByData;
+            Transfrom.IsOnAlarmArea = this.IsOnAlarmArea;
+            Transfrom.IsOnLocationArea = this.IsOnLocationArea;
+            return Transfrom;
+        }
     }   
 }

@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationDaemon"
         mc:Ignorable="d"
-        Title="LocationDeamon" Height="350" Width="525" Loaded="Window_Loaded">
-    <Grid>
-        <TextBox Name="TxtLog"></TextBox>
-    </Grid>
+        Title="守护进程" Height="350" Width="525" Loaded="Window_Loaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="配置" Name="MenuSetting" Click="MenuSetting_OnClick"></MenuItem>
+        </Menu>
+        <ScrollViewer>
+            <TextBox Name="TxtLog" TextWrapping="Wrap"></TextBox>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

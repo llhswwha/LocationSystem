@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Location.BLL.Tool;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace BLL.Tools
         //    });
         //    sw.Stop();
         //    TimeSpan ts2 = sw.Elapsed;
-        //    Console.WriteLine("Parallel.ForEach总共花费{0}ms.", ts2.TotalMilliseconds);//31   27  72
+        //    Log.Info("Parallel.ForEach总共花费{0}ms.", ts2.TotalMilliseconds);//31   27  72
         //    return NameArray;
         //}
 
@@ -145,7 +146,7 @@ namespace BLL.Tools
             }
             sw.Stop();
             TimeSpan ts2 = sw.Elapsed;
-            Console.WriteLine("Parallel.ForEach总共花费{0}ms.", ts2.TotalMilliseconds);
+            Log.Info("Parallel.ForEach总共花费{0}ms.", ts2.TotalMilliseconds);
             return nameArray;
         }
 

@@ -75,5 +75,8 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         bool DeleteMonitorRange(PhysicalTopology pt);
+
+        [OperationContract]
+        IList<PhysicalTopology> GetSwitchAreas();
     }
 }

@@ -115,7 +115,7 @@ namespace LocationServices.Locations
         public IList<DevInfo> GetAllDevInfos()
         {
             var service = new DeviceService(db);
-            var devList= service.GetList();
+            var devList = service.GetList();
             return devList;
         }
 
@@ -162,7 +162,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool ModifyDevInfo(DevInfo devInfo)
         {
-            return new DeviceService(db).Put(devInfo)!=null;
+            return new DeviceService(db).Put(devInfo) != null;
         }
         /// <summary>
         /// 删除设备信息
@@ -171,7 +171,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public bool DeleteDevInfo(DevInfo devInfo)
         {
-            return new DeviceService(db).Delete(devInfo.Id+"") != null;
+            return new DeviceService(db).Delete(devInfo.Id + "") != null;
         }
         /// <summary>
         /// 通过区域ID,获取区域下所有设备
@@ -208,7 +208,7 @@ namespace LocationServices.Locations
             return new DeviceService(db).GetDevByGameName(nameName);
         }
 
-        
+
 
         /// <summary>
         /// 添加门禁设备
@@ -244,7 +244,7 @@ namespace LocationServices.Locations
                 var doorAccess = db.Dev_DoorAccess.DeleteById(item.Id);
                 var dev = db.DevInfos.DeleteById(item.DevInfoId);
                 //bool posResult = db.DevPos.DeleteById(item.DevID);
-                bool valueTemp = doorAccess!=null && dev!=null;
+                bool valueTemp = doorAccess != null && dev != null;
                 if (!valueTemp) value = valueTemp;
             }
             return value;
@@ -273,11 +273,12 @@ namespace LocationServices.Locations
                     devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.ParentId != null && item.ParentId == pId).ToList().ToTModel());
                 }
                 return devInfoList.ToWCFList();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                Log.Error("LocationService_Dev.GetDoorAccessInfoByParent.Exception:"+e.ToString());
+                Log.Error("LocationService_Dev.GetDoorAccessInfoByParent.Exception:" + e.ToString());
                 return null;
-            }           
+            }
         }
         /// <summary>
         /// 获取所有的门禁信息
@@ -285,7 +286,7 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Dev_DoorAccess> GetAllDoorAccessInfo()
         {
-            List<Dev_DoorAccess> doorAccessList= db.Dev_DoorAccess.DbSet.ToList().ToTModel();
+            List<Dev_DoorAccess> doorAccessList = db.Dev_DoorAccess.DbSet.ToList().ToTModel();
             return doorAccessList.ToWCFList();
         }
         #region 摄像头信息
@@ -307,7 +308,7 @@ namespace LocationServices.Locations
         {
             DbModel.Location.AreaAndDev.Dev_CameraInfo dbCamera = cameraInfo.ToDbModel();
             var result = db.Dev_CameraInfos.Add(dbCamera);
-            return result ? dbCamera.ToTModel() : null;            
+            return result ? dbCamera.ToTModel() : null;
         }
         /// <summary>
         /// 删除摄像头信息
@@ -380,13 +381,13 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev)
         {
-            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item=>item.DevInfoId==dev.Id).ToTModel();
+            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => item.DevInfoId == dev.Id).ToTModel();
             return cameraInfo;
         }
 
         public Dev_CameraInfo GetCameraInfoByIp(string ip)
         {
-            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => !(string.IsNullOrEmpty(item.Ip))&&item.Ip == ip).ToTModel();
+            Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => !(string.IsNullOrEmpty(item.Ip)) && item.Ip == ip).ToTModel();
             return cameraInfo;
         }
         #endregion
@@ -399,7 +400,7 @@ namespace LocationServices.Locations
             //alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
             //alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
             //return alarms;
-            var list = db.LocationAlarms.Where(p=>p.AlarmLevel != 0).ToList();
+            var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
             var persons = db.Personnels.ToList();
             foreach (var alarm in list)
             {
@@ -414,7 +415,7 @@ namespace LocationServices.Locations
         /// <param name="count"></param>
         /// <param name="isAlarm"></param>
         /// <returns></returns>
-        public List<LocationAlarm> GetLocationAlarms(int count,bool isAlarm=true)
+        public List<LocationAlarm> GetLocationAlarms(int count, bool isAlarm = true)
         {
             List<Personnel> ps = GetPersonList(false);
             List<LocationAlarm> alarms = new List<LocationAlarm>();
@@ -445,7 +446,7 @@ namespace LocationServices.Locations
                         Content = "定位消警" + i,
                         CreateTime = new DateTime(2018, 9, 1, 11, 5, 34),
                     }.SetPerson(ps[0]));
-                }         
+                }
             }
             return alarms;
         }
@@ -456,31 +457,63 @@ namespace LocationServices.Locations
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
             for (int i = 0; i < count; i++)
             {
-                alarms.Add(new DeviceAlarm() { Id = i, Level = Abutment_DevAlarmLevel.低, Title = "告警"+ i, Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
+                alarms.Add(new DeviceAlarm() { Id = i, Level = Abutment_DevAlarmLevel.低, Title = "告警" + i, Message = "设备告警1", CreateTime = new DateTime(2018, 8, 28, 9, 5, 34) }.SetDev(devs[0].ToTModel()));
             }
             return alarms;
         }
 
-        public List<DeviceAlarm> GetDeviceAlarms(AlarmSearchArg arg)
-        {
+        public static List<DbModel.Location.Alarm.DevAlarm> allAlarms;
 
+        /// <summary>
+        /// //实现加载全部设备告警到内存中
+        /// </summary>
+        public static void RefreshDeviceAlarmBuffer()
+        {
+            //if (allAlarms == null)
+            {
+                BLL.Bll bll = BLL.Bll.NewBllNoRelation();
+                allAlarms = bll.DevAlarms.ToList();
+            }
+        }
+
+        public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
+       {
+            if (allAlarms == null)
+            {
+                RefreshDeviceAlarmBuffer();
+            }
+
+            DeviceAlarmInformation DevAlarm = new DeviceAlarmInformation();
             DateTime start = DateTime.Now;
             var devs = db.DevInfos.ToList().ToTModel();
-            if (devs == null||devs.Count==0) return null;
-            var dict = new Dictionary<int,DevInfo>();
+            if (devs == null || devs.Count == 0) return null;
+            var dict = new Dictionary<int, DevInfo>();
             foreach (var item in devs)
             {
-                if(item.ParentId!=null)
-                dict.Add(item.Id, item);
+                if (item.ParentId != null)
+                    dict.Add(item.Id, item);
             }
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
             List<DbModel.Location.Alarm.DevAlarm> alarms1 = null;
-
             DateTime now = DateTime.Now;
             DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
             DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
+            //arg.Start = null;
+            if (arg.Start != null && arg.End != null)
+            {
+                todayStart = Convert.ToDateTime(arg.Start);
+                todayEnd = Convert.ToDateTime(arg.End);
+            }
+            else if (arg.Start != null)
+            {
+                todayStart = Convert.ToDateTime(arg.Start);
+            }
+            else if (arg.End != null)
+            {
+                todayEnd = Convert.ToDateTime(arg.End);
+            }
 
-            var startStamp=TimeConvert.ToStamp(todayStart);
+            var startStamp = TimeConvert.ToStamp(todayStart);
             var endStamp = TimeConvert.ToStamp(todayEnd);
 
             if (arg.AreaId != 0)
@@ -488,53 +521,135 @@ namespace LocationServices.Locations
                 var areas = db.Areas.GetAllSubAreas(arg.AreaId);//获取所有子区域
                 if (arg.IsAll)
                 {
-                    alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
+                    alarms1 = allAlarms.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
                 }
                 else
                 {
-                    alarms1 = db.DevAlarms.Where(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                    alarms1 = allAlarms.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
                 }
-                
+
             }
             else
             {
                 if (arg.IsAll)
                 {
-                    alarms1 = db.DevAlarms.ToList();
+                    alarms1 = allAlarms;
                 }
                 else
                 {
-                    alarms1 = db.DevAlarms.Where(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                    alarms1 = allAlarms.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
                 }
-                
+
             }
             if (alarms1 == null) return null;
             alarms = alarms1.ToTModel();
             alarms.Sort();
-            if (alarms.Count == 0) return null;
+            if (alarms.Count == 0)
+            {
+
+            }
             foreach (var item in alarms)
             {
                 try
                 {
-                    if(dict.ContainsKey(item.DevId))
+                    if (dict.ContainsKey(item.DevId))
                     {
                         var dev = dict[item.DevId];
                         item.SetDev(dev);//这里设置DevId,AreaId等
-                    }  
+                    }
                 }
                 catch (Exception ex)
                 {
                     Log.Error(ex.ToString());
                 }
             }
+            DevAlarm.devAlarmList = new List<DeviceAlarm>();
+            DeviceAlarmScreen(arg, alarms, DevAlarm.devAlarmList);
+            DevAlarm.Total = DevAlarmTotal;
+            
             TimeSpan time = DateTime.Now - start;
-            return alarms;
+            DevAlarm.SetEmpty();
+            return DevAlarm;
         }
+        int DevAlarmTotal = 0;
+        /// <summary>
+        /// 筛选设备告警等级和设备类型
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="ListInfo"></param>
+        /// <param name="DevAlarmLevelList"></param>
+        public void DeviceAlarmScreen(AlarmSearchArg arg, List<DeviceAlarm> ListInfo, List<DeviceAlarm> DevAlarmlist)
+        {
+            List<DeviceAlarm> DevAlarmLevelList = new List<DeviceAlarm>();
+            if (arg.DevTypeName == "所有设备" && arg.Level == 0)
+            {
+                DevAlarmLevelList.AddRange(ListInfo);
+            }
+            else
+            {
+                foreach (var devAlarm in ListInfo)
+                {
+                    if (arg.DevTypeName == "所有设备" && arg.Level != 0)
+                    {
+                        if (devAlarm.Level == GetDevAlarmLevel(arg.Level))
+                        {
+                            DevAlarmLevelList.Add(devAlarm);
+                        }
+                    }
+                    else if (arg.Level == 0 && arg.DevTypeName != "所有设备")
+                    {
+                        if (arg.DevTypeName == devAlarm.DevTypeName)
+                        {
+                            DevAlarmLevelList.Add(devAlarm);
+                        }
+                    }
+                    else if (arg.DevTypeName != "所有设备" && arg.Level != 0)
+                    {
+                        if (arg.DevTypeName == devAlarm.DevTypeName && devAlarm.Level == GetDevAlarmLevel(arg.Level))
+                        {
+                            DevAlarmLevelList.Add(devAlarm);
+                        }
+                    }
+                }
+            }
+            if (DevAlarmLevelList.Count == 0)
+            {
+                DevAlarmTotal = 1;
+            }
+            else
+            {
+                int maxPage = (int)Math.Ceiling((double)DevAlarmLevelList.Count / (double)arg.Page.Size);
+                DevAlarmTotal = maxPage;
+                if (arg.Page.Number > maxPage)
+                {
+                    arg.Page.Number = maxPage-1;
+                }
+                var QueryData = DevAlarmLevelList.Skip(arg.Page.Size * arg.Page.Number).Take(arg.Page.Size);
+                foreach (var devAlarm in QueryData)
+                {
+                    DevAlarmlist.Add(devAlarm);
+                }
+            }
+        }
+        /// <summary>
+        /// 告警等级
+        /// </summary>
+        /// <returns></returns>
+        public Abutment_DevAlarmLevel GetDevAlarmLevel(int level)
+        {
+            if (level == 1) return Abutment_DevAlarmLevel.高;
+            else if (level == 2) return Abutment_DevAlarmLevel.中;
+            else if (level == 3) return Abutment_DevAlarmLevel.低;
+            else
+            {
+                return Abutment_DevAlarmLevel.未定;
+            }
 
+        }
         public Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg)
         {
             Page<DeviceAlarm> page = new Page<DeviceAlarm>();
-            page.Content = GetDeviceAlarms(arg);
+            page.Content = GetDeviceAlarms(arg).devAlarmList;
             return page;
         }
 
@@ -552,7 +667,7 @@ namespace LocationServices.Locations
 
         public Archor GetArchorByDevId(int devId)
         {
-            return db.Archors.FirstOrDefault(i=>i.DevInfoId==devId).ToTModel();
+            return db.Archors.FirstOrDefault(i => i.DevInfoId == devId).ToTModel();
         }
 
         public bool AddArchor(Archor archor)
@@ -566,7 +681,7 @@ namespace LocationServices.Locations
         public bool DeleteArchor(int devId)
         {
             //db.Archors.DeleteById(archorId);
-            bool value = true;           
+            bool value = true;
             var archor = db.Archors.DeleteByDev(devId);
             var dev = db.DevInfos.DeleteById(devId);
             bool valueTemp = archor != null && dev != null;
@@ -581,7 +696,7 @@ namespace LocationServices.Locations
             if (Archor2 == null)
             {
                 Archor2 = db.Archors.FirstOrDefault(p => p.DevInfoId == Archor.DevInfoId);
-            }         
+            }
             if (Archor2 == null)
             {
                 LocationService service = new LocationService();
@@ -593,14 +708,14 @@ namespace LocationServices.Locations
                 dev.IP = "";
                 dev.KKS = "";
                 dev.Name = Archor2.Name;
-                if(area!=null)
+                if (area != null)
                 {
                     dev.ModelName = area.Name == DepNames.FactoryName ? TypeNames.ArchorOutdoor : TypeNames.Archor;//室外基站||室内基站
                 }
                 else
                 {
                     dev.ModelName = TypeNames.Archor;
-                }                
+                }
                 dev.Status = 0;
                 dev.ParentId = ParentId;
                 dev.Local_TypeCode = TypeCodes.Archor;
@@ -675,7 +790,7 @@ namespace LocationServices.Locations
             {
                 string strError = ex.Message;
             }
-            
+
             return bDeal;
         }
 
@@ -705,7 +820,7 @@ namespace LocationServices.Locations
             //    lst = new List<NearbyDev>();
             //}
 
-            if (lst!=null&&lst.Count == 0)
+            if (lst != null && lst.Count == 0)
             {
                 lst = null;
             }
@@ -740,7 +855,7 @@ namespace LocationServices.Locations
             {
                 lst = null;
             }
-            
+
             return lst;
         }
         /// <summary>
@@ -749,12 +864,12 @@ namespace LocationServices.Locations
         /// <param name="devModelName"></param>
         /// <returns></returns>
         public DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName)
-        {            
-            DbModel.Location.AreaAndDev.DevModel devModel = db.DevModels.FirstOrDefault(dev=>dev.Name==devModelName);
+        {
+            DbModel.Location.AreaAndDev.DevModel devModel = db.DevModels.FirstOrDefault(dev => dev.Name == devModelName);
             return devModel;
         }
 
-        static  private List<DbModel.Location.AreaAndDev.KKSCode> _kksCodes;
+        static private List<DbModel.Location.AreaAndDev.KKSCode> _kksCodes;
 
         public List<DbModel.Location.AreaAndDev.KKSCode> KKSCodes
         {
@@ -794,13 +909,13 @@ namespace LocationServices.Locations
             DateTime start = DateTime.Now;
             Dev_Monitor monitor = GetDevMonitor(KKS, isShowAll);
             if (monitor == null) return null;
-            var tags=monitor.GetAllTagList();
+            var tags = monitor.GetAllTagList();
             TimeSpan time = DateTime.Now - start;
             //Log.Info(LogTags.KKS, string.Format("[{2}]KKS:{0},测点:{1}", KKS, tags, time));
             List<DevMonitorNode> dataList = GetSomesisList(tags);//到基础平台获取数据
             //Log.Info(LogTags.KKS, string.Format("获取sis数据"));
-            monitor = InsertDataToEveryDev(monitor,dataList);
-            
+            monitor = InsertDataToEveryDev(monitor, dataList);
+
             return monitor;
         }
 
@@ -810,10 +925,10 @@ namespace LocationServices.Locations
             DbModel.Location.AreaAndDev.KKSCode kksCode = KKSCodes.FirstOrDefault(p => p.Code == KKS);
             if (kksCode == null)
             {
-                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\"+ KKS+".xml";
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\" + KKS + ".xml";
                 if (File.Exists(dirPath))
                 {
-                    var list=XmlSerializeHelper.LoadFromFile<DevMonitorNodeList>(dirPath);
+                    var list = XmlSerializeHelper.LoadFromFile<DevMonitorNodeList>(dirPath);
                     monitor.Name = KKS;
                     monitor.KKSCode = KKS;
                     monitor.MonitorNodeList = list;
@@ -841,7 +956,7 @@ namespace LocationServices.Locations
             {
                 monitor.SetEmpty();
             }
-           
+
             return monitor;
         }
 
@@ -910,7 +1025,7 @@ namespace LocationServices.Locations
 
         private List<Dev_Monitor> GetChildMonitorDev(DbModel.Location.AreaAndDev.KKSCode KKS)
         {
-            Dictionary<string,Dev_Monitor> devMoniters = new Dictionary<string, Dev_Monitor>();
+            Dictionary<string, Dev_Monitor> devMoniters = new Dictionary<string, Dev_Monitor>();
             List<DbModel.Location.AreaAndDev.KKSCode> childrenKKS = KKS.Children;
             if (childrenKKS != null)
             {

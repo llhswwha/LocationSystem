@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +18,10 @@ using DbModel.LocationHistory.Data;
 using DbModel.Tools;
 using LocationServer.Tools;
 using System.Threading;
+using System.Windows.Threading;
+using Coldairarrow.Util.Sockets;
+using Location.BLL.Tool;
+using WPFClientControlLib;
 
 namespace LocationServer.Windows
 {
@@ -44,46 +49,116 @@ namespace LocationServer.Windows
 
         private void GetAll(Action callback=null)
         {
+            Log.Info(LogTags.HisPos, string.Format("GetAll Start"));
+
             BtnGetAllActiveDay.IsEnabled = false;
             Worker.Run(() =>
             {
-                Bll bll = Bll.Instance();
-                //bll.history
-                allPoslist = bll.Positions.ToList();
-                var personnels = bll.Personnels.ToDictionary();
-                foreach (var pos in allPoslist)
+                try
                 {
-                    var pid = pos.PersonnelID;
-                    if (pid != null && personnels.ContainsKey((int)pid))
+                    allPoslist = new List<Position>();
+                    Bll bll = Bll.NewBllNoRelation();
+                    //bll.history
+
+                    DateTime start = DateTime.Now;
+
+                    int count = bll.Positions.DbSet.Count();
+                    Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
+
+                    Position first=bll.Positions.DbSet.First();
+                    Log.Info(LogTags.HisPos, string.Format("first:{0}", first));
+
+                    List<Position> list1 = bll.Positions.GetPositionsOfDay(DateTime.Now);
+                    Log.Info(LogTags.HisPos, string.Format("list1:{0},time:{1}", list1.Count, DateTime.Now - start));
+                    start = DateTime.Now;
+
+                    List<Position> list2 = bll.Positions.GetPositionsOfSevenDay(DateTime.Now);
+                    Log.Info(LogTags.HisPos, string.Format("list2:{0},time:{1}", list2.Count, DateTime.Now - start));
+                    start = DateTime.Now;
+
+                    List<Position> list3 = bll.Positions.GetPositionsOfMonth(DateTime.Now);
+                    Log.Info(LogTags.HisPos, string.Format("list3:{0},time:{1}", list3.Count, DateTime.Now - start));
+                    start = DateTime.Now;
+
+                    List<Position> list4 = bll.Positions.GetAllPositionsByDay((progress) =>
                     {
-                        var p = personnels[(int) pid];
-                        pos.PersonnelName = string.Format("{0}({1})",p.Name,pos.Code);
+                        Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByDay date:{0},count:{1},({2}/{3},{4:p})",
+                            progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
+                    });
+                    Log.Info(LogTags.HisPos, string.Format("list4:{0},time:{1}", list4.Count, DateTime.Now - start));
+                    start = DateTime.Now;
+                    //按天来要1分11s
+                    List<Position> posList = list4;
+
+                    //List<Position> list5 = bll.Positions.GetAllPositionsByMonth((progress) =>
+                    //{
+                    //    Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByMonth date:{0},count:{1},({2}/{3},{4:p})",
+                    //        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
+                    //});
+                    //Log.Info(LogTags.HisPos, string.Format("list5:{0},time:{1}", list5.Count, DateTime.Now - start));
+                    //start = DateTime.Now;
+                    ////按月来是22s=>把按天的去掉，按月的时间也是一样的50s-70s
+
+                    //List<Position> posList = list5;
+
+                    //List<Position> posList = bll.Positions.ToList();
+                    Log.Info(LogTags.HisPos, string.Format("list6:{0},time:{1}", posList.Count, DateTime.Now - start));
+                    if (posList == null)
+                    {
+                        allPoslist=null;
+                        Log.Error(bll.Positions.ErrorMessage);
+                        return;
                     }
-                    else
+                    var personnels = bll.Personnels.ToDictionary();
+                    foreach (var pos in posList)
                     {
-                        pos.PersonnelName = pos.Code;//有些卡对应的人员不存在
+                        var pid = pos.PersonnelID;
+                        if (pid != null && personnels.ContainsKey((int)pid))
+                        {
+                            var p = personnels[(int)pid];
+                            pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
+                        }
+                        else
+                        {
+                            pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ;//有些卡对应的人员不存在
+                        }
                     }
 
-                   
+                    List<Position> noAreaList = new List<Position>();
+
+                    var areas = bll.Areas.ToDictionary();
+                    foreach (var pos in posList)
+                    {
+                        var areaId = pos.AreaId;
+                        if (areaId != null && areas.ContainsKey((int)areaId))
+                        {
+                            var area = areas[(int)areaId];
+                            pos.Area = area;
+                            pos.AreaPath = area.GetToBuilding(">");
+
+                            allPoslist.Add(pos);
+                        }
+                        else
+                        {
+                            noAreaList.Add(pos);
+                        }
+                    }
+                    Log.Info(LogTags.HisPos, string.Format("GetAll End"));
                 }
-
-                var areas=bll.Areas.ToDictionary();
-                foreach (var pos in allPoslist)
+                catch (Exception e)
                 {
-                    var areaId = pos.AreaId;
-                    if (areaId != null && areas.ContainsKey((int)areaId))
-                    {
-                        var area = areas[(int) areaId];
-                        pos.Area = area;
-                        pos.AreaPath = area.GetToBuilding(">");
-                    }
+                    Log.Error(e.ToString());
                 }
-
-
             }, () =>
             {
                 BtnGetAllActiveDay.IsEnabled = true;
                 DataGridLocationHistory.ItemsSource = allPoslist;
+
+                if (allPoslist == null)
+                {
+                    MessageBox.Show("出错了，等待30s后再尝试一下");
+                }
+
                 if (callback != null)
                 {
                     callback();
@@ -207,6 +282,140 @@ namespace LocationServer.Windows
             PositionList posList = DataGridStatisticAreaDayHour.SelectedItem as PositionList;
             if (posList == null) return;
             DataGridAreaPosList.ItemsSource = posList.Items;
+        }
+
+        private LightUDP udp;
+
+        private void BtnSendCurrentPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            Position pos = DataGridDayPersonPosList.SelectedItem as Position;
+            TbPostion.Text=SendPos(pos);
+        }
+
+        private string SendPos(Position pos)
+        {
+            if (pos == null) return "";
+            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+            if (udp == null)
+            {
+                udp = new LightUDP("127.0.0.1", 5678);
+            }
+            udp.Send(txt, "127.0.0.1", 2323);
+            return txt;
+        }
+
+        private void BtnSendNextPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            SendNextPos();
+        }
+
+        private Position SendNextPos()
+        {
+            //List<Position> list = DataGridDayPersonPosList.ItemsSource as List<Position>;
+            if (DataGridDayPersonPosList.SelectedIndex < DataGridDayPersonPosList.Items.Count)
+            {
+                DataGridDayPersonPosList.SelectedIndex++;
+                Position pos = DataGridDayPersonPosList.SelectedItem as Position;
+                TbPostion.Text = SendPos(pos);
+                return pos;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private Position GetNextPos()
+        {
+            if (id < list.Count)
+            {
+                return list[id];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private DispatcherTimer timer;
+        private List<Position> list;
+        private int id = 0;
+        private void BtnStartSendPos_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (BtnStartSendPos.Content.ToString() == "开始模拟数据")
+            {
+                BtnStartSendPos.Content = "停止模拟数据";
+                list = DataGridDayPersonPosList.ItemsSource as List<Position>;
+                id = 0;
+                startPos = null;
+                if (timer == null)
+                {
+                    timer = new DispatcherTimer();
+                    timer.Tick += Timer_Tick;
+                    timer.Interval = TimeSpan.FromMilliseconds(100);
+                }
+                timer.Start();
+            }
+            else
+            {
+                BtnStartSendPos.Content = "开始模拟数据";
+                timer.Stop();
+            }
+        }
+
+        private Position startPos;
+
+        private DateTime startTime;
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //Position pos = list[id];
+            //id++;
+            //TbPostion.Text = SendPos(pos);
+            var pos = GetNextPos();
+            if (pos == null)
+            {
+                BtnStartSendPos.Content = "开始模拟数据";
+                timer.Stop();
+            }
+            else
+            {
+                if (startPos == null)
+                {
+                    startPos = pos;
+                    startTime = DateTime.Now;
+
+                    TbPostion.Text = SendPos(pos);
+                    id++;
+                    DataGridDayPersonPosList.SelectedIndex = id;
+                }
+                else
+                {
+                    TimeSpan t = DateTime.Now - startTime;
+                    var ts = pos.DateTimeStamp - startPos.DateTimeStamp;
+                    if (t.TotalMilliseconds > ts)
+                    {
+                        TbPostion.Text = SendPos(pos);
+                        id++;
+                        DataGridDayPersonPosList.SelectedIndex = id;
+                    }
+                }
+            }
+        }
+
+        private void DataGridDayPersonPosList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Position pos = DataGridDayPersonPosList.SelectedItem as Position;
+            if (pos == null) return;
+            TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+
+        }
+
+        private LogTextBoxController controller;
+
+        private void LocationHistoryWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            controller=new LogTextBoxController(TbLogs,LogTags.HisPos);
         }
     }
 }

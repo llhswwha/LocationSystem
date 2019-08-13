@@ -15,7 +15,7 @@ namespace WebApiService.SelfHost
             WebApiConfiguration.Configure(config);
             var host = new HttpSelfHostServer(config);
             host.OpenAsync().Wait();
-            Console.WriteLine("host:" + config.BaseAddress);
+            Log.Info("host:" + config.BaseAddress);
             Console.Read();
         }
     }

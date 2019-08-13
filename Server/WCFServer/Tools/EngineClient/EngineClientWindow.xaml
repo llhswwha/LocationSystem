@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EngineClient"
         mc:Ignorable="d"
-        Title="定位引擎客户端" Height="400" Width="1000" Loaded="EngineClientWindow_OnLoaded" WindowStartupLocation="CenterScreen">
+        Title="定位引擎客户端" Height="500" Width="800" Loaded="EngineClientWindow_OnLoaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="工具">
@@ -17,34 +17,6 @@
                 <MenuItem Header="模拟Json" Name="MenuSimulateJson" Click="MenuSimulateJson_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label Width="80">Local IP</Label>
-            <ComboBox Width="130" Name="TbLocalIp"></ComboBox>
-            <Label Width="80">Local Port</Label>
-            <TextBox Width="70" Name="TbLocalPort">2323</TextBox>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <Label Width="80">Engine IP</Label>
-            <ComboBox Width="130" Name="TbEngineIp" IsEditable="True"></ComboBox>
-            <Label Width="80">Engine Port</Label>
-            <ComboBox Width="70" Name="TbEnginePort"></ComboBox>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top" >
-            <CheckBox Name="CbWriteToDb" IsChecked="True">写入数据库</CheckBox>
-            <Button Name="BtnStart" Click="BtnStart_OnClick">启动</Button>
-        </StackPanel>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <ScrollViewer>
-                <TextBox Name="TbResult2"></TextBox>
-            </ScrollViewer>
-            <ScrollViewer  Grid.Column="1" Grid.Row="0">
-                <TextBox Name="TbResult3"></TextBox>
-            </ScrollViewer>
-        </Grid>
+        <local:EngineClientBox x:Name="EngineClientBox1"/>
     </DockPanel>
 </Window>

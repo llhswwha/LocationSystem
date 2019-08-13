@@ -17916,7 +17916,7 @@
                        using (SQLiteDataReader dataReader = command.ExecuteReader())
                        {
                          while (dataReader.Read())
-                           Console.WriteLine(dataReader[0].ToString());
+                           Log.Info(dataReader[0].ToString());
                        }
                      }
             

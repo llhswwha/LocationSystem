@@ -138,7 +138,7 @@ namespace DbModel.Location.Person
         [DataMember]
         [Display(Name = "Rtsp地址")]
         [MaxLength(512)]
-        [NotMapped]
+        [NotMapped]//宝信项目需要注释这句话，四会项目需要打开
         public string RtspUrl { get; set; }
 
         /// <summary>

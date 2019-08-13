@@ -17,7 +17,7 @@ namespace TModel.Location.Manage
 
         public string Authority { get; set; }
 
-        public bool Result { get; set; }
+        public bool Result { get; set; }  
 
         public string ClientIp { get; set; }
 

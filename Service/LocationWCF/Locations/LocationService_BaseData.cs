@@ -73,21 +73,53 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
         {
-            List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
-            if (bFlag)
+            try
             {
-                lst = dbEx.InspectionTrackHistorys.ToList();
-            }
-            else
+                List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
+                if (bFlag)
+                {
+                    lst = dbEx.InspectionTrackHistorys.ToList();
+                }
+                else
+                {
+                    long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
+                    long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
+
+                    lst = dbEx.InspectionTrackHistorys.Where(p => p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
+
+                }
+                if (lst != null)
+                {
+                    foreach (var item in lst)
+                    {
+                        if (item == null) continue;
+                        else if (item.Route.Count == 0)
+                        {
+                            item.Route = null;
+                        }
+                        else
+                        {
+                            foreach (var check in item.Route)
+                            {
+                                if (check.Checks == null) continue;
+                                else
+                                {
+                                    if (check.Checks.Count == 0)
+                                    {
+                                        check.Checks = null;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                List<TModel.LocationHistory.Work.InspectionTrackHistory> tempList = lst.ToWcfModelList();
+                return tempList;
+            }catch(Exception e)
             {
-                long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
-                long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
-
-                lst = dbEx.InspectionTrackHistorys.Where(p=>p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
-
-            }
-
-            return lst.ToWcfModelList();
+                string error = e.ToString();
+                return null;
+            }            
         }
 
         /// <summary>
@@ -424,14 +456,29 @@ namespace LocationServices.Locations
 
         //    return;
         //}
-
-
+        
+        //根据巡检Id，获取详细巡检信息
+        public InspectionTrack GetInspectionTrackById(InspectionTrack trackId)
+        {
+            List<DbModel.Location.Work.InspectionTrack> lst = dbEx.InspectionTracks.ToList();
+            if (lst == null) return null;
+            DbModel.Location.Work.InspectionTrack trackDBModel = lst.Find(i=>i.Id==trackId.Id);
+            if (trackDBModel != null)
+            {
+                InspectionTrack inspectTemp= trackDBModel.ToTModel(false);
+                return inspectTemp;
+            }
+            else
+            {
+                return null;
+            }
+        }
         //获取巡检轨迹列表
         public List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
         {
             List<DbModel.Location.Work.InspectionTrack> lst = new List<DbModel.Location.Work.InspectionTrack>();
             try
-            {
+            {               
                 if (!bFlag)
                 {
                     lst = dbEx.InspectionTracks.ToList();
@@ -440,7 +487,6 @@ namespace LocationServices.Locations
                 {
                     long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
                     long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
-
                     lst = dbEx.InspectionTracks.Where(p => p.CreateTime >= lBeginTime && p.CreateTime <= lEndTime).ToList();
 
                 }
@@ -449,7 +495,6 @@ namespace LocationServices.Locations
             {
                 string strError = ex.Message;
             }
-
             return lst.ToWcfModelList();
         }
 

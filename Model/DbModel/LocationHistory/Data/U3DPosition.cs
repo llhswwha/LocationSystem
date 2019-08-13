@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.Tools;
 
@@ -109,7 +110,7 @@ namespace DbModel.LocationHistory.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                LogEvent.Error(ex);
                 return false;
             }
         }

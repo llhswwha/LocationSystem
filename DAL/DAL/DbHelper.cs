@@ -33,7 +33,12 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.ToList<T> type=" + typeof(T), ex);
-                ErrorMessage = ex.Message;
+                if (ex.Message ==
+                    "An error occurred while reading from the store provider's data reader. See the inner exception for details."
+                )
+                {
+                    ErrorMessage = ex.InnerException.Message;
+                }
                 return null;
             }
         }

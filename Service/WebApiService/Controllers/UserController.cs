@@ -21,10 +21,10 @@ namespace WebApiService.Controllers
         }
 
 
-
+        [Route("Version")]
         public VersionInfo GetVersionInfo()
         {
-            throw new NotImplementedException();
+            return service.GetVersionInfo();
         }
 
         [Route("HeartBeat/{info}")]

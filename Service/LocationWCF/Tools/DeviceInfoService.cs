@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Location.BLL.Tool;
 using Location.TModel.Location.AreaAndDev;
 
 namespace Location.Model.DataObjects.ObjectAddList
@@ -14,7 +15,7 @@ namespace Location.Model.DataObjects.ObjectAddList
             //IsBindingPos = true;
             if (devInfoList == null || devInfoList.Count == 0)
             {
-                Console.WriteLine("DevInfoList is null");
+                Log.Info("DevInfoList is null");
                 return;
             }
             foreach (var item in devInfoList)
@@ -22,7 +23,7 @@ namespace Location.Model.DataObjects.ObjectAddList
                 DevPos pos = devPosList.Find(o => o.DevID == item.DevID);
                 if (pos == null)
                 {
-                    Console.WriteLine("设备：{0} 加载位置信息失败.", item.DevID);
+                    Log.Info("设备：{0} 加载位置信息失败.", item.DevID);
                 }
                 else
                 {
@@ -36,7 +37,7 @@ namespace Location.Model.DataObjects.ObjectAddList
             //IsBindingPos = true;
             if (devInfoList == null || devInfoList.Count == 0)
             {
-                Console.WriteLine("DevInfoList is null");
+                Log.Info("DevInfoList is null");
                 return;
             }
             if(nodeList!=null)
@@ -49,13 +50,13 @@ namespace Location.Model.DataObjects.ObjectAddList
                 PhysicalTopology node = nodeList.Find(o => o.Id == item.ParentId);
                 if (node == null)
                 {
-                    Console.WriteLine("设备：{0} 加载位置信息失败.", item.DevID);
+                    Log.Info("设备：{0} 加载位置信息失败.", item.DevID);
                 }
                 else
                 {
                     //item.Parent = node;
                     item.Path = GetPath(node);
-                    //Console.WriteLine("path：{0} ", item.Path);
+                    //Log.Info("path：{0} ", item.Path);
                 }
             }
         }

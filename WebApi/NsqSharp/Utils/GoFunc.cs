@@ -22,7 +22,7 @@ namespace NsqSharp.Utils
         /// <param name="msg"></param>
         public static void Info(string msg)
         {
-            Console.WriteLine(msg);
+            //Log.Info(msg);
             if (InfoEvent != null)
             {
                 InfoEvent(msg);

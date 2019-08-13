@@ -49,7 +49,7 @@ namespace BLL.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DepartmentsBackupHelper.AddDepartmentInfo:" + e.ToString());
+                Log.Info("Error in DepartmentsBackupHelper.AddDepartmentInfo:" + e.ToString());
             }
         }
 

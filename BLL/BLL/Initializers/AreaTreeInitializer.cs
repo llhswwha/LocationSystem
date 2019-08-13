@@ -345,6 +345,15 @@ namespace BLL
                 Log.Info(LogTags.DbInit, string.Format("导入设备信息结果:{0}", valueFireFightDev));
             }            
         }
+        /// <summary>
+        /// 删除重复设备
+        /// </summary>
+        public void ClearRepeatDev()
+        {
+            Log.Info(LogTags.DbInit, "删除重复设备信息start...");
+            bool value = DevInfoHelper.ClearRepeatDev(_bll);
+            Log.Info(LogTags.DbInit, string.Format("删除重复设备信息结果:{0}", value));
+        }
 
         private void InitEntranceGuardCard()
         {

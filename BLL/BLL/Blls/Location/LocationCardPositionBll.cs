@@ -98,7 +98,8 @@ namespace BLL.Blls.Location
                     }
                     else
                     {
-                        tag1.MoveState = 2;
+                        //tag1.MoveState = 2;
+                        tag1.MoveState = 1;//如果没做到实时插入，这里totalSeconds会大于60s
                     }
                 }
             }

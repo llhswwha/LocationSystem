@@ -4,8 +4,8 @@ namespace Location.IModel.FuncArgs
 {
     public interface IAlarmSearchArg
     {
-        DateTime Start { get; set; }
-        DateTime End { get; set; }
+        string Start { get; set; }
+        string End { get; set; }
 
         /// <summary>
         /// 告警等级

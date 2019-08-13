@@ -22,7 +22,7 @@ namespace LocationServer.Tools
 
         HttpListener httpListener;
 
-        public void Start()
+        public bool Start()
         {
             if (httpListener == null)
             {
@@ -32,41 +32,65 @@ namespace LocationServer.Tools
                     httpListener.Prefixes.Add(url);
                     httpListener.Start();
                     httpListener.BeginGetContext(new AsyncCallback(WebRequestCallback), httpListener);
+                    return true;
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("MyHttpListener.Start:" + ex);
+                    Log.Error(string.Format("MyHttpListener.Start,url:{0},Exception:{1}",url,ex));
+                    httpListener = null;
+                    return false;
                 }
-
+            }
+            else
+            {
+                return true;
             }
         }
 
         public void Stop()
         {
-            if (httpListener != null)
+            try
             {
-                try
+                if (httpListener != null)
                 {
-                    httpListener.Stop();
-                }
-                catch (Exception ex)
-                {
+                    try
+                    {
+                        if(httpListener.IsListening)
+                            httpListener.Stop();
+                    }
+                    catch (Exception ex)
+                    {
 
-                    Log.Error("MyHttpListener.Stop:" + ex);
+                        Log.Error("MyHttpListener.Stop:" + ex);
+                    }
+                    httpListener = null;
                 }
-                httpListener = null;
             }
+            catch (Exception e)
+            {
+                Log.Error(e);
+            }
+            
         }
 
         private void WebRequestCallback(IAsyncResult ar)
         {
-            if (httpListener == null)
+            try
             {
-                return;
+                if (httpListener == null)
+                {
+                    return;
+                }
+                HttpListenerContext context = httpListener.EndGetContext(ar);
+                httpListener.BeginGetContext(new AsyncCallback(WebRequestCallback), httpListener);
+                ProcessRequest(context);
             }
-            HttpListenerContext context = httpListener.EndGetContext(ar);
-            httpListener.BeginGetContext(new AsyncCallback(WebRequestCallback), httpListener);
-            ProcessRequest(context);
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+                Stop();
+                Start();//重启
+            }
         }
 
         private void ProcessRequest(HttpListenerContext context)
@@ -102,8 +126,14 @@ namespace LocationServer.Tools
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Error：{ex.ToString()}");
+                try
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Log.Info($"Error：{ex.ToString()}");
+                }catch(Exception e)
+                {
+
+                }             
             }
         }
 
@@ -126,14 +156,26 @@ namespace LocationServer.Tools
             {
                 response.StatusDescription = "404";
                 response.StatusCode = 404;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"在接收数据时发生错误:{ex.ToString()}");
+                try
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Log.Info($"在接收数据时发生错误:{ex.ToString()}");
+                }catch(Exception e)
+                {
+
+                }                
                 return $"在接收数据时发生错误:{ex.ToString()}";//把服务端错误信息直接返回可能会导致信息不安全，此处仅供参考
             }
             response.StatusDescription = "200";//获取或设置返回给客户端的 HTTP 状态代码的文本说明。
             response.StatusCode = 200;// 获取或设置返回给客户端的 HTTP 状态代码。
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"接收数据完成,时间：{DateTime.Now.ToString()}");
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Log.Info($"接收数据完成,时间：{DateTime.Now.ToString()}");
+            }catch(Exception e)
+            {
+
+            }
             return res;
         }
     }

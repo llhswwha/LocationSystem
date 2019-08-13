@@ -503,5 +503,30 @@ namespace BLL.Blls
                 return false;
             }
         }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="total"></param>
+        /// <returns></returns>
+        public IQueryable<T> QueryPage(int pageSize, int pageIndex, out int total)
+        {
+            total = DbSet.Count();
+            return DbSet.Take(pageSize * (pageIndex - 1)).Skip(pageSize).AsQueryable();
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="total"></param>
+        /// <returns></returns>
+        public List<T> GetPageList(int pageSize, int pageIndex, out int total)
+        {
+            return QueryPage(pageSize,pageIndex,out total).ToList();
+        }
     }
 }

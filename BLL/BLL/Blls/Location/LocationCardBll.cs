@@ -33,5 +33,25 @@ namespace BLL.Blls.Location
         {
             return DbSet.Where(i => i.CardRoleId==roleId).ToList();
         }
+
+        public virtual Dictionary<string, LocationCard> ToDictionaryByCode()
+        {
+            Dictionary<string, LocationCard> dic = new Dictionary<string, LocationCard>();
+            var list = DbSet.ToListEx(false);
+            foreach (var item in list)
+            {
+                if (string.IsNullOrEmpty(item.Code)) continue;
+                if (dic.ContainsKey(item.Code))
+                {
+                    dic[item.Code] = item;
+                }
+                else
+                {
+                    dic.Add(item.Code, item);
+                }
+                
+            }
+            return dic;
+        }
     }
 }

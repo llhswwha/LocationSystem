@@ -4,14 +4,63 @@ namespace DbModel.Tools
 {
     public static class LogEvent
     {
-        public static event Action<string> InfoEvent;
+        public class LogEventInfo
+        {
+            public string Level = "Info";
+
+            public string Msg = "";
+
+            public string Tag = "";
+
+            public LogEventInfo(string msg, string level, string tag)
+            {
+                this.Msg = msg;
+                this.Level = level;
+                this.Tag = tag;
+            }
+
+            public LogEventInfo()
+            {
+
+            }
+
+            public override string ToString()
+            {
+                return String.Format("[{0}]{1} {2}", Level, Tag,Msg);
+            }
+        }
+
+        public static event Action<LogEventInfo> InfoEvent;
 
         public static void Info(string msg)
         {
-            Console.WriteLine(msg);
-            if (InfoEvent != null)
+            try
             {
-                InfoEvent(msg);
+                LogEventInfo info=new LogEventInfo(msg,"Info","");
+                if (InfoEvent != null)
+                {
+                    InfoEvent(info);
+                }
+            }catch(Exception e)
+            {
+
+            }            
+        }
+
+        public static void Error(Exception ex)
+        {
+            try
+            {
+                LogEventInfo info = new LogEventInfo(ex.ToString(), "Error", "");
+                //Log.Info(msg);
+                if (InfoEvent != null)
+                {
+                    InfoEvent(info);
+                }
+            }
+            catch (Exception e)
+            {
+
             }
         }
     }

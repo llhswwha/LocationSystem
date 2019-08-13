@@ -61,12 +61,38 @@ namespace LocationWCFServer
         {
             InitializeComponent();
             this.Closed += MainWindow_Closed;
-            LogEvent.InfoEvent += LogEvent_InfoEvent;
+            this.Closing += MainWindow_Closing;
+            LogEvent.InfoEvent += LogEvent_InfoEvent1;
         }
 
-        private void LogEvent_InfoEvent(string obj)
+        private void LogEvent_InfoEvent1(LogEvent.LogEventInfo obj)
         {
-            //Location.BLL.Tool.Log.Info(obj);
+            Location.BLL.Tool.Log.Info(obj);
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBox.Show("是否退出服务端程序", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
+                if (EnabelNVS || nginxCmdProcess!=null)
+                {
+                    if (nginxCmdProcess != null)
+                    {
+                        nginxCmdProcess.CloseMainWindow();
+                    }
+
+                    string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\stopq.bat";
+                    if (File.Exists(nginx))
+                    {
+                        Process.Start(nginx); //关闭nginx-rtmp
+                    }
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private PositionEngineLog Logs = new PositionEngineLog();
@@ -95,9 +121,34 @@ namespace LocationWCFServer
             //byte[] bytes5 = Encoding.UTF7.GetBytes(str);
             //byte[] bytes6 = Encoding.Default.GetBytes(str);
 
-            var version = ConfigurationHelper.GetValue("ServerVersionCode");
+            version = ConfigurationHelper.GetValue("ServerVersionCode");
 
-            this.Title += "    -v" + version;
+            this.Title = "服务端    -v" + version;
+
+            var isStartDaemon = ConfigurationHelper.GetBoolValue("StartDaemon");
+            if (isStartDaemon)
+            {
+                StartDaemon(false);
+            }
+
+            timeTimer = new DispatcherTimer();
+            timeTimer.Interval = TimeSpan.FromMilliseconds(500);
+            //timer2.Interval = TimeSpan.FromSeconds(1);
+            timeTimer.Tick += TimeTimer_Tick;
+            timeTimer.Start();
+        }
+
+        private string version;
+
+        private DispatcherTimer timeTimer;
+
+        private DateTime startTime = DateTime.Now;
+
+        private void TimeTimer_Tick(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            var time = (now - startTime);
+            this.Title = string.Format("{0}    -v{1} [{2}][{3:dd\\.hh\\:mm\\:ss}]", "服务端", version, now.ToString("HH:mm:ss"), time);
         }
 
         private void InitData()
@@ -108,9 +159,13 @@ namespace LocationWCFServer
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             ServerManagerBox1.StopServices();
+            ServerManagerBox1.StopLogTimer();
             ServerManagerBox1.StopListenLog();
-        }
 
+            CloseDaemonProcess();
+            if(Application.Current!=null)
+                Application.Current.Shutdown();
+        }
 
         //private void BtnConnectEngine_Click(object sender, RoutedEventArgs e)
         //{
@@ -204,6 +259,7 @@ namespace LocationWCFServer
 
         private void ShowEngineClientWindow()
         {
+            Log.Info(LogTags.Server, "打开定位引擎客户端窗口");
             var win = new EngineClientWindow();
             win.Show();
         }
@@ -420,54 +476,165 @@ namespace LocationWCFServer
             //NVSSDK.NetClient_Startup_V4(0, 0, 0);
 
             //NVRPlayerClientWindow window = new NVRPlayerClientWindow();
-            //window.Show();
+            //window.Show()
+
+            NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
+
+            NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
+            NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
+            NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
+            NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
+            NVSManage.Init();//启动天地伟业Playback界面
+
+            string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
+            if (File.Exists(nginx))
+            {
+                nginxCmdProcess=Process.Start(nginx);//启动nginx-rtmp
+            }
+            else
+            {
+                //WriteLog("找不到nginx启动文件:" + nginx);
+            }
         }
+
+        private Process nginxCmdProcess;
 
         private void MenuSaveCameraAlarmPicture_Click(object sender, RoutedEventArgs e)
         {
             Worker.Run(() =>
             {
-                Log.Info("开始");
+                bool r = true;
+                while (r)
+                {
+                    try
+                    {
+                        Log.Info("开始");
 
-                LocationService s = new LocationService();
-                //var list=s.GetAllCameraAlarms(true);
-                var bll = Bll.NewBllNoRelation();
-                int count = bll.CameraAlarmJsons.DbSet.Count();
-                Log.Info("count:" + count);
-                List<CameraAlarmJson> list2 = bll.CameraAlarmJsons.ToList();
-                Log.Info("获取到列表");
-                if (list2 != null)
-                {
-                    Log.Info("成功");
-                    for (int i1 = 0; i1 < list2.Count; i1++)
-                    {
-                        Log.Info(string.Format("进度:{0}/{1}", i1, list2.Count));
-                        CameraAlarmJson camera = list2[i1];
-                        SavePicture(camera, bll);
-                    }
-                }
-                else
-                {
-                    Log.Info("失败");
-                    Log.Info("太多了取不出来，一个一个取");
-                    for (int i = 0; i < count; i++)
-                    {
-                        Log.Info(string.Format("进度:{0}/{1}", i, count));
-                        CameraAlarmJson camera = bll.CameraAlarmJsons.Find(i + 1);
-                        if (camera == null)
+                        LocationService s = new LocationService();
+                        //var list=s.GetAllCameraAlarms(true);
+                        var bll = Bll.NewBllNoRelation();
+                        int count = bll.CameraAlarmJsons.DbSet.Count();
+                        Log.Info("count:" + count);
+                        List<CameraAlarmJson> list2 = bll.CameraAlarmJsons.ToList();
+                        Log.Info("获取到列表");
+                        if (list2 != null)
                         {
-                            Log.Info("找不到id:" + (i + 1));
-                            continue;
+                            Log.Info("成功");
+                            for (int i1 = 0; i1 < list2.Count; i1++)
+                            {
+                                Log.Info(string.Format("进度:{0}/{1}", i1, list2.Count));
+                                CameraAlarmJson camera = list2[i1];
+                                SavePicture(camera, bll);
+                            }
                         }
+                        else
+                        {
+                            Log.Info("失败");
+                            Log.Info("太多了取不出来，一个一个取");
+                            for (int i = 0; i < count; i++)
+                            {
+                                Log.Info(string.Format("进度:{0}/{1}", i, count));
+                                CameraAlarmJson camera = bll.CameraAlarmJsons.Find(i + 1);
+                                if (camera == null)
+                                {
+                                    Log.Info("找不到id:" + (i + 1));
+                                    continue;
+                                }
 
-                        SavePicture(camera, bll);
+                                SavePicture(camera, bll);
+                            }
+                        }
+                        Log.Info("完成");
+                        r = false;//真的完成
+                    }
+                    catch (Exception exception)
+                    {
+                        //出异常
                     }
                 }
-
-                Log.Info("完成");
-
             }, () => { MessageBox.Show("完成"); });
+        }
 
+        public void GetImage(string base64)
+        {
+            base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
+            byte[] bytes = Convert.FromBase64String(base64);
+            //string imagebase64 = base64.Substring(base64.IndexOf(",") + 1);
+
+            MemoryStream memStream = new MemoryStream(bytes);
+            System.Drawing.Image mImage = System.Drawing.Image.FromStream(memStream);
+            string path = AppDomain.CurrentDomain.BaseDirectory + "1.jpg";
+            mImage.Save(path);
+
+            //BitmapImage bi = new BitmapImage();
+            //bi.BeginInit();
+            //bi.StreamSource = new MemoryStream(bytes);
+            //bi.EndInit();
+            //Image1.Source = bi;
+        }
+
+        private void MenuSaveCameraAlarmPicture2_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                try
+                {
+                    Log.Info("开始");
+
+                    var bll = Bll.NewBllNoRelation();
+                    int count = bll.Pictures.DbSet.Count();
+                    Log.Info("pic count:" + count);
+
+                    LocationService s = new LocationService();
+                    var list = s.GetAllCameraAlarms(false);
+
+                    Log.Info("alarm count:" + list.Count);
+
+                    List<string> picNameList = new List<string>();
+                    foreach (var item in list)
+                    {
+                        if (!picNameList.Contains(item.pic_name))
+                        {
+                            picNameList.Add(item.pic_name);
+                        }
+                    }
+
+                    Log.Info("pic count 2:" + picNameList.Count);
+
+                    string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Image\\CameraAlarms\\";
+
+                    DirectoryInfo dirInfo = new DirectoryInfo(dirPath);
+
+                    if (dirInfo.Exists == false)
+                    {
+                        dirInfo.Create();
+                    }
+
+                    //return;
+                    for (int i1 = 0; i1 < picNameList.Count; i1++)
+                    {
+                        Log.Info(string.Format("进度:{0}/{1}", i1, picNameList.Count));
+                        //CameraAlarmInfo camera = picNameList[i1];
+                        //SavePicture(camera, bll);
+                        Picture pic = s.GetCameraAlarmPicture(picNameList[i1]);
+                        if (pic == null) continue;//已经提取出来的
+                       
+                        //Log.Info(string.Format("进度:{0}/{1},[{2}]", i1, list.Count, r!=null));
+                        string filePath = dirPath + pic.Name;
+                        string base64 = Encoding.UTF8.GetString(pic.Info);
+                        base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
+                        byte[] bytes = Convert.FromBase64String(base64);
+                        System.IO.File.WriteAllBytes(filePath, bytes);
+
+                        var r = bll.Pictures.DeleteById(pic.Id);
+                    }
+                    Log.Info("完成");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.ToString());
+                }
+            }, () => { MessageBox.Show("完成"); });
         }
 
         private void SavePicture(CameraAlarmJson camera, Bll bll)
@@ -524,5 +691,94 @@ namespace LocationWCFServer
             DateTime AlarmTime = dtStart.Add(toNowNew);
             return AlarmTime;
         }
+
+        private void MenuSetting_OnClick(object sender, RoutedEventArgs e)
+        {
+            SettingWindow win = new SettingWindow();
+            win.ShowDialog();
+        }
+
+        private void MenuStartDaemon_OnClick(object sender, RoutedEventArgs e)
+        {
+            StartDaemon(true);
+        }
+
+
+        private void CloseDaemonProcess()
+        {
+            var processes = GetDaemonProcessList();
+            if (processes.Count > 0)
+            {
+                if (MessageBox.Show("是否关闭守护进程？\n不关闭则会重新启动服务端。", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    foreach (Process process in processes)
+                    {
+                        try
+                        {
+                            process.CloseMainWindow(); //关闭所有其他已经启动的守护进程
+                        }
+                        catch (Exception exception) //拒绝访问
+                        {
+                        }
+                    }
+                }
+            }
+        }
+
+        private List<Process> GetDaemonProcessList()
+        {
+            string processName = ConfigurationHelper.GetValue("DaemonProcess");
+            Process[] processes = Process.GetProcessesByName(processName);
+            List<Process> list = processes.Where(i => i.HasExited == false).ToList();
+            return list;
+        }
+
+        private void StartDaemon(bool closeDaemon)
+        {
+            //var processName = "LocationDaemon";
+            bool OnlyOneDaemon = ConfigurationHelper.GetBoolValue("OnlyOneDaemon");
+            //string processName = ConfigurationHelper.GetValue("DaemonProcess");
+            var process = GetDaemonProcessList();
+                //string processName = "LocationDaemon";
+            if (process.Count > 0)
+            {
+                if (closeDaemon == false)
+                {
+                    return;//程序启动时
+                }
+                else//手动启动收获进程
+                {
+                    if (OnlyOneDaemon)
+                    {
+                        foreach (Process process1 in process)
+                        {
+                            try
+                            {
+                                process1.CloseMainWindow(); //关闭所有其他已经启动的守护进程
+                            }
+                            catch (Exception e) //拒绝访问
+                            {
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+            //string path = AppDomain.CurrentDomain.BaseDirectory + "LocationDaemon.exe";
+            string path = ConfigurationHelper.GetValue("DaemonPath");
+            if (File.Exists(path))
+            {
+                Process.Start(path);
+            }
+            else
+            {
+                //MessageBox.Show("找不到文件:" + path);
+                Log.Info(LogTags.Server, "找不到文件:" + path);
+            }
+        }
+
     }
 }

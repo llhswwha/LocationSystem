@@ -76,6 +76,10 @@ namespace LocationServices.Locations.Interfaces
         List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
 
         [OperationContract]
+        InspectionTrack GetInspectionTrackById(InspectionTrack trackId);
+
+
+        [OperationContract]
         List<PatrolPoint> Getcheckpoints(int InspectionId);
 
         [OperationContract]

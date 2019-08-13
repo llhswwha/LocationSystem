@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LocationServer.Windows"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="LocationHistoryWindow" Height="450" Width="1200">
+        Title="LocationHistoryWindow" Height="450" Width="1200" Loaded="LocationHistoryWindow_OnLoaded">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <!--<Button Name="BtnGetAll" Click="BtnGetAll_OnClick" Content="获取全部"></Button>-->
@@ -27,13 +27,24 @@
             <xctk:TimePicker Width="100" Name="TpEnd"></xctk:TimePicker>
             <Button Name="BtnSearch" Click="BtnSearch_OnClick" Content="查询"></Button>
         </StackPanel>
-        <TabControl>
+        <TextBox DockPanel.Dock="Bottom" Height="50" Name="TbLogs"></TextBox>
+            <TabControl>
             <TabItem Header="时间统计">
                 <DockPanel>
                     <DataGrid Name="DataGridStatisticDay" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDay_OnSelectionChanged"></DataGrid>
                     <DataGrid Name="DataGridStatisticDayPerson" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPerson_OnSelectionChanged"></DataGrid>
                     <DataGrid Name="DataGridStatisticDayPersonTime" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPersonTime_OnSelectionChanged"></DataGrid>
-                    <DataGrid Name="DataGridDayPersonPosList"></DataGrid>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Bottom">
+                            <TextBox Name="TbPostion"></TextBox>
+                            <Button Content="发送当前数据" Name="BtnSendCurrentPos" Click="BtnSendCurrentPos_OnClick"></Button>
+                            <Button Content="发送下一数据" Name="BtnSendNextPos" Click="BtnSendNextPos_OnClick"></Button>
+                            <Button Content="开始模拟数据"  Name="BtnStartSendPos" Click="BtnStartSendPos_OnClick"></Button>
+                        </StackPanel>
+                        <DataGrid Name="DataGridDayPersonPosList" SelectionChanged="DataGridDayPersonPosList_OnSelectionChanged"></DataGrid>
+                    </DockPanel>
+                    
+                    
                 </DockPanel>
             </TabItem>
             <TabItem Header="人员统计">

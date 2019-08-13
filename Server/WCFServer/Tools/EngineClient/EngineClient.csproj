@@ -107,10 +107,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EngineClientBox.xaml.cs">
+      <DependentUpon>EngineClientBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EngineClientSetting.cs" />
     <Compile Include="RealPositionWindow.xaml.cs">
       <DependentUpon>RealPositionWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="EngineClientBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EngineClientWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

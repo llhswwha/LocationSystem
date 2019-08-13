@@ -296,13 +296,21 @@ namespace BLL
             //1.获取列表
             List<LocationCardPosition> tagPosList = LocationCardPositions.ToList();
             List<LocationCardPosition> changedTagPosList = new List<LocationCardPosition>();
+            //Dictionary<string, LocationCard> dict = LocationCards.ToDictionaryByCode();//放在TagRelationBuffer中
             List<LocationCardPosition> newTagPosList = new List<LocationCardPosition>();
+
             //2.修改数据
             for (int i = 0; i < positions.Count; i++)
             {
                 Position position = positions[i];
                 if (position == null) continue;//位置信息可能有null
-                LocationCard lc = LocationCards.Where(p=>p.Code == position.Code).FirstOrDefault();
+                //LocationCard lc = LocationCards.Where(p=>p.Code == position.Code).FirstOrDefault();
+                LocationCard lc = null;
+                Dictionary<string, LocationCard> dict = TagRelationBuffer.Instance().GetLocationCardDic();
+                if (dict!=null&&dict.ContainsKey(position.Code))
+                {
+                    lc = dict[position.Code];
+                }
                 if (lc == null) continue;
                 if (lc.Flag != position.Flag || lc.Power != position.Power)
                 {

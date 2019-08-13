@@ -255,7 +255,7 @@ namespace LocationServices.Locations.Services
             //IsBindingPos = true;
             if (devInfoList == null || devInfoList.Count == 0)
             {
-                Console.WriteLine("DevInfoList is null");
+                Log.Info("DevInfoList is null");
                 return;
             }
             foreach (var item in devInfoList)
@@ -263,7 +263,7 @@ namespace LocationServices.Locations.Services
                 DevPos pos = devPosList.Find(o => o.DevID == item.DevID);
                 if (pos == null)
                 {
-                    Console.WriteLine("设备：{0} 加载位置信息失败.", item.DevID);
+                    Log.Info("设备：{0} 加载位置信息失败.", item.DevID);
                 }
                 else
                 {
@@ -277,7 +277,7 @@ namespace LocationServices.Locations.Services
             //IsBindingPos = true;
             if (devInfoList == null || devInfoList.Count == 0)
             {
-                Console.WriteLine("DevInfoList is null");
+                Log.Info("DevInfoList is null");
                 return;
             }
             if (nodeList != null)
@@ -290,13 +290,13 @@ namespace LocationServices.Locations.Services
                 PhysicalTopology node = nodeList.Find(o => o.Id == item.ParentId);
                 if (node == null)
                 {
-                    Console.WriteLine("设备：{0} 加载位置信息失败.", item.DevID);
+                    Log.Info("设备：{0} 加载位置信息失败.", item.DevID);
                 }
                 else
                 {
                     //item.Parent = node;
                     item.Path = GetPath(node);
-                    //Console.WriteLine("path：{0} ", item.Path);
+                    //Log.Info("path：{0} ", item.Path);
                 }
             }
         }
@@ -344,22 +344,71 @@ namespace LocationServices.Locations.Services
             float sqrtDistance = 0;
             float Distance = 0;
 
-            var query = from t1 in db.DevInfos.DbSet
-                        join t2 in db.DevTypes.DbSet on t1.Local_TypeCode equals t2.TypeCode
-                        join t3 in db.Areas.DbSet on t1.ParentId equals t3.Id
-                        where t1.ParentId == AreadId && (nFlag == 0 ? true : (t1.Local_TypeCode == 3000201 || t1.Local_TypeCode == 14 || t1.Local_TypeCode == 3000610 || t1.Local_TypeCode == 1000102))
-                        select new NearbyDev { id = t1.Id, Name = t1.Name, TypeCode = t1.Local_TypeCode, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
-
-            if (query != null)
+            //根据区域ID和标志位获取摄像头
+            GetCameraDevByAreaId(AreadId, nFlag, lst2);
+            if (lst2.Count <= 0)
             {
-                lst2 = query.ToList();
+                DbModel.Location.AreaAndDev.Area area = db.Areas.Find(p => p.Id == AreadId);
+                GetCameraDevByAreaId(area.ParentId, nFlag, lst2);
+            }
+
+            //var query = from t1 in db.DevInfos.DbSet
+            //            join t2 in db.DevTypes.DbSet on t1.Local_TypeCode equals t2.TypeCode
+            //            join t3 in db.Areas.DbSet on t1.ParentId equals t3.Id
+            //            where t1.ParentId == AreadId && (nFlag == 0 ? true : (t1.Local_TypeCode == 3000201 || t1.Local_TypeCode == 14 || t1.Local_TypeCode == 3000610 || t1.Local_TypeCode == 1000102))
+            //            select new NearbyDev { id = t1.Id, Name = t1.Name, TypeCode = t1.Local_TypeCode, TypeName = t2.TypeName, Area = t3.Name, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
+
+            //if (query != null)
+            //{
+            //    lst2 = query.ToList();
+            //}
+
+            var areas = db.Areas.ToDictionary();
+            var bounds = db.Bounds.ToDictionary();
+
+            foreach (var item in areas)
+            {
+                var area = item.Value;
+                if (area.InitBoundId != null)
+                {
+                    area.InitBound = bounds[(int)area.InitBoundId];
+                }
             }
 
             foreach (NearbyDev item in lst2)
             {
-                PosX2 = item.X - PosX;
-                PosY2 = item.Y - PosY;
-                PosZ2 = item.Z - PosZ;
+                float x = item.X;
+                float y = item.Y;
+                float z = item.Z;
+
+                if (areas.ContainsKey(item.AreaId))
+                {
+                    var area = areas[item.AreaId];//所在区域
+                   
+
+                    if (area.Type == AreaTypes.机房)
+                    {
+                        var floor = areas[(int)area.ParentId];
+                        var building = areas[(int)floor.ParentId];//
+                        var minX = area.InitBound.GetZeroX()+floor.InitBound.GetZeroX() + building.InitBound.GetZeroX();
+                        var minY = area.InitBound.GetZeroY() + floor.InitBound.GetZeroY() + building.InitBound.GetZeroY();
+                        x += minX;
+                        z += minY;
+                    }
+                    else if (area.Type == AreaTypes.楼层)
+                    {
+                        var floor = area;
+                        var building = areas[(int)floor.ParentId];//
+                        var minX = floor.InitBound.GetZeroX() + building.InitBound.GetZeroX();
+                        var minY = floor.InitBound.GetZeroY() + building.InitBound.GetZeroY();
+                        x += minX;
+                        z += minY;
+                    }
+                }
+                
+                PosX2 = x - PosX;
+                PosY2 = y - PosY;
+                PosZ2 = z - PosZ;
 
                 sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
                 Distance = (float)System.Math.Sqrt(sqrtDistance);
@@ -393,6 +442,34 @@ namespace LocationServices.Locations.Services
             return lst;
         }
 
+        private void GetCameraDevByAreaId(int? AreadId, int nFlag, List<NearbyDev> lst2)
+        {
+            List<NearbyDev> Result = new List<NearbyDev>();
+
+            var query = from t1 in db.DevInfos.DbSet
+                        join t2 in db.DevTypes.DbSet on t1.Local_TypeCode equals t2.TypeCode
+                        join t3 in db.Areas.DbSet on t1.ParentId equals t3.Id
+                        where t1.ParentId == AreadId && (nFlag == 0 ? true : (t1.Local_TypeCode == 3000201 || t1.Local_TypeCode == 14 || t1.Local_TypeCode == 3000610 || t1.Local_TypeCode == 1000102))
+                        select new NearbyDev { id = t1.Id, Name = t1.Name, TypeCode = t1.Local_TypeCode, TypeName = t2.TypeName, AreaName = t3.Name, AreaId=t3.Id, X = t1.PosX, Y = t1.PosY, Z = t1.PosZ };
+
+            if (query != null)
+            {
+                Result = query.ToList();
+            }
+
+            if (Result == null || Result.Count <= 0)
+            {
+                return;
+            }
+
+            foreach (NearbyDev item in Result)
+            {
+                lst2.Add(item);
+            }
+
+            return;
+        }
+
         public List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis)
         {
             List<NearbyDev> lst = new List<NearbyDev>();
@@ -420,7 +497,7 @@ namespace LocationServices.Locations.Services
                         join t3 in db.DevTypes.DbSet on t2.Local_TypeCode equals t3.TypeCode
                         join t4 in db.Areas.DbSet on t2.ParentId equals t4.Id
                         where t2.ParentId == AreadId && (t2.Local_TypeCode == 3000201 || t2.Local_TypeCode == 14 || t2.Local_TypeCode == 3000610 || t2.Local_TypeCode == 1000102)
-                        select new NearbyDev { id = t2.Id, Name = t2.Name, TypeCode = t2.Local_TypeCode, TypeName = t3.TypeName, Area = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
+                        select new NearbyDev { id = t2.Id, Name = t2.Name, TypeCode = t2.Local_TypeCode, TypeName = t3.TypeName, AreaName = t4.Name, X = t2.PosX, Y = t2.PosY, Z = t2.PosZ };
             if (query != null)
             {
                 lst2 = query.ToList();

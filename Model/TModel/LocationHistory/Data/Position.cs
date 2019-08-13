@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using DbModel.Tools;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Tools;
 
@@ -167,7 +168,7 @@ namespace Location.TModel.LocationHistory.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                LogEvent.Info(ex.ToString());
                 return false;
             }
         }

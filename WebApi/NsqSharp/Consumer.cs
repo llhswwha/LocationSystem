@@ -111,7 +111,7 @@ namespace NsqSharp
     ///             consumer.ConnectToNsqd("127.0.0.1:4150"); // nsqd tcp address/port
     ///             //consumer.ConnectToNsqLookupd("127.0.0.1:4161"); // nsqlookupd http address/port
     ///     
-    ///             Console.WriteLine("Listening for messages. Press enter to stop...");
+    ///             Log.Info("Listening for messages. Press enter to stop...");
     ///             Console.ReadLine();
     ///     
     ///             consumer.Stop();
@@ -124,7 +124,7 @@ namespace NsqSharp
     ///         public void HandleMessage(IMessage message)
     ///         {
     ///             string msg = Encoding.UTF8.GetString(message.Body);
-    ///             Console.WriteLine(msg);
+    ///             Log.Info(msg);
     ///         }
     ///     
     ///         // Called when a message has exceeded the specified MaxAttempts.

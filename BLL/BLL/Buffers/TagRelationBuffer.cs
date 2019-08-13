@@ -22,6 +22,7 @@ namespace BLL
         private List<Archor> archors;
         private List<Area> areas;
         private Bll bll;
+        private Dictionary<string, LocationCard> locationCardDic;
 
         private static TagRelationBuffer Single = null;
 
@@ -70,6 +71,7 @@ namespace BLL
             archors = bll.Archors.ToList();//基站
             areas = bll.Areas.GetWithBoundPoints(true);
             roles = bll.CardRoles.ToList();
+
         }
 
         public void RefreshTags()
@@ -77,8 +79,16 @@ namespace BLL
             personnels = bll.Personnels.ToList();
             tagToPersons = bll.LocationCardToPersonnels.ToList();
             tags = bll.LocationCards.ToList();
+            locationCardDic = bll.LocationCards.ToDictionaryByCode();
         }
-
+        public Dictionary<string, LocationCard> GetLocationCardDic()
+        {
+            if(locationCardDic==null)
+            {
+                locationCardDic= bll.LocationCards.ToDictionaryByCode();
+            }
+            return locationCardDic;
+        }
         public void SetPositionInfo(List<Position> positions)
         {
             LoadData();
@@ -202,7 +212,7 @@ namespace BLL
 
                 if (pos.IsAreaNull())
                 {
-                    Console.WriteLine("pos.IsAreaNull()");
+                    Log.Info("pos.IsAreaNull()");
                 }
             }
             catch (Exception ex)
@@ -411,7 +421,7 @@ namespace BLL
             }
             if (inArea == null)
             {
-                Console.WriteLine("inArea == null");
+                Log.Info("inArea == null");
             }
             return inArea;
         }

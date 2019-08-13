@@ -60,6 +60,7 @@ namespace PlaybackDemo
 
         public PlayBackForm(string[] args)
         {
+
             InitializeComponent();
 
             SDK_Init();
@@ -67,30 +68,33 @@ namespace PlaybackDemo
 
             try
             {
-                string ip = args[0];
-                string port = args[1];
-                string user = args[2];
-                string pass = args[3];
-                string channel = args[4];
-
-                SetLoginInfo(ip, port, user, pass);
-
-                AutoLogin = true;
-
-                AfterLogin = (f, s) =>
+                if (args.Length > 4)
                 {
-                    if (s)
+                    string ip = args[0];
+                    string port = args[1];
+                    string user = args[2];
+                    string pass = args[3];
+                    string channel = args[4];
+
+                    SetLoginInfo(ip, port, user, pass);
+
+                    AutoLogin = true;
+
+                    AfterLogin = (f, s) =>
                     {
-                        cboChanList.SelectedIndex = (channel.ToInt() - 1);
-                        if (args.Length > 6)
+                        if (s)
                         {
-                            string start = args[5];
-                            string end = args[6];
-                            dtStartTime.Value = start.ToDateTime();
-                            dtEndTime.Value = end.ToDateTime();
+                            cboChanList.SelectedIndex = (channel.ToInt() - 1);
+                            if (args.Length > 6)
+                            {
+                                string start = args[5];
+                                string end = args[6];
+                                dtStartTime.Value = start.ToDateTime();
+                                dtEndTime.Value = end.ToDateTime();
+                            }
                         }
-                    }
-                };
+                    };
+                }
             }
             catch (Exception e)
             {

@@ -532,13 +532,22 @@ namespace DbModel.Location.AreaAndDev
 
             if (Parent != null)
             {
-                if (Parent.Type == AreaTypes.大楼)
+                if (Parent.Id == 1)
+                {
+                    _path = Name;//根节点不用考虑进去
+                }
+                else if (Parent.Type == AreaTypes.大楼)
                 {
                     _path = Parent.Name + interval + Name;
                 }
                 else if (this.Type == AreaTypes.机房)
                 {
                     _path = Parent.GetToBuilding(interval);
+                }
+                else if (Parent.Type == AreaTypes.分组)//...建筑物
+                {
+                    //_path = Parent.GetToBuilding(interval) + interval + Name;
+                    _path = Parent.Parent.GetToBuilding(interval) + interval + Name;//不显示...建筑物，不确定是否合理
                 }
                 else 
                 {
@@ -623,7 +632,8 @@ namespace DbModel.Location.AreaAndDev
         /// <returns></returns>
         public bool IsPark()
         {
-            return Name == AppSetting.ParkName;
+            //return Name == AppSetting.ParkName;
+            return this.Type == AreaTypes.园区;
         }
 
 

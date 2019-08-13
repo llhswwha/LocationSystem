@@ -41,7 +41,9 @@ namespace TModel.Location.AreaAndDev
         /// 所属区域名称
         /// </summary>
         [DataMember]
-        public string Area { get; set; }
+        public string AreaName { get; set; }
+
+        public int AreaId { get; set; }
 
         /// <summary>
         /// 距离
@@ -73,7 +75,7 @@ namespace TModel.Location.AreaAndDev
             Name = "";
             TypeCode = 0;
             TypeName = "";
-            Area = "";
+            AreaName = "";
             Distance = 0;
             X = 0;
             Y = 0;
@@ -87,7 +89,7 @@ namespace TModel.Location.AreaAndDev
             copy.Name = Name;
             copy.TypeCode = TypeCode;
             copy.TypeName = TypeName;
-            copy.Area = Area;
+            copy.AreaName = AreaName;
             copy.Distance = Distance;
             copy.X = X;
             copy.Y = Y;

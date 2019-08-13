@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
-        Title="服务端" Height="400" Width="800" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="服务端" Height="500" Width="800" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen" Topmost="True">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="窗口">
@@ -14,12 +14,15 @@
                 <MenuItem Header="打开三维程序" Name="MenuOpen3D" Click="MenuOpen3D_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="设置">
+                
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
                 <MenuItem Header="人员" Name="MenuPerson" Click="MenuPerson_OnClick"></MenuItem>
                 <MenuItem Header="标签" Name="MenuTag" Click="MenuTag_OnClick"></MenuItem>
                 <MenuItem Header="标签角色" Name="MenuCardRole" Click="MenuCardRole_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuAreaAuthorization" Click="MenuAreaAuthorization_OnClick"></MenuItem>
                 <MenuItem Header="定位告警" Name="MenuLocationAlarms" Click="MenuLocationAlarms_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="选项" Name="MenuSetting" Click="MenuSetting_OnClick"></MenuItem>
             </MenuItem>
             
             <MenuItem Header="工具">
@@ -44,8 +47,11 @@
                 <MenuItem Header="清空历史设备告警" Name="MenuClearHisAlarms" Click="MenuClearHisAlarms_Click"></MenuItem>
                 <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="NVSPlayer" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>
-                <MenuItem Header="分离告警图片" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_Click"></MenuItem>
+                <MenuItem Header="视频回放支持" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>
+                <MenuItem Header="分离告警图片1" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_Click"></MenuItem>
+                <MenuItem Header="分离告警图片2" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="启动守护进程" Name="MenuStartDaemon" Click="MenuStartDaemon_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="同步"  Name="SyncAllData" Click="SyncAllData_Click">
             </MenuItem>

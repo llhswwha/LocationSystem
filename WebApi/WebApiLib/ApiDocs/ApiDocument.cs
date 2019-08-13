@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Location.BLL.Tool;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
@@ -45,7 +46,7 @@ namespace WebApiLib.ApiDocs
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Log.Error(ex.ToString());
                 return false;
             }
         }

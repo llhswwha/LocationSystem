@@ -29,6 +29,7 @@ using EngineClient;
 using WebApiLib;
 using System.IO;
 using Location.Server;
+using System.Diagnostics;
 
 namespace LocationWCFServer
 {
@@ -131,6 +132,29 @@ namespace LocationWCFServer
             RealAlarm.NsqLookupdUrl= ConfigurationHelper.GetValue("NsqLookupdUrl");
             RealAlarm.NsqLookupdTopic = ConfigurationHelper.GetValue("NsqLookupdTopic");
             RealAlarm.NsqLookupdChannel = ConfigurationHelper.GetValue("NsqLookupdChannel");
+
+            KillOtherServers();
+        }
+
+        /// <summary>
+        /// 关闭其他服务端进程，确保只能打开一个服务端进程。
+        /// 之所以不是关闭自己是因为，可能存在服务端错误关闭（崩溃、或者出问题）后台线程还存在，但是客户端已经不能连接了。
+        /// </summary>
+        private static void KillOtherServers()
+        {
+            Process process = Process.GetCurrentProcess();
+            string processName = process.ProcessName;
+            Process[] processes = Process.GetProcessesByName(processName);
+            if (processes.Length > 1)
+            {
+                foreach (Process process1 in processes)
+                {
+                    if (process1.Id != process.Id)
+                    {
+                        process1.Kill();
+                    }
+                }
+            }
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";

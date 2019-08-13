@@ -50,7 +50,7 @@ namespace LocationServer.Controls
                 var service = new LocationService();
                 AlarmSearchArg arg = new AlarmSearchArg();
                 arg.IsAll = true;
-                deviceAlarms = service.GetDeviceAlarms(arg);
+                deviceAlarms = service.GetDeviceAlarms(arg).devAlarmList;
             }, () =>
             {
                 Log.Info(LogTags.EventTest, "加载设备告警数据-完成");

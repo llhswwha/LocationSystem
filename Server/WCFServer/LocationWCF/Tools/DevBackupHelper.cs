@@ -113,7 +113,7 @@ namespace LocationServer.Tools
                 }
                 else
                 {
-                    Console.WriteLine("CamerInfo is null:" + item.DevInfo);
+                    Log.Info("CamerInfo is null:" + item.DevInfo);
                 }
             }
             SaveCameraInfoToXml(camList.ToList(),service);
@@ -188,7 +188,7 @@ namespace LocationServer.Tools
                 }
                 else
                 {
-                    Console.WriteLine("CamerInfo is null:" + item.DevInfo);
+                    Log.Info("CamerInfo is null:" + item.DevInfo);
                 }
             }
             SaveArchorInfoToXml(archorList,service);
@@ -204,7 +204,7 @@ namespace LocationServer.Tools
                 Area area = service.GetAreaById(item.ParentId);
                 if(area==null)
                 {
-                    Console.WriteLine(string.Format("Error: Dev {0} area not find...",item.DevInfo.Id));
+                    Log.Info(string.Format("Error: Dev {0} area not find...",item.DevInfo.Id));
                     continue;
                 }
                 LocationDevices areaList = backUpList.DepList.Find(i => i.Name == area.Name);
@@ -234,7 +234,7 @@ namespace LocationServer.Tools
                 }
                 else
                 {
-                    Console.WriteLine("Error: dev.pos is null->"+item.DevInfo.Id);
+                    Log.Info("Error: dev.pos is null->"+item.DevInfo.Id);
                 }
                 areaList.DevList.Add(dev);
             }
@@ -254,7 +254,7 @@ namespace LocationServer.Tools
             var doorList = service.GetAllDoorAccessInfo();
             if (doorList == null || doorList.Count == 0)
             {
-                Console.WriteLine("DoorAccess is null...");
+                Log.Info("DoorAccess is null...");
                 return;
             }
             var devInfoList = service.GetAllDevInfos();
@@ -269,7 +269,7 @@ namespace LocationServer.Tools
                 }
                 else
                 {
-                    Console.WriteLine("CamerInfo is null:" + item.DevInfo);
+                    Log.Info("CamerInfo is null:" + item.DevInfo);
                 }
             }
             SaveDoorAccessToXml(doorList, service);

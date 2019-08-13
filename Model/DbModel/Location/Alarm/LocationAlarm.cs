@@ -163,7 +163,7 @@ namespace DbModel.Location.Alarm
             CardRoleId = p.RoleId??0;
             //if (p.AreaId == 0)
             //{
-            //    Console.WriteLine("p.AreaId == 0");
+            //    Log.Info("p.AreaId == 0");
             //}
             
             if (aar != null)

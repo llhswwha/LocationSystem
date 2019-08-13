@@ -969,7 +969,7 @@
             this.Controls.Add(this.textPwd);
             this.Controls.Add(this.btnLogon);
             this.Name = "PlayBackForm";
-            this.Text = "视频回放";
+            this.Text = "视频对接";
             this.Load += new System.EventHandler(this.PlayBackForm_Load);
             this.tabPlayBack.ResumeLayout(false);
             this.tabByTime.ResumeLayout(false);

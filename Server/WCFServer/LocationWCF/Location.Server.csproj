@@ -241,6 +241,7 @@
     <Compile Include="Tools\MiniDump.cs" />
     <Compile Include="Tools\MyHttpListener.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
+    <Compile Include="Tools\RegeditRW.cs" />
     <Compile Include="Tools\Worker.cs" />
     <Compile Include="Windows\AnchorCheckWindow.xaml.cs">
       <DependentUpon>AnchorCheckWindow.xaml</DependentUpon>
@@ -280,6 +281,9 @@
     </Compile>
     <Compile Include="Windows\NVRPlayerClientWindow.xaml.cs">
       <DependentUpon>NVRPlayerClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Simple\ArchorSettingWindowEx.xaml.cs">
       <DependentUpon>ArchorSettingWindowEx.xaml</DependentUpon>
@@ -428,6 +432,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NVRPlayerClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2513,6 +2521,10 @@
     <ProjectReference Include="..\..\..\DAL\DAL\DAL.csproj">
       <Project>{3d7f7707-a518-4fc2-abdc-cad0a1712680}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\LocationDaemon\LocationDaemon.csproj">
+      <Project>{bba7b7f9-4b0b-4468-a0f4-c46e5ad1158e}</Project>
+      <Name>LocationDaemon</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Model\DbModel\DbModel.csproj">
       <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>

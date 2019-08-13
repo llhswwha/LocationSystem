@@ -358,6 +358,19 @@ namespace DbModel.LocationHistory.Data
             return r;
         }
 
+        public string GetText(float offsetX, float offsetY)
+        {
+            DateTime now = DateTime.Now;
+            long t = TimeConvert.ToStamp(now);
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Code, X - offsetX, Z - offsetY, Y,
+                t, Power, Number, Flag, ArchorsText);
+        }
+
+        public string GetJson()
+        {
+            return "";
+        }
+
         private bool ParseText(string info, float offsetX, float offsetY)
         {
             try

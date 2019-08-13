@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace Coldairarrow.Util.Sockets
@@ -175,6 +176,13 @@ namespace Coldairarrow.Util.Sockets
                 //MessageBox.Show(EX.Message);
             }
             
+        }
+
+        public int Send(string txt,string ip,int port)
+        {
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            var bytes = Encoding.UTF8.GetBytes(txt);
+            return udpc.Send(bytes, bytes.Length, ipEndPoint);
         }
 
         public int Send(Byte[] sendData, IPEndPoint remoteEp)

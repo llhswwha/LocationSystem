@@ -61,6 +61,11 @@ namespace Location.BLL.Tool
         /// 告警事件测试
         /// </summary>
         public static string EventTest = "[EventTest]";
+
+        /// <summary>
+        /// 历史定位数据获取
+        /// </summary>
+        public static string HisPos = "[HisPos]";
     }
 
     public  static class Log
@@ -342,24 +347,24 @@ namespace Location.BLL.Tool
             Info("====================================");
         }
 
-        public static List<string> Tags = new List<string>();
+        //public static List<string> Tags = new List<string>();
 
         public static void Info(string tag, object message)
         {
-            if (!Tags.Contains(tag))
-            {
-                Tags.Add(tag);
-            }
+            //if (!Tags.Contains(tag))
+            //{
+            //    Tags.Add(tag);
+            //}
             string log = tag + "|" + GetPrefix() + message + GetSuffix();
             Logger.Info(log);
         }
 
         public static void Error(string tag, string message)
         {
-            if (!Tags.Contains(tag))
-            {
-                Tags.Add(tag);
-            }
+            //if (!Tags.Contains(tag))
+            //{
+            //    Tags.Add(tag);
+            //}
             string log = tag + "|" + GetPrefix() + message + GetSuffix();
             Logger.Error(log);
         }

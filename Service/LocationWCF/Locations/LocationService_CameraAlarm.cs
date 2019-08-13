@@ -157,6 +157,21 @@ namespace LocationServices.Locations
             return cameraAlarmInfo;
         }
 
-        
+        public Picture GetCameraAlarmPicture(int id)
+        {
+            CameraAlarmJson camera = db.CameraAlarmJsons.Find(id);
+            byte[] byte1 = camera.Json;
+            string json = Encoding.UTF8.GetString(byte1);
+            CameraAlarmInfo cameraAlarmInfo = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+            Picture pic = db.Pictures.Find(i => i.Name == cameraAlarmInfo.pic_name);
+            return pic;
+        }
+
+        public Picture GetCameraAlarmPicture(string picName)
+        {
+            Picture pic = db.Pictures.Find(i => i.Name == picName);
+            return pic;
+        }
+
     }
 }

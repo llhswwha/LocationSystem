@@ -3,6 +3,7 @@ using System.ServiceModel;
 using Location.TModel.FuncArgs;
 using Location.TModel.Location.Alarm;
 using TModel.BaseData;
+using TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -23,11 +24,12 @@ namespace LocationServices.Locations.Interfaces
         /// <param name="arg"></param>
         /// <returns></returns>
         [OperationContract]
-        List<DeviceAlarm> GetDeviceAlarms(AlarmSearchArg arg);
+        DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg);
 
         [OperationContract]
         Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg);
-
+        
+       
         ///// <summary>
         ///// 获取定位告警列表（新增事件）
         ///// </summary>

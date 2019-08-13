@@ -123,9 +123,16 @@ namespace LocationServer.Controls
                 StopGetInspectionTrack();
                 StopExtremeVisionListener();
                 StopGetHistoryPositon();
+
+                WriteLog("SisDataSaveClient.Stop");
                 SisDataSaveClient.Stop();
 
+                WriteLog("NVSManage.Stop");
                 NVSManage.Stop();
+                if (nginxCmdProcess != null)
+                {
+                    nginxCmdProcess.CloseMainWindow();
+                }
             }
             catch (Exception ex)
             {
@@ -138,6 +145,8 @@ namespace LocationServer.Controls
 
         private void StartReceiveAlarm()
         {
+            bool enableAlarmRecieve = ConfigurationHelper.GetBoolValue("EnableAlarmRecieve");
+            if (!enableAlarmRecieve) return;
             RealAlarm ra = new RealAlarm(Mh_DevAlarmReceived);
             if (alarmReceiveThread == null)
             {
@@ -185,13 +194,40 @@ namespace LocationServer.Controls
             {
                 string host = TbHost.Text;
                 string port = TbPort.Text;
-                StartService(host, port);
-                BtnStartService.Content = "停止服务";
+
+                //StartService(host, port);
+                //BtnStartService.Content = "停止服务";
+
+                if (logTimer == null)
+                {
+                    logTimer = new DispatcherTimer();
+                    logTimer.Interval = TimeSpan.FromMilliseconds(300);
+                    logTimer.Tick += LogTimer_Tick;
+                }
+                logTimer.Start();
+
+                Worker.Run(() =>
+                {
+                    StartService(host, port);
+                }, () =>
+                {
+                    StartPlayBackManage();//不能放到线程里面运行
+
+                    BtnStartService.Content = "停止服务";
+                });
             }
             else
             {
                 StopServices();
                 BtnStartService.Content = "启动服务";
+            }
+        }
+
+        public void StopLogTimer()
+        {
+            if (logTimer != null)
+            {
+                logTimer.Stop();
             }
         }
 
@@ -212,15 +248,14 @@ namespace LocationServer.Controls
 
                 WriteLog("启动服务");
 
-                CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
-
                 //WCF服务 项目：Location.Service
                 StartLocationService(host, port);
 
                 //基于WCF接口同时兼容的WebApi服务 http://{0}:8733/LocationService/api WebServiceHost 项目：Location.Service
                 StartLocationServiceApi(host, port);
-                //定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
-                StartLocationAlarmService();
+
+                ////定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
+                //StartLocationAlarmService();
 
                 //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
                 StartReceiveAlarm();
@@ -234,31 +269,36 @@ namespace LocationServer.Controls
                 StartGetInspectionTrack();
 
                 //上海宝信项目对接视频行为告警 基于HttpListener 端口8736
-
-                //StartExtremeVisionListener();//端口要不同
+                StartExtremeVisionListener();//端口要不同
 
                 Worker.Run(() =>
                 {
                     try
                     {
+                        CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
+
+
                         Bll bll = Bll.Instance();
                         var count = bll.Areas.DbSet.Count(); //用于做数据迁移用，查询一下
                         if (count == 0)
                         {
                             Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
                         }
+
+
+                        LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e);
+                        Log.Info(e);
                         Log.Error(LogTags.Server, "数据迁移出错！！：" + e.Message);
                     }
                 }, null);
 
-                StartGetHistoryPositon();
+                StartGetHistoryPositon();//将定位历史数据保存到缓存中
 
 
-                StartPlayBackManage();
+               
             }
             catch (Exception ex)
             {
@@ -282,7 +322,7 @@ namespace LocationServer.Controls
                 string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
                 if (File.Exists(nginx))
                 {
-                    Process.Start(nginx);//启动nginx-rtmp
+                    nginxCmdProcess=Process.Start(nginx);//启动nginx-rtmp
                 }
                 else
                 {
@@ -290,6 +330,8 @@ namespace LocationServer.Controls
                 }
             }
         }
+
+        private Process nginxCmdProcess;
 
         MyHttpListener httpListener;
 
@@ -355,6 +397,8 @@ namespace LocationServer.Controls
 
         private void StartExtremeVisionListener()
         {
+            bool enableVisionListener = ConfigurationHelper.GetBoolValue("EnableVisionListener");
+            if (!enableVisionListener) return;
             string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
             string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP") ;
             if (httpListener == null)
@@ -365,13 +409,14 @@ namespace LocationServer.Controls
                 {
                     return ParseCameraAlarm(url,json);
                 };
-                httpListener.Start();
-                WriteLog("ExtremeVisionListener: " + url);
+                bool r=httpListener.Start();
+                WriteLog("HttpListener: " + url+" ["+r+"]");
             }
         }
 
         private void StopExtremeVisionListener()
         {
+            WriteLog("StopExtremeVisionListener");
             if (httpListener != null)
             {
                 httpListener.Stop();
@@ -408,9 +453,13 @@ namespace LocationServer.Controls
             }
         }
 
-        string serverLogs = "";
+        private string serverLogs = "";
 
-        string clientLogs = "";
+        private bool serverLogsChanged = false;
+
+        private string clientLogs = "";
+
+        private bool clientLogsChanged = false;
 
         private void WriteLog(string txt)
         {
@@ -421,37 +470,56 @@ namespace LocationServer.Controls
         private int MaxLength = 100000;
         private int MaxLength2 = 50000;
 
+        private DispatcherTimer logTimer;
+
         private void ListenToLog(string tag,string log)
         {
-            if (serverLogs.Length > MaxLength)
+            try
             {
-                serverLogs = serverLogs.Substring(0,MaxLength2);
-            }
-
-            if (clientLogs.Length > MaxLength)
-            {
-                clientLogs = clientLogs.Substring(0, MaxLength2);
-            }
-
-            //string[] parts = log.Split('|');
-            if (tag == LogTags.Server || tag == LogTags.ExtremeVision)
-            {
-                serverLogs = log + "\n" + serverLogs;
-                TbServerLog.Dispatcher.Invoke(() =>
+                if (serverLogs.Length > MaxLength)
                 {
-                    TbServerLog.Text = serverLogs;
-                });
-            }
-            else
-            {
-                if(tag != LogTags.Engine && tag != LogTags.BaseData)
-                {
-                    clientLogs = log + "\n" + clientLogs;
-                    TbClientLog.Dispatcher.Invoke(() =>
-                    {
-                        TbClientLog.Text = clientLogs;
-                    });
+                    serverLogs = serverLogs.Substring(0, MaxLength2);
                 }
+
+                if (clientLogs.Length > MaxLength)
+                {
+                    clientLogs = clientLogs.Substring(0, MaxLength2);
+                }
+
+
+                //string[] parts = log.Split('|');
+                if (tag == LogTags.Server || tag == LogTags.ExtremeVision)
+                {
+                    serverLogs = log + "\n" + serverLogs;
+                    serverLogsChanged = true;
+                }
+                else
+                {
+                    if (tag != LogTags.Engine && tag != LogTags.BaseData)
+                    {
+                        clientLogs = log + "\n" + clientLogs;
+                        clientLogsChanged = true;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString());
+            }
+        }
+
+        private void LogTimer_Tick(object sender, EventArgs e)
+        {
+            if (serverLogsChanged)
+            {
+                TbServerLog.Text = serverLogs;
+                serverLogsChanged = false;
+            }
+
+            if (clientLogsChanged)
+            {
+                TbClientLog.Text = clientLogs;
+                clientLogsChanged = false;
             }
         }
 
@@ -532,7 +600,7 @@ namespace LocationServer.Controls
 
             locationAlarmServiceHost.Open();
 
-            WriteLog("StartLocationAlarmService: " + locationAlarmServiceHost.BaseAddresses[0]);
+            WriteLog("LocationAlarmService: " + locationAlarmServiceHost.BaseAddresses[0]);
         }
 
         private void StopLocationAlarmService()
@@ -549,6 +617,7 @@ namespace LocationServer.Controls
 
         private void StopGetInspectionTrack()
         {
+            WriteLog("StopGetInspectionTrack");
             if (trackClient != null)
             {
                 trackClient.Stop();
@@ -589,23 +658,43 @@ namespace LocationServer.Controls
         private Thread HPThread;
         private void StartGetHistoryPositon()
         {
-            if (HPThread == null)
+            bool EnableHistoryBuffer = ConfigurationHelper.GetBoolValue("EnableHistoryBuffer");
+            if (EnableHistoryBuffer)
             {
-                LocationServices.Locations.Services.PosHistoryService Phs = new LocationServices.Locations.Services.PosHistoryService();
-                
-                HPThread = new Thread(Phs.GetHistoryPositonThread);
-                HPThread.IsBackground = true;
-                HPThread.Start();
+                WriteLog("启动定位历史数据缓存");
+
+                if (HPThread == null)
+                {
+                    LocationServices.Locations.Services.PosHistoryService Phs = new LocationServices.Locations.Services.PosHistoryService();
+
+                    HPThread = new Thread(Phs.GetHistoryPositonThread);
+                    HPThread.IsBackground = true;
+                    HPThread.Start();
+                }
             }
+            
         }
   
         private void StopGetHistoryPositon()
         {
+            WriteLog("StopGetHistoryPositon");
             if (HPThread != null)
             {
                 HPThread.Abort();
                 HPThread = null;
             }
+        }
+
+        private void BtnClearServerLogs_OnClick(object sender, RoutedEventArgs e)
+        {
+            serverLogs = "";
+            serverLogsChanged = true;
+        }
+
+        private void BtnClearClientLogs_OnClick(object sender, RoutedEventArgs e)
+        {
+            clientLogs = "";
+            clientLogsChanged = true;
         }
     }
 }

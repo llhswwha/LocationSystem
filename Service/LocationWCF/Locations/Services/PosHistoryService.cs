@@ -16,6 +16,7 @@ using PositionListDb = DbModel.LocationHistory.Data.PositionList;
 using PersonnelDb = DbModel.Location.Person.Personnel;
 using System.Threading;
 using LocationServer;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
@@ -398,7 +399,7 @@ namespace LocationServices.Locations.Services
                     if (!bFirst)
                     {
                         bFirst = true;
-                        GetAllData();
+                        GetAllData();//获取数据
                         Thread.Sleep(nSleepTime);
                         continue;
                     }
@@ -416,7 +417,7 @@ namespace LocationServices.Locations.Services
                         continue;
                     }
 
-                    GetAllData();
+                    GetAllData();//获取数据
 
                     bGet = true;
 
@@ -434,13 +435,45 @@ namespace LocationServices.Locations.Services
         {
             try
             {
+                string tag = "GetAllPositionsByDay";// LogTags.Server LogTags.HisPos
+                Log.Info(tag, "Start");
                 DateTime start = DateTime.Now;
 
                 Bll bll = Bll.Instance();
                 //bll.history
-                allPoslist = bll.Positions.ToList();
+
+                var count = bll.Positions.DbSet.Count();
+                Log.Info(tag, string.Format("count:"+ count));
+                //allPoslist = bll.Positions.ToList();
+
+                var first = bll.Positions.GetFirst();
+                Log.Info(tag, string.Format("first:" + first.Id));
+
+                int total = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    start = DateTime.Now;
+                    var list2 = bll.Positions.GetPageList(10, i, out total);
+                    Log.Info(tag, string.Format("list3:{0},time:{1}", list2.Count, DateTime.Now - start));
+                }
+
+
+                //var last = bll.Positions.GetLast();
+                //Log.Info(tag, string.Format("last:" + last.Id));
+
+
+                //太多了 一次取的话 卡住很久很久。
+                start = DateTime.Now;
+                var list4 = bll.Positions.GetAllPositionsByDay((progress) =>
+                {
+                    Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
+                        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
+                });
+                allPoslist = list4;
 
                 var time1 = DateTime.Now - start;
+                Log.Info(tag, string.Format("time1:"+ time1));
 
                 var personnels = bll.Personnels.ToDictionary();
                 foreach (var pos in allPoslist)
@@ -453,7 +486,7 @@ namespace LocationServices.Locations.Services
                     }
                     else
                     {
-                        pos.PersonnelName = pos.Code; //有些卡对应的人员不存在
+                        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ; //有些卡对应的人员不存在
                     }
 
 

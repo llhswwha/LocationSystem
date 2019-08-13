@@ -693,5 +693,17 @@ namespace LocationServer.Windows
             }, () => { MessageBox.Show("完成"); });
             
         }
+
+        private void MenuClearRepeatDev_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
+                initializer.ClearRepeatDev();
+            }, () =>
+            {
+                MessageBox.Show("完成");
+            });
+        }
     }
 }

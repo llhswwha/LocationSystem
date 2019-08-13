@@ -51,13 +51,53 @@ namespace BLL.Tools
                     bool r=AddDevInfo(devInfo, bll.DevInfos);
                     if (r == false)
                     {
-                        Console.WriteLine("ImportDevInfoFromFile Error:" + devInfo.Name);
+                        Log.Info("ImportDevInfoFromFile Error:" + devInfo.Name);
                     }
                 }               
             }
             return true;
         }
-
+        #region 删除重复设备信息
+        public static bool ClearRepeatDev(Bll bll)
+        {
+            try
+            {
+                List<DevInfo> infoList = bll.DevInfos.ToList();
+                List<DevInfo> needToRemove = new List<DevInfo>();
+                if (infoList == null || infoList.Count == 0) return true;
+                for (int i = infoList.Count-1; i >= 0; i--)
+                {
+                    DevInfo info = infoList[i];
+                    if (TypeCodeHelper.IsDoorAccess(info.ModelName))
+                    {
+                        DbModel.Location.AreaAndDev.Dev_DoorAccess door = bll.Dev_DoorAccess.Find(devT => devT.DevInfoId == info.Id);
+                        if (door == null)
+                        {
+                            needToRemove.Add(info);
+                        }
+                    }
+                    else if (TypeCodeHelper.IsCamera(info.Local_TypeCode.ToString()))
+                    {
+                        DbModel.Location.AreaAndDev.Dev_CameraInfo camera = bll.Dev_CameraInfos.Find(devT => devT.DevInfoId == info.Id);
+                        if (camera == null)
+                        {
+                            needToRemove.Add(info);
+                        }
+                    }
+                }
+                int clearCount = needToRemove.Count;
+                foreach (var item in needToRemove)
+                {
+                    bll.DevInfos.DeleteById(item.Id);
+                }
+                return true;
+            }catch(Exception e)
+            {
+                string value = e.ToString();
+                return false;
+            }
+        }
+        #endregion
         public static void RemoveArchorDev()
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -101,14 +141,14 @@ namespace BLL.Tools
                     bool value = devBll.Edit(infoTemp);
                     if (!value)
                     {
-                        Console.WriteLine("Error: EditDevinfo Error");
+                        Log.Info("Error: EditDevinfo Error");
                     }
                     return value;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DevInfoHelper.AddDevInfo:"+e.ToString());
+                Log.Info("Error in DevInfoHelper.AddDevInfo:"+e.ToString());
                 return false;
             }
         }
@@ -250,7 +290,7 @@ namespace BLL.Tools
                     bool value = bll.DevInfos.Edit(infoTemp);
                     if (!value)
                     {
-                        Console.WriteLine("Error: EditDevinfo Error");
+                        Log.Info("Error: EditDevinfo Error");
                     }
                     Dev_CameraInfo cameraBackup = GetCameraInfo(cameraDev, infoTemp);
                     if(!string.IsNullOrEmpty(cameraDev.RtspURL))cameraBackup.RtspUrl = cameraDev.RtspURL;
@@ -265,14 +305,14 @@ namespace BLL.Tools
                         bool valueT = bll.Dev_CameraInfos.Edit(cameraDatabase);
                         if (!valueT)
                         {
-                            Console.WriteLine("Error: EditDevinfo Error");
+                            Log.Info("Error: EditDevinfo Error");
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
+                Log.Info("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
             }
         }
         /// <summary>
@@ -395,7 +435,7 @@ namespace BLL.Tools
                     bool value = bll.DevInfos.Edit(infoTemp);
                     if(!value)
                     {
-                        Console.WriteLine("Error: EditDevinfo Error");
+                        Log.Info("Error: EditDevinfo Error");
                     }
                     DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessBackup = GetDoorAccessInfo(doorAccess, infoTemp);
                     DbModel.Location.AreaAndDev.Dev_DoorAccess doorAccessDatabase=bll.Dev_DoorAccess.Find(door=>door.Local_DevID==devInfo.Local_DevID);
@@ -409,7 +449,7 @@ namespace BLL.Tools
                         bool valueT = bll.Dev_DoorAccess.Edit(doorAccessDatabase);
                         if(!valueT)
                         {
-                            Console.WriteLine("Error:Edit Dev_DoorAccess Error");
+                            Log.Info("Error:Edit Dev_DoorAccess Error");
                         }
                     }
                 }
@@ -417,7 +457,7 @@ namespace BLL.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
+                Log.Info("Error in DevInfoHelper.AddDevInfo:" + e.ToString());
             }
         }
         /// <summary>
@@ -736,7 +776,7 @@ namespace BLL.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in DevInfoHelper.AddFireFightDevInfo:" + e.ToString());
+                Log.Info("Error in DevInfoHelper.AddFireFightDevInfo:" + e.ToString());
             }
 
             return;

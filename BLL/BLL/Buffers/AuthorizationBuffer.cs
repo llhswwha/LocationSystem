@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using DbModel.Location.Alarm;
 using DbModel.LocationHistory.Alarm;
 using DbModel.Tools;
+using Location.BLL.Tool;
 
 namespace BLL.Buffers
 {
@@ -168,7 +169,7 @@ namespace BLL.Buffers
             }
             if (newAlarms.Count > 0)
             {
-                Console.WriteLine("newAlarms.Count > 0");
+                Log.Info("newAlarms.Count > 0");
             }
 
             bool result1=_bll.LocationAlarms.RemoveList(removeAlarms);
@@ -565,6 +566,7 @@ namespace BLL.Buffers
         /// /// <param name="newAlarmList"></param>
         private void RemoveDuplicateAlarms(Position p, int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level, ref List<LocationAlarm> newAlarmList)
         {
+          
             if (level == LocationAlarmLevel.正常)
             {
                 //如果缓存中 没有正常告警，添加正常告警；如果缓存中有正常告警，添加正常告警规则Id
@@ -577,7 +579,14 @@ namespace BLL.Buffers
                 }
                 else if(nCount == 0 && alarm != null)
                 {
-                    alarm.AllAuzId += ";" + arr.Id;
+                    if (arr != null)
+                    {
+                        alarm.AllAuzId += ";" + arr.Id;
+                    }
+                    else
+                    {
+                        Log.Error("AuthorizationBuffer.RemoveDuplicateAlarms", "arr==null");
+                    }
                 }
             }
             else

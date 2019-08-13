@@ -347,48 +347,64 @@ namespace LocationServices.Locations
             return lst;
         }
 
-        /// <summary>
-        /// 获取首页图片名称
-        /// </summary>
-        /// <returns></returns>
-        public List<string> GetHomePageNameList()
-        {
-            try
-            {
-                Bll bll = Bll.NewBllNoRelation();
-                List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
-                //if (lst == null || lst.Count == 0)
-                //{
-                //    lst = new List<string>();
-                //}
-
-                if (lst.Count == 0)
-                {
-                    lst = null;
-                }
-
-                return lst;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("LocationService.GetHomePageNameList",ex);
-                return null;
-            }
-            
-        }
 
         /// <summary>
-        /// 根据图片名称获取首页图片信息
+        /// 获取品铂设置的定位区域
         /// </summary>
-        /// <param name="strPictureName"></param>
         /// <returns></returns>
-        public byte[] GetHomePageByName(string strPictureName)
+        public IList<PhysicalTopology> GetSwitchAreas()
         {
-            Bll bll = Bll.NewBllNoRelation();
-            string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
-            byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
+            var switchAreas = db.bus_anchor_switch_area.ToList();
 
-            return byteArray;
+            var subSwitchAreas = switchAreas;
+
+            int ShowFloor = 0;
+            if (ShowFloor == 1)//1层
+            {
+                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
+            }
+            else if (ShowFloor == 2)//2层
+            {
+                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
+            }
+            else if (ShowFloor == 3)//3层
+            {
+                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
+            }
+            else if (ShowFloor == 4)//4层
+            {
+                subSwitchAreas = switchAreas.FindAll(i => i.min_z > 880);
+            }
+            else
+            {
+
+            }
+
+            List<PhysicalTopology> areas = new List<PhysicalTopology>();
+            float scale = 100.0f;
+            foreach (var item in subSwitchAreas)
+            {
+                var switchArea = new PhysicalTopology();
+                //todo:这部分的具体数值其他项目时需要调整。
+                float x1 = item.start_x / scale + 2059;
+                float x2 = item.end_x / scale + 2059;
+                float y1 = item.start_y / scale + 1565;
+                float y2 = item.end_y / scale + 1565;
+                float z1 = item.min_z / scale;
+                float z2 = item.max_z / scale;
+                switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, z1, z2, false);
+                //switchArea.Parent = area;
+                switchArea.Name = item.area_id;
+                switchArea.Type = AreaTypes.SwitchArea;
+
+                //AddAreaRect(switchArea, null, scale);
+                switchArea.SetTransformM();
+
+                areas.Add(switchArea);
+            }
+
+            return areas;
+
         }
     }
 }

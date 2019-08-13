@@ -67,7 +67,7 @@ namespace LocationServices.Converters
         {
             return list1.ToTModel().ToWCFList();
         }
-        public static TModel.Location.Work.InspectionTrack ToTModel(this DbModel.Location.Work.InspectionTrack item1)
+        public static TModel.Location.Work.InspectionTrack ToTModel(this DbModel.Location.Work.InspectionTrack item1, bool clearRoute = true)
         {
             if (item1 == null) return null;
             var item2 = new TModel.Location.Work.InspectionTrack();
@@ -82,7 +82,14 @@ namespace LocationServices.Converters
             item2.StartTime = item1.StartTime;
             item2.dtEndTime = item1.dtEndTime;
             item2.EndTime = item1.EndTime;
-            item2.Route = item1.Route.ToTModel();
+            if(clearRoute)
+            {
+                item2.Route = null;
+            }
+            else
+            {
+                item2.Route = item1.Route==null||item1.Route.Count==0?null:item1.Route.ToTModel();
+            }
             return item2;
         }
         public static List<TModel.Location.Work.InspectionTrack> ToTModel(this List<DbModel.Location.Work.InspectionTrack> list1)
@@ -90,8 +97,8 @@ namespace LocationServices.Converters
             if (list1 == null) return null;
             var list2 = new List<TModel.Location.Work.InspectionTrack>();
             foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
+            {               
+                list2.Add(item1.ToTModel());                
             }
             return list2;
         }
@@ -141,7 +148,14 @@ namespace LocationServices.Converters
             item2.DevId = item1.DevId;
             item2.DeviceCode = item1.DeviceCode;
             item2.DeviceId = item1.DeviceId;
-            item2.Checks = item1.Checks.ToTModel();
+            if(item1.Checks==null||item1.Checks.Count==0)
+            {
+                item2.Checks = null;
+            }
+            else
+            {
+                item2.Checks = item1.Checks.ToTModel();
+            }           
             return item2;
         }
         public static List<TModel.Location.Work.PatrolPoint> ToTModel(this List<DbModel.Location.Work.PatrolPoint> list1)

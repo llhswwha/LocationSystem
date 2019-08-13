@@ -18,6 +18,7 @@
                 <MenuItem Header="MySql中设备监控点" Name="MenuInitMySqlDevMonitorNodes" Click="MenuInitMySqlDevMonitorNodes_Click"></MenuItem>
                 <MenuItem Header="MySql更新设备、门禁、消防设备信息" Name="MenuInitMySqlNoramlDev" Click="MenuInitMySqlNoramlDev_Click"></MenuItem>
                 <MenuItem Header="Sqlite" Name="MenuInitSqlite" Click="MenuInitSqlite_Click"></MenuItem>
+                <MenuItem Header="MySql清除重复门禁、摄像头设备信息" Name="MenuClearRepeatDev" Click="MenuClearRepeatDev_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="读取数据">
                 <MenuItem Header="区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>

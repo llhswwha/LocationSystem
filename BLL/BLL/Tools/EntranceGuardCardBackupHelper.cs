@@ -49,7 +49,7 @@ namespace BLL.Tools
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error in EntranceGuardCardBackupHelper.AddEntranceGuardCardInfo:" + e.ToString());
+                Log.Info("Error in EntranceGuardCardBackupHelper.AddEntranceGuardCardInfo:" + e.ToString());
             }
         }
 

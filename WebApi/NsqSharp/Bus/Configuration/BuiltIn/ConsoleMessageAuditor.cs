@@ -30,7 +30,7 @@ namespace NsqSharp.Bus.Configuration.BuiltIn
         /// <param name="failedInfo">Message information including the topic, channel, and raw message.</param>
         public void OnFailed(IBus bus, IFailedMessageInformation failedInfo)
         {
-            Console.WriteLine(failedInfo.Exception);
+            //Log.Info(failedInfo.Exception);
         }
     }
 }

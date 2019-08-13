@@ -34,6 +34,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading;
 using LocationServices.Locations.Services;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations
 {
@@ -116,6 +117,51 @@ namespace LocationServices.Locations
         public void DebugMessage(string msg)
         {
             ShowLogEx(msg);
+        }
+
+
+        /// <summary>
+        /// 获取首页图片名称
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetHomePageNameList()
+        {
+            try
+            {
+                Bll bll = Bll.NewBllNoRelation();
+                List<string> lst = bll.HomePagePictures.DbSet.Select(p => p.Name).ToList();
+                //if (lst == null || lst.Count == 0)
+                //{
+                //    lst = new List<string>();
+                //}
+
+                if (lst.Count == 0)
+                {
+                    lst = null;
+                }
+
+                return lst;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("LocationService.GetHomePageNameList", ex);
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// 根据图片名称获取首页图片信息
+        /// </summary>
+        /// <param name="strPictureName"></param>
+        /// <returns></returns>
+        public byte[] GetHomePageByName(string strPictureName)
+        {
+            Bll bll = Bll.NewBllNoRelation();
+            string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
+            byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
+
+            return byteArray;
         }
 
     }
