@@ -66,6 +66,11 @@ namespace Location.BLL.Tool
         /// 历史定位数据获取
         /// </summary>
         public static string HisPos = "[HisPos]";
+
+        /// <summary>
+        /// EF调试内容
+        /// </summary>
+        public static string EF = "[EF]";
     }
 
     public  static class Log
@@ -79,14 +84,14 @@ namespace Location.BLL.Tool
         private static Thread logWatcher;
 
         #region LogInfoStart->End
-        public class LogInfo
+        private class LogGroup
         {
             public string Tag;
             public string Flag;
             public DateTime Time;
             public bool IsGroup;
         }
-        static Dictionary<string, LogInfo> infos=new Dictionary<string, LogInfo>();
+        static Dictionary<string, LogGroup> infos=new Dictionary<string, LogGroup>();
 
         public static int TabCount = 0;
 
@@ -110,7 +115,7 @@ namespace Location.BLL.Tool
             return "";
         }
 
-        private static void AddInfo(LogInfo info)
+        private static void AddInfo(LogGroup info)
         {
             string flag = info.Flag;
             if (infos.ContainsKey(flag))
@@ -132,7 +137,7 @@ namespace Location.BLL.Tool
         {
             try
             {
-                LogInfo info = new LogInfo() { Tag=tag,Flag = flag, Time = DateTime.Now, IsGroup = isGroup };
+                LogGroup info = new LogGroup() { Tag=tag,Flag = flag, Time = DateTime.Now, IsGroup = isGroup };
                 AddInfo(info);
                 Info(tag, flag + " Start ");
             }
@@ -148,7 +153,7 @@ namespace Location.BLL.Tool
             {
                 if (infos.ContainsKey(flag))
                 {
-                    LogInfo info = infos[flag];
+                    LogGroup info = infos[flag];
                     TimeSpan timeSpan = DateTime.Now - info.Time;
 
                     Info(info.Tag, flag + " End Time:" + timeSpan);
@@ -222,10 +227,18 @@ namespace Location.BLL.Tool
                         //string line = ev.LoggerName + ": " + ev.RenderedMessage + "\r\n";
 
                         string[] parts = (ev.MessageObject+"").Split('|');
-                        string tag = parts[0];
+                        string tag = "[None]";
+                        if (parts.Length == 2)
+                        {
+                            tag = parts[0];
+                        }
+                        
                         if (NewLogEvent != null)
                         {
-                            NewLogEvent(tag,line);
+                            LogInfo info = new LogInfo();
+                            info.Tag = tag;
+                            info.Log = line;
+                            NewLogEvent(info);
                         }
                     }
                 }
@@ -233,7 +246,7 @@ namespace Location.BLL.Tool
             }
         }
 
-        public static event Action<string,string> NewLogEvent;
+        public static event Action<LogInfo> NewLogEvent;
 
         public static void Debug(object message)
         {
@@ -439,5 +452,27 @@ namespace Location.BLL.Tool
         {
             Logger.WarnFormat(GetPrefix() + format + GetSuffix(), format, args);
         }
+    }
+
+    public class LogInfo
+    {
+        private string _tag = "";
+        public string Tag
+        {
+            get
+            {
+                return _tag;
+            }
+            set
+            {
+                _tag = value;
+                //if (_tag.Length > 30)//调试
+                //{
+
+                //}
+            }
+        }
+
+        public string Log;
     }
 }

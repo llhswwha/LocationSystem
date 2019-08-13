@@ -211,6 +211,12 @@
     <Compile Include="Controls\DeviceAlarmListBox.xaml.cs">
       <DependentUpon>DeviceAlarmListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\LogTabControl.xaml.cs">
+      <DependentUpon>LogTabControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LogTextBox.xaml.cs">
+      <DependentUpon>LogTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ServerManagerBox.xaml.cs">
       <DependentUpon>ServerManagerBox.xaml</DependentUpon>
     </Compile>
@@ -360,6 +366,14 @@
       <DependentUpon>UpdatePersonWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\DeviceAlarmListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LogTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LogTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

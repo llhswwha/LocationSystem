@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Location.TModel.Tools;
+using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 
 namespace BLL.Blls.LocationHistory
 {
@@ -31,11 +32,39 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        public PositionList GetPositionsCountOfDay(DateTime date)
+        {
+            DateTime start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
+            var count= GetPositionsCountOfDate(start, end);
+            PositionList list = new PositionList();
+            list.Name = date.ToString("yyyy-MM-dd");
+            list.Count = count;
+            return list;
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<Position> GetPositionsOfDay(DateTime date)
         {
             DateTime start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
             DateTime end = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
             return GetPositionsOfDate(start, end);
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetPosInfoListOfDay(DateTime date)
+        {
+            DateTime start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
+            return GetInfoListOfDate(start, end);
         }
 
         /// <summary>
@@ -113,24 +142,49 @@ namespace BLL.Blls.LocationHistory
         }
 
         /// <summary>
-        /// 获取某一天的数据
+        /// 获取某一天的数据。
+        /// 数据量小时可以用这个，数据量大(>1000w)的话要用GetAllPosInfoListByDay。
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
         public List<Position> GetAllPositionsByDay(Action<ProgressInfo> progressCallback)
         {
-            Position first = DbSet.First();
+            Position first = GetFirst();
             DateTime firstDay = first.DateTime;
-            if (firstDay.Year < 2019)
-            {
-                long timestamp = new DateTime(2019, 1, 1, 0, 0, 0).ToStamp();
-                first = DbSet.First(i => i.DateTimeStamp > timestamp);
-                firstDay = first.DateTime;
-            }
 
             TimeSpan timeSpan = DateTime.Now - firstDay;
             var day = (int)timeSpan.TotalDays+2;
             return GetPositionsOfDays(DateTime.Now, day, progressCallback);
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetAllPosInfoListByDay(Action<ProgressInfo> progressCallback)
+        {
+            Position first = GetFirst();
+            DateTime firstDay = first.DateTime;
+
+            TimeSpan timeSpan = DateTime.Now - firstDay;
+            var day = (int)timeSpan.TotalDays + 2;
+            return GetPosInfoListOfDays(DateTime.Now, day, progressCallback);
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PositionList> GetAllPositionsCountByDay(Action<ProgressInfo> progressCallback)
+        {
+            Position first = GetFirst();
+            DateTime firstDay = first.DateTime;
+
+            TimeSpan timeSpan = DateTime.Now - firstDay;
+            var day = (int)timeSpan.TotalDays + 2;
+            return GetPositionsCountOfDays(DateTime.Now, day, progressCallback);
         }
 
 
@@ -217,6 +271,58 @@ namespace BLL.Blls.LocationHistory
             return pos;
         }
 
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetPosInfoListOfDays(DateTime date, int dayCount, Action<ProgressInfo> progressCallback)
+        {
+            List<PosInfo> pos = new List<PosInfo>();
+            List<List<PosInfo>> posList = new List<List<PosInfo>>();
+            for (int i = 0; i < dayCount; i++)
+            {
+                var dateNew = date.AddDays(-i);
+                List<PosInfo> list = GetPosInfoListOfDay(dateNew);
+                posList.Add(list);
+                pos.AddRange(list);
+                if (progressCallback != null)
+                {
+                    ProgressInfo progress = new ProgressInfo();
+                    progress.Index = i + 1;
+                    progress.Total = dayCount;
+                    progress.Count = list.Count;
+                    progress.Date = dateNew;
+                    progressCallback(progress);
+                }
+            }
+
+            return pos;
+        }
+
+        public List<PositionList> GetPositionsCountOfDays(DateTime date, int dayCount, Action<ProgressInfo> progressCallback)
+        {
+            List<PositionList> pos = new List<PositionList>();
+            
+            for (int i = 0; i < dayCount; i++)
+            {
+                var dateNew = date.AddDays(-i);
+                PositionList list = GetPositionsCountOfDay(dateNew);
+                pos.Add(list);
+                if (progressCallback != null)
+                {
+                    ProgressInfo progress = new ProgressInfo();
+                    progress.Index = i + 1;
+                    progress.Total = dayCount;
+                    progress.Count = list.Count;
+                    progress.Date = dateNew;
+                    progressCallback(progress);
+                }
+            }
+
+            return pos;
+        }
+
         public class ProgressInfo
         {
             public int Index;
@@ -244,6 +350,35 @@ namespace BLL.Blls.LocationHistory
             return list;
         }
 
-        
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public int GetPositionsCountOfDate(DateTime start, DateTime end)
+        {
+            long startStamp = start.ToStamp();
+            long endStamp = end.ToStamp();
+            var r = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).Count();
+            return r;
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetInfoListOfDate(DateTime start, DateTime end)
+        {
+            long startStamp = start.ToStamp();
+            long endStamp = end.ToStamp();
+            //var r = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).Count();
+            //return r;
+
+            var query = from p in DbSet
+                        where p.DateTimeStamp >= startStamp && p.DateTimeStamp <= endStamp
+                        select new PosInfo { Id = p.Id, DateTimeStamp = p.DateTimeStamp } ;
+            return query.ToList();
+        }
     }
 }

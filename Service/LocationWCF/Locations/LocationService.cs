@@ -504,11 +504,12 @@ namespace LocationServices.Locations
         {
             DateTime dt1 = DateTime.Now;
             var list1 = new PosHistoryService(db).GetHistoryPositonData(nFlag, strName, strName2, strName3);
-            var send = list1.ToPos();
-            DateTime dt2 = DateTime.Now;
-            //string xml = XmlSerializeHelper.GetXmlText(send);
-            var time = dt2 - dt1;
-            return send;
+            //List<DbModel.LocationHistory.Data.Position> list = new List<DbModel.LocationHistory.Data.Position>();
+            //var send = list1.ToPos();
+            //DateTime dt2 = DateTime.Now;
+            ////string xml = XmlSerializeHelper.GetXmlText(send);
+            //var time = dt2 - dt1;
+            return null;
         }
 
 

@@ -99,6 +99,11 @@ namespace LocationWCFServer
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            if (Debugger.IsAttached)//调试模式
+            {
+                this.Topmost = false;//防止挡住代码
+            }
+
             //LocationTestBox1.Logs = Logs;
             InitData();
 

@@ -11,8 +11,10 @@ using Location.TModel.Tools;
 using LocationServices.Converters;
 using MathNet.Numerics.Interpolation;
 using TModel.Tools;
-using PositionDb = DbModel.LocationHistory.Data.Position;
-using PositionListDb = DbModel.LocationHistory.Data.PositionList;
+//using PositionDb = DbModel.LocationHistory.Data.Position;
+using PositionDb = DbModel.LocationHistory.Data.PosInfo;
+//using PositionListDb = DbModel.LocationHistory.Data.PositionList;
+using PositionListDb = DbModel.LocationHistory.Data.PosInfoList;
 using PersonnelDb = DbModel.Location.Person.Personnel;
 using System.Threading;
 using LocationServer;
@@ -399,7 +401,7 @@ namespace LocationServices.Locations.Services
                     if (!bFirst)
                     {
                         bFirst = true;
-                        GetAllData();//获取数据
+                        GetAllData("GetHistoryPositonThread");//获取数据
                         Thread.Sleep(nSleepTime);
                         continue;
                     }
@@ -417,7 +419,7 @@ namespace LocationServices.Locations.Services
                         continue;
                     }
 
-                    GetAllData();//获取数据
+                    GetAllData("GetHistoryPositonThread");//获取数据
 
                     bGet = true;
 
@@ -431,11 +433,26 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private void GetAllData()
+        public List<PositionDb> GetAllData(string tag,bool useBuffer=false)
         {
             try
             {
-                string tag = "GetAllPositionsByDay";// LogTags.Server LogTags.HisPos
+                if (useBuffer == true)
+                {
+                    if (allPoslist != null)
+                    {
+                        return allPoslist;
+                    }
+                }
+                else
+                {
+                    if (allPoslist != null)
+                    {
+                        allPoslist.Clear();
+                        GC.Collect();//垃圾收集，降低内存
+                    }
+                }
+                //string tag = "GetAllPositionsByDay";// LogTags.Server LogTags.HisPos
                 Log.Info(tag, "Start");
                 DateTime start = DateTime.Now;
 
@@ -449,31 +466,55 @@ namespace LocationServices.Locations.Services
                 var first = bll.Positions.GetFirst();
                 Log.Info(tag, string.Format("first:" + first.Id));
 
-                int total = 0;
+                //bll.Positions.GetAllPositionsCountByDay((progress) =>
+                //{
+                //    if (progress.Count > 0)
+                //    {
+                //        Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
+                //        progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
+                //    }
+                //});
 
-                for (int i = 0; i < 10; i++)
+                start = DateTime.Now;
+                var list=bll.Positions.GetAllPosInfoListByDay((progress) =>
                 {
-                    start = DateTime.Now;
-                    var list2 = bll.Positions.GetPageList(10, i, out total);
-                    Log.Info(tag, string.Format("list3:{0},time:{1}", list2.Count, DateTime.Now - start));
-                }
+                    if (progress.Count > 0)
+                    {
+                        Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
+                        progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
+                    }
+                });
+                allPoslist = list;
 
+                var time1 = DateTime.Now - start;
+                Log.Info(tag, string.Format("time1:" + time1));
+
+                //int total = 0;
+
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    start = DateTime.Now;
+                //    var list2 = bll.Positions.GetPageList(10, i, out total);
+                //    Log.Info(tag, string.Format("list3:{0},time:{1}", list2.Count, DateTime.Now - start));
+                //}
 
                 //var last = bll.Positions.GetLast();
                 //Log.Info(tag, string.Format("last:" + last.Id));
 
 
-                //太多了 一次取的话 卡住很久很久。
-                start = DateTime.Now;
-                var list4 = bll.Positions.GetAllPositionsByDay((progress) =>
-                {
-                    Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
-                        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                });
-                allPoslist = list4;
+                ////太多了 一次取的话 卡住很久很久。
+                //start = DateTime.Now;
+                //var list4 = bll.Positions.GetAllPositionsByDay((progress) =>
+                //{
+                //    Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
+                //        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
+                //});
+                //allPoslist = list4;
 
-                var time1 = DateTime.Now - start;
-                Log.Info(tag, string.Format("time1:"+ time1));
+                //return;
+
+                //var time1 = DateTime.Now - start;
+                //Log.Info(tag, string.Format("time1:"+ time1));
 
                 var personnels = bll.Personnels.ToDictionary();
                 foreach (var pos in allPoslist)
@@ -488,30 +529,39 @@ namespace LocationServices.Locations.Services
                     {
                         pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ; //有些卡对应的人员不存在
                     }
-
-
                 }
+
+                List<PositionDb> noAreaList = new List<PositionDb>();
 
                 var areas = bll.Areas.ToDictionary();
                 foreach (var pos in allPoslist)
                 {
                     var areaId = pos.AreaId;
-                    if (areaId != null && areas.ContainsKey((int) areaId))
+                    if (areaId != null && areas.ContainsKey((int)areaId))
                     {
-                        var area = areas[(int) areaId];
-                        pos.Area = area;
+                        var area = areas[(int)areaId];
+                        //pos.Area = area;
                         pos.AreaPath = area.GetToBuilding(">");
+
+                        allPoslist.Add(pos);
+                    }
+                    else
+                    {
+                        noAreaList.Add(pos);
                     }
                 }
 
                 RefreshBuffer();
+
+                //return allPoslist;
+                Log.Info(tag, "End");
             }
             catch (Exception ex)
             {
                 string strError = ex.Message;
             }
 
-            return;
+            return allPoslist;
         }
 
         /// <summary>

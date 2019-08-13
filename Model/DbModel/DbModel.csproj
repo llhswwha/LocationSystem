@@ -66,6 +66,9 @@
     <Compile Include="BaseData\org.cs" />
     <Compile Include="BaseData\user.cs" />
     <Compile Include="BaseData\zones.cs" />
+    <Compile Include="LocationHistory\Data\PosInfo.cs" />
+    <Compile Include="LocationHistory\Data\PosInfoList.cs" />
+    <Compile Include="LocationHistory\Data\PositionList.cs" />
     <Compile Include="Location\Work\InspectionTrackList.cs" />
     <Compile Include="Others\CidMap.cs" />
     <Compile Include="Engine\bus_anchor.cs" />

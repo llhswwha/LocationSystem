@@ -2,6 +2,7 @@
 using SQLite.CodeFirst;
 using DbModel.LocationHistory.Work;
 using DbModel.LocationHistory.AreaAndDev;
+using Location.BLL.Tool;
 
 namespace DAL
 {
@@ -15,7 +16,7 @@ namespace DAL
 
         public LocationHistoryDb():base(Name)
         {
-           
+            this.Database.Log = s => Log.Info(LogTags.EF, s);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -39,9 +39,10 @@
                         <Button Width="20" Name="BtnClearClientLogs" Click="BtnClearClientLogs_OnClick">X</Button>
                     </StackPanel>
                 </GroupBox.Header>
-                <ScrollViewer>
+                <!--<ScrollViewer>
                     <TextBox Name="TbClientLog" TextWrapping="Wrap"></TextBox>
-                </ScrollViewer>
+                </ScrollViewer>-->
+                <local:LogTabControl x:Name="LogTabControl1"/>
             </GroupBox>
 
             <GridSplitter Grid.Row="1" Grid.Column="0" Height="0" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>

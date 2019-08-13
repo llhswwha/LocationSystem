@@ -459,6 +459,8 @@ namespace LocationServer.Controls
 
         private string clientLogs = "";
 
+        private List<LogInfo> clientLogInfos = new List<LogInfo>();
+
         private bool clientLogsChanged = false;
 
         private void WriteLog(string txt)
@@ -472,10 +474,11 @@ namespace LocationServer.Controls
 
         private DispatcherTimer logTimer;
 
-        private void ListenToLog(string tag,string log)
+        private void ListenToLog(LogInfo info)
         {
             try
             {
+                string tag = info.Tag;
                 if (serverLogs.Length > MaxLength)
                 {
                     serverLogs = serverLogs.Substring(0, MaxLength2);
@@ -490,14 +493,16 @@ namespace LocationServer.Controls
                 //string[] parts = log.Split('|');
                 if (tag == LogTags.Server || tag == LogTags.ExtremeVision)
                 {
-                    serverLogs = log + "\n" + serverLogs;
+                    serverLogs = info.Log + "\n" + serverLogs;
                     serverLogsChanged = true;
                 }
                 else
                 {
                     if (tag != LogTags.Engine && tag != LogTags.BaseData)
                     {
-                        clientLogs = log + "\n" + clientLogs;
+                        //clientLogs = log + "\n" + clientLogs;
+                        clientLogInfos.Add(info);
+
                         clientLogsChanged = true;
                     }
                 }
@@ -518,7 +523,21 @@ namespace LocationServer.Controls
 
             if (clientLogsChanged)
             {
-                TbClientLog.Text = clientLogs;
+                //TbClientLog.Text = clientLogs;
+
+                var temp = new List<LogInfo>();
+                lock (clientLogInfos)
+                {
+                    temp.AddRange(clientLogInfos);
+                    clientLogInfos.Clear();
+                }
+                while (temp.Count > 0)
+                {
+                    var log = temp.First();
+                    temp.RemoveAt(0);
+                    LogTabControl1.AddLog(log);
+                }
+
                 clientLogsChanged = false;
             }
         }

@@ -81,12 +81,12 @@ namespace EngineClient
             TbResult3.Text = Logs.LogRight;
         }
 
-        private void Log_NewLogEvent(string arg1, string arg2)
+        private void Log_NewLogEvent(LogInfo info)
         {
             //Location.BLL.Tool.Log.NewLogEvent -= ListenToLog;
-            if (arg1 == LogTags.Engine)
+            if (info.Tag == LogTags.Engine)
             {
-                Logs.WriteLogLeft(arg2);
+                Logs.WriteLogLeft(info.Log);
             }
         }
 

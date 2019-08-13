@@ -149,7 +149,7 @@ namespace LocationDaemon
             string t = GetString(EchoUrl);
             if (string.IsNullOrEmpty(t))
             {
-                if (RestartProcess() == false)
+                if (RestartProcess("EchorTimer") == false)
                 {
                     echorTimer.Stop();
                 }
@@ -210,9 +210,9 @@ namespace LocationDaemon
 
         private DateTime startTime = DateTime.Now;
 
-        private bool RestartProcess()
+        private bool RestartProcess(string tag)
         {
-            var ps1 = Process.GetProcessesByName(targetProcessName).ToList();
+            var ps1 = GetProcesses(targetProcessName);
             foreach (Process p in ps1)
             {
                 if (p.HasExited)
@@ -225,7 +225,7 @@ namespace LocationDaemon
                 }
             }
 
-            return StartProcess();
+            return StartProcess(tag);
         }
 
         private void RestartTimer_Tick(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace LocationDaemon
                 {
                     if ((now - lastRestartTime).TotalMinutes > RestartInterval)
                     {
-                        if (RestartProcess() == false)
+                        if (RestartProcess("RestartMode == 2") == false)
                         {
                             restartTimer.Stop();
                         }
@@ -249,7 +249,7 @@ namespace LocationDaemon
                         && now.Minute == RestartTime.Minute
                         && (now - lastRestartTime).TotalMinutes > 1)
                     {
-                        if (StartProcess() == false)
+                        if (StartProcess("RestartMode == 1") == false)
                         {
                             restartTimer.Stop();
                         }
@@ -297,9 +297,35 @@ namespace LocationDaemon
 
         private List<int> errorProcess = new List<int>();
 
+        public List<Process> GetProcesses(string processName)
+        {
+            //WriteLog("Debugger.IsAttached:" + Debugger.IsAttached);
+            var ps1 = Process.GetProcessesByName(processName).ToList();
+            if (ps1.Count == 0)
+            {
+                if (Debugger.IsAttached)//vs调试模式程序
+                {
+                    ps1 = Process.GetProcessesByName(processName + ".vshost").ToList();
+                }
+              
+                //var ps2=Process.GetProcesses().ToList();
+                //var ps3 = ps2.FindAll(i => i.ProcessName.ToLower().StartsWith("l"));
+                //foreach (var ps in ps3)
+                //{
+                //    if (ps.ProcessName.Contains(processName))
+                //    {
+                //        ps1.Add(ps);
+                //    }
+                //}
+            }
+            return ps1;
+        }
+
         private void DaemonTimerTick(object sender, EventArgs e)
         {
-            var ps1 = Process.GetProcessesByName(targetProcessName).ToList() ;
+            //WriteLog("targetProcessName:" + targetProcessName);
+            var ps1 = GetProcesses(targetProcessName);
+            //WriteLog("ps count1:"+ps1.Count);
             List<Process> ps = new List<Process>();
             for (int i = 0; i < ps1.Count; i++)
             {
@@ -308,11 +334,12 @@ namespace LocationDaemon
                     ps.Add(ps1[i]);
                 }
             }
-            
+            //WriteLog("ps count2:" + ps.Count);
             if (ps.Count > 0)
             {
                 if(ps.Count > 1)//出错崩溃，后台还在
                 {
+                    //WriteLog("ps count3:" + ps.Count);
                     foreach (Process item in ps)
                     {
                         try
@@ -327,8 +354,9 @@ namespace LocationDaemon
                     }
                 }
                 var faultProcess = "WerFault";//XX 已停止工作界面
-                var ps2 = Process.GetProcessesByName(faultProcess);
-                if (ps2.Length > 0)
+                var ps2 = GetProcesses(faultProcess);
+                //WriteLog("ps count4:" + ps.Count);
+                if (ps2.Count > 0)
                 {
                     foreach (Process item in ps2)
                     {
@@ -338,14 +366,14 @@ namespace LocationDaemon
             }
             else
             {
-                if (StartProcess() == false)
+                if (StartProcess("DaemonTimer") == false)
                 {
                     daemonTimer.Stop();
                 }
             }
         }
 
-        private bool StartProcess()
+        private bool StartProcess(string tag)
         {
             if (!File.Exists(targetProcessPath))
             {
@@ -357,7 +385,7 @@ namespace LocationDaemon
             Process process = Process.Start(targetProcessPath); //核心，启动目标程序
 
             FileInfo file = new FileInfo(targetProcessPath);
-            WriteLog("启动程序:" + file.FullName);
+            WriteLog(tag+"|启动程序:" + file.FullName);
             lastRestartTime = DateTime.Now;
 
             Thread.Sleep(1000);

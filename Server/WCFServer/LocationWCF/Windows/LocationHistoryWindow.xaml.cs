@@ -22,6 +22,12 @@ using System.Windows.Threading;
 using Coldairarrow.Util.Sockets;
 using Location.BLL.Tool;
 using WPFClientControlLib;
+using LocationServices.Locations.Services;
+
+//using Position = DbModel.LocationHistory.Data.Position;
+using Position = DbModel.LocationHistory.Data.PosInfo;
+//using PositionList = DbModel.LocationHistory.Data.PositionList;
+using PositionList = DbModel.LocationHistory.Data.PosInfoList;
 
 namespace LocationServer.Windows
 {
@@ -57,98 +63,105 @@ namespace LocationServer.Windows
                 try
                 {
                     allPoslist = new List<Position>();
-                    Bll bll = Bll.NewBllNoRelation();
-                    //bll.history
+                    PosHistoryService phs = new PosHistoryService();
+                    allPoslist=phs.GetAllData(LogTags.HisPos,false);
+
+                    //Bll bll = Bll.NewBllNoRelation();
+                    ////bll.history
 
                     DateTime start = DateTime.Now;
 
-                    int count = bll.Positions.DbSet.Count();
-                    Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
+                    //int count = bll.Positions.DbSet.Count();
+                    //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
 
-                    Position first=bll.Positions.DbSet.First();
-                    Log.Info(LogTags.HisPos, string.Format("first:{0}", first));
+                    //Position first=bll.Positions.DbSet.First();
+                    //Log.Info(LogTags.HisPos, string.Format("first:{0}", first));
 
-                    List<Position> list1 = bll.Positions.GetPositionsOfDay(DateTime.Now);
-                    Log.Info(LogTags.HisPos, string.Format("list1:{0},time:{1}", list1.Count, DateTime.Now - start));
-                    start = DateTime.Now;
+                    //List<Position> list1 = bll.Positions.GetPositionsOfDay(DateTime.Now);
+                    //Log.Info(LogTags.HisPos, string.Format("list1:{0},time:{1}", list1.Count, DateTime.Now - start));
+                    //start = DateTime.Now;
 
-                    List<Position> list2 = bll.Positions.GetPositionsOfSevenDay(DateTime.Now);
-                    Log.Info(LogTags.HisPos, string.Format("list2:{0},time:{1}", list2.Count, DateTime.Now - start));
-                    start = DateTime.Now;
+                    //List<Position> list2 = bll.Positions.GetPositionsOfSevenDay(DateTime.Now);
+                    //Log.Info(LogTags.HisPos, string.Format("list2:{0},time:{1}", list2.Count, DateTime.Now - start));
+                    //start = DateTime.Now;
 
-                    List<Position> list3 = bll.Positions.GetPositionsOfMonth(DateTime.Now);
-                    Log.Info(LogTags.HisPos, string.Format("list3:{0},time:{1}", list3.Count, DateTime.Now - start));
-                    start = DateTime.Now;
+                    //List<Position> list3 = bll.Positions.GetPositionsOfMonth(DateTime.Now);
+                    //Log.Info(LogTags.HisPos, string.Format("list3:{0},time:{1}", list3.Count, DateTime.Now - start));
+                    //start = DateTime.Now;
 
-                    List<Position> list4 = bll.Positions.GetAllPositionsByDay((progress) =>
-                    {
-                        Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByDay date:{0},count:{1},({2}/{3},{4:p})",
-                            progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                    });
-                    Log.Info(LogTags.HisPos, string.Format("list4:{0},time:{1}", list4.Count, DateTime.Now - start));
-                    start = DateTime.Now;
-                    //按天来要1分11s
-                    List<Position> posList = list4;
-
-                    //List<Position> list5 = bll.Positions.GetAllPositionsByMonth((progress) =>
+                    //List<Position> list4 = bll.Positions.GetAllPositionsByDay((progress) =>
                     //{
-                    //    Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByMonth date:{0},count:{1},({2}/{3},{4:p})",
+                    //    Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByDay date:{0},count:{1},({2}/{3},{4:p})",
                     //        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
                     //});
-                    //Log.Info(LogTags.HisPos, string.Format("list5:{0},time:{1}", list5.Count, DateTime.Now - start));
+                    //Log.Info(LogTags.HisPos, string.Format("list4:{0},time:{1}", list4.Count, DateTime.Now - start));
                     //start = DateTime.Now;
-                    ////按月来是22s=>把按天的去掉，按月的时间也是一样的50s-70s
+                    ////按天来要1分11s
+                    //List<Position> posList = list4;
 
-                    //List<Position> posList = list5;
+                    ////List<Position> list5 = bll.Positions.GetAllPositionsByMonth((progress) =>
+                    ////{
+                    ////    Log.Info(LogTags.HisPos, string.Format("GetAllPositionsByMonth date:{0},count:{1},({2}/{3},{4:p})",
+                    ////        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
+                    ////});
+                    ////Log.Info(LogTags.HisPos, string.Format("list5:{0},time:{1}", list5.Count, DateTime.Now - start));
+                    ////start = DateTime.Now;
+                    //////按月来是22s=>把按天的去掉，按月的时间也是一样的50s-70s
+
+                    ////List<Position> posList = list5;
 
                     //List<Position> posList = bll.Positions.ToList();
-                    Log.Info(LogTags.HisPos, string.Format("list6:{0},time:{1}", posList.Count, DateTime.Now - start));
-                    if (posList == null)
-                    {
-                        allPoslist=null;
-                        Log.Error(bll.Positions.ErrorMessage);
-                        return;
-                    }
-                    var personnels = bll.Personnels.ToDictionary();
-                    foreach (var pos in posList)
-                    {
-                        var pid = pos.PersonnelID;
-                        if (pid != null && personnels.ContainsKey((int)pid))
-                        {
-                            var p = personnels[(int)pid];
-                            pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
-                        }
-                        else
-                        {
-                            pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ;//有些卡对应的人员不存在
-                        }
-                    }
+                    //Log.Info(LogTags.HisPos, string.Format("list6:{0},time:{1}", posList.Count, DateTime.Now - start));
+                    //if (posList == null)
+                    //{
+                    //    allPoslist=null;
+                    //    Log.Error(bll.Positions.ErrorMessage);
+                    //    return;
+                    //}
+                    //var personnels = bll.Personnels.ToDictionary();
+                    //foreach (var pos in posList)
+                    //{
+                    //    var pid = pos.PersonnelID;
+                    //    if (pid != null && personnels.ContainsKey((int)pid))
+                    //    {
+                    //        var p = personnels[(int)pid];
+                    //        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
+                    //    }
+                    //    else
+                    //    {
+                    //        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ;//有些卡对应的人员不存在
+                    //    }
+                    //}
 
-                    List<Position> noAreaList = new List<Position>();
+                    //List<Position> noAreaList = new List<Position>();
 
-                    var areas = bll.Areas.ToDictionary();
-                    foreach (var pos in posList)
-                    {
-                        var areaId = pos.AreaId;
-                        if (areaId != null && areas.ContainsKey((int)areaId))
-                        {
-                            var area = areas[(int)areaId];
-                            pos.Area = area;
-                            pos.AreaPath = area.GetToBuilding(">");
+                    //var areas = bll.Areas.ToDictionary();
+                    //foreach (var pos in posList)
+                    //{
+                    //    var areaId = pos.AreaId;
+                    //    if (areaId != null && areas.ContainsKey((int)areaId))
+                    //    {
+                    //        var area = areas[(int)areaId];
+                    //        pos.Area = area;
+                    //        pos.AreaPath = area.GetToBuilding(">");
 
-                            allPoslist.Add(pos);
-                        }
-                        else
-                        {
-                            noAreaList.Add(pos);
-                        }
-                    }
+                    //        allPoslist.Add(pos);
+                    //    }
+                    //    else
+                    //    {
+                    //        noAreaList.Add(pos);
+                    //    }
+                    //}
+
+
                     Log.Info(LogTags.HisPos, string.Format("GetAll End"));
                 }
                 catch (Exception e)
                 {
                     Log.Error(e.ToString());
                 }
+
+
             }, () =>
             {
                 BtnGetAllActiveDay.IsEnabled = true;
@@ -295,13 +308,15 @@ namespace LocationServer.Windows
         private string SendPos(Position pos)
         {
             if (pos == null) return "";
-            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
-            if (udp == null)
-            {
-                udp = new LightUDP("127.0.0.1", 5678);
-            }
-            udp.Send(txt, "127.0.0.1", 2323);
-            return txt;
+            //string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+            //if (udp == null)
+            //{
+            //    udp = new LightUDP("127.0.0.1", 5678);
+            //}
+            //udp.Send(txt, "127.0.0.1", 2323);
+            //return txt;
+
+            return "";
         }
 
         private void BtnSendNextPos_OnClick(object sender, RoutedEventArgs e)
@@ -405,10 +420,11 @@ namespace LocationServer.Windows
 
         private void DataGridDayPersonPosList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Position pos = DataGridDayPersonPosList.SelectedItem as Position;
-            if (pos == null) return;
-            TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+            //Position pos = DataGridDayPersonPosList.SelectedItem as Position;
+            //if (pos == null) return;
+            //TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
 
+            
         }
 
         private LogTextBoxController controller;
@@ -416,6 +432,20 @@ namespace LocationServer.Windows
         private void LocationHistoryWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             controller=new LogTextBoxController(TbLogs,LogTags.HisPos);
+
+            Worker.Run(() =>
+            {
+                Bll bll = Bll.NewBllNoRelation();
+                //bll.history
+
+                DateTime start = DateTime.Now;
+
+                int count = bll.Positions.DbSet.Count();
+                return count;
+            }, (count) => {
+                this.Title += " total:" + count;
+            });
+            
         }
     }
 }

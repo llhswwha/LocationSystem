@@ -324,6 +324,28 @@ namespace LocationServices.Converters
             }
             return list2;
         }
+
+        public static Location.TModel.LocationHistory.Data.PositionList ToTModel(this DbModel.LocationHistory.Data.PosInfoList item1)
+        {
+            if (item1 == null) return null;
+            var item2 = new Location.TModel.LocationHistory.Data.PositionList();
+            item2.Name = item1.Name;
+            item2.Count = item1.Count;
+            //item2.Items = item1.Items.ToTModel();
+            return item2;
+        }
+        public static List<Location.TModel.LocationHistory.Data.PositionList> ToTModel(this List<DbModel.LocationHistory.Data.PosInfoList> list1)
+        {
+            if (list1 == null) return null;
+            var list2 = new List<Location.TModel.LocationHistory.Data.PositionList>();
+            foreach (var item1 in list1)
+            {
+                list2.Add(item1.ToTModel());
+            }
+            return list2;
+        }
+
+
         public static DbModel.LocationHistory.Data.PositionList ToDbModel(this Location.TModel.LocationHistory.Data.PositionList item1)
         {
             if (item1 == null) return null;

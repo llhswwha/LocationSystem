@@ -7,6 +7,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Location.Work;
 using DbModel.Location.Manage;
 using DbModel.Location.Alarm;
+using Location.BLL.Tool;
 
 namespace DAL
 {
@@ -22,7 +23,7 @@ namespace DAL
         {
             IsCreateDb = true;
 
-            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);//调试EF需要
+            this.Database.Log = s => Log.Info(LogTags.EF, s);//调试EF需要
         }
 
         //public LocationDb(bool isCreateDb) : base(Name)

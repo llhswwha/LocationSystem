@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Location.BLL.Tool;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace WPFClientControlLib
 {
@@ -26,16 +28,35 @@ namespace WPFClientControlLib
         public void Init(TextBox tb, params string[] tags)
         {
             this.TbLogs = tb;
-            
             this.Tags = tags.ToList();
+            Location.BLL.Tool.Log.NewLogEvent += AddLog;
 
-            Location.BLL.Tool.Log.NewLogEvent += Log_NewLogEvent;
+            if (timer == null)
+            {
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(500);
+                timer.Tick += Timer_Tick;
+                timer.Start();
+            }
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (isDirty)
+            {
+                TbLogs.Text = logs;
+                isDirty = false;
+            }
+            
+        }
+
+        DispatcherTimer timer;
 
         private int MaxLength = int.MaxValue;
         private int MaxLength2 = int.MaxValue/2;
 
         private string logs = "";
+        private bool isDirty = false;
 
         public void SetMaxLength(int length)
         {
@@ -43,7 +64,7 @@ namespace WPFClientControlLib
             MaxLength2 = length / 2;
         }
 
-        private void Log_NewLogEvent(string tag, string log)
+        public void AddLog(LogInfo info)
         {
             if (logs.Length > MaxLength)
             {
@@ -51,19 +72,26 @@ namespace WPFClientControlLib
             }
 
             //string[] parts = log.Split('|');
-            if (Tags.Contains(tag))
+            if (Tags.Contains(info.Tag))
             {
-                logs = log + "\n" + logs;
-                TbLogs.Dispatcher.Invoke(() =>
-                {
-                    TbLogs.Text = logs;
-                });
+                logs = info.Log + "\n" + logs;
+                isDirty = true;
+                //TbLogs.Dispatcher.Invoke(() =>
+                //{
+                //    TbLogs.Text = logs;
+                //});
+                //Tags.Add()
             }
         }
 
         public void Dispose()
         {
-            Location.BLL.Tool.Log.NewLogEvent -= Log_NewLogEvent;
+            if (timer!=null)
+            {
+                timer.Stop();
+            }
+            
+            Location.BLL.Tool.Log.NewLogEvent -= AddLog;
         }
     }
 }
