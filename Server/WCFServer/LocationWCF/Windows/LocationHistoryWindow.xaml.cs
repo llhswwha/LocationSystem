@@ -534,19 +534,28 @@ namespace LocationServer.Windows
                             Log.Info(LogTags.HisPos, string.Format("Progress2 》》 ({2}/{3},{4:F3})", posList.Name, posList.Count, (k + 1), groupList.Count, (k + 1.0) / groupList.Count));
                             //return false;//false的话就中断了，即指获取最后一个
                             //r = false;
-                            var removeList = bll.Positions.DbSet.Where(j => j.DateTimeStamp == item.DateTimeStamp && j.Id != item.Id).ToList();
-                            //bool r = bll.Positions.RemoveList(removeList);
-                            removeListTemp.AddRange(removeList);
-                            removeCount += removeList.Count;
-                            Log.Info(LogTags.HisPos, string.Format("count:{0},total:{1}", removeList.Count, removeCount));
-                            //GC.Collect();
 
-                            if (removeListTemp.Count > 1000)
-                            {
-                                bool r = bll.Positions.RemoveList(removeListTemp);
-                                removeListTemp = new List<Position>();
-                                Log.Info(LogTags.HisPos, string.Format("从数据库删除"));
-                            }
+                            
+                            var query = bll.Positions.DbSet.Where(j => j.DateTimeStamp == item.DateTimeStamp && j.Id != item.Id);
+                            var sql = query.ToString();
+                            var count2 = query.Count();
+                            query.DeleteFromQuery();
+                            removeCount += count2;
+                            Log.Info(LogTags.HisPos, string.Format("count:{0},total:{1}", count2, removeCount));
+
+                            //var removeList = bll.Positions.DbSet.Where(j => j.DateTimeStamp == item.DateTimeStamp && j.Id != item.Id).ToList();
+                            ////bool r = bll.Positions.RemoveList(removeList);
+                            //removeListTemp.AddRange(removeList);
+                            //removeCount += removeList.Count;
+                            //Log.Info(LogTags.HisPos, string.Format("count:{0},total:{1}", removeList.Count, removeCount));
+                            ////GC.Collect();
+
+                            //if (removeListTemp.Count > 1000)
+                            //{
+                            //    bool r = bll.Positions.RemoveList(removeListTemp);
+                            //    removeListTemp = new List<Position>();
+                            //    Log.Info(LogTags.HisPos, string.Format("从数据库删除"));
+                            //}
                         }
 
                     }

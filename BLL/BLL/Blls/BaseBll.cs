@@ -329,11 +329,11 @@ namespace BLL.Blls
             if (list.Count == 0) return true;
             try
             {
-                //Db.BulkDelete(list);
-                //return true;
+                Db.BulkDelete(list);
+                return true;
 
-                DbSet.RemoveRange(list);
-                return Save(true);
+                //DbSet.RemoveRange(list);
+                //return Save(true);
             }
             catch (Exception ex)
             {
