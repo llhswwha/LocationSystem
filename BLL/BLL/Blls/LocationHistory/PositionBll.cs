@@ -130,7 +130,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Position> GetAllPositionsByMonth(Action<ProgressInfo> progressCallback)
+        public List<Position> GetAllPositionsByMonth(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = DbSet.First();
             DateTime firstDay = first.DateTime;
@@ -147,7 +147,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Position> GetAllPositionsByDay(Action<ProgressInfo> progressCallback)
+        public List<Position> GetAllPositionsByDay(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = GetFirst();
             DateTime firstDay = first.DateTime;
@@ -162,7 +162,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PosInfo> GetAllPosInfoListByDay(Action<ProgressInfo> progressCallback)
+        public List<PosInfo> GetAllPosInfoListByDay(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = GetFirst();
             DateTime firstDay = first.DateTime;
@@ -177,7 +177,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PositionList> GetAllPositionsCountByDay(Action<ProgressInfo> progressCallback)
+        public List<PositionList> GetAllPositionsCountByDay(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = GetFirst();
             DateTime firstDay = first.DateTime;
@@ -219,7 +219,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Position> GetPositionsOfMonths(DateTime date,int monthCount, Action<ProgressInfo> progressCallback)
+        public List<Position> GetPositionsOfMonths(DateTime date,int monthCount, Func<ProgressInfo,bool> progressCallback)
         {
             List<Position> pos = new List<Position>();
             List<List<Position>> posList = new List<List<Position>>();
@@ -236,7 +236,10 @@ namespace BLL.Blls.LocationHistory
                     progress.Total = monthCount;
                     progress.Count = list.Count;
                     progress.Date = dateNew;
-                    progressCallback(progress);
+                    if (progressCallback(progress) == false)
+                    {
+                        break;
+                    }
                 }
             }
             return pos;
@@ -247,7 +250,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Position> GetPositionsOfDays(DateTime date, int dayCount,Action<ProgressInfo> progressCallback)
+        public List<Position> GetPositionsOfDays(DateTime date, int dayCount,Func<ProgressInfo,bool> progressCallback)
         {
             List<Position> pos = new List<Position>();
             List<List<Position>> posList = new List<List<Position>>();
@@ -264,7 +267,10 @@ namespace BLL.Blls.LocationHistory
                     progress.Total = dayCount;
                     progress.Count = list.Count;
                     progress.Date = dateNew;
-                    progressCallback(progress);
+                    if (progressCallback(progress) == false)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -276,7 +282,7 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PosInfo> GetPosInfoListOfDays(DateTime date, int dayCount, Action<ProgressInfo> progressCallback)
+        public List<PosInfo> GetPosInfoListOfDays(DateTime date, int dayCount, Func<ProgressInfo,bool> progressCallback)
         {
             List<PosInfo> pos = new List<PosInfo>();
             List<List<PosInfo>> posList = new List<List<PosInfo>>();
@@ -293,14 +299,17 @@ namespace BLL.Blls.LocationHistory
                     progress.Total = dayCount;
                     progress.Count = list.Count;
                     progress.Date = dateNew;
-                    progressCallback(progress);
+                    if (progressCallback(progress) == false)
+                    {
+                        break;
+                    }
                 }
             }
 
             return pos;
         }
 
-        public List<PositionList> GetPositionsCountOfDays(DateTime date, int dayCount, Action<ProgressInfo> progressCallback)
+        public List<PositionList> GetPositionsCountOfDays(DateTime date, int dayCount, Func<ProgressInfo,bool> progressCallback)
         {
             List<PositionList> pos = new List<PositionList>();
             
@@ -316,7 +325,10 @@ namespace BLL.Blls.LocationHistory
                     progress.Total = dayCount;
                     progress.Count = list.Count;
                     progress.Date = dateNew;
-                    progressCallback(progress);
+                    if (progressCallback(progress) == false)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -377,8 +389,10 @@ namespace BLL.Blls.LocationHistory
 
             var query = from p in DbSet
                         where p.DateTimeStamp >= startStamp && p.DateTimeStamp <= endStamp
-                        select new PosInfo { Id = p.Id, DateTimeStamp = p.DateTimeStamp } ;
-            return query.ToList();
+                        select new PosInfo { Id = p.Id, DateTimeStamp = p.DateTimeStamp, PersonnelID=p.PersonnelID,Code=p.Code,AreaId=p.AreaId,X=p.X,Y=p.Y,Z=p.Z } ;
+            List<PosInfo> list= query.ToList();
+
+            return list;
         }
     }
 }

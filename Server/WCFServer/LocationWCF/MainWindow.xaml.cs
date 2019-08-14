@@ -700,7 +700,8 @@ namespace LocationWCFServer
         private void MenuSetting_OnClick(object sender, RoutedEventArgs e)
         {
             SettingWindow win = new SettingWindow();
-            win.ShowDialog();
+            win.Owner = this;
+            win.Show();
         }
 
         private void MenuStartDaemon_OnClick(object sender, RoutedEventArgs e)

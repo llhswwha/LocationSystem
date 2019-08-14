@@ -51,6 +51,7 @@ using DbModel.Location.Alarm;
 using DbModel.Others;
 using NVSPlayer;
 using DbModel.Location.AreaAndDev;
+using System.Collections.Concurrent;
 
 namespace LocationServer.Controls
 {
@@ -459,7 +460,7 @@ namespace LocationServer.Controls
 
         private string clientLogs = "";
 
-        private List<LogInfo> clientLogInfos = new List<LogInfo>();
+        private ConcurrentBag<LogInfo> clientLogInfos = new ConcurrentBag<LogInfo>();
 
         private bool clientLogsChanged = false;
 
@@ -529,7 +530,7 @@ namespace LocationServer.Controls
                 lock (clientLogInfos)
                 {
                     temp.AddRange(clientLogInfos);
-                    clientLogInfos.Clear();
+                    clientLogInfos = new ConcurrentBag<LogInfo>();
                 }
                 while (temp.Count > 0)
                 {
@@ -537,7 +538,6 @@ namespace LocationServer.Controls
                     temp.RemoveAt(0);
                     LogTabControl1.AddLog(log);
                 }
-
                 clientLogsChanged = false;
             }
         }
@@ -672,7 +672,6 @@ namespace LocationServer.Controls
         //    };
         //    client.Start();
         //}
-
 
         private Thread HPThread;
         private void StartGetHistoryPositon()

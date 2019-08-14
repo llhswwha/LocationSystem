@@ -64,7 +64,7 @@ namespace LocationServer.Windows
                 {
                     allPoslist = new List<Position>();
                     PosHistoryService phs = new PosHistoryService();
-                    allPoslist=phs.GetAllData(LogTags.HisPos,false);
+                    allPoslist=phs.GetAllData(LogTags.HisPos,true);
 
                     //Bll bll = Bll.NewBllNoRelation();
                     ////bll.history
@@ -164,13 +164,15 @@ namespace LocationServer.Windows
 
             }, () =>
             {
-                BtnGetAllActiveDay.IsEnabled = true;
+               
                 DataGridLocationHistory.ItemsSource = allPoslist;
 
                 if (allPoslist == null)
                 {
                     MessageBox.Show("出错了，等待30s后再尝试一下");
                 }
+
+                BtnGetAllActiveDay.IsEnabled = true;
 
                 if (callback != null)
                 {
@@ -181,7 +183,7 @@ namespace LocationServer.Windows
 
         private void GetAllActiveDay()
         {
-            Worker.Run(() => { return PositionList.GetListByDay(allPoslist); }, (result) =>
+            Worker.Run(() => { return PosInfoListHelper.GetListByDay(allPoslist); }, (result) =>
             {
                 DataGridStatisticDay.ItemsSource = result;
                 DataGridStatisticDayPerson.ItemsSource = null;
@@ -189,7 +191,7 @@ namespace LocationServer.Windows
                 DataGridDayPersonPosList.ItemsSource = null;
             });
 
-            Worker.Run(() => { return PositionList.GetListByPerson(allPoslist); }, (result) =>
+            Worker.Run(() => { return PosInfoListHelper.GetListByPerson(allPoslist); }, (result) =>
             {
                 DataGridStatisticPerson.ItemsSource = result;
                 DataGridStatisticPersonDay.ItemsSource = null;
@@ -197,7 +199,7 @@ namespace LocationServer.Windows
                 DataGridPersonDayPosList.ItemsSource = null;
             });
 
-            Worker.Run(() => { return PositionList.GetListByArea(allPoslist); }, (result) =>
+            Worker.Run(() => { return PosInfoListHelper.GetListByArea(allPoslist); }, (result) =>
             {
                 DataGridStatisticArea.ItemsSource = result;
                 DataGridStatisticAreaDayHour.ItemsSource = null;
@@ -227,7 +229,7 @@ namespace LocationServer.Windows
 
             Worker.Run(() =>
             {
-                return PositionList.GetListByPerson(posList.Items);
+                return PosInfoListHelper.GetListByPerson(posList.Items);
             }, (result) =>
             {
                 DataGridStatisticDayPerson.ItemsSource = result;
@@ -240,31 +242,57 @@ namespace LocationServer.Windows
         {
             PositionList posList = DataGridStatisticDayPerson.SelectedItem as PositionList;
             if (posList == null) return;
-            DataGridStatisticDayPersonTime.ItemsSource = PositionList.GetListByHour(posList.Items);
-            DataGridDayPersonPosList.ItemsSource = posList.Items;
+            DataGridStatisticDayPersonTime.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
+            //DataGridDayPersonPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticDayPersonTime_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Log.Info(LogTags.HisPos, string.Format("DataGridStatisticDayPersonTime_OnSelectionChanged"));
+
             PositionList posList = DataGridStatisticDayPersonTime.SelectedItem as PositionList;
-            if (posList == null) return;
-            DataGridDayPersonPosList.ItemsSource = posList.Items;
+
+            if (posList == null)
+            {
+                Log.Info(LogTags.HisPos, string.Format("posList == null"));
+                return;
+            }
+            else
+            {
+                Log.Info(LogTags.HisPos, string.Format("posList:"+ posList.Name));
+            }
+
+            var list = posList.Items;
+
+            DataGridDayPersonPosList.ItemsSource = list;
+
+            if (posList.Items != null)
+            {
+                var count=posList.Items.Count;
+                Log.Info(LogTags.HisPos, string.Format("count:" + count));
+                if (posList.Items.Count > 0)
+                {
+                    Log.Info(LogTags.HisPos, string.Format("Items[0]:" + posList.Items[0]));
+                }
+            }
+
+            
         }
 
         private void DataGridStatisticPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PositionList posList = DataGridStatisticPerson.SelectedItem as PositionList;
             if (posList == null) return;
-            DataGridStatisticPersonDay.ItemsSource= PositionList.GetListByDay(posList.Items);
-            DataGridPersonDayPosList.ItemsSource = posList.Items;
+            DataGridStatisticPersonDay.ItemsSource= PosInfoListHelper.GetListByDay(posList.Items);
+            //DataGridPersonDayPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticPersonDay_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PositionList posList = DataGridStatisticPersonDay.SelectedItem as PositionList;
             if (posList == null) return;
-            DataGridStatisticPersonDayHour.ItemsSource = PositionList.GetListByHour(posList.Items);
-            DataGridPersonDayPosList.ItemsSource = posList.Items;
+            DataGridStatisticPersonDayHour.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
+            //DataGridPersonDayPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticPersonDayHour_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -278,16 +306,16 @@ namespace LocationServer.Windows
         {
             PositionList posList = DataGridStatisticArea.SelectedItem as PositionList;
             if (posList == null) return;
-            DataGridStatisticAreaPerson.ItemsSource = PositionList.GetListByPerson(posList.Items);
-            DataGridAreaPosList.ItemsSource = posList.Items;
+            DataGridStatisticAreaPerson.ItemsSource = PosInfoListHelper.GetListByPerson(posList.Items);
+            //DataGridAreaPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticAreaPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PositionList posList = DataGridStatisticAreaPerson.SelectedItem as PositionList;
             if (posList == null) return;
-            DataGridStatisticAreaDayHour.ItemsSource = PositionList.GetListByDay(posList.Items);
-            DataGridAreaPosList.ItemsSource = posList.Items;
+            DataGridStatisticAreaDayHour.ItemsSource = PosInfoListHelper.GetListByDay(posList.Items);
+            //DataGridAreaPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticAreaDayHour_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -31,7 +31,12 @@
             <TabControl>
             <TabItem Header="时间统计">
                 <DockPanel>
-                    <DataGrid Name="DataGridStatisticDay" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDay_OnSelectionChanged"></DataGrid>
+                    <DataGrid Name="DataGridStatisticDay" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDay_OnSelectionChanged" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Count" Binding="{Binding Count}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <DataGrid Name="DataGridStatisticDayPerson" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPerson_OnSelectionChanged"></DataGrid>
                     <DataGrid Name="DataGridStatisticDayPersonTime" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPersonTime_OnSelectionChanged"></DataGrid>
                     <DockPanel>
@@ -41,7 +46,12 @@
                             <Button Content="发送下一数据" Name="BtnSendNextPos" Click="BtnSendNextPos_OnClick"></Button>
                             <Button Content="开始模拟数据"  Name="BtnStartSendPos" Click="BtnStartSendPos_OnClick"></Button>
                         </StackPanel>
-                        <DataGrid Name="DataGridDayPersonPosList" SelectionChanged="DataGridDayPersonPosList_OnSelectionChanged"></DataGrid>
+                        <DataGrid Name="DataGridDayPersonPosList" SelectionChanged="DataGridDayPersonPosList_OnSelectionChanged">
+                            <!--<DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Code" Binding="{Binding Code}"></DataGridTextColumn>
+                            </DataGrid.Columns>-->
+                        </DataGrid>
                     </DockPanel>
                     
                     

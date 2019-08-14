@@ -8,18 +8,28 @@ namespace DbModel.LocationHistory.Data
 {
     public class PosInfoList : IComparable<PosInfoList>
     {
+        private List<PosInfo> _items;
+
         public string Name { get; set; }
 
-        public int Count
+        public int Count { get; set; }
+
+        public List<PosInfo> Items
         {
-            get
+            get => _items;
+            set
             {
-                if (Items == null) return -1;
-                return Items.Count;
+                _items = value;
+                if (_items != null)
+                {
+                    Count = _items.Count;
+                }
+                else
+                {
+                    Count = -1;
+                }
             }
         }
-
-        public List<PosInfo> Items { get; set; }
 
         public PosInfoList(string name)
         {
@@ -32,10 +42,19 @@ namespace DbModel.LocationHistory.Data
             {
                 Items = new List<PosInfo>();
             }
-
             Items.Add(pos);
+            Count++;
         }
 
+
+        public int CompareTo(PosInfoList other)
+        {
+            return other.Count.CompareTo(this.Count);
+        }
+    }
+
+    public static class PosInfoListHelper
+    {
         public static List<PosInfoList> GetList(List<PosInfo> posList, Func<PosInfo, string> actionGetName)
         {
             Dictionary<string, PosInfoList> dateDict = new Dictionary<string, PosInfoList>();
@@ -62,12 +81,12 @@ namespace DbModel.LocationHistory.Data
 
         public static List<PosInfoList> GetListByDay(List<PosInfo> posList)
         {
-            return GetList(posList, i => i.DateTime.ToString("yyyy-MM-dd"));
+            return GetList(posList, i => i.GetDateTime_Date());
         }
 
         public static List<PosInfoList> GetListByHour(List<PosInfo> posList)
         {
-            return GetList(posList, i => i.DateTime.ToString("yyyy-MM-dd HH"));
+            return GetList(posList, i => i.GetDateTime_Hour());
         }
 
         public static List<PosInfoList> GetListByCode(List<PosInfo> posList)
@@ -77,17 +96,35 @@ namespace DbModel.LocationHistory.Data
 
         public static List<PosInfoList> GetListByPerson(List<PosInfo> posList)
         {
-            return GetList(posList, i => i.PersonnelName);
+            return GetList(posList, i => i.GetPersonnelName());
         }
 
         public static List<PosInfoList> GetListByArea(List<PosInfo> posList)
         {
-            return GetList(posList, i => i.AreaPath);
+            return GetList(posList, i => i.GetAreaPath());
         }
 
-        public int CompareTo(PosInfoList other)
+        public static List<PosInfoList> GetSubList(List<PosInfo> list,int flag)
         {
-            return other.Count.CompareTo(this.Count);
+            List<PosInfoList> Send = null;
+            switch (flag)
+            {
+                case 1:
+                    Send = GetListByDay(list);//按天
+                    break;
+                case 2:
+                    Send = GetListByPerson(list);//按人
+                    break;
+                case 3:
+                    Send = GetListByArea(list);//按区域
+                    break;
+                case 4:
+                    Send = GetListByHour(list);//按小时
+                    break;
+                default:
+                    break;
+            }
+            return Send;
         }
     }
 }
