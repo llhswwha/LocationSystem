@@ -133,6 +133,8 @@ namespace LocationWCFServer
             RealAlarm.NsqLookupdTopic = ConfigurationHelper.GetValue("NsqLookupdTopic");
             RealAlarm.NsqLookupdChannel = ConfigurationHelper.GetValue("NsqLookupdChannel");
 
+            DbModel.AppSetting.AddHisPositionInterval = ConfigurationHelper.GetIntValue("AddHisPositionInterval",30) * 1000;//单位是s，
+
             KillOtherServers();
         }
 

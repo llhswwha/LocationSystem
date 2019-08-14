@@ -405,7 +405,7 @@ namespace LocationServices.Locations.Services
                     if (!bFirst)
                     {
                         bFirst = true;
-                        GetAllData("GetHistoryPositonThread");//获取数据
+                        GetAllData("HisPosBuffer");//获取数据
                         Thread.Sleep(nSleepTime);
                         continue;
                     }
@@ -423,7 +423,7 @@ namespace LocationServices.Locations.Services
                         continue;
                     }
 
-                    GetAllData("GetHistoryPositonThread");//获取数据
+                    GetAllData("HisPosBuffer");//获取数据
 
                     bGet = true;
 
@@ -493,15 +493,33 @@ namespace LocationServices.Locations.Services
                   {
                       if (progress.Count > 0)
                       {
+                          bool r = true;
                           Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
                           progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
+                          var lst = progress.Items as List<PositionDb>;
+                          if (lst != null)
+                          {
+                              var mainlist = lst.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
+                              {
+                                  p.Key.DateTimeStamp,
+                                  Id = p.First(w => true).Id,
+                                  total = p.Count()
+                              }).ToList();
+                              foreach (var item in mainlist)
+                              {
+                                  if (item.total > 1)
+                                  {
+                                      //return false;//false的话就中断了，即指获取最后一个
+                                      r = false;
+                                  }
+                              }
+                          }
+                          return r;//false的话就中断了，即指获取最后一个
                       }
-
-                      //return false;//false的话就中断了，即指获取最后一个
                       return true;
                   });
                 //allPoslist = list;
-
+                Log.Info(tag, string.Format(" getlist count:" + list.Count));
                 Log.Info(tag, string.Format(" getlist time1:" + (DateTime.Now - start)));
 
                 //List<long> timestampList = new List<long>();

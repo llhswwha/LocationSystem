@@ -231,7 +231,7 @@ namespace BLL.Blls.LocationHistory
                 pos.AddRange(list);
                 if (progressCallback != null)
                 {
-                    ProgressInfo progress = new ProgressInfo();
+                    ProgressInfo progress = new ProgressInfo(list);
                     progress.Index = i + 1;
                     progress.Total = monthCount;
                     progress.Count = list.Count;
@@ -262,7 +262,7 @@ namespace BLL.Blls.LocationHistory
                 pos.AddRange(list);
                 if (progressCallback != null)
                 {
-                    ProgressInfo progress = new ProgressInfo();
+                    ProgressInfo progress = new ProgressInfo(list);
                     progress.Index = i + 1;
                     progress.Total = dayCount;
                     progress.Count = list.Count;
@@ -294,7 +294,7 @@ namespace BLL.Blls.LocationHistory
                 pos.AddRange(list);
                 if (progressCallback != null)
                 {
-                    ProgressInfo progress = new ProgressInfo();
+                    ProgressInfo progress = new ProgressInfo(list);
                     progress.Index = i + 1;
                     progress.Total = dayCount;
                     progress.Count = list.Count;
@@ -320,7 +320,7 @@ namespace BLL.Blls.LocationHistory
                 pos.Add(list);
                 if (progressCallback != null)
                 {
-                    ProgressInfo progress = new ProgressInfo();
+                    ProgressInfo progress = new ProgressInfo(list);
                     progress.Index = i + 1;
                     progress.Total = dayCount;
                     progress.Count = list.Count;
@@ -347,6 +347,13 @@ namespace BLL.Blls.LocationHistory
         
             public int Count;
             public DateTime Date;
+
+            public object Items;
+
+            public ProgressInfo(object items)
+            {
+                this.Items = items;
+            }
         }
 
         /// <summary>

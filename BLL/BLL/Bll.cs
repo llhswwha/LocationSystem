@@ -320,5 +320,34 @@ namespace BLL
             Db.Dispose();
             DbHistory.Dispose();
         }
+
+        public static void StopThread()
+        {
+            if (AddPostionThread != null)
+            {
+                try
+                {
+                    AddPostionThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Bll.StopThread AddPostionThread", ex.ToString());
+                }
+                AddPostionThread = null;
+            }
+
+            if (PartitionThread != null)
+            {
+                try
+                {
+                    PartitionThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Bll.StopThread PartitionThread", ex.ToString());
+                }
+                PartitionThread = null;
+            }
+        }
     }
 }

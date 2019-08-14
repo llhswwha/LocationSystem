@@ -31,5 +31,7 @@ namespace DbModel
         public static int UrlMaxLength = 200;
 
         public static int LowPowerFlag = 370;
+
+        public static int AddHisPositionInterval = 10;
     }
 }

@@ -89,6 +89,11 @@ namespace BLL
             }
             return locationCardDic;
         }
+
+        /// <summary>
+        /// 设置标签、人员和区域
+        /// </summary>
+        /// <param name="positions"></param>
         public void SetPositionInfo(List<Position> positions)
         {
             LoadData();
@@ -99,6 +104,10 @@ namespace BLL
             }
         }
 
+        /// <summary>
+        /// 设置标签、人员和区域
+        /// </summary>
+        /// <param name="pos"></param>
         public void SetPositionInfo(Position pos)
         {
             try

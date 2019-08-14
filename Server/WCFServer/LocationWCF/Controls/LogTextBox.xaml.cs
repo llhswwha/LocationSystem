@@ -27,20 +27,21 @@ namespace LocationServer.Controls
             InitializeComponent();
         }
 
-        LogTextBoxController controller;
+        public LogTextBoxController controller;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             
         }
 
-        public void AddLog(LogInfo info)
+        public LogTextBoxController AddLog(LogInfo info)
         {
             if (controller == null)
             {
                 controller = new LogTextBoxController(TbLog, info.Tag);
                 controller.AddLog(info);
             }
+            return controller;
         }
 
         //public void Init(string tag)

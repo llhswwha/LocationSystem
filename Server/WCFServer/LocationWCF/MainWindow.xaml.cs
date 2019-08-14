@@ -163,6 +163,8 @@ namespace LocationWCFServer
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            Bll.StopThread();//关闭静态线程
+
             ServerManagerBox1.StopServices();
             ServerManagerBox1.StopLogTimer();
             ServerManagerBox1.StopListenLog();

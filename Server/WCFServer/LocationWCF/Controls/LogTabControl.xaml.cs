@@ -43,8 +43,11 @@ namespace LocationServer.Controls
                 tabItem.Content = tb;
                 
                 TabControl1.Items.Add(tabItem);
-                tb.AddLog(info);
-
+                var controller=tb.AddLog(info);
+                controller.LogChanged += (i,c) =>
+                {
+                    tabItem.Header = string.Format("{0}({1})", i.Tag, c);
+                };
                 items.Add(info.Tag, tb);
             }
         }

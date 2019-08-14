@@ -11,6 +11,7 @@ using Location.BLL.Tool;
 using System.Threading;
 using DbModel;
 using SelfBatchImport;
+using System.Collections.Concurrent;
 
 namespace BLL
 {
@@ -166,7 +167,7 @@ namespace BLL
                 //tagRelation = new TagRelationBuffer();
                 tagRelation = TagRelationBuffer.Instance();
             }
-            tagRelation.SetPositionInfo(positions2);
+            tagRelation.SetPositionInfo(positions2);//设置标签、人员和区域
             //3.写入数据库
             return AddPositions(positions2);
         }
@@ -181,34 +182,23 @@ namespace BLL
             bool r = true;
             try
             {
-                if (positions == null || positions.Count == 0) return false;
+                if (positions == null || positions.Count == 0) return true;
 
                 //AddPositionsBySql(positions);//在Z.EntityFramework工具不能使用的情况下，自己写的简单的拼接sql语句。Z.EntityFramework能用的话，这个就不需要。
+
                 if (PartitionThread == null)
                 {
                     int count2 = DbHistory.U3DPositions.Count();
+
                     PartitionThread = new Thread(InsertPartitionInfo);
                     PartitionThread.IsBackground = true;
                     PartitionThread.Start();
+
                     while (bPartitionInitFlag) { }
                 }
 
-                ////1.批量插入历史数据数据
-                //DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
-
-                //DbHistory.Positions.AddRange(positions);
-
-                //bool r1=this.Positions.AddRange(positions);
-                //if (r1)
-                //{
-                //    bool r2 = BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
-                //}
-
-                bool r2=BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
-                if (r2 == false)
-                {
-                    Log.Error("Bll_InsertPos.AddPositions", "BatchImport.Insert Error:" + BatchImport.Error);
-                }
+                //AddPositionToHistory(positions);
+                AddPositionToHistoryAsync(positions);
 
                 //修改实时数据
                 EditTagPositionListOP(positions);
@@ -219,6 +209,71 @@ namespace BLL
                 ErrorMessage = ex.Message;
             }
             return r;
+        }
+
+        private ConcurrentBag<Position> temp = new ConcurrentBag<Position>();
+
+        /// <summary>
+        /// 插入历史数据用线程
+        /// </summary>
+        private static Thread AddPostionThread;
+
+        private void AddPositionToHistoryAsync(List<Position> positions)
+        {
+            foreach (var item in positions)
+            {
+                temp.Add(item);
+            }
+
+            if (AddPostionThread == null)
+            {
+                AddPostionThread = new Thread(() =>
+                  {
+                      while (true)
+                      {
+                          Thread.Sleep(AppSetting.AddHisPositionInterval);//历史数据10s插入一次,其实60s甚至更久也可以的。
+                          lock (temp)
+                          {
+                              if (temp.Count > 0)
+                              {
+                                  List<Position> posList2 = new List<Position>();
+                                  posList2.AddRange(temp);
+                                  bool r1 = AddPositionToHistory(posList2);
+                                  if (r1)
+                                  {
+                                      temp = new ConcurrentBag<Position>();
+                                  }
+                                  Log.Info("AddPositions", string.Format("插入 count:{0},r:{1}", posList2.Count, r1));
+                              }
+                              else
+                              {
+                                  Log.Info("AddPositions", "Wait");
+                              }
+                          }
+                      }
+                  });
+                AddPostionThread.IsBackground = true;
+                AddPostionThread.Start();
+            }
+        }
+
+        private bool AddPositionToHistory(List<Position> positions)
+        {
+            ////1.批量插入历史数据数据
+            //DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
+            //DbHistory.Positions.AddRange(positions);
+            bool r1 = this.Positions.AddRange(positions,10);
+            //if (r1)
+            //{
+            //    bool r2 = BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
+            //}
+            //不用BatchImport.Insert，因为它现在没有事务，部分插入失败，不会回滚
+            //bool r2=BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句
+            //if (r2 == false)
+            //{
+            //    Log.Error("Bll_InsertPos.AddPositions", "BatchImport.Insert Error:" + BatchImport.Error);
+            //}
+            return r1;
         }
 
         private string GetInsertSql(List<Position> positions)
@@ -291,13 +346,48 @@ namespace BLL
             return changedTagPosList;
         }
 
+        private LocationCard GetChangedCard(Dictionary<string, LocationCard> dict,Position position)
+        {
+            LocationCard lc = null;
+           
+            if (dict != null && dict.ContainsKey(position.Code))
+            {
+                lc = dict[position.Code];
+            }
+            if (lc == null) return null;
+
+            if (lc.Flag != position.Flag || lc.Power != position.Power)//标志和电压发生变化
+            {
+                lc.Flag = position.Flag;
+                lc.Power = position.Power;
+                if (lc.Power >= AppSetting.LowPowerFlag)
+                {
+                    lc.PowerState = 0;
+                }
+                else
+                {
+                    lc.PowerState = 1;//低电告警状态
+                }
+                //editCardList.Add(lc);
+                //LocationCards.Edit(lc);
+                return lc;
+            }
+            else
+            {
+                return null; 
+            }
+        }
+
         private void EditTagPositionListOP(List<Position> positions)
         {
             //1.获取列表
-            List<LocationCardPosition> tagPosList = LocationCardPositions.ToList();
+            var tagPosList = LocationCardPositions.ToDictionary();
             List<LocationCardPosition> changedTagPosList = new List<LocationCardPosition>();
             //Dictionary<string, LocationCard> dict = LocationCards.ToDictionaryByCode();//放在TagRelationBuffer中
             List<LocationCardPosition> newTagPosList = new List<LocationCardPosition>();
+
+            List<LocationCard> editCardList = new List<LocationCard>();
+            Dictionary<string, LocationCard> dict = TagRelationBuffer.Instance().GetLocationCardDic();
 
             //2.修改数据
             for (int i = 0; i < positions.Count; i++)
@@ -305,34 +395,17 @@ namespace BLL
                 Position position = positions[i];
                 if (position == null) continue;//位置信息可能有null
                 //LocationCard lc = LocationCards.Where(p=>p.Code == position.Code).FirstOrDefault();
-                LocationCard lc = null;
-                Dictionary<string, LocationCard> dict = TagRelationBuffer.Instance().GetLocationCardDic();
-                if (dict!=null&&dict.ContainsKey(position.Code))
+                LocationCard lc = GetChangedCard(dict, position);
+                if (lc != null)
                 {
-                    lc = dict[position.Code];
-                }
-                if (lc == null) continue;
-                if (lc.Flag != position.Flag || lc.Power != position.Power)
-                {
-                    lc.Flag = position.Flag;
-                    lc.Power = position.Power;
-                    if (lc.Power >= AppSetting.LowPowerFlag)
-                    {
-                        lc.PowerState = 0;
-                    }
-                    else
-                    {
-                        lc.PowerState = 1;
-                    }
-
-                    LocationCards.Edit(lc);
+                    editCardList.Add(lc);
                 }
 
-                var tagPos = tagPosList.Find(item => item.Id == position.Code);
-                if (tagPos != null)
+                if (tagPosList.ContainsKey(position.Code))
                 {
+                    var tagPos = tagPosList[position.Code];
                     tagPos.Edit(position);//修改实时位置数据
-                    if (!changedTagPosList.Contains(tagPos))
+                    if (!changedTagPosList.Contains(tagPos))//修改部分
                     {
                         changedTagPosList.Add(tagPos);
                     }
@@ -344,14 +417,14 @@ namespace BLL
                 }
             }
 
-            List<LocationCardPosition> noChangedTagPosList = new List<LocationCardPosition>();//没有移动的位置信息
-            foreach (var tag1 in tagPosList)
-            {
-                if (!changedTagPosList.Contains(tag1))
-                {
-                    noChangedTagPosList.Add(tag1);
-                }
-            }
+            //List<LocationCardPosition> noChangedTagPosList = new List<LocationCardPosition>();//没有移动的位置信息
+            //foreach (var tag1 in tagPosList)
+            //{
+            //    if (!changedTagPosList.Contains(tag1))
+            //    {
+            //        noChangedTagPosList.Add(tag1);
+            //    }
+            //}
 
             ////设置实时位置的移动状态
             //foreach (var tag1 in noChangedTagPosList)
@@ -370,26 +443,11 @@ namespace BLL
             //    }
             //}
 
-            try
-            {
+            LocationCards.EditRange(editCardList);//修改定位卡信息
 
-                LocationCardPositions.Db.BulkUpdate(changedTagPosList);//插件Z.EntityFramework.Extensions功能
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format("EditTagPositionListOP1 BulkUpdate,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
-            }
-            
-            try
-            {
+            LocationCardPositions.EditRange(changedTagPosList);//修改位置信息
 
-                LocationCardPositions.Db.BulkInsert(newTagPosList);//插件Z.EntityFramework.Extensions功能
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format("EditTagPositionListOP2 BulkInsert,Type:{0},Count:{1},Error:{2}", typeof(LocationCardPosition), changedTagPosList.Count(), ex.Message));
-            }
-
+            LocationCardPositions.AddRange(newTagPosList);//增加位置信息
         }
 
         public bool EditTagPositionEx(Position position)

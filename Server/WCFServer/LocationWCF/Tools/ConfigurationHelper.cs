@@ -15,9 +15,9 @@ namespace LocationServer.Tools
             return ConfigurationManager.AppSettings[key];
         }
 
-        public static int GetIntValue(string key)
+        public static int GetIntValue(string key, int defaultValue=0)
         {
-            return ConfigurationManager.AppSettings[key].ToInt();
+            return ConfigurationManager.AppSettings[key].ToInt(defaultValue);
         }
 
         public static bool GetBoolValue(string key)

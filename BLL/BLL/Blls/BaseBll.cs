@@ -57,6 +57,7 @@ namespace BLL.Blls
         public abstract class BaseBll<T,TDb,TKey>: BaseBll<TDb> 
         where T :class, IId<TKey>, new()
         where TDb : DbContext, new()
+        where TKey: IEquatable<TKey>
     {
         public DbSet<T> DbSet { get; set; }
 
@@ -181,16 +182,18 @@ namespace BLL.Blls
 
         public string ErrorMessage { get; set; }
 
-        public virtual bool AddRange(IList<T> list)
+        public virtual bool AddRange(IList<T> list,int maxTryCount = 3)
         {
+            if (list == null || list.Count == 0) return true;
             if (DbSet == null) return false;
             //DbSet.AddRange(list);
             //return Save();
-            return AddRange(Db, list);
+            return AddRange(Db, list, maxTryCount);
         }
 
         public virtual bool AddRange(params T[] list)
         {
+            if (list == null || list.Length == 0) return true;
             if (DbSet == null) return false;
             //DbSet.AddRange(list);
             //return Save();
@@ -219,21 +222,48 @@ namespace BLL.Blls
             return DbSet.Where(predicate).ToList();
         }
 
-        public virtual T Find(object id)
+        public virtual T FindById(TKey id)
         {
             if (DbSet == null) return default(T);
 
-            if (id == null)
-            {
-                return default(T);
-            }
+            //if (id == null)
+            //{
+            //    return default(T);
+            //}
             try
             {
-                T obj = DbSet.Find(id);
+                T obj = DbSet.FirstOrDefault(i => i.Id.Equals(id));
                 return obj;
             }
             catch (Exception ex)
             {
+                ErrorMessage = ex.Message;
+                Log.Error("BaseBll.Find", ex);
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// 实际上上FindByKey，加入有多个主键，也要传入多个参数
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual T Find(params object[] keys)
+        {
+            if (DbSet == null) return default(T);
+
+            //if (id == null)
+            //{
+            //    return default(T);
+            //}
+            try
+            {
+                T obj = DbSet.Find(keys);
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
                 Log.Error("BaseBll.Find", ex);
                 return default(T);
             }
@@ -418,7 +448,7 @@ namespace BLL.Blls
             }
         }
 
-        public virtual bool AddRange(TDb Db, IEnumerable<T> list)
+        public virtual bool AddRange(TDb Db, IEnumerable<T> list,int maxTryCount=3)
         {
             if (list == null)
             {
@@ -428,50 +458,29 @@ namespace BLL.Blls
             {
                 return false;
             }
-            try
+            bool result = false;
+            Exception exception = null;
+            for (int i = 0; i < maxTryCount; i++)
             {
-                BulkInsert(list);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex1,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex.Message));
-
                 try
                 {
-                    Thread.Sleep(100);
                     BulkInsert(list);
-                    return true;//有一定概率先失败后成功
+                    result = true;
+                    break;//成功则退出
                 }
-                catch (Exception ex2)
+                catch (Exception ex)
                 {
-                    Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex2,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex2.Message));
-
-                    try
-                    {
-                        Thread.Sleep(100);
-                        BulkInsert(list);
-                        return true;//有一定概率先失败后成功
-                    }
-                    catch (Exception ex3)
-                    {
-                        Log.Error(string.Format("BaseBll.AddRange.BulkInsert,Ex3,Type:{0},Count:{1},Error:{2}", typeof(T), list.Count(), ex3.Message));
-                        ErrorMessage = ex3.Message;
-                        return false;
-                    }
+                    exception = ex;
+                    //失败则继续尝试
+                    Log.Error("AddRange", string.Format("Try{0},Type:{1},Count:{2},Error:{3}", i,typeof(T), list.Count(), ex.Message));
+                    Thread.Sleep(100);
                 }
-                return false;
             }
-
-            //try
-            //{
-            //    Db.BulkSaveChanges();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Log.Error(string.Format("BaseBll.AddRange.BulkSaveChanges,Type:{0},Count:{1}", typeof(T), list.Count()), ex);
-            //    return false;
-            //}
-            return true;
+            if (result == false && exception!=null)
+            {
+                ErrorMessage = exception.Message;
+            }
+            return result;
         }
 
         private void BulkInsert(IEnumerable<T> list)
@@ -485,23 +494,40 @@ namespace BLL.Blls
             return this.EditRange(Db, list);
         }
 
-        public virtual bool EditRange(TDb db, List<T> list)
+        public virtual bool EditRange(TDb db, List<T> list, int maxTryCount = 3)
         {
-            try
+            if (db == null)
             {
-                if (db == null)
-                {
-                    return false;
-                }
-                db.BulkUpdate(list);
-                db.BulkSaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("BaseBll.EditRange", ex);
                 return false;
             }
+            if(list==null|| list.Count == 0)
+            {
+                return true;//没有数据也是天
+            }
+            bool result = false;
+            Exception exception = null;
+            for (int i = 0; i < maxTryCount; i++)
+            {
+                try
+                {
+                    db.BulkUpdate(list);
+                    db.BulkSaveChanges();
+                    result = true;
+                    break;//成功则退出
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                    //失败则继续尝试
+                    Log.Error("EditRange", string.Format("Try{0},Type:{1},Count:{2},Error:{3}",i, typeof(T), list.Count(), ex.Message));
+                    Thread.Sleep(100);
+                }
+            }
+            if (result == false && exception != null)
+            {
+                ErrorMessage = exception.Message;
+            }
+            return result;
         }
 
         /// <summary>

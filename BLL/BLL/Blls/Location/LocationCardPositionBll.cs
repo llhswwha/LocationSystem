@@ -121,14 +121,14 @@ namespace BLL.Blls.Location
             }
         }
 
-        public override bool AddRange(IList<LocationCardPosition> list)
+        public override bool AddRange(IList<LocationCardPosition> list, int maxTryCount = 3)
         {
-            return base.AddRange(list);
+            return base.AddRange(list, maxTryCount);
         }
 
-        public override bool AddRange(LocationDb Db, IEnumerable<LocationCardPosition> list)
+        public override bool AddRange(LocationDb Db, IEnumerable<LocationCardPosition> list, int maxTryCount = 3)
         {
-            return base.AddRange(Db, list);
+            return base.AddRange(Db, list, maxTryCount);
         }
 
         public override bool AddRange(params LocationCardPosition[] list)

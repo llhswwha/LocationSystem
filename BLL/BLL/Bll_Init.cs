@@ -10,7 +10,7 @@ namespace BLL
 {
     public partial class Bll
     {
-        private Thread PartitionThread = null;
+        private static Thread PartitionThread = null;
         private bool bPartitionInitFlag = true;
 
         public void Init(int mode)
@@ -42,14 +42,18 @@ namespace BLL
             Log.Info("Count:" + count);
             int count2 = DbHistory.U3DPositions.Count();
             Log.Info("Count2:" + count2);
+            InitPartitionThread();
+            Log.InfoEnd("InitDb");
+        }
+
+        private void InitPartitionThread()
+        {
             if (PartitionThread == null)
             {
                 PartitionThread = new Thread(InsertPartitionInfo);
                 PartitionThread.IsBackground = true;
                 PartitionThread.Start();
             }
-            
-            Log.InfoEnd("InitDb");
         }
 
         public bool HasData()

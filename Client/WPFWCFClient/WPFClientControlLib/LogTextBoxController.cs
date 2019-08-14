@@ -46,6 +46,11 @@ namespace WPFClientControlLib
             {
                 TbLogs.Text = logs;
                 isDirty = false;
+
+                if (LogChanged != null)
+                {
+                    LogChanged(last, count);
+                }
             }
             
         }
@@ -64,6 +69,8 @@ namespace WPFClientControlLib
             MaxLength2 = length / 2;
         }
 
+        private int count = 0;
+        LogInfo last;
         public void AddLog(LogInfo info)
         {
             if (logs.Length > MaxLength)
@@ -74,6 +81,8 @@ namespace WPFClientControlLib
             //string[] parts = log.Split('|');
             if (Tags.Contains(info.Tag))
             {
+                last = info;
+                count++;
                 logs = info.Log + "\n" + logs;
                 isDirty = true;
                 //TbLogs.Dispatcher.Invoke(() =>
@@ -82,7 +91,10 @@ namespace WPFClientControlLib
                 //});
                 //Tags.Add()
             }
+
         }
+
+        public event Action<LogInfo,int> LogChanged;
 
         public void Dispose()
         {

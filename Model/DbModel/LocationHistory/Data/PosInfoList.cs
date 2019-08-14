@@ -16,7 +16,7 @@ namespace DbModel.LocationHistory.Data
 
         public List<PosInfo> Items
         {
-            get => _items;
+            get { return _items; }
             set
             {
                 _items = value;
