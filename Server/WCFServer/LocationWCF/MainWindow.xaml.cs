@@ -214,49 +214,49 @@ namespace LocationWCFServer
         private void MenuLocationEngionTool_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new LocationEngineToolWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuExportArchorPosition_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new BusAnchorListWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuAreaCanvas_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new AreaCanvasWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuArchorSettingExport_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new ArchorListExportWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuDbExport_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new DbBrowserWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuDbInit_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new DbConfigureWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuLocationHistoryTest_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new LocationHistoryWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuEventSendTest_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new EventSendTestWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuEngineClient_OnClick(object sender, RoutedEventArgs e)
@@ -268,6 +268,7 @@ namespace LocationWCFServer
         {
             Log.Info(LogTags.Server, "打开定位引擎客户端窗口");
             var win = new EngineClientWindow();
+            //win.Owner = this;
             win.Show();
         }
 
@@ -297,31 +298,31 @@ namespace LocationWCFServer
         private void MenuCardRole_Click(object sender, RoutedEventArgs e)
         {
             var win = new CardRoleWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuAreaAuthorization_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new AreaAuthorizationWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuTag_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new TagWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuPerson_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new PersonWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuRealPos_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new RealPosWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuArchorScane_Click(object sender, RoutedEventArgs e)
@@ -337,10 +338,10 @@ namespace LocationWCFServer
                 }
 
             var win = new ArchorConfigureWindow(list3);
-            win.Show();
+            win.Owner = this; win.Show();
 
             //var win = new ArchorConfigureWindow();
-            //win.Show();
+            //win.Owner = this; win.Show();
         }
 
         private void MenuUDPSetting_Click(object sender, RoutedEventArgs e)
@@ -351,19 +352,19 @@ namespace LocationWCFServer
         private void MenuArchorCheck_Click(object sender, RoutedEventArgs e)
         {
             var win = new AnchorCheckWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuLocationAlarms_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new LocationAlarmWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuArchorSearch_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new ArchorWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuTrackPointList_Click(object sender, RoutedEventArgs e)
@@ -374,7 +375,7 @@ namespace LocationWCFServer
             var win = new ArchorListExportWindow();
             //win.CalculateAll = false;
             win.IsTrackPoint = true;
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void GetAllNodeKKSData_OnClick(object sender, RoutedEventArgs e)
@@ -458,7 +459,7 @@ namespace LocationWCFServer
         private void SyncAllData_Click(object sender, RoutedEventArgs e)
         {
             var win = new SyncAllDataWindow();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void KKSMonitorManager_OnClick(object sender, RoutedEventArgs e)
@@ -470,7 +471,7 @@ namespace LocationWCFServer
         private void MenuInspectionTest_OnClick(object sender, RoutedEventArgs e)
         {
             var win = new InspectionChoiceWindows();
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuNVSPlayer_OnClick(object sender, RoutedEventArgs e)
@@ -702,8 +703,7 @@ namespace LocationWCFServer
         private void MenuSetting_OnClick(object sender, RoutedEventArgs e)
         {
             SettingWindow win = new SettingWindow();
-            win.Owner = this;
-            win.Show();
+            win.Owner = this; win.Show();
         }
 
         private void MenuStartDaemon_OnClick(object sender, RoutedEventArgs e)

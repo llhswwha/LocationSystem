@@ -23,5 +23,41 @@ namespace BLL.Blls.Location
         {
             DbSet = Db.LocationCardToPersonnels;
         }
+
+        public Dictionary<int, int> GetTagToPerson()
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            var list = this.ToList();
+            foreach (var item in list)
+            {
+                if (dict.ContainsKey(item.LocationCardId))
+                {
+                    dict[item.LocationCardId] = item.PersonnelId;
+                }
+                else
+                {
+                    dict.Add(item.LocationCardId, item.PersonnelId);
+                }
+            }
+            return dict;
+        }
+
+        public Dictionary<int, int> GetPersonToTag()
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            var list = this.ToList();
+            foreach (var item in list)
+            {
+                if (dict.ContainsKey(item.PersonnelId))
+                {
+                    dict[item.PersonnelId] = item.LocationCardId;
+                }
+                else
+                {
+                    dict.Add(item.PersonnelId, item.LocationCardId);
+                }
+            }
+            return dict;
+        }
     }
 }

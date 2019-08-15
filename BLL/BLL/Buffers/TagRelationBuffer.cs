@@ -15,12 +15,13 @@ namespace BLL
 {
     public class TagRelationBuffer : BaseBuffer
     {
-        private List<Personnel> personnels;
-        private List<LocationCardToPersonnel> tagToPersons;
-        private List<LocationCard> tags;
+        private Dictionary<int,Personnel> personnels;
+        private Dictionary<int,int> tagToPersons;
+        private Dictionary<string, LocationCard> tags;
         private List<CardRole> roles;
         private List<Archor> archors;
         private List<Area> areas;
+        private Area parkArea;//园区区域
         private Bll bll;
         private Dictionary<string, LocationCard> locationCardDic;
 
@@ -71,14 +72,14 @@ namespace BLL
             archors = bll.Archors.ToList();//基站
             areas = bll.Areas.GetWithBoundPoints(true);
             roles = bll.CardRoles.ToList();
-
+            parkArea = areas.FirstOrDefault(i => i.IsPark());
         }
 
         public void RefreshTags()
         {
-            personnels = bll.Personnels.ToList();
-            tagToPersons = bll.LocationCardToPersonnels.ToList();
-            tags = bll.LocationCards.ToList();
+            personnels = bll.Personnels.ToDictionary();
+            tagToPersons = bll.LocationCardToPersonnels.GetTagToPerson();
+            tags = bll.LocationCards.ToDictionaryByCode();
             locationCardDic = bll.LocationCards.ToDictionaryByCode();
         }
         public Dictionary<string, LocationCard> GetLocationCardDic()
@@ -178,7 +179,17 @@ namespace BLL
             }
         }
 
-        private void SetArea(Position pos)
+        public Area GetParkArea()
+        {
+            if (parkArea != null)
+            {
+                return parkArea;
+            }
+
+            return areas[1];
+        }
+
+        public int? SetArea(Position pos)
         {
             try
             {
@@ -204,13 +215,13 @@ namespace BLL
                     }
                     else
                     {
-                        area = areas[1];
+                        area = GetParkArea();
                         SetAreaByPosition(pos, area);
                     }
                 }
                 else
                 {
-                    var area = areas[1];
+                    var area = GetParkArea();
                     SetAreaByPosition(pos, area);
                 }
 
@@ -228,10 +239,11 @@ namespace BLL
             {
                 Log.Error("TagRelationBuffer.SetArea", ex);
             }
-            
+
+            return pos.AreaId;
         }
 
-        private static void SetAreaByPosition(Position pos, Area area)
+        private static int? SetAreaByPosition(Position pos, Area area)
         {
             try
             {
@@ -269,7 +281,7 @@ namespace BLL
                     }
                     else
                     {
-                        pos.AreaId = 2;//设为园区
+                        pos.AreaId = area.Id;//设为园区
                         int nn = 0;
                     }
                 }
@@ -278,7 +290,8 @@ namespace BLL
             {
                 Log.Error("TagRelationBuffer.SetAreaByPosition", ex);
             }
-      
+
+            return pos.AreaId;
         }
 
         private void SetAreaByArchor(Position pos)
@@ -310,7 +323,7 @@ namespace BLL
             }
         }
 
-        private static void SetAreaInFloor(Position pos, Area area)
+        private static int? SetAreaInFloor(Position pos, Area area)
         {
             var building = area.Parent;
             var containsAreas = new List<Area>();
@@ -348,6 +361,8 @@ namespace BLL
                 pos.SetArea(area);
                 pos.AreaPath = building.Name + "." + area.Name;
             }
+
+            return pos.AreaId;
         }
 
         private static Area SetAreaInPark(Position pos, Area park)
@@ -435,25 +450,26 @@ namespace BLL
             return inArea;
         }
 
-        private void SetTagAndPerson(Position pos)
+        public void SetTagAndPerson(Position pos)
         {
             if (tags == null) return;
-            var tag = tags.Find(i => i.Code == pos.Code); //标签
-            if (tag != null)
+            if (tags.ContainsKey(pos.Code))
             {
+                var tag = tags[pos.Code];
                 //1.设置标签
                 pos.CardId = tag.Id;
                 pos.RoleId = tag.CardRoleId;//角色
-                var ttp = tagToPersons.Find(i => i.LocationCardId == tag.Id); //关系
-                if (ttp != null)
+
+                if (tagToPersons.ContainsKey(tag.Id))
                 {
-                    var personnelT = personnels.Find(i => i.Id == ttp.PersonnelId); //人员
-                    if (personnelT != null)
+                    var personId = tagToPersons[tag.Id];
+                    if (personnels.ContainsKey(personId))
                     {
+                        var personnelT = personnels[personId];
                         //2.设置人员
                         pos.PersonnelID = personnelT.Id;
                     }
-                    else//关联的人员不在了 ，误删了的话，先补回来上吧
+                    else//关联的人员不在了 ，误删了的话，先补回来上吧。当前定位的卡应该都有关联的人员的
                     {
                         var person = AddPersonByTag(pos, tag);
                         if (person != null)
@@ -462,10 +478,14 @@ namespace BLL
                         }
                     }
                 }
+                else
+                {
+
+                }
             }
-            else//新的定位卡 不存在人员 ；策略，添加一个标签 同时绑定一个人员 ，后续可以改成绑定其他人员。
+            else
             {
-                tag = AddTagByPos(pos);
+                var tag = AddTagByPos(pos);
                 RefreshTags();
             }
         }

@@ -11,7 +11,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="获取统计数据" Name="MenuGetAllData" Click="MenuGetAllData_Click"></MenuItem>
             <MenuItem Header="刷新数据" Name="MenuGetAllDataRefresh" Click="MenuGetAllDataRefresh_Click"></MenuItem>
-            <MenuItem Header="删除重复数据" Name="MenuRemoveRepeatData" Click="MenuRemoveRepeatData_Click"></MenuItem>
+            <MenuItem Header="清理数据" Name="MenuRemoveRepeatData" Click="MenuRemoveRepeatData_Click"></MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>卡号</Label>

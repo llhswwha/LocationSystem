@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CommunicationClass.ExtremeVision;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -100,11 +101,41 @@ namespace WebApiCommunication.ExtremeVision
         [NotMapped]
         public object data { get; set; }
 
+        /// <summary>
+        /// 告警类型:1:安全帽 2:火焰 3:烟雾
+        /// </summary>
+        public int AlarmType { get; set; }
+
+        public int ParseType(string json)
+        {
+            if (json.Contains("headInfo"))
+            {
+                AlarmType = 1;
+            }
+            else if (json.Contains("flameInfo"))
+            {
+                AlarmType = 2;
+            }
+            else if (json.Contains("smogInfo"))
+            {
+                AlarmType = 3;
+            }
+            else
+            {
+                AlarmType = 1;//这里也可以是0
+            }
+
+            return AlarmType;
+        }
+
         [DataMember]
         public FlameData FlameData { get; set; }
 
         [DataMember]
         public HeadData HeadData { get; set; }
+
+        [DataMember]
+        public SmogData SmogData { get; set; }
 
         [DataMember]
         [NotMapped]
@@ -123,6 +154,25 @@ namespace WebApiCommunication.ExtremeVision
                 if (arr != null)
                 {
                     var result = arr.ToObject<FlameData[]>();
+                    return result[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.ToString();
+                return null;
+            }
+            return null;
+        }
+
+        public SmogData GetSmogData()
+        {
+            try
+            {
+                JArray arr = data as JArray;
+                if (arr != null)
+                {
+                    var result = arr.ToObject<SmogData[]>();
                     return result[0];
                 }
             }
@@ -204,14 +254,30 @@ namespace WebApiCommunication.ExtremeVision
 
         public void ParseData()
         {
-            if (IsHeadInfo())//判断是不是头盔告警
+            if (AlarmType==1)//判断是不是头盔告警
             {
                 HeadData = GetHeadData();//解析头盔数据
             }
-            else
+            else if (AlarmType == 2)
             {
                 FlameData = GetFlameData();//解析火焰数据
             }
+            else if (AlarmType == 3)
+            {
+                SmogData = GetSmogData();
+            }
+            else
+            {
+                HeadData = GetHeadData();//解析头盔数据
+            }
+        }
+
+        public static CameraAlarmInfo Parse(string json)
+        {
+            var info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+            info.ParseType(json);
+            info.ParseData();
+            return info;
         }
 
         public int CompareTo(CameraAlarmInfo other)

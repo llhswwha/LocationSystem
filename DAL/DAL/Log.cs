@@ -68,6 +68,11 @@ namespace Location.BLL.Tool
         public static string HisPos = "[HisPos]";
 
         /// <summary>
+        /// 历史统计数据缓存
+        /// </summary>
+        public static string HisPosBuffer = "[HisPosBuffer]";
+
+        /// <summary>
         /// EF调试内容
         /// </summary>
         public static string EF = "[EF]";
@@ -226,11 +231,12 @@ namespace Location.BLL.Tool
                         string line = string.Format("{0} [{1}] {2} {3} - {4} {5}",ev.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss,fff"),ev.ThreadName,ev.Level,ev.LoggerName,ev.MessageObject,ev.ExceptionObject);
                         //string line = ev.LoggerName + ": " + ev.RenderedMessage + "\r\n";
 
-                        string[] parts = (ev.MessageObject+"").Split('|');
                         string tag = "[None]";
-                        if (parts.Length == 2)
+                        string msg = (ev.MessageObject + "");
+                        int index = msg.IndexOf('|');
+                        if (index > 0)
                         {
-                            tag = parts[0];
+                            tag = msg.Substring(0, index);
                         }
                         
                         if (NewLogEvent != null)

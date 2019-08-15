@@ -49,6 +49,8 @@
     <Compile Include="ExtremeVision\CameraAlarmInfo.cs" />
     <Compile Include="ExtremeVision\FlameData.cs" />
     <Compile Include="ExtremeVision\HeadData.cs" />
+    <Compile Include="ExtremeVision\RectInfo.cs" />
+    <Compile Include="ExtremeVision\SmogData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryArg.cs" />
     <Compile Include="SihuiThermalPowerPlant\BaseTran.cs" />

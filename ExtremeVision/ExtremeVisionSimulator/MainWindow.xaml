@@ -12,10 +12,11 @@
             <MenuItem Header="加载">
                 <MenuItem Header="安全帽" Name="LoadHeadInfo" Click="LoadHeadInfo_Click"></MenuItem>
                 <MenuItem Header="火焰" Name="LoadFlameInfo" Click="LoadFlameInfo_Click"></MenuItem>
+                <MenuItem Header="烟雾" Name="LoadSmogInfo" Click="LoadSmogInfo_Click"></MenuItem>
                 <MenuItem Header="测试" Name="LoadTestInfo" Click="LoadTestInfo_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="发送">
-                <MenuItem Header="WebApi(Pos)" Name="MenuSendToWebApiPost" Click="MenuSendToWebApiPost_Click"></MenuItem>
+                <!--<MenuItem Header="WebApi(Pos)" Name="MenuSendToWebApiPost" Click="MenuSendToWebApiPost_Click"></MenuItem>-->
                 <!--<MenuItem Header="WebApi(Get)" Name="MenuSendToWebApiGet" Click="MenuSendToWebApiGet_Click"></MenuItem>-->
                 <MenuItem Header="HttpListener" Name="MenuSendToListener" Click="MenuSendToListener_Click"></MenuItem>
             </MenuItem>

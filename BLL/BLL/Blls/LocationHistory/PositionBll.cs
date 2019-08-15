@@ -6,8 +6,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Location.BLL.Tool;
 using Location.TModel.Tools;
 using PositionList = Location.TModel.LocationHistory.Data.PositionList;
+using System.Threading;
 
 namespace BLL.Blls.LocationHistory
 {
@@ -387,18 +389,32 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PosInfo> GetInfoListOfDate(DateTime start, DateTime end)
+        public List<PosInfo> GetInfoListOfDate(DateTime start, DateTime end, int tryCount = 3)
         {
-            long startStamp = start.ToStamp();
-            long endStamp = end.ToStamp();
-            //var r = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).Count();
-            //return r;
+            List<PosInfo> list=new List<PosInfo>();
+            for (int i = 0; i < tryCount; i++)
+            {
+                try
+                {
+                    long startStamp = start.ToStamp();
+                    long endStamp = end.ToStamp();
+                    //var r = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).Count();
+                    //return r;
 
-            var query = from p in DbSet
+                    var query = from p in DbSet
                         where p.DateTimeStamp >= startStamp && p.DateTimeStamp <= endStamp
-                        select new PosInfo { Id = p.Id, DateTimeStamp = p.DateTimeStamp, PersonnelID=p.PersonnelID,Code=p.Code,AreaId=p.AreaId,X=p.X,Y=p.Y,Z=p.Z } ;
-            List<PosInfo> list= query.ToList();
-
+                        select new PosInfo { Id = p.Id, DateTimeStamp = p.DateTimeStamp, PersonnelID = p.PersonnelID, Code = p.Code, AreaId = p.AreaId, X = p.X, Y = p.Y, Z = p.Z };
+                    list = query.ToList();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(LogTags.HisPosBuffer,ex.Message);
+                    Thread.Sleep(100);
+                    //再重试
+                    Log.Info(LogTags.HisPosBuffer, "GetInfoListOfDate 重试:" + (i+1));
+                }
+            }
             return list;
         }
     }

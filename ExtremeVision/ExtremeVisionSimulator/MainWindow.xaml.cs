@@ -139,5 +139,11 @@ namespace ExtremeVisionSimulator
                 //MessageBox.Show("result2:" + result2);
             }
         }
+
+        private void LoadSmogInfo_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName = "SmogInfo.json";
+            ReadInfoFile(fileName);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationClass.ExtremeVision;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +18,8 @@ namespace WebApiCommunication.ExtremeVision
 
         public int numOfFlameRects { get; set; }
 
-        public List<FlameInfo> flameInfo { get; set; }
+        public List<RectInfo> flameInfo { get; set; }
 
-    }
-
-    public class FlameInfo
-    {
-        public float x { get; set; }
-        public float y { get; set; }
-        public float width { get; set; }
-        public float height { get; set; }
     }
 
     /*

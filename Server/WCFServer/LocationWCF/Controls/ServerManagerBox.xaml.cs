@@ -352,8 +352,8 @@ namespace LocationServer.Controls
                     fi.Directory.Create();
 
                 File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
-
-                CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                
+                var info = CameraAlarmInfo.Parse(json);
                 CameraAlarmHub.SendInfo(info);//发送告警给客户端
 
                 Bll bll = Bll.NewBllNoRelation();
@@ -492,7 +492,9 @@ namespace LocationServer.Controls
 
 
                 //string[] parts = log.Split('|');
-                if (tag == LogTags.Server || tag == LogTags.ExtremeVision)
+                if (tag == LogTags.Server 
+                    //|| tag == LogTags.ExtremeVision
+                    )
                 {
                     serverLogs = info.Log + "\n" + serverLogs;
                     serverLogsChanged = true;

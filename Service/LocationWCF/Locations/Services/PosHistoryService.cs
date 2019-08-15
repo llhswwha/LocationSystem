@@ -10,8 +10,8 @@ using Location.TModel.Tools;
 using LocationServices.Converters;
 using MathNet.Numerics.Interpolation;
 using TModel.Tools;
-//using PositionDb = DbModel.LocationHistory.Data.Position;
-using PositionDb = DbModel.LocationHistory.Data.PosInfo;
+//using PosInfo = DbModel.LocationHistory.Data.Position;
+using PosInfo = DbModel.LocationHistory.Data.PosInfo;
 //using PositionListDb = DbModel.LocationHistory.Data.PositionList;
 using PositionListDb = DbModel.LocationHistory.Data.PosInfoList;
 using PersonnelDb = DbModel.Location.Person.Personnel;
@@ -349,7 +349,7 @@ namespace LocationServices.Locations.Services
             return msStamp2;
         }
 
-        private static List<PositionDb> allPoslist;
+        private static List<PosInfo> allPoslist;
 
         private static Dictionary<int, List<PositionListDb>> buffer = new Dictionary<int, List<PositionListDb>>();
 
@@ -393,42 +393,46 @@ namespace LocationServices.Locations.Services
         {
             bool bFirst = false;
             bool bGet = false;
-            int nSleepTime = 1000 * 60; //60s，
-            nSleepTime *= 10; //10分钟
+            int nSleepTime = 1000 * 60; //60s 1m，
+            //nSleepTime *= 10; //10分钟
             while (true)
             {
                 try
                 {
-                    DateTime dt = DateTime.Now;
-                    int nHour = dt.Hour;
+                    //if (!bFirst)//第一次初始化
+                    //{
+                    //    Log.Info("HisPosBuffer", "First Start");
+                    //    bFirst = true;
+                    //    GetAllData("HisPosBuffer");//获取数据
+                    //    Thread.Sleep(nSleepTime); Log.Info("HisPosBuffer", "Sleep:" + nSleepTime + "ms");
+                    //}
+                    //else
+                    //{
+                    //    if (DateTime.Now.Hour != 23)
+                    //    {
+                    //        bGet = false;
+                    //        Thread.Sleep(nSleepTime); Log.Info("HisPosBuffer", "Sleep:" + nSleepTime + "ms");
+                    //    }
+                    //    else
+                    //    {
+                    //        if (bGet)
+                    //        {
+                    //            Thread.Sleep(nSleepTime); Log.Info("HisPosBuffer", "Sleep:" + nSleepTime + "ms");
+                    //        }
+                    //        else
+                    //        {
+                    //            GetAllData("HisPosBuffer");//获取数据
+                    //            bGet = true;
+                    //            Thread.Sleep(nSleepTime); Log.Info("HisPosBuffer", "Sleep:" + nSleepTime + "ms");
+                    //        }
+                    //    }
+                    //}
 
-                    if (!bFirst)
-                    {
-                        bFirst = true;
-                        GetAllData("HisPosBuffer");//获取数据
-                        Thread.Sleep(nSleepTime);
-                        continue;
-                    }
+                    GetAllData(LogTags.HisPosBuffer);//获取数据
 
-                    if (nHour != 23)
-                    {
-                        bGet = false;
-                        Thread.Sleep(nSleepTime);
-                        continue;
-                    }
-
-                    if (bGet)
-                    {
-                        Thread.Sleep(nSleepTime);
-                        continue;
-                    }
-
-                    GetAllData("HisPosBuffer");//获取数据
-
-                    bGet = true;
-
-                    Thread.Sleep(nSleepTime);
-                    continue;
+                    //等待
+                    Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
+                    Thread.Sleep(nSleepTime); 
                 }
                 catch (Exception ex)
                 {
@@ -437,7 +441,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public List<PositionDb> GetAllData(string tag,bool useBuffer=false)
+        public List<PosInfo> GetAllData(string tag,bool useBuffer=false)
         {
             try
             {
@@ -449,7 +453,7 @@ namespace LocationServices.Locations.Services
                     }
                 }
 
-                allPoslist = new List<PositionDb>();
+                allPoslist = new List<PosInfo>();
                 GC.Collect();//垃圾收集，降低内存
 
                 //string tag = "GetAllPositionsByDay";// LogTags.Server LogTags.HisPos
@@ -466,7 +470,7 @@ namespace LocationServices.Locations.Services
                 Log.Info(tag, string.Format(" areas count:" + areas.Count));
 
                 var posCount = bll.Positions.DbSet.Count();
-                Log.Info(tag, string.Format("posCount:" + posCount));
+                Log.Info(tag, string.Format("posCount:{0:N}",posCount));
                 //allPoslist = bll.Positions.ToList();
 
                 var first = bll.Positions.GetFirst();
@@ -494,26 +498,25 @@ namespace LocationServices.Locations.Services
                       if (progress.Count > 0)
                       {
                           bool r = true;
-                          Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
+                          Log.Info(tag, string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
                           progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
-                          var lst = progress.Items as List<PositionDb>;
+                          var lst = progress.Items as List<PosInfo>;
                           if (lst != null)
                           {
-                              var mainlist = lst.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
-                              {
-                                  p.Key.DateTimeStamp,
-                                  Id = p.First(w => true).Id,
-                                  total = p.Count()
-                              }).ToList();
-                              foreach (var item in mainlist)
-                              {
-                                  if (item.total > 1)
-                                  {
-                                      //return false;//false的话就中断了，即指获取最后一个
-                                      r = false;
-                                  }
-                              }
+                              //var groupList = lst.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
+                              //{
+                              //    p.Key.DateTimeStamp,
+                              //    Id = p.First(w => true).Id,
+                              //    total = p.Count()
+                              //}).Where(k => k.total > 1).ToList();
+                              //if (groupList.Count > 0)
+                              //{
+                              //    r = false;//只取到有重复时间戳的数据为止
+                              //}
                           }
+
+                          //return false;//只取一个
+
                           return r;//false的话就中断了，即指获取最后一个
                       }
                       return true;
@@ -522,45 +525,36 @@ namespace LocationServices.Locations.Services
                 Log.Info(tag, string.Format(" getlist count:" + list.Count));
                 Log.Info(tag, string.Format(" getlist time1:" + (DateTime.Now - start)));
 
-                //List<long> timestampList = new List<long>();
-                //for (int i = 0; i < list.Count; i++)
-                //{
-                //    PositionDb posInfo = list[i];
-                //    var t = posInfo.DateTimeStamp;
-                //    if (!timestampList.Contains(t))
-                //    {
-                //        timestampList.Add(t);
-
-                //        //Log.Info(tag, string.Format("{0},{1}", i, timestampList.Count));//时间戳数量
-                //    }
-                //}
-                //Log.Info(tag, "timestampList :" + timestampList.Count);//时间戳数量
-                //if (timestampList.Count > 0)
-                //{
-                //    Log.Info(tag, "timestamp :" + timestampList[0]);//时间戳重复问题
-                //}
-                //var errorCount = list.Count - timestampList.Count;
-                //Log.Info(tag, "errorCount :" + errorCount);//时间戳重复问题
-
                 start = DateTime.Now;
-                foreach (PositionDb item in list)
+                foreach (PosInfo item in list)
                 {
                     item.ParseTimeStamp();
                 }
                 Log.Info(tag, string.Format(" ToDateTime time1:" + (DateTime.Now - start)));
 
 
+                //var nopersonPosList=list.Where(i => i.PersonnelID == null).ToList();
+
+                //var tagRelation = TagRelationBuffer.Instance();
+
                 //SetPersonnalName(tag,personnels, list);
                 Log.Info(tag, "SetPersonnalName Start");
                 //var count = list.Count;
                 for (int i = 0; i < list.Count; i++)
                 {
-                    //if (i % 10000 == 0)
+                    //if (i % 100000 == 0)
                     //{
                     //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
                     //}
-                    PositionDb pos = list[i];
+                    PosInfo pos = list[i];
                     var pid = pos.PersonnelID;
+
+                    //if (pid == null)
+                    //{
+                    //    var pos2 = bll.Positions.FindById(pos.Id);
+                    //    tagRelation.SetPositionInfo(pos2);
+                    //}
+
                     if (pid != null && personnels.ContainsKey((int)pid))
                     {
                         var p = personnels[(int)pid];
@@ -573,18 +567,18 @@ namespace LocationServices.Locations.Services
                 }
                 Log.Info(tag, "SetPersonnalName End");
 
-
                 //var noAreaList = SetAreaPath(tag, areas, ref list);//放到子方法中确实会导致内存占用增加 ？？？？
                 Log.Info(tag, "SetAreaPath Start");
-                var noAreaList = new List<PositionDb>();
+                var noAreaList = new List<PosInfo>();
+                var noAreaIdList = new List<int>();
                 var count = list.Count;
                 for (int i = 0; i < count; i++)
                 {
-                    //if (i % 10000 == 0)
+                    //if (i % 100000 == 0)
                     //{
                     //    Log.Info(tag, string.Format("SetAreaPath {0}/{1}", (i + 1), count));
                     //}
-                    PositionDb pos = list[i];
+                    PosInfo pos = list[i];
                     var areaId = pos.AreaId;
                     if (areaId != null && areas.ContainsKey((int)areaId))
                     {
@@ -596,10 +590,29 @@ namespace LocationServices.Locations.Services
                     else
                     {
                         noAreaList.Add(pos);//todo:没有区域数据的测试为什么找不到区域用
+                        noAreaIdList.Add(pos.Id);
                     }
                 }
                 Log.Info(tag, "SetAreaPath End");
                 Log.Info(tag, string.Format(" noAreaList count:" + noAreaList.Count));
+
+                //if (noAreaIdList.Count > 0)
+                //{
+                //    var tagRelation = TagRelationBuffer.Instance();
+                //    var posList2 = bll.Positions.Where(i => noAreaIdList.Contains(i.Id));
+                //    List<int?> newAreas=new List<int?>();
+                //    foreach (DbModel.LocationHistory.Data.Position position in posList2)
+                //    {
+                //        //tagRelation.SetArea(position);//设置区域
+                //        //if (!newAreas.Contains(position.AreaId))
+                //        //{
+                //        //    newAreas.Add(position.AreaId);
+                //        //}
+                //        position.AreaId = tagRelation.GetParkArea().Id;//直接设置
+                //    }
+                //    //bll.Positions.EditRange(posList2);//保存到数据库
+                //    Log.Info(tag, "处理找不到定位区域的数据 newAreas:"+ newAreas.Count);
+                //}
 
                 allPoslist = list;
                 RefreshBuffer();
@@ -620,12 +633,12 @@ namespace LocationServices.Locations.Services
             return allPoslist;
         }
 
-        //private static List<PositionDb> noAreaList;
+        //private static List<PosInfo> noAreaList;
 
-        private List<PositionDb> SetAreaPath(string tag,Dictionary<int, Area> areas, ref List<PositionDb> list)
+        private List<PosInfo> SetAreaPath(string tag,Dictionary<int, Area> areas, ref List<PosInfo> list)
         {
             Log.Info(tag, "SetAreaPath Start");
-            var noAreaList = new List<PositionDb>();
+            var noAreaList = new List<PosInfo>();
             var count = list.Count;
             for (int i = 0; i < count; i++)
             {
@@ -633,7 +646,7 @@ namespace LocationServices.Locations.Services
                 //{
                 //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}", (i + 1), count));
                 //}
-                PositionDb pos = list[i];
+                PosInfo pos = list[i];
                 var areaId = pos.AreaId;
                 if (areaId != null && areas.ContainsKey((int) areaId))
                 {
@@ -652,7 +665,7 @@ namespace LocationServices.Locations.Services
             return noAreaList;
         }
 
-        private void SetPersonnalName(string tag,Dictionary<int, PersonnelDb> personnels, List<PositionDb> list)
+        private void SetPersonnalName(string tag,Dictionary<int, PersonnelDb> personnels, List<PosInfo> list)
         {
             Log.Info(tag, "SetPersonnalName Start");
             var count = list.Count;
@@ -662,7 +675,7 @@ namespace LocationServices.Locations.Services
                 //{
                 //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
                 //}
-                PositionDb pos = list[i];
+                PosInfo pos = list[i];
                 var pid = pos.PersonnelID;
                 if (pid != null && personnels.ContainsKey((int) pid))
                 {
@@ -779,7 +792,7 @@ namespace LocationServices.Locations.Services
             return list.ToTModel();
         }
 
-        public List<PositionListDb> GetDayOperate(int nFlag, List<PositionDb> list)
+        public List<PositionListDb> GetDayOperate(int nFlag, List<PosInfo> list)
         {
             List<PositionListDb> Send = null;
             if (list == null)
@@ -811,7 +824,7 @@ namespace LocationServices.Locations.Services
         }
 
 
-        public List<PositionDb> GetHistoryPositonData(int nFlag, string strName, string strName2,
+        public List<PosInfo> GetHistoryPositonData(int nFlag, string strName, string strName2,
             string strName3)
         {
             if (nFlag != 1 && nFlag != 2 && nFlag != 3)

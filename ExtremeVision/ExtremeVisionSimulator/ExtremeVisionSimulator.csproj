@@ -98,6 +98,9 @@
     <None Include="Data\HeadInfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\SmogInfo.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Test\2019_02_09_10_07_05_952.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
