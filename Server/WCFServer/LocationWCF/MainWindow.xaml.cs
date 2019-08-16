@@ -48,6 +48,7 @@ using WebApiCommunication.ExtremeVision;
 using Newtonsoft.Json;
 using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
+using Base.Tools;
 
 namespace LocationWCFServer
 {
@@ -74,6 +75,8 @@ namespace LocationWCFServer
         {
             if (MessageBox.Show("是否退出服务端程序", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                isCloseDaemonProcess= QuestionCloseDaemonProcess();
+
                 var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
                 if (EnabelNVS || nginxCmdProcess!=null)
                 {
@@ -134,6 +137,27 @@ namespace LocationWCFServer
             if (isStartDaemon)
             {
                 StartDaemon(false);
+            }
+
+            bool isAutoRun = RegeditRW.ReadIsAutoRun();
+
+            var registerDaemonAutoRun = ConfigurationHelper.GetBoolValue("RegisterDaemonAutoRun");
+            if (registerDaemonAutoRun)
+            {
+                if (isAutoRun == false)
+                {
+                    RegeditRW.SetIsAutoRun(true);
+                    string path2 = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                    Log.Info(LogTags.Server, "注册开机自启动:" + path2);
+                }
+                else
+                {
+                    Log.Info(LogTags.Server, "开机自启动:" + isAutoRun);
+                }
+            }
+            else
+            {
+                Log.Info(LogTags.Server, "开机自启动:" + isAutoRun);
             }
 
             timeTimer = new DispatcherTimer();
@@ -712,12 +736,44 @@ namespace LocationWCFServer
         }
 
 
-        private void CloseDaemonProcess()
+        private bool isCloseDaemonProcess = false;
+
+        private bool QuestionCloseDaemonProcess()
         {
             var processes = GetDaemonProcessList();
             if (processes.Count > 0)
             {
                 if (MessageBox.Show("是否关闭守护进程？\n不关闭则会重新启动服务端。", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    //foreach (Process process in processes)
+                    //{
+                    //    try
+                    //    {
+                    //        process.CloseMainWindow(); //关闭所有其他已经启动的守护进程
+                    //    }
+                    //    catch (Exception exception) //拒绝访问
+                    //    {
+                    //    }
+                    //}
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void CloseDaemonProcess()
+        {
+            if (isCloseDaemonProcess)
+            {
+                var processes = GetDaemonProcessList();
+                if (processes.Count > 0)
                 {
                     foreach (Process process in processes)
                     {
@@ -777,16 +833,40 @@ namespace LocationWCFServer
 
             //string path = AppDomain.CurrentDomain.BaseDirectory + "LocationDaemon.exe";
             string path = ConfigurationHelper.GetValue("DaemonPath");
-            if (File.Exists(path))
+
+            FileInfo file = new FileInfo(path);
+            if (File.Exists(file.FullName))
             {
-                Process.Start(path);
+                Process.Start(file.FullName);
             }
             else
             {
-                //MessageBox.Show("找不到文件:" + path);
-                Log.Info(LogTags.Server, "找不到文件:" + path);
+                FileInfo file2 = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + path);
+                if (File.Exists(file2.FullName))
+                {
+                    Process.Start(file2.FullName);
+                }
+                else
+                {
+                    Log.Info(LogTags.Server, "找不到文件:" + file.FullName);
+                    Log.Info(LogTags.Server, "找不到文件:" + file2.FullName);
+                }
             }
         }
 
+        private void MenuOpenDir_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        private void MenuRefreshHisPosBuffer_OnClick(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                var Phs = new LocationServices.Locations.Services.PosHistoryService();
+                Phs.GetAllData(LogTags.HisPosBuffer, false);
+            }, () => { });
+            
+        }
     }
 }

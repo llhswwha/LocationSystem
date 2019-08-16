@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using System;
 using System.IO;
 
-namespace Base.Tools
+namespace LocationDaemon
 {
     public class RegeditRW
     {

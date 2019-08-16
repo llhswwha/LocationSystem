@@ -104,6 +104,7 @@ namespace WebApiCommunication.ExtremeVision
         /// <summary>
         /// 告警类型:1:安全帽 2:火焰 3:烟雾
         /// </summary>
+        [DataMember]
         public int AlarmType { get; set; }
 
         public int ParseType(string json)
@@ -148,40 +149,22 @@ namespace WebApiCommunication.ExtremeVision
 
         public FlameData GetFlameData()
         {
-            try
+            var data = GetData<FlameData>();
+            if (data == null)
             {
-                JArray arr = data as JArray;
-                if (arr != null)
-                {
-                    var result = arr.ToObject<FlameData[]>();
-                    return result[0];
-                }
+                data = new FlameData();//客户端靠这个判断，就算解析错了也不能是空
             }
-            catch (Exception ex)
-            {
-                Error = ex.ToString();
-                return null;
-            }
-            return null;
+            return data;
         }
 
         public SmogData GetSmogData()
         {
-            try
+            var data = GetData<SmogData>();
+            if (data == null)
             {
-                JArray arr = data as JArray;
-                if (arr != null)
-                {
-                    var result = arr.ToObject<SmogData[]>();
-                    return result[0];
-                }
+                data = new SmogData();//客户端靠这个判断，就算解析错了也不能是空
             }
-            catch (Exception ex)
-            {
-                Error = ex.ToString();
-                return null;
-            }
-            return null;
+            return data;
         }
 
         private bool IsHeadInfo()
@@ -206,7 +189,6 @@ namespace WebApiCommunication.ExtremeVision
             else if (data is JObject)//实际收到的
             {
                 JObject obj = data as JObject;
-
                 foreach (JToken child in obj.Children())
                 {
                     var property = child as JProperty;
@@ -226,30 +208,40 @@ namespace WebApiCommunication.ExtremeVision
             return false;
         }
 
-        public HeadData GetHeadData()
+        private T GetData<T>()
         {
             try
             {
-               
+
                 if (data is JArray)
                 {
                     JArray obj = data as JArray;
-                    var result = obj.ToObject<HeadData[]>();
+                    var result = obj.ToObject<T[]>();
                     return result[0];
                 }
-                else if(data is JObject)
+                else if (data is JObject)
                 {
                     JObject obj = data as JObject;
-                    var result = obj.ToObject<HeadData>();
+                    var result = obj.ToObject<T>();
                     return result;
                 }
             }
             catch (Exception ex)
             {
                 Error = ex.ToString();
-                return null;
+                return default(T);
             }
-            return null;
+            return default(T);
+        }
+
+        public HeadData GetHeadData()
+        {
+            var data= GetData<HeadData>();
+            if (data == null)
+            {
+                data=new HeadData();//客户端靠这个判断，就算解析错了也不能是空
+            }
+            return data;
         }
 
         public void ParseData()

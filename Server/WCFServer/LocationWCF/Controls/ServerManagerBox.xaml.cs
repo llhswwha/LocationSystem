@@ -334,67 +334,7 @@ namespace LocationServer.Controls
 
         private Process nginxCmdProcess;
 
-        MyHttpListener httpListener;
-
-        public CidMapList mapList;
-
-        private string ParseCameraAlarm(string url, string json)
-        {
-            try
-            {
-                Log.Info(LogTags.ExtremeVision, string.Format("收到消息({0})", url));
-                //Log.Info(LogTags.ExtremeVision, json);
-                DateTime now = DateTime.Now;
-
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\" + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".json";
-                FileInfo fi = new FileInfo(path);
-                if (!fi.Directory.Exists)
-                    fi.Directory.Create();
-
-                File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
-                
-                var info = CameraAlarmInfo.Parse(json);
-                CameraAlarmHub.SendInfo(info);//发送告警给客户端
-
-                Bll bll = Bll.NewBllNoRelation();
-
-                string pic = info.pic_data;
-                info.pic_data = "";//图片分开存
-
-                string json2 = JsonConvert.SerializeObject(info);//新的没有图片的json
-                Log.Info(LogTags.ExtremeVision, json2);
-
-
-                byte[] byte1 = Encoding.UTF8.GetBytes(json2);
-                CameraAlarmJson camera = new CameraAlarmJson();
-                camera.Json = byte1;
-                bool result = bll.CameraAlarmJsons.Add(camera);//存到数据库中    
-
-                var picName = info.pic_name;
-
-                Picture picture = null;
-                picture = bll.Pictures.Find(i => i.Name == picName);
-                if (picture == null)
-                {
-                    picture = new Picture();
-                    picture.Name = info.pic_name;
-                    picture.Info = Encoding.UTF8.GetBytes(pic);
-                    bll.Pictures.Add(picture);//保存图片
-                }
-                else
-                {
-                    picture.Name = info.pic_name;
-                    picture.Info = Encoding.UTF8.GetBytes(pic);
-                    bll.Pictures.Edit(picture);//保存图片
-                }
-                return info.ToString();
-            }
-            catch (Exception ex)
-            {
-                return "error:" + ex.Message;
-            }
-
-        }
+        CameraAlarmListener cameraAlarmListener;
 
         private void StartExtremeVisionListener()
         {
@@ -402,15 +342,12 @@ namespace LocationServer.Controls
             if (!enableVisionListener) return;
             string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
             string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP") ;
-            if (httpListener == null)
+            int saveMode = ConfigurationHelper.GetIntValue("CameraAlarmPicSaveMode");
+            if (cameraAlarmListener == null)
             {
                 string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/",host,port);
-                httpListener = new MyHttpListener(url);
-                httpListener.OnReceived += (json) =>
-                {
-                    return ParseCameraAlarm(url,json);
-                };
-                bool r=httpListener.Start();
+                cameraAlarmListener = new CameraAlarmListener(url, saveMode);
+                bool r=cameraAlarmListener.Start();
                 WriteLog("HttpListener: " + url+" ["+r+"]");
             }
         }
@@ -418,10 +355,10 @@ namespace LocationServer.Controls
         private void StopExtremeVisionListener()
         {
             WriteLog("StopExtremeVisionListener");
-            if (httpListener != null)
+            if (cameraAlarmListener != null)
             {
-                httpListener.Stop();
-                httpListener = null;
+                cameraAlarmListener.Stop();
+                cameraAlarmListener = null;
             }
         }
 
@@ -685,14 +622,12 @@ namespace LocationServer.Controls
 
                 if (HPThread == null)
                 {
-                    LocationServices.Locations.Services.PosHistoryService Phs = new LocationServices.Locations.Services.PosHistoryService();
-
+                    var Phs = new LocationServices.Locations.Services.PosHistoryService();
                     HPThread = new Thread(Phs.GetHistoryPositonThread);
                     HPThread.IsBackground = true;
                     HPThread.Start();
                 }
             }
-            
         }
   
         private void StopGetHistoryPositon()

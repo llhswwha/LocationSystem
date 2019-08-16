@@ -1,11 +1,12 @@
-﻿using Base.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using LocationServer.Tools;
 
 namespace LocationDaemon
 {
@@ -44,12 +46,19 @@ namespace LocationDaemon
 
         private string logDir;
         private int keepDay;
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+
+
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
+                var memory = SystemHelper.GetPhisicalMemory();
+                WriteLog("系统内存:" + memory+"GB");
+
                 int interval = ConfigurationHelper.GetIntValue("interval");
-                ;
+                
                 daemonTimer = new DispatcherTimer();
                 daemonTimer.Interval = TimeSpan.FromSeconds(interval);
                 daemonTimer.Tick += DaemonTimerTick;
@@ -60,7 +69,28 @@ namespace LocationDaemon
 
                 FileInfo file = new FileInfo(targetProcessPath);
                 WriteLog("目标程序:" + file.FullName);
+                bool exists = File.Exists(file.FullName);
+                WriteLog("程序是否存在:" + exists);
+                if (exists)
+                {
+                    System.Diagnostics.FileVersionInfo fv = System.Diagnostics.FileVersionInfo.GetVersionInfo(file.FullName);
+                    if (fv != null)
+                    {
+                        WriteLog("程序文件版本:" + fv.FileVersion);
+                    }
+                }
+
                 WriteLog("进程名称:" + targetProcessName);
+                var ps = GetProcesses(targetProcessName);
+                WriteLog("进程数量:" + ps.Count);
+                if (ps.Count == 1)
+                {
+                    GetMemerySize(ps[0]);
+                }
+
+                MaxMemorySize= ConfigurationHelper.GetDoubleValue("MaxMemorySize");
+                WriteLog("内存限制:" + MaxMemorySize+"MB");
+
                 WriteLog("----------------");
                 bool enableDeleteLog = ConfigurationHelper.GetBoolValue("enableDeleteLog");
                 if (enableDeleteLog)
@@ -74,7 +104,6 @@ namespace LocationDaemon
                     WriteLog("----------------");
 
                     int interval2 = ConfigurationHelper.GetIntValue("logDeleteCheckHour");
-                    ;
                     deleteLogTimer = new DispatcherTimer();
                     deleteLogTimer.Interval = TimeSpan.FromHours(interval2);
                     //timer2.Interval = TimeSpan.FromSeconds(1);
@@ -90,8 +119,6 @@ namespace LocationDaemon
                     //timer2.Interval = TimeSpan.FromSeconds(1);
                     restartTimer.Tick += RestartTimer_Tick;
                     restartTimer.Start();
-
-
 
                     RestartMode = ConfigurationHelper.GetIntValue("RestartMode");
                     RestartInterval = ConfigurationHelper.GetIntValue("RestartInterval");
@@ -137,6 +164,8 @@ namespace LocationDaemon
                     echorTimer.Tick += EchorTimer_Tick;
                     echorTimer.Start();
                 }
+
+                //CloseWerFault();
             }
             catch (Exception exception)
             {
@@ -144,21 +173,45 @@ namespace LocationDaemon
             }
         }
 
+        private double MaxMemorySize;
+
+        private bool isEchorBusy = false;
+
         private void EchorTimer_Tick(object sender, EventArgs e)
         {
-            string t = GetString(EchoUrl);
-            if (string.IsNullOrEmpty(t))
+            if (isEchorBusy) return;
+            if (EchoLog)
             {
-                if (RestartProcess("EchorTimer") == false)
+                WriteLog2("发送心跳包，等待返回...");
+            }
+
+            Worker.Run(() =>
+            {
+                isEchorBusy = true;
+                string t = GetString(EchoUrl);
+                return t;
+            }, (t) =>
+            {
+                isEchorBusy = false;
+                if (string.IsNullOrEmpty(t))
                 {
-                    echorTimer.Stop();
+                    WriteLog2("无心跳包返回,重启程序！");
+                    bool r = RestartProcess("EchorTimer");//重启
+                    if (r == false)//重启失败
+                    {
+                        echorTimer.Stop();
+                    }
+                    else//重启成功
+                    {
+                        
+                    }
                 }
-            }
-            else
-            {
-                if(EchoLog)
-                    WriteLog("获取心跳包返回:" + t);
-            }
+                else
+                {
+                    if (EchoLog)
+                        WriteLog2("获取心跳包返回:" + t);
+                }
+            });
         }
 
         public string GetString(string uri, string accept = "")
@@ -195,9 +248,14 @@ namespace LocationDaemon
 
         private void TimeTimer_Tick(object sender, EventArgs e)
         {
+            RefreshTitle();
+        }
+
+        private void RefreshTitle()
+        {
             DateTime now = DateTime.Now;
 
-            this.Title = string.Format("{0} [{1}][{2:dd\\.hh\\:mm\\:ss}]", "守护进程", now.ToString("HH:mm:ss"), (now - startTime));
+            this.Title = string.Format("{0} [{1}][{2:dd\\.hh\\:mm\\:ss}]{3}", "守护进程", now.ToString("HH:mm:ss"), (now - startTime), MemorySize);
         }
 
         private DispatcherTimer restartTimer;
@@ -300,12 +358,12 @@ namespace LocationDaemon
         public List<Process> GetProcesses(string processName)
         {
             //WriteLog("Debugger.IsAttached:" + Debugger.IsAttached);
-            var ps1 = Process.GetProcessesByName(processName).ToList();
+            var ps1 = Process.GetProcessesByName(processName).Where(i=>i.HasExited==false).ToList();
             if (ps1.Count == 0)
             {
                 if (Debugger.IsAttached)//vs调试模式程序
                 {
-                    ps1 = Process.GetProcessesByName(processName + ".vshost").ToList();
+                    ps1 = Process.GetProcessesByName(processName + ".vshost").Where(i => i.HasExited == false).ToList();
                 }
               
                 //var ps2=Process.GetProcesses().ToList();
@@ -353,14 +411,23 @@ namespace LocationDaemon
                         }
                     }
                 }
-                var faultProcess = "WerFault";//XX 已停止工作界面
-                var ps2 = GetProcesses(faultProcess);
-                //WriteLog("ps count4:" + ps.Count);
-                if (ps2.Count > 0)
+                else //存在一个目标进程
                 {
-                    foreach (Process item in ps2)
+                    var p = ps[0];
+
+                    bool r=CloseWerFault();
+                    if (r)
                     {
-                        item.CloseMainWindow();
+                        RestartProcess("WerFault");
+                    }
+                    else
+                    {
+                        var size=GetMemerySize(p);
+                        if (MaxMemorySize > 0 && size > MaxMemorySize)
+                        {
+                            RestartProcess("MaxMemorySize");
+                            GetMemerySize(currentProcess);
+                        }
                     }
                 }
             }
@@ -373,6 +440,64 @@ namespace LocationDaemon
             }
         }
 
+        private float GetMemerySize(Process p)
+        {
+            float size = 0;
+            try
+            {
+                //WriteLog("WorkingSet64:" + (p.WorkingSet64/(1024*1024))) ;
+                //WriteLog("PrivateMemorySize:" + (p.PrivateMemorySize64 / (1024 * 1024)));
+                //WriteLog("PagedMemorySize:" + (p.PagedMemorySize64 / (1024 * 1024)));
+                PerformanceCounter pf1 = new PerformanceCounter("Process", "Working Set - Private", p.ProcessName);   //第二个参数就是得到自有工作集
+                size = (pf1.NextValue() / (1024 * 1024));
+                //WriteLog("Performance PagedMemorySize:" + size);//这个才是和任务管理器里面的内存值相同的，但是比较耗费性能
+            }
+            catch (Exception e)
+            {
+                
+            }
+
+            MemorySize = String.Format("[{0:F1}MB]", size);
+            return size;
+        }
+
+        private bool getMemoryBusy = false;
+
+        private string MemorySize = "";
+
+        private bool CloseWerFault()
+        {
+            bool r = false;
+            var faultProcess = "WerFault";//XX 已停止工作界面
+            var ps2 = GetProcesses(faultProcess);
+            //WriteLog("ps count4:" + ps.Count);
+            if (ps2.Count > 0)
+            {
+                try
+                {
+                    foreach (Process item in ps2)
+                    {
+                        //if (item.MainWindowTitle == targetProcessName) //不一样
+                        {
+                            item.CloseMainWindow();
+                            r = true;
+                        }
+                        
+                    }
+                }
+                catch (Exception exception)
+                {
+
+                }
+            }
+            else//且正常运行
+            {
+
+            }
+
+            return r;
+        }
+
         private bool StartProcess(string tag)
         {
             if (!File.Exists(targetProcessPath))
@@ -382,7 +507,7 @@ namespace LocationDaemon
                 return false;
             }
 
-            Process process = Process.Start(targetProcessPath); //核心，启动目标程序
+            currentProcess = Process.Start(targetProcessPath); //核心，启动目标程序
 
             FileInfo file = new FileInfo(targetProcessPath);
             WriteLog(tag+"|启动程序:" + file.FullName);
@@ -392,10 +517,18 @@ namespace LocationDaemon
             return true;
         }
 
+        private Process currentProcess;
+
         private void WriteLog(string log)
         {
             TxtLog.Text = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log,
                 TxtLog.Text);
+        }
+
+        private void WriteLog2(string log)
+        {
+            TxtLog2.Text = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log,
+                TxtLog2.Text);
         }
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)

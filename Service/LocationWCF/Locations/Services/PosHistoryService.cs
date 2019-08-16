@@ -394,6 +394,12 @@ namespace LocationServices.Locations.Services
             bool bFirst = false;
             bool bGet = false;
             int nSleepTime = 1000 * 60; //60s 1m，
+
+            GetAllData(LogTags.HisPosBuffer);//获取数据
+
+            ////等待
+            //Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
+            //Thread.Sleep(nSleepTime);
             //nSleepTime *= 10; //10分钟
             while (true)
             {
@@ -428,11 +434,23 @@ namespace LocationServices.Locations.Services
                     //    }
                     //}
 
-                    GetAllData(LogTags.HisPosBuffer);//获取数据
+                    if (DateTime.Now.Hour == 04)//清晨四点时更新缓存
+                    {
+                        Log.Info(LogTags.HisPosBuffer, "更新数据");
+                        GetAllData(LogTags.HisPosBuffer);//获取数据
+                        //等待
+                        //Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
+                        Thread.Sleep(1500 * 60 * 60);//等1.5小时后再继续循环
+                    }
+                    else
+                    {
+                        Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
+                        Thread.Sleep(nSleepTime);
+                    }
 
-                    //等待
-                    Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
-                    Thread.Sleep(nSleepTime); 
+                    //Log.Info(LogTags.HisPosBuffer, "Sleep:" + nSleepTime + "ms");
+                    //Thread.Sleep(nSleepTime);
+                    //GetAllData(LogTags.HisPosBuffer);//获取数据
                 }
                 catch (Exception ex)
                 {
