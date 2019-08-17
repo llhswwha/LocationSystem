@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LocationServer.Tools
+namespace LocationDaemon
 {
-    public static class Worker
+    internal static class Worker
     {
         public static BackgroundWorker Run(Action task,Action completed,Action<Exception> error=null,string logTag="")
         {

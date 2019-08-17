@@ -27,6 +27,8 @@ namespace DbModel
         /// </summary>
         public static string DatacaseWebApiUrl { get; set; }
         public static string ExtremeVisionListenerIP { get; set; }
+        public static int CameraAlarmPicSaveMode { get; set; }
+        public static string CameraAlarmPicSaveDir { get; set; }
 
         public static int UrlMaxLength = 200;
 

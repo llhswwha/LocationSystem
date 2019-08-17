@@ -249,7 +249,6 @@
     <Compile Include="Tools\MyHttpListener.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
     <Compile Include="Tools\RegeditRW.cs" />
-    <Compile Include="Tools\Worker.cs" />
     <Compile Include="Windows\AnchorCheckWindow.xaml.cs">
       <DependentUpon>AnchorCheckWindow.xaml</DependentUpon>
     </Compile>

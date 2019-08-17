@@ -52,6 +52,7 @@ using DbModel.Others;
 using NVSPlayer;
 using DbModel.Location.AreaAndDev;
 using System.Collections.Concurrent;
+using DbModel;
 
 namespace LocationServer.Controls
 {
@@ -343,10 +344,16 @@ namespace LocationServer.Controls
             string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
             string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP") ;
             int saveMode = ConfigurationHelper.GetIntValue("CameraAlarmPicSaveMode");
+            string picDir = ConfigurationHelper.GetValue("CameraAlarmPicSaveDir");
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            DirectoryInfo dir = new DirectoryInfo(baseDir);
+            picDir = dir.Root.FullName + picDir;
+            AppSetting.CameraAlarmPicSaveMode = saveMode;
+            AppSetting.CameraAlarmPicSaveDir = picDir;
             if (cameraAlarmListener == null)
             {
                 string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/",host,port);
-                cameraAlarmListener = new CameraAlarmListener(url, saveMode);
+                cameraAlarmListener = new CameraAlarmListener(url, saveMode,picDir);
                 bool r=cameraAlarmListener.Start();
                 WriteLog("HttpListener: " + url+" ["+r+"]");
             }

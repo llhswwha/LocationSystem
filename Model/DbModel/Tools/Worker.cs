@@ -1,10 +1,6 @@
-﻿using Location.BLL.Tool;
+﻿using DbModel.Tools;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LocationServer.Tools
 {
@@ -38,7 +34,7 @@ namespace LocationServer.Tools
                 TimeSpan t = DateTime.Now - start;
                 if (logTag != "")
                 {
-                    Log.Info(logTag, string.Format("Worker完成，用时:{0}", t));
+                    LogEvent.Info(logTag, string.Format("Worker完成，用时:{0}", t));
                 }
                
                 if (completed != null)
@@ -78,7 +74,7 @@ namespace LocationServer.Tools
                 TimeSpan t = DateTime.Now - start;
                 if (logTag != "")
                 {
-                    Log.Info(logTag, string.Format("Worker完成，用时:{0}", t));
+                    LogEvent.Info(logTag, string.Format("Worker完成，用时:{0}", t));
                 }
 
                 if (completed != null)

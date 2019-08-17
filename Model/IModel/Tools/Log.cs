@@ -47,6 +47,22 @@ namespace DbModel.Tools
             }            
         }
 
+        public static void Info(string tag,string msg)
+        {
+            try
+            {
+                LogEventInfo info = new LogEventInfo(msg, "Info", tag);
+                if (InfoEvent != null)
+                {
+                    InfoEvent(info);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
         public static void Error(Exception ex)
         {
             try

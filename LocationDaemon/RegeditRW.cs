@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LocationDaemon
 {
-    public class RegeditRW
+    internal class RegeditRW
     {
         public static bool ReadIsAutoRun()
         {

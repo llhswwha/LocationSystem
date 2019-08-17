@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DbModel.Location.Alarm;
 using Location.BLL.Tool;
+using LocationServices.Locations.Services;
 using Newtonsoft.Json;
 using SignalRService.Hubs;
 using System;
@@ -19,12 +20,15 @@ namespace LocationServer.Tools
 
         public int SaveMode;
 
+        public string SaveDir;
+
         public MyHttpListener httpListener;
 
-        public CameraAlarmListener(string url,int saveMode)
+        public CameraAlarmListener(string url,int saveMode,string saveDir)
         {
             this.Url = url;
             this.SaveMode = saveMode;
+            this.SaveDir = saveDir;
 
             httpListener = new MyHttpListener(url);
             httpListener.OnReceived += (json) =>
@@ -74,42 +78,11 @@ namespace LocationServer.Tools
             try
             {
                 Log.Info(LogTags.ExtremeVision, string.Format("收到消息({0})", url));
-                //Log.Info(LogTags.ExtremeVision, json);
-                DateTime now = DateTime.Now;
 
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\" + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".json";
-                FileInfo fi = new FileInfo(path);
-                if (!fi.Directory.Exists)
-                    fi.Directory.Create();
+                CameraAlarmService service = new CameraAlarmService();
+                string result=service.ParseJson(json, SaveMode);
 
-                File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
-
-                var info = CameraAlarmInfo.Parse(json);
-                CameraAlarmHub.SendInfo(info);//发送告警给客户端
-
-                Bll bll = Bll.NewBllNoRelation();
-
-                string pic = info.pic_data;
-                info.pic_data = "";//图片分开存
-
-                string json2 = JsonConvert.SerializeObject(info);//新的没有图片的json
-                Log.Info(LogTags.ExtremeVision, json2);
-
-
-                byte[] byte1 = Encoding.UTF8.GetBytes(json2);
-                CameraAlarmJson camera = new CameraAlarmJson();
-                camera.Json = byte1;
-                bool result = bll.CameraAlarmJsons.Add(camera);//存到数据库中    
-
-                var picName = info.pic_name;
-
-                if (SaveMode == 0)
-                {
-                    bll.Pictures.Update(picName, Encoding.UTF8.GetBytes(pic));
-                }
-                
-
-                return info.ToString();
+                return result;
             }
             catch (Exception ex)
             {

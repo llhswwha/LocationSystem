@@ -49,6 +49,7 @@ using Newtonsoft.Json;
 using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
 using Base.Tools;
+using LocationServices.Locations.Services;
 
 namespace LocationWCFServer
 {
@@ -533,196 +534,31 @@ namespace LocationWCFServer
 
         private void MenuSaveCameraAlarmPicture_Click(object sender, RoutedEventArgs e)
         {
-            Worker.Run(() =>
+            CameraAlarmService service = new CameraAlarmService();
+            service.SeparateImages_ToPictures(() =>
             {
-                bool r = true;
-                while (r)
-                {
-                    try
-                    {
-                        Log.Info("开始");
-
-                        LocationService s = new LocationService();
-                        //var list=s.GetAllCameraAlarms(true);
-                        var bll = Bll.NewBllNoRelation();
-                        int count = bll.CameraAlarmJsons.DbSet.Count();
-                        Log.Info("count:" + count);
-                        List<CameraAlarmJson> list2 = bll.CameraAlarmJsons.ToList();
-                        Log.Info("获取到列表");
-                        if (list2 != null)
-                        {
-                            Log.Info("成功");
-                            for (int i1 = 0; i1 < list2.Count; i1++)
-                            {
-                                Log.Info(string.Format("进度:{0}/{1}", i1, list2.Count));
-                                CameraAlarmJson camera = list2[i1];
-                                SavePicture(camera, bll);
-                            }
-                        }
-                        else
-                        {
-                            Log.Info("失败");
-                            Log.Info("太多了取不出来，一个一个取");
-                            for (int i = 0; i < count; i++)
-                            {
-                                Log.Info(string.Format("进度:{0}/{1}", i, count));
-                                CameraAlarmJson camera = bll.CameraAlarmJsons.Find(i + 1);
-                                if (camera == null)
-                                {
-                                    Log.Info("找不到id:" + (i + 1));
-                                    continue;
-                                }
-
-                                SavePicture(camera, bll);
-                            }
-                        }
-                        Log.Info("完成");
-                        r = false;//真的完成
-                    }
-                    catch (Exception exception)
-                    {
-                        //出异常
-                    }
-                }
-            }, () => { MessageBox.Show("完成"); });
-        }
-
-        public void GetImage(string base64)
-        {
-            base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
-            byte[] bytes = Convert.FromBase64String(base64);
-            //string imagebase64 = base64.Substring(base64.IndexOf(",") + 1);
-
-            MemoryStream memStream = new MemoryStream(bytes);
-            System.Drawing.Image mImage = System.Drawing.Image.FromStream(memStream);
-            string path = AppDomain.CurrentDomain.BaseDirectory + "1.jpg";
-            mImage.Save(path);
-
-            //BitmapImage bi = new BitmapImage();
-            //bi.BeginInit();
-            //bi.StreamSource = new MemoryStream(bytes);
-            //bi.EndInit();
-            //Image1.Source = bi;
+                MessageBox.Show("完成");
+            });
         }
 
         private void MenuSaveCameraAlarmPicture2_Click(object sender, RoutedEventArgs e)
         {
-            Worker.Run(() =>
+            CameraAlarmService service = new CameraAlarmService();
+            service.SeparateImages_ToFile(() =>
             {
-                try
-                {
-                    Log.Info("开始");
-
-                    var bll = Bll.NewBllNoRelation();
-                    int count = bll.Pictures.DbSet.Count();
-                    Log.Info("pic count:" + count);
-
-                    LocationService s = new LocationService();
-                    var list = s.GetAllCameraAlarms(false);
-
-                    Log.Info("alarm count:" + list.Count);
-
-                    List<string> picNameList = new List<string>();
-                    foreach (var item in list)
-                    {
-                        if (!picNameList.Contains(item.pic_name))
-                        {
-                            picNameList.Add(item.pic_name);
-                        }
-                    }
-
-                    Log.Info("pic count 2:" + picNameList.Count);
-
-                    string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\Image\\CameraAlarms\\";
-
-                    DirectoryInfo dirInfo = new DirectoryInfo(dirPath);
-
-                    if (dirInfo.Exists == false)
-                    {
-                        dirInfo.Create();
-                    }
-
-                    //return;
-                    for (int i1 = 0; i1 < picNameList.Count; i1++)
-                    {
-                        Log.Info(string.Format("进度:{0}/{1}", i1, picNameList.Count));
-                        //CameraAlarmInfo camera = picNameList[i1];
-                        //SavePicture(camera, bll);
-                        Picture pic = s.GetCameraAlarmPicture(picNameList[i1]);
-                        if (pic == null) continue;//已经提取出来的
-                       
-                        //Log.Info(string.Format("进度:{0}/{1},[{2}]", i1, list.Count, r!=null));
-                        string filePath = dirPath + pic.Name;
-                        string base64 = Encoding.UTF8.GetString(pic.Info);
-                        base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
-                        byte[] bytes = Convert.FromBase64String(base64);
-                        System.IO.File.WriteAllBytes(filePath, bytes);
-
-                        var r = bll.Pictures.DeleteById(pic.Id);
-                    }
-                    Log.Info("完成");
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex.ToString());
-                }
-            }, () => { MessageBox.Show("完成"); });
+                MessageBox.Show("完成");
+            });
         }
 
-        private void SavePicture(CameraAlarmJson camera, Bll bll)
-        {
-            byte[] byte1 = camera.Json;
-            string json = Encoding.UTF8.GetString(byte1);
-            CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
-            info.id = camera.Id; //增加了id,这样能够获取到详情
-
-            string pic = info.pic_data;
-            if (!string.IsNullOrEmpty(pic))
-            {
-                info.pic_data = ""; //图片分开存
-                string json2 = JsonConvert.SerializeObject(info); //新的没有图片的json
-                camera.Json = Encoding.UTF8.GetBytes(json2);
-                bll.CameraAlarmJsons.Edit(camera);
-                var picName = info.pic_name;
-                var picture = bll.Pictures.Find(i => i.Name == picName);
-                if (picture == null)
-                {
-                    picture = new Picture();
-                    picture.Name = info.pic_name;
-                    picture.Info = Encoding.UTF8.GetBytes(pic);
-                    bll.Pictures.Add(picture); //保存图片
-                }
-                else
-                {
-                    picture.Name = info.pic_name;
-                    picture.Info = Encoding.UTF8.GetBytes(pic);
-                    bll.Pictures.Edit(picture); //保存图片
-                }
-            }
-            else
-            {
-                Log.Info("没有图片");
-
-                DateTime now = GetDataTime(info.time_stamp);
-
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\" + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + ".json";
-                FileInfo fi = new FileInfo(path);
-                if (!fi.Directory.Exists)
-                    fi.Directory.Create();
-
-                File.WriteAllText(path, json);//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
-            }
-        }
-
-        public DateTime GetDataTime(long time_stamp)
-        {
-            DateTime dtStart = new DateTime(1970, 1, 1);
-            long lTime = ((long)time_stamp * 10000000);
-            TimeSpan toNow = new TimeSpan(lTime);
-            var toNowNew = toNow.Add(TimeSpan.FromHours(8));
-            DateTime AlarmTime = dtStart.Add(toNowNew);
-            return AlarmTime;
-        }
+        //public DateTime GetDataTime(long time_stamp)
+        //{
+        //    DateTime dtStart = new DateTime(1970, 1, 1);
+        //    long lTime = ((long)time_stamp * 10000000);
+        //    TimeSpan toNow = new TimeSpan(lTime);
+        //    var toNowNew = toNow.Add(TimeSpan.FromHours(8));
+        //    DateTime AlarmTime = dtStart.Add(toNowNew);
+        //    return AlarmTime;
+        //}
 
         private void MenuSetting_OnClick(object sender, RoutedEventArgs e)
         {
@@ -794,6 +630,12 @@ namespace LocationWCFServer
             string processName = ConfigurationHelper.GetValue("DaemonProcess");
             Process[] processes = Process.GetProcessesByName(processName);
             List<Process> list = processes.Where(i => i.HasExited == false).ToList();
+
+            if (Debugger.IsAttached)//vs调试模式程序
+            {
+                list = Process.GetProcessesByName(processName + ".vshost").Where(i => i.HasExited == false).ToList();
+            }
+
             return list;
         }
 
