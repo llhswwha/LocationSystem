@@ -95,7 +95,7 @@ namespace LocationServer.Tools
 
         private void ProcessRequest(HttpListenerContext context)
         {
-            Log.Info(LogTags.Server, "MyHttpListener.ProcessRequest");
+            //Log.Info(LogTags.Server, "MyHttpListener.ProcessRequest");
             var request = context.Request;
             var response = context.Response;
             ////如果是js的ajax请求，还可以设置跨域的ip地址与参数

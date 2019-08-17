@@ -46,11 +46,10 @@ namespace LocationServices.Locations.Services
                 {
                     byte[] byte1 = camera.Json;
                     string json = Encoding.UTF8.GetString(byte1);
-                    CameraAlarmInfo cameraAlarmInfo = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                    CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
                     cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
                     cameraAlarmInfo.pic_data = "";//在详情的地方获取
                     cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
-                    cameraAlarmInfo.ParseData();
                     string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
                     list3.Add(cameraAlarmInfo);
                 }
@@ -78,11 +77,10 @@ namespace LocationServices.Locations.Services
                 {
                     byte[] byte1 = camera.Json;
                     string json = Encoding.UTF8.GetString(byte1);
-                    CameraAlarmInfo cameraAlarmInfo = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                    CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
                     if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
                     cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
                     cameraAlarmInfo.pic_data = "";//在详情的地方获取
-                    cameraAlarmInfo.ParseData();
                     cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
                     list3.Add(cameraAlarmInfo);
                 }
@@ -95,7 +93,12 @@ namespace LocationServices.Locations.Services
             return list3.ToWCFList();
         }
 
-        public CameraAlarmInfo GetCameraAlarm(int id)
+        /// <summary>
+        /// 获取一个告警的详情 主要是告警图片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public CameraAlarmInfo GetCameraAlarmDetail(int id)
         {
             CameraAlarmJson camera = db.CameraAlarmJsons.Find(id);
             byte[] byte1 = camera.Json;
@@ -103,7 +106,6 @@ namespace LocationServices.Locations.Services
             CameraAlarmInfo cameraAlarmInfo = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
             cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
             cameraAlarmInfo.ParseData();
-
             //Picture pic = GetCameraAlarmPicture(cameraAlarmInfo.pic_name);
             //if (pic != null)
             //{
@@ -203,6 +205,25 @@ namespace LocationServices.Locations.Services
 
             string jsonNoPic = JsonConvert.SerializeObject(info);//新的没有图片的json
             Log.Info(LogTags.ExtremeVision, jsonNoPic);
+            string alarmType = "";
+            if (info.AlarmType == 1)
+            {
+                alarmType = "安全帽告警";
+            }
+            else if (info.AlarmType == 2)
+            {
+                alarmType = "火焰告警";
+            }
+            else if (info.AlarmType == 3)
+            {
+                alarmType = "烟雾告警";
+            }
+            else
+            {
+                alarmType = "其他告警:"+info.AlarmType;
+            }
+
+            Log.Info(LogTags.ExtremeVision, "告警类型:" + alarmType);
 
 
             byte[] byte1 = Encoding.UTF8.GetBytes(jsonNoPic);
@@ -225,8 +246,6 @@ namespace LocationServices.Locations.Services
             {
                 bll.Pictures.Update(picName, Encoding.UTF8.GetBytes(base64));
             }
-
-
             return info.ToString();
         }
 
@@ -319,39 +338,40 @@ namespace LocationServices.Locations.Services
         /// <param name="callBack"></param>
         public void SeparateImages_ToPictures(Action callBack)
         {
+            Log.Info(LogTags.ExtremeVision, "开始 分离图片，从告警表分离到图片表");
             Worker.Run(() =>
             {
+
+
                 bool r = true;
                 while (r)
                 {
                     try
                     {
-                        Log.Info("开始");
-
                         LocationService s = new LocationService();
                         //var list=s.GetAllCameraAlarms(true);
                         var bll = Bll.NewBllNoRelation();
                         int count = bll.CameraAlarmJsons.DbSet.Count();
                         Log.Info("count:" + count);
                         List<CameraAlarmJson> list2 = bll.CameraAlarmJsons.ToList();
-                        Log.Info("获取到列表");
+                        Log.Info(LogTags.ExtremeVision, "获取到列表");
                         if (list2 != null)
                         {
-                            Log.Info("成功");
+                            Log.Info(LogTags.ExtremeVision, "成功");
                             for (int i1 = 0; i1 < list2.Count; i1++)
                             {
-                                Log.Info(string.Format("进度:{0}/{1}", i1, list2.Count));
+                                Log.Info(LogTags.ExtremeVision, string.Format("进度:{0}/{1}", i1, list2.Count));
                                 CameraAlarmJson camera = list2[i1];
                                 SavePicture(camera, bll);
                             }
                         }
                         else
                         {
-                            Log.Info("失败");
-                            Log.Info("太多了取不出来，一个一个取");
+                            Log.Info(LogTags.ExtremeVision, "失败");
+                            Log.Info(LogTags.ExtremeVision, "太多了取不出来，一个一个取");
                             for (int i = 0; i < count; i++)
                             {
-                                Log.Info(string.Format("进度:{0}/{1}", i, count));
+                                Log.Info(LogTags.ExtremeVision, string.Format("进度:{0}/{1}", i, count));
                                 CameraAlarmJson camera = bll.CameraAlarmJsons.Find(i + 1);
                                 if (camera == null)
                                 {
@@ -362,7 +382,7 @@ namespace LocationServices.Locations.Services
                                 SavePicture(camera, bll);
                             }
                         }
-                        Log.Info("完成");
+                        Log.Info(LogTags.ExtremeVision, "完成");
                         r = false;//真的完成
                     }
                     catch (Exception exception)
@@ -385,20 +405,20 @@ namespace LocationServices.Locations.Services
         /// <param name="callBack"></param>
         public void SeparateImages_ToFile(Action callBack)
         {
+            Log.Info(LogTags.ExtremeVision, "开始 从图片表分离到文件中");
+
             Worker.Run(() =>
             {
                 try
                 {
-                    Log.Info("开始");
-
                     //var bll = Bll.NewBllNoRelation();
                     int count = db.Pictures.DbSet.Count();
-                    Log.Info("pic count:" + count);
+                    Log.Info(LogTags.ExtremeVision, "pic count:" + count);
 
                     LocationService s = new LocationService();
                     var list = s.GetAllCameraAlarms(false);
 
-                    Log.Info("alarm count:" + list.Count);
+                    Log.Info(LogTags.ExtremeVision, "alarm count:" + list.Count);
 
                     List<string> picNameList = new List<string>();
                     foreach (var item in list)
@@ -409,7 +429,7 @@ namespace LocationServices.Locations.Services
                         }
                     }
 
-                    Log.Info("pic count 2:" + picNameList.Count);
+                    Log.Info(LogTags.ExtremeVision, "pic count 2:" + picNameList.Count);
 
                     //return;
                     //for (int i1 = 0; i1 < picNameList.Count; i1++)
@@ -433,7 +453,7 @@ namespace LocationServices.Locations.Services
                     {
                         try
                         {
-                            Log.Info(string.Format("进度:{0}/{1}", i, count));
+                            Log.Info(LogTags.ExtremeVision, string.Format("进度:{0}/{1}", i, count));
                             Picture pic = picList[i];
                             if (pic == null) continue;
                             if (pic.Name != "顶视图")
@@ -460,7 +480,7 @@ namespace LocationServices.Locations.Services
                         }
                     }
 
-                    Log.Info("完成");
+                    Log.Info(LogTags.ExtremeVision, "完成");
                 }
                 catch (Exception ex2)
                 {

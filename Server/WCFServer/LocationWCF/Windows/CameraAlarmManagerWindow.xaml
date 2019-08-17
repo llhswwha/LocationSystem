@@ -1,0 +1,21 @@
+﻿<Window x:Class="LocationServer.Windows.CameraAlarmManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        mc:Ignorable="d"
+        Title="CameraAlarmManagerWindow" Height="450" Width="800" Loaded="CameraAlarmManagerWindow_OnLoaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="告警图片移动到Picture表" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_OnClick"></MenuItem>
+            <MenuItem Header="告警图片移动到文件" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_OnClick"></MenuItem>
+            <MenuItem Header="打开图片文件夹" Name="MenuOpenPictureDir" Click="MenuOpenPictureDir_OnClick"></MenuItem>
+        </Menu>
+        <DockPanel Width="400" DockPanel.Dock="Right">
+            <Image Name="Image1"></Image>
+        </DockPanel>
+        <DataGrid Name="DataGrid1" SelectionChanged="DataGrid1_OnSelectionChanged"></DataGrid>
+    </DockPanel>
+    
+</Window>

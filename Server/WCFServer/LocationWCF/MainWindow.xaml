@@ -50,8 +50,7 @@
                 <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="视频回放支持" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>
-                <MenuItem Header="分离告警图片1" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_Click"></MenuItem>
-                <MenuItem Header="分离告警图片2" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_Click"></MenuItem>
+                <MenuItem Header="视频告警管理" Name="MenuCameraAlarmManager" Click="MenuCameraAlarmManager_OnClick"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="启动守护进程" Name="MenuStartDaemon" Click="MenuStartDaemon_OnClick"></MenuItem>
                 <MenuItem Header="更新历史统计缓存" Name="MenuRefreshHisPosBuffer" Click="MenuRefreshHisPosBuffer_OnClick"></MenuItem>

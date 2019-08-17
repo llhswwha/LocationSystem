@@ -42,7 +42,7 @@ namespace LocationServices.Locations
         public CameraAlarmInfo GetCameraAlarm(int id)
         {
             CameraAlarmService service = new CameraAlarmService(db);
-            var info = service.GetCameraAlarm(id);
+            var info = service.GetCameraAlarmDetail(id);
             return info;
         }
 

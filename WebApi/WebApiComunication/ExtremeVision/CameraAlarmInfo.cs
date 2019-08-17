@@ -105,6 +105,7 @@ namespace WebApiCommunication.ExtremeVision
         /// 告警类型:1:安全帽 2:火焰 3:烟雾
         /// </summary>
         [DataMember]
+        [NotMapped]
         public int AlarmType { get; set; }
 
         public int ParseType(string json)
@@ -246,6 +247,11 @@ namespace WebApiCommunication.ExtremeVision
 
         public void ParseData()
         {
+            if (AlarmType == 0)//以前的没有获取过告警信息的，另外AlarmType是不存到数据库里面的
+            {
+
+            }
+
             if (AlarmType==1)//判断是不是头盔告警
             {
                 HeadData = GetHeadData();//解析头盔数据

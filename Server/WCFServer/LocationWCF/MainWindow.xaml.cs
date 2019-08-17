@@ -532,34 +532,6 @@ namespace LocationWCFServer
 
         private Process nginxCmdProcess;
 
-        private void MenuSaveCameraAlarmPicture_Click(object sender, RoutedEventArgs e)
-        {
-            CameraAlarmService service = new CameraAlarmService();
-            service.SeparateImages_ToPictures(() =>
-            {
-                MessageBox.Show("完成");
-            });
-        }
-
-        private void MenuSaveCameraAlarmPicture2_Click(object sender, RoutedEventArgs e)
-        {
-            CameraAlarmService service = new CameraAlarmService();
-            service.SeparateImages_ToFile(() =>
-            {
-                MessageBox.Show("完成");
-            });
-        }
-
-        //public DateTime GetDataTime(long time_stamp)
-        //{
-        //    DateTime dtStart = new DateTime(1970, 1, 1);
-        //    long lTime = ((long)time_stamp * 10000000);
-        //    TimeSpan toNow = new TimeSpan(lTime);
-        //    var toNowNew = toNow.Add(TimeSpan.FromHours(8));
-        //    DateTime AlarmTime = dtStart.Add(toNowNew);
-        //    return AlarmTime;
-        //}
-
         private void MenuSetting_OnClick(object sender, RoutedEventArgs e)
         {
             SettingWindow win = new SettingWindow();
@@ -709,6 +681,13 @@ namespace LocationWCFServer
                 Phs.GetAllData(LogTags.HisPosBuffer, false);
             }, () => { });
             
+        }
+
+        private void MenuCameraAlarmManager_OnClick(object sender, RoutedEventArgs e)
+        {
+            CameraAlarmManagerWindow win = new CameraAlarmManagerWindow();
+            win.Owner = this;
+            win.Show();
         }
     }
 }

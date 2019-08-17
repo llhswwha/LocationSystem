@@ -267,6 +267,9 @@
     <Compile Include="Models\EngineTool\RoomArchorSettingWindow.xaml.cs">
       <DependentUpon>RoomArchorSettingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\CameraAlarmManagerWindow.xaml.cs">
+      <DependentUpon>CameraAlarmManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DevMonitorWindow.xaml.cs">
       <DependentUpon>DevMonitorWindow.xaml</DependentUpon>
     </Compile>
@@ -418,6 +421,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Models\EngineTool\RoomArchorSettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CameraAlarmManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
