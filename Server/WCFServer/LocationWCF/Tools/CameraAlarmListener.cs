@@ -1,4 +1,5 @@
 ﻿using BLL;
+using DbModel;
 using DbModel.Location.Alarm;
 using Location.BLL.Tool;
 using LocationServices.Locations.Services;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WebApiCommunication.ExtremeVision;
 
@@ -35,12 +37,39 @@ namespace LocationServer.Tools
             {
                 return ParseCameraAlarm(url, json);
             };
+
+           
+        }
+
+        Thread reomveThread;
+
+        private void RemoveAlarmsOutOfDate()
+        {
+            
+            int keepDay = AppSetting.CameraAlarmKeepDay;
+            Log.Info(LogTags.ExtremeVision, "CameraAlarmKeepDay:"+ keepDay);
+            if (keepDay > 0)
+            {
+                Log.Info(LogTags.ExtremeVision, "RemoveAlarmsOutOfDate Start");
+                while (true)
+                {
+                    CameraAlarmService service = new CameraAlarmService();
+                    service.RemoveAlarmsOutOfDate(keepDay);
+                    //Thread.Sleep(1000 * 60);//测试
+                    Thread.Sleep(1000 * 60 * 60);//1小时监测一次
+                }
+            }
+            
         }
 
         public bool Start()
         {
             try
             {
+                reomveThread = new Thread(RemoveAlarmsOutOfDate);
+                reomveThread.IsBackground = true;
+                reomveThread.Start();
+
                 if (httpListener != null)
                 {
                     return httpListener.Start();
@@ -59,6 +88,19 @@ namespace LocationServer.Tools
 
         public void Stop()
         {
+            if (reomveThread != null)
+            {
+                try
+                {
+                    reomveThread.Abort();
+                reomveThread = null;
+                }
+                catch (Exception e)
+                {
+                    Log.Error(LogTags.ExtremeVision, "CameraAlarmListener.Stop:" + e.Message);
+                }
+            }
+
             if (httpListener != null)
             {
                 try

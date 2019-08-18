@@ -12,11 +12,20 @@ namespace Location.TModel.Tools
         }
 
 
-        public static DateTime ToDateTime(this long timeStamp)
+        public static DateTime ToDateTime(this long timeStamp,bool isSencond=false)
         {
             System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
-            DateTime dt = startTime.AddMilliseconds(timeStamp);
-            return dt;
+            if (isSencond == false)
+            {
+                DateTime dt = startTime.AddMilliseconds(timeStamp);
+                return dt;
+            }
+            else
+            {
+                DateTime dt = startTime.AddSeconds(timeStamp);
+                return dt;
+            }
+            
         }
     }
 }

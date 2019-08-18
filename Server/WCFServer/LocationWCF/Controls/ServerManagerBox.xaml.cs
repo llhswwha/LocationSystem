@@ -350,6 +350,8 @@ namespace LocationServer.Controls
             picDir = dir.Root.FullName + picDir;
             AppSetting.CameraAlarmPicSaveMode = saveMode;
             AppSetting.CameraAlarmPicSaveDir = picDir;
+            AppSetting.CameraAlarmKeepDay = ConfigurationHelper.GetIntValue("CameraAlarmKeepDay");
+            AppSetting.DeleteAlarmKeepPictureFile = ConfigurationHelper.GetBoolValue("DeleteAlarmKeepPictureFile");
             if (cameraAlarmListener == null)
             {
                 string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/",host,port);

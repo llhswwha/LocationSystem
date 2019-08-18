@@ -1,4 +1,5 @@
 ﻿using CommunicationClass.ExtremeVision;
+using Location.TModel.Tools;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -273,8 +274,10 @@ namespace WebApiCommunication.ExtremeVision
         public static CameraAlarmInfo Parse(string json)
         {
             var info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
-            info.ParseType(json);
+            string dataText = info.data + "";
+            info.ParseType(dataText);
             info.ParseData();
+            //info.time = info.time_stamp.ToDateTime(true);
             return info;
         }
 
@@ -285,7 +288,7 @@ namespace WebApiCommunication.ExtremeVision
 
         public string GetCompareId()
         {
-            return ("" + cid + time_stamp);
+            return ("" + time_stamp);
         }
     }
 }

@@ -29,6 +29,8 @@ namespace DbModel
         public static string ExtremeVisionListenerIP { get; set; }
         public static int CameraAlarmPicSaveMode { get; set; }
         public static string CameraAlarmPicSaveDir { get; set; }
+        public static int CameraAlarmKeepDay { get; set; }
+        public static bool DeleteAlarmKeepPictureFile { get; set; }
 
         public static int UrlMaxLength = 200;
 

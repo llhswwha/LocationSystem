@@ -8,14 +8,49 @@
         Title="CameraAlarmManagerWindow" Height="450" Width="800" Loaded="CameraAlarmManagerWindow_OnLoaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="告警图片移动到Picture表" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_OnClick"></MenuItem>
-            <MenuItem Header="告警图片移动到文件" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_OnClick"></MenuItem>
-            <MenuItem Header="打开图片文件夹" Name="MenuOpenPictureDir" Click="MenuOpenPictureDir_OnClick"></MenuItem>
+            <MenuItem Header="加载数据" Name="MenuLoad" Click="MenuLoad_OnClick"></MenuItem>
+            <MenuItem Header="处理数据">
+                <MenuItem Header="开始处理" Name="MenuParseData" Click="MenuParseData_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="告警图片移动到Picture表" Name="MenuSaveCameraAlarmPicture" Click="MenuSaveCameraAlarmPicture_OnClick"></MenuItem>
+                <MenuItem Header="告警图片移动到文件" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_OnClick"></MenuItem>
+                <MenuItem Header="保存告警到json文件" Name="MenuSaveAlarmToJson" Click="MenuSaveAlarmToJson_OnClick"></MenuItem>
+                <MenuItem Header="读取告警从json文件" Name="MenuLoadAlarmFromJson" Click="MenuLoadAlarmFromJson_OnClick"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="打开">
+                <MenuItem Header="打开图片文件夹" Name="MenuOpenPictureDir" Click="MenuOpenPictureDir_OnClick"></MenuItem>
+                <MenuItem Header="打开Json文件夹" Name="MenuOpenJsonDir" Click="MenuOpenJsonDir_OnClick"></MenuItem>
+            </MenuItem>
         </Menu>
-        <DockPanel Width="400" DockPanel.Dock="Right">
+        <ScrollViewer  DockPanel.Dock="Bottom" Height="70">
+            <TextBox Name="TbLog"></TextBox>
+        </ScrollViewer>
+        <DockPanel DockPanel.Dock="Left" Width="450">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Label>告警类型</Label>
+                <ComboBox Name="CbType" Width="80" SelectionChanged="CbType_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">全部</ComboBoxItem>
+                    <ComboBoxItem>安全帽</ComboBoxItem>
+                    <ComboBoxItem>火焰</ComboBoxItem>
+                    <ComboBoxItem>烟雾</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            <DataGrid   Name="DataGrid1" SelectionChanged="DataGrid1_OnSelectionChanged" IsReadOnly="True">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </DockPanel>
+        
+        <DockPanel >
+            <ScrollViewer DockPanel.Dock="Top" Height="100">
+                <TextBox Name="TbData" ></TextBox>
+            </ScrollViewer>
             <Image Name="Image1"></Image>
         </DockPanel>
-        <DataGrid Name="DataGrid1" SelectionChanged="DataGrid1_OnSelectionChanged"></DataGrid>
+
     </DockPanel>
     
 </Window>

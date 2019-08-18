@@ -45,20 +45,30 @@ namespace ExtremeVisionSimulator
             }
 
             string content = File.ReadAllText(path);
-            TbContent.Text = content;
+            //TbContent.Text = content;
 
             try
             {
-                CameraAlarmInfo info = JsonConvert.DeserializeObject<CameraAlarmInfo>(content);
+                CameraAlarmInfo info = CameraAlarmInfo.Parse(content);
+                string base64 = info.pic_data;
                 GetImage(info.pic_data);
 
+                info.time_stamp = GetTimeStamp();
                 info.time = GetDataTime(info.time_stamp);
                 info.pic_data = "";
+                
                 grid1.SelectedObject = info;
                 
                 info.ParseData();
                 string json = JsonConvert.SerializeObject(info);
-                CameraAlarmInfo info2 = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
+                CameraAlarmInfo info2 = CameraAlarmInfo.Parse(json);
+                info2.FlameData = null;
+                info2.HeadData = null;
+                info2.SmogData = null;
+                info2.pic_data = base64;
+                info2.pic_name = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-ffff") + ".jpg";
+                string json2 = JsonConvert.SerializeObject(info2);
+                TbContent.Text = json2;
             }
             catch (Exception ex)
             {
@@ -72,7 +82,19 @@ namespace ExtremeVisionSimulator
             long lTime = ((long)time_stamp * 10000000);
             TimeSpan toNow = new TimeSpan(lTime);
             DateTime AlarmTime = dtStart.Add(toNow);
+            AlarmTime=AlarmTime.AddHours(8);
             return AlarmTime;
+        }
+
+        public long GetTimeStamp()
+        {
+            DateTime now = DateTime.Now;
+            now = now.AddHours(-8);
+            DateTime dtStart = new DateTime(1970, 1, 1);
+            TimeSpan toNow = now - dtStart;
+            long lTime = toNow.Ticks;
+            lTime /= 10000000;
+            return lTime;
         }
 
         public void GetImage(string base64)

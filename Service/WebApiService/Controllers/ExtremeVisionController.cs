@@ -1,4 +1,5 @@
 ﻿using Location.BLL.Tool;
+using LocationServices.Locations.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SignalRService.Hubs;
@@ -22,9 +23,8 @@ namespace WebApiService.Controllers
 
                 Log.Info(LogTags.ExtremeVision, string.Format("ExtremeVisionController.Callback({0})", Request.GetClientIpAddress()));
                 Log.Info(LogTags.ExtremeVision, json);
-                DateTime now = DateTime.Now;
-                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
-                File.WriteAllText(path, json);
+                FileInfo fi = CameraAlarmService.GetNowJsonFile();
+                File.WriteAllText(fi.FullName, json);
 
                 CameraAlarmHub.SendInfo(info);
                 return info+"";
@@ -75,8 +75,8 @@ namespace WebApiService.Controllers
         //        Log.Info(LogTags.ExtremeVision, string.Format("ExtremeVisionController.GetInfo({0})", Request.GetClientIpAddress()));
         //        Log.Info(LogTags.ExtremeVision, json);
         //        DateTime now = DateTime.Now;
-        //        string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\" + now.ToString("yyyy_mm_dd_HH_MM_ss_fff") + ".json";
-        //        File.WriteAllText(path, json);
+        //         FileInfo fi = CameraAlarmService.GetNowJsonFile();
+        //File.WriteAllText(fi.FullName, json);
 
         //        CameraAlarmHub.SendInfo(info);
         //        return info + "";

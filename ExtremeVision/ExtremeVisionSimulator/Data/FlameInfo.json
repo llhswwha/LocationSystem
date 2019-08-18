@@ -1,7 +1,7 @@
 {
   "aid": "9610",
   "cid": "123456",
-  "cid_url": "rtsp://admin:admin@ 192.168.1.27:554/ch1/main/h264",
+  "cid_url": "rtsp://admin:1111@192.168.1.31:554/1",
   "time_stamp": 65464565645,
   "status": 1,
   "pic_name": "sadfasfasdfasdfsdf.jpg",
