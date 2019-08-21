@@ -750,20 +750,20 @@
     <None Include="Data\HomePages\锅炉4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\CADAnchors\1F.xml">
+    <None Include="Data\InitInfos\宝钢园区\CADAnchors\1F.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\CADAnchors\2F.xml">
+    <None Include="Data\InitInfos\宝钢园区\CADAnchors\2F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\CADAnchors\3F.xml">
+    <None Include="Data\InitInfos\宝钢园区\CADAnchors\3F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\CADAnchors\4F.xml">
+    <None Include="Data\InitInfos\宝钢园区\CADAnchors\4F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\CADAnchors\5F.xml">
+    <None Include="Data\InitInfos\宝钢园区\CADAnchors\5F.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\InitInfos\四会热电厂\InitInfo.xml">
@@ -774,7 +774,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\InitInfos\宝刚园区\InitInfo.xml">
+    <None Include="Data\InitInfos\宝钢园区\InitInfo.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

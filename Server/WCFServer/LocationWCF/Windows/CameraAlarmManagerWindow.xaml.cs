@@ -30,8 +30,8 @@ namespace LocationServer.Windows
         public CameraAlarmManagerWindow()
         {
             InitializeComponent();
-            
         }
+
         LogTextBoxController controller;// = new LogTextBoxController();
         private CameraAlarmService service = new CameraAlarmService();
 
@@ -94,13 +94,21 @@ namespace LocationServer.Windows
 
         private void MenuDelete_Click(object sender, RoutedEventArgs e)
         {
+            //可以删除全部告警
+            List<CameraAlarmInfo> list = new List<CameraAlarmInfo>();
             foreach (var item in DataGrid1.SelectedItems)
             {
                 CameraAlarmInfo info = item as CameraAlarmInfo;
                 if (info == null) continue;
-                service.RemoveAlarm(info);
+                list.Add(info);
             }
-            LoadData();
+            Worker.Run(() =>
+            {
+                foreach (CameraAlarmInfo item in list)
+                {
+                    service.RemoveAlarm(item);
+                }
+            }, () => { LoadData(); });
         }
 
         private void MenuSaveAlarmToJson_OnClick(object sender, RoutedEventArgs e)
@@ -134,54 +142,70 @@ namespace LocationServer.Windows
 
         private void LoadData()
         {
-            if (DataGrid1 == null) return;
-            var list = service.GetAllCameraAlarms(false);
-            var type = CbType.SelectedIndex;
-            if (type == 0)
+            try
             {
-                DataGrid1.ItemsSource = list;
-            }
-            else
-            {
-                DataGrid1.ItemsSource = list.FindAll(i => i.AlarmType == type);
-            }
-            
-
-            int fileCount = 0;
-            var files = service.GetAllPictureFiles();
-            if (files != null)
-            {
-                fileCount = files.Length;
-                //Log.Info(LogTags.ExtremeVision, " fileCount:" + files.Length);
-            }
-            Dictionary<string, FileInfo> fileDict = new Dictionary<string, FileInfo>();
-            foreach (var item in files)
-            {
-                fileDict.Add(item.Name, item);
-            }
-            var picList = service.GetPictureCount();
-            Log.Info(LogTags.ExtremeVision, string.Format("AlarmCount:{0},fileCount:{1}, PictureCount:{2}", list.Count,fileCount, picList));
-
-            List<CameraAlarmInfo> noPicList = new List<CameraAlarmInfo>();
-            List<CameraAlarmInfo> havePicList = new List<CameraAlarmInfo>();
-            foreach (var item in list)
-            {
-                if (fileDict.ContainsKey(item.pic_name))
+                if (DataGrid1 == null) return;
+                var list = service.GetAllCameraAlarms(false);
+                if (list == null)
                 {
-                    havePicList.Add(item);
-                    fileDict.Remove(item.pic_name);//删除已经有的
+                    MessageBox.Show("加载数据失败，GetAllCameraAlarms list == null");
+                    return;
+                }
+                var type = CbType.SelectedIndex;
+                if (type == 0)
+                {
+                    DataGrid1.ItemsSource = list;
                 }
                 else
                 {
-                    noPicList.Add(item);
+                    DataGrid1.ItemsSource = list.FindAll(i => i.AlarmType == type);
                 }
-                //service.GetCameraAlarmDetail
+
+                Dictionary<string, FileInfo> fileDict = new Dictionary<string, FileInfo>();
+
+
+                int fileCount = 0;
+                var files = service.GetAllPictureFiles();
+                if (files != null)
+                {
+                    fileCount = files.Length;
+                    //Log.Info(LogTags.ExtremeVision, " fileCount:" + files.Length);
+                    foreach (var item in files)
+                    {
+                        fileDict.Add(item.Name, item);
+                    }
+                }
+               
+                var picList = service.GetPictureCount();
+                Log.Info(LogTags.ExtremeVision, string.Format("AlarmCount:{0},fileCount:{1}, PictureCount:{2}", list.Count, fileCount, picList));
+
+                List<CameraAlarmInfo> noPicList = new List<CameraAlarmInfo>();
+                List<CameraAlarmInfo> havePicList = new List<CameraAlarmInfo>();
+                foreach (var item in list)
+                {
+                    if (fileDict.ContainsKey(item.pic_name))
+                    {
+                        havePicList.Add(item);
+                        fileDict.Remove(item.pic_name);//删除已经有的
+                    }
+                    else
+                    {
+                        noPicList.Add(item);
+                    }
+                    //service.GetCameraAlarmDetail
+                }
+
+                //DataGrid1.ItemsSource = havePicList;
+
+                var picNoAlarms = fileDict.Values.ToList();//剩下来的没有告警的图片（在当前数据库中）
+                Log.Info(LogTags.ExtremeVision, string.Format(" picAlarms:{0}, picNoAlarms:{1}", havePicList.Count, picNoAlarms.Count));
             }
-
-            //DataGrid1.ItemsSource = havePicList;
-
-            var picNoAlarms = fileDict.Values.ToList();//剩下来的没有告警的图片（在当前数据库中）
-            Log.Info(LogTags.ExtremeVision, string.Format(" picAlarms:{0}, picNoAlarms:{1}", havePicList.Count, picNoAlarms.Count));
+            catch (Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision,ex.ToString());
+                MessageBox.Show("加载数据失败:" + ex.Message);
+            }
+            
         }
 
         private void MenuParseData_Click(object sender, RoutedEventArgs e)
@@ -208,6 +232,19 @@ namespace LocationServer.Windows
         private void CbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadData();
+        }
+
+        private void MenuMenuClearAll_Click(object sender, RoutedEventArgs e)
+        {
+            //可以删除全部告警
+            List<CameraAlarmInfo> list = DataGrid1.ItemsSource as List<CameraAlarmInfo>;
+            Worker.Run(() =>
+            {
+                foreach (CameraAlarmInfo item in list)
+                {
+                    service.RemoveAlarm(item);
+                }
+            }, () => { LoadData(); });
         }
     }
 }

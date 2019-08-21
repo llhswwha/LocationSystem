@@ -16,6 +16,8 @@
                 <MenuItem Header="告警图片移动到文件" Name="MenuSaveCameraAlarmPicture2" Click="MenuSaveCameraAlarmPicture2_OnClick"></MenuItem>
                 <MenuItem Header="保存告警到json文件" Name="MenuSaveAlarmToJson" Click="MenuSaveAlarmToJson_OnClick"></MenuItem>
                 <MenuItem Header="读取告警从json文件" Name="MenuLoadAlarmFromJson" Click="MenuLoadAlarmFromJson_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="删除全部告警" Name="MenuClearAll" Click="MenuMenuClearAll_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="打开">
                 <MenuItem Header="打开图片文件夹" Name="MenuOpenPictureDir" Click="MenuOpenPictureDir_OnClick"></MenuItem>

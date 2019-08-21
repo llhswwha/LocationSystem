@@ -29,15 +29,21 @@ using WebApiCommunication.ExtremeVision;
 
 namespace WebApiService.Controllers
 {
-    [RoutePrefix("api/unitySetting")]
+    [RoutePrefix("api")]
     public class LocationController : ApiController
     {
         protected ILocationService service=new LocationService();
 
-        [Route("")]
+        [Route("unitySetting")]
         public UnitySetting GetUnitySetting()
         {
             return service.GetUnitySetting();
+        }
+
+        [Route("ObjectAddList")]
+        public ObjectAddList GetObjectAddList()
+        {
+            return service.GetObjectAddList();
         }
     }
 }

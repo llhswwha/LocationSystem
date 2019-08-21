@@ -707,5 +707,97 @@ namespace LocationServer.Windows
                 });
             });
         }
+
+        private void GetRepeatDataCount(Action<long> callback)
+        {
+            List<PosInfoList> list = DataGridStatisticDay.ItemsSource as List<PosInfoList>;
+            if (list == null) return;
+            Worker.Run(() =>
+            {
+                int removeCount = 0;
+                Log.Info(LogTags.HisPos, "GetRepeatDataCount Start");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    PosInfoList posList = list[i];
+                    string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
+                        posList.Count, (i + 1), list.Count);
+                    Log.Info(LogTags.HisPos, progress1);
+
+                    var groupList = posList.Items.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
+                    {
+                        p.Key.DateTimeStamp,
+                        Id = p.First(w => true).Id,
+                        total = p.Count()
+                    }).Where(k => k.total > 1).ToList();
+                    Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
+
+                    List<Position> removeListTemp = new List<Position>();
+                    int maxPageCount = 128;
+                    int packageCount = maxPageCount;
+                    List<long> timestampList = new List<long>();
+                    List<int> idList = new List<int>();
+                    for (int k = 0; k < groupList.Count; k++)
+                    {
+                        var item = groupList[k];
+                        if (item.total > 1)
+                        {
+                            timestampList.Add(item.DateTimeStamp);
+                            idList.Add(item.Id);
+                        }
+                        if (timestampList.Count >= packageCount ||
+                            (k == groupList.Count - 1 && timestampList.Count > 0)//最后一组
+                            )
+                        {
+                            try
+                            {
+                                var query = bll.Positions.DbSet.Where(j => timestampList.Contains(j.DateTimeStamp) && !idList.Contains(j.Id));
+                                var sql = query.ToString();
+                                var count2 = query.Count();
+                                //query.DeleteFromQuery();
+                                removeCount += count2;
+
+                                Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+
+                                timestampList = new List<long>();
+                                idList = new List<int>();
+
+                                if (packageCount < maxPageCount)
+                                {
+                                    packageCount *= 2;
+                                    if (packageCount > maxPageCount)
+                                    {
+                                        packageCount = maxPageCount;
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                //Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+
+                                Log.Info(LogTags.HisPos, string.Format("Progress2 Error:{0}", e));
+                                //return -1;//暂停
+
+                                Thread.Sleep(50);
+                                packageCount /= 2;
+                                k--;//将包的大小减少 重新尝试
+                                timestampList = new List<long>();
+                                idList = new List<int>();
+                            }
+                            //Log.Info(LogTags.HisPos, string.Format("removeGroupCount:{0}", timestampList.Count));
+                        }
+                    }
+                }
+                Log.Info(LogTags.HisPos, "RemoveRepeatData End");
+                return removeCount;
+            }, (removeCount) =>
+            {
+                
+            });
+        }
+
+        private void MenuGetRepeatDataCount_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

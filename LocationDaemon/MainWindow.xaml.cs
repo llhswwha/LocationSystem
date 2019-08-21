@@ -53,6 +53,10 @@ namespace LocationDaemon
         {
             try
             {
+                string v= ConfigurationHelper.GetValue("version");
+                titleName += " v" + v;
+
+
                 var memory = SystemHelper.GetPhisicalMemory();
                 WriteLog("系统内存:" + memory+"GB");
 
@@ -250,11 +254,13 @@ namespace LocationDaemon
             RefreshTitle();
         }
 
+        private string titleName = "守护进程";
+
         private void RefreshTitle()
         {
             DateTime now = DateTime.Now;
 
-            this.Title = string.Format("{0} [{1}][{2:dd\\.hh\\:mm\\:ss}]{3}", "守护进程", now.ToString("HH:mm:ss"), (now - startTime), MemorySize);
+            this.Title = string.Format("{0} [{1}][{2:dd\\.hh\\:mm\\:ss}]{3}", titleName, now.ToString("HH:mm:ss"), (now - startTime), MemorySize);
         }
 
         private DispatcherTimer restartTimer;
@@ -518,16 +524,31 @@ namespace LocationDaemon
 
         private Process currentProcess;
 
+        private string log1 = "";
+
+        private string log2 = "";
+
+        private int maxLogLength = 10000;
+
         private void WriteLog(string log)
         {
-            TxtLog.Text = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log,
-                TxtLog.Text);
+            log1 = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log, log1);
+            if (log1.Length > maxLogLength)
+            {
+                log1 = log1.Substring(0, maxLogLength / 2);
+            }
+            TxtLog.Text = log1;
         }
 
         private void WriteLog2(string log)
         {
-            TxtLog2.Text = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log,
-                TxtLog2.Text);
+            log2 = string.Format("[{0}]{1}\n{2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log, log2);
+            if (log2.Length > maxLogLength)
+            {
+                log2 = log2.Substring(0, maxLogLength / 2);
+            }
+
+            TxtLog2.Text = log2;
         }
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)

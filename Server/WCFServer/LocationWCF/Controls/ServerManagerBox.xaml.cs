@@ -121,6 +121,7 @@ namespace LocationServer.Controls
                 }
                 
                 StopReceiveAlarm();
+                StopRemoveAlarm();
                 StopLocationAlarmService();
                 StopGetInspectionTrack();
                 StopExtremeVisionListener();
@@ -167,6 +168,21 @@ namespace LocationServer.Controls
             //    alarmReceiveThread.IsBackground = true;
             //    alarmReceiveThread.Start();
             //}
+
+            //if (alarmRemoveThread == null)
+            //{
+            //    int days = ConfigurationHelper.GetIntValue("AlarmRemoveDays"); 
+            //    //清除某一个时间之前的所有告警
+            //    Bll db = Bll.NewBllNoRelation();
+            //    DateTime nowTime = DateTime.Now;
+            //    DateTime starttime = DateTime.Now.AddDays(-days);
+            //    var alarms = db.DevAlarms.Where(i => i.AlarmTime.Ticks < starttime.Ticks);
+            //    bool r = db.DevAlarms.RemoveList(alarms);
+            //    MessageBox.Show("清空成功");
+            //    alarmRemoveThread.Start();
+            //}
+            
+
         }
 
         private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
@@ -183,7 +199,20 @@ namespace LocationServer.Controls
             }
         }
 
+        private void StopRemoveAlarm()
+        {
+            if (alarmRemoveThread != null)
+            {
+                alarmRemoveThread.Abort();
+                alarmRemoveThread = null;
+            }
+        }
+
         private Thread alarmReceiveThread;
+        /// <summary>
+        /// 告警清除线程
+        /// </summary>
+        private Thread alarmRemoveThread;
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {

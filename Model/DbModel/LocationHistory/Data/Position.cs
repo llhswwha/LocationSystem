@@ -337,6 +337,8 @@ namespace DbModel.LocationHistory.Data
         {
             if (info == null) return false;
 
+            LogEvent.Info("获取定位数据:"+info);
+
             bool r = false;
             info = info.Trim();
             if (info.Contains("{"))
@@ -348,12 +350,25 @@ namespace DbModel.LocationHistory.Data
                 r= ParseText(info, offsetX, offsetY);
             }
 
-            TimeSpan t = DateTime.Now - this.DateTime;
-            if (t.TotalSeconds > 30)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
+            if (r == true)
             {
-                //this.DateTime = DateTime.Now;
-                //this.DateTimeStamp = this.DateTime.ToStamp();
-                LogEvent.Info("定位引擎电脑和服务端电脑时间相差很大:"+t.TotalSeconds+"s");
+                TimeSpan t = DateTime.Now - this.DateTime;
+                if (t.TotalSeconds > 100000)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
+                {
+                    //this.DateTime = DateTime.Now;
+                    //this.DateTimeStamp = this.DateTime.ToStamp();
+                    LogEvent.Info("定位数据解析异常:" + info + ",时间相差:" + t.TotalSeconds);
+                }
+                else if (t.TotalSeconds > 30)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
+                {
+                    //this.DateTime = DateTime.Now;
+                    //this.DateTimeStamp = this.DateTime.ToStamp();
+                    LogEvent.Info("定位引擎电脑和服务端电脑时间相差很大:" + t.TotalSeconds + "s");
+                }
+            }
+            else
+            {
+                
             }
             return r;
         }
@@ -438,10 +453,10 @@ namespace DbModel.LocationHistory.Data
                     IsSimulate = ArchorsText == "@0000" || string.IsNullOrEmpty(ArchorsText);
                 }
 
-                if (Code == "092D" && (ArchorsText == null || Archors == null))
-                {
-                    int i = 0;
-                }
+                //if (Code == "092D" && (ArchorsText == null || Archors == null))
+                //{
+                //    int i = 0;
+                //}
 
                 if (length > 8)
                 {
@@ -457,7 +472,7 @@ namespace DbModel.LocationHistory.Data
             }
             catch (Exception ex)
             {
-                LogEvent.Info(ex.ToString());
+                LogEvent.Info("定位数据解析失败:"+ info +"\n"+ ex.ToString());
                 return false;
             }
         }

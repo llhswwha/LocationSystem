@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Web.Http;
 using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using TPEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
+using Location.TModel.Location.AreaAndDev;
+using System;
 
 namespace WebApiService.Controllers
 {
@@ -30,6 +32,19 @@ namespace WebApiService.Controllers
             return service.GetEntity(id);
         }
 
+        [Route("detail/id/{id}")]
+        public TEntity GetEntityById(int id)
+        {
+            return service.GetEntityById(id);
+        }
+        [Route("detail/devId/{devId}")]//detail?devId=guid
+        public TEntity GetEntityByDevId(string devId)
+        {
+            return service.GetEntityByDevId(devId);
+        }
+
+
+
         [Route("{id}/parent")]
         public TPEntity GetParent(string id)
         {
@@ -42,8 +57,8 @@ namespace WebApiService.Controllers
         {
             return service.GetList();
         }
-
-        [Route("")]//search/?name=主
+     
+     [Route("")]//search/?name=主
         [Route("search/{name}")]//search/1,直接中文不行
         public IList<TEntity> GetListByName(string name)
         {
@@ -79,6 +94,18 @@ namespace WebApiService.Controllers
         public TEntity Put(TEntity item)
         {
             return service.Put(item);
+        }
+
+        [Route("list")]
+        [HttpPost]
+        public IList<TEntity> GetListByTypes(int[] typeList)
+        {
+            return service.GetListByTypes(typeList);
+        }
+        [Route("detail/gameName/{gameName}")]
+        public TEntity GetDevByGameName(string nameName)
+        {
+            return service.GetDevByGameName(nameName);
         }
     }
 }

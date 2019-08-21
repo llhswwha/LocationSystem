@@ -63,8 +63,11 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t);
 
+        //[OperationContract]
+        //List<DevMonitorNode> GetSomesisList(string strTags);
+
         [OperationContract]
-        List<DevMonitorNode> GetSomesisList(string strTags);
+        List<DevMonitorNode> GetSomesisList(List<string> strTags);
 
         [OperationContract]
         void GetSomeSisHistoryList(string kks, bool compact);

@@ -38,31 +38,110 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<CameraAlarmInfo> GetAllCameraAlarms(bool merge)
         {
-            List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
-            List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
-            //todo:list2=>list3
-            if (list2 != null)
-                foreach (CameraAlarmJson camera in list2)
-                {
-                    //byte[] byte1 = camera.Json;
-                    //string json = Encoding.UTF8.GetString(byte1);
-                    //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-                    //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
-                    //cameraAlarmInfo.pic_data = "";//在详情的地方获取
-                    //
-                    //cameraAlarmInfo.data = null;
+            try
+            {
+                List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
+                List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
 
-                    CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera);
-                    string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
-                    list3.Add(cameraAlarmInfo);
+                List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
+                Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
+
+                var devs = db.DevInfos.ToDictionary();
+
+                foreach (Dev_CameraInfo camera in cameras)
+                {
+                    if (devs.ContainsKey(camera.DevInfoId))
+                    {
+                        camera.DevInfo = devs[camera.DevInfoId];
+                    }
+
+                    if (cameraDict.ContainsKey(camera.Ip))
+                    {
+                        var cameraOld = cameraDict[camera.Ip];
+                        cameraDict[camera.Ip]= camera;
+                    }
+                    else
+                    {
+                        cameraDict.Add(camera.Ip, camera);
+                    }
                 }
 
-            list3.Sort();//按时间排序
-            //if (merge)//默认传true
-            //{
-            //    list3 = MergeAlarms(list3);//合并相同的告警
-            //}
-            return list3.ToWCFList();
+                //todo:list2=>list3
+                if (list2 != null)
+                    foreach (CameraAlarmJson cameraJson in list2)
+                    {
+                        //byte[] byte1 = camera.Json;
+                        //string json = Encoding.UTF8.GetString(byte1);
+                        //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                        //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
+                        //cameraAlarmInfo.pic_data = "";//在详情的地方获取
+                        //
+                        //cameraAlarmInfo.data = null;
+
+                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson);
+                        string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
+
+                        string ip = GetCameraIp(cameraAlarmInfo.cid_url);
+                        cameraAlarmInfo.DevIp = ip;
+
+                        if (cameraDict.ContainsKey(ip))
+                        {
+                            var camera = cameraDict[ip];
+                            if (devs.ContainsKey(camera.DevInfoId))
+                            {
+                                cameraAlarmInfo.DevName = devs[camera.DevInfoId].Name;
+                            }
+                        }
+                        else
+                        {
+                            
+                        }
+
+                        list3.Add(cameraAlarmInfo);
+                    }
+
+                list3.Sort();//按时间排序
+                //if (merge)//默认传true
+                //{
+                //    list3 = MergeAlarms(list3);//合并相同的告警
+                //}
+                return list3.ToWCFList();
+            }
+            catch (Exception e)
+            {
+                Log.Error("GetAllCameraAlarms", e.ToString());
+                return null;
+            }
+        }
+
+        private Dictionary<string, string> urlToIp = new Dictionary<string, string>();
+
+        private string GetCameraIp(string url)
+        {
+            if (urlToIp.ContainsKey(url))
+            {
+                string ip = urlToIp[url];
+                return ip;
+            }
+            else
+            {
+                var rtsp = url; //"rtsp://admin:1111@192.168.108.107/13"
+                //Log.Info(LogTags.DbGet, "rtsp:" + rtsp);
+                string[] parts = rtsp.Split('@');
+                if (parts.Length > 1)
+                {
+                    string[] parts2 = parts[1].Split('/', ':');
+                    string ip = parts2[0];
+                    urlToIp.Add(url, ip);
+                    return ip;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            
         }
 
         public void RemoveAlarmsOutOfDate(int keepDay)
@@ -323,6 +402,10 @@ namespace LocationServices.Locations.Services
         {
             string dir = AppSetting.CameraAlarmPicSaveDir;
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
+            if (!dirInfo.Exists)
+            {
+                dirInfo.Create();
+            }
             if (dirInfo.Exists)
             {
                 return dirInfo.GetFiles();
@@ -345,6 +428,7 @@ namespace LocationServices.Locations.Services
         private bool GetCameraAlarmPictureFromDb(CameraAlarmInfo cameraAlarmInfo)
         {
             string picName = cameraAlarmInfo.pic_name;
+            //int count = db.Pictures.DbSet.Count();
             Picture pic = db.Pictures.Find(i => i.Name == picName);
             if (pic != null)
             {

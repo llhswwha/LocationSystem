@@ -18,6 +18,21 @@ namespace WebApiCommunication.ExtremeVision
     [DataContract]
     public class CameraAlarmInfo:IComparable<CameraAlarmInfo>
     {
+
+        [DataMember]
+        [NotMapped]
+        public string DevName { get; set; }
+
+        [DataMember]
+        [NotMapped]
+        public string DevIp { get; set; }
+        /// <summary>
+        /// 告警类型:1:安全帽 2:火焰 3:烟雾
+        /// </summary>
+        [DataMember]
+        [NotMapped]
+        public int AlarmType { get; set; }
+
         /// <summary>
         /// id
         /// </summary>
@@ -102,12 +117,6 @@ namespace WebApiCommunication.ExtremeVision
         [NotMapped]
         public object data { get; set; }
 
-        /// <summary>
-        /// 告警类型:1:安全帽 2:火焰 3:烟雾
-        /// </summary>
-        [DataMember]
-        [NotMapped]
-        public int AlarmType { get; set; }
 
         public int ParseType(string json)
         {
@@ -185,7 +194,6 @@ namespace WebApiCommunication.ExtremeVision
                         return true;
                     }
                 }
-
                 return false;
             }
             else if (data is JObject)//实际收到的
@@ -202,11 +210,9 @@ namespace WebApiCommunication.ExtremeVision
                         return true;
                     }
                 }
-
                 return false;
 
             }
-
             return false;
         }
 

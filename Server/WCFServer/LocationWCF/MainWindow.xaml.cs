@@ -689,5 +689,17 @@ namespace LocationWCFServer
             win.Owner = this;
             win.Show();
         }
+
+        private void MenuClearHisAlarmsByDays_Click(object sender, RoutedEventArgs e)
+        {
+            int days = ConfigurationHelper.GetIntValue("AlarmRemoveDays");
+            //清除某一个时间之前的所有告警
+            Bll db = Bll.NewBllNoRelation();
+            DateTime nowTime = DateTime.Now;
+            DateTime starttime = DateTime.Now.AddDays(-days);
+            var alarms = db.DevAlarms.Where(i => i.AlarmTime.Ticks < starttime.Ticks);
+            bool r = db.DevAlarms.RemoveList(alarms);
+            MessageBox.Show("清空成功");
+        }
     }
 }

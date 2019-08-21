@@ -19,7 +19,12 @@ namespace LocationServices.Locations.Services
 {
     public interface IDeviceService : ILeafEntityService<TEntity, TPEntity>
     {
-        
+        IList<TEntity> GetListByTypes(int[] typeList);
+        TEntity GetEntityByDevId(string devId);
+        TEntity GetEntityById(int id);
+        TEntity GetDevByGameName(string nameName);
+
+
     }
     public class DeviceService : IDeviceService
     {

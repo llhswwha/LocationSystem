@@ -145,7 +145,9 @@
     <Compile Include="Locations\LocationService_Tag.cs" />
     <Compile Include="Locations\NVSPlayerService\INVSPlayer.cs" />
     <Compile Include="Locations\Services\AchorService.cs" />
+    <Compile Include="Locations\Services\BaseDataService.cs" />
     <Compile Include="Locations\Services\CameraAlarmService.cs" />
+    <Compile Include="Locations\Services\DevService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\LocationAlarmService.cs" />
     <Compile Include="Locations\Services\SimpleSerivces\AreaAuthorizationRecordService.cs" />
