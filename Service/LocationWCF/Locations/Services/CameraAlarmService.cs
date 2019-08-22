@@ -48,24 +48,23 @@ namespace LocationServices.Locations.Services
 
                 var devs = db.DevInfos.ToDictionary();
 
-                foreach (Dev_CameraInfo camera in cameras)
+                foreach (Dev_CameraInfo camerainfo in cameras)
                 {
-                    if (devs.ContainsKey(camera.DevInfoId))
+                    if (devs.ContainsKey(camerainfo.DevInfoId))
                     {
-                        camera.DevInfo = devs[camera.DevInfoId];
+                        camerainfo.DevInfo = devs[camerainfo.DevInfoId];
                     }
 
-                    if (cameraDict.ContainsKey(camera.Ip))
+                    if (cameraDict.ContainsKey(camerainfo.Ip))
                     {
-                        var cameraOld = cameraDict[camera.Ip];
-                        cameraDict[camera.Ip]= camera;
+                        var cameraOld = cameraDict[camerainfo.Ip];
+                        cameraDict[camerainfo.Ip] = camerainfo;
                     }
                     else
                     {
-                        cameraDict.Add(camera.Ip, camera);
+                        cameraDict.Add(camerainfo.Ip, camerainfo);
                     }
                 }
-
                 //todo:list2=>list3
                 if (list2 != null)
                     foreach (CameraAlarmJson cameraJson in list2)
@@ -78,25 +77,9 @@ namespace LocationServices.Locations.Services
                         //
                         //cameraAlarmInfo.data = null;
 
-                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson);
-                        string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
-
-                        string ip = GetCameraIp(cameraAlarmInfo.cid_url);
-                        cameraAlarmInfo.DevIp = ip;
-
-                        if (cameraDict.ContainsKey(ip))
-                        {
-                            var camera = cameraDict[ip];
-                            if (devs.ContainsKey(camera.DevInfoId))
-                            {
-                                cameraAlarmInfo.DevName = devs[camera.DevInfoId].Name;
-                            }
-                        }
-                        else
-                        {
-                            
-                        }
-
+                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson,cameraDict,devs);
+                        //string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
+                                                
                         list3.Add(cameraAlarmInfo);
                     }
 
@@ -212,7 +195,7 @@ namespace LocationServices.Locations.Services
 
         }
 
-        private CameraAlarmInfo GetCamaraAlarmInfo(CameraAlarmJson camera)
+        private CameraAlarmInfo GetCamaraAlarmInfo(CameraAlarmJson camera, Dictionary<string, Dev_CameraInfo> cameraDict, Dictionary<int, DevInfo> devs)
         {
             byte[] byte1 = camera.Json;
             string json = Encoding.UTF8.GetString(byte1);
@@ -221,6 +204,25 @@ namespace LocationServices.Locations.Services
             cameraAlarmInfo.pic_data = "";//在详情的地方获取
             cameraAlarmInfo.data = null;
             cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
+           
+
+            string ip = GetCameraIp(cameraAlarmInfo.cid_url);
+            cameraAlarmInfo.DevIp = ip;
+
+            if (cameraDict.ContainsKey(ip))
+            {
+                var camerainfo = cameraDict[ip];
+                if (devs.ContainsKey(camerainfo.DevInfoId))
+                {
+                    cameraAlarmInfo.DevName = devs[camerainfo.DevInfoId].Name;
+                    cameraAlarmInfo.DevID = camerainfo.DevInfoId;
+                }
+            }
+            else
+            {
+
+            }
+
             return cameraAlarmInfo;
         }
 
@@ -233,6 +235,29 @@ namespace LocationServices.Locations.Services
         {
             List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
             List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
+
+            List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
+            Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
+
+            var devs = db.DevInfos.ToDictionary();
+
+            foreach (Dev_CameraInfo camerainfo in cameras)
+            {
+                if (devs.ContainsKey(camerainfo.DevInfoId))
+                {
+                    camerainfo.DevInfo = devs[camerainfo.DevInfoId];
+                }
+
+                if (cameraDict.ContainsKey(camerainfo.Ip))
+                {
+                    var cameraOld = cameraDict[camerainfo.Ip];
+                    cameraDict[camerainfo.Ip] = camerainfo;
+                }
+                else
+                {
+                    cameraDict.Add(camerainfo.Ip, camerainfo);
+                }
+            }
             //todo:list2=>list3
             if (list2 != null)
                 foreach (CameraAlarmJson camera in list2)
@@ -246,7 +271,7 @@ namespace LocationServices.Locations.Services
                     //cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
                     //cameraAlarmInfo.data = null;
 
-                    CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera);
+                    CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera,cameraDict,devs);
                     if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
                     list3.Add(cameraAlarmInfo);
                 }

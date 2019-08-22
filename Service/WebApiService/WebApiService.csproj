@@ -180,6 +180,7 @@
     <Compile Include="Controllers\BaseDataSimulatorController.cs" />
     <Compile Include="Controllers\CardRoleController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DevController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\ExtremeVisionController.cs" />

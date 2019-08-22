@@ -351,37 +351,67 @@ namespace LocationServices.Locations.Services
 
         public Ticket GetTicketDetial(int id, string begin_date, string end_date)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var ticket = client.GetTicketsDetail(id, begin_date, end_date);
+            if (ticket == null)
+            {
+                return null;
+            }
+            return ticket.ToTModel();
         }
 
         public List<Ticket> GetTicketList(int type, DateTime start, DateTime end)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var re = client.GetTicketsList(type + "", start.ToString("yyyyMMdd"), end.ToString("yyyyMMdd"));
+            if (re == null)
+            {
+                return null;
+            }
+            return re.data.ToWcfModelList();
         }
 
         public void GetTicketsDetail(int id, string begin_date, string end_date)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var recv = client.GetTicketsDetail(id, begin_date, end_date);
+            if (recv == null)
+            {
+                return;
+            }
+
+            return;
         }
 
         public void GetTicketsList(string type, string begin_date, string end_date)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            client.GetTicketsList(type, begin_date, end_date);
+
+            return;
         }
 
-        public List<Personnel> GetUserList()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<DevInfo> GetZoneDevList(int id)
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var recv = client.GetZoneDevList(id);
+            if (recv == null)
+            {
+                return null;
+            }
+            return recv.ToWcfModelList();
         }
 
         public List<PhysicalTopology> GetZonesList()
         {
-            throw new NotImplementedException();
+            var client = GetClient();
+            var recv = client.GetAreaList(true);
+            if (recv == null)
+            {
+                return null;
+            }
+            return recv.ToWcfModelList();
         }
 
         public void Trys(InspectionTrackList aa)

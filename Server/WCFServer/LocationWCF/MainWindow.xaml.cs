@@ -50,6 +50,7 @@ using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
 using Base.Tools;
 using LocationServices.Locations.Services;
+using Location.TModel.Tools;
 
 namespace LocationWCFServer
 {
@@ -461,7 +462,8 @@ namespace LocationWCFServer
             //DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, now.Millisecond);
             DateTime todayStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0);
             DateTime todayEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59, 999);
-            var alarms=db.DevAlarms.Where(i => i.AlarmTime.Ticks < todayStart.Ticks);
+            var tamp = TimeConvert.ToStamp(todayStart);
+            var alarms=db.DevAlarms.Where(i => i.AlarmTimeStamp < tamp);
             bool r=db.DevAlarms.RemoveList(alarms);
             MessageBox.Show("清空成功");
         }
@@ -690,16 +692,10 @@ namespace LocationWCFServer
             win.Show();
         }
 
-        private void MenuClearHisAlarmsByDays_Click(object sender, RoutedEventArgs e)
+        private void MenuLookAlarms_Click(object sender, RoutedEventArgs e)
         {
-            int days = ConfigurationHelper.GetIntValue("AlarmRemoveDays");
-            //清除某一个时间之前的所有告警
-            Bll db = Bll.NewBllNoRelation();
-            DateTime nowTime = DateTime.Now;
-            DateTime starttime = DateTime.Now.AddDays(-days);
-            var alarms = db.DevAlarms.Where(i => i.AlarmTime.Ticks < starttime.Ticks);
-            bool r = db.DevAlarms.RemoveList(alarms);
-            MessageBox.Show("清空成功");
+            var win = new AlarmList();
+            win.Owner = this; win.Show();
         }
     }
 }

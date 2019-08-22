@@ -53,6 +53,7 @@ using NVSPlayer;
 using DbModel.Location.AreaAndDev;
 using System.Collections.Concurrent;
 using DbModel;
+using Location.TModel.Tools;
 
 namespace LocationServer.Controls
 {
@@ -149,13 +150,15 @@ namespace LocationServer.Controls
         private void StartReceiveAlarm()
         {
             bool enableAlarmRecieve = ConfigurationHelper.GetBoolValue("EnableAlarmRecieve");
-            if (!enableAlarmRecieve) return;
-            RealAlarm ra = new RealAlarm(Mh_DevAlarmReceived);
-            if (alarmReceiveThread == null)
+            if (enableAlarmRecieve)
             {
-                alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
-                alarmReceiveThread.IsBackground = true;
-                alarmReceiveThread.Start();
+                RealAlarm ra = new RealAlarm(Mh_DevAlarmReceived);
+                if (alarmReceiveThread == null)
+                {
+                    alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
+                    alarmReceiveThread.IsBackground = true;
+                    alarmReceiveThread.Start();
+                }
             }
 
             //RecvBaseCommunication Rbc = new RecvBaseCommunication();
@@ -169,20 +172,55 @@ namespace LocationServer.Controls
             //    alarmReceiveThread.Start();
             //}
 
-            //if (alarmRemoveThread == null)
-            //{
-            //    int days = ConfigurationHelper.GetIntValue("AlarmRemoveDays"); 
-            //    //清除某一个时间之前的所有告警
-            //    Bll db = Bll.NewBllNoRelation();
-            //    DateTime nowTime = DateTime.Now;
-            //    DateTime starttime = DateTime.Now.AddDays(-days);
-            //    var alarms = db.DevAlarms.Where(i => i.AlarmTime.Ticks < starttime.Ticks);
-            //    bool r = db.DevAlarms.RemoveList(alarms);
-            //    MessageBox.Show("清空成功");
-            //    alarmRemoveThread.Start();
-            //}
-            
+            DevAlarmKeepDays = ConfigurationHelper.GetIntValue("DevAlarmKeepDays");
+            if (DevAlarmKeepDays == 0)
+            {
+                //MessageBox.Show("默认不清除！");
+                Log.Info(LogTags.Server, "不清除历史设备告警");
+            }
+            else
+            {
+                Log.Info(LogTags.Server, "历史设备告警保留时间:" + DevAlarmKeepDays + "天");
+                if (alarmRemoveThread == null)
+                {
+                    alarmRemoveThread = new Thread(RemoveOldDevAlarms);
+                    alarmRemoveThread.IsBackground = true;
+                    alarmRemoveThread.Start();
+                }
+            }
+        }
 
+        private int DevAlarmKeepDays = 0;
+
+        private void RemoveOldDevAlarms()
+        {
+            while (true)
+            {
+                try
+                {
+                    //清除某一个时间之前的所有告警
+                    Bll db = Bll.NewBllNoRelation();
+                    DateTime nowTime = DateTime.Now;
+                    DateTime starttime = DateTime.Now.AddDays(-DevAlarmKeepDays);
+                    var starttimeStamp = TimeConvert.ToStamp(starttime);
+                    var query = db.DevAlarms.DbSet.Where(i => i.AlarmTimeStamp < starttimeStamp);
+                    var count = query.Count();
+                    if (count > 0)
+                    {
+                        query.DeleteFromQuery();//这样删除效率高
+
+                        //var alarms = db.DevAlarms.Where(i => i.AlarmTimeStamp < starttimeStamp);
+                        //bool r = db.DevAlarms.RemoveList(alarms);
+                        //MessageBox.Show("清空成功");
+                        Log.Info("RemoveAlarm", "清除历史设备告警,数量:" + count);
+                        Thread.Sleep(1000 * 3600);//一小时检查一次
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("RemoveAlarm", ex.ToString());
+                }
+            }
         }
 
         private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)

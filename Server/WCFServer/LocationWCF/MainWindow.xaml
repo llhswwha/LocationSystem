@@ -47,7 +47,7 @@
                 <MenuItem Header="KKS测点管理" Name="KKSMonitorManager" Click="KKSMonitorManager_OnClick"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="清空历史设备告警" Name="MenuClearHisAlarms" Click="MenuClearHisAlarms_Click"></MenuItem>
-                <MenuItem Header="设备告警管理" Name="MenuClearHisAlarmsByDays" Click="MenuClearHisAlarmsByDays_Click"></MenuItem>
+                <MenuItem Header="设备告警管理" Name="MenuLookAlarms" Click="MenuLookAlarms_Click"></MenuItem>
                 <MenuItem Header="人员定位名单更新" Name="MenuUpdatePersons" Click="MenuUpdatePersons_Click"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="视频回放支持" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>

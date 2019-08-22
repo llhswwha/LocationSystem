@@ -24,8 +24,8 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
 
-        [OperationContract]
-        List<Personnel> GetUserList();
+        //[OperationContract]
+        //List<Personnel> GetUserList();
 
         [OperationContract]
         List<Department> GetorgList();

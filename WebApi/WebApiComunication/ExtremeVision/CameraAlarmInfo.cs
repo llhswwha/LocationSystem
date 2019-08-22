@@ -26,6 +26,10 @@ namespace WebApiCommunication.ExtremeVision
         [DataMember]
         [NotMapped]
         public string DevIp { get; set; }
+
+        [DataMember]
+        [NotMapped]
+        public int DevID { get; set; }
         /// <summary>
         /// 告警类型:1:安全帽 2:火焰 3:烟雾
         /// </summary>
