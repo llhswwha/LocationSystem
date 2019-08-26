@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\BaseDataSimulatorController.cs" />
     <Compile Include="Controllers\CardRoleController.cs" />
+    <Compile Include="Controllers\ConfigArgController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DevController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Controllers\KKSCodeController.cs" />
     <Compile Include="Controllers\LocationAlarmController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\PhysicalTopologyController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\PositionHistoryController.cs" />
     <Compile Include="Controllers\PostController.cs" />

@@ -72,6 +72,8 @@ namespace LocationServer
             set { AppSetting.UrlMaxLength = value; }
         }
 
+        public static int PosEngineKeepAliveInterval { get; set; }
+
         public static Bll GetLocationBll()
         {
             return new Bll(false, true, true);

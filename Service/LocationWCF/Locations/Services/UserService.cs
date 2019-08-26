@@ -6,6 +6,7 @@ using DbModel.Location.Manage;
 using LocationServices.Locations.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -37,7 +38,10 @@ namespace LocationServices.Locations.Services
 
         public VersionInfo GetVersionInfo()
         {
-            throw new NotImplementedException();
+            VersionInfo version = new VersionInfo();
+            version.Version = ConfigurationManager.AppSettings["ClientVersionCode"];
+            version.LocationURL = ConfigurationManager.AppSettings["LocationPackageURL"];
+            return version;
         }
 
         public TEntity KeepLive(TEntity info)

@@ -161,7 +161,7 @@ namespace WebNSQLib
                 //da2.AlarmTimeStamp = lTimeStamp;
                 //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
                 //Log. bv
-                LogEvent.Info(string.Format("没找到设备信息,json:{0}", msg));
+                LogEvent.Info("RealAlarm",string.Format("没找到设备信息,json:{0}", msg));
                 SaveMessageToFile(msg, "noDev");
                 return;//没找到设备信息，则不做任何处理，
             }

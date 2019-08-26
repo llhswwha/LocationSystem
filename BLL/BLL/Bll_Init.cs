@@ -73,66 +73,74 @@ namespace BLL
 
             while (true)
             {
-                DateTime dtDay = DateTime.Now;
-                DateTime dtNextDay = DateTime.Now.AddDays(1);
-                DateTime dtThirdDay = DateTime.Now.AddDays(2);
-                int nHour = dtDay.Hour;
-
-                if (nHour == 23)
+                try
                 {
-                    bPartitionFlag = true;
-                }
+                    DateTime dtDay = DateTime.Now;
+                    DateTime dtNextDay = DateTime.Now.AddDays(1);
+                    DateTime dtThirdDay = DateTime.Now.AddDays(2);
+                    int nHour = dtDay.Hour;
 
-                if (bPartitionInitFlag)
-                {
-                    string strDay = dtDay.ToString("yyyyMMdd");
-                    strDay = "p" + strDay;
-                    string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions'";
-
-                    dtNextDay = dtNextDay.Date;
-                    long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtNextDay);
-                    string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
-                    
-                    DbRawSqlQuery<string> result1 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
-                    List<string> lst = result1.ToList();
-                    if (lst.Count == 0 || lst[0] == null)
+                    if (nHour == 23)
                     {
-                        strSqlAdd = "alter table positions partition by range(DateTimeStamp) (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+                        bPartitionFlag = true;
                     }
 
-                    strSqlSelect += " and PARTITION_NAME = '" + strDay + "';";
-
-                    DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
-                    List<string> lst2 = result2.ToList();
-                    if (lst2.Count == 0)
+                    if (bPartitionInitFlag)
                     {
-                        DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
-                    }
-                }
+                        string strDay = dtDay.ToString("yyyyMMdd");
+                        strDay = "p" + strDay;
+                        string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions'";
 
-                if (bPartitionFlag)
+                        dtNextDay = dtNextDay.Date;
+                        long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtNextDay);
+                        string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+
+                        DbRawSqlQuery<string> result1 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
+                        List<string> lst = result1.ToList();
+                        if (lst.Count == 0 || lst[0] == null)
+                        {
+                            strSqlAdd = "alter table positions partition by range(DateTimeStamp) (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+                        }
+
+                        strSqlSelect += " and PARTITION_NAME = '" + strDay + "';";
+
+                        DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
+                        List<string> lst2 = result2.ToList();
+                        if (lst2.Count == 0)
+                        {
+                            DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
+                        }
+                    }
+
+                    if (bPartitionFlag)
+                    {
+                        string strDay = dtNextDay.ToString("yyyyMMdd");
+                        strDay = "p" + strDay;
+                        string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions' and PARTITION_NAME = '" + strDay + "';";
+
+                        dtThirdDay = dtThirdDay.Date;
+                        long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtThirdDay);
+                        string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+
+                        DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
+                        List<string> lst2 = result2.ToList();
+                        if (lst2.Count == 0)
+                        {
+                            DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
+                        }
+                    }
+
+                    bPartitionInitFlag = false;
+                    bPartitionFlag = false;
+
+                    int time = 1000 * 60 * 30;
+                    Thread.Sleep(time);//30分钟
+                    Log.Error("InsertPartitionInfo", "Wait:"+ time);
+                }
+                catch (Exception ex)
                 {
-                    string strDay = dtNextDay.ToString("yyyyMMdd");
-                    strDay = "p" + strDay;
-                    string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions' and PARTITION_NAME = '" + strDay + "';";
-
-                    dtThirdDay = dtThirdDay.Date;
-                    long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtThirdDay);
-                    string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
-                    
-                    DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
-                    List<string> lst2 = result2.ToList();
-                    if (lst2.Count == 0)
-                    {
-                        DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
-                    }
+                    Log.Error("InsertPartitionInfo", "Error:"+ex);
                 }
-
-                bPartitionInitFlag = false;
-                bPartitionFlag = false;
-
-                Thread.Sleep(1000*60*30);
-                
             }
         }
     }

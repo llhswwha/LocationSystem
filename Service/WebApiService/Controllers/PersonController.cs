@@ -155,5 +155,10 @@ namespace WebApiService.Controllers
         {
             return service.DeleteListByPid(pid);
         }
+        [Route("list/ByKey/{key}")]
+        public List<TEntity> FindPersonList(string key)
+        {
+            return service.FindPersonList(key);
+        }
     }
 }

@@ -302,10 +302,18 @@ namespace LocationServer.Controls
 
         private void CheckCardRole()
         {
-            var bll = Bll.NewBllNoRelation();
-            var cards = bll.LocationCards.ToList();
-            var roles = bll.Roles.ToList();
-            //var noRoleCards = cards.Where(i => i.CardRoleId == null);
+            try
+            {
+                var bll = Bll.NewBllNoRelation();
+                var cards = bll.LocationCards.ToList();
+                var roles = bll.Roles.ToList();
+                //var noRoleCards = cards.Where(i => i.CardRoleId == null);
+            }
+            catch (Exception e)
+            {
+                Log.Error(LogTags.Server, "CheckCardRole！：" + e.Message);
+            }
+            
         }
 
         private void StartService(string host, string port)
@@ -342,26 +350,24 @@ namespace LocationServer.Controls
 
                 Worker.Run(() =>
                 {
+                    CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
+
                     try
                     {
-                        CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
-
-
                         Bll bll = Bll.Instance();
                         var count = bll.Areas.DbSet.Count(); //用于做数据迁移用，查询一下
                         if (count == 0)
                         {
                             Log.Error(LogTags.Server, bll.Areas.ErrorMessage);
                         }
-
-
-                        LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
                     }
                     catch (Exception e)
                     {
-                        Log.Info(e);
                         Log.Error(LogTags.Server, "数据迁移出错！！：" + e.Message);
                     }
+
+                    LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
+
                 }, null);
 
                 StartGetHistoryPositon();//将定位历史数据保存到缓存中

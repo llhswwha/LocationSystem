@@ -61,6 +61,8 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByRole(string role);
 
         TEntity SetRole(string id, string role);
+
+        List<Personnel> FindPersonList(string key);
     }
 
     public class PersonTag
@@ -101,8 +103,9 @@ namespace LocationServices.Locations.Services
         public TEntity GetEntity(string id)
         {
             var item = dbSet.Find(id.ToInt());
+            if (item == null) return null;
             var tItem= item.ToTModel();
-
+            if (tItem == null) return null;
             tItem.Tag = GetTag(id);
             tItem.Pos = GetPositon(id);
 
@@ -530,6 +533,11 @@ namespace LocationServices.Locations.Services
 
             return lst;
 
+        }
+
+        public List<TEntity> FindPersonList(string key)
+        {
+            return db.Personnels.GetListByName(key).ToWcfModelList();
         }
     }
 }

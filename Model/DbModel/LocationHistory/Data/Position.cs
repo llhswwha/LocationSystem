@@ -336,8 +336,15 @@ namespace DbModel.LocationHistory.Data
         public bool Parse(string info, float offsetX, float offsetY)
         {
             if (info == null) return false;
-
-            LogEvent.Info("获取定位数据:"+info);
+            if (info.Length <= 1)
+            {
+                LogEvent.Info("RealPos", "心跳包:" + info);
+            }
+            else
+            {
+                LogEvent.Info("RealPos", "获取定位数据:" + info);
+            }
+               
 
             bool r = false;
             info = info.Trim();
@@ -357,13 +364,13 @@ namespace DbModel.LocationHistory.Data
                 {
                     //this.DateTime = DateTime.Now;
                     //this.DateTimeStamp = this.DateTime.ToStamp();
-                    LogEvent.Info("定位数据解析异常:" + info + ",时间相差:" + t.TotalSeconds);
+                    LogEvent.Info("RealPos","定位数据解析异常:" + info + ",时间相差:" + t.TotalSeconds);
                 }
                 else if (t.TotalSeconds > 30)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
                 {
                     //this.DateTime = DateTime.Now;
                     //this.DateTimeStamp = this.DateTime.ToStamp();
-                    LogEvent.Info("定位引擎电脑和服务端电脑时间相差很大:" + t.TotalSeconds + "s");
+                    LogEvent.Info("RealPos", "定位引擎电脑和服务端电脑时间相差很大:" + t.TotalSeconds + "s");
                 }
             }
             else
@@ -397,7 +404,7 @@ namespace DbModel.LocationHistory.Data
                 Code = parts[0];
                 if (Code.StartsWith("1"))
                 {
-                    LogEvent.Info("Code.StartsWith(1)：" + info);
+                    LogEvent.Info("RealPos,", "Code.StartsWith(1)：" + info);
                 }
                 if (parts[1] == "-1.#IND0")
                 {

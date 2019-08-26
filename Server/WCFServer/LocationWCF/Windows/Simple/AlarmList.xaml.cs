@@ -1,4 +1,7 @@
 ﻿using BLL;
+using DbModel.Location.Alarm;
+using Location.BLL.Tool;
+using Location.TModel.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +27,69 @@ namespace LocationServer.Windows.Simple
         {
             InitializeComponent();
         }
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Bll db = Bll.NewBllNoRelation();
-            DataGridAlarmList.ItemsSource = db.DevAlarms.ToList();
+            GetPageDate();
+        }
+
+
+        /// <summary>
+        /// 清除告警并更新列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+          int   day = Convert.ToInt32(TxtDay.Text);
+            bool result=RemoveList(day);
+            if(result)
+            {
+                GetPageDate();
+            }
+            
+        }
+        /// <summary>
+        /// 页面数据显示
+        /// </summary>
+        private void GetPageDate()
+        {
+            try
+            {
+                Bll db = Bll.NewBllNoRelation();
+                List<DevAlarm> list = db.DevAlarms.ToList();
+                DataGridAlarmList.ItemsSource = list;
+                TxtDevNum.Text = list.Count().ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Info("GetDevAlarms:"+ex.ToString());
+            }
+        }
+
+        private bool RemoveList(int day)
+        {
+            try
+            {
+                //清除列表
+                Bll db = Bll.NewBllNoRelation();
+                DateTime nowTime = DateTime.Now;
+                DateTime starttime = DateTime.Now.AddDays(-day);
+                var starttimeStamp = TimeConvert.ToStamp(starttime);
+                var query = db.DevAlarms.DbSet.Where(i => i.AlarmTimeStamp < starttimeStamp);
+                if (query.Count() > 0)
+                {
+                    query.DeleteFromQuery();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Info("RemoveDevAlarms:"+ex.ToString());
+                return false;
+            }
+            
         }
     }
 }

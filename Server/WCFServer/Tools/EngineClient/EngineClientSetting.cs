@@ -13,5 +13,6 @@ namespace EngineClient
         public static string EngineIp { get; set; }
 
         public static bool AutoStart { get; set; }
+        public static int PosEngineKeepAliveInterval { get; set; }
     }
 }

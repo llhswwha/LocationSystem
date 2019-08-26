@@ -53,8 +53,11 @@ namespace LocationServices.Locations.Services
             return dbSet.ToList().ToWcfModelList();
         }
 
+        private string tag = "GetHisPos";
+
         public IList<Position> GetHistoryList(string start, string end, string tagCode, string personId, string areaId)
         {
+            Log.Info(tag, string.Format("start:{0},end:{1},tagCode:{2},personId:{3},areaId:{4}", start, end, tagCode, personId, areaId));
             if (string.IsNullOrEmpty(start))
             {
                 start = "1970-1-1";
@@ -220,25 +223,62 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<Position> GetHistoryByPerson(int personnelID, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                Log.Info(tag, string.Format("GetHistoryByPerson personnelId:{0},start:{1},end:{2}", personnelID, start, end));
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                //var query = from t1 in db.LocationCardToPersonnels.DbSet
+                //            where t1.PersonnelId == personnelID
+                //            select (int?)t1.PersonnelId;
+                //List<int?> lst1 = query.ToList();
+                bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
+
+                int tryCount = 3;
+                List<Position> result = null;
+                for (int i = 0; i < tryCount; i++)
+                {
+                   
+                    if (i > 0)
+                    {
+                        Log.Info(tag, string.Format("GetHistoryByPerson try:{0}", i));
+                    }
+                    try
+                    {
+                        var info = from u in dbSet.DbSet
+                                   where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
+                                         (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                                   select u;
+
+                        var tempList = info.ToList();
+                        if (tempList == null) continue;
+
+                        if (tempList != null)
+                        {
+                            Log.Info(tag, "count:" + tempList.Count);
+                        }
+                        result = tempList.ToWcfModelList();
+                        break;
+                    }
+                    catch (Exception ex1)
+                    {
+                        Log.Error(tag, "GetHistoryByPerson1 error:" + ex1);
+                        throw;
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex2)
+            {
+                Log.Error(tag, "GetHistoryByPerson2 error:" + ex2);
                 return null;
             }
-
-            //var query = from t1 in db.LocationCardToPersonnels.DbSet
-            //            where t1.PersonnelId == personnelID
-            //            select (int?)t1.PersonnelId;
-            //List<int?> lst1 = query.ToList();
-            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
-            var info = from u in dbSet.DbSet
-                where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
-                      (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
-                select u;
-
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
+            
         }
 
         /// <summary>

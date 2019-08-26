@@ -124,6 +124,9 @@ namespace LocationWCFServer
             EngineClientSetting.LocalIp = ConfigurationHelper.GetValue("Ip");
             EngineClientSetting.EngineIp = ConfigurationHelper.GetValue("EngineIp");
             EngineClientSetting.AutoStart = ConfigurationHelper.GetBoolValue("AutoConnectEngine");
+            AppContext.PosEngineKeepAliveInterval= ConfigurationHelper.GetIntValue("PosEngineKeepAliveInterval",1000);
+
+
             //SystemSetting setting = new SystemSetting();
             //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
 
@@ -144,19 +147,28 @@ namespace LocationWCFServer
         /// </summary>
         private static void KillOtherServers()
         {
-            Process process = Process.GetCurrentProcess();
-            string processName = process.ProcessName;
-            Process[] processes = Process.GetProcessesByName(processName);
-            if (processes.Length > 1)
+            try
             {
-                foreach (Process process1 in processes)
+                Process process = Process.GetCurrentProcess();
+                string processName = process.ProcessName;
+                Process[] processes = Process.GetProcessesByName(processName);
+                if (processes.Length > 1)
                 {
-                    if (process1.Id != process.Id)
+                    foreach (Process process1 in processes)
                     {
-                        process1.Kill();
+                        if (process1.HasExited) continue;
+                        if (process1.Id != process.Id)
+                        {
+                            process1.Kill();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Error(LogTags.Server,"KillOtherServers:"+ ex.ToString());
+            }
+            
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";

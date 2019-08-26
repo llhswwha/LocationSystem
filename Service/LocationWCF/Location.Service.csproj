@@ -148,9 +148,11 @@
     <Compile Include="Locations\Services\AlarmService.cs" />
     <Compile Include="Locations\Services\BaseDataService.cs" />
     <Compile Include="Locations\Services\CameraAlarmService.cs" />
+    <Compile Include="Locations\Services\ConfigArgService.cs" />
     <Compile Include="Locations\Services\DevService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\LocationAlarmService.cs" />
+    <Compile Include="Locations\Services\PhysicalTopologyService.cs" />
     <Compile Include="Locations\Services\SimpleSerivces\AreaAuthorizationRecordService.cs" />
     <Compile Include="Locations\Services\SimpleSerivces\AreaAuthorizationService.cs" />
     <Compile Include="Locations\Services\AreaService.cs" />

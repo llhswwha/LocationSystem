@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="AlarmList" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>当前设备总数:</Label>
+            <TextBox Name="TxtDevNum" VerticalContentAlignment="Center"></TextBox>
+            <Label>|</Label>
+            <TextBox Text="30" Name="TxtDay"  HorizontalAlignment="Right" VerticalContentAlignment="Center"  Width="20"/>
+            <Button x:Name="button" Content="清除告警" Height="30"   Width="52"  Click="button_Click"/>
+        </StackPanel>
+
         <DataGrid Name="DataGridAlarmList"></DataGrid>
     </DockPanel>
 </Window>

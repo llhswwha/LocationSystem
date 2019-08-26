@@ -9,6 +9,7 @@ using Coldairarrow.Util.Sockets;
 using DbModel.LocationHistory.Data;
 using DbModel.Tools;
 using Location.BLL.Tool;
+using LocationServer;
 
 namespace LocationWCFServer
 {
@@ -75,6 +76,8 @@ namespace LocationWCFServer
                 aliveThread.IsBackground = true;
                 aliveThread.Start();
             }
+
+            aliveInterval = AppContext.PosEngineKeepAliveInterval;
         }
 
         public int aliveInterval = 750;//心跳包的时间间隔

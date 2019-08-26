@@ -70,7 +70,18 @@ namespace LocationWCFServer
 
         private void LogEvent_InfoEvent1(LogEvent.LogEventInfo obj)
         {
-            Location.BLL.Tool.Log.Info(obj);
+            if (obj.Level == "Info")
+            {
+                Location.BLL.Tool.Log.Info(obj.Tag, obj.Msg);
+            }
+            else if(obj.Level == "Error")
+            {
+                Location.BLL.Tool.Log.Error(obj.Tag, obj.Msg);
+            }
+            else
+            {
+                Location.BLL.Tool.Log.Info(obj.Tag, obj.Msg);
+            }  
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
