@@ -331,12 +331,6 @@ namespace LocationServer.Controls
                 //基于WCF接口同时兼容的WebApi服务 http://{0}:8733/LocationService/api WebServiceHost 项目：Location.Service
                 StartLocationServiceApi(host, port);
 
-                ////定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
-                //StartLocationAlarmService();
-
-                //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
-                StartReceiveAlarm();
-
                 //WebApi服务 主要是和这个 //http://{0}:{1}/ HttpSelfHostServer
                 StartWebApiService(host, port);
                 //用来代替StartLocationAlarmService发送信息给unity，推送消息给客户端。项目：SignalRService
@@ -348,6 +342,15 @@ namespace LocationServer.Controls
                 //上海宝信项目对接视频行为告警 基于HttpListener 端口8736
                 StartExtremeVisionListener();//端口要不同
 
+
+                StartGetHistoryPositon();//将定位历史数据保存到缓存中
+
+  ////定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
+                //StartLocationAlarmService();
+
+                //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
+                StartReceiveAlarm();
+               
                 Worker.Run(() =>
                 {
                     CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
@@ -369,11 +372,6 @@ namespace LocationServer.Controls
                     LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
 
                 }, null);
-
-                StartGetHistoryPositon();//将定位历史数据保存到缓存中
-
-
-               
             }
             catch (Exception ex)
             {
