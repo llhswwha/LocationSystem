@@ -350,7 +350,10 @@ namespace LocationServer.Controls
 
                 //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
                 StartReceiveAlarm();
-               
+
+                var EnableDevAlarmBuffer = ConfigurationHelper.GetBoolValue("EnableDevAlarmBuffer");
+
+
                 Worker.Run(() =>
                 {
                     CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
@@ -369,8 +372,10 @@ namespace LocationServer.Controls
                         Log.Error(LogTags.Server, "数据迁移出错！！：" + e.Message);
                     }
 
-                    LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
-
+                    if (EnableDevAlarmBuffer)
+                    {
+                        LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
+                    }
                 }, null);
             }
             catch (Exception ex)

@@ -469,11 +469,24 @@ namespace LocationServices.Locations
         /// </summary>
         public static void RefreshDeviceAlarmBuffer()
         {
-            //if (allAlarms == null)
+            try
             {
-                BLL.Bll bll = BLL.Bll.NewBllNoRelation();
-                allAlarms = bll.DevAlarms.ToList();
+                Log.Info(LogTags.Server, "获取设备告警缓存");
+                //if (allAlarms == null)
+                {
+                    BLL.Bll bll = BLL.Bll.NewBllNoRelation();
+                    allAlarms = bll.DevAlarms.ToList();
+                    if (allAlarms != null)
+                    {
+                        Log.Info(LogTags.Server, "设备告警数量:"+allAlarms.Count);
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Error(LogTags.Server, ex.Message);
+            }
+            
         }
 
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
