@@ -271,6 +271,13 @@ namespace LocationServices.Locations.Services
                         throw;
                     }
                 }
+                if(result!=null)
+                {
+                    result.Sort((a, b) =>
+                    {
+                        return a.Time.CompareTo(b.Time);
+                    });
+                }
                 return result;
             }
             catch (Exception ex2)

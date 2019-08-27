@@ -20,6 +20,7 @@ namespace Location.TModel.FuncArgs
 
         [DataMember]
         public string Start { get; set; }
+
         [DataMember]
         public string End { get; set; }
 

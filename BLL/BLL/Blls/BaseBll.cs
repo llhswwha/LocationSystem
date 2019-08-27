@@ -286,6 +286,7 @@ namespace BLL.Blls
             if (list == null)
             {
                 ErrorMessage = DbHelper.ErrorMessage;
+                return dic;
             }
 
             foreach (T item in list)

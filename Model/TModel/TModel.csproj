@@ -48,6 +48,7 @@
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
+    <Compile Include="FuncArgs\SearchArg.cs" />
     <Compile Include="LocationHistory\AreaAndDev\EntranceGuardActionInfo.cs" />
     <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
@@ -58,6 +59,10 @@
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionItemHistory.cs" />
     <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
     <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
+    <Compile Include="Location\Alarm\AlarmGroupCount.cs" />
+    <Compile Include="Location\Alarm\AlarmLine.cs" />
+    <Compile Include="Location\Alarm\AlarmStatistics.cs" />
+    <Compile Include="Location\Alarm\AlarmLinePoint.cs" />
     <Compile Include="Location\AreaAndDev\Archor.cs" />
     <Compile Include="Location\AreaAndDev\AreaPoints.cs" />
     <Compile Include="Location\AreaAndDev\DeviceAlarmInformation.cs" />

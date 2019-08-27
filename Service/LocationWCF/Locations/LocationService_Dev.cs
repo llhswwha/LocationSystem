@@ -21,6 +21,8 @@ using Location.BLL.Tool;
 using TModel.BaseData;
 using Location.TModel.Tools;
 using System.IO;
+using TModel.FuncArgs;
+using TModel.Location.Alarm;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
@@ -393,20 +395,90 @@ namespace LocationServices.Locations
         #endregion
         public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
-            //List<Personnel> ps = GetPersonList();
-            //List<LocationAlarm> alarms = new List<LocationAlarm>();
-            //alarms.Add(new LocationAlarm() { Id = 0, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "进入无权限区域", CreateTime = new DateTime(2018, 9, 1, 10, 5, 34) }.SetPerson(ps[0]));
-            //alarms.Add(new LocationAlarm() { Id = 1, TagId = 2, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)3, Content = "靠近高风险区域", CreateTime = new DateTime(2018, 9, 4, 15, 5, 11) }.SetPerson(ps[1]));
-            //alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
-            //alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
-            //return alarms;
-            var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
-            var persons = db.Personnels.ToList();
+            try
+            {
+                //List<Personnel> ps = GetPersonList();
+                //List<LocationAlarm> alarms = new List<LocationAlarm>();
+                //alarms.Add(new LocationAlarm() { Id = 0, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "进入无权限区域", CreateTime = new DateTime(2018, 9, 1, 10, 5, 34) }.SetPerson(ps[0]));
+                //alarms.Add(new LocationAlarm() { Id = 1, TagId = 2, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)3, Content = "靠近高风险区域", CreateTime = new DateTime(2018, 9, 4, 15, 5, 11) }.SetPerson(ps[1]));
+                //alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
+                //alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
+                //return alarms;
+                var persons = db.Personnels.ToDictionary();
+                if (arg.IsAll==false)//IsAll==true代表查询实时告警
+                {
+                    var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
+                    SetAlarmPerson(list, persons);
+                    return list.ToWcfModelList();
+                }
+                else
+                {
+                    long timeStampStart = 0;
+                    long timeStampEnd = long.MaxValue;
+                    if (!string.IsNullOrEmpty(arg.Start))
+                    {
+                        DateTime start = arg.Start.ToDateTime();
+                        start = new DateTime(start.Year, start.Month, start.Day, 0, 0, 0, 0);
+                        timeStampStart = start.ToStamp();
+                    }
+
+                    if (!string.IsNullOrEmpty(arg.End))
+                    {
+                        DateTime end = arg.End.ToDateTime();
+                        end = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59, 999);
+                        timeStampEnd = end.ToStamp();
+                    }
+
+                    //历史告警
+                    var list1 = db.LocationAlarmHistorys.Where(p =>
+                              p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
+                        .ToList();
+
+                    List<DbModel.Location.Alarm.LocationAlarm> list3 = new List<DbModel.Location.Alarm.LocationAlarm>();
+                    if (list1 != null)
+                    {
+                        foreach (var alarmHistory in list1)
+                        {
+                            var alarm = alarmHistory.ConvertToAlarm();
+                            list3.Add(alarm);
+                        }
+                    }
+
+                    //当前的事实告警
+                    var list2 = db.LocationAlarms.Where(p =>
+                        p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd).ToList();
+                    if (list2 != null)
+                    {
+                        list3.AddRange(list2);
+                    }
+
+                    SetAlarmPerson(list3, persons);
+
+                    return list3.ToWcfModelList();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(LogTags.DbGet, "GetLocationAlarms:"+e);
+                return null;
+            }
+        }
+
+
+        private static void SetAlarmPerson(List<DbModel.Location.Alarm.LocationAlarm> list, Dictionary<int, DbModel.Location.Person.Personnel> persons)
+        {
             foreach (var alarm in list)
             {
-                alarm.Personnel = persons.Find(i => i.Id == alarm.PersonnelId);
+                if (alarm.PersonnelId != null)
+                {
+                    int pId = (int) alarm.PersonnelId;
+                    if (persons.ContainsKey(pId))
+                    {
+                        alarm.Personnel = persons[pId];
+                    }
+                }
             }
-            return list.ToWcfModelList();
         }
 
         /// <summary>
@@ -1137,6 +1209,52 @@ namespace LocationServices.Locations
             return send;
         }
 
+        public AlarmStatistics GetDevAlarmStatistics(SearchArg arg)
+        {
+            AlarmStatistics statistics = new AlarmStatistics();
+            List<AlarmLinePoint> points = new List<AlarmLinePoint>();
+            points.Add(new AlarmLinePoint("2019-01-01",500));
+            points.Add(new AlarmLinePoint("2019-01-02", 100));
+            points.Add(new AlarmLinePoint("2019-01-03", 550));
+            points.Add(new AlarmLinePoint("2019-01-10", 10));
+            points.Add(new AlarmLinePoint("2019-01-30", 55));
+            statistics.AddLine("设备类型1", points, true);
+
+            points.Add(new AlarmLinePoint("2019-02-01", 5));
+            points.Add(new AlarmLinePoint("2019-02-02", 44));
+            points.Add(new AlarmLinePoint("2019-02-10", 5));
+            points.Add(new AlarmLinePoint("2019-02-15", 66));
+            points.Add(new AlarmLinePoint("2019-02-20", 100));
+            statistics.AddLine("设备类型2", points, true);
+
+            statistics.AddTypeCount("设备类型3", 369);
+            statistics.AddTypeCount("设备类型4", 55);
+            statistics.AddTypeCount("设备类型5", 10);
+
+            statistics.Sort();
+            return statistics;
+        }
+
+        public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
+        {
+            AlarmStatistics statistics = new AlarmStatistics();
+            List<AlarmLinePoint> points = new List<AlarmLinePoint>();
+            points.Add(new AlarmLinePoint("2019-01-01", 500));
+            points.Add(new AlarmLinePoint("2019-01-02", 100));
+            points.Add(new AlarmLinePoint("2019-01-03", 550));
+            points.Add(new AlarmLinePoint("2019-01-10", 10));
+            points.Add(new AlarmLinePoint("2019-01-30", 55));
+            statistics.AddLine("全部", points,false);//注意这里是false,和上面的设备告警不一样
+
+            statistics.AddTypeCount("人员1", 625);
+            statistics.AddTypeCount("人员2", 555);
+            statistics.AddTypeCount("人员3", 369);
+            statistics.AddTypeCount("人员4", 55);
+            statistics.AddTypeCount("人员5", 10);
+
+            statistics.Sort();
+            return statistics;
+        }
 
     }
 }

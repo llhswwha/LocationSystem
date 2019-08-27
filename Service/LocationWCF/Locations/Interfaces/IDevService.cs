@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using Location.TModel.FuncArgs;
 using Location.TModel.Location.AreaAndDev;
 using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 using TModel.Location.AreaAndDev;
 using TModel.LocationHistory.AreaAndDev;
+using TModel.Location.Alarm;
+using TModel.FuncArgs;
 
 namespace LocationServices.Locations.Interfaces
 {
@@ -310,5 +313,11 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag);
+
+        [OperationContract]
+        AlarmStatistics GetDevAlarmStatistics(SearchArg arg);
+
+        [OperationContract]
+        AlarmStatistics GetLocationAlarmStatistics(SearchArg arg);
     }
 }

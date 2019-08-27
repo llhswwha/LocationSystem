@@ -17,30 +17,52 @@ namespace BLL.Blls
         {
             ErrorMessage = "";
             if (dbSet == null) return null;
-            try
+
+            int tryCount = 3;
+            for (int i = 0; i < tryCount; i++)
             {
-                List<T> list = null;
-                if (isTracking)
+                try
                 {
-                    list = dbSet.ToList();
+                    List<T> list = null;
+                    if (isTracking)
+                    {
+                        list = dbSet.ToList();
+                    }
+                    else
+                    {
+                        list = dbSet.AsNoTracking().ToList();
+                    }
+                    return list;
                 }
-                else
+                catch (Exception ex)
                 {
-                    list = dbSet.AsNoTracking().ToList();
+                    if (i < tryCount - 1)
+                    {
+                        Thread.Sleep(100);
+                        Log.Error(LogTags.DbGet, "BaseBll.ToList<T> type=" + typeof(T) + ",try again:" + i+1);
+                    }
+                    else
+                    {
+                        Log.Error(LogTags.DbGet,"BaseBll.ToList<T> type=" + typeof(T)+"\n"+ ex);
+                        ErrorMessage = GetExceptionMessage(ex);
+                    }
                 }
-                return list;
             }
-            catch (Exception ex)
+            return null;
+
+        }
+
+        public static string GetExceptionMessage(Exception ex)
+        {
+            string msg = "";
+            msg = ex.Message;
+            if (ex.Message ==
+                "An error occurred while reading from the store provider's data reader. See the inner exception for details."
+            )
             {
-                Log.Error("BaseBll.ToList<T> type=" + typeof(T), ex);
-                if (ex.Message ==
-                    "An error occurred while reading from the store provider's data reader. See the inner exception for details."
-                )
-                {
-                    ErrorMessage = ex.InnerException.Message;
-                }
-                return null;
+                msg = ex.InnerException.Message;
             }
+            return msg;
         }
 
         //public static bool RemoveList<T>(this DbSet<T> dbSet,List<T> list) where T : class

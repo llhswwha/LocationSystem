@@ -9,6 +9,8 @@ using DbModel.Location.AreaAndDev;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
 using TModel.LocationHistory.AreaAndDev;
+using TModel.FuncArgs;
+using TModel.Location.Alarm;
 
 namespace WebApiService.Controllers
 {
@@ -142,6 +144,12 @@ namespace WebApiService.Controllers
         {
             return service.GetCameraInfoByParent(pids);
         }
+
+        public AlarmStatistics GetDevAlarmStatistics(SearchArg arg)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("")]
         public Location.TModel.Location.AreaAndDev.DevInfo GetDevByGameName(string nameName)
         {
@@ -192,6 +200,12 @@ namespace WebApiService.Controllers
         {
             return service.GetEntranceActionInfoByPerson24Hours(id);
         }
+
+        public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("")]
         public List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis)
         {

@@ -111,6 +111,13 @@ namespace DbModel.LocationHistory.Data
             {
                 case 1:
                     Send = GetListByDay(list);//按天
+                    if(Send!=null)
+                    {
+                        Send.Sort((a, b) =>
+                        {
+                            return b.Name.CompareTo(a.Name);
+                        });
+                    }                   
                     break;
                 case 2:
                     Send = GetListByPerson(list);//按人
@@ -120,6 +127,13 @@ namespace DbModel.LocationHistory.Data
                     break;
                 case 4:
                     Send = GetListByHour(list);//按小时
+                    if (Send != null)
+                    {
+                        Send.Sort((a, b) =>
+                        {
+                            return b.Name.CompareTo(a.Name);
+                        });
+                    }
                     break;
                 default:
                     break;

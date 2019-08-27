@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
+using DbModel.Location.Alarm;
 
 namespace DbModel.LocationHistory.Alarm
 {
@@ -147,6 +148,32 @@ namespace DbModel.LocationHistory.Alarm
         public LocationAlarmHistory Clone()
         {
             return this.CloneObjectByBinary();
+        }
+
+        public LocationAlarm ConvertToAlarm()
+        {
+            LocationAlarm history = new LocationAlarm();
+            //history.Id = this.Id;
+            history.AlarmId = this.AlarmId;
+            history.AlarmType = this.AlarmType;
+            history.AlarmLevel = this.AlarmLevel;
+            history.LocationCardId = this.LocationCardId;
+            history.PersonnelId = this.PersonnelId;
+            history.AreaId = this.AreadId;
+            history.CardRoleId = this.CardRoleId;
+            history.Content = this.Content;
+            history.AlarmTime = this.AlarmTime;
+            history.AlarmTimeStamp = this.AlarmTimeStamp;
+            history.HandleTime = this.HandleTime;
+            history.HandleTimeStamp = this.HandleTimeStamp;
+            history.Handler = this.Handler;
+            history.HandleType = this.HandleType;
+            history.AuzId = this.AuzId;
+            history.AllAuzId = this.AllAuzId;
+            //history.HistoryTime = DateTime.Now;
+            //history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
+
+            return history;
         }
     }
 }

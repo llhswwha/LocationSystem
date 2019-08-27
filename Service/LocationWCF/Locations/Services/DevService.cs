@@ -17,6 +17,8 @@ using TModel.Tools;
 using System.IO;
 using TModel.BaseData;
 using Location.BLL.Tool;
+using TModel.Location.Alarm;
+using TModel.FuncArgs;
 
 namespace LocationServices.Locations.Services
 {
@@ -682,6 +684,17 @@ namespace LocationServices.Locations.Services
             send.MonitorNodeList = Dm.MonitorNodeList;
 
             return send;
+        }
+
+        public AlarmStatistics GetDevAlarmStatistics(SearchArg arg)
+        {
+            AlarmStatistics alarmStatistics = new AlarmStatistics();
+            return alarmStatistics;
+        }
+
+        public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
+        {
+            throw new NotImplementedException();
         }
     }
 }

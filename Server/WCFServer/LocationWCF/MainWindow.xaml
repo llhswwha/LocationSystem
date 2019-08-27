@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LocationWCFServer"
         mc:Ignorable="d"
         Title="服务端" Height="500" Width="800" Loaded="MainWindow_OnLoaded"  WindowStartupLocation="CenterScreen"
-        Topmost="True">
+        Topmost="False">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="窗口">
