@@ -3,12 +3,13 @@
   <xs:complexType name="AlarmSearchArg">
     <xs:sequence>
       <xs:element minOccurs="0" name="AreaId" type="xs:int" />
-      <xs:element minOccurs="0" name="End" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DevTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="End" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsAll" type="xs:boolean" />
       <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Level" type="xs:int" />
       <xs:element minOccurs="0" name="Page" nillable="true" type="tns:PageInfo" />
-      <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Start" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AlarmSearchArg" nillable="true" type="tns:AlarmSearchArg" />

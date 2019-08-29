@@ -23,6 +23,8 @@
       <xs:element minOccurs="0" name="HandleTimeStamp" type="xs:long" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="HandleType" type="q3:LocationAlarmHandleType" />
       <xs:element minOccurs="0" name="Handler" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HistoryTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HistoryTimeStamp" type="xs:long" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Person" minOccurs="0" name="Personnel" nillable="true" type="q4:Personnel" />
       <xs:element minOccurs="0" name="PersonnelId" type="xs:int" />

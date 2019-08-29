@@ -152,28 +152,28 @@ namespace DbModel.LocationHistory.Alarm
 
         public LocationAlarm ConvertToAlarm()
         {
-            LocationAlarm history = new LocationAlarm();
-            //history.Id = this.Id;
-            history.AlarmId = this.AlarmId;
-            history.AlarmType = this.AlarmType;
-            history.AlarmLevel = this.AlarmLevel;
-            history.LocationCardId = this.LocationCardId;
-            history.PersonnelId = this.PersonnelId;
-            history.AreaId = this.AreadId;
-            history.CardRoleId = this.CardRoleId;
-            history.Content = this.Content;
-            history.AlarmTime = this.AlarmTime;
-            history.AlarmTimeStamp = this.AlarmTimeStamp;
-            history.HandleTime = this.HandleTime;
-            history.HandleTimeStamp = this.HandleTimeStamp;
-            history.Handler = this.Handler;
-            history.HandleType = this.HandleType;
-            history.AuzId = this.AuzId;
-            history.AllAuzId = this.AllAuzId;
-            //history.HistoryTime = DateTime.Now;
-            //history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
+            LocationAlarm alarm = new LocationAlarm();
+            alarm.Id = this.Id;
+            alarm.AlarmId = this.AlarmId;
+            alarm.AlarmType = this.AlarmType;
+            alarm.AlarmLevel = this.AlarmLevel;
+            alarm.LocationCardId = this.LocationCardId;
+            alarm.PersonnelId = this.PersonnelId;
+            alarm.AreaId = this.AreadId;
+            alarm.CardRoleId = this.CardRoleId;
+            alarm.Content = this.Content;
+            alarm.AlarmTime = this.AlarmTime;
+            alarm.AlarmTimeStamp = this.AlarmTimeStamp;
+            alarm.HandleTime = this.HandleTime;
+            alarm.HandleTimeStamp = this.HandleTimeStamp;
+            alarm.Handler = this.Handler;
+            alarm.HandleType = this.HandleType;
+            alarm.AuzId = this.AuzId;
+            alarm.AllAuzId = this.AllAuzId;
+            alarm.HistoryTime = this.HistoryTime;
+            alarm.HistoryTimeStamp = this.HistoryTimeStamp;
 
-            return history;
+            return alarm;
         }
     }
 }

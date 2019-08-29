@@ -40,6 +40,8 @@ namespace LocationServices.Converters
             item2.AlarmId = item1.AlarmId;
             item2.CardRoleId = item1.CardRoleId;
             item2.AreaId = item1.AreaId ?? 2;
+            item2.HistoryTime = item1.HistoryTime;
+            item2.HistoryTimeStamp = item1.HistoryTimeStamp;
             return item2;
         }
 

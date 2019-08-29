@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WebApiCommunication.ExtremeVision" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/CommunicationClass.ExtremeVision" />
   <xs:complexType name="ArrayOfCameraAlarmInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="CameraAlarmInfo" nillable="true" type="tns:CameraAlarmInfo" />
@@ -8,9 +9,14 @@
   <xs:element name="ArrayOfCameraAlarmInfo" nillable="true" type="tns:ArrayOfCameraAlarmInfo" />
   <xs:complexType name="CameraAlarmInfo">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AlarmType" type="xs:int" />
+      <xs:element minOccurs="0" name="DevID" type="xs:int" />
+      <xs:element minOccurs="0" name="DevIp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DevName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlameData" nillable="true" type="tns:FlameData" />
       <xs:element minOccurs="0" name="HeadData" nillable="true" type="tns:HeadData" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommunicationClass.ExtremeVision" minOccurs="0" name="SmogData" nillable="true" type="q1:SmogData" />
       <xs:element minOccurs="0" name="aid" type="xs:int" />
       <xs:element minOccurs="0" name="cid" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="cid_url" nillable="true" type="xs:string" />
@@ -27,27 +33,12 @@
   <xs:complexType name="FlameData">
     <xs:sequence>
       <xs:element minOccurs="0" name="alertFlag" type="xs:int" />
-      <xs:element minOccurs="0" name="flameInfo" nillable="true" type="tns:ArrayOfFlameInfo" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CommunicationClass.ExtremeVision" minOccurs="0" name="flameInfo" nillable="true" type="q2:ArrayOfRectInfo" />
       <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numOfFlameRects" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FlameData" nillable="true" type="tns:FlameData" />
-  <xs:complexType name="ArrayOfFlameInfo">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="FlameInfo" nillable="true" type="tns:FlameInfo" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfFlameInfo" nillable="true" type="tns:ArrayOfFlameInfo" />
-  <xs:complexType name="FlameInfo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="height" type="xs:float" />
-      <xs:element minOccurs="0" name="width" type="xs:float" />
-      <xs:element minOccurs="0" name="x" type="xs:float" />
-      <xs:element minOccurs="0" name="y" type="xs:float" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="FlameInfo" nillable="true" type="tns:FlameInfo" />
   <xs:complexType name="HeadData">
     <xs:sequence>
       <xs:element minOccurs="0" name="alertFlag" type="xs:int" />

@@ -69,8 +69,8 @@ namespace LocationWCFClient.Windows
 
             AppContext.Instance.CallbackClient.LocAlarmsReceved += CallbackClient_LocAlarmsReceved;
 
-            DeviceAlarm[] devAlarms= client.GetDeviceAlarms(new AlarmSearchArg());
-            ShowDeviceAlarms(devAlarms);
+           // DeviceAlarm[] devAlarms= client.GetDeviceAlarms(new AlarmSearchArg());
+           // ShowDeviceAlarms(devAlarms);
 
             LocationAlarm[] locAlarms = client.GetLocationAlarms(new AlarmSearchArg());
             ShowLocationAlarms(locAlarms);
@@ -582,8 +582,8 @@ namespace LocationWCFClient.Windows
         //获取人员列表
         private void GetUserList_Click(object sender, RoutedEventArgs e)
         {
-            Personnel[] lst = client.GetUserList();
-            int nn = 0;
+            //Personnel[] lst = client.GetUserList();
+            //int nn = 0;
         }
 
         //获取部门列表
@@ -673,7 +673,7 @@ namespace LocationWCFClient.Windows
         //获取SIS传感数据
         private void GetSomesisList_Click(object sender, RoutedEventArgs e)
         {
-            client.GetSomesisList("FW.J0GCK14AP001_F,N2DCS.20MAV42FP116A_DL12");
+          //  client.GetSomesisList("FW.J0GCK14AP001_F,N2DCS.20MAV42FP116A_DL12");
             int nn = 0;
         }
 
@@ -759,24 +759,24 @@ namespace LocationWCFClient.Windows
 
         private void GetDevMonitorInfoByNodeTag_Click(object sender, RoutedEventArgs e)
         {
-            string strResult = "";
-            string strNodeTag = TbNodeTag.Text;
-            DevMonitorNode[] lst = client.GetSomesisList(strNodeTag);
+            //string strResult = "";
+            //string strNodeTag = TbNodeTag.Text;
+            //DevMonitorNode[] lst = client.GetSomesisList(strNodeTag);
 
-            if (lst != null && lst.Count() > 0)
-            {
-                int nCount = lst.Count();
-                for (int i = 0; i < nCount; i++)
-                {
-                    DevMonitorNode item = lst[i];
-                    System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
-                    DateTime dt = startTime.AddSeconds(item.Time);
-                    strResult += "{\"kks\":\"" + item.KKS + "\",\"Name\":" + item.Describe + "\",\"t\":" + dt + ",\"value\":\"" + item.Value + "\",\"unit\":\"" + item.Unit + "\":},\r\n";
+            //if (lst != null && lst.Count() > 0)
+            //{
+            //    int nCount = lst.Count();
+            //    for (int i = 0; i < nCount; i++)
+            //    {
+            //        DevMonitorNode item = lst[i];
+            //        System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            //        DateTime dt = startTime.AddSeconds(item.Time);
+            //        strResult += "{\"kks\":\"" + item.KKS + "\",\"Name\":" + item.Describe + "\",\"t\":" + dt + ",\"value\":\"" + item.Value + "\",\"unit\":\"" + item.Unit + "\":},\r\n";
 
-                }
-            }
+            //    }
+            //}
 
-            TbKKSResult.Text = strResult;
+            //TbKKSResult.Text = strResult;
             
         }
 
@@ -830,6 +830,29 @@ namespace LocationWCFClient.Windows
             var info = DateCameraAlarmInfo.SelectedItem as CameraAlarmInfo;
             if (info == null) return;
             var r=client.GetCameraAlarm(info.id);
+        }
+
+        private void Getlocationalarms_Click(object sender, RoutedEventArgs e)
+        {
+            AlarmSearchArg arg = new AlarmSearchArg();
+            arg.IsAll = true;
+
+            LocationAlarm[] recv = client.GetLocationAlarms(arg);
+            int nn = 0;
+        }
+
+        private void Getdevlarms_Click(object sender, RoutedEventArgs e)
+        {
+            TModel.FuncArgs.SearchArg arg = new TModel.FuncArgs.SearchArg();
+            TModel.Location.Alarm.AlarmStatistics recv = client.GetDevAlarmStatistics(arg);
+            int nn = 0;
+        }
+
+        private void Getlocationalarms2_Click(object sender, RoutedEventArgs e)
+        {
+            TModel.FuncArgs.SearchArg arg = new TModel.FuncArgs.SearchArg();
+            TModel.Location.Alarm.AlarmStatistics recv = client.GetLocationAlarmStatistics(arg);
+            int nn = 0;
         }
     }
 }

@@ -190,7 +190,15 @@
                     <Menu DockPanel.Dock="Top">
                         <MenuItem Header="获取巡检结果列表" Name="Getcheckresults" Click="Getcheckresults_Click"></MenuItem>
                     </Menu>
-                    
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取人员告警" Name="Getlocationalarms" Click="Getlocationalarms_Click"></MenuItem>
+                    </Menu>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取设备告警" Name="Getdevlarms" Click="Getdevlarms_Click"></MenuItem>
+                    </Menu>
+                    <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="获取人员告警统计" Name="Getlocationalarms2" Click="Getlocationalarms2_Click"></MenuItem>
+                    </Menu>
                     
                     <DataGrid Name="BasicDataPlatFormInfo"></DataGrid>
                 </DockPanel>

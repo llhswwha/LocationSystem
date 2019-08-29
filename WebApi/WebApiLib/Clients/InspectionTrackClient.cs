@@ -391,7 +391,7 @@ namespace WebApiLib.Clients
 
                     int patrolId = (int)it.Abutment_Id;
                     CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = client.Getcheckresults(patrolId, deviceId);
-                  //  CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = Getcheckresults(patrolId, deviceId);
+                 //   CommunicationClass.SihuiThermalPowerPlant.Models.checkpoints recv = Getcheckresults(patrolId, deviceId);
                     if (recv == null || recv.checks.Count() <= 0)
                     {
                         continue;

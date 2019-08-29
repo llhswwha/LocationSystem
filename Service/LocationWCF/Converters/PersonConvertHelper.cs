@@ -42,6 +42,18 @@ namespace LocationServices.Converters
             item2.Enabled = item1.Enabled;
             item2.ParentId = item1.ParentId;
             item2.Pst = item1.Pst;
+            try
+            {
+                if ((object)item1.Parent != null)
+                {
+                    item2.Parent = item1.Parent.ToTModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+            }
+            
             return item2;
         }
 

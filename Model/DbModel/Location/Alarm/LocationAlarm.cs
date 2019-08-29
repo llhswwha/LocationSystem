@@ -10,6 +10,7 @@ using DbModel.Location.Work;
 using DbModel.LocationHistory.Data;
 using Location.TModel.Tools;
 using Location.IModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Alarm
 {
@@ -138,6 +139,24 @@ namespace DbModel.Location.Alarm
         [DataMember]
         [Display(Name = "处理类型")]
         public LocationAlarmHandleType HandleType { get; set; }
+
+
+        /// <summary>
+        /// 历史记录产生时间,这是为了方便传递历史告警,不关联到数据库表
+        /// </summary>
+        [NotMapped]
+        [DataMember]
+        [Display(Name = "历史记录产生时间")]
+        public DateTime HistoryTime { get; set; }
+
+        /// <summary>
+        /// 历史记录时间戳,这是为了方便传递历史告警,不关联到数据库表
+        /// </summary>
+        [NotMapped]
+        [DataMember]
+        [Display(Name = "历史记录时间戳")]
+        public long HistoryTimeStamp { get; set; }
+
 
         public LocationAlarm()
         {

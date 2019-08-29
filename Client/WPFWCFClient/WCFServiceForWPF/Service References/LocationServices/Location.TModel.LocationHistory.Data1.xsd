@@ -63,4 +63,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PositionList" nillable="true" type="tns:PositionList" />
+  <xs:complexType name="ArrayOfPos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Pos" nillable="true" type="tns:Pos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPos" nillable="true" type="tns:ArrayOfPos" />
+  <xs:complexType name="Pos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Time" type="xs:long" />
+      <xs:element minOccurs="0" name="X" type="xs:float" />
+      <xs:element minOccurs="0" name="Y" type="xs:float" />
+      <xs:element minOccurs="0" name="Z" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pos" nillable="true" type="tns:Pos" />
 </xs:schema>

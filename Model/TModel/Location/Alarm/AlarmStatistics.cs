@@ -47,6 +47,7 @@ namespace TModel.Location.Alarm
             }
             AlarmLine line = new AlarmLine(name);
             line.Points = points;
+            this.Lines.Add(line);
             if (addTypeCount)//设备告警，每个类型有一条线
             {
                 this.AddTypeCount(name, (int)count);

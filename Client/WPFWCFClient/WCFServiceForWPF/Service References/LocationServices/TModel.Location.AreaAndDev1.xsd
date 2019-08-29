@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TModel.Location.AreaAndDev" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/DbModel.Tools" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" />
   <xs:complexType name="ArrayOfDev_CameraInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Dev_CameraInfo" nillable="true" type="tns:Dev_CameraInfo" />
@@ -60,7 +61,7 @@
   <xs:element name="ArrayOfNearbyDev" nillable="true" type="tns:ArrayOfNearbyDev" />
   <xs:complexType name="NearbyDev">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Area" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AreaName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Distance" type="xs:float" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TypeCode" type="xs:int" />
@@ -108,6 +109,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DevMonitorNode" nillable="true" type="tns:DevMonitorNode" />
+  <xs:complexType name="DeviceAlarmInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Location.TModel.Location.Alarm" minOccurs="0" name="devAlarmList" nillable="true" type="q5:ArrayOfDeviceAlarm" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeviceAlarmInformation" nillable="true" type="tns:DeviceAlarmInformation" />
   <xs:complexType name="ArrayOfEntranceGuardCard">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="EntranceGuardCard" nillable="true" type="tns:EntranceGuardCard" />
@@ -143,7 +151,7 @@
   <xs:complexType name="AreaPoints">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Points" nillable="true" type="q5:ArrayOfPoint" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Points" nillable="true" type="q6:ArrayOfPoint" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AreaPoints" nillable="true" type="tns:AreaPoints" />

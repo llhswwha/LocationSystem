@@ -130,6 +130,18 @@ namespace Location.TModel.Location.Alarm
         //[Display(Name = "处理类型")]
         public LocationAlarmHandleType HandleType { get; set; }
 
+        /// <summary>
+        /// 历史记录产生时间,这是为了方便传递历史告警
+        /// </summary>
+        [DataMember]
+        public DateTime HistoryTime { get; set; }
+
+        /// <summary>
+        /// 历史记录时间戳,这是为了方便传递历史告警
+        /// </summary>
+        [DataMember]
+        public long HistoryTimeStamp { get; set; }
+
         public LocationAlarm()
         {
             CreateTime = DateTime.Now;

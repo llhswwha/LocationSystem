@@ -73,13 +73,16 @@
     <None Include="Properties\DataSources\Location.TModel.Location.Person.Department.datasource" />
     <None Include="Properties\DataSources\Location.TModel.Location.Person.Personnel.datasource" />
     <None Include="Properties\DataSources\Location.TModel.Location.TransferOfAxesConfig.datasource" />
+    <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.Pos.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.Position.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.PositionList.datasource" />
     <None Include="Properties\DataSources\Location.TModel.LocationHistory.Data.U3DPosition.datasource" />
     <None Include="Properties\DataSources\TModel.BaseData.Ticket.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.Alarm.AlarmStatistics.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Archor.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.AreaPoints.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.AreaStatistics.datasource" />
+    <None Include="Properties\DataSources\TModel.Location.AreaAndDev.DeviceAlarmInformation.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.DevMonitorNode.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_CameraInfo.datasource" />
     <None Include="Properties\DataSources\TModel.Location.AreaAndDev.Dev_Monitor.datasource" />
@@ -134,6 +137,9 @@
     <None Include="Service References\LocationServices\Arrays1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\LocationServices\CommunicationClass.ExtremeVision.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LocationServices\DbModel.Location.AreaAndDev1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -164,7 +170,7 @@
     <None Include="Service References\LocationServices\Location.TModel.LocationHistory.Data1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LocationServices\LocationServices.Locations.Plugins.xsd">
+    <None Include="Service References\LocationServices\LocationServices.Locations.Plugins1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\service1.wsdl" />
@@ -175,6 +181,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.BaseData1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.FuncArgs.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LocationServices\TModel.Location.Alarm.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\LocationServices\TModel.Location.AreaAndDev1.xsd">
