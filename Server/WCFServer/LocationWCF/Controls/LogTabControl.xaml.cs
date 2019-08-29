@@ -37,14 +37,17 @@ namespace LocationServer.Controls
         {
             if (!items.ContainsKey(info.Tag))
             {
+                var max = AppContext.LogTextBoxMaxLength;
+
                 LogTextBox tb = new LogTextBox();
+
                 TabItem tabItem = new TabItem();
                 tabItem.Header = info.Tag;
                 tabItem.Content = tb;
-                
+
                 TabControl1.Items.Add(tabItem);
-                var controller=tb.AddLog(info);
-                controller.LogChanged += (i,c) =>
+                var controller = tb.AddLog(info, max);
+                controller.LogChanged += (i, c) =>
                 {
                     tabItem.Header = string.Format("{0}({1})", i.Tag, c);
                 };

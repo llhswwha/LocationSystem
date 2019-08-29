@@ -39,7 +39,7 @@ namespace LocationServices.Tools
 
             return Single;
         }
-        
+
         private PositionEngineClient()
         {
             StaticEvents.DbDataChanged += StaticEvents_DbDataChanged;
@@ -72,7 +72,7 @@ namespace LocationServices.Tools
             }
         }
 
-        public void WriteLogRight(string txt,bool isError=false)
+        public void WriteLogRight(string txt, bool isError = false)
         {
             if (Logs == null)
             {
@@ -178,7 +178,7 @@ namespace LocationServices.Tools
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(LogTags.Engine, "RemoveRepeatPosition:"+ex);
+                    Log.Error(LogTags.Engine, "RemoveRepeatPosition:" + ex);
                 }
             }
             //return dict.Values.ToList();
@@ -193,7 +193,7 @@ namespace LocationServices.Tools
                 if (!isBusy && Positions.Count > 0)
                 {
                     isBusy = true;
-                    
+
                     try
                     {
                         Positions = RemoveRepeatPosition(Positions);//删除重复的数据 这个原来在InsertPostions也有
@@ -208,7 +208,9 @@ namespace LocationServices.Tools
                         }
                         else
                         {
-                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count,ErrorMessage)),true);
+                            CloseBll();
+                            Thread.Sleep(300);
+                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count, ErrorMessage)), true);
                         }
                     }
                     catch (Exception ex)
@@ -219,9 +221,9 @@ namespace LocationServices.Tools
                         try
                         {
                             Positions = new ConcurrentBag<Position>();
-                        }catch(Exception e)
+                        } catch (Exception e)
                         {
-                            Log.Error("PositionEngineClient.InsertPostions.Exception",e);
+                            Log.Error("PositionEngineClient.InsertPostions.Exception", e);
                         }
                     }
 
@@ -238,7 +240,24 @@ namespace LocationServices.Tools
         Bll bll;
 
         AuthorizationBuffer ab;
-        
+
+        public void CloseBll()
+        {
+
+            try
+            {
+                if (bll != null)
+                {
+                    bll.Dispose();
+                    bll = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("CloseBll", ex);
+            }
+        }
+
         private bool InsertPostions(List<Position> list1)
         {
             //if (list1.Count < 20) return false;

@@ -44,8 +44,14 @@ namespace LocationServer.Windows
         {
             CameraAlarmInfo info=DataGrid1.SelectedItem as CameraAlarmInfo;
             if (info == null) return;
+           
             CameraAlarmInfo detail=service.GetCameraAlarmDetail(info.id);
-            GetImage(detail.pic_data);
+            if (detail == null)
+            {
+                MessageBox.Show("未找到告警信息，id=" + info.id); ;
+                return;
+            }
+                GetImage(detail.pic_data);
             TbData.Text = detail.data + "";
         }
 

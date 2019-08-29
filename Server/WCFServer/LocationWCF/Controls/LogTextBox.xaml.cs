@@ -34,11 +34,12 @@ namespace LocationServer.Controls
             
         }
 
-        public LogTextBoxController AddLog(LogInfo info)
+        public LogTextBoxController AddLog(LogInfo info,int maxLength)
         {
             if (controller == null)
             {
                 controller = new LogTextBoxController(TbLog, info.Tag);
+                controller.SetMaxLength(maxLength);
                 controller.AddLog(info);
             }
             return controller;

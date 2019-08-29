@@ -339,6 +339,7 @@ namespace DbModel.LocationHistory.Data
             if (info.Length <= 1)
             {
                 LogEvent.Info("RealPos", "心跳包:" + info);
+                return false;
             }
             else
             {
@@ -350,7 +351,7 @@ namespace DbModel.LocationHistory.Data
             info = info.Trim();
             if (info.Contains("{"))
             {
-                r= ParseJson(info, offsetX, offsetY);
+                r= ParseJson(info, offsetX, offsetY,true);
             }
             else
             {
@@ -484,27 +485,79 @@ namespace DbModel.LocationHistory.Data
             }
         }
 
-        private bool ParseJson(string json, float offsetX, float offsetY)
+        private bool ParseJson(string json, float offsetX, float offsetY,bool parseErrorJson)
         {
             try
             {
-                PositionJson p = JsonConvert.DeserializeObject<PositionJson>(json);
-                Code = p.tag_id;
-                X = p.x.ToFloat() * 10;
-                Y = p.z.ToFloat() * 10;
-                Z = p.y.ToFloat() * 10;
-                //Y = p.y.ToFloat() * 10;
-                //Z = p.z.ToFloat() * 10;
-                DateTimeStamp = p.timestamp.ToLong();
-                DateTime = DateTimeStamp.ToDateTime();
-                Number = p.sn.ToInt();
-                Power = (int)(p.bettery.ToFloat() * 100);
-                return true;
-            }catch(Exception e)
+                return ParseJsonInner(json, offsetX,offsetY);
+            }
+            catch (Exception e)
             {
-                LogEvent.Info("Error->DbModel.Position.Exception:"+e.ToString());
+                string msg = e.Message;
+
+                //有些json数据能够简单的处理一下
+                if(msg.Contains("Additional text encountered after finished reading JSON content"))
+                {
+                    if (json.EndsWith("\"}]}}"))
+                    {
+                        json = json.Substring(0, json.Length - 1);
+                        LogEvent.Info("ParseJson", "调整json数据: - }");
+                        return ParseJson(json, offsetX, offsetY,false);
+                    }
+                    else
+                    {
+                        LogEvent.Info("ParseJsonError", "其他情况1:" + msg+"\n"+json); 
+                    }
+                }
+                else if (msg.Contains("Unexpected end when deserializing object"))
+                {
+                    if (json.EndsWith("\"}]"))
+                    {
+                        json += "}";
+                        LogEvent.Info("ParseJson", "调整json数据: + }");
+                        return ParseJson(json, offsetX, offsetY,false);
+                    }
+                    else
+                    {
+                        LogEvent.Info("ParseJsonError", "其他情况2:" + msg + "\n" + json); ;
+                    }
+                }
+                else if(msg.Contains("Unexpected end when deserializing array"))
+                {
+                    if (json.EndsWith("\"}"))
+                    {
+                        json += "]}";
+                        LogEvent.Info("ParseJson", "调整json数据: + ]}");
+                        return ParseJson(json, offsetX, offsetY, false);
+                    }
+                    else
+                    {
+                        LogEvent.Info("ParseJsonError", "其他情况3:" + msg + "\n" + json);
+                    }
+                }
+                else
+                {
+                    LogEvent.Info("ParseJsonError", string.Format("Json:{0}\nError->DbModel.Position.Exception:{1}", json, e.ToString()));
+                }
+                
                 return false;
             }          
+        }
+
+        private bool ParseJsonInner(string json, float offsetX, float offsetY)
+        {
+            PositionJson p = JsonConvert.DeserializeObject<PositionJson>(json);
+            Code = p.tag_id;
+            X = p.x.ToFloat() * 10;
+            Y = p.z.ToFloat() * 10;
+            Z = p.y.ToFloat() * 10;
+            //Y = p.y.ToFloat() * 10;
+            //Z = p.z.ToFloat() * 10;
+            DateTimeStamp = p.timestamp.ToLong();
+            DateTime = DateTimeStamp.ToDateTime();
+            Number = p.sn.ToInt();
+            Power = (int)(p.bettery.ToFloat() * 100);
+            return true;
         }
 
         public string GetText()

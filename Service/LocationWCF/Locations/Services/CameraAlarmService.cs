@@ -344,6 +344,7 @@ namespace LocationServices.Locations.Services
         public CameraAlarmInfo GetCameraAlarmDetail(int id)
         {
             CameraAlarmJson camera = db.CameraAlarmJsons.Find(id);
+            if (camera == null) return null;
             byte[] byte1 = camera.Json;
             string json = Encoding.UTF8.GetString(byte1);
             CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
@@ -517,45 +518,54 @@ namespace LocationServices.Locations.Services
 
         public string ParseJson(string json,int mode)
         {
-            FileInfo fi = GetNowJsonFile();
-            File.WriteAllText(fi.FullName, json);
-
-            var info = CameraAlarmInfo.Parse(json);
-            CameraAlarmHub.SendInfo(info);//发送告警给客户端
-
-            Bll bll = Bll.NewBllNoRelation();
-
-            string base64 = info.pic_data;
-            info.pic_data = "";//图片分开存
-
-            string jsonNoPic = JsonConvert.SerializeObject(info);//新的没有图片的json
-            Log.Info(LogTags.ExtremeVision, jsonNoPic);
-            string alarmType = "";
-            if (info.AlarmType == 1)
+            try
             {
-                alarmType = "安全帽告警";
+                FileInfo fi = GetNowJsonFile();
+                File.WriteAllText(fi.FullName, json);
+
+                var info = CameraAlarmInfo.Parse(json);
+                CameraAlarmHub.SendInfo(info);//发送告警给客户端
+
+                Bll bll = Bll.NewBllNoRelation();
+
+                string base64 = info.pic_data;
+                info.pic_data = "";//图片分开存
+
+                string jsonNoPic = JsonConvert.SerializeObject(info);//新的没有图片的json
+                Log.Info(LogTags.ExtremeVision, jsonNoPic);
+                string alarmType = "";
+                if (info.AlarmType == 1)
+                {
+                    alarmType = "安全帽告警";
+                }
+                else if (info.AlarmType == 2)
+                {
+                    alarmType = "火焰告警";
+                }
+                else if (info.AlarmType == 3)
+                {
+                    alarmType = "烟雾告警";
+                }
+                else
+                {
+                    alarmType = "其他告警:" + info.AlarmType;
+                }
+
+                Log.Info(LogTags.ExtremeVision, "告警类型:" + alarmType);
+
+                bool result = SaveToCameraAlarmJson(jsonNoPic);
+
+                var picName = info.pic_name;
+
+                SavePicture(bll, mode, base64, picName);
+                return info.ToString();
             }
-            else if (info.AlarmType == 2)
+            catch (Exception ex)
             {
-                alarmType = "火焰告警";
+                Log.Error(LogTags.ExtremeVision, "Error:" + ex);
+                return "Error:" + ex.Message;
             }
-            else if (info.AlarmType == 3)
-            {
-                alarmType = "烟雾告警";
-            }
-            else
-            {
-                alarmType = "其他告警:"+info.AlarmType;
-            }
-
-            Log.Info(LogTags.ExtremeVision, "告警类型:" + alarmType);
-
-            bool result = SaveToCameraAlarmJson(jsonNoPic);
-
-            var picName = info.pic_name;
-
-            SavePicture(bll, mode, base64, picName);
-            return info.ToString();
+            
         }
 
         private bool SaveToCameraAlarmJson(string json)

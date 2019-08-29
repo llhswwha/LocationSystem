@@ -117,6 +117,8 @@ namespace LocationWCFServer
             AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
             AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
 
+            AppContext.LogTextBoxMaxLength= ConfigurationHelper.GetIntValue("LogTextBoxMaxLength",10000);
+
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
             LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));
             LocationContext.Power = ConfigurationHelper.GetIntValue("InitTopoPower");
@@ -183,7 +185,7 @@ namespace LocationWCFServer
         {
             Log.Info("InitData");
             int mode = ConfigurationHelper.GetIntValue("DataInitMode"); //-1:不初始化,0:EF,1:Sql
-            Log.Info("DataInitMode:" + mode);
+            Log.Info(LogTags.Server,"DataInitMode:" + mode);
             if (mode >= 0)
             {
                 AppContext.InitDb(mode);
