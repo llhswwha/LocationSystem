@@ -14,10 +14,13 @@ namespace TModel.Location.Alarm
 
         public List<AlarmLine> Lines { get; set; }
 
+        public List<string> itemList { get; set; }
+
         public AlarmStatistics()
         {
             DevTypeAlarms = new List<AlarmGroupCount>();
             Lines = new List<AlarmLine>();
+            itemList = new List<string>();
         }
 
         public AlarmGroupCount AddTypeCount(string type,int count)

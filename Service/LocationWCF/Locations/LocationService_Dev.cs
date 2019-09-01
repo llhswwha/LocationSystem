@@ -1280,6 +1280,14 @@ namespace LocationServices.Locations
             AlarmStatistics statistics = new AlarmStatistics();
             List<string> lstGetParent = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("总告警", lstGetParent, true, ref statistics);
+            statistics.itemList.Add("总告警");
+            statistics.itemList.Add("其他");
+            statistics.itemList.Add("视频监控");
+            statistics.itemList.Add("门禁");
+            statistics.itemList.Add("消防");
+            statistics.itemList.Add("SIS");
+            statistics.itemList.Add("人员定位");
+            
 
             foreach (Abutment_DevAlarmSrc item in lstSrc)
             {
