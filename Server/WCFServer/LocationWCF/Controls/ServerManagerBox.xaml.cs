@@ -213,8 +213,8 @@ namespace LocationServer.Controls
                         //bool r = db.DevAlarms.RemoveList(alarms);
                         //MessageBox.Show("清空成功");
                         Log.Info("RemoveAlarm", "清除历史设备告警,数量:" + count);
-                        Thread.Sleep(1000 * 3600);//一小时检查一次
                     }
+                    Thread.Sleep(1000 * 3600);//一小时检查一次
                 }
                 catch (Exception ex)
                 {

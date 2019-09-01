@@ -147,7 +147,7 @@ namespace LocationWCFServer
             this.Title = "服务端    -v" + version;
 
             var isStartDaemon = ConfigurationHelper.GetBoolValue("StartDaemon");
-            if (isStartDaemon)
+            if (isStartDaemon && Debugger.IsAttached==false)
             {
                 StartDaemon(false);
             }

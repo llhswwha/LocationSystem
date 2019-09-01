@@ -463,79 +463,90 @@ namespace PlaybackDemo
         }
 
         private void QueryFile(int _iPageNo)
-        {          
-            if (m_iLogonId < 0)
+        {
+            try
             {
-                MessageBoxShow("Please logon device first!");
-                return;
-            }
+                if (m_iLogonId < 0)
+                {
+                    MessageBoxShow("Please logon device first!");
+                    return;
+                }
 
-            if (_iPageNo < 0 || (_iPageNo >= m_iTotalPage && m_iTotalPage > 0))
-            {
-                return;
-            }
+                if (_iPageNo < 0 || (_iPageNo >= m_iTotalPage && m_iTotalPage > 0))
+                {
+                    return;
+                }
 
-            if (_iPageNo == m_iCurrentPage && m_iTotalPage > 0)
-            {
-                return;
-            }
+                if (_iPageNo == m_iCurrentPage && m_iTotalPage > 0)
+                {
+                    return;
+                }
 
-            //入参
-            m_tQueryInfo.iPageNo = _iPageNo;
-            int iQuerySize = m_tQueryInfo.iBufSize;
-            IntPtr ptrQuery = Marshal.AllocCoTaskMem(iQuerySize);
-            Marshal.StructureToPtr(m_tQueryInfo, ptrQuery, true);
-            //出参
-            int iRetSize = Marshal.SizeOf(typeof(NVS_FILE_DATA));
-            NVS_FILE_DATA[] tResult = new NVS_FILE_DATA[MAX_PAGESIZE];//注：此处数组大小要与每页查询总数(m_tQueryInfo.iPageSize)一致
-            for (int i = 0; i < MAX_PAGESIZE; i++)
-            {
-                tResult[i] = new NVS_FILE_DATA();
-            }
-            IntPtr ptrResult = Marshal.AllocHGlobal(iQuerySize * MAX_PAGESIZE);
+                //入参
+                m_tQueryInfo.iPageNo = _iPageNo;
+                int iQuerySize = m_tQueryInfo.iBufSize;
+                IntPtr ptrQuery = Marshal.AllocCoTaskMem(iQuerySize);
+                Marshal.StructureToPtr(m_tQueryInfo, ptrQuery, true);
+                //出参
+                int iRetSize = Marshal.SizeOf(typeof(NVS_FILE_DATA));
+                NVS_FILE_DATA[] tResult = new NVS_FILE_DATA[MAX_PAGESIZE];//注：此处数组大小要与每页查询总数(m_tQueryInfo.iPageSize)一致
+                for (int i = 0; i < MAX_PAGESIZE; i++)
+                {
+                    tResult[i] = new NVS_FILE_DATA();
+                }
+                IntPtr ptrResult = Marshal.AllocHGlobal(iQuerySize * MAX_PAGESIZE);
 
-            //查询
-            int iRet = NVSSDK.NetClient_Query_V5(m_iLogonId, NetSDKCmd.CMD_NETFILE_QUERY_FILE, m_tQueryInfo.iChannNo, ptrQuery, iQuerySize, ptrResult, iQuerySize);
-            Marshal.FreeHGlobal(ptrQuery);
-            if (iRet < 0)
-            {
+                //查询
+                int iRet = NVSSDK.NetClient_Query_V5(m_iLogonId, NetSDKCmd.CMD_NETFILE_QUERY_FILE, m_tQueryInfo.iChannNo, ptrQuery, iQuerySize, ptrResult, iQuerySize);
+                Marshal.FreeHGlobal(ptrQuery);
+                if (iRet < 0)
+                {
+                    Marshal.FreeHGlobal(ptrResult);
+                    MessageBoxShow("Query file failed, ret=" + iRet);
+                    return;
+                }
+
+                //获取总数,更新列表
+                m_iCurrentPage = _iPageNo;
+                lvFileData.Items.Clear();
+                int iTotalCount = 0, iCurCount = 0;
+                NVSSDK.NetClient_NetFileGetFileCount(m_iLogonId, ref iTotalCount, ref iCurCount);
+
+                lableFileCount.Text = "Total File :" + iTotalCount;
+                for (int i = 0; i < MAX_PAGESIZE && i < iCurCount; i++)
+                {
+                    //UInt32 uintPtrResult = (UInt32)ptrResult;
+                    //var ptr0 = uintPtrResult + i * iQuerySize;
+                    var ptr0 = ptrResult.ToInt64() + i * iQuerySize;
+                    IntPtr ptr = (IntPtr)(ptr0);
+                    tResult[i] = (NVS_FILE_DATA)Marshal.PtrToStructure(ptr, typeof(NVS_FILE_DATA));
+                    UI_UpdataList(tResult[i], i);
+                }
                 Marshal.FreeHGlobal(ptrResult);
-                MessageBoxShow("Query file failed, ret=" + iRet);
-                return;
+
+
+                //计算总页数
+                m_iTotalPage = iTotalCount / MAX_PAGESIZE;
+                if (0 != iTotalCount % MAX_PAGESIZE && iTotalCount > 0)
+                {
+                    m_iTotalPage++;
+                }
+
+                cboTotolPage.Items.Clear();
+                for (int i = 0; i < m_iTotalPage; i++)
+                {
+                    cboTotolPage.Items.Add((i + 1).ToString());
+                }
+                if (cboTotolPage.Items.Count > 0)
+                {
+                    cboTotolPage.SelectedIndex = m_iCurrentPage;
+                }
             }
-
-            //获取总数,更新列表
-            m_iCurrentPage = _iPageNo;
-            lvFileData.Items.Clear();
-            int iTotalCount = 0, iCurCount = 0;           
-            NVSSDK.NetClient_NetFileGetFileCount(m_iLogonId, ref iTotalCount, ref iCurCount);
-
-            lableFileCount.Text = "Total File :" + iTotalCount;
-            for (int i = 0; i < MAX_PAGESIZE && i < iCurCount; i++)
+            catch (Exception ex)
             {
-                IntPtr ptr = (IntPtr)((UInt32)ptrResult + i * iQuerySize);
-                tResult[i] = (NVS_FILE_DATA)Marshal.PtrToStructure(ptr, typeof(NVS_FILE_DATA));
-                UI_UpdataList(tResult[i], i);
-            }
-            Marshal.FreeHGlobal(ptrResult);
-
-
-            //计算总页数
-            m_iTotalPage = iTotalCount / MAX_PAGESIZE;
-            if (0 != iTotalCount % MAX_PAGESIZE && iTotalCount > 0)
-            {
-                m_iTotalPage++;
+                MessageBox.Show("QueryFile Exception:"+ex);
             }
             
-            cboTotolPage.Items.Clear();
-            for (int i = 0; i < m_iTotalPage; i++)
-            {
-                cboTotolPage.Items.Add((i + 1).ToString());
-            }
-            if (cboTotolPage.Items.Count > 0)
-            {
-                cboTotolPage.SelectedIndex = m_iCurrentPage;
-            }
         }
 
         //查询按钮

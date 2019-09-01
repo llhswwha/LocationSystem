@@ -111,11 +111,6 @@ namespace LocationDaemon
                 {
                     logDir = ConfigurationHelper.GetValue("logDir");
                     keepDay = ConfigurationHelper.GetIntValue("logKeepDay");
-                    if (!logDir.Contains("\\") && !logDir.Contains("/"))//相对路径，只写了启动程序名的
-                    {
-                        logDir = AppDomain.CurrentDomain.BaseDirectory + logDir;
-                    }
-
                     DirectoryInfo dir = new DirectoryInfo(logDir);
 
                     WriteLog("日志文件夹:" + dir.FullName);

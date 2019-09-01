@@ -1,0 +1,21 @@
+﻿<Window x:Class="LocationDaemon.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationDaemon"
+        mc:Ignorable="d"
+        Title="守护进程" Height="350" Width="525" Loaded="Window_Loaded">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="配置" Name="MenuSetting" Click="MenuSetting_OnClick"></MenuItem>
+        </Menu>
+        <ScrollViewer DockPanel.Dock="Bottom" Height="100">
+            <TextBox Name="TxtLog2" TextWrapping="Wrap"></TextBox>
+        </ScrollViewer>
+        <ScrollViewer>
+            <TextBox Name="TxtLog" TextWrapping="Wrap"></TextBox>
+        </ScrollViewer>
+        
+    </DockPanel>
+</Window>

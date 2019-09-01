@@ -149,7 +149,7 @@ namespace NVSPlayer.SDK
 
         public static string GetHlsUrl(string rtmpIp, string fileName)
         {
-            return string.Format("http://{0}:9090/live/download/{1}", rtmpIp, fileName);
+            return string.Format("http://{0}:9099/live/download/{1}", rtmpIp, fileName);
         }
 
         public int m_iDLTimeId;

@@ -268,7 +268,7 @@ namespace LocationServices.Locations.Services
                     catch (Exception ex1)
                     {
                         Log.Error(tag, "GetHistoryByPerson1 error:" + ex1);
-                        throw;
+                        Thread.Sleep(200);
                     }
                 }
                 if(result!=null)

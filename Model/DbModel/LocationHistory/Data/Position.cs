@@ -498,11 +498,18 @@ namespace DbModel.LocationHistory.Data
                 //有些json数据能够简单的处理一下
                 if(msg.Contains("Additional text encountered after finished reading JSON content"))
                 {
+                    //"}]}]}
                     if (json.EndsWith("\"}]}}"))
                     {
                         json = json.Substring(0, json.Length - 1);
                         LogEvent.Info("ParseJson", "调整json数据: - }");
                         return ParseJson(json, offsetX, offsetY,false);
+                    }
+                    else if (json.EndsWith("\"}]}]}"))
+                    {
+                        json = json.Substring(0, json.Length - 2);
+                        LogEvent.Info("ParseJson", "调整json数据: - }");
+                        return ParseJson(json, offsetX, offsetY, false);
                     }
                     else
                     {

@@ -232,12 +232,12 @@ namespace BLL
 
                 if (pos.IsAreaNull())
                 {
-                    Log.Info("pos.IsAreaNull()");
+                    Log.Info("SetArea", "pos.IsAreaNull() : " + pos.Code + "," + pos.X + "," + pos.Y + "," + pos.Z);
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("TagRelationBuffer.SetArea", ex);
+                Log.Error("SetArea", ex);
             }
 
             return pos.AreaId;

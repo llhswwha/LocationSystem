@@ -42,108 +42,162 @@ namespace LocationServices.Locations
         //[OperationContract]
         public List<Personnel> GetPersonList(bool isFilterByTag)
         {
-            ShowLogEx(">>>>> GetPersonList");
-            var list = db.Personnels.ToList();
-            if (list == null) return null;
-            var tagToPersons = db.LocationCardToPersonnels.ToList();
-            var postList = db.Posts.ToList();//职位
-            var tagList = db.LocationCards.ToList();//关联标签
-            var departList = db.Departments.ToList();//部门
-            var cardpositionList = db.LocationCardPositions.ToList();//卡位置
-            var areaList = db.Areas.ToList();//区域
-            var ps = list.ToTModel();
-            var ps2 = new List<Personnel>();
-            foreach (var p in ps)
+            try
             {
-                var ttp = tagToPersons.Find(i => i.PersonnelId == p.Id);
-                if (ttp != null)
+                ShowLogEx(">>>>> GetPersonList");
+                var list = db.Personnels.ToList();
+                if (list == null) return null;
+                var tagToPersons = db.LocationCardToPersonnels.ToList();
+                var postList = db.Posts.ToList();//职位
+                var tagList = db.LocationCards.ToList();//关联标签
+                var departList = db.Departments.ToList();//部门
+                var cardpositionList = db.LocationCardPositions.ToList();//卡位置
+                var areaList = db.Areas.ToList();//区域
+                var ps = list.ToTModel();
+                var ps2 = new List<Personnel>();
+                foreach (var p in ps)
                 {
-                    p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
-                    p.TagId = ttp.LocationCardId;
-                    var lcp = cardpositionList.Find(i => i.CardId == p.TagId);
-                    if (lcp != null && lcp.AreaId != null)
+                    var ttp = tagToPersons.Find(i => i.PersonnelId == p.Id);
+                    if (ttp != null)
                     {
-                        p.AreaId = lcp.AreaId;
-                        var area = areaList.Find(i => i.Id == p.AreaId);
-                        if (area != null)
+                        p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
+                        p.TagId = ttp.LocationCardId;
+                        var lcp = cardpositionList.Find(i => i.CardId == p.TagId);
+                        if (lcp != null && lcp.AreaId != null)
                         {
-                            p.AreaName = area.Name;
+                            p.AreaId = lcp.AreaId;
+                            var area = areaList.Find(i => i.Id == p.AreaId);
+                            if (area != null)
+                            {
+                                p.AreaName = area.Name;
+                            }
                         }
-                    }
-                    ps2.Add(p);
-                }
-                else
-                {
-                    if (!isFilterByTag)//如果不过滤的话，显示全部人员列表；过滤的话，只返回有绑定标签的人员列表
                         ps2.Add(p);
+                    }
+                    else
+                    {
+                        if (!isFilterByTag)//如果不过滤的话，显示全部人员列表；过滤的话，只返回有绑定标签的人员列表
+                            ps2.Add(p);
+                    }
+                    //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
+                    p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
                 }
-                //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
-                p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
+                return ps2.ToWCFList();
             }
-            return ps2.ToWCFList();
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return null;
+            }
+            
         }
 
         public List<Personnel> FindPersonList(string name)
         {
-            return db.Personnels.GetListByName(name).ToWcfModelList();
+            try
+            {
+                return db.Personnels.GetListByName(name).ToWcfModelList();
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return null;
+            }
+            
         }
 
         public Personnel GetPerson(int id)
         {
-            ShowLogEx(">>>>> GetPerson id=" + id);
-            var person = db.Personnels.Find(id);
-            //if (person.Parent == null && person.ParentId!=null)
-            //{
-            //    person.Parent = db.Departments.Find(person.ParentId);
-            //}
-
-            var tPerson = person.ToTModel();
-
-            DbModel.Location.Relation.LocationCardToPersonnel locationCardToPersonnel = db.LocationCardToPersonnels.Find((i) => i.PersonnelId == id);
-            if (locationCardToPersonnel != null)
+            try
             {
-                tPerson.TagId = locationCardToPersonnel.LocationCardId;
-            }
-            var tagT = db.LocationCards.Find(tPerson.TagId);
-            tPerson.Tag = tagT.ToTModel();
+                ShowLogEx(">>>>> GetPerson id=" + id);
+                var person = db.Personnels.Find(id);
+                //if (person.Parent == null && person.ParentId!=null)
+                //{
+                //    person.Parent = db.Departments.Find(person.ParentId);
+                //}
 
-            if (person.Parent == null && person.ParentId != null)
-            {
-                var parent = db.Departments.Find(person.ParentId);
-                tPerson.Parent = parent.ToTModel();
+                var tPerson = person.ToTModel();
+
+                DbModel.Location.Relation.LocationCardToPersonnel locationCardToPersonnel = db.LocationCardToPersonnels.Find((i) => i.PersonnelId == id);
+                if (locationCardToPersonnel != null)
+                {
+                    tPerson.TagId = locationCardToPersonnel.LocationCardId;
+                }
+                var tagT = db.LocationCards.Find(tPerson.TagId);
+                tPerson.Tag = tagT.ToTModel();
+
+                if (person.Parent == null && person.ParentId != null)
+                {
+                    var parent = db.Departments.Find(person.ParentId);
+                    tPerson.Parent = parent.ToTModel(true);//这里必须加上true，不然会导致死循环崩溃的，这种崩溃连日志都没有
+                }
+                return tPerson;
             }
-            return tPerson;
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return null;
+            }
+
         }
 
         public int AddPerson(Personnel p)
         {
-            var dbP = p.ToDbModel();
-            bool r = db.Personnels.Add(dbP);
-            if (r == false)
+            try
             {
+                var dbP = p.ToDbModel();
+                bool r = db.Personnels.Add(dbP);
+                if (r == false)
+                {
+                    return -1;
+                }
+                else
+                {
+                    if (p.TagId != null)//如果新增的人，设置了定位卡ID。得把关系添加到cardToPersonnel
+                    {
+                        var s = new PersonService(db);
+                        var value = s.BindWithTag(dbP.Id, (int)p.TagId);
+                    }
+                }
+                return dbP.Id;
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
                 return -1;
             }
-            else
-            {
-                if(p.TagId!=null)//如果新增的人，设置了定位卡ID。得把关系添加到cardToPersonnel
-                {
-                    var s = new PersonService(db);
-                    var value = s.BindWithTag(dbP.Id, (int)p.TagId);
-                }                
-            }
-            return dbP.Id;
+           
         }
 
         public bool EditPerson(Personnel p)
         {
-            var s = new PersonService(db);
-            var r = s.BindWithTag(p.Id, (p.TagId == null ? 0 : (int)p.TagId));//修改人员和卡的关联关系
-            return db.Personnels.Edit(p.ToDbModel());
+            try
+            {
+                var s = new PersonService(db);
+                var r = s.BindWithTag(p.Id, (p.TagId == null ? 0 : (int)p.TagId));//修改人员和卡的关联关系
+                return db.Personnels.Edit(p.ToDbModel());
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return false;
+            }
+            
         }
 
         public bool DeletePerson(int id)
         {
-            return db.Personnels.DeleteById(id) != null;
+            try
+            {
+                return db.Personnels.DeleteById(id) != null;
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return false;
+            }
+            
         }
 
         #endregion
