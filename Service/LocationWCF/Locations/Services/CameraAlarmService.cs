@@ -77,9 +77,9 @@ namespace LocationServices.Locations.Services
                         //
                         //cameraAlarmInfo.data = null;
 
-                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson,cameraDict,devs);
+                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson, cameraDict, devs);
                         //string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
-                                                
+
                         list3.Add(cameraAlarmInfo);
                     }
 
@@ -92,7 +92,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception e)
             {
-                Log.Error("GetAllCameraAlarms", e.ToString());
+                Log.Error(LogTags.ExtremeVision, "GetAllCameraAlarms", e.ToString());
                 return null;
             }
         }
@@ -124,7 +124,7 @@ namespace LocationServices.Locations.Services
                 }
             }
 
-            
+
         }
 
         public void RemoveAlarmsOutOfDate(int keepDay)
@@ -137,9 +137,9 @@ namespace LocationServices.Locations.Services
                     Log.Error(LogTags.ExtremeVision, "list == null");
                     return;
                 }
-                Log.Info(LogTags.ExtremeVision, string.Format("当前告警数量:{0},存储周期:{1}天", list.Count,keepDay));
+                Log.Info(LogTags.ExtremeVision, string.Format("当前告警数量:{0},存储周期:{1}天", list.Count, keepDay));
                 DateTime now = DateTime.Now;
-                var listRemove = list.Where(i => (now-i.time).TotalDays > keepDay).ToList();
+                var listRemove = list.Where(i => (now - i.time).TotalDays > keepDay).ToList();
                 if (listRemove.Count > 0)
                 {
                     Log.Info(LogTags.ExtremeVision, "remove count:" + listRemove.Count);
@@ -153,11 +153,11 @@ namespace LocationServices.Locations.Services
                 {
                     Log.Info(LogTags.ExtremeVision, "无过时告警");
                 }
-                
+
             }
             catch (Exception ex)
             {
-                Log.Error(LogTags.ExtremeVision, ex);
+                Log.Error(LogTags.ExtremeVision, "RemoveAlarmsOutOfDate", ex.ToString());
             }
 
         }
@@ -168,7 +168,7 @@ namespace LocationServices.Locations.Services
             {
                 if (item == null) return false;
                 Log.Info(LogTags.ExtremeVision, "RemoveAlarm:" + item.pic_name);
-                var entity=db.CameraAlarmJsons.DeleteById(item.id);
+                var entity = db.CameraAlarmJsons.DeleteById(item.id);
                 var picName = item.pic_name;
                 Picture pic = db.Pictures.Find(i => i.Name == picName);
                 if (pic != null)
@@ -176,7 +176,7 @@ namespace LocationServices.Locations.Services
                     db.Pictures.Remove(pic);
                 }
 
-                if (AppSetting.DeleteAlarmKeepPictureFile==false)
+                if (AppSetting.DeleteAlarmKeepPictureFile == false)
                 {
                     FileInfo file = GetPictureFile(picName);
                     if (file != null)
@@ -189,7 +189,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex)
             {
-                Log.Error(LogTags.ExtremeVision, ex);
+                Log.Error(LogTags.ExtremeVision, "RemoveAlarm", ex.ToString());
                 return false;
             }
 
@@ -197,33 +197,41 @@ namespace LocationServices.Locations.Services
 
         private CameraAlarmInfo GetCamaraAlarmInfo(CameraAlarmJson camera, Dictionary<string, Dev_CameraInfo> cameraDict, Dictionary<int, DevInfo> devs)
         {
-            byte[] byte1 = camera.Json;
-            string json = Encoding.UTF8.GetString(byte1);
-            CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-            cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
-            cameraAlarmInfo.pic_data = "";//在详情的地方获取
-            cameraAlarmInfo.data = null;
-            cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
-           
-
-            string ip = GetCameraIp(cameraAlarmInfo.cid_url);
-            cameraAlarmInfo.DevIp = ip;
-
-            if (cameraDict.ContainsKey(ip))
+            try
             {
-                var camerainfo = cameraDict[ip];
-                if (devs.ContainsKey(camerainfo.DevInfoId))
+                byte[] byte1 = camera.Json;
+                string json = Encoding.UTF8.GetString(byte1);
+                CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
+                cameraAlarmInfo.pic_data = "";//在详情的地方获取
+                cameraAlarmInfo.data = null;
+                cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
+
+
+                string ip = GetCameraIp(cameraAlarmInfo.cid_url);
+                cameraAlarmInfo.DevIp = ip;
+
+                if (cameraDict.ContainsKey(ip))
                 {
-                    cameraAlarmInfo.DevName = devs[camerainfo.DevInfoId].Name;
-                    cameraAlarmInfo.DevID = camerainfo.DevInfoId;
+                    var camerainfo = cameraDict[ip];
+                    if (devs.ContainsKey(camerainfo.DevInfoId))
+                    {
+                        cameraAlarmInfo.DevName = devs[camerainfo.DevInfoId].Name;
+                        cameraAlarmInfo.DevID = camerainfo.DevInfoId;
+                    }
                 }
+                else
+                {
+
+                }
+
+                return cameraAlarmInfo;
             }
-            else
+            catch (System.Exception ex)
             {
-
+                Log.Error(LogTags.ExtremeVision, "GetCamaraAlarmInfo", ex.ToString());
+                return null;
             }
-
-            return cameraAlarmInfo;
         }
 
         /// <summary>
@@ -233,106 +241,128 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge)
         {
-            List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
-            List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
-
-            List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
-            Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
-
-            var devs = db.DevInfos.ToDictionary();
-
-            foreach (Dev_CameraInfo camerainfo in cameras)
+            try
             {
-                if (devs.ContainsKey(camerainfo.DevInfoId))
-                {
-                    camerainfo.DevInfo = devs[camerainfo.DevInfoId];
-                }
+                List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
+                List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
 
-                if (cameraDict.ContainsKey(camerainfo.Ip))
+                List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
+                Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
+
+                var devs = db.DevInfos.ToDictionary();
+
+                foreach (Dev_CameraInfo camerainfo in cameras)
                 {
-                    var cameraOld = cameraDict[camerainfo.Ip];
-                    cameraDict[camerainfo.Ip] = camerainfo;
+                    if (devs.ContainsKey(camerainfo.DevInfoId))
+                    {
+                        camerainfo.DevInfo = devs[camerainfo.DevInfoId];
+                    }
+
+                    if (cameraDict.ContainsKey(camerainfo.Ip))
+                    {
+                        var cameraOld = cameraDict[camerainfo.Ip];
+                        cameraDict[camerainfo.Ip] = camerainfo;
+                    }
+                    else
+                    {
+                        cameraDict.Add(camerainfo.Ip, camerainfo);
+                    }
                 }
-                else
+                //todo:list2=>list3
+                if (list2 != null)
+                    foreach (CameraAlarmJson camera in list2)
+                    {
+                        //byte[] byte1 = camera.Json;
+                        //string json = Encoding.UTF8.GetString(byte1);
+                        //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                        //if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
+                        //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
+                        //cameraAlarmInfo.pic_data = "";//在详情的地方获取
+                        //cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
+                        //cameraAlarmInfo.data = null;
+
+                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera, cameraDict, devs);
+                        if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
+                        list3.Add(cameraAlarmInfo);
+                    }
+
+                list3.Sort();//按时间排序
+                if (merge) //默认传true
                 {
-                    cameraDict.Add(camerainfo.Ip, camerainfo);
+                    list3 = MergeAlarms(list3);//合并相同的告警
                 }
+                return list3.ToWCFList();
             }
-            //todo:list2=>list3
-            if (list2 != null)
-                foreach (CameraAlarmJson camera in list2)
-                {
-                    //byte[] byte1 = camera.Json;
-                    //string json = Encoding.UTF8.GetString(byte1);
-                    //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-                    //if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
-                    //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
-                    //cameraAlarmInfo.pic_data = "";//在详情的地方获取
-                    //cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
-                    //cameraAlarmInfo.data = null;
-
-                    CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera,cameraDict,devs);
-                    if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
-                    list3.Add(cameraAlarmInfo);
-                }
-
-            list3.Sort();//按时间排序
-            if (merge) //默认传true
+            catch (System.Exception ex)
             {
-                list3 = MergeAlarms(list3);//合并相同的告警
+                Log.Error(LogTags.ExtremeVision, "GetCameraAlarms", ex.ToString());
+                return null;
             }
-            return list3.ToWCFList();
         }
 
         public void LoadAlarmFromJson()
         {
-            var list2 = GetAllCameraAlarms(false);
-            Dictionary<string, CameraAlarmInfo> dict = new Dictionary<string, CameraAlarmInfo>();
-            foreach (var item in list2)
+            try
             {
-                string picName = item.pic_name;
-                //picName = picName.Replace(".jpg", "");
-                if (dict.ContainsKey(picName))
+                var list2 = GetAllCameraAlarms(false);
+                Dictionary<string, CameraAlarmInfo> dict = new Dictionary<string, CameraAlarmInfo>();
+                foreach (var item in list2)
                 {
-                    var itemOld = dict[picName];
-                    dict[picName] = item;
+                    string picName = item.pic_name;
+                    //picName = picName.Replace(".jpg", "");
+                    if (dict.ContainsKey(picName))
+                    {
+                        var itemOld = dict[picName];
+                        dict[picName] = item;
+                    }
+                    else
+                    {
+                        dict.Add(picName, item);
+                    }
                 }
-                else
+
+                DirectoryInfo dir = CameraAlarmService.GetJsonDir();
+
+                FileInfo[] files = dir.GetFiles();
+
+                int count = 0;
+                foreach (var item in files)
                 {
-                    dict.Add(picName, item);
+                    string json = File.ReadAllText(item.FullName);
+                    CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                    if (dict.ContainsKey(cameraAlarmInfo.pic_name))//已经存在了
+                    {
+
+                    }
+                    else
+                    {
+                        Log.Info(LogTags.ExtremeVision, "添加到数据库:" + cameraAlarmInfo.pic_name);
+                        SaveToCameraAlarmJson(json);//保存到数据库中
+                        count++;
+                    }
                 }
+
+                Log.Info(LogTags.ExtremeVision, "LoadAlarmFromJson count:" + count);
             }
-
-            DirectoryInfo dir = CameraAlarmService.GetJsonDir();
-
-            FileInfo[] files = dir.GetFiles();
-
-            int count = 0;
-            foreach (var item in files)
+            catch (System.Exception ex)
             {
-                string json = File.ReadAllText(item.FullName);
-                CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-                if (dict.ContainsKey(cameraAlarmInfo.pic_name))//已经存在了
-                {
-
-                }
-                else
-                {
-                    Log.Info(LogTags.ExtremeVision, "添加到数据库:" + cameraAlarmInfo.pic_name);
-                    SaveToCameraAlarmJson(json);//保存到数据库中
-                    count++;
-                }
+                Log.Error(LogTags.ExtremeVision, "LoadAlarmFromJson", ex.ToString());
             }
-
-            Log.Info(LogTags.ExtremeVision, "LoadAlarmFromJson count:" + count);
         }
 
         public void AlarmSaveToJsonAll()
         {
-            List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
-            foreach (var item in list2)
+            try
             {
-                AlarmSaveToJson(item);
+                List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
+                foreach (var item in list2)
+                {
+                    AlarmSaveToJson(item);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision, "AlarmSaveToJsonAll", ex.ToString());
             }
         }
 
@@ -343,15 +373,23 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public CameraAlarmInfo GetCameraAlarmDetail(int id)
         {
-            CameraAlarmJson camera = db.CameraAlarmJsons.Find(id);
-            if (camera == null) return null;
-            byte[] byte1 = camera.Json;
-            string json = Encoding.UTF8.GetString(byte1);
-            CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-            cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
-            cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
-            GetCameraAlarmPicture(cameraAlarmInfo);
-            return cameraAlarmInfo;
+            try
+            {
+                CameraAlarmJson camera = db.CameraAlarmJsons.Find(id);
+                if (camera == null) return null;
+                byte[] byte1 = camera.Json;
+                string json = Encoding.UTF8.GetString(byte1);
+                CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
+                cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
+                GetCameraAlarmPicture(cameraAlarmInfo);
+                return cameraAlarmInfo;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision, "GetCameraAlarmDetail", ex.ToString());
+                return null;
+            }
         }
 
         //public Picture GetCameraAlarmPicture(int id)
@@ -366,42 +404,57 @@ namespace LocationServices.Locations.Services
 
         public void GetCameraAlarmPicture(CameraAlarmInfo cameraAlarmInfo)
         {
-            if (cameraAlarmInfo == null) return;
-
-            if (AppSetting.CameraAlarmPicSaveMode == 0)
+            try
             {
-                bool r = GetCameraAlarmPictureFromDb(cameraAlarmInfo);
-                if (r == false)
+                if (cameraAlarmInfo == null) return;
+
+                if (AppSetting.CameraAlarmPicSaveMode == 0)
                 {
-                    Log.Info(LogTags.ExtremeVision,string.Format("Mode={0};Name={1}. GetCameraAlarmPictureFromDb Fail,Try GetCameraAlarmPictureFromFile...", AppSetting.CameraAlarmPicSaveMode,cameraAlarmInfo.pic_name));
-                    GetCameraAlarmPictureFromFile(cameraAlarmInfo);
+                    bool r = GetCameraAlarmPictureFromDb(cameraAlarmInfo);
+                    if (r == false)
+                    {
+                        Log.Info(LogTags.ExtremeVision, string.Format("Mode={0};Name={1}. GetCameraAlarmPictureFromDb Fail,Try GetCameraAlarmPictureFromFile...", AppSetting.CameraAlarmPicSaveMode, cameraAlarmInfo.pic_name));
+                        GetCameraAlarmPictureFromFile(cameraAlarmInfo);
+                    }
+                }
+                else if (AppSetting.CameraAlarmPicSaveMode == 1)
+                {
+                    bool r = GetCameraAlarmPictureFromFile(cameraAlarmInfo);
+                    if (r == false)
+                    {
+                        Log.Info(LogTags.ExtremeVision, string.Format("Mode={0};Name={1}. GetCameraAlarmPictureFromFile Fail,Try GetCameraAlarmPictureFromDb...", AppSetting.CameraAlarmPicSaveMode, cameraAlarmInfo.pic_name));
+                        GetCameraAlarmPictureFromDb(cameraAlarmInfo);
+                    }
                 }
             }
-            else if (AppSetting.CameraAlarmPicSaveMode == 1)
+            catch (System.Exception ex)
             {
-                bool r = GetCameraAlarmPictureFromFile(cameraAlarmInfo);
-                if (r == false)
-                {
-                    Log.Info(LogTags.ExtremeVision, string.Format("Mode={0};Name={1}. GetCameraAlarmPictureFromFile Fail,Try GetCameraAlarmPictureFromDb...", AppSetting.CameraAlarmPicSaveMode, cameraAlarmInfo.pic_name));
-                    GetCameraAlarmPictureFromDb(cameraAlarmInfo);
-                }
+                Log.Error(LogTags.ExtremeVision, "GetCameraAlarmPicture", ex.ToString());
             }
         }
 
         private static bool GetCameraAlarmPictureFromFile(CameraAlarmInfo cameraAlarmInfo)
         {
-            FileInfo file = GetPictureFile(cameraAlarmInfo.pic_name);
-            if (file != null)
+            try
             {
-                byte[] imageBytes = File.ReadAllBytes(file.FullName);
-                string base64 = Convert.ToBase64String(imageBytes);
-                cameraAlarmInfo.pic_data = base64;
-                //byte[] base64Bytes = Encoding.UTF8.GetBytes(base64);
-                //pic.Info = base64Bytes;
-                return true;
+                FileInfo file = GetPictureFile(cameraAlarmInfo.pic_name);
+                if (file != null)
+                {
+                    byte[] imageBytes = File.ReadAllBytes(file.FullName);
+                    string base64 = Convert.ToBase64String(imageBytes);
+                    cameraAlarmInfo.pic_data = base64;
+                    //byte[] base64Bytes = Encoding.UTF8.GetBytes(base64);
+                    //pic.Info = base64Bytes;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (System.Exception ex)
             {
+                Log.Error(LogTags.ExtremeVision, "GetCameraAlarmPictureFromFile", ex.ToString());
                 return false;
             }
         }
@@ -409,20 +462,28 @@ namespace LocationServices.Locations.Services
 
         public static FileInfo GetPictureFile(string fileName)
         {
-            string picName = fileName;
-            string dir = AppSetting.CameraAlarmPicSaveDir;
-            DirectoryInfo dirInfo = new DirectoryInfo(dir);
-            if (dirInfo.Exists)
+            try
             {
-                FileInfo[] files = dirInfo.GetFiles(picName);
-                if (files.Length > 0)
+                string picName = fileName;
+                string dir = AppSetting.CameraAlarmPicSaveDir;
+                DirectoryInfo dirInfo = new DirectoryInfo(dir);
+                if (dirInfo.Exists)
                 {
-                    FileInfo file = files[0];
-                    return file;
-                }
+                    FileInfo[] files = dirInfo.GetFiles(picName);
+                    if (files.Length > 0)
+                    {
+                        FileInfo file = files[0];
+                        return file;
+                    }
 
+                }
+                return null;
             }
-            return null;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision, "GetPictureFile", ex.ToString());
+                return null;
+            }
         }
         public FileInfo[] GetAllPictureFiles()
         {
@@ -491,7 +552,7 @@ namespace LocationServices.Locations.Services
         //    return pic;
         //}
 
-       public static DirectoryInfo GetJsonDir()
+        public static DirectoryInfo GetJsonDir()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\CameraAlarms\\";
             DirectoryInfo dir = new DirectoryInfo(path);
@@ -506,17 +567,17 @@ namespace LocationServices.Locations.Services
         {
             DateTime now = DateTime.Now;
 
-            return GetJsonFile(now,"_raw");
+            return GetJsonFile(now, "_raw");
         }
 
-        public static FileInfo GetJsonFile(DateTime now,string raw="")
+        public static FileInfo GetJsonFile(DateTime now, string raw = "")
         {
-            string path = GetJsonDir().FullName + now.ToString("yyyy_MM_dd_HH_mm_ss_fff")+ raw + ".json";//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
+            string path = GetJsonDir().FullName + now.ToString("yyyy_MM_dd_HH_mm_ss_fff") + raw + ".json";//yyyy_mm_dd_HH_MM_ss_fff=>yyyy_MM_dd_HH_mm_ss_fff
             FileInfo fi = new FileInfo(path);
             return fi;
         }
 
-        public string ParseJson(string json,int mode)
+        public string ParseJson(string json, int mode)
         {
             try
             {
@@ -565,7 +626,7 @@ namespace LocationServices.Locations.Services
                 Log.Error(LogTags.ExtremeVision, "Error:" + ex);
                 return "Error:" + ex.Message;
             }
-            
+
         }
 
         private bool SaveToCameraAlarmJson(string json)
@@ -595,50 +656,59 @@ namespace LocationServices.Locations.Services
         private List<CameraAlarmInfo> MergeAlarms(List<CameraAlarmInfo> input)
         {
 
-            Dictionary<string, List<CameraAlarmInfo>> dict = new Dictionary<string, List<CameraAlarmInfo>>();
-            foreach (CameraAlarmInfo info in input)
+            try
             {
-                string key = info.cid + info.cid_url;//用aid和ip作为键值
-                if (!dict.ContainsKey(key))
+                Dictionary<string, List<CameraAlarmInfo>> dict = new Dictionary<string, List<CameraAlarmInfo>>();
+                foreach (CameraAlarmInfo info in input)
                 {
-                    dict.Add(key, new List<CameraAlarmInfo>());
-                }
-                List<CameraAlarmInfo> list = dict[key];
-                list.Add(info);
-            }
-
-            List<CameraAlarmInfo> output = new List<CameraAlarmInfo>();
-            int mergeInterval = 35;//合并时间间隔
-            foreach (string key in dict.Keys)
-            {
-                var list = dict[key];
-                List<TimeSpan> timeSpane = new List<TimeSpan>();
-                CameraAlarmInfo startInfo = null;
-                for (int i = 0; i < list.Count - 1; i++)//一个摄像机上的相同告警，火警和安全帽是分开的
-                {
-                    if (startInfo == null)
+                    string key = info.cid + info.cid_url;//用aid和ip作为键值
+                    if (!dict.ContainsKey(key))
                     {
-                        startInfo = list[i];
+                        dict.Add(key, new List<CameraAlarmInfo>());
                     }
-
-                    TimeSpan t = list[i + 1].time - list[i].time;
-                    timeSpane.Add(t);
-                    if (t.TotalSeconds < mergeInterval)
-                    {
-                        list[i + 1].startInfo = startInfo;
-                        list.RemoveAt(i);
-                        i--;
-                    }
-                    else
-                    {
-                        output.Add(list[i]);
-                        startInfo = null;
-                    }
+                    List<CameraAlarmInfo> list = dict[key];
+                    list.Add(info);
                 }
 
-                output.Add(list[list.Count - 1]);
+                List<CameraAlarmInfo> output = new List<CameraAlarmInfo>();
+                int mergeInterval = 35;//合并时间间隔
+                foreach (string key in dict.Keys)
+                {
+                    var list = dict[key];
+                    List<TimeSpan> timeSpane = new List<TimeSpan>();
+                    CameraAlarmInfo startInfo = null;
+                    for (int i = 0; i < list.Count - 1; i++)//一个摄像机上的相同告警，火警和安全帽是分开的
+                    {
+                        if (startInfo == null)
+                        {
+                            startInfo = list[i];
+                        }
+
+                        TimeSpan t = list[i + 1].time - list[i].time;
+                        timeSpane.Add(t);
+                        if (t.TotalSeconds < mergeInterval)
+                        {
+                            list[i + 1].startInfo = startInfo;
+                            list.RemoveAt(i);
+                            i--;
+                        }
+                        else
+                        {
+                            output.Add(list[i]);
+                            startInfo = null;
+                        }
+                    }
+
+                    output.Add(list[list.Count - 1]);
+                }
+                return output;
             }
-            return output;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision, "GetPictureFile", ex.ToString());
+                return null;
+            }
+;
         }
 
 
@@ -664,7 +734,7 @@ namespace LocationServices.Locations.Services
         /// 保存Json到文件中，同时从告警表分离到图片表或者文件中
         /// </summary>
         /// <param name="callBack"></param>
-        public void SeparateImages(Action callBack,int mode,int progressBagCount=5)
+        public void SeparateImages(Action callBack, int mode, int progressBagCount = 5)
         {
             Log.Info(LogTags.ExtremeVision, "开始 保存Json到文件中，同时从告警表分离到图片表或者文件中");
             Worker.Run(() =>
@@ -692,9 +762,9 @@ namespace LocationServices.Locations.Services
                                 {
                                     Log.Info(LogTags.ExtremeVision, string.Format("进度:{0}/{1}", i1, list2.Count));
                                 }
-                                
+
                                 CameraAlarmJson camera = list2[i1];
-                                SavePicture(camera, bll,mode);
+                                SavePicture(camera, bll, mode);
                             }
                         }
                         else
@@ -714,7 +784,7 @@ namespace LocationServices.Locations.Services
                                     continue;
                                 }
 
-                                SavePicture(camera, bll,mode);
+                                SavePicture(camera, bll, mode);
                             }
                         }
                         Log.Info(LogTags.ExtremeVision, "完成");
@@ -826,7 +896,7 @@ namespace LocationServices.Locations.Services
                 }
                 catch (Exception ex2)
                 {
-                    Log.Error(LogTags.ExtremeVision,ex2.Message);
+                    Log.Error(LogTags.ExtremeVision, ex2.Message);
                 }
 
             }, () =>
@@ -838,7 +908,7 @@ namespace LocationServices.Locations.Services
             });
         }
 
-        private static void Base64SaveToFile(string picName,string base64)
+        private static void Base64SaveToFile(string picName, string base64)
         {
             string dir = AppSetting.CameraAlarmPicSaveDir;
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
@@ -864,7 +934,7 @@ namespace LocationServices.Locations.Services
             Base64SaveToFile(pic.Name, base64);
         }
 
-        private void SavePicture(CameraAlarmJson camera, Bll bll,int mode)
+        private void SavePicture(CameraAlarmJson camera, Bll bll, int mode)
         {
             byte[] byte1 = camera.Json;
             string json = Encoding.UTF8.GetString(byte1);
@@ -892,7 +962,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        private void SaveJsonToFile(long timeStamp,string json)
+        private void SaveJsonToFile(long timeStamp, string json)
         {
             DateTime now = GetDataTime(timeStamp);
             FileInfo fi = CameraAlarmService.GetJsonFile(now);

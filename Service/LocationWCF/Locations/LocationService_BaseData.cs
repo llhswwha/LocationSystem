@@ -37,31 +37,47 @@ namespace LocationServices.Locations
             {
                 var url = AppContext.DatacaseWebApiUrl;
                 //return new BaseDataClient("localhost","9347");
-                client= new BaseDataClient(url, null, "api");
+                client = new BaseDataClient(url, null, "api");
             }
             return client;
         }
 
         public Ticket GetTicketDetial(int id, string begin_date, string end_date)
         {
-            var client = GetClient();
-            var ticket=client.GetTicketsDetail(id, begin_date, end_date);
-            if (ticket == null)
+            try
             {
+                var client = GetClient();
+                var ticket = client.GetTicketsDetail(id, begin_date, end_date);
+                if (ticket == null)
+                {
+                    return null;
+                }
+                return ticket.ToTModel();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetTicketDetial", ex.ToString());
                 return null;
             }
-            return ticket.ToTModel();
         }
 
         public List<Ticket> GetTicketList(int type, DateTime start, DateTime end)
         {
-            var client = GetClient();
-            var re=client.GetTicketsList(type+"", start.ToString("yyyyMMdd"), end.ToString("yyyyMMdd"));
-            if (re == null)
+            try
             {
+                var client = GetClient();
+                var re = client.GetTicketsList(type + "", start.ToString("yyyyMMdd"), end.ToString("yyyyMMdd"));
+                if (re == null)
+                {
+                    return null;
+                }
+                return re.data.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetTicketList", ex.ToString());
                 return null;
             }
-            return re.data.ToWcfModelList();
         }
 
         /// <summary>
@@ -115,11 +131,12 @@ namespace LocationServices.Locations
                 }
                 List<TModel.LocationHistory.Work.InspectionTrackHistory> tempList = lst.ToWcfModelList();
                 return tempList;
-            }catch(Exception e)
+            }
+            catch (Exception ex)
             {
-                string error = e.ToString();
+                Log.Error(LogTags.BaseData, "Getinspectionhistorylist", ex.ToString());
                 return null;
-            }            
+            }
         }
 
         /// <summary>
@@ -128,14 +145,22 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<Personnel> GetUserList()
         {
-            var client = GetClient();
-            var recv = client.GetPersonnelList(true);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetPersonnelList(true);
+                if (recv == null)
+                {
+                    return null;
+                }
+
+                return recv.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetUserList", ex.ToString());
                 return null;
             }
-
-            return recv.ToWcfModelList();
         }
 
         /// <summary>
@@ -144,14 +169,22 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<Department> GetorgList()
         {
-            var client = GetClient();
-            var recv = client.GetDepList(true);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetDepList(true);
+                if (recv == null)
+                {
+                    return null;
+                }
+
+                return recv.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetorgList", ex.ToString());
                 return null;
             }
-
-            return recv.ToWcfModelList();
         }
 
         /// <summary>
@@ -159,13 +192,21 @@ namespace LocationServices.Locations
         /// </summary>
         public List<PhysicalTopology> GetZonesList()
         {
-            var client = GetClient();
-            var recv = client.GetAreaList(true);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetAreaList(true);
+                if (recv == null)
+                {
+                    return null;
+                }
+                return recv.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetZonesList", ex.ToString());
                 return null;
             }
-            return recv.ToWcfModelList();
         }
 
         /// <summary>
@@ -175,14 +216,22 @@ namespace LocationServices.Locations
         /// <param name="view"></param>
         public PhysicalTopology GetSingleZonesInfo(int id, int view)
         {
-            var client = GetClient();
-            var recv = client.GetAreaDetail(id, view);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetAreaDetail(id, view);
+                if (recv == null)
+                {
+                    return null;
+                }
+
+                return recv.ToTModel();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSingleZonesInfo", ex.ToString());
                 return null;
             }
-
-            return recv.ToTModel();
         }
 
         /// <summary>
@@ -192,13 +241,21 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<DevInfo> GetZoneDevList(int id)
         {
-            var client = GetClient();
-            var recv = client.GetZoneDevList(id);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetZoneDevList(id);
+                if (recv == null)
+                {
+                    return null;
+                }
+                return recv.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetZoneDevList", ex.ToString());
                 return null;
             }
-            return recv.ToWcfModelList();
         }
 
         /// <summary>
@@ -210,13 +267,21 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<DevInfo> GetDeviceList(string types, string code, string name)
         {
-            var client = GetClient();
-            var recv = client.GetDevInfoList(types, code, name,true);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetDevInfoList(types, code, name, true);
+                if (recv == null)
+                {
+                    return null;
+                }
+                return recv.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetDeviceList", ex.ToString());
                 return null;
             }
-            return recv.ToWcfModelList();
         }
 
         /// <summary>
@@ -226,13 +291,21 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public DevInfo GetSingleDeviceInfo(int id)
         {
-            var client = GetClient();
-            var recv = client.GetDevInfoDetail(id);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetDevInfoDetail(id);
+                if (recv == null)
+                {
+                    return null;
+                }
+                return recv.ToTModel();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSingleDeviceInfo", ex.ToString());
                 return null;
             }
-            return recv.ToTModel();
         }
 
         /// <summary>
@@ -243,14 +316,21 @@ namespace LocationServices.Locations
         /// <param name="end_date"></param>
         public void GetSingleDeviceActionHistory(int id, string begin_date, string end_date)
         {
-            var client = GetClient();
-            var recv = client.GetSingleDeviceActionHistory(id, begin_date, end_date);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetSingleDeviceActionHistory(id, begin_date, end_date);
+                if (recv == null)
+                {
+                    return;
+                }
+
                 return;
             }
-            
-            return;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSingleDeviceActionHistory", ex.ToString());
+            }
         }
 
         /// <summary>
@@ -258,14 +338,22 @@ namespace LocationServices.Locations
         /// </summary>
         public List<EntranceGuardCard> GetCardList()
         {
-            var client = GetClient();
-            var recv = client.GetGuardCardList(true);
-            if (recv == null)
+            try
             {
-                return new List<EntranceGuardCard>();
-            }
+                var client = GetClient();
+                var recv = client.GetGuardCardList(true);
+                if (recv == null)
+                {
+                    return new List<EntranceGuardCard>();
+                }
 
-            return recv.ToTModel();
+                return recv.ToTModel();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetCardList", ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -276,14 +364,22 @@ namespace LocationServices.Locations
         /// <param name="end_date"></param>
         public List<EntranceGuardActionInfo> GetSingleCardActionHistory(int id, string begin_date, string end_date)
         {
-            var client = GetClient();
-            var recv = client.GetSingleCardActionHistory(id, begin_date, end_date);
-            if (recv == null)
+            try
             {
-                return new List<EntranceGuardActionInfo>();
-            }
+                var client = GetClient();
+                var recv = client.GetSingleCardActionHistory(id, begin_date, end_date);
+                if (recv == null)
+                {
+                    return new List<EntranceGuardActionInfo>();
+                }
 
-            return recv;
+                return recv;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSingleCardActionHistory", ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -294,10 +390,17 @@ namespace LocationServices.Locations
         /// <param name="end_date"></param>
         public void GetTicketsList(string type, string begin_date, string end_date)
         {
-            var client = GetClient();
-            client.GetTicketsList(type, begin_date, end_date);
-            
-            return;
+            try
+            {
+                var client = GetClient();
+                client.GetTicketsList(type, begin_date, end_date);
+
+                return;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetTicketsList", ex.ToString());
+            }
         }
 
         /// <summary>
@@ -308,14 +411,21 @@ namespace LocationServices.Locations
         /// <param name="end_date"></param>
         public void GetTicketsDetail(int id, string begin_date, string end_date)
         {
-            var client = GetClient();
-            var recv = client.GetTicketsDetail(id, begin_date, end_date);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetTicketsDetail(id, begin_date, end_date);
+                if (recv == null)
+                {
+                    return;
+                }
+
                 return;
             }
-
-            return;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetTicketsDetail", ex.ToString());
+            }
         }
 
         /// <summary>
@@ -327,14 +437,22 @@ namespace LocationServices.Locations
         /// <param name="end_t"></param>
         public List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t)
         {
-            var client = GetClient();
-            var recv = client.GetDevAlarmList(src, level, begin_t, end_t);
-            if (recv == null)
+            try
             {
-                return new List<DeviceAlarm>();
-            }
+                var client = GetClient();
+                var recv = client.GetDevAlarmList(src, level, begin_t, end_t);
+                if (recv == null)
+                {
+                    return new List<DeviceAlarm>();
+                }
 
-            return recv.ToTModel();
+                return recv.ToTModel();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GeteventsList", ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -343,8 +461,16 @@ namespace LocationServices.Locations
         /// <param name="strTags"></param>
         public List<DevMonitorNode> GetSomesisList(string strTags)
         {
-            var tagList = strTags.Split(',').ToList();
-            return GetSomesisList(tagList);
+            try
+            {
+                var tagList = strTags.Split(',').ToList();
+                return GetSomesisList(tagList);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSomesisList", ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -353,57 +479,65 @@ namespace LocationServices.Locations
         /// <param name="strTags"></param>
         public List<DevMonitorNode> GetSomesisList(List<string> tags)
         {
-            var client = GetClient();
-            List<DevMonitorNode> result = new List<DevMonitorNode>();
-            string tmp = "";
-            for (int i = 0; i < tags.Count; i++)
+            try
             {
-                var tag = tags[i];
-                
-                if (tag.Contains("/"))
+                var client = GetClient();
+                List<DevMonitorNode> result = new List<DevMonitorNode>();
+                string tmp = "";
+                for (int i = 0; i < tags.Count; i++)
                 {
-                    tag = tag.Replace("/", "");//todo:有其他办法吗？
-                }
+                    var tag = tags[i];
 
-                if (tag.Contains("#"))
-                {
-                    tag = tag.Replace("#", "");//todo:有其他办法吗？
-                }
-
-                if (tmp == "")
-                {
-                    tmp = tag;//第一个
-                    continue;
-                }
-
-                string url = client.GetSisUrl(tmp + "," + tag);
-                if (url.Length > AppSetting.UrlMaxLength)
-                {
-                    var recv = client.GetSomesisList(tmp, true);
-                    if (recv != null)
+                    if (tag.Contains("/"))
                     {
-                        result.AddRange(recv.ToTModel());
+                        tag = tag.Replace("/", "");//todo:有其他办法吗？
                     }
-                    tmp = tag;
-                }
-                else
-                {
-                    tmp += "," + tag;
-                }
-            }
 
-            {
-                if (tmp != "")//把剩下的也获取
-                {
-                    var recv = client.GetSomesisList(tmp, true);
-                    if (recv != null)
+                    if (tag.Contains("#"))
                     {
-                        result.AddRange(recv.ToTModel());
+                        tag = tag.Replace("#", "");//todo:有其他办法吗？
+                    }
+
+                    if (tmp == "")
+                    {
+                        tmp = tag;//第一个
+                        continue;
+                    }
+
+                    string url = client.GetSisUrl(tmp + "," + tag);
+                    if (url.Length > AppSetting.UrlMaxLength)
+                    {
+                        var recv = client.GetSomesisList(tmp, true);
+                        if (recv != null)
+                        {
+                            result.AddRange(recv.ToTModel());
+                        }
+                        tmp = tag;
+                    }
+                    else
+                    {
+                        tmp += "," + tag;
                     }
                 }
+
+                {
+                    if (tmp != "")//把剩下的也获取
+                    {
+                        var recv = client.GetSomesisList(tmp, true);
+                        if (recv != null)
+                        {
+                            result.AddRange(recv.ToTModel());
+                        }
+                    }
+                }
+
+                return result;
             }
-           
-            return result;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSomesisList", ex.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -413,14 +547,22 @@ namespace LocationServices.Locations
         /// <param name="compact"></param>
         public void GetSomeSisHistoryList(string kks, bool compact)
         {
-            var client = GetClient();
-            var recv = client.GetSomeSisHistoryList(kks, compact);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetSomeSisHistoryList(kks, compact);
+                if (recv == null)
+                {
+                    return;
+                }
+
                 return;
             }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSomeSisHistoryList", ex.ToString());
 
-            return;
+            }
         }
 
         /// <summary>
@@ -429,14 +571,21 @@ namespace LocationServices.Locations
         /// <param name="kks"></param>
         public void GetSisSamplingHistoryList(string kks)
         {
-            var client = GetClient();
-            var recv = client.GetSisSamplingHistoryList(kks);
-            if (recv == null)
+            try
             {
+                var client = GetClient();
+                var recv = client.GetSisSamplingHistoryList(kks);
+                if (recv == null)
+                {
+                    return;
+                }
+
                 return;
             }
-
-            return;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.BaseData, "GetSisSamplingHistoryList", ex.ToString());
+            }
         }
 
         /// <summary>
@@ -456,20 +605,28 @@ namespace LocationServices.Locations
 
         //    return;
         //}
-        
+
         //根据巡检Id，获取详细巡检信息
         public InspectionTrack GetInspectionTrackById(InspectionTrack trackId)
         {
-            List<DbModel.Location.Work.InspectionTrack> lst = dbEx.InspectionTracks.ToList();
-            if (lst == null) return null;
-            DbModel.Location.Work.InspectionTrack trackDBModel = lst.Find(i=>i.Id==trackId.Id);
-            if (trackDBModel != null)
+            try
             {
-                InspectionTrack inspectTemp= trackDBModel.ToTModel(false);
-                return inspectTemp;
+                List<DbModel.Location.Work.InspectionTrack> lst = dbEx.InspectionTracks.ToList();
+                if (lst == null) return null;
+                DbModel.Location.Work.InspectionTrack trackDBModel = lst.Find(i => i.Id == trackId.Id);
+                if (trackDBModel != null)
+                {
+                    InspectionTrack inspectTemp = trackDBModel.ToTModel(false);
+                    return inspectTemp;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch (System.Exception ex)
             {
+                Log.Error(LogTags.BaseData, "GetInspectionTrackById", ex.ToString());
                 return null;
             }
         }
@@ -478,7 +635,7 @@ namespace LocationServices.Locations
         {
             List<DbModel.Location.Work.InspectionTrack> lst = new List<DbModel.Location.Work.InspectionTrack>();
             try
-            {               
+            {
                 if (!bFlag)
                 {
                     lst = dbEx.InspectionTracks.ToList();
@@ -494,6 +651,7 @@ namespace LocationServices.Locations
             catch (Exception ex)
             {
                 string strError = ex.Message;
+                Log.Error(LogTags.BaseData, "Getinspectionlist", ex.ToString());
             }
             return lst.ToWcfModelList();
         }
@@ -513,8 +671,9 @@ namespace LocationServices.Locations
             catch (Exception ex)
             {
                 string strError = ex.Message;
+                Log.Error(LogTags.BaseData, "Getcheckpoints", ex.ToString());
             }
-            
+
             return lst.ToWcfModelList();
         }
 
@@ -535,6 +694,7 @@ namespace LocationServices.Locations
             catch (Exception ex)
             {
                 string strError = ex.Message;
+                Log.Error(LogTags.BaseData, "Getcheckresults", ex.ToString());
             }
 
             return lst.ToWcfModelList();

@@ -18,23 +18,33 @@ namespace LocationServices.Locations
     {
         public List<int> GetCardRoleAccessAreas(int role)
         {
-            var bll = AppContext.GetLocationBll();
-            var aarService = new AreaAuthorizationRecordService(bll);
-            var list1 = aarService.GetAccessListByRole(role + "");
-            List<int> areas = new List<int>();
-            foreach (var item in list1)
+            try
             {
-                if (item.Area != null)
+                var bll = AppContext.GetLocationBll();
+                var aarService = new AreaAuthorizationRecordService(bll);
+                var list1 = aarService.GetAccessListByRole(role + "");
+                List<int> areas = new List<int>();
+                foreach (var item in list1)
                 {
-                    areas.Add(item.Area.Id);
+                    if (item.Area != null)
+                    {
+                        areas.Add(item.Area.Id);
+                    }
                 }
+                if (areas.Count == 0)
+                {
+                    return null;
+                }
+                return areas;
             }
-            if (areas.Count == 0)
+            catch (System.Exception ex)
             {
+                Log.Error(tag, "GetCardRoleAccessAreas", ex.ToString());
                 return null;
             }
-            return areas;
         }
+
+        public static string tag = "LocationService";
 
         public bool SetCardRoleAccessAreas(int roleId, List<int> areaIds)
         {
@@ -129,6 +139,7 @@ namespace LocationServices.Locations
             }
             catch (Exception ex)
             {
+                Log.Error(tag, "SetCardRoleAccessAreas", ex.ToString());
                 return false;
             }
             return true;

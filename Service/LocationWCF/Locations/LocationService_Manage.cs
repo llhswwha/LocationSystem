@@ -42,7 +42,7 @@ namespace LocationServices.Locations
     public partial class LocationService : ILocationService, IDisposable
     {
         public static List<LoginInfo> loginInfos = new List<LoginInfo>();
-        
+
         public static RemoteEndpointMessageProperty GetClientEndPoint()
         {
             //提供方法执行的上下文环境
@@ -102,9 +102,9 @@ namespace LocationServices.Locations
             //    login.LiveTime = DateTime.Now;
             //}
             //return info;
-            return new UserService(db).KeepLive(info); 
+            return new UserService(db).KeepLive(info);
         }
-        
+
 
         public VersionInfo GetVersionInfo()
         {
@@ -157,11 +157,19 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public byte[] GetHomePageByName(string strPictureName)
         {
-            Bll bll = Bll.NewBllNoRelation();
-            string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
-            byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
+            try
+            {
+                Bll bll = Bll.NewBllNoRelation();
+                string strPath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\HomePages\\" + strPictureName;
+                byte[] byteArray = LocationServices.Tools.ImageHelper.LoadImageFile(strPath);
 
-            return byteArray;
+                return byteArray;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error("LocationService.GetHomePageByName", ex);
+                return null;
+            }
         }
 
     }

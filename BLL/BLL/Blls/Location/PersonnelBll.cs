@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
+using Location.BLL.Tool;
 
 namespace BLL.Blls.Location
 {
     public class PersonnelBll : BaseBll<Personnel, LocationDb>
     {
-        public PersonnelBll():base()
+        public PersonnelBll() : base()
         {
 
         }
@@ -37,16 +38,24 @@ namespace BLL.Blls.Location
 
         public List<Personnel> DeleteListByPid(int pid)
         {
-            var list = GetListByPid(pid);
-            foreach (var item in list)
+            try
             {
-                Remove(item, false);
+                var list = GetListByPid(pid);
+                foreach (var item in list)
+                {
+                    Remove(item, false);
+                }
+                bool r = Save(true);
+                if (r)
+                    return list;
+                else
+                    return null;
             }
-            bool r = Save(true);
-            if (r)
-                return list;
-            else
+            catch (System.Exception ex)
+            {
+                Log.Error("DeleteListByPid:" + ex);
                 return null;
+            }
         }
 
         public object Edit(DevInfo devinfo)

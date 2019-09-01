@@ -21,7 +21,7 @@ using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
-    public interface IPersonServie: ILeafEntityService<TEntity, TPEntity>
+    public interface IPersonServie : ILeafEntityService<TEntity, TPEntity>
     {
         /// <summary>
         /// 获取列表
@@ -102,176 +102,232 @@ namespace LocationServices.Locations.Services
 
         public TEntity GetEntity(string id)
         {
-            var item = dbSet.Find(id.ToInt());
-            if (item == null) return null;
-            var tItem= item.ToTModel();
-            if (tItem == null) return null;
-            tItem.Tag = GetTag(id);
-            tItem.Pos = GetPositon(id);
+            try
+            {
+                var item = dbSet.Find(id.ToInt());
+                if (item == null) return null;
+                var tItem = item.ToTModel();
+                if (tItem == null) return null;
+                tItem.Tag = GetTag(id);
+                tItem.Pos = GetPositon(id);
 
-            return tItem;
+                return tItem;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetEntity", ex.ToString());
+                return null;
+            }
         }
 
         public Tag GetTag(string personId)
         {
-            Tag tag = null;
-            var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId + "" == personId);
-            if (relation != null)
+            try
             {
-                int tagId = relation.LocationCardId;
-                tag = db.LocationCards.Find(tagId).ToTModel();
+                Tag tag = null;
+                var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId + "" == personId);
+                if (relation != null)
+                {
+                    int tagId = relation.LocationCardId;
+                    tag = db.LocationCards.Find(tagId).ToTModel();
+                }
+                return tag;
             }
-            return tag;
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetTag", ex.ToString());
+                return null;
+            }
         }
 
         public TEntity BindWithTag(PersonTag pt)
         {
-            if (BindWithTag(pt.Id, pt.Tag) == false) return null;
-            return GetEntity(pt.Id.ToString());
+            try
+            {
+                if (BindWithTag(pt.Id, pt.Tag) == false) return null;
+                return GetEntity(pt.Id.ToString());
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "BindWithTag", ex.ToString());
+                return null;
+            }
         }
 
         public bool BindWithTag(int personId, int tagId)
         {
-            var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId == personId);
-            if (relation != null)
+            try
             {
-                if (tagId == 0)//解除绑定
+                var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId == personId);
+                if (relation != null)
                 {
-                    var tagPos = db.LocationCardPositions.FirstOrDefault(i=>i.CardId!=null&&i.CardId==relation.LocationCardId);
-                    if(tagPos!=null)
+                    if (tagId == 0)//解除绑定
                     {
-                        db.LocationCardPositions.Remove(tagPos);
-                    }
-                    var tag = db.LocationCards.Find(relation.LocationCardId);
-                    if (tag != null)
-                    {
-                        tag.IsActive = false;//解除卡则不激活
-                        db.LocationCards.Edit(tag);
-
-                        bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
-                        return r;
-                    }
-                    else//找不到卡 应该不可能
-                    {
-                        bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
-                        return r;
-                    }
-                    
-                }
-                else
-                {
-                    var tag = db.LocationCards.Find(relation.LocationCardId);
-                    if(tag.Id!= relation.LocationCardId)
-                    {
-                        Log.Error("tag.Id!= relation.LocationCardId");
-                    }
-                    if (tag != null)
-                    {
-                        
-
-                        relation.LocationCardId = tagId;
-                        bool r2= db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
-                        if (r2 == false)
+                        var tagPos = db.LocationCardPositions.FirstOrDefault(i => i.CardId != null && i.CardId == relation.LocationCardId);
+                        if (tagPos != null)
                         {
-                            Log.Error("修改绑定失败:" + relation.LocationCardId);
+                            db.LocationCardPositions.Remove(tagPos);
                         }
-                        if (tag.IsActive == false)
+                        var tag = db.LocationCards.Find(relation.LocationCardId);
+                        if (tag != null)
                         {
-                            tag.IsActive = true;//激活
-                            bool r1 = db.LocationCards.Edit(tag);
-                            if (r1 == false)
-                            {
-                                Log.Error("修改激活失败:" + relation.LocationCardId);
-                            }
+                            tag.IsActive = false;//解除卡则不激活
+                            db.LocationCards.Edit(tag);
+
+                            bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+                            return r;
                         }
-                        return r2;
+                        else//找不到卡 应该不可能
+                        {
+                            bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+                            return r;
+                        }
+
                     }
                     else
                     {
-                        Log.Error("找不到定位卡:"+ relation.LocationCardId);
-                        return false;
-                    }
-                }
-                
-            }
-            else
-            {
-                if (tagId != 0)//解除绑定
-                {
-                    bool r = db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
-                    {
-                        PersonnelId = personId,
-                        LocationCardId = tagId
-                    });
+                        var tag = db.LocationCards.Find(relation.LocationCardId);
+                        if (tag.Id != relation.LocationCardId)
+                        {
+                            Log.Error("tag.Id!= relation.LocationCardId");
+                        }
+                        if (tag != null)
+                        {
 
-                    var tag = db.LocationCards.Find(tagId);
-                    if (tag != null)
-                    {
-                        tag.IsActive = true;//发卡则激活
-                        db.LocationCards.Edit(tag);
+
+                            relation.LocationCardId = tagId;
+                            bool r2 = db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
+                            if (r2 == false)
+                            {
+                                Log.Error("修改绑定失败:" + relation.LocationCardId);
+                            }
+                            if (tag.IsActive == false)
+                            {
+                                tag.IsActive = true;//激活
+                                bool r1 = db.LocationCards.Edit(tag);
+                                if (r1 == false)
+                                {
+                                    Log.Error("修改激活失败:" + relation.LocationCardId);
+                                }
+                            }
+                            return r2;
+                        }
+                        else
+                        {
+                            Log.Error("找不到定位卡:" + relation.LocationCardId);
+                            return false;
+                        }
                     }
-                    return r;
+
                 }
                 else
                 {
-                    return true;
+                    if (tagId != 0)//解除绑定
+                    {
+                        bool r = db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
+                        {
+                            PersonnelId = personId,
+                            LocationCardId = tagId
+                        });
+
+                        var tag = db.LocationCards.Find(tagId);
+                        if (tag != null)
+                        {
+                            tag.IsActive = true;//发卡则激活
+                            db.LocationCards.Edit(tag);
+                        }
+                        return r;
+                    }
+                    else
+                    {
+                        return true;
+
+                    }
 
                 }
-
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "BindWithTag", ex.ToString());
+                return false;
             }
         }
 
         public TagPosition GetPositon(string personId)
         {
-            var query = from r in db.LocationCardToPersonnels.DbSet
-                join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id 
-                join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                where r.PersonnelId+"" == personId 
-                select pos;
-            TagPosition tagPos = query.FirstOrDefault().ToTModel();
-            return tagPos;
+            try
+            {
+                var query = from r in db.LocationCardToPersonnels.DbSet
+                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                            where r.PersonnelId + "" == personId
+                            select pos;
+                TagPosition tagPos = query.FirstOrDefault().ToTModel();
+                return tagPos;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetPositon", ex.ToString());
+                return null;
+            }
         }
 
 
         public IList<TEntity> GetListByArea(string areaId)
         {
-            var query = from r in db.LocationCardToPersonnels.DbSet
-                        join p in dbSet.DbSet on r.PersonnelId equals p.Id
-                        join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                        where pos.AreaId + "" == areaId
-                        select new {Person=p,Tag=tag,Pos=pos};
-            string sql = query.ToString();
-            var list=new List<TEntity>();
-            foreach (var item in query.ToList())
+            try
             {
-                var p = item.Person.ToTModel();
-                p.Tag = item.Tag.ToTModel();
-                p.Tag.Pos = item.Pos.ToTModel();
-                list.Add(p);
+                var query = from r in db.LocationCardToPersonnels.DbSet
+                            join p in dbSet.DbSet on r.PersonnelId equals p.Id
+                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                            where pos.AreaId + "" == areaId
+                            select new { Person = p, Tag = tag, Pos = pos };
+                string sql = query.ToString();
+                var list = new List<TEntity>();
+                foreach (var item in query.ToList())
+                {
+                    var p = item.Person.ToTModel();
+                    p.Tag = item.Tag.ToTModel();
+                    p.Tag.Pos = item.Pos.ToTModel();
+                    list.Add(p);
+                }
+                return list.ToWCFList();
             }
-            return list.ToWCFList();
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetListByArea", ex.ToString());
+                return null;
+            }
         }
 
         public IList<TEntity> GetListByRole(string role)
         {
-            var roleId = role.ToInt();
-            var query = from r in db.LocationCardToPersonnels.DbSet
-                        join p in dbSet.DbSet on r.PersonnelId equals p.Id
-                        join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                        join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                        where tag.CardRoleId  == roleId
-                        select new { Person = p, Tag = tag, Pos = pos };
-            string sql = query.ToString();
-            var list = new List<TEntity>();
-            foreach (var item in query.ToList())
+            try
             {
-                var p = item.Person.ToTModel();
-                p.Tag = item.Tag.ToTModel();
-                p.Tag.Pos = item.Pos.ToTModel();
-                list.Add(p);
+                var roleId = role.ToInt();
+                var query = from r in db.LocationCardToPersonnels.DbSet
+                            join p in dbSet.DbSet on r.PersonnelId equals p.Id
+                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                            where tag.CardRoleId == roleId
+                            select new { Person = p, Tag = tag, Pos = pos };
+                string sql = query.ToString();
+                var list = new List<TEntity>();
+                foreach (var item in query.ToList())
+                {
+                    var p = item.Person.ToTModel();
+                    p.Tag = item.Tag.ToTModel();
+                    p.Tag.Pos = item.Pos.ToTModel();
+                    list.Add(p);
+                }
+                return list.ToWCFList();
             }
-            return list.ToWCFList();
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetListByRole", ex.ToString());
+                return null;
+            }
         }
 
         public List<TEntity> GetList(bool detail, bool showAll)
@@ -280,12 +336,12 @@ namespace LocationServices.Locations.Services
             {
                 var list = new List<TEntity>();
                 var query = from p in dbSet.DbSet
-                    join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
-                    join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                    join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                        into posList
-                    from pos2 in posList.DefaultIfEmpty() //left join
-                    select new {Person = p, Tag = tag, Pos = pos2};
+                            join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
+                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
+                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
+                                into posList
+                            from pos2 in posList.DefaultIfEmpty() //left join
+                            select new { Person = p, Tag = tag, Pos = pos2 };
                 var pList = query.ToList();
                 foreach (var item in pList)
                 {
@@ -321,217 +377,291 @@ namespace LocationServices.Locations.Services
                             //tag.Pos = pos;
                         }
                     }
-                    catch (Exception  ex1)
+                    catch (Exception ex1)
                     {
                         Log.Error("PersonService.GetList Item:" + ex1);
                     }
-                   
+
                 }
 
                 return list;
             }
             catch (Exception ex)
             {
-                Log.Error("PersonService.GetList:" + ex);
+                Log.Error(tag, "PersonService.GetList:" + ex);
                 return null;
             }
         }
 
+        public static string tag = "PersonService";
+
         public List<TEntity> GetList()
         {
-            return GetList(false,true);
+            return GetList(false, true);
         }
 
         public IList<TEntity> GetListByName(string name)
         {
-            var devInfoList = dbSet.GetListByName(name).ToTModel();
-            return devInfoList.ToWCFList();
+            try
+            {
+                var devInfoList = dbSet.GetListByName(name).ToTModel();
+                return devInfoList.ToWCFList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetListByName", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<TEntity> GetListByPid(string pid)
         {
-            return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
+            try
+            {
+                return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetListByPid", "Exception:" + ex);
+                return null;
+            }
         }
 
         public TPEntity GetParent(string id)
         {
-            var item = dbSet.Find(id.ToInt());
-            if (item == null) return null;
-            return new DepartmentService(db).GetEntity(item.ParentId + "");
+            try
+            {
+                var item = dbSet.Find(id.ToInt());
+                if (item == null) return null;
+                return new DepartmentService(db).GetEntity(item.ParentId + "");
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetParent", "Exception:" + ex);
+                return null;
+            }
         }
 
         public TEntity Post(TEntity item)
         {
-            var dbItem = item.ToDbModel();
-            var result = dbSet.Add(dbItem);
-            if (result)
+            try
             {
-                if (item.TagId != null)
+                var dbItem = item.ToDbModel();
+                var result = dbSet.Add(dbItem);
+                if (result)
                 {
-                    BindWithTag(item.Id, (int)item.TagId);
+                    if (item.TagId != null)
+                    {
+                        BindWithTag(item.Id, (int)item.TagId);
+                    }
                 }
+                return result ? dbItem.ToTModel() : null;
             }
-            return result ? dbItem.ToTModel() : null;
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "Post", "Exception:" + ex);
+                return null;
+            }
         }
 
         public TEntity Post(string pid, TEntity item)
         {
-            item.ParentId = pid.ToInt();
-            var dbItem = item.ToDbModel();
-            var result = dbSet.Add(dbItem);
-            return result ? dbItem.ToTModel() : null;
+            try
+            {
+                item.ParentId = pid.ToInt();
+                var dbItem = item.ToDbModel();
+                var result = dbSet.Add(dbItem);
+                return result ? dbItem.ToTModel() : null;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "Post", "Exception:" + ex);
+                return null;
+            }
         }
 
         public TEntity Put(TEntity item)
         {
-            var dbItem = item.ToDbModel();
-            var result = dbSet.Edit(dbItem);
-            if (result)
+            try
             {
-                if (item.TagId != null)
+                var dbItem = item.ToDbModel();
+                var result = dbSet.Edit(dbItem);
+                if (result)
                 {
-                    BindWithTag(item.Id, (int)item.TagId);
+                    if (item.TagId != null)
+                    {
+                        BindWithTag(item.Id, (int)item.TagId);
+                    }
                 }
+                return result ? dbItem.ToTModel() : null;
             }
-            return result ? dbItem.ToTModel() : null;
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "Put", "Exception:" + ex);
+                return null;
+            }
         }
 
         public TEntity SetRole(string personId, string roleId)
         {
-            int id = personId.ToInt();
-            var tp = db.LocationCardToPersonnels.Find(i => i.PersonnelId == id);
-            if (tp == null) return null;
-            TagService tagService = new TagService(db);
-            var tag = tagService.SetRole(tp.LocationCardId + "", roleId);
-            if (tag == null) return null;
-            return GetEntity(personId);
+            try
+            {
+                int id = personId.ToInt();
+                var tp = db.LocationCardToPersonnels.Find(i => i.PersonnelId == id);
+                if (tp == null) return null;
+                TagService tagService = new TagService(db);
+                var tag = tagService.SetRole(tp.LocationCardId + "", roleId);
+                if (tag == null) return null;
+                return GetEntity(personId);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "SetRole", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
         {
-            List<NearbyPerson> lst = new List<NearbyPerson>();
-            List<NearbyPerson> lst2 = new List<NearbyPerson>();
-            DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
-            if (dev == null || dev.ParentId == null)
+            try
             {
-                return lst;
-            }
-
-            int? AreadId = dev.ParentId;
-            float PosX = dev.PosX;
-            float PosY = dev.PosY;
-            float PosZ = dev.PosZ;
-
-            float PosX2 = 0;
-            float PosY2 = 0;
-            float PosZ2 = 0;
-
-            float sqrtDistance = 0;
-            float Distance = 0;
-
-            var query = from t1 in db.LocationCardPositions.DbSet
-                        join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
-                        join t3 in db.Departments.DbSet on t2.ParentId equals t3.Id
-                        where t1.AreaId == AreadId
-                        select new NearbyPerson { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
-            if (query != null)
-            {
-                lst2 = query.ToList();
-            }
-
-            foreach (NearbyPerson item in lst2)
-            {
-                PosX2 = item.X - PosX;
-                PosY2 = item.Y - PosY;
-                PosZ2 = item.Z - PosZ;
-
-                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
-                Distance = (float)System.Math.Sqrt(sqrtDistance);
-                item.Distance = Distance;
-
-                if (Distance <= fDis)
+                List<NearbyPerson> lst = new List<NearbyPerson>();
+                List<NearbyPerson> lst2 = new List<NearbyPerson>();
+                DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
+                if (dev == null || dev.ParentId == null)
                 {
-                    NearbyPerson item2 = item.Clone();
-                    if (item2 != null)
-                    {
-                        lst.Add(item2);
-                    }
+                    return lst;
                 }
 
+                int? AreadId = dev.ParentId;
+                float PosX = dev.PosX;
+                float PosY = dev.PosY;
+                float PosZ = dev.PosZ;
 
-                PosX2 = 0;
-                PosY2 = 0;
-                PosZ2 = 0;
-                sqrtDistance = 0;
-                Distance = 0;
+                float PosX2 = 0;
+                float PosY2 = 0;
+                float PosZ2 = 0;
+
+                float sqrtDistance = 0;
+                float Distance = 0;
+
+                var query = from t1 in db.LocationCardPositions.DbSet
+                            join t2 in db.Personnels.DbSet on t1.PersonId equals t2.Id
+                            join t3 in db.Departments.DbSet on t2.ParentId equals t3.Id
+                            where t1.AreaId == AreadId
+                            select new NearbyPerson { id = t2.Id, Name = t2.Name, WorkNumber = t2.WorkNumber, DepartMent = t3.Name, Position = t2.Pst, X = t1.X, Y = t1.Y, Z = t1.Z };
+                if (query != null)
+                {
+                    lst2 = query.ToList();
+                }
+
+                foreach (NearbyPerson item in lst2)
+                {
+                    PosX2 = item.X - PosX;
+                    PosY2 = item.Y - PosY;
+                    PosZ2 = item.Z - PosZ;
+
+                    sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                    Distance = (float)System.Math.Sqrt(sqrtDistance);
+                    item.Distance = Distance;
+
+                    if (Distance <= fDis)
+                    {
+                        NearbyPerson item2 = item.Clone();
+                        if (item2 != null)
+                        {
+                            lst.Add(item2);
+                        }
+                    }
+
+
+                    PosX2 = 0;
+                    PosY2 = 0;
+                    PosZ2 = 0;
+                    sqrtDistance = 0;
+                    Distance = 0;
+                }
+
+                lst.Sort(new PersonDistanceCompare());
+
+                return lst;
             }
-
-            lst.Sort(new PersonDistanceCompare());
-
-            return lst;
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetNearbyPerson_Currency", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<NearbyPerson> GetNearbyPerson_Alarm(int id, float fDis)
         {
-            List<NearbyPerson> lst = new List<NearbyPerson>();
-            List<NearbyPerson> lst2 = new List<NearbyPerson>();
-            DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
-            if (dev == null || dev.ParentId == null)
+            try
             {
-                return lst;
-            }
-
-            int? AreadId = dev.ParentId;
-            float PosX = dev.PosX;
-            float PosY = dev.PosY;
-            float PosZ = dev.PosZ;
-
-            float PosX2 = 0;
-            float PosY2 = 0;
-            float PosZ2 = 0;
-
-            float sqrtDistance = 0;
-            float Distance = 0;
-
-            var query = from t1 in db.LocationAlarms.DbSet
-                        join t2 in db.LocationCardPositions.DbSet on t1.LocationCardId equals t2.CardId
-                        join t3 in db.Personnels.DbSet on t1.PersonnelId equals t3.Id
-                        join t4 in db.Departments.DbSet on t3.ParentId equals t4.Id
-                        where t1.LocationCardId == AreadId
-                        select new NearbyPerson { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
-            if (query != null)
-            {
-                lst2 = query.ToList();
-            }
-
-            foreach (NearbyPerson item in lst2)
-            {
-                PosX2 = item.X - PosX;
-                PosY2 = item.Y - PosY;
-                PosZ2 = item.Z - PosZ;
-
-                sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
-                Distance = (float)System.Math.Sqrt(sqrtDistance);
-                item.Distance = Distance;
-                if (Distance <= fDis)
+                List<NearbyPerson> lst = new List<NearbyPerson>();
+                List<NearbyPerson> lst2 = new List<NearbyPerson>();
+                DbModel.Location.AreaAndDev.DevInfo dev = db.DevInfos.Find(id);
+                if (dev == null || dev.ParentId == null)
                 {
-                    NearbyPerson item2 = item.Clone();
-                    if (item2 != null)
-                    {
-                        lst.Add(item2);
-                    }
+                    return lst;
                 }
 
-                PosX2 = 0;
-                PosY2 = 0;
-                PosZ2 = 0;
-                sqrtDistance = 0;
-                Distance = 0;
+                int? AreadId = dev.ParentId;
+                float PosX = dev.PosX;
+                float PosY = dev.PosY;
+                float PosZ = dev.PosZ;
+
+                float PosX2 = 0;
+                float PosY2 = 0;
+                float PosZ2 = 0;
+
+                float sqrtDistance = 0;
+                float Distance = 0;
+
+                var query = from t1 in db.LocationAlarms.DbSet
+                            join t2 in db.LocationCardPositions.DbSet on t1.LocationCardId equals t2.CardId
+                            join t3 in db.Personnels.DbSet on t1.PersonnelId equals t3.Id
+                            join t4 in db.Departments.DbSet on t3.ParentId equals t4.Id
+                            where t1.LocationCardId == AreadId
+                            select new NearbyPerson { id = t3.Id, Name = t3.Name, WorkNumber = t3.WorkNumber, DepartMent = t4.Name, Position = t3.Pst, X = t2.X, Y = t2.Y, Z = t2.Z };
+                if (query != null)
+                {
+                    lst2 = query.ToList();
+                }
+
+                foreach (NearbyPerson item in lst2)
+                {
+                    PosX2 = item.X - PosX;
+                    PosY2 = item.Y - PosY;
+                    PosZ2 = item.Z - PosZ;
+
+                    sqrtDistance = PosX2 * PosX2 + PosY2 * PosY2 + PosZ2 * PosZ2;
+                    Distance = (float)System.Math.Sqrt(sqrtDistance);
+                    item.Distance = Distance;
+                    if (Distance <= fDis)
+                    {
+                        NearbyPerson item2 = item.Clone();
+                        if (item2 != null)
+                        {
+                            lst.Add(item2);
+                        }
+                    }
+
+                    PosX2 = 0;
+                    PosY2 = 0;
+                    PosZ2 = 0;
+                    sqrtDistance = 0;
+                    Distance = 0;
+                }
+
+                lst.Sort(new PersonDistanceCompare());
+
+                return lst;
             }
-
-            lst.Sort(new PersonDistanceCompare());
-
-            return lst;
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetNearbyPerson_Alarm", "Exception:" + ex);
+                return null;
+            }
 
         }
 

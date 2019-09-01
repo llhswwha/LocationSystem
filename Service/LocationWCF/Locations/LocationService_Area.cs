@@ -196,6 +196,7 @@ namespace LocationServices.Locations
             }
             catch (Exception ex)
             {
+                Log.Error(LogTags.DbGet, "EditMonitorRange", "Exception:" + ex);
                 return false;
             }
 
@@ -204,10 +205,18 @@ namespace LocationServices.Locations
 
         private Location.TModel.Location.AreaAndDev.Bound NewBound(PhysicalTopology pt)
         {
-            var bound = new Location.TModel.Location.AreaAndDev.Bound();
-            bound.IsRelative = pt.IsRelative;
-            bound.SetInitBound(pt.Transfrom);
-            return bound;
+            try
+            {
+                var bound = new Location.TModel.Location.AreaAndDev.Bound();
+                bound.IsRelative = pt.IsRelative;
+                bound.SetInitBound(pt.Transfrom);
+                return bound;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "NewBound", "Exception:" + ex);
+                return null;
+            }
         }
 
         /// <summary>
@@ -246,7 +255,7 @@ namespace LocationServices.Locations
                     TagRelationBuffer.Instance().PuUpdateData();
                     BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
 
-                    var result= areaNew.ToTModel();
+                    var result = areaNew.ToTModel();
 
                     //if (parent.Type == AreaTypes.楼层 && pt.IsRelative)//减去偏移量
                     //{
@@ -259,7 +268,7 @@ namespace LocationServices.Locations
             }
             catch (Exception e)
             {
-                Log.Error("AddMonitorRange",e.ToString());
+                Log.Error(LogTags.DbGet, "AddMonitorRange", e.ToString());
                 return null;
             }
         }
@@ -297,6 +306,7 @@ namespace LocationServices.Locations
             }
             catch (Exception ex)
             {
+                Log.Error(LogTags.DbGet, "DeleteMonitorRange", ex.ToString());
                 return false;
             }
 
@@ -310,41 +320,73 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public Area GetAreaById(int id)
         {
-            //return db.Areas.Find(i => i.Id == id);
-            AreaService asr = new AreaService();
-            return asr.GetAreaById(id);
+            try
+            {
+                //return db.Areas.Find(i => i.Id == id);
+                AreaService asr = new AreaService();
+                return asr.GetAreaById(id);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "GetAreaById", ex.ToString());
+                return null;
+            }
         }
 
         //AreaService asr = new AreaService();
 
         public AreaStatistics GetAreaStatistics(int id)
         {
-            AreaService asr = new AreaService(db);
-            return asr.GetAreaStatistics(id);
+            try
+            {
+                AreaService asr = new AreaService(db);
+                return asr.GetAreaStatistics(id);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "GetAreaStatistics", ex.ToString());
+                return null;
+            }
         }
 
         public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
         {
-            PersonService ps = new PersonService();
-            List<NearbyPerson> lst = ps.GetNearbyPerson_Currency(id, fDis);
-            if (lst == null)
+            try
             {
-                lst = new List<NearbyPerson>();
-            }
+                PersonService ps = new PersonService();
+                List<NearbyPerson> lst = ps.GetNearbyPerson_Currency(id, fDis);
+                if (lst == null)
+                {
+                    lst = new List<NearbyPerson>();
+                }
 
-            return lst;
+                return lst;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "GetNearbyPerson_Currency", ex.ToString());
+                return null;
+            }
         }
 
         public List<NearbyPerson> GetNearbyPerson_Alarm(int id, float fDis)
         {
-            PersonService ps = new PersonService();
-            List<NearbyPerson> lst = ps.GetNearbyPerson_Alarm(id, fDis);
-            if (lst == null)
+            try
             {
-                lst = new List<NearbyPerson>();
-            }
+                PersonService ps = new PersonService();
+                List<NearbyPerson> lst = ps.GetNearbyPerson_Alarm(id, fDis);
+                if (lst == null)
+                {
+                    lst = new List<NearbyPerson>();
+                }
 
-            return lst;
+                return lst;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "GetNearbyPerson_Alarm", ex.ToString());
+                return null;
+            }
         }
 
 
@@ -354,56 +396,64 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<PhysicalTopology> GetSwitchAreas()
         {
-            var switchAreas = db.bus_anchor_switch_area.ToList();
-
-            var subSwitchAreas = switchAreas;
-
-            int ShowFloor = 0;
-            if (ShowFloor == 1)//1层
+            try
             {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
-            }
-            else if (ShowFloor == 2)//2层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
-            }
-            else if (ShowFloor == 3)//3层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
-            }
-            else if (ShowFloor == 4)//4层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z > 880);
-            }
-            else
-            {
+                var switchAreas = db.bus_anchor_switch_area.ToList();
 
-            }
+                var subSwitchAreas = switchAreas;
 
-            List<PhysicalTopology> areas = new List<PhysicalTopology>();
-            float scale = 100.0f;
-            foreach (var item in subSwitchAreas)
+                int ShowFloor = 0;
+                if (ShowFloor == 1)//1层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
+                }
+                else if (ShowFloor == 2)//2层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
+                }
+                else if (ShowFloor == 3)//3层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
+                }
+                else if (ShowFloor == 4)//4层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z > 880);
+                }
+                else
+                {
+
+                }
+
+                List<PhysicalTopology> areas = new List<PhysicalTopology>();
+                float scale = 100.0f;
+                foreach (var item in subSwitchAreas)
+                {
+                    var switchArea = new PhysicalTopology();
+                    //todo:这部分的具体数值其他项目时需要调整。
+                    float x1 = item.start_x / scale + 2059;
+                    float x2 = item.end_x / scale + 2059;
+                    float y1 = item.start_y / scale + 1565;
+                    float y2 = item.end_y / scale + 1565;
+                    float z1 = item.min_z / scale;
+                    float z2 = item.max_z / scale;
+                    switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, z1, z2, false);
+                    //switchArea.Parent = area;
+                    switchArea.Name = item.area_id;
+                    switchArea.Type = AreaTypes.SwitchArea;
+
+                    //AddAreaRect(switchArea, null, scale);
+                    switchArea.SetTransformM();
+
+                    areas.Add(switchArea);
+                }
+
+                return areas;
+            }
+            catch (System.Exception ex)
             {
-                var switchArea = new PhysicalTopology();
-                //todo:这部分的具体数值其他项目时需要调整。
-                float x1 = item.start_x / scale + 2059;
-                float x2 = item.end_x / scale + 2059;
-                float y1 = item.start_y / scale + 1565;
-                float y2 = item.end_y / scale + 1565;
-                float z1 = item.min_z / scale;
-                float z2 = item.max_z / scale;
-                switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, z1, z2, false);
-                //switchArea.Parent = area;
-                switchArea.Name = item.area_id;
-                switchArea.Type = AreaTypes.SwitchArea;
-
-                //AddAreaRect(switchArea, null, scale);
-                switchArea.SetTransformM();
-
-                areas.Add(switchArea);
+                Log.Error(LogTags.DbGet, "GetSwitchAreas", "Exception:" + ex);
+                return null;
             }
-
-            return areas;
 
         }
     }

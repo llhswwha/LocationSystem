@@ -27,7 +27,7 @@ namespace LocationServices.Locations.Services
 {
     public interface IPosHistoryService
     {
-        IList<Position> GetHistoryList(string start, string end, string tag, string person,string area);
+        IList<Position> GetHistoryList(string start, string end, string tag, string person, string area);
     }
 
     public class PosHistoryService : IPosHistoryService
@@ -50,131 +50,179 @@ namespace LocationServices.Locations.Services
 
         public IList<Position> GetHistory()
         {
-            return dbSet.ToList().ToWcfModelList();
+            try
+            {
+                return dbSet.ToList().ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistory", "Exception:" + ex);
+                return null;
+            }
         }
 
-        private string tag = "GetHisPos";
+        private string hisTag = "GetHisPos";
 
         public IList<Position> GetHistoryList(string start, string end, string tagCode, string personId, string areaId)
         {
-            Log.Info(tag, string.Format("start:{0},end:{1},tagCode:{2},personId:{3},areaId:{4}", start, end, tagCode, personId, areaId));
-            if (string.IsNullOrEmpty(start))
+            try
             {
-                start = "1970-1-1";
-            }
+                Log.Info(hisTag, string.Format("start:{0},end:{1},tagCode:{2},personId:{3},areaId:{4}", start, end, tagCode, personId, areaId));
+                if (string.IsNullOrEmpty(start))
+                {
+                    start = "1970-1-1";
+                }
 
-            if (string.IsNullOrEmpty(end))
-            {
-                end = "2100-1-1";
-            }
+                if (string.IsNullOrEmpty(end))
+                {
+                    end = "2100-1-1";
+                }
 
-            IList<Position> result = new List<Position>();
-            if (!string.IsNullOrEmpty(tagCode))
-            {
-                result = GetHistoryByTag(tagCode, start.ToDateTime(), end.ToDateTime());
-            }
-            else if (!string.IsNullOrEmpty(personId))
-            {
-                result = GetHistoryByPerson(personId.ToInt(), start.ToDateTime(), end.ToDateTime());
-            }
-            else if (!string.IsNullOrEmpty(areaId))
-            {
-                result = GetHistoryByArea(areaId.ToInt(), start.ToDateTime(), end.ToDateTime());
-            }
-            else
-            {
-                result = GetHistoryByTime(start.ToDateTime(), end.ToDateTime());
-            }
+                IList<Position> result = new List<Position>();
+                if (!string.IsNullOrEmpty(tagCode))
+                {
+                    result = GetHistoryByTag(tagCode, start.ToDateTime(), end.ToDateTime());
+                }
+                else if (!string.IsNullOrEmpty(personId))
+                {
+                    result = GetHistoryByPerson(personId.ToInt(), start.ToDateTime(), end.ToDateTime());
+                }
+                else if (!string.IsNullOrEmpty(areaId))
+                {
+                    result = GetHistoryByArea(areaId.ToInt(), start.ToDateTime(), end.ToDateTime());
+                }
+                else
+                {
+                    result = GetHistoryByTime(start.ToDateTime(), end.ToDateTime());
+                }
 
-            return result;
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryList", "Exception:" + ex);
+                return null;
+            }
         }
 
         private List<Position> GetPoints(List<Position> points, int type)
         {
-            List<Position> result = new List<Position>();
-            IInterpolationMethod method = null;
-            List<double> xs = new List<double>();
-            List<double> ys = new List<double>();
-            if (type > 0)
+            try
             {
-                for (int i = 0; i < points.Count; i++)
+                List<Position> result = new List<Position>();
+                IInterpolationMethod method = null;
+                List<double> xs = new List<double>();
+                List<double> ys = new List<double>();
+                if (type > 0)
                 {
-                    xs.Add(points[i].X);
-                    ys.Add(points[i].Z);
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        xs.Add(points[i].X);
+                        ys.Add(points[i].Z);
+                    }
                 }
-            }
 
-            if (type == 0)
-            {
-                result.AddRange(points);
-            }
-            else if (type == 1)
-            {
-                method = Interpolation.CreateNaturalCubicSpline(xs, ys);
-            }
-            else if (type == 2)
-            {
-                method = Interpolation.CreateAkimaCubicSpline(xs, ys);
-            }
-
-            if (method != null)
-            {
-                for (int i = 0; i < points.Count; i++)
+                if (type == 0)
                 {
-                    Position p1 = points[i];
-                    Position p2 = points[i + 1];
-                    double x = (p1.X + p2.X) / 2;
+                    result.AddRange(points);
                 }
-            }
+                else if (type == 1)
+                {
+                    method = Interpolation.CreateNaturalCubicSpline(xs, ys);
+                }
+                else if (type == 2)
+                {
+                    method = Interpolation.CreateAkimaCubicSpline(xs, ys);
+                }
 
-            return result;
+                if (method != null)
+                {
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        Position p1 = points[i];
+                        Position p2 = points[i + 1];
+                        double x = (p1.X + p2.X) / 2;
+                    }
+                }
+
+                return result;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetPoints", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<Position> GetHistoryByTag(string tag)
         {
-            var info = from u in dbSet.DbSet
-                where u.Code.Contains(tag)
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
+            try
+            {
+                var info = from u in dbSet.DbSet
+                           where u.Code.Contains(tag)
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByTag", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<Position> GetHistoryByTime(DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
+                var info = from u in dbSet.DbSet
+                           where u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
+                                 (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                           select u;
+                var tempList = info.ToList();
+
+                //var list = dbSet.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByTime", "Exception:" + ex);
                 return null;
             }
-
-            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
-            var info = from u in dbSet.DbSet
-                where u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
-                      (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
-                select u;
-            var tempList = info.ToList();
-
-            //var list = dbSet.ToList();
-            return tempList.ToWcfModelList();
         }
 
         public List<Position> GetHistoryByTag(string tag, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
+                var info = from u in dbSet.DbSet
+                           where u.Code.Contains(tag) && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
+                                 (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByTag", "Exception:" + ex);
                 return null;
             }
-
-            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
-            var info = from u in dbSet.DbSet
-                where u.Code.Contains(tag) && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
-                      (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
         }
 
         /// <summary>
@@ -186,18 +234,26 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<U3DPosition> GetHistoryU3DPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                var info = from u in db.U3DPositions.DbSet
+                           where tagcode == u.Code && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryU3DPositonsByTime", "Exception:" + ex);
                 return null;
             }
-
-            var info = from u in db.U3DPositions.DbSet
-                where tagcode == u.Code && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
         }
 
         /// <summary>
@@ -207,11 +263,19 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         public List<Position> GetHistoryByPerson(int personnelID)
         {
-            var info = from u in dbSet.DbSet
-                where personnelID == u.PersonnelID
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
+            try
+            {
+                var info = from u in dbSet.DbSet
+                           where personnelID == u.PersonnelID
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByPerson", "Exception:" + ex);
+                return null;
+            }
         }
 
         /// <summary>
@@ -225,7 +289,7 @@ namespace LocationServices.Locations.Services
         {
             try
             {
-                Log.Info(tag, string.Format("GetHistoryByPerson personnelId:{0},start:{1},end:{2}", personnelID, start, end));
+                Log.Info(hisTag, string.Format("GetHistoryByPerson personnelId:{0},start:{1},end:{2}", personnelID, start, end));
                 long startStamp = GetTimeStamp(start);
                 long endStamp = GetTimeStamp(end);
                 if (startStamp >= endStamp)
@@ -243,10 +307,10 @@ namespace LocationServices.Locations.Services
                 List<Position> result = null;
                 for (int i = 0; i < tryCount; i++)
                 {
-                   
+
                     if (i > 0)
                     {
-                        Log.Info(tag, string.Format("GetHistoryByPerson try:{0}", i));
+                        Log.Info(hisTag, string.Format("GetHistoryByPerson try:{0}", i));
                     }
                     try
                     {
@@ -260,18 +324,18 @@ namespace LocationServices.Locations.Services
 
                         if (tempList != null)
                         {
-                            Log.Info(tag, "count:" + tempList.Count);
+                            Log.Info(hisTag, "count:" + tempList.Count);
                         }
                         result = tempList.ToWcfModelList();
                         break;
                     }
                     catch (Exception ex1)
                     {
-                        Log.Error(tag, "GetHistoryByPerson1 error:" + ex1);
+                        Log.Error(hisTag, "GetHistoryByPerson1 error:" + ex1);
                         Thread.Sleep(200);
                     }
                 }
-                if(result!=null)
+                if (result != null)
                 {
                     result.Sort((a, b) =>
                     {
@@ -282,10 +346,10 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex2)
             {
-                Log.Error(tag, "GetHistoryByPerson2 error:" + ex2);
+                Log.Error(hisTag, "GetHistoryByPerson2 error:" + ex2);
                 return null;
             }
-            
+
         }
 
         /// <summary>
@@ -299,88 +363,136 @@ namespace LocationServices.Locations.Services
         public List<Position> GetHistoryByPersonAndArea(int personnelID, List<int> topoNodeIds, DateTime start,
             DateTime end)
         {
-            if (topoNodeIds == null || topoNodeIds.Count == 0)
+            try
             {
-                return GetHistoryByPerson(personnelID, start, end);
-            }
+                if (topoNodeIds == null || topoNodeIds.Count == 0)
+                {
+                    return GetHistoryByPerson(personnelID, start, end);
+                }
 
-            return GetHistoryByArea(personnelID, topoNodeIds, start, end);
+                return GetHistoryByArea(personnelID, topoNodeIds, start, end);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByPersonAndArea", "Exception:" + ex);
+                return null;
+            }
         }
 
         private List<Position> GetHistoryByArea(int personnelID, List<int> topoNodeIds, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                var info = from u in dbSet.DbSet
+                           where
+                               personnelID == u.PersonnelID && u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
+                               u.DateTimeStamp <= endStamp
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByArea", "Exception:" + ex);
                 return null;
             }
-
-            var info = from u in dbSet.DbSet
-                where
-                    personnelID == u.PersonnelID && u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
-                    u.DateTimeStamp <= endStamp
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
         }
 
         public List<Position> GetHistoryByAreas(List<int> topoNodeIds, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                var info = from u in dbSet.DbSet
+                           where
+                               u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
+                               u.DateTimeStamp <= endStamp
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByAreas", "Exception:" + ex);
                 return null;
             }
-
-            var info = from u in dbSet.DbSet
-                where
-                    u.IsInArea(topoNodeIds) && u.DateTimeStamp >= startStamp &&
-                    u.DateTimeStamp <= endStamp
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
         }
 
         public List<Position> GetHistoryByAreas(List<int> topoNodeIds)
         {
-            var info = from u in dbSet.DbSet
-                where
-                    u.IsInArea(topoNodeIds)
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
+            try
+            {
+                var info = from u in dbSet.DbSet
+                           where
+                               u.IsInArea(topoNodeIds)
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByAreas", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<Position> GetHistoryByArea(int topoNodeIds)
         {
-            var info = from u in dbSet.DbSet
-                where
-                    u.IsInArea(topoNodeIds)
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
+            try
+            {
+                var info = from u in dbSet.DbSet
+                           where
+                               u.IsInArea(topoNodeIds)
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByArea", "Exception:" + ex);
+                return null;
+            }
         }
 
         public List<Position> GetHistoryByArea(int topoNode, DateTime start, DateTime end)
         {
-            long startStamp = GetTimeStamp(start);
-            long endStamp = GetTimeStamp(end);
-            if (startStamp >= endStamp)
+            try
             {
+                long startStamp = GetTimeStamp(start);
+                long endStamp = GetTimeStamp(end);
+                if (startStamp >= endStamp)
+                {
+                    return null;
+                }
+
+                bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
+                var info = from u in dbSet.DbSet
+                           where
+                               topoNode == u.AreaId && u.DateTimeStamp >= startStamp &&
+                               u.DateTimeStamp <= endStamp &&
+                               (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                           select u;
+                var tempList = info.ToList();
+                return tempList.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetHistoryByArea", "Exception:" + ex);
                 return null;
             }
-
-            bool showUnLocatedAreaPoint = AppContext.ShowUnLocatedAreaPoint;
-            var info = from u in dbSet.DbSet
-                where
-                    topoNode == u.AreaId && u.DateTimeStamp >= startStamp &&
-                    u.DateTimeStamp <= endStamp &&
-                    (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
-                select u;
-            var tempList = info.ToList();
-            return tempList.ToWcfModelList();
         }
 
         public static long GetTimeStamp(DateTime time)
@@ -409,29 +521,45 @@ namespace LocationServices.Locations.Services
 
         private List<PositionListDb> RefreshBuffer(int flag)
         {
-            var list1 = GetDayOperate(flag, allPoslist);
-            if (buffer.ContainsKey(flag))
+            try
             {
-                buffer[flag] = list1;
+                var list1 = GetDayOperate(flag, allPoslist);
+                if (buffer.ContainsKey(flag))
+                {
+                    buffer[flag] = list1;
+                }
+                else
+                {
+                    buffer.Add(flag, list1);
+                }
+                return list1;
             }
-            else
+            catch (System.Exception ex)
             {
-                buffer.Add(flag, list1);
+                Log.Error(hisTag, "RefreshBuffer", "Exception:" + ex);
+                return null;
             }
-            return list1;
         }
 
         private List<PositionListDb> GetFromBuffer(int flag)
         {
-            if (buffer.ContainsKey(flag))
+            try
             {
-                return buffer[flag];
+                if (buffer.ContainsKey(flag))
+                {
+                    return buffer[flag];
+                }
+                else
+                {
+                    var list1 = GetDayOperate(flag, allPoslist);
+                    buffer.Add(flag, list1);
+                    return list1;
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                var list1 = GetDayOperate(flag, allPoslist);
-                buffer.Add(flag, list1);
-                return list1;
+                Log.Error(hisTag, "RefreshBuffer", "Exception:" + ex);
+                return null;
             }
         }
 
@@ -506,7 +634,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public List<PosInfo> GetAllData(string tag,bool useBuffer=false)
+        public List<PosInfo> GetAllData(string tag, bool useBuffer = false)
         {
             try
             {
@@ -535,7 +663,7 @@ namespace LocationServices.Locations.Services
                 Log.Info(tag, string.Format(" areas count:" + areas.Count));
 
                 var posCount = bll.Positions.DbSet.Count();
-                Log.Info(tag, string.Format("posCount:{0:N}",posCount));
+                Log.Info(tag, string.Format("posCount:{0:N}", posCount));
                 //allPoslist = bll.Positions.ToList();
 
                 var first = bll.Positions.GetFirst();
@@ -692,7 +820,7 @@ namespace LocationServices.Locations.Services
             {
                 string strError = ex.Message;
 
-                Log.Info(tag, "Error:"+ex);
+                Log.Info(tag, "Error:" + ex);
             }
 
             return allPoslist;
@@ -700,60 +828,75 @@ namespace LocationServices.Locations.Services
 
         //private static List<PosInfo> noAreaList;
 
-        private List<PosInfo> SetAreaPath(string tag,Dictionary<int, Area> areas, ref List<PosInfo> list)
+        private List<PosInfo> SetAreaPath(string tag, Dictionary<int, Area> areas, ref List<PosInfo> list)
         {
-            Log.Info(tag, "SetAreaPath Start");
-            var noAreaList = new List<PosInfo>();
-            var count = list.Count;
-            for (int i = 0; i < count; i++)
+            try
             {
-                //if (i % 10000 == 0)
-                //{
-                //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}", (i + 1), count));
-                //}
-                PosInfo pos = list[i];
-                var areaId = pos.AreaId;
-                if (areaId != null && areas.ContainsKey((int) areaId))
+                Log.Info(tag, "SetAreaPath Start");
+                var noAreaList = new List<PosInfo>();
+                var count = list.Count;
+                for (int i = 0; i < count; i++)
                 {
-                    var area = areas[(int) areaId];
-                    //pos.Area = area;
-                    pos.AreaPath = area.GetToBuilding(">");
+                    //if (i % 10000 == 0)
+                    //{
+                    //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}", (i + 1), count));
+                    //}
+                    PosInfo pos = list[i];
+                    var areaId = pos.AreaId;
+                    if (areaId != null && areas.ContainsKey((int)areaId))
+                    {
+                        var area = areas[(int)areaId];
+                        //pos.Area = area;
+                        pos.AreaPath = area.GetToBuilding(">");
 
-                    allPoslist.Add(pos);//只有有区域数据的会被添加
+                        allPoslist.Add(pos);//只有有区域数据的会被添加
+                    }
+                    else
+                    {
+                        noAreaList.Add(pos);//todo:没有区域数据的测试为什么找不到区域用
+                    }
                 }
-                else
-                {
-                    noAreaList.Add(pos);//todo:没有区域数据的测试为什么找不到区域用
-                }
+                Log.Info(tag, "SetAreaPath End");
+                return noAreaList;
             }
-            Log.Info(tag, "SetAreaPath End");
-            return noAreaList;
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "SetAreaPath", "Exception:" + ex);
+                return null;
+            }
         }
 
-        private void SetPersonnalName(string tag,Dictionary<int, PersonnelDb> personnels, List<PosInfo> list)
+        private void SetPersonnalName(string tag, Dictionary<int, PersonnelDb> personnels, List<PosInfo> list)
         {
-            Log.Info(tag, "SetPersonnalName Start");
-            var count = list.Count;
-            for (int i = 0; i < count; i++)
+            try
             {
-                //if (i % 10000 == 0)
-                //{
-                //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
-                //}
-                PosInfo pos = list[i];
-                var pid = pos.PersonnelID;
-                if (pid != null && personnels.ContainsKey((int) pid))
+                Log.Info(tag, "SetPersonnalName Start");
+                var count = list.Count;
+                for (int i = 0; i < count; i++)
                 {
-                    var p = personnels[(int) pid];
-                    pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
+                    //if (i % 10000 == 0)
+                    //{
+                    //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
+                    //}
+                    PosInfo pos = list[i];
+                    var pid = pos.PersonnelID;
+                    if (pid != null && personnels.ContainsKey((int)pid))
+                    {
+                        var p = personnels[(int)pid];
+                        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
+                    }
+                    else
+                    {
+                        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code);
+                        ; //有些卡对应的人员不存在
+                    }
                 }
-                else
-                {
-                    pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code);
-                    ; //有些卡对应的人员不存在
-                }
+                Log.Info(tag, "SetPersonnalName End");
             }
-            Log.Info(tag, "SetPersonnalName End");
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "SetPersonnalName", "Exception:" + ex);
+            }
         }
 
         /// <summary>
@@ -766,228 +909,234 @@ namespace LocationServices.Locations.Services
         public List<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2,
             string strName3)
         {
-            if (nFlag != 1 && nFlag != 2 && nFlag != 3)
+            try
             {
-                return null;
-            }
+                if (nFlag != 1 && nFlag != 2 && nFlag != 3)
+                {
+                    return null;
+                }
 
-            int nFlag2 = 0;
-            int nFlag3 = 0;
-            int nFlag4 = 0;
+                int nFlag2 = 0;
+                int nFlag3 = 0;
+                int nFlag4 = 0;
 
-            if (nFlag == 1)
-            {
-                nFlag2 = 2;
-                nFlag3 = 4;
-            }
-            else if (nFlag == 2)
-            {
-                nFlag2 = 1;
-                nFlag3 = 4;
-            }
-            else
-            {
-                nFlag2 = 2;
-                nFlag3 = 1;
-                nFlag4 = 4;
-            }
+                if (nFlag == 1)
+                {
+                    nFlag2 = 2;
+                    nFlag3 = 4;
+                }
+                else if (nFlag == 2)
+                {
+                    nFlag2 = 1;
+                    nFlag3 = 4;
+                }
+                else
+                {
+                    nFlag2 = 2;
+                    nFlag3 = 1;
+                    nFlag4 = 4;
+                }
 
-            //获取第一层数据
-            //SendList = GetDayOperate(nFlag, allPoslist);
-            List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
-            if (list == null)
-            {
-                return null;
-            }
+                //获取第一层数据
+                //SendList = GetDayOperate(nFlag, allPoslist);
+                List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
+                if (list == null)
+                {
+                    return null;
+                }
 
-            if (strName == "")
-            {
+                if (strName == "")
+                {
+                    return list.ToTModel();
+                }
+
+                //获取第二层数据
+                PositionListDb Result = list.Find(p => p.Name == strName);
+                if (Result == null)
+                {
+                    return null;
+                }
+
+                list = GetDayOperate(nFlag2, Result.Items);
+                if (list == null)
+                {
+                    return null;
+                }
+
+                if (strName2 == "")
+                {
+                    return list.ToTModel();
+                }
+
+                //获取第三层数据
+                Result = list.Find(p => p.Name == strName2);
+                if (Result == null)
+                {
+                    return null;
+                }
+
+                list = GetDayOperate(nFlag3, Result.Items);
+                if (list == null)
+                {
+                    return null;
+                }
+
+                if (strName3 == "")
+                {
+                    return list.ToTModel();
+                }
+
+                //获取第四层数据
+                Result = list.Find(p => p.Name == strName3);
+                if (Result == null)
+                {
+                    return null;
+                }
+
+                list = GetDayOperate(nFlag4, Result.Items);
+                if (list == null)
+                {
+                    return null;
+                }
+
                 return list.ToTModel();
             }
-
-            //获取第二层数据
-            PositionListDb Result = list.Find(p => p.Name == strName);
-            if (Result == null)
+            catch (System.Exception ex)
             {
+                Log.Error(hisTag, "GetHistoryPositonStatistics", "Exception:" + ex);
                 return null;
             }
-
-            list = GetDayOperate(nFlag2, Result.Items);
-            if (list == null)
-            {
-                return null;
-            }
-
-            if (strName2 == "")
-            {
-                return list.ToTModel();
-            }
-
-            //获取第三层数据
-            Result = list.Find(p => p.Name == strName2);
-            if (Result == null)
-            {
-                return null;
-            }
-
-            list = GetDayOperate(nFlag3, Result.Items);
-            if (list == null)
-            {
-                return null;
-            }
-
-            if (strName3 == "")
-            {
-                return list.ToTModel();
-            }
-
-            //获取第四层数据
-            Result = list.Find(p => p.Name == strName3);
-            if (Result == null)
-            {
-                return null;
-            }
-
-            list = GetDayOperate(nFlag4, Result.Items);
-            if (list == null)
-            {
-                return null;
-            }
-
-            return list.ToTModel();
         }
 
         public List<PositionListDb> GetDayOperate(int nFlag, List<PosInfo> list)
         {
-            List<PositionListDb> Send = null;
-            if (list == null)
+            try
             {
+                List<PositionListDb> Send = null;
+                if (list == null)
+                {
+                    return Send;
+                }
+
+                Send = DbModel.LocationHistory.Data.PosInfoListHelper.GetSubList(list, nFlag);
+
                 return Send;
             }
-
-            //switch (nFlag)
-            //{
-            //    case 1:
-            //        Send = PositionListDb.GetListByDay(list);
-            //        break;
-            //    case 2:
-            //        Send = PositionListDb.GetListByPerson(list);
-            //        break;
-            //    case 3:
-            //        Send = PositionListDb.GetListByArea(list);
-            //        break;
-            //    case 4:
-            //        Send = PositionListDb.GetListByHour(list);
-            //        break;
-            //    default:
-            //        break;
-            //}
-
-            Send = DbModel.LocationHistory.Data.PosInfoListHelper.GetSubList(list, nFlag);
-
-            return Send;
+            catch (System.Exception ex)
+            {
+                Log.Error(hisTag, "GetDayOperate", "Exception:" + ex);
+                return null;
+            }
         }
 
 
         public List<PosInfo> GetHistoryPositonData(int nFlag, string strName, string strName2,
             string strName3)
         {
-            if (nFlag != 1 && nFlag != 2 && nFlag != 3)
+            try
             {
-                return null;
-            }
+                if (nFlag != 1 && nFlag != 2 && nFlag != 3)
+                {
+                    return null;
+                }
 
-            int nFlag2 = 0;
-            int nFlag3 = 0;
-            int nFlag4 = 0;
+                int nFlag2 = 0;
+                int nFlag3 = 0;
+                int nFlag4 = 0;
 
-            if (nFlag == 1)
-            {
-                nFlag2 = 2;
-                nFlag3 = 4;
-            }
-            else if (nFlag == 2)
-            {
-                nFlag2 = 1;
-                nFlag3 = 4;
-            }
-            else
-            {
-                nFlag2 = 2;
-                nFlag3 = 1;
-                nFlag4 = 4;
-            }
+                if (nFlag == 1)
+                {
+                    nFlag2 = 2;
+                    nFlag3 = 4;
+                }
+                else if (nFlag == 2)
+                {
+                    nFlag2 = 1;
+                    nFlag3 = 4;
+                }
+                else
+                {
+                    nFlag2 = 2;
+                    nFlag3 = 1;
+                    nFlag4 = 4;
+                }
 
-            //获取第一层数据
-            //SendList = GetDayOperate(nFlag, allPoslist);
-            List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
-            if (list == null)
-            {
-                return null;
-            }
+                //获取第一层数据
+                //SendList = GetDayOperate(nFlag, allPoslist);
+                List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
+                if (list == null)
+                {
+                    return null;
+                }
 
-            if (strName == "")
-            {
+                if (strName == "")
+                {
+                    //return list.ToTModel();
+                    return null;
+                }
+
+                //获取第二层数据
+                PositionListDb Result = list.Find(p => p.Name == strName);
+                if (Result == null)
+                {
+                    return null;
+                }
+
+
+                if (strName2 == "")
+                {
+                    return Result.Items;
+                }
+
+                list = GetDayOperate(nFlag2, Result.Items);
+                if (list == null)
+                {
+                    return null;
+                }
+
+
+                //获取第三层数据
+                Result = list.Find(p => p.Name == strName2);
+                if (Result == null)
+                {
+                    return null;
+                }
+
+                if (strName3 == "")
+                {
+                    return Result.Items;
+                }
+
+                list = GetDayOperate(nFlag3, Result.Items);
+                if (list == null)
+                {
+                    return null;
+                }
+
+
+
+                ////获取第四层数据
+                //Result = list.Find(p => p.Name == strName3);
+                //if (Result == null)
+                //{
+                //    return null;
+                //}
+
+                //list = GetDayOperate(nFlag4, Result.Items);
+                //if (list == null)
+                //{
+                //    return null;
+                //}
+
                 //return list.ToTModel();
+
                 return null;
             }
-
-            //获取第二层数据
-            PositionListDb Result = list.Find(p => p.Name == strName);
-            if (Result == null)
+            catch (System.Exception ex)
             {
+                Log.Error(hisTag, "GetHistoryPositonData", "Exception:" + ex);
                 return null;
             }
-
-
-            if (strName2 == "")
-            {
-                return Result.Items;
-            }
-
-            list = GetDayOperate(nFlag2, Result.Items);
-            if (list == null)
-            {
-                return null;
-            }
-
-
-            //获取第三层数据
-            Result = list.Find(p => p.Name == strName2);
-            if (Result == null)
-            {
-                return null;
-            }
-
-            if (strName3 == "")
-            {
-                return Result.Items;
-            }
-
-            list = GetDayOperate(nFlag3, Result.Items);
-            if (list == null)
-            {
-                return null;
-            }
-
-            
-
-            ////获取第四层数据
-            //Result = list.Find(p => p.Name == strName3);
-            //if (Result == null)
-            //{
-            //    return null;
-            //}
-
-            //list = GetDayOperate(nFlag4, Result.Items);
-            //if (list == null)
-            //{
-            //    return null;
-            //}
-
-            //return list.ToTModel();
-
-            return null;
         }
     }
 }

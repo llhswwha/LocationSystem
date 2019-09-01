@@ -17,6 +17,8 @@ namespace LocationServices.Locations.Services
 {
     public class PhysicalTopologyService : IPhysicalTopologyService
     {
+        public static string tag = "PhysicalTopologyService";
+
         private Bll db;
         public PhysicalTopologyService()
         {
@@ -69,16 +71,24 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception e)
             {
-                Log.Error("AddMonitorRange", e.ToString());
+                Log.Error(tag, "AddMonitorRange", e.ToString());
                 return null;
             }
         }
         private Location.TModel.Location.AreaAndDev.Bound NewBound(PhysicalTopology pt)
         {
-            var bound = new Location.TModel.Location.AreaAndDev.Bound();
-            bound.IsRelative = pt.IsRelative;
-            bound.SetInitBound(pt.Transfrom);
-            return bound;
+            try
+            {
+                var bound = new Location.TModel.Location.AreaAndDev.Bound();
+                bound.IsRelative = pt.IsRelative;
+                bound.SetInitBound(pt.Transfrom);
+                return bound;
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "NewBound", ex.ToString());
+                return null;
+            }
         }
 
 
@@ -118,6 +128,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex)
             {
+                Log.Error(tag, "DeleteMonitorRange", ex.ToString());
                 return false;
             }
 
@@ -170,6 +181,7 @@ namespace LocationServices.Locations.Services
             }
             catch (Exception ex)
             {
+                Log.Error(tag, "EditMonitorRange", ex.ToString());
                 return false;
             }
 
@@ -178,28 +190,60 @@ namespace LocationServices.Locations.Services
 
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
-            return new AreaService(db).Put(item);
+            try
+            {
+                return new AreaService(db).Put(item);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "EditPhysicalTopology", ex.ToString());
+                return null;
+            }
         }
 
         public IList<PhysicalTopology> GetFloorMonitorRange()
         {
-           PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
-            var results = physicalTopologySp.GetFloorMonitorRange();
-            return results.ToWcfModelList();
+            try
+            {
+                PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
+                var results = physicalTopologySp.GetFloorMonitorRange();
+                return results.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetFloorMonitorRange", ex.ToString());
+                return null;
+            }
         }
 
         public IList<PhysicalTopology> GetFloorMonitorRangeById(int id)
         {
-            PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
-            var results = physicalTopologySp.GetFloorMonitorRange(id);
-            return results.ToWcfModelList();
+            try
+            {
+                PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
+                var results = physicalTopologySp.GetFloorMonitorRange(id);
+                return results.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetFloorMonitorRangeById", ex.ToString());
+                return null;
+            }
         }
 
         public IList<PhysicalTopology> GetParkMonitorRange()
         {
-            PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
-            var results = physicalTopologySp.GetParkMonitorRange();
-            return results.ToWcfModelList();
+            try
+            {
+                PhysicalTopologySP physicalTopologySp = new PhysicalTopologySP(db);
+                var results = physicalTopologySp.GetParkMonitorRange();
+                return results.ToWcfModelList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(tag, "GetParkMonitorRange", ex.ToString());
+                return null;
+            }
         }
 
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
@@ -240,56 +284,64 @@ namespace LocationServices.Locations.Services
 
         public IList<PhysicalTopology> GetSwitchAreas()
         {
-            var switchAreas = db.bus_anchor_switch_area.ToList();
-
-            var subSwitchAreas = switchAreas;
-
-            int ShowFloor = 0;
-            if (ShowFloor == 1)//1层
+            try
             {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
-            }
-            else if (ShowFloor == 2)//2层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
-            }
-            else if (ShowFloor == 3)//3层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
-            }
-            else if (ShowFloor == 4)//4层
-            {
-                subSwitchAreas = switchAreas.FindAll(i => i.min_z > 880);
-            }
-            else
-            {
+                var switchAreas = db.bus_anchor_switch_area.ToList();
 
-            }
+                var subSwitchAreas = switchAreas;
 
-            List<PhysicalTopology> areas = new List<PhysicalTopology>();
-            float scale = 100.0f;
-            foreach (var item in subSwitchAreas)
+                int ShowFloor = 0;
+                if (ShowFloor == 1)//1层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
+                }
+                else if (ShowFloor == 2)//2层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
+                }
+                else if (ShowFloor == 3)//3层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
+                }
+                else if (ShowFloor == 4)//4层
+                {
+                    subSwitchAreas = switchAreas.FindAll(i => i.min_z > 880);
+                }
+                else
+                {
+
+                }
+
+                List<PhysicalTopology> areas = new List<PhysicalTopology>();
+                float scale = 100.0f;
+                foreach (var item in subSwitchAreas)
+                {
+                    var switchArea = new PhysicalTopology();
+                    //todo:这部分的具体数值其他项目时需要调整。
+                    float x1 = item.start_x / scale + 2059;
+                    float x2 = item.end_x / scale + 2059;
+                    float y1 = item.start_y / scale + 1565;
+                    float y2 = item.end_y / scale + 1565;
+                    float z1 = item.min_z / scale;
+                    float z2 = item.max_z / scale;
+                    switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, z1, z2, false);
+                    //switchArea.Parent = area;
+                    switchArea.Name = item.area_id;
+                    switchArea.Type = AreaTypes.SwitchArea;
+
+                    //AddAreaRect(switchArea, null, scale);
+                    switchArea.SetTransformM();
+
+                    areas.Add(switchArea);
+                }
+
+                return areas;
+            }
+            catch (System.Exception ex)
             {
-                var switchArea = new PhysicalTopology();
-                //todo:这部分的具体数值其他项目时需要调整。
-                float x1 = item.start_x / scale + 2059;
-                float x2 = item.end_x / scale + 2059;
-                float y1 = item.start_y / scale + 1565;
-                float y2 = item.end_y / scale + 1565;
-                float z1 = item.min_z / scale;
-                float z2 = item.max_z / scale;
-                switchArea.InitBound = new Location.TModel.Location.AreaAndDev.Bound(x1, y1, x2, y2, z1, z2, false);
-                //switchArea.Parent = area;
-                switchArea.Name = item.area_id;
-                switchArea.Type = AreaTypes.SwitchArea;
-
-                //AddAreaRect(switchArea, null, scale);
-                switchArea.SetTransformM();
-
-                areas.Add(switchArea);
+                Log.Error(tag, "GetSwitchAreas", ex.ToString());
+                return null;
             }
-
-            return areas;
         }
 
         public PhysicalTopology RemovePhysicalTopology(string id)

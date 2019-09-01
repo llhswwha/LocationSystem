@@ -380,11 +380,12 @@ namespace Location.BLL.Tool
 
         public static void Error(string tag, string message)
         {
-            //if (!Tags.Contains(tag))
-            //{
-            //    Tags.Add(tag);
-            //}
             string log = tag + "|" + GetPrefix() + message + GetSuffix();
+            Logger.Error(log);
+        }
+        public static void Error(string tag,string funcName, string message)
+        {
+            string log = tag + "|" +funcName+">>"+ GetPrefix() + message + GetSuffix();
             Logger.Error(log);
         }
 

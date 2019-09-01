@@ -121,23 +121,37 @@ namespace LocationServices.Locations
 
         private bool GetIpAndChannelFormDb(DownloadInfo info)
         {
-            var camera = db.Dev_CameraInfos.Find(info.CId); //摄像机Id
-            if (camera == null)
+            try
             {
-                Log.Error(LogTags.DbGet, "camera == null");
+                if (info == null)
+                {
+                    Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb info == null");
+                    return false;
+                }
+                var camera = db.Dev_CameraInfos.Find(info.CId); //摄像机Id
+                if (camera == null)
+                {
+                    Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb camera == null");
+                    return false;
+                }
+
+                var rtsp = camera.RtspUrl; //"rtsp://admin:1111@192.168.108.107/13"
+                Log.Info(LogTags.DbGet, "rtsp:" + rtsp);
+                string[] parts = rtsp.Split('@');
+                string[] parts2 = parts[1].Split('/');
+
+                string ip = parts2[0];
+                info.Ip = ip;
+                string channel = parts2[1];
+                info.Channel = channel;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb Exception:"+ex);
                 return false;
             }
-
-            var rtsp = camera.RtspUrl; //"rtsp://admin:1111@192.168.108.107/13"
-            Log.Info(LogTags.DbGet, "rtsp:" + rtsp);
-            string[] parts = rtsp.Split('@');
-            string[] parts2 = parts[1].Split('/');
-
-            string ip = parts2[0];
-            info.Ip = ip;
-            string channel = parts2[1];
-            info.Channel = channel;
-            return true;
+           
         }
 
         public DownloadProgress GetNVSProgress(DownloadInfo info)

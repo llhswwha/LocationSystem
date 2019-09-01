@@ -8,6 +8,7 @@ using TModel.Tools;
 using TEntity = DbModel.Location.Work.AreaAuthorizationRecord;
 using AEntity = DbModel.Location.AreaAndDev.Area;
 using DbModel.Location.Work;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
@@ -29,7 +30,7 @@ namespace LocationServices.Locations.Services
         : NameEntityService<TEntity>
         , IAreaAuthorizationRecordService
     {
-        public AreaAuthorizationRecordService():base()
+        public AreaAuthorizationRecordService() : base()
         {
         }
 
@@ -49,116 +50,166 @@ namespace LocationServices.Locations.Services
 
         public IList<TEntity> GetListByRole(string role)
         {
-            int roleId = role.ToInt();
-            //return dbSet.Where(i => i.CardRoleId == roleId);
-            var query = from aar in dbSet.DbSet
-                        join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
-                        from area2 in AreaLst.DefaultIfEmpty()
-                        where aar.CardRoleId == roleId
-                        select new { AreaAuzRcd = aar, Area = area2 };
-            var result = query.ToList();
-            IList<TEntity> list = new List<TEntity>();
-            foreach (var item in result)
+            try
             {
-                item.AreaAuzRcd.Area = item.Area;
-                list.Add(item.AreaAuzRcd);
+                int roleId = role.ToInt();
+                //return dbSet.Where(i => i.CardRoleId == roleId);
+                var query = from aar in dbSet.DbSet
+                            join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
+                            from area2 in AreaLst.DefaultIfEmpty()
+                            where aar.CardRoleId == roleId
+                            select new { AreaAuzRcd = aar, Area = area2 };
+                var result = query.ToList();
+                IList<TEntity> list = new List<TEntity>();
+                foreach (var item in result)
+                {
+                    item.AreaAuzRcd.Area = item.Area;
+                    list.Add(item.AreaAuzRcd);
+                }
+                return list;
             }
-            return list;
+            catch (Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
+                return null;
+            }
+
         }
 
         public IList<TEntity> GetAccessListByRole(string role)
         {
-            int roleId = role.ToInt();
-            //return dbSet.Where(i => i.CardRoleId == roleId);
-            var query = from aar in dbSet.DbSet
-                        join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
-                        from area2 in AreaLst.DefaultIfEmpty()
-                        where aar.CardRoleId == roleId && aar.AccessType == AreaAccessType.可以进出
-                        select new { AreaAuzRcd = aar, Area = area2 };
-            var result = query.ToList();
-            IList<TEntity> list = new List<TEntity>();
-            foreach (var item in result)
+            try
             {
-                item.AreaAuzRcd.Area = item.Area;
-                list.Add(item.AreaAuzRcd);
+                int roleId = role.ToInt();
+                //return dbSet.Where(i => i.CardRoleId == roleId);
+                var query = from aar in dbSet.DbSet
+                            join area in db.Areas.DbSet on aar.AreaId equals area.Id into AreaLst
+                            from area2 in AreaLst.DefaultIfEmpty()
+                            where aar.CardRoleId == roleId && aar.AccessType == AreaAccessType.可以进出
+                            select new { AreaAuzRcd = aar, Area = area2 };
+                var result = query.ToList();
+                IList<TEntity> list = new List<TEntity>();
+                foreach (var item in result)
+                {
+                    item.AreaAuzRcd.Area = item.Area;
+                    list.Add(item.AreaAuzRcd);
+                }
+                return list;
             }
-            return list;
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
+                return null;
+            }
+
         }
 
         public IList<TEntity> GetListByTag(string tagId)
         {
-            var tag = db.LocationCards.Find(tagId.ToInt());
-            if (tag == null) return null;
-            return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
+            try
+            {
+                var tag = db.LocationCards.Find(tagId.ToInt());
+                if (tag == null) return null;
+                return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
+                return null;
+            }
         }
 
         public IList<TEntity> GetListByPerson(string personId)
         {
-            var id = personId.ToInt();
-            var tp=db.LocationCardToPersonnels.Find(i=>i.PersonnelId== id);
-            var tag = db.LocationCards.Find(tp.LocationCardId);
-            if (tag == null) return null;
-            return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
+            try
+            {
+                var id = personId.ToInt();
+                var tp = db.LocationCardToPersonnels.Find(i => i.PersonnelId == id);
+                var tag = db.LocationCards.Find(tp.LocationCardId);
+                if (tag == null) return null;
+                return dbSet.Where(i => i.CardRoleId == tag.CardRoleId);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
+                return null;
+            }
         }
 
         public IList<AEntity> GetAreaTreeByRole(string role)
         {
-            int roleId = role.ToInt();
-            IList<AEntity> list = new List<AEntity>();
-
-            var query = from t1 in db.AreaAuthorizationRecords.DbSet
-                        join t2 in db.Areas.DbSet on t1.AreaId equals t2.Id
-                        where t1.CardRoleId == roleId
-                        select t2;
-
-            List<AEntity> alist = query.ToList();
-            List<AEntity> alist2 = query.ToList();
-            List<AEntity> ResultList = new List<AEntity>();
-
-            foreach (AEntity item in alist)
+            try
             {
-                AEntity item2 = alist2.Find(p=>p.Id == item.ParentId);
-                if (item2 == null)
+                int roleId = role.ToInt();
+                IList<AEntity> list = new List<AEntity>();
+
+                var query = from t1 in db.AreaAuthorizationRecords.DbSet
+                            join t2 in db.Areas.DbSet on t1.AreaId equals t2.Id
+                            where t1.CardRoleId == roleId
+                            select t2;
+
+                List<AEntity> alist = query.ToList();
+                List<AEntity> alist2 = query.ToList();
+                List<AEntity> ResultList = new List<AEntity>();
+
+                foreach (AEntity item in alist)
                 {
-                    ResultList.Add(item.Clone());
+                    AEntity item2 = alist2.Find(p => p.Id == item.ParentId);
+                    if (item2 == null)
+                    {
+                        ResultList.Add(item.Clone());
+                    }
                 }
-            }
 
-            CreateAreaTree(ref alist2, ref ResultList);
-            
-            foreach (AEntity item in ResultList)
+                CreateAreaTree(ref alist2, ref ResultList);
+
+                foreach (AEntity item in ResultList)
+                {
+                    list.Add(item);
+                }
+
+                return list;
+            }
+            catch (System.Exception ex)
             {
-                list.Add(item);
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
+                return null;
             }
-
-            return list;
         }
 
         public void CreateAreaTree(ref List<AEntity> ContrastList, ref List<AEntity> ResultList)
         {
-            foreach (AEntity item in ResultList)
+            try
             {
-                List<AEntity> itemList = ContrastList.FindAll(p=>p.ParentId == item.Id);
-                if (item.Children == null)
+                foreach (AEntity item in ResultList)
                 {
-                    item.Children = new List<AEntity>();
-                }
+                    List<AEntity> itemList = ContrastList.FindAll(p => p.ParentId == item.Id);
+                    if (item.Children == null)
+                    {
+                        item.Children = new List<AEntity>();
+                    }
 
-                if (itemList != null && itemList.Count > 0)
-                {
-                    CreateAreaTree(ref ContrastList, ref itemList);
-                    item.Children.AddRange(itemList);
+                    if (itemList != null && itemList.Count > 0)
+                    {
+                        CreateAreaTree(ref ContrastList, ref itemList);
+                        item.Children.AddRange(itemList);
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.DbGet, "Exception:" + ex);
 
-            return;
+            }
+
+
         }
 
 
 
         //public TEntity PostByRole(string )
         //{
-            
+
         //}
     }
 }
