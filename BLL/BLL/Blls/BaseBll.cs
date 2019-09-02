@@ -471,7 +471,23 @@ namespace BLL.Blls
                 }
                 catch (Exception ex)
                 {
+                    /*
+                     * 2019-09-02 06:00:34,397 [70] INFO  Logger - RealPos|0 获取定位数据:{"data_type":"1","engine_id":"","tag_id":"08C7","tag_id_dec":"2247","x":"34.60068","y":"7.93283","z":"0.84000","timestamp":"15677375234349","sn":"249","bettery":"4.09","events":[{"event_type":"LOCK"},{"event_type":"MOVE"}
+2019-09-02 06:00:34,397 [72] INFO  Logger - RealPos|0 获取定位数据:{"data_type":"1","engine_id":"","tag_id":"08C7","tag_id_dec":"2247","x":"34.60068","y":"7.93283","z":"0.84000","timestamp":"15677375234349","sn":"249","bettery":"4.09","events":[{"event_type":"LOCK"},{"event_type":"MOVE"}]}
+2019-09-02 06:00:34,398 [70] INFO  Logger - ParseJson|0 调整json数据: + ]}
+2019-09-02 06:00:34,399 [70] INFO  Logger - RealPos|0 获取定位数据:{"data_type":"1","engine_id":"","tag_id":"08BB","tag_id_dec":"2235","x":"45.43393","y":"25.78800","z":"0.98000","timestamp":"1567375234365","sn":"107","bettery":"4.10","events":[{"event_type":"LOCK"},{"event_type":"MOVE"}]}
+2019-09-02 06:00:34,398 [72] INFO  Logger - RealPos|0 获取定位数据:{"data_type":"1","engine_id":"","tag_id":"08BB","tag_id_dec":"2235","x":"45.43393","y":"25.78800","z":"0.98000","timestamp":"1567375234365","sn":"107","bettery":"4.10","events":[{"event_type":"LOCK"},{"event_type":"MOVE"}
+2019-09-02 06:00:34,403 [72] INFO  Logger - ParseJson|0 调整json数据: + ]}
+                     */
+
+                    //Table has no partition for value 15677375234349
+                    //Table has no partition for value 15667397966646 //1567375241100
                     exception = ex;
+                    if (ex.Message.Contains("Table has no partition for value"))//数据太多了，数据库表分区不够用了
+                    {
+                        break;
+                    }
+                   
                     //失败则继续尝试
                     Log.Error("AddRange", string.Format("Try{0},Type:{1},Count:{2},Error:{3}", i,typeof(T), list.Count(), ex.Message));
                     Thread.Sleep(100);

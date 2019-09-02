@@ -238,7 +238,8 @@ namespace LocationServer.Windows
         {
             PosInfoList posList = DataGridStatisticDayPerson.SelectedItem as PosInfoList;
             if (posList == null) return;
-            DataGridStatisticDayPersonTime.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
+            var list= PosInfoListHelper.GetListByHour(posList.Items);
+            DataGridStatisticDayPersonTime.ItemsSource = list;
             //DataGridDayPersonPosList.ItemsSource = posList.Items;
         }
 
@@ -259,6 +260,11 @@ namespace LocationServer.Windows
             }
 
             var list = posList.Items;
+
+            list.Sort((a, b) =>
+            {
+                return a.DateTimeStamp.CompareTo(b.DateTimeStamp);
+            });
 
             DataGridDayPersonPosList.ItemsSource = list;
 

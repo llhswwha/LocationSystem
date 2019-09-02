@@ -29,6 +29,7 @@ namespace LocationServices.Locations
         public int AddCardRole(CardRole p)
         {
             var entity= new TagRoleService(db).Post(p);
+            RefreshData();
             if (entity != null)
             {
                 return entity.Id;
@@ -42,13 +43,27 @@ namespace LocationServices.Locations
         public bool EditCardRole(CardRole p)
         {
             var entity = new TagRoleService(db).Put(p);
+            RefreshData();
             return entity != null;
         }
 
         public bool DeleteCardRole(int id)
         {
             var entity = new TagRoleService(db).Delete(id+"");
+            RefreshData();
             return entity != null;
+        }
+
+        private void RefreshData()
+        {
+            try
+            {
+                BLL.Buffers.AuthorizationBuffer.Instance(db).PubUpdateData();
+            }
+            catch(Exception e)
+            {
+                
+            }
         }
     }
 }

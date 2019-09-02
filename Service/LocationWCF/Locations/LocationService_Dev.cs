@@ -472,7 +472,13 @@ namespace LocationServices.Locations
                     SetAlarmPerson(list3, persons);
                     SetAlarmTag(cards, list3);
 
-                    return list3.ToWcfModelList();
+                    List<LocationAlarm> send = list3.ToWcfModelList();
+                    if (send != null && send.Count() == 0)
+                    {
+                        send = null;
+                    }
+
+                    return send;
                 }
 
             }
@@ -1281,13 +1287,13 @@ namespace LocationServices.Locations
             List<string> lstGetParent = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("总告警", lstGetParent, true, ref statistics);
             statistics.itemList.Add("总告警");
-            statistics.itemList.Add("其他");
             statistics.itemList.Add("视频监控");
             statistics.itemList.Add("门禁");
             statistics.itemList.Add("消防");
             statistics.itemList.Add("SIS");
             statistics.itemList.Add("人员定位");
-            
+            statistics.itemList.Add("其他");
+
 
             foreach (Abutment_DevAlarmSrc item in lstSrc)
             {
@@ -1299,6 +1305,21 @@ namespace LocationServices.Locations
                 }
 
                 StaticCountLines(strName, lstGet, true, ref statistics);
+            }
+
+            if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
+            {
+                statistics.DevTypeAlarms = null;
+            }
+
+            if (statistics.Lines != null && statistics.Lines.Count() == 0)
+            {
+                statistics.Lines = null;
+            }
+
+            if (statistics.itemList != null && statistics.itemList.Count() == 0)
+            {
+                statistics.itemList = null;
             }
 
             statistics.Sort();
@@ -1351,6 +1372,21 @@ namespace LocationServices.Locations
 
             List<string> lstGet = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("全部", lstGet, false, ref statistics);
+
+            if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
+            {
+                statistics.DevTypeAlarms = null;
+            }
+
+            if (statistics.Lines != null && statistics.Lines.Count() == 0)
+            {
+                statistics.Lines = null;
+            }
+
+            if (statistics.itemList != null && statistics.itemList.Count() == 0)
+            {
+                statistics.itemList = null;
+            }
 
             statistics.Sort();
             return statistics;

@@ -48,9 +48,14 @@ namespace TModel.Location.Alarm
             {
                 count += point.Value;
             }
-            AlarmLine line = new AlarmLine(name);
-            line.Points = points;
-            this.Lines.Add(line);
+
+            if (points != null && points.Count() > 0)
+            {
+                AlarmLine line = new AlarmLine(name);
+                line.Points = points;
+                this.Lines.Add(line);
+            }
+            
             if (addTypeCount)//设备告警，每个类型有一条线
             {
                 this.AddTypeCount(name, (int)count);

@@ -49,7 +49,7 @@ namespace DbModel.LocationHistory.Data
 
         public int CompareTo(PosInfoList other)
         {
-            return other.Count.CompareTo(this.Count);
+            return other.Name.CompareTo(this.Name);
         }
     }
 

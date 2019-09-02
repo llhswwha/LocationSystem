@@ -220,41 +220,85 @@ namespace BLL
 
         private void AddPositionToHistoryAsync(List<Position> positions)
         {
-            foreach (var item in positions)
+            try
             {
-                temp.Add(item);
-            }
+                if (AddPostionThread == null)
+                {
+                    AddPostionThread = new Thread(() =>
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                Thread.Sleep(AppSetting.AddHisPositionInterval);//历史数据10s插入一次,其实60s甚至更久也可以的。
+                                lock (temp) //怀疑和lock有关
+                                {
+                                    if (temp.Count > 0)
+                                    {
+                                        Dictionary<string,Position> posList2 = new Dictionary<string, Position>();//Set
+                                        //posList2.AddRange(temp);
+                                        foreach (var item in temp)
+                                        {
+                                            string key = item.Code + item.DateTimeStamp;
+                                            if (posList2.ContainsKey(key))//相同卡的相同时间戳
+                                            {
+                                                Log.Error("AddPositions", "收到重复数据:"+key);
+                                            }
+                                            else
+                                            {
+                                                posList2.Add(key, item);
+                                            }
+                                        }
 
-            if (AddPostionThread == null)
-            {
-                AddPostionThread = new Thread(() =>
-                  {
-                      while (true)
-                      {
-                          Thread.Sleep(AppSetting.AddHisPositionInterval);//历史数据10s插入一次,其实60s甚至更久也可以的。
-                          lock (temp)
-                          {
-                              if (temp.Count > 0)
-                              {
-                                  List<Position> posList2 = new List<Position>();
-                                  posList2.AddRange(temp);
-                                  bool r1 = AddPositionToHistory(posList2);
-                                  if (r1)
-                                  {
-                                      temp = new ConcurrentBag<Position>();
-                                  }
-                                  Log.Info("AddPositions", string.Format("插入 count:{0},r:{1}", posList2.Count, r1));
-                              }
-                              else
-                              {
-                                  Log.Info("AddPositions", "Wait");
-                              }
-                          }
-                      }
-                  });
-                AddPostionThread.IsBackground = true;
-                AddPostionThread.Start();
+                                        var posList3 = posList2.Values.ToList();
+                                        bool r1 = AddPositionToHistory(posList3);
+                                        if (r1)
+                                        {
+                                            temp = new ConcurrentBag<Position>();
+                                            Log.Info("AddPositions", string.Format("插入 count:{0},r:{1}", posList2.Count, r1));
+                                        }
+                                        else
+                                        {
+                                            Thread.Sleep(100);
+                                            if (ErrorMessage.Contains("Table has no partition for value"))
+                                            {
+                                                AddPartion2();//姑且尝试添加分区
+                                            }
+                                            temp = new ConcurrentBag<Position>();
+                                            //插入失败了，也要清空，不然数据会一直积累，插入重复相同的数据。
+                                            //怀疑，数据实际上是插入成功了的。
+                                            //怀疑，mysql连接池/线程池满了导致的插入失败。
+                                            Log.Error("AddPositions", string.Format("插入历史数据失败 count:{0},r:{1}", posList2.Count, r1));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.Info("AddPositions", "Wait");
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                                Log.Error("AddPositions", "Exception1:" + ex);
+                            }
+
+                        }
+                    });
+                    AddPostionThread.IsBackground = true;
+                    AddPostionThread.Start();
+                }
+
+                foreach (var item in positions)
+                {
+                    temp.Add(item);
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Error("AddPositions", "Exception2:"+ex);
+            }
+            
         }
 
         private bool AddPositionToHistory(List<Position> positions)
@@ -262,7 +306,7 @@ namespace BLL
             ////1.批量插入历史数据数据
             //DbHistory.BulkInsert(positions);//插件Z.EntityFramework.Extensions功能
             //DbHistory.Positions.AddRange(positions);
-            bool r1 = this.Positions.AddRange(positions,10);
+            bool r1 = this.Positions.AddRange(positions,3);
             //if (r1)
             //{
             //    bool r2 = BatchImport.Insert(Positions.Db.Database, Positions.DbSet, positions);//自己写的创建sql语句

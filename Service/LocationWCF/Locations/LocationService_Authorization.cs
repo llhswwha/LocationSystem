@@ -136,6 +136,7 @@ namespace LocationServices.Locations
                         Log.Error("SetCardRoleAccessAreas", "为找到区域对应的权限数据:" + areaId);
                     }
                 }
+                RefreshData();
             }
             catch (Exception ex)
             {
@@ -144,5 +145,6 @@ namespace LocationServices.Locations
             }
             return true;
         }
+
     }
 }

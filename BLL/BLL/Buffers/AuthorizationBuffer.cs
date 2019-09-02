@@ -42,7 +42,7 @@ namespace BLL.Buffers
             }
 
             _bll = bll;
-            UpdateInterval = 10;
+            //UpdateInterval = 10;
         }
 
         public void PubUpdateData()
@@ -465,7 +465,17 @@ namespace BLL.Buffers
             SaveHisAlarms();
 
             if (ReviseAlarmList.Count() > 0)
-            {
+            {    
+                //告警恢复，把id相同、告警类型相同的告警去掉           
+                foreach (var alarmT in ReviseAlarmList)
+                {
+                    if (alarmT == null) continue;
+                    LocationAlarm alarm = newAlarmList.Find(i => i != null && i.PersonnelId == alarmT.PersonnelId&&i.AlarmLevel == alarmT.AlarmLevel);
+                    if(alarm!=null)
+                    {
+                        newAlarmList.Remove(alarm);
+                    }
+                }
                 newAlarmList.AddRange(ReviseAlarmList);
             }
 

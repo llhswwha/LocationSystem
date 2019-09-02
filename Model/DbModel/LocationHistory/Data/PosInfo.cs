@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DbModel.LocationHistory.Data
 {
-    public class PosInfo
+    public class PosInfo:IComparable<PosInfo>
     {
         public int Id { get; set; }
         public long DateTimeStamp { get; set; }
@@ -69,6 +69,11 @@ namespace DbModel.LocationHistory.Data
         public override string ToString()
         {
             return string.Format("{0},{1},{2},{3},{4}", Id, Code, PersonnelID, AreaId, AreaPath);
+        }
+
+        public int CompareTo(PosInfo other)
+        {
+            return this.DateTimeStamp.CompareTo(other.DateTimeStamp);
         }
     }
 }
