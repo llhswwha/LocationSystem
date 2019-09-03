@@ -369,7 +369,12 @@ namespace LocationServer.Controls
                     }
                     catch (Exception e)
                     {
-                        Log.Error(LogTags.Server, "数据迁移出错！！：" + e.Message);
+                        string msg = e.Message;
+                        if(msg== "An error occurred while executing the command definition. See the inner exception for details.")
+                        {
+                            msg = e.InnerException.Message;
+                        }
+                        Log.Error(LogTags.Server, "数据迁移出错！！：" + msg);
                     }
 
                     if (EnableDevAlarmBuffer)

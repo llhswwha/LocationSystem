@@ -45,6 +45,7 @@ namespace WPFClientControlLib
             if (isDirty)
             {
                 TbLogs.Text = logs;
+                
                 isDirty = false;
 
                 if (LogChanged != null)

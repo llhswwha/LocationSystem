@@ -28,6 +28,9 @@ using LocationServices.Locations.Services;
 using PosInfo = DbModel.LocationHistory.Data.PosInfo;
 //using PosInfoList = DbModel.LocationHistory.Data.PosInfoList;
 using PosInfoList = DbModel.LocationHistory.Data.PosInfoList;
+using Location.TModel.Tools;
+using TModel.Tools;
+using LocationServices.Tools;
 
 namespace LocationServer.Windows
 {
@@ -240,7 +243,15 @@ namespace LocationServer.Windows
             if (posList == null) return;
             var list= PosInfoListHelper.GetListByHour(posList.Items);
             DataGridStatisticDayPersonTime.ItemsSource = list;
-            //DataGridDayPersonPosList.ItemsSource = posList.Items;
+
+            var list2 = posList.Items;
+
+            list2.Sort((a, b) =>
+            {
+                return a.DateTimeStamp.CompareTo(b.DateTimeStamp);
+            });
+
+            DataGridDayPersonPosList.ItemsSource = list2;
         }
 
         private void DataGridStatisticDayPersonTime_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -495,7 +506,10 @@ namespace LocationServer.Windows
             }, (count) => {
                 this.Title += " total:" + count;
             });
-            
+
+            TbMaxSpeed.Text = AppContext.MoveMaxSpeed + "";
+
+
         }
 
         private void MenuGetAllData_Click(object sender, RoutedEventArgs e)
@@ -804,6 +818,88 @@ namespace LocationServer.Windows
         private void MenuGetRepeatDataCount_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuGetTestData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuGetCount_Click(object sender, RoutedEventArgs e)
+        {
+            Bll bll = Bll.NewBllNoRelation();
+            int count = bll.Positions.DbSet.Count();
+        }
+
+        private void MenuGetTimestamp_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                Bll bll = Bll.NewBllNoRelation();
+
+                //DateTime date2 = date.AddHours(2);
+                DateTime now = DateTime.Now;
+                DateTime last = now.AddDays(-1);
+                DateTime date = last.Date;
+                var stamp = date.ToStamp();
+                Log.Info(LogTags.HisPos, string.Format("time:{0},stamp:{1}", date, stamp));
+
+                string count = "";
+                string delete = "";
+                //for (int i = 0; i < 24; i++)
+                //{
+                //    DateTime date1 = date.AddHours(i);
+                //    DateTime date2 = date.AddHours(i+1);
+                //    stamp = date1.ToStamp();
+                //    Log.Info(LogTags.HisPos, string.Format("[{0}]time:{1},stamp:{2}\n", i, date, stamp));
+
+                //    //txt += string.Format("[{0}]time:{1},stamp:{2}\n", i, date, stamp);
+                //    count += string.Format("{0}\n", bll.Positions.GetQuery_Count(date, date2));
+                //    delete += string.Format("{0}\n", bll.Positions.GetQuery_Delete(date, date2));
+                //    //var count= bll.Positions.GetPositionsCountOfDate(date, date2);
+                //    //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
+                //}
+
+                for (int i = 0; i < 1440; i++)
+                {
+                    DateTime date1 = date.AddMinutes(i);
+                    DateTime date2 = date.AddMinutes(i + 1);
+                    stamp = date1.ToStamp();
+                    Log.Info(LogTags.HisPos, string.Format("[{0}]time:{1},stamp:{2}\n", i, date, stamp));
+
+                    //txt += string.Format("[{0}]time:{1},stamp:{2}\n", i, date, stamp);
+                    count += string.Format("{0}\n", bll.Positions.GetQuery_Count(date, date2));
+                    delete += string.Format("{0}\n", bll.Positions.GetQuery_Delete(date, date2));
+                    //var count= bll.Positions.GetPositionsCountOfDate(date, date2);
+                    //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
+                }
+
+                Log.Info(LogTags.HisPos, count);
+                Log.Info(LogTags.HisPos, delete);
+
+                //Bll bll = Bll.NewBllNoRelation();
+                //DateTime date3 = date.AddHours(2);
+                //var count = bll.Positions.GetPositionsCountOfDate(date, date2);
+                //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
+
+            }, () =>
+            {
+
+            });
+           
+        }
+
+        private void FindErrorPoints_Click(object sender, RoutedEventArgs e)
+        {
+            List<PosInfo> posInfoList= DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            PosDistanceHelper.FilterErrorPoints(posInfoList);
+        }
+
+        
+
+        private void BtnSetMaxSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            AppContext.MoveMaxSpeed = TbMaxSpeed.Text.ToDouble();
         }
     }
 }

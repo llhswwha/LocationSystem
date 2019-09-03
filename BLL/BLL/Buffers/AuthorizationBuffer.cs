@@ -488,6 +488,7 @@ namespace BLL.Buffers
             return newAlarmList;
         }
 
+        public static string tag = "AuthorizationBuffer";
 
         /// <summary>
         /// 产生告警
@@ -497,6 +498,11 @@ namespace BLL.Buffers
         private List<LocationAlarm> GenerateAlarm(List<Position> list1)
         {
             List<LocationAlarm> newAlarmList = new List<LocationAlarm>();
+            if (list1 == null) {
+                Log.Error(tag, "GenerateAlarm", "list1 == null");
+                return newAlarmList;
+            }
+            
 
             LoadData();
 

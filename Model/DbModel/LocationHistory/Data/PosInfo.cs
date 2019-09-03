@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DbModel.LocationHistory.Data
 {
-    public class PosInfo:IComparable<PosInfo>
+    public class PosInfo:IComparable<PosInfo>, IPosInfo
     {
         public int Id { get; set; }
         public long DateTimeStamp { get; set; }

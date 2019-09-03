@@ -39,7 +39,7 @@ namespace BLL.Blls
                     if (i < tryCount - 1)
                     {
                         Thread.Sleep(100);
-                        Log.Error(LogTags.DbGet, "BaseBll.ToList<T> type=" + typeof(T) + ",try again:" + i+1);
+                        Log.Error(LogTags.DbGet, "BaseBll.ToList<T> type=" + typeof(T) + ",try again:" + (i+1));
                     }
                     else
                     {

@@ -380,8 +380,26 @@ namespace BLL.Blls.LocationHistory
         {
             long startStamp = start.ToStamp();
             long endStamp = end.ToStamp();
-            var r = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).Count();
+            var query = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp);
+            var mysql = query.ToString();
+            var r = query.Count();
             return r;
+        }
+
+        public string GetQuery_Count(DateTime start,DateTime end)
+        {
+            long startStamp = start.ToStamp();
+            long endStamp = end.ToStamp();
+            string mysql = string.Format("select count(*) from locationhistory.positions where DateTimeStamp >= {0} and DateTimeStamp <= {1};", startStamp,endStamp);
+            return mysql;
+        }
+
+        public string GetQuery_Delete(DateTime start, DateTime end)
+        {
+            long startStamp = start.ToStamp();
+            long endStamp = end.ToStamp();
+            string mysql = string.Format("delete from locationhistory.positions where DateTimeStamp >= {0} and DateTimeStamp <= {1};", startStamp, endStamp);
+            return mysql;
         }
 
         /// <summary>

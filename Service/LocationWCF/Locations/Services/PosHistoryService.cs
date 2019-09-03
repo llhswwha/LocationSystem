@@ -22,6 +22,7 @@ using Location.BLL.Tool;
 using Position = Location.TModel.LocationHistory.Data.Position;
 using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 using U3DPosition = Location.TModel.LocationHistory.Data.U3DPosition;
+using LocationServices.Tools;
 
 namespace LocationServices.Locations.Services
 {
@@ -314,10 +315,18 @@ namespace LocationServices.Locations.Services
                     }
                     try
                     {
+                        //var info = from u in dbSet.DbSet
+                        //           where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
+                        //                 (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                        //           select u;
+
                         var info = from u in dbSet.DbSet
-                                   where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp &&
-                                         (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
+                                   where u.PersonnelID == personnelID && u.DateTimeStamp >= startStamp && u.DateTimeStamp <= endStamp 
+                                        //&& (showUnLocatedAreaPoint || !showUnLocatedAreaPoint && u.AreaState != 1)
                                    select u;
+                        //2019-09-03 14:22:41,265 [19] INFO Logger - GetHisPos|0 sql:SELECT
+
+                        
 
                         var tempList = info.ToList();
                         if (tempList == null) continue;
@@ -326,7 +335,17 @@ namespace LocationServices.Locations.Services
                         {
                             Log.Info(hisTag, "count:" + tempList.Count);
                         }
+                        if (tempList.Count == 0)
+                        {
+                            //string sql = info.ToString();
+                            string sql = string.Format("select * from locationhistory.positions where DateTimeStamp >= {0} and DateTimeStamp <= {1} and PersonnelID = {2};", startStamp, endStamp, personnelID);
+                            Log.Info(hisTag, "sql:" + sql);
+                        }
+
+                        PosDistanceHelper.FilterErrorPoints(tempList);
+
                         result = tempList.ToWcfModelList();
+
                         break;
                     }
                     catch (Exception ex1)

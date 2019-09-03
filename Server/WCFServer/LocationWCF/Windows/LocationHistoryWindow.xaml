@@ -9,11 +9,26 @@
         Title="LocationHistoryWindow" Height="450" Width="1200" Loaded="LocationHistoryWindow_OnLoaded">
     <DockPanel >
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="获取统计数据" Name="MenuGetAllData" Click="MenuGetAllData_Click"></MenuItem>
-            <MenuItem Header="刷新数据" Name="MenuGetAllDataRefresh" Click="MenuGetAllDataRefresh_Click"></MenuItem>
-            <MenuItem Header="分析数据" Name="MenuGetRepeatDataCount" Click="MenuGetRepeatDataCount_Click"></MenuItem>
-            <MenuItem Header="清理数据" Name="MenuRemoveRepeatData" Click="MenuRemoveRepeatData_Click"></MenuItem>
+            <MenuItem Header="加载数据">
+                <MenuItem Header="获取全部数据" Name="MenuGetAllData" Click="MenuGetAllData_Click"></MenuItem>
+                <MenuItem Header="刷新数据" Name="MenuGetAllDataRefresh" Click="MenuGetAllDataRefresh_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="测试">
+                <MenuItem Header="获取测试统计数据" Name="MenuGetTestData" Click="MenuGetTestData_Click"></MenuItem>
+                <MenuItem Header="获取数量" Name="MenuGetCount" Click="MenuGetCount_Click"></MenuItem>
+                <MenuItem Header="获取时间戳" Name="MenuGetTimestamp" Click="MenuGetTimestamp_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="工具"> 
+                <MenuItem Header="分析数据" Name="MenuGetRepeatDataCount" Click="MenuGetRepeatDataCount_Click"></MenuItem>
+                <MenuItem Header="清理数据" Name="MenuRemoveRepeatData" Click="MenuRemoveRepeatData_Click"></MenuItem>
+                <MenuItem Header="查找错误点" Name="FindErrorPoints" Click="FindErrorPoints_Click"></MenuItem>
+            </MenuItem>
         </Menu>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>速度限制</Label>
+            <TextBox Name="TbMaxSpeed" Text="100"></TextBox>
+            <Button Name="BtnSetMaxSpeed" Content="设置" Click="BtnSetMaxSpeed_Click"></Button>
+        </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>卡号</Label>
             <ComboBox Name="CbCardList" Width="100"></ComboBox>

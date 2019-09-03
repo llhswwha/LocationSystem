@@ -489,7 +489,7 @@ namespace BLL.Blls
                     }
                    
                     //失败则继续尝试
-                    Log.Error("AddRange", string.Format("Try{0},Type:{1},Count:{2},Error:{3}", i,typeof(T), list.Count(), ex.Message));
+                    Log.Error("AddRange", string.Format("Try{0},Type:{1},Count:{2},Error:{3}", i,typeof(T), list.Count(), ex.ToString()));
                     Thread.Sleep(100);
                 }
             }

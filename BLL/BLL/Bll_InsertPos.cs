@@ -262,7 +262,7 @@ namespace BLL
                                             Thread.Sleep(100);
                                             if (ErrorMessage.Contains("Table has no partition for value"))
                                             {
-                                                AddPartion2();//姑且尝试添加分区
+                                                AddPartion();//姑且尝试添加分区
                                             }
                                             temp = new ConcurrentBag<Position>();
                                             //插入失败了，也要清空，不然数据会一直积累，插入重复相同的数据。

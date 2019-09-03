@@ -67,7 +67,7 @@ namespace BLL
             initializer.InitDbData(mode, isForce);
         }
 
-        public void AddPartion()
+        public void InitPartion()
         {
             DateTime dtDay = DateTime.Now;
             DateTime dtNextDay = DateTime.Now.AddDays(1);
@@ -95,10 +95,11 @@ namespace BLL
             if (lst2.Count == 0)
             {
                 DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
+                Log.Info("Partion","InitPartion:"+strSqlAdd);
             }
         }
 
-        public void AddPartion2()
+        public void AddPartion()
         {
             DateTime dtNextDay = DateTime.Now.AddDays(1);
             DateTime dtThirdDay = DateTime.Now.AddDays(2);
@@ -115,6 +116,7 @@ namespace BLL
             if (lst2.Count == 0)
             {
                 DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
+                Log.Info("Partion", "AddPartion:" + strSqlAdd);
             }
         }
 
@@ -138,11 +140,11 @@ namespace BLL
 
                     if (bPartitionInitFlag)
                     {
-                        AddPartion();
+                        InitPartion();
                     }
                     if (bPartitionFlag)
                     {
-                        AddPartion2();
+                        AddPartion();
                     }
 
                     bPartitionInitFlag = false;

@@ -66,6 +66,8 @@
     <Compile Include="BaseData\org.cs" />
     <Compile Include="BaseData\user.cs" />
     <Compile Include="BaseData\zones.cs" />
+    <Compile Include="LocationHistory\Data\IPosInfo.cs" />
+    <Compile Include="LocationHistory\Data\PosDistance.cs" />
     <Compile Include="LocationHistory\Data\PosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfoList.cs" />
     <Compile Include="LocationHistory\Data\PositionList.cs" />

@@ -173,6 +173,7 @@
     <Compile Include="Tools\DeviceInfoService.cs" />
     <Compile Include="Tools\ImageHelper.cs" />
     <Compile Include="Tools\ObjectAddListService.cs" />
+    <Compile Include="Tools\PosDistanceHelper.cs" />
     <Compile Include="Tools\PositionEngineClient.cs" />
     <Compile Include="Tools\PositionEngineDA.cs" />
     <Compile Include="Tools\PositionEngineLog.cs" />

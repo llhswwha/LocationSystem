@@ -20,7 +20,7 @@ namespace DbModel.LocationHistory.Data
     /// 位置信息 (历史位置记录）
     /// </summary>
     [DataContract]
-    public class Position : IId
+    public class Position : IId, IPosInfo
     {
         private DateTime _dateTime;
 
