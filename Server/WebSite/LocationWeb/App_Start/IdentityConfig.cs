@@ -105,5 +105,15 @@ namespace WebLocation
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+
+        internal Task PasswordSignInAsync(string userName, string password, bool shouldLockout)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task PasswordSignInAsync(string userName, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
