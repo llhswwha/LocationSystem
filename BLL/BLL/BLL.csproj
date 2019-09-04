@@ -160,6 +160,7 @@
     <Compile Include="Tools\LocationDeviceHelper.cs" />
     <Compile Include="Tools\MD5Encrypter.cs" />
     <Compile Include="Tools\PersonBackupHelper.cs" />
+    <Compile Include="Tools\PosDistanceHelper.cs" />
     <Compile Include="Tools\RandomTool.cs" />
     <Compile Include="Tools\StaticEvents.cs" />
   </ItemGroup>

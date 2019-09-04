@@ -258,6 +258,8 @@ namespace LocationServices.Tools
             }
         }
 
+        
+
         private bool InsertPostions(List<Position> list1)
         {
             //if (list1.Count < 20) return false;
@@ -278,6 +280,7 @@ namespace LocationServices.Tools
                 //todo:添加定位权限判断
                 if (r)
                 {
+                    
                     NewAlarms = ab.GetNewAlarms(list1);
                     if (NewAlarmsFired != null)
                     {

@@ -31,6 +31,7 @@ using PosInfoList = DbModel.LocationHistory.Data.PosInfoList;
 using Location.TModel.Tools;
 using TModel.Tools;
 using LocationServices.Tools;
+using BLL.Tools;
 
 namespace LocationServer.Windows
 {

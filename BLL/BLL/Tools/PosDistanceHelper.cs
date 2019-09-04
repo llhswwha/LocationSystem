@@ -4,13 +4,13 @@ using LocationServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LocationServices.Tools
+namespace BLL.Tools
 {
     public static class PosDistanceHelper
     {
+
+
         public static void FilterErrorPoints<T>(List<T> posInfoList) where T : IPosInfo
         {
             if (posInfoList == null) return;

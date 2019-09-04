@@ -15,7 +15,7 @@ namespace DbModel.Location.Data
     /// 定位卡的位置信息（实时位置）
     /// </summary>
     [DataContract]
-    public class LocationCardPosition:IId<string>
+    public class LocationCardPosition:IId<string>,IPosInfo
     {
         private DateTime _dateTime;
 

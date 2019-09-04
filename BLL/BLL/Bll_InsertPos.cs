@@ -12,6 +12,8 @@ using System.Threading;
 using DbModel;
 using SelfBatchImport;
 using System.Collections.Concurrent;
+using BLL.Tools;
+using LocationServer;
 
 namespace BLL
 {
@@ -433,6 +435,9 @@ namespace BLL
             List<LocationCard> editCardList = new List<LocationCard>();
             Dictionary<string, LocationCard> dict = TagRelationBuffer.Instance().GetLocationCardDic();
 
+            var maxSpeed = AppContext.MoveMaxSpeed;
+            
+
             //2.修改数据
             for (int i = 0; i < positions.Count; i++)
             {
@@ -448,11 +453,36 @@ namespace BLL
                 if (tagPosList.ContainsKey(position.Code))
                 {
                     var tagPos = tagPosList[position.Code];
-                    tagPos.Edit(position);//修改实时位置数据
-                    if (!changedTagPosList.Contains(tagPos))//修改部分
+
+                    if (maxSpeed >0)
                     {
-                        changedTagPosList.Add(tagPos);
+                        var speed = PosDistanceUtil.GetSpeed(tagPos, position);
+                        
+                        if (speed > maxSpeed)  //判断错误点
+                        {
+                            //这个点就不用来修改实时位置了
+                            Log.Info("RealPos","发现错误点");
+                        }
+                        else
+                        {
+                            tagPos.Edit(position);//修改实时位置数据
+                            if (!changedTagPosList.Contains(tagPos))//修改部分
+                            {
+                                changedTagPosList.Add(tagPos);
+                            }
+                        }
                     }
+                    else
+                    {
+                        tagPos.Edit(position);//修改实时位置数据
+                        if (!changedTagPosList.Contains(tagPos))//修改部分
+                        {
+                            changedTagPosList.Add(tagPos);
+                        }
+                    }
+                    
+
+
                 }
                 else
                 {

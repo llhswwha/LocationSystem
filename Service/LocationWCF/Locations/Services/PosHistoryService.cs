@@ -23,6 +23,7 @@ using Position = Location.TModel.LocationHistory.Data.Position;
 using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 using U3DPosition = Location.TModel.LocationHistory.Data.U3DPosition;
 using LocationServices.Tools;
+using BLL.Tools;
 
 namespace LocationServices.Locations.Services
 {
