@@ -332,7 +332,7 @@ namespace LocationServer.Windows
                 Area item = cadAreas[i];
                 var r1 = bll.Points.RemoveList(item.InitBound.Points);
                 var r3 = bll.Areas.DeleteById(item.Id);
-                var r2 = bll.Bounds.DeleteById(item.InitBoundId);
+                var r2 = bll.Bounds.DeleteById((int)item.InitBoundId);
                 int percent = (int)((i+0.0) / cadAreas.Count*100);
                 worker1.ReportProgress(percent);
             }

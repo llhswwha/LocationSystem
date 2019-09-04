@@ -108,7 +108,7 @@ namespace WebLocation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            bll.InspectionTracks.DeleteById(id);            
+            bll.InspectionTracks.DeleteById((int)id);            
             return RedirectToAction("Index");
         }
 
@@ -142,7 +142,7 @@ namespace WebLocation.Controllers
             }
             isth.Route = lst;
 
-            bll.InspectionTracks.DeleteById(id);
+            bll.InspectionTracks.DeleteById((int)id);
             bll.InspectionTrackHistorys.Add(isth);
 
             return RedirectToAction("Index");
@@ -218,7 +218,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.PatrolPoints.DeleteById(id);
+            bll.PatrolPoints.DeleteById((int)id);
             InspectionTrack InspectionTrack = bll.InspectionTracks.Find(ParentId);
             if (InspectionTrack == null)
             {
@@ -331,7 +331,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.PatrolPointItems.DeleteById(id);
+            bll.PatrolPointItems.DeleteById((int)id);
             PatrolPoint PatrolPoint = bll.PatrolPoints.Find(ParentId);
             if (PatrolPoint == null)
             {

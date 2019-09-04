@@ -892,8 +892,16 @@ namespace LocationServer.Windows
 
         private void FindErrorPoints_Click(object sender, RoutedEventArgs e)
         {
-            List<PosInfo> posInfoList= DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
-            PosDistanceHelper.FilterErrorPoints(posInfoList);
+            List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            var errorPoints = PosDistanceHelper.FilterErrorPoints(posInfoList);
+            foreach (var item in errorPoints)
+            {
+                var p = bll.Positions.DeleteById(item.Id);
+                if (p != null)
+                {
+                    Log.Info(LogTags.HisPos, "删除点:" + p);
+                }
+            }
         }
 
         
@@ -901,6 +909,45 @@ namespace LocationServer.Windows
         private void BtnSetMaxSpeed_Click(object sender, RoutedEventArgs e)
         {
             AppContext.MoveMaxSpeed = TbMaxSpeed.Text.ToDouble();
+        }
+
+        private void FindErrorPoints_Day_Click(object sender, RoutedEventArgs e)
+        {
+            PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;//一天
+            if (posList == null) return;
+
+            Worker.Run(() =>
+            {
+                var personList= PosInfoListHelper.GetListByPerson(posList.Items);
+                foreach (var person in personList)
+                {
+                    Log.Info(LogTags.HisPos, "删除人:" + person.Name);
+                    List<PosInfo> posInfoList = person.Items;//某个人
+                    var errorPoints = PosDistanceHelper.FilterErrorPoints(posInfoList);
+                    List<int> ids = new List<int>();
+                    foreach (var item in errorPoints)
+                    {
+                        ids.Add(item.Id);
+                        //var p = bll.Positions.DeleteById(item.Id);
+                        //if (p != null)
+                        //{
+                        //    Log.Info(LogTags.HisPos, "删除点:" + p);
+                        //}
+                    }
+
+                    var query = bll.Positions.DbSet.Where(i => ids.Contains(i.Id));
+                    var count = query.Count();
+                    Log.Info(LogTags.HisPos, "删除点:" + count);
+                    query.DeleteFromQuery();
+                }
+                return personList;
+            }, (result) =>
+            {
+                //DataGridStatisticDayPerson.ItemsSource = result;
+                //DataGridStatisticDayPersonTime.ItemsSource = null;
+                //DataGridDayPersonPosList.ItemsSource = null;
+
+            });
         }
     }
 }

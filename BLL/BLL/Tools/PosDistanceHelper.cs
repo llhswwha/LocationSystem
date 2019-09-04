@@ -11,20 +11,20 @@ namespace BLL.Tools
     {
 
 
-        public static void FilterErrorPoints<T>(List<T> posInfoList) where T : IPosInfo
+        public static List<T> FilterErrorPoints<T>(List<T> posInfoList) where T : IPosInfo
         {
-            if (posInfoList == null) return;
+            var errorPoints = new List<T>();
+
+            if (posInfoList == null) return errorPoints;
             var maxSpeed = AppContext.MoveMaxSpeed;
-            if (maxSpeed <= 0) return;
+            if (maxSpeed <= 0) return errorPoints;
 
             DateTime start = DateTime.Now;
             posInfoList.Sort((a, b) =>
             {
                 return a.DateTimeStamp.CompareTo(b.DateTimeStamp);
             });
-
-            
-            var errorPoints = new List<T>();
+           
             var disList = new List<PosDistance>();
             var errorDisList = new List<PosDistance>();
             string txt = "";
@@ -60,6 +60,7 @@ namespace BLL.Tools
             Log.Info(LogTags.HisPos, string.Format("maxSpeed:{0},allCount:{1},errorCount:{2},time:{3}ms,first:{4}", maxSpeed,posInfoList.Count, errorPoints.Count, time.TotalMilliseconds, first));
 
             //Log.Info(LogTags.HisPos, txt);
+            return errorPoints;
         }
     }
 }

@@ -99,7 +99,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.WorkTickets.DeleteById(id);
+            bll.WorkTickets.DeleteById((int)id);
             return RedirectToAction("Index");
         }
 
@@ -143,7 +143,7 @@ namespace WebLocation.Controllers
             wth.SafetyMeasuress = lst;
             
 
-            bll.WorkTickets.DeleteById(id);
+            bll.WorkTickets.DeleteById((int)id);
             bll.WorkTicketHistorys.Add(wth);
 
             return RedirectToAction("Index");
@@ -221,7 +221,7 @@ namespace WebLocation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.SafetyMeasuress.DeleteById(id);
+            bll.SafetyMeasuress.DeleteById((int)id);
             WorkTicket WorkTicket = bll.WorkTickets.Find(TicketId);
             if (WorkTicket == null)
             {

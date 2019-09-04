@@ -44,7 +44,7 @@ namespace LocationServices.Locations.Services
         {
             try
             {
-                var item = dbSet.DeleteById(id.ToInt());
+                var item = dbSet.DeleteById(id);
                 return item.ToTModel();
             }
             catch (System.Exception ex)

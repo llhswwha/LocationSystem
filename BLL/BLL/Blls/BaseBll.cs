@@ -297,13 +297,14 @@ namespace BLL.Blls
             return dic;
         }
 
-        public virtual T DeleteById(object id)
+        public virtual T DeleteById(TKey id)
         {
             if (id == null) return null;
             if (DbSet == null) return null;
             try
             {
-                T obj = DbSet.Find(id);
+                string strId = id + "";
+                T obj = DbSet.FirstOrDefault(i => (i.Id+"") == strId);
                 if (obj == null) return null;
                 DbSet.Remove(obj);
                 bool r= Save(true);
@@ -318,10 +319,39 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
+                ErrorMessage = ex.Message;
                 Log.Error("BaseBll.DeleteById", ex);
                 return null;
             }
             
+        }
+
+        public virtual T DeleteByKeys(params object[] keys)
+        {
+            if (keys == null) return null;
+            if (DbSet == null) return null;
+            try
+            {
+                T obj = DbSet.Find(keys);
+                if (obj == null) return null;
+                DbSet.Remove(obj);
+                bool r = Save(true);
+                if (r)
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                Log.Error("BaseBll.DeleteByKeys", ex);
+                return null;
+            }
+
         }
 
         public bool RemoveList(List<T> list)

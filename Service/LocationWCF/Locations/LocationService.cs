@@ -518,7 +518,10 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositons()
         {
-            return new PosHistoryService(db).GetHistory();
+            var hisService = new PosHistoryService();
+            var list= hisService.GetHistory();
+            hisService.Dispose();
+            return list;
         }
 
         /// <summary>
@@ -530,7 +533,10 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPersonnelID(int personnelID, DateTime start, DateTime end)
         {
-            return new PosHistoryService(db).GetHistoryByPerson(personnelID, start, end);
+            var hisService = new PosHistoryService();
+            var list = hisService.GetHistoryByPerson(personnelID, start, end);
+            hisService.Dispose();
+            return list;
         }
 
         /// <summary>
@@ -542,7 +548,10 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByPidAndTopoNodeIds(int personnelID, List<int> topoNodeIds, DateTime start, DateTime end)
         {
-            return new PosHistoryService(db).GetHistoryByPersonAndArea(personnelID, topoNodeIds, start, end);
+            var hisService = new PosHistoryService();
+            var list = hisService.GetHistoryByPersonAndArea(personnelID, topoNodeIds, start, end);
+            hisService.Dispose();
+            return list;
         }
 
         /// <summary>
@@ -554,7 +563,10 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<Position> GetHistoryPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return new PosHistoryService(db).GetHistoryByTag(tagcode, start, end);
+            var hisService = new PosHistoryService();
+            var list = hisService.GetHistoryByTag(tagcode, start, end);
+            hisService.Dispose();
+            return list;
         }
 
         /// <summary>
@@ -566,7 +578,10 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public IList<U3DPosition> GetHistoryU3DPositonsByTime(string tagcode, DateTime start, DateTime end)
         {
-            return new PosHistoryService(db).GetHistoryU3DPositonsByTime(tagcode, start, end);
+            var hisService = new PosHistoryService();
+            var list = hisService.GetHistoryU3DPositonsByTime(tagcode, start, end);
+            hisService.Dispose();
+            return list;
         }
 
         /// <summary>
@@ -579,14 +594,17 @@ namespace LocationServices.Locations
         public IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3)
         {
             DateTime dt1 = DateTime.Now;
-            IList<PositionList> send = new PosHistoryService(db).GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
+
+            var hisService = new PosHistoryService();
+
+            IList <PositionList> send = hisService.GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
             DateTime dt2 = DateTime.Now;
 
             //string xml = XmlSerializeHelper.GetXmlText(send);
 
             var time = dt2 - dt1;
 
-
+            hisService.Dispose();
             return send;
         }
 
@@ -602,12 +620,15 @@ namespace LocationServices.Locations
             try
             {
                 DateTime dt1 = DateTime.Now;
-                var list1 = new PosHistoryService(db).GetHistoryPositonData(nFlag, strName, strName2, strName3);
+
+                var hisService = new PosHistoryService();
+                var list1 = hisService.GetHistoryPositonData(nFlag, strName, strName2, strName3);
                 //List<DbModel.LocationHistory.Data.Position> list = new List<DbModel.LocationHistory.Data.Position>();
                 //var send = list1.ToPos();
                 //DateTime dt2 = DateTime.Now;
                 ////string xml = XmlSerializeHelper.GetXmlText(send);
                 //var time = dt2 - dt1;
+                hisService.Dispose();
                 return null;
             }
             catch (System.Exception ex)

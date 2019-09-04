@@ -94,7 +94,7 @@ namespace WebLocation.Controllers.Work
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.MobileInspectionItems.DeleteById(id);
+            bll.MobileInspectionItems.DeleteById((int)id);
 
             return RedirectToAction("Edit", "MobileInspection", new { id = pid });
         }

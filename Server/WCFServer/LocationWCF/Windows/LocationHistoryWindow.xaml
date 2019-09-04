@@ -21,7 +21,8 @@
             <MenuItem Header="工具"> 
                 <MenuItem Header="分析数据" Name="MenuGetRepeatDataCount" Click="MenuGetRepeatDataCount_Click"></MenuItem>
                 <MenuItem Header="清理数据" Name="MenuRemoveRepeatData" Click="MenuRemoveRepeatData_Click"></MenuItem>
-                <MenuItem Header="查找错误点" Name="FindErrorPoints" Click="FindErrorPoints_Click"></MenuItem>
+                <MenuItem Header="删除误差点(当前)" Name="FindErrorPoints" Click="FindErrorPoints_Click"></MenuItem>
+                <MenuItem Header="删除误差点(当天)" Name="FindErrorPoints_Day" Click="FindErrorPoints_Day_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">

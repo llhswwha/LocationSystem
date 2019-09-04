@@ -40,14 +40,34 @@ namespace LocationServices.Locations.Services
 
         public PosHistoryService()
         {
+            db = Bll.NewBllNoRelation();
+            dbSet = db.Positions;
+        }
+
+        //public PosHistoryService(Bll bll)
+        //{
+        //    this.db = bll;
+        //    dbSet = db.Positions;
+        //}
+
+        private void ResetBll()
+        {
+            Log.Info(hisTag, "ResetBll") ;
+            if (db != null)
+            {
+                db.Dispose();
+                Thread.Sleep(100);
+            }
             db = new Bll();
             dbSet = db.Positions;
         }
 
-        public PosHistoryService(Bll bll)
+        public void Dispose()
         {
-            this.db = bll;
-            dbSet = db.Positions;
+            if (db != null)
+            {
+                db.Dispose();
+            }
         }
 
         public IList<Position> GetHistory()
@@ -342,16 +362,18 @@ namespace LocationServices.Locations.Services
                             string sql = string.Format("select * from locationhistory.positions where DateTimeStamp >= {0} and DateTimeStamp <= {1} and PersonnelID = {2};", startStamp, endStamp, personnelID);
                             Log.Info(hisTag, "sql:" + sql);
                         }
-
-                        PosDistanceHelper.FilterErrorPoints(tempList);
-
+                        //PosDistanceHelper.FilterErrorPoints(tempList);//每次查询历史轨迹实时过滤的话
                         result = tempList.ToWcfModelList();
-
                         break;
                     }
                     catch (Exception ex1)
                     {
+                        string msg = ex1.ToString();
                         Log.Error(hisTag, "GetHistoryByPerson1 error:" + ex1);
+                        if (msg.Contains("MySql.Data.MySqlClient.MySqlException: Table 'Extent1' was not locked with LOCK TABLES"))
+                        {
+                            ResetBll();
+                        }
                         Thread.Sleep(200);
                     }
                 }

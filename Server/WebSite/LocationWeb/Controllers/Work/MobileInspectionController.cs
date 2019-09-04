@@ -89,12 +89,9 @@ namespace WebLocation.Controllers.Work
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            bll.MobileInspections.DeleteById(id);
+            bll.MobileInspections.DeleteById((int)id);
             return RedirectToAction("Index");
         }
-
-
-        
 
 
 

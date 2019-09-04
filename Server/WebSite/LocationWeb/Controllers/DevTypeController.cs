@@ -143,7 +143,7 @@ namespace WebLocation.Controllers
         public ActionResult DeleteConfirmed(int? id)
         {
             //t_SetModel model = bll.t_SetModels.Find(id);
-            bll.DevTypes.DeleteById(id);
+            bll.DevTypes.DeleteById((int)id);
             return RedirectToAction("Index");
         }
 
