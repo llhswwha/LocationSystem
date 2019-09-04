@@ -258,48 +258,101 @@ namespace LocationServices.Tools
             }
         }
 
-        
+        public Thread LocationAlarmThread;
+
+        ConcurrentBag<Position> alarmPosLit = null;
+
+        private void LocationAlarmFunction()
+        {
+            while (true)
+            {
+                if (alarmPosLit != null)
+                {
+                    try
+                    {
+                        Log.Info("LocationAlarm", "判断定位告警:" + alarmPosLit.Count);
+                        NewAlarms = ab.GetNewAlarms(alarmPosLit.ToList());
+                        if(NewAlarms!=null&& NewAlarms.Count > 0)
+                        {
+                            Log.Info("LocationAlarm","定位告警:"+NewAlarms.Count);
+                        }
+                        if (NewAlarmsFired != null)
+                        {
+                            NewAlarmsFired(NewAlarms);
+                        }
+                        alarmPosLit = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("LocationAlarmThread", ex);
+                    }
+                }
+                else
+                {
+                    Thread.Sleep(100);
+                }
+
+            }
+        }
 
         private bool InsertPostions(List<Position> list1)
         {
-            //if (list1.Count < 20) return false;
-            bool r = false;
-            Stopwatch watch1 = new Stopwatch();
-            watch1.Start();
-            if (bll == null)
+            try
             {
-                bll = GetLocationBll();
-            }
-            if (ab == null)
-            {
-                ab = AuthorizationBuffer.Instance(bll);
-            }
-            //using (var bll = GetLocationBll())
-            {
-                r = bll.AddPositionsEx(list1);
-                //todo:添加定位权限判断
-                if (r)
+                //if (list1.Count < 20) return false;
+                bool r = false;
+                Stopwatch watch1 = new Stopwatch();
+                watch1.Start();
+                if (bll == null)
                 {
-                    
-                    NewAlarms = ab.GetNewAlarms(list1);
-                    if (NewAlarmsFired != null)
-                    {
-                        NewAlarmsFired(NewAlarms);
-                    }
-                    //AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
+                    bll = GetLocationBll();
                 }
+                if (ab == null)
+                {
+                    ab = AuthorizationBuffer.Instance(bll);
+                }
+                //using (var bll = GetLocationBll())
+                {
+                    r = bll.AddPositionsEx(list1);
+                    //todo:添加定位权限判断
+                    if (r)
+                    {
+                        List<Position> temp = new List<Position>(list1);
+                        //alarmPosLit = temp;
+                        alarmPosLit = new ConcurrentBag<Position>();
+                        foreach (var item in temp)
+                        {
+                            alarmPosLit.Add(item);
+                        }
+                        if (LocationAlarmThread == null)
+                        {
+                            LocationAlarmThread = new Thread(LocationAlarmFunction);
+                            LocationAlarmThread.IsBackground = true;
+                            LocationAlarmThread.Start();
+                        }
+
+                        //AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
+                    }
+                }
+
+                SendNsqPos(list1);
+
+                watch1.Stop();
+                WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
+
+                if (r == false)
+                {
+                    ErrorMessage = bll.ErrorMessage;
+                }
+                return r;
             }
-
-            SendNsqPos(list1);
-
-            watch1.Stop();
-            WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
-
-            if (r == false)
+            catch (Exception ex)
             {
-                ErrorMessage = bll.ErrorMessage;
+
+                Log.Error("InsertPostions", ex);
+                return false;
             }
-            return r;
+            
         }
 
         public string ErrorMessage;
@@ -370,9 +423,30 @@ namespace LocationServices.Tools
                 }
                 if (insertThread != null)
                 {
-                    insertThread.Abort();
-                    insertThread = null;
+                    try
+                    {
+                        insertThread.Abort();
+                        insertThread = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("PositionEngineClient.Stop1",ex);
+                    }
                 }
+
+                if (LocationAlarmThread != null)
+                {
+                    try
+                    {
+                        LocationAlarmThread.Abort();
+                        LocationAlarmThread = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("PositionEngineClient.Stop2", ex);
+                    }
+                }
+
                 isBusy = false;
                 //Positions.Clear();
                 Positions = new ConcurrentBag<Position>();
@@ -380,7 +454,7 @@ namespace LocationServices.Tools
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString());
+                Log.Error("PositionEngineClient.Stop", ex);
                 return false;
             }
         }

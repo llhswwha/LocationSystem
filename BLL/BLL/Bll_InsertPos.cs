@@ -460,8 +460,9 @@ namespace BLL
                         
                         if (speed > maxSpeed)  //判断错误点
                         {
+                            PosDistance dis = new PosDistance(tagPos, position);
                             //这个点就不用来修改实时位置了
-                            Log.Info("RealPos","发现错误点");
+                            Log.Info("RealPos",string.Format("发现错误点:{0}", dis));
                         }
                         else
                         {

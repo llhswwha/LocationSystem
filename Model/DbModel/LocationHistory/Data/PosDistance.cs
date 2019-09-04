@@ -8,17 +8,17 @@ namespace DbModel.LocationHistory.Data
 {
 
 
-    public class PosDistance<T> : IComparable<PosDistance<T>> where T : IPosInfo
+    public class PosDistance: IComparable<PosDistance>
     {
-        public T p1;
-        public T p2;
+        public IPosInfo p1;
+        public IPosInfo p2;
 
         public double distance;
 
         public long time;
 
         public double speed;
-        public PosDistance(T p1, T p2)
+        public PosDistance(IPosInfo p1, IPosInfo p2)
         {
             this.p1 = p1;
             this.p2 = p2;
@@ -38,7 +38,7 @@ namespace DbModel.LocationHistory.Data
             return string.Format("{0},{1},{2}", time, distance, speed);
         }
 
-        public int CompareTo(PosDistance<T> other)
+        public int CompareTo(PosDistance other)
         {
             return other.speed.CompareTo(this.speed);
         }

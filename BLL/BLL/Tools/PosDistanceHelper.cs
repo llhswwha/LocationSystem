@@ -25,15 +25,15 @@ namespace BLL.Tools
 
             
             var errorPoints = new List<T>();
-            var disList = new List<PosDistance<T>>();
-            var errorDisList = new List<PosDistance<T>>();
+            var disList = new List<PosDistance>();
+            var errorDisList = new List<PosDistance>();
             string txt = "";
             
             for (int i = 0; i < posInfoList.Count - 1; i++)
             {
                 var p1 = posInfoList[i];
                 var p2 = posInfoList[i + 1];
-                var dis = new PosDistance<T>(p1, p2);
+                var dis = new PosDistance(p1, p2);
                 txt += dis + "\n";
                 if (dis.speed > maxSpeed)
                 {
@@ -52,7 +52,7 @@ namespace BLL.Tools
             errorDisList.Sort();
 
             var time = DateTime.Now - start;
-            PosDistance<T> first = null;
+            PosDistance first = null;
             if (disList.Count > 0)
             {
                 first = disList.First();
