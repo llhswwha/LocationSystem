@@ -75,6 +75,8 @@ namespace LocationServer
         public static int PosEngineKeepAliveInterval { get; set; }
         public static int LogTextBoxMaxLength { get; set; }
         public static double MoveMaxSpeed { get; set; }
+        public static bool FilterTodayWhenStart { get; set; }
+        public static int FilterMoreThanMaxSpeedInterval { get; set; }
 
         public static Bll GetLocationBll()
         {

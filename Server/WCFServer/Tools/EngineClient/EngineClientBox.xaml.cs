@@ -146,6 +146,7 @@ namespace EngineClient
 
         private void EngineClient_NewAlarmsFired(List<DbModel.Location.Alarm.LocationAlarm> obj)
         {
+            Log.Info("LocationAlarm", "AlarmHub.SendLocationAlarms:" + obj.Count);
             AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
         }
     }

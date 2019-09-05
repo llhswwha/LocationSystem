@@ -24,13 +24,13 @@ namespace LocationServices.Locations
         {
             try
             {
-                Log.Info(LogTags.DbGet, "StopGetNVSVideo:" + info);
+                Log.Info("NVS", "StopGetNVSVideo:" + info);
                 NVSManage.GetPlayBackFormEx(info.Ip, (f, s) => { f.Stop(); });
                 return info;
             }
             catch (Exception e)
             {
-                Log.Error(LogTags.DbGet, "LocationService.StopGetNVSVideo:" + ToString());
+                Log.Error("NVS", "LocationService.StopGetNVSVideo:" + ToString());
                 return null;
             }
         }
@@ -39,13 +39,13 @@ namespace LocationServices.Locations
         {
             try
             {
-                Log.Info(LogTags.DbGet, "StartGetNVSVideo:"+ info);
+                Log.Info("NVS", "StartGetNVSVideo:"+ info);
                 if (info == null) return null;
 
                 //客户端可以把IP（录像机的IP)和Channel传过来(不用查数据库)，也可以只传一个摄像机Id（要查数据库）
                 if (string.IsNullOrEmpty(info.Ip) || string.IsNullOrEmpty(info.Channel)) 
                 {
-                    Log.Info(LogTags.DbGet, "GetIpAndChannelFormDb");
+                    Log.Info("NVS", "GetIpAndChannelFormDb");
 
                     if (!GetIpAndChannelFormDb(info))//GetIpAndChannelFormDb里面会填充Ip和Channel信息，但是没有找到摄像头的话就返回了。
                     {
@@ -55,20 +55,21 @@ namespace LocationServices.Locations
                     } 
                 }
 
-                Log.Info(LogTags.DbGet, "info:"+ info);
+                Log.Info("NVS", "info:"+ info);
 
                 var start = info.StartTime.ToDateTime();
                 var end = info.EndTime.ToDateTime();
                 var file = Downloader.GetFileName(info.Ip, info.Channel,1,start, end);//视频文件的名称（预订）
-                Log.Info(LogTags.DbGet, string.Format("start:{0},end:{1},file:{2}",start,end,file));
-
-                if (Downloader.IsFileExist(file))//文件已经存在
+                Log.Info("NVS", string.Format("start:{0},end:{1},file:{2}",start,end,file));
+                var filePath = AppDomain.CurrentDomain.BaseDirectory + "\\" + file;
+                Log.Info("NVS", string.Format("filePath:{0", filePath));
+                if (Downloader.IsFileExist(filePath))//文件已经存在
                 {
                     string url = Downloader.GetHlsUrl(NVSManage.RTMP_Host, file);
                     info.Url = url;
                     info.Result = true;
                     info.Message = "ExistFile";
-                    Log.Info(LogTags.DbGet, string.Format("ExistFile url:{0}", url));
+                    Log.Info("NVS", string.Format("ExistFile url:{0}", url));
                 }
                 else
                 {
@@ -76,7 +77,7 @@ namespace LocationServices.Locations
 
                     NVSManage.GetPlayBackFormEx(info.Ip, (form1,loginState) =>
                     {
-                        Log.Info(LogTags.DbGet, string.Format("loginState:{0}", loginState));
+                        Log.Info("NVS", string.Format("loginState:{0}", loginState));
                         if (loginState)
                         {
                             var channel = info.Channel.ToInt();
@@ -84,7 +85,7 @@ namespace LocationServices.Locations
                             info.Result = r;
                             if (r == false)
                             {
-                                Log.Error(LogTags.DbGet, form1.Message);
+                                Log.Error("NVS", form1.Message);
                                 info.Message = form1.Message;
                             }
                             else
@@ -107,12 +108,12 @@ namespace LocationServices.Locations
                         Thread.Sleep(50);//等待登录结果
                     }
                 }
-                Log.Info(LogTags.DbGet, string.Format("Return:{0}", info));
+                Log.Info("NVS", string.Format("Return:{0}", info));
                 return info;
             }
             catch (Exception e)
             {
-                Log.Error(LogTags.DbGet, "LocationService.StartGetNVSVideo:"+ToString());
+                Log.Error("NVS", "LocationService.StartGetNVSVideo:"+ e.ToString());
                 return null;
             }
         }
@@ -125,18 +126,18 @@ namespace LocationServices.Locations
             {
                 if (info == null)
                 {
-                    Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb info == null");
+                    Log.Error("NVS", "GetIpAndChannelFormDb info == null");
                     return false;
                 }
                 var camera = db.Dev_CameraInfos.Find(info.CId); //摄像机Id
                 if (camera == null)
                 {
-                    Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb camera == null");
+                    Log.Error("NVS", "GetIpAndChannelFormDb camera == null");
                     return false;
                 }
 
                 var rtsp = camera.RtspUrl; //"rtsp://admin:1111@192.168.108.107/13"
-                Log.Info(LogTags.DbGet, "rtsp:" + rtsp);
+                Log.Info("NVS", "rtsp:" + rtsp);
                 string[] parts = rtsp.Split('@');
                 string[] parts2 = parts[1].Split('/');
 
@@ -148,7 +149,7 @@ namespace LocationServices.Locations
             }
             catch (Exception ex)
             {
-                Log.Error(LogTags.DbGet, "GetIpAndChannelFormDb Exception:"+ex);
+                Log.Error("NVS", "GetIpAndChannelFormDb Exception:"+ex);
                 return false;
             }
            
@@ -159,7 +160,7 @@ namespace LocationServices.Locations
             try
             {
 
-                Log.Info(LogTags.DbGet, "GetNVSProgress:" + info);
+                Log.Info("NVS", "GetNVSProgress->:" + info);
                 if (info == null) return null;
 
                 DownloadProgress progress = new DownloadProgress();
@@ -191,16 +192,16 @@ namespace LocationServices.Locations
                             progress.Url = downloader.GetUrl(NVSManage.RTMP_Host);
                             if (!progress.Url.StartsWith("http"))
                             {
-                                Log.Error(LogTags.DbGet, progress.Url);
+                                Log.Error("NVS", progress.Url);
                             }
                             else
                             {
-                                Log.Info(LogTags.DbGet, "GetNVSProgress Finished !!!!!!!!:" + progress);
+                                Log.Info("NVS", "GetNVSProgress Finished !!!!!!!!:" + progress);
                             }
                         }
                     }
                 }
-                Log.Info(LogTags.DbGet, "GetNVSProgress:" + progress);
+                Log.Info("NVS", "GetNVSProgress<-:" + progress);
                 return progress;
             }
             catch (Exception e)

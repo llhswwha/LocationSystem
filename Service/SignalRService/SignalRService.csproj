@@ -112,6 +112,10 @@
       <Project>{c3d77c78-c78f-4e18-8ae1-bb29d3e30a9b}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DAL\DAL\DAL.csproj">
+      <Project>{3D7F7707-A518-4FC2-ABDC-CAD0A1712680}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\IModel\IModel.csproj">
       <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
       <Name>IModel</Name>

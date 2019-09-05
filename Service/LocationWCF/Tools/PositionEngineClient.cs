@@ -278,6 +278,7 @@ namespace LocationServices.Tools
                         }
                         if (NewAlarmsFired != null)
                         {
+                            Log.Info("LocationAlarm", "NewAlarmsFired:" + NewAlarms.Count);
                             NewAlarmsFired(NewAlarms);
                         }
                         alarmPosLit = null;

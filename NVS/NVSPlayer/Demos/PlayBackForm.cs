@@ -320,6 +320,46 @@ namespace PlaybackDemo
             textIP.Text = ip;
         }
 
+        public void SetIpEx(string ip,Action<PlayBackForm, bool> callback)
+        {
+            //SetIp(ip);
+            //AfterLogin = callback;
+            //Logout();
+            ////Thread.Sleep(50);
+            //Login();
+            ////Thread.Sleep(50);
+
+            InvokeSetIpEx(ip, callback);
+        }
+
+        delegate void InvokeSetIpExCallBack(string ip, Action<PlayBackForm, bool> callback);
+        private void InvokeSetIpEx(string ip, Action<PlayBackForm, bool> callback)
+        {
+            if (this.InvokeRequired)
+            {
+                InvokeSetIpExCallBack stcb = new InvokeSetIpExCallBack(InvokeSetIpEx);
+                this.Invoke(stcb, new object[] { ip, callback });
+                
+            }
+            else
+            {
+                try
+                {
+                    SetIp(ip);
+                    AfterLogin = callback;
+                    Logout();
+                    //Thread.Sleep(50);
+                    Login();
+                    //Thread.Sleep(50);
+                }
+                catch (Exception e)
+                {
+                    WriteLog(e.ToString());
+                    Message = e.ToString();
+                }
+            }
+        }
+
         public void SetLoginInfo(string ip,string port,string user,string pass)
         {
             textIP.Text = ip;
@@ -1121,15 +1161,22 @@ namespace PlaybackDemo
             if (m_iDLTimeId >= 0) //获取按时间段下载进度
             {
                 Int32 iPos = 0, iSize = 0;
-                NVSSDK.NetClient_NetFileGetDownloadPos(downloader.m_iDLTimeId, ref iSize, ref iPos);
+                NVSSDK.NetClient_NetFileGetDownloadPos(downloader.m_iDLTimeId, ref iPos, ref iSize);
                 WriteLog(string.Format("iPos:{0},iSize:{1}", iPos, iSize));
                 Int32 iTotal = (Int32) (downloader.m_iDLStopTime - downloader.m_iDLStartTime);
-                Int32 iSetPos = (iPos - (Int32)downloader.m_iDLStartTime) * 100 / iTotal;
+                Int32 pos1 = iPos - (Int32)downloader.m_iDLStartTime;
+                Int32 iSetPos = (int)((pos1 / (double)iTotal) * 100);
                 WriteLog(string.Format("iTotal:{0},iSetPos:{1}", iTotal, iSetPos));
-                if (iSetPos > 0 && iSetPos <= 100)
+                if (iPos !=0&& iSetPos != 0)
                 {
-                    pbDownloadTime.Value = iSetPos;
-                    lbDownloadStatusTime.Text = CommonFunc.AbsSecondsToStr(iPos);
+                    if (iSetPos > 0 && iSetPos <= 100)
+                    {
+                        pbDownloadTime.Value = iSetPos;
+                        lbDownloadStatusTime.Text = CommonFunc.AbsSecondsToStr(iPos);
+
+                        downloader.Progress = iSetPos;
+                        downloader.ProgressText= CommonFunc.AbsSecondsToStr(iPos);
+                    }
                 }
             }
 
@@ -1161,20 +1208,48 @@ namespace PlaybackDemo
 
         public bool Download(int channel, DateTime dateTime1, DateTime dateTime2)
         {
-            try
+            //try
+            //{
+            //    dtStartTime.Value = dateTime1;
+            //    dtEndTime.Value = dateTime2;
+            //    cboChanList.SelectedIndex = (channel-1);
+            //    return Download();
+            //}
+            //catch (Exception e)
+            //{
+            //    WriteLog(e.ToString());
+            //    Message = e.ToString();
+            //    return false;
+            //}
+
+            return InvokeDownload(channel, dateTime1, dateTime2);
+        }
+
+        delegate bool InvokeDownloadCallBack(int channel, DateTime dateTime1, DateTime dateTime2);
+        private bool InvokeDownload(int channel, DateTime dateTime1, DateTime dateTime2)
+        {
+            if (this.InvokeRequired)
             {
-                dtStartTime.Value = dateTime1;
-                dtEndTime.Value = dateTime2;
-                cboChanList.SelectedIndex = (channel-1);
-                return Download();
+                InvokeDownloadCallBack stcb = new InvokeDownloadCallBack(InvokeDownload);
+                var r=this.Invoke(stcb, new object[] { channel, dateTime1, dateTime2 });
+                return (bool)r;
             }
-            catch (Exception e)
+            else
             {
-                WriteLog(e.ToString());
-                Message = e.ToString();
-                return false;
+                try
+                {
+                    dtStartTime.Value = dateTime1;
+                    dtEndTime.Value = dateTime2;
+                    cboChanList.SelectedIndex = (channel - 1);
+                    return Download();
+                }
+                catch (Exception e)
+                {
+                    WriteLog(e.ToString());
+                    Message = e.ToString();
+                    return false;
+                }
             }
-            
         }
 
         public string Log = "";
@@ -1189,13 +1264,28 @@ namespace PlaybackDemo
         {
             string txt = string.Format("[{0}]{1}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), log);
             Log = txt + "\n" + Log;
-            richTextBox1.Text = Log;
+
+            SetText(Log);
         }
+
+        delegate void SetTextCallBack(string text);
+        private void SetText(string text)
+        {
+            if (this.richTextBox1.InvokeRequired)
+            {
+                SetTextCallBack stcb = new SetTextCallBack(SetText);
+                this.Invoke(stcb, new object[] { text });
+            }
+            else
+            {
+                this.richTextBox1.Text = text;
+            }
+        }  
 
         public void ClearLog()
         {
             Log = "";
-            richTextBox1.Text = Log;
+            SetText(Log);
         }
 
         private bool Download()

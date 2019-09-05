@@ -66,7 +66,8 @@ namespace NVSPlayer.SDK
             }
 
             tInfo.m_cLocalFilename = new char[255];
-            Array.Copy(strFileName.ToCharArray(), tInfo.m_cLocalFilename, strFileName.Length);
+            string file2 = hlsVideoPath + strFileName;
+            Array.Copy(file2.ToCharArray(), tInfo.m_cLocalFilename, file2.Length);
             return strFileName;
         }
 
@@ -103,20 +104,46 @@ namespace NVSPlayer.SDK
                 if (!IsFileExist(strFileName))//文件已经存在的话就不用移动
                 {
                     string file1 = AppDomain.CurrentDomain.BaseDirectory + strFileName;
-                    if (!File.Exists(file1))
+                    string file2 = @"C:\Windows\System32" + strFileName;//不知道什么情况下会跑过去
+                    string htsPath = hlsVideoPath + strFileName;
+                    if (File.Exists(htsPath))
                     {
-                        return "文件不存在:" + file1;
+                        //Log.Info("NVS", "已经存在：" + htsPath);
+                        return GetHlsUrl(rtmpIp, strFileName);
                     }
-                    string file2 = hlsVideoPath + strFileName;
-                    FileInfo fileInfo2 = new FileInfo(file2);
-                    if (!fileInfo2.Directory.Exists)
+                    else 
                     {
-                        fileInfo2.Directory.Create();
+                        var file = file1;
+                        if (File.Exists(file1))
+                        {
+                            file = file1;
+                        }
+                        else if (File.Exists(file2))
+                        {
+                            file = file2;
+                        }
+
+                        if (!File.Exists(file1))
+                        {
+                            //file = file1;
+                            return "文件不存在:" + strFileName +"\n"+file1+"\n"+file2;
+                        }
+
+                        FileInfo fileInfo2 = new FileInfo(htsPath);
+                        if (!fileInfo2.Directory.Exists)
+                        {
+                            fileInfo2.Directory.Create();
+                        }
+                        Thread.Sleep(100);
+                        File.Move(file, htsPath);
+                        //Log.Info("NVS", file + " Move-> " + htsPath);
+                        //File.Copy(file1, file2, true);
+                        Thread.Sleep(100);
                     }
-                    //Thread.Sleep(100);
-                    File.Move(file1, file2);
-                    //File.Copy(file1, file2, true);
-                    //Thread.Sleep(100);
+                }
+                else
+                {
+                    //Log.Info("NVS", "已经存在：" + strFileName);
                 }
                 return GetHlsUrl(rtmpIp, strFileName);
             }
@@ -185,30 +212,30 @@ namespace NVSPlayer.SDK
 
         public string ProgressText;
 
-        public bool GetProgress()
-        {
-            if (m_iDLTimeId >= 0)       //获取按时间段下载进度
-            {
-                Int32 iPos = 0, iSize = 0;
-                NVSSDK.NetClient_NetFileGetDownloadPos(m_iDLTimeId, ref iSize, ref iPos);
-                Int32 iTotal = (Int32)(m_iDLStopTime - m_iDLStartTime);
-                Int32 iSetPos = (iPos - (Int32)m_iDLStartTime) * 100 / iTotal;
-                if (iSetPos > 0 && iSetPos <= 100)
-                {
-                    Progress = iSetPos;
-                    ProgressText = CommonFunc.AbsSecondsToStr(iPos);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool GetProgress()
+        //{
+        //    if (m_iDLTimeId >= 0)       //获取按时间段下载进度
+        //    {
+        //        Int32 iPos = 0, iSize = 0;
+        //        NVSSDK.NetClient_NetFileGetDownloadPos(m_iDLTimeId, ref iSize, ref iPos);
+        //        Int32 iTotal = (Int32)(m_iDLStopTime - m_iDLStartTime);
+        //        Int32 iSetPos = (iPos - (Int32)m_iDLStartTime) * 100 / iTotal;
+        //        if (iSetPos > 0 && iSetPos <= 100)
+        //        {
+        //            Progress = iSetPos;
+        //            ProgressText = CommonFunc.AbsSecondsToStr(iPos);
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         internal bool Stop()
         {

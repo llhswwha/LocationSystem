@@ -25,8 +25,8 @@ namespace NVSPlayer.SDK
                                            nvstime.m_iMonth,
                                            nvstime.m_iDay,
                                            nvstime.m_iHour,
-                                           nvstime.m_iSecond,
-                                           nvstime.m_iMinute);
+                                           nvstime.m_iMinute,
+                                           nvstime.m_iSecond);
             double dTime = ConvertDateTimeToInt(dtTime);
             iTime = Convert.ToInt64(dTime);
             return iTime;
@@ -58,7 +58,7 @@ namespace NVSPlayer.SDK
 
             string strTime = dtCutTime.Year.ToString() + dtCutTime.Month.ToString("D2") +
                              dtCutTime.Day.ToString("D2") + dtCutTime.Hour.ToString("D2") +
-                             dtCutTime.Second.ToString("D2") + dtCutTime.Minute.ToString("D2");
+                             dtCutTime.Minute.ToString("D2") + dtCutTime.Second.ToString("D2");
             return strTime;
         }
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using SignalRService.Models;
 using Location.TModel.Location.Alarm;
+using Location.BLL.Tool;
 
 namespace SignalRService.Hubs
 {
@@ -41,6 +42,8 @@ namespace SignalRService.Hubs
             //chatHubContext.Clients.All.GetLocationAlarms(alarms);
             if (alarms.Length > 0)
             {
+                Log.Info("LocationAlarm", "SendLocationAlarms:" + alarms.Length);
+
                 //if (alarms[0].AreaId == 2) { return; }
                 SendLocationAlarm(alarms);
             }

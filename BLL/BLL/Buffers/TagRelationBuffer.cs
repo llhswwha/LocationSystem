@@ -243,8 +243,21 @@ namespace BLL
             return pos.AreaId;
         }
 
-        private static int? SetAreaByPosition(Position pos, Area area)
+        private int? SetAreaByPosition(Position pos, Area area)
         {
+            //var floor1 = areas.Find(i => i.Id == 5);
+            //if (floor1 != null)
+            //{
+            //    SetAreaInFloor(pos, floor1);
+            //    return pos.AreaId;
+            //}
+            //else
+            //{
+            //    pos.AreaId = 5;
+            //    return 5;
+            //}
+
+
             try
             {
                 //      if (pos.Code != "0918") return;

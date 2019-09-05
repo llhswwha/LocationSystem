@@ -148,7 +148,11 @@ namespace LocationWCFServer
             AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
 
             AppContext.LogTextBoxMaxLength= ConfigurationHelper.GetIntValue("LogTextBoxMaxLength",10000);
+
             AppContext.MoveMaxSpeed = ConfigurationHelper.GetDoubleValue("MoveMaxSpeed", 20);
+            AppContext.FilterTodayWhenStart = ConfigurationHelper.GetBoolValue("FilterTodayWhenStart");
+            AppContext.FilterMoreThanMaxSpeedInterval = ConfigurationHelper.GetIntValue("FilterMoreThanMaxSpeedInterval",3600);
+            
 
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
             LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));

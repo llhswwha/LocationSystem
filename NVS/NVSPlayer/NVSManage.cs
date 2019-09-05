@@ -64,12 +64,7 @@ namespace NVSPlayer
             var ip2 = Form.GetIp();
             if (ip2 != ip)//不同Ip,切换登录
             {
-                Form.SetIp(ip);
-                Form.AfterLogin = callback;
-                Form.Logout();
-                //Thread.Sleep(50);
-                Form.Login();
-                //Thread.Sleep(50);
+                Form.SetIpEx(ip,callback);
             }
             else
             {

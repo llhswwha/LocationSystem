@@ -496,19 +496,30 @@ namespace LocationDaemon
             bool r = false;
             var faultProcess = "WerFault";//XX 已停止工作界面
             var ps2 = GetProcesses(faultProcess);
-            //WriteLog("ps count4:" + ps.Count);
             if (ps2.Count > 0)
             {
                 try
                 {
+                    WriteLog("CloseWerFault count:" + ps2.Count);
                     foreach (Process item in ps2)
                     {
-                        //if (item.MainWindowTitle == targetProcessName) //不一样
+                        try
                         {
-                            item.CloseMainWindow();
-                            r = true;
+                            //if (item.MainWindowTitle == targetProcessName) //不一样
+                            {
+                                if (item.HasExited) continue;
+                                if (item.CloseMainWindow() == true)
+                                {
+                                    r = true;
+                                }
+                                
+                            }
                         }
-                        
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
                     }
                 }
                 catch (Exception exception)
@@ -559,6 +570,8 @@ namespace LocationDaemon
                 log1 = log1.Substring(0, maxLogLength / 2);
             }
             TxtLog.Text = log1;
+
+            Log.Info(log);
         }
 
         private void WriteLog2(string log)
@@ -570,6 +583,7 @@ namespace LocationDaemon
             }
 
             TxtLog2.Text = log2;
+            Log.Info(log);
         }
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
