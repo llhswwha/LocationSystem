@@ -77,6 +77,7 @@ namespace LocationServer
         public static double MoveMaxSpeed { get; set; }
         public static bool FilterTodayWhenStart { get; set; }
         public static int FilterMoreThanMaxSpeedInterval { get; set; }
+        public static string FilterMoreThanMaxSpeedTimer { get; set; }
 
         public static Bll GetLocationBll()
         {

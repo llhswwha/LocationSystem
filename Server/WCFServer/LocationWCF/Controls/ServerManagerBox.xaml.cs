@@ -54,6 +54,8 @@ using DbModel.Location.AreaAndDev;
 using System.Collections.Concurrent;
 using DbModel;
 using Location.TModel.Tools;
+using LocationServer.Threads;
+using Base.Common.Threads;
 
 namespace LocationServer.Controls
 {
@@ -183,12 +185,13 @@ namespace LocationServer.Controls
                 Log.Info(LogTags.Server, "历史设备告警保留时间:" + DevAlarmKeepDays + "天");
                 if (alarmRemoveThread == null)
                 {
-                    alarmRemoveThread = new Thread(RemoveOldDevAlarms);
-                    alarmRemoveThread.IsBackground = true;
+                    alarmRemoveThread = new AlarmRemoveThread(DevAlarmKeepDays);
                     alarmRemoveThread.Start();
                 }
             }
         }
+
+        public List<FunctionThread> FuncThreads = new List<FunctionThread>();
 
         private int DevAlarmKeepDays = 0;
 
@@ -250,7 +253,7 @@ namespace LocationServer.Controls
         /// <summary>
         /// 告警清除线程
         /// </summary>
-        private Thread alarmRemoveThread;
+        private AlarmRemoveThread alarmRemoveThread;
 
         private void BtnStartService_Click(object sender, RoutedEventArgs e)
         {

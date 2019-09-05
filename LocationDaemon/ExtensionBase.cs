@@ -3,7 +3,7 @@
 
 namespace LocationDaemon
 {
-    public static class ExtensionBase
+    internal static class ExtensionBase
     {
         /// <summary>
         /// 默认为false，字符串不等于"true"或"TRUE"或"True"等的话就返回false

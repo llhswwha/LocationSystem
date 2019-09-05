@@ -140,6 +140,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">
+      <Project>{cad48149-6b82-4464-b0aa-7f7229783d7f}</Project>
+      <Name>Base.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IModel\IModel.csproj">
       <Project>{6d2404c0-7f69-4a66-8326-253aed706620}</Project>
       <Name>IModel</Name>

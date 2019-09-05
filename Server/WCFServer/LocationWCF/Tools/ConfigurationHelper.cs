@@ -10,8 +10,12 @@ namespace LocationServer.Tools
 {
     public static class ConfigurationHelper
     {
-        public static string GetValue(string key)
+        public static string GetValue(string key,string defaultValue="04:00")
         {
+            if (string.IsNullOrEmpty(key))
+            {
+                return defaultValue;
+            }
             return ConfigurationManager.AppSettings[key];
         }
 

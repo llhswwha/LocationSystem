@@ -151,7 +151,7 @@ namespace LocationWCFServer
 
             AppContext.MoveMaxSpeed = ConfigurationHelper.GetDoubleValue("MoveMaxSpeed", 20);
             AppContext.FilterTodayWhenStart = ConfigurationHelper.GetBoolValue("FilterTodayWhenStart");
-            AppContext.FilterMoreThanMaxSpeedInterval = ConfigurationHelper.GetIntValue("FilterMoreThanMaxSpeedInterval",3600);
+            AppContext.FilterMoreThanMaxSpeedTimer = ConfigurationHelper.GetValue("FilterMoreThanMaxSpeedTimer", "04:00");
             
 
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));

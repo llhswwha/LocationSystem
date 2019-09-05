@@ -188,6 +188,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">
+      <Project>{cad48149-6b82-4464-b0aa-7f7229783d7f}</Project>
+      <Name>Base.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BLL\BLL\BLL.csproj">
       <Project>{c3d77c78-c78f-4e18-8ae1-bb29d3e30a9b}</Project>
       <Name>BLL</Name>
