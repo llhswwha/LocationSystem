@@ -1,4 +1,6 @@
 ﻿using Base.Common.Threads;
+using BLL;
+using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,42 +15,22 @@ namespace LocationServer.Threads
     /// 删除错误点进程
     /// 手动删除以前的全部错误点后，又不添加新的错误点的话，可以不用这个，保险起见，每天4:00检查一遍
     /// </summary>
-    public class FilterErrorPointThread: FunctionThread
+    public class FilterErrorPointThread : DailyTimerThread
     {
-        public DateTime lastDoTime;
-
-        public DateTime doTime;
-
-        public FilterErrorPointThread(string time):base("FilterErrorPointThread")
+        public FilterErrorPointThread(string time) 
+            : base(time, TimeSpan.FromSeconds(10), null)
         {
-            string[] parts = time.Split(':');
-            if (parts.Length == 2)
-            {
-                DateTime now = DateTime.Now;
-                doTime = new DateTime(now.Year, now.Month, now.Day, parts[0].ToInt(), parts[1].ToInt(), 0);
-            }
+            //DailyFunction();
         }
 
-        public override void DoFunction()
+        public override void DailyFunction()
         {
-            while (true)
-            {
-
-                DateTime now = DateTime.Now;
-                if (now.Hour == doTime.Hour
-                        && now.Minute == doTime.Minute
-                        && (now - lastDoTime).TotalMinutes > 1)
-                {
-                    //DoFunction();
-
-                }
-                Thread.Sleep(1000);
-            }
-        }
-
-        public void DailyDoFunction()
-        {
-           
+            Bll bll = Bll.NewBllNoRelation();
+            DateTime now = DateTime.Now;
+            DateTime start = now.AddHours(-25);
+            var list=bll.Positions.GetInfoListOfDate(start, now);
+            var count=bll.Positions.RemoveErrorPoints(list);
+            bll.Dispose();
         }
     }
 }

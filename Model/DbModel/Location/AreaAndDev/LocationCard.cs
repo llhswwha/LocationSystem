@@ -5,6 +5,7 @@ using Location.IModel.Locations;
 using Location.TModel.Tools;
 using DbModel.Location.Authorizations;
 using System.Runtime.Serialization;
+using Base.Common.Tools;
 
 namespace DbModel.Location.AreaAndDev
 {

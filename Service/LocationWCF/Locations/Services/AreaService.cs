@@ -23,6 +23,7 @@ using Bound = Location.TModel.Location.AreaAndDev.Bound;
 using TModel.Location.Person;
 using System.Diagnostics;
 using Location.TModel.Tools;
+using Base.Common.Tools;
 
 namespace LocationServices.Locations.Services
 {

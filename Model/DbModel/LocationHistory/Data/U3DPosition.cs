@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using DbModel.Tools;
 using Location.IModel;
 using Location.TModel.Tools;
+using Base.Common.Tools;
 
 namespace DbModel.LocationHistory.Data
 {

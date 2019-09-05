@@ -237,7 +237,6 @@
     <Compile Include="Plugins\NVSPlayer\SDK\CommonStruct.cs" />
     <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Threads\AlarmRemoveThread.cs" />
-    <Compile Include="Threads\DailyTimerThread.cs" />
     <Compile Include="Threads\FilterErrorPointThread.cs" />
     <Compile Include="Tools\BaseDataInitializer.cs" />
     <Compile Include="Tools\BaseDataSimulator.cs" />

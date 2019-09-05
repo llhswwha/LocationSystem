@@ -171,7 +171,6 @@
     <Compile Include="Tools\ThreadTool.cs" />
     <Compile Include="Tools\TreeHelper.cs" />
     <Compile Include="Tools\Worker.cs" />
-    <Compile Include="Tools\XmlSerializeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">

@@ -1,4 +1,5 @@
 ﻿using Base.Common.Threads;
+using Base.Common.Tools;
 using BLL;
 using Location.BLL.Tool;
 using Location.TModel.Tools;
@@ -24,7 +25,7 @@ namespace LocationServer.Threads
             DevAlarmKeepDays = days;
         }
 
-        public override bool DailyFunction()
+        public override bool TickFunction()
         {
             Log.Info(Name, "检查设备告警");
             //清除某一个时间之前的所有告警
@@ -39,6 +40,7 @@ namespace LocationServer.Threads
                 query.DeleteFromQuery();//这样删除效率高
                 Log.Info(Name, "清除历史设备告警,数量:" + count);
             }
+            db.Dispose();
             return true;
         }
     }

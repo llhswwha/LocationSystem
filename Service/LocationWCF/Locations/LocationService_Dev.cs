@@ -23,6 +23,7 @@ using Location.TModel.Tools;
 using System.IO;
 using TModel.FuncArgs;
 using TModel.Location.Alarm;
+using Base.Common.Tools;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations

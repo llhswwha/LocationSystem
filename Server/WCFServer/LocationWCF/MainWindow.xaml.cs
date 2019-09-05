@@ -51,6 +51,7 @@ using Location.BLL.Tool;
 using Base.Tools;
 using LocationServices.Locations.Services;
 using Location.TModel.Tools;
+using Base.Common.Tools;
 
 namespace LocationWCFServer
 {

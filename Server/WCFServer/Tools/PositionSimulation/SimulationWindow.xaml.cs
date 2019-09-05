@@ -170,6 +170,11 @@ namespace PositionSimulation
             }
         }
 
+        private void StartServer(IPAddress iPAddress, object p)
+        {
+            throw new NotImplementedException();
+        }
+
         private void MenuRefresh_OnClick(object sender, RoutedEventArgs e)
         {
             LoadData();

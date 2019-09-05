@@ -30,7 +30,7 @@ namespace Base.Common.Threads
             {
                 try
                 {
-                    if (DailyFunction() == false)
+                    if (TickFunction() == false)
                     {
                         break;
                     }
@@ -46,6 +46,6 @@ namespace Base.Common.Threads
             }
         }
 
-        public abstract bool DailyFunction();
+        public abstract bool TickFunction();
     }
 }

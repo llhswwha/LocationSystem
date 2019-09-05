@@ -56,6 +56,7 @@ using DbModel;
 using Location.TModel.Tools;
 using LocationServer.Threads;
 using Base.Common.Threads;
+using Base.Common.Tools;
 
 namespace LocationServer.Controls
 {
@@ -138,6 +139,12 @@ namespace LocationServer.Controls
                 if (nginxCmdProcess != null)
                 {
                     nginxCmdProcess.CloseMainWindow();
+                }
+
+                if (filterErrorPointThread != null)
+                {
+                    filterErrorPointThread.Abort();
+                    filterErrorPointThread = null;
                 }
             }
             catch (Exception ex)
@@ -385,12 +392,20 @@ namespace LocationServer.Controls
                         LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
                     }
                 }, null);
+
+                if (filterErrorPointThread == null && !string.IsNullOrEmpty(AppContext.FilterMoreThanMaxSpeedTimer))
+                {
+                    filterErrorPointThread = new FilterErrorPointThread(AppContext.FilterMoreThanMaxSpeedTimer);
+                    filterErrorPointThread.Start();
+                }
             }
             catch (Exception ex)
             {
                 WriteLog(ex.ToString());
             }
         }
+
+        FilterErrorPointThread filterErrorPointThread = null;
 
         public void StartPlayBackManage()
         {

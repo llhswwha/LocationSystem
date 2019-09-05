@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Location.BLL.Tool;
-using Location.TModel.Tools;
-using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 using System.Threading;
+using BLL.Tools;
+using Base.Common.Tools;
+using DbModel.Tools;
+using Location.TModel.Tools;
 
 namespace BLL.Blls.LocationHistory
 {
@@ -39,7 +41,7 @@ namespace BLL.Blls.LocationHistory
             DateTime start = new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
             DateTime end = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
             var count= GetPositionsCountOfDate(start, end);
-            PositionList list = new PositionList();
+            PositionList list = new PositionList(date.ToString("yyyy-MM-dd"));
             list.Name = date.ToString("yyyy-MM-dd");
             list.Count = count;
             return list;
@@ -434,6 +436,51 @@ namespace BLL.Blls.LocationHistory
                 }
             }
             return list;
+        }
+
+        public int RemoveErrorPoints(List<PosInfo> list)
+        {
+            int sum = 0;
+            var bags = PosInfoListHelper.GetListByCode(list);
+            List<Position> allErrorPoints = new List<Position>();
+            for (int i = 0; i < bags.Count; i++)
+            {
+                var person = bags[i];
+                Log.Info(LogTags.HisPos, string.Format("删除 {0}({1}/{2})",person.Name,(i+1), bags.Count));
+                List<PosInfo> posInfoList = person.Items;//某个人
+                var errorPosList = PosDistanceHelper.FilterErrorPoints(posInfoList);
+                if (errorPosList.Count > 0)
+                {
+                    List<int> ids = new List<int>();
+                    foreach (var item in errorPosList)
+                    {
+                        ids.Add(item.Id);
+                    }
+
+                    var query = DbSet.AsNoTracking().Where(item => ids.Contains(item.Id)).OrderBy(item=>item.DateTimeStamp);
+                    var count = query.Count();
+                    var errorPoints = query.ToList();
+                    allErrorPoints.AddRange(errorPoints);
+                    Log.Info(LogTags.HisPos, string.Format("删除点 {0}/{1}", count,posInfoList.Count));
+                    sum += count;
+                    //query.DeleteFromQuery();
+                }
+            }
+            if (sum > 0)
+            {
+                Log.Info(LogTags.HisPos, string.Format("删除点 {0}/{1}", sum, list.Count));
+            }
+            SavePositions(allErrorPoints, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+            return sum;
+        }
+
+        public void SavePositions(List<Position> posList,string name)
+        {
+            PositionList list = new PositionList(name);
+            list.Add(posList);
+            //XmlSerializeHelper.
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\ErrorPoints\\" + name + ".xml";
+            XmlSerializeHelper.Save(list, filePath);
         }
     }
 }

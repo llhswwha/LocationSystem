@@ -8,16 +8,26 @@ namespace DbModel.LocationHistory.Data
     {
         public string Name { get; set; }
 
+        private int _count;
+
         public int Count
         {
             get
             {
-                if (Items == null) return -1;
-                return Items.Count;
+                return _count;
+            }
+            set
+            {
+                _count = value;
             }
         }
 
         public List<Position> Items { get; set; }
+
+        public PositionList()
+        {
+
+        }
 
         public PositionList(string name)
         {
@@ -32,6 +42,18 @@ namespace DbModel.LocationHistory.Data
             }
 
             Items.Add(pos);
+            _count = Items.Count;
+        }
+
+        public void Add(List<Position> list)
+        {
+            if (Items == null)
+            {
+                Items = new List<Position>();
+            }
+
+            Items.AddRange(list);
+            _count = Items.Count;
         }
 
         public static List<PositionList> GetList(List<Position> posList, Func<Position, string> actionGetName)

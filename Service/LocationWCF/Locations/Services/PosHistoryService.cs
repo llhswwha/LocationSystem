@@ -24,6 +24,7 @@ using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 using U3DPosition = Location.TModel.LocationHistory.Data.U3DPosition;
 using LocationServices.Tools;
 using BLL.Tools;
+using Base.Common.Tools;
 
 namespace LocationServices.Locations.Services
 {

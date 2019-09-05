@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="SDK\Downloader.cs" />
     <Compile Include="SDK\DownloadTimespan.cs" />
-    <Compile Include="SDK\ExtensionBase.cs" />
     <Compile Include="SDK\IDownloadTimespan.cs" />
     <Compile Include="SDK\NVSHelper.cs" />
     <Compile Include="SDK\NVSSDK.cs" />
@@ -166,6 +165,12 @@
     <None Include="Assemblies\NVSSDK\VideoMjpegDec.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">
+      <Project>{cad48149-6b82-4464-b0aa-7f7229783d7f}</Project>
+      <Name>Base.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

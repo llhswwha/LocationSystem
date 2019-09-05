@@ -32,6 +32,7 @@ using Location.TModel.Tools;
 using TModel.Tools;
 using LocationServices.Tools;
 using BLL.Tools;
+using Base.Common.Tools;
 
 namespace LocationServer.Windows
 {
@@ -69,95 +70,7 @@ namespace LocationServer.Windows
                     allPoslist = new List<PosInfo>();
                     PosHistoryService phs = new PosHistoryService();
                     allPoslist=phs.GetAllData(LogTags.HisPos, useBuffer);
-
-                    //Bll bll = Bll.NewBllNoRelation();
-                    ////bll.history
-
                     DateTime start = DateTime.Now;
-
-                    //int count = bll.PosInfos.DbSet.Count();
-                    //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
-
-                    //PosInfo first=bll.PosInfos.DbSet.First();
-                    //Log.Info(LogTags.HisPos, string.Format("first:{0}", first));
-
-                    //List<PosInfo> list1 = bll.PosInfos.GetPosInfosOfDay(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list1:{0},time:{1}", list1.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list2 = bll.PosInfos.GetPosInfosOfSevenDay(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list2:{0},time:{1}", list2.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list3 = bll.PosInfos.GetPosInfosOfMonth(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list3:{0},time:{1}", list3.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list4 = bll.PosInfos.GetAllPosInfosByDay((progress) =>
-                    //{
-                    //    Log.Info(LogTags.HisPos, string.Format("GetAllPosInfosByDay date:{0},count:{1},({2}/{3},{4:p})",
-                    //        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                    //});
-                    //Log.Info(LogTags.HisPos, string.Format("list4:{0},time:{1}", list4.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-                    ////按天来要1分11s
-                    //List<PosInfo> posList = list4;
-
-                    ////List<PosInfo> list5 = bll.PosInfos.GetAllPosInfosByMonth((progress) =>
-                    ////{
-                    ////    Log.Info(LogTags.HisPos, string.Format("GetAllPosInfosByMonth date:{0},count:{1},({2}/{3},{4:p})",
-                    ////        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                    ////});
-                    ////Log.Info(LogTags.HisPos, string.Format("list5:{0},time:{1}", list5.Count, DateTime.Now - start));
-                    ////start = DateTime.Now;
-                    //////按月来是22s=>把按天的去掉，按月的时间也是一样的50s-70s
-
-                    ////List<PosInfo> posList = list5;
-
-                    //List<PosInfo> posList = bll.PosInfos.ToList();
-                    //Log.Info(LogTags.HisPos, string.Format("list6:{0},time:{1}", posList.Count, DateTime.Now - start));
-                    //if (posList == null)
-                    //{
-                    //    allPoslist=null;
-                    //    Log.Error(bll.PosInfos.ErrorMessage);
-                    //    return;
-                    //}
-                    //var personnels = bll.Personnels.ToDictionary();
-                    //foreach (var pos in posList)
-                    //{
-                    //    var pid = pos.PersonnelID;
-                    //    if (pid != null && personnels.ContainsKey((int)pid))
-                    //    {
-                    //        var p = personnels[(int)pid];
-                    //        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
-                    //    }
-                    //    else
-                    //    {
-                    //        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ;//有些卡对应的人员不存在
-                    //    }
-                    //}
-
-                    //List<PosInfo> noAreaList = new List<PosInfo>();
-
-                    //var areas = bll.Areas.ToDictionary();
-                    //foreach (var pos in posList)
-                    //{
-                    //    var areaId = pos.AreaId;
-                    //    if (areaId != null && areas.ContainsKey((int)areaId))
-                    //    {
-                    //        var area = areas[(int)areaId];
-                    //        pos.Area = area;
-                    //        pos.AreaPath = area.GetToBuilding(">");
-
-                    //        allPoslist.Add(pos);
-                    //    }
-                    //    else
-                    //    {
-                    //        noAreaList.Add(pos);
-                    //    }
-                    //}
-
-
                     Log.Info(LogTags.HisPos, string.Format("GetAll End"));
                 }
                 catch (Exception e)
@@ -918,35 +831,10 @@ namespace LocationServer.Windows
 
             Worker.Run(() =>
             {
-                var personList= PosInfoListHelper.GetListByPerson(posList.Items);
-                foreach (var person in personList)
-                {
-                    Log.Info(LogTags.HisPos, "删除人:" + person.Name);
-                    List<PosInfo> posInfoList = person.Items;//某个人
-                    var errorPoints = PosDistanceHelper.FilterErrorPoints(posInfoList);
-                    List<int> ids = new List<int>();
-                    foreach (var item in errorPoints)
-                    {
-                        ids.Add(item.Id);
-                        //var p = bll.Positions.DeleteById(item.Id);
-                        //if (p != null)
-                        //{
-                        //    Log.Info(LogTags.HisPos, "删除点:" + p);
-                        //}
-                    }
-
-                    var query = bll.Positions.DbSet.Where(i => ids.Contains(i.Id));
-                    var count = query.Count();
-                    Log.Info(LogTags.HisPos, "删除点:" + count);
-                    query.DeleteFromQuery();
-                }
-                return personList;
-            }, (result) =>
+                bll.Positions.RemoveErrorPoints(posList.Items);
+            }, () =>
             {
-                //DataGridStatisticDayPerson.ItemsSource = result;
-                //DataGridStatisticDayPersonTime.ItemsSource = null;
-                //DataGridDayPersonPosList.ItemsSource = null;
-
+                GetAll(false,null);
             });
         }
     }

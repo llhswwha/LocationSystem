@@ -5,6 +5,8 @@ using System.Threading;
 using System.IO;
 using System.Data.Entity.Infrastructure;
 using System.Collections.Generic;
+using Base.Common.Tools;
+using Location.TModel.Tools;
 
 namespace BLL
 {
@@ -108,7 +110,7 @@ namespace BLL
             string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions' and PARTITION_NAME = '" + strDay + "';";
 
             dtThirdDay = dtThirdDay.Date;
-            long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtThirdDay);
+            long lTime = TimeConvert.ToStamp(dtThirdDay);
             string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
 
             DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");

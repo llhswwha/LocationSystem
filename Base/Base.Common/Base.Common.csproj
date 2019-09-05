@@ -42,15 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ExtensionBase.cs" />
     <Compile Include="Logs\Log.cs" />
     <Compile Include="Logs\LogTags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threads\DailyTimerThread.cs" />
     <Compile Include="Threads\FunctionThread.cs" />
     <Compile Include="Threads\IntervalTimerThread.cs" />
+    <Compile Include="Tools\ByteHelper.cs" />
+    <Compile Include="Tools\Class1.cs" />
+    <Compile Include="Logs\LogEvent.cs" />
+    <Compile Include="Tools\TimeConvert.cs" />
+    <Compile Include="Tools\XmlSerializeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

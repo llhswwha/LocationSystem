@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
 using NVSPlayer;
 using NVSPlayer.SDK;
+using TModel.Tools;
 
 namespace PlaybackDemo
 {

@@ -13,6 +13,8 @@ using Location.IModel;
 using Location.TModel.Tools;
 using TModel.Tools;
 using Newtonsoft.Json;
+using Base.Common.Tools;
+using System.Xml.Serialization;
 
 namespace DbModel.LocationHistory.Data
 {
@@ -31,15 +33,18 @@ namespace DbModel.LocationHistory.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataMember]
         [Display(Name = "主键Id")]
+        [XmlAttribute]
         public int Id { get; set; }
 
         [Index]
         [DataMember]
         [Display(Name = "标签卡Id")]
+        //[XmlAttribute]
         public int? CardId { get; set; }
 
         [DataMember]
         [Display(Name = "标签角色Id")]
+        //[XmlAttribute]
         public int? RoleId { get; set; }
 
         /// <summary>
@@ -48,9 +53,11 @@ namespace DbModel.LocationHistory.Data
         [Index]
         [DataMember]
         [Display(Name = "人员ID")]
+        //[XmlAttribute]
         public int? PersonnelID { get; set; }
 
         [NotMapped]
+        [XmlIgnore]
         public string PersonnelName { get; set; }
 
         /// <summary>
@@ -60,6 +67,7 @@ namespace DbModel.LocationHistory.Data
         [Display(Name = "定位卡编号")]
         [MaxLength(16)]
         [Required]
+        [XmlAttribute]
         public string Code { get; set; }
 
         /// <summary>
@@ -67,6 +75,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "X")]
+        [XmlAttribute]
         public float X { get; set; }
 
         /// <summary>
@@ -74,6 +83,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "Y")]
+        [XmlAttribute]
         public float Y { get; set; }
 
         /// <summary>
@@ -81,6 +91,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "Z")]
+        [XmlAttribute]
         public float Z { get; set; }
 
         /// <summary>
@@ -88,6 +99,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "时间")]
+        [XmlAttribute]
         public DateTime DateTime { get; set; }
         //{
         //    get { return _dateTime; }
@@ -105,6 +117,7 @@ namespace DbModel.LocationHistory.Data
         [Index]
         [DataMember]
         [Display(Name = "时间戳")]
+        [XmlAttribute]
         public long DateTimeStamp { get; set; }
 
         /// <summary>
@@ -112,6 +125,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "电量")]
+        [XmlAttribute]
         public int Power { get; set; }
 
 
@@ -157,18 +171,21 @@ namespace DbModel.LocationHistory.Data
         /// 电量状态,0表示正常，1表示弱电
         /// </summary>
         [Display(Name = "电量状态")]
+        [XmlAttribute]
         public int PowerState { get; set; }
 
         /// <summary>
         /// 区域状态，0:在定位区域，1:不在定位区域
         /// </summary>
         [Display(Name = "区域状态")]
+        [XmlAttribute]
         public int AreaState { get; set; }
 
         /// <summary>
         /// 运动状态，0:运动，1:待机状态，2:静止状态
         /// </summary>
         [Display(Name = "运动状态")]
+        [XmlAttribute]
         public int MoveState { get; set; }
 
         /// <summary>
@@ -178,6 +195,7 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "序号")]
+        [XmlAttribute]
         public int Number { get; set; }
 
         /// <summary>
@@ -188,6 +206,7 @@ namespace DbModel.LocationHistory.Data
         [DataMember]
         [Display(Name = "信息")]
         [MaxLength(16)]
+        [XmlAttribute]
         public string Flag { get; set; }
 
         /// <summary>
@@ -196,6 +215,7 @@ namespace DbModel.LocationHistory.Data
         [DataMember]
         [Display(Name = "参与计算的基站编号")]
         [NotMapped]
+        [XmlIgnore]
         public List<string> Archors { get; set; }
 
         /// <summary>
@@ -204,6 +224,7 @@ namespace DbModel.LocationHistory.Data
         [DataMember]
         [Display(Name = "参与计算的基站编号")]
         [MaxLength(64)]
+        [XmlAttribute]
         public string ArchorsText { get; set; }
 
         /// <summary>
@@ -211,13 +232,16 @@ namespace DbModel.LocationHistory.Data
         /// </summary>
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
+        [XmlAttribute]
         public string AllAreaId { get; set; }
 
         [DataMember]
         [Display(Name = "基站所在的区域、建筑、楼层编号Id")]
+        //[XmlAttribute]
         public int? AreaId { get; set; }
 
         [NotMapped]
+        [XmlIgnore]
         public Area Area { get; set; }
 
         public bool IsAreaNull()
@@ -289,17 +313,20 @@ namespace DbModel.LocationHistory.Data
         /// 基站所在的区域
         /// </summary>
         [NotMapped]
+        [XmlIgnore]
         public Area[] Areas { get; set; }
 
 
         [DataMember]
         [MaxLength(64)]
+        [XmlAttribute]
         public string AreaPath { get; set; }
 
         /// <summary>
         /// 模拟数据
         /// </summary>
         [NotMapped]
+        [XmlIgnore]
         public bool IsSimulate { get; set; }
 
         public Position()

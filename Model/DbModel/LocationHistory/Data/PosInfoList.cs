@@ -51,6 +51,11 @@ namespace DbModel.LocationHistory.Data
         {
             return other.Name.CompareTo(this.Name);
         }
+
+        public override string ToString()
+        {
+            return Name + "," + Count;
+        }
     }
 
     public static class PosInfoListHelper

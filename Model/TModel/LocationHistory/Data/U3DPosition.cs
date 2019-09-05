@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using DbModel.Tools;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Tools;
+using Base.Common.Tools;
 
 namespace Location.TModel.LocationHistory.Data
 {
