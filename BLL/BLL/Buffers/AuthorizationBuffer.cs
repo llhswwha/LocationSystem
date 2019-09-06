@@ -325,7 +325,7 @@ namespace BLL.Buffers
         {
             List<LocationAlarm> newAlarmList = GenerateAlarm(list1);
             Log.Info("LocationAlarm", "newAlarmList:" + newAlarmList.Count);
-            return newAlarmList;
+            //return newAlarmList;
             List<LocationAlarm> ReviseAlarmList = new List<LocationAlarm>();
             List<LocationAlarm> DeleteList = new List<LocationAlarm>();
 

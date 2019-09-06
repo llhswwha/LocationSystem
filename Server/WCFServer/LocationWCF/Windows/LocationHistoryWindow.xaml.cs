@@ -33,6 +33,7 @@ using TModel.Tools;
 using LocationServices.Tools;
 using BLL.Tools;
 using Base.Common.Tools;
+using Location.IModel;
 
 namespace LocationServer.Windows
 {
@@ -49,13 +50,52 @@ namespace LocationServer.Windows
         private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
         {
             Bll bll = Bll.NewBllNoRelation();
-            var person = bll.Personnels.Find(i => i.Name == "Tags_08BA");
-            if (person != null)
+            //var person = bll.Personnels.Find(i => i.Name == "Tag_08BA");
+            //if (person != null)
+            //{
+            //    PosHistoryService service = new PosHistoryService();
+            //    var list=service.GetHistoryByPerson(person.Id, new DateTime(2019, 9, 5, 13, 10, 0), new DateTime(2019, 9, 5, 13, 20, 0));
+            //    DataGridDayPersonPosList.ItemsSource = list;
+            //}
+
+            var person = CbPersonList.SelectedItem as Personnel;
+            var date = (DateTime)DpDay.SelectedDate;
+            var startTime = (DateTime)TpStart.Value;
+            var endTime = (DateTime)TpEnd.Value;
+
+            PosHistoryService service = new PosHistoryService();
+            var list = service.GetHistoryByPerson(person.Id,
+                new DateTime(date.Year, date.Month, date.Day, startTime.Hour, startTime.Minute, 0),
+                 new DateTime(date.Year, date.Month, date.Day, endTime.Hour, endTime.Minute, 0));
+            DataGridDayPersonPosList.ItemsSource = list;
+        }
+
+        private void LocationHistoryWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            controller = new LogTextBoxController(TbLogs, LogTags.HisPos);
+
+            Worker.Run(() =>
             {
-                PosHistoryService service = new PosHistoryService();
-                var list=service.GetHistoryByPerson(person.Id, new DateTime(2019, 9, 5, 13, 10, 0), new DateTime(2019, 9, 5, 13, 20, 0));
-                DataGridDayPersonPosList.ItemsSource = list;
-            }
+                DateTime start = DateTime.Now;
+
+                int count = bll.Positions.DbSet.Count();
+                return count;
+            }, (count) =>
+            {
+                this.Title += " total:" + count;
+            });
+
+            TbMaxSpeed.Text = AppContext.MoveMaxSpeed + "";
+
+            var personnels = bll.Personnels.ToList();
+            CbPersonList.ItemsSource = personnels;
+            var person = personnels.Find(i => i.Name == "Tag_08BA");
+            CbPersonList.SelectedItem = person;
+
+            DpDay.SelectedDate = new DateTime(2019, 9, 5).Date;
+
+            TpStart.Value = new DateTime(2019, 9, 5, 13, 10, 0);
+            TpEnd.Value = new DateTime(2019, 9, 5, 13, 20, 0);
         }
 
         //private void BtnGetAll_OnClick(object sender, RoutedEventArgs e)
@@ -263,7 +303,7 @@ namespace LocationServer.Windows
 
         private void BtnSendCurrentPos_OnClick(object sender, RoutedEventArgs e)
         {
-            PosInfo pos = DataGridDayPersonPosList.SelectedItem as PosInfo;
+            Position pos = GetPos(DataGridDayPersonPosList.SelectedItem);
             TbPostion.Text=SendPos(pos);
         }
 
@@ -293,19 +333,18 @@ namespace LocationServer.Windows
             SendNextPos();
         }
 
-        private PosInfo SendNextPos()
+        private void SendNextPos()
         {
             //List<PosInfo> list = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
             if (DataGridDayPersonPosList.SelectedIndex < DataGridDayPersonPosList.Items.Count)
             {
                 DataGridDayPersonPosList.SelectedIndex++;
-                PosInfo pos = DataGridDayPersonPosList.SelectedItem as PosInfo;
+                var pos = GetPos(DataGridDayPersonPosList.SelectedItem);
                 TbPostion.Text = SendPos(pos);
-                return pos;
             }
             else
             {
-                return null;
+                //return null;
             }
         }
 
@@ -319,7 +358,8 @@ namespace LocationServer.Windows
             }
             else if (list2 != null && id < list2.Count)
             {
-                Position pos2 = list2[id];
+                Location.TModel.LocationHistory.Data.Position pos1 = list2[id];
+                Position pos2= bll.Positions.FindById(pos1.Id);
                 return pos2;
             }
             else
@@ -330,7 +370,7 @@ namespace LocationServer.Windows
 
         private DispatcherTimer timer;
         private List<PosInfo> list;
-        private List<Position> list2;
+        private List<Location.TModel.LocationHistory.Data.Position> list2;
         private int id = 0;
         private void BtnStartSendPos_OnClick(object sender, RoutedEventArgs e)
         {
@@ -338,7 +378,7 @@ namespace LocationServer.Windows
             {
                 BtnStartSendPos.Content = "停止模拟数据";
                 list = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
-                list2 = DataGridDayPersonPosList.ItemsSource as List<Position>;
+                list2 = DataGridDayPersonPosList.ItemsSource as List<Location.TModel.LocationHistory.Data.Position>;
                 id = 0;
                 startPos = null;
                 if (timer == null)
@@ -400,20 +440,10 @@ namespace LocationServer.Windows
 
         private void DataGridDayPersonPosList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Position pos2 = DataGridDayPersonPosList.SelectedItem as Position;
-            if (pos2 == null)
+            Position pos = GetPos(DataGridDayPersonPosList.SelectedItem);
+            if (pos != null)
             {
-                PosInfo pos = DataGridDayPersonPosList.SelectedItem as PosInfo;
-                if (pos == null) return;
-                pos2 = bll.Positions.FindById(pos.Id);
-            }
-            //if (pos2 == null)
-            //{
-            //    pos2 = bll.Positions.DbSet.FirstOrDefault(i => i.Id == pos.Id);
-            //}
-            if (pos2 != null)
-            {
-                TbPostion.Text = pos2.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+                TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
             }
             else
             {
@@ -422,26 +452,20 @@ namespace LocationServer.Windows
             
         }
 
+        private Position GetPos(object selectedItem)
+        {
+            Position pos = null;
+            IId id = DataGridDayPersonPosList.SelectedItem as IId;
+            if (id != null)
+            {
+                pos = bll.Positions.FindById(id.Id);
+            }
+            return pos;
+        }
+
         private LogTextBoxController controller;
 
-        private void LocationHistoryWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            controller=new LogTextBoxController(TbLogs,LogTags.HisPos);
 
-            Worker.Run(() =>
-            {
-                DateTime start = DateTime.Now;
-
-                int count = bll.Positions.DbSet.Count();
-                return count;
-            }, (count) => {
-                this.Title += " total:" + count;
-            });
-
-            TbMaxSpeed.Text = AppContext.MoveMaxSpeed + "";
-
-
-        }
 
         private void MenuGetAllData_Click(object sender, RoutedEventArgs e)
         {

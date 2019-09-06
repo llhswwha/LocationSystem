@@ -11,6 +11,7 @@ using System.Runtime.Remoting.Messaging;
 using NVSPlayer;
 using NVSPlayer.SDK;
 using TModel.Tools;
+using System.Diagnostics;
 
 namespace PlaybackDemo
 {
@@ -1155,31 +1156,84 @@ namespace PlaybackDemo
             }
         }
 
+        private double lastSetPos = 0;
+        private double size0 = 0;
+        private double size1 = 0;
+        private double speed = 0;
+
         //获取按时间段下载进度
         private void timerDLTimePos_Tick(object sender, EventArgs e)
         {
-            var m_iDLTimeId = downloader.m_iDLTimeId;
-            if (m_iDLTimeId >= 0) //获取按时间段下载进度
+            try
             {
-                Int32 iPos = 0, iSize = 0;
-                NVSSDK.NetClient_NetFileGetDownloadPos(downloader.m_iDLTimeId, ref iPos, ref iSize);
-                WriteLog(string.Format("iPos:{0},iSize:{1}", iPos, iSize));
-                Int32 iTotal = (Int32) (downloader.m_iDLStopTime - downloader.m_iDLStartTime);
-                Int32 pos1 = iPos - (Int32)downloader.m_iDLStartTime;
-                Int32 iSetPos = (int)((pos1 / (double)iTotal) * 100);
-                WriteLog(string.Format("iTotal:{0},iSetPos:{1}", iTotal, iSetPos));
-                if (iPos !=0&& iSetPos != 0)
+                var m_iDLTimeId = downloader.m_iDLTimeId;
+                if (m_iDLTimeId >= 0) //获取按时间段下载进度
                 {
-                    if (iSetPos > 0 && iSetPos <= 100)
+                    Int32 iPos = 0, iSize = 0;
+                    NVSSDK.NetClient_NetFileGetDownloadPos(downloader.m_iDLTimeId, ref iPos, ref iSize);
+                    WriteLog(string.Format("iPos:{0},iSize:{1}", iPos, iSize));
+                    Int32 iTotal = (Int32)(downloader.m_iDLStopTime - downloader.m_iDLStartTime);
+                    Int32 pos1 = iPos - (Int32)downloader.m_iDLStartTime;
+                    Int32 iSetPos = (int)((pos1 / (double)iTotal) * 100);
+                    WriteLog(string.Format("iTotal:{0},iSetPos:{1}", iTotal, iSetPos));
+                    if (iPos != 0 && iSetPos != 0)
                     {
-                        pbDownloadTime.Value = iSetPos;
-                        lbDownloadStatusTime.Text = CommonFunc.AbsSecondsToStr(iPos);
+                        if (iSetPos > 0 && iSetPos <= 100)
+                        {
+                            if (lastSetPos != iSetPos)
+                            {
+                                var posChange = iSetPos - lastSetPos;//变化的进度
 
-                        downloader.Progress = iSetPos;
-                        downloader.ProgressText= CommonFunc.AbsSecondsToStr(iPos);
+                                if (posChange > 0)
+                                {
+                                    var sizeChange = iSize - size0;//变化的大小
+                                    lastSetPos = iSetPos;
+                                    size0 = iSize;
+                                    size1 = iSize;
+                                    speed = sizeChange / posChange;
+                                    WriteLog(string.Format("speed:{0}", speed));
+                                }
+                                
+                            }
+                            else
+                            {
+                                var sizeChange = iSize - size1;
+                                var posChange = (int)(sizeChange / speed * 0.9);//*0.9避免进度上去有下来 
+                                var newPos = lastSetPos + posChange;
+                                iSetPos = (int)newPos;//避免跳跃，估算一下当前的进度。只是用iSetPos的话一段一段的
+                            }
+
+                            if (iSetPos > 100)
+                            {
+                                iSetPos = 100;
+                            }
+
+                            pbDownloadTime.Value = iSetPos;
+                            lbDownloadStatusTime.Text = CommonFunc.AbsSecondsToStr(iPos);
+
+                            downloader.Progress = iSetPos;
+                            downloader.ProgressText = CommonFunc.AbsSecondsToStr(iPos);
+                        }
+                        else
+                        {
+                            lastSetPos = 0;
+                            size0 = 0;
+                            size1 = 0;
+                        }
+                    }
+                    else
+                    {
+                        lastSetPos = 0;
+                        size0 = 0;
+                        size1 = 0;
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                WriteLog(ex.ToString());
+            }
+            
 
             //if (downloader.GetProgress())
             //{
@@ -1414,6 +1468,11 @@ namespace PlaybackDemo
         private void cboStreamNo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start(Downloader.hlsVideoPath);
         }
     }
 }

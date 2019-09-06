@@ -39,7 +39,7 @@
             <Label>区域</Label>
             <ComboBox Name="CbAreaList" Width="100"></ComboBox>
             <Label>日期</Label>
-            <DatePicker Name="DpDay"></DatePicker>
+            <DatePicker Name="DpDay" ></DatePicker>
             <Label>开始时间</Label>
             <xctk:TimePicker Width="100" Name="TpStart"></xctk:TimePicker>
             <Label>结束时间</Label>

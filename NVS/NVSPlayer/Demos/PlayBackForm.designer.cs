@@ -113,6 +113,7 @@
             this.timerPlayPos = new System.Windows.Forms.Timer(this.components);
             this.cboSnapPicType = new System.Windows.Forms.ComboBox();
             this.btnSnapShot = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabPlayBack.SuspendLayout();
             this.tabByTime.SuspendLayout();
             this.tabByFile.SuspendLayout();
@@ -122,9 +123,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(855, 18);
+            this.label5.Location = new System.Drawing.Point(1140, 22);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 47;
             this.label5.Text = "ChannelNo:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -133,18 +135,20 @@
             // 
             this.cboChanList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboChanList.FormattingEnabled = true;
-            this.cboChanList.Location = new System.Drawing.Point(926, 14);
+            this.cboChanList.Location = new System.Drawing.Point(1235, 18);
+            this.cboChanList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboChanList.Name = "cboChanList";
-            this.cboChanList.Size = new System.Drawing.Size(75, 20);
+            this.cboChanList.Size = new System.Drawing.Size(99, 23);
             this.cboChanList.TabIndex = 46;
             // 
             // textPort
             // 
-            this.textPort.Location = new System.Drawing.Point(286, 12);
+            this.textPort.Location = new System.Drawing.Point(381, 15);
+            this.textPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textPort.Mask = "99999";
             this.textPort.Name = "textPort";
             this.textPort.PromptChar = ' ';
-            this.textPort.Size = new System.Drawing.Size(98, 21);
+            this.textPort.Size = new System.Drawing.Size(129, 25);
             this.textPort.SkipLiterals = false;
             this.textPort.TabIndex = 45;
             this.textPort.Text = "3000";
@@ -152,18 +156,20 @@
             // 
             // textIP
             // 
-            this.textIP.Location = new System.Drawing.Point(89, 12);
+            this.textIP.Location = new System.Drawing.Point(119, 15);
+            this.textIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textIP.Name = "textIP";
-            this.textIP.Size = new System.Drawing.Size(99, 21);
+            this.textIP.Size = new System.Drawing.Size(131, 25);
             this.textIP.TabIndex = 44;
             this.textIP.Text = "192.168.1.2";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(597, 15);
+            this.label3.Location = new System.Drawing.Point(796, 19);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.Size = new System.Drawing.Size(79, 15);
             this.label3.TabIndex = 43;
             this.label3.Text = "Password:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -171,9 +177,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(400, 15);
+            this.label4.Location = new System.Drawing.Point(533, 19);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 12);
+            this.label4.Size = new System.Drawing.Size(79, 15);
             this.label4.TabIndex = 42;
             this.label4.Text = "UserName:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -181,9 +188,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(209, 15);
+            this.label1.Location = new System.Drawing.Point(279, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 12);
+            this.label1.Size = new System.Drawing.Size(95, 15);
             this.label1.TabIndex = 41;
             this.label1.Text = "ServerPort:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -191,36 +199,40 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 15);
+            this.label2.Location = new System.Drawing.Point(32, 19);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
+            this.label2.Size = new System.Drawing.Size(79, 15);
             this.label2.TabIndex = 40;
             this.label2.Text = "ServerIP:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textUser
             // 
-            this.textUser.Location = new System.Drawing.Point(465, 12);
+            this.textUser.Location = new System.Drawing.Point(620, 15);
+            this.textUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textUser.Name = "textUser";
-            this.textUser.Size = new System.Drawing.Size(99, 21);
+            this.textUser.Size = new System.Drawing.Size(131, 25);
             this.textUser.TabIndex = 38;
             this.textUser.Text = "Admin";
             // 
             // textPwd
             // 
             this.textPwd.AcceptsReturn = true;
-            this.textPwd.Location = new System.Drawing.Point(662, 12);
+            this.textPwd.Location = new System.Drawing.Point(883, 15);
+            this.textPwd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textPwd.Name = "textPwd";
             this.textPwd.PasswordChar = '*';
-            this.textPwd.Size = new System.Drawing.Size(98, 21);
+            this.textPwd.Size = new System.Drawing.Size(129, 25);
             this.textPwd.TabIndex = 39;
             this.textPwd.Text = "1111";
             // 
             // btnLogon
             // 
-            this.btnLogon.Location = new System.Drawing.Point(766, 12);
+            this.btnLogon.Location = new System.Drawing.Point(1021, 15);
+            this.btnLogon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogon.Name = "btnLogon";
-            this.btnLogon.Size = new System.Drawing.Size(75, 23);
+            this.btnLogon.Size = new System.Drawing.Size(100, 29);
             this.btnLogon.TabIndex = 37;
             this.btnLogon.Text = "Logon";
             this.btnLogon.UseVisualStyleBackColor = true;
@@ -229,24 +241,27 @@
             // panelVideoShow
             // 
             this.panelVideoShow.BackColor = System.Drawing.SystemColors.Desktop;
-            this.panelVideoShow.Location = new System.Drawing.Point(10, 82);
+            this.panelVideoShow.Location = new System.Drawing.Point(13, 102);
+            this.panelVideoShow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelVideoShow.Name = "panelVideoShow";
-            this.panelVideoShow.Size = new System.Drawing.Size(415, 398);
+            this.panelVideoShow.Size = new System.Drawing.Size(553, 498);
             this.panelVideoShow.TabIndex = 48;
             // 
             // tabPlayBack
             // 
             this.tabPlayBack.Controls.Add(this.tabByTime);
             this.tabPlayBack.Controls.Add(this.tabByFile);
-            this.tabPlayBack.Location = new System.Drawing.Point(431, 60);
+            this.tabPlayBack.Location = new System.Drawing.Point(575, 75);
+            this.tabPlayBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabPlayBack.Name = "tabPlayBack";
             this.tabPlayBack.SelectedIndex = 0;
-            this.tabPlayBack.Size = new System.Drawing.Size(726, 647);
+            this.tabPlayBack.Size = new System.Drawing.Size(968, 809);
             this.tabPlayBack.TabIndex = 49;
             // 
             // tabByTime
             // 
             this.tabByTime.BackColor = System.Drawing.SystemColors.Control;
+            this.tabByTime.Controls.Add(this.button2);
             this.tabByTime.Controls.Add(this.button1);
             this.tabByTime.Controls.Add(this.richTextBox1);
             this.tabByTime.Controls.Add(this.cboTimeDataMode);
@@ -264,18 +279,20 @@
             this.tabByTime.Controls.Add(this.dtEndTime);
             this.tabByTime.Controls.Add(this.dtStartTime);
             this.tabByTime.Controls.Add(this.label13);
-            this.tabByTime.Location = new System.Drawing.Point(4, 22);
+            this.tabByTime.Location = new System.Drawing.Point(4, 25);
+            this.tabByTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabByTime.Name = "tabByTime";
-            this.tabByTime.Padding = new System.Windows.Forms.Padding(3);
-            this.tabByTime.Size = new System.Drawing.Size(718, 621);
+            this.tabByTime.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabByTime.Size = new System.Drawing.Size(960, 780);
             this.tabByTime.TabIndex = 1;
             this.tabByTime.Text = "By Time";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(48, 336);
+            this.button1.Location = new System.Drawing.Point(64, 420);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 29);
             this.button1.TabIndex = 63;
             this.button1.Text = "ClearLog";
             this.button1.UseVisualStyleBackColor = true;
@@ -283,9 +300,10 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(48, 376);
+            this.richTextBox1.Location = new System.Drawing.Point(64, 470);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(621, 223);
+            this.richTextBox1.Size = new System.Drawing.Size(827, 278);
             this.richTextBox1.TabIndex = 62;
             this.richTextBox1.Text = "";
             // 
@@ -293,17 +311,19 @@
             // 
             this.cboTimeDataMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTimeDataMode.FormattingEnabled = true;
-            this.cboTimeDataMode.Location = new System.Drawing.Point(253, 205);
+            this.cboTimeDataMode.Location = new System.Drawing.Point(337, 256);
+            this.cboTimeDataMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboTimeDataMode.Name = "cboTimeDataMode";
-            this.cboTimeDataMode.Size = new System.Drawing.Size(153, 20);
+            this.cboTimeDataMode.Size = new System.Drawing.Size(203, 23);
             this.cboTimeDataMode.TabIndex = 60;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(174, 211);
+            this.label15.Location = new System.Drawing.Point(232, 264);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(65, 12);
+            this.label15.Size = new System.Drawing.Size(87, 15);
             this.label15.TabIndex = 59;
             this.label15.Text = "Data Mode:";
             // 
@@ -311,26 +331,29 @@
             // 
             this.cboTimeSaveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTimeSaveFormat.FormattingEnabled = true;
-            this.cboTimeSaveFormat.Location = new System.Drawing.Point(253, 166);
+            this.cboTimeSaveFormat.Location = new System.Drawing.Point(337, 208);
+            this.cboTimeSaveFormat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboTimeSaveFormat.Name = "cboTimeSaveFormat";
-            this.cboTimeSaveFormat.Size = new System.Drawing.Size(153, 20);
+            this.cboTimeSaveFormat.Size = new System.Drawing.Size(203, 23);
             this.cboTimeSaveFormat.TabIndex = 61;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(126, 174);
+            this.label18.Location = new System.Drawing.Point(168, 218);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(113, 12);
+            this.label18.Size = new System.Drawing.Size(151, 15);
             this.label18.TabIndex = 60;
             this.label18.Text = "File Save Format :";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(156, 131);
+            this.label14.Location = new System.Drawing.Point(208, 164);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(83, 12);
+            this.label14.Size = new System.Drawing.Size(111, 15);
             this.label14.TabIndex = 59;
             this.label14.Text = "FileSaveFlag:";
             this.label14.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -338,9 +361,10 @@
             // lbDownloadStatusTime
             // 
             this.lbDownloadStatusTime.AutoSize = true;
-            this.lbDownloadStatusTime.Location = new System.Drawing.Point(327, 336);
+            this.lbDownloadStatusTime.Location = new System.Drawing.Point(436, 420);
+            this.lbDownloadStatusTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDownloadStatusTime.Name = "lbDownloadStatusTime";
-            this.lbDownloadStatusTime.Size = new System.Drawing.Size(95, 12);
+            this.lbDownloadStatusTime.Size = new System.Drawing.Size(127, 15);
             this.lbDownloadStatusTime.TabIndex = 28;
             this.lbDownloadStatusTime.Text = "Download Status";
             // 
@@ -351,23 +375,26 @@
             this.cboFileSaveFlag.Items.AddRange(new object[] {
             "Multi File",
             "Single file"});
-            this.cboFileSaveFlag.Location = new System.Drawing.Point(253, 127);
+            this.cboFileSaveFlag.Location = new System.Drawing.Point(337, 159);
+            this.cboFileSaveFlag.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFileSaveFlag.Name = "cboFileSaveFlag";
-            this.cboFileSaveFlag.Size = new System.Drawing.Size(153, 20);
+            this.cboFileSaveFlag.Size = new System.Drawing.Size(203, 23);
             this.cboFileSaveFlag.TabIndex = 58;
             // 
             // pbDownloadTime
             // 
-            this.pbDownloadTime.Location = new System.Drawing.Point(48, 297);
+            this.pbDownloadTime.Location = new System.Drawing.Point(64, 371);
+            this.pbDownloadTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbDownloadTime.Name = "pbDownloadTime";
-            this.pbDownloadTime.Size = new System.Drawing.Size(621, 23);
+            this.pbDownloadTime.Size = new System.Drawing.Size(828, 29);
             this.pbDownloadTime.TabIndex = 27;
             // 
             // btnPlayByTime
             // 
-            this.btnPlayByTime.Location = new System.Drawing.Point(422, 83);
+            this.btnPlayByTime.Location = new System.Drawing.Point(563, 104);
+            this.btnPlayByTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayByTime.Name = "btnPlayByTime";
-            this.btnPlayByTime.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayByTime.Size = new System.Drawing.Size(100, 29);
             this.btnPlayByTime.TabIndex = 26;
             this.btnPlayByTime.Text = "Play";
             this.btnPlayByTime.UseVisualStyleBackColor = true;
@@ -375,9 +402,10 @@
             // 
             // btnDLTimeStop
             // 
-            this.btnDLTimeStop.Location = new System.Drawing.Point(395, 257);
+            this.btnDLTimeStop.Location = new System.Drawing.Point(442, 321);
+            this.btnDLTimeStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLTimeStop.Name = "btnDLTimeStop";
-            this.btnDLTimeStop.Size = new System.Drawing.Size(102, 23);
+            this.btnDLTimeStop.Size = new System.Drawing.Size(136, 29);
             this.btnDLTimeStop.TabIndex = 25;
             this.btnDLTimeStop.Text = "Stop Download";
             this.btnDLTimeStop.UseVisualStyleBackColor = true;
@@ -385,9 +413,10 @@
             // 
             // btnDLTimeStart
             // 
-            this.btnDLTimeStart.Location = new System.Drawing.Point(253, 257);
+            this.btnDLTimeStart.Location = new System.Drawing.Point(276, 321);
+            this.btnDLTimeStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLTimeStart.Name = "btnDLTimeStart";
-            this.btnDLTimeStart.Size = new System.Drawing.Size(102, 23);
+            this.btnDLTimeStart.Size = new System.Drawing.Size(136, 29);
             this.btnDLTimeStart.TabIndex = 24;
             this.btnDLTimeStart.Text = "Start Download";
             this.btnDLTimeStart.UseVisualStyleBackColor = true;
@@ -396,9 +425,10 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(180, 89);
+            this.label8.Location = new System.Drawing.Point(240, 111);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 12);
+            this.label8.Size = new System.Drawing.Size(79, 15);
             this.label8.TabIndex = 20;
             this.label8.Text = "End Time:";
             // 
@@ -406,10 +436,11 @@
             // 
             this.dtEndTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtEndTime.Location = new System.Drawing.Point(253, 83);
+            this.dtEndTime.Location = new System.Drawing.Point(337, 104);
+            this.dtEndTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtEndTime.Name = "dtEndTime";
             this.dtEndTime.ShowUpDown = true;
-            this.dtEndTime.Size = new System.Drawing.Size(153, 21);
+            this.dtEndTime.Size = new System.Drawing.Size(203, 25);
             this.dtEndTime.TabIndex = 19;
             // 
             // dtStartTime
@@ -417,19 +448,21 @@
             this.dtStartTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtStartTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dtStartTime.Location = new System.Drawing.Point(253, 47);
+            this.dtStartTime.Location = new System.Drawing.Point(337, 59);
+            this.dtStartTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtStartTime.Name = "dtStartTime";
             this.dtStartTime.ShowUpDown = true;
-            this.dtStartTime.Size = new System.Drawing.Size(153, 21);
+            this.dtStartTime.Size = new System.Drawing.Size(203, 25);
             this.dtStartTime.TabIndex = 18;
             this.dtStartTime.Value = new System.DateTime(2015, 7, 4, 11, 59, 53, 0);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(168, 56);
+            this.label13.Location = new System.Drawing.Point(224, 70);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(71, 12);
+            this.label13.Size = new System.Drawing.Size(95, 15);
             this.label13.TabIndex = 17;
             this.label13.Text = "Start Time:";
             // 
@@ -453,10 +486,11 @@
             this.tabByFile.Controls.Add(this.btnDLFileStart);
             this.tabByFile.Controls.Add(this.lvFileData);
             this.tabByFile.Controls.Add(this.groupBox1);
-            this.tabByFile.Location = new System.Drawing.Point(4, 22);
+            this.tabByFile.Location = new System.Drawing.Point(4, 25);
+            this.tabByFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabByFile.Name = "tabByFile";
-            this.tabByFile.Padding = new System.Windows.Forms.Padding(3);
-            this.tabByFile.Size = new System.Drawing.Size(718, 621);
+            this.tabByFile.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabByFile.Size = new System.Drawing.Size(960, 780);
             this.tabByFile.TabIndex = 0;
             this.tabByFile.Text = "By File";
             // 
@@ -464,17 +498,19 @@
             // 
             this.cboFileDataMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFileDataMode.FormattingEnabled = true;
-            this.cboFileDataMode.Location = new System.Drawing.Point(493, 128);
+            this.cboFileDataMode.Location = new System.Drawing.Point(657, 160);
+            this.cboFileDataMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFileDataMode.Name = "cboFileDataMode";
-            this.cboFileDataMode.Size = new System.Drawing.Size(91, 20);
+            this.cboFileDataMode.Size = new System.Drawing.Size(120, 23);
             this.cboFileDataMode.TabIndex = 29;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(420, 132);
+            this.label17.Location = new System.Drawing.Point(560, 165);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(65, 12);
+            this.label17.Size = new System.Drawing.Size(87, 15);
             this.label17.TabIndex = 28;
             this.label17.Text = "Data Mode:";
             // 
@@ -482,34 +518,38 @@
             // 
             this.cboFileSaveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFileSaveFormat.FormattingEnabled = true;
-            this.cboFileSaveFormat.Location = new System.Drawing.Point(316, 128);
+            this.cboFileSaveFormat.Location = new System.Drawing.Point(421, 160);
+            this.cboFileSaveFormat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFileSaveFormat.Name = "cboFileSaveFormat";
-            this.cboFileSaveFormat.Size = new System.Drawing.Size(91, 20);
+            this.cboFileSaveFormat.Size = new System.Drawing.Size(120, 23);
             this.cboFileSaveFormat.TabIndex = 19;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(198, 132);
+            this.label16.Location = new System.Drawing.Point(264, 165);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(113, 12);
+            this.label16.Size = new System.Drawing.Size(151, 15);
             this.label16.TabIndex = 18;
             this.label16.Text = "File Save Format :";
             // 
             // lableFileCount
             // 
             this.lableFileCount.AutoSize = true;
-            this.lableFileCount.Location = new System.Drawing.Point(593, 131);
+            this.lableFileCount.Location = new System.Drawing.Point(791, 164);
+            this.lableFileCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lableFileCount.Name = "lableFileCount";
-            this.lableFileCount.Size = new System.Drawing.Size(77, 12);
+            this.lableFileCount.Size = new System.Drawing.Size(103, 15);
             this.lableFileCount.TabIndex = 27;
             this.lableFileCount.Text = "Total File :";
             // 
             // btnPlayByFile
             // 
-            this.btnPlayByFile.Location = new System.Drawing.Point(6, 561);
+            this.btnPlayByFile.Location = new System.Drawing.Point(8, 701);
+            this.btnPlayByFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayByFile.Name = "btnPlayByFile";
-            this.btnPlayByFile.Size = new System.Drawing.Size(62, 23);
+            this.btnPlayByFile.Size = new System.Drawing.Size(83, 29);
             this.btnPlayByFile.TabIndex = 26;
             this.btnPlayByFile.Text = "Play";
             this.btnPlayByFile.UseVisualStyleBackColor = true;
@@ -519,17 +559,19 @@
             // 
             this.cboTotolPage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTotolPage.FormattingEnabled = true;
-            this.cboTotolPage.Location = new System.Drawing.Point(661, 562);
+            this.cboTotolPage.Location = new System.Drawing.Point(881, 702);
+            this.cboTotolPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboTotolPage.Name = "cboTotolPage";
-            this.cboTotolPage.Size = new System.Drawing.Size(51, 20);
+            this.cboTotolPage.Size = new System.Drawing.Size(67, 23);
             this.cboTotolPage.TabIndex = 25;
             this.cboTotolPage.SelectedIndexChanged += new System.EventHandler(this.cboTotolPage_SelectedIndexChanged);
             // 
             // btnLastPage
             // 
-            this.btnLastPage.Location = new System.Drawing.Point(582, 561);
+            this.btnLastPage.Location = new System.Drawing.Point(776, 701);
+            this.btnLastPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLastPage.Name = "btnLastPage";
-            this.btnLastPage.Size = new System.Drawing.Size(75, 23);
+            this.btnLastPage.Size = new System.Drawing.Size(100, 29);
             this.btnLastPage.TabIndex = 24;
             this.btnLastPage.Text = "Last Page";
             this.btnLastPage.UseVisualStyleBackColor = true;
@@ -537,9 +579,10 @@
             // 
             // btnFirstPage
             // 
-            this.btnFirstPage.Location = new System.Drawing.Point(351, 561);
+            this.btnFirstPage.Location = new System.Drawing.Point(468, 701);
+            this.btnFirstPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFirstPage.Name = "btnFirstPage";
-            this.btnFirstPage.Size = new System.Drawing.Size(75, 23);
+            this.btnFirstPage.Size = new System.Drawing.Size(100, 29);
             this.btnFirstPage.TabIndex = 23;
             this.btnFirstPage.Text = "First Page";
             this.btnFirstPage.UseVisualStyleBackColor = true;
@@ -547,9 +590,10 @@
             // 
             // butNextPage
             // 
-            this.butNextPage.Location = new System.Drawing.Point(505, 561);
+            this.butNextPage.Location = new System.Drawing.Point(673, 701);
+            this.butNextPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.butNextPage.Name = "butNextPage";
-            this.butNextPage.Size = new System.Drawing.Size(75, 23);
+            this.butNextPage.Size = new System.Drawing.Size(100, 29);
             this.butNextPage.TabIndex = 22;
             this.butNextPage.Text = "Next Page";
             this.butNextPage.UseVisualStyleBackColor = true;
@@ -557,9 +601,10 @@
             // 
             // btnUpPage
             // 
-            this.btnUpPage.Location = new System.Drawing.Point(428, 561);
+            this.btnUpPage.Location = new System.Drawing.Point(571, 701);
+            this.btnUpPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnUpPage.Name = "btnUpPage";
-            this.btnUpPage.Size = new System.Drawing.Size(75, 23);
+            this.btnUpPage.Size = new System.Drawing.Size(100, 29);
             this.btnUpPage.TabIndex = 21;
             this.btnUpPage.Text = "Pre Page";
             this.btnUpPage.UseVisualStyleBackColor = true;
@@ -567,9 +612,10 @@
             // 
             // btnDLFileContinue
             // 
-            this.btnDLFileContinue.Location = new System.Drawing.Point(258, 561);
+            this.btnDLFileContinue.Location = new System.Drawing.Point(344, 701);
+            this.btnDLFileContinue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLFileContinue.Name = "btnDLFileContinue";
-            this.btnDLFileContinue.Size = new System.Drawing.Size(89, 23);
+            this.btnDLFileContinue.Size = new System.Drawing.Size(119, 29);
             this.btnDLFileContinue.TabIndex = 20;
             this.btnDLFileContinue.Text = "DL Continue";
             this.btnDLFileContinue.UseVisualStyleBackColor = true;
@@ -577,9 +623,10 @@
             // 
             // btnDLFilePause
             // 
-            this.btnDLFilePause.Location = new System.Drawing.Point(194, 561);
+            this.btnDLFilePause.Location = new System.Drawing.Point(259, 701);
+            this.btnDLFilePause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLFilePause.Name = "btnDLFilePause";
-            this.btnDLFilePause.Size = new System.Drawing.Size(62, 23);
+            this.btnDLFilePause.Size = new System.Drawing.Size(83, 29);
             this.btnDLFilePause.TabIndex = 19;
             this.btnDLFilePause.Text = "DL Pause";
             this.btnDLFilePause.UseVisualStyleBackColor = true;
@@ -587,9 +634,10 @@
             // 
             // btnDLFileStop
             // 
-            this.btnDLFileStop.Location = new System.Drawing.Point(129, 561);
+            this.btnDLFileStop.Location = new System.Drawing.Point(172, 701);
+            this.btnDLFileStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLFileStop.Name = "btnDLFileStop";
-            this.btnDLFileStop.Size = new System.Drawing.Size(62, 23);
+            this.btnDLFileStop.Size = new System.Drawing.Size(83, 29);
             this.btnDLFileStop.TabIndex = 18;
             this.btnDLFileStop.Text = "DL Stop";
             this.btnDLFileStop.UseVisualStyleBackColor = true;
@@ -597,9 +645,10 @@
             // 
             // btnDLFileStart
             // 
-            this.btnDLFileStart.Location = new System.Drawing.Point(67, 561);
+            this.btnDLFileStart.Location = new System.Drawing.Point(89, 701);
+            this.btnDLFileStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDLFileStart.Name = "btnDLFileStart";
-            this.btnDLFileStart.Size = new System.Drawing.Size(62, 23);
+            this.btnDLFileStart.Size = new System.Drawing.Size(83, 29);
             this.btnDLFileStart.TabIndex = 17;
             this.btnDLFileStart.Text = "DL Start";
             this.btnDLFileStart.UseVisualStyleBackColor = true;
@@ -619,10 +668,11 @@
             this.lvFileData.FullRowSelect = true;
             this.lvFileData.GridLines = true;
             this.lvFileData.HideSelection = false;
-            this.lvFileData.Location = new System.Drawing.Point(6, 153);
+            this.lvFileData.Location = new System.Drawing.Point(8, 191);
+            this.lvFileData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lvFileData.MultiSelect = false;
             this.lvFileData.Name = "lvFileData";
-            this.lvFileData.Size = new System.Drawing.Size(706, 389);
+            this.lvFileData.Size = new System.Drawing.Size(940, 485);
             this.lvFileData.TabIndex = 2;
             this.lvFileData.UseCompatibleStateImageBehavior = false;
             this.lvFileData.View = System.Windows.Forms.View.Details;
@@ -675,9 +725,11 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.btnQuery);
-            this.groupBox1.Location = new System.Drawing.Point(6, 15);
+            this.groupBox1.Location = new System.Drawing.Point(8, 19);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(706, 106);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(941, 132);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Query terms";
@@ -686,28 +738,31 @@
             // 
             this.dtStartFile.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtStartFile.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtStartFile.Location = new System.Drawing.Point(260, 61);
+            this.dtStartFile.Location = new System.Drawing.Point(347, 76);
+            this.dtStartFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtStartFile.Name = "dtStartFile";
             this.dtStartFile.ShowUpDown = true;
-            this.dtStartFile.Size = new System.Drawing.Size(140, 21);
+            this.dtStartFile.Size = new System.Drawing.Size(185, 25);
             this.dtStartFile.TabIndex = 17;
             // 
             // dtEndFile
             // 
             this.dtEndFile.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtEndFile.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtEndFile.Location = new System.Drawing.Point(411, 61);
+            this.dtEndFile.Location = new System.Drawing.Point(548, 76);
+            this.dtEndFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtEndFile.Name = "dtEndFile";
             this.dtEndFile.ShowUpDown = true;
-            this.dtEndFile.Size = new System.Drawing.Size(137, 21);
+            this.dtEndFile.Size = new System.Drawing.Size(181, 25);
             this.dtEndFile.TabIndex = 12;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(187, 64);
+            this.label6.Location = new System.Drawing.Point(249, 80);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 12);
+            this.label6.Size = new System.Drawing.Size(95, 15);
             this.label6.TabIndex = 10;
             this.label6.Text = "Time range:";
             // 
@@ -715,9 +770,10 @@
             // 
             this.cboInputPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboInputPort.FormattingEnabled = true;
-            this.cboInputPort.Location = new System.Drawing.Point(457, 25);
+            this.cboInputPort.Location = new System.Drawing.Point(609, 31);
+            this.cboInputPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboInputPort.Name = "cboInputPort";
-            this.cboInputPort.Size = new System.Drawing.Size(91, 20);
+            this.cboInputPort.Size = new System.Drawing.Size(120, 23);
             this.cboInputPort.TabIndex = 8;
             this.cboInputPort.Visible = false;
             // 
@@ -725,35 +781,39 @@
             // 
             this.cboAlarmType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAlarmType.FormattingEnabled = true;
-            this.cboAlarmType.Location = new System.Drawing.Point(260, 26);
+            this.cboAlarmType.Location = new System.Drawing.Point(347, 32);
+            this.cboAlarmType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboAlarmType.Name = "cboAlarmType";
-            this.cboAlarmType.Size = new System.Drawing.Size(91, 20);
+            this.cboAlarmType.Size = new System.Drawing.Size(120, 23);
             this.cboAlarmType.TabIndex = 7;
             // 
             // cboVideoType
             // 
             this.cboVideoType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboVideoType.FormattingEnabled = true;
-            this.cboVideoType.Location = new System.Drawing.Point(81, 61);
+            this.cboVideoType.Location = new System.Drawing.Point(108, 76);
+            this.cboVideoType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboVideoType.Name = "cboVideoType";
-            this.cboVideoType.Size = new System.Drawing.Size(91, 20);
+            this.cboVideoType.Size = new System.Drawing.Size(120, 23);
             this.cboVideoType.TabIndex = 6;
             // 
             // cboFileType
             // 
             this.cboFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFileType.FormattingEnabled = true;
-            this.cboFileType.Location = new System.Drawing.Point(81, 25);
+            this.cboFileType.Location = new System.Drawing.Point(108, 31);
+            this.cboFileType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFileType.Name = "cboFileType";
-            this.cboFileType.Size = new System.Drawing.Size(91, 20);
+            this.cboFileType.Size = new System.Drawing.Size(120, 23);
             this.cboFileType.TabIndex = 5;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(376, 31);
+            this.label9.Location = new System.Drawing.Point(501, 39);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 12);
+            this.label9.Size = new System.Drawing.Size(95, 15);
             this.label9.TabIndex = 4;
             this.label9.Text = "Input port:";
             this.label9.Visible = false;
@@ -761,35 +821,39 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(185, 31);
+            this.label10.Location = new System.Drawing.Point(247, 39);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 12);
+            this.label10.Size = new System.Drawing.Size(95, 15);
             this.label10.TabIndex = 3;
             this.label10.Text = "Alarm type:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 65);
+            this.label11.Location = new System.Drawing.Point(8, 81);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 12);
+            this.label11.Size = new System.Drawing.Size(95, 15);
             this.label11.TabIndex = 2;
             this.label11.Text = "Video type:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(15, 29);
+            this.label12.Location = new System.Drawing.Point(20, 36);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 12);
+            this.label12.Size = new System.Drawing.Size(87, 15);
             this.label12.TabIndex = 1;
             this.label12.Text = "File type:";
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(567, 60);
+            this.btnQuery.Location = new System.Drawing.Point(756, 75);
+            this.btnQuery.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(75, 23);
+            this.btnQuery.Size = new System.Drawing.Size(100, 29);
             this.btnQuery.TabIndex = 0;
             this.btnQuery.Text = "Query";
             this.btnQuery.UseVisualStyleBackColor = true;
@@ -798,9 +862,10 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1007, 19);
+            this.label7.Location = new System.Drawing.Point(1343, 24);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 12);
+            this.label7.Size = new System.Drawing.Size(79, 15);
             this.label7.TabIndex = 51;
             this.label7.Text = "StreamNo:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -809,17 +874,19 @@
             // 
             this.cboStreamNo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboStreamNo.FormattingEnabled = true;
-            this.cboStreamNo.Location = new System.Drawing.Point(1078, 15);
+            this.cboStreamNo.Location = new System.Drawing.Point(1437, 19);
+            this.cboStreamNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboStreamNo.Name = "cboStreamNo";
-            this.cboStreamNo.Size = new System.Drawing.Size(75, 20);
+            this.cboStreamNo.Size = new System.Drawing.Size(99, 23);
             this.cboStreamNo.TabIndex = 50;
             this.cboStreamNo.SelectedIndexChanged += new System.EventHandler(this.cboStreamNo_SelectedIndexChanged);
             // 
             // btnPlayPlay
             // 
-            this.btnPlayPlay.Location = new System.Drawing.Point(9, 515);
+            this.btnPlayPlay.Location = new System.Drawing.Point(12, 644);
+            this.btnPlayPlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayPlay.Name = "btnPlayPlay";
-            this.btnPlayPlay.Size = new System.Drawing.Size(43, 23);
+            this.btnPlayPlay.Size = new System.Drawing.Size(57, 29);
             this.btnPlayPlay.TabIndex = 52;
             this.btnPlayPlay.Text = "Play";
             this.btnPlayPlay.UseVisualStyleBackColor = true;
@@ -827,9 +894,10 @@
             // 
             // btnPlayPause
             // 
-            this.btnPlayPause.Location = new System.Drawing.Point(57, 515);
+            this.btnPlayPause.Location = new System.Drawing.Point(76, 644);
+            this.btnPlayPause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayPause.Name = "btnPlayPause";
-            this.btnPlayPause.Size = new System.Drawing.Size(52, 23);
+            this.btnPlayPause.Size = new System.Drawing.Size(69, 29);
             this.btnPlayPause.TabIndex = 53;
             this.btnPlayPause.Text = "Pause";
             this.btnPlayPause.UseVisualStyleBackColor = true;
@@ -837,9 +905,10 @@
             // 
             // btnPlayStop
             // 
-            this.btnPlayStop.Location = new System.Drawing.Point(114, 515);
+            this.btnPlayStop.Location = new System.Drawing.Point(152, 644);
+            this.btnPlayStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayStop.Name = "btnPlayStop";
-            this.btnPlayStop.Size = new System.Drawing.Size(52, 23);
+            this.btnPlayStop.Size = new System.Drawing.Size(69, 29);
             this.btnPlayStop.TabIndex = 54;
             this.btnPlayStop.Text = "Stop";
             this.btnPlayStop.UseVisualStyleBackColor = true;
@@ -847,9 +916,10 @@
             // 
             // btnPlayFast
             // 
-            this.btnPlayFast.Location = new System.Drawing.Point(227, 515);
+            this.btnPlayFast.Location = new System.Drawing.Point(303, 644);
+            this.btnPlayFast.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayFast.Name = "btnPlayFast";
-            this.btnPlayFast.Size = new System.Drawing.Size(52, 23);
+            this.btnPlayFast.Size = new System.Drawing.Size(69, 29);
             this.btnPlayFast.TabIndex = 55;
             this.btnPlayFast.Text = "Fast";
             this.btnPlayFast.UseVisualStyleBackColor = true;
@@ -857,9 +927,10 @@
             // 
             // btnPlaySlow
             // 
-            this.btnPlaySlow.Location = new System.Drawing.Point(172, 515);
+            this.btnPlaySlow.Location = new System.Drawing.Point(229, 644);
+            this.btnPlaySlow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlaySlow.Name = "btnPlaySlow";
-            this.btnPlaySlow.Size = new System.Drawing.Size(52, 23);
+            this.btnPlaySlow.Size = new System.Drawing.Size(69, 29);
             this.btnPlaySlow.TabIndex = 56;
             this.btnPlaySlow.Text = "Slow";
             this.btnPlaySlow.UseVisualStyleBackColor = true;
@@ -867,9 +938,10 @@
             // 
             // btnPlayStep
             // 
-            this.btnPlayStep.Location = new System.Drawing.Point(285, 515);
+            this.btnPlayStep.Location = new System.Drawing.Point(380, 644);
+            this.btnPlayStep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlayStep.Name = "btnPlayStep";
-            this.btnPlayStep.Size = new System.Drawing.Size(52, 23);
+            this.btnPlayStep.Size = new System.Drawing.Size(69, 29);
             this.btnPlayStep.TabIndex = 57;
             this.btnPlayStep.Text = "Step";
             this.btnPlayStep.UseVisualStyleBackColor = true;
@@ -882,19 +954,21 @@
             // lablePlayProcess
             // 
             this.lablePlayProcess.AutoSize = true;
-            this.lablePlayProcess.Location = new System.Drawing.Point(287, 490);
+            this.lablePlayProcess.Location = new System.Drawing.Point(383, 612);
+            this.lablePlayProcess.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lablePlayProcess.Name = "lablePlayProcess";
-            this.lablePlayProcess.Size = new System.Drawing.Size(53, 12);
+            this.lablePlayProcess.Size = new System.Drawing.Size(71, 15);
             this.lablePlayProcess.TabIndex = 58;
             this.lablePlayProcess.Text = "00:00:00";
             // 
             // textSeekPos
             // 
-            this.textSeekPos.Location = new System.Drawing.Point(341, 516);
+            this.textSeekPos.Location = new System.Drawing.Point(455, 645);
+            this.textSeekPos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textSeekPos.Mask = "99999";
             this.textSeekPos.Name = "textSeekPos";
             this.textSeekPos.PromptChar = ' ';
-            this.textSeekPos.Size = new System.Drawing.Size(24, 21);
+            this.textSeekPos.Size = new System.Drawing.Size(31, 25);
             this.textSeekPos.SkipLiterals = false;
             this.textSeekPos.TabIndex = 59;
             this.textSeekPos.Text = "50";
@@ -902,9 +976,10 @@
             // 
             // btnPlaySeek
             // 
-            this.btnPlaySeek.Location = new System.Drawing.Point(371, 514);
+            this.btnPlaySeek.Location = new System.Drawing.Point(495, 642);
+            this.btnPlaySeek.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPlaySeek.Name = "btnPlaySeek";
-            this.btnPlaySeek.Size = new System.Drawing.Size(54, 23);
+            this.btnPlaySeek.Size = new System.Drawing.Size(72, 29);
             this.btnPlaySeek.TabIndex = 60;
             this.btnPlaySeek.Text = "Seek";
             this.btnPlaySeek.UseVisualStyleBackColor = true;
@@ -922,26 +997,39 @@
             // 
             this.cboSnapPicType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSnapPicType.FormattingEnabled = true;
-            this.cboSnapPicType.Location = new System.Drawing.Point(9, 558);
+            this.cboSnapPicType.Location = new System.Drawing.Point(12, 698);
+            this.cboSnapPicType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboSnapPicType.Name = "cboSnapPicType";
-            this.cboSnapPicType.Size = new System.Drawing.Size(43, 20);
+            this.cboSnapPicType.Size = new System.Drawing.Size(56, 23);
             this.cboSnapPicType.TabIndex = 62;
             // 
             // btnSnapShot
             // 
-            this.btnSnapShot.Location = new System.Drawing.Point(57, 556);
+            this.btnSnapShot.Location = new System.Drawing.Point(76, 695);
+            this.btnSnapShot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSnapShot.Name = "btnSnapShot";
-            this.btnSnapShot.Size = new System.Drawing.Size(52, 23);
+            this.btnSnapShot.Size = new System.Drawing.Size(69, 29);
             this.btnSnapShot.TabIndex = 61;
             this.btnSnapShot.Text = "Snap";
             this.btnSnapShot.UseVisualStyleBackColor = true;
             this.btnSnapShot.Click += new System.EventHandler(this.btnSnapShot_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(599, 321);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(136, 29);
+            this.button2.TabIndex = 64;
+            this.button2.Text = "Open Directory";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // PlayBackForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 719);
+            this.ClientSize = new System.Drawing.Size(1559, 899);
             this.Controls.Add(this.cboSnapPicType);
             this.Controls.Add(this.btnSnapShot);
             this.Controls.Add(this.btnPlaySeek);
@@ -968,6 +1056,7 @@
             this.Controls.Add(this.textUser);
             this.Controls.Add(this.textPwd);
             this.Controls.Add(this.btnLogon);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "PlayBackForm";
             this.Text = "视频对接";
             this.Load += new System.EventHandler(this.PlayBackForm_Load);
@@ -1069,6 +1158,7 @@
         private System.Windows.Forms.Button btnSnapShot;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

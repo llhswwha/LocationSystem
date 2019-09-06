@@ -6,6 +6,7 @@ using DbModel.Tools;
 using Location.TModel.ConvertCodes;
 using Location.TModel.Tools;
 using Base.Common.Tools;
+using Location.IModel;
 
 namespace Location.TModel.LocationHistory.Data
 {
@@ -14,7 +15,7 @@ namespace Location.TModel.LocationHistory.Data
     /// </summary>
     [DataContract]
     [Serializable]
-    public class Position
+    public class Position:IId//,IPosInfo
     {
         /// <summary>
         /// 主键Id

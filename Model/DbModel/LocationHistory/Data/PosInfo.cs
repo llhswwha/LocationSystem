@@ -1,4 +1,5 @@
 ﻿using Base.Common.Tools;
+using Location.IModel;
 using Location.TModel.Tools;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DbModel.LocationHistory.Data
 {
-    public class PosInfo:IComparable<PosInfo>, IPosInfo
+    public class PosInfo:IComparable<PosInfo>, IPosInfo,IId
     {
         public int Id { get; set; }
         public long DateTimeStamp { get; set; }

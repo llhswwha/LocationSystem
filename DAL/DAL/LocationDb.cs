@@ -24,10 +24,10 @@ namespace DAL
         {
             IsCreateDb = true;
 
-            if (Debugger.IsAttached)
-            {
-                this.Database.Log = s => Log.Info(LogTags.EF, s);//调试EF需要
-            }
+            //if (Debugger.IsAttached)
+            //{
+            //    this.Database.Log = s => Log.Info(LogTags.EF, s);//调试EF需要
+            //}
             
         }
 

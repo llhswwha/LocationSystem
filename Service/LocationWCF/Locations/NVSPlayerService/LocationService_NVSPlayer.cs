@@ -62,8 +62,8 @@ namespace LocationServices.Locations
                 var file = Downloader.GetFileName(info.Ip, info.Channel,1,start, end);//视频文件的名称（预订）
                 Log.Info("NVS", string.Format("start:{0},end:{1},file:{2}",start,end,file));
                 var filePath = AppDomain.CurrentDomain.BaseDirectory + "\\" + file;
-                Log.Info("NVS", string.Format("filePath:{0", filePath));
-                if (Downloader.IsFileExist(filePath))//文件已经存在
+                Log.Info("NVS", string.Format("filePath:{0}", filePath));
+                if (Downloader.IsFileExist(file))//文件已经存在
                 {
                     string url = Downloader.GetHlsUrl(NVSManage.RTMP_Host, file);
                     info.Url = url;

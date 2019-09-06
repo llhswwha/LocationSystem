@@ -210,5 +210,10 @@ namespace DbModel.Location.Person
 
             return history;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

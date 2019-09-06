@@ -97,7 +97,7 @@ namespace LocationServices.Locations.Services
             try
             {
                 DateTime start = DateTime.Now;
-                //Log.Info(LogTags.DbGet, " >>>>>>> TagService.GetList");
+                Log.Info(LogTags.DbGet, " >>>>>>> TagService.GetList");
                 List<TEntity> returnList = null;
                 if (detail)
                 {
@@ -153,7 +153,7 @@ namespace LocationServices.Locations.Services
                     returnList = dbSet.ToList().ToWcfModelList();
                 }
                 TimeSpan time = DateTime.Now - start;
-                //Log.Info(LogTags.DbGet, " <<<<< TagService.GetList time:" + time);
+                Log.Info(LogTags.DbGet, " <<<<< TagService.GetList time:" + time);
                 return returnList;
             }
             catch (System.Exception ex)
