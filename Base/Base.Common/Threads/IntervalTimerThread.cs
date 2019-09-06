@@ -34,16 +34,29 @@ namespace Base.Common.Threads
                     {
                         break;
                     }
+                    if (IsStop) break;
+                    Thread.Sleep(Interval);
                 }
                 catch (Exception ex)
                 {
                     Log.Error(Name, ex.ToString());
-                }
-                finally
-                {
+                    if (IsStop) break;
                     Thread.Sleep(Interval);
                 }
+                //不能用Finally，会导致无法Abort退出的
+                //finally
+                //{
+                //    Thread.Sleep(Interval);
+                //}
             }
+        }
+
+        public bool IsStop = false;
+
+        public override void Abort()
+        {
+            IsStop = true;
+            base.Abort();
         }
 
         public abstract bool TickFunction();

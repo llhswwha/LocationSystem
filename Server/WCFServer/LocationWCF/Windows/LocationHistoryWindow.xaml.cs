@@ -48,7 +48,14 @@ namespace LocationServer.Windows
 
         private void BtnSearch_OnClick(object sender, RoutedEventArgs e)
         {
-           
+            Bll bll = Bll.NewBllNoRelation();
+            var person = bll.Personnels.Find(i => i.Name == "Tags_08BA");
+            if (person != null)
+            {
+                PosHistoryService service = new PosHistoryService();
+                var list=service.GetHistoryByPerson(person.Id, new DateTime(2019, 9, 5, 13, 10, 0), new DateTime(2019, 9, 5, 13, 20, 0));
+                DataGridDayPersonPosList.ItemsSource = list;
+            }
         }
 
         //private void BtnGetAll_OnClick(object sender, RoutedEventArgs e)
@@ -304,10 +311,15 @@ namespace LocationServer.Windows
 
         private Position GetNextPos()
         {
-            if (id < list.Count)
+            if (list != null && id < list.Count)
             {
-                var pos= list[id];
+                var pos = list[id];
                 Position pos2 = bll.Positions.FindById(pos.Id);
+                return pos2;
+            }
+            else if (list2 != null && id < list2.Count)
+            {
+                Position pos2 = list2[id];
                 return pos2;
             }
             else
@@ -318,6 +330,7 @@ namespace LocationServer.Windows
 
         private DispatcherTimer timer;
         private List<PosInfo> list;
+        private List<Position> list2;
         private int id = 0;
         private void BtnStartSendPos_OnClick(object sender, RoutedEventArgs e)
         {
@@ -325,6 +338,7 @@ namespace LocationServer.Windows
             {
                 BtnStartSendPos.Content = "停止模拟数据";
                 list = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+                list2 = DataGridDayPersonPosList.ItemsSource as List<Position>;
                 id = 0;
                 startPos = null;
                 if (timer == null)
@@ -386,10 +400,13 @@ namespace LocationServer.Windows
 
         private void DataGridDayPersonPosList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PosInfo pos = DataGridDayPersonPosList.SelectedItem as PosInfo;
-            if (pos == null) return;
-
-            Position pos2 = bll.Positions.FindById(pos.Id);
+            Position pos2 = DataGridDayPersonPosList.SelectedItem as Position;
+            if (pos2 == null)
+            {
+                PosInfo pos = DataGridDayPersonPosList.SelectedItem as PosInfo;
+                if (pos == null) return;
+                pos2 = bll.Positions.FindById(pos.Id);
+            }
             //if (pos2 == null)
             //{
             //    pos2 = bll.Positions.DbSet.FirstOrDefault(i => i.Id == pos.Id);
@@ -400,7 +417,7 @@ namespace LocationServer.Windows
             }
             else
             {
-                TbPostion.Text = pos.Id + "";
+                TbPostion.Text = "";
             }
             
         }
@@ -444,7 +461,7 @@ namespace LocationServer.Windows
 
         private void MenuRemoveRepeatData_Click(object sender, RoutedEventArgs e)
         {
-            RemoveRepeatData();
+            RemoveRepeatData(true);
 
         }
 
@@ -533,7 +550,7 @@ namespace LocationServer.Windows
             }
         }
 
-        private void RemoveRepeatData()
+        private void RemoveRepeatData(bool isDelete)
         {
             List<PosInfoList> list = DataGridStatisticDay.ItemsSource as List<PosInfoList>;
             if (list == null) return;
@@ -548,12 +565,23 @@ namespace LocationServer.Windows
                         posList.Count, (i + 1), list.Count);
                     Log.Info(LogTags.HisPos, progress1);
 
-                    var groupList = posList.Items.GroupBy(p => new {p.DateTimeStamp}).Select(p => new
+                    var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.PersonnelID }).Select(p => new
                     {
                         p.Key.DateTimeStamp,
+                        p.Key.PersonnelID,
                         Id = p.First(w => true).Id,
+                        list = p.Select(w => w.Id).ToList(),
                         total = p.Count()
-                    }).Where(k => k.total > 1).ToList();
+                    });
+                    var groupList = groupby.Where(k => k.total > 1).ToList();
+                    if (groupList.Count == 0) continue;
+
+                    var groupList1 = groupby.Where(k => k.total ==2).ToList();
+                    var groupList2 = groupby.Where(k => k.total == 3).ToList();
+                    var groupList3 = groupby.Where(k => k.total == 4).ToList();
+                    var groupList4 = groupby.Where(k => k.total >1 && k.total <= 10).ToList();
+                    var groupList5 = groupby.Where(k => k.total > 10).ToList();
+
                     Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
 
                     posList.Items.Clear();
@@ -561,7 +589,7 @@ namespace LocationServer.Windows
                     //return 0;
 
                     List<Position> removeListTemp = new List<Position>();
-                    int maxPageCount = 128;
+                    int maxPageCount = 10000;
                     int packageCount = maxPageCount;
                     List<long> timestampList = new List<long>();
                     List<int> idList = new List<int>();
@@ -570,23 +598,28 @@ namespace LocationServer.Windows
                         var item = groupList[k];
                         if (item.total > 1)
                         {
+                            item.list.Remove(item.Id);
                             timestampList.Add(item.DateTimeStamp);
-                            idList.Add(item.Id);
+                            idList.AddRange(item.list);
+
+                            //IQueryable<Position> query2=new 
                         }
-                        if (timestampList.Count >= packageCount || 
-                            (k== groupList.Count-1 && timestampList.Count>0)//最后一组
+                        if (idList.Count >= packageCount || 
+                            (k== groupList.Count-1 && idList.Count>0)//最后一组
                             )
                         {
                             try
                             {
-                                var query = bll.Positions.DbSet.Where(j => timestampList.Contains(j.DateTimeStamp) && !idList.Contains(j.Id));
-                                var sql = query.ToString();
-                                var count2 = query.Count();
-                                query.DeleteFromQuery();
+                                var query = bll.Positions.DbSet.Where(j => idList.Contains(j.Id));
+                                //var sql = query.ToString();
+                                var count2 = idList.Count();
+                                if (isDelete)
+                                {
+                                    //query.DeleteFromQuery();
+                                    bll.Positions.RemovePoints(query,false);
+                                }
                                 removeCount += count2;
-
                                 Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
-
                                 timestampList = new List<long>();
                                 idList = new List<int>();
 
@@ -616,7 +649,7 @@ namespace LocationServer.Windows
                         }
                     }
                 }
-                Log.Info(LogTags.HisPos, "RemoveRepeatData End");
+                Log.Info(LogTags.HisPos, "RemoveRepeatData End TotolCount:"+removeCount);
                 return removeCount;
             }, (removeCount) =>
             {
@@ -627,111 +660,112 @@ namespace LocationServer.Windows
                     {
                         if (removeCount > 0)//直到没有重复的数据为止，一直循环。
                         {
-                            RemoveRepeatData();//递归
+                            RemoveRepeatData(isDelete);//递归
                         }
                         else
                         {
-                            Worker.Run(() =>
-                            {
-                                SetPositionInfo(); //删除重复数据后再设置信息，不然很费时间
+                            //Worker.Run(() =>
+                            //{
+                            //    SetPositionInfo(); //删除重复数据后再设置信息，不然很费时间
 
-                            }, () => { Log.Info(LogTags.HisPos, "完成"); });
+                            //}, () => { Log.Info(LogTags.HisPos, "完成"); });
+                            MessageBox.Show("完成");
                         }
                     });
                 });
             });
         }
 
-        private void GetRepeatDataCount(Action<long> callback)
-        {
-            List<PosInfoList> list = DataGridStatisticDay.ItemsSource as List<PosInfoList>;
-            if (list == null) return;
-            Worker.Run(() =>
-            {
-                int removeCount = 0;
-                Log.Info(LogTags.HisPos, "GetRepeatDataCount Start");
-                for (int i = 0; i < list.Count; i++)
-                {
-                    PosInfoList posList = list[i];
-                    string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
-                        posList.Count, (i + 1), list.Count);
-                    Log.Info(LogTags.HisPos, progress1);
+        //private void GetRepeatDataCount(Action<long> callback)
+        //{
+        //    List<PosInfoList> list = DataGridStatisticDay.ItemsSource as List<PosInfoList>;
+        //    if (list == null) return;
+        //    Worker.Run(() =>
+        //    {
+        //        int removeCount = 0;
+        //        Log.Info(LogTags.HisPos, "GetRepeatDataCount Start");
+        //        for (int i = 0; i < list.Count; i++)
+        //        {
+        //            PosInfoList posList = list[i];
+        //            string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
+        //                posList.Count, (i + 1), list.Count);
+        //            Log.Info(LogTags.HisPos, progress1);
 
-                    var groupList = posList.Items.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
-                    {
-                        p.Key.DateTimeStamp,
-                        Id = p.First(w => true).Id,
-                        total = p.Count()
-                    }).Where(k => k.total > 1).ToList();
-                    Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
+        //            var groupList = posList.Items.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
+        //            {
+        //                p.Key.DateTimeStamp,
+        //                Id = p.First(w => true).Id,
+        //                total = p.Count()
+        //            }).Where(k => k.total > 1).ToList();
+        //            Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
 
-                    List<Position> removeListTemp = new List<Position>();
-                    int maxPageCount = 128;
-                    int packageCount = maxPageCount;
-                    List<long> timestampList = new List<long>();
-                    List<int> idList = new List<int>();
-                    for (int k = 0; k < groupList.Count; k++)
-                    {
-                        var item = groupList[k];
-                        if (item.total > 1)
-                        {
-                            timestampList.Add(item.DateTimeStamp);
-                            idList.Add(item.Id);
-                        }
-                        if (timestampList.Count >= packageCount ||
-                            (k == groupList.Count - 1 && timestampList.Count > 0)//最后一组
-                            )
-                        {
-                            try
-                            {
-                                var query = bll.Positions.DbSet.Where(j => timestampList.Contains(j.DateTimeStamp) && !idList.Contains(j.Id));
-                                var sql = query.ToString();
-                                var count2 = query.Count();
-                                //query.DeleteFromQuery();
-                                removeCount += count2;
+        //            List<Position> removeListTemp = new List<Position>();
+        //            int maxPageCount = 128;
+        //            int packageCount = maxPageCount;
+        //            List<long> timestampList = new List<long>();
+        //            List<int> idList = new List<int>();
+        //            for (int k = 0; k < groupList.Count; k++)
+        //            {
+        //                var item = groupList[k];
+        //                if (item.total > 1)
+        //                {
+        //                    timestampList.Add(item.DateTimeStamp);
+        //                    idList.Add(item.Id);
+        //                }
+        //                if (timestampList.Count >= packageCount ||
+        //                    (k == groupList.Count - 1 && timestampList.Count > 0)//最后一组
+        //                    )
+        //                {
+        //                    try
+        //                    {
+        //                        var query = bll.Positions.DbSet.Where(j => timestampList.Contains(j.DateTimeStamp) && !idList.Contains(j.Id));
+        //                        var sql = query.ToString();
+        //                        var count2 = query.Count();
+        //                        //query.DeleteFromQuery();
+        //                        removeCount += count2;
 
-                                Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+        //                        Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
 
-                                timestampList = new List<long>();
-                                idList = new List<int>();
+        //                        timestampList = new List<long>();
+        //                        idList = new List<int>();
 
-                                if (packageCount < maxPageCount)
-                                {
-                                    packageCount *= 2;
-                                    if (packageCount > maxPageCount)
-                                    {
-                                        packageCount = maxPageCount;
-                                    }
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                //Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+        //                        if (packageCount < maxPageCount)
+        //                        {
+        //                            packageCount *= 2;
+        //                            if (packageCount > maxPageCount)
+        //                            {
+        //                                packageCount = maxPageCount;
+        //                            }
+        //                        }
+        //                    }
+        //                    catch (Exception e)
+        //                    {
+        //                        //Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
 
-                                Log.Info(LogTags.HisPos, string.Format("Progress2 Error:{0}", e));
-                                //return -1;//暂停
+        //                        Log.Info(LogTags.HisPos, string.Format("Progress2 Error:{0}", e));
+        //                        //return -1;//暂停
 
-                                Thread.Sleep(50);
-                                packageCount /= 2;
-                                k--;//将包的大小减少 重新尝试
-                                timestampList = new List<long>();
-                                idList = new List<int>();
-                            }
-                            //Log.Info(LogTags.HisPos, string.Format("removeGroupCount:{0}", timestampList.Count));
-                        }
-                    }
-                }
-                Log.Info(LogTags.HisPos, "RemoveRepeatData End");
-                return removeCount;
-            }, (removeCount) =>
-            {
+        //                        Thread.Sleep(50);
+        //                        packageCount /= 2;
+        //                        k--;//将包的大小减少 重新尝试
+        //                        timestampList = new List<long>();
+        //                        idList = new List<int>();
+        //                    }
+        //                    //Log.Info(LogTags.HisPos, string.Format("removeGroupCount:{0}", timestampList.Count));
+        //                }
+        //            }
+        //        }
+        //        Log.Info(LogTags.HisPos, "RemoveRepeatData End");
+        //        return removeCount;
+        //    }, (removeCount) =>
+        //    {
                 
-            });
-        }
+        //    });
+        //}
 
         private void MenuGetRepeatDataCount_Click(object sender, RoutedEventArgs e)
         {
-
+            RemoveRepeatData(false);
         }
 
         private void MenuGetTestData_Click(object sender, RoutedEventArgs e)
@@ -835,6 +869,19 @@ namespace LocationServer.Windows
             }, () =>
             {
                 GetAll(false,null);
+            });
+        }
+
+        private void FindErrorPoints_All_Click(object sender, RoutedEventArgs e)
+        {
+            PosHistoryService phs = new PosHistoryService();
+            allPoslist = phs.GetAllData(LogTags.HisPos, true);
+            Worker.Run(() =>
+            {
+                bll.Positions.RemoveErrorPoints(allPoslist);
+            }, () =>
+            {
+                GetAll(false, null);
             });
         }
     }

@@ -446,8 +446,9 @@ namespace BLL.Blls.LocationHistory
             for (int i = 0; i < bags.Count; i++)
             {
                 var person = bags[i];
-                Log.Info(LogTags.HisPos, string.Format("删除 {0}({1}/{2})",person.Name,(i+1), bags.Count));
                 List<PosInfo> posInfoList = person.Items;//某个人
+                Log.Info(LogTags.HisPos, string.Format("删除 {0},{1}({2}/{3})",person.Name, posInfoList.Count,(i+1), bags.Count));
+                
                 var errorPosList = PosDistanceHelper.FilterErrorPoints(posInfoList);
                 if (errorPosList.Count > 0)
                 {
@@ -470,7 +471,7 @@ namespace BLL.Blls.LocationHistory
             {
                 Log.Info(LogTags.HisPos, string.Format("删除点 {0}/{1}", sum, list.Count));
             }
-            SavePositions(allErrorPoints, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"));
+            SavePositions(allErrorPoints, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff"));
             return sum;
         }
 
@@ -481,6 +482,17 @@ namespace BLL.Blls.LocationHistory
             //XmlSerializeHelper.
             string filePath = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\ErrorPoints\\" + name + ".xml";
             XmlSerializeHelper.Save(list, filePath);
+        }
+
+        public void RemovePoints(IQueryable<Position> query,bool save)
+        {
+            if (save)
+            {
+                var points = query.ToList();
+                SavePositions(points, DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_fff"));
+            }
+            
+            query.DeleteFromQuery();
         }
     }
 }

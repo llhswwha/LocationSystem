@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Location.BLL.Tool;
+using System.Threading;
 
 namespace Base.Common.Threads
 {
@@ -23,17 +24,28 @@ namespace Base.Common.Threads
             if (_thread == null)
             {
                 _thread = new Thread(DoFunction);
+                if(!string.IsNullOrEmpty(Name))
+                    _thread.Name = Name;
                 _thread.IsBackground = true;
                 _thread.Start();
             }
         }
 
-        public void Abort()
+        public virtual void Abort()
         {
             if (_thread != null)
             {
-                _thread.Abort();
-                _thread = null;
+                try
+                {
+                    //Thread
+                    _thread.Abort();
+                    _thread = null;
+                }
+                catch (System.Exception ex)
+                {
+                    Log.Error(Name,"Abort:"+ex);
+                }
+               
             }
         }
 

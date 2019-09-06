@@ -27,14 +27,14 @@ namespace BLL.Tools
            
             var disList = new List<PosDistance>();
             var errorDisList = new List<PosDistance>();
-            string txt = "";
+            //string txt = "";
             
             for (int i = 0; i < posInfoList.Count - 1; i++)
             {
                 var p1 = posInfoList[i];
                 var p2 = posInfoList[i + 1];
                 var dis = new PosDistance(p1, p2);
-                txt += dis + "\n";
+                //txt += dis + "\n";
                 if (dis.speed > maxSpeed)
                 {
                     errorDisList.Add(dis);
