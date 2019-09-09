@@ -87,15 +87,34 @@ namespace LocationServer.Windows
 
             TbMaxSpeed.Text = AppContext.MoveMaxSpeed + "";
 
+            //var personnels = bll.Personnels.ToList();
+            //CbPersonList.ItemsSource = personnels;
+            //var person = personnels.Find(i => i.Name == "Tag_08BA");
+            //CbPersonList.SelectedItem = person;
+
+            //DpDay.SelectedDate = new DateTime(2019, 9, 5).Date;
+
+            //TpStart.Value = new DateTime(2019, 9, 5, 13, 10, 0);
+            //TpEnd.Value = new DateTime(2019, 9, 5, 13, 20, 0);
+
+            //SetSearchInfo("Tag_08BA", new DateTime(2019, 9, 5, 13, 10, 0), new DateTime(2019, 9, 5, 13, 20, 0));
+
+            SetSearchInfo("Tag_08BA", new DateTime(2019, 9, 5, 11, 04, 0), new DateTime(2019, 9, 5, 11, 10, 0));
+        }
+
+        private void SetSearchInfo(string name,DateTime start,DateTime end)
+        {
             var personnels = bll.Personnels.ToList();
             CbPersonList.ItemsSource = personnels;
-            var person = personnels.Find(i => i.Name == "Tag_08BA");
+            var person = personnels.Find(i => i.Name == name);
             CbPersonList.SelectedItem = person;
 
-            DpDay.SelectedDate = new DateTime(2019, 9, 5).Date;
+            DpDay.SelectedDate = start.Date;
 
-            TpStart.Value = new DateTime(2019, 9, 5, 13, 10, 0);
-            TpEnd.Value = new DateTime(2019, 9, 5, 13, 20, 0);
+            TpStart.Value = start;
+            TpEnd.Value = end;
+
+
         }
 
         //private void BtnGetAll_OnClick(object sender, RoutedEventArgs e)

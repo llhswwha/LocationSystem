@@ -238,6 +238,7 @@
     <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Threads\AlarmRemoveThread.cs" />
     <Compile Include="Threads\FilterErrorPointThread.cs" />
+    <Compile Include="Threads\ResetAppConfigThread.cs" />
     <Compile Include="Tools\BaseDataInitializer.cs" />
     <Compile Include="Tools\BaseDataSimulator.cs" />
     <Compile Include="Tools\CameraAlarmListener.cs" />

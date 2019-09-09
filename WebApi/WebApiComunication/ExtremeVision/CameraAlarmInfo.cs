@@ -293,7 +293,7 @@ namespace WebApiCommunication.ExtremeVision
 
         public int CompareTo(CameraAlarmInfo other)
         {
-            return GetCompareId().CompareTo(other.GetCompareId());
+            return other.GetCompareId().CompareTo(this.GetCompareId());
         }
 
         public string GetCompareId()

@@ -30,6 +30,7 @@ using WebApiLib;
 using System.IO;
 using Location.Server;
 using System.Diagnostics;
+using LocationServer.Threads;
 
 namespace LocationWCFServer
 {
@@ -133,49 +134,21 @@ namespace LocationWCFServer
             InitDbContext();
 
             InitData();
-            
-            AppContext.AutoStartServer= ConfigurationHelper.GetIntValue("AutoStartServer") ==0;
-            AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
-            AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
-            AppContext.PositionMoveStateOfflineTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateOfflineTime");
-            AppContext.LowPowerFlag = ConfigurationHelper.GetIntValue("LowPowerFlag");
 
-            AppContext.UrlMaxLength = ConfigurationHelper.GetIntValue("UrlMaxLength");
-            
-
-            AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
-            AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
-            AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
-
-            AppContext.LogTextBoxMaxLength= ConfigurationHelper.GetIntValue("LogTextBoxMaxLength",10000);
-
-            AppContext.MoveMaxSpeed = ConfigurationHelper.GetDoubleValue("MoveMaxSpeed", 20);
-            AppContext.FilterTodayWhenStart = ConfigurationHelper.GetBoolValue("FilterTodayWhenStart");
-            AppContext.FilterMoreThanMaxSpeedTimer = ConfigurationHelper.GetValue("FilterMoreThanMaxSpeedTimer", "04:00");
-            
-
-            LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
-            LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));
-            LocationContext.Power = ConfigurationHelper.GetIntValue("InitTopoPower");
-
-            EngineClientSetting.LocalIp = ConfigurationHelper.GetValue("Ip");
-            EngineClientSetting.EngineIp = ConfigurationHelper.GetValue("EngineIp");
-            EngineClientSetting.AutoStart = ConfigurationHelper.GetBoolValue("AutoConnectEngine");
-            AppContext.PosEngineKeepAliveInterval= ConfigurationHelper.GetIntValue("PosEngineKeepAliveInterval",1000);
-
-
-            //SystemSetting setting = new SystemSetting();
-            //XmlSerializeHelper.Save(setting,AppDomain.CurrentDomain.BaseDirectory + "\\default.xml");
-
-            //WebApiHelper.IsSaveJsonToFile = ConfigurationHelper.GetBoolValue("IsSaveJsonToFile");
-
-            RealAlarm.NsqLookupdUrl= ConfigurationHelper.GetValue("NsqLookupdUrl");
-            RealAlarm.NsqLookupdTopic = ConfigurationHelper.GetValue("NsqLookupdTopic");
-            RealAlarm.NsqLookupdChannel = ConfigurationHelper.GetValue("NsqLookupdChannel");
-
-            DbModel.AppSetting.AddHisPositionInterval = ConfigurationHelper.GetIntValue("AddHisPositionInterval",30) * 1000;//单位是s，
+            resetAppconfigThread = new ResetAppConfigThread();
 
             KillOtherServers();
+        }
+
+        ResetAppConfigThread resetAppconfigThread;
+
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            if (resetAppconfigThread != null)
+            {
+                resetAppconfigThread.Abort();
+            }
         }
 
         /// <summary>
@@ -226,5 +199,6 @@ namespace LocationWCFServer
                 AppContext.InitDb(mode);
             }
         }
+
     }
 }

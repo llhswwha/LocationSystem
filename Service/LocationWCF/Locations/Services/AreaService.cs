@@ -91,7 +91,7 @@ namespace LocationServices.Locations.Services
                             select t2;
 
                 var query2 = from t1 in db.DevInfos.DbSet
-                             where lst.Contains(t1.ParentId)
+                             where lst.Contains(t1.ParentId) && t1.Local_TypeCode != 20180821 //把基站排除了
                              select t1;
 
                 var query3 = from t1 in db.LocationAlarms.DbSet

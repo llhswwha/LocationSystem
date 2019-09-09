@@ -287,10 +287,10 @@ namespace LocationServices.Locations.Services
                     }
 
                 list3.Sort();//按时间排序
-                if (merge) //默认传true
-                {
-                    list3 = MergeAlarms(list3);//合并相同的告警
-                }
+                //if (merge) //默认传true
+                //{
+                //    list3 = MergeAlarms(list3);//合并相同的告警
+                //}
                 return list3.ToWCFList();
             }
             catch (System.Exception ex)

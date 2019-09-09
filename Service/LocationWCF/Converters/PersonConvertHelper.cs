@@ -46,7 +46,7 @@ namespace LocationServices.Converters
             {
                 if ((object)item1.Parent != null)
                 {
-                    item2.Parent = item1.Parent.ToTModel();
+                    item2.Parent = item1.Parent.ToTModel(true);
                 }
             }
             catch (Exception ex)

@@ -13,7 +13,7 @@ namespace Location.TModel.Location.Alarm
     /// 定位告警
     /// </summary>
     [DataContract] [Serializable]
-    public class LocationAlarm
+    public class LocationAlarm:IComparable<LocationAlarm>
     {
         private LocationAlarmType _alarmType;
 
@@ -218,6 +218,11 @@ namespace Location.TModel.Location.Alarm
                 return Tag.Code;
             }
             return TagId+"";
+        }
+
+        public int CompareTo(LocationAlarm other)
+        {
+            return other.AlarmTimeStamp.CompareTo(this.AlarmTimeStamp);
         }
     }
 }

@@ -222,6 +222,7 @@ namespace LocationServices.Locations.Services
             {
                 alarm.Personnel = persons.Find(i => i.Id == alarm.PersonnelId);
             }
+            list.Sort();
             return list.ToWcfModelList();
         }
     }
