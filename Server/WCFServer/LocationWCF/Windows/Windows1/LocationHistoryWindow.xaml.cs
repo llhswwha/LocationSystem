@@ -24,13 +24,15 @@ using Location.BLL.Tool;
 using WPFClientControlLib;
 using LocationServices.Locations.Services;
 
+//using PosInfo = DbModel.LocationHistory.Data.PosInfo;
 using PosInfo = DbModel.LocationHistory.Data.PosInfo;
+//using PosInfoList = DbModel.LocationHistory.Data.PosInfoList;
 using PosInfoList = DbModel.LocationHistory.Data.PosInfoList;
 using Location.TModel.Tools;
 using TModel.Tools;
 using LocationServices.Tools;
 using BLL.Tools;
-using System.Text.RegularExpressions;
+using Base.Common.Tools;
 using Location.IModel;
 
 namespace LocationServer.Windows
@@ -122,7 +124,7 @@ namespace LocationServer.Windows
 
         private List<PosInfo> allPoslist;
 
-        private void GetAll(bool useBuffer, Action callback = null)
+        private void GetAll(bool useBuffer,Action callback=null)
         {
             Log.Info(LogTags.HisPos, string.Format("GetAll Start"));
 
@@ -133,96 +135,8 @@ namespace LocationServer.Windows
                 {
                     allPoslist = new List<PosInfo>();
                     PosHistoryService phs = new PosHistoryService();
-                    allPoslist = phs.GetAllData(LogTags.HisPos, useBuffer);
-
-                    //Bll bll = Bll.NewBllNoRelation();
-                    ////bll.history
-
+                    allPoslist=phs.GetAllData(LogTags.HisPos, useBuffer);
                     DateTime start = DateTime.Now;
-
-                    //int count = bll.PosInfos.DbSet.Count();
-                    //Log.Info(LogTags.HisPos, string.Format("count:{0}", count));
-
-                    //PosInfo first=bll.PosInfos.DbSet.First();
-                    //Log.Info(LogTags.HisPos, string.Format("first:{0}", first));
-
-                    //List<PosInfo> list1 = bll.PosInfos.GetPosInfosOfDay(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list1:{0},time:{1}", list1.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list2 = bll.PosInfos.GetPosInfosOfSevenDay(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list2:{0},time:{1}", list2.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list3 = bll.PosInfos.GetPosInfosOfMonth(DateTime.Now);
-                    //Log.Info(LogTags.HisPos, string.Format("list3:{0},time:{1}", list3.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-
-                    //List<PosInfo> list4 = bll.PosInfos.GetAllPosInfosByDay((progress) =>
-                    //{
-                    //    Log.Info(LogTags.HisPos, string.Format("GetAllPosInfosByDay date:{0},count:{1},({2}/{3},{4:p})",
-                    //        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                    //});
-                    //Log.Info(LogTags.HisPos, string.Format("list4:{0},time:{1}", list4.Count, DateTime.Now - start));
-                    //start = DateTime.Now;
-                    ////按天来要1分11s
-                    //List<PosInfo> posList = list4;
-
-                    ////List<PosInfo> list5 = bll.PosInfos.GetAllPosInfosByMonth((progress) =>
-                    ////{
-                    ////    Log.Info(LogTags.HisPos, string.Format("GetAllPosInfosByMonth date:{0},count:{1},({2}/{3},{4:p})",
-                    ////        progress.Date, progress.Count, progress.Index, progress.Total, progress.Percent));
-                    ////});
-                    ////Log.Info(LogTags.HisPos, string.Format("list5:{0},time:{1}", list5.Count, DateTime.Now - start));
-                    ////start = DateTime.Now;
-                    //////按月来是22s=>把按天的去掉，按月的时间也是一样的50s-70s
-
-                    ////List<PosInfo> posList = list5;
-
-                    //List<PosInfo> posList = bll.PosInfos.ToList();
-                    //Log.Info(LogTags.HisPos, string.Format("list6:{0},time:{1}", posList.Count, DateTime.Now - start));
-                    //if (posList == null)
-                    //{
-                    //    allPoslist=null;
-                    //    Log.Error(bll.PosInfos.ErrorMessage);
-                    //    return;
-                    //}
-                    //var personnels = bll.Personnels.ToDictionary();
-                    //foreach (var pos in posList)
-                    //{
-                    //    var pid = pos.PersonnelID;
-                    //    if (pid != null && personnels.ContainsKey((int)pid))
-                    //    {
-                    //        var p = personnels[(int)pid];
-                    //        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
-                    //    }
-                    //    else
-                    //    {
-                    //        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code); ;//有些卡对应的人员不存在
-                    //    }
-                    //}
-
-                    //List<PosInfo> noAreaList = new List<PosInfo>();
-
-                    //var areas = bll.Areas.ToDictionary();
-                    //foreach (var pos in posList)
-                    //{
-                    //    var areaId = pos.AreaId;
-                    //    if (areaId != null && areas.ContainsKey((int)areaId))
-                    //    {
-                    //        var area = areas[(int)areaId];
-                    //        pos.Area = area;
-                    //        pos.AreaPath = area.GetToBuilding(">");
-
-                    //        allPoslist.Add(pos);
-                    //    }
-                    //    else
-                    //    {
-                    //        noAreaList.Add(pos);
-                    //    }
-                    //}
-
-
                     Log.Info(LogTags.HisPos, string.Format("GetAll End"));
                 }
                 catch (Exception e)
@@ -233,7 +147,7 @@ namespace LocationServer.Windows
 
             }, () =>
             {
-
+               
                 //DataGridLocationHistory.ItemsSource = allPoslist;
 
                 if (allPoslist == null)
@@ -280,270 +194,128 @@ namespace LocationServer.Windows
                     });
                 });
             });
+
+            
+
+            
+
+            
         }
         private void DataGridStatisticDay_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
+            if (posList == null) return;
+
+            Worker.Run(() =>
             {
-                //PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
-                //if (posList == null) return;
-
-                //Worker.Run(() =>
-                //{
-                //  return PosInfoListHelper.GetListByPerson(posList.Items);
-                //}, (result) =>
-                //{
-                //    DataGridStatisticDayPerson.ItemsSource = result;
-                //    DataGridStatisticDayPersonTime.ItemsSource = null;
-                //    DataGridDayPersonPosList.ItemsSource = null;
-                //});
-
-                PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
-                if (posList != null)
-                {
-                    if (posList.InfoList == null)
-                    {
-                        posList.InfoList = PosInfoListHelper.GetListByPerson(posList.Items);
-                    }
-                    List<PosInfoList> posLisTimePerson = posList.InfoList;
-                    DataGridStatisticDayPerson.ItemsSource = posLisTimePerson;
-                }
+                return PosInfoListHelper.GetListByPerson(posList.Items);
+            }, (result) =>
+            {
+                DataGridStatisticDayPerson.ItemsSource = result;
                 DataGridStatisticDayPersonTime.ItemsSource = null;
                 DataGridDayPersonPosList.ItemsSource = null;
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DataGridStatisticDay_OnSelectionChanged:" + ex);
-            }
+            });
         }
 
         private void DataGridStatisticDayPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            PosInfoList posList = DataGridStatisticDayPerson.SelectedItem as PosInfoList;
+            if (posList == null) return;
+            var list= PosInfoListHelper.GetListByHour(posList.Items);
+            DataGridStatisticDayPersonTime.ItemsSource = list;
+
+            var list2 = posList.Items;
+
+            list2.Sort((a, b) =>
             {
-                PosInfoList posList = DataGridStatisticDayPerson.SelectedItem as PosInfoList;
-                if (posList == null) return;
-                // DataGridStatisticDayPersonTime.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
-                //DataGridDayPersonPosList.ItemsSource = posList.Items;
-                if (posList.InfoList == null)
-                {
-                    posList.InfoList = PosInfoListHelper.GetListByHour(posList.Items);
-                }
-                List<PosInfoList> list = posList.InfoList;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].parent = posList.Name;
-                }
-                DataGridStatisticDayPersonTime.ItemsSource = list;
-                DataGridDayPersonPosList.ItemsSource = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DataGridStatisticDayPerson_OnSelectionChanged:"+ex);
-            }
-           
+                return a.DateTimeStamp.CompareTo(b.DateTimeStamp);
+            });
+
+            DataGridDayPersonPosList.ItemsSource = list2;
         }
 
         private void DataGridStatisticDayPersonTime_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            Log.Info(LogTags.HisPos, string.Format("DataGridStatisticDayPersonTime_OnSelectionChanged"));
+
+            PosInfoList posList = DataGridStatisticDayPersonTime.SelectedItem as PosInfoList;
+
+            if (posList == null)
             {
-                Log.Info(LogTags.HisPos, string.Format("DataGridStatisticDayPersonTime_OnSelectionChanged"));
+                Log.Info(LogTags.HisPos, string.Format("posList == null"));
+                return;
+            }
+            else
+            {
+                Log.Info(LogTags.HisPos, string.Format("posList:"+ posList.Name));
+            }
 
-                PosInfoList posList = DataGridStatisticDayPersonTime.SelectedItem as PosInfoList;
+            var list = posList.Items;
 
-                if (posList == null)
+            list.Sort((a, b) =>
+            {
+                return a.DateTimeStamp.CompareTo(b.DateTimeStamp);
+            });
+
+            DataGridDayPersonPosList.ItemsSource = list;
+
+            if (posList.Items != null)
+            {
+                var count=posList.Items.Count;
+                Log.Info(LogTags.HisPos, string.Format("count:" + count));
+                if (posList.Items.Count > 0)
                 {
-                    Log.Info(LogTags.HisPos, string.Format("posList == null"));
-                    return;
-                }
-                //else
-                //{
-                //    Log.Info(LogTags.HisPos, string.Format("posList:" + posList.Name));
-                //}
-
-
-                if (posList.Items != null)
-                {
-                    var list = posList.Items;
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
-                    DataGridDayPersonPosList.ItemsSource = list;
-
-                    var count = posList.Items.Count;
-                    Log.Info(LogTags.HisPos, string.Format("count:" + count));
-                    if (posList.Items.Count > 0)
-                    {
-                        Log.Info(LogTags.HisPos, string.Format("Items[0]:" + posList.Items[0]));
-                    }
-                }
-                else
-                {
-                    PosHistoryService service = new PosHistoryService();
-                    string name = posList.Name;   //2019-06-11 21
-                    string parent = posList.parent; //刘飞(09AB)
-                    string code = MidStrEx(parent, "(", ")");
-                    DateTime nameDate = Convert.ToDateTime(name + ":00:00");
-                    DateTime start = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 0, 0);
-                    DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 59, 59);
-                    List<Position> list = service.GetPositionsOfDateAndPerson(code, start, end, null);
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
-                    DataGridDayPersonPosList.ItemsSource = list;
+                    Log.Info(LogTags.HisPos, string.Format("Items[0]:" + posList.Items[0]));
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DataGridStatisticDayPersonTime_OnSelectionChanged:" + ex);
-            }
+
+            
         }
-        /// <summary>
-        /// 正则表达式，特殊字符无法识别
-        /// </summary>
-        /// <param name="sourse"></param>
-        /// <param name="startstr"></param>
-        /// <param name="endstr"></param>
-        /// <returns></returns>
-        public static string MidStrEx_New(string sourse, string startstr, string endstr)
-         {
-            Regex rg = new Regex("(?<=(" + startstr + "))[.\\s\\S]*?(?=(" + endstr + "))", RegexOptions.Multiline | RegexOptions.Singleline);
-             return rg.Match(sourse).Value;
-         }
-        /// <summary>
-        /// 截取字符串
-        /// </summary>
-        /// <param name="sourse"></param>
-        /// <param name="startstr"></param>
-        /// <param name="endstr"></param>
-        /// <returns></returns>
-        public static string MidStrEx(string sourse, string startstr, string endstr)
-         {
-             string result = string.Empty;
-             int startindex, endindex;
-             try
-             {
-                 startindex = sourse.IndexOf(startstr);
-                 if (startindex == -1)
-                     return result;
-                 string tmpstr = sourse.Substring(startindex + startstr.Length);
-                 endindex = tmpstr.IndexOf(endstr);           
-                 if (endindex == -1)
-                     return result;
-                 result = tmpstr.Remove(endindex);
-             }
-             catch (Exception ex)
-             {
-                 Log.Info("MidStrEx Err:" + ex.Message);
-             }
-             return result;
-         }    
 
-
-    private void DataGridStatisticPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DataGridStatisticPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticPerson.SelectedItem as PosInfoList;
             if (posList == null) return;
-            //  DataGridStatisticPersonDay.ItemsSource = PosInfoListHelper.GetListByDay(posList.Items);
+            DataGridStatisticPersonDay.ItemsSource= PosInfoListHelper.GetListByDay(posList.Items);
             //DataGridPersonDayPosList.ItemsSource = posList.Items;
-            List<PosInfoList> list = posList.InfoList;
-            if (list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].parent = posList.Name;
-                }
-            }
-            DataGridStatisticPersonDay.ItemsSource = list;
-            DataGridStatisticPersonDayHour.ItemsSource = null;
-            DataGridPersonDayPosList.ItemsSource = null;
         }
 
         private void DataGridStatisticPersonDay_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticPersonDay.SelectedItem as PosInfoList;
             if (posList == null) return;
-            //  DataGridStatisticPersonDayHour.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
-           // DataGridPersonDayPosList.ItemsSource = posList.Items;
-
-            List<PosInfoList> list = posList.InfoList;
-            if (list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].parent = posList.parent;
-                }
-            }
-            DataGridStatisticPersonDayHour.ItemsSource = list;
-            DataGridPersonDayPosList.ItemsSource = null;
+            DataGridStatisticPersonDayHour.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
+            //DataGridPersonDayPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticPersonDayHour_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticPersonDayHour.SelectedItem as PosInfoList;
             if (posList == null) return;
-           // DataGridPersonDayPosList.ItemsSource = posList.Items;
-
-            PosHistoryService service = new PosHistoryService();
-            string name = posList.Name;   //2019-06-11 21
-            string parent = posList.parent; //刘飞(09AB)
-            string code = MidStrEx(parent, "(", ")");
-            DateTime nameDate = Convert.ToDateTime(name + ":00:00");
-            DateTime start = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 0, 0);
-            DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour+1, 0, 0);
-            List<Position> list = service.GetPositionsOfDateAndPerson(code, start, end,null);
-            DataGridPersonDayPosList.ItemsSource = list;
+            DataGridPersonDayPosList.ItemsSource = posList.Items;
         }
 
         private void DataGridStatisticArea_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticArea.SelectedItem as PosInfoList;
             if (posList == null) return;
-            //  DataGridStatisticAreaPerson.ItemsSource = PosInfoListHelper.GetListByPerson(posList.Items);
+            DataGridStatisticAreaPerson.ItemsSource = PosInfoListHelper.GetListByPerson(posList.Items);
             //DataGridAreaPosList.ItemsSource = posList.Items;
-            List<PosInfoList> list= posList.InfoList;
-            if (list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].areaId = posList.areaId;
-                }
-            }
-            DataGridStatisticAreaPerson.ItemsSource = list;
-            DataGridStatisticAreaDayHour.ItemsSource = null;
-            DataGridAreaPosList.ItemsSource = null;
         }
 
         private void DataGridStatisticAreaPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticAreaPerson.SelectedItem as PosInfoList;
             if (posList == null) return;
-            // DataGridStatisticAreaDayHour.ItemsSource = PosInfoListHelper.GetListByDay(posList.Items);
+            DataGridStatisticAreaDayHour.ItemsSource = PosInfoListHelper.GetListByDay(posList.Items);
             //DataGridAreaPosList.ItemsSource = posList.Items;
-            List<PosInfoList> list = posList.InfoList;
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].parent = posList.Name;
-                list[i].areaId = posList.areaId;
-            }
-            DataGridStatisticAreaDayHour.ItemsSource = list;
-            DataGridAreaPosList.ItemsSource = null;
         }
 
         private void DataGridStatisticAreaDayHour_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticAreaDayHour.SelectedItem as PosInfoList;
             if (posList == null) return;
-            //  DataGridAreaPosList.ItemsSource = posList.Items;
-            PosHistoryService service = new PosHistoryService();
-            string name = posList.Name;   //2019-06-11 21
-            string parent = posList.parent; //刘飞(09AB)
-            string code = MidStrEx(parent, "(", ")");
-            string areaId = posList.areaId;
-            DateTime nameDate = Convert.ToDateTime(name + " 00:00:00");
-            DateTime start = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, 0, 0, 0);
-            DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, 23, 59, 59);
-            List<Position> list = service.GetPositionsOfDateAndPerson(code, start, end,areaId);
-            DataGridAreaPosList.ItemsSource = list;
-
+            DataGridAreaPosList.ItemsSource = posList.Items;
         }
 
         private LightUDP udp;
@@ -827,7 +599,101 @@ namespace LocationServer.Windows
             if (list == null) return;
             Worker.Run(() =>
             {
-                return bll.Positions.RemoveRepeatData(LogTags.HisPos,isDelete, list);
+                int removeCount = 0;
+                Log.Info(LogTags.HisPos, "RemoveRepeatData Start");
+                for (int i = 0; i < list.Count; i++)
+                {
+                    PosInfoList posList = list[i];
+                    string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
+                        posList.Count, (i + 1), list.Count);
+                    Log.Info(LogTags.HisPos, progress1);
+
+                    var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.PersonnelID }).Select(p => new
+                    {
+                        p.Key.DateTimeStamp,
+                        p.Key.PersonnelID,
+                        Id = p.First(w => true).Id,
+                        list = p.Select(w => w.Id).ToList(),
+                        total = p.Count()
+                    });
+                    var groupList = groupby.Where(k => k.total > 1).ToList();
+                    if (groupList.Count == 0) continue;
+
+                    var groupList1 = groupby.Where(k => k.total ==2).ToList();
+                    var groupList2 = groupby.Where(k => k.total == 3).ToList();
+                    var groupList3 = groupby.Where(k => k.total == 4).ToList();
+                    var groupList4 = groupby.Where(k => k.total >1 && k.total <= 10).ToList();
+                    var groupList5 = groupby.Where(k => k.total > 10).ToList();
+
+                    Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
+
+                    posList.Items.Clear();
+                    //GC.Collect();
+                    //return 0;
+
+                    List<Position> removeListTemp = new List<Position>();
+                    int maxPageCount = 10000;
+                    int packageCount = maxPageCount;
+                    List<long> timestampList = new List<long>();
+                    List<int> idList = new List<int>();
+                    for (int k = 0; k < groupList.Count; k++)
+                    {
+                        var item = groupList[k];
+                        if (item.total > 1)
+                        {
+                            item.list.Remove(item.Id);
+                            timestampList.Add(item.DateTimeStamp);
+                            idList.AddRange(item.list);
+
+                            //IQueryable<Position> query2=new 
+                        }
+                        if (idList.Count >= packageCount || 
+                            (k== groupList.Count-1 && idList.Count>0)//最后一组
+                            )
+                        {
+                            try
+                            {
+                                var query = bll.Positions.DbSet.Where(j => idList.Contains(j.Id));
+                                //var sql = query.ToString();
+                                var count2 = idList.Count();
+                                if (isDelete)
+                                {
+                                    //query.DeleteFromQuery();
+                                    bll.Positions.RemovePoints(query,false);
+                                }
+                                removeCount += count2;
+                                Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+                                timestampList = new List<long>();
+                                idList = new List<int>();
+
+                                if (packageCount < maxPageCount)
+                                {
+                                    packageCount *= 2;
+                                    if (packageCount > maxPageCount)
+                                    {
+                                        packageCount = maxPageCount;
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                //Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+
+                                Log.Info(LogTags.HisPos, string.Format("Progress2 Error:{0}", e));
+                                //return -1;//暂停
+
+                                Thread.Sleep(50);
+                                packageCount /= 2;
+                                k--;//将包的大小减少 重新尝试
+                                timestampList = new List<long>();
+                                idList = new List<int>();
+                            }
+                            //Log.Info(LogTags.HisPos, string.Format("removeGroupCount:{0}", timestampList.Count));
+                        }
+                    }
+                }
+                Log.Info(LogTags.HisPos, "RemoveRepeatData End TotolCount:"+removeCount);
+                return removeCount;
             }, (removeCount) =>
             {
                 if (removeCount == -1) return;//暂停
@@ -846,111 +712,12 @@ namespace LocationServer.Windows
                             //    SetPositionInfo(); //删除重复数据后再设置信息，不然很费时间
 
                             //}, () => { Log.Info(LogTags.HisPos, "完成"); });
-                            MessageBox.Show(this,"完成");
+                            MessageBox.Show("完成");
                         }
                     });
                 });
             });
         }
-
-        //private int RemoveRepeatData(bool isDelete, List<PosInfoList> list)
-        //{
-        //    int removeCount = 0;
-        //    Log.Info(LogTags.HisPos, "RemoveRepeatData Start");
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        PosInfoList posList = list[i];
-        //        string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
-        //            posList.Count, (i + 1), list.Count);
-        //        Log.Info(LogTags.HisPos, progress1);
-
-        //        var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.PersonnelID }).Select(p => new
-        //        {
-        //            p.Key.DateTimeStamp,
-        //            p.Key.PersonnelID,
-        //            Id = p.First(w => true).Id,
-        //            list = p.Select(w => w.Id).ToList(),
-        //            total = p.Count()
-        //        });
-        //        var groupList = groupby.Where(k => k.total > 1).ToList();
-        //        if (groupList.Count == 0) continue;
-
-        //        var groupList1 = groupby.Where(k => k.total == 2).ToList();
-        //        var groupList2 = groupby.Where(k => k.total == 3).ToList();
-        //        var groupList3 = groupby.Where(k => k.total == 4).ToList();
-        //        var groupList4 = groupby.Where(k => k.total > 1 && k.total <= 10).ToList();
-        //        var groupList5 = groupby.Where(k => k.total > 10).ToList();
-
-        //        Log.Info(LogTags.HisPos, string.Format("groupList:{0}", groupList.Count));
-
-        //        posList.Items.Clear();
-        //        //GC.Collect();
-        //        //return 0;
-
-        //        List<Position> removeListTemp = new List<Position>();
-        //        int maxPageCount = 10000;
-        //        int packageCount = maxPageCount;
-        //        List<long> timestampList = new List<long>();
-        //        List<int> idList = new List<int>();
-        //        for (int k = 0; k < groupList.Count; k++)
-        //        {
-        //            var item = groupList[k];
-        //            if (item.total > 1)
-        //            {
-        //                item.list.Remove(item.Id);
-        //                timestampList.Add(item.DateTimeStamp);
-        //                idList.AddRange(item.list);
-
-        //                //IQueryable<Position> query2=new 
-        //            }
-        //            if (idList.Count >= packageCount ||
-        //                (k == groupList.Count - 1 && idList.Count > 0)//最后一组
-        //                )
-        //            {
-        //                try
-        //                {
-        //                    var query = bll.Positions.DbSet.Where(j => idList.Contains(j.Id));
-        //                    //var sql = query.ToString();
-        //                    var count2 = idList.Count();
-        //                    if (isDelete)
-        //                    {
-        //                        //query.DeleteFromQuery();
-        //                        bll.Positions.RemovePoints(query, false);
-        //                    }
-        //                    removeCount += count2;
-        //                    Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
-        //                    timestampList = new List<long>();
-        //                    idList = new List<int>();
-
-        //                    if (packageCount < maxPageCount)
-        //                    {
-        //                        packageCount *= 2;
-        //                        if (packageCount > maxPageCount)
-        //                        {
-        //                            packageCount = maxPageCount;
-        //                        }
-        //                    }
-        //                }
-        //                catch (Exception e)
-        //                {
-        //                    //Log.Info(LogTags.HisPos, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
-
-        //                    Log.Info(LogTags.HisPos, string.Format("Progress2 Error:{0}", e));
-        //                    //return -1;//暂停
-
-        //                    Thread.Sleep(50);
-        //                    packageCount /= 2;
-        //                    k--;//将包的大小减少 重新尝试
-        //                    timestampList = new List<long>();
-        //                    idList = new List<int>();
-        //                }
-        //                //Log.Info(LogTags.HisPos, string.Format("removeGroupCount:{0}", timestampList.Count));
-        //            }
-        //        }
-        //    }
-        //    Log.Info(LogTags.HisPos, "RemoveRepeatData End TotolCount:" + removeCount);
-        //    return removeCount;
-        //}
 
         //private void GetRepeatDataCount(Action<long> callback)
         //{
@@ -1035,7 +802,7 @@ namespace LocationServer.Windows
         //        return removeCount;
         //    }, (removeCount) =>
         //    {
-
+                
         //    });
         //}
 
@@ -1110,126 +877,31 @@ namespace LocationServer.Windows
             {
 
             });
-
+           
         }
-
-        private void MenuSaveDataInXml_Click(object sender, RoutedEventArgs e)
-        {
-            GetAllActiveInXml();
-        }
-
-        private void MenuGetDataByXml_Click(object sender, RoutedEventArgs e)
-        {
-            SetAllActiveInXml();
-        }
-        /// <summary>
-        /// 保存人员历史定位Xml
-        /// </summary>
-        private void GetAllActiveInXml()
-        {
-            try
-            {
-                PosHistoryAllInfo posHisLists = new PosHistoryAllInfo();
-                PosHistoryService phs = new PosHistoryService();
-                List<PosInfo> pos = phs.GetAllData(LogTags.HisPos, false);
-                //按时间统计
-                List<PosInfoList> infoListsTime = PosInfoListHelper.GetListByDay(pos);
-                for (int i = 0; i < infoListsTime.Count; i++)
-                {
-                    List<PosInfoList> secondList = PosInfoListHelper.GetListByPerson(infoListsTime[i].Items);
-                    infoListsTime[i].InfoList = secondList;
-                    if (secondList.Count > 0)
-                    {
-                        for (int j = 0; j < secondList.Count; j++)
-                        {
-                            List<PosInfoList> thridList = PosInfoListHelper.GetListByHour(secondList[j].Items);
-                            infoListsTime[i].InfoList[j].InfoList = thridList;
-                        }
-                    }
-                }
-                //按人员统计
-                List<PosInfoList> infoListsPerson = PosInfoListHelper.GetListByPerson(pos);
-                if (infoListsPerson.Count > 0)
-                {
-                    for (int i = 0; i < infoListsPerson.Count; i++)
-                    {
-                        List<PosInfoList> secondList= PosInfoListHelper.GetListByDay(infoListsPerson[i].Items);
-                        infoListsPerson[i].InfoList = secondList;
-                        if (secondList.Count > 0)
-                        {
-                            for (int j = 0; j < secondList.Count; j++)
-                            {
-                                List<PosInfoList> thridList = PosInfoListHelper.GetListByHour(secondList[j].Items);
-                                infoListsPerson[i].InfoList[j].InfoList = thridList;
-                            }
-                        }
-                    }
-                }
-                //按区域统计，每个PosInfoList中Items里面的AreaId都是一样的
-                List<PosInfoList> infoListsArea = PosInfoListHelper.GetListByArea(pos);
-                if (infoListsArea.Count > 0)
-                {
-                    for (int i = 0; i < infoListsArea.Count; i++)
-                    {
-                        //每个PosInfoList中Items里面的AreaId都是一样的
-                        infoListsArea[i].areaId = infoListsArea[i].Items[0].AreaId.ToString();
-
-                        List<PosInfoList> secondList = PosInfoListHelper.GetListByPerson(infoListsArea[i].Items);
-                        infoListsArea[i].InfoList = secondList;
-                        if (secondList.Count > 0)
-                        {
-                            for (int j = 0; j < secondList.Count; j++)
-                            {
-                                List<PosInfoList> thridList = PosInfoListHelper.GetListByDay(secondList[j].Items);
-                                infoListsArea[i].InfoList[j].InfoList = thridList;
-                            }
-                        }
-                    }
-                }
-
-                posHisLists.PosListByTime = infoListsTime;
-                posHisLists.PosListByPerson = infoListsPerson;
-                posHisLists.PosListByArea = infoListsArea;
-                XmlSerializeHelper.Save(posHisLists,"PosHistoryInfo.Xml");
-
-            }
-            catch (Exception ex)
-            {
-                Log.Info("SaveDataInXml:" + ex.ToString());
-            }
-        }
-
-        private void SetAllActiveInXml()
-        {
-            try
-            {
-                PosHistoryAllInfo info = XmlSerializeHelper.LoadFromFile<PosHistoryAllInfo>("PosHistoryInfo.Xml");
-                List<PosInfoList> poslistTime = info.PosListByTime;
-                List<PosInfoList> poslistPerson = info.PosListByPerson;
-                List<PosInfoList> poslistArea = info.PosListByArea;
-                DataGridStatisticDay.ItemsSource = poslistTime;
-                DataGridStatisticPerson.ItemsSource = poslistPerson;
-                DataGridStatisticArea.ItemsSource = poslistArea;
-
-            }
-            catch (Exception ex)
-            {
-                Log.Info("SetAllActiveInXml:"+ex.ToString());
-            }
-        }
-
 
         private void FindErrorPoints_Click(object sender, RoutedEventArgs e)
         {
             List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
-            PosDistanceHelper.FilterErrorPoints(posInfoList);
+            var errorPoints = PosDistanceHelper.FilterErrorPoints(posInfoList);
+            foreach (var item in errorPoints)
+            {
+                var p = bll.Positions.DeleteById(item.Id);
+                if (p != null)
+                {
+                    Log.Info(LogTags.HisPos, "删除点:" + p);
+                }
+            }
         }
+
+        
+
         private void BtnSetMaxSpeed_Click(object sender, RoutedEventArgs e)
         {
             AppContext.MoveMaxSpeed = TbMaxSpeed.Text.ToDouble();
         }
 
-                private void FindErrorPoints_Day_Click(object sender, RoutedEventArgs e)
+        private void FindErrorPoints_Day_Click(object sender, RoutedEventArgs e)
         {
             PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;//一天
             if (posList == null) return;
@@ -1252,7 +924,7 @@ namespace LocationServer.Windows
                 bll.Positions.RemoveErrorPoints(allPoslist);
             }, () =>
             {
-                GetAll(false, () => { MessageBox.Show(this, "完成"); });
+                GetAll(false, null);
             });
         }
     }

@@ -153,6 +153,7 @@ namespace LocationServices.Locations.Services
         }
         public TEntity Post(string pid, TEntity item)
         {
+            if (item == null) return null;
             item.ParentId = pid.ToInt();
             var dbItem = item.ToDbModel();
             var result = dbSet.Add(dbItem);
@@ -161,6 +162,7 @@ namespace LocationServices.Locations.Services
 
         public TEntity Put(TEntity item)
         {
+            if (item == null) return null;
             var dbItem = item.ToDbModel();
             dbItem.ModifyTime = DateTime.Now;
             dbItem.ModifyTimeStamp = TimeConvert.ToStamp(dbItem.ModifyTime);
@@ -229,15 +231,18 @@ namespace LocationServices.Locations.Services
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
-        public List<TEntity> GetListByPid(string pid)
+        public List<TEntity> GetListByPid(string pids)
         {
-            return dbSet.GetListByPid(pid.ToInt()).ToWcfModelList();
+            var list = pids.Split(',').Select(i => i.ToInt()).ToList();
+
+            return dbSet.GetListByPid(list).ToWcfModelList();
         }
 
 
-        public IList<TEntity> DeleteListByPid(string pid)
+        public IList<TEntity> DeleteListByPid(string pids)
         {
-            return dbSet.DeleteListByPid(pid.ToInt()).ToWcfModelList();
+            var list = pids.Split(',').Select(i => i.ToInt()).ToList();
+            return dbSet.DeleteListByPid(list).ToWcfModelList();
         }
 
 

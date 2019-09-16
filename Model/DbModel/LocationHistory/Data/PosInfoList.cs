@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DbModel.LocationHistory.Data
 {
@@ -10,10 +11,20 @@ namespace DbModel.LocationHistory.Data
     {
         private List<PosInfo> _items;
 
+        [XmlAttribute]
         public string Name { get; set; }
 
+        [XmlAttribute]
         public int Count { get; set; }
+        [XmlIgnore]
+        public string parent { get; set; }
+        public List<PosInfoList> InfoList { get; set; }
+        /// <summary>
+        /// 区域ID
+        /// </summary>
+        public string areaId { get; set; }
 
+        [XmlIgnore]
         public List<PosInfo> Items
         {
             get { return _items; }
@@ -35,6 +46,8 @@ namespace DbModel.LocationHistory.Data
         {
             this.Name = name;
         }
+        public PosInfoList()
+        { }
 
         public void Add(PosInfo pos)
         {
@@ -106,7 +119,8 @@ namespace DbModel.LocationHistory.Data
 
         public static List<PosInfoList> GetListByArea(List<PosInfo> posList)
         {
-            return GetList(posList, i => i.GetAreaPath());
+            List<PosInfoList> infoList= GetList(posList, i => i.GetAreaPath());
+            return infoList;
         }
 
         public static List<PosInfoList> GetSubList(List<PosInfo> list,int flag)

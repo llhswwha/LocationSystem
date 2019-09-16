@@ -87,6 +87,7 @@ namespace WebApiService.Controllers
         [Route("~/api/areas/{pid}/devices")]
         public TEntity Post(string pid, TEntity item)
         {
+            if (item == null) return null;
             return service.Post(pid, item);
         }
 

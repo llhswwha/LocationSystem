@@ -7,20 +7,14 @@ namespace DAL.LocationDbMigrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<DAL.LocationDb>
     {
-        //数据迁移出现already exists问题处理
-        //add-migration -ConfigurationTypeName DAL.LocationDbMigrations.Configuration "Reset" -ignorechanges
-        //Update-database -ConfigurationTypeName DAL.LocationDbMigrations.Configuration -force
-
         public Configuration()
         {
-            //AutomaticMigrationsEnabled = false;
-            AutomaticMigrationDataLossAllowed = true;
+            //AutomaticMigrationDataLossAllowed = true;
+
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"LocationDbMigrations";
 
-            MySql.Data.Entity.MySqlMigrationSqlGenerator sqlGenerator =
-                new MySql.Data.Entity.MySqlMigrationSqlGenerator();
-            this.SetSqlGenerator("MySql.Data.MySqlClient", sqlGenerator);
+            this.SetSqlGenerator("MySql.Data.MySqlClient", new MySql.Data.Entity.MySqlMigrationSqlGenerator());
         }
 
         protected override void Seed(DAL.LocationDb context)
@@ -29,8 +23,6 @@ namespace DAL.LocationDbMigrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-
-
         }
     }
 }

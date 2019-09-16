@@ -12,6 +12,8 @@ using BLL.Tools;
 using Base.Common.Tools;
 using DbModel.Tools;
 using Location.TModel.Tools;
+//using PositionList = Location.TModel.LocationHistory.Data.PositionList;
+using System.Threading;
 
 namespace BLL.Blls.LocationHistory
 {
@@ -58,6 +60,10 @@ namespace BLL.Blls.LocationHistory
             DateTime end = new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
             return GetPositionsOfDate(start, end);
         }
+
+
+
+
 
         /// <summary>
         /// 获取某一天的数据
@@ -116,7 +122,7 @@ namespace BLL.Blls.LocationHistory
         }
 
         /// <summary>
-        /// 获取某一天的数据
+        /// 获取某一月的数据
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -129,7 +135,7 @@ namespace BLL.Blls.LocationHistory
         }
 
         /// <summary>
-        /// 获取某一天的数据
+        /// 获取当前年份到目前为止的数据
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -142,7 +148,7 @@ namespace BLL.Blls.LocationHistory
         }
 
         /// <summary>
-        /// 获取某一天的数据
+        /// 获取某一月的数据
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -246,7 +252,7 @@ namespace BLL.Blls.LocationHistory
         }
 
         /// <summary>
-        /// 获取某一天的数据
+        /// 获取某一月的数据
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -467,6 +473,32 @@ namespace BLL.Blls.LocationHistory
             var list = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp).ToList();
             return list;
         }
+        /// <summary>
+        /// 获取某人某一时间段的数据(有区域是否为空判断)
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public List<Position> GetPositionsOfDateAndPerson(string code, DateTime start, DateTime end,string areaId)
+        {
+            long startStamp = start.ToStamp();
+            long endStamp = end.ToStamp();
+            
+            if (areaId != null)
+            {
+                int id = Convert.ToInt32(areaId);
+                var list1 = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp && i.Code == code&&i.AreaId==id).ToList();
+                return list1;
+            }
+            else
+            {
+                var list = DbSet.Where(i => i.DateTimeStamp >= startStamp && i.DateTimeStamp <= endStamp && i.Code == code).ToList();
+                return list;
+            } 
+        }
+
+
 
         /// <summary>
         /// 获取某一天的数据
@@ -524,7 +556,14 @@ namespace BLL.Blls.LocationHistory
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(LogTags.HisPosBuffer,ex.Message);
+                    string msg = ex.Message;
+                    if (msg.Contains(
+                        "An error occurred while reading from the store provider's data reader. See the inner exception for details")
+                    )
+                    {
+                        msg = ex.InnerException.Message;
+                    }
+                    Log.Error(LogTags.HisPosBuffer, msg);
                     Thread.Sleep(100);
                     //再重试
                     Log.Info(LogTags.HisPosBuffer, "GetInfoListOfDate 重试:" + (i+1));

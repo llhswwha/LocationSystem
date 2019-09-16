@@ -634,7 +634,7 @@ namespace LocationServices.Locations.Services
             {
                 if (area != null)
                 {
-                    var list = db.DevInfos.GetListByPid(area.Id);
+                    var list = db.DevInfos.GetListByPid(new List<int>() { area.Id });
                     area.LeafNodes = list;
                     return list;
                 }

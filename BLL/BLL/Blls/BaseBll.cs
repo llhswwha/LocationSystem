@@ -61,6 +61,19 @@ namespace BLL.Blls
     {
         public DbSet<T> DbSet { get; set; }
 
+        public int GetCount()
+        {
+            try
+            {
+                return DbSet.Count();
+            }
+            catch (Exception e)
+            {
+                Log.Error(LogTags.DbGet,e.ToString());
+                return 0;
+            }
+        }
+
         protected abstract void InitDbSet();
 
         public BaseBll() : base(new TDb())

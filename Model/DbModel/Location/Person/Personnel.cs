@@ -165,6 +165,30 @@ namespace DbModel.Location.Person
         [MaxLength(16)]
         public string Pst { get; set; }
 
+        [DataMember]
+        /// <summary>
+        /// 类型，不同类型对应不同模型
+        /// 0:男人
+        /// 1:女人
+        /// 2:机器人
+        /// 3:车辆
+        /// 4:重要物质
+        /// </summary>
+#if BaoXin
+        [NotMapped]
+#endif
+        public int TargetType { get; set; }
+
+        [DataMember]
+        [MaxLength(512)]
+        /// <summary>
+        /// 模型，后续根据模型来显示
+        /// </summary>
+#if BaoXin
+        [NotMapped]
+#endif
+        public string TargetModel { get; set; }
+
         public Personnel()
         {
             BirthDay = DateTime.Now;

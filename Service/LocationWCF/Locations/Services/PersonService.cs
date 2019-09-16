@@ -63,6 +63,8 @@ namespace LocationServices.Locations.Services
         TEntity SetRole(string id, string role);
 
         List<Personnel> FindPersonList(string key);
+
+        List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis);
     }
 
     public class PersonTag
@@ -404,7 +406,7 @@ namespace LocationServices.Locations.Services
         {
             try
             {
-                var devInfoList = dbSet.GetListByName(name).ToTModel();
+                var devInfoList = GetList(true, true).Where(i => i.Name.Contains(name)).ToList();
                 return devInfoList.ToWCFList();
             }
             catch (System.Exception ex)

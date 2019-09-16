@@ -17,7 +17,7 @@ namespace LocationServices.Locations
             ShowLogEx(">>>>> GetPostList");
             //var posts = db.Posts.ToList();
             //return posts.ToWcfModelList();
-            return new PostService(db).GetList().ToTModel();
+            return new PostService(db).GetList().ToWcfModelList();
         }
 
 

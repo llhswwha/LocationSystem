@@ -24,6 +24,7 @@ using System.IO;
 using TModel.FuncArgs;
 using TModel.Location.Alarm;
 using Base.Common.Tools;
+using System.Diagnostics;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
@@ -1250,7 +1251,7 @@ namespace LocationServices.Locations
 #endregion
         public AlarmStatistics GetDevAlarmStatistics(SearchArg arg)
         {
-            
+            DateTime GetDevT = DateTime.Now;
             long timeStampStart = 0;
             long timeStampEnd = long.MaxValue;
             if (!string.IsNullOrEmpty(arg.StartTime))
@@ -1267,13 +1268,38 @@ namespace LocationServices.Locations
                 timeStampEnd = end.ToStamp();
             }
 
-            //历史告警
-            List<DbModel.LocationHistory.Alarm.DevAlarmHistory> list = db.DevAlarmHistorys.Where(p =>
-                      p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
-                .ToList();
-            //List<DbModel.Location.Alarm.DevAlarm> list = db.DevAlarms.Where(p =>
+            // 历史告警
+            //List<DbModel.LocationHistory.Alarm.DevAlarmHistory> list1 = db.DevAlarmHistorys.Where(p =>
+            //          p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
+            //    .ToList();
+
+
+            var query = from p in db.DevAlarmHistorys.DbSet
+                        where p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd
+                        select new DbModel.Location.Alarm.DevAlarmInfo { Id = p.Id, Src = p .Src, AlarmTime = p .AlarmTime, AlarmTimeStamp = p .AlarmTimeStamp };
+            //Linq
+            var list1 = query.ToList();
+
+
+
+
+            //List<DbModel.Location.Alarm.DevAlarm> list2 = db.DevAlarms.Where(p =>
             //         p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
             //   .ToList();
+
+
+            var AlarmList2 = from m in db.DevAlarms.DbSet
+                             where m.AlarmTimeStamp >= timeStampStart && m.AlarmTimeStamp <= timeStampEnd
+                             select new DbModel.Location.Alarm.DevAlarmInfo { Id = m.Id,Src=m .Src,AlarmTime =m.AlarmTime, AlarmTimeStamp=m.AlarmTimeStamp };
+            var list2 = AlarmList2.ToList();
+            list1.AddRange(list2);
+
+            //foreach (var item in list2)
+            //{
+            //    if (item == null) continue;
+            //    var item2 = item.RemoveToHistory();
+            //    list1.Add(item2);
+            //}
 
             //来源(字典：报警事件来源，0 未知，1 视频监控，2 门禁，3消防，11 SIS，12人员定位)
             List<Abutment_DevAlarmSrc> lstSrc = new List<Abutment_DevAlarmSrc>();
@@ -1285,20 +1311,20 @@ namespace LocationServices.Locations
             lstSrc.Add(Abutment_DevAlarmSrc.人员定位);
 
             AlarmStatistics statistics = new AlarmStatistics();
-            List<string> lstGetParent = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
+            List<string> lstGetParent = list1.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("总告警", lstGetParent, true, ref statistics);
             statistics.itemList.Add("总告警");
             statistics.itemList.Add("视频监控");
             statistics.itemList.Add("门禁");
             statistics.itemList.Add("消防");
             statistics.itemList.Add("SIS");
-            statistics.itemList.Add("人员定位");
+            //statistics.itemList.Add("人员定位");
             statistics.itemList.Add("其他");
 
 
             foreach (Abutment_DevAlarmSrc item in lstSrc)
             {
-                List<string> lstGet = list.Where(p => p.Src == item).Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
+                List<string> lstGet = list1.Where(p => p.Src == item).Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
                 string strName = item.ToString();
                 if (item == Abutment_DevAlarmSrc.未知)
                 {
@@ -1307,7 +1333,7 @@ namespace LocationServices.Locations
 
                 StaticCountLines(strName, lstGet, true, ref statistics);
             }
-
+   
             if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
             {
                 statistics.DevTypeAlarms = null;
@@ -1324,12 +1350,13 @@ namespace LocationServices.Locations
             }
 
             statistics.Sort();
+            string GetDevAlarm = (DateTime.Now - GetDevT ).TotalSeconds + " s";
             return statistics;
         }
 
         public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
         {
-
+           
             long timeStampStart = 0;
             long timeStampEnd = long.MaxValue;
             if (!string.IsNullOrEmpty(arg.StartTime))
@@ -1350,11 +1377,11 @@ namespace LocationServices.Locations
             List<DbModel.LocationHistory.Alarm.LocationAlarmHistory> list = db.LocationAlarmHistorys.Where(p =>
                       p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
                 .ToList();
-
+          
             List<int> listPersonnelId = list.Select(p => p.PersonnelId).Distinct().ToList();
             var persons = db.Personnels.ToDictionary();
             AlarmStatistics statistics = new AlarmStatistics();
-
+           
             foreach (int PersonnelId in listPersonnelId)
             {
                 int nCount = list.Where(p => p.PersonnelId == PersonnelId).Count();
@@ -1370,10 +1397,11 @@ namespace LocationServices.Locations
 
                 statistics.AddTypeCount(strName, nCount);
             }
-
+          
+           
             List<string> lstGet = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("全部", lstGet, false, ref statistics);
-
+           
             if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
             {
                 statistics.DevTypeAlarms = null;

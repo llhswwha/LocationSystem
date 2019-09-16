@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BaoXin</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -68,6 +68,7 @@
     <Compile Include="BaseData\zones.cs" />
     <Compile Include="LocationHistory\Data\IPosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosDistance.cs" />
+    <Compile Include="LocationHistory\Data\PosHistoryAllInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfoList.cs" />
     <Compile Include="LocationHistory\Data\PositionList.cs" />
