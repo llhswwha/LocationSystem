@@ -25,6 +25,7 @@ using U3DPosition = Location.TModel.LocationHistory.Data.U3DPosition;
 using LocationServices.Tools;
 using BLL.Tools;
 using Base.Common.Tools;
+using DbModel.LocationHistory.Data;
 
 namespace LocationServices.Locations.Services
 {
@@ -705,12 +706,12 @@ namespace LocationServices.Locations.Services
                 var areas = bll.Areas.ToDictionary();
                 Log.Info(tag, string.Format(" areas count:" + areas.Count));
 
-                var posCount = bll.Positions.DbSet.Count();
-                Log.Info(tag, string.Format("posCount:{0:N}", posCount));
-                //allPoslist = bll.Positions.ToList();
+                //var posCount = bll.Positions.DbSet.Count();
+                //Log.Info(tag, string.Format("posCount:{0:N}", posCount));
+                ////allPoslist = bll.Positions.ToList();
 
-                var first = bll.Positions.GetFirst();
-                Log.Info(tag, string.Format("first:" + first.Id));
+                //var first = bll.Positions.GetFirst();
+                //Log.Info(tag, string.Format("first:" + first.Id));
 
                 //bll.Positions.GetAllPositionsCountByDay((progress) =>
                 //{
@@ -719,6 +720,7 @@ namespace LocationServices.Locations.Services
                 //        Log.Info(tag, string.Format("date:{0},count:{1},({2}/{3},{4:p})",
                 //        progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
                 //    }
+                //    return true;
                 //});
 
                 //var list1 = bll.Positions.GetPositionsOfDay(first.DateTime);
@@ -729,37 +731,69 @@ namespace LocationServices.Locations.Services
 
 
                 start = DateTime.Now;
-                var list = bll.Positions.GetAllPosInfoListByDay((progress) =>
+
+                var totalRemoveCount = 0;
+
+
+                var list = bll.Positions.GetAllPosInfoListByHour((progress) =>
                   {
                       if (progress.Count > 0)
                       {
-                          bool r = true;
+                          int r = 0;
                           Log.Info(tag, string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
-                          progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
+                          progress.Time, progress.Count, progress.Index, progress.Total, progress.Percent));
                           var lst = progress.Items as List<PosInfo>;
                           if (lst != null)
                           {
-                              //var groupList = lst.GroupBy(p => new { p.DateTimeStamp }).Select(p => new
-                              //{
-                              //    p.Key.DateTimeStamp,
-                              //    Id = p.First(w => true).Id,
-                              //    total = p.Count()
-                              //}).Where(k => k.total > 1).ToList();
-                              //if (groupList.Count > 0)
-                              //{
-                              //    r = false;//只取到有重复时间戳的数据为止
-                              //}
+                              Log.Info(tag, "RemoveRepeatData Start");
+                              var list2 = PosInfoListHelper.GetListByCode(lst);
+                              var removeCount=bll.Positions.RemoveRepeatData(tag,true, list2);//删除重复数据
+                              totalRemoveCount += removeCount;
+                              Log.Info(tag, "RemoveRepeatData End ");
+                              if (removeCount > 0)
+                              {
+                                  return 1;
+                              }
                           }
-
-                          //return false;//只取一个
-
                           return r;//false的话就中断了，即指获取最后一个
                       }
-                      return true;
+                      return 0;
                   });
                 //allPoslist = list;
                 Log.Info(tag, string.Format(" getlist count:" + list.Count));
                 Log.Info(tag, string.Format(" getlist time1:" + (DateTime.Now - start)));
+
+                if (totalRemoveCount > 0)
+                {
+                    start = DateTime.Now;
+                    list = bll.Positions.GetAllPosInfoListByDay((progress) =>
+                    {
+                        if (progress.Count > 0)
+                        {
+                            int r = 0;
+                            Log.Info(tag, string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
+                            progress.Date.ToString("yyyy-MM-dd"), progress.Count, progress.Index, progress.Total, progress.Percent));
+                            var lst = progress.Items as List<PosInfo>;
+                            if (lst != null)
+                            {
+                                //Log.Info(tag, "RemoveRepeatData Start");
+                                //var list2 = PosInfoListHelper.GetListByPerson(lst);
+                                //var removeCount = bll.Positions.RemoveRepeatData(true, list2);//删除重复数据
+                                //totalRemoveCount += removeCount;
+                                //Log.Info(tag, "RemoveRepeatData End");
+                                //if (removeCount > 0)
+                                //{
+                                //    return 1;
+                                //}
+                            }
+                            return r;//false的话就中断了，即指获取最后一个
+                        }
+                        return 0;
+                    });
+                    //allPoslist = list;
+                    Log.Info(tag, string.Format(" getlist2 count:" + list.Count));
+                    Log.Info(tag, string.Format(" getlist2 time1:" + (DateTime.Now - start)));
+                }
 
                 start = DateTime.Now;
                 foreach (PosInfo item in list)

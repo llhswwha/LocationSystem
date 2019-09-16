@@ -463,6 +463,9 @@ namespace BLL
                             PosDistance dis = new PosDistance(tagPos, position);
                             //这个点就不用来修改实时位置了
                             Log.Info("RealPos",string.Format("发现错误点:{0}", dis));
+
+                            positions.RemoveAt(i);
+                            i--;
                         }
                         else
                         {

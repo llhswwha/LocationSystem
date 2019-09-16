@@ -76,6 +76,18 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        public List<PosInfo> GetPosInfoListOfHour(DateTime date)
+        {
+            DateTime start = new DateTime(date.Year, date.Month, date.Day, date.Hour, 0, 0);
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, date.Hour, 59, 59);
+            return GetInfoListOfDate(start, end);
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<Position> GetPositionsOfSevenDay(DateTime date)
         {
             DateTime start = new DateTime(date.Year, date.Month, date.Day-6, 0, 0, 0);
@@ -166,7 +178,22 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PosInfo> GetAllPosInfoListByDay(Func<ProgressInfo,bool> progressCallback)
+        public List<PosInfo> GetAllPosInfoListByHour(Func<ProgressInfo, int> progressCallback)
+        {
+            Position first = GetFirst();
+            DateTime firstDay = first.DateTime;
+
+            TimeSpan timeSpan = DateTime.Now - firstDay;
+            var day = (int)timeSpan.TotalDays + 2;
+            return GetPosInfoListOfHours(DateTime.Now, day, progressCallback);
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetAllPosInfoListByDay(Func<ProgressInfo,int> progressCallback)
         {
             Position first = GetFirst();
             DateTime firstDay = first.DateTime;
@@ -286,7 +313,61 @@ namespace BLL.Blls.LocationHistory
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<PosInfo> GetPosInfoListOfDays(DateTime date, int dayCount, Func<ProgressInfo,bool> progressCallback)
+        public List<PosInfo> GetPosInfoListOfHours(DateTime date, int dayCount, Func<ProgressInfo, int> progressCallback)
+        {
+            List<PosInfo> pos = new List<PosInfo>();
+            List<List<PosInfo>> posList = new List<List<PosInfo>>();
+            for (int i = 0; i < dayCount; i++)
+            {
+                var dateNew = date.AddDays(-i);
+                for (int j = 0; j < 24; j++)
+                {
+                    var dateNew2 = dateNew.AddHours(j);
+
+                    DateTime start = new DateTime(dateNew2.Year, dateNew2.Month, dateNew2.Day, dateNew2.Hour, 0, 0);
+                    DateTime end = new DateTime(dateNew2.Year, dateNew2.Month, dateNew2.Day, dateNew2.Hour, 59, 59);
+
+                    List<PosInfo> list = GetPosInfoListOfHour(dateNew2);
+
+                    if (progressCallback != null)
+                    {
+                        ProgressInfo progress = new ProgressInfo(list);
+                        progress.Index = j + 1;
+                        progress.Total = dayCount * 24;
+                        progress.Count = list.Count;
+                        progress.Date = dateNew2;
+                        progress.Time= start.ToString("yyyy-MM-dd HH") + "->"+ end.ToString("yyyy-MM-dd HH");
+                        var r = progressCallback(progress);
+                        if (r == 0)
+                        {
+                            posList.Add(list);
+                            pos.AddRange(list);
+                        }
+                        else if (r == -1)
+                        {
+                            posList.Add(list);
+                            pos.AddRange(list);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        posList.Add(list);
+                        pos.AddRange(list);
+                    }
+                }
+                
+            }
+
+            return pos;
+        }
+
+        /// <summary>
+        /// 获取某一天的数据
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<PosInfo> GetPosInfoListOfDays(DateTime date, int dayCount, Func<ProgressInfo,int> progressCallback)
         {
             List<PosInfo> pos = new List<PosInfo>();
             List<List<PosInfo>> posList = new List<List<PosInfo>>();
@@ -294,8 +375,7 @@ namespace BLL.Blls.LocationHistory
             {
                 var dateNew = date.AddDays(-i);
                 List<PosInfo> list = GetPosInfoListOfDay(dateNew);
-                posList.Add(list);
-                pos.AddRange(list);
+               
                 if (progressCallback != null)
                 {
                     ProgressInfo progress = new ProgressInfo(list);
@@ -303,10 +383,23 @@ namespace BLL.Blls.LocationHistory
                     progress.Total = dayCount;
                     progress.Count = list.Count;
                     progress.Date = dateNew;
-                    if (progressCallback(progress) == false)
+                    var r = progressCallback(progress);
+                    if (r == 0)
                     {
+                        posList.Add(list);
+                        pos.AddRange(list);
+                    }
+                    else if (r == -1)
+                    {
+                        posList.Add(list);
+                        pos.AddRange(list);
                         break;
                     }
+                }
+                else
+                {
+                    posList.Add(list);
+                    pos.AddRange(list);
                 }
             }
 
@@ -351,6 +444,8 @@ namespace BLL.Blls.LocationHistory
         
             public int Count;
             public DateTime Date;
+
+            public string Time;
 
             public object Items;
 
@@ -438,6 +533,106 @@ namespace BLL.Blls.LocationHistory
             return list;
         }
 
+        public int RemoveRepeatData(string tag,bool isDelete, List<PosInfoList> list)
+        {
+            int removeCount = 0;
+            Log.Info(tag, "RemoveRepeatData Start");
+            for (int i = 0; i < list.Count; i++)
+            {
+                PosInfoList posList = list[i];
+                string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
+                    posList.Count, (i + 1), list.Count);
+                Log.Info(tag, progress1);
+
+                var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.PersonnelID }).Select(p => new
+                {
+                    p.Key.DateTimeStamp,
+                    p.Key.PersonnelID,
+                    Id = p.First(w => true).Id,
+                    list = p.Select(w => w.Id).ToList(),
+                    total = p.Count()
+                });
+                var groupList = groupby.Where(k => k.total > 1).ToList();
+                if (groupList.Count == 0) continue;
+
+                var groupList1 = groupby.Where(k => k.total == 2).ToList();
+                var groupList2 = groupby.Where(k => k.total == 3).ToList();
+                var groupList3 = groupby.Where(k => k.total == 4).ToList();
+                var groupList4 = groupby.Where(k => k.total > 1 && k.total <= 10).ToList();
+                var groupList5 = groupby.Where(k => k.total > 10).ToList();
+
+                Log.Info(tag, string.Format("groupList:{0}", groupList.Count));
+
+                posList.Items.Clear();
+                //GC.Collect();
+                //return 0;
+
+                List<Position> removeListTemp = new List<Position>();
+                int maxPageCount = 1000;
+                int packageCount = maxPageCount;
+                List<long> timestampList = new List<long>();
+                List<int> idList = new List<int>();
+                for (int k = 0; k < groupList.Count; k++)
+                {
+                    var item = groupList[k];
+                    if (item.total > 1)
+                    {
+                        item.list.Remove(item.Id);
+                        timestampList.Add(item.DateTimeStamp);
+                        idList.AddRange(item.list);
+
+                        //IQueryable<Position> query2=new 
+                    }
+                    if (idList.Count >= packageCount ||
+                        (k == groupList.Count - 1 && idList.Count > 0)//最后一组
+                        )
+                    {
+                        try
+                        {
+                            var query =this.DbSet.Where(j => idList.Contains(j.Id));
+                            //var sql = query.ToString();
+                            var count2 = idList.Count();
+                            if (isDelete)
+                            {
+                                //query.DeleteFromQuery();
+                                this.RemovePoints(query, false);
+                                //this.RemovePoints(idList);
+                            }
+                            removeCount += count2;
+                            Log.Info(tag, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+                            timestampList = new List<long>();
+                            idList = new List<int>();
+
+                            if (packageCount < maxPageCount)
+                            {
+                                packageCount *= 2;
+                                if (packageCount > maxPageCount)
+                                {
+                                    packageCount = maxPageCount;
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            //Log.Info(tag, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", "NULL", removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+
+                            Log.Info(tag, string.Format("Progress2 Error:{0}", e));
+                            //return -1;//暂停
+
+                            Thread.Sleep(50);
+                            packageCount /= 2;
+                            k--;//将包的大小减少 重新尝试
+                            timestampList = new List<long>();
+                            idList = new List<int>();
+                        }
+                        //Log.Info(tag, string.Format("removeGroupCount:{0}", timestampList.Count));
+                    }
+                }
+            }
+            Log.Info(tag, "RemoveRepeatData End TotolCount:" + removeCount);
+            return removeCount;
+        }
+
         public int RemoveErrorPoints(List<PosInfo> list)
         {
             int sum = 0;
@@ -493,6 +688,36 @@ namespace BLL.Blls.LocationHistory
             }
             
             query.DeleteFromQuery();
+        }
+
+        public int RemovePoints(List<int> ids)
+        {
+            if(ids==null|| ids.Count == 0)
+            {
+                return 0;
+            }
+
+            string sql = "";
+            if (ids.Count == 1)
+            {
+                sql = "delete from locationhistory.positions where Id = "+ids[0]+";";
+            }
+            else
+            {
+                string inList = "";
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    inList += ids[i];
+                    if (i > 0 && i <ids.Count-1)
+                    {
+                        inList += ",";
+                    }
+                }
+                sql = "delete from locationhistory.positions where Id in (" + inList + ")";
+            }
+
+            int r=Db.Database.ExecuteNonQuery(sql);
+            return r;
         }
     }
 }

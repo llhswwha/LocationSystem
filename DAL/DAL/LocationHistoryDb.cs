@@ -21,6 +21,8 @@ namespace DAL
             {
                 this.Database.Log = s => Log.Info(LogTags.EF, s);
             }
+
+            this.Database.CommandTimeout = 700000;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

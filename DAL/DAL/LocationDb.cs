@@ -28,7 +28,11 @@ namespace DAL
             //{
             //    this.Database.Log = s => Log.Info(LogTags.EF, s);//调试EF需要
             //}
-            
+            var t1 = this.Database.CommandTimeout;
+            var t2 = this.Database.Connection.ConnectionTimeout;
+
+            this.Database.CommandTimeout = 700000;
+            //this.Database.Connection.ConnectionTimeout = 100;
         }
 
         //public LocationDb(bool isCreateDb) : base(Name)
