@@ -57,8 +57,8 @@ namespace DAL
                 if (IsCreateDb)
                 {
                     Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());//自动数据迁移
-                    从代码来看，这里面会创建LocationDb对象的，
+                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());
+                    //自动数据迁移从代码来看，这里面会创建LocationDb对象的，
                 }
                 else
                 {

@@ -408,26 +408,32 @@ namespace LocationServer.Controls
 
         public void StartPlayBackManage()
         {
-            var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
-            if (EnabelNVS)
+            try
             {
-                NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
-
-                NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
-                NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
-                NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
-                NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
-                NVSManage.Init();//启动天地伟业Playback界面
-
-                string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
-                if (File.Exists(nginx))
+                var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
+                if (EnabelNVS)
                 {
-                    nginxCmdProcess=Process.Start(nginx);//启动nginx-rtmp
+                    NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
+
+                    NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
+                    NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
+                    NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
+                    NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
+                    NVSManage.Init();//启动天地伟业Playback界面
+
+                    string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
+                    if (File.Exists(nginx))
+                    {
+                        nginxCmdProcess = Process.Start(nginx);//启动nginx-rtmp
+                    }
+                    else
+                    {
+                        WriteLog("找不到nginx启动文件:" + nginx);
+                    }
                 }
-                else
-                {
-                    WriteLog("找不到nginx启动文件:"+ nginx);
-                }
+            }catch(Exception e)
+            {
+                WriteLog("启动NVR管理系统失败:" + e.ToString());
             }
         }
 
