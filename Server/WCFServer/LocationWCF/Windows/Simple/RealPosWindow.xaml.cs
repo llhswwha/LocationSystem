@@ -12,9 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using BLL;
+using Coldairarrow.Util.Sockets;
+using DbModel.LocationHistory.Data;
 using Location.TModel.Location.Data;
 using Location.TModel.Tools;
 using LocationServer.Tools;
+using LocationServices.Converters;
 using LocationServices.Locations.Services;
 
 namespace LocationServer.Windows
@@ -152,10 +156,42 @@ namespace LocationServer.Windows
             {
                 pos.Power = power;
             }
-            
-            PosService service = new PosService();
-            service.Put(pos);
+
+            Modify(pos);
             RefreshData();
+        }
+
+        private void Modify(TagPosition pos)
+        {
+            //PosService service = new PosService();
+            //service.Put(pos);
+            SendPos(pos);
+        }
+
+        private LightUDP udp = null;
+
+        private string SendPos(TagPosition tagPos)
+        {
+            var dbPos=tagPos.ToDbModel();
+
+            Position pos = new Position();
+            pos.SetProperty(dbPos);
+
+            return SendPos(pos);
+        }
+
+        private string SendPos(Position pos)
+        {
+            if (pos == null) return "";
+            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+            if (udp == null)
+            {
+                udp = new LightUDP("127.0.0.1", 5678);
+            }
+            udp.Send(txt, "127.0.0.1", 2323);
+            return txt;
+
+            //return "";
         }
 
         private void MenuSetOffline_OnClick(object sender, RoutedEventArgs e)
@@ -201,8 +237,7 @@ namespace LocationServer.Windows
             if (position == null) return;
             position.DateTime = DateTime.Now;
             position.Time = DateTime.Now.ToStamp();
-            PosService service = new PosService();
-            service.Put(position);
+            Modify(position);
             RefreshData();
         }
     }
