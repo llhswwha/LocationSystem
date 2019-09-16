@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;BaoXin</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -84,6 +84,7 @@
     <Compile Include="EngineDb.cs" />
     <Compile Include="LocationDb.cs" />
     <Compile Include="LocationDbLite.cs" />
+    <Compile Include="LocationDbMigrations\Configuration.cs" />
     <Compile Include="LocationHistoryDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

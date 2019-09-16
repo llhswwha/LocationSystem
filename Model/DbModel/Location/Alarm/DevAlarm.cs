@@ -153,4 +153,44 @@ namespace DbModel.Location.Alarm
             return history;
         }
     }
+
+
+    public class DevAlarmInfo 
+    {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public Abutment_DevAlarmSrc Src { get; set; }
+        [DataMember]
+        private DateTime _alarmTime;
+        [DataMember]
+        public DateTime AlarmTime
+        {
+            get
+            {
+                return _alarmTime;
+            }
+            set
+            {
+                _alarmTime = value;
+                AlarmTimeStamp = TimeConvert.ToStamp(value);
+            }
+        }
+        [DataMember]
+        private long _alarmTimeStamp;
+        [DataMember]
+        public long AlarmTimeStamp
+        {
+            get
+            {
+                return _alarmTimeStamp;
+            }
+            set
+            {
+                _alarmTimeStamp = value;
+            }
+        }
+
+
+    }
 }

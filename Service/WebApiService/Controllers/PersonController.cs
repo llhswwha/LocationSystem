@@ -10,6 +10,8 @@ using Location.TModel.Location.Data;
 using Location.TModel.Location.Person;
 using TEntity = Location.TModel.Location.Person.Personnel;
 using TPEntity = Location.TModel.Location.Person.Department;
+using TModel.Location.Person;
+
 namespace WebApiService.Controllers
 {
     [RoutePrefix("api/persons")]
@@ -159,6 +161,11 @@ namespace WebApiService.Controllers
         public List<TEntity> FindPersonList(string key)
         {
             return service.FindPersonList(key);
+        }
+        [Route("list/NearbyPerson/{id}/{fDis}")]
+        public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
+        {
+            return service.GetNearbyPerson_Currency(id,fDis);
         }
     }
 }

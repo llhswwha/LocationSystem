@@ -41,26 +41,27 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+#if BaoXin
             Database.SetInitializer<LocationDb>(null);
-
-
-            //if (IsSqlite)
-            //{
-            //    Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationDb>(modelBuilder));
-            //}
-            //else
-            //{
-            //    if (IsCreateDb)
-            //    {
-            //        //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-            //        //Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());//自动数据迁移
-            //        //从代码来看，这里面会创建LocationDb对象的，
-            //    }
-            //    else
-            //    {
-            //        Database.SetInitializer<LocationDb>(null);
-            //    }
-            //}
+#else
+            if (IsSqlite)
+            {
+                Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationDb>(modelBuilder));
+            }
+            else
+            {
+                if (IsCreateDb)
+                {
+                    Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
+                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());//自动数据迁移
+                    从代码来看，这里面会创建LocationDb对象的，
+                }
+                else
+                {
+                    Database.SetInitializer<LocationDb>(null);
+                }
+            }
+#endif
         }
 
         public DbSet<DbModel.Location.Alarm.DevAlarm> DevAlarms { get; set; }

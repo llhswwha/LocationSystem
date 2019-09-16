@@ -99,5 +99,11 @@ namespace WebApiService.Controllers
         {
             return service.GetHistoryList(null, end, null, person, null);
         }
+
+        [Route("statistics")]
+        public IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3)
+        {
+            return service.GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
+        }
     }
 }

@@ -367,10 +367,9 @@ namespace LocationServer.Controls
                 Worker.Run(() =>
                 {
                     CheckCardRole();//检查人员角色，发现有些定位卡没有绑定卡角色
-
                     try
                     {
-                        Bll bll = Bll.Instance();
+                        Bll bll = Bll.NewBllNoRelation();
                         var count = bll.Areas.DbSet.Count(); //用于做数据迁移用，查询一下
                         if (count == 0)
                         {

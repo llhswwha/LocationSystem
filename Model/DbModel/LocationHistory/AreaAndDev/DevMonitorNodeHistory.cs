@@ -53,7 +53,7 @@ namespace DbModel.LocationHistory.AreaAndDev
 
         [DataMember]
         [Display(Name = "ParentKKS")]
-        [MaxLength(128)]
+        [MaxLength(256)]
         public string ParentKKS { get; set; }
 
         [DataMember]

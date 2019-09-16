@@ -22,15 +22,15 @@ using Location.BLL.Tool;
 using Position = Location.TModel.LocationHistory.Data.Position;
 using PositionList = Location.TModel.LocationHistory.Data.PositionList;
 using U3DPosition = Location.TModel.LocationHistory.Data.U3DPosition;
-using LocationServices.Tools;
-using BLL.Tools;
-using Base.Common.Tools;
+using Location.TModel.LocationHistory.Data;
 
 namespace LocationServices.Locations.Services
 {
     public interface IPosHistoryService
     {
-        IList<Position> GetHistoryList(string start, string end, string tag, string person, string area);
+        IList<Position> GetHistoryList(string start, string end, string tag, string person,string area);
+
+        IList<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3);
     }
 
     public class PosHistoryService : IPosHistoryService
@@ -677,7 +677,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        public List<PosInfo> GetAllData(string tag, bool useBuffer = false)
+        public List<PosInfo> GetAllData(string tag,bool useBuffer=false)
         {
             try
             {
@@ -696,7 +696,7 @@ namespace LocationServices.Locations.Services
                 Log.Info(tag, "Start");
                 DateTime start = DateTime.Now;
 
-                Bll bll = Bll.Instance();
+                Bll bll = Bll.NewBllNoRelation();
 
                 //关联人员
                 var personnels = bll.Personnels.ToDictionary();
@@ -705,8 +705,8 @@ namespace LocationServices.Locations.Services
                 var areas = bll.Areas.ToDictionary();
                 Log.Info(tag, string.Format(" areas count:" + areas.Count));
 
-                var posCount = bll.Positions.DbSet.Count();
-                Log.Info(tag, string.Format("posCount:{0:N}", posCount));
+                var posCount = bll.Positions.GetCount();
+                Log.Info(tag, string.Format("posCount:{0:N}",posCount));
                 //allPoslist = bll.Positions.ToList();
 
                 var first = bll.Positions.GetFirst();
@@ -863,7 +863,7 @@ namespace LocationServices.Locations.Services
             {
                 string strError = ex.Message;
 
-                Log.Info(tag, "Error:" + ex);
+                Log.Info(tag, "Error:"+ex);
             }
 
             return allPoslist;
@@ -871,75 +871,60 @@ namespace LocationServices.Locations.Services
 
         //private static List<PosInfo> noAreaList;
 
-        private List<PosInfo> SetAreaPath(string tag, Dictionary<int, Area> areas, ref List<PosInfo> list)
+        private List<PosInfo> SetAreaPath(string tag,Dictionary<int, Area> areas, ref List<PosInfo> list)
         {
-            try
+            Log.Info(tag, "SetAreaPath Start");
+            var noAreaList = new List<PosInfo>();
+            var count = list.Count;
+            for (int i = 0; i < count; i++)
             {
-                Log.Info(tag, "SetAreaPath Start");
-                var noAreaList = new List<PosInfo>();
-                var count = list.Count;
-                for (int i = 0; i < count; i++)
+                //if (i % 10000 == 0)
+                //{
+                //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}", (i + 1), count));
+                //}
+                PosInfo pos = list[i];
+                var areaId = pos.AreaId;
+                if (areaId != null && areas.ContainsKey((int) areaId))
                 {
-                    //if (i % 10000 == 0)
-                    //{
-                    //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}", (i + 1), count));
-                    //}
-                    PosInfo pos = list[i];
-                    var areaId = pos.AreaId;
-                    if (areaId != null && areas.ContainsKey((int)areaId))
-                    {
-                        var area = areas[(int)areaId];
-                        //pos.Area = area;
-                        pos.AreaPath = area.GetToBuilding(">");
+                    var area = areas[(int) areaId];
+                    //pos.Area = area;
+                    pos.AreaPath = area.GetToBuilding(">");
 
-                        allPoslist.Add(pos);//只有有区域数据的会被添加
-                    }
-                    else
-                    {
-                        noAreaList.Add(pos);//todo:没有区域数据的测试为什么找不到区域用
-                    }
+                    allPoslist.Add(pos);//只有有区域数据的会被添加
                 }
-                Log.Info(tag, "SetAreaPath End");
-                return noAreaList;
+                else
+                {
+                    noAreaList.Add(pos);//todo:没有区域数据的测试为什么找不到区域用
+                }
             }
-            catch (System.Exception ex)
-            {
-                Log.Error(hisTag, "SetAreaPath", "Exception:" + ex);
-                return null;
-            }
+            Log.Info(tag, "SetAreaPath End");
+            return noAreaList;
         }
 
-        private void SetPersonnalName(string tag, Dictionary<int, PersonnelDb> personnels, List<PosInfo> list)
+        private void SetPersonnalName(string tag,Dictionary<int, PersonnelDb> personnels, List<PosInfo> list)
         {
-            try
+            Log.Info(tag, "SetPersonnalName Start");
+            var count = list.Count;
+            for (int i = 0; i < count; i++)
             {
-                Log.Info(tag, "SetPersonnalName Start");
-                var count = list.Count;
-                for (int i = 0; i < count; i++)
+                //if (i % 10000 == 0)
+                //{
+                //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
+                //}
+                PosInfo pos = list[i];
+                var pid = pos.PersonnelID;
+                if (pid != null && personnels.ContainsKey((int) pid))
                 {
-                    //if (i % 10000 == 0)
-                    //{
-                    //    Log.Info(tag, string.Format("SetPersonnalName {0}/{1}",(i+1), count));
-                    //}
-                    PosInfo pos = list[i];
-                    var pid = pos.PersonnelID;
-                    if (pid != null && personnels.ContainsKey((int)pid))
-                    {
-                        var p = personnels[(int)pid];
-                        pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
-                    }
-                    else
-                    {
-                        pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code);
-                        ; //有些卡对应的人员不存在
-                    }
+                    var p = personnels[(int) pid];
+                    pos.PersonnelName = string.Format("{0}({1})", p.Name, pos.Code);
                 }
-                Log.Info(tag, "SetPersonnalName End");
+                else
+                {
+                    pos.PersonnelName = string.Format("{0}({1})", pos.Code, pos.Code);
+                    ; //有些卡对应的人员不存在
+                }
             }
-            catch (System.Exception ex)
-            {
-                Log.Error(hisTag, "SetPersonnalName", "Exception:" + ex);
-            }
+            Log.Info(tag, "SetPersonnalName End");
         }
 
         /// <summary>
@@ -952,234 +937,246 @@ namespace LocationServices.Locations.Services
         public List<PositionList> GetHistoryPositonStatistics(int nFlag, string strName, string strName2,
             string strName3)
         {
-            try
+            if (nFlag != 1 && nFlag != 2 && nFlag != 3)
             {
-                if (nFlag != 1 && nFlag != 2 && nFlag != 3)
-                {
-                    return null;
-                }
-
-                int nFlag2 = 0;
-                int nFlag3 = 0;
-                int nFlag4 = 0;
-
-                if (nFlag == 1)
-                {
-                    nFlag2 = 2;
-                    nFlag3 = 4;
-                }
-                else if (nFlag == 2)
-                {
-                    nFlag2 = 1;
-                    nFlag3 = 4;
-                }
-                else
-                {
-                    nFlag2 = 2;
-                    nFlag3 = 1;
-                    nFlag4 = 4;
-                }
-
-                //获取第一层数据
-                //SendList = GetDayOperate(nFlag, allPoslist);
-                List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
-                if (list == null)
-                {
-                    return null;
-                }
-
-                if (strName == "")
-                {
-                    return list.ToTModel();
-                }
-
-                //获取第二层数据
-                PositionListDb Result = list.Find(p => p.Name == strName);
-                if (Result == null)
-                {
-                    return null;
-                }
-
-                list = GetDayOperate(nFlag2, Result.Items);
-                if (list == null)
-                {
-                    return null;
-                }
-
-                if (strName2 == "")
-                {
-                    return list.ToTModel();
-                }
-
-                //获取第三层数据
-                Result = list.Find(p => p.Name == strName2);
-                if (Result == null)
-                {
-                    return null;
-                }
-
-                list = GetDayOperate(nFlag3, Result.Items);
-                if (list == null)
-                {
-                    return null;
-                }
-
-                if (strName3 == "")
-                {
-                    return list.ToTModel();
-                }
-
-                //获取第四层数据
-                Result = list.Find(p => p.Name == strName3);
-                if (Result == null)
-                {
-                    return null;
-                }
-
-                list = GetDayOperate(nFlag4, Result.Items);
-                if (list == null)
-                {
-                    return null;
-                }
-
-                return list.ToTModel();
-            }
-            catch (System.Exception ex)
-            {
-                Log.Error(hisTag, "GetHistoryPositonStatistics", "Exception:" + ex);
                 return null;
             }
+
+            int nFlag2 = 0;
+            int nFlag3 = 0;
+            int nFlag4 = 0;
+
+            if (nFlag == 1)
+            {
+                nFlag2 = 2;
+                nFlag3 = 4;
+            }
+            else if (nFlag == 2)
+            {
+                nFlag2 = 1;
+                nFlag3 = 4;
+            }
+            else
+            {
+                nFlag2 = 2;
+                nFlag3 = 1;
+                nFlag4 = 4;
+            }
+
+            //获取第一层数据
+            //SendList = GetDayOperate(nFlag, allPoslist);
+            List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
+            if (list == null)
+            {
+                return null;
+            }
+
+            if (strName == "")
+            {
+                return list.ToTModel();
+            }
+
+            //获取第二层数据
+            PositionListDb Result = list.Find(p => p.Name == strName);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            list = GetDayOperate(nFlag2, Result.Items);
+            if (list == null)
+            {
+                return null;
+            }
+
+            if (strName2 == "")
+            {
+                return list.ToTModel();
+            }
+
+            //获取第三层数据
+            Result = list.Find(p => p.Name == strName2);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            list = GetDayOperate(nFlag3, Result.Items);
+            if (list == null)
+            {
+                return null;
+            }
+
+            if (strName3 == "")
+            {
+                return list.ToTModel();
+            }
+
+            //获取第四层数据
+            Result = list.Find(p => p.Name == strName3);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            list = GetDayOperate(nFlag4, Result.Items);
+            if (list == null)
+            {
+                return null;
+            }
+
+            return list.ToTModel();
         }
 
         public List<PositionListDb> GetDayOperate(int nFlag, List<PosInfo> list)
         {
-            try
+            List<PositionListDb> Send = null;
+            if (list == null)
             {
-                List<PositionListDb> Send = null;
-                if (list == null)
-                {
-                    return Send;
-                }
-
-                Send = DbModel.LocationHistory.Data.PosInfoListHelper.GetSubList(list, nFlag);
-
                 return Send;
             }
-            catch (System.Exception ex)
-            {
-                Log.Error(hisTag, "GetDayOperate", "Exception:" + ex);
-                return null;
-            }
+
+            //switch (nFlag)
+            //{
+            //    case 1:
+            //        Send = PositionListDb.GetListByDay(list);
+            //        break;
+            //    case 2:
+            //        Send = PositionListDb.GetListByPerson(list);
+            //        break;
+            //    case 3:
+            //        Send = PositionListDb.GetListByArea(list);
+            //        break;
+            //    case 4:
+            //        Send = PositionListDb.GetListByHour(list);
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            Send = DbModel.LocationHistory.Data.PosInfoListHelper.GetSubList(list, nFlag);
+
+            return Send;
         }
 
 
         public List<PosInfo> GetHistoryPositonData(int nFlag, string strName, string strName2,
             string strName3)
         {
-            try
+            if (nFlag != 1 && nFlag != 2 && nFlag != 3)
             {
-                if (nFlag != 1 && nFlag != 2 && nFlag != 3)
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                int nFlag2 = 0;
-                int nFlag3 = 0;
-                int nFlag4 = 0;
+            int nFlag2 = 0;
+            int nFlag3 = 0;
+            int nFlag4 = 0;
 
-                if (nFlag == 1)
-                {
-                    nFlag2 = 2;
-                    nFlag3 = 4;
-                }
-                else if (nFlag == 2)
-                {
-                    nFlag2 = 1;
-                    nFlag3 = 4;
-                }
-                else
-                {
-                    nFlag2 = 2;
-                    nFlag3 = 1;
-                    nFlag4 = 4;
-                }
+            if (nFlag == 1)
+            {
+                nFlag2 = 2;
+                nFlag3 = 4;
+            }
+            else if (nFlag == 2)
+            {
+                nFlag2 = 1;
+                nFlag3 = 4;
+            }
+            else
+            {
+                nFlag2 = 2;
+                nFlag3 = 1;
+                nFlag4 = 4;
+            }
 
-                //获取第一层数据
-                //SendList = GetDayOperate(nFlag, allPoslist);
-                List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
-                if (list == null)
-                {
-                    return null;
-                }
+            //获取第一层数据
+            //SendList = GetDayOperate(nFlag, allPoslist);
+            List<PositionListDb> list = GetFromBuffer(nFlag); //从缓存取，避免重复计算。
+            if (list == null)
+            {
+                return null;
+            }
 
-                if (strName == "")
-                {
-                    //return list.ToTModel();
-                    return null;
-                }
-
-                //获取第二层数据
-                PositionListDb Result = list.Find(p => p.Name == strName);
-                if (Result == null)
-                {
-                    return null;
-                }
-
-
-                if (strName2 == "")
-                {
-                    return Result.Items;
-                }
-
-                list = GetDayOperate(nFlag2, Result.Items);
-                if (list == null)
-                {
-                    return null;
-                }
-
-
-                //获取第三层数据
-                Result = list.Find(p => p.Name == strName2);
-                if (Result == null)
-                {
-                    return null;
-                }
-
-                if (strName3 == "")
-                {
-                    return Result.Items;
-                }
-
-                list = GetDayOperate(nFlag3, Result.Items);
-                if (list == null)
-                {
-                    return null;
-                }
-
-
-
-                ////获取第四层数据
-                //Result = list.Find(p => p.Name == strName3);
-                //if (Result == null)
-                //{
-                //    return null;
-                //}
-
-                //list = GetDayOperate(nFlag4, Result.Items);
-                //if (list == null)
-                //{
-                //    return null;
-                //}
-
+            if (strName == "")
+            {
                 //return list.ToTModel();
+                return null;
+            }
 
-                return null;
-            }
-            catch (System.Exception ex)
+            //获取第二层数据
+            PositionListDb Result = list.Find(p => p.Name == strName);
+            if (Result == null)
             {
-                Log.Error(hisTag, "GetHistoryPositonData", "Exception:" + ex);
                 return null;
             }
+
+
+            if (strName2 == "")
+            {
+                return Result.Items;
+            }
+
+            list = GetDayOperate(nFlag2, Result.Items);
+            if (list == null)
+            {
+                return null;
+            }
+
+
+            //获取第三层数据
+            Result = list.Find(p => p.Name == strName2);
+            if (Result == null)
+            {
+                return null;
+            }
+
+            if (strName3 == "")
+            {
+                return Result.Items;
+            }
+
+            list = GetDayOperate(nFlag3, Result.Items);
+            if (list == null)
+            {
+                return null;
+            }
+
+            
+
+            ////获取第四层数据
+            //Result = list.Find(p => p.Name == strName3);
+            //if (Result == null)
+            //{
+            //    return null;
+            //}
+
+            //list = GetDayOperate(nFlag4, Result.Items);
+            //if (list == null)
+            //{
+            //    return null;
+            //}
+
+            //return list.ToTModel();
+
+            return null;
+        }
+
+        IList<PositionList> IPosHistoryService.GetHistoryPositonStatistics(int nFlag, string strName, string strName2, string strName3)
+        {
+            DateTime dt1 = DateTime.Now;
+            IList<PositionList> send = new PosHistoryService().GetHistoryPositonStatistics(nFlag, strName, strName2, strName3);
+            DateTime dt2 = DateTime.Now;
+
+            //string xml = XmlSerializeHelper.GetXmlText(send);
+
+            var time = dt2 - dt1;
+            return send;
+        }
+
+
+        public List<DbModel.LocationHistory.Data.Position> GetPositionsOfDateAndPerson(string code, DateTime start, DateTime end, string areaId)
+        {
+            return  dbSet.GetPositionsOfDateAndPerson(code,start,end,areaId);
         }
     }
 }

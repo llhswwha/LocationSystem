@@ -31,10 +31,18 @@ namespace BLL.Blls.Location
         public override List<User> ToList(bool isTracking = false)
         {
             var list = base.ToList(isTracking);
-            if (list.Count == 0)
+            if (list == null)
+            {
+                list = Init();
+            }
+            else
+            {
+ if (list.Count == 0)
             {
                 list=Init();
             }
+            }
+           
 
             var admin = list.Find(i => i.Name == "admin" && i.Password == "admin");//兼容原来的admin admin账号
             if (admin == null)

@@ -24,12 +24,13 @@ namespace WebApiService.Controllers
         {
             return service.AddArchor(archor);
         }
-        [Route("")]
+        [Route("add/camera")]
         public TModel.Location.AreaAndDev.Dev_CameraInfo AddCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo)
         {
             return service.AddCameraInfo(cameraInfo);
         }
-        [Route("")]
+        [Route("add/cameraList")]
+        [HttpPost]
         public bool AddCameraInfoByList(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList)
         {
             return service.AddCameraInfoByList(cameraInfoList);
@@ -54,12 +55,14 @@ namespace WebApiService.Controllers
         {
             return service.AddDevPosInfo(pos);
         }
-        [Route("")]
+        [Route("add/doorAccess")]
+        [HttpPost]
         public Location.TModel.Location.AreaAndDev.Dev_DoorAccess AddDoorAccess(Location.TModel.Location.AreaAndDev.Dev_DoorAccess doorAccess)
         {
             return service.AddDoorAccess(doorAccess);
         }
-        [Route("")]
+        [Route("add/doorAccessByList")]
+        [HttpPost]
         public bool AddDoorAccessByList(IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> doorAccessList)
         {
             return service.AddDoorAccessByList(doorAccessList);
@@ -69,7 +72,7 @@ namespace WebApiService.Controllers
         {
             return service.DeleteArchor(archorId);
         }
-        [Route("")]
+        [Route("del/cameraList")]
         public bool DeleteCameraInfo(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList)
         {
             return service.DeleteCameraInfo(cameraInfoList);
@@ -79,7 +82,8 @@ namespace WebApiService.Controllers
         {
             return service.DeleteDevInfo(devInfo);
         }
-        [Route("")]
+        [Route("del/doorAccessList")]
+        [HttpPost]
         public bool DeleteDoorAccess(IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> doorAccessList)
         {
             return service.DeleteDoorAccess(doorAccessList);
@@ -99,7 +103,7 @@ namespace WebApiService.Controllers
         {
             return service.FindDevInfos(key);
         }
-        [Route("")]
+        [Route("list")]
         public IList<TModel.Location.AreaAndDev.Dev_CameraInfo> GetAllCameraInfo()
         {
             return service.GetAllCameraInfo();
@@ -129,25 +133,26 @@ namespace WebApiService.Controllers
         {
             return service.GetArchors();
         }
-        [Route("")]
+        [Route("camera/detail/ByDev")]
         public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(Location.TModel.Location.AreaAndDev.DevInfo dev)
         {
             return service.GetCameraInfoByDevInfo(dev);
         }
-        [Route("")]
+        [Route("camera/detail/ByIp/{ip}")]
         public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByIp(string ip)
         {
             return service.GetCameraInfoByIp(ip);
         }
-        [Route("")]
+        [Route("list/Bypids")]
         public IList<TModel.Location.AreaAndDev.Dev_CameraInfo> GetCameraInfoByParent(int[] pids)
         {
             return service.GetCameraInfoByParent(pids);
         }
 
+        [Route("")]
         public AlarmStatistics GetDevAlarmStatistics(SearchArg arg)
         {
-            throw new NotImplementedException();
+            return service.GetDevAlarmStatistics(arg);
         }
 
         [Route("")]
@@ -195,7 +200,7 @@ namespace WebApiService.Controllers
         {
             return service.GetDoorAccessInfoByParent(pids);
         }
-        [Route("")]
+        [Route("list/entrance/id/{id}")]
         public List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id)
         {
             return service.GetEntranceActionInfoByPerson24Hours(id);
@@ -203,7 +208,7 @@ namespace WebApiService.Controllers
 
         public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
         {
-            throw new NotImplementedException();
+            return service.GetLocationAlarmStatistics(arg);
         }
 
         [Route("")]
@@ -211,7 +216,7 @@ namespace WebApiService.Controllers
         {
             return service.GetNearbyCamera_Alarm(id,fDis);
         }
-        [Route("")]
+        [Route("list/nearDev/search/id/{id}/fDis/{fDis}/nFlag/{nFlag}")]
         public List<NearbyDev> GetNearbyDev_Currency(int id, float fDis, int nFlag)
         {
             return service.GetNearbyDev_Currency(id,fDis,nFlag);
@@ -221,7 +226,8 @@ namespace WebApiService.Controllers
         {
             return service.GetObjectAddList();
         }
-        [Route("")]
+        [Route("edit/camera")]
+        [HttpPut]
         public TModel.Location.AreaAndDev.Dev_CameraInfo ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo)
         {
             return service.ModifyCameraInfo(camInfo);
@@ -236,7 +242,8 @@ namespace WebApiService.Controllers
         {
             return service.ModifyDevInfo(devInfo);
         }
-        [Route("")]
+        [Route("edit/doorAccessList")]
+        [HttpPut]
         public bool ModifyDoorAccess(IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> doorAccessList)
         {
             return service.ModifyDoorAccess(doorAccessList);

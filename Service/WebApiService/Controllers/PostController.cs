@@ -6,44 +6,61 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Location.TModel.Location.AreaAndDev;
+using LocationServices.Locations.Services;
+using DbModel.Location.AreaAndDev;
 
 namespace WebApiService.Controllers
 {
     [RoutePrefix("api/post")]
-    public class PostController : ApiController, IPostService
+    public class PostController : ApiController, LocationServices.Locations.Services.IPostService
     {
-        protected IPostService service;
+        protected LocationServices.Locations.Services.IPostService service;
 
-        [Route("")]
-        [HttpPost]
-        public int AddPost(Post p)
+        public PostController()
         {
-            return service.AddPost(p);
+            service = new PostService();
         }
 
+
         [HttpDelete]
-        [Route]
-        public bool DeletePost(int id)
+        [Route("")]
+        public DbModel.Location.AreaAndDev.Post Delete(string id)
         {
-            return service.DeletePost(id);
+            return service.Delete(id);
+        }
+
+        [Route("{id}")]
+        public DbModel.Location.AreaAndDev.Post GetEntity(string id)
+        {
+            return service.GetEntity(id);
+        }
+
+        [Route("")]
+        [Route("list")]
+        public List<DbModel.Location.AreaAndDev.Post> GetList()
+        {
+            return service.GetList();
+        }
+
+        [Route("")]//search?name=主
+        [Route("search/{name}")]//search/1,直接中文不行
+        public IList<DbModel.Location.AreaAndDev.Post> GetListByName(string name)
+        {
+            return service.GetListByName(name);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public DbModel.Location.AreaAndDev.Post Post(DbModel.Location.AreaAndDev.Post item)
+        {
+            return service.Post(item);
         }
 
         [HttpPut]
-        [Route]
-        public bool EditPost(Post p)
+        [Route("")]
+        public DbModel.Location.AreaAndDev.Post Put(DbModel.Location.AreaAndDev.Post item)
         {
-            return service.EditPost(p);
-        }
-        [Route("{id}")]
-        public Post GetPost(int id)
-        {
-            return service.GetPost(id);
-        }
-
-        [Route("List")]
-        public List<Post> GetPostList()
-        {
-            return service.GetPostList();
+            return service.Put(item);
         }
     }
 }

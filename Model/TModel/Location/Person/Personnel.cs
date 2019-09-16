@@ -164,6 +164,23 @@ namespace Location.TModel.Location.Person
         [DataMember]
         public TagPosition Pos { get; set; }
 
+        [DataMember]
+        /// <summary>
+        /// 类型，不同类型对应不同模型
+        /// 0:男人
+        /// 1:女人
+        /// 2:机器人
+        /// 3:车辆
+        /// 4:重要物质
+        /// </summary>
+        public int TargetType { get; set; }
+
+        [DataMember]
+        /// <summary>
+        /// 模型，后续根据模型来显示
+        /// </summary>
+        public string TargetModel { get; set; }
+
 
         public Personnel Clone()
         {

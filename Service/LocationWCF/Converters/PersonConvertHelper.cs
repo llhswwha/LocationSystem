@@ -42,6 +42,8 @@ namespace LocationServices.Converters
             item2.Enabled = item1.Enabled;
             item2.ParentId = item1.ParentId;
             item2.Pst = item1.Pst;
+            item2.TargetModel = item1.TargetModel;
+            item2.TargetType = item1.TargetType;
             try
             {
                 if ((object)item1.Parent != null)
@@ -124,6 +126,8 @@ namespace LocationServices.Converters
             item2.Enabled = item1.Enabled;
             item2.ParentId = item1.ParentId;
             item2.Pst = item1.Pst;
+            item2.TargetModel = item1.TargetModel;
+            item2.TargetType = item1.TargetType;
             return item2;
         }
 

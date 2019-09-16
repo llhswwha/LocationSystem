@@ -25,14 +25,14 @@ namespace BLL.Blls.Location
             DbSet = Db.DevInfos;
         }
 
-        public List<DevInfo> GetListByPid(int pid)
+        public List<DevInfo> GetListByPid(List<int> pids)
         {
-            return DbSet.Where(i => i.ParentId == pid).ToList();
+            return DbSet.Where(i => i.ParentId!=null && pids.Contains((int)i.ParentId)).ToList();
         }
 
-        public List<DevInfo> DeleteListByPid(int pid)
+        public List<DevInfo> DeleteListByPid(List<int> pids)
         {
-            var list = GetListByPid(pid);
+            var list = GetListByPid(pids);
             foreach (var item in list)
             {
                 Remove(item, false);

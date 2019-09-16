@@ -31,7 +31,6 @@ using TModel.Tools;
 using LocationServices.Tools;
 using BLL.Tools;
 using System.Text.RegularExpressions;
-using Location.IModel;
 
 namespace LocationServer.Windows
 {
@@ -280,121 +279,98 @@ namespace LocationServer.Windows
                     });
                 });
             });
+
+
+
+
+
+
         }
         private void DataGridStatisticDay_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            //PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
+            //if (posList == null) return;
+
+            //Worker.Run(() =>
+            //{
+            //  return PosInfoListHelper.GetListByPerson(posList.Items);
+            //}, (result) =>
+            //{
+            //    DataGridStatisticDayPerson.ItemsSource = result;
+            //    DataGridStatisticDayPersonTime.ItemsSource = null;
+            //    DataGridDayPersonPosList.ItemsSource = null;
+            //});
+
+
+            PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
+            if (posList != null)
             {
-                //PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
-                //if (posList == null) return;
 
-                //Worker.Run(() =>
-                //{
-                //  return PosInfoListHelper.GetListByPerson(posList.Items);
-                //}, (result) =>
-                //{
-                //    DataGridStatisticDayPerson.ItemsSource = result;
-                //    DataGridStatisticDayPersonTime.ItemsSource = null;
-                //    DataGridDayPersonPosList.ItemsSource = null;
-                //});
-
-                PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;
-                if (posList != null)
-                {
-                    if (posList.InfoList == null)
-                    {
-                        posList.InfoList = PosInfoListHelper.GetListByPerson(posList.Items);
-                    }
-                    List<PosInfoList> posLisTimePerson = posList.InfoList;
-                    DataGridStatisticDayPerson.ItemsSource = posLisTimePerson;
-                }
-                DataGridStatisticDayPersonTime.ItemsSource = null;
-                DataGridDayPersonPosList.ItemsSource = null;
-
+                List<PosInfoList> posLisTimePerson = posList.InfoList;
+                DataGridStatisticDayPerson.ItemsSource = posLisTimePerson;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DataGridStatisticDay_OnSelectionChanged:" + ex);
-            }
+            DataGridStatisticDayPersonTime.ItemsSource = null;
+            DataGridDayPersonPosList.ItemsSource = null;
+
         }
 
         private void DataGridStatisticDayPerson_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            PosInfoList posList = DataGridStatisticDayPerson.SelectedItem as PosInfoList;
+            if (posList == null) return;
+            // DataGridStatisticDayPersonTime.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
+            //DataGridDayPersonPosList.ItemsSource = posList.Items;
+            List<PosInfoList> list= posList.InfoList;
+            for (int i = 0; i < list.Count; i++)
             {
-                PosInfoList posList = DataGridStatisticDayPerson.SelectedItem as PosInfoList;
-                if (posList == null) return;
-                // DataGridStatisticDayPersonTime.ItemsSource = PosInfoListHelper.GetListByHour(posList.Items);
-                //DataGridDayPersonPosList.ItemsSource = posList.Items;
-                if (posList.InfoList == null)
-                {
-                    posList.InfoList = PosInfoListHelper.GetListByHour(posList.Items);
-                }
-                List<PosInfoList> list = posList.InfoList;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].parent = posList.Name;
-                }
-                DataGridStatisticDayPersonTime.ItemsSource = list;
-                DataGridDayPersonPosList.ItemsSource = null;
+                list[i].parent = posList.Name;   
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DataGridStatisticDayPerson_OnSelectionChanged:"+ex);
-            }
-           
+            DataGridStatisticDayPersonTime.ItemsSource = list;
+            DataGridDayPersonPosList.ItemsSource = null;
         }
 
         private void DataGridStatisticDayPersonTime_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            Log.Info(LogTags.HisPos, string.Format("DataGridStatisticDayPersonTime_OnSelectionChanged"));
+
+            PosInfoList posList = DataGridStatisticDayPersonTime.SelectedItem as PosInfoList;
+
+            if (posList == null)
             {
-                Log.Info(LogTags.HisPos, string.Format("DataGridStatisticDayPersonTime_OnSelectionChanged"));
-
-                PosInfoList posList = DataGridStatisticDayPersonTime.SelectedItem as PosInfoList;
-
-                if (posList == null)
-                {
-                    Log.Info(LogTags.HisPos, string.Format("posList == null"));
-                    return;
-                }
-                //else
-                //{
-                //    Log.Info(LogTags.HisPos, string.Format("posList:" + posList.Name));
-                //}
-
-
-                if (posList.Items != null)
-                {
-                    var list = posList.Items;
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
-                    DataGridDayPersonPosList.ItemsSource = list;
-
-                    var count = posList.Items.Count;
-                    Log.Info(LogTags.HisPos, string.Format("count:" + count));
-                    if (posList.Items.Count > 0)
-                    {
-                        Log.Info(LogTags.HisPos, string.Format("Items[0]:" + posList.Items[0]));
-                    }
-                }
-                else
-                {
-                    PosHistoryService service = new PosHistoryService();
-                    string name = posList.Name;   //2019-06-11 21
-                    string parent = posList.parent; //刘飞(09AB)
-                    string code = MidStrEx(parent, "(", ")");
-                    DateTime nameDate = Convert.ToDateTime(name + ":00:00");
-                    DateTime start = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 0, 0);
-                    DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 59, 59);
-                    List<Position> list = service.GetPositionsOfDateAndPerson(code, start, end, null);
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
-                    DataGridDayPersonPosList.ItemsSource = list;
-                }
+                Log.Info(LogTags.HisPos, string.Format("posList == null"));
+                return;
             }
-            catch (Exception ex)
+            //else
+            //{
+            //    Log.Info(LogTags.HisPos, string.Format("posList:" + posList.Name));
+            //}
+
+            //var list = posList.Items;
+
+            //DataGridDayPersonPosList.ItemsSource = list;
+
+            //if (posList.Items != null)
+            //{
+            //    var count = posList.Items.Count;
+            //    Log.Info(LogTags.HisPos, string.Format("count:" + count));
+            //    if (posList.Items.Count > 0)
+            //    {
+            //        Log.Info(LogTags.HisPos, string.Format("Items[0]:" + posList.Items[0]));
+            //    }
+            //}
+            else
             {
-                MessageBox.Show("DataGridStatisticDayPersonTime_OnSelectionChanged:" + ex);
+                PosHistoryService service = new PosHistoryService();
+                string name = posList.Name;   //2019-06-11 21
+                string parent = posList.parent; //刘飞(09AB)
+                string code = MidStrEx(parent,"(",")");
+                DateTime nameDate = Convert.ToDateTime(name+":00:00");
+                DateTime start = new DateTime(nameDate.Year,nameDate.Month,nameDate.Day,nameDate.Hour,0,0);
+                DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 59, 59);
+                List<Position> list = service.GetPositionsOfDateAndPerson(code, start,end,null);
+                DataGridDayPersonPosList.ItemsSource = list;
             }
+
         }
         /// <summary>
         /// 正则表达式，特殊字符无法识别
@@ -940,7 +916,7 @@ namespace LocationServer.Windows
                             //    SetPositionInfo(); //删除重复数据后再设置信息，不然很费时间
 
                             //}, () => { Log.Info(LogTags.HisPos, "完成"); });
-                            MessageBox.Show(this,"完成");
+                            MessageBox.Show("完成");
                         }
                     });
                 });
@@ -1222,33 +1198,6 @@ namespace LocationServer.Windows
         private void BtnSetMaxSpeed_Click(object sender, RoutedEventArgs e)
         {
             AppContext.MoveMaxSpeed = TbMaxSpeed.Text.ToDouble();
-        }
-
-                private void FindErrorPoints_Day_Click(object sender, RoutedEventArgs e)
-        {
-            PosInfoList posList = DataGridStatisticDay.SelectedItem as PosInfoList;//一天
-            if (posList == null) return;
-
-            Worker.Run(() =>
-            {
-                bll.Positions.RemoveErrorPoints(posList.Items);
-            }, () =>
-            {
-                GetAll(false,null);
-            });
-        }
-
-        private void FindErrorPoints_All_Click(object sender, RoutedEventArgs e)
-        {
-            PosHistoryService phs = new PosHistoryService();
-            allPoslist = phs.GetAllData(LogTags.HisPos, true);
-            Worker.Run(() =>
-            {
-                bll.Positions.RemoveErrorPoints(allPoslist);
-            }, () =>
-            {
-                GetAll(false, () => { MessageBox.Show(this, "完成"); });
-            });
         }
     }
 }
