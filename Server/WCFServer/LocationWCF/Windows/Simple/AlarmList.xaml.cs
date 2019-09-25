@@ -2,10 +2,13 @@
 using DbModel.Location.Alarm;
 using Location.BLL.Tool;
 using Location.TModel.Tools;
+using LocationServices.Converters;
+using SignalRService.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WebNSQLib;
 
 namespace LocationServer.Windows.Simple
 {
@@ -90,6 +94,32 @@ namespace LocationServer.Windows.Simple
                 return false;
             }
             
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if(alarmReceiveThread!= null)
+            {
+                alarmReceiveThread.Abort();
+            }
+        }
+
+
+        Thread alarmReceiveThread;
+        private void BtnStartReceive_Click(object sender, RoutedEventArgs e)
+        {
+            RealAlarm ra = new RealAlarm(Mh_DevAlarmReceived);
+            if (alarmReceiveThread == null)
+            {
+                alarmReceiveThread = new Thread(ra.ReceiveRealAlarmInfo);
+                alarmReceiveThread.IsBackground = true;
+                alarmReceiveThread.Start();
+            }
+        }
+
+        private void Mh_DevAlarmReceived(DbModel.Location.Alarm.DevAlarm obj)
+        {
+            AlarmHub.SendDeviceAlarms(obj.ToTModel());
         }
     }
 }

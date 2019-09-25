@@ -26,10 +26,26 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// </summary>
         public string staffCode { get; set; }
 
+        private long? _checkTime = null;
+
         /// <summary>
         /// 巡检时间
         /// </summary>
-        public long? checkTime { get; set; }
+        public long? checkTime { get
+            {
+                return _checkTime;
+            } set
+            {
+                _checkTime = value;
+
+                if(_checkTime!= null)
+                {
+                    CTime = Location.TModel.Tools.TimeConvert.ToDateTime((long)(_checkTime / 1000 + 28800) * 1000); 
+                }
+            }
+        }
+
+        public DateTime CTime { get; set; }
 
         /// <summary>
         /// 巡检项ID

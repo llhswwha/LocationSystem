@@ -610,7 +610,6 @@ namespace LocationServices.Locations.Services
             }
         }
 
-
         public void GetHistoryPositonThread()
         {
             bool bFirst = false;
@@ -709,7 +708,7 @@ namespace LocationServices.Locations.Services
                 var areas = bll.Areas.ToDictionary();
                 Log.Info(tag, string.Format(" areas count:" + areas.Count));
 
-                //var posCount = bll.Positions.DbSet.Count();
+                //var posCount = bll.Positions.GetCount();
                 //Log.Info(tag, string.Format("posCount:{0:N}", posCount));
                 ////allPoslist = bll.Positions.ToList();
 
@@ -736,32 +735,73 @@ namespace LocationServices.Locations.Services
                 start = DateTime.Now;
 
                 var totalRemoveCount = 0;
+                List<PosInfo> list = null;
+
+                if (AppContext.HistoryBufferLoadMode == 0)
+                {
+                    list = bll.Positions.GetAllPosInfoListByDay((progress) =>
+                    {
+                        if (progress.Count > 0)
+                        {
+                            int r = 0;
+                            string progressText = string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
+                            progress.Time, progress.Count, progress.Index, progress.Total, progress.Percent);
+                            Log.Info(tag, progressText);
+                            var lst = progress.Items as List<PosInfo>;
+                            if (lst != null)
+                            {
+                                if (AppContext.DeleteRepeatPositionsWhenLoad
+                                && lst.Count > 100000
+                                )
+                                {
+                                    var list2 = PosInfoListHelper.GetListByCode(lst);
+                                    var removeCount = bll.Positions.RemoveRepeatData(tag, true, list2, progressText + "|");//删除重复数据
+                                    totalRemoveCount += removeCount;
+                                    if (removeCount > 0)
+                                    {
+                                        return 1;
+                                    }
+                                }
+                            }
+                            return r;//false的话就中断了，即指获取最后一个
+                        }
+                        return 0;
+                    });
+                }
+                else if(AppContext.HistoryBufferLoadMode == 1)//数据量很大时使用,按小时处理
+                {
+                    list = bll.Positions.GetAllPosInfoListByHour((progress) =>
+                    {
+                        if (progress.Count > 0)
+                        {
+                            int r = 0;
+                            string progressText = string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
+                           progress.Time, progress.Count, progress.Index, progress.Total, progress.Percent);
+                            Log.Info(tag, progressText);
+                            var lst = progress.Items as List<PosInfo>;
+                            if (lst != null)
+                            {
+                                if(AppContext.DeleteRepeatPositionsWhenLoad 
+                                && lst.Count > 100000
+                                )
+                                {
+                                    var list2 = PosInfoListHelper.GetListByCode(lst);
+                                    var removeCount = bll.Positions.RemoveRepeatData(tag, true, list2, progressText + "|");//删除重复数据
+                                    totalRemoveCount += removeCount;
+                                    if (removeCount > 0)
+                                    {
+                                        return 1;
+                                    }
+                                }
+                            }
+                            return r;//false的话就中断了，即指获取最后一个
+                        }
+                        return 0;
+                    });
+                }
 
 
-                var list = bll.Positions.GetAllPosInfoListByHour((progress) =>
-                  {
-                      if (progress.Count > 0)
-                      {
-                          int r = 0;
-                          Log.Info(tag, string.Format("date:{0},count:{1:N},({2}/{3},{4:p})",
-                          progress.Time, progress.Count, progress.Index, progress.Total, progress.Percent));
-                          var lst = progress.Items as List<PosInfo>;
-                          if (lst != null)
-                          {
-                              Log.Info(tag, "RemoveRepeatData Start");
-                              var list2 = PosInfoListHelper.GetListByCode(lst);
-                              var removeCount=bll.Positions.RemoveRepeatData(tag,true, list2);//删除重复数据
-                              totalRemoveCount += removeCount;
-                              Log.Info(tag, "RemoveRepeatData End ");
-                              if (removeCount > 0)
-                              {
-                                  return 1;
-                              }
-                          }
-                          return r;//false的话就中断了，即指获取最后一个
-                      }
-                      return 0;
-                  });
+                
                 //allPoslist = list;
                 Log.Info(tag, string.Format(" getlist count:" + list.Count));
                 Log.Info(tag, string.Format(" getlist time1:" + (DateTime.Now - start)));

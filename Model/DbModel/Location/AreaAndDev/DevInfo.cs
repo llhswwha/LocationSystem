@@ -13,6 +13,7 @@ namespace DbModel.Location.AreaAndDev
     /// <summary>
     /// 设备信息
     /// </summary>
+    [Serializable]
     public class DevInfo : INode,IEntity
     {
         /// <summary>

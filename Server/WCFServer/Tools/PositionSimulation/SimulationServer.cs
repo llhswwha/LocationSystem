@@ -13,7 +13,7 @@ namespace PositionSimulation
         private LightUDP udp;
         public void Start(IPAddress localIP, int localPort)
         {
-            udp = new LightUDP(localIP, localPort);
+            udp = LightUDP.Create(localIP, localPort);
             udp.DGramRecieved += Udp_DGramRecieved;
         }
 

@@ -37,18 +37,29 @@ namespace WPFClientControlLib
             set
             {
                 ProgressBar1.Value = value;
-                if (IsBusy==false)
-                {
-                    Start();
-                }
+               
                 if (value == 100)
                 {
                     Stop();
                 }
-                if (value > 0)
+                else
                 {
-                    this.Visibility = Visibility.Visible;
+                    //if (value == 0)
+                    //{
+                    //    Stop();
+                    //}
+                    //else 
+                    if (value > 0)
+                    {
+                        this.Visibility = Visibility.Visible;
+
+                        if (IsBusy == false)
+                        {
+                            Start();
+                        }
+                    }
                 }
+                
             }
         }
 
@@ -78,6 +89,7 @@ namespace WPFClientControlLib
             if (Stopwatch != null)
             {
                 Stopwatch.Stop();
+                Stopwatch.Reset();
             }
             
             if (timer != null)

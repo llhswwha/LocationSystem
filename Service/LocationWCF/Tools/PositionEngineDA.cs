@@ -124,7 +124,7 @@ namespace LocationWCFServer
             if (ludp2 == null)
             {
                 Log.Info(LogTags.Engine,"PositionEngineDA.InitUdp");
-                ludp2 = new LightUDP(IPAddress.Parse(Login.LocalIp), Login.LocalPort); //建立UDP  监听端口
+                ludp2 = LightUDP.Create(IPAddress.Parse(Login.LocalIp), Login.LocalPort); //建立UDP  监听端口
                 //ludp2.DGramRecieved += Ludp2_DGramRecieved;
                 ludp2.DGramListRecieved += Ludp2_DGramListRecieved;
             }

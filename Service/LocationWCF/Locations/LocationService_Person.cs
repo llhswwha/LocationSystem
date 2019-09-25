@@ -83,7 +83,9 @@ namespace LocationServices.Locations
                     //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
                     p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
                 }
-                return ps2.ToWCFList();
+                var r = ps2.OrderByDescending(i => i.TagId!=null).ThenBy(i=>i.ParentId).ThenBy(i=>i.Name).ToList();
+                var p1 = r.Find(i => i.Name == "邱秀丽");
+                return r.ToWCFList();
             }
             catch (Exception ex)
             {

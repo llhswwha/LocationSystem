@@ -48,7 +48,10 @@
             <xctk:TimePicker Width="100" Name="TpEnd"></xctk:TimePicker>
             <Button Name="BtnSearch" Click="BtnSearch_OnClick" Content="查询"></Button>
         </StackPanel>
-        <TextBox DockPanel.Dock="Bottom" Height="70" Name="TbLogs"></TextBox>
+        <ScrollViewer DockPanel.Dock="Bottom" Height="100" >
+            <TextBox Name="TbLogs"></TextBox>
+        </ScrollViewer>
+        
             <TabControl>
             <TabItem Header="时间统计">
                 <DockPanel>

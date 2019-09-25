@@ -496,10 +496,24 @@ namespace DbModel.Location.AreaAndDev
 
         private string _path = "";
 
+        public string Path
+        {
+            get
+            {
+                return _path;
+            }
+        }
+
         public string GetPath(AreaTypes stopType,string interval)
         {
             if (!string.IsNullOrEmpty(_path)) return _path;
-            if (this.Id == 2)
+
+            if (this.Type == stopType)
+            {
+                return Name;
+            }
+
+                if (this.Id == 2)
             {
                 _path = Name;
             }

@@ -14,6 +14,8 @@ using ArchorUDPTool.Tools;
 using Coldairarrow.Util.Sockets;
 using DbModel.Tools;
 using TModel.Tools;
+using ArchorUDPTool.ArchorManagers;
+using System.IO;
 
 namespace ArchorUDPTool
 {
@@ -22,7 +24,7 @@ namespace ArchorUDPTool
     {
         Dictionary<string, LightUDP> udps = new Dictionary<string, LightUDP>();
 
-        private int archorPort;
+        public int archorPort;
 
         CommandResultManager resultList;
 
@@ -61,6 +63,8 @@ namespace ArchorUDPTool
         }
 
         public event Action<UDPArchorList, UDPArchor> ArchorListChanged;
+
+        Dictionary<string, UDPArchor> progressList = new Dictionary<string, UDPArchor>();
 
         //public event Action<UDPArchor> ArchorUpdated;
 
@@ -229,25 +233,35 @@ namespace ArchorUDPTool
             }
             else
             {
-                worker = new BackgroundWorker();
-                worker.WorkerSupportsCancellation = true;
-                worker.WorkerReportsProgress = true;
-                worker.DoWork += Worker_DoWork;
-                worker.ProgressChanged += Worker_ProgressChanged;
-                worker.RunWorkerAsync();
+                //BackgroundWorker worker = new BackgroundWorker();
+                //worker.WorkerSupportsCancellation = true;
+                //worker.WorkerReportsProgress = true;
+                //worker.DoWork += Worker_DoWork;
+                //worker.ProgressChanged += Worker_ProgressChanged;
+                //worker.RunWorkerAsync();
+
+                udpscanWorker = new UDPScanWorker(this, Ips);
+                udpscanWorker.Start();
             }
 
             //Ping ping = new Ping();
             //ping.
         }
 
-        BackgroundWorker worker;
+        UDPScanWorker udpscanWorker;
+
+        //BackgroundWorker worker;
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            OnPercentChanged(e.ProgressPercentage);
+        }
+
+        public void OnPercentChanged(int p)
+        {
             if (PercentChanged != null)
             {
-                PercentChanged(e.ProgressPercentage);
+                PercentChanged(p);
             }
         }
 
@@ -255,7 +269,7 @@ namespace ArchorUDPTool
 
         PingEx pingEx;
 
-        public int CmdSleepTime = 100;
+        public int CmdSleepTime = 10;
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -350,8 +364,12 @@ namespace ArchorUDPTool
             }
         }
 
-        private LightUDP GetLightUDP(IPAddress localIp)
+        public static int port = 1115;
+        public static int count = 0;
+
+        public LightUDP GetLightUDP(IPAddress localIp)
         {
+            count++;
             LightUDP udp = null;
             var id = localIp.ToString();
             if (udps.ContainsKey(id))
@@ -360,17 +378,39 @@ namespace ArchorUDPTool
             }
             else
             {
-                udp = new LightUDP(localIp, 1111);
+                udp = LightUDP.Create(localIp, port+count);
                 udp.DGramRecieved += Udp_DGramRecieved;
                 udps[id] = udp;
             }
             return udp;
         }
 
-        internal void SaveArchorList(string path)
+        public void SaveArchorList(string path)
         {
-            XmlSerializeHelper.Save(archorList, path);
+            var list = GetMaxArchorList();
+            XmlSerializeHelper.Save(list, path);
+
+            savedList = list;
         }
+
+        public static UDPArchorList LoadArchorListResult()
+        {
+            if(savedList== null)
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
+                FileInfo fi = new FileInfo(path);
+                savedList = XmlSerializeHelper.LoadFromFile<UDPArchorList>(path);
+            }
+            return savedList;
+        }
+
+        public void SaveArchorListResult()
+        {
+            var list = GetMaxArchorList();
+            savedList = list;
+        }
+
+        public static UDPArchorList savedList;
 
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
         {
@@ -610,9 +650,15 @@ namespace ArchorUDPTool
             {
                 pingEx.Cancel();
             }
-            else if(worker!=null)
+            //else if(worker!=null)
+            //{
+            //    worker.CancelAsync();
+            //    IsCancel = true;
+            //}
+
+            else if (udpscanWorker != null)
             {
-                worker.CancelAsync();
+                udpscanWorker.Stop();
                 IsCancel = true;
             }
         }
@@ -670,19 +716,23 @@ namespace ArchorUDPTool
 
         private UDPArchorList OnDataReceive(CommandResultGroup group)
         {
+            UDPArchorList list = GetResultArchorList();
+            //if (ArchorUpdated != null)
+            //{
+            //    ArchorUpdated(group.Archor);
+            //}
+            
+            OnArchorListChanged(list, group.Archor);
+            return list;
+        }
+
+        public UDPArchorList GetResultArchorList()
+        {
             UDPArchorList list = new UDPArchorList();
             foreach (var item in resultList.Groups)
             {
                 list.Add(item.Archor);
                 item.Archor.Num = list.Count;
-            }
-            //if (ArchorUpdated != null)
-            //{
-            //    ArchorUpdated(group.Archor);
-            //}
-            if (ArchorListChanged != null)
-            {
-                ArchorListChanged(list, group.Archor);
             }
             return list;
         }
@@ -707,7 +757,7 @@ namespace ArchorUDPTool
 
         ArchorDevList archors;
 
-        internal void LoadList(ArchorDevList archors)
+        public void LoadList(ArchorDevList archors)
         {
             this.archors = archors;
             resultList = new CommandResultManager();
@@ -727,10 +777,47 @@ namespace ArchorUDPTool
             }
 
             archorList = list;
+            OnArchorListChanged(list, null);
+        }
+
+        private void OnArchorListChanged(UDPArchorList a, UDPArchor item)
+        {
+            if (item != null && item.Id!=null)
+            {
+                //if(!progressList.Contains(item))
+                //    progressList.Add(item);
+
+                if (!progressList.ContainsKey(item.Id))
+                {
+                    progressList.Add(item.Id, item);
+                    //Log.Info(Name, string.Format("maxCount:{0}", progressList.Count));
+                }
+                count++;
+
+                //Log.Info(Name, "ArchorListChanged:" + count);
+            }
+
             if (ArchorListChanged != null)
             {
-                ArchorListChanged(list,null);
+                ArchorListChanged(a, item);
             }
+
+
+        }
+
+        public UDPArchorList GetMaxArchorList()
+        {
+            UDPArchorList list = new UDPArchorList();
+            foreach (var item in progressList)
+            {
+                list.Add(item.Value);
+            }
+            return list;
+        }
+
+        public void ClearMaxArchorList()
+        {
+            progressList.Clear();
         }
 
         internal void LoadArchorList(string path)
@@ -743,10 +830,7 @@ namespace ArchorUDPTool
                 var group = resultList.Add(item);
             }
 
-            if (ArchorListChanged != null)
-            {
-                ArchorListChanged(archorList,null);
-            }
+            OnArchorListChanged(archorList, null);
         }
 
         public void Close()

@@ -48,7 +48,7 @@ namespace ArchorUDPTool
             
             if (BtnStart.Content.ToString() == "开始")
             {
-                udp = new LightUDP(ip, port.ToInt());
+                udp = LightUDP.Create(ip, port.ToInt());
                 udp.DGramRecieved += Udp_DGramRecieved;
                 BtnStart.Content = "停止";
             }

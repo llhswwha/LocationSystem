@@ -38,7 +38,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BaoXin</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -56,6 +56,26 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>logo server.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SihuiWebRelease|AnyCPU'">
+    <OutputPath>bin\SihuiWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BaoXinDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\BaoXinDebug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CollectionJson, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -237,12 +257,16 @@
     <Compile Include="Plugins\NVSPlayer\SDK\CommonStruct.cs" />
     <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Threads\AlarmRemoveThread.cs" />
+    <Compile Include="Threads\AnchorScanThread.cs" />
+    <Compile Include="Threads\DbUpdateSet.cs" />
     <Compile Include="Threads\FilterErrorPointThread.cs" />
+    <Compile Include="Threads\RepeatDevInfoCheckThread.cs" />
     <Compile Include="Threads\ResetAppConfigThread.cs" />
     <Compile Include="Tools\BaseDataInitializer.cs" />
     <Compile Include="Tools\BaseDataSimulator.cs" />
     <Compile Include="Tools\CameraAlarmListener.cs" />
     <Compile Include="Tools\ConfigurationHelper.cs" />
+    <Compile Include="Tools\DbConfigureHelper.cs" />
     <Compile Include="Tools\DepartmentsBackupHelper.cs" />
     <Compile Include="Tools\DevBackupHelper.cs" />
     <Compile Include="Tools\DevMonitorHelper.cs" />
@@ -293,6 +317,9 @@
     </Compile>
     <Compile Include="Windows\NVRPlayerClientWindow.xaml.cs">
       <DependentUpon>NVRPlayerClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RoomPictureViewer.xaml.cs">
+      <DependentUpon>RoomPictureViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
@@ -462,6 +489,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\RoomPictureViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -593,6 +624,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="logo server.ico" />
     <None Include="Data\BaseData\cards.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -613,6 +650,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\BaseData\zones.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DbInfos\LocationAlarm.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\DeviceData\设备测点列表.xls">

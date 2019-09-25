@@ -26,7 +26,7 @@ namespace LocationServer.Models.EngineTool
             InitializeComponent();
         }
 
-        public ArchorConfigureWindow(List<Archor> archorList)
+        public ArchorConfigureWindow(List<ArchorInfo> archorList)
         {
             InitializeComponent();
             ArchorConfigureBox1.DbArchorList = archorList;

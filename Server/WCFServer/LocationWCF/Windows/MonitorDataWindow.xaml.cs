@@ -270,41 +270,49 @@ namespace LocationServer.Windows
 
         private void MenuLoadMonitorNodeFile_OnClick(object sender, RoutedEventArgs e)
         {
-            //Dev_Monitor monitor = new Dev_Monitor();
-            string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\";
-            DirectoryInfo di = new DirectoryInfo(dirPath);
-            if (di.Exists == false)
+            try
             {
-                MessageBox.Show("不存在目录:"+di.FullName);
-                return;
-            }
-
-            string xlsFile = di.FullName + "设备测点列表.xls";
-            DataTable dt = ExcelHelper.LoadTable(new FileInfo(xlsFile), null, true);
-
-            Dictionary<string, DevMonitorNodeList> dict = new Dictionary<string, DevMonitorNodeList>();
-            foreach (DataRow row in dt.Rows)
-            {
-                DevMonitorNode node = new DevMonitorNode();
-                node.SetNull();
-                var pKKs= row[1].ToString();
-                node.ParentKKS = row[1].ToString();
-                node.Describe = row[2].ToString();
-                node.TagName = row[3].ToString();
-                if (!dict.ContainsKey(pKKs))
+                //Dev_Monitor monitor = new Dev_Monitor();
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\";
+                DirectoryInfo di = new DirectoryInfo(dirPath);
+                if (di.Exists == false)
                 {
-                    dict.Add(pKKs,new DevMonitorNodeList());
+                    MessageBox.Show("不存在目录:" + di.FullName);
+                    return;
                 }
 
-                var list = dict[pKKs];
-                list.Add(node);
-            }
+                string xlsFile = di.FullName + "设备测点列表.xls";
+                DataTable dt = ExcelHelper.LoadTable(new FileInfo(xlsFile), null, true);
 
-            foreach (string key in dict.Keys)
-            {
-                string xmlFile= di.FullName + key+".xml";
-                XmlSerializeHelper.Save(dict[key], xmlFile);
+                Dictionary<string, DevMonitorNodeList> dict = new Dictionary<string, DevMonitorNodeList>();
+                foreach (DataRow row in dt.Rows)
+                {
+                    DevMonitorNode node = new DevMonitorNode();
+                    node.SetNull();
+                    var pKKs = row[1].ToString();
+                    node.ParentKKS = row[1].ToString();
+                    node.Describe = row[2].ToString();
+                    node.TagName = row[3].ToString();
+                    if (!dict.ContainsKey(pKKs))
+                    {
+                        dict.Add(pKKs, new DevMonitorNodeList());
+                    }
+
+                    var list = dict[pKKs];
+                    list.Add(node);
+                }
+
+                foreach (string key in dict.Keys)
+                {
+                    string xmlFile = di.FullName + key + ".xml";
+                    XmlSerializeHelper.Save(dict[key], xmlFile);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
     }
 }

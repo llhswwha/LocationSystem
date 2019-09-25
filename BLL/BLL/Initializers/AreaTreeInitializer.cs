@@ -348,11 +348,11 @@ namespace BLL
         /// <summary>
         /// 删除重复设备
         /// </summary>
-        public void ClearRepeatDev()
+        public void ClearRepeatDev(string tag)
         {
-            Log.Info(LogTags.DbInit, "删除重复设备信息start...");
-            bool value = DevInfoHelper.ClearRepeatDev(_bll);
-            Log.Info(LogTags.DbInit, string.Format("删除重复设备信息结果:{0}", value));
+            Log.Info(tag, "删除重复设备信息start...");
+            var value = DevInfoHelper.ClearRepeatDev(_bll,tag);
+            Log.Info(tag, string.Format("删除重复设备信息结果:{0}", value));
         }
 
         private void InitEntranceGuardCard()

@@ -32,16 +32,23 @@ namespace LocationServer.Windows
 
         private void BtnGet_Click(object sender, RoutedEventArgs e)
         {
-            var ip = TbIP.Text;
-
-            if (udp1 == null)
+            try
             {
-                var ipLocal = IpHelper.GetLocalIp(ip);
-                udp1 = new LightUDP(ipLocal, 1111);
-                udp1.DGramRecieved += Udp_DGramRecieved;
+                var ip = TbIP.Text;
+
+                if (udp1 == null)
+                {
+                    var ipLocal = IpHelper.GetLocalIp(ip);
+                    udp1 = LightUDP.Create(ipLocal, 1111);
+                    udp1.DGramRecieved += Udp_DGramRecieved;
+                }
+                var tmp = UDPCommands.GetServerIp;
+                udp1.SendHex(tmp, new IPEndPoint(IPAddress.Parse(ip), 4646));
             }
-            var tmp = UDPCommands.GetServerIp;
-            udp1.SendHex(tmp, new IPEndPoint(IPAddress.Parse(ip), 4646));
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void Udp_DGramRecieved(object sender, BUDPGram dgram)
@@ -59,17 +66,24 @@ namespace LocationServer.Windows
 
         private void BtnSet_Click(object sender, RoutedEventArgs e)
         {
-            var ip = TbIP.Text;
-            
-            if (udp2 == null)
+            try
             {
-                var ipLocal = IpHelper.GetLocalIp(ip);
-                udp2 = new LightUDP(ipLocal, 1112);
-                udp2.DGramRecieved += Udp_DGramRecieved;
+                var ip = TbIP.Text;
+
+                if (udp2 == null)
+                {
+                    var ipLocal = IpHelper.GetLocalIp(ip);
+                    udp2 = LightUDP.Create(ipLocal, 1112);
+                    udp2.DGramRecieved += Udp_DGramRecieved;
+                }
+
+                var tmp = TbValue.Text;//10 01 C0 03 00 A4 FC C2 79
+                udp2.SendHex(tmp, new IPEndPoint(IPAddress.Parse(ip), 4646));
             }
-            
-            var tmp = TbValue.Text;//10 01 C0 03 00 A4 FC C2 79
-            udp2.SendHex(tmp, new IPEndPoint(IPAddress.Parse(ip), 4646));
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void BtnChange_Click(object sender, RoutedEventArgs e)

@@ -132,7 +132,27 @@ namespace LocationServices.Locations.Services
 
             return recv.ToTModel();
         }
-
+        public InspectionTrackHistory GetInspectionHistoryById(InspectionTrackHistory history)
+        {
+            try
+            {
+                var trackDBModel = dbEx.InspectionTrackHistorys.Find(i => i.Id == history.Id);
+                if (trackDBModel != null)
+                {
+                    InspectionTrackHistory inspectTemp = trackDBModel.ToTModel();
+                    return inspectTemp;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                string error = e.ToString();
+                return null;
+            }
+        }
         public List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
         {
             try
@@ -140,41 +160,16 @@ namespace LocationServices.Locations.Services
                 List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
                 if (bFlag)
                 {
-                    lst = dbEx.InspectionTrackHistorys.ToList();
+                    lst = db.InspectionTrackHistorys.ToList();
                 }
                 else
                 {
                     long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
                     long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
 
-                    lst = dbEx.InspectionTrackHistorys.Where(p => p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
+                    lst = db.InspectionTrackHistorys.Where(p => p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
 
-                }
-                if (lst != null)
-                {
-                    foreach (var item in lst)
-                    {
-                        if (item == null) continue;
-                        else if (item.Route.Count == 0)
-                        {
-                            item.Route = null;
-                        }
-                        else
-                        {
-                            foreach (var check in item.Route)
-                            {
-                                if (check.Checks == null) continue;
-                                else
-                                {
-                                    if (check.Checks.Count == 0)
-                                    {
-                                        check.Checks = null;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                }                
                 List<TModel.LocationHistory.Work.InspectionTrackHistory> tempList = lst.ToWcfModelList();
                 return tempList;
             }
@@ -192,9 +187,7 @@ namespace LocationServices.Locations.Services
 
         public InspectionTrack GetInspectionTrackById(InspectionTrack trackId)
         {
-            List<DbModel.Location.Work.InspectionTrack> lst = dbEx.InspectionTracks.ToList();
-            if (lst == null) return null;
-            DbModel.Location.Work.InspectionTrack trackDBModel = lst.Find(i => i.Id == trackId.Id);
+            var trackDBModel = dbEx.InspectionTracks.Find(i => i.Id == trackId.Id);
             if (trackDBModel != null)
             {
                 InspectionTrack inspectTemp = trackDBModel.ToTModel(false);

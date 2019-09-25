@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DbModel.BaseData
 {
+    /*
+     {
+      "id": 3297,
+      "name": "张新立",
+      "gender": 0,
+      "email": null,
+      "mobile": "18680126558",
+      "enabled": 1,
+      "dep_name": "中电（四会）热电有限责任公司"
+    }
+    */
     /// <summary>
     /// 获取人员列表
     /// </summary>
@@ -67,6 +80,40 @@ namespace DbModel.BaseData
         [Display(Name = "部门名称")]
         [MaxLength(256)]
         public string dep_name { get; set; }//不是dept_name
+
+        
+        [XmlIgnore][NotMapped]
+        public org parent { get; set; }
+
+        [XmlIgnore]
+        [NotMapped]
+        public member member { get; set; }
+
+        [XmlIgnore]
+        [NotMapped]
+        public List<user> sameName { get; set; }
+
+        public void AddUser(user user)
+        {
+            if (sameName == null)
+            {
+                sameName = new List<user>();
+            }
+            sameName.Add(user);
+        }
+
+        public void AddUsers(List<user> users)
+        {
+            if (sameName == null)
+            {
+                sameName = new List<user>();
+            }
+            foreach (var u in users)
+            {
+                if (u == this) continue;
+                sameName.Add(u);
+            }
+        }
 
         public override string ToString()
         {

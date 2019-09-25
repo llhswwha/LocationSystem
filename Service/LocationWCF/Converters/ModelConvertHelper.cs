@@ -3,6 +3,8 @@ using DbModel.Location.Person;
 using DbModel.Tools;
 using System;
 using Location.TModel.Tools;
+using System.Diagnostics;
+using LocationServer;
 
 namespace LocationServices.Converters
 {
@@ -17,84 +19,7 @@ namespace LocationServices.Converters
         //JurisDiction; JurisDictionRecord; MobileInspection; MobileInspectionContent; MobileInspectionDev; MobileInspectionItem; OperationItem; OperationTicket; PersonnelMobileInspection; PersonnelMobileInspectionItem; SafetyMeasures; WorkTicket; EntranceGuardCardToPersonnel; LocationCardToPersonnel; Role; DevInstantData; Archor; NodeKKS; DevModel; DevType; EntranceGuardCard; OperationItemHistory; OperationTicketHistory; PersonnelMobileInspectionHistory; PersonnelMobileInspectionItemHistory; SafetyMeasuresHistory; WorkTicketHistory; EntranceGuardCardToPersonnelHistory; LocationCardToPersonnelHistory; PersonnelHistory; DevInstantDataHistory; DevInfoHistory; EntranceGuardCardHistory; LocationCardHistory; DevEntranceGuardCardAction; DevAlarmHistory; LocationAlarmHistory; 
 
 
-        #region Location.TModel.Location.AreaAndDev.Bound <=> DbModel.Location.AreaAndDev.Bound
-
-        public static List<Location.TModel.Location.AreaAndDev.Bound> ToWcfModelList(
-            this List<DbModel.Location.AreaAndDev.Bound> list1)
-        {
-            return list1.ToTModel().ToWCFList();
-        }
-
-        public static Location.TModel.Location.AreaAndDev.Bound ToTModel(this DbModel.Location.AreaAndDev.Bound item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Location.TModel.Location.AreaAndDev.Bound();
-            item2.Id = item1.Id;
-            item2.MinX = item1.MinX;
-            item2.MaxX = item1.MaxX;
-            item2.MinY = item1.MinY;
-            item2.MaxY = item1.MaxY;
-            item2.MinZ = item1.MinZ;
-            item2.MaxZ = item1.MaxZ;
-            item2.ZeroX = item1.ZeroX;
-            item2.ZeroY = item1.ZeroY;
-            item2.Shape = item1.Shape;
-            item2.IsRelative = item1.IsRelative;
-            item2.Points = item1.Points.ToTModel();
-            return item2;
-        }
-
-        public static List<Location.TModel.Location.AreaAndDev.Bound> ToTModel(
-            this List<DbModel.Location.AreaAndDev.Bound> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Location.TModel.Location.AreaAndDev.Bound>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
-            }
-            return list2;
-        }
-
-        public static DbModel.Location.AreaAndDev.Bound ToDbModel(this Location.TModel.Location.AreaAndDev.Bound item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new DbModel.Location.AreaAndDev.Bound();
-            item2.Update(item1);
-            return item2;
-        }
-
-        public static DbModel.Location.AreaAndDev.Bound Update(this DbModel.Location.AreaAndDev.Bound item2,Location.TModel.Location.AreaAndDev.Bound item1)
-        {
-            if (item1 == null) return null;
-            item2.Id = item1.Id;
-            item2.MinX = item1.MinX;
-            item2.MaxX = item1.MaxX;
-            item2.MinY = item1.MinY;
-            item2.MaxY = item1.MaxY;
-            item2.MinZ = item1.MinZ;
-            item2.MaxZ = item1.MaxZ;
-            item2.ZeroX = item1.ZeroX;
-            item2.ZeroY = item1.ZeroY;
-            item2.Shape = item1.Shape;
-            item2.IsRelative = item1.IsRelative;
-            item2.Points = item1.Points.ToDbModel();
-            return item2;
-        }
-
-        public static List<DbModel.Location.AreaAndDev.Bound> ToDbModel(
-            this List<Location.TModel.Location.AreaAndDev.Bound> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<DbModel.Location.AreaAndDev.Bound>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToDbModel());
-            }
-            return list2;
-        }
-
-        #endregion
+        
 
         #region Location.TModel.Location.AreaAndDev.ConfigArg <=> DbModel.Location.AreaAndDev.ConfigArg
 
@@ -230,152 +155,9 @@ namespace LocationServices.Converters
         #endregion
 
 
-        #region Location.TModel.Location.AreaAndDev.TransformM <=> DbModel.Tools.InitInfos.TransformM
+       
 
-        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToWcfModelList(
-            this List<DbModel.Tools.InitInfos.TransformM> list1)
-        {
-            return list1.ToTModel().ToWCFList();
-        }
-
-        public static Location.TModel.Location.AreaAndDev.TransformM ToTModel(
-            this DbModel.Tools.InitInfos.TransformM item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Location.TModel.Location.AreaAndDev.TransformM();
-            item2.Id = item1.Id;
-            item2.X = item1.X;
-            item2.Y = item1.Y;
-            item2.Z = item1.Z;
-            item2.RX = item1.RX;
-            item2.RY = item1.RY;
-            item2.RZ = item1.RZ;
-            item2.SX = item1.SX;
-            item2.SY = item1.SY;
-            item2.SZ = item1.SZ;
-            item2.IsOnAlarmArea = item1.IsOnAlarmArea;
-            item2.IsOnLocationArea = item1.IsOnLocationArea;
-            item2.IsCreateAreaByData = item1.IsCreateAreaByData;
-            item2.IsRelative = item1.IsRelative;
-            return item2;
-        }
-
-        public static List<Location.TModel.Location.AreaAndDev.TransformM> ToTModel(
-            this List<DbModel.Tools.InitInfos.TransformM> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Location.TModel.Location.AreaAndDev.TransformM>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
-            }
-            return list2;
-        }
-
-        public static DbModel.Tools.InitInfos.TransformM ToDbModel(
-            this Location.TModel.Location.AreaAndDev.TransformM item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new DbModel.Tools.InitInfos.TransformM();
-            item2.Id = item1.Id;
-            item2.X = item1.X;
-            item2.Y = item1.Y;
-            item2.Z = item1.Z;
-            item2.RX = item1.RX;
-            item2.RY = item1.RY;
-            item2.RZ = item1.RZ;
-            item2.SX = item1.SX;
-            item2.SY = item1.SY;
-            item2.SZ = item1.SZ;
-            item2.IsOnAlarmArea = item1.IsOnAlarmArea;
-            item2.IsOnLocationArea = item1.IsOnLocationArea;
-            item2.IsCreateAreaByData = item1.IsCreateAreaByData;
-            item2.IsRelative = item1.IsRelative;
-            return item2;
-        }
-
-        public static List<DbModel.Tools.InitInfos.TransformM> ToDbModel(
-            this List<Location.TModel.Location.AreaAndDev.TransformM> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<DbModel.Tools.InitInfos.TransformM>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToDbModel());
-            }
-            return list2;
-        }
-
-        #endregion
-
-        #region Location.TModel.Location.AreaAndDev.Point <=> DbModel.Location.AreaAndDev.Point
-
-        public static List<Location.TModel.Location.AreaAndDev.Point> ToWcfModelList(
-            this List<DbModel.Location.AreaAndDev.Point> list1)
-        {
-            return list1.ToTModel().ToWCFList();
-        }
-
-        public static Location.TModel.Location.AreaAndDev.Point ToTModel(this DbModel.Location.AreaAndDev.Point item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Location.TModel.Location.AreaAndDev.Point();
-            item2.Id = item1.Id;
-            item2.X = item1.X;
-            item2.Y = item1.Y;
-            item2.Z = item1.Z;
-            item2.Index = item1.Index;
-            item2.BoundId = item1.BoundId;
-            //item2.Bound = item1.Bound.ToTModel();
-            return item2;
-        }
-
-        public static List<Location.TModel.Location.AreaAndDev.Point> ToTModel(
-            this List<DbModel.Location.AreaAndDev.Point> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Location.TModel.Location.AreaAndDev.Point>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
-            }
-            return list2;
-        }
-
-        public static DbModel.Location.AreaAndDev.Point ToDbModel(this Location.TModel.Location.AreaAndDev.Point item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new DbModel.Location.AreaAndDev.Point();
-            item2.Update(item1);
-            return item2;
-        }
-
-        public static DbModel.Location.AreaAndDev.Point Update(this DbModel.Location.AreaAndDev.Point item2, Location.TModel.Location.AreaAndDev.Point item1)
-        {
-            if (item1 == null) return null;
-            item2.Id = item1.Id;
-            item2.X = item1.X;
-            item2.Y = item1.Y;
-            item2.Z = item1.Z;
-            item2.Index = item1.Index;
-            item2.BoundId = item1.BoundId;
-            //item2.Bound = item1.Bound.ToDbModel();
-            return item2;
-        }
-
-        public static List<DbModel.Location.AreaAndDev.Point> ToDbModel(
-            this List<Location.TModel.Location.AreaAndDev.Point> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<DbModel.Location.AreaAndDev.Point>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToDbModel());
-            }
-            return list2;
-        }
-
-        #endregion
+        
 
         #region Location.TModel.Location.AreaAndDev.Post <=> DbModel.Location.AreaAndDev.Post
 
@@ -429,80 +211,7 @@ namespace LocationServices.Converters
 
         #endregion
 
-        #region Location.TModel.Location.Alarm.DeviceAlarm <=> DbModel.Location.Alarm.DevAlarm
-
-        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToWcfModelList(
-            this List<DbModel.Location.Alarm.DevAlarm> list1)
-        {
-            return list1.ToTModel().ToWCFList();
-        }
-
-        public static Location.TModel.Location.Alarm.DeviceAlarm ToTModel(this DbModel.Location.Alarm.DevAlarm item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new Location.TModel.Location.Alarm.DeviceAlarm();
-            item2.Id = item1.Id;
-            item2.Abutment_Id = item1.Abutment_Id;
-            item2.Title = item1.Title;
-            item2.Message = item1.Msg;
-            item2.Level = item1.Level;
-            item2.Code = item1.Code;
-            item2.Src = item1.Src;
-            item2.DevId = item1.DevInfoId;
-            item2.SetDev(item1.DevInfo.ToTModel());
-            //item2.Dev = item1.DevInfo.ToTModel();
-            item2.Device_desc = item1.Device_desc;
-            item2.CreateTime = item1.AlarmTime;
-            item2.AlarmTimeStamp = item1.AlarmTimeStamp;
-            if(item1.DevInfo!=null)
-                item2.AreaId = item1.DevInfo.ParentId ?? 0;
-            return item2;
-        }
-
-        public static List<Location.TModel.Location.Alarm.DeviceAlarm> ToTModel(
-            this List<DbModel.Location.Alarm.DevAlarm> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<Location.TModel.Location.Alarm.DeviceAlarm>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToTModel());
-            }
-            return list2;
-        }
-
-        public static DbModel.Location.Alarm.DevAlarm ToDbModel(this Location.TModel.Location.Alarm.DeviceAlarm item1)
-        {
-            if (item1 == null) return null;
-            var item2 = new DbModel.Location.Alarm.DevAlarm();
-            item2.Id = item1.Id;
-            item2.Abutment_Id = item1.Abutment_Id;
-            item2.Title = item1.Title;
-            item2.Msg = item1.Message;
-            item2.Level = item1.Level;
-            item2.Code = item1.Code;
-            item2.Src = item1.Src;
-            item2.DevInfoId = item1.DevId;
-            //item2.DevInfo = item1.Dev.ToDbModel();
-            item2.Device_desc = item1.Device_desc;
-            item2.AlarmTime = item1.CreateTime;
-            item2.AlarmTimeStamp = item1.AlarmTimeStamp;
-            return item2;
-        }
-
-        public static List<DbModel.Location.Alarm.DevAlarm> ToDbModel(
-            this List<Location.TModel.Location.Alarm.DeviceAlarm> list1)
-        {
-            if (list1 == null) return null;
-            var list2 = new List<DbModel.Location.Alarm.DevAlarm>();
-            foreach (var item1 in list1)
-            {
-                list2.Add(item1.ToDbModel());
-            }
-            return list2;
-        }
-
-        #endregion
+       
 
         #region Location.TModel.Location.AreaAndDev.Dev_DoorAccess <=> DbModel.Location.AreaAndDev.Dev_DoorAccess
 
@@ -589,6 +298,10 @@ namespace LocationServices.Converters
             item2.DevInfoId = item1.DevInfoId;
             item2.Local_DevID = item1.Local_DevID;
             item2.RtspUrl = item1.RtspUrl;
+            if (AppContext.DebugMode)
+            {
+                item2.RtspUrl = "rtsp://admin:admin12345@192.168.1.56/h264/ch1/main/av_stream";//公司测试环境下用公司的摄像头
+            }
             item2.DevInfo = item1.DevInfo.ToTModel();
             item2.RtspUrl = item1.RtspUrl;
             return item2;

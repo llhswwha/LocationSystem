@@ -33,6 +33,11 @@ namespace Location.BLL.Tool
         public static string DbInit = "[DbInit]";
 
         /// <summary>
+        /// 数据初始化
+        /// </summary>
+        public static string DbInfo = "[DbInfo]";
+
+        /// <summary>
         /// 极视角
         /// </summary>
         public static string ExtremeVision = "[ExtremeVision]";
@@ -76,6 +81,15 @@ namespace Location.BLL.Tool
         /// EF调试内容
         /// </summary>
         public static string EF = "[EF]";
+
+        /// <summary>
+        /// 移动巡检
+        /// </summary>
+        public static string Inspection = "[Inspection]";
+
+        public static string RealAlarm = "[RealAlarm]";
+
+        public static string AnchorScan = "[AnchorScan]";
     }
 
 }

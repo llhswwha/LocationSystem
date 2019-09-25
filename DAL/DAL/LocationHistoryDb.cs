@@ -17,13 +17,31 @@ namespace DAL
 
         public LocationHistoryDb():base(Name)
         {
-            if (Debugger.IsAttached)
-            {
-                this.Database.Log = s => Log.Info(LogTags.EF, s);
-            }
+            //if (Debugger.IsAttached)
+            //{
+            //    this.Database.Log = s => Log.Info(LogTags.EF, s);
+            //}
 
             this.Database.CommandTimeout = 700000;
         }
+
+        /* my.ini
+[mysql]
+default-character-set=utf8
+ 
+[mysqld]
+port = 3306
+basedir=D:\\mysql-5.7.24-winx64
+max_connections=1000
+default-storage-engine=INNODB
+wait_timeout=2880000
+interactive_timeout = 2880000
+skip-name-resolve
+max_allowed_packet = 20000M
+innodb_buffer_pool_instances = 8
+innodb_buffer_pool_chunk_size = 134217728
+innodb_buffer_pool_size = 16106127360 //15G
+        */
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

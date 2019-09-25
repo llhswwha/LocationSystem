@@ -40,6 +40,10 @@ namespace Coldairarrow.Util.Sockets
     /// </summary>
     public class LightUDP
     {
+        public bool Inited
+        {
+            get { return udpc != null; }
+        }
         private UdpClient udpc = null;
         // private IPAddress localIP = IPAddress.Any;
       //  private IPAddress localIP = IPAddress.Parse("127.0.0.1");
@@ -91,11 +95,60 @@ namespace Coldairarrow.Util.Sockets
         /// <param name="localPort"></param>
         public LightUDP(IPAddress localIP,  int localPort)
         {
-            this.localPort = localPort;
-            IPEndPoint localEp = new IPEndPoint(localIP, localPort);
-            udpc = new UdpClient(localEp);
-            broadCastEp = new IPEndPoint(IPAddress.Broadcast, 0);
-            InitReceive();
+            Init(localIP, localPort);
+        }
+
+        public LightUDP()
+        {
+            
+        }
+
+        public static LightUDP Create(string ip, int port)
+        {
+            LightUDP udp = new LightUDP();
+            for (int i = 0; i < 10; i++)
+            {
+                bool r = udp.Init(IPAddress.Parse(ip), port + i);
+                if (r == true)
+                {
+                    return udp;
+                }
+            }
+            return udp;
+
+        }
+
+        public static LightUDP Create(IPAddress localIP, int localPort)
+        {
+            LightUDP udp = new LightUDP();
+            for (int i = 0; i < 10; i++)
+            {
+                bool r = udp.Init(localIP, localPort+i);
+                if(r== true)
+                {
+                    return udp;
+                }
+            }
+            return udp;
+            
+        }
+
+        public bool Init(IPAddress localIP, int localPort)
+        {
+            try
+            {
+                this.localPort = localPort;
+                IPEndPoint localEp = new IPEndPoint(localIP, localPort);
+                udpc = new UdpClient(localEp);
+                broadCastEp = new IPEndPoint(IPAddress.Broadcast, 0);
+                InitReceive();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("LightUDP:"+ ex);
+                return false;
+            }
         }
 
         public void InitReceive()
@@ -180,6 +233,7 @@ namespace Coldairarrow.Util.Sockets
 
         public int Send(string txt,string ip,int port)
         {
+            if (udpc == null) return -1;//设置的ip地址本机没有的话为null
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             var bytes = Encoding.UTF8.GetBytes(txt);
             return udpc.Send(bytes, bytes.Length, ipEndPoint);
@@ -187,11 +241,13 @@ namespace Coldairarrow.Util.Sockets
 
         public int Send(Byte[] sendData, IPEndPoint remoteEp)
         {
+            if (udpc == null) return -1;//设置的ip地址本机没有的话为null
             return udpc.Send(sendData, sendData.Length, remoteEp);
         }
 
         public int SendHex(string hexString,IPEndPoint remoteEp)
         {
+            if (udpc == null) return -1;//设置的ip地址本机没有的话为null
             if (string.IsNullOrEmpty(hexString)) return 0;
             var bytes = ByteHelper.HexToBytes(hexString);
             return Send(bytes, remoteEp);
@@ -200,6 +256,7 @@ namespace Coldairarrow.Util.Sockets
         //所有局域网内监听指定port的UDPClient都可以收到
         public int BroadCast(Byte[] sendData, int port)
         {
+            if (udpc == null) return -1;//设置的ip地址本机没有的话为null
             broadCastEp.Port = port;
             return udpc.Send(sendData, sendData.Length, broadCastEp);
         }
@@ -208,7 +265,8 @@ namespace Coldairarrow.Util.Sockets
         { 
             //停止接收线程
             recieveBW.CancelAsync();
-            udpc.Close();
+            if(udpc!=null)//设置的ip地址本机没有的话为null
+                udpc.Close();
         }
     }
 }

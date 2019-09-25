@@ -20,7 +20,7 @@ namespace LocationServer.Threads
         public FilterErrorPointThread(string time) 
             : base(time, TimeSpan.FromSeconds(10), null)
         {
-            //DailyFunction();
+            
         }
 
         public override void DailyFunction()
@@ -31,6 +31,11 @@ namespace LocationServer.Threads
             var list=bll.Positions.GetInfoListOfDate(start, now);
             var count=bll.Positions.RemoveErrorPoints(list);
             bll.Dispose();
+        }
+
+        protected override void DoBeforeWhile()
+        {
+            //DailyFunction();
         }
     }
 }

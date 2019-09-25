@@ -72,16 +72,16 @@ namespace LocationServer.Windows
         {
             controller = new LogTextBoxController(TbLogs, LogTags.HisPos);
 
-            Worker.Run(() =>
-            {
-                DateTime start = DateTime.Now;
+            //Worker.Run(() =>
+            //{
+            //    DateTime start = DateTime.Now;
 
-                int count = bll.Positions.DbSet.Count();
-                return count;
-            }, (count) =>
-            {
-                this.Title += " total:" + count;
-            });
+            //    int count = bll.Positions.DbSet.Count();
+            //    return count;
+            //}, (count) =>
+            //{
+            //    this.Title += " total:" + count;
+            //});
 
             TbMaxSpeed.Text = AppContext.MoveMaxSpeed + "";
 
@@ -97,7 +97,7 @@ namespace LocationServer.Windows
 
             //SetSearchInfo("Tag_08BA", new DateTime(2019, 9, 5, 13, 10, 0), new DateTime(2019, 9, 5, 13, 20, 0));
 
-            SetSearchInfo("Tag_08BA", new DateTime(2019, 9, 5, 11, 04, 0), new DateTime(2019, 9, 5, 11, 10, 0));
+            //SetSearchInfo("Tag_08BA", new DateTime(2019, 9, 5, 11, 04, 0), new DateTime(2019, 9, 5, 11, 10, 0));
         }
 
         private void SetSearchInfo(string name,DateTime start,DateTime end)

@@ -315,6 +315,17 @@ namespace BLL.Buffers
             return alarms;
         }
 
+        private LocationAlarm CreatePowerAlarm(Position position)
+        {
+            LocationAlarm alarm = new LocationAlarm();
+            alarm.AlarmType = LocationAlarmType.低电告警;
+            alarm.AlarmLevel = LocationAlarmLevel.四级告警;
+            alarm.PersonnelId = position.PersonnelID;
+            alarm.LocationCardId = position.CardId;
+            alarm.Content = "低电告警:"+position.Code;
+            return alarm;
+        }
+
         /// <summary>
         /// 产生告警
         /// </summary>
@@ -333,12 +344,7 @@ namespace BLL.Buffers
             {
                 if (position.PowerState == 1)
                 {
-                    LocationAlarm alarm = new LocationAlarm();
-                    alarm.AlarmType = LocationAlarmType.低电告警;
-                    alarm.AlarmLevel = LocationAlarmLevel.四级告警;
-                    alarm.PersonnelId = position.PersonnelID;
-                    alarm.LocationCardId = position.CardId;
-
+                    var alarm=CreatePowerAlarm(position);
                     newAlarmList.Add(alarm);
                 }
             }
@@ -354,18 +360,16 @@ namespace BLL.Buffers
             /// <returns></returns>
         public List<LocationAlarm> GetNewAlarms(List<Position> list1)
         {
-            List<LocationAlarm> ReviseAlarmList = new List<LocationAlarm>();
-            List<LocationAlarm> DeleteList = new List<LocationAlarm>();
-
             LoadData();
 
-            //List<LocationAlarm> newAlarmList = new List<LocationAlarm>();
-            List<LocationAlarm> newAlarmList = GenerateAreaAlarm(list1);//区域告警
-            //newAlarmList.AddRange(areaAlarms);
+            List<LocationAlarm> ReviseAlarmList = new List<LocationAlarm>();
+            List<LocationAlarm> DeleteList = new List<LocationAlarm>();
+            List<LocationAlarm> newAlarmList = new List<LocationAlarm>();
 
+
+            #region 低电告警
             List<LocationAlarm> powAlarms = GeneratePowerAlarm(list1);//低电告警
-            newAlarmList.AddRange(powAlarms);
-
+            //newAlarmList.AddRange(powAlarms);
             foreach (LocationAlarm item in realAlarms)
             {
                 if (item.AlarmType == LocationAlarmType.低电告警)
@@ -375,24 +379,30 @@ namespace BLL.Buffers
                     {
                         DeleteList.Add(item);
                         hisAlarms.Add(item.RemoveToHistory());//低电恢复了
+
+                        var itemNew = item.Copy();
+                        itemNew.AlarmLevel = LocationAlarmLevel.正常;
+                        powAlarms.Add(itemNew);//告警恢复
                     }
                     else
                     {
                         foreach (var alarm in newAlarm)
                         {
-                            powAlarms.Remove(alarm);
+                            powAlarms.Remove(alarm);//删除已经存在的告警
                         }
                     }
                 }
             }
             if (powAlarms.Count() > 0)//新的低电告警
             {
-                //向LocationAlarm表添加数据
-                _bll.LocationAlarms.AddRange(powAlarms);
-                realAlarms.AddRange(powAlarms);
+                newAlarmList.AddRange(powAlarms);
             }
+            #endregion
 
-            Log.Info("LocationAlarm", "newAlarmList:" + newAlarmList.Count);
+            #region 区域告警
+            List<LocationAlarm> areaAlarms = GenerateAreaAlarm(list1);//区域告警
+            //newAlarmList.AddRange(areaAlarms);
+            Log.Info("LocationAlarm", "newAlarmList:" + areaAlarms.Count);
             //return newAlarmList;
 
             foreach (LocationAlarm item in realAlarms)
@@ -403,17 +413,17 @@ namespace BLL.Buffers
                     {
                         //当该卡片在数据库中是正常告警时，出现异常告警则上报，并将原本的正常记录转移到历史数据；出现正常告警则忽略
 
-                        List<LocationAlarm> item2 = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel != LocationAlarmLevel.正常);
+                        List<LocationAlarm> item2 = areaAlarms.FindAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel != LocationAlarmLevel.正常);
                         if (item2.Count() > 0)
                         {
                             DeleteList.Add(item);
                             hisAlarms.Add(item.RemoveToHistory());
                         }
 
-                        int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常).Count();
+                        int nCount = areaAlarms.FindAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常).Count();
                         if (nCount > 0)
                         {
-                            newAlarmList.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
+                            areaAlarms.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
                         }
                     }
                     else
@@ -422,7 +432,7 @@ namespace BLL.Buffers
                         ReviseAlarm.AlarmLevel = LocationAlarmLevel.正常;
 
                         //当该卡片在数据库中在指定区域是异常告警时,出现正常告警或没有该区域的异常告警，则告警恢复；出现该区域的异常告警，则忽略
-                        LocationAlarm item3 = newAlarmList.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
+                        LocationAlarm item3 = areaAlarms.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
                         if (item3 != null)
                         {
                             ReviseAlarmList.Add(ReviseAlarm);
@@ -431,21 +441,27 @@ namespace BLL.Buffers
                         }
                         else
                         {
-                            if (newAlarmList.Count() == 0)
+                            if (areaAlarms.Count() == 0)
                             {
                                 continue;
                             }
 
-                            int nCount = newAlarmList.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
+                            int nCount = areaAlarms.FindAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId).Count();
                             if (nCount >= 1)
                             {
-                                newAlarmList.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
+                                areaAlarms.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AreaId == item.AreaId);
                             }
                         }
                     }
                 }
                 
             }
+
+            if (areaAlarms.Count() > 0)
+            {
+                newAlarmList.AddRange(powAlarms);
+            }
+            #endregion
 
             if (newAlarmList.Count() > 0)
             {
@@ -473,22 +489,22 @@ namespace BLL.Buffers
                 foreach (var alarmT in ReviseAlarmList)
                 {
                     if (alarmT == null) continue;
-                    LocationAlarm alarm = newAlarmList.Find(i => i != null && i.PersonnelId == alarmT.PersonnelId&&i.AlarmLevel == alarmT.AlarmLevel);
+                    LocationAlarm alarm = areaAlarms.Find(i => i != null && i.PersonnelId == alarmT.PersonnelId&&i.AlarmLevel == alarmT.AlarmLevel);
                     if(alarm!=null)
                     {
-                        newAlarmList.Remove(alarm);
+                        areaAlarms.Remove(alarm);
                     }
                 }
-                newAlarmList.AddRange(ReviseAlarmList);
+                areaAlarms.AddRange(ReviseAlarmList);
             }
 
 
-            if (newAlarmList.Count > 0)
+            if (areaAlarms.Count > 0)
             {
                 int nn = 0;
             }
 
-            return newAlarmList;
+            return areaAlarms;
         }
 
         public static string tag = "AuthorizationBuffer";

@@ -21,9 +21,20 @@ namespace BLL
         /// <returns></returns>
         public Area GetAreaTree(bool isWithDev = true,int? id=null,bool containCAD=false)
         {
+            //return GetAreaTreeEx(isWithDev, id, (a) =>
+            //{
+            //    if (containCAD)
+            //    {
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        return a.Type != AreaTypes.CAD;
+            //    }
+            //});
             try
             {
-                Log.InfoStart(LogTags.DbGet,"GetPhysicalTopologyTree");
+                Log.InfoStart(LogTags.DbGet, "GetPhysicalTopologyTree");
                 List<Area> list = Areas.ToList();
                 List<Area> list2 = new List<Area>();
                 for (int i = 0; i < list.Count; i++)
@@ -58,7 +69,7 @@ namespace BLL
 
                 if (roots.Count > 0)
                 {
-                    var result= roots[0].FindChild(id);
+                    var result = roots[0].FindChild(id);
                     return result;
                 }
                 else
@@ -70,6 +81,111 @@ namespace BLL
             {
                 Log.Error("GetPhysicalTopologyTree", ex);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取物理逻辑拓扑
+        /// </summary>
+        /// <returns></returns>
+        public Area GetAreaTreeEx(bool isWithDev = true, int? id = null, Func<Area,bool> filterAction=null)
+        {
+            try
+            {
+                Log.InfoStart(LogTags.DbGet, "GetPhysicalTopologyTree");
+                List<Area> list = Areas.ToList();
+                //List<Area> list2 = new List<Area>();
+                //for (int i = 0; i < list.Count; i++)
+                //{
+                //    if (filterAction == null)
+                //    {
+                //        list2.Add(list[i]);
+                //    }
+                //    else
+                //    {
+                //        var r = filterAction(list[i]);
+                //        if (r == true)
+                //        {
+                //            list2.Add(list[i]);
+                //        }
+                //    }
+                //}
+                //list = list2;
+                List<Bound> bounds = Bounds.ToList();
+                List<Point> points = Points.ToList();
+                BindBoundWithPoint(points, bounds);
+                BindAreaWithBound(list, bounds);
+
+                List<DevInfo> leafNodes = new List<DevInfo>();
+                if (isWithDev)
+                {
+                    leafNodes = DevInfos.ToList();
+                }
+
+                List<Area> roots = TreeHelper.CreateTree(list, leafNodes);
+
+               
+
+
+                if (filterAction != null)
+                {
+                    var dict = list.ToDictionary(i => i.Id);
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        var item = list[i];
+                        if (item.ParentId != null)
+                        {
+                            var parent = dict[(int)item.ParentId];
+                            item.Parent = parent;
+                        }
+                    }
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+
+                        var item = list[i];
+                        var r = filterAction(item);
+                        if (r == false && item.Parent!=null)
+                        {
+                            var parent = item.Parent;
+                            parent.Children.Remove(item);
+                            RemoveEmpty(filterAction, dict, parent);
+                        }
+                    }
+                }
+
+                Log.InfoEnd("GetPhysicalTopologyTree");
+
+                if (roots.Count > 0)
+                {
+                    var result = roots[0].FindChild(id);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("GetPhysicalTopologyTree", ex);
+                return null;
+            }
+        }
+
+        private static void RemoveEmpty(Func<Area, bool> filterAction, Dictionary<int, Area> dict, Area parent)
+        {
+            if (parent.Children.Count == 0)
+            {
+                var r2 = filterAction(parent);
+                if (r2 == false && parent.ParentId != null)
+                {
+                    var parent2 = dict[(int)parent.ParentId];
+                    parent2.Children.Remove(parent);
+
+                    RemoveEmpty(filterAction, dict, parent2);
+                }
             }
         }
 

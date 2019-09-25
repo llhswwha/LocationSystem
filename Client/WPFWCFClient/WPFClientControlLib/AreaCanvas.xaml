@@ -34,7 +34,7 @@
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <CheckBox Name="CbAreaName" IsChecked="True" Checked="CbAreaName_Checked" Unchecked="CbAreaName_Unchecked">区域名称</CheckBox>
             <CheckBox Name="CbDevName"  IsChecked="True" Checked="CbDevName_Checked" Unchecked="CbDevName_Unchecked">设备名称</CheckBox>
-            <CheckBox Name="CbShowPerson" IsChecked="True" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
+            <CheckBox Name="CbShowPerson" IsChecked="False" Checked="CbShowPerson_Checked" Unchecked="CbShowPerson_Unchecked">显示人员</CheckBox>
             <CheckBox Name="CbShowSwitchArea" IsChecked="False" Checked="CbShowSwitchArea_Checked" Unchecked="CbShowSwitchArea_Unchecked">显示切换区域</CheckBox>
             <CheckBox Name="CbShowAlarmArea" IsChecked="False" Checked="CbShowAlarmArea_Checked" Unchecked="CbShowAlarmArea_Unchecked">显示告警区域</CheckBox>
         </StackPanel>

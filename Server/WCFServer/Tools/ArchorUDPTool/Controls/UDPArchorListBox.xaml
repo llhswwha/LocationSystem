@@ -11,7 +11,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <Label>数量:</Label>
                 <Label Name="LbCount"></Label>
-                <Button Name="BtnGetAreas" Click="BtnGetAreas_Click">区域过滤</Button>
+                <!--<Button Name="BtnGetAreas" Click="BtnGetAreas_Click">区域过滤</Button>-->
                 <ComboBox Name="CbAreas" Width="200" SelectionChanged="CbAreas_SelectionChanged"></ComboBox>
                 <Button Name="BtnCountByArea" Click="BtnCountByArea_Click">按区域统计</Button>
             </StackPanel>
@@ -69,6 +69,7 @@
                     <MenuItem Header="Ping" Name="MenuPingArchor" Click="MenuPingArchor_Click"/>
                     <MenuItem Header="设置" Name="MenuSetArchor" Click="MenuSetArchor_Click"></MenuItem>
                     <MenuItem Header="重启" Name="MenuRestartOne" Click="MenuRestartOne_OnClick"></MenuItem>
+                    <MenuItem Header="基站定位" Name="MenuLocalArchor" Click="MenuLocalArchor_Click"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

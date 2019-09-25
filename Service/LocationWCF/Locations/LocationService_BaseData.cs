@@ -21,6 +21,7 @@ using Location.TModel.Location.Alarm;
 using LocationServer;
 using DbModel;
 using Location.BLL.Tool;
+using LocationServices.Locations.Services;
 
 namespace LocationServices.Locations
 {
@@ -89,56 +90,15 @@ namespace LocationServices.Locations
         /// <returns></returns>
         public List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)
         {
-            try
-            {
-                List<DbModel.LocationHistory.Work.InspectionTrackHistory> lst = new List<DbModel.LocationHistory.Work.InspectionTrackHistory>();
-                if (bFlag)
-                {
-                    lst = dbEx.InspectionTrackHistorys.ToList();
-                }
-                else
-                {
-                    long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
-                    long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
-
-                    lst = dbEx.InspectionTrackHistorys.Where(p => p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
-
-                }
-                if (lst != null)
-                {
-                    foreach (var item in lst)
-                    {
-                        if (item == null) continue;
-                        else if (item.Route.Count == 0)
-                        {
-                            item.Route = null;
-                        }
-                        else
-                        {
-                            foreach (var check in item.Route)
-                            {
-                                if (check.Checks == null) continue;
-                                else
-                                {
-                                    if (check.Checks.Count == 0)
-                                    {
-                                        check.Checks = null;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                List<TModel.LocationHistory.Work.InspectionTrackHistory> tempList = lst.ToWcfModelList();
-                return tempList;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(LogTags.BaseData, "Getinspectionhistorylist", ex.ToString());
-                return null;
-            }
+            BaseDataService service = new BaseDataService();
+            return service.Getinspectionhistorylist(dtBeginTime,dtEndTime,bFlag);
         }
 
+        public InspectionTrackHistory GetInspectionHistoryById(InspectionTrackHistory history)
+        {
+            BaseDataService service = new BaseDataService();
+            return service.GetInspectionHistoryById(history);
+        }
         /// <summary>
         /// 获取人员列表
         /// </summary>
@@ -579,7 +539,6 @@ namespace LocationServices.Locations
                 {
                     return;
                 }
-
                 return;
             }
             catch (System.Exception ex)
@@ -638,13 +597,13 @@ namespace LocationServices.Locations
             {
                 if (!bFlag)
                 {
-                    lst = dbEx.InspectionTracks.ToList();
+                    lst = db.InspectionTracks.ToList();
                 }
                 else
                 {
                     long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
                     long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
-                    lst = dbEx.InspectionTracks.Where(p => p.CreateTime >= lBeginTime && p.CreateTime <= lEndTime).ToList();
+                    lst = db.InspectionTracks.Where(p => p.CreateTime >= lBeginTime && p.CreateTime <= lEndTime).ToList();
 
                 }
             }

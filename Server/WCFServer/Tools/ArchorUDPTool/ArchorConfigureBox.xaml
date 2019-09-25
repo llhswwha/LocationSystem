@@ -10,6 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="设置" Name="MenuSetting" Click="MenuSetting_Click"></MenuItem>
             <MenuItem Header="加载清单" Name="MenuLoadList" Click="MenuLoadList_Click"></MenuItem>
+            <MenuItem Header="加载基站" Name="MenuLoadAnchors" Click="MenuLoadAnchors_Click"></MenuItem>
             <MenuItem Header="重启">
                 <MenuItem Header="全部" Name="MenuRestart" Click="MenuRestart_OnClick"></MenuItem>
                 <MenuItem Header="Checked" Name="MenuRestartChecked" Click="MenuRestartChecked_Click"></MenuItem>

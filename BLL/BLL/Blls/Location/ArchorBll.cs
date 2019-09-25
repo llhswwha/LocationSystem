@@ -123,7 +123,11 @@ namespace BLL.Blls.Location
             EditRange(list);
         }
 
-
+        public List<ArchorInfo> GetInfoList()
+        {
+            var query = from i in DbSet select new ArchorInfo() { Id = i.Id, Code = i.Code, Ip = i.Ip, ParentId = i.ParentId,DevId=i.DevInfoId };
+            return query.ToList();
+        }
         
     }
 

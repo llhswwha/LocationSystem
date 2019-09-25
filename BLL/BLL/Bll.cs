@@ -20,7 +20,7 @@ namespace BLL
 
         public LocationDb Db;
 
-        public LocationHistoryDb DbHistory = new LocationHistoryDb();
+        public LocationHistoryDb DbHistory;
 
         public EngineDb DbE = new EngineDb();
 
@@ -215,7 +215,13 @@ namespace BLL
             Db.Configuration.LazyLoadingEnabled = lazyLoadingEnabled; //关闭延迟加载
             Db.Configuration.ProxyCreationEnabled = useProxy;
 
-            if(ShowLog)
+
+            DbHistory = new LocationHistoryDb();
+            DbHistory.Configuration.AutoDetectChangesEnabled = autoDetectChangesEnabled;
+            DbHistory.Configuration.LazyLoadingEnabled = lazyLoadingEnabled; //关闭延迟加载
+            DbHistory.Configuration.ProxyCreationEnabled = useProxy;
+
+            if (ShowLog)
                 Db.Database.Log = Log.Debug;
 
 

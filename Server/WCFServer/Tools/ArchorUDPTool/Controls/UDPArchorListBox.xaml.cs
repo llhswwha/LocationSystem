@@ -1,4 +1,5 @@
 ﻿using ArchorUDPTool.Models;
+using Base.Common.Tools;
 using DbModel.Tools;
 using System;
 using System.Collections;
@@ -361,6 +362,11 @@ namespace ArchorUDPTool.Controls
 
         private void BtnGetAreas_Click(object sender, RoutedEventArgs e)
         {
+            GetAreas();
+        }
+
+        private void GetAreas()
+        {
             if (_archorList == null) return;
             List<string> areas = _archorList.GetAreas();
             areas.Insert(0, "全部");
@@ -368,6 +374,12 @@ namespace ArchorUDPTool.Controls
         }
 
         private void BtnCountByArea_Click(object sender, RoutedEventArgs e)
+        {
+            GetAreas();
+            CountByArea();
+        }
+
+        private void CountByArea()
         {
             try
             {
@@ -537,6 +549,18 @@ namespace ArchorUDPTool.Controls
             {
                 return DataGrid3.ContextMenu;
             }
+        }
+
+        private void MenuLocalArchor_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> codes = new List<string>();
+            foreach (var item in DataGrid3.SelectedItems)
+            {
+                UDPArchor archor = item as UDPArchor;
+                if (archor == null) continue;
+                codes.Add(archor.GetClientIP());
+            }
+            StaticEvents.OnLocateArchorByIp(codes);
         }
     }
 }

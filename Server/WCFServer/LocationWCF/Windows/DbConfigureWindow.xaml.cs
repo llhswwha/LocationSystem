@@ -33,6 +33,8 @@ using TModel.Tools;
 using DbModel;
 using IModel.Enums;
 using WPFClientControlLib;
+using DbModel.Location.Alarm;
+using DbModel.LocationHistory.Alarm;
 
 namespace LocationServer.Windows
 {
@@ -699,11 +701,45 @@ namespace LocationServer.Windows
             Worker.Run(() =>
             {
                 AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
-                initializer.ClearRepeatDev();
+                initializer.ClearRepeatDev(LogTags.DbInit);
+            }, () =>
+            {
+                //MessageBox.Show("完成");
+            });
+        }
+
+        private void MenuLoadDevTypeModelList_OnClick(object sender, RoutedEventArgs e)
+        {
+            int modelCount = 0;
+            int typeCount = 0;
+            Worker.Run(() =>
+            {
+                var bll = AppContext.GetLocationBll();
+                DbInitializer initializer = new DbInitializer(bll);
+                initializer.AddDevModelTypeByExcel((m, t) =>
+                {
+                    modelCount = m;
+                    typeCount = t;
+                });
+            }, () =>
+            {
+                MessageBox.Show(string.Format("新增模型信息完成：modelCount:{0} typeCount:{1}", modelCount, typeCount));
+            });
+
+        }
+
+        private void MenuImportArchorData_Click(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                DbConfigureHelper.LoadArchorList(LogTags.DbInit);
             }, () =>
             {
                 MessageBox.Show("完成");
             });
+            
         }
+
+     
     }
 }

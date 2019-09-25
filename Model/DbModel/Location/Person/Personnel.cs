@@ -174,7 +174,7 @@ namespace DbModel.Location.Person
         /// 3:车辆
         /// 4:重要物质
         /// </summary>
-#if BaoXin
+#if BAOXIN
         [NotMapped]
 #endif
         public int TargetType { get; set; }
@@ -184,7 +184,7 @@ namespace DbModel.Location.Person
         /// <summary>
         /// 模型，后续根据模型来显示
         /// </summary>
-#if BaoXin
+#if BAOXIN
         [NotMapped]
 #endif
         public string TargetModel { get; set; }
@@ -237,7 +237,7 @@ namespace DbModel.Location.Person
 
         public override string ToString()
         {
-            return Name;
+            return Name +","+Mobile+","+WorkNumber;
         }
     }
 }

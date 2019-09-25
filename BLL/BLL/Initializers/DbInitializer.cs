@@ -564,6 +564,51 @@ namespace BLL
             var list2 = DbInfoHelper.GetDevTypes();
             DevTypes.AddRange(list2);
         }
+        /// <summary>
+        /// 新增数据库中没有增加的设备模型
+        /// </summary>
+        /// <param name="resultAction"></param>
+        public void AddDevModelTypeByExcel(Action<int,int>resultAction=null)
+        {
+            int modelCount = 0;
+            int typeCount = 0;
+            var list = DbInfoHelper.GetDevModels();
+            var OldList = DevModels.ToList();
+            List<DevModel> newModels = new List<DevModel>();
+            foreach(var item in list)
+            {
+                if (OldList == null) newModels.Add(item);
+                else
+                {
+                    DevModel model = OldList.Find(i => i.Name == item.Name);
+                    if (model == null) newModels.Add(item);
+                }
+            }
+            if(newModels.Count!=0)
+            {
+                modelCount = newModels.Count;
+                DevModels.AddRange(newModels);
+            }          
+
+            var list2 = DbInfoHelper.GetDevTypes();
+            var devTypeList = DevTypes.ToList();
+            List<DevType> newTypes = new List<DevType>();
+            foreach (var item in list2)
+            {
+                if (OldList == null) newTypes.Add(item);
+                else
+                {
+                    DevType model = devTypeList.Find(i => i.TypeName == item.TypeName);
+                    if (model == null) newTypes.Add(item);
+                }
+            }
+            if (newTypes.Count != 0)
+            {
+                typeCount = newTypes.Count;
+                DevTypes.AddRange(newTypes);
+            }
+            if (resultAction != null) resultAction(modelCount,typeCount);    
+        }
 
         public static List<T> LoadExcelToList<T>(string filePath) where T : class, new()
         {

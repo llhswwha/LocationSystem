@@ -33,6 +33,24 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SihuiWebRelease|AnyCPU'">
+    <OutputPath>bin\SihuiWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BaoXinDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\BaoXinDebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -89,15 +107,9 @@
   <ItemGroup>
     <Compile Include="AlarmEventManager.cs" />
     <Compile Include="Converters\ArchorConvertHelper.cs" />
-    <Compile Include="Converters\AreaConvertHelper.cs" />
-    <Compile Include="Converters\DepartmentConvertHelper.cs" />
-    <Compile Include="Converters\DevConverHelper.cs" />
-    <Compile Include="Converters\LocationAlarmHelper.cs" />
     <Compile Include="Converters\ModelConvertHelper.cs" />
     <Compile Include="Converters\ModelConvertHelperOfBaseData.cs" />
-    <Compile Include="Converters\PersonConvertHelper.cs" />
     <Compile Include="Converters\PositionConvertHelper.cs" />
-    <Compile Include="Converters\TagConvertHelper.cs" />
     <Compile Include="LocationCallbacks\AlarmSubscriber.cs" />
     <Compile Include="LocationCallbacks\ILocationAlarmService.cs" />
     <Compile Include="LocationCallbacks\ILocationAlarmServiceCallback.cs" />

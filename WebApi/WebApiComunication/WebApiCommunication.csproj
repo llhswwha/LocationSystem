@@ -29,6 +29,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SihuiWebRelease|AnyCPU'">
+    <OutputPath>bin\SihuiWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BaoXinDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\BaoXinDebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -59,6 +77,7 @@
     <Compile Include="SihuiThermalPowerPlant\GetMethod.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\cards_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\checkresults.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />
@@ -71,6 +90,10 @@
     <Compile Include="SihuiThermalPowerPlant\PostMethod.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">
+      <Project>{cad48149-6b82-4464-b0aa-7f7229783d7f}</Project>
+      <Name>Base.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\DbModel\DbModel.csproj">
       <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
       <Name>DbModel</Name>

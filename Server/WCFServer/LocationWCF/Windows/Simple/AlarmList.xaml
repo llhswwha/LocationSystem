@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LocationServer.Windows.Simple"
         mc:Ignorable="d"
-        Title="AlarmList" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="AlarmList" Height="400" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closed="Window_Closed">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="启动告警监听" Name="BtnStartReceive" Click="BtnStartReceive_Click"></MenuItem>
+        </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label>当前设备总数:</Label>
             <TextBox Name="TxtDevNum" VerticalContentAlignment="Center"></TextBox>

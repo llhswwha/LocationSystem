@@ -57,6 +57,7 @@ using Location.TModel.Tools;
 using LocationServer.Threads;
 using Base.Common.Threads;
 using Base.Common.Tools;
+using ArchorUDPTool.Tools;
 
 namespace LocationServer.Controls
 {
@@ -146,6 +147,9 @@ namespace LocationServer.Controls
                     filterErrorPointThread.Abort();
                     filterErrorPointThread = null;
                 }
+
+                StopAnchorScan();
+                StopCheckRepeatDev();
             }
             catch (Exception ex)
             {
@@ -153,9 +157,42 @@ namespace LocationServer.Controls
             }
         }
 
-        //private void Start
+        public void StopAnchorScan()
+        {
+            if (anchorScanThread != null)
+            {
+                anchorScanThread.Abort();
+                anchorScanThread = null;
+            }
+        }
+
+        RepeatDevInfoCheckThread repeatDevInfoCheckThread;
+
+        private void StartCheckRepeatDev()
+        {
+            if (AppContext.RepeatDevInfoCheckInterval > 0)
+            {
+                if(repeatDevInfoCheckThread== null)
+                {
+                    repeatDevInfoCheckThread = new RepeatDevInfoCheckThread(AppContext.RepeatDevInfoCheckInterval);
+                    repeatDevInfoCheckThread.Start();
+                }
+            }
+        }
+
+        private void StopCheckRepeatDev()
+        {
+            if(repeatDevInfoCheckThread!= null)
+            {
+                repeatDevInfoCheckThread.Abort();
+                repeatDevInfoCheckThread = null;
+            }
+        }
 
 
+        /// <summary>
+        /// 设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
+        /// </summary>
         private void StartReceiveAlarm()
         {
             bool enableAlarmRecieve = ConfigurationHelper.GetBoolValue("EnableAlarmRecieve");
@@ -267,6 +304,24 @@ namespace LocationServer.Controls
             ClickStart();
         }
 
+        public void Init()
+        {
+            Log.Info(LogTags.Server,"调试模式:"+ AppContext.DebugMode);
+
+            InitLogTimer();
+
+            if (AppContext.AutoStartServer)
+            {
+                ClickStart();
+            }
+
+            StartAnchorScan();
+
+            StartReceiveAlarm();//设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
+
+            StartCheckRepeatDev();
+        }
+
         public void ClickStart()
         {
             if (BtnStartService.Content.ToString() == "启动服务")
@@ -277,13 +332,7 @@ namespace LocationServer.Controls
                 //StartService(host, port);
                 //BtnStartService.Content = "停止服务";
 
-                if (logTimer == null)
-                {
-                    logTimer = new DispatcherTimer();
-                    logTimer.Interval = TimeSpan.FromMilliseconds(300);
-                    logTimer.Tick += LogTimer_Tick;
-                }
-                logTimer.Start();
+                
 
                 Worker.Run(() =>
                 {
@@ -300,6 +349,17 @@ namespace LocationServer.Controls
                 StopServices();
                 BtnStartService.Content = "启动服务";
             }
+        }
+
+        public void InitLogTimer()
+        {
+            if (logTimer == null)
+            {
+                logTimer = new DispatcherTimer();
+                logTimer.Interval = TimeSpan.FromMilliseconds(300);
+                logTimer.Tick += LogTimer_Tick;
+            }
+            logTimer.Start();
         }
 
         public void StopLogTimer()
@@ -346,6 +406,8 @@ namespace LocationServer.Controls
                 //用来代替StartLocationAlarmService发送信息给unity，推送消息给客户端。项目：SignalRService
                 StartSignalRService(host, port);
 
+                CheckDatacaseWebApiUrl(host, port);
+
                 //移动巡检信息获取客户端 轮询获取 WebApi 项目：WebApiClients
                 StartGetInspectionTrack();
 
@@ -355,11 +417,11 @@ namespace LocationServer.Controls
 
                 StartGetHistoryPositon();//将定位历史数据保存到缓存中
 
-  ////定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
+                ////定位告警回调服务（没用）, 基于 LocationCallbackService，在unity中不支持，无法使用。 项目：Location.Service 端口8734
                 //StartLocationAlarmService();
 
-                //设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
-                StartReceiveAlarm();
+
+                //StartReceiveAlarm();//设备告警对接服务 基于NSQ消息队列获取第三方告警信息 项目：WebNSQLib
 
                 var EnableDevAlarmBuffer = ConfigurationHelper.GetBoolValue("EnableDevAlarmBuffer");
 
@@ -379,7 +441,7 @@ namespace LocationServer.Controls
                     catch (Exception e)
                     {
                         string msg = e.Message;
-                        if(msg== "An error occurred while executing the command definition. See the inner exception for details.")
+                        if (msg == "An error occurred while executing the command definition. See the inner exception for details.")
                         {
                             msg = e.InnerException.Message;
                         }
@@ -388,7 +450,7 @@ namespace LocationServer.Controls
 
                     if (EnableDevAlarmBuffer)
                     {
-                        LocationService.RefreshDeviceAlarmBuffer();//实现加载全部设备告警到内存中
+                        LocationService.RefreshDeviceAlarmBuffer(LogTags.Server);//实现加载全部设备告警到内存中
                     }
                 }, null);
 
@@ -397,6 +459,10 @@ namespace LocationServer.Controls
                     filterErrorPointThread = new FilterErrorPointThread(AppContext.FilterMoreThanMaxSpeedTimer);
                     filterErrorPointThread.Start();
                 }
+
+                //StartAnchorScan();
+
+                //StartCheckRepeatDev();
             }
             catch (Exception ex)
             {
@@ -404,36 +470,75 @@ namespace LocationServer.Controls
             }
         }
 
+        private void CheckDatacaseWebApiUrl(string host, string port)
+        {
+            var apiUrl = AppContext.DatacaseWebApiUrl;
+            if (!string.IsNullOrEmpty(apiUrl))
+            {
+                WriteLog("配置对接WebApi地址:" + apiUrl);
+                
+                if (apiUrl == "simulate")
+                {
+                    AppContext.DatacaseWebApiUrl = string.Format("{0}:{1}/datacase", host, port);
+                }
+                else
+                {
+                    var r = PingEx.Send(apiUrl);
+                    if (r == false)
+                    {
+                        WriteLog("无法Ping通该地址:" + apiUrl);
+                        AppContext.DatacaseWebApiUrl = string.Format("{0}:{1}/datacase", host, port);
+                    }
+                }
+                WriteLog("最终对接WebApi地址:" + AppContext.DatacaseWebApiUrl);
+            }
+        }
+
+        public void StartAnchorScan()
+        {
+            if (AppContext.AnchorScanInterval > 0)
+            {
+                Log.Info(LogTags.Server, string.Format("开启基站扫描,扫描间隔:{0}(s),一轮扫描次数:{1},告警发送模式:{2}", AppContext.AnchorScanInterval, AppContext.AnchorScanResetCount, AppContext.AnchorScanSendMode));
+
+                if (IpHelper.GetLocalIpList().Contains(EngineClientSetting.LocalIp))
+                {
+                    anchorScanThread = new AnchorScanThread(AppContext.AnchorScanInterval);
+                    anchorScanThread.Start();
+                }
+                else
+                {
+                    Log.Info(LogTags.Server, string.Format("配置的本地IP在本机电脑上不存在,不启动基站扫描.IP:{0}", EngineClientSetting.LocalIp));
+                }
+                
+            }
+        }
+
+        AnchorScanThread anchorScanThread;
+
         FilterErrorPointThread filterErrorPointThread = null;
 
         public void StartPlayBackManage()
         {
-            try
+            var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
+            if (EnabelNVS)
             {
-                var EnabelNVS = ConfigurationHelper.GetBoolValue("EnabelNVS");
-                if (EnabelNVS)
+                NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
+
+                NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
+                NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
+                NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
+                NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
+                NVSManage.Init();//启动天地伟业Playback界面
+
+                string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
+                if (File.Exists(nginx))
                 {
-                    NVSManage.RTMP_Host = ConfigurationHelper.GetValue("RTMP_Host");
-
-                    NVSManage.NVRIP = ConfigurationHelper.GetValue("NVRIP");
-                    NVSManage.NVRPort = ConfigurationHelper.GetValue("NVRPort");
-                    NVSManage.NVRUser = ConfigurationHelper.GetValue("NVRUser");
-                    NVSManage.NVRPass = ConfigurationHelper.GetValue("NVRPass");
-                    NVSManage.Init();//启动天地伟业Playback界面
-
-                    string nginx = AppDomain.CurrentDomain.BaseDirectory + "\\nginx-1.7.11.3-Gryphon\\restart-rtmp.bat";
-                    if (File.Exists(nginx))
-                    {
-                        nginxCmdProcess = Process.Start(nginx);//启动nginx-rtmp
-                    }
-                    else
-                    {
-                        WriteLog("找不到nginx启动文件:" + nginx);
-                    }
+                    nginxCmdProcess=Process.Start(nginx);//启动nginx-rtmp
                 }
-            }catch(Exception e)
-            {
-                WriteLog("启动NVR管理系统失败:" + e.ToString());
+                else
+                {
+                    WriteLog("找不到nginx启动文件:"+ nginx);
+                }
             }
         }
 
@@ -606,10 +711,7 @@ namespace LocationServer.Controls
 
             WriteLog("WebApiService: " + path + "api");
 
-            if(AppContext.DatacaseWebApiUrl== "simulate")
-            {
-                AppContext.DatacaseWebApiUrl = string.Format("{0}:{1}/datacase", host, port);
-            }
+
         }
 
         private ServiceHost locationServiceHost;
@@ -702,6 +804,7 @@ namespace LocationServer.Controls
 
             if (EnableInspectionTrack && trackClient == null)
             {
+                //Ping.
                 string strIp = AppContext.DatacaseWebApiUrl;
                 trackClient = new InspectionTrackClient(strIp);
                 trackClient.ListGot += (TrackList) =>
@@ -728,8 +831,7 @@ namespace LocationServer.Controls
         private Thread HPThread;
         private void StartGetHistoryPositon()
         {
-            bool EnableHistoryBuffer = ConfigurationHelper.GetBoolValue("EnableHistoryBuffer");
-            if (EnableHistoryBuffer)
+            if (AppContext.EnableHistoryBuffer)
             {
                 WriteLog("启动定位历史数据缓存");
 

@@ -4,6 +4,7 @@ using DbModel.Location.Alarm;
 using DbModel.Location.AreaAndDev;
 using DbModel.LocationHistory.Alarm;
 using DbModel.Tools;
+using Location.BLL.Tool;
 using Location.TModel.Tools;
 using Newtonsoft.Json;
 using NsqSharp;
@@ -73,8 +74,9 @@ namespace WebNSQLib
         {
             if (bll == null)
             {
-                bll = new Bll();
-                DevList = bll.DevInfos.ToList();
+                bll = Bll.NewBllNoRelation();
+                //DevList = bll.DevInfos.ToList();
+                DevList = bll.DevInfos.ToList(true);//这里必须加上true属性，不加上的话，配合后面的设置到告警上并添加，会导致加入重复的设备信息。
                 if (DevList == null) return;
                 DaList = bll.DevAlarms.Where(p => p.Src == Abutment_DevAlarmSrc.视频监控 || p.Src == Abutment_DevAlarmSrc.门禁 || p.Src == Abutment_DevAlarmSrc.消防).ToList();
             }
@@ -106,124 +108,150 @@ namespace WebNSQLib
         /// <summary>Handles a message.</summary>
         public void HandleMessage(IMessage message)
         {
-            Init();
-            string msg = Encoding.UTF8.GetString(message.Body);
-            events recv = JsonConvert.DeserializeObject<events>(msg);
-
-            if (recv == null)
+            try
             {
+                Init();
+
+                int count1 = bll.DevInfos.GetCount();
+
+                string msg = Encoding.UTF8.GetString(message.Body);
+                events recv = JsonConvert.DeserializeObject<events>(msg);
+
+                if (recv == null)
+                {
+                    return;
+                }
+
+                int nsrc = recv.src;
+
+                DevInfo di = null;
+
+                if (nsrc == 1 || nsrc == 2)
+                {
+                    if (recv.raw_id == null || recv.raw_id == "")
+                    {
+                        return;
+                    }
+                    di = DevList.Find(p => p.Abutment_DevID == recv.raw_id);
+                }
+                else if (nsrc == 3)
+                {
+                    if (recv.node == null || recv.node == "")
+                    {
+                        return;
+                    }
+
+                    di = DevList.Find(p => p.Code == recv.node);
+                }
+
+                long lTimeStamp = recv.t * 1000;
+                bool bFlag = false;
+                int nLevel = (int)recv.level;
+                Abutment_DevAlarmLevel adLevel = (Abutment_DevAlarmLevel)nLevel;
+                if (nLevel == 0)
+                {
+                    adLevel = Abutment_DevAlarmLevel.未定;
+                }
+                if (di == null)
+                {
+                    //DevAlarm da2 = new DevAlarm();
+                    //da2.Abutment_Id = recv.id;
+                    //da2.Title = recv.title;
+                    //da2.Msg = recv.msg;
+                    //da2.Level = adLevel;
+                    //da2.Code = recv.code;
+                    //da2.Src = (Abutment_DevAlarmSrc)recv.src;
+                    //da2.DevInfoId = 0;//未找到设备
+                    //da2.Device_desc = recv.deviceDesc;
+                    //da2.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
+                    //da2.AlarmTimeStamp = lTimeStamp;
+                    //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
+                    //Log. bv
+
+                    //LogEvent.Info("RealAlarm", string.Format("没找到设备信息,json:{0}", msg));
+                    //LogEvent.Info("RealAlarm", string.Format("没找到设备信息:{0}", recv.title));
+                    SaveMessageToFile(msg, "noDev");
+                    return;//没找到设备信息，则不做任何处理，
+                }
+
+                
+
+                if (recv.title.Contains("防拆") || recv.msg.Contains("防拆"))
+                {
+                    SaveMessageToFile(msg, "filter");
+                    return;//过滤掉有“防拆”字段的告警，没有意义。
+                }
+
+                LogEvent.Info("RealAlarm", string.Format("获取设备:{0}", recv.title));
+                SaveMessageToFile(msg, "");
+
+                DevAlarm da = DaList.Find(p => p.DevInfoId == di.Id && p.AlarmTimeStamp == lTimeStamp);
+                if (da == null)
+                {
+                    if (recv.state == 0)
+                    {
+                        da = CreateDevAlarm(recv, di, lTimeStamp, adLevel);
+
+                        bll.DevAlarms.Add(da);
+                        DaList.Add(da);
+                        bFlag = true;
+                    }
+                }
+                else
+                {
+                    if (recv.state == 1 || recv.state == 2)
+                    {
+                        DevAlarmHistory da_history = da.RemoveToHistory();
+                        DaList.Remove(da);
+                        bll.DevAlarms.DeleteById(da.Id);
+                        bll.DevAlarmHistorys.Add(da_history);//告警恢复 放到历史数据中
+                        da.Level = Abutment_DevAlarmLevel.无;
+                        bFlag = true;
+                    }
+                    else if (adLevel != da.Level)
+                    {
+                        da.Level = adLevel;
+                        da.Title = recv.title;
+                        da.Msg = recv.msg;
+                        bll.DevAlarms.Edit(da);
+                        bFlag = true;
+                    }
+                }
+
+                if (bFlag)
+                {
+                    OnDevAlarmReceived(da);
+                }
+                int count2 = bll.DevInfos.GetCount();
+                if (count2 > count1)
+                {
+                    Log.Info(LogTags.RealAlarm, "添加了数据:" + count1 + "->" + count2);
+                }
                 return;
             }
-
-            int nsrc = recv.src;
-
-            DevInfo di = null;
-
-            if (nsrc == 1 || nsrc == 2)
+            catch (Exception ex)
             {
-                if (recv.raw_id == null || recv.raw_id == "")
-                {
-                    return;
-                }
-                di = DevList.Find(p => p.Abutment_DevID == recv.raw_id);
-            }
-            else if (nsrc == 3)
-            {
-                if (recv.node == null || recv.node == "")
-                {
-                    return;
-                }
 
-                di = DevList.Find(p => p.Code == recv.node);
+                Log.Info(LogTags.RealAlarm, "HandleMessage:" + ex);
             }
+            
+        }
 
-            long lTimeStamp = recv.t * 1000;
-            bool bFlag = false;
-            int nLevel = (int)recv.level;
-            Abutment_DevAlarmLevel adLevel = (Abutment_DevAlarmLevel)nLevel;
-            if (nLevel == 0)
-            {
-                adLevel = Abutment_DevAlarmLevel.未定;
-            }
-
-            if (di == null)
-            {
-                //DevAlarm da2 = new DevAlarm();
-                //da2.Abutment_Id = recv.id;
-                //da2.Title = recv.title;
-                //da2.Msg = recv.msg;
-                //da2.Level = adLevel;
-                //da2.Code = recv.code;
-                //da2.Src = (Abutment_DevAlarmSrc)recv.src;
-                //da2.DevInfoId = 0;//未找到设备
-                //da2.Device_desc = recv.deviceDesc;
-                //da2.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
-                //da2.AlarmTimeStamp = lTimeStamp;
-                //bll.DevAlarms.Add(da2);//未找到设备的告警也记录下来，
-                //Log. bv
-                LogEvent.Info("RealAlarm",string.Format("没找到设备信息,json:{0}", msg));
-                SaveMessageToFile(msg, "noDev");
-                return;//没找到设备信息，则不做任何处理，
-            }
-
-            if (recv.title.Contains("防拆") || recv.msg.Contains("防拆"))
-            {
-                SaveMessageToFile(msg, "filter");
-                return;//过滤掉有“防拆”字段的告警，没有意义。
-            }
-
-            SaveMessageToFile(msg,"");
-
-            DevAlarm da = DaList.Find(p => p.DevInfoId == di.Id && p.AlarmTimeStamp == lTimeStamp);
-            if (da == null)
-            {
-                if (recv.state == 0)
-                {
-                    da = new DevAlarm();
-                    da.Abutment_Id = recv.id;
-                    da.Title = recv.title;
-                    da.Msg = recv.msg;
-                    da.Level = adLevel;
-                    da.Code = recv.code;
-                    da.Src = (Abutment_DevAlarmSrc)recv.src;
-                    da.DevInfoId = di.Id;
-                    da.DevInfo = di;
-                    da.Device_desc = recv.deviceDesc;
-                    da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
-                    da.AlarmTimeStamp = lTimeStamp;
-                    
-                    bll.DevAlarms.Add(da);
-                    DaList.Add(da);
-                    bFlag = true;
-                }
-            }
-            else
-            {
-                if (recv.state == 1 || recv.state == 2)
-                {
-                    DevAlarmHistory da_history = da.RemoveToHistory();
-                    DaList.Remove(da);
-                    bll.DevAlarms.DeleteById(da.Id);
-                    bll.DevAlarmHistorys.Add(da_history);//告警恢复 放到历史数据中
-                    da.Level = Abutment_DevAlarmLevel.无;
-                    bFlag = true;
-                }
-                else if (adLevel != da.Level)
-                {
-                    da.Level = adLevel;
-                    da.Title = recv.title;
-                    da.Msg = recv.msg;
-                    bll.DevAlarms.Edit(da);
-                    bFlag = true;
-                }
-            }
-
-            if (bFlag)
-            {
-                OnDevAlarmReceived(da);
-            }
-
-            return;
+        private static DevAlarm CreateDevAlarm(events recv, DevInfo di, long lTimeStamp, Abutment_DevAlarmLevel adLevel)
+        {
+            DevAlarm da = new DevAlarm();
+            da.Abutment_Id = recv.id;
+            da.Title = recv.title;
+            da.Msg = recv.msg;
+            da.Level = adLevel;
+            da.Code = recv.code;
+            da.Src = (Abutment_DevAlarmSrc)recv.src;
+            da.DevInfoId = di.Id;
+            da.DevInfo = di;//这个可能导致设备重复，奇怪
+            da.Device_desc = recv.device_desc;
+            da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
+            da.AlarmTimeStamp = lTimeStamp;
+            return da;
         }
 
         public event Action<DevAlarm> DevAlarmReceived;

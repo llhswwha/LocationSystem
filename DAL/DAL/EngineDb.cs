@@ -14,8 +14,15 @@ namespace DAL
     {
         public static string Name = "EngineLite";
 
-        public EngineDb() : base(Name) { }
-        
+        public EngineDb() : base(Name) {
+
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<EngineDb>(null);
+        }
+
         public DbSet<bus_anchor> bus_anchors { get; set; }
 
         public DbSet<bus_anchor_config> bus_anchor_configs { get; set; }

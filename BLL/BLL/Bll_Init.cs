@@ -122,7 +122,6 @@ namespace BLL
             }
         }
 
-
         private void InsertPartitionInfo()
         {
             bool bPartitionFlag = true;

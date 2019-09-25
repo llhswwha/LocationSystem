@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BaoXin</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -28,6 +28,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SihuiWebRelease|AnyCPU'">
+    <OutputPath>bin\SihuiWebRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BaoXinDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\BaoXinDebug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BAOXIN</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -55,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AppSetting.cs" />
     <Compile Include="BaseData\BaseDataHelper.cs" />
+    <Compile Include="BaseData\member.cs" />
     <Compile Include="CADEntitys\CADAnchor.cs" />
     <Compile Include="CADEntitys\CADAreaList.cs" />
     <Compile Include="CADEntitys\CADEntity.cs" />
@@ -66,6 +85,16 @@
     <Compile Include="BaseData\org.cs" />
     <Compile Include="BaseData\user.cs" />
     <Compile Include="BaseData\zones.cs" />
+    <Compile Include="Converters\AreaConvertHelper.cs" />
+    <Compile Include="Converters\BoundConverHelper.cs" />
+    <Compile Include="Converters\DepartmentConvertHelper.cs" />
+    <Compile Include="Converters\DevAlarmConvertHelper.cs" />
+    <Compile Include="Converters\DevConverHelper.cs" />
+    <Compile Include="Converters\LocationAlarmHelper.cs" />
+    <Compile Include="Converters\PersonConvertHelper.cs" />
+    <Compile Include="Converters\PointConvertHelper.cs" />
+    <Compile Include="Converters\TagConvertHelper.cs" />
+    <Compile Include="Converters\TransfromConvertHelper.cs" />
     <Compile Include="LocationHistory\Data\IPosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosDistance.cs" />
     <Compile Include="LocationHistory\Data\PosHistoryAllInfo.cs" />

@@ -186,4 +186,19 @@ namespace DbModel.Location.AreaAndDev
             DevInfoId = dev.Id;
         }
     }
+
+    public class ArchorInfo
+    {
+        public int Id { get; set; }
+
+        public string Code { get; set; }
+
+        public string Ip { get; set; }
+
+        public int? ParentId { get; set; }
+
+        public Area Parent { get; set; }
+
+        public int? DevId { get; set; }
+    }
 }

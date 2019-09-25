@@ -190,7 +190,7 @@ namespace LocationDaemon
 
                 if (exists==false)
                 {
-                    MessageBox.Show("目标程序不存在！！！");
+                    WriteLog("目标程序不存在！！！");
                 }
             }
             catch (Exception exception)
@@ -351,33 +351,42 @@ namespace LocationDaemon
 
         private void DeleteLogTimerTick(object sender, EventArgs e)
         {
-
-
-            if (!Directory.Exists(logDir))
+            try
             {
-                MessageBox.Show("找不到目录:" + logDir + "\n请重新设置并启动");
-                deleteLogTimer.Stop();
-                return;
-            }
-            
-            FileInfo[] logFiles = new DirectoryInfo(logDir).GetFiles("*.*", SearchOption.AllDirectories);
-            foreach (FileInfo file in logFiles)
-            {
-                try
+                if (!Directory.Exists(logDir))
                 {
-                    TimeSpan time = DateTime.Now - file.CreationTime;
-                    if (time.TotalDays > keepDay)
+                    WriteLog("找不到目录:" + logDir + "\n请重新设置并启动");
+                    deleteLogTimer.Stop();
+                    return;
+                }
+
+                FileInfo[] logFiles = new DirectoryInfo(logDir).GetFiles("*.*", SearchOption.AllDirectories);
+                WriteLog("logFiles:" + logFiles.Length);
+                foreach (FileInfo file in logFiles)
+                {
+                    try
                     {
-                        file.Delete();
-                        WriteLog("删除日志:" + file.Name);
-                        Thread.Sleep(100);
+                        TimeSpan time = DateTime.Now - file.CreationTime;
+                        if (time.TotalDays > keepDay)
+                        {
+                            file.Delete();
+                            WriteLog("删除日志:" + file.Name);
+                            Thread.Sleep(100);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteLog("删除日志:" + ex);
                     }
                 }
-                catch (Exception ex)
-                {
-                    
-                }
             }
+            catch (Exception ex2)
+            {
+
+                WriteLog("删除日志:" + ex2);
+            }
+
+  
 
         }
 
@@ -541,7 +550,7 @@ namespace LocationDaemon
         {
             if (!File.Exists(targetProcessPath))
             {
-                MessageBox.Show("找不到文件:" + targetProcessPath + "\n请重新设置并启动");
+                WriteLog("找不到文件:" + targetProcessPath + "\n请重新设置并启动");
                 
                 return false;
             }

@@ -126,6 +126,69 @@ namespace WebApiLib.Clients
             return client.GetUserList();
         }
 
+        public List<user> GetUserListEx()
+        {
+            var userList = GetUserList();
+            List<user> userListOrderByName = userList.OrderBy(i => i.name).ToList();
+            List<user> userListSameName = new List<user>();
+            List<user> userListNoSameName = new List<user>();
+            List<string> userNames = new List<string>();
+            //foreach (var u1 in userList)
+            for (int i = 0; i < userList.Count; i++)
+            {
+                var u1 = userList[i];
+
+                var u2 = userList.Find(j => j.name == u1.name && j.id != u1.id);
+
+                if (u2 != null)
+                {
+                    u1.AddUser(u2);
+                    u2.AddUser(u1);
+
+                    userList.Remove(u2);
+
+                    if (u2.dep_name == null)
+                    {
+                        userListSameName.Add(u1);
+                        userListOrderByName.Remove(u2);
+                    }
+                    else if (u1.dep_name == null)
+                    {
+                        userListSameName.Add(u2);
+                        userListOrderByName.Remove(u1);
+                    }
+                    else
+                    {
+                        if (u2.mobile == null)
+                        {
+                            userListSameName.Add(u1);
+                            userListOrderByName.Remove(u2);
+                        }
+                        else if (u1.mobile == null)
+                        {
+                            userListSameName.Add(u2);
+                            userListOrderByName.Remove(u1);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    userListNoSameName.Add(u1);
+                }
+                if (!userNames.Contains(u1.name))
+                {
+                    userNames.Add(u1.name);
+                }
+            }
+
+            userListSameName = userListSameName.OrderBy(i => i.name).ToList();
+            return userListOrderByName;
+        }
+
         /// <summary>
         /// 获取人员列表
         /// </summary>
@@ -1335,7 +1398,7 @@ namespace WebApiLib.Clients
                             da.Code = item.code;
                             da.Src = (Abutment_DevAlarmSrc)item.src;
                             da.DevInfoId = di.Id;
-                            da.Device_desc = item.deviceDesc;
+                            da.Device_desc = item.device_desc;
                             da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
                             da.AlarmTimeStamp = lTimeStamp;
                             bll.DevAlarms.Add(da);
@@ -1588,26 +1651,38 @@ namespace WebApiLib.Clients
             return send;
         }
 
-        /// <summary>
-        /// 获取巡检轨迹列表
-        /// </summary>
-        /// <param name="dtBegin"></param>
-        /// <param name="dtEnd"></param>
-        /// <param name="bFlag">值为True，按时间获取，值为false,获取全部</param>
-        /// <returns></returns>
-        public List<patrols> Getinspectionlist(long lBegin, long lEnd, bool bFlag)
+        public List<patrols> GetPatrolList(DateTime dtBegin, DateTime dtEnd)
         {
-            return client.Getinspectionlist(lBegin, lEnd, bFlag);
+            long lBegin = Location.TModel.Tools.TimeConvert.ToStamp(dtBegin) / 1000;
+            long lEnd = Location.TModel.Tools.TimeConvert.ToStamp(dtEnd) / 1000;
+            return client.GetPatrolList(lBegin, lEnd, true);
         }
+
+        public List<patrols> GetPatrolList()
+        {
+            return client.GetPatrolList(0, 0, false);
+        }
+
+        ///// <summary>
+        ///// 获取巡检轨迹列表
+        ///// </summary>
+        ///// <param name="dtBegin"></param>
+        ///// <param name="dtEnd"></param>
+        ///// <param name="bFlag">值为True，按时间获取，值为false,获取全部</param>
+        ///// <returns></returns>
+        //public List<patrols> GetPatrolList(long lBegin, long lEnd, bool bFlag)
+        //{
+        //    return client.GetPatrolList(lBegin, lEnd, bFlag);
+        //}
 
         /// <summary>
         /// 获取巡检节点列表
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public patrols Getcheckpoints(int patrolId)
+        public patrols GetPatrolDetail(int patrolId)
         {
-            return client.Getcheckpoints(patrolId);
+            return client.GetPatrolDetail(patrolId);
         }
 
         /// <summary>
@@ -1616,7 +1691,7 @@ namespace WebApiLib.Clients
         /// <param name="patrolId"></param>
         /// <param name="deviceCode"></param>
         /// <returns></returns>
-        public checkpoints Getcheckresults(int patrolId, string deviceId)
+        public checkresults Getcheckresults(int patrolId, string deviceId)
         {
             return client.Getcheckresults(patrolId, deviceId);
         }

@@ -9,7 +9,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="导出Excel" Name="MenuExportExcel" Click="MenuExportExcel_OnClick"></MenuItem>
-            <MenuItem Header="全部导出" Name="MenuExportAll" Click="MenuExportAll_OnClick"></MenuItem>
+            <MenuItem Header="全部导出(Excel)" Name="MenuExportAll" Click="MenuExportAll_OnClick"></MenuItem>
+            <MenuItem Header="全部导出(Xml)" Name="MenuExportXml" Click="MenuExportXml_OnClick"></MenuItem>
             <MenuItem Header="打开导出文件夹" Name="MenuOpenDir" Click="MenuOpenDir_OnClick"></MenuItem>
         </Menu>
         <ListBox Width="200" Name="ListBox1"></ListBox>
@@ -18,6 +19,16 @@
             <Button Name="BtnDevTypes" Click="DevTypes_OnClick">DevType</Button>
             <Button Name="BtnKKSCode" Click="BtnKKSCode_OnClick">KKSCode</Button>
         </StackPanel>-->
-        <DataGrid Name="DataGrid1"></DataGrid>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DataGrid Name="DataGrid1"></DataGrid>
+            <ScrollViewer Grid.Row="1">
+                <TextBox Name="TbLogs"></TextBox>
+            </ScrollViewer>
+        </Grid>
     </DockPanel>
 </Window>

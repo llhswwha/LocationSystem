@@ -516,13 +516,16 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public patrols Getcheckpoints(int patrolId)
+        public patrols GetPatrolDetail(int patrolId)
         {
+            /*
+            {"createTime":1568736088,"startTime":1568736000,"endTime":1568764200,"id":"2340","code":"巡检单-14270","name":"#1炉机务巡检路线（运行）","state":"执行中","route":[{"staffCode":"82000007","staffName":"","kksCode":"20190514RHUU","deviceCode":"#1炉辅机间0m区域","deviceName":"","deviceId":110864},{"staffCode":"82000007","staffName":"","kksCode":"201905142V55","deviceCode":"#1炉定排坑区域","deviceName":"","deviceId":110781},{"staffCode":"82000007","staffName":"","kksCode":"20190514WLUU","deviceCode":"#1炉辅机间2层平台","deviceName":"","deviceId":110888},{"staffCode":"82000007","staffName":"","kksCode":"20190514J4YJ","deviceCode":"#1炉辅机间3层平台","deviceName":"","deviceId":110887},{"staffCode":"82000007","staffName":"","kksCode":"20190514OVHO","deviceCode":"#1炉辅机间4层平台","deviceName":"","deviceId":110785},{"staffCode":"82000007","staffName":"","kksCode":"2019051447P1","deviceCode":"#1炉29.48m平台区域","deviceName":"","deviceId":110780},{"staffCode":"82000007","staffName":"","kksCode":"201905141961","deviceCode":"#1炉0m区域","deviceName":"","deviceId":110890}]}
+            */
             patrols recv = new patrols();
 
             try
             {
-                string path = "patrols/" + Convert.ToString(patrolId);
+                string path = "patrols/" + patrolId;
                 string url = BaseUri + path;
 
                 recv = GetPatrols(url);
@@ -564,16 +567,16 @@ namespace WebApiLib.Clients
         /// <param name="patrolId"></param>
         /// <param name="deviceCode"></param>
         /// <returns></returns>
-        public checkpoints Getcheckresults(int patrolId, string deviceId)
+        public checkresults Getcheckresults(int patrolId, string deviceId)
         {
-            checkpoints recv = new checkpoints();
+            checkresults recv = new checkresults();
 
             try
             {
                 string path = "patrols/" + Convert.ToString(patrolId) + "/checkpoints/" + deviceId + "/results";
                 string url = BaseUri + path;
 
-                recv = GetCheckPoints(url);
+                recv = GetCheckResults(url);
             }
             catch (Exception ex)
             {
@@ -584,6 +587,28 @@ namespace WebApiLib.Clients
 
         }
 
+        public checkresults GetCheckResults(string url)
+        {
+            checkresults recv = new checkresults();
+            try
+            {
+                recv = WebApiHelper.GetEntity<checkresults>(url);
+                if (recv == null) return null;
+                if (recv.checks == null)
+                {
+                    recv.checks = new List<results>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+                return null;
+            }
+            return recv;
+
+        }
+
+
         public checkpoints GetCheckPoints(string url)
         {
             checkpoints recv = new checkpoints();
@@ -591,10 +616,10 @@ namespace WebApiLib.Clients
             {
                 recv = WebApiHelper.GetEntity<checkpoints>(url);
                 if (recv == null) return null;
-                if (recv.checks == null)
-                {
-                    recv.checks = new List<results>();
-                }
+                //if (recv.checks == null)
+                //{
+                //    recv.checks = new List<results>();
+                //}
             }
             catch (Exception ex)
             {
@@ -625,9 +650,9 @@ namespace WebApiLib.Clients
         /// </summary>
         /// <param name="dtBegin"></param>
         /// <param name="dtEnd"></param>
-        /// <param name="bFlag">值为True，按时间获取，值为false,获取全部</param>
+        /// <param name="byTime">值为True，按时间获取，值为false,获取全部</param>
         /// <returns></returns>
-        public List<patrols> Getinspectionlist(long lBegin, long lEnd, bool bFlag)
+        public List<patrols> GetPatrolList(long lBegin, long lEnd, bool byTime)
         {
             List<patrols> recv = new List<patrols>();
 
@@ -635,12 +660,16 @@ namespace WebApiLib.Clients
             {
                 string path = "patrols";
                 string url = BaseUri + path;
-                if (bFlag)
+                if (byTime)
                 {
                     url += "?startDate=" + lBegin;
                     url += "&endDate=" + lEnd;
                 }
                 recv = GetEntityList2<patrols>(url);
+                recv.Sort((a, b) =>
+                {
+                    return b.createTime.CompareTo(a.createTime);
+                });
             }
             catch (Exception ex)
             {

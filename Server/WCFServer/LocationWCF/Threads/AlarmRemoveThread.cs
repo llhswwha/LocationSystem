@@ -43,5 +43,10 @@ namespace LocationServer.Threads
             db.Dispose();
             return true;
         }
+
+        protected override void DoBeforeWhile()
+        {
+            
+        }
     }
 }

@@ -18,17 +18,18 @@ namespace LocationServer.Threads
     {
         public ResetAppConfigThread() : base(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(30))
         {
-            LoadAppConfig();
+            LoadAppConfig(true);//主线程中，要在后面的功能代码前执行
         }
 
         public override bool TickFunction()
         {
-            LoadAppConfig();
+            LoadAppConfig(false);
             return true;
         }
 
-        public static void LoadAppConfig()
+        public static void LoadAppConfig(bool isFirst)
         {
+            AppContext.DebugMode = ConfigurationHelper.GetBoolValue("DebugMode");
             AppContext.AutoStartServer = ConfigurationHelper.GetIntValue("AutoStartServer") == 0;
             AppContext.WritePositionLog = ConfigurationHelper.GetBoolValue("WritePositionLog");
             AppContext.PositionMoveStateWaitTime = ConfigurationHelper.GetDoubleValue("PositionMoveStateWaitTime");
@@ -39,7 +40,11 @@ namespace LocationServer.Threads
 
 
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
-            AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+
+            if(isFirst)
+                AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+
+            AppContext.SaveWebApiJson= ConfigurationHelper.GetBoolValue("SaveWebApiJson");
             AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
 
             AppContext.LogTextBoxMaxLength = ConfigurationHelper.GetIntValue("LogTextBoxMaxLength", 10000);
@@ -48,6 +53,16 @@ namespace LocationServer.Threads
             AppContext.FilterTodayWhenStart = ConfigurationHelper.GetBoolValue("FilterTodayWhenStart");
             AppContext.FilterMoreThanMaxSpeedTimer = ConfigurationHelper.GetValue("FilterMoreThanMaxSpeedTimer", "04:00");
 
+            AppContext.EnableHistoryBuffer = ConfigurationHelper.GetBoolValue("EnableHistoryBuffer");
+            AppContext.DeleteRepeatPositionsWhenLoad = ConfigurationHelper.GetBoolValue("DeleteRepeatPositionsWhenLoad");
+            AppContext.HistoryBufferLoadMode = ConfigurationHelper.GetIntValue("HistoryBufferLoadMode");
+
+            AppContext.AnchorScanInterval = ConfigurationHelper.GetIntValue("AnchorScanInterval");
+            AppContext.AnchorScanResetCount = ConfigurationHelper.GetIntValue("AnchorScanResetCount",60);
+            AppContext.AnchorScanSendMode= ConfigurationHelper.GetIntValue("AnchorScanSendMode");
+
+            AppContext.RepeatDevInfoCheckInterval = ConfigurationHelper.GetIntValue("RepeatDevInfoCheckInterval");
+            
 
             LocationContext.LoadOffset(ConfigurationHelper.GetValue("LocationOffset"));
             LocationContext.LoadInitOffset(ConfigurationHelper.GetValue("InitTopoOffset"));
@@ -69,6 +84,13 @@ namespace LocationServer.Threads
             RealAlarm.NsqLookupdChannel = ConfigurationHelper.GetValue("NsqLookupdChannel");
 
             DbModel.AppSetting.AddHisPositionInterval = ConfigurationHelper.GetIntValue("AddHisPositionInterval", 30) * 1000;//单位是s，
+
+
+        }
+
+        protected override void DoBeforeWhile()
+        {
+            
         }
     }
 }

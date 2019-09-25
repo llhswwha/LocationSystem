@@ -11,6 +11,12 @@
             <MenuItem Header="刷新" Name="MenuRefresh" Click="MenuRefresh_Click"></MenuItem>
             <MenuItem Header="连接引擎" Name="MenuConnectEngine" Click="MenuConnectEngine_Click"></MenuItem>
             <MenuItem Header="启动定时器" Name="MenuStartTimer" Click="MenuStartTimer_Click"></MenuItem>
+            <MenuItem Header="机房图片">
+                <MenuItem Header="创建目录" Name="MenuCreateDir" Click="MenuCreateDir_OnClick"></MenuItem>
+                <MenuItem Header="移动照片" Name="MenuMovePictures" Click="MenuMovePictures_OnClick"></MenuItem>
+                <MenuItem Header="只显示目录节点" Name="MenuOnlyShowDirNode" Click="MenuOnlyShowDirNode_OnClick"></MenuItem>
+            </MenuItem>
+            
         </Menu>
         <StackPanel DockPanel.Dock="Top">
 
@@ -29,6 +35,9 @@
             </TabItem>
             <TabItem Header="基站设置列表" >
                 <Controls:ArchorListExportControl x:Name="ArchorListExportControl1"/>
+            </TabItem>
+            <TabItem Header="照片">
+                <wpfClientControlLib:PictureViewer x:Name="PictureViewer1"/>
             </TabItem>
         </TabControl>
         

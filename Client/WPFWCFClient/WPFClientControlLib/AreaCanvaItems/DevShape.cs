@@ -34,5 +34,20 @@ namespace WPFClientControlLib.AreaCanvaItems
                 _parent.Children.Remove(Label);
             }
         }
+
+        public void ReAdd()
+        {
+            if (Rect != null)
+            {
+               
+                _parent.Children.Remove(Rect);
+                _parent.Children.Add(Rect);
+            }
+            if (Label != null)
+            {
+                _parent.Children.Remove(Label);
+                _parent.Children.Add(Label);
+            }
+        }
     }
 }

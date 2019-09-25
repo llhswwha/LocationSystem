@@ -73,7 +73,7 @@ namespace WebNSQLib.RecvMessage
                     da.Code = recv.code;
                     da.Src = (Abutment_DevAlarmSrc)recv.src;
                     da.DevInfoId = di.Id;
-                    da.Device_desc = recv.deviceDesc;
+                    da.Device_desc = recv.device_desc;
                     da.AlarmTime = TimeConvert.ToDateTime(lTimeStamp);
                     da.AlarmTimeStamp = lTimeStamp;
                     bll.DevAlarms.Add(da);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Services;
 
-//using AreaEntity= DbModel.Location.AreaAndDev.Area;
+using DbAreaEntity= DbModel.Location.AreaAndDev.Area;
 using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 //using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
 using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
@@ -37,6 +38,9 @@ using Bound = Location.TModel.Location.AreaAndDev.Bound;
 using LocationServer.Windows.Simple;
 using Point = Location.TModel.Location.AreaAndDev.Point;
 using Location.IModel;
+using ArchorUDPTool;
+using System.Diagnostics;
+using System.Data;
 
 namespace LocationServer
 {
@@ -75,6 +79,12 @@ namespace LocationServer
             _archors = archorService.GetList().Where(i => ids.Contains(i.Id)).ToArray();
         }
 
+        public void LocateByIp(List<string> ips)
+        {
+            //_archors = bll.Archors.FindAll(i => ids.Contains(i.Id)).ToArray();
+            _archors = archorService.GetList().Where(i => ips.Contains(i.Ip)).ToArray();
+        }
+
         private AreaService areaService;
         private DepartmentService depService;
         private DeviceService devService;
@@ -83,7 +93,7 @@ namespace LocationServer
 
         private void InitService()
         {
-            bll = AppContext.GetLocationBll();
+            bll = Bll.NewBllNoRelation();
             areaService = new AreaService(bll);
             depService = new DepartmentService(bll);
             devService = new DeviceService(bll);
@@ -131,6 +141,7 @@ namespace LocationServer
         void InitAreaCanvas()
         {
             AreaCanvas1.Init();
+            AreaCanvas1.udpArchorList = ArchorManager.LoadArchorListResult();
             ContextMenu devContextMenu = new ContextMenu();
             devContextMenu.AddMenu("设置设备", (tag) =>
             {
@@ -380,6 +391,7 @@ namespace LocationServer
 
         public void LoadData()
         {
+            FilterAreaTree = null;
             LoadAreaTree();
             LoadDepTree();
             LoadPersonTree();
@@ -391,9 +403,22 @@ namespace LocationServer
                 AreaListBox1.LoadData(areaService.GetList());
         }
 
+        private Func<Area, bool> FilterAreaTree;
+
         private void LoadAreaTree()
         {
-            var tree = areaService.GetTree(4);//4有CAD信息
+            DbAreaEntity tree1 = null;
+            if (FilterAreaTree == null)
+            {
+                tree1 = bll.GetAreaTree(true, null, true);
+            }
+            else
+            {
+                tree1 = bll.GetAreaTreeEx(false, null, FilterAreaTree);
+            }
+            
+
+            var tree = tree1.ToTModel();
             if (tree == null) return;
             var devList = tree.GetAllDev();
             var archorList = archorService.GetList();
@@ -418,7 +443,8 @@ namespace LocationServer
                     topoTree.SelectNode(typeof(AreaEntity),(int)archor.ParentId, archor.DevInfoId);
                     ids.Add(archor.DevInfoId);
                 }
-                AreaCanvas1.SelectDevsById(ids);
+                AreaCanvas1.SelectDevsById(ids);//
+                //AreaCanvas1.SelectDevsByIdEx(ids);//把其他的都删除了
             }
             else
             {
@@ -665,6 +691,8 @@ namespace LocationServer
                     ArchorListExportControl1.LoadData(currentArea.Id);
                     TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
                 }
+
+                ShowRoomPictures(currentArea);
             }
             else
             {
@@ -672,6 +700,21 @@ namespace LocationServer
                 if (dev != null)
                 {
                     AreaCanvas1.SelectDevById(dev.Id);
+                }
+            }
+        }
+
+        private void ShowRoomPictures(AreaEntity room)
+        {
+            //if (room.Type == AreaTypes.机房)
+            {
+                using (Bll bll = new Bll())
+                {
+                    var areaRoom = bll.Areas.FindById(room.Id);
+                    var path = areaRoom.GetPath(AreaTypes.楼层, "_");
+                    var dirPath2 = AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\" + path;
+                    DirectoryInfo dirInfo2 = new DirectoryInfo(dirPath2);
+                    PictureViewer1.Show(dirInfo2);
                 }
             }
         }
@@ -874,6 +917,171 @@ namespace LocationServer
                 engineClient = null;
             }
 
+        }
+
+        private void MenuCreateDir_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (Bll bll=new Bll())
+            {
+                var rooms = bll.Areas.FindAll(i => i.Type == AreaTypes.机房);
+                var dirPath = AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\";
+                DirectoryInfo dirInfo = new DirectoryInfo(dirPath);
+                if (!dirInfo.Exists)
+                {
+                    dirInfo.Create();
+                }
+                else
+                {
+                    var subDirs = dirInfo.GetDirectories();
+                    foreach (DirectoryInfo subDir in subDirs)
+                    {
+                        var dirs = subDir.GetDirectories();
+                        if (dirs.Length == 0)
+                        {
+                            var files = subDir.GetFiles();
+                            if (files.Length == 0)
+                            {
+                                subDir.Delete(false);
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+
+                foreach (Area room in rooms)
+                {
+                    string roomPath = room.GetPath(AreaTypes.楼层, "_");
+                    if (roomPath.Contains("走廊") || roomPath.Contains("办公室") || roomPath.Contains("会议室") || roomPath.Contains("男卫") || roomPath.Contains("女卫") || roomPath.Contains("钢梯") || roomPath.Contains("门厅") || roomPath.Contains("储藏") || roomPath.Contains("区域") || roomPath.Contains("场地") || roomPath.Contains("杂物") || roomPath.Contains("更衣") || roomPath.Contains("值班") || roomPath.Contains("饮水")) continue;
+                    DirectoryInfo roomDirInfo = new DirectoryInfo(dirPath + roomPath);
+                    if (!roomDirInfo.Exists)
+                    {
+                        roomDirInfo.Create();
+                    }
+                }
+                Process.Start(dirPath);
+            }
+        }
+
+        private void MenuOnlyShowDirNode_OnClick(object sender, RoutedEventArgs e)
+        {
+            FilterAreaTree = (a) =>
+            {
+                if (a.Type == AreaTypes.机房)
+                {
+                    return IsPictureExist(a);
+                }
+                else
+                {
+                    bool r = IsPictureExist(a);
+                    if (r) return true;
+
+                    if (a.Children == null || a.Children.Count == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            LoadAreaTree();
+        }
+
+        private static bool IsPictureExist(DbAreaEntity a)
+        {
+            var roomPath = a.GetPath(AreaTypes.楼层, "_");
+            var dirPath = AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\" + roomPath;
+            if (Directory.Exists(dirPath))
+            {
+                var files = Directory.GetFiles(dirPath);
+                if (files.Length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                //return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void MenuMovePictures_OnClick(object sender, RoutedEventArgs e)
+        {
+            string tableFile1= AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\[四会数字电站建模]\\19082811_三维建模需求_改.xlsx";
+            DataSet dataSet = ExcelLib.ExcelHelper.Load(new FileInfo(tableFile1), true);
+            Dictionary<string, string> room2room1 = new Dictionary<string, string>();
+
+            Dictionary<string, string> room2room2 = new Dictionary<string, string>();
+            foreach (DataRow row in dataSet.Tables[0].Rows)
+            {
+                var floor1 = row[1].ToString();
+                var room1 = row[2].ToString();
+                var room2 = row[4].ToString();
+                if (!string.IsNullOrEmpty(room2))
+                {
+                    room2room1.Add(room2, room1);
+                }
+                else
+                {
+
+                }
+            }
+
+            var rooms = bll.Areas.FindAll(i => i.Type == AreaTypes.机房);
+
+            var dirPath1 = AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\[四会数字电站建模]\\";
+            DirectoryInfo dirInfo1 = new DirectoryInfo(dirPath1);
+
+            var dirPath2 = AppDomain.CurrentDomain.BaseDirectory + "\\RoomPictures\\";
+            DirectoryInfo dirInfo2 = new DirectoryInfo(dirPath2);
+
+            var subDirs1 = dirInfo1.GetDirectories();
+            foreach (DirectoryInfo subDir in subDirs1)
+            {
+                var dirName = subDir.Name;
+                if (dirName.Contains("（"))
+                {
+                    dirName = dirName.Split('（')[0];
+                }
+                if (room2room1.ContainsKey(dirName))
+                {
+                    var roomName = room2room1[dirName];
+                    var room = rooms.FindAll(i => i.Name == roomName);
+                    if (room.Count ==1)
+                    {
+                        var room2 = room[0];
+                        var path = room2.GetPath(AreaTypes.楼层, "_");
+                        DirectoryInfo dir = new DirectoryInfo(dirPath2+ path);
+                        if (dir.Exists)
+                        {
+                            var files = subDir.GetFiles();
+                            var fileList= files.ToList();
+                            fileList.Sort((a, b) => { return a.LastWriteTime.CompareTo(b.LastWriteTime); });
+                            foreach (FileInfo file in fileList)
+                            {
+                                string newPath = dir.FullName +"\\"+ file.Name;
+                                file.MoveTo(newPath);
+                            }
+
+                            subDir.Delete();
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
         }
     }
 }

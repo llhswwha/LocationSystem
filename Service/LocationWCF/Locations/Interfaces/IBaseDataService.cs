@@ -28,6 +28,12 @@ namespace LocationServices.Locations.Interfaces
         //List<Personnel> GetUserList();
 
         [OperationContract]
+        InspectionTrackHistory GetInspectionHistoryById(InspectionTrackHistory history);
+
+        //[OperationContract]
+        //List<Personnel> GetUserList();
+
+        [OperationContract]
         List<Department> GetorgList();
 
         [OperationContract]

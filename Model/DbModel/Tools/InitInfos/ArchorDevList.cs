@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DbModel.Location.AreaAndDev;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -56,4 +57,7 @@ public class ArchorDev
     {
         return string.Format("{0},{1}", ArchorID, ArchorIp);
     }
+
+    [XmlIgnore]
+    public ArchorInfo Archor { get; set; }
 }

@@ -341,6 +341,10 @@ namespace LocationServices.Converters
             {
                 list2.Add(item1.ToTModel());
             }
+            if (list2.Count == 0)
+            {
+                return null;
+            }
             return list2;
         }
         public static DbModel.LocationHistory.Work.PatrolPointHistory ToDbModel(this TModel.LocationHistory.Work.PatrolPointHistory item1)

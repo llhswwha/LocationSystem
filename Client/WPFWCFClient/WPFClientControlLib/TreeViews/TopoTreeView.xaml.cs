@@ -17,6 +17,7 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Tools;
 using Location.IModel;
 using WPFClientControlLib.Extensions;
+using System.Windows.Automation.Peers;
 
 namespace WPFClientControlLib
 {
@@ -339,6 +340,8 @@ namespace WPFClientControlLib
                 ExpandParent(r);
 
                 r.IsExpanded = true;
+
+                TreeViewItem selectedNode = null;
                 foreach (TreeViewItem node in r.Items)
                 {
                     IEntity idObj = node.Tag as IEntity;
@@ -346,8 +349,14 @@ namespace WPFClientControlLib
                     {
                         node.IsSelected = true;
                         node.Foreground = Brushes.Red;
+
+                        selectedNode = node;
                     }
                 }
+
+                TreeView1.ScrollTo(r);
+
+                TreeView1.ScrollTo(selectedNode);
             }
             return r != null;
         }

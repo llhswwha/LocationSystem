@@ -6,13 +6,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
+using IModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DbModel.Location.Alarm
 {
     /// <summary>
     /// 设备告警
     /// </summary>
-    public class DevAlarm: IId
+    [Serializable]
+    public class DevAlarm: IId, IDictEntity
     {
         /// <summary>
         /// 主键Id
@@ -121,36 +124,57 @@ namespace DbModel.Location.Alarm
             }
         }
 
+        [NotMapped]
+        public string DictKey { get; set; }
+
         public DevAlarm Clone()
         {
-            DevAlarm copy = new DevAlarm();
-            copy = this.CloneObjectByBinary();
+            DevAlarm newItem = new DevAlarm();
+            //copy = this.CloneObjectByBinary();
+            newItem.Id = this.Id;
+            newItem.Abutment_Id = this.Abutment_Id;
+            newItem.Title = this.Title;
+            newItem.Msg = this.Msg;
+            newItem.Level = this.Level;
+            newItem.Code = this.Code;
+            newItem.Src = this.Src;
+            newItem.DevInfoId = this.DevInfoId;
+            newItem.Device_desc = this.Device_desc;
+            newItem.AlarmTime = this.AlarmTime;
+            newItem.AlarmTimeStamp = this.AlarmTimeStamp;
+           
+
             if (this.DevInfo != null)
             {
-                copy.DevInfo = this.DevInfo;
+                newItem.DevInfo = this.DevInfo;
             }
             
-            return copy;
+            return newItem;
         }
 
         public DevAlarmHistory RemoveToHistory()
         {
-            DevAlarmHistory history = new DevAlarmHistory();
-            //history.Id = this.Id;
-            history.Abutment_Id = this.Abutment_Id;
-            history.Title = this.Title;
-            history.Msg = this.Msg;
-            history.Level = this.Level;
-            history.Code = this.Code;
-            history.Src = this.Src;
-            history.DevInfoId = this.DevInfoId;
-            history.Device_desc = this.Device_desc;
-            history.AlarmTime = this.AlarmTime;
-            history.AlarmTimeStamp = this.AlarmTimeStamp;
-            history.HistoryTime = DateTime.Now;
-            history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
+            DevAlarmHistory newItem = new DevAlarmHistory();
+            newItem.Id = this.Id;
+            newItem.Abutment_Id = this.Abutment_Id;
+            newItem.Title = this.Title;
+            newItem.Msg = this.Msg;
+            newItem.Level = this.Level;
+            newItem.Code = this.Code;
+            newItem.Src = this.Src;
+            newItem.DevInfoId = this.DevInfoId;
+            newItem.Device_desc = this.Device_desc;
+            newItem.AlarmTime = this.AlarmTime;
+            newItem.AlarmTimeStamp = this.AlarmTimeStamp;
+            newItem.HistoryTime = DateTime.Now;
+            newItem.HistoryTimeStamp = TimeConvert.ToStamp(newItem.HistoryTime);
 
-            return history;
+            return newItem;
+        }
+
+        public override string ToString()
+        {
+            return Msg;
         }
     }
 

@@ -25,6 +25,7 @@ using TModel.FuncArgs;
 using TModel.Location.Alarm;
 using Base.Common.Tools;
 using System.Diagnostics;
+using BLL.Blls.Location;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
@@ -576,41 +577,60 @@ namespace LocationServices.Locations
 
         public static List<DbModel.Location.Alarm.DevAlarm> allAlarms;
 
+        public static List<DbModel.Location.AreaAndDev.DevInfo> allDevs;
+
+        //public static List<DbModel.Location.Alarm.DevAlarm> allAlarmList;
+
         /// <summary>
         /// //实现加载全部设备告警到内存中
         /// </summary>
-        public static void RefreshDeviceAlarmBuffer()
+        public static void RefreshDeviceAlarmBuffer(string tag)
         {
             try
             {
-                Log.Info(LogTags.Server, "获取设备告警缓存");
+                Log.Info(tag, "获取设备告警缓存");
                 //if (allAlarms == null)
                 {
                     BLL.Bll bll = BLL.Bll.NewBllNoRelation();
                     allAlarms = bll.DevAlarms.ToList();
+
+                    allDevs = bll.DevInfos.ToList();
+                    var dict = allDevs.ToDictionary(i => i.Id);
+
+                    //allAlarms = bll.DevAlarms;
+                    //allAlarmList = bll.DevAlarms.ToList();
                     if (allAlarms != null)
                     {
-                        Log.Info(LogTags.Server, "设备告警数量:"+allAlarms.Count);
+                        Log.Info(tag, "设备告警数量:"+ allAlarms.Count);
+
+                        foreach (var item in allAlarms)
+                        {
+                            if (dict.ContainsKey(item.DevInfoId))
+                            {
+                                item.DevInfo = dict[item.DevInfoId];
+                            }
+                            
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(LogTags.Server, ex.Message);
+                Log.Error(tag, ex.Message);
             }
             
         }
 
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
-       {
+        {
             if (allAlarms == null)
             {
-                RefreshDeviceAlarmBuffer();
+                RefreshDeviceAlarmBuffer(LogTags.DbGet);
             }
 
             DeviceAlarmInformation DevAlarm = new DeviceAlarmInformation();
             DateTime start = DateTime.Now;
-            var devs = db.DevInfos.ToList().ToTModel();
+            var devs = allDevs.ToTModel();
             if (devs == null || devs.Count == 0) return null;
             var dict = new Dictionary<int, DevInfo>();
             foreach (var item in devs)
@@ -628,6 +648,7 @@ namespace LocationServices.Locations
             {
                 todayStart = Convert.ToDateTime(arg.Start);
                 todayEnd = Convert.ToDateTime(arg.End);
+                todayEnd = new DateTime(todayEnd.Year, todayEnd.Month, todayEnd.Day, 23, 59, 59, 999);
             }
             else if (arg.Start != null)
             {
@@ -636,6 +657,7 @@ namespace LocationServices.Locations
             else if (arg.End != null)
             {
                 todayEnd = Convert.ToDateTime(arg.End);
+                todayEnd = new DateTime(todayEnd.Year, todayEnd.Month, todayEnd.Day, 23, 59, 59, 999);
             }
 
             var startStamp = TimeConvert.ToStamp(todayStart);
@@ -650,9 +672,14 @@ namespace LocationServices.Locations
                 }
                 else
                 {
-                    alarms1 = allAlarms.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId) && i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
-                }
+                    var alarms2= allAlarms.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                    var alarms3 = alarms2.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
 
+                    alarms1 = alarms3;
+
+
+
+                }
             }
             else
             {
@@ -673,6 +700,18 @@ namespace LocationServices.Locations
             {
 
             }
+            SetAlarmDev(dict, alarms);
+            DevAlarm.devAlarmList = new List<DeviceAlarm>();
+            DeviceAlarmScreen(arg, alarms, DevAlarm.devAlarmList);
+            DevAlarm.Total = DevAlarmTotal;
+
+            TimeSpan time = DateTime.Now - start;
+            DevAlarm.SetEmpty();
+            return DevAlarm;
+        }
+
+        private static void SetAlarmDev(Dictionary<int, DevInfo> dict, List<DeviceAlarm> alarms)
+        {
             foreach (var item in alarms)
             {
                 try
@@ -688,14 +727,8 @@ namespace LocationServices.Locations
                     Log.Error(ex.ToString());
                 }
             }
-            DevAlarm.devAlarmList = new List<DeviceAlarm>();
-            DeviceAlarmScreen(arg, alarms, DevAlarm.devAlarmList);
-            DevAlarm.Total = DevAlarmTotal;
-            
-            TimeSpan time = DateTime.Now - start;
-            DevAlarm.SetEmpty();
-            return DevAlarm;
         }
+
         int DevAlarmTotal = 0;
         /// <summary>
         /// 筛选设备告警等级和设备类型
@@ -706,7 +739,8 @@ namespace LocationServices.Locations
         public void DeviceAlarmScreen(AlarmSearchArg arg, List<DeviceAlarm> ListInfo, List<DeviceAlarm> DevAlarmlist)
         {
             List<DeviceAlarm> DevAlarmLevelList = new List<DeviceAlarm>();
-            if (arg.DevTypeName == "所有设备" && arg.Level == 0)
+            bool isAllType = arg.DevTypeName == "所有设备" || arg.DevTypeName=="" || arg.DevTypeName==null;
+            if (isAllType && arg.Level == 0)
             {
                 DevAlarmLevelList.AddRange(ListInfo);
             }
@@ -714,21 +748,21 @@ namespace LocationServices.Locations
             {
                 foreach (var devAlarm in ListInfo)
                 {
-                    if (arg.DevTypeName == "所有设备" && arg.Level != 0)
+                    if (isAllType && arg.Level != 0)
                     {
                         if (devAlarm.Level == GetDevAlarmLevel(arg.Level))
                         {
                             DevAlarmLevelList.Add(devAlarm);
                         }
                     }
-                    else if (arg.Level == 0 && arg.DevTypeName != "所有设备")
+                    else if (arg.Level == 0 && !isAllType)
                     {
                         if (arg.DevTypeName == devAlarm.DevTypeName)
                         {
                             DevAlarmLevelList.Add(devAlarm);
                         }
                     }
-                    else if (arg.DevTypeName != "所有设备" && arg.Level != 0)
+                    else if (!isAllType && arg.Level != 0)
                     {
                         if (arg.DevTypeName == devAlarm.DevTypeName && devAlarm.Level == GetDevAlarmLevel(arg.Level))
                         {
@@ -743,17 +777,25 @@ namespace LocationServices.Locations
             }
             else
             {
-                int maxPage = (int)Math.Ceiling((double)DevAlarmLevelList.Count / (double)arg.Page.Size);
-                DevAlarmTotal = maxPage;
-                if (arg.Page.Number > maxPage)
+                if (arg.Page!=null)
                 {
-                    arg.Page.Number = maxPage-1;
+                    int maxPage = (int)Math.Ceiling((double)DevAlarmLevelList.Count / (double)arg.Page.Size);
+                    DevAlarmTotal = maxPage;
+                    if (arg.Page.Number > maxPage)
+                    {
+                        arg.Page.Number = maxPage - 1;
+                    }
+                    var QueryData = DevAlarmLevelList.Skip(arg.Page.Size * arg.Page.Number).Take(arg.Page.Size);
+                    foreach (var devAlarm in QueryData)
+                    {
+                        DevAlarmlist.Add(devAlarm);
+                    }
                 }
-                var QueryData = DevAlarmLevelList.Skip(arg.Page.Size * arg.Page.Number).Take(arg.Page.Size);
-                foreach (var devAlarm in QueryData)
+                else
                 {
-                    DevAlarmlist.Add(devAlarm);
+                    DevAlarmlist.AddRange(DevAlarmLevelList);
                 }
+                
             }
         }
         /// <summary>

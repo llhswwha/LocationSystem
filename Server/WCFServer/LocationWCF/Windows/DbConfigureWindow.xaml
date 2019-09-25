@@ -43,12 +43,14 @@
                 <MenuItem Header="整理初始化设备" Name="MenuRemoveArchor" Click="MenuRemoveArchor_Click"></MenuItem>
                 <MenuItem Header="导入初始化设备" Name="MenuImportDevs" Click='MenuImportDevs_Click'></MenuItem>
                 <MenuItem Header="生成基站数据" Name="MenuExportArchorData" Click="MenuExportArchorData_Click"></MenuItem>
+                <MenuItem Header="读取基站数据" Name="MenuImportArchorData" Click="MenuImportArchorData_Click"></MenuItem>
                 <MenuItem Header="清空CAD形状" Name="ClearCADShapeList" Click="ClearCADShapeList_Click"></MenuItem>
                 <MenuItem Header="读取CAD形状" Name="LoadCADShapeList" Click="LoadCADShapeList_Click"></MenuItem>
                 <MenuItem Header="合并部分基站" Name="MenuMergeArchorInfo" Click="MenuMergeArchorInfo_Click"></MenuItem>
                 <MenuItem Header="读取室外基站位置" Name="MenuLoadOutArchorPoints" Click="MenuLoadOutArchorPoints_Click"></MenuItem>
                 <MenuItem Header="保存室外基站位置" Name="MenuSaveOutArchorPoints" Click="MenuSaveOutArchorPoints_Click"></MenuItem>
                 <MenuItem Header="读取基站CAD信息" Name="MenuLoadCADArchorList" Click="MenuLoadCADArchorList_OnClick"></MenuItem>
+                <MenuItem Header="新增设备模型信息" Name="MenuLoadDevTypeModelList" Click="MenuLoadDevTypeModelList_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="新数据">
                 <MenuItem Header="照片" Name="MenuInitPic" Click="MenuInitPic_Click"></MenuItem>

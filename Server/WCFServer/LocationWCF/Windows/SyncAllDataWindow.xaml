@@ -12,7 +12,19 @@
             <MenuItem Header="生成模拟数据" Name="MenuCreateSimulateData" Click="MenuCreateSimulateData_Click"></MenuItem>
             <MenuItem Header="生成真实数据" Name="MenuCreateRealData" Click="MenuCreateRealData_Click"></MenuItem>
             <MenuItem Header="获取数据" Name="MenuGet" Click="MenuGet_Click"></MenuItem>
-            <MenuItem Header="同步数据" Name="MenuSync" Click="MenuSync_Click"></MenuItem>
+           
+            <MenuItem Header="同步">
+                <MenuItem Header="清理人员" Name="MenuClearPerson" Click="MenuClearPerson_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="区域" Name="MenuSyncArea" Click="MenuSyncArea_Click"></MenuItem>
+                <MenuItem Header="组织" Name="MenuSyncDep" Click="MenuSyncDep_Click"></MenuItem>
+                <MenuItem Header="人员" Name="MenySyncPerson" Click="MenySyncPerson_Click"></MenuItem>
+                <MenuItem Header="设备" Name="MenuSyncDev" Click="MenuSyncDev_Click"></MenuItem>
+                <MenuItem Header="门禁" Name="MenuSyncDoor" Click="MenuSyncDoor_Click"></MenuItem>
+                <MenuItem Header="告警" Name="MenuSyncEvens" Click="MenuSyncEvens_Click"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="同步全部" Name="MenuSync" Click="MenuSync_Click"></MenuItem>
+            </MenuItem>
             <MenuItem Header="Json同步用户" Name="MenuGetUserOfJson" Click="MenuGetUserOfJson_Click"></MenuItem>
         </Menu>
         <TextBox Name="TbLogs" DockPanel.Dock="Bottom" Height="150"></TextBox>
@@ -32,27 +44,63 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="人员">
-                
-                <DataGrid Name="dg_user"></DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="dg_user"></DataGrid>
+                    <DataGrid Name="dg_person" Grid.Row="1"></DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="组织">
-                <DataGrid Name="dg_org"></DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="dg_org"></DataGrid>
+                    <DataGrid Name="dg_dep" Grid.Row="1"></DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="区域">
-                <DataGrid Name="dg_zone"></DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="dg_zone"></DataGrid>
+                    <DataGrid Name="dg_area" Grid.Row="1"></DataGrid>
+                </Grid>
+                
             </TabItem>
             <TabItem Header="设备">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <Label>数量:</Label>
-                        <Label Name="LbDevCount">0</Label>
-                        <Button Content="显示摄像头" Name="BtnShowCameras" Click="BtnShowCameras_OnClick"></Button>
-                    </StackPanel>
-                    <DataGrid Name="dg_dev"></DataGrid>
-                </DockPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Label>数量:</Label>
+                            <Label Name="LbDevCount">0</Label>
+                            <Button Content="显示摄像头" Name="BtnShowCameras" Click="BtnShowCameras_OnClick"></Button>
+                        </StackPanel>
+                        <DataGrid Name="dg_dev"></DataGrid>
+                    </DockPanel>
+                    <DataGrid Name="dg_devInfo" Grid.Row="1"></DataGrid>
+                </Grid>
+                
             </TabItem>
             <TabItem Header="门禁卡">
-                <DataGrid Name="dg_card"></DataGrid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="dg_card"></DataGrid>
+                    <DataGrid Name="dg_guardCards" Grid.Row="1"></DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="门禁卡历史">
                 <DataGrid Name="dg_card_history"></DataGrid>

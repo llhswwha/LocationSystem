@@ -17,6 +17,7 @@ namespace DbModel.Engine
 
         public int? anchor_bno { get; set; }
 
+        //[Unique]
         public string anchor_id { get; set; }
 
         public int? anchor_type { get; set; }

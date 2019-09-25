@@ -31,14 +31,38 @@ namespace BLL.Tools
             return DbInitializer.LoadExcelToList<DevType>(baseDir + "DevType.xls");
         }
 
+        public static List<Archor> anchors = null;
+
         public static List<Archor> GetArchors()
         {
-            return DbInitializer.LoadExcelToList<Archor>(baseDir + "Archor.xls");
+            //if(anchors== null)
+            {
+                anchors= DbInitializer.LoadExcelToList<Archor>(baseDir + "Archor.xls");
+            }
+            return anchors;
         }
+
+        public static List<DevInfo> devInfos = null;
 
         public static List<DevInfo> GetDevInfos()
         {
-            return DbInitializer.LoadExcelToList<DevInfo>(baseDir + "DevInfo.xls");
+            //if(devInfos== null)
+            {
+                devInfos = DbInitializer.LoadExcelToList<DevInfo>(baseDir + "DevInfo.xls");
+            }
+            
+            return devInfos;
+        }
+
+        public static List<Area> areas;
+
+        public static List<Area> GetAreas()
+        {
+            //if(areas== null)
+            {
+                areas= DbInitializer.LoadExcelToList<Area>(baseDir + "Area.xls");
+            }
+            return areas;
         }
     }
 }

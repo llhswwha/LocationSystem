@@ -36,6 +36,15 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BaoXinDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\BaoXinDebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -80,6 +89,7 @@
       <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\MenuExtensions.cs" />
+    <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="ItemInfoWindow.xaml.cs">
       <DependentUpon>ItemInfoWindow.xaml</DependentUpon>
@@ -91,6 +101,9 @@
       <DependentUpon>LogTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="LogTextBoxController.cs" />
+    <Compile Include="PictureViewer.xaml.cs">
+      <DependentUpon>PictureViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TreeViews\PersonTreeView.xaml.cs">
       <DependentUpon>PersonTreeView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +184,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LogTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PictureViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

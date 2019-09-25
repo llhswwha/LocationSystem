@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Location.BLL.Tool;
+using LocationServer;
 
 namespace WebApiLib
 {
@@ -63,7 +64,9 @@ namespace WebApiLib
             if (result == null) return default(T);
             LastJson = result;
 
-            if (IsSaveJsonToFile)
+            if (IsSaveJsonToFile //整理的
+                || AppContext.SaveWebApiJson //局部的
+                )
             {
                 SaveJson(url, result);
             }

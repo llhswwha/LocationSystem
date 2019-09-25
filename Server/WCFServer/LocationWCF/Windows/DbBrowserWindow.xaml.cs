@@ -20,6 +20,10 @@ using BLL;
 using DAL;
 using DbModel;
 using ExcelLib;
+using DbModel.Tools;
+using LocationServer.Tools;
+using WPFClientControlLib;
+using Location.BLL.Tool;
 
 namespace LocationServer.Windows
 {
@@ -43,7 +47,11 @@ namespace LocationServer.Windows
             ListBox1.ItemsSource = ps;
             ListBox1.DisplayMemberPath = "Name";
             ListBox1.SelectionChanged += ListBox1_SelectionChanged;
+
+            controller = new LogTextBoxController(TbLogs, LogTags.DbInfo);
         }
+
+        LogTextBoxController controller;
 
         private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -106,6 +114,80 @@ namespace LocationServer.Windows
 
         private void MenuExportAll_OnClick(object sender, RoutedEventArgs e)
         {
+            Worker.Run(() =>
+            {
+                try
+                {
+                    Log.Info(LogTags.DbInfo, "ExportAll Start");
+                    Type type = typeof(LocationDb);
+                    var ps = type.GetProperties().Where(j => j.PropertyType.Name.Contains("DbSet"));
+                    var db = GetDb();
+                    var ds = new DataSet();
+                    int count = ps.Count();
+                    int i = 0;
+                    foreach (var p in ps)
+                    {
+                        try
+                        {
+                            i++;
+                            var name = p.Name;
+
+                            Log.Info(LogTags.DbInfo, string.Format("Progress {0}({1}/{2})", name, i, count));
+                            if (name.Contains("Alarm"))
+                            {
+                                Log.Info(LogTags.DbInfo, "skip name == "+name);
+                                continue;
+                            }
+                            Log.Info(LogTags.DbInfo, "1 GetList");
+                            var list = GetList(p, db);
+                            if (list.Count > 0)
+                            {
+                                Log.Info(LogTags.DbInfo, "2 ExportList");
+                                ExcelHelper.ExportList(list, new FileInfo(Path + list[0].GetType().Name + ".xls"));
+                            }
+                            Log.Info(LogTags.DbInfo, "3 ToTable");
+                            var tb = ExcelHelper.ToTable(list);
+
+                            Log.Info(LogTags.DbInfo, "4 SaveList");
+                            XmlSerializeHelper.Save(list, new FileInfo(Path + list[0].GetType().Name + ".xml").FullName);
+
+                            if (tb == null)
+                            {
+                                Log.Info(LogTags.DbInfo, "tb == null");
+                                continue;
+                            }
+                            ds.Tables.Add(tb);
+                        }
+                        catch (Exception ex1)
+                        {
+                            Log.Error(LogTags.DbInfo, ex1);
+                        }
+                        
+                    }
+                    ExcelHelper.Save(ds, new FileInfo(Path + "DbInfos.xls"), null);
+
+                    Log.Info(LogTags.DbInfo, "ExportAll End");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(LogTags.DbInfo, ex);
+                }
+               
+            }, () =>
+            {
+                MessageBox.Show("导出成功");
+            });
+            
+           
+        }
+
+        private void MenuOpenDir_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(Path);
+        }
+
+        private void MenuExportXml_OnClick(object sender, RoutedEventArgs e)
+        {
             Type type = typeof(LocationDb);
             var ps = type.GetProperties().Where(i => i.PropertyType.Name.Contains("DbSet"));
             var db = GetDb();
@@ -115,19 +197,10 @@ namespace LocationServer.Windows
                 var list = GetList(p, db);
                 if (list.Count > 0)
                 {
-                    ExcelHelper.ExportList(list, new FileInfo(Path + list[0].GetType().Name + ".xls"));
+                    XmlSerializeHelper.Save(list, new FileInfo(Path + list[0].GetType().Name + ".xml").FullName);
                 }
-                var tb = ExcelHelper.ToTable(list);
-                if (tb == null) continue;
-                ds.Tables.Add(tb);
             }
-            ExcelHelper.Save(ds, new FileInfo(Path + "DbInfos.xls"), null);
             MessageBox.Show("导出成功");
-        }
-
-        private void MenuOpenDir_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start(Path);
         }
     }
 }

@@ -78,6 +78,15 @@ namespace LocationServer
         public static bool FilterTodayWhenStart { get; set; }
         public static int FilterMoreThanMaxSpeedInterval { get; set; }
         public static string FilterMoreThanMaxSpeedTimer { get; set; }
+        public static bool EnableHistoryBuffer { get; set; }
+        public static bool DeleteRepeatPositionsWhenLoad { get; set; }
+        public static int HistoryBufferLoadMode { get; set; }
+        public static bool SaveWebApiJson { get; set; }
+        public static int AnchorScanInterval { get; set; }
+        public static int AnchorScanResetCount { get; set; }
+        public static int AnchorScanSendMode { get; set; }
+        public static int RepeatDevInfoCheckInterval { get; set; }
+        public static bool DebugMode { get; set; }
 
         public static Bll GetLocationBll()
         {

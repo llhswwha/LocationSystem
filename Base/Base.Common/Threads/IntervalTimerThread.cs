@@ -18,6 +18,8 @@ namespace Base.Common.Threads
             Delay = delay;
         }
 
+        protected abstract void DoBeforeWhile();
+
         public override void DoFunction()
         {
             Log.Info(Name, "Start");
@@ -49,6 +51,11 @@ namespace Base.Common.Threads
                 //    Thread.Sleep(Interval);
                 //}
             }
+        }
+
+        public void StartTimer()
+        {
+
         }
 
         public bool IsStop = false;

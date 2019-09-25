@@ -58,9 +58,16 @@ namespace BLL.Blls.Location
             }
         }
 
-        public object Edit(DevInfo devinfo)
+        //public object Edit(DevInfo devinfo)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override List<Personnel> ToList(bool isTracking = false)
         {
-            throw new NotImplementedException();
+            var list= base.ToList(isTracking);
+            list = list.OrderBy(i => i.ParentId).ThenBy(i => i.WorkNumber).ToList();
+            return list;
         }
     }
 }

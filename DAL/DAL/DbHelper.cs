@@ -13,6 +13,13 @@ namespace BLL.Blls
     {
         public static String ErrorMessage = "";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbSet"></param>
+        /// <param name="isTracking">默认false,是为了提高性能。但是只能查询用,有个潜在的危险，关联到一个其他对象的属性上时，添加该属性会导致，添加重复添加数据（重复设备问题）</param>
+        /// <returns></returns>
         public static List<T> ToListEx<T>(this DbSet<T> dbSet,bool isTracking = false) where T : class
         {
             ErrorMessage = "";
@@ -56,8 +63,7 @@ namespace BLL.Blls
         {
             string msg = "";
             msg = ex.Message;
-            if (ex.Message ==
-                "An error occurred while reading from the store provider's data reader. See the inner exception for details."
+            if (ex.Message.Contains("See the inner exception for details.")
             )
             {
                 msg = ex.InnerException.Message;

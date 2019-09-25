@@ -28,6 +28,8 @@ using System.Diagnostics;
 using LocationServer.Tools;
 using static ArchorUDPTool.ArchorManager;
 using LocationServer.Tools;
+using BLL;
+using EngineClient;
 
 namespace LocationServer
 {
@@ -52,7 +54,25 @@ namespace LocationServer
         }
 
         public ArchorManager archorManager { get; set; }
-        public List<Archor> DbArchorList { get; internal set; }
+
+        private List<ArchorInfo> _archors = null;
+
+        public List<ArchorInfo> DbArchorList { get
+            {
+                return _archors;
+            }
+            set
+            {
+                _archors = value;
+                if(_archors!= null)
+                {
+                    DbArchorListDict = _archors.ToDictionary(i => i.Ip);
+                }
+            }
+        }
+    
+
+        public Dictionary<string, ArchorInfo> DbArchorListDict { get; internal set; }
 
         private void MenuSetting_Click(object sender, RoutedEventArgs e)
         {
@@ -93,14 +113,19 @@ namespace LocationServer
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            SaveResult();
+        }
+
+        private void SaveResult()
+        {
             string path1 = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
             FileInfo fi1 = new FileInfo(path1);
             archorManager.SaveArchorList(path1);
 
-            string path2 = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList"+DateTime.Now.ToString("(yyMMddHHmmss)")+".xml";
+            string path2 = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList" + DateTime.Now.ToString("(yyMMddHHmmss)") + ".xml";
             FileInfo fi2 = new FileInfo(path2);
             archorManager.SaveArchorList(path2);
-            Process.Start(fi1.Directory.FullName);
+            Process.Start(fi2.Directory.FullName);
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
@@ -133,33 +158,40 @@ namespace LocationServer
                     LbTime.Content = archorManager.GetTimeSpan();
                     TbConsole.Text = archorManager.Log;
 
-                    if (DbArchorList != null)
+                    if (DbArchorListDict != null)
                     {
                         //list.ClearInfo();
                         foreach (var item in list)
                         {
                             item.DbInfo = "";
                             item.RealArea = "";
-                            var ar = DbArchorList.Find(i => i.Ip == item.GetClientIP());
-                            if (ar != null)
+                            var clientIP = item.GetClientIP();
+                            //var ar = DbArchorList.Find(i => i.Ip == clientIP);
+                            if (DbArchorListDict.ContainsKey(clientIP))
                             {
-                                item.RealArea = ar.Parent.Name;
-                                if (item.GetClientIP() != ar.Ip)
+                                var ar = DbArchorListDict[clientIP];
+                                if (ar != null)
                                 {
-                                    item.DbInfo = "IP:" + ar.Ip;
-                                }
-                                else
-                                {
-                                    string code = ar.Code.Trim();
-                                    if (!string.IsNullOrEmpty(code))
+                                    item.RealArea = ar.Parent.Name;
+                                    if (item.GetClientIP() != ar.Ip)
                                     {
-                                        item.DbInfo = "有:" + code;
+                                        item.DbInfo = "IP:" + ar.Ip;
                                     }
                                     else
                                     {
-                                        item.DbInfo = "有:" + ar.Ip;
-                                    }                                }
+                                        string code = ar.Code.Trim();
+                                        if (!string.IsNullOrEmpty(code))
+                                        {
+                                            item.DbInfo = "有:" + code;
+                                        }
+                                        else
+                                        {
+                                            item.DbInfo = "有:" + ar.Ip;
+                                        }
+                                    }
+                                }
                             }
+                            
                         }
                     }
 
@@ -183,10 +215,8 @@ namespace LocationServer
                         {
 
                         }
-
                         int id2 = list.IndexOf(item1);
                     }
-
 
                     LbCount.Content = list.GetConnectedCount();
                     LbStatistics.Content = archorManager.GetStatistics();
@@ -198,36 +228,17 @@ namespace LocationServer
             });
         }
 
-        UDPArchorList archorList;
+        public DispatcherTimer updateGridTimer;
+
+        public UDPArchorList UDPArchorList;
+
+        public List<UDPArchor> progressList = new List<UDPArchor>();
+
+        public int count = 0;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (archorManager == null)
-            {
-                archorManager = new ArchorManager();
-                archorManager.ArchorListChanged += (list,item) =>
-                {
-                    if (item != null)
-                    {
-                        var id = list.IndexOf(item);
-                        SetArchorList(archorManager, list,item,id);
-                    }
-                    else
-                    {
-                        SetArchorList(archorManager, list);
-                    }
-                };
-                archorManager.LogChanged += ArchorManager_LogChanged;
-                archorManager.PercentChanged += (p) =>
-                {
-                    ProgressBarEx1.Visibility = Visibility.Visible;
-                    ProgressBarEx1.Value = p;
-                };
-                //archorManager.NewArchorAdded += AddArchor;
-
-                DataGrid3.archorManager = archorManager;
-                archorManager.arg = GetScanArg();
-            }
+            InitArchorManager();
 
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromMilliseconds(200);
@@ -238,7 +249,93 @@ namespace LocationServer
             CbServerIpList.DisplayMemberPath = "Name";
             CbServerIpList.SelectedIndex = 0;
 
-            CbLocalIps.ItemsSource = IpHelper.GetLocalList();
+            var list= IpHelper.GetLocalList();
+            var ip = EngineClientSetting.LocalIp;
+            var ip1 = list.Find(i => i.ToString() == ip);
+            CbLocalIps.ItemsSource = list;
+            CbLocalIps.SelectedItem = ip1;
+
+            LoadList();
+        }
+
+        private void InitArchorManager()
+        {
+            if (archorManager == null)
+            {
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(100);
+                timer.Tick += UpdateGridTimer_Tick;
+                timer.Start();
+                updateGridTimer = timer;
+
+                archorManager = new ArchorManager();
+                archorManager.ArchorListChanged += (list, item) =>
+                {
+                    UDPArchorList = list;
+
+                    //if (item != null)
+                    //{
+                    //    var id = list.IndexOf(item);
+                    //    SetArchorList(archorManager, list, item, id);
+                    //}
+                    //else
+                    //{
+                    //    SetArchorList(archorManager, list);
+                    //}
+
+                    if (item != null)
+                    {
+                        progressList.Add(item);
+                        count++;
+                    }
+                    IsDirty = true;
+                };
+                archorManager.LogChanged += ArchorManager_LogChanged;
+                archorManager.PercentChanged += (p) =>
+                {
+                    ProgressBarEx1.Value = p;
+
+                    //if (p == 100)
+                    //{
+                    //    SetArchorList(archorManager, UDPArchorList);
+                    //}
+                    if (p == 100)
+                    {
+                        ThreadPool.QueueUserWorkItem(a =>
+                        {
+                            Thread.Sleep(3000);
+                            //SaveResult();
+                            SetArchorList(archorManager, UDPArchorList);
+                            archorManager.SaveArchorListResult();
+                            //scanCount++;
+                            //if (scanCount > 1)//第一次启动扫描结果可能是不准的
+                            //{
+                            //    Thread.Sleep(2000);
+                            //    SendAlarm();
+                            //}
+
+                            //IsBusySendAlarm = false;
+                        });
+                    }
+
+                };
+                //archorManager.NewArchorAdded += AddArchor;
+
+                DataGrid3.archorManager = archorManager;
+                archorManager.arg = GetScanArg();
+            }
+        }
+
+        private void UpdateGridTimer_Tick(object sender, EventArgs e)
+        {
+            if (IsDirty)
+            {
+                IsDirty = false;
+                SetArchorList(archorManager, UDPArchorList);
+
+                //var c1 = progressList.Count;
+                //ProgressBarEx1.Value = (int)(count * 100.0 / UDPArchorList.Count);
+            }
         }
 
         private void ArchorManager_LogChanged(string obj)
@@ -285,70 +382,76 @@ namespace LocationServer
             SetArchorList(null, null);
 
             List<string> cmds = UDPCommands.GetAll();
-            archorManager.ScanArchors(GetScanArg(cmds.ToArray()),DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg(cmds.ToArray()),DataGrid3.subArchorList);
         }
 
 
 
         private void BtnSearchId_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetId), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg(UDPCommands.GetId), DataGrid3.subArchorList);
+        }
+
+        private void Clear()
+        {
+            count = 0;
+            progressList = new List<UDPArchor>();
         }
 
         private void BtnSearchIp_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetIp), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg(UDPCommands.GetIp), DataGrid3.subArchorList);
         }
 
         private void BtnSearchPort_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerPort), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerPort), DataGrid3.subArchorList);
         }
 
         private void BtnSearchServerIP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerIp), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetServerIp), DataGrid3.subArchorList);
         }
 
         private void BtnSearchType_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetType), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetType), DataGrid3.subArchorList);
         }
 
         private void BtnSearchMask_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetMask), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetMask), DataGrid3.subArchorList);
         }
 
         private void BtnSearchGateway_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetGateway), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetGateway), DataGrid3.subArchorList);
         }
 
         private void BtnSearchDHCP_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetDHCP), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetDHCP), DataGrid3.subArchorList);
         }
 
         private void BtnSearchSoftverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetSoftVersion), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetSoftVersion), DataGrid3.subArchorList);
         }
 
         private void BtnSearchHardverson_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetHardVersion), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetHardVersion), DataGrid3.subArchorList);
         }
 
         private void BtnSearchPower_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg( UDPCommands.GetPower), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg( UDPCommands.GetPower), DataGrid3.subArchorList);
         }
 
 
         private void BtnSearchMAC_Click(object sender, RoutedEventArgs e)
         {
-            archorManager.ScanArchors(GetScanArg(UDPCommands.GetMAC), DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(GetScanArg(UDPCommands.GetMAC), DataGrid3.subArchorList);
         }
 
         private void BtnStopTime_Click(object sender, RoutedEventArgs e)
@@ -372,8 +475,28 @@ namespace LocationServer
 
         private void MenuLoadList_Click(object sender, RoutedEventArgs e)
         {
+            LoadList();
+        }
+
+        private void LoadList()
+        {
             var list = ArchorHelper.LoadArchoDevInfo();
-            archorManager.LoadList(list);
+
+            Bll bll = Bll.NewBllNoRelation();
+            var anchors = bll.Archors.ToList();
+
+            ArchorDevList list2 = new ArchorDevList();
+            list2.ArchorList = new List<ArchorDev>();
+            foreach (var item in list.ArchorList)
+            {
+                var a = anchors.Find(i => i.Code == item.ArchorID);
+                if (a != null)
+                {
+                    list2.ArchorList.Add(item);
+                }
+            }
+
+            archorManager.LoadList(list2);
             CbList.IsChecked = true;
         }
 
@@ -412,6 +535,8 @@ namespace LocationServer
         private void MenuCancel_Click(object sender, RoutedEventArgs e)
         {
             archorManager.Cancel();
+            updateGridTimer.Stop();
+            //updateGridTimer = null;
             ProgressBarEx1.Stop();
         }
 
@@ -449,7 +574,12 @@ namespace LocationServer
             arg.PingLength = TbPingLength.Text.ToInt();
             arg.PingWaitTime = TbPingWaitTime.Text.ToInt();
             arg.PingCount = TbPingCount.Text.ToInt();
-            archorManager.ScanArchors(arg, DataGrid3.subArchorList);
+            Clear();archorManager.ScanArchors(arg, DataGrid3.subArchorList);
+        }
+
+        private void MenuLoadAnchors_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

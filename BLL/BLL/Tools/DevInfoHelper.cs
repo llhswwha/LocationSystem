@@ -15,6 +15,7 @@ using DbModel.Tools.InitInfos;
 using IModel;
 using ExcelLib;
 using System.Data;
+using System.Linq;
 
 namespace BLL.Tools
 {
@@ -58,44 +59,46 @@ namespace BLL.Tools
             return true;
         }
         #region 删除重复设备信息
-        public static bool ClearRepeatDev(Bll bll)
+        public static int ClearRepeatDev(Bll bll,string tag)
         {
             try
             {
-                List<DevInfo> infoList = bll.DevInfos.ToList();
-                List<DevInfo> needToRemove = new List<DevInfo>();
-                if (infoList == null || infoList.Count == 0) return true;
-                for (int i = infoList.Count-1; i >= 0; i--)
-                {
-                    DevInfo info = infoList[i];
-                    if (TypeCodeHelper.IsDoorAccess(info.ModelName))
-                    {
-                        DbModel.Location.AreaAndDev.Dev_DoorAccess door = bll.Dev_DoorAccess.Find(devT => devT.DevInfoId == info.Id);
-                        if (door == null)
-                        {
-                            needToRemove.Add(info);
-                        }
-                    }
-                    else if (TypeCodeHelper.IsCamera(info.Local_TypeCode.ToString()))
-                    {
-                        DbModel.Location.AreaAndDev.Dev_CameraInfo camera = bll.Dev_CameraInfos.Find(devT => devT.DevInfoId == info.Id);
-                        if (camera == null)
-                        {
-                            needToRemove.Add(info);
-                        }
-                    }
-                }
-                int clearCount = needToRemove.Count;
-                foreach (var item in needToRemove)
-                {
-                    bll.DevInfos.DeleteById(item.Id);
-                }
-                return true;
+                List<DevInfo> infoList = bll.DevInfos.ToList();                
+                if (infoList == null || infoList.Count == 0) return 0;
+                List<DevInfo> repeatDevs = GetRepeatDev(infoList,tag);
+                bll.DevInfos.RemoveList(repeatDevs);
+                return repeatDevs.Count;
             }catch(Exception e)
             {
                 string value = e.ToString();
-                return false;
+                Log.Error(e.ToString());
+                return -1;
             }
+        }
+        private static List<DevInfo> GetRepeatDev(List<DevInfo> devListTemp,string tag)
+        {
+            int repeatDevCount = 0;
+            Dictionary<string, DevInfo> devDicNoRepeat = new Dictionary<string, DevInfo>();
+            List<DevInfo> needToRemove = new List<DevInfo>();
+            foreach (var item in devListTemp)
+            {
+                if (!devDicNoRepeat.ContainsKey(item.Local_DevID)) devDicNoRepeat.Add(item.Local_DevID, item);
+                else
+                {
+                    if (devDicNoRepeat[item.Local_DevID].Id > item.Id)
+                    {
+                        needToRemove.Add(devDicNoRepeat[item.Local_DevID]);
+                        devDicNoRepeat[item.Local_DevID] = item;
+                    }
+                    else
+                    {
+                        needToRemove.Add(item);
+                    }
+                    repeatDevCount++;
+                }
+            }
+            Log.Info(tag,"移除重复设备，数量："+repeatDevCount);
+            return needToRemove;
         }
         #endregion
         public static void RemoveArchorDev()

@@ -24,6 +24,7 @@ using AreaEntity = Location.TModel.Location.AreaAndDev.PhysicalTopology;
 //using DevEntity=DbModel.Location.AreaAndDev.DevInfo;
 using DevEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using PersonEntity = Location.TModel.Location.Person.Personnel;
+using WPFClientControlLib.Extensions;
 
 namespace WPFClientControlLib
 {
@@ -150,8 +151,11 @@ namespace WPFClientControlLib
             }
         }
 
+        public List<int> selectedDevs = new List<int>();
+
         public void SelectDevsById(List<int> list)
         {
+            selectedDevs = list;
             if (list == null) return;
             ClearSelect();
             //LbState.Content = "";
@@ -160,12 +164,36 @@ namespace WPFClientControlLib
             {
                 if (DevDict.ContainsKey(id))
                 {
-                    SelectedRects.Add(DevDict[id].Rect);
-                    SetFocusStyle(DevDict[id].Rect);
+                    var shape = DevDict[id];
+                    SelectedRects.Add(shape.Rect);
+                    SetFocusStyle(shape.Rect);
+                    ScrollViewer1.ScrollTo(shape.Rect);
+
+                    shape.ReAdd();
                 }
                 else
                 {
                     LbState.Content += "[" + id + "];";
+                }
+            }
+        }
+
+        public void SelectDevsByIdEx(List<int> list)
+        {
+            if (list == null) return;
+            ClearSelect();
+            foreach (var item in DevDict)
+            {
+                var shape = item.Value;
+                var id = item.Key;
+                if (list.Contains(id))
+                {
+                    SelectedRects.Add(shape.Rect);
+                    SetFocusStyle(shape.Rect);
+                }
+                else
+                {
+                    shape.Remove();
                 }
             }
         }
@@ -192,6 +220,7 @@ namespace WPFClientControlLib
             {
                 ClearSelect();
                 FocusRectangle(DevDict[id].Rect);
+                ScrollViewer1.ScrollTo(DevDict[id].Rect);
                 LbState.Content = "";
             }
             else
@@ -801,7 +830,7 @@ namespace WPFClientControlLib
             }
         }
 
-        UDPArchorList udpArchorList;
+        public UDPArchorList udpArchorList;
 
         private void DevRect_MouseLeave(object sender, MouseEventArgs e)
         {
@@ -1226,8 +1255,9 @@ namespace WPFClientControlLib
                     SelectArea(area);
                 }
 
-                if(IsShowPerson)
-                    ShowPersons();
+                ShowPersons();
+
+                SelectDevsById(selectedDevs);
             }
             catch (Exception ex)
             {
@@ -1283,11 +1313,14 @@ namespace WPFClientControlLib
         public void ShowPersons(IList<PersonEntity> persons)
         {
             PersonShapeList.Clear();
+
+            if (IsShowPerson == false) return;
+
             _persons = persons;
             if (persons == null) return;
             foreach (var person in persons)
             {
-                PersonShape ps=AddPersonRect(person,Scale,2);
+                PersonShape ps = AddPersonRect(person, Scale, 2);
                 PersonShapeList.Add(ps);
             }
         }
@@ -1425,7 +1458,7 @@ namespace WPFClientControlLib
             fs.Dispose();
         }
 
-        public bool IsShowPerson = true;
+        public bool IsShowPerson = false;
 
         private void CbShowPerson_Checked(object sender, RoutedEventArgs e)
         {

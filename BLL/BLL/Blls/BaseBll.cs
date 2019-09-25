@@ -282,6 +282,13 @@ namespace BLL.Blls
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="isTracking">默认false,是为了提高性能。但是只能查询用,有个潜在的危险，关联到一个其他对象的属性上时，添加该属性会导致，添加重复添加数据（重复设备问题）</param>
+        /// <returns></returns>
         public virtual List<T> ToList(bool isTracking=false)
         {
             var list = DbSet.ToListEx(isTracking);
@@ -292,6 +299,11 @@ namespace BLL.Blls
             return list;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isTracking">默认false,是为了提高性能。但是只能查询用,有个潜在的危险，关联到一个其他对象的属性上时，添加该属性会导致，添加重复添加数据（重复设备问题）</param>
+        /// <returns></returns>
         public virtual Dictionary<TKey, T> ToDictionary(bool isTracking = false)
         {
             Dictionary<TKey, T> dic=new Dictionary<TKey, T>();

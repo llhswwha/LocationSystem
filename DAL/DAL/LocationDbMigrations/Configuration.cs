@@ -9,8 +9,7 @@ namespace DAL.LocationDbMigrations
     {
         public Configuration()
         {
-            //AutomaticMigrationDataLossAllowed = true;
-
+            AutomaticMigrationDataLossAllowed = true;
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"LocationDbMigrations";
 

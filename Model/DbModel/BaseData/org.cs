@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DbModel.BaseData
 {
@@ -39,6 +41,23 @@ namespace DbModel.BaseData
         [MaxLength(512)]
         public string description { get; set; }
 
+        [XmlIgnore]
+        [NotMapped]
+        public member[] members { get; set; }
+
+        [XmlIgnore]
+        [NotMapped]
+        public List<user> users { get; set; }
+
+        public void AddUser(user user)
+        {
+            if(users== null)
+            {
+                users = new List<user>();
+            }
+            users.Add(user);
+        }
+
         public org Clone()
         {
             org copy = new org();
@@ -50,5 +69,12 @@ namespace DbModel.BaseData
 
             return copy;
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
+
+
 }

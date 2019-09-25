@@ -70,6 +70,11 @@ namespace LocationServer.Windows
             BLL.Bll bll = new BLL.Bll();
 
             dbArchorList= bll.Archors.ToList();
+            if(dbArchorList== null)
+            {
+                MessageBox.Show("加载基站列表出错:"+bll.Archors.ErrorMessage);
+                return;
+            }
             DataGridDb.ItemsSource = dbArchorList;
 
             string path = AppDomain.CurrentDomain.BaseDirectory + "\\Data\\基站信息\\UDPArchorList.xml";
@@ -96,14 +101,23 @@ namespace LocationServer.Windows
         private void Check()
         {
             int count3 = 0;
-            foreach (var item in dbArchorList)
+
+            if (dbArchorList != null)
             {
-                if (!item.GetCode().StartsWith("Code"))
+                foreach (var item in dbArchorList)
                 {
-                    count3++;
+                    if (!item.GetCode().StartsWith("Code"))
+                    {
+                        count3++;
+                    }
                 }
+                Group3.Header += string.Format(" ({0}/{1})", count3, dbArchorList.Count);
             }
-            Group3.Header += string.Format(" ({0}/{1})", count3, dbArchorList.Count);
+            else
+            {
+                Group3.Header += string.Format(" ({0}/{1})", count3, 0);
+            }
+            
 
             int count2 = 0;
             int count22 = 0;
@@ -177,7 +191,7 @@ namespace LocationServer.Windows
         private void MenuScan_Click(object sender, RoutedEventArgs e)
         {
             Bll bll = new Bll();
-            var list3 = bll.Archors.ToList();
+            var list3 = bll.Archors.GetInfoList();
             var areas = bll.Areas.ToList();
             foreach (var item in list3)
             {

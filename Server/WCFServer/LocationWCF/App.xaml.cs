@@ -136,12 +136,18 @@ namespace LocationWCFServer
             InitData();
 
             resetAppconfigThread = new ResetAppConfigThread();
+            resetAppconfigThread.Start();
 
-            KillOtherServers();
+            
+
+            var kill = ConfigurationHelper.GetBoolValue("KillOtherServers");//
+            if (kill)
+            {
+                KillOtherServers();
+            }
         }
 
         ResetAppConfigThread resetAppconfigThread;
-
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {

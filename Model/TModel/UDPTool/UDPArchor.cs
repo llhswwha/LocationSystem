@@ -94,5 +94,10 @@ namespace ArchorUDPTool.Models
 
         [XmlAttribute]
         public string MAC { get; set; }
+
+        public override string ToString()
+        {
+            return Id + "," + RealArea;
+        }
     }
 }

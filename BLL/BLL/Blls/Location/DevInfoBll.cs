@@ -82,5 +82,35 @@ namespace BLL.Blls.Location
             }
             return list;
         }
+
+        public override bool Add(DevInfo item, bool isSave = true)
+        {
+            return base.Add(item, isSave);
+        }
+
+        public override Task<bool> AddAsync(DevInfo item, bool isSave = true)
+        {
+            return base.AddAsync(item, isSave);
+        }
+
+        public override bool AddOrUpdate(DevInfo item, bool isSave = true)
+        {
+            return base.AddOrUpdate(item, isSave);
+        }
+
+        public override bool AddRange(IList<DevInfo> list, int maxTryCount = 3)
+        {
+            return base.AddRange(list, maxTryCount);
+        }
+
+        public override bool AddRange(LocationDb Db, IEnumerable<DevInfo> list, int maxTryCount = 3)
+        {
+            return base.AddRange(Db, list, maxTryCount);
+        }
+
+        public override bool AddRange(params DevInfo[] list)
+        {
+            return base.AddRange(list);
+        }
     }
 }

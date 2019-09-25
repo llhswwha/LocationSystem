@@ -28,8 +28,8 @@ namespace DAL
             //{
             //    this.Database.Log = s => Log.Info(LogTags.EF, s);//调试EF需要
             //}
-            var t1 = this.Database.CommandTimeout;
-            var t2 = this.Database.Connection.ConnectionTimeout;
+            //var t1 = this.Database.CommandTimeout;
+            //var t2 = this.Database.Connection.ConnectionTimeout;
 
             this.Database.CommandTimeout = 700000;
             //this.Database.Connection.ConnectionTimeout = 100;
@@ -45,9 +45,17 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-#if BaoXin
+#if SIHUI && SERVER
+    EnableMigration(modelBuilder);
+#elif BAOXIN || WEB
             Database.SetInitializer<LocationDb>(null);
 #else
+    EnableMigration(modelBuilder);
+#endif
+        }
+
+        private void EnableMigration(DbModelBuilder modelBuilder)
+        {
             if (IsSqlite)
             {
                 Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationDb>(modelBuilder));
@@ -56,16 +64,15 @@ namespace DAL
             {
                 if (IsCreateDb)
                 {
-                    Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
-                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());
-                    //自动数据迁移从代码来看，这里面会创建LocationDb对象的，
+                    //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
+                    Database.SetInitializer<LocationDb>(new MigrateDatabaseToLatestVersion<LocationDb, DAL.LocationDbMigrations.Configuration>());//自动数据迁移
+                    //从代码来看，这里面会创建LocationDb对象的，
                 }
                 else
                 {
                     Database.SetInitializer<LocationDb>(null);
                 }
             }
-#endif
         }
 
         public DbSet<DbModel.Location.Alarm.DevAlarm> DevAlarms { get; set; }

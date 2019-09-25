@@ -449,7 +449,21 @@ namespace BLL.Blls.LocationHistory
             }
         
             public int Count;
-            public DateTime Date;
+
+            private DateTime _date;
+            public DateTime Date
+            {
+                get
+                {
+                    return _date;
+                }
+                set
+                {
+                    _date = value;
+
+                    Time = _date.ToString("yyyy-MM-dd");
+                }
+            }
 
             public string Time;
 
@@ -572,27 +586,29 @@ namespace BLL.Blls.LocationHistory
             return list;
         }
 
-        public int RemoveRepeatData(string tag,bool isDelete, List<PosInfoList> list)
+        public int RemoveRepeatData(string tag,bool isDelete, List<PosInfoList> list,string preProgress="")
         {
             int removeCount = 0;
             Log.Info(tag, "RemoveRepeatData Start");
             for (int i = 0; i < list.Count; i++)
             {
                 PosInfoList posList = list[i];
-                string progress1 = string.Format("Progress1 》》 Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
-                    posList.Count, (i + 1), list.Count);
-                Log.Info(tag, progress1);
+                
 
-                var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.PersonnelID }).Select(p => new
+                var groupby = posList.Items.GroupBy(p => new { p.DateTimeStamp, p.Code }).Select(p => new
                 {
                     p.Key.DateTimeStamp,
-                    p.Key.PersonnelID,
+                    p.Key.Code,
                     Id = p.First(w => true).Id,
                     list = p.Select(w => w.Id).ToList(),
                     total = p.Count()
                 });
                 var groupList = groupby.Where(k => k.total > 1).ToList();
                 if (groupList.Count == 0) continue;
+
+string progress1 = string.Format("{4} Progress1>>Name:{0},Count:{1:N} ({2}/{3})", posList.Name,
+                    posList.Count, (i + 1), list.Count, preProgress);
+                Log.Info(tag, progress1);
 
                 var groupList1 = groupby.Where(k => k.total == 2).ToList();
                 var groupList2 = groupby.Where(k => k.total == 3).ToList();
@@ -607,10 +623,11 @@ namespace BLL.Blls.LocationHistory
                 //return 0;
 
                 List<Position> removeListTemp = new List<Position>();
-                int maxPageCount = 1000;
+                int maxPageCount = 4000;
                 int packageCount = maxPageCount;
                 List<long> timestampList = new List<long>();
                 List<int> idList = new List<int>();
+                List<string> wheres = new List<string>();
                 for (int k = 0; k < groupList.Count; k++)
                 {
                     var item = groupList[k];
@@ -620,7 +637,8 @@ namespace BLL.Blls.LocationHistory
                         timestampList.Add(item.DateTimeStamp);
                         idList.AddRange(item.list);
 
-                        //IQueryable<Position> query2=new 
+                        string where = string.Format("(DateTimeStamp = {0} and Code = '{1}' and Id != {2})", item.DateTimeStamp, item.Code, item.Id);
+                        wheres.Add(where);
                     }
                     if (idList.Count >= packageCount ||
                         (k == groupList.Count - 1 && idList.Count > 0)//最后一组
@@ -628,19 +646,30 @@ namespace BLL.Blls.LocationHistory
                     {
                         try
                         {
-                            var query =this.DbSet.Where(j => idList.Contains(j.Id));
+                            //var query =this.DbSet.Where(j => idList.Contains(j.Id));
                             //var sql = query.ToString();
                             var count2 = idList.Count();
                             if (isDelete)
                             {
                                 //query.DeleteFromQuery();
-                                this.RemovePoints(query, false);
+                                //this.RemovePoints(query, false);
                                 //this.RemovePoints(idList);
+                                //this.RemovePoints(tag,wheres, idList);
+                                var temp = new List<string>(wheres);
+                                var temp2 = new List<int>(idList);
+                                ThreadPool.QueueUserWorkItem((data) =>
+                                {
+                                    using (LocationHistoryDb db = new LocationHistoryDb())//using必须有
+                                    {
+                                        PositionBll.RemovePoints(tag,db, temp, temp2);
+                                    }
+                                });
                             }
                             removeCount += count2;
-                            Log.Info(tag, string.Format("{5} || Progress2 》》 count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1));
+                            Log.Info(tag, string.Format("{6}{5} || Progress2>>where:{7},count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1, preProgress, wheres.Count));
                             timestampList = new List<long>();
                             idList = new List<int>();
+                            wheres = new List<string>();
 
                             if (packageCount < maxPageCount)
                             {
@@ -727,6 +756,7 @@ namespace BLL.Blls.LocationHistory
             }
             
             query.DeleteFromQuery();
+            //query.DeleteFromQueryAsync();
         }
 
         public int RemovePoints(List<int> ids)
@@ -756,6 +786,47 @@ namespace BLL.Blls.LocationHistory
             }
 
             int r=Db.Database.ExecuteNonQuery(sql);
+            return r;
+        }
+
+        public int RemovePoints(string tag,List<string> wheres, List<int> ids)
+        {
+            return RemovePoints(tag,Db, wheres, ids);
+        }
+
+        public static int RemovePoints(string tag,LocationHistoryDb db,List<string> wheres, List<int> ids)
+        {
+            if (wheres == null || wheres.Count == 0)
+            {
+                return 0;
+            }
+            int r = 0;
+            string sql = "";
+            try
+            {
+                
+                if (wheres.Count == 1)
+                {
+                    sql = "delete from locationhistory.positions where " + wheres[0] + ";";
+                }
+                else
+                {
+                    for (int i = 0; i < wheres.Count; i++)
+                    {
+                        string s = "delete from locationhistory.positions where " + wheres[i] + ";";
+                        //r = Db.Database.ExecuteNonQuery(s);
+                        sql += s;
+                    }
+                }
+
+                r = db.Database.ExecuteNonQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(tag, "RemovePoints:" + sql + "\n" + ex);
+            }
+            
+            
             return r;
         }
     }

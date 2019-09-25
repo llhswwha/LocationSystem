@@ -38,15 +38,15 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// </summary>
         public string deviceId { get; set; }
 
-        /// <summary>
-        /// 检查是否通过
-        /// </summary>
-        public bool success { get; set; }
+        ///// <summary>
+        ///// 检查是否通过
+        ///// </summary>
+        //public bool success { get; set; }
 
-        /// <summary>
-        /// 检查项列表
-        /// </summary>
-        public List<results> checks { get; set; }
+        ///// <summary>
+        ///// 检查项列表
+        ///// </summary>
+        //public List<results> checks { get; set; }
 
     }
 }
