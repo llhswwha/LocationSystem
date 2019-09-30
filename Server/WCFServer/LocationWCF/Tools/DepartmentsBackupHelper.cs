@@ -1,4 +1,5 @@
 ﻿using BLL;
+using BLL.Tools;
 using DbModel.Location.Person;
 using DbModel.Tools;
 using DbModel.Tools.InitInfos;
@@ -75,7 +76,8 @@ namespace LocationServer.Tools
 
                 backUpList.DepList.Add(Dep);
             }
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\部门人员门禁卡信息\\BackupDepartmentsInfo.xml";
+
+            string initFile = InitPaths.GetBackupDepartmentsInfo();
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
         }
     }

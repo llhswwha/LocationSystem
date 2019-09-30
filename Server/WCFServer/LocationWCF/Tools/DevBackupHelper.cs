@@ -91,9 +91,66 @@ namespace LocationServer.Tools
 
                 backUpList.DevList.Add(dev);
             }
+            List<DevInfoBackup> deleteDevs = AddDeleteDev(devInfoList);
+            if(devInfoList!=null&&devInfoList.Count!=0)
+            {
+                backUpList.DevList.AddRange(deleteDevs);
+            }
             string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DevInfoBackup.xml";
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
         }
+        private static string DeleteTypeCode = "DeleteDev";
+        /// <summary>
+        /// 删除没再使用的设备
+        /// </summary>
+        /// <param name="devInfoList"></param>
+        /// <returns></returns>
+        private List<DevInfoBackup> AddDeleteDev(List<Location.TModel.Location.AreaAndDev.DevInfo> devInfoList)
+        {
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DevInfoBackup.xml";
+            var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+            List<DevInfoBackup> devInfos = initInfo.DevList;
+            List<DevInfoBackup> deleteInfos = new List<DevInfoBackup>();
+            Dictionary<string, string> devDic = TryGetDevDic(devInfoList);
+            if (devInfos!=null)
+            {
+                foreach(var item in devInfos)
+                {
+                    if(!string.IsNullOrEmpty(item.DevId)&&!devDic.ContainsKey(item.DevId))
+                    {                        
+                        deleteInfos.Add(item);
+                    }
+                }
+            }
+            string deleteInfoPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DeleteInfoBackup.xml";
+            if (deleteInfos.Count != 0)
+            {
+                XmlSerializeHelper.Save(deleteInfos, deleteInfoPath, Encoding.UTF8);
+                foreach(var item in deleteInfos)
+                {
+                    item.TypeCode = DeleteTypeCode;
+                }
+            }
+            return deleteInfos;
+        }
+        /// <summary>
+        /// 获取设备字典，主键 设备的guid
+        /// </summary>
+        /// <param name="devInfoList"></param>
+        /// <returns></returns>
+        private Dictionary<string, string>TryGetDevDic(List<Location.TModel.Location.AreaAndDev.DevInfo> devInfoList)
+        {
+            Dictionary<string, string> devInfoDic = new Dictionary<string, string>();
+            foreach(var item in devInfoList)
+            {
+                if(!devInfoDic.ContainsKey(item.DevID))
+                {
+                    devInfoDic.Add(item.DevID,item.Name);
+                }
+            }
+            return devInfoDic;
+        }
+
         #endregion
 
         #region 摄像头备份

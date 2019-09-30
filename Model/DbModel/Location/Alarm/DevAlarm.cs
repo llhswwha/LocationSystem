@@ -15,7 +15,7 @@ namespace DbModel.Location.Alarm
     /// 设备告警
     /// </summary>
     [Serializable]
-    public class DevAlarm: IId, IDictEntity
+    public class DevAlarm: IId, IDictEntity,IComparable<DevAlarm>
     {
         /// <summary>
         /// 主键Id
@@ -175,6 +175,12 @@ namespace DbModel.Location.Alarm
         public override string ToString()
         {
             return Msg;
+        }
+
+        public int CompareTo(DevAlarm other)
+        {
+            if (other == null) return -1;
+            return other.AlarmTimeStamp.CompareTo(this.AlarmTimeStamp);
         }
     }
 

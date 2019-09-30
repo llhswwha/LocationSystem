@@ -9,6 +9,7 @@ using DbModel.Location.Person;
 using Location.BLL.Tool;
 using DbModel.Tools.InitInfos;
 using DbModel.Tools;
+using BLL.Tools;
 
 namespace LocationServer.Tools
 {
@@ -85,7 +86,7 @@ namespace LocationServer.Tools
                 backUpList.PerList.Add(Per);
             }
 
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\部门人员门禁卡信息\\BackupPersonnelInfo.xml";
+            string initFile = InitPaths.GetBackupPersonnelInfo();
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
         }
     }

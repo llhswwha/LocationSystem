@@ -1,4 +1,4 @@
-﻿using LocationServices.Locations.Interfaces;
+﻿using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,49 +14,54 @@ namespace WebApiService.Controllers
     public class WorkController : ApiController, IWorkService
     {
         protected IWorkService service;
+        public WorkController()
+        {
+            service = new WorkService();
+        }
+        [Route("")]
         public InspectionTrack GetInspectionTrack()
         {
             return service.GetInspectionTrack();
         }
-
+        [Route("list/MobileInspectionDev")]
         public List<MobileInspectionDev> GetMobileInspectionDevList()
         {
             return service.GetMobileInspectionDevList();
         }
-
+        [Route("")]
         public List<MobileInspection> GetMobileInspectionList()
         {
             return service.GetMobileInspectionList();
         }
-
+        [Route("list/operation")]
         public List<OperationTicketHistory> GetOperationTicketHistoryList()
         {
-            throw new NotImplementedException();
+            return service.GetOperationTicketHistoryList();
         }
-
+        [Route("list/OperationTicket")]
         public List<OperationTicket> GetOperationTicketList()
         {
-            throw new NotImplementedException();
+            return service.GetOperationTicketList();
         }
-
+        [Route("")]
         public List<PersonnelMobileInspectionHistory> GetPersonnelMobileInspectionHistoryList()
         {
-            throw new NotImplementedException();
+            return GetPersonnelMobileInspectionHistoryList();
         }
-
+        [Route("")]
         public List<PersonnelMobileInspection> GetPersonnelMobileInspectionList()
         {
-            throw new NotImplementedException();
+            return GetPersonnelMobileInspectionList();
         }
-
+        [Route("list/workTicket")]
         public List<WorkTicketHistory> GetWorkTicketHistoryList()
         {
-            throw new NotImplementedException();
+            return service.GetWorkTicketHistoryList();
         }
-
+        [Route("list/WorkTicket")]
         public List<WorkTicket> GetWorkTicketList()
         {
-            throw new NotImplementedException();
+            return service.GetWorkTicketList();
         }
     }
 }

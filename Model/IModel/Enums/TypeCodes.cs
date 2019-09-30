@@ -20,6 +20,11 @@ namespace IModel.Enums
         /// 测点
         /// </summary>
         public static int Camera = 3000201;
+
+        /// <summary>
+        /// 门禁
+        /// </summary>
+        public static int Door = 20190926;
     }
     /// <summary>
     /// 区域名称
@@ -41,7 +46,7 @@ namespace IModel.Enums
     public class TypeCodeHelper
     {
 
-        public static string GetTypeName(string code, string modelName)
+        public static string GetTypeName(string code)
         {
             if (IsLocationDev(code))
             {
@@ -61,7 +66,7 @@ namespace IModel.Enums
             }
             else
             {
-                if (IsDoorAccess(modelName))
+                if (IsDoorAccess(code))
                 {
                     return "门禁";
                 }
@@ -86,7 +91,9 @@ namespace IModel.Enums
             return IsTypeCodeContains(typeCode, CameraType);
         }
 
-        private static string DoorAccess = "其他_单联单控开关_3D|";
+        public static int DoorAccessTypecode = 20190926;
+
+        private static string DoorAccess = "20190926|其他_单联单控开关_3D";
         /// <summary>
         /// 根据TypeCode判断是否是门禁
         /// </summary>

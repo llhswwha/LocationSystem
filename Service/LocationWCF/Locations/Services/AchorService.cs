@@ -11,12 +11,19 @@ using TModel.Location.AreaAndDev;
 using TModel.Tools;
 using DbEntity = DbModel.Location.AreaAndDev.Archor;
 using TEntity = TModel.Location.AreaAndDev.Archor;
+using IModel.Enums;
 
 namespace LocationServices.Locations.Services
 {
     public interface IArchorService:INameEntityService<TEntity>
     {
         IList<TEntity> Search(string key,string value);
+
+        TEntity GetArchorByDevId(int devId);
+
+        bool EditArchor(TEntity Archor, int ParentId);
+
+        bool EditBusAnchor(TEntity archor, int ParentId);
     }
     public class ArchorService : IArchorService
     {
@@ -112,6 +119,117 @@ namespace LocationServices.Locations.Services
                 db.DevInfos.Edit(dbItemOld.DevInfo);
             }
             return result ? dbItemOld.ToTModel() : null;
+        }
+
+        public TEntity GetArchorByDevId(int devId)
+        {
+            return db.Archors.FirstOrDefault(i => i.DevInfoId == devId).ToTModel();
+        }
+
+        public bool EditArchor(TEntity Archor, int ParentId)
+        {
+            bool bReturn = false;
+            DbModel.Location.AreaAndDev.Archor Archor2;
+            Archor2 = db.Archors.FirstOrDefault(p => p.Code == Archor.Code);
+            if (Archor2 == null)
+            {
+                Archor2 = db.Archors.FirstOrDefault(p => p.DevInfoId == Archor.DevInfoId);
+            }
+            if (Archor2 == null)
+            {
+                LocationService service = new LocationService();
+                DbModel.Location.AreaAndDev.Area area = service.GetAreaById(ParentId);
+                Archor2 = Archor.ToDbModel();
+
+                DbModel.Location.AreaAndDev.DevInfo dev = new DbModel.Location.AreaAndDev.DevInfo();
+                dev.Local_DevID = Guid.NewGuid().ToString();
+                dev.IP = "";
+                dev.KKS = "";
+                dev.Name = Archor2.Name;
+                if (area != null)
+                {
+                    dev.ModelName = area.Name == DepNames.FactoryName ? TypeNames.ArchorOutdoor : TypeNames.Archor;//室外基站||室内基站
+                }
+                else
+                {
+                    dev.ModelName = TypeNames.Archor;
+                }
+                dev.Status = 0;
+                dev.ParentId = ParentId;
+                dev.Local_TypeCode = TypeCodes.Archor;
+                dev.UserName = "admin";
+                Archor2.DevInfo = dev;
+                Archor2.ParentId = ParentId;
+
+                bReturn = db.Archors.Add(Archor2);
+            }
+            else
+            {
+                Archor2.Name = Archor.Name;
+                Archor2.X = Archor.X;
+                Archor2.Y = Archor.Y;
+                Archor2.Z = Archor.Z;
+                Archor2.Type = Archor.Type;
+                Archor2.IsAutoIp = Archor.IsAutoIp;
+                Archor2.Ip = Archor.Ip;
+                Archor2.ServerIp = Archor.ServerIp;
+                Archor2.ServerPort = Archor.ServerPort;
+                Archor2.Power = Archor.Power;
+                Archor2.AliveTime = Archor.AliveTime;
+                Archor2.Enable = Archor.Enable;
+                if (!string.IsNullOrEmpty(Archor.Code)) Archor2.Code = Archor.Code;
+                bReturn = db.Archors.Edit(Archor2);
+            }
+            EditBusAnchor(Archor, ParentId);
+            return bReturn;
+        }
+
+        public bool EditBusAnchor(TEntity archor, int ParentId)
+        {
+            bool bDeal = false;
+
+            try
+            {
+                int nFlag = 0;
+                var bac = db.bus_anchors.FirstOrDefault(p => p.anchor_id == archor.Code);
+                if (bac == null)
+                {
+                    bac = new DbModel.Engine.bus_anchor();
+                    nFlag = 1;
+                }
+
+                bac.anchor_id = archor.Code;
+                bac.anchor_x = (int)(archor.X * 100);
+                bac.anchor_y = (int)(archor.Z * 100);
+                bac.anchor_z = (int)(archor.Y * 100);
+                bac.anchor_type = (int)archor.Type;
+                bac.anchor_bno = 0;
+                bac.syn_anchor_id = null;
+                bac.offset = 0;
+                bac.enabled = 1;
+
+                if (nFlag == 0)
+                {
+                    bDeal = db.bus_anchors.Edit(bac);
+                }
+                else
+                {
+                    bDeal = db.bus_anchors.Add(bac);
+                }
+
+                //if (!bDeal)
+                //{
+                //    return bDeal;
+                //}
+
+                //bDeal = EditArchor(Archor, ParentId);
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+            }
+
+            return bDeal;
         }
 
         //todo:1.添加基站到某个区域下；2.获取某个区域下的所有基站

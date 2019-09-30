@@ -1,5 +1,4 @@
-﻿using LocationServices.Locations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Location.TModel.Location;
 using Location.TModel.Location.AreaAndDev;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
@@ -14,6 +14,11 @@ namespace WebApiService.Controllers
     public class ConfigArgController : ApiController, IConfigArgService
     {
         protected IConfigArgService service;
+
+        public ConfigArgController()
+        {
+            service = new ConfigArgService();
+        }
 
         public bool AddConfigArg(ConfigArg config)
         {

@@ -199,8 +199,7 @@ namespace BLL
             bool r4 = Departments.Clear();
 
             Log.Info(LogTags.DbInit, "导入部门信息");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupDepartmentsInfo.xml";
+            string filePath = InitPaths.GetBackupDepartmentsInfo();
             bool value = DepartmentsBackupHelper.ImportDepartmentInfoFromFile(filePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入部门信息结果:{0}", value));
             
@@ -237,8 +236,8 @@ namespace BLL
 
 
             Log.Info(LogTags.DbInit, "导入人员信息");
-            basePath = AppDomain.CurrentDomain.BaseDirectory;
-            filePath = basePath + "Data\\部门人员门禁卡信息\\BackupPersonnelInfo.xml";
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            filePath = InitPaths.GetBackupPersonnelInfo();
             value = PersonBackupHelper.ImportPersonInfoFromFile(filePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入人员信息结果:{0}", value));
 
@@ -247,7 +246,7 @@ namespace BLL
 
             Log.Info(LogTags.DbInit, "开始  导入人员和定位卡关联关系");
             //人员和定位卡关联关系
-            filePath = basePath + "Data\\部门人员门禁卡信息\\人员和定位卡对应关系.xlsx";
+            filePath = InitPaths.GetPersonAndCard();
             LocationCardToPersonnelsBackupHelper.ImportRelationFromFile(new FileInfo(filePath));
             Log.Info(LogTags.DbInit, "结束 导入人员和定位卡关联关系");
             List<LocationCardToPersonnel> rList = LocationCardToPersonnels.ToList();

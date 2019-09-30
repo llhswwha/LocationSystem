@@ -1,11 +1,11 @@
-﻿using LocationServices.Locations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using DbModel.Location.Authorizations;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
@@ -13,6 +13,11 @@ namespace WebApiService.Controllers
     public class CardRoleController : ApiController, ICardRoleService
     {
         protected ICardRoleService service;
+
+        public CardRoleController()
+        {
+            service = new CardRoleService();
+        }
         [Route("add")]
         [HttpPost]
         public int AddCardRole(CardRole p)

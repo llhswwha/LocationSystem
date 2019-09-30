@@ -16,6 +16,9 @@ namespace LocationServices.Locations.Services
     {
         TEntity GetTree(List<Personnel> leafNodes);
 
+        int AddDepartment(Department p);
+
+        bool DeleteDepartment(int id);
         /// <summary>
         /// 获取树节点
         /// </summary>
@@ -317,6 +320,25 @@ namespace LocationServices.Locations.Services
             var dbItem = item.ToDbModel();
             var result = dbSet.Edit(dbItem);
             return result ? dbItem.ToTModel() : null;
+        }
+
+        public int AddDepartment(TEntity p)
+        {
+              var entity= new DepartmentService(db).Post(p);
+            if (entity != null)
+            {
+                return entity.Id;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public bool DeleteDepartment(int id)
+        {
+            var entity = new DepartmentService(db).Delete(id + "");
+            return entity != null;
         }
     }
 }

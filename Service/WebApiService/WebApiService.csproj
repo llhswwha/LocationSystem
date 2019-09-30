@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AreaAuthorizationController.cs" />
     <Compile Include="Controllers\AreaAuthorizationRecordController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\BaseDataController.cs" />
     <Compile Include="Controllers\BaseDataSimulatorController.cs" />
     <Compile Include="Controllers\CameraAlarmController.cs" />
     <Compile Include="Controllers\CardRoleController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Controllers\PhysicalTopologyController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\PosHistoryController.cs" />
+    <Compile Include="Controllers\PosController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\PositionHistoryController.cs" />
     <Compile Include="Controllers\PostController.cs" />

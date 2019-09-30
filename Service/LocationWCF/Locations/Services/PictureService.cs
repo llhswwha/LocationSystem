@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LocationServices.Locations.Interfaces;
 using TModel.Location.AreaAndDev;
 using BLL;
 using BLL.Blls.Location;
@@ -11,6 +10,36 @@ using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IPictureService
+    {
+        /// <summary>
+        /// 添加图片信息
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        bool EditPictureInfo(Picture pc);
+
+        /// <summary>
+        /// 获取图片信息
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        Picture GetPictureInfo(string strPictureName);
+
+        /// <summary>
+        /// 获取首页图片名称
+        /// </summary>
+        /// <returns></returns>
+        List<string> GetHomePageNameList();
+
+        /// <summary>
+        /// 根据图片名称获取首页图片信息
+        /// </summary>
+        /// <param name="strPictureName"></param>
+        /// <returns></returns>
+        byte[] GetHomePageByName(string strPictureName);
+    }
+
     public class PictureService : IPictureService
     {
         private Bll db;

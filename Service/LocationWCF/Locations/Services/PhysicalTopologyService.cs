@@ -1,5 +1,4 @@
-﻿using LocationServices.Locations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +14,56 @@ using DbModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IPhysicalTopologyService
+    {
+        /// <summary>
+        /// 获取物理逻辑拓扑
+        /// </summary>
+        /// <returns></returns>
+
+        IList<PhysicalTopology> GetPhysicalTopologyList(int view);
+
+        PhysicalTopology GetPhysicalTopology(string id, bool getChildren);
+
+        IList<PhysicalTopology> GetPhysicalTopologyListByName(string name);
+
+        IList<PhysicalTopology> GetPhysicalTopologyListByPid(string id);
+
+        /// <summary>
+        /// 获取物理逻辑拓扑
+        /// </summary>
+        /// <returns></returns>
+        PhysicalTopology GetPhysicalTopologyTree(int view);
+
+        AreaNode GetPhysicalTopologyTreeNode(int view);
+
+        /// <summary>
+        /// 获取物理逻辑拓扑
+        /// </summary>
+        /// <returns></returns>
+        PhysicalTopology GetPhysicalTopologyTreeById(string id);
+
+        PhysicalTopology AddPhysicalTopology(PhysicalTopology item);
+
+        PhysicalTopology EditPhysicalTopology(PhysicalTopology item);
+
+        PhysicalTopology RemovePhysicalTopology(string id);
+
+        IList<PhysicalTopology> GetParkMonitorRange();
+
+        IList<PhysicalTopology> GetFloorMonitorRange();
+
+        IList<PhysicalTopology> GetFloorMonitorRangeById(int id);
+
+        bool EditMonitorRange(PhysicalTopology pt);
+
+        PhysicalTopology AddMonitorRange(PhysicalTopology pt);
+
+        bool DeleteMonitorRange(PhysicalTopology pt);
+
+        IList<PhysicalTopology> GetSwitchAreas();
+    }
+
     public class PhysicalTopologyService : IPhysicalTopologyService
     {
         public static string tag = "PhysicalTopologyService";

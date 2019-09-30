@@ -22,6 +22,10 @@ namespace BLL.Tools
     public class DevInfoHelper
     {
         /// <summary>
+        /// 需要删除的设备
+        /// </summary>
+        private static string DeleteTypeCode = "DeleteDev";
+        /// <summary>
         /// 通过文件导入设备信息
         /// </summary>
         /// <param name="filePath"></param>
@@ -45,18 +49,36 @@ namespace BLL.Tools
                 {
                     continue;
                 }
-                int? parentID = GetAreaIdByPath(devInfo.ParentName,areas);
-                if(parentID!=null)
+                if(devInfo.TypeCode== DeleteTypeCode)
                 {
-                    devInfo.ParentId = (int)parentID;
-                    bool r=AddDevInfo(devInfo, bll.DevInfos);
-                    if (r == false)
+                    RemoveDeleteDev(devInfo, bll.DevInfos);
+                }
+                else
+                {
+                    int? parentID = GetAreaIdByPath(devInfo.ParentName, areas);
+                    if (parentID != null)
                     {
-                        Log.Info("ImportDevInfoFromFile Error:" + devInfo.Name);
+                        devInfo.ParentId = (int)parentID;
+                        bool r = AddDevInfo(devInfo, bll.DevInfos);
+                        if (r == false)
+                        {
+                            Log.Info("ImportDevInfoFromFile Error:" + devInfo.Name);
+                        }
                     }
-                }               
+                }                             
             }
             return true;
+        }
+        /// <summary>
+        /// 移除被删除的设备
+        /// </summary>
+        private static void RemoveDeleteDev(DevInfoBackup devTemp,DevInfoBll devBll)
+        {
+            DevInfo infoTemp = devBll.Find(i => i.Local_DevID == devTemp.DevId);
+            if(infoTemp!=null)
+            {
+                devBll.DeleteById(infoTemp.Id);
+            }
         }
         #region 删除重复设备信息
         public static int ClearRepeatDev(Bll bll,string tag)

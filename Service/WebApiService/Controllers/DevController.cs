@@ -1,5 +1,4 @@
-﻿using LocationServices.Locations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +10,7 @@ using TModel.Location.AreaAndDev;
 using TModel.LocationHistory.AreaAndDev;
 using TModel.FuncArgs;
 using TModel.Location.Alarm;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
@@ -19,12 +19,18 @@ namespace WebApiService.Controllers
     {
         protected IDevService service;
 
+        public DevController()
+        {
+            service = new DevService();
+        }
+
         [Route("")]
         public bool AddArchor(TModel.Location.AreaAndDev.Archor archor)
         {
             return service.AddArchor(archor);
         }
         [Route("add/camera")]
+        [HttpPost]
         public TModel.Location.AreaAndDev.Dev_CameraInfo AddCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo)
         {
             return service.AddCameraInfo(cameraInfo);
@@ -67,6 +73,12 @@ namespace WebApiService.Controllers
         {
             return service.AddDoorAccessByList(doorAccessList);
         }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("")]
         public bool DeleteArchor(int archorId)
         {
@@ -88,6 +100,12 @@ namespace WebApiService.Controllers
         {
             return service.DeleteDoorAccess(doorAccessList);
         }
+
+        public IList<Location.TModel.Location.AreaAndDev.DevInfo> DeleteListByPid(string pid)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("")]
         public bool DeletePosInfo(DevPos pos)
         {
@@ -133,7 +151,9 @@ namespace WebApiService.Controllers
         {
             return service.GetArchors();
         }
+
         [Route("camera/detail/ByDev")]
+        [HttpPost]
         public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(Location.TModel.Location.AreaAndDev.DevInfo dev)
         {
             return service.GetCameraInfoByDevInfo(dev);
@@ -185,7 +205,7 @@ namespace WebApiService.Controllers
         {
             return service.GetDevInfos(typeList);
         }
-        [Route("")]
+        [Route("devMonitor/kks/{KKS}/bFlag/{bFlag}")]
         public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag)
         {
             return service.GetDevMonitorInfoByKKS(KKS,bFlag);
@@ -195,15 +215,36 @@ namespace WebApiService.Controllers
         {
             return service.GetDevPositions();
         }
-        [Route("")]
+        [Route("list/doorAccessByParent")]
         public IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids)
         {
             return service.GetDoorAccessInfoByParent(pids);
         }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo GetEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("list/entrance/id/{id}")]
         public List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id)
         {
             return service.GetEntranceActionInfoByPerson24Hours(id);
+        }
+
+        public List<Location.TModel.Location.AreaAndDev.DevInfo> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Location.TModel.Location.AreaAndDev.DevInfo> GetListByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Location.TModel.Location.AreaAndDev.DevInfo> GetListByPid(string pid)
+        {
+            throw new NotImplementedException();
         }
 
         public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
@@ -226,6 +267,12 @@ namespace WebApiService.Controllers
         {
             return service.GetObjectAddList();
         }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo GetParent(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         [Route("edit/camera")]
         [HttpPut]
         public TModel.Location.AreaAndDev.Dev_CameraInfo ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo)
@@ -257,6 +304,21 @@ namespace WebApiService.Controllers
         public bool ModifyPosInfo(DevPos pos)
         {
             return service.ModifyPosInfo(pos);
+        }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo Post(Location.TModel.Location.AreaAndDev.DevInfo item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo Post(string pid, Location.TModel.Location.AreaAndDev.DevInfo item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Location.TModel.Location.AreaAndDev.DevInfo Put(Location.TModel.Location.AreaAndDev.DevInfo item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

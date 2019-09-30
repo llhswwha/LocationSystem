@@ -1,23 +1,25 @@
 ﻿
 using BLL;
 using BLL.Blls.Location;
-using BLL.Tools;
-using DbModel.Location.Manage;
-using LocationServices.Locations.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using TModel.Location.Manage;
 using TEntity = TModel.Location.Manage.LoginInfo;
 
 namespace LocationServices.Locations.Services
 {
 
+    public interface IUserService
+    {
+        TEntity Login(TEntity info);
+
+        TEntity Logout(TEntity info);
+
+        TEntity KeepLive(TEntity info);
+
+        VersionInfo GetVersionInfo();
+    }
   public  class UserService:IUserService
     {
         private Bll db;

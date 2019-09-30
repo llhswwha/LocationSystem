@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using LocationServices.Locations.Interfaces;
 using TModel.Location.AreaAndDev;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
@@ -13,7 +13,11 @@ namespace WebApiService.Controllers
     public class PictureController : ApiController, IPictureService
     {
         protected IPictureService service;
-        [Route("")]
+        public PictureController()
+        {
+            service = new PictureService();
+        }
+        [Route("edit")]
         public bool EditPictureInfo(Picture pc)
         {
             return service.EditPictureInfo(pc);
@@ -28,7 +32,7 @@ namespace WebApiService.Controllers
         {
             return service.GetHomePageNameList();
         }
-        [Route("")]
+        [Route("detail/picName/{strPictureName}")]
         public Picture GetPictureInfo(string strPictureName)
         {
             return service.GetPictureInfo(strPictureName);

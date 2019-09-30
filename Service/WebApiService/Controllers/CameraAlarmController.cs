@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using LocationServices.Locations.Interfaces;
 using WebApiCommunication.ExtremeVision;
+using LocationServices.Locations.Services;
 
 namespace WebApiService.Controllers
 {
@@ -13,6 +9,10 @@ namespace WebApiService.Controllers
     public class CameraAlarmController : ApiController, ICameraAlarmService
     {
         protected ICameraAlarmService service;
+        public CameraAlarmController()
+        {
+            service = new CameraAlarmService();
+        }
 
         [Route("list/merge/{merge}")]
         public List<CameraAlarmInfo> GetAllCameraAlarms(bool merge)

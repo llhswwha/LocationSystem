@@ -45,7 +45,9 @@ innodb_buffer_pool_size = 16106127360 //15G
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<LocationHistoryDb>(null);
+            //Database.SetInitializer<LocationHistoryDb>(null);
+
+            Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//新数据库用
 
             //if (IsSqlite)
             //{

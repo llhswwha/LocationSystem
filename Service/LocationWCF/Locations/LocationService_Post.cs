@@ -17,19 +17,19 @@ namespace LocationServices.Locations
             ShowLogEx(">>>>> GetPostList");
             //var posts = db.Posts.ToList();
             //return posts.ToWcfModelList();
-            return new PostService(db).GetList().ToWcfModelList();
+            return new PostService(db).GetList();
         }
 
 
         public Post GetPost(int id)
         {
-            return new PostService(db).GetEntity(id+"").ToTModel();
+            return new PostService(db).GetEntity(id+"");
         }
 
        
         public int AddPost(Post p)
         {
-            var entity= new PostService(db).Post(p.ToDbModel());
+            var entity= new PostService(db).Post(p);
             if (entity != null)
             {
                 return entity.Id;
@@ -43,7 +43,7 @@ namespace LocationServices.Locations
         
         public bool EditPost(Post p)
         {
-            var entity = new PostService(db).Put(p.ToDbModel());
+            var entity = new PostService(db).Put(p);
             return entity != null;
         }
 

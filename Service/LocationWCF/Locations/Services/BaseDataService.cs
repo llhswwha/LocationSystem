@@ -17,10 +17,69 @@ using LocationServer;
 using BLL;
 using DbModel;
 using LocationServices.Converters;
+using Location.BLL.Tool;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IBaseDataService
+    {
+        List<Ticket> GetTicketList(int type, DateTime start, DateTime end);
 
+        Ticket GetTicketDetial(int id, string begin_date, string end_date);
+
+        List<InspectionTrackHistory> Getinspectionhistorylist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
+
+        //[OperationContract]
+        //List<Personnel> GetUserList();
+
+        InspectionTrackHistory GetInspectionHistoryById(InspectionTrackHistory history);
+
+        //[OperationContract]
+        //List<Personnel> GetUserList();
+        List<Department> GetorgList();
+
+        List<PhysicalTopology> GetZonesList();
+
+        PhysicalTopology GetSingleZonesInfo(int id, int view);
+
+        List<DevInfo> GetZoneDevList(int id);
+
+        List<DevInfo> GetDeviceList(string types, string code, string name);
+
+        DevInfo GetSingleDeviceInfo(int id);
+
+        void GetSingleDeviceActionHistory(int id, string begin_date, string end_date);
+
+        List<EntranceGuardCard> GetCardList();
+
+        List<EntranceGuardActionInfo> GetSingleCardActionHistory(int id, string begin_date, string end_date);
+
+        void GetTicketsList(string type, string begin_date, string end_date);
+
+        void GetTicketsDetail(int id, string begin_date, string end_date);
+
+        List<DeviceAlarm> GeteventsList(int? src, int? level, long? begin_t, long? end_t);
+
+        //[OperationContract]
+        //List<DevMonitorNode> GetSomesisList(string strTags);
+
+        List<DevMonitorNode> GetSomesisList(List<string> strTags);
+
+        void GetSomeSisHistoryList(string kks, bool compact);
+
+        void GetSisSamplingHistoryList(string kks);
+
+        List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag);
+
+        InspectionTrack GetInspectionTrackById(InspectionTrack trackId);
+
+
+        List<PatrolPoint> Getcheckpoints(int InspectionId);
+
+        List<PatrolPointItem> Getcheckresults(int patrolId);
+
+        void Trys(InspectionTrackList aa);
+    }
     public class BaseDataService : IBaseDataService
     {
 
@@ -170,7 +229,7 @@ namespace LocationServices.Locations.Services
                     lst = db.InspectionTrackHistorys.Where(p => p.StartTime >= lBeginTime && p.EndTime <= lEndTime).ToList();
 
                 }                
-                List<TModel.LocationHistory.Work.InspectionTrackHistory> tempList = lst.ToWcfModelList();
+                List<InspectionTrackHistory> tempList = lst.ToWcfModelList();
                 return tempList;
             }
             catch (Exception e)
@@ -182,7 +241,27 @@ namespace LocationServices.Locations.Services
 
         public List<InspectionTrack> Getinspectionlist(DateTime dtBeginTime, DateTime dtEndTime, bool bFlag)//WCF已注释
         {
-            throw new NotImplementedException();
+            List<DbModel.Location.Work.InspectionTrack> lst = new List<DbModel.Location.Work.InspectionTrack>();
+            try
+            {
+                if (!bFlag)
+                {
+                    lst = dbEx.InspectionTracks.ToList();
+                }
+                else
+                {
+                    long lBeginTime = Location.TModel.Tools.TimeConvert.ToStamp(dtBeginTime);
+                    long lEndTime = Location.TModel.Tools.TimeConvert.ToStamp(dtEndTime);
+                    lst = dbEx.InspectionTracks.Where(p => p.CreateTime >= lBeginTime && p.CreateTime <= lEndTime).ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                string strError = ex.Message;
+                Log.Error(LogTags.BaseData, "Getinspectionlist", ex.ToString());
+            }
+            return lst.ToWcfModelList();
         }
 
         public InspectionTrack GetInspectionTrackById(InspectionTrack trackId)

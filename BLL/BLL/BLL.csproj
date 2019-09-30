@@ -172,6 +172,7 @@
     <Compile Include="Tools\DevInfoHelper.cs" />
     <Compile Include="Tools\EFExtensions.cs" />
     <Compile Include="Tools\EntranceGuardCardBackupHelper.cs" />
+    <Compile Include="Tools\InitPaths.cs" />
     <Compile Include="Tools\KKSCodeHelper.cs" />
     <Compile Include="Tools\LightUDP.cs" />
     <Compile Include="Tools\LocationCardToPersonnelsBackupHelper.cs" />

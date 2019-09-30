@@ -11,6 +11,7 @@ using Location.TModel.Location.Person;
 using TEntity = Location.TModel.Location.Person.Personnel;
 using TPEntity = Location.TModel.Location.Person.Department;
 using TModel.Location.Person;
+using Location.TModel.LocationHistory.Data;
 
 namespace WebApiService.Controllers
 {
@@ -166,6 +167,11 @@ namespace WebApiService.Controllers
         public List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis)
         {
             return service.GetNearbyPerson_Currency(id,fDis);
+        }
+        [Route("add/returnId")]
+        public int AddPerson(TEntity p)
+        {
+            return service.AddPerson(p);
         }
     }
 }

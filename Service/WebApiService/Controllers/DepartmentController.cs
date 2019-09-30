@@ -13,12 +13,15 @@ using TEntity = Location.TModel.Location.Person.Department;
 namespace WebApiService.Controllers
 {
     [RoutePrefix("api/deps")]
-    public class DepartmentController : ApiController,IDepartmentService
+    public class DepartmentController : ApiController, IDepartmentService
     {
         IDepartmentService service;
 
         public DepartmentController()
         {
+            //BLL.Bll db = new BLL.Bll();
+            //service = new DepartmentService(db);
+
             service = new DepartmentService();
         }
 
@@ -118,6 +121,16 @@ namespace WebApiService.Controllers
         public IList<TEntity> DeleteListByPid(string id)
         {
             return service.DeleteListByPid(id);
+        }
+        [Route("Add/department")]
+        public int AddDepartment(TEntity p)
+        {
+            return service.AddDepartment(p);
+        }
+        [Route("delete/retBool/{id}")]
+        public bool DeleteDepartment(int id)
+        {
+            return service.DeleteDepartment(id);
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using LocationServices.Locations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DbModel.Location.AreaAndDev;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.AreaAndDev;
@@ -15,13 +12,276 @@ using IModel.Enums;
 using DbModel.Tools;
 using TModel.Tools;
 using System.IO;
-using TModel.BaseData;
 using Location.BLL.Tool;
 using TModel.Location.Alarm;
 using TModel.FuncArgs;
+using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
+using System.ServiceModel.Web;
+using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
+using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IDevService : ILeafEntityService<TEntity, TEntity>
+    {
+        /// <summary>
+        /// 获取模型类型数量
+        /// </summary>
+        /// <returns></returns>
+        ObjectAddList GetObjectAddList();
+
+        /// <summary>
+        /// 获取所有设备的位置信息
+        /// </summary>
+        /// <returns></returns>
+        IList<DevPos> GetDevPositions();
+        /// <summary>
+        /// 添加一条设备位置信息
+        /// </summary>
+        /// <param name="pos"></param>
+        bool AddDevPosInfo(DevPos pos);
+        /// <summary>
+        /// 添加设备位置信息（列表形式）
+        /// </summary>
+        /// <param name="posList"></param>
+        bool AddDevPosByList(List<DevPos> posList);
+        /// <summary>
+        /// 修改设备信息
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        bool ModifyPosInfo(DevPos pos);
+        /// <summary>
+        /// 修改设备位置信息，列表方式
+        /// </summary>
+        /// <param name="posList"></param>
+        /// <returns></returns>
+        bool ModifyPosByList(List<DevPos> posList);
+        /// <summary>
+        /// 删除设备位置信息
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        bool DeletePosInfo(DevPos pos);
+        /// <summary>
+        /// 获取所有的设备基本信息
+        /// </summary>
+        /// <returns></returns>
+        IList<DevInfo> GetAllDevInfos();
+        /// <summary>
+        /// 获取所有的设备基本信息
+        /// </summary>
+        /// <returns></returns>
+        IList<DevInfo> GetDevInfos(int[] typeList);
+        /// <summary>
+        /// 获取所有的设备基本信息
+        /// </summary>
+        /// <returns></returns>
+        IList<DevInfo> FindDevInfos(string key);
+        /// <summary>
+        /// 添加一条设备基本信息
+        /// </summary>
+        /// <param name="devInfo"></param>
+        DevInfo AddDevInfo(DevInfo devInfo);
+        /// <summary>
+        /// 添加设备基本信息（列表形式）
+        /// </summary>
+        /// <param name="devInfoList"></param>
+        List<DevInfo> AddDevInfoByList(List<DevInfo> devInfoList);
+        /// <summary>
+        /// 修改设备信息
+        /// </summary>
+        /// <param name="devInfo"></param>
+        /// <returns></returns>
+        bool ModifyDevInfo(DevInfo devInfo);
+        /// <summary>
+        /// 删除设备信息
+        /// </summary>
+        /// <param name="devInfo"></param>
+        /// <returns></returns>
+        bool DeleteDevInfo(DevInfo devInfo);
+        /// <summary>
+        /// 根据ID，获取区域ID下所有设备
+        /// </summary>
+        /// <param name="pids"></param>
+        /// <returns></returns>
+        IList<DevInfo> GetDevInfoByParent(int[] pids);
+
+        /// <summary>
+        /// 通过设备ID,获取设备信息(字符串Id,GUID那部分)
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        DevInfo GetDevByGUID(string devId);
+
+        /// <summary>
+        /// 通过设备ID,获取设备信息(数字Id,主键)
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        DevInfo GetDevById(int id);
+
+        /// <summary>
+        /// 通过设备物体名称获取信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        DevInfo GetDevByGameName(string nameName);
+
+        //门禁设备的增删改查
+
+        /// <summary>
+        /// 添加门禁
+        /// </summary>
+        /// <param name="doorAccessList"></param>
+        /// <returns></returns>
+        bool AddDoorAccessByList(IList<Dev_DoorAccess> doorAccessList);
+        /// <summary>
+        /// 添加门禁信息
+        /// </summary>
+        /// <param name="doorAccess"></param>
+        /// <returns></returns>
+        Dev_DoorAccess AddDoorAccess(Dev_DoorAccess doorAccess);
+        /// <summary>
+        /// 删除门禁
+        /// </summary>
+        /// <param name="doorAccessList"></param>
+        /// <returns></returns>
+        bool DeleteDoorAccess(IList<Dev_DoorAccess> doorAccessList);
+        /// <summary>
+        /// 修改门禁信息
+        /// </summary>
+        /// <param name="doorAccessList"></param>
+        /// <returns></returns>
+        bool ModifyDoorAccess(IList<Dev_DoorAccess> doorAccessList);
+        /// <summary>
+        /// 通过区域ID，获取所有门禁信息
+        /// </summary>
+        /// <param name="pids"></param>
+        /// <returns></returns>
+        IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids);
+        /// <summary>
+        /// 获取所有的门禁信息
+        /// </summary>
+        /// <returns></returns>
+        IList<Dev_DoorAccess> GetAllDoorAccessInfo();
+
+        //摄像头设备的增删改查
+
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        bool AddCameraInfoByList(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 添加摄像头信息
+        /// </summary>
+        /// <param name="cameraInfo"></param>
+        /// <returns></returns>
+        TModel.Location.AreaAndDev.Dev_CameraInfo AddCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo);
+        /// <summary>
+        /// 删除摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        bool DeleteCameraInfo(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 修改摄像头信息
+        /// </summary>
+        /// <param name="cameraInfoList"></param>
+        /// <returns></returns>
+        bool ModifyCameraInfoByList(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList);
+        /// <summary>
+        /// 修改摄像头信息
+        /// </summary>
+        /// <param name="camInfo"></param>
+        /// <returns></returns>
+        TModel.Location.AreaAndDev.Dev_CameraInfo ModifyCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo camInfo);
+        /// <summary>
+        /// 通过区域ID，获取所有摄像头信息
+        /// </summary>
+        /// <param name="pids"></param>
+        /// <returns></returns>
+        IList<TModel.Location.AreaAndDev.Dev_CameraInfo> GetCameraInfoByParent(int[] pids);
+        /// <summary>
+        /// 获取所有的摄像头信息
+        /// </summary>
+        /// <returns></returns>
+        IList<TModel.Location.AreaAndDev.Dev_CameraInfo> GetAllCameraInfo();
+
+        /// <summary>
+        /// 通过设备信息，获取摄像头信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(DevInfo dev);
+
+        /// <summary>
+        /// 通过设备信息，获取摄像头信息
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <returns></returns>
+        TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByIp(string ip);
+
+
+        [WebGet(UriTemplate = "/archor", ResponseFormat = WebMessageFormat.Json)]
+        List<TModel.Location.AreaAndDev.Archor> GetArchors();
+
+        [WebGet(UriTemplate = "/archor/{id}", ResponseFormat = WebMessageFormat.Json)]
+        TModel.Location.AreaAndDev.Archor GetArchor(string id);
+
+        /// <summary>
+        /// 通过设备Id,获取Archor信息
+        /// </summary>
+        /// <param name="devId"></param>
+        /// <returns></returns>
+        TModel.Location.AreaAndDev.Archor GetArchorByDevId(int devId);
+
+        bool EditArchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId);
+
+        /// <summary>
+        /// 添加基站信息，内含设备信息
+        /// </summary>
+        /// <param name="archor"></param>
+        /// <returns></returns>
+        bool AddArchor(TModel.Location.AreaAndDev.Archor archor);
+        bool DeleteArchor(int archorId);
+
+        /// <summary>
+        /// 附近设备（通用）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        List<NearbyDev> GetNearbyDev_Currency(int id, float fDis, int nFlag);
+
+        /// <summary>
+        /// 附近摄像头（告警）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        List<NearbyDev> GetNearbyCamera_Alarm(int id, float fDis);
+
+        /// <summary>
+        /// 获取人员24小时内经过的门禁
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        List<EntranceGuardActionInfo> GetEntranceActionInfoByPerson24Hours(int id);
+
+        /// <summary>
+        /// 根据模型名称，获取模型类型
+        /// </summary>
+        /// <param name="devModelName"></param>
+        /// <returns></returns>
+        DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName);
+        Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag);
+
+        AlarmStatistics GetDevAlarmStatistics(SearchArg arg);
+
+        AlarmStatistics GetLocationAlarmStatistics(SearchArg arg);
+    }
+
     public class DevService : IDevService
     {
 
@@ -293,6 +553,7 @@ namespace LocationServices.Locations.Services
 
         public TModel.Location.AreaAndDev.Dev_CameraInfo GetCameraInfoByDevInfo(Location.TModel.Location.AreaAndDev.DevInfo dev)
         {
+            if (dev == null) return null;
             TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => item.DevInfoId == dev.Id).ToTModel();
             return cameraInfo;
         }
@@ -693,6 +954,56 @@ namespace LocationServices.Locations.Services
         }
 
         public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TEntity> GetListByPid(string pid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<TEntity> DeleteListByPid(string pid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity GetParent(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Post(string pid, TEntity item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<TEntity> GetListByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity GetEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TEntity> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Post(TEntity item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Put(TEntity item)
         {
             throw new NotImplementedException();
         }

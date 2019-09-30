@@ -228,9 +228,10 @@ namespace DbModel.Location.AreaAndDev
             transform.IsOnLocationArea = this.IsOnLocationArea;
             return transform;
         }
+
         public bool HaveTransform()
         {
-            return X > 0 || Y > 0 || Z > 0;
+            return X > 0 || Y > 0 || Z > 0 || SX > 0 || SY > 0 || SZ > 0;
         }
 
         #endregion

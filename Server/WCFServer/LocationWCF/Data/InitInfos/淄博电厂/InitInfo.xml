@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TopoInfo Name="根节点" Type="区域">
+    <TopoInfo Name="淄博电厂" Type="园区">
+    </TopoInfo>
+  </TopoInfo>
+</InitInfo>

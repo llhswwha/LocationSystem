@@ -358,8 +358,8 @@ namespace BLL
         private void InitEntranceGuardCard()
         {
             Log.Info(LogTags.DbInit, "导入门禁卡信息");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\部门人员门禁卡信息\\BackupEntranceGuardCardInfo.xml";
+            //string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = InitPaths.GetBackupEntranceGuardCardInfo();
             bool value = EntranceGuardCardBackupHelper.ImportEntranceGuardCardInfoFromFile(filePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入门禁卡信息结果:{0}", value));
         }

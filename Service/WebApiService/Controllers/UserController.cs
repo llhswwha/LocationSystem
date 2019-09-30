@@ -1,5 +1,4 @@
-﻿using LocationServices.Locations.Interfaces;
-using LocationServices.Locations.Services;
+﻿using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

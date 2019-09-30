@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using TEntity = TModel.Location.AreaAndDev.Archor;
+using System;
+using TModel.Location.AreaAndDev;
 
 namespace WebApiService.Controllers
 {
@@ -15,7 +17,7 @@ namespace WebApiService.Controllers
             service = new ArchorService();
         }
 
-        [Route("{id}")]
+        [Route("Delete/{id}")]
         public TEntity Delete(string id)
         {
             return service.Delete(id);
@@ -49,16 +51,31 @@ namespace WebApiService.Controllers
             return service.Search(key,value);
         }
 
-        [Route]
+        [Route("Add")]
         public TEntity Post(TEntity item)
         {
             return service.Post(item);
         }
 
-        [Route]
+        [Route("Edit")]
         public TEntity Put(TEntity item)
         {
             return service.Put(item);
+        }
+        [Route("devId/{devId}")]
+        public TEntity GetArchorByDevId(int devId)
+        {
+            return service.GetArchorByDevId(devId);
+        }
+        [Route("EditArchor/parentId/{ParentId}")]
+        public bool EditArchor(TEntity Archor, int ParentId)
+        {
+            return service.EditArchor(Archor,ParentId);
+        }
+        [Route("EditBusAnchor/parentid/{ParentId}")]
+        public bool EditBusAnchor(TEntity archor, int ParentId)
+        {
+            return service.EditBusAnchor(archor,ParentId);
         }
     }
 }

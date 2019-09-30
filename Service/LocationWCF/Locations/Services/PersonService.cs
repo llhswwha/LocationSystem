@@ -18,6 +18,7 @@ using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Location.Data;
 using TModel.Location.Person;
 using Location.BLL.Tool;
+using Location.TModel.LocationHistory.Data;
 
 namespace LocationServices.Locations.Services
 {
@@ -65,6 +66,8 @@ namespace LocationServices.Locations.Services
         List<Personnel> FindPersonList(string key);
 
         List<NearbyPerson> GetNearbyPerson_Currency(int id, float fDis);
+        int AddPerson(Personnel p);
+      
     }
 
     public class PersonTag
@@ -332,61 +335,127 @@ namespace LocationServices.Locations.Services
             }
         }
 
+        public List<TEntity> GetListEx(bool isFilterByTag)
+        {
+            try
+            {
+                
+                var list = db.Personnels.ToList();
+                if (list == null) return null;
+                var tagToPersons = db.LocationCardToPersonnels.ToList();
+                var postList = db.Posts.ToList();//职位
+                var tagList = db.LocationCards.ToList();//关联标签
+                var departList = db.Departments.ToList();//部门
+                var cardpositionList = db.LocationCardPositions.ToList();//卡位置
+                var areaList = db.Areas.ToList();//区域
+                var ps = list.ToTModel();
+                var ps2 = new List<Personnel>();
+                foreach (var p in ps)
+                {
+                    var ttp = tagToPersons.Find(i => i.PersonnelId == p.Id);
+                    if (ttp != null)
+                    {
+                        p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
+                        p.TagId = ttp.LocationCardId;
+                        var lcp = cardpositionList.Find(i => i.CardId == p.TagId);
+                        if (lcp != null && lcp.AreaId != null)
+                        {
+                            p.AreaId = lcp.AreaId;
+                            var area = areaList.Find(i => i.Id == p.AreaId);
+                            if (area != null)
+                            {
+                                p.AreaName = area.Name;
+                            }
+                        }
+                        ps2.Add(p);
+                    }
+                    else
+                    {
+                        if (!isFilterByTag)//如果不过滤的话，显示全部人员列表；过滤的话，只返回有绑定标签的人员列表
+                            ps2.Add(p);
+                    }
+                    //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
+                    p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
+                }
+                var r = ps2.OrderByDescending(i => i.TagId != null).ThenBy(i => i.ParentId).ThenBy(i => i.Name).ToList();
+                var p1 = r.Find(i => i.Name == "邱秀丽");
+                return r.ToWCFList();
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return null;
+            }
+
+        }
+
         public List<TEntity> GetList(bool detail, bool showAll)
         {
             try
             {
-                var list = new List<TEntity>();
-                var query = from p in dbSet.DbSet
-                            join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
-                            join tag in db.LocationCards.DbSet on r.LocationCardId equals tag.Id
-                            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
-                                into posList
-                            from pos2 in posList.DefaultIfEmpty() //left join
-                            select new { Person = p, Tag = tag, Pos = pos2 };
-                var pList = query.ToList();
-                foreach (var item in pList)
+                if (detail)
                 {
-                    try
-                    {
-                        LocationCardPositionBll.SetPostionState(item.Pos);
-                        TEntity p = item.Person.ToTModel();
-                        var tag = item.Tag.ToTModel();
-                        var pos = item.Pos.ToTModel();
-                        if (pos != null)
-                            p.AreaId = pos.AreaId ?? 2; //要是AreaId为空就改为四会电厂区域
+                    return GetListEx(false);
+                }
+                else
+                {
+                    var list = new List<TEntity>();
+                    var list1 = dbSet.ToList();
+                    var query = from p in dbSet.DbSet
+                                join r in db.LocationCardToPersonnels.DbSet on p.Id equals r.PersonnelId
+                                    into rList
+                                from r2 in rList.DefaultIfEmpty() //left join
+                                join tag in db.LocationCards.DbSet on r2.LocationCardId equals tag.Id
+                                    into tagList
+                                from tag2 in tagList.DefaultIfEmpty()
+                                join pos in db.LocationCardPositions.DbSet on tag2.Code equals pos.Id
+                                    into posList
+                                from pos2 in posList.DefaultIfEmpty() //left join
+                                select new { Person = p, Tag = tag2, Pos = pos2 };
 
-                        if (showAll == false)
+                    var pList = query.ToList();
+                    foreach (var item in pList)
+                    {
+                        try
                         {
-                            if (pos == null || (pos != null && pos.IsHide))
+                            LocationCardPositionBll.SetPostionState(item.Pos);
+                            TEntity p = item.Person.ToTModel();
+                            var tag = item.Tag.ToTModel();
+                            var pos = item.Pos.ToTModel();
+                            if (pos != null)
+                                p.AreaId = pos.AreaId ?? 2; //要是AreaId为空就改为四会电厂区域
+
+                            if (showAll == false)
                             {
-                                //隐藏待机的人员
+                                if (pos == null || (pos != null && pos.IsHide))
+                                {
+                                    //隐藏待机的人员
+                                }
+                                else
+                                {
+                                    list.Add(p);
+                                }
                             }
                             else
                             {
                                 list.Add(p);
                             }
+
+                            if (detail)
+                            {
+                                p.Tag = tag;
+                                p.Pos = pos;
+                                //tag.Pos = pos;
+                            }
                         }
-                        else
+                        catch (Exception ex1)
                         {
-                            list.Add(p);
+                            Log.Error("PersonService.GetList Item:" + ex1);
                         }
 
-                        if (detail)
-                        {
-                            p.Tag = tag;
-                            p.Pos = pos;
-                            //tag.Pos = pos;
-                        }
                     }
-                    catch (Exception ex1)
-                    {
-                        Log.Error("PersonService.GetList Item:" + ex1);
-                    }
-
-                }
-
-                return list;
+                    return list;
+                }             
             }
             catch (Exception ex)
             {
@@ -670,6 +739,33 @@ namespace LocationServices.Locations.Services
         public List<TEntity> FindPersonList(string key)
         {
             return db.Personnels.GetListByName(key).ToWcfModelList();
+        }
+
+        public int AddPerson(TEntity p)
+        {
+            try
+            {
+                var dbP = p.ToDbModel();
+                bool r = db.Personnels.Add(dbP);
+                if (r == false)
+                {
+                    return -1;
+                }
+                else
+                {
+                    if (p.TagId != null)//如果新增的人，设置了定位卡ID。得把关系添加到cardToPersonnel
+                    {
+                        var s = new PersonService(db);
+                        var value = s.BindWithTag(dbP.Id, (int)p.TagId);
+                    }
+                }
+                return dbP.Id;
+            }
+            catch (Exception ex)
+            {
+                LogEvent.Error(ex);
+                return -1;
+            }
         }
     }
 }

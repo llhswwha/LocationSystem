@@ -2461,6 +2461,10 @@
     <None Include="Data\InspectionJson\PatrolPoint999.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\InitInfos\淄博电厂\InitInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\KKS\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

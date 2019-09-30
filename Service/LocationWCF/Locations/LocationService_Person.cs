@@ -43,56 +43,8 @@ namespace LocationServices.Locations
         //[OperationContract]
         public List<Personnel> GetPersonList(bool isFilterByTag)
         {
-            try
-            {
-                ShowLogEx(">>>>> GetPersonList");
-                var list = db.Personnels.ToList();
-                if (list == null) return null;
-                var tagToPersons = db.LocationCardToPersonnels.ToList();
-                var postList = db.Posts.ToList();//职位
-                var tagList = db.LocationCards.ToList();//关联标签
-                var departList = db.Departments.ToList();//部门
-                var cardpositionList = db.LocationCardPositions.ToList();//卡位置
-                var areaList = db.Areas.ToList();//区域
-                var ps = list.ToTModel();
-                var ps2 = new List<Personnel>();
-                foreach (var p in ps)
-                {
-                    var ttp = tagToPersons.Find(i => i.PersonnelId == p.Id);
-                    if (ttp != null)
-                    {
-                        p.Tag = tagList.Find(i => i.Id == ttp.LocationCardId).ToTModel();
-                        p.TagId = ttp.LocationCardId;
-                        var lcp = cardpositionList.Find(i => i.CardId == p.TagId);
-                        if (lcp != null && lcp.AreaId != null)
-                        {
-                            p.AreaId = lcp.AreaId;
-                            var area = areaList.Find(i => i.Id == p.AreaId);
-                            if (area != null)
-                            {
-                                p.AreaName = area.Name;
-                            }
-                        }
-                        ps2.Add(p);
-                    }
-                    else
-                    {
-                        if (!isFilterByTag)//如果不过滤的话，显示全部人员列表；过滤的话，只返回有绑定标签的人员列表
-                            ps2.Add(p);
-                    }
-                    //p.Tag = tagList.Find(i => i.Id == p.TagId).ToTModel();
-                    p.Parent = departList.Find(i => i.Id == p.ParentId).ToTModel();
-                }
-                var r = ps2.OrderByDescending(i => i.TagId!=null).ThenBy(i=>i.ParentId).ThenBy(i=>i.Name).ToList();
-                var p1 = r.Find(i => i.Name == "邱秀丽");
-                return r.ToWCFList();
-            }
-            catch (Exception ex)
-            {
-                LogEvent.Error(ex);
-                return null;
-            }
-            
+            ShowLogEx(">>>>> GetPersonList");
+            return new PersonService().GetListEx(isFilterByTag);
         }
 
         public List<Personnel> FindPersonList(string name)

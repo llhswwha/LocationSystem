@@ -9,6 +9,7 @@ using DbModel.Location.AreaAndDev;
 using Location.BLL.Tool;
 using DbModel.Tools;
 using DbModel.Tools.InitInfos;
+using BLL.Tools;
 
 namespace LocationServer.Tools
 {
@@ -54,7 +55,7 @@ namespace LocationServer.Tools
                 backUpList.EcList.Add(Ec);
             }
 
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\部门人员门禁卡信息\\BackupEntranceGuardCardInfo.xml";
+            string initFile = InitPaths.GetBackupEntranceGuardCardInfo();
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
         }
     }

@@ -17,18 +17,41 @@ using WebApiCommunication.ExtremeVision;
 
 namespace LocationServices.Locations.Services
 {
-    public class CameraAlarmService
+    public interface ICameraAlarmService
     {
-        public BLL.Bll db;
+        /// <summary>
+        /// 获取定位告警列表
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        List<CameraAlarmInfo> GetAllCameraAlarms(bool merge);
+
+        List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge);
+
+        CameraAlarmInfo GetCameraAlarm(int id);
+    }
+
+    public class CameraAlarmService: ICameraAlarmService
+    {
+        public Bll db;
 
         public CameraAlarmService()
         {
-            db = BLL.Bll.NewBllNoRelation();
+            db = Bll.NewBllNoRelation();
+            CameraAlarmService service = new CameraAlarmService();
         }
+     
 
-        public CameraAlarmService(BLL.Bll db)
+        public CameraAlarmService(Bll db)
         {
             this.db = db;
+        }
+
+        public CameraAlarmInfo GetCameraAlarm(int id)
+        {
+            CameraAlarmService service = new CameraAlarmService(db);
+            var info = service.GetCameraAlarmDetail(id);
+            return info;
         }
 
         /// <summary>
@@ -96,6 +119,73 @@ namespace LocationServices.Locations.Services
                 return null;
             }
         }
+
+        /// <summary>
+        /// 获取某一个摄像机的告警
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge)
+        {
+            try
+            {
+                List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
+                List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
+
+                List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
+                Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
+
+                var devs = db.DevInfos.ToDictionary();
+
+                foreach (Dev_CameraInfo camerainfo in cameras)
+                {
+                    if (devs.ContainsKey(camerainfo.DevInfoId))
+                    {
+                        camerainfo.DevInfo = devs[camerainfo.DevInfoId];
+                    }
+
+                    if (cameraDict.ContainsKey(camerainfo.Ip))
+                    {
+                        var cameraOld = cameraDict[camerainfo.Ip];
+                        cameraDict[camerainfo.Ip] = camerainfo;
+                    }
+                    else
+                    {
+                        cameraDict.Add(camerainfo.Ip, camerainfo);
+                    }
+                }
+                //todo:list2=>list3
+                if (list2 != null)
+                    foreach (CameraAlarmJson camera in list2)
+                    {
+                        //byte[] byte1 = camera.Json;
+                        //string json = Encoding.UTF8.GetString(byte1);
+                        //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
+                        //if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
+                        //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
+                        //cameraAlarmInfo.pic_data = "";//在详情的地方获取
+                        //cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
+                        //cameraAlarmInfo.data = null;
+
+                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera, cameraDict, devs);
+                        if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
+                        list3.Add(cameraAlarmInfo);
+                    }
+
+                list3.Sort();//按时间排序
+                //if (merge) //默认传true
+                //{
+                //    list3 = MergeAlarms(list3);//合并相同的告警
+                //}
+                return list3.ToWCFList();
+            }
+            catch (System.Exception ex)
+            {
+                Log.Error(LogTags.ExtremeVision, "GetCameraAlarms", ex.ToString());
+                return null;
+            }
+        }
+
 
         private Dictionary<string, string> urlToIp = new Dictionary<string, string>();
 
@@ -234,71 +324,7 @@ namespace LocationServices.Locations.Services
             }
         }
 
-        /// <summary>
-        /// 获取某一个摄像机的告警
-        /// </summary>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        public List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge)
-        {
-            try
-            {
-                List<CameraAlarmJson> list2 = db.CameraAlarmJsons.ToList();
-                List<CameraAlarmInfo> list3 = new List<CameraAlarmInfo>();
-
-                List<Dev_CameraInfo> cameras = db.Dev_CameraInfos.ToList();
-                Dictionary<string, Dev_CameraInfo> cameraDict = new Dictionary<string, Dev_CameraInfo>();
-
-                var devs = db.DevInfos.ToDictionary();
-
-                foreach (Dev_CameraInfo camerainfo in cameras)
-                {
-                    if (devs.ContainsKey(camerainfo.DevInfoId))
-                    {
-                        camerainfo.DevInfo = devs[camerainfo.DevInfoId];
-                    }
-
-                    if (cameraDict.ContainsKey(camerainfo.Ip))
-                    {
-                        var cameraOld = cameraDict[camerainfo.Ip];
-                        cameraDict[camerainfo.Ip] = camerainfo;
-                    }
-                    else
-                    {
-                        cameraDict.Add(camerainfo.Ip, camerainfo);
-                    }
-                }
-                //todo:list2=>list3
-                if (list2 != null)
-                    foreach (CameraAlarmJson camera in list2)
-                    {
-                        //byte[] byte1 = camera.Json;
-                        //string json = Encoding.UTF8.GetString(byte1);
-                        //CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
-                        //if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
-                        //cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
-                        //cameraAlarmInfo.pic_data = "";//在详情的地方获取
-                        //cameraAlarmInfo.time = GetDataTime(cameraAlarmInfo.time_stamp);
-                        //cameraAlarmInfo.data = null;
-
-                        CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(camera, cameraDict, devs);
-                        if (!cameraAlarmInfo.cid_url.Contains(ip)) continue;//不是相同的摄像机
-                        list3.Add(cameraAlarmInfo);
-                    }
-
-                list3.Sort();//按时间排序
-                //if (merge) //默认传true
-                //{
-                //    list3 = MergeAlarms(list3);//合并相同的告警
-                //}
-                return list3.ToWCFList();
-            }
-            catch (System.Exception ex)
-            {
-                Log.Error(LogTags.ExtremeVision, "GetCameraAlarms", ex.ToString());
-                return null;
-            }
-        }
+   
 
         public void LoadAlarmFromJson()
         {

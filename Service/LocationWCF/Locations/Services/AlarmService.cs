@@ -15,9 +15,30 @@ using Location.TModel.Tools;
 using Location.BLL.Tool;
 using TModel.Location.AreaAndDev;
 using DbModel.Tools;
+using DbModel.Location.Alarm;
+using T_LocationAlarm=Location.TModel.Location.Alarm.LocationAlarm;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IAlarmService:INameEntityService<DevAlarm>
+    {
+        /// <summary>
+        /// 获取定位告警列表
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        List<T_LocationAlarm> GetLocationAlarms(AlarmSearchArg arg);
+
+        /// <summary>
+        /// 获取设备告警列表
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg);
+
+        Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg);
+    }
+
     public class AlarmService : IAlarmService
     {
         private Bll db;
@@ -38,10 +59,11 @@ namespace LocationServices.Locations.Services
                 allAlarms = bll.DevAlarms.ToList();
             }
         }
-        public static List<DbModel.Location.Alarm.DevAlarm> allAlarms;
+        public static List<DevAlarm> allAlarms;
 
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
         {
+           
             if (allAlarms == null)
             {
                 RefreshDeviceAlarmBuffer();
@@ -57,6 +79,7 @@ namespace LocationServices.Locations.Services
                 if (item.ParentId != null)
                     dict.Add(item.Id, item);
             }
+        
             List<DeviceAlarm> alarms = new List<DeviceAlarm>();
             List<DbModel.Location.Alarm.DevAlarm> alarms1 = null;
             DateTime now = DateTime.Now;
@@ -79,7 +102,7 @@ namespace LocationServices.Locations.Services
 
             var startStamp = TimeConvert.ToStamp(todayStart);
             var endStamp = TimeConvert.ToStamp(todayEnd);
-
+           
             if (arg.AreaId != 0)
             {
                 var areas = db.Areas.GetAllSubAreas(arg.AreaId);//获取所有子区域
@@ -105,6 +128,7 @@ namespace LocationServices.Locations.Services
                 }
 
             }
+           
             if (alarms1 == null) return null;
             alarms = alarms1.ToTModel();
             alarms.Sort();
@@ -112,6 +136,7 @@ namespace LocationServices.Locations.Services
             {
 
             }
+          
             foreach (var item in alarms)
             {
                 try
@@ -127,13 +152,17 @@ namespace LocationServices.Locations.Services
                     Log.Error(ex.ToString());
                 }
             }
+         
             DevAlarm.devAlarmList = new List<DeviceAlarm>();
+           
             DeviceAlarmScreen(arg, alarms, DevAlarm.devAlarmList);
             DevAlarm.Total = DevAlarmTotal;
-
+            
             TimeSpan time = DateTime.Now - start;
             DevAlarm.SetEmpty();
             return DevAlarm;
+         
+           
         }
         int DevAlarmTotal = 0;
         private void DeviceAlarmScreen(AlarmSearchArg arg, List<DeviceAlarm> ListInfo, List<DeviceAlarm> DevAlarmlist)
@@ -214,7 +243,7 @@ namespace LocationServices.Locations.Services
             return page;
         }
 
-        public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
+        public List<T_LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
             var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
             var persons = db.Personnels.ToList();
@@ -224,6 +253,36 @@ namespace LocationServices.Locations.Services
             }
             list.Sort();
             return list.ToWcfModelList();
+        }
+
+        public IList<DevAlarm> GetListByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DevAlarm Delete(string id)
+        {
+            return db.DevAlarms.DeleteById(int.Parse(id));
+        }
+
+        public DevAlarm GetEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<DevAlarm> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DevAlarm Post(DevAlarm item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DevAlarm Put(DevAlarm item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

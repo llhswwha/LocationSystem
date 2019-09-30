@@ -70,7 +70,7 @@ namespace DbModel.BaseData
 
         private static int GetDeviceType(DevInfo devinfo)
         {
-            var type = TypeCodeHelper.GetTypeName(devinfo.Local_TypeCode + "", devinfo.ModelName);
+            var type = TypeCodeHelper.GetTypeName(devinfo.Local_TypeCode + "");
             if (type == "基站")
             {
                 return (int)Abutment_DevTypes.定位基站;

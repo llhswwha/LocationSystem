@@ -252,7 +252,7 @@ namespace LocationServices.Locations.Services
 
             foreach (var item in devInfoList)
             {
-                item.TypeName = TypeCodeHelper.GetTypeName(item.TypeCode+"",item.ModelName);
+                item.TypeName = TypeCodeHelper.GetTypeName(item.TypeCode+"");
             }
         }
 

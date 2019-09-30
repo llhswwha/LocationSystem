@@ -54,7 +54,7 @@ namespace BLL.Blls.Location
             var list = this.ToList();
             foreach (var dev in list)
             {
-                var type = TypeCodeHelper.GetTypeName(dev.Local_TypeCode + "", dev.ModelName);
+                var type = TypeCodeHelper.GetTypeName(dev.Local_TypeCode + "");
                 if (type == "基站")
                 {
                     dev.DevDetail = archors.FirstOrDefault(i => i.DevInfoId == dev.Id);

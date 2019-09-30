@@ -11,6 +11,29 @@ using LocationServices.Converters;
 
 namespace LocationServices.Locations.Services
 {
+    public interface IConfigArgService
+    {
+        bool AddConfigArg(ConfigArg config);
+
+        bool EditConfigArg(ConfigArg config);
+
+        bool DeleteConfigArg(ConfigArg config);
+
+        ConfigArg GetConfigArg(int id);
+
+        List<ConfigArg> GetConfigArgList();
+
+        ConfigArg GetConfigArgByKey(string key);
+
+        List<ConfigArg> FindConfigArgListByKey(string key);
+
+        List<ConfigArg> FindConfigArgListByClassify(string key);
+
+        TransferOfAxesConfig GetTransferOfAxesConfig();
+
+        bool SetTransferOfAxesConfig(TransferOfAxesConfig config);
+    }
+
     public class ConfigArgService : IConfigArgService
     {
         private Bll db;
