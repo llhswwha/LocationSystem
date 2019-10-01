@@ -43,16 +43,12 @@ namespace BLL
 
         }
 
-        public bool InitTopoFromXml(string parkName = "")
+        public bool InitTopoFromXml()
         {
             Log.InfoStart(LogTags.DbInit,"InitTopoFromXml");
             try
             {
-                string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfo.xml";
-                if (!string.IsNullOrEmpty(parkName))
-                {
-                    initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfos\\" + parkName+ "\\InitInfo.xml";
-                }
+                string initFile = InitPaths.GetInitInfo();
 
                 if (!File.Exists(initFile))
                 {
@@ -284,10 +280,10 @@ namespace BLL
             }
         }
 
-        public void InitAreaAndDev(string parkName = "")
+        public void InitAreaAndDev()
         {
             Log.InfoStart(LogTags.DbInit,"InitAreaAndDev");
-            if (!InitTopoFromXml(parkName))
+            if (!InitTopoFromXml())
             {
                 InitTopoByEntities();
             }

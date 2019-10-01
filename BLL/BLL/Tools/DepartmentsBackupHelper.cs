@@ -40,16 +40,18 @@ namespace BLL.Tools
         /// </summary>
         /// <param name="cameraDev"></param>
         /// <param name="bll"></param>
-        private static void AddDepartmentInfo(DepartmentInfoBackup DepB, Bll bll)
+        private static bool AddDepartmentInfo(DepartmentInfoBackup DepB, Bll bll)
         {
             try
             {
                 Department Dep = GetDepartmentInfo(DepB);
-                bll.Departments.Add(Dep);
+                bool r=bll.Departments.Add(Dep);
+                return r;
             }
             catch (Exception e)
             {
                 Log.Info("Error in DepartmentsBackupHelper.AddDepartmentInfo:" + e.ToString());
+                return false;
             }
         }
 

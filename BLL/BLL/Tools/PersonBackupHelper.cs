@@ -29,8 +29,19 @@ namespace BLL.Tools
             var initInfo = XmlSerializeHelper.LoadFromFile<PersonnelInfoBackupList>(filePath);
             if (initInfo == null || initInfo.PerList == null || initInfo.PerList.Count == 0) return false;
             var areas = bll.Areas.ToList();
+            var deps = bll.Departments.ToList();
             foreach (var Per in initInfo.PerList)
             {
+                var dep = deps.Find(i => i.Id == Per.ParentId);
+                if (dep == null)
+                {
+                    dep = deps[Per.ParentId];
+                    Per.ParentId = dep.Id;
+                }
+                else
+                {
+
+                }
                 AddPersonInfo(Per, bll);
             }
             return true;

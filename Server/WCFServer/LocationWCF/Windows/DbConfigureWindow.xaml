@@ -21,13 +21,14 @@
                 <MenuItem Header="MySql清除重复门禁、摄像头设备信息" Name="MenuClearRepeatDev" Click="MenuClearRepeatDev_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="读取数据">
-                <MenuItem Header="区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
+                <MenuItem Header="1.区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
+                <MenuItem Header="2.标签|部门|人员" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
+                
+                <MenuItem Header="标签卡" Name="MenuInitTags" Click="MenuInitTags_Click"></MenuItem>
                 <MenuItem Header="区域和设备" Name="MenuInitTopoDev" Click="MenuInitTopoDev_Click"></MenuItem>
                 <MenuItem Header="设备" Name="MenuInitDevs" Click="MenuInitDevs_Click"></MenuItem>
-                <MenuItem Header="标签卡" Name="MenuInitTags" Click="MenuInitTags_Click"></MenuItem>
                 <MenuItem Header="区域权限" Name="MenuInitAA" Click="MenuInitAA_OnClick"></MenuItem>
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
-                <MenuItem Header="人员 标签" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
                 <MenuItem Header="基站测量配置信息" Name="MenuArchorSetting" Click="MenuArchorSetting_Click"></MenuItem>
                 <MenuItem Header="KKS" Name="MenuLoadKKS" Click="MenuLoadKKS_Click"></MenuItem>
             </MenuItem>

@@ -534,7 +534,6 @@ namespace BLL.Blls
 2019-09-02 06:00:34,398 [72] INFO  Logger - RealPos|0 获取定位数据:{"data_type":"1","engine_id":"","tag_id":"08BB","tag_id_dec":"2235","x":"45.43393","y":"25.78800","z":"0.98000","timestamp":"1567375234365","sn":"107","bettery":"4.10","events":[{"event_type":"LOCK"},{"event_type":"MOVE"}
 2019-09-02 06:00:34,403 [72] INFO  Logger - ParseJson|0 调整json数据: + ]}
                      */
-
                     //Table has no partition for value 15677375234349
                     //Table has no partition for value 15667397966646 //1567375241100
                     exception = ex;

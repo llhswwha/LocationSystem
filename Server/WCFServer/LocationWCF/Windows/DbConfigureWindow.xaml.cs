@@ -121,7 +121,7 @@ namespace LocationServer.Windows
             Worker.Run(() =>
             {
                 AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
-                initializer.InitTopoFromXml(AppSetting.ParkName);
+                initializer.InitTopoFromXml();
             }, () => { MessageBox.Show("完成"); },null, LogTags.DbInit);
         }
 
@@ -138,23 +138,41 @@ namespace LocationServer.Windows
 
         private void MenuInitAA_OnClick(object sender, RoutedEventArgs e)
         {
-            DbInitializer initializer = new DbInitializer(new Bll());
-            initializer.InitAuthorization();
-            MessageBox.Show("完成");
+            
+            Worker.Run(() =>
+            {
+                DbInitializer initializer = new DbInitializer(new Bll());
+                initializer.InitAuthorization();
+            }, () =>
+            {
+                MessageBox.Show("完成");
+            });
         }
 
         private void MenuRealPos_OnClick(object sender, RoutedEventArgs e)
         {
-            DbInitializer initializer = new DbInitializer(new Bll());
-            initializer.InitRealTimePositions();
-            MessageBox.Show("完成");
+            Worker.Run(() =>
+            {
+                DbInitializer initializer = new DbInitializer(new Bll());
+                initializer.InitRealTimePositions();
+            }, () =>
+            {
+                MessageBox.Show("完成");
+            });
         }
 
         private void MenuPersonAndCard_OnClick(object sender, RoutedEventArgs e)
         {
-            DbInitializer initializer = new DbInitializer(new Bll());
-            initializer.InitCardAndPerson();
-            MessageBox.Show("完成");
+            Worker.Run(() =>
+            {
+                DbInitializer initializer = new DbInitializer(new Bll());
+                initializer.InitCardAndPerson();
+            }, () =>
+             {
+                 MessageBox.Show("完成");
+             });
+            
+            
         }
 
         private void MenuDeleteSqlServer_Click(object sender, RoutedEventArgs e)
@@ -502,7 +520,7 @@ namespace LocationServer.Windows
         {
             Bll bll = Bll.NewBllNoRelation();
             DbInitializer initializer = new DbInitializer(bll);
-            initializer.InitTagPositions(false);
+            initializer.InitTagPositions(true,true);
             MessageBox.Show("完成");
         }
 
@@ -625,7 +643,7 @@ namespace LocationServer.Windows
             Worker.Run(() =>
             {
                 AreaTreeInitializer initializer = new AreaTreeInitializer(new Bll());
-                initializer.InitAreaAndDev(AppSetting.ParkName);
+                initializer.InitAreaAndDev();
             }, () =>
             {
                 MessageBox.Show("完成");
