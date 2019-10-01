@@ -88,6 +88,26 @@
     <Compile Include="DbDeviceListBox.xaml.cs">
       <DependentUpon>DbDeviceListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DragDrops\DragDropBuffer.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\CanvasButtonConsumer.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\CanvasData.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\FileDropConsumer.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\ListBoxData.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\ListBoxToTreeView.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\StringToCanvasTextBlock.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\TabControlData.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\ToolbarButtonToCanvasButton.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\ToolBarData.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\TrashConsumer.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\TreeViewData.cs" />
+    <Compile Include="DragDrops\DragDropFrameworkData\TreeViewToListBox.cs" />
+    <Compile Include="DragDrops\DragDropFramework\DataConsumerBase.cs" />
+    <Compile Include="DragDrops\DragDropFramework\DataProviderBase.cs" />
+    <Compile Include="DragDrops\DragDropFramework\DefaultAdorner.cs" />
+    <Compile Include="DragDrops\DragDropFramework\DragManager.cs" />
+    <Compile Include="DragDrops\DragDropFramework\DropManager.cs" />
+    <Compile Include="DragDrops\DragDropFramework\Utilities.cs" />
+    <Compile Include="DragDrops\DragDropManager.cs" />
     <Compile Include="Extensions\MenuExtensions.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
