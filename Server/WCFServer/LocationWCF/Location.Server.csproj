@@ -624,6 +624,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Data\InitInfos\四会热电厂\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\宝钢园区\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\淄博电厂\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2463,6 +2472,36 @@
     </None>
     <None Include="Data\InitInfos\淄博电厂\InitInfo.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\四会热电厂\部门人员门禁卡信息\BackupDepartmentsInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\四会热电厂\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\四会热电厂\部门人员门禁卡信息\BackupPersonnelInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\宝钢园区\部门人员门禁卡信息\BackupDepartmentsInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\宝钢园区\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\宝钢园区\部门人员门禁卡信息\BackupPersonnelInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\淄博电厂\部门人员门禁卡信息\BackupDepartmentsInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\淄博电厂\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\InitInfos\淄博电厂\部门人员门禁卡信息\BackupPersonnelInfo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Data\KKS\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
