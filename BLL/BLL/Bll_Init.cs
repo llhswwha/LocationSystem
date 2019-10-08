@@ -69,36 +69,47 @@ namespace BLL
             initializer.InitDbData(mode, isForce);
         }
 
-        public void InitPartion()
+        public bool InitPartion()
         {
-            DateTime dtDay = DateTime.Now;
-            DateTime dtNextDay = DateTime.Now.AddDays(1);
-            DateTime dtThirdDay = DateTime.Now.AddDays(2);
-
-            string strDay = dtDay.ToString("yyyyMMdd");
-            strDay = "p" + strDay;
-            string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions'";
-
-            dtNextDay = dtNextDay.Date;
-            long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtNextDay);
-            string strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
-
-            DbRawSqlQuery<string> result1 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
-            List<string> lst = result1.ToList();
-            if (lst.Count == 0 || lst[0] == null)
+            string strSqlAdd = "";
+            try
             {
-                strSqlAdd = "alter table positions partition by range(DateTimeStamp) (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+                DateTime dtDay = DateTime.Now;
+                DateTime dtNextDay = DateTime.Now.AddDays(1);
+                DateTime dtThirdDay = DateTime.Now.AddDays(2);
+
+                string strDay = dtDay.ToString("yyyyMMdd");
+                strDay = "p" + strDay;
+                string strSqlSelect = "select PARTITION_NAME from INFORMATION_SCHEMA.PARTITIONS where table_name='positions'";
+
+                dtNextDay = dtNextDay.Date;
+                long lTime = Location.TModel.Tools.TimeConvert.ToStamp(dtNextDay);
+                strSqlAdd = "ALTER TABLE positions ADD PARTITION (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+
+                DbRawSqlQuery<string> result1 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
+                List<string> lst = result1.ToList();
+                if (lst.Count == 0 || lst[0] == null)
+                {
+                    strSqlAdd = "alter table positions partition by range(DateTimeStamp) (PARTITION " + strDay + " values less than(" + Convert.ToString(lTime) + "));";
+                }
+
+                strSqlSelect += " and PARTITION_NAME = '" + strDay + "';";
+
+                DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
+                List<string> lst2 = result2.ToList();
+                if (lst2.Count == 0)
+                {
+                    DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
+                    Log.Info("Partion", "InitPartion:" + strSqlAdd);
+                }
+                return true;
             }
-
-            strSqlSelect += " and PARTITION_NAME = '" + strDay + "';";
-
-            DbRawSqlQuery<string> result2 = DbHistory.Database.SqlQuery<string>(strSqlSelect + ";");
-            List<string> lst2 = result2.ToList();
-            if (lst2.Count == 0)
+            catch (Exception ex)
             {
-                DbHistory.Database.ExecuteSqlCommand(strSqlAdd);
-                Log.Info("Partion","InitPartion:"+strSqlAdd);
+                Log.Info("Partion", "InitPartion:" + ex);
+                return false;
             }
+           
         }
 
         public void AddPartion()
@@ -141,12 +152,20 @@ namespace BLL
 
                     if (bPartitionInitFlag)
                     {
-                        InitPartion();
+                        bool r1=InitPartion();
+                        if (r1)
+                        {
+                            if (bPartitionFlag)
+                            {
+                                AddPartion();
+                            }
+                        }
+                        else
+                        {
+                            //初始化分区失败
+                        }
                     }
-                    if (bPartitionFlag)
-                    {
-                        AddPartion();
-                    }
+                    
 
                     bPartitionInitFlag = false;
                     bPartitionFlag = false;
@@ -158,6 +177,10 @@ namespace BLL
                 catch (Exception ex)
                 {
                     Log.Error("InsertPartitionInfo", "Error:"+ex);
+                    int time = 1000 * 60 * 30;
+                    Thread.Sleep(time);//30分钟
+                    bPartitionInitFlag = false;
+                    bPartitionFlag = false;
                 }
             }
         }

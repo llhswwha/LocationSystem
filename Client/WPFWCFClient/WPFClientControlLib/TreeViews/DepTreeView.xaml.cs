@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFClientControlLib.Extensions;
+using WpfFramework.Common.DragDrops;
 
 namespace WPFClientControlLib
 {
@@ -33,7 +34,10 @@ namespace WPFClientControlLib
             if (root == null) return;
             ShowTree(TreeView1,root.Children);
 
+            dragdrop = new TreeViewDragDropManager(TreeView1);
         }
+
+        TreeViewDragDropManager dragdrop;
 
         public void ShowTree(ItemsControl control, List<Department> list)
         {

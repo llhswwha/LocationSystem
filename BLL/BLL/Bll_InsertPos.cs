@@ -196,7 +196,7 @@ namespace BLL
                     PartitionThread.IsBackground = true;
                     PartitionThread.Start();
 
-                    while (bPartitionInitFlag) { }
+                    while (bPartitionInitFlag) { }//
                 }
 
                 //AddPositionToHistory(positions);

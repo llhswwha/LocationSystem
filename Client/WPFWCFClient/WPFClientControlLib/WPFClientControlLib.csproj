@@ -108,6 +108,8 @@
     <Compile Include="DragDrops\DragDropFramework\DropManager.cs" />
     <Compile Include="DragDrops\DragDropFramework\Utilities.cs" />
     <Compile Include="DragDrops\DragDropManager.cs" />
+    <Compile Include="DragDrops\RoomTreeViewDataConsumer.cs" />
+    <Compile Include="DragDrops\TreeViewDragDropManager.cs" />
     <Compile Include="Extensions\MenuExtensions.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
