@@ -25,7 +25,7 @@ namespace LocationServer
                 var config = new HubConfiguration()
                 {
                     EnableJSONP = true,
-                    EnableJavaScriptProxies = false
+                   // EnableJavaScriptProxies = false
                 };
 #if DEBUG
                 config.EnableDetailedErrors = true;

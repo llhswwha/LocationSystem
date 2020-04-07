@@ -52,6 +52,8 @@ using Base.Tools;
 using LocationServices.Locations.Services;
 using Location.TModel.Tools;
 using Base.Common.Tools;
+using System.Data;
+using ExcelLib;
 
 namespace LocationWCFServer
 {
@@ -734,6 +736,76 @@ namespace LocationWCFServer
         {
             var win = new AlarmList();
             win.Show();
+        }
+
+        private void MenuArchorTableToXml_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    string basePath = AppDomain.CurrentDomain.BaseDirectory;
+                    string filePath = basePath + "Data\\基站信息\\基站信息.xls";
+
+                    if (!File.Exists(filePath))
+                    {
+                        return;
+                    }
+
+                    string strXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n\r";
+                    strXml += "<DepList>\n\r";
+
+                    DataTable dt = ExcelHelper.LoadTable(new FileInfo(filePath), null, true);
+                    Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string strId = row[0].ToString();
+                        string strX = row[1].ToString();
+                        string strY = row[3].ToString();
+                        string strZ = row[2].ToString();
+                        string strIp = row[4].ToString();
+                        string strArea = row[5].ToString();
+
+                        string strChildXml = "<Device Name=\"" + strId + "\" AnchorId=\"" + strId + "\" XPos=\"" + strX + "\" YPos=\"" + strY + "\" ZPos=\"" + strZ + "\" IP=\"" + strIp + "\" AbsolutePosX=\"" + strX + "\" AbsolutePosY=\"" + strY + "\" AbsolutePosZ=\"" + strZ + "\" />\n\r";
+                        if (dict.ContainsKey(strArea))
+                        {
+                            dict[strArea].Add(strChildXml);
+                        }
+                        else
+                        {
+                            List<string> listChildXml = new List<string>();
+                            listChildXml.Add(strChildXml);
+                            dict.Add(strArea, listChildXml);
+                        }
+                    }
+
+                    foreach (var v in dict)
+                    {
+                        string strKey = v.Key;
+                        List<string> listChildXml = v.Value;
+                        strXml += "<DeviceList Name=\"" + strKey + "\">\n\r";
+                        foreach (string childXml in listChildXml)
+                        {
+                            strXml += childXml;
+                        }
+
+                        strXml += "</DeviceList>\n\r";
+                    }
+
+                    strXml += "</DepList>";
+                    filePath = BLL.Tools.InitPaths.GetBaseStationInfo();
+
+                    System.IO.File.WriteAllText(filePath, strXml, Encoding.UTF8);
+
+                    MessageBox.Show("将表格转换为Xml成功");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("将表格转换为Xml失败");
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }

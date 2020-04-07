@@ -25,6 +25,8 @@ namespace LocationServices.Locations.Services
         /// <param name="view">0:基本数据;1:人员信息</param>
         /// <returns></returns>
         TEntity GetTree(int view);
+
+        bool EditDepartment(TEntity p);
     }
 
     public class DepartmentService : IDepartmentService
@@ -338,6 +340,12 @@ namespace LocationServices.Locations.Services
         public bool DeleteDepartment(int id)
         {
             var entity = new DepartmentService(db).Delete(id + "");
+            return entity != null;
+        }
+
+        public bool EditDepartment(TEntity p)
+        {
+            var entity = Put(p);
             return entity != null;
         }
     }

@@ -18,6 +18,7 @@ using DbModel.Tools;
 using Location.IModel;
 using WPFClientControlLib.Extensions;
 using System.Windows.Automation.Peers;
+using WpfFramework.Common.DragDrops;
 
 namespace WPFClientControlLib
 {
@@ -51,6 +52,7 @@ namespace WPFClientControlLib
                     ShowTreeEx<TD, TF>(TreeView1, root.Children);
                 }
             }
+            TreeViewDragDropManager dragdrop = new TreeViewDragDropManager(TreeView1);
         }
 
         private void ShowTreeEx<TD, TF>(ItemsControl control, List<TD> list) where TD : ITreeNodeEx<TD, TF> where TF : IId

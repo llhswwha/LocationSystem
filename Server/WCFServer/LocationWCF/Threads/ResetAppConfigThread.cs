@@ -1,5 +1,6 @@
 ﻿using Base.Common.Threads;
 using BLL;
+using DbModel;
 using EngineClient;
 using LocationServer.Tools;
 using System;
@@ -85,7 +86,13 @@ namespace LocationServer.Threads
 
             DbModel.AppSetting.AddHisPositionInterval = ConfigurationHelper.GetIntValue("AddHisPositionInterval", 30) * 1000;//单位是s，
 
+            AppContext.ActiveFlag = Convert.ToInt32(ConfigurationHelper.GetValue("ActiveFlag"));
+            AppContext.FaintFlag = Convert.ToInt32(ConfigurationHelper.GetValue("FaintFlag"));
+            AppContext.FaintRange =ConfigurationHelper.GetValue("FaintRange");
+            AppContext.FaintEffectiveTime = int.Parse(ConfigurationHelper.GetValue("FaintEffectiveTime"));
+            AppContext.FaintTimeInterval = int.Parse(ConfigurationHelper.GetValue("FaintTimeInterval"));
 
+            AppSetting.PositionPower = ConfigurationHelper.GetIntValue("PositionPower",1);
         }
 
         protected override void DoBeforeWhile()

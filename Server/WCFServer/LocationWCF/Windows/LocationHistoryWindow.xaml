@@ -24,6 +24,10 @@
                 <MenuItem Header="删除误差点(当前)" Name="FindErrorPoints" Click="FindErrorPoints_Click"></MenuItem>
                 <MenuItem Header="删除误差点(当天)" Name="FindErrorPoints_Day" Click="FindErrorPoints_Day_Click"></MenuItem>
                 <MenuItem Header="删除误差点(全部)" Name="FindErrorPoints_All" Click="FindErrorPoints_All_Click"></MenuItem>
+                <MenuItem Header="显示轨迹（当前_二维）" Name="ShowPoints_Current" Click="ShowPoints_Current_Click"></MenuItem>
+                <MenuItem Header="显示轨迹（当前_三维）" Name="ShowPoints_Current3" Click="ShowPoints_Current3_Click"></MenuItem>
+                <MenuItem Header="显示轨迹（当前_三维_除错）" Name="ShowPoints_Current3_Filter" Click="ShowPoints_Current3_Filter_Click"></MenuItem>
+                <MenuItem Header="清除数据(当前)" Name="ClearPoints_Current" Click="ClearPoints_Current_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="保存Xml" Name="MenuSaveDataInXml" Click="MenuSaveDataInXml_Click"></MenuItem>
             <MenuItem Header="获取Xml" Name="MenuGetDataByXml" Click="MenuGetDataByXml_Click"></MenuItem>
@@ -65,10 +69,29 @@
                     <DataGrid Name="DataGridStatisticDayPersonTime" DockPanel.Dock="Left" Width="200" SelectionChanged="DataGridStatisticDayPersonTime_OnSelectionChanged"></DataGrid>
                     <DockPanel>
                         <StackPanel DockPanel.Dock="Bottom">
-                            <TextBox Name="TbPostion"></TextBox>
-                            <Button Content="发送当前数据" Name="BtnSendCurrentPos" Click="BtnSendCurrentPos_OnClick"></Button>
-                            <Button Content="发送下一数据" Name="BtnSendNextPos" Click="BtnSendNextPos_OnClick"></Button>
-                            <Button Content="开始模拟数据"  Name="BtnStartSendPos" Click="BtnStartSendPos_OnClick"></Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>时间方式</Label>
+                                <ComboBox Width="100" Name="CbDateMode">
+                                    <ComboBoxItem IsSelected="True">现在时间</ComboBoxItem>
+                                    <ComboBoxItem >现在日期</ComboBoxItem>
+                                </ComboBox>
+                                <Label>定时器间隔(ms)</Label>
+                                <TextBox Name="TbTimerInternal" Text="50" VerticalAlignment="Center"></TextBox>
+                                <Label>发送方式</Label>
+                                <ComboBox Width="100" Name="CbSendMode">
+                                    <ComboBoxItem IsSelected="True">UDP</ComboBoxItem>
+                                    <ComboBoxItem >直接发送</ComboBoxItem>
+                                </ComboBox>
+                                <CheckBox VerticalAlignment="Center" IsChecked="True" Name="CbWriteToDb">写入数据库</CheckBox>
+                            </StackPanel>
+                            <TextBox Name="TbPostion" Margin="2" Padding="2"></TextBox>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="发送当前" Name="BtnSendCurrentPos" Click="BtnSendCurrentPos_OnClick" Margin="2" Padding="2"></Button>
+                                <Button Content="发送下一个" Name="BtnSendNextPos" Click="BtnSendNextPos_OnClick" Margin="2" Padding="2" ></Button>
+                                <Button Content="开始模拟"  Name="BtnStartSendPos1" Click="BtnStartSendPos_OnClick" Margin="2" Padding="2"></Button>
+                                <Label Name="LabelSimulateProgress">进度</Label>
+                            </StackPanel>
                         </StackPanel>
                         <DataGrid Name="DataGridDayPersonPosList" SelectionChanged="DataGridDayPersonPosList_OnSelectionChanged">
                             <!--<DataGrid.Columns>

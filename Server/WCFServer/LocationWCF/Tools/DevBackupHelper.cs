@@ -116,7 +116,8 @@ namespace LocationServer.Tools
             {
                 foreach(var item in devInfos)
                 {
-                    if(!string.IsNullOrEmpty(item.DevId)&&!devDic.ContainsKey(item.DevId))
+                    if (item.TypeCode == DeleteTypeCode) continue;
+                    if (!string.IsNullOrEmpty(item.DevId)&&!devDic.ContainsKey(item.DevId))
                     {                        
                         deleteInfos.Add(item);
                     }
@@ -125,7 +126,14 @@ namespace LocationServer.Tools
             string deleteInfoPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DeleteInfoBackup.xml";
             if (deleteInfos.Count != 0)
             {
-                XmlSerializeHelper.Save(deleteInfos, deleteInfoPath, Encoding.UTF8);
+                var deleteBackup = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
+                if (deleteBackup == null)
+                {
+                    deleteBackup = new DevInfoBackupList();
+                    deleteBackup.DevList = new List<DevInfoBackup>();
+                }
+                deleteBackup.DevList.AddRange(deleteInfos);
+                XmlSerializeHelper.Save(deleteBackup, deleteInfoPath, Encoding.UTF8);
                 foreach(var item in deleteInfos)
                 {
                     item.TypeCode = DeleteTypeCode;

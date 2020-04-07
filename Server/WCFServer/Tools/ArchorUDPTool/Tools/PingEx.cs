@@ -14,14 +14,21 @@ namespace ArchorUDPTool.Tools
     {
         public static bool Send(string ip)
         {
-            Ping p=new Ping();
-            var options = new PingOptions();
-            options.DontFragment = true;
-            
-            string data = "ping";
-            byte[] buf=Encoding.ASCII.GetBytes(data);
-            PingReply reply = p.Send(ip, 120, buf, options);
-            return reply.Status == IPStatus.Success;
+            try
+            {
+                Ping p = new Ping();
+                var options = new PingOptions();
+                options.DontFragment = true;
+
+                string data = "ping";
+                byte[] buf = Encoding.ASCII.GetBytes(data);
+                PingReply reply = p.Send(ip, 120, buf, options);
+                return reply.Status == IPStatus.Success;
+            }catch(Exception e)
+            {
+                LogEvent.Info("PingEx.Send.Error:"+e.ToString());
+                return false;
+            }            
         }
 
         Ping pingSender;

@@ -19,6 +19,7 @@ using System.IO;
 using Location.BLL.Tool;
 using WPFClientControlLib;
 using LocationServer.Tools;
+using SignalRService.Hubs;
 
 namespace LocationServer.Windows
 {
@@ -189,6 +190,10 @@ namespace LocationServer.Windows
                 List<CameraAlarmInfo> havePicList = new List<CameraAlarmInfo>();
                 foreach (var item in list)
                 {
+                    if (item.id == 11320)
+                    {
+                        CameraAlarmInfo info = item;
+                    }
                     if (fileDict.ContainsKey(item.pic_name))
                     {
                         havePicList.Add(item);
@@ -251,6 +256,31 @@ namespace LocationServer.Windows
                     service.RemoveAlarm(item);
                 }
             }, () => { LoadData(); });
+        }
+
+        private void MenuEdit_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in DataGrid1.SelectedItems)
+            {
+                CameraAlarmInfo info = item as CameraAlarmInfo;
+                if (info == null) continue;
+                CameraAlarmEditWindow win = new CameraAlarmEditWindow(info);
+                win.Show();
+            }     
+        }
+
+        private void MenuSendAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("该告警将发送给所有客户端，是否继续？", "告警测试", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if(result== MessageBoxResult.OK)
+            {
+                foreach (var item in DataGrid1.SelectedItems)
+                {
+                    CameraAlarmInfo info = item as CameraAlarmInfo;
+                    if (info == null) continue;
+                    CameraAlarmHub.SendInfo(info);
+                }
+            }         
         }
     }
 }

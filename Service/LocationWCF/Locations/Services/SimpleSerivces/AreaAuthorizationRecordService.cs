@@ -76,6 +76,22 @@ namespace LocationServices.Locations.Services
 
         }
 
+        /// <summary>
+        /// 通过区域Id,移除权限记录
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="areaRecords"></param>
+        /// <returns></returns>
+        public bool RemoveListByAreaId(int areaId, IList<TEntity> areaRecords)
+        {
+            if (areaRecords == null) return true;
+            List<TEntity> entities = areaRecords.ToList();
+            entities.RemoveAll(i=>i.AreaId!=areaId);
+            if (entities == null || entities.Count == 0) return true;
+            bool result = dbSet.RemoveList(entities);
+            return result;
+        }
+
         public IList<TEntity> GetAccessListByRole(string role)
         {
             try

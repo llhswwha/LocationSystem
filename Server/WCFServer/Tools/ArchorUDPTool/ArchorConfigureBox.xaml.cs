@@ -30,6 +30,7 @@ using static ArchorUDPTool.ArchorManager;
 using LocationServer.Tools;
 using BLL;
 using EngineClient;
+using Location.BLL.Tool;
 
 namespace LocationServer
 {
@@ -57,20 +58,32 @@ namespace LocationServer
 
         private List<ArchorInfo> _archors = null;
 
-        public List<ArchorInfo> DbArchorList { get
-            {
-                return _archors;
-            }
+        public List<ArchorInfo> DbArchorList
+        {
+            get { return _archors; }
             set
             {
-                _archors = value;
-                if(_archors!= null)
+                if (value == null)
                 {
-                    DbArchorListDict = _archors.ToDictionary(i => i.Ip);
+                    _archors = null;
+                }
+                else
+                {
+                    _archors = value.FindAll(i => !string.IsNullOrEmpty(i.Ip));
+                    var ipNull = value.FindAll(i => string.IsNullOrEmpty(i.Ip));
+                    if (ipNull != null && ipNull.Count > 0)
+                    {
+                        Log.Error("DbArchorList 存在IP为空的基站:" + ipNull.Count + "," + ipNull[0].Code);
+                    }
+
+                    if (_archors != null)
+                    {
+                        DbArchorListDict = _archors.ToDictionary(i => i.Ip);
+                    }
                 }
             }
         }
-    
+
 
         public Dictionary<string, ArchorInfo> DbArchorListDict { get; internal set; }
 

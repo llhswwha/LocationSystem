@@ -548,26 +548,33 @@ namespace LocationServer.Controls
 
         private void StartExtremeVisionListener()
         {
-            bool enableVisionListener = ConfigurationHelper.GetBoolValue("EnableVisionListener");
-            if (!enableVisionListener) return;
-            string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
-            string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP") ;
-            int saveMode = ConfigurationHelper.GetIntValue("CameraAlarmPicSaveMode");
-            string picDir = ConfigurationHelper.GetValue("CameraAlarmPicSaveDir");
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            DirectoryInfo dir = new DirectoryInfo(baseDir);
-            picDir = dir.Root.FullName + picDir;
-            AppSetting.CameraAlarmPicSaveMode = saveMode;
-            AppSetting.CameraAlarmPicSaveDir = picDir;
-            AppSetting.CameraAlarmKeepDay = ConfigurationHelper.GetIntValue("CameraAlarmKeepDay");
-            AppSetting.DeleteAlarmKeepPictureFile = ConfigurationHelper.GetBoolValue("DeleteAlarmKeepPictureFile");
-            if (cameraAlarmListener == null)
+            try
             {
-                string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/",host,port);
-                cameraAlarmListener = new CameraAlarmListener(url, saveMode,picDir);
-                bool r=cameraAlarmListener.Start();
-                WriteLog("HttpListener: " + url+" ["+r+"]");
+                bool enableVisionListener = ConfigurationHelper.GetBoolValue("EnableVisionListener");
+                if (!enableVisionListener) return;
+                string port = ConfigurationHelper.GetValue("ExtremeVisionListenerPort");
+                string host = ConfigurationHelper.GetValue("ExtremeVisionListenerIP");
+                int saveMode = ConfigurationHelper.GetIntValue("CameraAlarmPicSaveMode");
+                string picDir = ConfigurationHelper.GetValue("CameraAlarmPicSaveDir");
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                DirectoryInfo dir = new DirectoryInfo(baseDir);
+                picDir = dir.Root.FullName + picDir;
+                AppSetting.CameraAlarmPicSaveMode = saveMode;
+                AppSetting.CameraAlarmPicSaveDir = picDir;
+                AppSetting.CameraAlarmKeepDay = ConfigurationHelper.GetIntValue("CameraAlarmKeepDay");
+                AppSetting.DeleteAlarmKeepPictureFile = ConfigurationHelper.GetBoolValue("DeleteAlarmKeepPictureFile");
+                if (cameraAlarmListener == null)
+                {
+                    string url = string.Format("http://{0}:{1}/listener/ExtremeVision/callback/", host, port);
+                    cameraAlarmListener = new CameraAlarmListener(url, saveMode, picDir);
+                    bool r = cameraAlarmListener.Start();
+                    WriteLog("HttpListener: " + url + " [" + r + "]");
+                }
+            }catch(Exception e)
+            {
+                WriteLog("ServerManagerBox.StartExtremeVisionListener.Error: " + e.ToString());
             }
+           
         }
 
         private void StopExtremeVisionListener()

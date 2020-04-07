@@ -31,7 +31,9 @@ using TModel.Tools;
 using LocationServices.Tools;
 using BLL.Tools;
 using System.Text.RegularExpressions;
+using DbModel;
 using Location.IModel;
+using ThreeViewTool;
 
 namespace LocationServer.Windows
 {
@@ -367,7 +369,8 @@ namespace LocationServer.Windows
                 if (posList.Items != null)
                 {
                     var list = posList.Items;
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
+                    list.Sort((b, a) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
+
                     DataGridDayPersonPosList.ItemsSource = list;
 
                     var count = posList.Items.Count;
@@ -387,7 +390,7 @@ namespace LocationServer.Windows
                     DateTime start = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 0, 0);
                     DateTime end = new DateTime(nameDate.Year, nameDate.Month, nameDate.Day, nameDate.Hour, 59, 59);
                     List<Position> list = service.GetPositionsOfDateAndPerson(code, start, end, null);
-                    list.Sort((a, b) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
+                    list.Sort((b, a) => { return b.DateTimeStamp.CompareTo(a.DateTimeStamp); });
                     DataGridDayPersonPosList.ItemsSource = list;
                 }
             }
@@ -564,12 +567,23 @@ namespace LocationServer.Windows
         private string SendPos(Position pos)
         {
             if (pos == null) return "";
-            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
-            if (udp == null)
+            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY, CbDateMode.SelectedIndex);
+
+            if (CbSendMode.SelectedIndex == 0)//数量多、快速发送的情况下 UDP可能会丢包
             {
-                udp = new LightUDP("127.0.0.1", 5678);
+                if (udp == null)
+                {
+                    udp = new LightUDP("127.0.0.1", 5678);
+                }
+                udp.Send(txt, "127.0.0.1", 2323);
             }
-            udp.Send(txt, "127.0.0.1", 2323);
+            else if (CbSendMode.SelectedIndex == 1)//直接发过去 保证不会丢包
+            {
+                var client=PositionEngineClient.Instance();
+                client.engineDa.SendPostionText(txt);
+            }
+
+            
             return txt;
 
             //return "";
@@ -619,11 +633,14 @@ namespace LocationServer.Windows
         private List<PosInfo> list;
         private List<Location.TModel.LocationHistory.Data.Position> list2;
         private int id = 0;
+
         private void BtnStartSendPos_OnClick(object sender, RoutedEventArgs e)
         {
-            if (BtnStartSendPos.Content.ToString() == "开始模拟数据")
+            //CbDateMode.SelectedIndex = 0;
+            //根据CbDateMode不同，发送数据的方式也不同
+            if (BtnStartSendPos1.Content.ToString() == "开始模拟")
             {
-                BtnStartSendPos.Content = "停止模拟数据";
+                BtnStartSendPos1.Content = "停止模拟";
                 list = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
                 list2 = DataGridDayPersonPosList.ItemsSource as List<Location.TModel.LocationHistory.Data.Position>;
                 id = 0;
@@ -632,13 +649,23 @@ namespace LocationServer.Windows
                 {
                     timer = new DispatcherTimer();
                     timer.Tick += Timer_Tick;
-                    timer.Interval = TimeSpan.FromMilliseconds(100);
                 }
+
+                int t = int.Parse(TbTimerInternal.Text);
+                timer.Interval = TimeSpan.FromMilliseconds(t);
                 timer.Start();
+
+                PositionEngineClient client = PositionEngineClient.Instance();
+                client.psCount = 0;
+                client.ClearPositions();
+                client.IsSimulate = true;
+                client.EnableInsertPosition = (bool)CbWriteToDb.IsChecked;
+                AppSetting.AddHisPositionInterval = 1000;//1s
+                Bll.psCount = 0;
             }
             else
             {
-                BtnStartSendPos.Content = "开始模拟数据";
+                BtnStartSendPos1.Content = "开始模拟";
                 timer.Stop();
             }
         }
@@ -652,33 +679,56 @@ namespace LocationServer.Windows
             //PosInfo pos = list[id];
             //id++;
             //TbPostion.Text = SendPos(pos);
+            //IEnumerable list = DataGridDayPersonPosList.Items as IEnumerable;
+            if (list == null)
+            {
+                BtnStartSendPos1.Content = "开始模拟";
+                timer.Stop();
+                MessageBox.Show("结束");
+                return;
+            }
+
+            List<PosInfo> ps = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+
+            if(ps!=null) LabelSimulateProgress.Content = string.Format("{0}/{1}", DataGridDayPersonPosList.SelectedIndex, ps.Count);
+
             var pos = GetNextPos();
             if (pos == null)
             {
-                BtnStartSendPos.Content = "开始模拟数据";
+                BtnStartSendPos1.Content = "开始模拟";
                 timer.Stop();
+                MessageBox.Show("结束");
             }
             else
             {
-                if (startPos == null)
+                if (CbDateMode.SelectedIndex == 0)//按数据里面的时间一个个发送
                 {
-                    startPos = pos;
-                    startTime = DateTime.Now;
-
-                    TbPostion.Text = SendPos(pos);
-                    id++;
-                    DataGridDayPersonPosList.SelectedIndex = id;
-                }
-                else
-                {
-                    TimeSpan t = DateTime.Now - startTime;
-                    var ts = pos.DateTimeStamp - startPos.DateTimeStamp;
-                    if (t.TotalMilliseconds > ts)
+                    if (startPos == null)
                     {
+                        startPos = pos;
+                        startTime = DateTime.Now;
+
                         TbPostion.Text = SendPos(pos);
                         id++;
                         DataGridDayPersonPosList.SelectedIndex = id;
                     }
+                    else
+                    {
+                        TimeSpan t = DateTime.Now - startTime;
+                        var ts = pos.DateTimeStamp - startPos.DateTimeStamp;
+                        if (t.TotalMilliseconds > ts)
+                        {
+                            TbPostion.Text = SendPos(pos);
+                            id++;
+                            DataGridDayPersonPosList.SelectedIndex = id;
+                        }
+                    }
+                }
+                else if (CbDateMode.SelectedIndex == 1)//将数据里面的时间的日期改成现在的日期，全部发送
+                {
+                    TbPostion.Text = SendPos(pos);
+                    id++;
+                    DataGridDayPersonPosList.SelectedIndex = id;
                 }
             }
         }
@@ -690,7 +740,7 @@ namespace LocationServer.Windows
             Position pos = GetPos(DataGridDayPersonPosList.SelectedItem);
             if (pos != null)
             {
-                TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+                TbPostion.Text = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY, CbDateMode.SelectedIndex);
             }
             else
             {
@@ -1254,6 +1304,118 @@ namespace LocationServer.Windows
             {
                 GetAll(false, () => { MessageBox.Show(this, "完成"); });
             });
+        }
+
+        private void ShowPoints_Current_Click(object sender, RoutedEventArgs e)
+        {
+            List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            PosHistoryBrowserWindow window = new PosHistoryBrowserWindow();
+            window.Draw(posInfoList);
+            window.Show();
+        }
+
+        private void ShowPoints_Current3_Click(object sender, RoutedEventArgs e)
+        {
+            List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            if (posInfoList == null)
+            {
+                MessageBox.Show("没有数据");
+                return;
+            }
+            List<PosInfo> posInfoList2 = new List<PosInfo>(posInfoList);
+
+            ThreeViewToolWindow window = new ThreeViewToolWindow();
+            MainViewModel model = window.ModelContent;
+
+            model.Clear();
+            model.PositionScale = 0.005;
+            model.PointSize = 0.1;
+            foreach (PosInfo posInfo in posInfoList2)
+            {
+                model.AddPoint(posInfo.X, posInfo.Z, posInfo.Y, true);
+            }
+
+
+            var errorPosList2 = PosDistanceHelper.FilterErrorPoints(posInfoList2);
+
+            model.PositionScale = 0.005;
+            model.PointSize = 0.2;
+            model.SetMaterial(Colors.Red);
+            foreach (PosInfo posInfo in errorPosList2)
+            {
+                //window.ModelContent.DrawPoint(posInfo.X, posInfo.Y, posInfo.Z);
+
+                model.AddPoint(posInfo.X, posInfo.Z, posInfo.Y, false);
+            }
+            window.Show();
+
+            
+        }
+
+        private void ShowPoints_Current3_Filter_Click(object sender, RoutedEventArgs e)
+        {
+            List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            if (posInfoList == null)
+            {
+                MessageBox.Show("没有数据");
+                return;
+            }
+
+            List<PosInfo> posInfoList2 = new List<PosInfo>(posInfoList);
+
+            var errorPosList = PosDistanceHelper.FilterErrorPoints(posInfoList2);
+
+            //foreach (PosInfo ep in errorPosList)
+            //{
+            //    posInfoList.Remove(ep);
+            //}
+
+            //var errorPosList2 = PosDistanceHelper.FilterErrorPoints(posInfoList);
+
+            ThreeViewToolWindow window = new ThreeViewToolWindow();
+            MainViewModel model = window.ModelContent;
+
+            model.Clear();
+            model.PositionScale = 0.005;
+            model.PointSize = 0.1;
+            foreach (PosInfo posInfo in posInfoList2)
+            {
+                //window.ModelContent.DrawPoint(posInfo.X, posInfo.Y, posInfo.Z);
+
+                model.AddPoint(posInfo.X, posInfo.Z, posInfo.Y, true);
+            }
+
+
+            var errorPosList2 = PosDistanceHelper.FilterErrorPoints(posInfoList2);
+
+            model.PositionScale = 0.005;
+            model.PointSize = 0.2;
+            model.SetMaterial(Colors.Red);
+            foreach (PosInfo posInfo in errorPosList2)
+            {
+                //window.ModelContent.DrawPoint(posInfo.X, posInfo.Y, posInfo.Z);
+
+                model.AddPoint(posInfo.X, posInfo.Z, posInfo.Y, false);
+            }
+            window.Show();
+        }
+
+        private void ClearPoints_Current_Click(object sender, RoutedEventArgs e)
+        {
+            List<PosInfo> posInfoList = DataGridDayPersonPosList.ItemsSource as List<PosInfo>;
+            if (posInfoList == null)
+            {
+                MessageBox.Show("没有数据");
+                return;
+            }
+            List<int> ids = new List<int>();
+            foreach (PosInfo pos in posInfoList)
+            {
+                ids.Add(pos.Id);
+            }
+
+            bll.Positions.RemovePoints(ids);
+            MessageBox.Show("清理数据:" + posInfoList.Count);
         }
     }
 }

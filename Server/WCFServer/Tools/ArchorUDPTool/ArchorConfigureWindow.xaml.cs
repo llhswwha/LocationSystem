@@ -1,5 +1,6 @@
 ﻿using ArchorUDPTool;
 using DbModel.Location.AreaAndDev;
+using Location.BLL.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,24 @@ namespace LocationServer.Models.EngineTool
         public ArchorConfigureWindow(List<ArchorInfo> archorList)
         {
             InitializeComponent();
-            ArchorConfigureBox1.DbArchorList = archorList;
+            if (archorList == null)
+            {
+                MessageBox.Show("基站列表为空");
+            }
+            else
+            {
+                try
+                {
+                    ArchorConfigureBox1.DbArchorList = archorList;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("设置基站列表出出错:" + ex);
+                    MessageBox.Show("设置基站列表出出错:"+ex);
+                }
+                
+            }
+            
         }
 
         public ArchorManager archorManager { get

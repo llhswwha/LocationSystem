@@ -1,6 +1,7 @@
 ﻿using BLL;
 using BLL.Initializers;
 using LocationServer.Windows.Simple;
+using LocationServices.Converters;
 using LocationServices.Locations.Services;
 using System;
 using System.Collections.Generic;
@@ -39,8 +40,9 @@ namespace LocationServer.Windows
         public void ShowInfo(TEntity item)
         {
             _item = item;
+            PropertyGrid1.SelectedObject = null;
             PropertyGrid1.SelectedObject = _item;
-            
+
             if (item.Parent != null)
             {
                 this.Title = item.Parent.Name + "->" + item.Name;
@@ -63,6 +65,11 @@ namespace LocationServer.Windows
             {
                 MessageBox.Show("保存成功");
             }
+
+            var areaT = _item as TEntity;
+            var bll = BLL.Bll.NewBllNoRelation();
+            areaT.InitBound.IsRelative = areaT.IsRelative;
+            bll.Bounds.Edit(areaT.InitBound.ToDbModel());
         }
 
         private void MenuInitBound_Click(object sender, RoutedEventArgs e)

@@ -32,6 +32,14 @@ namespace SignalRService.Hubs
             //chatHubContext.Clients.All.GetDeviceAlarms(alarms);
             if (alarms.Length > 0)
             {
+                for (int i = 0; i < alarms.Length; i++)
+                {
+                 int? aa =alarms[i].Abutment_Id;
+                    if (aa == null)
+                    {
+                        alarms[i].Abutment_Id = 0;
+                    }
+                }
                 SendDevAlarm(alarms);
             }
         }
@@ -47,7 +55,11 @@ namespace SignalRService.Hubs
             if (alarms.Length > 0)
             {
                 Log.Info("LocationAlarm", "SendLocationAlarms:" + alarms.Length);
-
+                for (int i = 0; i < alarms.Length; i++)
+                {
+                    alarms[i].Tag = null;
+                    alarms[i].Personnel = null;
+                }
                 //if (alarms[0].AreaId == 2) { return; }
                 SendLocationAlarm(alarms);
             }
@@ -58,7 +70,7 @@ namespace SignalRService.Hubs
         /// 异步发送设备告警
         /// </summary>
         /// <param name="alarms"></param>
-        private static async void SendDevAlarm(params DeviceAlarm[] alarms)
+        public static async void SendDevAlarm(params DeviceAlarm[] alarms)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
 
@@ -68,7 +80,7 @@ namespace SignalRService.Hubs
         /// 异步发送设备告警
         /// </summary>
         /// <param name="alarms"></param>
-        private static async void SendLocationAlarm(params LocationAlarm[] alarms)
+        public static async void SendLocationAlarm(params LocationAlarm[] alarms)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
             await chatHubContext.Clients.All.GetLocationAlarms(alarms);
@@ -78,7 +90,7 @@ namespace SignalRService.Hubs
         /// 异步发送设备告警
         /// </summary>
         /// <param name="alarms"></param>
-        private static async void SendDevAlarm(string connectionId,params DeviceAlarm[] alarms)
+        public static async void SendDevAlarm(string connectionId,params DeviceAlarm[] alarms)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
             await chatHubContext.Clients.Client(connectionId).GetDeviceAlarms(alarms);
@@ -87,7 +99,7 @@ namespace SignalRService.Hubs
         /// 异步发送设备告警
         /// </summary>
         /// <param name="alarms"></param>
-        private static async void SendLocationAlarm(string connectionId, params LocationAlarm[] alarms)
+        public static async void SendLocationAlarm(string connectionId, params LocationAlarm[] alarms)
         {
             IHubContext chatHubContext = GlobalHost.ConnectionManager.GetHubContext<AlarmHub>();
             await chatHubContext.Clients.Client(connectionId).GetLocationAlarms(alarms);
@@ -121,7 +133,7 @@ namespace SignalRService.Hubs
                         }
 
                         var devAlarmsT = devAlarms.ToTModel();
-                        SendDevAlarm(connectionId,devAlarmsT.ToArray());
+                        SendDevAlarm(connectionId,devAlarmsT.ToArray());    
 
                         var locationAlarms = bll.LocationAlarms.ToList();
                         var locationAlarmsT = locationAlarms.ToTModel();

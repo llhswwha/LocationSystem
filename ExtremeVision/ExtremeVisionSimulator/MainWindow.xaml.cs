@@ -117,7 +117,8 @@ namespace ExtremeVisionSimulator
 
         private void LoadFlameInfo_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = "FlameInfo.json";
+            //string fileName = "FlameInfo.json";
+            string fileName = "FlameInfo2.json";
             ReadInfoFile(fileName);
         }
 

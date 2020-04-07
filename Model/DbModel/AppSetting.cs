@@ -31,6 +31,7 @@ namespace DbModel
         public static string CameraAlarmPicSaveDir { get; set; }
         public static int CameraAlarmKeepDay { get; set; }
         public static bool DeleteAlarmKeepPictureFile { get; set; }
+        public static float PositionPower { get; set; }
 
         public static int UrlMaxLength = 200;
 

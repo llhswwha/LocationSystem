@@ -165,63 +165,18 @@ namespace LocationServices.Locations.Services
             {
                 var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId == personId);
                 if (relation != null)
-                {
+                {                   
                     if (tagId == 0)//解除绑定
                     {
-                        var tagPos = db.LocationCardPositions.FirstOrDefault(i => i.CardId != null && i.CardId == relation.LocationCardId);
-                        if (tagPos != null)
-                        {
-                            db.LocationCardPositions.Remove(tagPos);
-                        }
-                        var tag = db.LocationCards.Find(relation.LocationCardId);
-                        if (tag != null)
-                        {
-                            tag.IsActive = false;//解除卡则不激活
-                            db.LocationCards.Edit(tag);
-
-                            bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
-                            return r;
-                        }
-                        else//找不到卡 应该不可能
-                        {
-                            bool r = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
-                            return r;
-                        }
-
+                        bool r = RemoveTagPersonnenlRelation(relation.LocationCardId);
+                        return r;
                     }
                     else
                     {
-                        var tag = db.LocationCards.Find(relation.LocationCardId);
-                        if (tag.Id != relation.LocationCardId)
-                        {
-                            Log.Error("tag.Id!= relation.LocationCardId");
-                        }
-                        if (tag != null)
-                        {
-
-
-                            relation.LocationCardId = tagId;
-                            bool r2 = db.LocationCardToPersonnels.Edit(relation);//修改人员和标签卡的关联关系
-                            if (r2 == false)
-                            {
-                                Log.Error("修改绑定失败:" + relation.LocationCardId);
-                            }
-                            if (tag.IsActive == false)
-                            {
-                                tag.IsActive = true;//激活
-                                bool r1 = db.LocationCards.Edit(tag);
-                                if (r1 == false)
-                                {
-                                    Log.Error("修改激活失败:" + relation.LocationCardId);
-                                }
-                            }
-                            return r2;
-                        }
-                        else
-                        {
-                            Log.Error("找不到定位卡:" + relation.LocationCardId);
-                            return false;
-                        }
+                        if (relation.LocationCardId == tagId) return true;//tagID相同，删除再创建，会导致实时定位的Position丢失
+                        //以前找到关联关系，直接更改卡Id会报错（直接在MySql workBench中用update语句不会错）。所以改成删除关联关系，建立新的关系2019/10/31 wk
+                        RemoveTagPersonnenlRelation(relation.LocationCardId);
+                        return AddTagPersonnenlRelation(personId,tagId);
                     }
 
                 }
@@ -229,24 +184,11 @@ namespace LocationServices.Locations.Services
                 {
                     if (tagId != 0)//解除绑定
                     {
-                        bool r = db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
-                        {
-                            PersonnelId = personId,
-                            LocationCardId = tagId
-                        });
-
-                        var tag = db.LocationCards.Find(tagId);
-                        if (tag != null)
-                        {
-                            tag.IsActive = true;//发卡则激活
-                            db.LocationCards.Edit(tag);
-                        }
-                        return r;
+                        return AddTagPersonnenlRelation(personId, tagId);
                     }
                     else
                     {
                         return true;
-
                     }
 
                 }
@@ -257,7 +199,73 @@ namespace LocationServices.Locations.Services
                 return false;
             }
         }
+        /// <summary>
+        /// 移除老卡的关联关系
+        /// </summary>
+        /// <param name="locationCardId"></param>
+        /// <returns></returns>
+        private bool RemoveTagPersonnenlRelation(int locationCardId)
+        {
+            var relation = db.LocationCardToPersonnels.Find(i => i.LocationCardId == locationCardId);
+            var tagPos = db.LocationCardPositions.FirstOrDefault(i => i.CardId != null && i.CardId == locationCardId);
+            if (tagPos != null)
+            {
+                db.LocationCardPositions.Remove(tagPos);
+            }
+            var tag = db.LocationCards.Find(locationCardId);
+            bool value = true;
+            if (tag != null)
+            {
+                tag.IsActive = false;//解除卡则不激活
+                db.LocationCards.Edit(tag);
+                if(relation!=null) value = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+            }
+            else//找不到卡 应该不可能
+            {
+                if(relation!=null)value = db.LocationCardToPersonnels.Remove(relation);//删除关联关系
+            }
+            return value;
+        }
+        /// <summary>
+        /// 添加卡和人的关联关系
+        /// </summary>
+        /// <param name="locationCardId"></param>
+        /// <param name="personId"></param>
+        /// <returns></returns>
+        private bool AddTagPersonnenlRelation(int personId, int locationCardId)
+        {
+            try
+            {
+                var relation = db.LocationCardToPersonnels.Find(i => i.PersonnelId == personId);
+                if (relation != null)
+                {
+                    Log.Error(string.Format("Error:PersonService.AddTagPersonnenlRelation->Relation is already exist.PersonId:{0} LocationCardId:{1} RelationId:{2}", personId, locationCardId, relation.Id));
+                    RemoveTagPersonnenlRelation(relation.LocationCardId);
+                    return AddTagPersonnenlRelation(locationCardId, personId);
+                }
+                else
+                {
+                    bool r = db.LocationCardToPersonnels.Add(new LocationCardToPersonnel()
+                    {
+                        PersonnelId = personId,
+                        LocationCardId = locationCardId
+                    });
 
+                    var tag = db.LocationCards.Find(locationCardId);
+                    if (tag != null && !tag.IsActive)
+                    {
+                        tag.IsActive = true;//发卡则激活
+                        db.LocationCards.Edit(tag);
+                    }
+                    return r;
+                }
+            }
+            catch(Exception e)
+            {
+                Log.Error("Error.PersonService.AddTagPersonnenlRelation:"+e.ToString());
+                return false;
+            }           
+        }
         public TagPosition GetPositon(string personId)
         {
             try

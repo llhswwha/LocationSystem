@@ -121,7 +121,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                Log.Error("InitTopoFromXml", ex);
+                Log.Error(LogTags.DbInit, "InitTopoFromXml:"+ ex);
                 Log.InfoEnd("InitTopoFromXml");
                 return false;
             }
@@ -169,65 +169,73 @@ namespace BLL
 
         private void InitTopoChildren(Area root, TopoInfo topoInfo, int level)
         {
-            List<TopoInfo> childList1 = new List<TopoInfo>(); //没有子节点的
-
-            List<TopoInfo> childList2 = new List<TopoInfo>(); //有子节点的
-
-            for (int i = 0; i < topoInfo.Children.Count; i++)
+            try
             {
-                TopoInfo childInfo = topoInfo.Children[i];
-                if (childInfo.Children == null || childInfo.Children.Count == 0)
+                List<TopoInfo> childList1 = new List<TopoInfo>(); //没有子节点的
+
+                List<TopoInfo> childList2 = new List<TopoInfo>(); //有子节点的
+
+                for (int i = 0; i < topoInfo.Children.Count; i++)
                 {
-                    childList1.Add(childInfo);
+                    TopoInfo childInfo = topoInfo.Children[i];
+                    if (childInfo.Children == null || childInfo.Children.Count == 0)
+                    {
+                        childList1.Add(childInfo);
+                    }
+                    else
+                    {
+                        childList2.Add(childInfo);
+                    }
+                    //if (level <= 3)
+                    //{
+                    //    Log.Info(LogTags.DbInit, "InitNode:" + childInfo.Name);
+                    //}
+                    //else
+                    //{
+
+                    //}
+
                 }
-                else
+
+                //List<Area> areas = new List<Area>();
+                //foreach (TopoInfo childInfo in childList1)
+                //{
+                //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
+                //    SetInitBound(childInfo.BoundInfo, childNode);
+                //}
+
+                //foreach (TopoInfo childInfo in childList2)
+                //{
+                //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
+                //    SetInitBound(childInfo.BoundInfo, childNode);
+                //    childInfo.Area = childNode;
+                //}
+
+                //foreach (TopoInfo childInfo in childList2)
+                //{
+                //    InitTopoChildren(childInfo.Area, childInfo, level++);
+                //}
+
+                for (int i = 0; i < topoInfo.Children.Count; i++)
                 {
-                    childList2.Add(childInfo);
+                    TopoInfo childInfo = topoInfo.Children[i];
+                    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
+                    SetInitBound(childInfo.BoundInfo, childNode);
+                    childInfo.Area = childNode;
+                    Log.Info(LogTags.DbInit, string.Format("InitNode:{0}->{1}(index:{2}/count:{3})", topoInfo.Name, childInfo.Name, i, topoInfo.Children.Count));
                 }
-                //if (level <= 3)
-                //{
-                //    Log.Info(LogTags.DbInit, "InitNode:" + childInfo.Name);
-                //}
-                //else
-                //{
 
-                //}
-
+                for (int i = 0; i < topoInfo.Children.Count; i++)
+                {
+                    TopoInfo childInfo = topoInfo.Children[i];
+                    InitTopoChildren(childInfo.Area, childInfo, level++);
+                }
             }
-
-            //List<Area> areas = new List<Area>();
-            //foreach (TopoInfo childInfo in childList1)
-            //{
-            //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
-            //    SetInitBound(childInfo.BoundInfo, childNode);
-            //}
-
-            //foreach (TopoInfo childInfo in childList2)
-            //{
-            //    var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
-            //    SetInitBound(childInfo.BoundInfo, childNode);
-            //    childInfo.Area = childNode;
-            //}
-
-            //foreach (TopoInfo childInfo in childList2)
-            //{
-            //    InitTopoChildren(childInfo.Area, childInfo, level++);
-            //}
-
-            for (int i = 0; i < topoInfo.Children.Count; i++)
+            catch (Exception e)
             {
-                TopoInfo childInfo = topoInfo.Children[i];
-                var childNode = AddTopoNode(childInfo.Name, childInfo.KKS, root, childInfo.Type);
-                SetInitBound(childInfo.BoundInfo, childNode);
-                childInfo.Area = childNode;
-                Log.Info(LogTags.DbInit, string.Format("InitNode:{0}->{1}({2}/{3})" , topoInfo.Name,childInfo.Name,i, topoInfo.Children.Count));
+                Log.Error(LogTags.DbInit, "InitTopo");
             }
-
-            for (int i = 0; i < topoInfo.Children.Count; i++)
-            {
-                TopoInfo childInfo = topoInfo.Children[i];
-                InitTopoChildren(childInfo.Area, childInfo, level++);
-            }
+            
         }
 
         private void SetInitBound(BoundInfo boundInfo, Area chidNode)
@@ -251,7 +259,7 @@ namespace BLL
                     {
                         //r = SetInitBound(chidNode, points[0].X, points[0].Y, points[1].X, points[1].Y, thickness, isRelative, boundInfo.BottomHeight, boundInfo.IsCreateAreaByData, boundInfo.IsOnAlarmArea, boundInfo.IsOnLocationArea);
 
-                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[2].X, points[2].Y, boundInfo);
+                        SetInitBoundAsync(chidNode, points[0].X, points[0].Y, points[1].X, points[1].Y, boundInfo);
                     }
                     else if (points.Count == 0) //没有点
                     {
@@ -304,14 +312,19 @@ namespace BLL
         /// <summary>
         /// 初始化基站信息
         /// </summary>
-        private void InitLocationDevice()
+        public void InitLocationDevice()
         {
             Log.Info(LogTags.DbInit,"导入基站信息");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\基站信息\\基站信息.xml";
+            //string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = InitPaths.GetBaseStationInfo();
+            //    string filePath = basePath + "Data\\基站信息\\基站信息.xml";
+           // string filePath = basePath + "Data\\基站信息\\淄博基站信息.xml";
             bool value = LocationDeviceHelper.ImportLocationDeviceFromFile(filePath, Archors, Areas);
             Log.Info(LogTags.DbInit, string.Format("导入基站信息结果:{0}", value));
         }
+       
+        
+        
         /// <summary>
         /// 初始化设备信息
         /// </summary>
@@ -826,7 +839,7 @@ namespace BLL
                     //Transfrom = transform
                 };
                 topoNode.SetTransform(transform);
-                Areas.Add(topoNode);
+                bool result=Areas.Add(topoNode);
                 return topoNode;
             }
         }

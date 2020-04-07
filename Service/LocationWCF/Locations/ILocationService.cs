@@ -38,6 +38,12 @@ namespace LocationServices.Locations
         UnitySetting GetUnitySetting();
 
         [OperationContract]
+        SystemSetting GetUnitySystemSetting();
+
+        [OperationContract]
+        bool SaveUnitySystemSetting(SystemSetting setting);
+
+        [OperationContract]
         void DebugMessage(string msg);
 
         [OperationContract]

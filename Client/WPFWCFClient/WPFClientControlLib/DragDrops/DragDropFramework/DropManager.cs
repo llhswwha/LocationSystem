@@ -137,8 +137,12 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
                         break;
                 }
             }
+            if (DragDrop_Enter != null)
+            {
+                DragDrop_Enter(sender, e);
+            }
 
-            if(!e.Handled) {
+            if (!e.Handled) {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
             }
@@ -161,7 +165,9 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
             DragDropBuffer.buf1.Append('E');
 #endif
         }
+        public event Action<object,DragEventArgs> DragDrop_Drop;
 
+        public event Action<object, DragEventArgs> DragDrop_Enter;
         /// <summary>
         /// Occurs when mouse is over the area occupied
         /// by the dropTarget (specified in the constructor).
@@ -187,8 +193,8 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
                         break;
                 }
             }
-
-            if(!e.Handled) {
+           
+            if (!e.Handled) {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
             }
@@ -227,20 +233,27 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
 #endif
 
             DragDropEffects effects = e.Effects;
-
+            if (DragDrop_Drop != null)
+            {
+                DragDrop_Drop(sender, e);
+            }
+            if (e.Handled)
+            {
+                return;
+            }
 #if TESTING
             e.Effects = DragDropEffects.Move;
             e.Handled = true;
 #else
-            foreach(IDataConsumer dragDropConsumer in this._dragDropConsumers) {
+            foreach (IDataConsumer dragDropConsumer in this._dragDropConsumers) {
                 if((dragDropConsumer.DataConsumerActions & DataConsumerActions.Drop) != 0) {
                     dragDropConsumer.DropTarget_Drop(sender, e);
                     if(e.Handled)
                         break;
                 }
             }
-
-            if(!e.Handled) {
+            
+            if (!e.Handled) {
                 e.Effects = DragDropEffects.None;
                 e.Handled = true;
             }

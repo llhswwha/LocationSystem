@@ -26,6 +26,8 @@ using System.Threading;
 using System.ComponentModel;
 using Location.BLL.Tool;
 using WPFClientControlLib;
+using DbModel.LocationHistory.Alarm;
+using Location.TModel.Tools;
 
 namespace LocationServer.Windows
 {
@@ -43,7 +45,7 @@ namespace LocationServer.Windows
         {
             LoadDevList();
             LoadDeviceAlarms();
-
+            SetDoorAccessInfo();
             tbLogController.Init(TbLogs, LogTags.EventTest);
         }
 
@@ -109,8 +111,14 @@ namespace LocationServer.Windows
             {
                 //MessageBox.Show("告警" + DeviceListBox1.CurrentDev.Name);
                 //todo:告警事件推送
+                //var dev = DeviceListBox1.CurrentDev;
+                //DeviceAlarm alarm = CreateDevAlarm(dev);
+                //AlarmHub.SendDeviceAlarms(alarm);
                 var dev = DeviceListBox1.CurrentDev;
                 DeviceAlarm alarm = CreateDevAlarm(dev);
+                Bll bll = Bll.NewBllNoRelation();
+                var hisItem = RemoveToHistory(alarm);
+                bll.DevAlarmHistorys.Add(hisItem);
                 AlarmHub.SendDeviceAlarms(alarm);
             });
             DeviceListBox1.AddMenu("消警", (se, arg) =>
@@ -129,6 +137,24 @@ namespace LocationServer.Windows
             });
         }
 
+        public DevAlarmHistory RemoveToHistory(DeviceAlarm alarm)
+        {
+            DevAlarmHistory newItem = new DevAlarmHistory();
+            newItem.Id = alarm.Id;
+            newItem.Abutment_Id = alarm.Abutment_Id;
+            newItem.Title = alarm.Title;
+            newItem.Msg = alarm.Message;
+            newItem.Level = alarm.Level;
+            newItem.Code = alarm.Code;
+            newItem.Src = alarm.Src;
+            newItem.DevInfoId = alarm.DevId;
+            newItem.Device_desc = alarm.Device_desc;
+            newItem.AlarmTime = alarm.CreateTime;
+            newItem.AlarmTimeStamp = alarm.AlarmTimeStamp;
+            newItem.HistoryTime = DateTime.Now;
+            newItem.HistoryTimeStamp = TimeConvert.ToStamp(newItem.HistoryTime);
+            return newItem;
+        }
         private DeviceAlarm CreateDevAlarm(DevInfo dev)
         {
             return new DeviceAlarm()
@@ -164,37 +190,46 @@ namespace LocationServer.Windows
         /// </summary>
         private void SetDoorAccessInfo()
         {
-            LocationService service = new LocationService();
-            var devlist = service.GetAllDevInfos();
-            var doorAccessList = service.GetAllDoorAccessInfo();
-            if (devlist == null || doorAccessList == null) return;
-            BindingDevInfo(devlist.ToList(), doorAccessList.ToList());
-            DoorAccessListBox1.LoadData(doorAccessList.ToArray());
+            IList<DevInfo> devlist = new List<DevInfo>();
+            IList<Dev_DoorAccess> doorAccessList=new List<Dev_DoorAccess>();
+            Worker.Run(() =>
+            {
+                LocationService service = new LocationService();
+                devlist = service.GetAllDevInfos();
+                doorAccessList = service.GetAllDoorAccessInfo();
+                
+            }, () =>
+            {
+                //MessageBox.Show("完成");
+                if (devlist == null || doorAccessList == null) return;
+                BindingDevInfo(devlist.ToList(), doorAccessList.ToList());
+                DoorAccessListBox1.LoadData(doorAccessList.ToArray());
 
-            DoorAccessListBox1.AddMenu("开门", (se, arg) =>
-            {
-                var dev = DoorAccessListBox1.CurrentDev;
-                DoorAccessState doorAccessState = new DoorAccessState()
+                DoorAccessListBox1.AddMenu("开门", (se, arg) =>
                 {
-                    DoorId = dev.DoorId,
-                    Abutment_CardId = dev.Id.ToString(),
-                    Abutment_CardState = "开",
-                    Dev = dev.DevInfo
-                };
-                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
-            });
-            DoorAccessListBox1.AddMenu("关门", (se, arg) =>
-            {
-                var dev = DoorAccessListBox1.CurrentDev;
-                DoorAccessState doorAccessState = new DoorAccessState()
+                    var dev = DoorAccessListBox1.CurrentDev;
+                    DoorAccessState doorAccessState = new DoorAccessState()
+                    {
+                        DoorId = dev.DoorId,
+                        Abutment_CardId = dev.Id.ToString(),
+                        Abutment_CardState = "开",
+                        Dev = dev.DevInfo
+                    };
+                    DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+                });
+                DoorAccessListBox1.AddMenu("关门", (se, arg) =>
                 {
-                    DoorId = dev.DoorId,
-                    Abutment_CardId = dev.Id.ToString(),
-                    Abutment_CardState = "关",
-                    Dev = dev.DevInfo
-                };
-                DoorAccessHub.SendDoorAccessInfo(doorAccessState);
-            });
+                    var dev = DoorAccessListBox1.CurrentDev;
+                    DoorAccessState doorAccessState = new DoorAccessState()
+                    {
+                        DoorId = dev.DoorId,
+                        Abutment_CardId = dev.Id.ToString(),
+                        Abutment_CardState = "关",
+                        Dev = dev.DevInfo
+                    };
+                    DoorAccessHub.SendDoorAccessInfo(doorAccessState);
+                });
+            });          
         }
 
         /// <summary>
@@ -249,7 +284,7 @@ namespace LocationServer.Windows
                             Thread.Sleep(interval);
                         }
                     }
-                }, null);
+                }, null,null,"",true);
             }
             else
             {

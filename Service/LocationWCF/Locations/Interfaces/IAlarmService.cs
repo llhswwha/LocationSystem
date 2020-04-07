@@ -11,13 +11,19 @@ namespace LocationServices.Locations.Interfaces
     public interface IAlarmService
     {
         /// <summary>
-        /// 获取定位告警列表
+        /// 获取定位告警列表(一次性获取所有)
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
         [OperationContract]
         List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg);
-
+        /// <summary>
+        /// 获取定位告警列表(按页获取)
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        [OperationContract]
+        LocationAlarmInformation GetLocationAlarmByArgs(AlarmSearchArg arg);
         /// <summary>
         /// 获取设备告警列表
         /// </summary>
@@ -28,8 +34,14 @@ namespace LocationServices.Locations.Interfaces
 
         [OperationContract]
         Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg);
-        
-       
+
+        //根据Id号删除指定定位告警
+        [OperationContract]
+        bool DeleteSpecifiedLocationAlarm(int id);
+
+        [OperationContract]
+        bool DeleteLocationAlarmByIdList(List<int> ids);
+
         ///// <summary>
         ///// 获取定位告警列表（新增事件）
         ///// </summary>

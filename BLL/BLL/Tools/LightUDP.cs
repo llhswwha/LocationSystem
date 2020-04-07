@@ -241,8 +241,19 @@ namespace Coldairarrow.Util.Sockets
 
         public int Send(Byte[] sendData, IPEndPoint remoteEp)
         {
-            if (udpc == null) return -1;//设置的ip地址本机没有的话为null
-            return udpc.Send(sendData, sendData.Length, remoteEp);
+            int nReturn = -1;
+            try
+            {
+                if (udpc == null) return -1;//设置的ip地址本机没有的话为null
+                nReturn = udpc.Send(sendData, sendData.Length, remoteEp);
+            }
+            catch (Exception ex)
+            {
+                nReturn = -1;
+            }
+
+            return nReturn;
+            
         }
 
         public int SendHex(string hexString,IPEndPoint remoteEp)
@@ -262,9 +273,10 @@ namespace Coldairarrow.Util.Sockets
         }
 
         public void Close()
-        { 
+        {
             //停止接收线程
-            recieveBW.CancelAsync();
+            if(recieveBW!=null)
+                recieveBW.CancelAsync();
             if(udpc!=null)//设置的ip地址本机没有的话为null
                 udpc.Close();
         }

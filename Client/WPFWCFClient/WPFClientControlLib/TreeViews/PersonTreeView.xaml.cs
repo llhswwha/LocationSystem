@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TModel.Location.Nodes;
 using WPFClientControlLib.Extensions;
+using WpfFramework.Common.DragDrops;
 using TreeNodeEntity = TModel.Location.Nodes.AreaNode;
 namespace WPFClientControlLib
 {
@@ -26,6 +27,7 @@ namespace WPFClientControlLib
         public PersonTreeView()
         {
             InitializeComponent();
+          
         }
 
         public void LoadData(TreeNodeEntity root)
@@ -38,6 +40,7 @@ namespace WPFClientControlLib
             {
                 ShowTree(TreeView1, root.Children);
             }
+            TreeViewDragDropManager dragDropManager = new TreeViewDragDropManager(TreeView1);
         }
 
         public void ShowTree(ItemsControl control, List<TreeNodeEntity> list)

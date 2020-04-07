@@ -1001,104 +1001,71 @@ namespace WCFServiceForWPF.LocationServices {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Abutment_DevIDField;
+        private string Abutment_DevIDk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> Abutment_IdField;
+        private System.Nullable<int> Abutment_Idk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private DbModel.Tools.Abutment_DevTypes Abutment_TypeField;
+        private DbModel.Tools.Abutment_DevTypes Abutment_Typek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodeField;
+        private string Codek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime CreateTimeField;
+        private long CreateTimeStampk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long CreateTimeStampField;
+        private System.DateTime CreateTimek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object DevDetailField;
+        private object DevDetailk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IPField;
+        private string IPk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
+        private int Idk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string KKSField;
+        private string KKSk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Local_CabinetIDField;
+        private string Local_CabinetIDk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Local_DevIDField;
+        private string Local_DevIDk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int Local_TypeCodeField;
+        private int Local_TypeCodek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ManufactorField;
+        private string Manufactork__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ModelNameField;
+        private string ModelNamek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime ModifyTimeField;
+        private long ModifyTimeStampk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ModifyTimeStampField;
+        private System.DateTime ModifyTimek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
+        private string Namek__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private WCFServiceForWPF.LocationServices.Area ParentField;
+        private System.Nullable<int> ParentIdk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> ParentIdField;
+        private WCFServiceForWPF.LocationServices.Area Parentk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> PlacedField;
+        private System.Nullable<bool> Placedk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float PosXField;
+        private float PosXk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float PosYField;
+        private float PosYk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float PosZField;
+        private float PosZk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float RotationXField;
+        private float RotationXk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float RotationYField;
+        private float RotationYk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float RotationZField;
+        private float RotationZk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private DbModel.Tools.Abutment_RunStatus RunStatusField;
+        private DbModel.Tools.Abutment_RunStatus RunStatusk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float ScaleXField;
+        private float ScaleXk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float ScaleYField;
+        private float ScaleYk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private float ScaleZField;
+        private float ScaleZk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private DbModel.Tools.Abutment_Status StatusField;
+        private DbModel.Tools.Abutment_Status Statusk__BackingFieldField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserNameField;
+        private string UserNamek__BackingFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1110,431 +1077,431 @@ namespace WCFServiceForWPF.LocationServices {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Abutment_DevID {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Abutment_DevID>k__BackingField", IsRequired=true)]
+        public string Abutment_DevIDk__BackingField {
             get {
-                return this.Abutment_DevIDField;
+                return this.Abutment_DevIDk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.Abutment_DevIDField, value) != true)) {
-                    this.Abutment_DevIDField = value;
-                    this.RaisePropertyChanged("Abutment_DevID");
+                if ((object.ReferenceEquals(this.Abutment_DevIDk__BackingFieldField, value) != true)) {
+                    this.Abutment_DevIDk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Abutment_DevIDk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> Abutment_Id {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Abutment_Id>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> Abutment_Idk__BackingField {
             get {
-                return this.Abutment_IdField;
+                return this.Abutment_Idk__BackingFieldField;
             }
             set {
-                if ((this.Abutment_IdField.Equals(value) != true)) {
-                    this.Abutment_IdField = value;
-                    this.RaisePropertyChanged("Abutment_Id");
+                if ((this.Abutment_Idk__BackingFieldField.Equals(value) != true)) {
+                    this.Abutment_Idk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Abutment_Idk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public DbModel.Tools.Abutment_DevTypes Abutment_Type {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Abutment_Type>k__BackingField", IsRequired=true)]
+        public DbModel.Tools.Abutment_DevTypes Abutment_Typek__BackingField {
             get {
-                return this.Abutment_TypeField;
+                return this.Abutment_Typek__BackingFieldField;
             }
             set {
-                if ((this.Abutment_TypeField.Equals(value) != true)) {
-                    this.Abutment_TypeField = value;
-                    this.RaisePropertyChanged("Abutment_Type");
+                if ((this.Abutment_Typek__BackingFieldField.Equals(value) != true)) {
+                    this.Abutment_Typek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Abutment_Typek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Code {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Code>k__BackingField", IsRequired=true)]
+        public string Codek__BackingField {
             get {
-                return this.CodeField;
+                return this.Codek__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
-                    this.CodeField = value;
-                    this.RaisePropertyChanged("Code");
+                if ((object.ReferenceEquals(this.Codek__BackingFieldField, value) != true)) {
+                    this.Codek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Codek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime CreateTime {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<CreateTimeStamp>k__BackingField", IsRequired=true)]
+        public long CreateTimeStampk__BackingField {
             get {
-                return this.CreateTimeField;
+                return this.CreateTimeStampk__BackingFieldField;
             }
             set {
-                if ((this.CreateTimeField.Equals(value) != true)) {
-                    this.CreateTimeField = value;
-                    this.RaisePropertyChanged("CreateTime");
+                if ((this.CreateTimeStampk__BackingFieldField.Equals(value) != true)) {
+                    this.CreateTimeStampk__BackingFieldField = value;
+                    this.RaisePropertyChanged("CreateTimeStampk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long CreateTimeStamp {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<CreateTime>k__BackingField", IsRequired=true)]
+        public System.DateTime CreateTimek__BackingField {
             get {
-                return this.CreateTimeStampField;
+                return this.CreateTimek__BackingFieldField;
             }
             set {
-                if ((this.CreateTimeStampField.Equals(value) != true)) {
-                    this.CreateTimeStampField = value;
-                    this.RaisePropertyChanged("CreateTimeStamp");
+                if ((this.CreateTimek__BackingFieldField.Equals(value) != true)) {
+                    this.CreateTimek__BackingFieldField = value;
+                    this.RaisePropertyChanged("CreateTimek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public object DevDetail {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<DevDetail>k__BackingField", IsRequired=true)]
+        public object DevDetailk__BackingField {
             get {
-                return this.DevDetailField;
+                return this.DevDetailk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.DevDetailField, value) != true)) {
-                    this.DevDetailField = value;
-                    this.RaisePropertyChanged("DevDetail");
+                if ((object.ReferenceEquals(this.DevDetailk__BackingFieldField, value) != true)) {
+                    this.DevDetailk__BackingFieldField = value;
+                    this.RaisePropertyChanged("DevDetailk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string IP {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<IP>k__BackingField", IsRequired=true)]
+        public string IPk__BackingField {
             get {
-                return this.IPField;
+                return this.IPk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.IPField, value) != true)) {
-                    this.IPField = value;
-                    this.RaisePropertyChanged("IP");
+                if ((object.ReferenceEquals(this.IPk__BackingFieldField, value) != true)) {
+                    this.IPk__BackingFieldField = value;
+                    this.RaisePropertyChanged("IPk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Id>k__BackingField", IsRequired=true)]
+        public int Idk__BackingField {
             get {
-                return this.IdField;
+                return this.Idk__BackingFieldField;
             }
             set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
+                if ((this.Idk__BackingFieldField.Equals(value) != true)) {
+                    this.Idk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Idk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string KKS {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<KKS>k__BackingField", IsRequired=true)]
+        public string KKSk__BackingField {
             get {
-                return this.KKSField;
+                return this.KKSk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.KKSField, value) != true)) {
-                    this.KKSField = value;
-                    this.RaisePropertyChanged("KKS");
+                if ((object.ReferenceEquals(this.KKSk__BackingFieldField, value) != true)) {
+                    this.KKSk__BackingFieldField = value;
+                    this.RaisePropertyChanged("KKSk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Local_CabinetID {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Local_CabinetID>k__BackingField", IsRequired=true)]
+        public string Local_CabinetIDk__BackingField {
             get {
-                return this.Local_CabinetIDField;
+                return this.Local_CabinetIDk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.Local_CabinetIDField, value) != true)) {
-                    this.Local_CabinetIDField = value;
-                    this.RaisePropertyChanged("Local_CabinetID");
+                if ((object.ReferenceEquals(this.Local_CabinetIDk__BackingFieldField, value) != true)) {
+                    this.Local_CabinetIDk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Local_CabinetIDk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Local_DevID {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Local_DevID>k__BackingField", IsRequired=true)]
+        public string Local_DevIDk__BackingField {
             get {
-                return this.Local_DevIDField;
+                return this.Local_DevIDk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.Local_DevIDField, value) != true)) {
-                    this.Local_DevIDField = value;
-                    this.RaisePropertyChanged("Local_DevID");
+                if ((object.ReferenceEquals(this.Local_DevIDk__BackingFieldField, value) != true)) {
+                    this.Local_DevIDk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Local_DevIDk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Local_TypeCode {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Local_TypeCode>k__BackingField", IsRequired=true)]
+        public int Local_TypeCodek__BackingField {
             get {
-                return this.Local_TypeCodeField;
+                return this.Local_TypeCodek__BackingFieldField;
             }
             set {
-                if ((this.Local_TypeCodeField.Equals(value) != true)) {
-                    this.Local_TypeCodeField = value;
-                    this.RaisePropertyChanged("Local_TypeCode");
+                if ((this.Local_TypeCodek__BackingFieldField.Equals(value) != true)) {
+                    this.Local_TypeCodek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Local_TypeCodek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Manufactor {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Manufactor>k__BackingField", IsRequired=true)]
+        public string Manufactork__BackingField {
             get {
-                return this.ManufactorField;
+                return this.Manufactork__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.ManufactorField, value) != true)) {
-                    this.ManufactorField = value;
-                    this.RaisePropertyChanged("Manufactor");
+                if ((object.ReferenceEquals(this.Manufactork__BackingFieldField, value) != true)) {
+                    this.Manufactork__BackingFieldField = value;
+                    this.RaisePropertyChanged("Manufactork__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ModelName {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ModelName>k__BackingField", IsRequired=true)]
+        public string ModelNamek__BackingField {
             get {
-                return this.ModelNameField;
+                return this.ModelNamek__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
-                    this.ModelNameField = value;
-                    this.RaisePropertyChanged("ModelName");
+                if ((object.ReferenceEquals(this.ModelNamek__BackingFieldField, value) != true)) {
+                    this.ModelNamek__BackingFieldField = value;
+                    this.RaisePropertyChanged("ModelNamek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime ModifyTime {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ModifyTimeStamp>k__BackingField", IsRequired=true)]
+        public long ModifyTimeStampk__BackingField {
             get {
-                return this.ModifyTimeField;
+                return this.ModifyTimeStampk__BackingFieldField;
             }
             set {
-                if ((this.ModifyTimeField.Equals(value) != true)) {
-                    this.ModifyTimeField = value;
-                    this.RaisePropertyChanged("ModifyTime");
+                if ((this.ModifyTimeStampk__BackingFieldField.Equals(value) != true)) {
+                    this.ModifyTimeStampk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ModifyTimeStampk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ModifyTimeStamp {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ModifyTime>k__BackingField", IsRequired=true)]
+        public System.DateTime ModifyTimek__BackingField {
             get {
-                return this.ModifyTimeStampField;
+                return this.ModifyTimek__BackingFieldField;
             }
             set {
-                if ((this.ModifyTimeStampField.Equals(value) != true)) {
-                    this.ModifyTimeStampField = value;
-                    this.RaisePropertyChanged("ModifyTimeStamp");
+                if ((this.ModifyTimek__BackingFieldField.Equals(value) != true)) {
+                    this.ModifyTimek__BackingFieldField = value;
+                    this.RaisePropertyChanged("ModifyTimek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Name>k__BackingField", IsRequired=true)]
+        public string Namek__BackingField {
             get {
-                return this.NameField;
+                return this.Namek__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
+                if ((object.ReferenceEquals(this.Namek__BackingFieldField, value) != true)) {
+                    this.Namek__BackingFieldField = value;
+                    this.RaisePropertyChanged("Namek__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public WCFServiceForWPF.LocationServices.Area Parent {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ParentId>k__BackingField", IsRequired=true)]
+        public System.Nullable<int> ParentIdk__BackingField {
             get {
-                return this.ParentField;
+                return this.ParentIdk__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.ParentField, value) != true)) {
-                    this.ParentField = value;
-                    this.RaisePropertyChanged("Parent");
+                if ((this.ParentIdk__BackingFieldField.Equals(value) != true)) {
+                    this.ParentIdk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ParentIdk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> ParentId {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Parent>k__BackingField", IsRequired=true)]
+        public WCFServiceForWPF.LocationServices.Area Parentk__BackingField {
             get {
-                return this.ParentIdField;
+                return this.Parentk__BackingFieldField;
             }
             set {
-                if ((this.ParentIdField.Equals(value) != true)) {
-                    this.ParentIdField = value;
-                    this.RaisePropertyChanged("ParentId");
+                if ((object.ReferenceEquals(this.Parentk__BackingFieldField, value) != true)) {
+                    this.Parentk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Parentk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> Placed {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Placed>k__BackingField", IsRequired=true)]
+        public System.Nullable<bool> Placedk__BackingField {
             get {
-                return this.PlacedField;
+                return this.Placedk__BackingFieldField;
             }
             set {
-                if ((this.PlacedField.Equals(value) != true)) {
-                    this.PlacedField = value;
-                    this.RaisePropertyChanged("Placed");
+                if ((this.Placedk__BackingFieldField.Equals(value) != true)) {
+                    this.Placedk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Placedk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float PosX {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<PosX>k__BackingField", IsRequired=true)]
+        public float PosXk__BackingField {
             get {
-                return this.PosXField;
+                return this.PosXk__BackingFieldField;
             }
             set {
-                if ((this.PosXField.Equals(value) != true)) {
-                    this.PosXField = value;
-                    this.RaisePropertyChanged("PosX");
+                if ((this.PosXk__BackingFieldField.Equals(value) != true)) {
+                    this.PosXk__BackingFieldField = value;
+                    this.RaisePropertyChanged("PosXk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float PosY {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<PosY>k__BackingField", IsRequired=true)]
+        public float PosYk__BackingField {
             get {
-                return this.PosYField;
+                return this.PosYk__BackingFieldField;
             }
             set {
-                if ((this.PosYField.Equals(value) != true)) {
-                    this.PosYField = value;
-                    this.RaisePropertyChanged("PosY");
+                if ((this.PosYk__BackingFieldField.Equals(value) != true)) {
+                    this.PosYk__BackingFieldField = value;
+                    this.RaisePropertyChanged("PosYk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float PosZ {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<PosZ>k__BackingField", IsRequired=true)]
+        public float PosZk__BackingField {
             get {
-                return this.PosZField;
+                return this.PosZk__BackingFieldField;
             }
             set {
-                if ((this.PosZField.Equals(value) != true)) {
-                    this.PosZField = value;
-                    this.RaisePropertyChanged("PosZ");
+                if ((this.PosZk__BackingFieldField.Equals(value) != true)) {
+                    this.PosZk__BackingFieldField = value;
+                    this.RaisePropertyChanged("PosZk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float RotationX {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RotationX>k__BackingField", IsRequired=true)]
+        public float RotationXk__BackingField {
             get {
-                return this.RotationXField;
+                return this.RotationXk__BackingFieldField;
             }
             set {
-                if ((this.RotationXField.Equals(value) != true)) {
-                    this.RotationXField = value;
-                    this.RaisePropertyChanged("RotationX");
+                if ((this.RotationXk__BackingFieldField.Equals(value) != true)) {
+                    this.RotationXk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RotationXk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float RotationY {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RotationY>k__BackingField", IsRequired=true)]
+        public float RotationYk__BackingField {
             get {
-                return this.RotationYField;
+                return this.RotationYk__BackingFieldField;
             }
             set {
-                if ((this.RotationYField.Equals(value) != true)) {
-                    this.RotationYField = value;
-                    this.RaisePropertyChanged("RotationY");
+                if ((this.RotationYk__BackingFieldField.Equals(value) != true)) {
+                    this.RotationYk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RotationYk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float RotationZ {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RotationZ>k__BackingField", IsRequired=true)]
+        public float RotationZk__BackingField {
             get {
-                return this.RotationZField;
+                return this.RotationZk__BackingFieldField;
             }
             set {
-                if ((this.RotationZField.Equals(value) != true)) {
-                    this.RotationZField = value;
-                    this.RaisePropertyChanged("RotationZ");
+                if ((this.RotationZk__BackingFieldField.Equals(value) != true)) {
+                    this.RotationZk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RotationZk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public DbModel.Tools.Abutment_RunStatus RunStatus {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<RunStatus>k__BackingField", IsRequired=true)]
+        public DbModel.Tools.Abutment_RunStatus RunStatusk__BackingField {
             get {
-                return this.RunStatusField;
+                return this.RunStatusk__BackingFieldField;
             }
             set {
-                if ((this.RunStatusField.Equals(value) != true)) {
-                    this.RunStatusField = value;
-                    this.RaisePropertyChanged("RunStatus");
+                if ((this.RunStatusk__BackingFieldField.Equals(value) != true)) {
+                    this.RunStatusk__BackingFieldField = value;
+                    this.RaisePropertyChanged("RunStatusk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float ScaleX {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ScaleX>k__BackingField", IsRequired=true)]
+        public float ScaleXk__BackingField {
             get {
-                return this.ScaleXField;
+                return this.ScaleXk__BackingFieldField;
             }
             set {
-                if ((this.ScaleXField.Equals(value) != true)) {
-                    this.ScaleXField = value;
-                    this.RaisePropertyChanged("ScaleX");
+                if ((this.ScaleXk__BackingFieldField.Equals(value) != true)) {
+                    this.ScaleXk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ScaleXk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float ScaleY {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ScaleY>k__BackingField", IsRequired=true)]
+        public float ScaleYk__BackingField {
             get {
-                return this.ScaleYField;
+                return this.ScaleYk__BackingFieldField;
             }
             set {
-                if ((this.ScaleYField.Equals(value) != true)) {
-                    this.ScaleYField = value;
-                    this.RaisePropertyChanged("ScaleY");
+                if ((this.ScaleYk__BackingFieldField.Equals(value) != true)) {
+                    this.ScaleYk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ScaleYk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public float ScaleZ {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<ScaleZ>k__BackingField", IsRequired=true)]
+        public float ScaleZk__BackingField {
             get {
-                return this.ScaleZField;
+                return this.ScaleZk__BackingFieldField;
             }
             set {
-                if ((this.ScaleZField.Equals(value) != true)) {
-                    this.ScaleZField = value;
-                    this.RaisePropertyChanged("ScaleZ");
+                if ((this.ScaleZk__BackingFieldField.Equals(value) != true)) {
+                    this.ScaleZk__BackingFieldField = value;
+                    this.RaisePropertyChanged("ScaleZk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public DbModel.Tools.Abutment_Status Status {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<Status>k__BackingField", IsRequired=true)]
+        public DbModel.Tools.Abutment_Status Statusk__BackingField {
             get {
-                return this.StatusField;
+                return this.Statusk__BackingFieldField;
             }
             set {
-                if ((this.StatusField.Equals(value) != true)) {
-                    this.StatusField = value;
-                    this.RaisePropertyChanged("Status");
+                if ((this.Statusk__BackingFieldField.Equals(value) != true)) {
+                    this.Statusk__BackingFieldField = value;
+                    this.RaisePropertyChanged("Statusk__BackingField");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<UserName>k__BackingField", IsRequired=true)]
+        public string UserNamek__BackingField {
             get {
-                return this.UserNameField;
+                return this.UserNamek__BackingFieldField;
             }
             set {
-                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
-                    this.UserNameField = value;
-                    this.RaisePropertyChanged("UserName");
+                if ((object.ReferenceEquals(this.UserNamek__BackingFieldField, value) != true)) {
+                    this.UserNamek__BackingFieldField = value;
+                    this.RaisePropertyChanged("UserNamek__BackingField");
                 }
             }
         }
@@ -3233,6 +3200,12 @@ namespace WCFServiceForWPF.LocationServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsPage", ReplyAction="http://tempuri.org/IAlarmService/GetDeviceAlarmsPageResponse")]
         TModel.BaseData.Page<Location.TModel.Location.Alarm.DeviceAlarm> GetDeviceAlarmsPage(Location.TModel.FuncArgs.AlarmSearchArg arg);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/DeleteSpecifiedLocationAlarm", ReplyAction="http://tempuri.org/IAlarmService/DeleteSpecifiedLocationAlarmResponse")]
+        bool DeleteSpecifiedLocationAlarm(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAlarmService/TestIddd", ReplyAction="http://tempuri.org/IAlarmService/TestIdddResponse")]
+        bool TestIddd(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPostService/GetPostList", ReplyAction="http://tempuri.org/IPostService/GetPostListResponse")]
         Location.TModel.Location.AreaAndDev.Post[] GetPostList();
         
@@ -3256,6 +3229,9 @@ namespace WCFServiceForWPF.LocationServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist", ReplyAction="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse")]
         TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetInspectionHistoryById", ReplyAction="http://tempuri.org/IBaseDataService/GetInspectionHistoryByIdResponse")]
+        TModel.LocationHistory.Work.InspectionTrackHistory GetInspectionHistoryById(TModel.LocationHistory.Work.InspectionTrackHistory history);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBaseDataService/GetorgList", ReplyAction="http://tempuri.org/IBaseDataService/GetorgListResponse")]
         Location.TModel.Location.Person.Department[] GetorgList();
@@ -3926,6 +3902,14 @@ namespace WCFServiceForWPF.LocationServices {
             return base.Channel.GetDeviceAlarmsPage(arg);
         }
         
+        public bool DeleteSpecifiedLocationAlarm(int id) {
+            return base.Channel.DeleteSpecifiedLocationAlarm(id);
+        }
+        
+        public bool TestIddd(int id) {
+            return base.Channel.TestIddd(id);
+        }
+        
         public Location.TModel.Location.AreaAndDev.Post[] GetPostList() {
             return base.Channel.GetPostList();
         }
@@ -3956,6 +3940,10 @@ namespace WCFServiceForWPF.LocationServices {
         
         public TModel.LocationHistory.Work.InspectionTrackHistory[] Getinspectionhistorylist(System.DateTime dtBeginTime, System.DateTime dtEndTime, bool bFlag) {
             return base.Channel.Getinspectionhistorylist(dtBeginTime, dtEndTime, bFlag);
+        }
+        
+        public TModel.LocationHistory.Work.InspectionTrackHistory GetInspectionHistoryById(TModel.LocationHistory.Work.InspectionTrackHistory history) {
+            return base.Channel.GetInspectionHistoryById(history);
         }
         
         public Location.TModel.Location.Person.Department[] GetorgList() {

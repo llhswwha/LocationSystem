@@ -53,7 +53,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -89,6 +88,7 @@
     <Compile Include="Location\AreaAndDev\Dev_DoorAccess.cs" />
     <Compile Include="Location\AreaAndDev\Dev_Monitor.cs" />
     <Compile Include="Location\AreaAndDev\EntranceGuardCard.cs" />
+    <Compile Include="Location\AreaAndDev\LocationAlarmInformation.cs" />
     <Compile Include="Location\AreaAndDev\ModelTypeItem.cs" />
     <Compile Include="Location\AreaAndDev\NearbyDev.cs" />
     <Compile Include="Location\AreaAndDev\ObjectAddList.cs" />
@@ -138,9 +138,18 @@
     <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
     <Compile Include="Location\Work\SafetyMeasures.cs" />
     <Compile Include="Location\Work\WorkTicket.cs" />
+    <Compile Include="Models\Settings\AlarmSetting.cs" />
+    <Compile Include="Models\Settings\AssetLoadSetting.cs" />
     <Compile Include="Models\Settings\CinemachineSetting.cs" />
     <Compile Include="Models\Settings\CommunicationSetting.cs" />
+    <Compile Include="Models\Settings\DebugSetting.cs" />
+    <Compile Include="Models\Settings\DeviceSetting.cs" />
+    <Compile Include="Models\Settings\HistoryPathSetting.cs" />
+    <Compile Include="Models\Settings\HoneyWellSetting.cs" />
+    <Compile Include="Models\Settings\LocationSetting.cs" />
     <Compile Include="Models\Settings\RefreshSetting.cs" />
+    <Compile Include="Models\Settings\ResolutionSetting.cs" />
+    <Compile Include="Models\Settings\SystemSetting.cs" />
     <Compile Include="Models\Settings\UnitySetting.cs" />
     <Compile Include="Models\Settings\VersionSetting.cs" />
     <Compile Include="Models\TagAndPostion.cs" />

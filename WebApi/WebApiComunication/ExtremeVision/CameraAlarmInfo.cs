@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using Location.BLL.Tool;
 
 namespace WebApiCommunication.ExtremeVision
 {
@@ -40,7 +41,7 @@ namespace WebApiCommunication.ExtremeVision
         /// <summary>
         /// id
         /// </summary>
-        [JsonIgnore]
+        //[JsonIgnore]//客户端需要这个，作为唯一告警ID
         [DataMember]
         public int id { get; set; }
 
@@ -122,27 +123,55 @@ namespace WebApiCommunication.ExtremeVision
         public object data { get; set; }
 
 
-        public int ParseType(string json)
+        public int ParseType()
         {
-            if (json.Contains("headInfo"))
+            string json = data + "";
+            if (AlarmType == 0)
+            {
+                if (json.Contains("headInfo"))
+                {
+                    AlarmType = 1;
+                }
+                else if (json.Contains("flameInfo"))
+                {
+                    AlarmType = 2;
+                }
+                else if (json.Contains("smogInfo"))
+                {
+                    AlarmType = 3;
+                }
+                else
+                {
+                    AlarmType = 1;//这里也可以是0
+                }
+            }
+            return AlarmType;
+        }
+
+        public int ParseType1()
+        {
+            int id = aid;
+            if (id == 9510)
             {
                 AlarmType = 1;
             }
-            else if (json.Contains("flameInfo"))
+            else if (id == 9610)
             {
                 AlarmType = 2;
             }
-            else if (json.Contains("smogInfo"))
+            else if (id == 9620)
             {
                 AlarmType = 3;
+
             }
             else
             {
-                AlarmType = 1;//这里也可以是0
+                AlarmType = 1;
             }
-
             return AlarmType;
         }
+
+
 
         [DataMember]
         public FlameData FlameData { get; set; }
@@ -161,16 +190,63 @@ namespace WebApiCommunication.ExtremeVision
         {
             return string.Format("Id:{0},Cid:{1} time:{2}", aid, cid,time);
         }
-
+        public static string RecordErrorStr = "";
+        public static string RecordCorrectStr = "";
         public FlameData GetFlameData()
         {
-            var data = GetData<FlameData>();
-            if (data == null)
+            try
             {
-                data = new FlameData();//客户端靠这个判断，就算解析错了也不能是空
+                var data = GetData<FlameData>();
+                if (data == null)
+                {
+                    data = new FlameData();//客户端靠这个判断，就算解析错了也不能是空
+                }
+                else if (data.flameInfo == null)
+                {
+                    var data1 = GetData<FlameNewData>();
+                    if (data1 == null)
+                    {
+                        Log.Error("GetFlameData", "data1(FlameNewData) == null:" + data);
+                    }
+                    else
+                    {
+                        data.alertFlag = data1.alert_flag;
+                        data.numOfFlameRects = 1;
+                        data.message = "";
+                        List<RectInfo> list = new List<RectInfo>();
+                        List<RectOneInfo> newList = data1.alert_info;
+                        if (newList!=null&&newList.Count > 0)
+                        {
+                            for (int i = 0; i < newList.Count; i++)
+                            {
+                                RectOneInfo info1 = newList[i];
+                                if (info1 == null) continue;
+                                RectInfo info2 = new RectInfo();
+                                info2.x = info1.x;
+                                info2.y = info1.y;
+                                info2.width = info1.width;
+                                info2.height = info1.width;
+                                list.Add(info2);
+                            }
+                            data.flameInfo = list;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                }
+                return data;
             }
-            return data;
+            catch (Exception ex)
+            {
+                Log.Error("GetFlameData",ex.ToString());
+                return new FlameData();
+            }
+            
         }
+
 
         public SmogData GetSmogData()
         {
@@ -284,9 +360,11 @@ namespace WebApiCommunication.ExtremeVision
         public static CameraAlarmInfo Parse(string json)
         {
             var info = JsonConvert.DeserializeObject<CameraAlarmInfo>(json);
-            string dataText = info.data + "";
-            info.ParseType(dataText);
+            //string dataText = info.data + "";
+
+            info.ParseType1();
             info.ParseData();
+            
             //info.time = info.time_stamp.ToDateTime(true);
             return info;
         }

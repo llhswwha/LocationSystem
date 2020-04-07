@@ -87,7 +87,7 @@ namespace WebApiService.Controllers
         }
 
         [Route("")]
-        [Route("{id}")]
+        [Route("id/{id}/children/{getChildren}")]
         public TEntity GetEntity(string id, bool getChildren)
         {
             return service.GetEntity(id, getChildren);
@@ -131,6 +131,12 @@ namespace WebApiService.Controllers
         public bool DeleteDepartment(int id)
         {
             return service.DeleteDepartment(id);
+        }
+        [Route("Edit/department")]
+        [HttpPut]
+        public bool EditDepartment(TEntity p)
+        {
+            return service.EditDepartment(p);
         }
     }
 }

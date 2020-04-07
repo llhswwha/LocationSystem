@@ -10,12 +10,11 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="窗口">
-                <MenuItem Header="电厂视图" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
+                <MenuItem Header="二维可视化视图" Name="MenuAreaCanvas" Click="MenuAreaCanvas_OnClick"></MenuItem>
                 <MenuItem Header="定位引擎客户端" Name="MenuEngineClient" Click="MenuEngineClient_OnClick"></MenuItem>
                 <MenuItem Header="打开三维程序" Name="MenuOpen3D" Click="MenuOpen3D_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="设置">
-                
                 <MenuItem Header="实时位置" Name="MenuRealPos" Click="MenuRealPos_OnClick"></MenuItem>
                 <MenuItem Header="人员" Name="MenuPerson" Click="MenuPerson_OnClick"></MenuItem>
                 <MenuItem Header="标签" Name="MenuTag" Click="MenuTag_OnClick"></MenuItem>
@@ -34,7 +33,10 @@
                 <MenuItem Header="定位引擎数据库工具" Name="MenuLocationEngionTool" Click="MenuLocationEngionTool_OnClick"></MenuItem>
                 <MenuItem Header="基站坐标表格导出" Name="MenuExportArchorPosition" Click="MenuExportArchorPosition_OnClick"></MenuItem>
                 <MenuItem Header="基站测绘表格导出" Name="MenuArchorSettingExport" Click="MenuArchorSettingExport_OnClick"></MenuItem>
-                <Separator></Separator>
+                <MenuItem Header="将基站信息表格转换为xml" Name="MenuArchorTableToXml" Click="MenuArchorTableToXml_OnClick"></MenuItem>
+
+
+                    <Separator></Separator>
                 <MenuItem Header="定位历史数据" Name="MenuLocationHistoryTest" Click="MenuLocationHistoryTest_OnClick"></MenuItem>
                 <MenuItem Header="事件发送测试" Name="MenuEventSendTest" Click="MenuEventSendTest_OnClick"></MenuItem>
                 <MenuItem Header="巡检记录测试" Name="MenuInspectionTest" Click="MenuInspectionTest_OnClick"></MenuItem>
@@ -52,11 +54,12 @@
                 <Separator></Separator>
                 <MenuItem Header="视频回放支持" Name="MenuNVSPlayer" Click="MenuNVSPlayer_OnClick"></MenuItem>
                 <MenuItem Header="视频告警管理" Name="MenuCameraAlarmManager" Click="MenuCameraAlarmManager_OnClick"></MenuItem>
-                <Separator></Separator>
+
                 <MenuItem Header="启动守护进程" Name="MenuStartDaemon" Click="MenuStartDaemon_OnClick"></MenuItem>
                 <MenuItem Header="更新历史统计缓存" Name="MenuRefreshHisPosBuffer" Click="MenuRefreshHisPosBuffer_OnClick"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="同步"  Name="SyncAllData" Click="SyncAllData_Click">
+                <Separator></Separator>
+                <MenuItem Header="对接数据同步"  Name="SyncAllData" Click="SyncAllData_Click">
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="测试">
                 <MenuItem Header="区域统计" Name="MenuCmd1" Click="MenuCmd1_OnClick"></MenuItem>

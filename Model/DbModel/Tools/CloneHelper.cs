@@ -68,6 +68,13 @@ namespace DbModel.Tools
             }
         }
 
+        public static T CloneByXml<T>(this T obj)
+        {
+            string xml = XmlSerializeHelper.GetXmlText(obj);
+            T cloneObj = XmlSerializeHelper.LoadFromText<T>(xml);
+            return cloneObj;
+        }
+
         //public static T CloneObjectByBinary<T>(this T obj) where T : class
         //{
         //    MemoryStream stream = new MemoryStream();

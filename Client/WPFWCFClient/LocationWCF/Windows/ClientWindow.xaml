@@ -48,7 +48,15 @@
                 <WPFClientControlLib:DeviceAlarmListBox x:Name="DeviceAlarmListBox1"/>
             </TabItem>
             <TabItem Header="定位告警">
-                <DataGrid Name="DataGridLocationAlarms"></DataGrid>
+                <DockPanel>
+                    <Menu DockPanel.Dock="Top">
+                        <Label Grid.Row="3" Grid.Column="0">Id:</Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Name="SpecifiedLocationAlarmId" Width="198"></TextBox>
+                        <MenuItem Header="删除指定定位告警" Name="DeleteSpecifiedLocationAlarm" Click="DeleteSpecifiedLocationAlarm_Click"></MenuItem>
+                    </Menu>
+                </DockPanel>
+                
+                <!--<DataGrid Name="DataGridLocationAlarms"></DataGrid>-->
             </TabItem>
             <TabItem Header="Sqlite修改测试">
                 <StackPanel>

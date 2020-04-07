@@ -79,13 +79,33 @@ namespace LocationServices.Locations.Services
                 o1.OperationItems = new List<OperationItemHistory>() { oi1, oi2, oi3, oi4 };
 
                 OperationTicketHistory o2 = new OperationTicketHistory() { Id = 2, No = "100002", Guardian = "赵一含G" };
+                o2.OperationStartTime = DateTime.Now.AddHours(-2);
+                o2.OperationEndTime = DateTime.Now;
+                o2.Operator = "刘华名22";
+                o2.DutyOfficer = "车马风22";
                 OperationTicketHistory o3 = new OperationTicketHistory() { Id = 3, No = "100003", Guardian = "刘国柱G" };
+                o3.OperationStartTime = DateTime.Now.AddHours(-2);
+                o3.OperationEndTime = DateTime.Now;
+                o3.Operator = "刘华名33";
+                o3.DutyOfficer = "车马风33";
                 OperationTicketHistory o4 = new OperationTicketHistory() { Id = 4, No = "100004", Guardian = "陈浩然G" };
+                o4.OperationStartTime = DateTime.Now.AddHours(-2);
+                o4.OperationEndTime = DateTime.Now;
+                o4.Operator = "刘华名44";
+                o4.DutyOfficer = "车马风44";
                 OperationTicketHistory o5 = new OperationTicketHistory() { Id = 5, No = "100005", Guardian = "李一样G" };
+                o5.OperationStartTime = DateTime.Now.AddHours(-2);
+                o5.OperationEndTime = DateTime.Now;
+                o5.Operator = "刘华名55";
+                o5.DutyOfficer = "车马风55";
                 List<OperationTicketHistory> os = new List<OperationTicketHistory>() { o1, o2, o3, o4, o5 };
                 for (int i = 0; i < 20; i++)
                 {
-                    OperationTicketHistory wT = new OperationTicketHistory() { Id = 6 + i, No = "000005" + i, Guardian = i.ToString() };
+                    OperationTicketHistory wT = new OperationTicketHistory() { Id = 6 + i, No = "000005" + i, Guardian = "赵小刚"+i };
+                    wT.OperationStartTime = DateTime.Now.AddHours(-2);
+                    wT.OperationEndTime = DateTime.Now;
+                    wT.Operator = "刘华名"+i;
+                    wT.DutyOfficer = "车马风"+i;
                     os.Add(wT);
                 }
                 return os;
@@ -232,13 +252,33 @@ namespace LocationServices.Locations.Services
                 w1.SafetyMeasuress = new List<SafetyMeasuresHistory>() { s1, s2, s3 };
 
                 WorkTicketHistory w2 = new WorkTicketHistory() { Id = 2, No = "000002", PersonInCharge = "赵一含" };
+                w2.StartTimeOfPlannedWork = DateTime.Now.AddHours(-2);
+                w2.EndTimeOfPlannedWork = DateTime.Now;
+                w2.Lssuer = "叶路22";
+                w2.Licensor = "方城22";
                 WorkTicketHistory w3 = new WorkTicketHistory() { Id = 3, No = "000003", PersonInCharge = "刘国柱" };
+                w3.StartTimeOfPlannedWork = DateTime.Now.AddHours(-2);
+                w3.EndTimeOfPlannedWork = DateTime.Now;
+                w3.Lssuer = "叶路33";
+                w3.Licensor = "方城33";
                 WorkTicketHistory w4 = new WorkTicketHistory() { Id = 4, No = "000004", PersonInCharge = "陈浩然" };
+                w4.StartTimeOfPlannedWork = DateTime.Now.AddHours(-2);
+                w4.EndTimeOfPlannedWork = DateTime.Now;
+                w4.Lssuer = "叶路44";
+                w4.Licensor = "方城44";
                 WorkTicketHistory w5 = new WorkTicketHistory() { Id = 5, No = "000005", PersonInCharge = "李一样" };
+                w5.StartTimeOfPlannedWork = DateTime.Now.AddHours(-2);
+                w5.EndTimeOfPlannedWork = DateTime.Now;
+                w5.Lssuer = "叶路55";
+                w5.Licensor = "方城55";
                 List<WorkTicketHistory> ws = new List<WorkTicketHistory>() { w1, w2, w3, w4, w5 };
                 for (int i = 0; i < 20; i++)
                 {
-                    WorkTicketHistory wT = new WorkTicketHistory() { Id = 6 + i, No = "000005" + i, PersonInCharge = i.ToString() };
+                    WorkTicketHistory wT = new WorkTicketHistory() { Id = 6 + i, No = "000005" + i, PersonInCharge = "马路峰"+i };
+                    wT.StartTimeOfPlannedWork = DateTime.Now.AddHours(-2);
+                    wT.EndTimeOfPlannedWork = DateTime.Now;
+                    wT.Lssuer = "叶路"+i;
+                    wT.Licensor = "方城" + i;
                     ws.Add(wT);
                 }
                 return ws;

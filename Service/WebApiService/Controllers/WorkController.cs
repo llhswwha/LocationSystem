@@ -53,7 +53,7 @@ namespace WebApiService.Controllers
         {
             return GetPersonnelMobileInspectionList();
         }
-        [Route("list/workTicket")]
+        [Route("list/workTicketHistory")]
         public List<WorkTicketHistory> GetWorkTicketHistoryList()
         {
             return service.GetWorkTicketHistoryList();

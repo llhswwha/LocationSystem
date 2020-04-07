@@ -18,9 +18,14 @@ namespace WebApiService.Controllers
     {
         protected IAlarmService service;
 
+        public AlarmController()
+        {
+            service = new AlarmService();
+        }
+
         public DevAlarm Delete(string id)
         {
-            throw new NotImplementedException();
+            return service.Delete(id);
         }
 
         /// <summary>
@@ -29,6 +34,7 @@ namespace WebApiService.Controllers
         /// <param name="arg"></param>
         /// <returns></returns>
         [Route("devList")]
+        [HttpPost]
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
         {
             return service.GetDeviceAlarms(arg);
@@ -39,6 +45,8 @@ namespace WebApiService.Controllers
             return service.GetDeviceAlarmsPage(arg);
         }
 
+
+
         public DevAlarm GetEntity(string id)
         {
             throw new NotImplementedException();
@@ -46,7 +54,7 @@ namespace WebApiService.Controllers
 
         public List<DevAlarm> GetList()
         {
-            throw new NotImplementedException();
+            return service.GetList();
         }
 
         public IList<DevAlarm> GetListByName(string name)
@@ -54,20 +62,40 @@ namespace WebApiService.Controllers
             throw new NotImplementedException();
         }
 
+        [Route("delete/LocationAlarm/{id}")]
+        public bool DeleteSpecifiedLocationAlarm(int id)
+        {
+            return service.DeleteSpecifiedLocationAlarm(id);
+        }
+        [Route("delete/LocationAlarmList")]
+        public bool DeleteLocationAlarm(List<int> idList)
+        {
+            return service.DeleteLocationAlarm(idList);
+        }
+
         [Route("list")]
+        [HttpPost]
         public List<Location.TModel.Location.Alarm.LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
             return service.GetLocationAlarms(arg);
         }
 
+        [Route("locationList")]
+        [HttpPost]
+        public LocationAlarmInformation GetLocationAlarmByArgs(AlarmSearchArg arg)
+        {
+            return service.GetLocationAlarmByArgs(arg);
+        }
+
+
         public DevAlarm Post(DevAlarm item)
         {
-            throw new NotImplementedException();
+            return service.Post(item);
         }
 
         public DevAlarm Put(DevAlarm item)
         {
-            throw new NotImplementedException();
+            return service.Put(item);
         }
     }
 }

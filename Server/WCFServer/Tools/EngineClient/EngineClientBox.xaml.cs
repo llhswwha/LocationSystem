@@ -40,6 +40,14 @@ namespace EngineClient
         public EngineClientBox()
         {
             InitializeComponent();
+            string faintRange = LocationServer.AppContext.FaintRange;
+            int faintEffectiveTime = LocationServer.AppContext.FaintEffectiveTime;
+            int faintTimeInterval = LocationServer.AppContext.FaintTimeInterval;
+
+            FaintScope.Text = faintRange;
+            FaintTime.Text = faintEffectiveTime.ToString();
+            FaintIntervalTime.Text = faintTimeInterval.ToString();
+
         }
 
         public void Init()
@@ -111,8 +119,11 @@ namespace EngineClient
 
         public void Stop()
         {
+            StopFaintAlarm();
+
             if (engineClient != null)
             {
+                engineClient.NewAlarmsFired -= EngineClient_NewAlarmsFired;//不取消的话，事件会重复绑定
                 engineClient.Stop();
                 engineClient = null;
             }
@@ -126,8 +137,10 @@ namespace EngineClient
                 EngineLogin login = new EngineLogin();
                 login.LocalIp = TbLocalIp.Text;
                 login.LocalPort = TbLocalPort.Text.ToInt();
+                login.LocalPort2 = TbLocalAreaAlarmPort.Text.ToInt();
                 login.EngineIp = TbEngineIp.Text;
                 login.EnginePort = TbEnginePort.Text.ToInt();
+                login.EnginePort2 = TbEngineAreaAlarmPort.Text.ToInt();
                 //if (login.Valid() == false)
                 //{
                 //    MessageBox.Show("本地Ip和对端Ip必须是同一个Ip段的");
@@ -140,7 +153,13 @@ namespace EngineClient
                 engineClient.StartConnectEngine(login);
                 engineClient.NewAlarmsFired += EngineClient_NewAlarmsFired;
 
-                Log.Info(LogTags.Server, string.Format("开始定位引擎对接 local={0}:{1},engine={2}:{3}", login.LocalIp, login.LocalPort, login.EngineIp, login.EnginePort));
+                int nFaintFlag = LocationServer.AppContext.FaintFlag;
+                if (nFaintFlag == 1)
+                {
+                    StartFaintAlarm();
+                }
+                
+                Log.Info(LogTags.Server, string.Format("开始定位引擎对接 local={0}:{1}:{2},engine={3}:{4}:{5}", login.LocalIp, login.LocalPort, login.EnginePort2, login.EngineIp, login.EnginePort, login.EnginePort2));
             }
         }
 
@@ -148,6 +167,72 @@ namespace EngineClient
         {
             Log.Info("LocationAlarm", "AlarmHub.SendLocationAlarms:" + obj.Count);
             AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
+        }
+
+        private void FaintBtnStart_OnClick(object sender, RoutedEventArgs e)
+        {
+            StartFaintBtn();
+        }
+
+        public void StartFaintBtn()
+        {
+            if (FaintBtnStart.Content.ToString() == "启动晕倒告警")
+            {
+                StartFaintAlarm();
+            }
+            else
+            {
+                StopFaintAlarm();
+            }
+        }
+
+        private void StartFaintAlarm()
+        {
+            if (FaintBtnStart.Content.ToString() == "关闭晕倒告警")
+            {
+                return;
+            }
+
+            if (engineClient != null)
+            {
+                FaintAlarmLogin fal = new FaintAlarmLogin();
+                fal.FaintScope = FaintScope.Text.ToString();
+                fal.FaintTime = FaintTime.Text.ToInt();
+                fal.FaintIntervalTime = FaintIntervalTime.Text.ToInt();
+                engineClient.StartFaintAlarm(fal);
+                FaintBtnStart.Content = "关闭晕倒告警";
+            }
+            else
+            {
+                MessageBox.Show("PositionEngineClient类对象还未创建");
+            }
+
+            return;
+        }
+
+        public void StopFaintAlarm()
+        {
+            if (FaintBtnStart.Content.ToString() == "启动晕倒告警")
+            {
+                return;
+            }
+
+            if (engineClient != null)
+            {
+                engineClient.StopFaintAlarm();
+            }
+
+            FaintBtnStart.Content = "启动晕倒告警";
+        }
+
+        private void MenuTest_OnClick(object sender, RoutedEventArgs e)
+        {
+            engineClient.TestInsertPostions();
+        }
+
+        private void MenuErrorPoint_OnClick(object sender, RoutedEventArgs e)
+        {
+            var disList = BLL.Bll.posDistanceList;
         }
     }
 }

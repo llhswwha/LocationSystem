@@ -34,6 +34,11 @@ namespace BLL.Tools
             return GetInitInfoDir() + "InitInfo.xml";
         }
 
+        public static string GetBaseStationInfo()
+        {
+            return GetInitInfoDir() + "基站信息.xml";
+        }
+
         public static string GetInitInfoDir()
         {
             return AppDomain.CurrentDomain.BaseDirectory + "Data\\InitInfos\\" + AppSetting.ParkName + "\\";

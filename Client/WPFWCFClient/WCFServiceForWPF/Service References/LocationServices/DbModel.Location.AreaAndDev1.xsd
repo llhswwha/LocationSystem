@@ -95,39 +95,39 @@
   <xs:element name="ArrayOfDevInfo" nillable="true" type="tns:ArrayOfDevInfo" />
   <xs:complexType name="DevInfo">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Abutment_DevID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Abutment_Id" nillable="true" type="xs:int" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Abutment_Type" type="q2:Abutment_DevTypes" />
-      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="CreateTimeStamp" type="xs:long" />
-      <xs:element minOccurs="0" name="DevDetail" nillable="true" type="xs:anyType" />
-      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="KKS" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Local_CabinetID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Local_DevID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Local_TypeCode" type="xs:int" />
-      <xs:element minOccurs="0" name="Manufactor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ModifyTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="ModifyTimeStamp" type="xs:long" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Parent" nillable="true" type="tns:Area" />
-      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Placed" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PosX" type="xs:float" />
-      <xs:element minOccurs="0" name="PosY" type="xs:float" />
-      <xs:element minOccurs="0" name="PosZ" type="xs:float" />
-      <xs:element minOccurs="0" name="RotationX" type="xs:float" />
-      <xs:element minOccurs="0" name="RotationY" type="xs:float" />
-      <xs:element minOccurs="0" name="RotationZ" type="xs:float" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="RunStatus" type="q3:Abutment_RunStatus" />
-      <xs:element minOccurs="0" name="ScaleX" type="xs:float" />
-      <xs:element minOccurs="0" name="ScaleY" type="xs:float" />
-      <xs:element minOccurs="0" name="ScaleZ" type="xs:float" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DbModel.Tools" minOccurs="0" name="Status" type="q4:Abutment_Status" />
-      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Abutment_DevID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Abutment_Id_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DbModel.Tools" name="_x003C_Abutment_Type_x003E_k__BackingField" type="q2:Abutment_DevTypes" />
+      <xs:element name="_x003C_Code_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_CreateTimeStamp_x003E_k__BackingField" type="xs:long" />
+      <xs:element name="_x003C_CreateTime_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_DevDetail_x003E_k__BackingField" nillable="true" type="xs:anyType" />
+      <xs:element name="_x003C_IP_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_KKS_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Local_CabinetID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Local_DevID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Local_TypeCode_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Manufactor_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_ModelName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_ModifyTimeStamp_x003E_k__BackingField" type="xs:long" />
+      <xs:element name="_x003C_ModifyTime_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_ParentId_x003E_k__BackingField" nillable="true" type="xs:int" />
+      <xs:element name="_x003C_Parent_x003E_k__BackingField" nillable="true" type="tns:Area" />
+      <xs:element name="_x003C_Placed_x003E_k__BackingField" nillable="true" type="xs:boolean" />
+      <xs:element name="_x003C_PosX_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_PosY_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_PosZ_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_RotationX_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_RotationY_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_RotationZ_x003E_k__BackingField" type="xs:float" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DbModel.Tools" name="_x003C_RunStatus_x003E_k__BackingField" type="q3:Abutment_RunStatus" />
+      <xs:element name="_x003C_ScaleX_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_ScaleY_x003E_k__BackingField" type="xs:float" />
+      <xs:element name="_x003C_ScaleZ_x003E_k__BackingField" type="xs:float" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DbModel.Tools" name="_x003C_Status_x003E_k__BackingField" type="q4:Abutment_Status" />
+      <xs:element name="_x003C_UserName_x003E_k__BackingField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DevInfo" nillable="true" type="tns:DevInfo" />

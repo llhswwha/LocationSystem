@@ -32,7 +32,7 @@ namespace DbModel.Location.Alarm
         public string AlarmId { get; set; }
 
         /// <summary>
-        /// 告警类型：0:区域告警，1:消失告警，2:低电告警，3:传感器告警，4:重启告警，5:非法拆卸
+        /// 告警类型：0:区域告警，1:消失告警，2:低电告警，3:传感器告警，4:重启告警，5:非法拆卸，6:求救信号, 7:晕倒告警
         /// </summary>
         [DataMember]
         [Display(Name = "告警类型")]

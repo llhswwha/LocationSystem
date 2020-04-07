@@ -52,6 +52,8 @@
       <xs:element minOccurs="0" name="Sex" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Location.TModel.Location.AreaAndDev" minOccurs="0" name="Tag" nillable="true" type="q2:Tag" />
       <xs:element minOccurs="0" name="TagId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TargetModel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TargetType" type="xs:int" />
       <xs:element minOccurs="0" name="WorkNumber" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

@@ -40,6 +40,19 @@ namespace WebApiService.Controllers
             return service.GetUnitySetting();
         }
 
+        [Route("unitySystemSetting")]
+        public SystemSetting GetUnitySystemSetting()
+        {
+            return service.GetUnitySystemSetting();
+        }
+
+        [Route("saveUnitySystemSetting")]
+        public bool SaveUnitySystemSetting(SystemSetting setting)
+        {
+            return service.SaveUnitySystemSetting(setting);
+        }
+
+
         [Route("ObjectAddList")]
         public ObjectAddList GetObjectAddList()
         {

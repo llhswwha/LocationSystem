@@ -398,15 +398,39 @@ namespace LocationServices.Locations
         #endregion
         public List<LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
+            return TryGetAllLocationAlarm(arg);
+        }
+        /// <summary>
+        /// 获取定位历史告警，分页形式
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        public LocationAlarmInformation GetLocationAlarmByArgs(AlarmSearchArg arg)
+        {
+            if (allLocationAlarmHistory == null)
+            {
+                RefreshDeviceAlarmBuffer(LogTags.DbGet);
+            }
+            List<LocationAlarm> alarmsTemp = TryGetAllLocationAlarm(arg);
+            if (alarmsTemp == null || alarmsTemp.Count == 0) return new LocationAlarmInformation();
+            alarmsTemp.Sort();
+            LocationAlarmInformation locationAlarm = GetLocationAlarmPage(arg, alarmsTemp);
+            return locationAlarm;
+        }
+
+        /// <summary>
+        /// 获取所有的历史告警
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private List<LocationAlarm>TryGetAllLocationAlarm(AlarmSearchArg arg)
+        {
             try
             {
-                //List<Personnel> ps = GetPersonList();
-                //List<LocationAlarm> alarms = new List<LocationAlarm>();
-                //alarms.Add(new LocationAlarm() { Id = 0, TagId = 1, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)4, Content = "进入无权限区域", CreateTime = new DateTime(2018, 9, 1, 10, 5, 34) }.SetPerson(ps[0]));
-                //alarms.Add(new LocationAlarm() { Id = 1, TagId = 2, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)3, Content = "靠近高风险区域", CreateTime = new DateTime(2018, 9, 4, 15, 5, 11) }.SetPerson(ps[1]));
-                //alarms.Add(new LocationAlarm() { Id = 2, TagId = 3, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)2, Content = "进入高风险区域", CreateTime = new DateTime(2018, 9, 7, 13, 35, 20) }.SetPerson(ps[2]));
-                //alarms.Add(new LocationAlarm() { Id = 3, TagId = 4, AlarmType = 0, AlarmLevel = (LocationAlarmLevel)1, Content = "进入危险区域", CreateTime = new DateTime(2018, 9, 10, 16, 15, 44) }.SetPerson(ps[3]));
-                //return alarms;
+                if (allLocationAlarmHistory == null)
+                {
+                    RefreshDeviceAlarmBuffer(LogTags.DbGet);
+                }
                 var departments = db.Departments.ToDictionary();
                 var persons = db.Personnels.ToDictionary();
                 var cards = db.LocationCards.ToDictionary();
@@ -422,14 +446,15 @@ namespace LocationServices.Locations
                         }
                     }
                 }
-
                 if (arg.IsAll == false)//IsAll==true代表查询实时告警
                 {
                     var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
 
                     SetAlarmPerson(list, persons);
                     SetAlarmTag(cards, list);
-                    return list.ToWcfModelList();
+                    List<LocationAlarm> tempList= list.ToWcfModelList();
+                    RemoveNormalLocationAlarm(tempList);
+                    return tempList;
                 }
                 else
                 {
@@ -450,9 +475,8 @@ namespace LocationServices.Locations
                     }
 
                     //历史告警
-                    var list1 = db.LocationAlarmHistorys.Where(p =>
-                              p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
-                        .ToList();
+                    var list1 = allLocationAlarmHistory.Where(p =>p.AlarmType!=LocationAlarmType.低电告警&&
+                              p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd);
 
                     List<DbModel.Location.Alarm.LocationAlarm> list3 = new List<DbModel.Location.Alarm.LocationAlarm>();
                     if (list1 != null)
@@ -465,22 +489,21 @@ namespace LocationServices.Locations
                     }
 
                     //当前的事实告警
-                    var list2 = db.LocationAlarms.Where(p =>
+                    var list2 = db.LocationAlarms.Where(p => p.AlarmType != LocationAlarmType.低电告警 &&
                         p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd).ToList();
                     if (list2 != null)
                     {
                         list3.AddRange(list2);
                     }
-
                     SetAlarmPerson(list3, persons);
                     SetAlarmTag(cards, list3);
-
                     List<LocationAlarm> send = list3.ToWcfModelList();
                     if (send != null && send.Count() == 0)
                     {
                         send = null;
                     }
-
+                    GetKeyWordList(send,arg);
+                    RemoveNormalLocationAlarm(send);
                     return send;
                 }
 
@@ -491,7 +514,30 @@ namespace LocationServices.Locations
                 return null;
             }
         }
-
+        /// <summary>
+        /// 获取满足关键词的数据
+        /// </summary>
+        /// <param name="alarmsT"></param>
+        /// <param name="arg"></param>
+        private void GetKeyWordList(List<LocationAlarm> alarmsT, AlarmSearchArg arg)
+        {
+            if (arg == null || string.IsNullOrEmpty(arg.Keyword)) return;
+            else
+            {
+                string key = arg.Keyword.ToLower();
+                alarmsT.RemoveAll(i=>(i.Personnel==null||!i.Personnel.Name.ToLower().Contains(key))
+                &&(i.Tag==null||!i.Tag.Code.ToLower().Contains(key)));
+            }
+        }
+        /// <summary>
+        /// 移除正常的告警，只看历史告警
+        /// </summary>
+        /// <param name="alarmsT"></param>
+        private void RemoveNormalLocationAlarm(List<LocationAlarm> alarmsT)
+        {
+            if (alarmsT == null || alarmsT.Count == 0) return;
+            alarmsT.RemoveAll(i => i != null && i.AlarmLevel == LocationAlarmLevel.正常);
+        }
         private static void SetAlarmTag(Dictionary<int, DbModel.Location.AreaAndDev.LocationCard> cards, List<DbModel.Location.Alarm.LocationAlarm> list)
         {
             foreach (var alarm in list)
@@ -575,13 +621,15 @@ namespace LocationServices.Locations
             return alarms;
         }
 
-        public static List<DbModel.Location.Alarm.DevAlarm> allAlarms;
+        public static List<DbModel.Location.Alarm.DevAlarm> allDeviceAlarm;
 
         public static List<DbModel.Location.AreaAndDev.DevInfo> allDevs;
 
         public static Dictionary<int, DbModel.Location.AreaAndDev.DevInfo> allDevDict;
 
-        //public static List<DbModel.Location.Alarm.DevAlarm> allAlarmList;
+        public static List<DbModel.LocationHistory.Alarm.LocationAlarmHistory> allLocationAlarmHistory;
+
+        public static Dictionary<int, int> locationAlarmsDic;
 
         /// <summary>
         /// //实现加载全部设备告警到内存中
@@ -590,22 +638,21 @@ namespace LocationServices.Locations
         {
             try
             {
-                Log.Info(tag, "获取设备告警缓存");
+                Log.Info(tag, "获取设备和定位告警缓存");
                 //if (allAlarms == null)
                 {
                     BLL.Bll bll = BLL.Bll.NewBllNoRelation();
-                    allAlarms = bll.DevAlarms.ToList();
+                    allDeviceAlarm = bll.DevAlarms.ToList();
 
                     allDevs = bll.DevInfos.ToList();
                     allDevDict = allDevs.ToDictionary(i => i.Id);
 
-                    //allAlarms = bll.DevAlarms;
-                    //allAlarmList = bll.DevAlarms.ToList();
-                    if (allAlarms != null)
+                    RefreshLocationAlarmHistoryBuffer(bll);
+                    if (allDeviceAlarm != null)
                     {
-                        Log.Info(tag, "设备告警数量:" + allAlarms.Count);
+                        Log.Info(tag, "设备告警数量:" + allDeviceAlarm.Count);
 
-                        foreach (var item in allAlarms)
+                        foreach (var item in allDeviceAlarm)
                         {
                             if (allDevDict.ContainsKey(item.DevInfoId))
                             {
@@ -622,12 +669,30 @@ namespace LocationServices.Locations
             }
 
         }
+        /// <summary>
+        /// 刷新告警历史
+        /// </summary>
+        /// <param name="bll"></param>
+        public static void RefreshLocationAlarmHistoryBuffer(BLL.Bll bll)
+        {
+            allLocationAlarmHistory = bll.LocationAlarmHistorys.ToList();
+        }
+
+        private void TryGetLocationAlarmDic()
+        {
+            if (allLocationAlarmHistory == null) return;
+            locationAlarmsDic = new Dictionary<int, int>();
+            //foreach (var item in allLocationAlarmHistory)
+            //{
+            //    if(!locationAlarmsDic.ContainsKey(item.PersonnelId))
+            //}
+        }
 
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
         {
             try
             {
-                if (allAlarms == null)
+                if (allDeviceAlarm == null)
                 {
                     RefreshDeviceAlarmBuffer(LogTags.DbGet);
                 }
@@ -666,11 +731,11 @@ namespace LocationServices.Locations
                     var areas = db.Areas.GetAllSubAreas(arg.AreaId);//获取所有子区域
                     if (arg.IsAll)
                     {
-                        alarms1 = allAlarms.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
+                        alarms1 = allDeviceAlarm.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
                     }
                     else
                     {
-                        var alarms2 = allAlarms.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                        var alarms2 = allDeviceAlarm.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
                         var alarms3 = alarms2.FindAll(i => i.DevInfo != null && areas.Contains(i.DevInfo.ParentId));
                         alarms1 = alarms3;
                     }
@@ -679,11 +744,11 @@ namespace LocationServices.Locations
                 {
                     if (arg.IsAll)
                     {
-                        alarms1 = allAlarms;
+                        alarms1 = allDeviceAlarm;
                     }
                     else
                     {
-                        alarms1 = allAlarms.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
+                        alarms1 = allDeviceAlarm.FindAll(i => i.AlarmTimeStamp >= startStamp && i.AlarmTimeStamp <= endStamp);
                     }
                 }
 
@@ -696,22 +761,21 @@ namespace LocationServices.Locations
                 }
                 else if (arg.Level == 0 && !isAllType)
                 {
-                    int typeCode = DevTypeHelper.GetTypeCode(arg.DevTypeName);
-                    alarms1 = alarms1.FindAll(i => i.DevInfo.Local_TypeCode == typeCode);
+                    Dictionary<string,string>CodeTypeDic = DevTypeHelper.GetTypeCode(arg.DevTypeName);
+                    alarms1 = alarms1.FindAll(i => i.DevInfo!=null&&CodeTypeDic.ContainsKey(i.DevInfo.Local_TypeCode.ToString()));
                 }
                 else if (!isAllType && arg.Level != 0)
                 {
                     Abutment_DevAlarmLevel level = (Abutment_DevAlarmLevel)arg.Level;
-                    int typeCode = DevTypeHelper.GetTypeCode(arg.DevTypeName);
-
-                    alarms1 = alarms1.FindAll(i => i.Level == level && i.DevInfo.Local_TypeCode == typeCode);
+                    Dictionary<string, string> CodeTypeDic = DevTypeHelper.GetTypeCode(arg.DevTypeName);
+                    alarms1 = alarms1.FindAll(i => i.Level == level && i.DevInfo != null && CodeTypeDic.ContainsKey(i.DevInfo.Local_TypeCode.ToString()));
                 }
 
                 if (alarms1 == null || alarms1.Count==0) return new DeviceAlarmInformation();
 
                 alarms1.Sort();
 
-                DeviceAlarmInformation devAlarmInfo = GetAlarmPage(arg, alarms1);
+                DeviceAlarmInformation devAlarmInfo = GetDeviceAlarmPage(arg, alarms1);
                 TimeSpan time = DateTime.Now - start;
                 SetAlarmDev(allDevDict, devAlarmInfo.devAlarmList);
 
@@ -763,7 +827,7 @@ namespace LocationServices.Locations
         /// <param name="arg"></param>
         /// <param name="list"></param>
         /// <param name="DevAlarmLevelList"></param>
-        public DeviceAlarmInformation GetAlarmPage(AlarmSearchArg arg, List<DbModel.Location.Alarm.DevAlarm> list)
+        public DeviceAlarmInformation GetDeviceAlarmPage(AlarmSearchArg arg, List<DbModel.Location.Alarm.DevAlarm> list)
         {
             DeviceAlarmInformation devAlarmInfo = new DeviceAlarmInformation();
             if (list == null || list.Count == 0) return devAlarmInfo;
@@ -800,6 +864,45 @@ namespace LocationServices.Locations
             return devAlarmInfo;
         }
 
+        /// <summary>
+        /// 定位告警历史，获取对应切页
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public LocationAlarmInformation GetLocationAlarmPage(AlarmSearchArg arg, List<Location.TModel.Location.Alarm.LocationAlarm> list)
+        {
+            LocationAlarmInformation locationAlarmInfo = new LocationAlarmInformation();
+            if (list == null || list.Count == 0) return locationAlarmInfo;
+
+            locationAlarmInfo.locationAlarmList = new List<LocationAlarm>();
+            var LocationAlarmlist = locationAlarmInfo.locationAlarmList;
+            if (list.Count == 0)
+            {
+                locationAlarmInfo.Total = 1;
+            }
+            else
+            {
+                if (arg.Page != null)
+                {
+                    int maxPage = (int)Math.Ceiling((double)list.Count / (double)arg.Page.Size);
+                    locationAlarmInfo.Total = maxPage;
+                    if (arg.Page.Number > maxPage)
+                    {
+                        arg.Page.Number = maxPage - 1;
+                    }
+                    var queryData = list.Skip(arg.Page.Size * arg.Page.Number).Take(arg.Page.Size);
+                    var resultList = queryData.ToList();
+                    LocationAlarmlist.AddRange(resultList);
+                }
+                else
+                {
+                    LocationAlarmlist.AddRange(list);
+                }
+            }
+            locationAlarmInfo.SetEmpty();
+            return locationAlarmInfo;
+        }
         //int DevAlarmTotal = 0;
         /// <summary>
         /// 筛选设备告警等级和设备类型
@@ -900,6 +1003,24 @@ namespace LocationServices.Locations
             return page;
         }
 
+       
+        /// <summary>
+        /// 根据Id号删除指定定位告警
+        /// </summary>
+        /// <param name="id"></param>
+        public bool DeleteSpecifiedLocationAlarm(int id)
+        {
+            BLL.Bll bll = new BLL.Bll(false, true, true);
+            BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
+            return ab.DeleteSpecifiedLocationAlarm(id);
+        }
+
+        public bool DeleteLocationAlarmByIdList(List<int> ids)
+        {
+            BLL.Bll bll = new BLL.Bll(false, true, true);
+            BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
+            return ab.DeleteLocationAlarmByIdList(ids);
+        }
 
         public List<Archor> GetArchors()
         {
@@ -1402,9 +1523,6 @@ namespace LocationServices.Locations
             //Linq
             var list1 = query.ToList();
 
-
-
-
             //List<DbModel.Location.Alarm.DevAlarm> list2 = db.DevAlarms.Where(p =>
             //         p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
             //   .ToList();
@@ -1442,8 +1560,6 @@ namespace LocationServices.Locations
             statistics.itemList.Add("SIS");
             //statistics.itemList.Add("人员定位");
             statistics.itemList.Add("其他");
-
-
             foreach (Abutment_DevAlarmSrc item in lstSrc)
             {
                 List<string> lstGet = list1.Where(p => p.Src == item).Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
@@ -1455,7 +1571,6 @@ namespace LocationServices.Locations
 
                 StaticCountLines(strName, lstGet, true, ref statistics);
             }
-
             if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
             {
                 statistics.DevTypeAlarms = null;
@@ -1470,7 +1585,6 @@ namespace LocationServices.Locations
             {
                 statistics.itemList = null;
             }
-
             statistics.Sort();
             string GetDevAlarm = (DateTime.Now - GetDevT).TotalSeconds + " s";
             return statistics;
@@ -1478,6 +1592,10 @@ namespace LocationServices.Locations
 
         public AlarmStatistics GetLocationAlarmStatistics(SearchArg arg)
         {
+            if (allLocationAlarmHistory == null)
+            {
+                RefreshDeviceAlarmBuffer(LogTags.DbGet);
+            }
 
             long timeStampStart = 0;
             long timeStampEnd = long.MaxValue;
@@ -1496,17 +1614,19 @@ namespace LocationServices.Locations
             }
 
             //历史告警
-            List<DbModel.LocationHistory.Alarm.LocationAlarmHistory> list = db.LocationAlarmHistorys.Where(p =>
-                      p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
-                .ToList();
+            //List<DbModel.LocationHistory.Alarm.LocationAlarmHistory> 
+            var list = allLocationAlarmHistory.Where(p =>
+                     p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd);
+            RefreshLocationAlarmDic(list);
 
             List<int> listPersonnelId = list.Select(p => p.PersonnelId).Distinct().ToList();
             var persons = db.Personnels.ToDictionary();
             AlarmStatistics statistics = new AlarmStatistics();
-
             foreach (int PersonnelId in listPersonnelId)
             {
-                int nCount = list.Where(p => p.PersonnelId == PersonnelId).Count();
+                int nCount = 0;
+                locationAlarmsDic.TryGetValue(PersonnelId,out nCount);
+                //int nCount = list.Where(p => p.PersonnelId == PersonnelId).Count();
                 string strName = "";
                 if (persons.ContainsKey(PersonnelId))
                 {
@@ -1519,11 +1639,8 @@ namespace LocationServices.Locations
 
                 statistics.AddTypeCount(strName, nCount);
             }
-
-
             List<string> lstGet = list.Select(s => s.AlarmTime.ToString("yyyy-MM-dd")).ToList();
             StaticCountLines("全部", lstGet, false, ref statistics);
-
             if (statistics.DevTypeAlarms != null && statistics.DevTypeAlarms.Count() == 0)
             {
                 statistics.DevTypeAlarms = null;
@@ -1538,10 +1655,25 @@ namespace LocationServices.Locations
             {
                 statistics.itemList = null;
             }
-
             statistics.Sort();
             return statistics;
+        }
 
+        private void RefreshLocationAlarmDic(IEnumerable<DbModel.LocationHistory.Alarm.LocationAlarmHistory>alarmListT)
+        {
+            if (locationAlarmsDic != null && locationAlarmsDic.Count > 0) return;
+            locationAlarmsDic = new Dictionary<int, int>();
+            foreach(var item in alarmListT)
+            {
+                if(locationAlarmsDic.ContainsKey(item.PersonnelId))
+                {
+                    locationAlarmsDic[item.PersonnelId] += 1;
+                }
+                else
+                {
+                    locationAlarmsDic.Add(item.PersonnelId,1);
+                }
+            }
         }
 
         private void StaticCountLines(string strName, List<string> lstGet, bool addTypeCount, ref AlarmStatistics statistics)

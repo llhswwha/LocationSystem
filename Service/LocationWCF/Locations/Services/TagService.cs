@@ -12,6 +12,7 @@ using DbModel.Location.Authorizations;
 using BLL.Tools;
 using DbModel.Location.Data;
 using Location.BLL.Tool;
+using Location.TModel.Location.AreaAndDev;
 
 namespace LocationServices.Locations.Services
 {
@@ -26,6 +27,12 @@ namespace LocationServices.Locations.Services
         IList<TEntity> GetListByRole(string role);
 
         TEntity SetRole(string id, string role);
+
+        bool EditTag(TEntity tag);
+
+        bool EditTagById(TEntity Tag, int? id);
+
+        bool DeleteTag(int id);
     }
     public class TagService : ITagService
     {
@@ -286,6 +293,40 @@ namespace LocationServices.Locations.Services
                 Log.Error(tag, "SetRole", "Exceptioin:" + ex);
                 return null;
             }
+        }
+
+        public bool EditTag(TEntity tag)
+        {
+            var service = new TagService(db);
+            var entity = service.Put(tag);
+            return entity != null;
+        }
+
+        public bool EditTagById(TEntity Tag, int? id)
+        {
+            bool bReturn = false;
+            var lc = db.LocationCards.FirstOrDefault(p => p.Code == Tag.Code);
+            if (lc == null)
+            {
+                lc = Tag.ToDbModel();
+                lc.Abutment_Id = id;
+                bReturn = db.LocationCards.Add(lc);
+            }
+            else
+            {
+                lc.Name = Tag.Name;
+                lc.Describe = Tag.Describe;
+                lc.Abutment_Id = id;
+                lc.IsActive = Tag.IsActive;
+                bReturn = db.LocationCards.Edit(lc);
+            }
+
+            return bReturn;
+        }
+
+        public bool DeleteTag(int id)
+        {
+            return new TagService(db).Delete(id + "") != null;
         }
     }
 }

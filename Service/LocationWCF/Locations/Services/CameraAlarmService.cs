@@ -29,6 +29,8 @@ namespace LocationServices.Locations.Services
         List<CameraAlarmInfo> GetCameraAlarms(string ip, bool merge);
 
         CameraAlarmInfo GetCameraAlarm(int id);
+
+        bool GetBool();
     }
 
     public class CameraAlarmService: ICameraAlarmService
@@ -38,7 +40,6 @@ namespace LocationServices.Locations.Services
         public CameraAlarmService()
         {
             db = Bll.NewBllNoRelation();
-            CameraAlarmService service = new CameraAlarmService();
         }
      
 
@@ -99,7 +100,6 @@ namespace LocationServices.Locations.Services
                         //cameraAlarmInfo.pic_data = "";//在详情的地方获取
                         //
                         //cameraAlarmInfo.data = null;
-
                         CameraAlarmInfo cameraAlarmInfo = GetCamaraAlarmInfo(cameraJson, cameraDict, devs);
                         //string key = cameraAlarmInfo.cid + cameraAlarmInfo.cid_url + "";//用key和
 
@@ -291,6 +291,7 @@ namespace LocationServices.Locations.Services
             {
                 byte[] byte1 = camera.Json;
                 string json = Encoding.UTF8.GetString(byte1);
+                int id = camera.Id;
                 CameraAlarmInfo cameraAlarmInfo = CameraAlarmInfo.Parse(json);
                 cameraAlarmInfo.id = camera.Id;//增加了id,这样能够获取到详情
                 cameraAlarmInfo.pic_data = "";//在详情的地方获取
@@ -514,6 +515,10 @@ namespace LocationServices.Locations.Services
         public FileInfo[] GetAllPictureFiles()
         {
             string dir = AppSetting.CameraAlarmPicSaveDir;
+            if (dir == null || dir == "")
+            {
+                return null;
+            }
             DirectoryInfo dirInfo = new DirectoryInfo(dir);
             if (!dirInfo.Exists)
             {
@@ -936,16 +941,25 @@ namespace LocationServices.Locations.Services
 
         private static void Base64SaveToFile(string picName, string base64)
         {
-            string dir = AppSetting.CameraAlarmPicSaveDir;
-            DirectoryInfo dirInfo = new DirectoryInfo(dir);
-            if (dirInfo.Exists == false)
+            try
             {
-                dirInfo.Create();
+                string dir = AppSetting.CameraAlarmPicSaveDir;
+                DirectoryInfo dirInfo = new DirectoryInfo(dir);
+                if (dirInfo.Exists == false)
+                {
+                    dirInfo.Create();
+                }
+                string filePath = dir + "\\" + picName;
+                base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
+                byte[] bytes = Convert.FromBase64String(base64);
+                System.IO.File.WriteAllBytes(filePath, bytes);
             }
-            string filePath = dir + "\\" + picName;
-            base64 = base64.Replace("data:image/png;base64,", "").Replace("data:image/jgp;base64,", "").Replace("data:image/jpg;base64,", "").Replace("data:image/jpeg;base64,", "");//将base64头部信息替换
-            byte[] bytes = Convert.FromBase64String(base64);
-            System.IO.File.WriteAllBytes(filePath, bytes);
+            catch (Exception e)
+            {
+                Log.Error("CameraAlarmService.Save.Error:"+e.ToString());
+            }
+
+            return;
         }
 
         private static void PictureSaveFile(Picture pic)
@@ -1023,6 +1037,11 @@ namespace LocationServices.Locations.Services
 
             DateTime now = GetDataTime(info.time_stamp);
             FileInfo fi = CameraAlarmService.GetJsonFile(now);
+        }
+
+        public bool GetBool()
+        {
+            return true;
         }
     }
 }

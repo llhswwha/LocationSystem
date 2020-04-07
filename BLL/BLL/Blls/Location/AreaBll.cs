@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using DAL;
 using DbModel.Location.AreaAndDev;
+using Location.BLL.Tool;
 
 namespace BLL.Blls.Location
 {
@@ -123,5 +128,53 @@ namespace BLL.Blls.Location
 
             return lst;
         }
+
+        //public override bool Edit(Area newArea, bool isSave = true)
+        //{
+        //    try
+        //    {
+        //        ErrorMessage = "";
+        //        if (DbSet == null) return false;
+
+        //        var bound = newArea.InitBound;
+
+        //        newArea.InitBound = null;
+
+        //        //RemoveHoldingEntityInContext(entity);//不知道为什么不起效果
+        //        DbEntityEntry<Area> entryArea = Db.Entry<Area>(newArea);
+        //        var state1 = entryArea.State;
+
+        //        entryArea.State = EntityState.Modified;
+               
+        //        var state2 = entryArea.State;
+        //        var result = Save(isSave);
+        //        ObjectContext objContext = ((IObjectContextAdapter)Db).ObjectContext;
+        //        objContext.Detach(newArea);//修改完后就从Context中删除
+
+        //        var state3 = entryArea.State;
+
+        //        if (bound != null)
+        //        {
+        //            DbEntityEntry<Bound> entryBound = Db.Entry<Bound>(bound);
+        //            var state12 = entryBound.State;
+
+        //            entryBound.State = EntityState.Modified;
+
+        //            var result2 = Save(isSave);
+        //            var state22 = entryBound.State;
+
+        //            objContext.Detach(bound);//修改完后就从Context中删除
+        //            var state33 = entryBound.State;
+        //        }
+
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("BaseBll.Edit", ex);
+        //        ErrorMessage = ex.ToString();
+        //        return false;
+        //    }
+        //}
     }
 }

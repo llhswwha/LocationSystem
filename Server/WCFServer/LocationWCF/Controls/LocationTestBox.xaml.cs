@@ -58,7 +58,8 @@ namespace LocationServer
             int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineClient == null)
             {
-                EngineLogin login=new EngineLogin("127.0.0.1",2323, "192.168.10.155",3456);
+
+                 EngineLogin login=new EngineLogin("127.0.0.1",2323, 2324, "192.168.10.155",3456, 1994);
                 engineClient = PositionEngineClient.Instance();
                 engineClient.Logs = Logs;
                 engineClient.MockCount = mockCount;

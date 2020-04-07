@@ -727,6 +727,18 @@
   <wsdl:message name="ILocationService_GetDeviceAlarmsPage_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDeviceAlarmsPageResponse" />
   </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteSpecifiedLocationAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSpecifiedLocationAlarm" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_DeleteSpecifiedLocationAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSpecifiedLocationAlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_TestIddd_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestIddd" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_TestIddd_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestIdddResponse" />
+  </wsdl:message>
   <wsdl:message name="ILocationService_GetPostList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPostList" />
   </wsdl:message>
@@ -774,6 +786,12 @@
   </wsdl:message>
   <wsdl:message name="ILocationService_Getinspectionhistorylist_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetinspectionhistorylistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetInspectionHistoryById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInspectionHistoryById" />
+  </wsdl:message>
+  <wsdl:message name="ILocationService_GetInspectionHistoryById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInspectionHistoryByIdResponse" />
   </wsdl:message>
   <wsdl:message name="ILocationService_GetorgList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetorgList" />
@@ -1594,6 +1612,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsPage" message="tns:ILocationService_GetDeviceAlarmsPage_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/GetDeviceAlarmsPageResponse" message="tns:ILocationService_GetDeviceAlarmsPage_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DeleteSpecifiedLocationAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/DeleteSpecifiedLocationAlarm" message="tns:ILocationService_DeleteSpecifiedLocationAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/DeleteSpecifiedLocationAlarmResponse" message="tns:ILocationService_DeleteSpecifiedLocationAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestIddd">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAlarmService/TestIddd" message="tns:ILocationService_TestIddd_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAlarmService/TestIdddResponse" message="tns:ILocationService_TestIddd_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPostList">
       <wsdl:input wsaw:Action="http://tempuri.org/IPostService/GetPostList" message="tns:ILocationService_GetPostList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPostService/GetPostListResponse" message="tns:ILocationService_GetPostList_OutputMessage" />
@@ -1625,6 +1651,10 @@
     <wsdl:operation name="Getinspectionhistorylist">
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" message="tns:ILocationService_Getinspectionhistorylist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetinspectionhistorylistResponse" message="tns:ILocationService_Getinspectionhistorylist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInspectionHistoryById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetInspectionHistoryById" message="tns:ILocationService_GetInspectionHistoryById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBaseDataService/GetInspectionHistoryByIdResponse" message="tns:ILocationService_GetInspectionHistoryById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetorgList">
       <wsdl:input wsaw:Action="http://tempuri.org/IBaseDataService/GetorgList" message="tns:ILocationService_GetorgList_InputMessage" />
@@ -2909,6 +2939,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeleteSpecifiedLocationAlarm">
+      <soap:operation soapAction="http://tempuri.org/IAlarmService/DeleteSpecifiedLocationAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestIddd">
+      <soap:operation soapAction="http://tempuri.org/IAlarmService/TestIddd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostList">
       <soap:operation soapAction="http://tempuri.org/IPostService/GetPostList" style="document" />
       <wsdl:input>
@@ -2974,6 +3022,15 @@
     </wsdl:operation>
     <wsdl:operation name="Getinspectionhistorylist">
       <soap:operation soapAction="http://tempuri.org/IBaseDataService/Getinspectionhistorylist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInspectionHistoryById">
+      <soap:operation soapAction="http://tempuri.org/IBaseDataService/GetInspectionHistoryById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

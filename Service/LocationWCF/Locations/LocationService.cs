@@ -912,6 +912,28 @@ namespace LocationServices.Locations
             UnitySetting setting = XmlSerializeHelper.LoadFromFile<UnitySetting>(path);
             return setting;
         }
+        /// <summary>
+        /// 获取详细的Unity设置（把三维的设置，放在服务端webgl）
+        /// </summary>
+        /// <returns></returns>
+        public SystemSetting GetUnitySystemSetting()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\SystemSetting.xml";
+            SystemSetting setting = XmlSerializeHelper.LoadFromFile<SystemSetting>(path);
+            return setting;
+        } 
 
+        public bool SaveUnitySystemSetting(SystemSetting setting)
+        {
+            try
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "\\SystemSetting.xml";
+                XmlSerializeHelper.Save(setting, path);
+                return true;
+            }catch(Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

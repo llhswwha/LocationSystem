@@ -160,5 +160,30 @@ namespace DbModel.CADEntitys
             }
             return closet;
         }
+
+        public void SortByXY()
+        {
+            this.Sort((a, b) =>
+            {
+                CADPoint p1 = a.GetPoint();
+                CADPoint p2 = b.GetPoint();
+                if (p1 != null && p2 != null)
+                {
+                    int r1= p1.X.CompareTo(p2.X);
+                    if (r1 == 0)
+                    {
+                        return p1.Y.CompareTo(p2.Y);
+                    }
+                    else
+                    {
+                        return r1;
+                    }
+                }
+                else
+                {
+                    return a.Num.CompareTo(b.Num);
+                }
+            });
+        }
     }
 }

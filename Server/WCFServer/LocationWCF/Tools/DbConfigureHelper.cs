@@ -78,7 +78,9 @@ namespace LocationServer.Tools
 
                 var archors_list = ArchorHelper.LoadArchoDevInfo().ArchorList;//清单文件
                 Log.Info(tag, "archors_engine");
-                var archors_engine = bll.bus_anchors.ToList().FindAll(i => i.enabled == 1);//引擎数据
+                var archors_engine0 = bll.bus_anchors.ToList();
+                var archors_engine1 = archors_engine0.FindAll(i => i.enabled != 1);//引擎数据
+                var archors_engine = archors_engine0.FindAll(i => i.enabled == 1);//引擎数据
                 Log.Info(tag, "archorConfig_engine");
                 var archorConfig_engine = bll.bus_anchor_config.ToList().FindAll(i => i.net_gate != null);
                 Log.Info(tag, "devs_ms_all");
@@ -134,9 +136,11 @@ namespace LocationServer.Tools
 
                             var p1 = areas_ms[pid];
                             var p2 = areas_my_list.Find(i => i.Path == p1.Path);
-
-                            dev.ParentId = p2.Id;
-                            item.ParentId = p2.Id;
+                            if(p2!=null)
+                            {
+                                dev.ParentId = p2.Id;
+                                item.ParentId = p2.Id;
+                            }                         
                         }
                     }
                 }

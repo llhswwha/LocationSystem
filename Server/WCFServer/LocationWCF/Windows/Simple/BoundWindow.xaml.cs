@@ -29,14 +29,30 @@ namespace LocationServer.Windows.Simple
             InitializeComponent();
         }
 
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var bll = AppContext.GetLocationBll();
+            var bll = BLL.Bll.NewBllNoRelation();
             bll.Bounds.Edit(Area.InitBound.ToDbModel());
+
+            var service = new AreaService();
+            Area.IsRelative = Area.InitBound.IsRelative;
+            Area.SetTransformM();
+            var area = service.Put(Area);
+
+            if (AreaModified != null)
+            {
+                AreaModified(Area);
+            }
+            if(area!=null)
+            {
+                MessageBox.Show("保存成功！", "边界保存", MessageBoxButton.OK);
+            }
         }
 
         //public Bound Bound { get; set; }
         public PhysicalTopology Area { get; internal set; }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -49,11 +65,11 @@ namespace LocationServer.Windows.Simple
             var bound = Area.InitBound;
             if (bound == null)
             {
-                if (MessageBox.Show("不存在边界信息，是否创建","初始化", MessageBoxButton.YesNo)== MessageBoxResult.Yes)
+                if (MessageBox.Show("不存在边界信息，是否创建", "初始化", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     var bll = AppContext.GetLocationBll();
                     var dbBound = new DbModel.Location.AreaAndDev.Bound();
-                    bool r=bll.Bounds.Add(dbBound);
+                    bool r = bll.Bounds.Add(dbBound);
                     if (r)
                     {
                         var dbArea = Area.ToDbModel();
@@ -73,7 +89,7 @@ namespace LocationServer.Windows.Simple
                     {
                         MessageBox.Show("添加Bound失败");
                     }
-                    
+
                 }
                 else
                 {
@@ -114,19 +130,19 @@ namespace LocationServer.Windows.Simple
         private void MenuAdd_Click(object sender, RoutedEventArgs e)
         {
             var bound = Area.InitBound;
-            
+
 
             //var point = ListBox1.SelectedItem as Location.TModel.Location.AreaAndDev.Point;
             var point = new Point();
             var win = new ItemInfoWindow(point);
             win.SaveEvent += (w, p) =>
             {
-                var p1=p as Point;
+                var p1 = p as Point;
                 var bll = AppContext.GetLocationBll();
-                var r=new AreaService(bll).AddPoint(Area,p1);
+                var r = new AreaService(bll).AddPoint(Area, p1);
                 return r != null;
             };
-            if (win.ShowDialog()==true)
+            if (win.ShowDialog() == true)
             {
                 DrawArea();
             }
@@ -181,8 +197,10 @@ namespace LocationServer.Windows.Simple
             var bound = Area.InitBound;
 
             //bound.ModifSize(pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
+            //AreaService areaService = new AreaService();
+            bool r = new AreaService().ModifySize(bound, pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
 
-            bool r=new AreaService().ModifySize(bound,pcCenter.X, pcCenter.Y, pcSize.X, pcSize.Y);
+
             if (r == false)
             {
                 MessageBox.Show("修改失败");

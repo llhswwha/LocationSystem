@@ -19,6 +19,10 @@
                 <MenuItem Header="MySql更新设备、门禁、消防设备信息" Name="MenuInitMySqlNoramlDev" Click="MenuInitMySqlNoramlDev_Click"></MenuItem>
                 <MenuItem Header="Sqlite" Name="MenuInitSqlite" Click="MenuInitSqlite_Click"></MenuItem>
                 <MenuItem Header="MySql清除重复门禁、摄像头设备信息" Name="MenuClearRepeatDev" Click="MenuClearRepeatDev_Click"></MenuItem>
+                <MenuItem Header="基站坐标导入" Name="MenuArchorSettingImport" Click="MenuArchorSettingImport_OnClick"></MenuItem>
+
+
+                <MenuItem Header="MySql清除低电告警信息" Name="MenuClearPowerAlarm" Click="MenuClearPowerAlarm_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="读取数据">
                 <MenuItem Header="1.区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
@@ -52,6 +56,7 @@
                 <MenuItem Header="保存室外基站位置" Name="MenuSaveOutArchorPoints" Click="MenuSaveOutArchorPoints_Click"></MenuItem>
                 <MenuItem Header="读取基站CAD信息" Name="MenuLoadCADArchorList" Click="MenuLoadCADArchorList_OnClick"></MenuItem>
                 <MenuItem Header="新增设备模型信息" Name="MenuLoadDevTypeModelList" Click="MenuLoadDevTypeModelList_OnClick"></MenuItem>
+                <MenuItem Header="完善设备Ip信息" Name="MenuAddDevInfoIp" Click="MenuAddDevInfoIp_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="新数据">
                 <MenuItem Header="照片" Name="MenuInitPic" Click="MenuInitPic_Click"></MenuItem>

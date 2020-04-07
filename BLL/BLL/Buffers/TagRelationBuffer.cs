@@ -24,6 +24,7 @@ namespace BLL
         private Area parkArea;//园区区域
         private Bll bll;
         private Dictionary<string, LocationCard> locationCardDic;
+        private List<Department> departments;
 
         private static TagRelationBuffer Single = null;
 
@@ -396,64 +397,42 @@ namespace BLL
                     boundAreas.Add(item);
                 }
             }
-            //boundAreas.Add(area);
-
             foreach (var boundArea in boundAreas)
-            {
+            {               
                 if (boundArea.InitBound.Contains(pos.X, pos.Z))
                 {
-                    containsAreas.Add(boundArea);
+                    //以前只考虑园区->区域->建筑结构，现在还会有园区->建筑->楼层。如果是楼层，在这里就要细分是哪一层
+                    bool isFloor= boundArea.Type == AreaTypes.楼层;
+                    if (isFloor)
+                    {
+                        if (pos.Y >= boundArea.InitBound.MinZ && pos.Y < boundArea.InitBound.MaxZ)
+                        {
+                            containsAreas.Add(boundArea);
+                        }
+                    }
+                    else
+                    {
+                        containsAreas.Add(boundArea);
+                    }                   
                 }
-
-                //if (boundArea.InitBound.ContainsSimple(pos.X, pos.Z))
-                //{
-                //    containsAreas.Add(boundArea);
-                //}
             }
-
             Area inArea = null;
             //todo:加上建筑外的区域
             if (containsAreas.Count > 0)
             {
-                ////inArea = containsAreas[0];
-                ////pos.SetArea(inArea);
-                //if (containsAreas.Count == 1)
-                //{
-                //    inArea = containsAreas[0];
-                //}
-                //else
-                //{
-                //    Area areaT = containsAreas.Find((i) => i.IsOnLocationArea == true);
-                //    if (areaT == null)
-                //    {
-                //        //pos.SetArea(containsAreas[0]);
-                //        areaT = containsAreas[0];
-                //    }
-                //    inArea = areaT;
-                //}
-                //pos.SetArea(inArea);//同时处于一个告警区域和一个定位区域时 人员区域怎么判断？ 同时处于两个区域时 人员区域怎么判断?
-
                 var areaNode = containsAreas.Find(i => i.Type != AreaTypes.范围);
                 if (areaNode == null)
                 {
                     containsAreas.Add(park);
-                    if (pos.Code == "092D" && pos.AreaId == 2)
-                    {
-                        int i = 0;
-                    }
                 }
                 inArea=pos.SetArea(containsAreas.ToArray());
             }
             if (inArea == null)
             {
-                if (park.InitBound.Contains(pos.X, pos.Z))
+                if (park.InitBound!=null&&park.InitBound.Contains(pos.X, pos.Z))
                 {
                     inArea = park;
                     pos.SetArea(inArea);
-                    if (pos.Code == "092D" && pos.AreaId == 2)
-                    {
-                        int i = 0;
-                    }
                 }
             }
             if (inArea == null)
@@ -508,7 +487,14 @@ namespace BLL
             LocationCard tag = new LocationCard();
             tag.Name = pos.Code;
             tag.Code = pos.Code;
+            CardRole role = roles.Find(p => p.Name == "管理人员");
+            if (role == null)
+            {
+                role = roles[0];
+            }
+
             tag.CardRoleId = roles[0].Id;
+
             bool r1 = bll.LocationCards.Add(tag);
 
             pos.CardId = tag.Id;
@@ -529,7 +515,29 @@ namespace BLL
         {
             Personnel person = new Personnel();
             person.Name = "Tag_" + pos.Code;
-            person.ParentId = 6;//访客
+            if (departments == null || departments.Count == 0)
+            {
+                departments = bll.Departments.ToList();
+            }
+
+            if (departments == null || departments.Count == 0)
+            {
+                return null;
+            }
+
+            Department dp = departments.Find(p=>p.Name == "访客");
+            if (dp == null)
+            {
+                dp = departments.Find(p => p.Name == "未绑定");
+            }
+
+            if (dp == null)
+            {
+                dp = departments[0];
+            }
+
+            person.ParentId = dp.Id;//访客
+
             bool r2 = bll.Personnels.Add(person);
 
             if (r2)

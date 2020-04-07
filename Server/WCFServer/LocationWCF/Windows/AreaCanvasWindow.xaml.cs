@@ -271,21 +271,24 @@ namespace LocationServer
         private void Win_AreaModified(AreaEntity obj)
         {
             LoadData();
-            foreach(DevEntity leaf in obj.LeafNodes)
+            if (obj.LeafNodes != null)
             {
-                if (leaf.TypeName == "基站")
+                foreach (DevEntity leaf in obj.LeafNodes)
                 {
-                    var newDevRect = AreaCanvas1.GetDev(leaf.Id);
-                    Window wnd = SetDevInfo(newDevRect, newDevRect.Tag as DevEntity,false);
-                    if (wnd is RoomArchorSettingWindow)
+                    if (leaf.TypeName == "基站")
                     {
-                        (wnd as RoomArchorSettingWindow).SaveInfo(false);
+                        var newDevRect = AreaCanvas1.GetDev(leaf.Id);
+                        Window wnd = SetDevInfo(newDevRect, newDevRect.Tag as DevEntity, false);
+                        if (wnd is RoomArchorSettingWindow)
+                        {
+                            (wnd as RoomArchorSettingWindow).SaveInfo(false);
+                        }
+                        if (wnd is ParkArchorSettingWindow)
+                        {
+                            (wnd as ParkArchorSettingWindow).SaveInfo(false);
+                        }
+                        //wnd.Close();
                     }
-                    if (wnd is ParkArchorSettingWindow)
-                    {
-                        (wnd as ParkArchorSettingWindow).SaveInfo(false);
-                    }
-                    //wnd.Close();
                 }
             }
         }
@@ -736,7 +739,12 @@ namespace LocationServer
             {
                 foreach (var item in persons)
                 {
-                    var pos = posList.FirstOrDefault(i => i.Tag == item.Tag.Code);
+                    if (item == null) continue;
+                    if(item.Tag==null)
+                    {
+                        continue;
+                    }
+                    var pos = posList.FirstOrDefault(i => i!=null && i.Tag == item.Tag.Code);
                     item.Pos = pos;
                 }
                 AreaCanvas1.ShowPersons(persons);
@@ -837,10 +845,18 @@ namespace LocationServer
 
         private void TabControl1_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TabControl1.SelectedIndex == 2)
+            try
             {
-                ArchorListExportControl1.LoadData(currentArea.Id);
-                TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+                if (TabControl1.SelectedIndex == 2)
+                {
+                    if (currentArea != null)
+                        ArchorListExportControl1.LoadData(currentArea.Id);
+                    TabControl1.SelectionChanged -= TabControl1_OnSelectionChanged;
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
             }
         }
 
@@ -886,8 +902,10 @@ namespace LocationServer
                 EngineLogin login = new EngineLogin();
                 login.LocalIp = "127.0.0.1";
                 login.LocalPort = 2323;
+                login.LocalPort2 = 2324;
                 login.EngineIp = "127.0.0.1";
                 login.EnginePort = 3456;
+                login.EnginePort2 = 1994;
                 if (login.Valid() == false)
                 {
                     MessageBox.Show("本地Ip和对端Ip必须是同一个Ip段的");

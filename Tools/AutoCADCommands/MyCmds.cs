@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using DbModel.CADEntitys;
 using Dreambuild.AutoCAD;
+using Location.Model.InitInfos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -287,6 +288,7 @@ namespace AutoCADCommands
         {
             //var p = Interaction.GetPoint("StartPoint");
             var entityId = Interaction.GetEntity("StartLine");
+            if (entityId == null) return;
             var sp = entityId.ToCADShape(true);
             
         }
@@ -326,6 +328,89 @@ namespace AutoCADCommands
                     }
                 }
             }
+        }
+
+
+
+        /// <summary>
+        /// 获取机房坐标，创建机房区域
+        /// </summary>
+        [CommandMethod("GetRooms")]
+        public static void GetRooms()
+        {
+            GetRoomsCommand.GetRoomsInfo();
+        }
+
+        /// <summary>
+        /// 获取初始化信息，只有一个楼层的简单环境，直接用这个
+        /// </summary>
+        [CommandMethod("GetInitInfo")]
+        public static void GetInitInfo()
+        {
+            GetRoomsCommand.GetInitInfo();
+        }
+
+        /// <summary>
+        /// 获取机房坐标，创建机房区域
+        /// </summary>
+        [CommandMethod("GetRoomsEx")]
+        public static void GetRoomsEx()
+        {
+            GetRoomsCommand.GetRoomsInfoEx();
+        }
+
+        /// <summary>
+        /// 获取初始化信息，只有一个楼层的简单环境，直接用这个
+        /// </summary>
+        [CommandMethod("GetInitInfoEx")]
+        public static void GetInitInfoEx()
+        {
+            GetRoomsCommand.GetInitInfoEx();
+        }
+
+        /// <summary>
+        /// 获取两点之间的文字，测试用与获取房间名称
+        /// </summary>
+        [CommandMethod("GetText")]
+        public static void GetText()
+        {
+            var p1 = Interaction.GetPoint("坐标1");
+            var p2 = Interaction.GetPoint("坐标2");
+
+            string name = "";
+            string txt = "";
+            ObjectId[] objs=Interaction.GetCrossingSelection(p1, p2);
+            CADShapeList sps = new CADShapeList();
+            for (int i = 0; i < objs.Length; i++)
+            {
+                ObjectId item = objs[i];
+                var sp = item.ToCADShape(true);
+                sps.Add(sp);
+                txt += string.Format("{0}\n", sp);
+            }
+
+            sps.SortByXY();//按坐标排序
+            foreach (CADShape sp in sps)
+            {
+                if (sp.Text == "AC")
+                {
+                    continue; ;
+                }
+                name += sp.Text;
+            }
+
+            Gui.TextReport("名称:"+ name, txt, 700, 500);
+        }
+
+        [CommandMethod("ShowPoints")]
+        public static void ShowPoints()
+        {
+            var p1 = Interaction.GetPoint("坐标1");
+            var p2 = Interaction.GetPoint("坐标2");
+            Interaction.WriteLine(string.Format("({0} {1})", p1, p2));
+            PointInfo pi1 = GetRoomsCommand.GetPointInfo(p1);
+            PointInfo pi2 = GetRoomsCommand.GetPointInfo(p2);
+            Interaction.WriteLine(string.Format("({0} {1})", pi1, pi2));
         }
     }
 }

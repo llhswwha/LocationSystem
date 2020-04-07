@@ -14,8 +14,13 @@ namespace WebApiService.Controllers
     public class PhysicalTopologyController : ApiController, IPhysicalTopologyService
     {
         protected IPhysicalTopologyService service;
+
+        public PhysicalTopologyController()
+        {
+            service = new PhysicalTopologyService();
+        }
         [Route("add")]
-        [HttpPut]
+        [HttpPost]
         public PhysicalTopology AddMonitorRange(PhysicalTopology pt)
         {
             return service.AddMonitorRange(pt);
@@ -26,7 +31,7 @@ namespace WebApiService.Controllers
             return service.AddPhysicalTopology(item);
         }
         [Route("delete")]
-        [HttpDelete]
+        [HttpPost]
         public bool DeleteMonitorRange(PhysicalTopology pt)
         {
             return service.DeleteMonitorRange(pt);
@@ -57,47 +62,47 @@ namespace WebApiService.Controllers
         {
             return service.GetParkMonitorRange();
         }
-
+        [Route("")]
         public PhysicalTopology GetPhysicalTopology(string id, bool getChildren)
         {
             return service.GetPhysicalTopology(id,getChildren);
         }
-
+        [Route("")]
         public IList<PhysicalTopology> GetPhysicalTopologyList(int view)
         {
             return service.GetPhysicalTopologyList(view);
         }
-
+        [Route("")]
         public IList<PhysicalTopology> GetPhysicalTopologyListByName(string name)
         {
             return service.GetPhysicalTopologyListByName(name);
         }
-
+        [Route("")]
         public IList<PhysicalTopology> GetPhysicalTopologyListByPid(string id)
         {
             return service.GetPhysicalTopologyListByPid(id);
         }
-
+        [Route("")]
         public PhysicalTopology GetPhysicalTopologyTree(int view)
         {
             return service.GetPhysicalTopologyTree(view);
         }
-
+        [Route("")]
         public PhysicalTopology GetPhysicalTopologyTreeById(string id)
         {
             return service.GetPhysicalTopologyTreeById(id);
         }
-
+        [Route("")]
         public AreaNode GetPhysicalTopologyTreeNode(int view)
         {
             return service.GetPhysicalTopologyTreeNode(view);
         }
-
+        [Route("")]
         public IList<PhysicalTopology> GetSwitchAreas()
         {
             return service.GetSwitchAreas();
         }
-
+        [Route("")]
         public PhysicalTopology RemovePhysicalTopology(string id)
         {
             return service.RemovePhysicalTopology(id);

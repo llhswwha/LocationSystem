@@ -46,7 +46,9 @@ namespace LocationServices.Locations.Services
 
         public List<T> GetList()
         {
-            return dbSet.ToList();
+            var listTemp = dbSet.ToList();
+            if (listTemp == null || listTemp.Count == 0) return null;
+            else return listTemp;
         }
 
         public T Post(T item)

@@ -42,6 +42,11 @@ namespace WebApiService
             jsonSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("application/vnd.issue+json"));
+            jsonSettings.Converters.Add(
+                new Newtonsoft.Json.Converters.IsoDateTimeConverter()
+                {
+                    DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+                });
         }
     }
 }

@@ -66,10 +66,12 @@ namespace WebApiService.Controllers
         {
             return service.Getinspectionlist(dtBeginTime,dtBeginTime,bFlag);
         }
-        [Route("")]
+        [Route("track/trackId")]
+        [HttpPost]
         public InspectionTrack GetInspectionTrackById(InspectionTrack trackId)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return service.GetInspectionTrackById(trackId);
         }
         [Route("")]
         public List<Department> GetorgList()

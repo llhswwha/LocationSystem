@@ -87,6 +87,14 @@ namespace LocationServer
         public static int AnchorScanSendMode { get; set; }
         public static int RepeatDevInfoCheckInterval { get; set; }
         public static bool DebugMode { get; set; }
+        public static int ActiveFlag { get; set; }
+        public static int FaintFlag { get; set; }
+
+        public static string FaintRange { get; set; }
+
+        public static int FaintEffectiveTime { get; set; }
+        public static int FaintTimeInterval { get; set; }
+        public static int PositionPower { get; set; }
 
         public static Bll GetLocationBll()
         {

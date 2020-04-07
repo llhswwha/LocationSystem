@@ -24,6 +24,7 @@ namespace LocationServices.Locations.Services
 {
     public interface IDevService : ILeafEntityService<TEntity, TEntity>
     {
+
         /// <summary>
         /// 获取模型类型数量
         /// </summary>
@@ -240,12 +241,6 @@ namespace LocationServices.Locations.Services
 
         bool EditArchor(TModel.Location.AreaAndDev.Archor Archor, int ParentId);
 
-        /// <summary>
-        /// 添加基站信息，内含设备信息
-        /// </summary>
-        /// <param name="archor"></param>
-        /// <returns></returns>
-        bool AddArchor(TModel.Location.AreaAndDev.Archor archor);
         bool DeleteArchor(int archorId);
 
         /// <summary>
@@ -302,14 +297,6 @@ namespace LocationServices.Locations.Services
             ArchorSet = db.Archors;
         }
 
-        public bool AddArchor(TModel.Location.AreaAndDev.Archor archor)
-        {
-            if (archor.DevInfo != null)
-            {
-                archor.ParentId = archor.ParentId;
-            }
-            return ArchorSet.Add(archor.ToDbModel());
-        }
 
         public TModel.Location.AreaAndDev.Dev_CameraInfo AddCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo)
         {
@@ -633,11 +620,11 @@ namespace LocationServices.Locations.Services
             return posList.ToWCFList();
         }
 
-        public IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids)
+        public IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids)
         {
             try
             {
-                List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> devInfoList = new List<Location.TModel.Location.AreaAndDev.Dev_DoorAccess>();
+                List<Dev_DoorAccess> devInfoList = new List<Dev_DoorAccess>();
                 foreach (var pId in pids)
                 {
                     devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.ParentId != null && item.ParentId == pId).ToList().ToTModel());
@@ -721,12 +708,12 @@ namespace LocationServices.Locations.Services
             return db.Dev_CameraInfos.EditRange(db.Db, cameraInfoList.ToList().ToDbModel());
         }
 
-        public bool ModifyDevInfo(Location.TModel.Location.AreaAndDev.DevInfo devInfo)
+        public bool ModifyDevInfo(DevInfo devInfo)
         {
             return new DeviceService(db).Put(devInfo) != null;
         }
 
-        public bool ModifyDoorAccess(IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> doorAccessList)
+        public bool ModifyDoorAccess(IList<Dev_DoorAccess> doorAccessList)
         {
             return db.Dev_DoorAccess.EditRange(db.Db, doorAccessList.ToList().ToDbModel());
         }

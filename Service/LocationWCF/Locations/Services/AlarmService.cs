@@ -14,9 +14,10 @@ using Location.TModel.Location.AreaAndDev;
 using Location.TModel.Tools;
 using Location.BLL.Tool;
 using TModel.Location.AreaAndDev;
-using DbModel.Tools;
 using DbModel.Location.Alarm;
-using T_LocationAlarm=Location.TModel.Location.Alarm.LocationAlarm;
+using T_LocationAlarm = Location.TModel.Location.Alarm.LocationAlarm;
+using TModel.Tools;
+using DbModel.Tools;
 
 namespace LocationServices.Locations.Services
 {
@@ -29,6 +30,7 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         List<T_LocationAlarm> GetLocationAlarms(AlarmSearchArg arg);
 
+        LocationAlarmInformation GetLocationAlarmByArgs(AlarmSearchArg arg);
         /// <summary>
         /// 获取设备告警列表
         /// </summary>
@@ -37,6 +39,10 @@ namespace LocationServices.Locations.Services
         DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg);
 
         Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg);
+
+        bool DeleteSpecifiedLocationAlarm(int id);
+
+        bool DeleteLocationAlarm(List<int> idList);
     }
 
     public class AlarmService : IAlarmService
@@ -51,25 +57,28 @@ namespace LocationServices.Locations.Services
         /// <summary>
         /// //实现加载全部设备告警到内存中
         /// </summary>
-        public static void RefreshDeviceAlarmBuffer()
+        public static void RefreshAlarmBuffer()
         {
             //if (allAlarms == null)
             {
                 BLL.Bll bll = BLL.Bll.NewBllNoRelation();
                 allAlarms = bll.DevAlarms.ToList();
+                allLocationAlarmHistory = bll.LocationAlarmHistorys.ToList();
             }
         }
         public static List<DevAlarm> allAlarms;
+        public static List<DbModel.LocationHistory.Alarm.LocationAlarmHistory> allLocationAlarmHistory;
 
         public DeviceAlarmInformation GetDeviceAlarms(AlarmSearchArg arg)
         {
            
             if (allAlarms == null)
             {
-                RefreshDeviceAlarmBuffer();
+                RefreshAlarmBuffer();
             }
 
-            DeviceAlarmInformation DevAlarm = new DeviceAlarmInformation();
+            DeviceAlarmInformation DevAlarm = new DeviceAlarmInformation();          
+
             DateTime start = DateTime.Now;
             var devs = db.DevInfos.ToList().ToTModel();
             if (devs == null || devs.Count == 0) return null;
@@ -153,16 +162,13 @@ namespace LocationServices.Locations.Services
                 }
             }
          
-            DevAlarm.devAlarmList = new List<DeviceAlarm>();
-           
+            DevAlarm.devAlarmList = new List<DeviceAlarm>();            
             DeviceAlarmScreen(arg, alarms, DevAlarm.devAlarmList);
             DevAlarm.Total = DevAlarmTotal;
             
             TimeSpan time = DateTime.Now - start;
             DevAlarm.SetEmpty();
-            return DevAlarm;
-         
-           
+            return DevAlarm;                  
         }
         int DevAlarmTotal = 0;
         private void DeviceAlarmScreen(AlarmSearchArg arg, List<DeviceAlarm> ListInfo, List<DeviceAlarm> DevAlarmlist)
@@ -234,7 +240,28 @@ namespace LocationServices.Locations.Services
             }
 
         }
-
+        /// <summary>
+        /// 根据id号，删除指定告警
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool DeleteSpecifiedLocationAlarm(int id)
+        {
+            BLL.Bll bll = new BLL.Bll(false, true, true);
+            BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
+            return ab.DeleteSpecifiedLocationAlarm(id);
+        }
+        /// <summary>
+        /// 批量删除告警
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public bool DeleteLocationAlarm(List<int>idList)
+        {
+            BLL.Bll bll = new BLL.Bll(false, true, true);
+            BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
+            return ab.DeleteLocationAlarmByIdList(idList);
+        }
 
         public Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg)
         {
@@ -243,17 +270,192 @@ namespace LocationServices.Locations.Services
             return page;
         }
 
+        public LocationAlarmInformation GetLocationAlarmByArgs(AlarmSearchArg arg)
+        {
+            if (allLocationAlarmHistory == null)
+            {
+                RefreshAlarmBuffer();
+            }
+            LocationAlarmInformation locationAlarm = new LocationAlarmInformation();
+            List<T_LocationAlarm> alarmsTemp = TryGetAllLocationAlarms(arg);
+            if (alarmsTemp == null || alarmsTemp.Count == 0) return new LocationAlarmInformation();
+            alarmsTemp.Sort();
+            LocationAlarmInformation devAlarmInfo = GetLocationAlarmPage(arg, alarmsTemp);
+            return locationAlarm;
+        }
+
         public List<T_LocationAlarm> GetLocationAlarms(AlarmSearchArg arg)
         {
-            var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
-            var persons = db.Personnels.ToList();
+            return TryGetAllLocationAlarms(arg);
+        }
+        /// <summary>
+        /// 定位告警历史，获取对应切页
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public LocationAlarmInformation GetLocationAlarmPage(AlarmSearchArg arg, List<Location.TModel.Location.Alarm.LocationAlarm> list)
+        {
+            LocationAlarmInformation locationAlarmInfo = new LocationAlarmInformation();
+            if (list == null || list.Count == 0) return locationAlarmInfo;
+
+            locationAlarmInfo.locationAlarmList = new List<Location.TModel.Location.Alarm.LocationAlarm>();
+            var LocationAlarmlist = locationAlarmInfo.locationAlarmList;
+            if (list.Count == 0)
+            {
+                locationAlarmInfo.Total = 1;
+            }
+            else
+            {
+                if (arg.Page != null)
+                {
+                    int maxPage = (int)Math.Ceiling((double)list.Count / (double)arg.Page.Size);
+                    locationAlarmInfo.Total = maxPage;
+                    if (arg.Page.Number > maxPage)
+                    {
+                        arg.Page.Number = maxPage - 1;
+                    }
+                    var queryData = list.Skip(arg.Page.Size * arg.Page.Number).Take(arg.Page.Size);
+                    var resultList = queryData.ToList();
+                    LocationAlarmlist.AddRange(resultList);
+                }
+                else
+                {
+                    LocationAlarmlist.AddRange(list);
+                }
+            }
+            locationAlarmInfo.SetEmpty();
+            return locationAlarmInfo;
+        }
+        /// <summary>
+        /// 根据参数，获取所有的定位告警
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private List<T_LocationAlarm> TryGetAllLocationAlarms(AlarmSearchArg arg)
+        {
+            try
+            {
+                if (allLocationAlarmHistory == null)
+                {
+                    RefreshAlarmBuffer();
+                }
+                var departments = db.Departments.ToDictionary();
+                var persons = db.Personnels.ToDictionary();
+                var cards = db.LocationCards.ToDictionary();
+                foreach (var person in persons)
+                {
+                    if (person.Value.ParentId != null)
+                    {
+                        int id = (int)person.Key;
+                        int pId = (int)person.Value.ParentId;
+                        if (departments.ContainsKey(pId))
+                        {
+                            persons[id].Parent = departments[pId];
+                        }
+                    }
+                }
+
+                if (arg.IsAll == false)//IsAll==true代表查询实时告警
+                {
+                    var list = db.LocationAlarms.Where(p => p.AlarmLevel != 0).ToList();
+
+                    SetAlarmPerson(list, persons);
+                    SetAlarmTag(cards, list);
+                    list.OrderByDescending(i => i.AlarmTimeStamp);
+                    return list.ToWcfModelList();
+                }
+                else
+                {
+                    long timeStampStart = 0;
+                    long timeStampEnd = long.MaxValue;
+                    if (!string.IsNullOrEmpty(arg.Start))
+                    {
+                        DateTime start = arg.Start.ToDateTime();
+                        start = new DateTime(start.Year, start.Month, start.Day, 0, 0, 0, 0);
+                        timeStampStart = start.ToStamp();
+                    }
+
+                    if (!string.IsNullOrEmpty(arg.End))
+                    {
+                        DateTime end = arg.End.ToDateTime();
+                        end = new DateTime(end.Year, end.Month, end.Day, 23, 59, 59, 999);
+                        timeStampEnd = end.ToStamp();
+                    }
+
+                    //历史告警
+                    var list1 = allLocationAlarmHistory.Where(p =>
+                              p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd)
+                        .ToList();
+
+                    List<DbModel.Location.Alarm.LocationAlarm> list3 = new List<DbModel.Location.Alarm.LocationAlarm>();
+                    if (list1 != null)
+                    {
+                        foreach (var alarmHistory in list1)
+                        {
+                            var alarm = alarmHistory.ConvertToAlarm();
+                            list3.Add(alarm);
+                        }
+                    }
+
+                    //当前的事实告警
+                    var list2 = db.LocationAlarms.Where(p =>
+                        p.AlarmLevel != 0 && p.AlarmTimeStamp >= timeStampStart && p.AlarmTimeStamp <= timeStampEnd).ToList();
+                    if (list2 != null)
+                    {
+                        list3.AddRange(list2);
+                    }
+
+                    SetAlarmPerson(list3, persons);
+                    SetAlarmTag(cards, list3);
+                    list3.OrderByDescending(i => i.AlarmTimeStamp);
+                    List<Location.TModel.Location.Alarm.LocationAlarm> send = list3.ToWcfModelList();
+                    if (send != null && send.Count() == 0)
+                    {
+                        send = null;
+                    }
+                    return send;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(LogTags.DbGet, "GetLocationAlarms:" + e);
+                return null;
+            }
+        }
+
+
+        private static void SetAlarmTag(Dictionary<int, DbModel.Location.AreaAndDev.LocationCard> cards, List<DbModel.Location.Alarm.LocationAlarm> list)
+        {
             foreach (var alarm in list)
             {
-                alarm.Personnel = persons.Find(i => i.Id == alarm.PersonnelId);
+                if (alarm.LocationCardId != null)
+                {
+                    int pId = (int)alarm.LocationCardId;
+                    if (cards.ContainsKey(pId))
+                    {
+                        alarm.LocationCard = cards[pId];
+                    }
+                }
             }
-            list.Sort();
-            return list.ToWcfModelList();
         }
+
+        private static void SetAlarmPerson(List<DbModel.Location.Alarm.LocationAlarm> list, Dictionary<int, DbModel.Location.Person.Personnel> persons)
+        {
+            foreach (var alarm in list)
+            {
+                if (alarm.PersonnelId != null)
+                {
+                    int pId = (int)alarm.PersonnelId;
+                    if (persons.ContainsKey(pId))
+                    {
+                        alarm.Personnel = persons[pId];
+                    }
+                }
+            }
+        }
+
 
         public IList<DevAlarm> GetListByName(string name)
         {
@@ -267,22 +469,24 @@ namespace LocationServices.Locations.Services
 
         public DevAlarm GetEntity(string id)
         {
-            throw new NotImplementedException();
+            return db.DevAlarms.Find(int.Parse(id));
         }
 
         public List<DevAlarm> GetList()
         {
-            throw new NotImplementedException();
+            var list = db.DevAlarms.ToList();
+            return list;
         }
 
         public DevAlarm Post(DevAlarm item)
         {
-            throw new NotImplementedException();
+          var result = db.DevAlarms.Add(item);
+            return result ? item : null;
         }
 
         public DevAlarm Put(DevAlarm item)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

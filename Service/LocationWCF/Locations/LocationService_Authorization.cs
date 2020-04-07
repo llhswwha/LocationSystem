@@ -99,7 +99,7 @@ namespace LocationServices.Locations
 
                 foreach (var areaId in removeList)
                 {
-                    var aar = aarList.FirstOrDefault(i => i.Area.Id == areaId);
+                    var aar = aarList.FirstOrDefault(i => i.Area!=null&&i.Area.Id == areaId);
                     if (aar != null)
                     {
                         var r = aarService.Delete(aar.Id + "");

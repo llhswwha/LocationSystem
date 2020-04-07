@@ -9,7 +9,7 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <Label>比例:</Label>
-            <ComboBox Name="CbScale" Width="50"></ComboBox>
+            <ComboBox Name="CbScale" Width="60"></ComboBox>
             <Label>朝向:</Label>
             <ComboBox Name="CbView" Width="60">
                 <ComboBoxItem IsSelected="True">上 北</ComboBoxItem>

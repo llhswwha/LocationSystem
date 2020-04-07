@@ -62,5 +62,15 @@ namespace WebApiService.Controllers
         {
             return service.Put(item);
         }
+        [Route("list/CardRoleAccessAreas/{role}")]
+        public List<int> GetCardRoleAccessAreas(int role)
+        {
+            return service.GetCardRoleAccessAreas(role);
+        }
+        [Route("CardRoleAccessAreas/{roleId}")]
+        public bool SetCardRoleAccessAreas(int roleId, List<int> areaIds)
+        {
+            return service.SetCardRoleAccessAreas(roleId,areaIds);
+        }
     }
 }

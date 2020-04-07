@@ -183,7 +183,7 @@ namespace LocationServer.Windows
         private string SendPos(Position pos)
         {
             if (pos == null) return "";
-            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY);
+            string txt = pos.GetText(LocationContext.OffsetX, LocationContext.OffsetY,0);
             if (udp == null)
             {
                 udp = new LightUDP("127.0.0.1", 5678);

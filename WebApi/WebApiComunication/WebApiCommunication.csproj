@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="ExtremeVision\CameraAlarmInfo.cs" />
     <Compile Include="ExtremeVision\FlameData.cs" />
+    <Compile Include="ExtremeVision\FlameNewData.cs" />
     <Compile Include="ExtremeVision\HeadData.cs" />
     <Compile Include="ExtremeVision\RectInfo.cs" />
     <Compile Include="ExtremeVision\SmogData.cs" />

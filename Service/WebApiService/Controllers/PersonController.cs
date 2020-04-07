@@ -87,13 +87,13 @@ namespace WebApiService.Controllers
             return service.SetRole(id, role);
         }
 
-        [Route]
+        [Route("add")]
         public TEntity Post(TEntity item)
         {
             return service.Post(item);
         }
 
-        [Route]
+        [Route("edit")]
         public TEntity Put(TEntity item)
         {
             return service.Put(item);

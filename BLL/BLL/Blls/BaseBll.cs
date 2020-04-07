@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
@@ -466,7 +467,25 @@ namespace BLL.Blls
                 }
             }
         }
-       
+
+        /// <summary>
+        /// 监测Context中的Entity是否存在，如果存在，将其Detach，防止出现问题
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private bool RemoveHoldingEntityInContext(T entity)
+        {
+            ObjectContext objContext = ((IObjectContextAdapter)Db).ObjectContext;
+            var objSet = objContext.CreateObjectSet<T>();
+            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, entity);
+            object foundEntity;
+            var exists = objContext.TryGetObjectByKey(entityKey, out foundEntity);
+            if (exists)
+            {
+                objContext.Detach(foundEntity);
+            }
+            return (exists);
+        }
 
         public virtual bool Edit(T entity,bool isSave=true)
         {
@@ -474,9 +493,16 @@ namespace BLL.Blls
             {
                 ErrorMessage = "";
                 if (DbSet == null) return false;
+                //RemoveHoldingEntityInContext(entity);//不知道为什么不起效果
                 DbEntityEntry<T> entry = Db.Entry<T>(entity);
+                var state1 = entry.State;
                 entry.State = EntityState.Modified;
-                return Save(isSave);
+                var state2 = entry.State;
+                var result= Save(isSave);
+                ObjectContext objContext = ((IObjectContextAdapter)Db).ObjectContext;
+                objContext.Detach(entity);//修改完后就从Context中删除
+                var state3 = entry.State;
+                return result;
             }
             catch (Exception ex)
             {

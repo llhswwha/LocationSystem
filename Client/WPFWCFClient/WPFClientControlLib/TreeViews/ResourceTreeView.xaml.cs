@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TModel.Location.Nodes;
+using WpfFramework.Common.DragDrops;
 
 namespace WPFClientControlLib
 {
@@ -38,6 +39,7 @@ namespace WPFClientControlLib
             TopoTreeView1.ExpandLevel(2);
 
             PersonTreeView1.LoadData(tree3);
+            
         }
 
         public TopoTreeView TopoTree

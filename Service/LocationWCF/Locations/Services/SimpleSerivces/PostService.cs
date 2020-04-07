@@ -69,7 +69,9 @@ namespace LocationServices.Locations.Services
 
         public List<TEntity> GetList()
         {
-            return dbSet.GetList().ToTModel() ;
+            var listTemp = dbSet.GetList();
+            if (listTemp == null||listTemp.Count==0) return null;
+            else return listTemp.ToTModel() ;
         }
 
         public IList<TEntity> GetListByName(string name)

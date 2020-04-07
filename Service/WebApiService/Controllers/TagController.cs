@@ -11,6 +11,7 @@ using Location.TModel.Location.AreaAndDev;
 using Location.BLL.Tool;
 using System.Net.Http;
 using System.Web;
+using BLL;
 
 namespace WebApiService.Controllers
 {
@@ -22,7 +23,8 @@ namespace WebApiService.Controllers
 
         public TagController()
         {
-            service = new TagService();
+            Bll bll = Bll.NewBllNoRelation();//没有关联数据的bll,使用关联数据的bll的话，获取列表会很慢很慢
+            service = new TagService(bll);
         }
 
         public bool AddList(List<TEntity> entities)
@@ -34,10 +36,15 @@ namespace WebApiService.Controllers
             return service.DeleteAll();
         }
 
-        [Route("{id}")]
+        [Route("delete/{id}")]
         public TEntity Delete(string id)
         {
             return service.Delete(id);
+        }
+        [Route("delete/rtnBool/{id}")]
+        public bool DeleteTag(int id)
+        {
+            return service.DeleteTag(id);
         }
 
         [Route("")]//area?id=1
@@ -93,7 +100,7 @@ namespace WebApiService.Controllers
             return service.GetListByRole(role);
         }
 
-        [Route]
+        [Route("add")]
         public TEntity Post(TEntity item)
         {
             return service.Post(item);
@@ -118,11 +125,23 @@ namespace WebApiService.Controllers
         {
             return service.SetRole(id, role);
         }
-
-        [Route]
+        [HttpPut]
+        [Route("edit")]
         public TEntity Put(TEntity item)
         {
             return service.Put(item);
+        }
+        [HttpPut]
+        [Route("edit/rtnBool")]
+        public bool EditTag(TEntity tag)
+        {
+            return service.EditTag(tag);
+        }
+        [HttpPut]
+        [Route("edit/renBool/id/{id}")]
+        public bool EditTagById(TEntity Tag, int? id)
+        {
+            return service.EditTagById(Tag,id);
         }
     }
 }

@@ -199,11 +199,11 @@ namespace BLL
                     while (bPartitionInitFlag) { }//
                 }
 
+                //修改实时数据
+                EditTagPositionListOP(positions);//里面有检查并移除错误点的代码，放到前面
+
                 //AddPositionToHistory(positions);
                 AddPositionToHistoryAsync(positions);
-
-                //修改实时数据
-                EditTagPositionListOP(positions);
             }
             catch (Exception ex)
             {
@@ -213,94 +213,131 @@ namespace BLL
             return r;
         }
 
-        private ConcurrentBag<Position> temp = new ConcurrentBag<Position>();
+        private ConcurrentBag<Position> HistoryBuffer = new ConcurrentBag<Position>();
 
         /// <summary>
         /// 插入历史数据用线程
         /// </summary>
         private static Thread AddPostionThread;
 
+        public string guid = Guid.NewGuid().ToString();
+
+        public static int psCount = 0;
+
         private void AddPositionToHistoryAsync(List<Position> positions)
         {
+
             try
             {
                 if (AddPostionThread == null)
                 {
-                    AddPostionThread = new Thread(() =>
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                Thread.Sleep(AppSetting.AddHisPositionInterval);//历史数据10s插入一次,其实60s甚至更久也可以的。
-                                lock (temp) //怀疑和lock有关
-                                {
-                                    if (temp.Count > 0)
-                                    {
-                                        Dictionary<string,Position> posList2 = new Dictionary<string, Position>();//Set
-                                        //posList2.AddRange(temp);
-                                        foreach (var item in temp)
-                                        {
-                                            string key = item.Code + item.DateTimeStamp;
-                                            if (posList2.ContainsKey(key))//相同卡的相同时间戳
-                                            {
-                                                Log.Error("AddPositions", "收到重复数据:"+key);
-                                            }
-                                            else
-                                            {
-                                                posList2.Add(key, item);
-                                            }
-                                        }
-
-                                        var posList3 = posList2.Values.ToList();
-                                        bool r1 = AddPositionToHistory(posList3);
-                                        if (r1)
-                                        {
-                                            temp = new ConcurrentBag<Position>();
-                                            Log.Info("AddPositions", string.Format("插入 count:{0},r:{1}", posList2.Count, r1));
-                                        }
-                                        else
-                                        {
-                                            Thread.Sleep(100);
-                                            if (ErrorMessage.Contains("Table has no partition for value"))
-                                            {
-                                                AddPartion();//姑且尝试添加分区
-                                            }
-                                            temp = new ConcurrentBag<Position>();
-                                            //插入失败了，也要清空，不然数据会一直积累，插入重复相同的数据。
-                                            //怀疑，数据实际上是插入成功了的。
-                                            //怀疑，mysql连接池/线程池满了导致的插入失败。
-                                            Log.Error("AddPositions", string.Format("插入历史数据失败 count:{0},r:{1}", posList2.Count, r1));
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Log.Info("AddPositions", "Wait");
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-
-                                Log.Error("AddPositions", "Exception1:" + ex);
-                            }
-
-                        }
-                    });
-                    AddPostionThread.IsBackground = true;
-                    AddPostionThread.Start();
+                    InitAddPostionThread();
                 }
 
                 foreach (var item in positions)
                 {
-                    temp.Add(item);
+                    HistoryBuffer.Add(item);
                 }
+
+                //psCount += 1;
+                //Log.Info("FlushHistoryBuffer", "count:" + HistoryBuffer.Count);
+
+                //AddPositionToHistory(positions);
             }
             catch (Exception ex)
             {
                 Log.Error("AddPositions", "Exception2:"+ex);
             }
             
+        }
+
+        private void InitAddPostionThread()
+        {
+            AddPostionThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Thread.Sleep(AppSetting.AddHisPositionInterval); //历史数据10s插入一次,其实60s甚至更久也可以的。
+                        lock (HistoryBuffer) //怀疑和lock有关
+                        {
+                            if (HistoryBuffer.Count > 0)
+                            {
+                                FlushHistoryBuffer();
+
+                            }
+                            else
+                            {
+                                Log.Info("AddPositions", "Wait");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("AddPositions", "Exception1:" + ex);
+                    }
+                }
+            });
+            AddPostionThread.IsBackground = true;
+            AddPostionThread.Start();
+        }
+
+        public void FlushHistoryBuffer()
+        {
+            Dictionary<string, Position> posList2 = new Dictionary<string, Position>(); //Set
+
+            var temp=new List<Position>();
+            temp.AddRange(HistoryBuffer);
+            HistoryBuffer = new ConcurrentBag<Position>();
+            psCount += temp.Count;
+            Log.Info("FlushHistoryBuffer", string.Format("count:{0},{1}", temp.Count, psCount));
+            //return;
+
+            //foreach (var item in HistoryBuffer)//不能直接放到foreach里面，会丢失数据的。
+            foreach (var item in temp)
+            {
+                string key = item.Code + item.DateTimeStamp;
+                if (posList2.ContainsKey(key)) //相同卡的相同时间戳
+                {
+                    Log.Error("AddPositions", "收到重复数据:" + key);
+                }
+                else
+                {
+                    posList2.Add(key, item);
+                }
+            }
+
+            var posList3 = posList2.Values.ToList();
+
+            //psCount+=posList3.Count;
+            //Log.Info("FlushHistoryBuffer", "count:" + psCount);
+
+            bool r1 = AddPositionToHistory(posList3);
+            if (r1)
+            {
+                Log.Info("AddPositions", string.Format("插入 count:{0},r:{1}", posList2.Count, r1));
+            }
+            else
+            {
+                try
+                {
+                    Thread.Sleep(100);
+                    if (ErrorMessage != null && ErrorMessage.Contains("Table has no partition for value"))
+                    {
+                        AddPartion(); //姑且尝试添加分区
+                    }
+
+                    //插入失败了，也要清空，不然数据会一直积累，插入重复相同的数据。
+                    //怀疑，数据实际上是插入成功了的。
+                    //怀疑，mysql连接池/线程池满了导致的插入失败。
+                    Log.Error("AddPositions", string.Format("插入历史数据失败 count:{0},r:{1}", posList2.Count, r1));
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("AddPositions", "Exception3:" + ex);
+                }
+            }
         }
 
         private bool AddPositionToHistory(List<Position> positions)
@@ -423,11 +460,20 @@ namespace BLL
                 return null; 
             }
         }
+        private Dictionary<string, LocationCardPosition> tagPosDic;
+
+        public static List<PosDistance> posDistanceList=new List<PosDistance>();//测试用
+
+        private int errorCount = 0;//测试用
 
         private void EditTagPositionListOP(List<Position> positions)
         {
             //1.获取列表
-            var tagPosList = LocationCardPositions.ToDictionary();
+            if (tagPosDic == null)
+            {
+                tagPosDic = LocationCardPositions.ToDictionary();
+            }
+            //var tagPosList = LocationCardPositions.ToDictionary();
             List<LocationCardPosition> changedTagPosList = new List<LocationCardPosition>();
             //Dictionary<string, LocationCard> dict = LocationCards.ToDictionaryByCode();//放在TagRelationBuffer中
             List<LocationCardPosition> newTagPosList = new List<LocationCardPosition>();
@@ -436,7 +482,7 @@ namespace BLL
             Dictionary<string, LocationCard> dict = TagRelationBuffer.Instance().GetLocationCardDic();
 
             var maxSpeed = AppContext.MoveMaxSpeed;
-            
+            //maxSpeed = 0;//测试用
 
             //2.修改数据
             for (int i = 0; i < positions.Count; i++)
@@ -450,19 +496,23 @@ namespace BLL
                     editCardList.Add(lc);
                 }
 
-                if (tagPosList.ContainsKey(position.Code))
+                if (tagPosDic.ContainsKey(position.Code))
                 {
-                    var tagPos = tagPosList[position.Code];
+                    var tagPos = tagPosDic[position.Code];
 
                     if (maxSpeed >0)
                     {
                         var speed = PosDistanceUtil.GetSpeed(tagPos, position);
-                        
+
+                        //PosDistance dis1 = new PosDistance(tagPos, position);
+                        //posDistanceList.Add(dis1);
+
                         if (speed > maxSpeed)  //判断错误点
                         {
+                            errorCount++;
                             PosDistance dis = new PosDistance(tagPos, position);
                             //这个点就不用来修改实时位置了
-                            Log.Info("RealPos",string.Format("发现错误点:{0}", dis));
+                            Log.Info("ErrorPos",string.Format("发现错误点 {0}:{1}",errorCount, dis));
 
                             positions.RemoveAt(i);
                             i--;

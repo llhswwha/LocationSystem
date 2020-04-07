@@ -94,6 +94,12 @@ namespace Location.Model.InitInfos
 
         }
 
+        public TopoInfo(string name,AreaTypes type)
+        {
+            Name = name;
+            Type = type;
+        }
+
         public override string ToString()
         {
             return Name;

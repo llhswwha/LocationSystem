@@ -7,17 +7,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="测试添加" Name="MenuTest" Click="MenuTest_OnClick"></MenuItem>
+            <MenuItem Header="测试错误点" Name="MenuErrorPoint" Click="MenuErrorPoint_OnClick"></MenuItem>
+        </Menu>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label Width="80">Local IP</Label>
             <ComboBox Width="130" Name="TbLocalIp"></ComboBox>
-            <Label Width="80">Local Port</Label>
+            <Label Width="90">Local Port</Label>
             <TextBox Width="50" Name="TbLocalPort">2323</TextBox>
+            <Label Width="140">Local AreaAlarm Port</Label>
+            <TextBox Width="50" Name="TbLocalAreaAlarmPort">2324</TextBox>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Label Width="80">Engine IP</Label>
             <ComboBox Width="130" Name="TbEngineIp" IsEditable="True"></ComboBox>
-            <Label Width="80">Engine Port</Label>
+            <Label Width="90">Engine Port</Label>
             <ComboBox Width="50" Name="TbEnginePort" IsEditable="True"></ComboBox>
+            <Label Width="140">Engine AreaAlarm Port</Label>
+            <TextBox Width="50" Name="TbEngineAreaAlarmPort">1994</TextBox>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label Width="80">晕倒范围(米)</Label>
+            <TextBox Width="130" Name="FaintScope"></TextBox>
+            <Label Width="90">有效晕倒时间</Label>
+            <TextBox Width="50" Name="FaintTime"></TextBox>
+            <Label Width="140">统计时间间隔</Label>
+            <TextBox Width="50" Name="FaintIntervalTime"></TextBox>
+            <Label Width="20"></Label>
+            <Button Width="80" Name="FaintBtnStart" Click="FaintBtnStart_OnClick">启动晕倒告警</Button>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" >
             <CheckBox Name="CbWriteToDb" IsChecked="True">写入数据库</CheckBox>

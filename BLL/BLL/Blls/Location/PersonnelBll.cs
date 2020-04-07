@@ -65,9 +65,11 @@ namespace BLL.Blls.Location
 
         public override List<Personnel> ToList(bool isTracking = false)
         {
-            var list= base.ToList(isTracking);
-            list = list.OrderBy(i => i.ParentId).ThenBy(i => i.WorkNumber).ToList();
-            return list;
+            var list= base.ToList(isTracking).Where(i=>i!=null);
+            var list2 = list.OrderBy(i => i.ParentId)
+                .ThenBy(i => i.WorkNumber)
+                .ToList();
+            return list2;
         }
     }
 }

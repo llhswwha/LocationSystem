@@ -284,7 +284,7 @@ namespace WPFClientControlLib
             rect.Focus();
         }
 
-        private void InitCbScale(int scale)
+        private void InitCbScale(double scale)
         {
             CbScale.SelectionChanged -= CbScale_SelectionChanged;
             CbScale.SelectedItem = scale;
@@ -315,21 +315,26 @@ namespace WPFClientControlLib
                 if (area.IsPark()) //电厂
                 {
                     SelectedArea = area;
-                    int scale = 3;
-                    DevSize = 3;
+                    double scale = 0;
+                    DevSize = 0;
                     double[] devSizeList = new double[] {0.5, 1, 2, 3, 4, 5};
                     if (area.Name == "宝钢园区")
                     {
                         scale = 2;
-                        ShowFloor = 1;
+                        floorIndex = 1;
                         CbFloor.SelectedIndex = 1;
 
                         devSizeList= new double[] { 1,2,4,8,16,32,64 };
                         DevSize = 16;
                     }
-                    
+
+                    if (area.Name == "淄博电厂")
+                    {
+                        scale = 0.2;
+                    }
+
                     Clear();
-                    DrawPark(area, scale, DevSize);
+                    DrawPark(area, ref scale, DevSize);
                     InitCbScale(scale);
                     InitCbDevSize(devSizeList, DevSize);
                     //ShowPersons(area.Persons);
@@ -339,7 +344,7 @@ namespace WPFClientControlLib
                 {
                     //GetSettingFunc = null;
                     SelectedArea = area;
-                    int scale = 20;
+                    double scale = 0;
                     if (area.Name.Contains("燃料准备车间"))
                     {
                         scale = 2;
@@ -358,7 +363,7 @@ namespace WPFClientControlLib
                     //    DevSize = 4;
                     //}
                     
-                    DrawFloor(area, scale, DevSize);
+                    DrawFloor(area,ref scale, DevSize);
                     InitCbScale(scale);
                     InitCbDevSize(devSizeList, DevSize);
                     //ShowPersons(area.Persons);
@@ -378,25 +383,25 @@ namespace WPFClientControlLib
             }
         }
 
-        private void ShowSwitchArea(AreaEntity area, List<bus_anchor_switch_area> switchAreas, int scale)
+        private void ShowSwitchArea(AreaEntity area, List<bus_anchor_switch_area> switchAreas, double scale)
         {
             if (IsShowSwitchArea == false) return;
             if (switchAreas != null)
             {
                 var subSwitchAreas = switchAreas;
-                if (ShowFloor == 1)//1层
+                if (floorIndex == 1)//1层
                 {
                     subSwitchAreas = switchAreas.FindAll(i => i.min_z == 0 || i.min_z == 150);
                 }
-                else if (ShowFloor == 2)//2层
+                else if (floorIndex == 2)//2层
                 {
                     subSwitchAreas = switchAreas.FindAll(i => i.min_z == 450 || i.min_z == 600);
                 }
-                else if (ShowFloor == 3)//3层
+                else if (floorIndex == 3)//3层
                 {
                     subSwitchAreas = switchAreas.FindAll(i => i.min_z == 880);
                 }
-                else if (ShowFloor == 4)//4层
+                else if (floorIndex == 4)//4层
                 {
                     subSwitchAreas = switchAreas.FindAll(i => i.min_z >880);
                 }
@@ -515,13 +520,18 @@ namespace WPFClientControlLib
         }
 
 
-        private void DrawFloor(AreaEntity area,double scale,double devSize)
+        private void DrawFloor(AreaEntity area,ref double scale,double devSize)
         {
             Clear();
             var bound = area.InitBound;
             if (bound == null) return;
             if(bound.MaxX==0)
                 bound.SetMinMaxXY();
+            if (scale == 0)
+            {
+                scale = getAutoScale(bound);
+            }
+
             Scale = scale;
             CanvasMargin = 10;
             OffsetX = -CanvasMargin/2;
@@ -561,7 +571,23 @@ namespace WPFClientControlLib
             SelectedArea = null;
         }
 
-        private void DrawPark(AreaEntity area,int scale,double devSize)
+        private double getAutoScale(Location.TModel.Location.AreaAndDev.Bound bound)
+        {
+            double scaleX = this.ActualWidth / bound.GetSizeX();
+            double scaleY = this.ActualHeight / bound.GetSizeY();
+            double scale = scaleX < scaleY ? scaleX : scaleY;
+            scale = Math.Round(scale, 2);//四舍五入
+
+            /*
+Math.Round(45.367,2)     //Returns   45.37
+Math.Round(45.365,2)     //Returns   45.36
+             */
+
+            SetAutoScale(scale);
+            return scale;
+        }
+
+        private void DrawPark(AreaEntity area,ref double scale,double devSize)
         {
             
             var bound = area.InitBound;
@@ -571,10 +597,19 @@ namespace WPFClientControlLib
             //}
             if (bound == null) return;
             //bound=area.SetBoundByDevs();
+
+            if (scale == 0)
+            {
+                scale = getAutoScale(bound);
+              
+            }
+
             Scale = scale;
             CanvasMargin = 20;
             OffsetX = bound.MinX - CanvasMargin;
             OffsetY = bound.MinY - CanvasMargin;
+       
+
             Canvas1.Width = (bound.MaxX - OffsetX + CanvasMargin) * scale;
             Canvas1.Height =(bound.MaxY - OffsetY + CanvasMargin) *scale;
 
@@ -588,16 +623,24 @@ namespace WPFClientControlLib
                     level1Item.Parent = area;
                     AddAreaRect(level1Item, area, scale);
                     if (level1Item.Children != null)
-                        foreach (var level2Item in level1Item.Children) //建筑
+                        foreach (Location.TModel.Location.AreaAndDev.PhysicalTopology level2Item in level1Item.Children) //建筑
                         {
                             if (IsShowAlarmArea == false && level2Item.Type == AreaTypes.范围) continue;
 
                             level2Item.Parent = level1Item;
                             AddAreaRect(level2Item, level1Item, scale);
 
-                            if (ShowFloor > 0)
+                            if (floorIndex > 0)
                             {
-                                var floor=level2Item.GetChild(ShowFloor - 1);//楼层
+                                Location.TModel.Location.AreaAndDev.PhysicalTopology floor = null;
+                                if (level2Item.Type == AreaTypes.楼层)
+                                {
+                                    floor = level2Item;
+                                }
+                                else
+                                {
+                                    floor = level2Item.GetChild(floorIndex - 1);//楼层
+                                }
                                 
                                 if (floor != null)
                                 {
@@ -1043,7 +1086,23 @@ namespace WPFClientControlLib
                 }
                 mX /= c;
                 mY /= c;
-                ShowAreaName(area, mX, mY);
+                if (area.Type==AreaTypes.大楼)
+                {
+                    ShowAreaName(area, mX, mY,Brushes.Green,30);
+                }
+                else if (area.Type == AreaTypes.楼层)
+                {
+                    ShowAreaName(area, mX, mY, Brushes.Gray, 25);
+                }
+                else if (area.Type == AreaTypes.机房)
+                {
+                    ShowAreaName(area, mX, mY, Brushes.Black, 20);
+                }
+                else
+                {
+                    ShowAreaName(area, mX, mY);
+                }
+                
             }
         }
 
@@ -1060,11 +1119,18 @@ namespace WPFClientControlLib
             return points;
         }
 
-        private void ShowAreaName(AreaEntity area, double mX, double mY)
+        private Label ShowAreaName(AreaEntity area, double mX, double mY)
         {
-            if (IsShowAreaName && area.Type != AreaTypes.CAD&& !string.IsNullOrEmpty(area.Name))
+            return ShowAreaName(area, mX, mY, Brushes.Gray,0 );
+        }
+
+        private Label ShowAreaName(AreaEntity area, double mX, double mY, Brush color,double size)
+        {
+            if (IsShowAreaName && area.Type != AreaTypes.CAD && !string.IsNullOrEmpty(area.Name))
             {
                 Label lb = new Label();
+                if(size>0)
+                    lb.FontSize = size;
                 lb.Content = area.Name;
                 var ft = MeasureText(area.Name, lb.FontSize, lb.FontFamily.ToString());
                 var w = ft.WidthIncludingTrailingWhitespace;
@@ -1072,10 +1138,13 @@ namespace WPFClientControlLib
                 Canvas.SetLeft(lb, mX - w / 2);
                 Canvas.SetTop(lb, mY - h / 2);
                 Canvas1.Children.Add(lb);
-                lb.Foreground = Brushes.Gray;
+                lb.Foreground = color;
                 lb.LayoutTransform = ScaleTransform1;
                 lb.Focusable = false;
+                return lb;
             }
+
+            return null;
         }
 
         private void SetAreaRoomOffset(AreaEntity area, AreaEntity parent, ref double roomOffX, ref double roomOffY)
@@ -1103,8 +1172,11 @@ namespace WPFClientControlLib
             {
                 if (parent != null && parent.Type == AreaTypes.楼层)//当前是机房
                 {
-                    roomOffX = parent.InitBound.GetZeroX();
-                    roomOffY = parent.InitBound.GetZeroY();
+                    if (area.InitBound.IsRelative)
+                    {
+                        roomOffX = parent.InitBound.GetZeroX();
+                        roomOffY = parent.InitBound.GetZeroY();
+                    }
                 }
             }
         }
@@ -1235,20 +1307,20 @@ namespace WPFClientControlLib
             if (CbScale.SelectedItem == null) return;//还没初始化
             try
             {
-                int scale = (int)CbScale.SelectedItem;
+                var scale = (double)CbScale.SelectedItem;
                 var area = CurrentArea;
                 if (area == null) return;
                 if (area.IsPark()) //电厂
                 {
                     Clear();
                     
-                    DrawPark(area, scale, DevSize);
+                    DrawPark(area, ref scale, DevSize);
 
                     ShowSwitchArea(area, _switchAreas, scale);
                 }
                 else if (area.Type == AreaTypes.楼层)
                 {
-                    DrawFloor(area, scale, DevSize);
+                    DrawFloor(area, ref scale, DevSize);
                 }
                 else
                 {
@@ -1269,7 +1341,7 @@ namespace WPFClientControlLib
 
         public void RefreshDev(DevEntity dev)
         {
-            int scale = (int)CbScale.SelectedItem;
+            var scale = (double)CbScale.SelectedItem;
 
             //var rect=AddDevRect(dev, scale, DevSize,ShowDevName);
             var rect=AddDevRectEx(dev, scale, DevSize);
@@ -1293,10 +1365,38 @@ namespace WPFClientControlLib
             
         }
 
+        private List<double> scaleList= new List<double>()
+        {0,
+            0.01,0.02,0.04,0.08,
+            0.1, 0.2, 0.4, 0.8,
+            1, 2, 4, 8,
+            10, 20, 40, 60, 80};
+
         public void Init()
         {
-            CbScale.ItemsSource = new int[] { 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90,100 };
+            InitScale();
+        }
+
+        private void InitScale()
+        {
+            CbScale.ItemsSource = scaleList;
             CbScale.SelectedIndex = 0;
+        }
+
+        private double autoScale = 0;
+
+        private void SetAutoScale(double newScale)
+        {
+            if (autoScale != 0)
+            {
+                scaleList.Remove(autoScale);
+            }
+
+            autoScale = newScale;
+            scaleList.Add(autoScale);
+            scaleList.Sort();
+            CbScale.ItemsSource = scaleList;
+            CbScale.SelectedItem = newScale;
         }
 
         public void ShowDevs(DevEntity[] devs)
@@ -1313,10 +1413,11 @@ namespace WPFClientControlLib
         public void ShowPersons(IList<PersonEntity> persons)
         {
             PersonShapeList.Clear();
+            _persons = persons;//这个要放到前面
 
             if (IsShowPerson == false) return;
 
-            _persons = persons;
+           
             if (persons == null) return;
             foreach (var person in persons)
             {
@@ -1416,12 +1517,12 @@ namespace WPFClientControlLib
 
         private void CbFloor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ShowFloor == CbFloor.SelectedIndex) return;
-            ShowFloor = CbFloor.SelectedIndex;
+            if (floorIndex == CbFloor.SelectedIndex) return;
+            floorIndex = CbFloor.SelectedIndex;
             Refresh();
         }
 
-        public int ShowFloor;
+        private int floorIndex;//当前显示的楼层
 
         private void MenuSaveImage_Click(object sender, RoutedEventArgs e)
         {
@@ -1503,7 +1604,11 @@ namespace WPFClientControlLib
             //};
             //Canvas1.Children.Add(p);
             var p2=GetOriginalPoint(p1);
-            var p3 = CurrentArea.InitBound.GetLeftBottomPoint();
+            if (CurrentArea.InitBound!=null )
+            {
+                var p3 = CurrentArea.InitBound.GetLeftBottomPoint();
+            }
+          
             //SelectedPoint2 = new Location.TModel.Location.AreaAndDev.Point(p3.X - p2.X, p3.Y - p2.Y, 0);
             SelectedPoint2 = p2;
         }

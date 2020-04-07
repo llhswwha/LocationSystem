@@ -29,5 +29,9 @@ namespace WebApiService.Controllers
         {
             return service.GetCameraAlarms(ip,merge);
         }
+        public bool GetBool()
+        {
+            return service.GetBool();
+        }
     }
 }

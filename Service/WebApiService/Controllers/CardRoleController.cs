@@ -24,7 +24,7 @@ namespace WebApiService.Controllers
         {
             return service.AddCardRole(p);
         }
-        [Route("delete")]
+        [Route("delete/{id}")]
         [HttpDelete]
         public bool DeleteCardRole(int id)
         {

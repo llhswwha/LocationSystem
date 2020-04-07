@@ -75,9 +75,14 @@ namespace WPFClientControlLib.AreaCanvaItems
 
         private Ellipse personShape;
 
+        private double minSize = 10;
+        private double maxSize = 40;
+
         public Ellipse Show()
         {
             _canvas.RemovePerson(Id);
+
+            //人员的比例和位置的比例分开
 
             personShape = new Ellipse()
             {
@@ -91,12 +96,27 @@ namespace WPFClientControlLib.AreaCanvaItems
                 ToolTip = Name
             };
 
+           
             DragInCanvasBehavior behavior1 = new DragInCanvasBehavior();
             behavior1.Moved += Behavior1_Moved;
             Interaction.GetBehaviors(personShape).Add(behavior1);
 
             double left = GetLeft();
             double top = GetTop();
+
+            if(personShape.Width< minSize)
+                personShape.Width = minSize;
+            if (personShape.Height < minSize)
+                personShape.Height = minSize;
+
+            if (personShape.Width > maxSize)
+                personShape.Width = maxSize;
+            if (personShape.Height > maxSize)
+                personShape.Height = maxSize;
+
+            //left = 0;
+            //top = 0;
+
             Canvas.SetLeft(personShape, left);
             Canvas.SetTop(personShape, top);
 

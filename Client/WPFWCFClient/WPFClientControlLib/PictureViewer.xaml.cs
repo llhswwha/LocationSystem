@@ -109,7 +109,13 @@ namespace WPFClientControlLib
 
         private void BtnOpenDir_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start(dir.FullName);
+            if(File.Exists(dir.FullName))
+            {
+                Process.Start(dir.FullName);
+            }else
+            {
+                MessageBox.Show("图片文件夹不存在！");
+            }            
         }
 
         private void BtnDeleteFile_OnClick(object sender, RoutedEventArgs e)

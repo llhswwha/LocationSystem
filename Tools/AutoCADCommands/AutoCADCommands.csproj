@@ -109,6 +109,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="FlexDataStore.cs" />
+    <Compile Include="GetRoomsCommand.cs" />
     <Compile Include="Internal\CustomDictionary.cs" />
     <Compile Include="DbHelper.cs" />
     <Compile Include="GUIs\DictionaryViewer.xaml.cs">
@@ -165,6 +166,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Base\Base.Common\Base.Common.csproj">
+      <Project>{cad48149-6b82-4464-b0aa-7f7229783d7f}</Project>
+      <Name>Base.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\DbModel\DbModel.csproj">
       <Project>{a72a90c4-c195-49ec-850e-ee6205680256}</Project>
       <Name>DbModel</Name>

@@ -113,12 +113,13 @@ namespace LocationServer.Controls
                         sendAlarms.Add(devAlarm);
                         if ((i + 1) % onceCount == 0)
                         {
-                            Log.Info(LogTags.EventTest, string.Format("发送告警:{0}({1}/{2})", devAlarm, i + 1, currentDevAlarms.Count));
+                            Log.Info(LogTags.EventTest,
+                                string.Format("发送告警:{0}({1}/{2})", devAlarm, i + 1, currentDevAlarms.Count));
                             AlarmHub.SendDeviceAlarms(devAlarm);
                             Thread.Sleep(interval);
                         }
                     }
-                }, null);
+                }, null, null, "", true);
             }
             else
             {

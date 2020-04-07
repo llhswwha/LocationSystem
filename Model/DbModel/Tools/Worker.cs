@@ -6,10 +6,12 @@ namespace LocationServer.Tools
 {
     public static class Worker
     {
-        public static BackgroundWorker Run(Action task,Action completed,Action<Exception> error=null,string logTag="")
+        public static BackgroundWorker Run(Action task,Action completed,Action<Exception> error=null,string logTag="",bool cancelable=false)
         {
             DateTime start=DateTime.Now;
             BackgroundWorker workder = new BackgroundWorker();
+            if(cancelable)
+                workder.WorkerSupportsCancellation = true;
             workder.DoWork += (sender,e)=>
             {
                 try

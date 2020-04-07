@@ -268,6 +268,8 @@
       <xs:enumeration value="传感器告警" />
       <xs:enumeration value="重启告警" />
       <xs:enumeration value="非法拆卸" />
+      <xs:enumeration value="求救信号" />
+      <xs:enumeration value="晕倒告警" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="LocationAlarmType" nillable="true" type="tns:LocationAlarmType" />

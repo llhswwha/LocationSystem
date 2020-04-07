@@ -72,8 +72,8 @@ namespace BLL
             _bll = bll;
         }
 
-        int maxPersonCount = 20;//初始人的数量
-        int maxTagCount = 200;//初始卡的数量
+        public static int maxPersonCount = 20;//初始人的数量
+        public static int maxTagCount = 200;//初始卡的数量
 
         public void InitDbData(int mode, bool isForce = false)
         {
@@ -136,7 +136,7 @@ namespace BLL
 
             InitKKSCode();
 
-            InitTagPositions(true);
+            InitTagPositions(true, initTagPos);
             //卡角色、定位卡
             InitDepartments();
             //机构、人员
@@ -166,6 +166,19 @@ namespace BLL
 
             InitUsers();
 
+            InitRealTimePositions();//初始化定位卡初始实时位置
+        }
+
+        public void InitCardAndPerson_Mock()
+        {
+            InitTagPositions(true, true);
+            //卡角色、定位卡
+            InitDepartments_Mock();
+            //机构、人员
+
+            InitUsers();
+
+            _bll.Positions.Clear(1);
             InitRealTimePositions();//初始化定位卡初始实时位置
         }
 
@@ -262,22 +275,83 @@ namespace BLL
                 }
             }
             LocationCards.EditRange(tagsTemp);
-            //for (int i = 0; i < maxPersonCount && i<tagsT.Count; i++)
-            //{
-            //    var tag = tagsT[i];
+        }
 
-            //    int n = i % 2;
-            //    var post = posts[r.Next(posts.Count)];
-            //    var dep = subDeps[r.Next(subDeps.Count)];
-            //    if (n == 0)
+        public void InitDepartments_Mock()
+        {
+            Log.InfoStart(LogTags.DbInit, "InitDepartments");
+
+            bool r1 = LocationCardToPersonnels.Clear();
+            bool r2 = LocationCardPositions.Clear();
+            bool r3 = Personnels.Clear();
+            bool r4 = Departments.Clear();
+
+            Log.Info(LogTags.DbInit, "导入部门信息");
+            string filePath = InitPaths.GetBackupDepartmentsInfo();
+            bool value = DepartmentsBackupHelper.ImportDepartmentInfoFromFile(filePath, _bll);
+            Log.Info(LogTags.DbInit, string.Format("导入部门信息结果:{0}", value));
+
+            Posts.Clear();
+            Post post1 = new Post() { Name = "前台" };
+            Post post2 = new Post() { Name = "电工" };
+            Post post3 = new Post() { Name = "维修工" };
+            Post post4 = new Post() { Name = "保安" };
+            Post post5 = new Post() { Name = "经理" };
+            Post post6 = new Post() { Name = "电工" };
+            Post post7 = new Post() { Name = "访客" };
+            Post post8 = new Post() { Name = "检修" };
+            var posts = new List<Post>() { post1, post2, post3, post4, post5, post6, post7, post8 };
+            Posts.AddRange(posts);
+            List<LocationCard> tagsT = LocationCards.ToList();
+            RandomTool rt = new RandomTool();
+
+
+            //Log.Info(LogTags.DbInit, "导入人员信息");
+            //var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            //filePath = InitPaths.GetBackupPersonnelInfo();
+            //value = PersonBackupHelper.ImportPersonInfoFromFile(filePath, _bll);
+            //Log.Info(LogTags.DbInit, string.Format("导入人员信息结果:{0}", value));
+
+            //List<Personnel> pList = Personnels.ToList();
+
+
+            //Log.Info(LogTags.DbInit, "开始  导入人员和定位卡关联关系");
+            ////人员和定位卡关联关系
+            //filePath = InitPaths.GetPersonAndCard();
+            //LocationCardToPersonnelsBackupHelper.ImportRelationFromFile(new FileInfo(filePath));
+            //Log.Info(LogTags.DbInit, "结束 导入人员和定位卡关联关系");
+            //List<LocationCardToPersonnel> rList = LocationCardToPersonnels.ToList();
+
+            //List<LocationCard> tagsTemp = new List<LocationCard>();
+            //foreach (LocationCardToPersonnel ctp in rList)
+            //{
+            //    LocationCard card = tagsT.Find((item) => item.Id == ctp.LocationCardId);
+            //    if (card != null)
             //    {
-            //        AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i, rt.GetRandomTel());
-            //    }
-            //    else
-            //    {
-            //        AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i, rt.GetRandomTel());
+            //        card.IsActive = true;
+            //        tagsTemp.Add(card);
             //    }
             //}
+            //LocationCards.EditRange(tagsTemp);
+
+            List<Department> deps = Departments.ToList();
+
+            for (int i = 0; i < maxPersonCount && i < tagsT.Count; i++)
+            {
+                var tag = tagsT[i];
+
+                int n = i % 2;
+                var post = posts[r.Next(posts.Count)];
+                var dep = deps[r.Next(deps.Count)];
+                if (n == 0)
+                {
+                    AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i.ToString(), rt.GetRandomTel());
+                }
+                else
+                {
+                    AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i.ToString(), rt.GetRandomTel());
+                }
+            }
         }
 
         public void InitUsers()
@@ -403,6 +477,13 @@ namespace BLL
                     return;
                 }
 
+                List<Area> buildings = _bll.Areas.FindAll(i => i.Type == AreaTypes.大楼);
+                if (buildings.Count == 1)//只有一个大楼，则是演示案例
+                {
+                    park = buildings[0];
+                }
+
+
                 var bound = park.InitBound;
                 if (bound == null)
                 {
@@ -435,12 +516,12 @@ namespace BLL
                         //}
                         //else//这部分随机初始位置
                         {
-                            var x = r.Next((int)bound.GetSizeX()) + bound.MinX;
-                            var z = r.Next((int)bound.GetSizeY()) + bound.MinY;
+                            var x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX;
+                            var z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY;
                             while (!bound.Contains(x, z))
                             {
-                                x = r.Next((int)bound.GetSizeX()) + bound.MinX;
-                                z = r.Next((int)bound.GetSizeY()) + bound.MinY;
+                                x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX;
+                                z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY;
                             }
                             var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", PersonId = cp.PersonnelId, AreaId = park.Id };
                             tagpositions.Add(tagposition);
@@ -455,6 +536,8 @@ namespace BLL
                 
             }
         }
+
+        public static bool initTagPos = false;//初始化标签位置信息（随机模拟的）
 
         public void InitTagPositions(bool initRoles,bool initTags=false)
         {
@@ -601,14 +684,15 @@ namespace BLL
             int modelCount = 0;
             int typeCount = 0;
             var list = DbInfoHelper.GetDevModels();
-            var OldList = DevModels.ToList();
+            var devModelList = DevModels.ToList();
             List<DevModel> newModels = new List<DevModel>();
             foreach(var item in list)
             {
-                if (OldList == null) newModels.Add(item);
+                if (string.IsNullOrEmpty(item.Name)) continue;
+                if (devModelList == null) newModels.Add(item);
                 else
                 {
-                    DevModel model = OldList.Find(i => i.Name == item.Name);
+                    DevModel model = devModelList.Find(i => i.Name == item.Name);
                     if (model == null) newModels.Add(item);
                 }
             }
@@ -623,7 +707,8 @@ namespace BLL
             List<DevType> newTypes = new List<DevType>();
             foreach (var item in list2)
             {
-                if (OldList == null) newTypes.Add(item);
+                if (string.IsNullOrEmpty(item.TypeName)) continue;
+                if (devTypeList == null) newTypes.Add(item);
                 else
                 {
                     DevType model = devTypeList.Find(i => i.TypeName == item.TypeName);
@@ -635,7 +720,43 @@ namespace BLL
                 typeCount = newTypes.Count;
                 DevTypes.AddRange(newTypes);
             }
+            ClearModelTypeNullData(devModelList,DevModels,devTypeList,DevTypes);
             if (resultAction != null) resultAction(modelCount,typeCount);    
+        }
+        /// <summary>
+        /// 清楚数据为空的项
+        /// </summary>
+        /// <param name="devModels"></param>
+        /// <param name="modelBll"></param>
+        /// <param name="devTypes"></param>
+        /// <param name="typeBll"></param>
+        private void ClearModelTypeNullData(List<DevModel> devModels,DevModelBll modelBll,List<DevType> devTypes,DevTypeBll typeBll)
+        {
+            try
+            {
+                List<DevModel> emptyModels = new List<DevModel>();
+                List<DevType> emptyTypes = new List<DevType>();
+                foreach (var model in devModels)
+                {
+                    if (string.IsNullOrEmpty(model.Name))
+                    {
+                        emptyModels.Add(model);
+                    }
+                }
+                foreach (var type in devTypes)
+                {
+                    if (string.IsNullOrEmpty(type.TypeName))
+                    {
+                        emptyTypes.Add(type);
+                    }
+                }
+                if (emptyModels.Count != 0) modelBll.RemoveList(emptyModels);
+                if (emptyTypes.Count != 0) typeBll.RemoveList(emptyTypes);
+                Log.Info(string.Format("EmpeyModel Count:{0} EmptyType Count:{1}", emptyModels.Count, emptyTypes.Count));
+            }catch(Exception e)
+            {
+                Log.Info("Dbinitializer.ClearModelTypeNullData.Error");
+            }       
         }
 
         public static List<T> LoadExcelToList<T>(string filePath) where T : class, new()

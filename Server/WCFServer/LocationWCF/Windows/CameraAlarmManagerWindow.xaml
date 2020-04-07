@@ -41,7 +41,11 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="删除" Name="MenuDelete" Click="MenuDelete_Click"></MenuItem>
+                        <MenuItem Header="编辑" Name="MenuEdit"  Click="MenuEdit_Click"></MenuItem>
+                        <MenuItem Header="告警测试" Name="MenuSendAlarm"  Click="MenuSendAlarm_Click"></MenuItem>
                     </ContextMenu>
+
+                    
                 </DataGrid.ContextMenu>
             </DataGrid>
         </DockPanel>

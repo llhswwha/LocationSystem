@@ -35,6 +35,7 @@ using IModel.Enums;
 using WPFClientControlLib;
 using DbModel.Location.Alarm;
 using DbModel.LocationHistory.Alarm;
+using LocationServices.Locations;
 
 namespace LocationServer.Windows
 {
@@ -758,6 +759,83 @@ namespace LocationServer.Windows
             
         }
 
-     
+        private void MenuArchorSettingImport_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() =>
+            {
+                Bll bll = new Bll();
+                AreaTreeInitializer area = new AreaTreeInitializer(bll);
+                area.InitLocationDevice();
+                MessageBox.Show("导入基站位置信息成功。");
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+        private void MenuClearPowerAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            int removeCount = 0;
+            Worker.Run(() =>
+            {                
+                using (var _bll = Bll.NewBllNoRelation())
+                {
+                    List<LocationAlarmHistory> alarmList = _bll.LocationAlarmHistorys.ToList();
+                    if(alarmList!=null&&alarmList.Count>0)
+                    {
+                        List<LocationAlarmHistory> powerAlarms = alarmList.FindAll(i=>i.AlarmType==LocationAlarmType.低电告警);
+                        if(powerAlarms!=null&&powerAlarms.Count>0)
+                        {
+                            Log.Info("开始移除低电告警历史，耗时可能较长，完成后将有弹窗提示。");
+                            removeCount = powerAlarms.Count;
+                            _bll.LocationAlarmHistorys.RemoveList(powerAlarms);
+                        }
+                    }
+
+                }
+            }, () =>
+            {
+                MessageBox.Show(string.Format("移除低电告警历史完成，移除数量：{0}", removeCount));
+                LocationService.RefreshDeviceAlarmBuffer(LogTags.Server);//实现加载全部设备告警到内存中
+            });          
+        }
+
+        private void MenuAddDevInfoIp_OnClick(object sender, RoutedEventArgs e)
+        {
+            DateTime recordT = DateTime.Now;
+            Worker.Run(() =>
+            {
+                using (var db = Bll.NewBllNoRelation())
+                {
+                    var devList = db.DevInfos.ToList();
+                    if (devList == null || devList.Count == 0) return;
+                    var cameraInfoList = db.Dev_CameraInfos.ToList();
+                    var archorList = db.Archors.ToList();
+                    foreach (var item in devList)
+                    {
+                        string typeCode = item.Local_TypeCode.ToString();
+                        if (TypeCodeHelper.IsCamera(typeCode))
+                        {
+                            Dev_CameraInfo infoT = cameraInfoList.Find(i => i.DevInfoId == item.Id);
+                            if (infoT != null) item.IP = infoT.Ip;
+                        }
+                        else if (TypeCodeHelper.IsLocationDev(typeCode))
+                        {
+                            Archor archorT = archorList.Find(i => i.DevInfoId == item.Id);
+                            if (archorT != null) item.IP = archorT.Ip;
+                        }
+                    }
+                    db.DevInfos.EditRange(devList);
+                }
+            }, () =>
+            {
+                string costTime = string.Format("CostTime:{0}ms", (DateTime.Now - recordT).TotalMilliseconds);
+                Log.Info("A-InitInfo", costTime);
+                MessageBox.Show("设备信息，IP补充完成,建议重启服务端!");
+            });
+
+            Worker.Run(()=> 
+            {
+                LocationService.RefreshDeviceAlarmBuffer(LogTags.Server);//刷新缓存信息
+            },()=> { });                       
+        }
     }
 }

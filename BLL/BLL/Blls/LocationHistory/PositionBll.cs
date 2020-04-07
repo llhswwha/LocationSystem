@@ -657,13 +657,13 @@ string progress1 = string.Format("{4} Progress1>>Name:{0},Count:{1:N} ({2}/{3})"
                                 //this.RemovePoints(tag,wheres, idList);
                                 var temp = new List<string>(wheres);
                                 var temp2 = new List<int>(idList);
-                                ThreadPool.QueueUserWorkItem((data) =>
-                                {
+                                //ThreadPool.QueueUserWorkItem((data) =>
+                                //{
                                     using (LocationHistoryDb db = new LocationHistoryDb())//using必须有
                                     {
                                         PositionBll.RemovePoints(tag,db, temp, temp2);
                                     }
-                                });
+                                //});
                             }
                             removeCount += count2;
                             Log.Info(tag, string.Format("{6}{5} || Progress2>>where:{7},count:{0},total:{1:N} ({2}/{3},{4:F3})", count2, removeCount, (k + 1), groupList.Count, (k + 1.0) / groupList.Count, progress1, preProgress, wheres.Count));
@@ -777,7 +777,7 @@ string progress1 = string.Format("{4} Progress1>>Name:{0},Count:{1:N} ({2}/{3})"
                 for (int i = 0; i < ids.Count; i++)
                 {
                     inList += ids[i];
-                    if (i > 0 && i <ids.Count-1)
+                    if (i <ids.Count-1)
                     {
                         inList += ",";
                     }

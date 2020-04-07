@@ -164,7 +164,7 @@ namespace LocationServices.Locations.Services
             try
             {
                 PersonService personService = new PersonService(db);
-                return personService.GetList(true, showHidePerson);
+                return personService.GetList(false, showHidePerson);
             }
             catch (System.Exception ex)
             {

@@ -24,11 +24,6 @@ namespace WebApiService.Controllers
             service = new DevService();
         }
 
-        [Route("")]
-        public bool AddArchor(TModel.Location.AreaAndDev.Archor archor)
-        {
-            return service.AddArchor(archor);
-        }
         [Route("add/camera")]
         [HttpPost]
         public TModel.Location.AreaAndDev.Dev_CameraInfo AddCameraInfo(TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo)
@@ -41,12 +36,12 @@ namespace WebApiService.Controllers
         {
             return service.AddCameraInfoByList(cameraInfoList);
         }
-        [Route("")]
+        [Route("add")]
         public Location.TModel.Location.AreaAndDev.DevInfo AddDevInfo(Location.TModel.Location.AreaAndDev.DevInfo devInfo)
         {
             return service.AddDevInfo(devInfo);
         }
-        [Route("")]
+        [Route("addList")]
         public List<Location.TModel.Location.AreaAndDev.DevInfo> AddDevInfoByList(List<Location.TModel.Location.AreaAndDev.DevInfo> devInfoList)
         {
             return service.AddDevInfoByList(devInfoList);
@@ -56,7 +51,7 @@ namespace WebApiService.Controllers
         {
             return service.AddDevPosByList(posList);
         }
-        [Route("")]
+        [Route("add/devPos")]
         public bool AddDevPosInfo(DevPos pos)
         {
             return service.AddDevPosInfo(pos);
@@ -89,7 +84,8 @@ namespace WebApiService.Controllers
         {
             return service.DeleteCameraInfo(cameraInfoList);
         }
-        [Route("")]
+        [Route("del")]
+        [HttpPost]
         public bool DeleteDevInfo(Location.TModel.Location.AreaAndDev.DevInfo devInfo)
         {
             return service.DeleteDevInfo(devInfo);
@@ -284,7 +280,8 @@ namespace WebApiService.Controllers
         {
             return service.ModifyCameraInfoByList(cameraInfoList);
         }
-        [Route("")]
+        [Route("Edit")]
+        [HttpPut]
         public bool ModifyDevInfo(Location.TModel.Location.AreaAndDev.DevInfo devInfo)
         {
             return service.ModifyDevInfo(devInfo);
@@ -295,12 +292,13 @@ namespace WebApiService.Controllers
         {
             return service.ModifyDoorAccess(doorAccessList);
         }
-        [Route("")]
+        [Route("Edit/posList")]
         public bool ModifyPosByList(List<DevPos> posList)
         {
             return service.ModifyPosByList(posList);
         }
-        [Route("")]
+        [Route("Edit/devPos")]
+        [HttpPut]
         public bool ModifyPosInfo(DevPos pos)
         {
             return service.ModifyPosInfo(pos);

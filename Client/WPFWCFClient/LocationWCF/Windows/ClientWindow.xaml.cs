@@ -92,8 +92,8 @@ namespace LocationWCFClient.Windows
         {
             if (locAlarms == null) return;
             LocationAlarms.AddRange(locAlarms);
-            DataGridLocationAlarms.ItemsSource = null;
-            DataGridLocationAlarms.ItemsSource = LocationAlarms;
+    //        DataGridLocationAlarms.ItemsSource = null;
+    //        DataGridLocationAlarms.ItemsSource = LocationAlarms;
         }
 
         private void ShowDeviceAlarms(DeviceAlarm[] devAlarms)
@@ -231,7 +231,7 @@ namespace LocationWCFClient.Windows
             try
             {
                 DateTime start = DateTime.Now;
-                AreaStatistics recv = client.GetAreaStatistics(TbStatisticArea.Text.ToInt());
+                AreaStatistics recv = client.GetAreaStatistics(Convert.ToInt32(TbStatisticArea.Text));
                 int PersonNum = recv.PersonNum;
                 int DevNum = recv.DevNum;
                 int LocationAlarmNum = recv.LocationAlarmNum;
@@ -853,6 +853,17 @@ namespace LocationWCFClient.Windows
             TModel.FuncArgs.SearchArg arg = new TModel.FuncArgs.SearchArg();
             TModel.Location.Alarm.AlarmStatistics recv = client.GetLocationAlarmStatistics(arg);
             int nn = 0;
+        }
+
+        private void DeleteSpecifiedLocationAlarm_Click(object sender, RoutedEventArgs e)
+        {
+            string strId = SpecifiedLocationAlarmId.Text;
+            if (strId == "" || strId == null)
+            {
+                strId = "1";
+            }
+            int Id = Convert.ToInt32(strId);
+            bool bReturn = client.DeleteSpecifiedLocationAlarm(Id);
         }
     }
 }

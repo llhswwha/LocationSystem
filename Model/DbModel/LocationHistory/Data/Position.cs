@@ -329,6 +329,14 @@ namespace DbModel.LocationHistory.Data
         [XmlIgnore]
         public bool IsSimulate { get; set; }
 
+        /// <summary>
+        /// 事件类型，默认为0，当位置信息中有SOS时，为1
+        /// </summary>
+        [NotMapped]
+        [XmlIgnore]
+        public int EventType { get; set; }
+
+
         public Position()
         {
             //Archors = new List<string>();
@@ -372,8 +380,8 @@ namespace DbModel.LocationHistory.Data
             {
                 LogEvent.Info("RealPos", "获取定位数据:" + info);
             }
-               
 
+     
             bool r = false;
             info = info.Trim();
             if (info.Contains("{"))
@@ -408,11 +416,27 @@ namespace DbModel.LocationHistory.Data
             return r;
         }
 
-        public string GetText(float offsetX, float offsetY)
+        public string GetText(float offsetX, float offsetY,int timeMode)
         {
             DateTime now = DateTime.Now;
-            long t = TimeConvert.ToStamp(now);
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Code, X - offsetX, Z - offsetY, Y,
+            long t = 0;
+            if (timeMode == 0)//当前时间作为发送时间
+            {
+                
+                t = TimeConvert.ToStamp(now);
+            }
+            else if (timeMode == 1)//当前日期作为发送时间
+            {
+                DateTime t1 = TimeConvert.ToDateTime(DateTimeStamp);
+                DateTime tNew = new DateTime(now.Year, now.Month, now.Day, t1.Hour, t1.Minute,
+                    t1.Second, t1.Millisecond);
+                t = TimeConvert.ToStamp(tNew);
+            }
+            
+            double x = (X - offsetX) / AppSetting.PositionPower;
+            double y = (Z - offsetY) / AppSetting.PositionPower;
+            double z = Y / AppSetting.PositionPower;
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Code, x, y, z,
                 t, Power, Number, Flag, ArchorsText);
         }
 
@@ -430,10 +454,10 @@ namespace DbModel.LocationHistory.Data
                 int length = parts.Length;
                 if (length <= 1) return false;//心跳包回拨
                 Code = parts[0];
-                if (Code.StartsWith("1"))
-                {
-                    LogEvent.Info("RealPos,", "Code.StartsWith(1)：" + info);
-                }
+                //if (Code.StartsWith("1"))
+                //{
+                //    LogEvent.Info("RealPos,", "Code.StartsWith(1)：" + info);
+                //}
                 if (parts[1] == "-1.#IND0")
                 {
                     parts[1] = "-1.0";
@@ -442,8 +466,8 @@ namespace DbModel.LocationHistory.Data
                 {
                     parts[2] = "-1.0";
                 }
-                float x = parts[1].ToFloat();
-                float y = parts[2].ToFloat();
+                float x = parts[1].ToFloat() * AppSetting.PositionPower;
+                float y = parts[2].ToFloat() * AppSetting.PositionPower;
                 if (x < offsetX)
                 {
                     X = x + offsetX; //平面位置
@@ -455,7 +479,7 @@ namespace DbModel.LocationHistory.Data
                     Z = y;
                 }
 
-                Y = parts[3].ToFloat();//高度位置，为了和Unity坐标信息一致，Y为高度轴
+                Y = parts[3].ToFloat() * AppSetting.PositionPower;//高度位置，为了和Unity坐标信息一致，Y为高度轴
                 DateTimeStamp = parts[4].ToLong();
                 DateTime = TimeConvert.ToDateTime(DateTimeStamp);
                 //TimeSpan time1 = DateTime.Now - DateTime;
@@ -496,13 +520,16 @@ namespace DbModel.LocationHistory.Data
                 if (length > 8)
                 {
                 }
+                //else if(length == 8)
+                //{
+
+                //}
+                
                 else
                 {
                     LogEvent.Info("位置信息数据可能被截断！！！！:" + info);
-                    return false;
+                    //return false;
                 }
-
-
                 return true;
             }
             catch (Exception ex)
@@ -582,15 +609,31 @@ namespace DbModel.LocationHistory.Data
         {
             PositionJson p = JsonConvert.DeserializeObject<PositionJson>(json);
             Code = p.tag_id;
-            X = p.x.ToFloat() * 10;
-            Y = p.z.ToFloat() * 10;
-            Z = p.y.ToFloat() * 10;
+            X = p.x.ToFloat() * AppSetting.PositionPower;
+            Y = p.z.ToFloat() * AppSetting.PositionPower;
+            Z = p.y.ToFloat() * AppSetting.PositionPower;
+
             //Y = p.y.ToFloat() * 10;
             //Z = p.z.ToFloat() * 10;
+            X += offsetX;
+            Z += offsetY;
+
             DateTimeStamp = p.timestamp.ToLong();
             DateTime = DateTimeStamp.ToDateTime();
             Number = p.sn.ToInt();
             Power = (int)(p.bettery.ToFloat() * 100);
+            EventType = 0;
+            if (p.events != null && p.events.Count() > 0)
+            {
+                for (int i = 0; i < p.events.Count(); i++)
+                {
+                    string strEventType = p.events[i].event_type;
+                    if (strEventType == "SOS")
+                    {
+                        EventType = 1;
+                    }
+                }
+            }
             return true;
         }
 
@@ -607,7 +650,8 @@ namespace DbModel.LocationHistory.Data
 
         public override string ToString()
         {
-            return Code;
+            //return Code;
+            return Code + "," + DateTime;
         }
 
         public Position Clone()

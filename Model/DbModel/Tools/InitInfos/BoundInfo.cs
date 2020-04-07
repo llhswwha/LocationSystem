@@ -105,5 +105,76 @@ namespace Location.Model.InitInfos
                 SetBound(topo.InitBound);
             }
         }
+
+        /// <summary>
+        /// 扩大面积，简单的矩形扩大2倍，坐标相应调整
+        /// </summary>
+        /// <param name="power"></param>
+        public void Scale(float power)
+        {
+            float centerX = 0;
+            float centerY = 0;
+            for (int i = 0; i < Points.Count; i++)
+            {
+                PointInfo pi = Points[i];
+                centerX += pi.X;
+                centerY += pi.Y;
+            }
+
+            centerX = centerX / (float)Points.Count;
+            centerY = centerY / (float)Points.Count;
+
+            for (int i = 0; i < Points.Count; i++)
+            {
+                PointInfo pi = Points[i];
+                float offsetX = pi.X - centerX;
+                float offsetY = pi.Y - centerY;
+                float xNew = centerX + offsetX * power;
+                float yNew = centerY + offsetY * power;
+                PointInfo piNew=new PointInfo(xNew,yNew);
+                Points[i] = piNew;
+            }
+        }
+
+        /// <summary>
+        /// 把不规则图形改成矩形
+        /// </summary>
+        /// <param name="power"></param>
+        public void SetRectangle()
+        {
+            float pMinX = float.MaxValue;
+            float pMinY = float.MaxValue;
+            float pMaxX = float.MinValue;
+            float pMaxY = float.MinValue;
+
+            for (int i = 0; i < Points.Count; i++)
+            {
+                PointInfo p1 = Points[i];
+
+                if (p1.X < pMinX)
+                {
+                    pMinX = p1.X;
+                }
+
+                if (p1.Y < pMinY)
+                {
+                    pMinY = p1.Y;
+                }
+
+                if (p1.Y > pMaxY)
+                {
+                    pMaxY = p1.Y;
+                }
+
+                if (p1.X > pMaxX)
+                {
+                    pMaxX = p1.X;
+                }
+            }
+
+            Points.Clear();
+            Points.Add(new PointInfo(pMinX, pMinY));
+            Points.Add(new PointInfo(pMaxX, pMaxY));
+        }
     }
 }

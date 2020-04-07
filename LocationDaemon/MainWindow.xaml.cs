@@ -261,7 +261,7 @@ namespace LocationDaemon
             {
                 //Log.Error(LogTags.Server, string.Format("WebApiHelper.GetString:uri={0},error={1}",uri,ex.Message));
                 //return null;
-                WriteLog("获取心跳包出错:" + ex.Message);
+                WriteLog("获取心跳包出错:" + ex);
                 return "";
             }
         }

@@ -10,6 +10,9 @@ using DbModel.LocationHistory.Data;
 using DbModel.Tools;
 using Location.BLL.Tool;
 using LocationServer;
+using DbModel.Location.Alarm;
+using Newtonsoft.Json;
+using Location.TModel.Tools;
 
 namespace LocationWCFServer
 {
@@ -20,22 +23,30 @@ namespace LocationWCFServer
         public string LocalIp { get; set; }
 
         public int EnginePort { get; set; }
+        public int EnginePort2 { get; set; }
         public int LocalPort { get; set; }
 
-        public EngineLogin(string localIp, int localPort,string engineIp,int enginePort)
+        public int LocalPort2 { get; set; }
+
+        public EngineLogin(string localIp, int localPort, int localPort2, string engineIp,int enginePort, int enginePort2)
         {
-            EngineIp = engineIp;
-            EnginePort = enginePort;
             LocalIp = localIp;
             LocalPort = localPort;
+            LocalPort2 = localPort2;
+            EngineIp = engineIp;
+            EnginePort = enginePort;
+            EnginePort2 = enginePort2;
+            
         }
 
         public EngineLogin()
         {
-            EngineIp = "127.0.0.1";
-            EnginePort = 3456;
             LocalIp = "127.0.0.1";
             LocalPort = 2323;
+            LocalPort2 = 2324;
+            EngineIp = "127.0.0.1";
+            EnginePort = 3456;
+            EnginePort2 = 1994;
         }
 
         public bool Valid()
@@ -50,6 +61,8 @@ namespace LocationWCFServer
     public class PositionEngineDA
     {
         private LightUDP ludp2;
+
+        private LightUDP ludpSendAlarm;
 
         private Thread aliveThread;
 
@@ -70,6 +83,7 @@ namespace LocationWCFServer
         {
             Log.Info(LogTags.Engine, "PositionEngineDA.Start");
             Stop();
+
             if (aliveThread == null)
             {
                 aliveThread = new Thread(KeepAlive);
@@ -78,6 +92,7 @@ namespace LocationWCFServer
             }
 
             aliveInterval = AppContext.PosEngineKeepAliveInterval;
+            InitSendAlarmUdp();
         }
 
         public int aliveInterval = 750;//心跳包的时间间隔
@@ -108,6 +123,17 @@ namespace LocationWCFServer
 
         private void SendAlive()
         {
+            if (AppContext.ActiveFlag == 1)
+            {
+                long timeStamp =  TimeConvert.ToStamp(DateTime.Now);
+                string strStamp = Convert.ToString(timeStamp);
+                AliveText = "{\"data_type\":\"2\",\"timestamp\":\"" + strStamp + "\",\"status\":\"1\"}";
+            }
+            else
+            {
+                AliveText = "0";
+            }
+
             //Log.Info(LogTags.Engine,"PositionEngineDA.SendAlive");
             byte[] data = Encoding.UTF8.GetBytes(AliveText);
             IPAddress ip = IPAddress.Parse(Login.EngineIp);
@@ -136,20 +162,41 @@ namespace LocationWCFServer
             foreach (var dgram in dgramList)
             {
                 string msg = Encoding.UTF8.GetString(dgram.data);
-                if (dgram.data.Length>1&&msg.StartsWith("1"))
+                if (dgram.data.Length>1&&msg.StartsWith("1"))//
                 {
 
                 }
-                if (MessageReceived != null)
-                {
-                    MessageReceived(msg);
-                }
+                OnMessageReceived(msg);
                 Position pos = new Position();
                 if (pos.Parse(msg, LocationContext.OffsetX, LocationContext.OffsetY))
                 {
                     posList.Add(pos);
                 }
+                else
+                {
+                    Log.Info("解析失败");
+                }
             }
+            if (PositionListRecived != null)
+            {
+                PositionListRecived(posList);
+            }
+        }
+
+        public void SendPostionText(string msg)
+        {
+            List<Position> posList = new List<Position>();
+            OnMessageReceived(msg);
+            Position pos = new Position();
+            if (pos.Parse(msg, LocationContext.OffsetX, LocationContext.OffsetY))
+            {
+                posList.Add(pos);
+            }
+            else
+            {
+                Log.Info("解析失败");
+            }
+
             if (PositionListRecived != null)
             {
                 PositionListRecived(posList);
@@ -159,10 +206,7 @@ namespace LocationWCFServer
         private void Ludp2_DGramRecieved(object sender, BUDPGram dgram)
         {
             string msg = Encoding.UTF8.GetString(dgram.data);
-            if (MessageReceived != null)
-            {
-                MessageReceived(msg);
-            }
+            OnMessageReceived(msg);
             Position pos = new Position();
             if (pos.Parse(msg,LocationContext.OffsetX, LocationContext.OffsetY))
             {
@@ -175,6 +219,14 @@ namespace LocationWCFServer
                 {
                     PositionListRecived(posList);
                 }
+            }
+        }
+
+        private void OnMessageReceived(string msg)
+        {
+            if (MessageReceived != null)
+            {
+                MessageReceived(msg);
             }
         }
 
@@ -224,6 +276,23 @@ namespace LocationWCFServer
                 Log.Error("PositionEngineDA.Stop", ex);
             }
 
+        }
+
+        private void InitSendAlarmUdp()
+        {
+            if (ludpSendAlarm == null)
+            {
+                Log.Info(LogTags.Engine, "PositionEngineDA.InitSendAlarmUdp");
+                ludpSendAlarm = LightUDP.Create(IPAddress.Parse(Login.LocalIp), Login.LocalPort2); //建立UDP  监听端口
+            }
+        }
+
+        public void SendAlarm(string strData)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(strData);
+            //IPAddress ip = IPAddress.Parse(Login.EngineIp);
+            IPAddress ip = IPAddress.Parse(Login.EngineIp);
+            ludpSendAlarm.Send(data, new IPEndPoint(ip, Login.EnginePort2));
         }
     }
 }

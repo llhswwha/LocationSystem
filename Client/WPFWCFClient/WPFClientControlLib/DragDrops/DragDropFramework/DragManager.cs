@@ -383,7 +383,7 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
 
             return resultEffects;
         }
-
+        public event Action<bool> DragDrop_Over;
         /// <summary>
         /// Called after DragDrop.DoDragDrop() returns.
         /// Typically during a file move, for example, the file is deleted here.
@@ -397,7 +397,10 @@ namespace WpfDragAndDropSmorgasbord.DragDropFramework
         private void DoDragDrop_Done(DragDropEffects resultEffects) {
             if((this._dragDropObject.DataProviderActions & DataProviderActions.DoDragDrop_Done) != 0)
                 this._dragDropObject.DoDragDrop_Done(resultEffects);
-
+            if (DragDrop_Over!=null )
+            {
+                DragDrop_Over(true);
+            }
 #if PRINT2BUFFER
             Debug.WriteLine("buf0: " + DragDropBuffer.buf0.ToString());
             Debug.WriteLine("buf1: " + DragDropBuffer.buf1.ToString());

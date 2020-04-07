@@ -24,6 +24,25 @@ using System.Collections.Concurrent;
 
 namespace LocationServices.Tools
 {
+    public class FaintAlarmLogin
+    {
+        public string FaintScope { get; set; }
+        public int FaintTime { get; set; }
+        public int FaintIntervalTime { get; set; }
+
+        public FaintAlarmLogin()
+        {
+
+
+
+            FaintScope = "0.5";
+            FaintTime = 20;
+            FaintIntervalTime = 1;
+        }
+
+    }
+
+
     public class PositionEngineClient
     {
 
@@ -51,10 +70,11 @@ namespace LocationServices.Tools
             //{
             //    ab.ForceLoadData();
             //}
-            if (bll != null)
-            {
-                bll.UpdateBuffer();
-            }
+
+            //if (bll != null)
+            //{
+            //    bll.UpdateBuffer();
+            //}
         }
 
         public PositionEngineLog Logs { get; set; }
@@ -91,6 +111,8 @@ namespace LocationServices.Tools
 
         public bool IsWriteToDb = true;
 
+        public int psCount = 0;
+
         public void StartConnectEngine(EngineLogin login)
         {
             //Log.Info(LogTags.Engine,"StartConnectEngine:" + login.EngineIp);
@@ -102,9 +124,11 @@ namespace LocationServices.Tools
                 engineDa = new PositionEngineDA(login);//todo:ip写到配置文件中
                 engineDa.MockCount = MockCount;
                 //engineDa.MessageReceived += EngineDa_MessageReceived;
-                engineDa.MessageReceived += (obj) =>
+                engineDa.MessageReceived += (msg) =>
                 {
-                    WriteLogLeft(GetLogText(obj));
+                    psCount++;
+                    string m = string.Format("{0}||{1}", psCount, msg);
+                    WriteLogLeft(GetLogText(m));
                 };
                 //engineDa.PositionRecived += EngineDa_PositionRecived;
                 engineDa.PositionListRecived += EngineDa_PositionListRecived;
@@ -154,11 +178,13 @@ namespace LocationServices.Tools
             });
         }
 
+        //private int count = 0;
 
 
         private string GetLogText(string msg)
         {
-            return DateTime.Now.ToString("HH:mm:ss.fff") + ":" + msg;
+            //count++;
+            return string.Format("[{0}]{1}",DateTime.Now.ToString("HH:mm:ss.fff") , msg);
         }
 
         /// <summary>
@@ -186,7 +212,46 @@ namespace LocationServices.Tools
             return posBagT;
         }
 
-        private void InsertPostions()
+        public void TestInsertPostions()
+        {
+            insertThread = ThreadTool.Start(() =>
+            {
+                List<Position> posList2 = new List<Position>();
+                posList2.AddRange(Positions);
+                Positions = new ConcurrentBag<Position>();
+
+                foreach (Position position in posList2)
+                {
+                    List<Position> posList3 = new List<Position>();
+                    posList3.Add(position);//模拟状态一个一个添加
+
+                    if (InsertPostions(posList3))
+                    {
+                        WriteLogRight(GetLogText(string.Format("写入{0}条数据", posList3.Count)));
+                    }
+                    else
+                    {
+                        CloseBll();
+                        Thread.Sleep(300);
+                        WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", posList2.Count, ErrorMessage)), true);
+                    }
+                }
+
+            });
+        }
+
+        public void ClearPositions()
+        {
+            Positions = new ConcurrentBag<Position>();
+        }
+
+        public bool EnableInsertPosition = true;
+
+        public bool IsSimulate = false;
+
+        public int insertCount = 0;
+
+        public void InsertPostions()
         {
             lock (Positions)
             {
@@ -196,21 +261,61 @@ namespace LocationServices.Tools
 
                     try
                     {
-                        Positions = RemoveRepeatPosition(Positions);//删除重复的数据 这个原来在InsertPostions也有
-
-                        List<Position> posList2 = new List<Position>();
-                        posList2.AddRange(Positions);
-                        if (InsertPostions(posList2))
+                        if (EnableInsertPosition == false) //模拟状态不删除数据
                         {
-                            WriteLogRight(GetLogText(string.Format("写入{0}条数据", Positions.Count)));
-                            //Positions.Clear();
+                            return;
+                        }
+                        if (IsSimulate)//模拟数据
+                        {
+                            List<Position> posList2 = new List<Position>();
+                            posList2.AddRange(Positions);
                             Positions = new ConcurrentBag<Position>();
+                            posList2.Reverse();//发现Positions(ConcurrentBag<>)里面数据位置是倒过来的，是和Add顺序相反的
+
+
+                            foreach (Position pos in posList2)
+                            {
+                                List<Position> posList3 = new List<Position>();
+                                posList3.Add(pos);
+
+                                insertCount++;
+
+                                if (InsertPostions(posList3))
+                                {
+                                    WriteLogRight(GetLogText(string.Format("写入{0}条数据,{1}", posList3.Count, insertCount)));
+                                    //Positions.Clear();
+
+                                }
+                                else
+                                {
+                                    CloseBll();
+                                    Thread.Sleep(300);
+                                    WriteLogRight(
+                                        GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", posList3.Count, ErrorMessage)),
+                                        true);
+                                }
+                            }
                         }
                         else
                         {
-                            CloseBll();
-                            Thread.Sleep(300);
-                            WriteLogRight(GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", Positions.Count, ErrorMessage)), true);
+                            Positions = RemoveRepeatPosition(Positions); //删除重复的数据 这个原来在InsertPostions也有
+
+                            List<Position> posList2 = new List<Position>();
+                            posList2.AddRange(Positions);
+                            if (InsertPostions(posList2))
+                            {
+                                WriteLogRight(GetLogText(string.Format("写入{0}条数据", posList2.Count)));
+                                //Positions.Clear();
+                                Positions = new ConcurrentBag<Position>();
+                            }
+                            else
+                            {
+                                CloseBll();
+                                Thread.Sleep(300);
+                                WriteLogRight(
+                                    GetLogText(string.Format("写入失败 当前有{0}条数据 error:{1}", posList2.Count, ErrorMessage)),
+                                    true);
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -221,7 +326,8 @@ namespace LocationServices.Tools
                         try
                         {
                             Positions = new ConcurrentBag<Position>();
-                        } catch (Exception e)
+                        }
+                        catch (Exception e)
                         {
                             Log.Error("PositionEngineClient.InsertPostions.Exception", e);
                         }
@@ -237,7 +343,7 @@ namespace LocationServices.Tools
             }
         }
 
-        Bll bll;
+        //Bll bll;
 
         AuthorizationBuffer ab;
 
@@ -246,11 +352,11 @@ namespace LocationServices.Tools
 
             try
             {
-                if (bll != null)
-                {
-                    bll.Dispose();
-                    bll = null;
-                }
+                //if (bll != null)
+                //{
+                //    bll.Dispose();
+                //    bll = null;
+                //}
             }
             catch (Exception ex)
             {
@@ -260,10 +366,21 @@ namespace LocationServices.Tools
 
         public Thread LocationAlarmThread;
 
+        private Thread FaintAlarmThread;
+
         ConcurrentBag<Position> alarmPosLit = null;
+
+        private FaintAlarmLogin faintAL = null;
 
         private void LocationAlarmFunction()
         {
+            List<LocationAlarm> UdpAlarm = new List<LocationAlarm>();
+            List<LocationAlarm> UdpAlarm2 = new List<LocationAlarm>();
+
+            DateTime dt = DateTime.Now;
+            long dl = Location.TModel.Tools.TimeConvert.ToStamp(DateTime.Now);
+
+
             while (true)
             {
                 if (alarmPosLit != null)
@@ -271,15 +388,34 @@ namespace LocationServices.Tools
                     try
                     {
                         Log.Info("LocationAlarm", "判断定位告警:" + alarmPosLit.Count);
-                        NewAlarms = ab.GetNewAlarms(alarmPosLit.ToList());
-                        if(NewAlarms!=null&& NewAlarms.Count > 0)
+                        NewAlarms = ab.GetNewAlarms(alarmPosLit.ToList(), UdpAlarm);
+
+                        //LocationAlarm lc = new LocationAlarm();
+                        //lc.Id = 13;
+                        //lc.AlarmType = LocationAlarmType.求救信号;
+                        //lc.AlarmTime = DateTime.Now;
+                        //lc.AlarmTimeStamp = dl;
+                        //UdpAlarm.Add(lc);
+
+                        if (UdpAlarm != null&& UdpAlarm.Count > 0)
                         {
-                            Log.Info("LocationAlarm","定位告警:"+NewAlarms.Count);
+                           // Log.Info("UdpAlarm", "求救信号:"+ UdpAlarm.Count);
+                            SendUdpAlarm(UdpAlarm, UdpAlarm2);
+                        
+                            if (UdpAlarm2.Count == 0)
+                            {
+                                UdpAlarm2 = new List<LocationAlarm>(UdpAlarm);
+                            }
+
+                            UdpAlarm.Clear();
                         }
                         if (NewAlarmsFired != null)
                         {
-                            Log.Info("LocationAlarm", "NewAlarmsFired:" + NewAlarms.Count);
-                            NewAlarmsFired(NewAlarms);
+                            if(NewAlarms!=null&&NewAlarms.Count!=0)
+                            {
+                                Log.Info("LocationAlarm", "NewAlarmsFired:" + NewAlarms.Count);
+                                NewAlarmsFired(NewAlarms);
+                            }                      
                         }
                         alarmPosLit = null;
                     }
@@ -296,6 +432,208 @@ namespace LocationServices.Tools
             }
         }
 
+        List<LocationCard> lcList;
+
+        public void SendUdpAlarm(List<LocationAlarm> SendAlarm, List<LocationAlarm> SendAlarm2)
+        {
+            if (SendAlarm == null || SendAlarm.Count <= 0)
+            {
+                return;
+            }
+
+            //using()
+            if (lcList == null)
+            {
+                using (var bll = GetLocationBll())
+                {
+                    lcList = bll.LocationCards.ToList();
+                }
+            }
+
+            DateTime dtNow = DateTime.Now;
+            long timeStamp = 0;
+            long timeStamp2 = Location.TModel.Tools.TimeConvert.ToStamp(DateTime.Now);
+            long timeStampCha = 3500;
+            List<LocationAlarm> lst = new List<LocationAlarm>();
+            List<LocationAlarm> lst2 = new List<LocationAlarm>();
+
+            foreach (LocationAlarm item in SendAlarm2)
+            {
+                int alarmId = item.Id;
+
+                LocationAlarm la = SendAlarm.Find(p=>p.Id == alarmId);
+                if (la != null)
+                {
+                    timeStamp = item.AlarmTimeStamp;
+                    long lc = timeStamp2 - timeStamp;
+                    if (lc >= timeStampCha)
+                    {
+                        item.AlarmTimeStamp = timeStamp2;
+                    }
+                    else
+                    {
+                        SendAlarm.Remove(la);
+                    }
+                }
+                else
+                {
+                    lst.Add(item);
+                }
+            }
+
+            foreach (LocationAlarm item in lst)
+            {
+                SendAlarm2.Remove(item);
+            }
+
+            foreach (LocationAlarm item in SendAlarm)
+            {
+                int alarmId = item.Id;
+                LocationAlarm la = SendAlarm2.Find(p=>p.Id == alarmId);
+                if (la == null)
+                {
+                    SendAlarm2.Add(item);
+                }
+
+            }
+
+            foreach (LocationAlarm item in SendAlarm)
+            {
+                LocationAlarmLevel level = item.AlarmLevel;
+
+                if (level == LocationAlarmLevel.正常)
+                {
+                    continue;
+                }
+
+                int? id = item.LocationCardId;
+                if (id == null)
+                {
+                    continue;
+                }
+
+                int id2 = (int)id;
+                String strData = GetUdpAlarmInfo(id2, lcList);
+                if (strData == "")
+                {
+                    continue;
+                }
+
+                Log.Info("打印Udp告警信号信号：" + Convert.ToString(item.Id) + " " + dtNow.ToString());
+                engineDa.SendAlarm(strData);
+            }
+        }
+
+        private string GetUdpAlarmInfo(int id, List<LocationCard> lcList)
+        {
+            string strData = "";
+
+            LocationCard lc = lcList.Find(p => p.Id == id);
+            if (lc == null)
+            {
+                //lc = bll.LocationCards.Find(p => p.Id == id);
+                //if (lc != null)
+                //{
+                //    lcList.Add(lc);
+                //}
+            }
+
+            if (lc == null)
+            {
+                return strData;
+            }
+
+            if (lc != null)
+            {
+                strData = "{\"cmdType\":\"02\",\"data\":{\"tagId\":\"" + lc.Code + "\",\"opType\":\"03\"}}";
+            }
+            
+            return strData;
+        }
+
+        public void StartFaintAlarm(FaintAlarmLogin fal)
+        {
+            try
+            {
+                faintAL = fal;
+                if (FaintAlarmThread == null)
+                {
+                    FaintAlarmThread = new Thread(FaintAlarmFunction);
+                    FaintAlarmThread.IsBackground = true;
+                    FaintAlarmThread.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("PositionEngineClient.StartFaintAlarm  ", ex);
+            }
+        }
+
+        public void StopFaintAlarm()
+        {
+            try
+            {
+                if (FaintAlarmThread != null)
+                {
+                    FaintAlarmThread.Abort();
+                    FaintAlarmThread = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("PositionEngineClient.StopFaintAlarm  ", ex);
+            }
+        }
+
+        private void FaintAlarmFunction()
+        {
+            string nFaintScope = faintAL.FaintScope;
+            int nFaintTime = faintAL.FaintTime;
+            int nFaintIntervalTime = faintAL.FaintIntervalTime;
+            nFaintIntervalTime = nFaintIntervalTime * 60 * 1000;
+
+            List<LocationAlarm> newAlarms2 = new List<LocationAlarm>();
+            while (true)
+            {
+                try
+                {
+                    //if (bll == null)
+                    //{
+                    //    bll = GetLocationBll();
+                    //}
+
+                    using (var bll = GetLocationBll())
+                    {
+                        if (ab == null)
+                        {
+                            ab = AuthorizationBuffer.Instance(bll);
+                        }
+
+                        Log.Info("FaintAlarm", "判断晕倒告警");
+                        newAlarms2 = ab.GetFaintAlarm(nFaintScope, nFaintTime);
+                        if (newAlarms2.Count <= 0)
+                        {
+                            Thread.Sleep(nFaintIntervalTime);
+                            continue;
+                        }
+
+                        if (NewAlarmsFired != null)
+                        {
+                            Log.Info("FaintAlarm", "NewAlarmsFired:" + newAlarms2.Count);
+                            NewAlarmsFired(newAlarms2);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("FaintAlarmThread", ex);
+                }
+
+                Thread.Sleep(nFaintIntervalTime);
+            }
+        }
+
+        private Bll bll;
         private bool InsertPostions(List<Position> list1)
         {
             try
@@ -308,12 +646,14 @@ namespace LocationServices.Tools
                 {
                     bll = GetLocationBll();
                 }
-                if (ab == null)
-                {
-                    ab = AuthorizationBuffer.Instance(bll);
-                }
-                //using (var bll = GetLocationBll())
-                {
+
+                //using (var bll = GetLocationBll())  //用完就释放，会导致定位数据缓存被清空，无法存入历史数据库
+                //{
+                    if (ab == null)
+                    {
+                        ab = AuthorizationBuffer.Instance(bll);
+                    }
+
                     r = bll.AddPositionsEx(list1);
                     //todo:添加定位权限判断
                     if (r)
@@ -323,7 +663,7 @@ namespace LocationServices.Tools
                         alarmPosLit = new ConcurrentBag<Position>();
                         foreach (var item in temp)
                         {
-                            alarmPosLit.Add(item);
+                            if(alarmPosLit!=null)alarmPosLit.Add(item);
                         }
                         if (LocationAlarmThread == null)
                         {
@@ -331,21 +671,21 @@ namespace LocationServices.Tools
                             LocationAlarmThread.IsBackground = true;
                             LocationAlarmThread.Start();
                         }
-
+                        
                         //AlarmHub.SendLocationAlarms(obj.ToTModel().ToArray());
                     }
-                }
 
-                SendNsqPos(list1);
+                    SendNsqPos(list1);
 
-                watch1.Stop();
-                WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
+                    watch1.Stop();
+                    WriteLogRight(GetLogText(string.Format("写入{0}条数据 End 用时:{1}", list1.Count, watch1.Elapsed)));
 
-                if (r == false)
-                {
-                    ErrorMessage = bll.ErrorMessage;
-                }
-                return r;
+                    if (r == false)
+                    {
+                        ErrorMessage = bll.ErrorMessage;
+                    }
+                    return r;
+                //}
             }
             catch (Exception ex)
             {
@@ -472,7 +812,7 @@ namespace LocationServices.Tools
 
                         if (item != null)
                         {
-                            Positions.Add(item);
+                            Positions.Add(item);//发现Positions里面数据是倒过来的
                         }
                         else
                         {

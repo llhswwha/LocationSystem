@@ -41,41 +41,72 @@ namespace IModel.Enums
         public static string Archor = "定位设备1_3D";
 
         public static string ArchorOutdoor = "定位设备2_3D";
+
+        public static string ArchorDev = "基站";
+
+        public static string CameraDev = "摄像头";
+
+        public static string StaticDev = "生产设备";
+
+        public static string AlarmDev = "警报设备";
+
+        public static string DoorAccessDev = "门禁";
+
+        public static string OtherDev = "其他设备";
     }
 
     public class TypeCodeHelper
     {
-
+        private static Dictionary<string, string> CodeTypeNameDic = new Dictionary<string, string>();
         public static string GetTypeName(string code)
         {
-            if (IsLocationDev(code))
+            if (string.IsNullOrEmpty(code)) return TypeNames.OtherDev;
+            if (CodeTypeNameDic.ContainsKey(code))
             {
-                return "基站";
-            }
-            else if (IsCamera(code))
-            {
-                return "摄像头";
-            }
-            else if (IsStaticDev(code))
-            {
-                return "生产设备";
-            }
-            else if (IsAlarmDev(code))
-            {
-                return "警报设备";
+                return CodeTypeNameDic[code];
             }
             else
             {
-                if (IsDoorAccess(code))
+                if (IsLocationDev(code))
                 {
-                    return "门禁";
+                    AddCodeToDic(code,TypeNames.ArchorDev);
+                    return TypeNames.ArchorDev;
+                }
+                else if (IsCamera(code))
+                {
+                    AddCodeToDic(code, TypeNames.CameraDev);
+                    return TypeNames.CameraDev;
+                }
+                else if (IsStaticDev(code))
+                {
+                    AddCodeToDic(code, TypeNames.StaticDev);
+                    return TypeNames.StaticDev;
+                }
+                else if (IsAlarmDev(code))
+                {
+                    AddCodeToDic(code, TypeNames.AlarmDev);
+                    return TypeNames.AlarmDev;
+                }
+                else if (IsDoorAccess(code))
+                {
+                    AddCodeToDic(code, TypeNames.DoorAccessDev);
+                    return TypeNames.DoorAccessDev;                   
                 }
                 else
                 {
-                    return "其他设备";
-
+                    AddCodeToDic(code, TypeNames.OtherDev);
+                    return TypeNames.OtherDev;
                 }
-            }
+            }           
+        }
+        /// <summary>
+        /// 添加Code和对应的Type
+        /// </summary>
+        /// <param name="codeTemp"></param>
+        /// <param name="typeTemp"></param>
+        private static void AddCodeToDic(string codeTemp,string typeTemp)
+        {
+            if (!CodeTypeNameDic.ContainsKey(codeTemp)) CodeTypeNameDic.Add(codeTemp, typeTemp);
         }
 
         private static string CameraType = "3000201|14|3000610|1000102";
@@ -170,6 +201,75 @@ namespace IModel.Enums
         {
             if (string.IsNullOrEmpty(typeCode)) return false;
             return IsTypeCodeContains(typeCode, FireFightDevType);
+        }
+        /// <summary>
+        /// key是typecode,value是TypeName(通过ContainsKey，能快速判断typeCode是否属于这个TypeName)
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public static  Dictionary<string,string>TryGetCodeByType(string typeName)
+        {
+            Dictionary<string, string> mList = new Dictionary<string, string>();
+            if(typeName==TypeNames.ArchorDev)
+            {
+                return TyeGetTypeCodeDic(typeName, LocationDev);
+            }
+            else if(typeName == TypeNames.CameraDev)
+            {
+                return TyeGetTypeCodeDic(typeName, CameraType);
+            }
+            else if (typeName == TypeNames.StaticDev)
+            {
+                return TyeGetTypeCodeDic(typeName, StaticDevTypeCode);
+            }
+            else if (typeName == TypeNames.AlarmDev)
+            {
+                return TyeGetTypeCodeDic(typeName, AlarmDevTypeCodes);
+            }
+            else if (typeName == TypeNames.DoorAccessDev)
+            {
+                return TyeGetTypeCodeDic(typeName, DoorAccess);
+            }
+            else
+            {
+                mList.Add("0",TypeNames.OtherDev);
+                return mList;
+            }
+        }
+        /// <summary>
+        /// 设备类型，对应的TypeCode
+        /// </summary>
+        private static Dictionary<string, Dictionary<string, string>> TypeNameToCodeDic = new Dictionary<string, Dictionary<string, string>>();
+
+        /// <summary>
+        /// 通过设备类型，获取设备类型下对应的所有Typecode
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <param name="allCode"></param>
+        /// <returns></returns>
+        private static Dictionary<string,string>TyeGetTypeCodeDic(string typeName,string allCode)
+        {
+            if(TypeNameToCodeDic.ContainsKey(typeName))
+            {
+                return TypeNameToCodeDic[typeName];
+            }
+            else
+            {
+                string[] part = allCode.Split('|');
+                Dictionary<string, string> typeNameCodes = new Dictionary<string, string>();
+                foreach(var item in part)
+                {
+                    if(!string.IsNullOrEmpty(item)&&!typeNameCodes.ContainsKey(item))
+                    {
+                        typeNameCodes.Add(item,typeName);
+                    }
+                }
+                if(!TypeNameToCodeDic.ContainsKey(typeName))
+                {
+                    TypeNameToCodeDic.Add(typeName,typeNameCodes);
+                }
+                return TypeNameToCodeDic[typeName];
+            }
         }
 
         /// <summary>

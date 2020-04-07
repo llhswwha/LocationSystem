@@ -36,7 +36,7 @@ namespace LocationClient.Windows
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             info = new DownloadInfo();
-            info.CId = TbCid.Text.ToInt();
+            info.CId = Convert.ToInt32(TbCid.Text);
             info.StartTime = TbStart.Text;
             info.EndTime = TbEnd.Text;
             info.Channel = TbChannel.Text;

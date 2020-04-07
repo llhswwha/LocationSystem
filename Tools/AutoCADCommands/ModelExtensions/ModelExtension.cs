@@ -102,7 +102,7 @@ namespace AutoCADCommands.ModelExtensions
         public static CADShape ToCADShape(this ObjectId objId,bool isToUCS)
         {
             CADShape sp = new CADShape();
-            var dbObject = objId.QOpenForRead();
+            //var dbObject = objId.QOpenForRead();
             var entity = objId.QOpenForRead<Entity>();
             sp.Name = entity.GetType().Name;
             sp.Type = entity.GetType().Name;
@@ -141,6 +141,14 @@ namespace AutoCADCommands.ModelExtensions
                 //text.InsertionPoint(0);
                 sp.AddPoints(text, isToUCS);
             }
+            else if (entity is DBText)
+            {
+                DBText text = entity as DBText;
+                sp.Text = text.TextString;
+                //text.InsertionPoint(0);
+                sp.AddPoints(text, isToUCS);
+            }
+
             else if (entity is Hatch)
             {
                 Hatch hatch = entity as Hatch;
