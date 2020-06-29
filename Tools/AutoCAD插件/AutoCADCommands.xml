@@ -3044,14 +3044,49 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:AutoCADCommands.GetCADOtherCommands">
+            <summary>
+            由 钱 编写代码。区分蔡的代码
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.GetParkBuild(System.String)">
+            <summary>
+            根据“大楼”名称获取相应的图层
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.GetAllShapeByLayer">
+            <summary>
+            获取某图层下所有多边型元素
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.GetAllShapeByManual">
+            <summary>
+            手动获取多个“多边型”图形
+            </summary>
+        </member>
         <member name="M:AutoCADCommands.MyCmds.SetUCS2WCS">
             <summary>
             设置当前用户坐标系为世界坐标系
             </summary>
         </member>
+        <member name="M:AutoCADCommands.MyCmds.GetBuildInfo">
+            <summary>
+            厂区 //add by qclei 2020-04-30
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetLayerInfo">
+            <summary>
+            获取当前图层下面所有“多边型”图形 //add by qclei 2020-04-30
+            </summary>
+        </member>
         <member name="M:AutoCADCommands.MyCmds.GetShapeInfo">
             <summary>
             从一个线获取全部的
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetShapeInfos">
+            <summary>
+            手动连续获取 封闭多边型 //add by qclei 2020-04-30
             </summary>
         </member>
         <member name="M:AutoCADCommands.MyCmds.GetLineOfPoint">
@@ -3074,6 +3109,11 @@
             将室外基站测量的坐标位置读取并显示
             </summary>
         </member>
+        <member name="M:AutoCADCommands.MyCmds.GetRoom">
+            <summary>
+            获取一个机房的坐标
+            </summary>
+        </member>
         <member name="M:AutoCADCommands.MyCmds.GetRooms">
             <summary>
             获取机房坐标，创建机房区域
@@ -3087,6 +3127,11 @@
         <member name="M:AutoCADCommands.MyCmds.GetRoomsEx">
             <summary>
             获取机房坐标，创建机房区域
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetParkInfoEx">
+            <summary>
+            获取整体园区、大楼的关系  //add by qclei 2020-05-04
             </summary>
         </member>
         <member name="M:AutoCADCommands.MyCmds.GetInitInfoEx">
@@ -3109,6 +3154,25 @@
             Create a new UCS, make it active, and translate the coordinates of a point into the UCS coordinates
             https://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2017/ENU/AutoCAD-NET/files/GUID-096085E3-5AD5-4454-BF10-C9177FDB5979-htm.html
             </summary>
+        </member>
+        <member name="T:AutoCADCommands.PulicGadget">
+            <summary>
+            共公功能 add by qclei 2020-04-30
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.PulicGadget.ifColseShape(DbModel.CADEntitys.CADShape)">
+            <summary>
+            判断是否是封闭的的图形
+            </summary>
+            <param name="old"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.PulicGadget.getShapeName(DbModel.CADEntitys.CADShape)">
+            <summary>
+            根据图形获取该图形内的名称
+            </summary>
+            <param name="sp"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>
