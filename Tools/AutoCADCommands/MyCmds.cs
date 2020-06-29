@@ -71,37 +71,50 @@ namespace AutoCADCommands
             Gui.TextReport("Points", xml, 700, 500);
         }
 
-        [CommandMethod("ColumnPoints")]
-        public static void GetColumnPoints()
-        {
-            CADAreaList areaList = new CADAreaList();
-            var zero=Interaction.GetPoint("ZeroPoint");
-            string[] keys = { "0:左下", "1:右下", "2:右上", "3:左上" };
-            var key = Interaction.GetKeywords("\nChoose Zero Type", keys);
+        //[CommandMethod("ColumnPoints")]
+        //public static void GetColumnPoints()
+        //{
+        //    CADAreaList areaList = new CADAreaList();
+        //    var zero=Interaction.GetPoint("ZeroPoint");
+        //    string[] keys = { "0:左下", "1:右下", "2:右上", "3:左上" };
+        //    var key = Interaction.GetKeywords("\nChoose2 Zero Type", keys);
 
-            var columns = Interaction.GetEntitysByLayers("COLUMN");
-            var area = columns.ToCADArea(zero,key);
-            area.Name = "主厂房0m层";
-            areaList.Add(area);
-            var txt = areaList.ToXml();
-            Gui.TextReport("Points", txt, 700, 500);
+        //    var columns = Interaction.GetEntitysByLayers("COLUMN");
+        //    var area = columns.ToCADArea(zero.ToCADPoint(true), key,true,false);
+        //    area.Name = "主厂房0m层";
+        //    areaList.Add(area);
+        //    var txt = areaList.ToXml();
+        //    Gui.TextReport("Points", txt, 700, 500);
 
-        }
+        //}
 
         [CommandMethod("ColumnPointsEx")]
         public static void GetColumnPointsEx()
         {
-            CADAreaList areaList = new CADAreaList();
-            var zero = Interaction.GetPoint("ZeroPoint");
-            string[] keys = { "0:左下", "1:右下", "2:右上", "3:左上" };
-            var key = Interaction.GetKeywords("\nChoose Zero Type", keys);
-
-            var columns = Interaction.GetEntitysByLayers("COLUMN");
-            var area = columns.ToCADArea(zero, key);
-            area.Name = "主厂房0m层";
-            areaList.Add(area);
-            var txt = areaList.ToXml();
-            Gui.TextReport("Points", txt, 700, 500);
+            try
+            {
+                CADAreaList areaList = new CADAreaList();
+                var zero = Interaction.GetPoint("ZeroPoint");
+                string[] keys = { "0:左下", "1:右下", "2:右上", "3:左上" };
+                string p1 = zero.ToString();
+                string p2 = zero.ToUCS().ToString();
+                string p3 = zero.ToWCS().ToString();
+                Interaction.WriteLine(string.Format("\n zero [{0},{1},{2}]", p1, p2, p3));
+                var key = Interaction.GetKeywords("\nChoose1 Zero Type ", keys);
+                if (string.IsNullOrEmpty(key)) return;
+                //var key = Interaction.GetKeywords("\nChoose1 Zero Type ", keys);
+                var columns = Interaction.GetEntitysByLayers("COLUMN");
+                var area = columns.ToCADArea(zero.ToCADPoint(true), key, true,true);
+                area.Name = "主厂房0m层";
+                areaList.Add(area);
+                var txt = areaList.ToXml();
+                Gui.TextReport("Points", txt, 700, 500);
+            }
+            catch (System.Exception ex)
+            {
+                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+            }
+            
         }
 
         [CommandMethod("PT")]

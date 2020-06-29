@@ -174,20 +174,24 @@ namespace AutoCADCommands.ModelExtensions
             return sp;
         }
 
-        public static CADArea ToCADArea(this ObjectId[] objIds, Point3d zero,string zeroType)
+        public static CADArea ToCADArea(this ObjectId[] objIds, CADPoint zero,string zeroType,bool isToUCS,bool isSetZero)
         {
             CADArea sps = new CADArea();
             
             foreach (var item in objIds)
             {
-                var sp = item.ToCADShape(false);
+                var sp = item.ToCADShape(isToUCS);
                 if (sp != null)
                 {
                     sps.Shapes.Add(sp);
                     sp.Num = sps.Shapes.Count;
                 }
             }
-            sps.SetZero(zero.ToCADPoint(false), zeroType);
+            if (isSetZero)
+            {
+                sps.SetZero(zero, zeroType);
+            }
+            
             return sps;
         }
 
