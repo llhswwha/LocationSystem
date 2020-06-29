@@ -92,6 +92,20 @@ namespace AutoCADCommands
             return initInfo;
         }
 
+        public static void GetRoomInfo()
+        {
+            DateTime start = DateTime.Now;
+
+            TopoInfo topoInfo = GetRoomEx();
+
+            DateTime end = DateTime.Now;
+            TimeSpan t = end - start;
+            string xml = "";
+            if(topoInfo!=null)
+                xml = XmlSerializeHelper.GetXmlText(topoInfo,true);
+            Gui.TextReport(topoInfo.Name + "|" + t, xml, 700, 500);
+        }
+
         public static void GetRoomsInfo()
         {
             DateTime start = DateTime.Now;
@@ -244,10 +258,8 @@ namespace AutoCADCommands
 
         private static TopoInfo GetTopoInfo(string name, AreaTypes type, List<PointInfo> pis)
         {
-            BoundInfo boundInfo = new BoundInfo();
+            BoundInfo boundInfo = NewBoundInfo();
             boundInfo.Points.AddRange(pis);
-            boundInfo.Thickness = 4.5f;
-            boundInfo.IsRelative = false;//都是绝对坐标，不然楼层和大楼会有偏移
 
             TopoInfo topoInfo = new TopoInfo();
             topoInfo.BoundInfo = boundInfo;
@@ -256,12 +268,19 @@ namespace AutoCADCommands
             return topoInfo;
         }
 
-        private static TopoInfo GetTopoInfo(string name, AreaTypes type, params PointInfo[] pis)
+        private static BoundInfo NewBoundInfo()
         {
             BoundInfo boundInfo = new BoundInfo();
-            boundInfo.Points.AddRange(pis);
-            boundInfo.Thickness = 4.5f;
+            boundInfo.Thickness = 3500;
             boundInfo.IsRelative = false;//都是绝对坐标，不然楼层和大楼会有偏移
+            boundInfo.IsCreateAreaByData = true;//必须有
+            return boundInfo;
+        }
+
+        private static TopoInfo GetTopoInfo(string name, AreaTypes type, params PointInfo[] pis)
+        {
+            BoundInfo boundInfo = NewBoundInfo();
+            boundInfo.Points.AddRange(pis);
 
             TopoInfo topoInfo = new TopoInfo();
             topoInfo.BoundInfo = boundInfo;

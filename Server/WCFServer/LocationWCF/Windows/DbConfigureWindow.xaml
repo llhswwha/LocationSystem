@@ -9,6 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="数据库初始化">
+                <MenuItem Header="MySql数据库备份还原" Name="MenuBackupMySql" Click="MenuBackupMySql_Click"></MenuItem>
                 <MenuItem Header="删除SqlServer" Name="MenuDeleteSqlServer" Click="MenuDeleteSqlServer_Click"></MenuItem>
                 <MenuItem Header="删除MySql" Name="MenuDeleteMySqlServer" Click="MenuDeleteMySqlServer_Click"></MenuItem>
                 <MenuItem Header="SqlServer" Name="MenuInitMSSql" Click="MenuInitMSSql_Click"></MenuItem>
@@ -27,7 +28,7 @@
             <MenuItem Header="读取数据">
                 <MenuItem Header="1.区域" Name="MenuInitTopo" Click="MenuInitTopo_Click"></MenuItem>
                 <MenuItem Header="2.标签|部门|人员" Name="MenuPersonAndCard" Click="MenuPersonAndCard_OnClick"></MenuItem>
-                
+                <MenuItem Header="2.标签|部门|人员(模拟)" Name="MenuPersonAndCard_Mock" Click="MenuPersonAndCard_Mock_OnClick"></MenuItem>
                 <MenuItem Header="标签卡" Name="MenuInitTags" Click="MenuInitTags_Click"></MenuItem>
                 <MenuItem Header="区域和设备" Name="MenuInitTopoDev" Click="MenuInitTopoDev_Click"></MenuItem>
                 <MenuItem Header="设备" Name="MenuInitDevs" Click="MenuInitDevs_Click"></MenuItem>
@@ -57,6 +58,7 @@
                 <MenuItem Header="读取基站CAD信息" Name="MenuLoadCADArchorList" Click="MenuLoadCADArchorList_OnClick"></MenuItem>
                 <MenuItem Header="新增设备模型信息" Name="MenuLoadDevTypeModelList" Click="MenuLoadDevTypeModelList_OnClick"></MenuItem>
                 <MenuItem Header="完善设备Ip信息" Name="MenuAddDevInfoIp" Click="MenuAddDevInfoIp_OnClick"></MenuItem>
+                <MenuItem Header="清除Personnel表换行符" Name="MenuModifyPersonnel" Click="MenuModifyPersonnel_OnClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="新数据">
                 <MenuItem Header="照片" Name="MenuInitPic" Click="MenuInitPic_Click"></MenuItem>

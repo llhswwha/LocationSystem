@@ -7,6 +7,7 @@ using System.Web.Http;
 using Location.TModel.Location.AreaAndDev;
 using TModel.Location.Nodes;
 using LocationServices.Locations.Services;
+using TModel.Location.AreaAndDev;
 
 namespace WebApiService.Controllers
 {
@@ -43,6 +44,27 @@ namespace WebApiService.Controllers
             return service.EditMonitorRange(pt);
         }
 
+        [Route("editDynamicRange")]
+        [HttpPut]
+        public TopologyToLocationCards EditDynamicRange(TopologyToLocationCards pt)
+        {
+            return service.EditDynamicRange(pt);
+        }
+        [Route("GetCardToAreaInfo")]
+        [HttpGet]
+        public List<DbModel.Location.Relation.LocationCardToArea> GetCardToAreaInfo()
+        {
+            return service.GetCardToAreaInfo();
+        }
+
+        [Route("GetAreaLocationCardById/{areaId}")]
+        [HttpGet]
+        public TopologyToLocationCards GetAreaLocationCardById(int areaId)
+        {
+            return service.GetAreaLocationCardById(areaId);
+        }
+
+    
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
             return service.EditPhysicalTopology(item);

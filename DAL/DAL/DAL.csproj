@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="LocationDbMigrations\Configuration.cs" />
     <Compile Include="LocationHistoryDb.cs" />
+    <Compile Include="LocationHistoryDbMigrations\Configuration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

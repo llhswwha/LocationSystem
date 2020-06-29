@@ -21,6 +21,9 @@ using BLL.Tools;
 using WebNSQLib;
 using LocationServices.Locations;
 using System.Collections.Concurrent;
+using LocationServices.Converters;
+using SignalRService.Hubs;
+using DAL;
 
 namespace LocationServices.Tools
 {
@@ -117,6 +120,16 @@ namespace LocationServices.Tools
         {
             //Log.Info(LogTags.Engine,"StartConnectEngine:" + login.EngineIp);
             WriteLogLeft(GetLogText("StartConnectEngine:" + login.EngineIp));
+
+            LocationHistoryDb db = new LocationHistoryDb();
+            bool r1 = db.Database.Exists();
+            WriteLogLeft(GetLogText("数据库是否存在:" + r1));
+            if (r1 == false)
+            {
+                bool r2 = db.Database.CreateIfNotExists();
+                WriteLogLeft(GetLogText("数据库创建是否成功:" + r2));
+            }
+
             //int mockCount = int.Parse(TbMockTagPowerCount0.Text);
             if (engineDa == null)
             {
@@ -302,6 +315,7 @@ namespace LocationServices.Tools
 
                             List<Position> posList2 = new List<Position>();
                             posList2.AddRange(Positions);
+                            UpdateDynamicAreaInfo(posList2);//在插入和更新位置信息前，先更新动态区域信息
                             if (InsertPostions(posList2))
                             {
                                 WriteLogRight(GetLogText(string.Format("写入{0}条数据", posList2.Count)));
@@ -346,6 +360,53 @@ namespace LocationServices.Tools
         //Bll bll;
 
         AuthorizationBuffer ab;
+        Dictionary<string, int> codeToAreaDic;//定位卡-区域关系
+        Dictionary<string, int> codeToRelationIndex;//定位卡-设置顺序（位置排序）
+
+        private void UpdateDynamicAreaInfo(List<Position>posList)
+        {
+            string costTime = "";
+            //增加标志位，是否需要启用这个功能
+            DateTime recordTime = DateTime.Now;
+            if (bll == null)
+            {
+                bll = GetLocationBll();
+            }
+            if (codeToAreaDic == null) codeToAreaDic = bll.LocationCardToArea.ToDictionary();
+            if (codeToRelationIndex == null) codeToRelationIndex = bll.LocationCardToArea.GetCardToRelationIndex();
+            if (codeToAreaDic == null || codeToAreaDic.Count == 0) return;                    
+            DynamicMonitorAreaUpdate areaUpdateInfo = new DynamicMonitorAreaUpdate();
+            Dictionary<int,Area>areaDic = TagRelationBuffer.Instance().GetAreaDictionary();
+            if (areaDic == null) return;
+            //1.判断位置点是否属于动态电子围栏，缓存电子围栏下位置
+            foreach (var item in posList)
+            {
+                if(codeToAreaDic.ContainsKey(item.Code))
+                {
+                    int areaId = codeToAreaDic[item.Code];
+                    if(areaDic.ContainsKey(areaId))
+                    {
+                        Area areaT = areaDic[areaId];
+                        areaUpdateInfo.SaveTempInfo(areaT,item);
+                    }
+                }
+            }
+            costTime += string.Format("GetDicSaveInfo {0} ms\n",(DateTime.Now - recordTime).TotalMilliseconds.ToString());
+            recordTime = DateTime.Now;
+            //2.计算并更新区域位置和角度信息
+            List<Area> newAreas = areaUpdateInfo.AreaInfoUpdate(codeToRelationIndex);
+            costTime += string.Format("AreaInfoUpdate {0} ms\n", (DateTime.Now - recordTime).TotalMilliseconds.ToString());
+            recordTime = DateTime.Now;
+            //3.保存至数据库，并发送给客户端
+            if (newAreas!=null)
+            {
+                bll.Areas.EditRange(newAreas);
+                List<Location.TModel.Location.AreaAndDev.PhysicalTopology> updateData = newAreas.ToWcfModelList();
+                MonitorRangeHub.SendMonitorRangeInfos(updateData);
+            }
+            costTime += string.Format("SendMonitorRangeInfos {0} ms\n", (DateTime.Now - recordTime).TotalMilliseconds.ToString());
+            Log.Info(costTime);
+        }
 
         public void CloseBll()
         {

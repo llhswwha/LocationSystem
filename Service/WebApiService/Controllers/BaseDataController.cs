@@ -50,10 +50,11 @@ namespace WebApiService.Controllers
         {
             throw new NotImplementedException();
         }
-
+        [Route("trackHistory/history")]
+        [HttpPost]
         public InspectionTrackHistory GetInspectionHistoryById(InspectionTrackHistory history)
         {
-            throw new NotImplementedException();
+            return service.GetInspectionHistoryById(history);
         }
 
         [Route("list/inspectionHis/begin/{dtBeginTime}/end/{dtEndTime}/bFlag/{bFlag}")]

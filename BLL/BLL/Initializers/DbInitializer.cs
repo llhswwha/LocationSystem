@@ -171,6 +171,9 @@ namespace BLL
 
         public void InitCardAndPerson_Mock()
         {
+            maxPersonCount = 50;//初始人的数量
+            maxTagCount = 60;//初始卡的数量
+
             InitTagPositions(true, true);
             //卡角色、定位卡
             InitDepartments_Mock();
@@ -180,9 +183,11 @@ namespace BLL
 
             _bll.Positions.Clear(1);
             InitRealTimePositions();//初始化定位卡初始实时位置
+
+            InitAuthorization();
         }
 
-        private void AddPerson(string name, Sexs sex, LocationCard tag, Department dep, Post pst, string worknumber, string phone)
+        private void AddPerson(string name, Sexs sex, LocationCard tag, Department dep, Post pst, string worknumber, string phone,int modelType)
         {
             Personnel person = new Personnel()
             {
@@ -192,7 +197,8 @@ namespace BLL
                 ParentId = dep.Id,
                 WorkNumber = worknumber,
                 Phone = phone,
-                Pst = pst.Name
+                Pst = pst.Name,
+                TargetType= modelType
             };
             Personnels.Add(person);
 
@@ -343,13 +349,14 @@ namespace BLL
                 int n = i % 2;
                 var post = posts[r.Next(posts.Count)];
                 var dep = deps[r.Next(deps.Count)];
+                int model = r.Next(4);
                 if (n == 0)
                 {
-                    AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i.ToString(), rt.GetRandomTel());
+                    AddPerson(rt.GetWomanName(), Sexs.女, tag, dep, post, i.ToString(), rt.GetRandomTel(), model);
                 }
                 else
                 {
-                    AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i.ToString(), rt.GetRandomTel());
+                    AddPerson(rt.GetManName(), Sexs.男, tag, dep, post, i.ToString(), rt.GetRandomTel(), model);
                 }
             }
         }
@@ -494,7 +501,7 @@ namespace BLL
                         {
                             var x =0;
                             var z = 0;
-                            var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", PersonId = cp.PersonnelId, AreaId = park.Id };
+                            var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 400, Number = i, Flag = "0:0:0:0:0", PersonId = cp.PersonnelId, AreaId = park.Id };
                             tagpositions.Add(tagposition);
 
                             //LocationCardPositions.Add(tagposition);
@@ -516,14 +523,14 @@ namespace BLL
                         //}
                         //else//这部分随机初始位置
                         {
-                            var x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX;
-                            var z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY;
+                            var x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX + (bound.GetSizeX() * 0.05);
+                            var z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY + (bound.GetSizeY() * 0.05);
                             while (!bound.Contains(x, z))
                             {
-                                x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX;
-                                z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY;
+                                x = r.Next((int)(bound.GetSizeX() * 0.9)) + bound.MinX + (bound.GetSizeX() * 0.05);
+                                z = r.Next((int)(bound.GetSizeY() * 0.9)) + bound.MinY + (bound.GetSizeY() * 0.05);
                             }
-                            var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = x, Y = 2, Z = z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 0, Number = i, Flag = "0:0:0:0:0", PersonId = cp.PersonnelId, AreaId = park.Id };
+                            var tagposition = new LocationCardPosition() { CardId = cp.LocationCardId, Id = card.Code, X = (float)x, Y = 2, Z = (float)z, DateTime = dt, DateTimeStamp = TimeStamp, Power = 400, Number = i, Flag = "0:0:0:0:0", PersonId = cp.PersonnelId, AreaId = park.Id };
                             tagpositions.Add(tagposition);
                         }
                     }

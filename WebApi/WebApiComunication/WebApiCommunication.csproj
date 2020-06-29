@@ -52,6 +52,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -79,8 +80,13 @@
     <Compile Include="SihuiThermalPowerPlant\Models\cards_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkresults.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\Details.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\LineContent.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\Lines.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\Message.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\OptTicket.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\position.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\results.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="SihuiThermalPowerPlant\Models\sis_compact.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis_sampling.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\tickets.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\TwoTickets.cs" />
     <Compile Include="SihuiThermalPowerPlant\PostMethod.cs" />
   </ItemGroup>
   <ItemGroup>

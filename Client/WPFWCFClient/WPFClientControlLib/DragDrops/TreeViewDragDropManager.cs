@@ -82,9 +82,9 @@ namespace WpfFramework.Common.DragDrops
                 if (_PhysicalTopology_Drag.ParentId!=_PhysicalTopology_DragDrop.Id) // 平行移动就不需要跟新数据了
                 {
                     _PhysicalTopology_Drag.ParentId = _PhysicalTopology_DragDrop.Id;
-                    Area area = _PhysicalTopology_Drag.ToDbModel();
-                    Bll _bll = new Bll();
-                    _bll.Areas.Edit(area);
+                    //Area area = _PhysicalTopology_Drag.ToDbModel();
+                    //Bll _bll = new Bll();
+                    //_bll.Areas.Edit(area);
                 }
             }
         }

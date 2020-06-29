@@ -575,9 +575,20 @@ namespace WPFClientControlLib
         {
             double scaleX = this.ActualWidth / bound.GetSizeX();
             double scaleY = this.ActualHeight / bound.GetSizeY();
-            double scale = scaleX < scaleY ? scaleX : scaleY;
-            scale = Math.Round(scale, 2);//四舍五入
-
+            double scale1 = scaleX < scaleY ? scaleX : scaleY;
+            double scale = Math.Round(scale1, 2);//四舍五入
+            if (scale == 0)
+            {
+                scale = Math.Round(scale1, 3);//四舍五入
+            }
+            if (scale == 0)
+            {
+                scale = Math.Round(scale1, 4);//四舍五入
+            }
+            if (scale == 0)
+            {
+                scale = Math.Round(scale1, 5);//四舍五入
+            }
             /*
 Math.Round(45.367,2)     //Returns   45.37
 Math.Round(45.365,2)     //Returns   45.36
@@ -1096,7 +1107,7 @@ Math.Round(45.365,2)     //Returns   45.36
                 }
                 else if (area.Type == AreaTypes.机房)
                 {
-                    ShowAreaName(area, mX, mY, Brushes.Black, 20);
+                    ShowAreaName(area, mX, mY, Brushes.Black, 14);
                 }
                 else
                 {

@@ -277,7 +277,11 @@ namespace Location.TModel.Location.AreaAndDev
         public bool IsOnLocationArea { get; set; }
 
         //public bool IsChecked { get; set; }
+        [DataMember]
+        public bool IsDynamicArea { get; set; }
 
+        [DataMember]
+        public string ModelName { get; set; }
         public void SetParent()
         {
             if (Children != null)

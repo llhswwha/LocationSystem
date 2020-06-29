@@ -70,6 +70,8 @@ namespace BLL
 
         public LocationCardToPersonnelBll LocationCardToPersonnels { get; set; }
 
+        public LocationCardToAreaBll LocationCardToArea { get; set; }
+
         public void BindCardToPerson(Personnel person, LocationCard tag)
         {
             if (tag != null && person != null)
@@ -246,6 +248,7 @@ namespace BLL
             LocationCards = new LocationCardBll(Db);
             LocationCardPositions = new LocationCardPositionBll(Db);
             LocationCardToPersonnels = new LocationCardToPersonnelBll(Db);
+            LocationCardToArea = new LocationCardToAreaBll(Db);
             MobileInspections = new MobileInspectionBll(Db);
             MobileInspectionContents = new MobileInspectionContentBll(Db);
             MobileInspectionDevs = new MobileInspectionDevBll(Db);

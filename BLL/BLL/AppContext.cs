@@ -27,6 +27,18 @@ namespace LocationServer
             set { AppSetting.WritePositionLog = value; }
         }
 
+        public static bool EnableMigration
+        {
+            get { return AppSetting.EnableMigration; }
+            set { AppSetting.EnableMigration = value; }
+        }
+
+        public static bool EnableHistoryMigration
+        {
+            get { return AppSetting.EnableHistoryMigration; }
+            set { AppSetting.EnableHistoryMigration = value; }
+        }
+
         public static bool AutoStartServer { get; set; }
 
         public static double PositionMoveStateWaitTime
@@ -58,6 +70,12 @@ namespace LocationServer
         {
             get { return AppSetting.DatacaseWebApiUrl; }
             set { AppSetting.DatacaseWebApiUrl = value; }
+        }
+
+        public static string DatacaseWebApiPort
+        {
+            get { return AppSetting.DatacaseWebApiPort; }
+            set { AppSetting.DatacaseWebApiPort = value; }
         }
 
         public static int LowPowerFlag

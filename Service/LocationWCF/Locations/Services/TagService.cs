@@ -71,9 +71,7 @@ namespace LocationServices.Locations.Services
         public TEntity GetEntity(string id)
         {
             try
-            {
-                //var item = dbSet.Find(id.ToInt()).ToTModel();
-
+            {             
                 var query = from tag in dbSet.DbSet
                             where tag.Id + "" == id
                             join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
@@ -109,18 +107,6 @@ namespace LocationServices.Locations.Services
                 if (detail)
                 {
                     var list = new List<TEntity>();
-                    //var list1 = dbSet.ToList();
-
-                    //var query = from tag in dbSet.DbSet
-                    //            join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Code
-                    //            join r in db.LocationCardToPersonnels.DbSet on tag.Id equals r.LocationCardId
-                    //              into c2pLst
-                    //            from r2 in c2pLst.DefaultIfEmpty()
-                    //            join p in db.Personnels.DbSet on r2.PersonnelId equals p.Id
-                    //              into pLst
-                    //            from p2 in pLst.DefaultIfEmpty()
-                    //            select tag;
-                    //var result = query.ToList();
                     var query = from tag in dbSet.DbSet
                                 join pos in db.LocationCardPositions.DbSet on tag.Code equals pos.Id
                                     into posLst

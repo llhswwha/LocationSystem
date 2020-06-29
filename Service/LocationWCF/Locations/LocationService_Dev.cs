@@ -26,6 +26,7 @@ using TModel.Location.Alarm;
 using Base.Common.Tools;
 using System.Diagnostics;
 using BLL.Blls.Location;
+using SignalRService.Hubs;
 //using DbModel.Location.Alarm;
 
 namespace LocationServices.Locations
@@ -1012,15 +1013,44 @@ namespace LocationServices.Locations
         {
             BLL.Bll bll = new BLL.Bll(false, true, true);
             BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
-            return ab.DeleteSpecifiedLocationAlarm(id);
+            List<int> idList = new List<int>() { id };
+            List<DbModel.Location.Alarm.LocationAlarm> reviseAlarms = ab.DeleteSpecifiedLocationAlarm(idList);
+            if (reviseAlarms == null || reviseAlarms.Count == 0) return false;
+            else
+            {
+                //新增，服务端消警后，把消警信息发给客户端
+                var alarms = reviseAlarms.ToTModel().ToArray();
+                AlarmHub.SendLocationAlarms(alarms);
+                return true;
+            }
         }
 
         public bool DeleteLocationAlarmByIdList(List<int> ids)
         {
             BLL.Bll bll = new BLL.Bll(false, true, true);
             BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
-            return ab.DeleteLocationAlarmByIdList(ids);
+            List<DbModel.Location.Alarm.LocationAlarm> reviseAlarms = ab.DeleteSpecifiedLocationAlarm(ids);
+            if (reviseAlarms == null || reviseAlarms.Count == 0) return false;
+            else
+            {
+                //新增，服务端消警后，把消警信息发给客户端
+                var alarms = reviseAlarms.ToTModel().ToArray();
+                AlarmHub.SendLocationAlarms(alarms);
+                return true;
+            }
         }
+        /// <summary>
+        /// 删除定位和设备告警
+        /// </summary>
+        /// <param name="locationAlarms"></param>
+        /// <param name="deviceAlarms"></param>
+        /// <returns></returns>
+        public bool DeleteDeviceAlarmsByList(List<int> deviceAlarms)
+        {
+            bool value = DeletaDevAlarms(deviceAlarms);
+            return value;
+        }
+    
 
         public List<Archor> GetArchors()
         {
@@ -1161,7 +1191,44 @@ namespace LocationServices.Locations
 
             return bDeal;
         }
-
+        public bool DeletaDevAlarms(List<int>idList)
+        {
+            try
+            {
+                using (var _bll = BLL.Bll.NewBllNoRelation())
+                {
+                    List<DbModel.Location.Alarm.DevAlarm> reviseListT = new List<DbModel.Location.Alarm.DevAlarm>();//恢复的告警
+                    List<DbModel.Location.Alarm.DevAlarm> removeListT = new List<DbModel.Location.Alarm.DevAlarm>();
+                    List<DbModel.LocationHistory.Alarm.DevAlarmHistory> hisAlarmsT = new List<DbModel.LocationHistory.Alarm.DevAlarmHistory>();//告警历史
+                    if (allDeviceAlarm == null) RefreshDeviceAlarmBuffer(LogTags.DbGet);
+                    Dictionary<int, DbModel.Location.Alarm.DevAlarm> alarmDic = allDeviceAlarm.ToDictionary(i=>i.Id);
+                    if (alarmDic == null) return false;
+                    foreach (var item in idList)
+                    {
+                        DbModel.Location.Alarm.DevAlarm alarm = alarmDic.ContainsKey(item) ? alarmDic[item] : null;
+                        if (alarm == null) continue;
+                        DbModel.LocationHistory.Alarm.DevAlarmHistory alarmHis = alarm.RemoveToHistory();
+                        alarmHis.Level = Abutment_DevAlarmLevel.无;
+                        hisAlarmsT.Add(alarmHis);
+                        removeListT.Add(alarm);
+                        DbModel.Location.Alarm.DevAlarm revise = alarm.Clone();
+                        revise.Level = Abutment_DevAlarmLevel.无;
+                        reviseListT.Add(revise);
+                    }
+                    if(reviseListT.Count!=0)
+                    {
+                        var alarms = reviseListT.ToTModel().ToArray();
+                        AlarmHub.SendDevAlarm(alarms);
+                        _bll.DevAlarms.RemoveList(removeListT);
+                        _bll.DevAlarmHistorys.AddRange(hisAlarmsT);
+                    }
+                }
+            }catch(Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
         public bool EditPictureInfo(Picture pc)
         {
             return db.Pictures.Update(pc.Name, pc.Info);

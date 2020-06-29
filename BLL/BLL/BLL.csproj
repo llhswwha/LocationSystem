@@ -88,6 +88,7 @@
     <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
     <Compile Include="Blls\Location\HomePagePictureBll.cs" />
     <Compile Include="Blls\Location\InspectionTrackBll.cs" />
+    <Compile Include="Blls\Location\LocationCardToAreaBll.cs" />
     <Compile Include="Blls\Location\NodeKKSBll.cs" />
     <Compile Include="Blls\Location\PatrolPointBll.cs" />
     <Compile Include="Blls\Location\PatrolPointItemBll.cs" />

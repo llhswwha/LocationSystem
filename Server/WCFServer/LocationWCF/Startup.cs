@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
+using Newtonsoft.Json;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,18 @@ namespace LocationServer
 
             //app.UseCors(CorsOptions.AllowAll);
             //app.MapSignalR("/realtime", new HubConfiguration() { });
+
+            var serializer = new JsonSerializer()
+            {
+                //PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                //TypeNameHandling = TypeNameHandling.Objects,
+                NullValueHandling = NullValueHandling.Ignore
+                //TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
+            };
+
+            // register it so that signalr can pick it up
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
+
 
             app.Map("/realtime", map =>
             {

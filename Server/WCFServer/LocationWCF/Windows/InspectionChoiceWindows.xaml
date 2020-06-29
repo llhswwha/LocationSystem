@@ -17,6 +17,8 @@
             <MenuItem Header="清空" Name="MenuClear" Click="MenuClear_Click"></MenuItem>
             <MenuItem Header="清理这几天的" Name="MenuClearRecent" Click="MenuClearRecent_Click"></MenuItem>
             <MenuItem Header="开始接收" Name="MenuStartReceive" Click="MenuStartReceive_Click"></MenuItem>
+            <MenuItem Header="模拟数据接收" Name="MenuZhongShan" Click="MenuZhongShan_Click"></MenuItem>
+            <MenuItem Header="OPC模拟" Name="MenuOPC" Click="MenuOPC_Click"></MenuItem>
         </Menu>
         <ScrollViewer DockPanel.Dock="Bottom" Height="100">
             <TextBox Name="TbLogs"></TextBox>

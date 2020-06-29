@@ -735,7 +735,7 @@ namespace LocationServer
             var persons = service.GetList(true,true);
             var posService = new PosService();
             var posList = posService.GetList();//todo:实时数据以后从缓存中取
-            if (posList!= null)
+            if (posList!= null && persons != null)
             {
                 foreach (var item in persons)
                 {

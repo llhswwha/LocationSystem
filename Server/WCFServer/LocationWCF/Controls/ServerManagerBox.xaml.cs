@@ -150,6 +150,7 @@ namespace LocationServer.Controls
 
                 StopAnchorScan();
                 StopCheckRepeatDev();
+                StopDBBackupThread();
             }
             catch (Exception ex)
             {
@@ -463,6 +464,7 @@ namespace LocationServer.Controls
                 //StartAnchorScan();
 
                 //StartCheckRepeatDev();
+                StartDBBackupThread();
             }
             catch (Exception ex)
             {
@@ -586,7 +588,35 @@ namespace LocationServer.Controls
                 cameraAlarmListener = null;
             }
         }
-
+        /// <summary>
+        /// 数据库备份线程
+        /// </summary>
+        private DBBackupThread dbBackupThread;
+        /// <summary>
+        /// 启动数据库备份线程
+        /// </summary>
+        private void StartDBBackupThread()
+        {
+            bool openDBBackup = ConfigurationHelper.GetBoolValue("EnabelDBBackup");
+            if (!openDBBackup) return;
+            float backupDelayDays= ConfigurationHelper.GetFloatValue("BackupDelayDays");
+            if (dbBackupThread == null)
+            {
+                dbBackupThread = new DBBackupThread(backupDelayDays);
+                dbBackupThread.Start();
+            }
+        }
+        /// <summary>
+        /// 停止数据库备份线程
+        /// </summary>
+        private void StopDBBackupThread()
+        {
+            if (dbBackupThread != null)
+            {
+                dbBackupThread.Abort();
+                dbBackupThread = null;
+            }
+        }
 
         public void ShowTest(string str)
         {
@@ -813,7 +843,8 @@ namespace LocationServer.Controls
             {
                 //Ping.
                 string strIp = AppContext.DatacaseWebApiUrl;
-                trackClient = new InspectionTrackClient(strIp);
+                string port = AppContext.DatacaseWebApiPort;
+                trackClient = new InspectionTrackClient(strIp,port);
                 trackClient.ListGot += (TrackList) =>
                 {
                     InspectionTrackHub.SendInspectionTracks(TrackList.ToTModel());//发送给客户端

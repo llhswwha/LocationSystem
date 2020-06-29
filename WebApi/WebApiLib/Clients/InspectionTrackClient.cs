@@ -1,6 +1,8 @@
 ﻿using BLL;
+using CommunicationClass.SihuiThermalPowerPlant;
 using CommunicationClass.SihuiThermalPowerPlant.Models;
 using Location.BLL.Tool;
+using LocationServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +23,19 @@ namespace WebApiLib.Clients
 
         public event Action<DbModel.Location.Work.InspectionTrackList> ListGot;
 
-        public InspectionTrackClient(string url)
+        private string ParkName = "";
+        private static  string suffix = "api";
+
+        public InspectionTrackClient(string url,string port)
         {
             webApiUrl = url;
-            client = new BaseDataClient(webApiUrl, null, "api");
+            //  client = new BaseDataClient(webApiUrl, port, "api");
+            ParkName = AppContext.ParkName;
+            if (ParkName == "中山嘉明电厂")
+            {
+                suffix = "zhongshan";//中山测试
+            }
+            client = new BaseDataClient(webApiUrl, port, suffix);   
         }
 
         private Thread GetInspectionTrackThread;
@@ -124,6 +135,7 @@ namespace WebApiLib.Clients
         {
             return client.Getcheckresults(patrolId, deviceId);
         }
+
 
         private DbModel.Location.Work.InspectionTrackList DealInspectionTrack(WebApiLib.Clients.BaseDataClient client, DateTime dtBegin, DateTime dtEnd, bool bFlag)
         {
@@ -244,7 +256,7 @@ namespace WebApiLib.Clients
             history.Abutment_Id = item.id;
             history.Code = item.code;
             history.Name = item.name;
-            history.CreateTime = (item.createTime + nEightHourSecond) * 1000;
+            history.CreateTime = (item.createTimes + nEightHourSecond) * 1000;
             history.dtCreateTime = Location.TModel.Tools.TimeConvert.ToDateTime(history.CreateTime);
             history.State = item.state;
             history.StartTime = (item.startTime + nEightHourSecond) * 1000;
@@ -261,7 +273,7 @@ namespace WebApiLib.Clients
             now.Abutment_Id = item.id;
             now.Code = item.code;
             now.Name = item.name;
-            now.CreateTime = (item.createTime + nEightHourSecond) * 1000;
+            now.CreateTime = (item.createTimes + nEightHourSecond) * 1000;
             now.dtCreateTime = Location.TModel.Tools.TimeConvert.ToDateTime(now.CreateTime);
             now.State = item.state;
             now.StartTime = (item.startTime + nEightHourSecond) * 1000;

@@ -11,6 +11,8 @@ using Location.BLL.Tool;
 using DbModel.Location.AreaAndDev;
 using Location.BLL.ServiceHelpers;
 using DbModel.Tools;
+using TModel.Location.AreaAndDev;
+using DbModel.Location.Relation;
 
 namespace LocationServices.Locations.Services
 {
@@ -56,6 +58,11 @@ namespace LocationServices.Locations.Services
         IList<PhysicalTopology> GetFloorMonitorRangeById(int id);
 
         bool EditMonitorRange(PhysicalTopology pt);
+
+        TopologyToLocationCards EditDynamicRange(TopologyToLocationCards pt);
+        TopologyToLocationCards GetAreaLocationCardById(int areaId);
+
+        List<LocationCardToArea> GetCardToAreaInfo();
 
         PhysicalTopology AddMonitorRange(PhysicalTopology pt);
 
@@ -183,6 +190,87 @@ namespace LocationServices.Locations.Services
 
             return true;
         }
+        /// <summary>
+        /// 通过区域ID，查找对应定位卡号
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public TopologyToLocationCards GetAreaLocationCardById(int areaId)
+        {
+            TopologyToLocationCards result = new TopologyToLocationCards();
+            result.AreaId = areaId;
+            List<LocationCardToArea> relations = db.LocationCardToArea.FindAll(i=>i.AreaId==areaId);
+            if(relations!=null)
+            {
+                result.LocationCards = new List<string>();
+                foreach (var rela in relations)
+                {
+                    LocationCard card = db.LocationCards.Find(i=>i.Id==rela.LocationCardId);
+                    if (card != null) result.LocationCards.Add(card.Code);
+                }
+            }
+            return result;
+        }
+        public List<LocationCardToArea> GetCardToAreaInfo()
+        {
+            List<LocationCardToArea> result = db.LocationCardToArea.ToList();
+            return result == null || result.Count == 0 ? null : result;
+        }
+        /// <summary>
+        /// 编辑动态区域信息
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public TopologyToLocationCards EditDynamicRange(TopologyToLocationCards pt)
+        {
+            try
+            {
+                List<LocationCard> cardList = new List<LocationCard>();
+                foreach(var item in pt.LocationCards)
+                {
+                    if (string.IsNullOrEmpty(item)) continue;
+                    LocationCard cardT = db.LocationCards.Find(i => i.Code.ToLower()==item.ToLower());
+                    //异常情况：1.定位卡编号不存在 
+                    if(cardT==null&&!string.IsNullOrEmpty(item))
+                    {
+                        pt.ErrorInfo = string.Format("定位卡，卡号：{0} 不存在！",item);
+                        return pt;
+                    }
+                    //2.定位卡已经绑定其他区域
+                    LocationCardToArea bindingOther = db.LocationCardToArea.Find(i => i.LocationCardId == cardT.Id && i.AreaId != pt.AreaId);
+                    if(bindingOther!=null)
+                    {
+                        Area area = db.Areas.Find(i=>i.Id==bindingOther.AreaId);
+                        pt.ErrorInfo = string.Format("定位卡，卡号：{0}，已绑定区域：{1} \n请更换其他定位卡，获取解绑该定位卡！",item,area==null?bindingOther.AreaId.ToString():area.Name);
+                        return pt;
+                    }
+                    //如没有异常，则保存到数据库
+                    if (cardT != null) cardList.Add(cardT);
+                }
+                List<LocationCardToArea> relations = db.LocationCardToArea.FindAll(i=>i.AreaId==pt.AreaId);
+                if (relations != null) db.LocationCardToArea.RemoveList(relations);
+                List<LocationCardToArea> newRelations = new List<LocationCardToArea>();
+                foreach(var item in cardList)
+                {
+                    LocationCardToArea card = new LocationCardToArea();
+                    card.AreaId = pt.AreaId;
+                    card.LocationCardId = item.Id;
+                    newRelations.Add(card);
+                }
+                if (newRelations.Count != 0)
+                {
+                    bool value = db.LocationCardToArea.AddRange(newRelations);
+                    if (value) return pt;
+                }
+                pt.ErrorInfo = "修改区域关联定位卡失败！";
+                return pt;
+            }
+            catch(Exception e)
+            {
+                pt.ErrorInfo = "修改区域关联定位卡失败！";
+                return pt;
+            }
+        }
 
         public bool EditMonitorRange(PhysicalTopology pt)
         {
@@ -191,7 +279,10 @@ namespace LocationServices.Locations.Services
                 Area area = db.Areas.Find((i) => i.Id == pt.Id);
                 if (area != null && pt.InitBound != null)
                 {
+                    RemoveDynamicAreaInfo(area,pt);
                     area.Name = pt.Name;//2019_07_18_cww:添加名称，区域名称可以修改的
+                    area.IsDynamicArea = pt.IsDynamicArea;
+                    area.ModelName = pt.ModelName;
                     var transform = pt.Transfrom;
 
                     //var parent = db.Areas.Find(area.ParentId);//父区域
@@ -236,7 +327,14 @@ namespace LocationServices.Locations.Services
 
             return true;
         }
-
+        private void RemoveDynamicAreaInfo(Area item,PhysicalTopology pt)
+        {
+            if(!pt.IsDynamicArea&&item.IsDynamicArea)
+            {
+                List<LocationCardToArea>relations = db.LocationCardToArea.FindAll(i=>i.AreaId==item.Id);
+                if (relations != null) db.LocationCardToArea.RemoveList(relations);
+            }
+        }
         public PhysicalTopology EditPhysicalTopology(PhysicalTopology item)
         {
             try

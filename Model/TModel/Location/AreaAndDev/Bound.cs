@@ -151,7 +151,7 @@ namespace Location.TModel.Location.AreaAndDev
             Point p4 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 3);
 
             Point[] points = new Point[] { p1, p2, p3, p4 };
-
+            points = GetNewPoints(points,tranM);
             SetInitBound(points, (float)(bottomHeightT), (float)tranM.SY);
 
             //double pX = (MinX + MaxX)/2.0;
@@ -159,7 +159,31 @@ namespace Location.TModel.Location.AreaAndDev
             //double pZ = (MinZ + MaxZ)/2.0;
 
         }
-
+        /// <summary>
+        /// 根据旋转角度，获取新的顶点
+        /// </summary>
+        /// <param name="pGroup"></param>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        private Point[] GetNewPoints(Point[] pGroup, TransformM m)
+        {
+            //x0= (x - rx0)*cos(a) - (y - ry0)*sin(a) + rx0 ;
+            //y0 = (x - rx0) * sin(a) + (y - ry0) * cos(a) + ry0;
+            if (pGroup != null && m != null)
+            {
+                if (m.RY == 0) return pGroup;
+                Shape = 1;//不规则多边形
+                foreach (Point p in pGroup)
+                {
+                    double angle = m.RY + 90;
+                    double x1 = (p.X - m.X) * Math.Cos(angle) - (p.Y - m.Z) * Math.Sin(angle) + m.X;
+                    double y1 = (p.X - m.X) * Math.Sin(angle) + (p.Y - m.Z) * Math.Cos(angle) + m.Z;
+                    p.X = (float)x1;
+                    p.Y = (float)y1;
+                }
+            }
+            return pGroup;
+        }
         /// <summary>
         /// 用两点(对角点)初始化区域范围
         /// </summary>

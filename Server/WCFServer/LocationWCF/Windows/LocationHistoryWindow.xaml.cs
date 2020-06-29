@@ -600,6 +600,7 @@ namespace LocationServer.Windows
             if (DataGridDayPersonPosList.SelectedIndex < DataGridDayPersonPosList.Items.Count)
             {
                 DataGridDayPersonPosList.SelectedIndex++;
+                id++;
                 var pos = GetPos(DataGridDayPersonPosList.SelectedItem);
                 TbPostion.Text = SendPos(pos);
             }

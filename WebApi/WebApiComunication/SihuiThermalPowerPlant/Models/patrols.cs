@@ -106,7 +106,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 创建时间
         /// </summary>
-        public long createTime { get; set; }
+        public long createTimes { get; set; }
 
         /// <summary>
         /// 巡检状态，新建；已下达 ；已完成；已取消；执行中；已过期

@@ -174,9 +174,14 @@ namespace LocationWCFServer
                 }
                 else
                 {
-                    Log.Info("解析失败");
-                }
+                    if (msg != null&& msg.Length > 1)
+                    {
+                        Log.Info("解析失败:" + msg);
+                    }
+                }                
             }
+            //根据电子围栏和定位卡关系表，实时更新不同动态区域的位置和顶点信息
+            //Area顶点信息处理完成后，再把收到的位置处理发给客户端
             if (PositionListRecived != null)
             {
                 PositionListRecived(posList);

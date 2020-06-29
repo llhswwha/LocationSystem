@@ -38,4 +38,10 @@ public class LocationSetting  {
     /// </summary>
     public int NavMode = 0;
 
+    /// <summary>
+    /// NavMesh统一下调高度，默认1米
+    /// </summary>
+    [XmlAttribute]
+    public float NavMeshHeightOffset = 1f;
+
 }

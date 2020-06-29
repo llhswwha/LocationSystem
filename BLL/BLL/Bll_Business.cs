@@ -36,6 +36,7 @@ namespace BLL
             {
                 Log.InfoStart(LogTags.DbGet, "GetPhysicalTopologyTree");
                 List<Area> list = Areas.ToList();
+                if (list == null) return null;
                 List<Area> list2 = new List<Area>();
                 for (int i = 0; i < list.Count; i++)
                 {

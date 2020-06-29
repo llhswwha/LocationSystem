@@ -48,7 +48,14 @@ namespace BLL
             return Single;
 
         }
-
+        /// <summary>
+        /// 获取区域信息字典
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<int,Area>GetAreaDictionary()
+        {
+            return areas.ToDictionary(i=>i.Id);
+        }
         private TagRelationBuffer(Bll bll)
         {
             this.bll = bll;
@@ -398,7 +405,7 @@ namespace BLL
                 }
             }
             foreach (var boundArea in boundAreas)
-            {               
+            {              
                 if (boundArea.InitBound.Contains(pos.X, pos.Z))
                 {
                     //以前只考虑园区->区域->建筑结构，现在还会有园区->建筑->楼层。如果是楼层，在这里就要细分是哪一层

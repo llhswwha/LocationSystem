@@ -33,5 +33,10 @@ namespace LocationServer.Tools
         {
             return ConfigurationManager.AppSettings[key].ToDouble(defaultValue);
         }
+
+        public static float GetFloatValue(string key, float defaultValue = 0)
+        {
+            return ConfigurationManager.AppSettings[key].ToFloat(defaultValue);
+        }
     }
 }

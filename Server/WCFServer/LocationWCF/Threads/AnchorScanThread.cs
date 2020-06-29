@@ -406,7 +406,7 @@ namespace LocationServer.Threads
                 alarm.DevInfo = dev;
                 alarm.DevInfoId = devId;
                 alarm.Device_desc = dev.Name;
-                //alarm.Title = string.Format("基站断线[{0},{1}]",anchor.Code,anchor.Ip);
+                alarm.Title = string.Format("基站离线[{0},{1}]",anchor.Code.Trim(),anchor.Ip.Trim());
                 alarm.Msg = string.Format("基站离线[{0},{1}]", anchor.Code, anchor.Ip);
                 //alarm.AreaId
             }

@@ -108,6 +108,7 @@
     <Compile Include="Location\AreaAndDev\Point.cs" />
     <Compile Include="Location\AreaAndDev\Post.cs" />
     <Compile Include="Location\AreaAndDev\Tag.cs" />
+    <Compile Include="Location\AreaAndDev\TopologyToLocationCards.cs" />
     <Compile Include="Location\AreaAndDev\TransformM.cs" />
     <Compile Include="Location\Data\DoorAccessState.cs" />
     <Compile Include="Location\Data\TagPosition.cs" />

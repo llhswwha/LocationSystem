@@ -315,14 +315,40 @@ namespace DbModel.Location.AreaAndDev
             Point p2 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z + tranM.SZ / 2), 0);
             Point p3 = new Point((float)(tranM.X + tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 0);
             Point p4 = new Point((float)(tranM.X - tranM.SX / 2), (float)(tranM.Z - tranM.SZ / 2), 0);
+            
             Point[] points = new Point[] { p1, p2, p3, p4 };
-
+            points = GetNewPoints(points,tranM);//获取旋转后的点
             SetInitBound(points);
 
             //double pX = (MinX + MaxX)/2.0;
             //double pY = (MinY + MaxY)/2.0;
             //double pZ = (MinZ + MaxZ)/2.0;
 
+        }
+        /// <summary>
+        /// 根据旋转角度，获取新的顶点
+        /// </summary>
+        /// <param name="pGroup"></param>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        private Point[] GetNewPoints(Point[] pGroup,TransformM m)
+        {
+            //x0= (x - rx0)*cos(a) - (y - ry0)*sin(a) + rx0 ;
+            //y0 = (x - rx0) * sin(a) + (y - ry0) * cos(a) + ry0;
+            if(pGroup!=null&&m!=null)
+            {
+                if (m.RY == 0) return pGroup;
+                Shape = 1;//不规则多边形
+                foreach (Point p in pGroup)
+                {
+                    double angle = m.RY + 90;
+                    double x1 = (p.X - m.X) * Math.Cos(angle) - (p.Y - m.Z) * Math.Sin(angle) + m.X;
+                    double y1 = (p.X - m.X) * Math.Sin(angle) + (p.Y - m.Z) * Math.Cos(angle) + m.Z;
+                    p.X = (float)x1;
+                    p.Y = (float)y1;
+                }
+            }           
+            return pGroup;          
         }
 
         /// <summary>
@@ -499,7 +525,7 @@ namespace DbModel.Location.AreaAndDev
             }
             else
             {
-                if (Points != null && Points.Count > 4)//不规则多边形
+                if (Points != null && Points.Count > 4||Shape==1)//不规则多边形
                 {
                     return MathTool.IsInRegion(new Point(x, y, 0, 0), Points.ConvertAll<IVector2>(i => i));
                 }

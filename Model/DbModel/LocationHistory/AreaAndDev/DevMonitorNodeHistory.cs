@@ -56,7 +56,7 @@ namespace DbModel.LocationHistory.AreaAndDev
         [MaxLength(256)]
         public string ParentKKS { get; set; }
 
-        [DataMember]
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
         [Display(Name = "ParseResult")]
         [MaxLength(10)]
         public string ParseResult { get; set; }

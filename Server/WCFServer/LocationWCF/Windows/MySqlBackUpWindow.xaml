@@ -1,0 +1,28 @@
+﻿<Window x:Class="LocationServer.Windows.MySqlBackUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationServer.Windows"
+        mc:Ignorable="d"
+        Title="MySqlBackUpWindow" Height="500" Width="750">
+    <Grid>
+        <TextBox Name="LocationPathText" HorizontalAlignment="Left" Height="38" Margin="15,38,0,0" TextWrapping="Wrap" Text="LocationPath" VerticalAlignment="Top" Width="567" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="LocationHistoryPathText" HorizontalAlignment="Left" Height="38" Margin="15,81,0,0" TextWrapping="Wrap" Text="LocationHistoryPath" VerticalAlignment="Top" Width="567" TextChanged="TextBox2_TextChanged"/>
+        <Label Content="数据库备份路径：" HorizontalAlignment="Left" Height="23" Margin="15,10,0,0" VerticalAlignment="Top" Width="104"/>
+        <Button Content="备份Location数据库" HorizontalAlignment="Left" Height="20" Margin="15,124,0,0" VerticalAlignment="Top" Width="132" Click="ButtonLocationBack_Click"/>
+        <Button Content="备份LocationHistory数据库" HorizontalAlignment="Left" Height="20" Margin="167,124,0,0" VerticalAlignment="Top" Width="167" Click="ButtonLocationHistoryBack_Click"/>
+        <Button Content="备份Location+LocationHistory数据库" HorizontalAlignment="Left" Height="20" Margin="358,124,0,0" VerticalAlignment="Top" Width="224" Click="ButtonLocationAndHistoryBack_Click"/>
+        <Label Content="数据库还原：" HorizontalAlignment="Left" Height="23" Margin="15,162,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox Name="RecoverInfoText" HorizontalAlignment="Left" Height="23" Margin="92,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="635" TextChanged="RecoverInfoText_TextChanged"/>
+        <DataGrid  Name="DataGrid1" AutoGenerateColumns="False"   Margin="15,190,15,40"   SelectionChanged="DataGrid1_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding  Path}" Header="Path" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="还原选中数据库"  HorizontalAlignment="Left" Margin="15,434,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="Button_Click"/>
+        <Button Content="删除选择数据库文件" HorizontalAlignment="Left" Margin="201,434,0,0" VerticalAlignment="Top" Width="161" Height="28" Click="Button_Click_1"/>
+        <Button Content="打开数据库备份文件夹" HorizontalAlignment="Left" Margin="381,434,0,0" VerticalAlignment="Top" Width="155" Height="28" Click="Button_Click_2"/>
+
+    </Grid>
+</Window>

@@ -116,6 +116,7 @@
     <Compile Include="Hubs\DoorAccessHub.cs" />
     <Compile Include="Hubs\EchoHub.cs" />
     <Compile Include="Hubs\InspectionTrackHub.cs" />
+    <Compile Include="Hubs\MonitorRangeHub.cs" />
     <Compile Include="Tools\UserManager.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

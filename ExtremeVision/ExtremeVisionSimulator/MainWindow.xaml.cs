@@ -60,6 +60,7 @@ namespace ExtremeVisionSimulator
                 grid1.SelectedObject = info;
                 
                 info.ParseData();
+                info.id = info.aid;
                 string json = JsonConvert.SerializeObject(info);
                 CameraAlarmInfo info2 = CameraAlarmInfo.Parse(json);
                 info2.FlameData = null;

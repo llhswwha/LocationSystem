@@ -13,6 +13,10 @@ namespace DbModel
         /// </summary>
         public static bool WritePositionLog { get; set; }
 
+        public static bool EnableMigration { get; set; }
+
+        public static bool EnableHistoryMigration { get; set; }
+
         public static double PositionMoveStateWaitTime { get; set; }
 
         public static double PositionMoveStateOfflineTime { get; set; }
@@ -26,6 +30,8 @@ namespace DbModel
         /// 基础平台对接ApiURL
         /// </summary>
         public static string DatacaseWebApiUrl { get; set; }
+
+        public static string DatacaseWebApiPort { get; set; }
         public static string ExtremeVisionListenerIP { get; set; }
         public static int CameraAlarmPicSaveMode { get; set; }
         public static string CameraAlarmPicSaveDir { get; set; }

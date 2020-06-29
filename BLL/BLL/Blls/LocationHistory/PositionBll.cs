@@ -155,6 +155,7 @@ namespace BLL.Blls.LocationHistory
         public List<Position> GetAllPositionsByMonth(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = DbSet.First();
+            if (first == null) return new List<Position>();
             DateTime firstDay = first.DateTime;
 
             int year = DateTime.Now.Year - firstDay.Year;
@@ -172,6 +173,7 @@ namespace BLL.Blls.LocationHistory
         public List<Position> GetAllPositionsByDay(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = GetFirst();
+            if (first == null) return new List<Position>();
             DateTime firstDay = first.DateTime;
 
             TimeSpan timeSpan = DateTime.Now - firstDay;
@@ -187,6 +189,7 @@ namespace BLL.Blls.LocationHistory
         public List<PosInfo> GetAllPosInfoListByHour(Func<ProgressInfo, int> progressCallback)
         {
             Position first = GetFirst();
+            if (first == null) return new List<PosInfo>();
             DateTime firstDay = first.DateTime;
 
             TimeSpan timeSpan = DateTime.Now - firstDay;
@@ -202,6 +205,7 @@ namespace BLL.Blls.LocationHistory
         public List<PosInfo> GetAllPosInfoListByDay(Func<ProgressInfo,int> progressCallback)
         {
             Position first = GetFirst();
+            if (first == null) return new List<PosInfo>();
             DateTime firstDay = first.DateTime;
 
             TimeSpan timeSpan = DateTime.Now - firstDay;
@@ -217,6 +221,7 @@ namespace BLL.Blls.LocationHistory
         public List<PositionList> GetAllPositionsCountByDay(Func<ProgressInfo,bool> progressCallback)
         {
             Position first = GetFirst();
+            if (first == null) return new List<PositionList>();
             DateTime firstDay = first.DateTime;
 
             TimeSpan timeSpan = DateTime.Now - firstDay;
@@ -227,15 +232,25 @@ namespace BLL.Blls.LocationHistory
 
         public Position GetFirst()
         {
-            Position first = DbSet.First();
-            DateTime firstDay = first.DateTime;
-            if (firstDay.Year < 2019)
+            try
             {
-                long timestamp = new DateTime(2019, 1, 1, 0, 0, 0).ToStamp();
-                first = DbSet.First(i => i.DateTimeStamp > timestamp);
-                firstDay = first.DateTime;
+                Position first = DbSet.First();
+                if (first == null) return null;
+                DateTime firstDay = first.DateTime;
+                if (firstDay.Year < 2019)
+                {
+                    long timestamp = new DateTime(2019, 1, 1, 0, 0, 0).ToStamp();
+                    first = DbSet.First(i => i.DateTimeStamp > timestamp);
+                    firstDay = first.DateTime;
+                }
+                return first;
             }
-            return first;
+            catch (Exception ex)
+            {
+                Log.Error("PositionBll.GetFirst",ex.ToString());
+                return null;
+            }
+            
         }
 
         public Position GetLast()

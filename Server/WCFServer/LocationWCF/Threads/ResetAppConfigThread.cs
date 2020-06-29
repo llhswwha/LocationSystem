@@ -44,6 +44,7 @@ namespace LocationServer.Threads
 
             if(isFirst)
                 AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
+            AppContext.DatacaseWebApiPort = ConfigurationHelper.GetValue("DatacaseWebApiPort");
 
             AppContext.SaveWebApiJson= ConfigurationHelper.GetBoolValue("SaveWebApiJson");
             AppContext.ShowUnLocatedAreaPoint = ConfigurationHelper.GetBoolValue("ShowUnLocatedAreaPoint");
@@ -93,6 +94,9 @@ namespace LocationServer.Threads
             AppContext.FaintTimeInterval = int.Parse(ConfigurationHelper.GetValue("FaintTimeInterval"));
 
             AppSetting.PositionPower = ConfigurationHelper.GetIntValue("PositionPower",1);
+
+            AppSetting.EnableMigration= ConfigurationHelper.GetBoolValue("EnableMigration");
+            AppSetting.EnableHistoryMigration= ConfigurationHelper.GetBoolValue("EnableHistoryMigration");
         }
 
         protected override void DoBeforeWhile()

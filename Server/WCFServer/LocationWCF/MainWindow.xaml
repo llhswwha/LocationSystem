@@ -70,6 +70,9 @@
             </MenuItem>
 
         </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="123" Name="Status1"></StatusBarItem>
+        </StatusBar>
         <!--<Button DockPanel.Dock="Top" Name="BtnOpenSimulator" Content="打开定位模拟器" Click="BtnOpenSimulator_OnClick"></Button>
         <Button DockPanel.Dock="Top" Name="BtnConnectEngine" Content="连接定位引擎" Click="BtnConnectEngine_Click"></Button>-->
         <TabControl>

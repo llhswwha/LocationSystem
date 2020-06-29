@@ -31,6 +31,7 @@ using System.IO;
 using Location.Server;
 using System.Diagnostics;
 using LocationServer.Threads;
+using IModel.Enums;
 
 namespace LocationWCFServer
 {

@@ -203,7 +203,8 @@ namespace LocationWCFServer
         {
             DateTime now = DateTime.Now;
             var time = (now - startTime);
-            this.Title = string.Format("{0}    -v({1}) [{2}][{3:dd\\.hh\\:mm\\:ss}]", "服务端", version+","+clientVersion, now.ToString("HH:mm:ss"), time);
+            //this.Title = string.Format("{0}    -v({1}) [{2}][{3:dd\\.hh\\:mm\\:ss}]", "服务端", version+","+clientVersion, now.ToString("HH:mm:ss"), time);
+            Status1.Content = string.Format("[{0}][{1}][{2:dd\\.hh\\:mm\\:ss}]", AppContext.ParkName,now.ToString("HH:mm:ss"), time);
         }
 
         private void InitData()

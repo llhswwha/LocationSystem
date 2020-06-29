@@ -47,6 +47,8 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         ///// 检查项列表
         ///// </summary>
         //public List<results> checks { get; set; }
+        //巡检轨迹ID
+        public int route { get; set; }
 
     }
 }

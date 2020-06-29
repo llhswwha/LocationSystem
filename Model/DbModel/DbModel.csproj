@@ -101,6 +101,8 @@
     <Compile Include="LocationHistory\Data\PosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfoList.cs" />
     <Compile Include="LocationHistory\Data\PositionList.cs" />
+    <Compile Include="Location\AreaAndDev\DynamicMonitorAreaUpdate.cs" />
+    <Compile Include="Location\Relation\LocationCardToArea.cs" />
     <Compile Include="Location\Work\InspectionTrackList.cs" />
     <Compile Include="Others\CidMap.cs" />
     <Compile Include="Engine\bus_anchor.cs" />

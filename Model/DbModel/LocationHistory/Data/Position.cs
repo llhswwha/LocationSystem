@@ -244,6 +244,10 @@ namespace DbModel.LocationHistory.Data
         [XmlIgnore]
         public Area Area { get; set; }
 
+
+        [XmlIgnore]
+        public bool IsDynamicAreaPos;
+
         public bool IsAreaNull()
         {
             //return (AreaId == null || AreaId == 0);
@@ -396,11 +400,12 @@ namespace DbModel.LocationHistory.Data
             if (r == true)
             {
                 TimeSpan t = DateTime.Now - this.DateTime;
-                if (t.TotalSeconds > 100000)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
+                if (t.TotalSeconds > 86400)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
                 {
                     //this.DateTime = DateTime.Now;
                     //this.DateTimeStamp = this.DateTime.ToStamp();
                     LogEvent.Info("RealPos","定位数据解析异常:" + info + ",时间相差:" + t.TotalSeconds);
+                    r = false;//这边数据不要了
                 }
                 else if (t.TotalSeconds > 30)//如果实时数据收到的时候和服务端所在电脑的时间有时间差，说明两台电脑自己的时间差别很大了，需要调整。
                 {

@@ -161,7 +161,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Save Exception", ex);
-                ErrorMessage = ex.ToString();
+                SetException(ex);
                 return false;
             }
         }
@@ -189,12 +189,44 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Save Exception", ex);
-                ErrorMessage = ex.ToString();
+                SetException(ex);
                 return false;
             }
         }
 
-        public string ErrorMessage { get; set; }
+        public Exception exception;
+
+        public void SetException(Exception ex)
+        {
+            exception = ex;
+            if (ex == null)
+            {
+                _errorMessage = "";
+                stackTrace = "";
+            }
+            else
+            {
+                _errorMessage = ex.Message;
+                stackTrace = ex.StackTrace;
+            }
+           
+        }
+
+        private string stackTrace;
+
+
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
 
         public virtual bool AddRange(IList<T> list,int maxTryCount = 3)
         {
@@ -251,7 +283,7 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                SetException(ex);
                 Log.Error("BaseBll.Find", ex);
                 return default(T);
             }
@@ -277,7 +309,7 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                SetException(ex);
                 Log.Error("BaseBll.Find", ex);
                 return default(T);
             }
@@ -345,7 +377,7 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                SetException(ex);
                 Log.Error("BaseBll.DeleteById", ex);
                 return null;
             }
@@ -373,7 +405,7 @@ namespace BLL.Blls
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                SetException(ex);
                 Log.Error("BaseBll.DeleteByKeys", ex);
                 return null;
             }
@@ -413,14 +445,14 @@ namespace BLL.Blls
         {
             try
             {
-                ErrorMessage = "";
+                SetException(null);
                 DbSet.Remove(obj);
                 return Save(isSave);
             }
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Remove", ex);
-                ErrorMessage = ex.Message;
+                SetException(ex);
                 return false;
             }
         }
@@ -491,7 +523,7 @@ namespace BLL.Blls
         {
             try
             {
-                ErrorMessage = "";
+                SetException(null);
                 if (DbSet == null) return false;
                 //RemoveHoldingEntityInContext(entity);//不知道为什么不起效果
                 DbEntityEntry<T> entry = Db.Entry<T>(entity);
@@ -507,7 +539,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Edit", ex);
-                ErrorMessage = ex.ToString();
+                SetException(ex);
                 return false;
             }
         }
@@ -516,7 +548,7 @@ namespace BLL.Blls
         {
             try
             {
-                ErrorMessage = "";
+                SetException(null);
                 if (DbSet == null) return false;
                 DbEntityEntry<T> entry = Db.Entry<T>(entity);
                 entry.State = EntityState.Modified;
@@ -525,7 +557,7 @@ namespace BLL.Blls
             catch (Exception ex)
             {
                 Log.Error("BaseBll.Edit", ex);
-                ErrorMessage = ex.ToString();
+                SetException(ex);
                 return false;
             }
         }
@@ -575,7 +607,7 @@ namespace BLL.Blls
             }
             if (result == false && exception!=null)
             {
-                ErrorMessage = exception.Message;
+                SetException(exception);
             }
             return result;
         }
@@ -622,7 +654,7 @@ namespace BLL.Blls
             }
             if (result == false && exception != null)
             {
-                ErrorMessage = exception.Message;
+                SetException(exception);
             }
             return result;
         }

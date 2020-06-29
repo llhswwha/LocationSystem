@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -258,6 +258,7 @@
     <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Threads\AlarmRemoveThread.cs" />
     <Compile Include="Threads\AnchorScanThread.cs" />
+    <Compile Include="Threads\DBBackupThread.cs" />
     <Compile Include="Threads\DbUpdateSet.cs" />
     <Compile Include="Threads\FilterErrorPointThread.cs" />
     <Compile Include="Threads\RepeatDevInfoCheckThread.cs" />
@@ -314,6 +315,9 @@
     </Compile>
     <Compile Include="Windows\KKSWindow.xaml.cs">
       <DependentUpon>KKSWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MySqlBackUpWindow.xaml.cs">
+      <DependentUpon>MySqlBackUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\NewAreaWindow.xaml.cs">
       <DependentUpon>NewAreaWindow.xaml</DependentUpon>
@@ -491,6 +495,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\MySqlBackUpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\NewAreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -638,8 +646,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Data\InitInfos\中山嘉明电厂\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="SystemSetting.XML">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\InitInfos\淄博电厂\基站信息.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2514,6 +2526,23 @@
     <None Include="Data\InitInfos\淄博电厂\部门人员门禁卡信息\BackupPersonnelInfo.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Data\InitInfos\中山嘉明电厂\部门人员门禁卡信息\BackupDepartmentsInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\InitInfos\中山嘉明电厂\部门人员门禁卡信息\BackupEntranceGuardCardInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\InitInfos\中山嘉明电厂\部门人员门禁卡信息\BackupPersonnelInfo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\InitInfos\中山嘉明电厂\基站信息.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <None Include="Data\InitInfos\中山嘉明电厂\InitInfo.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\KKS\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2754,7 +2783,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

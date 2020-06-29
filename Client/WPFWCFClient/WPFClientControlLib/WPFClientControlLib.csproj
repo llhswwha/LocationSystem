@@ -55,7 +55,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>Dll\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -330,6 +332,10 @@
     <ProjectReference Include="..\..\..\Model\TModel\TModel.csproj">
       <Project>{89c37f37-52f9-42fa-8a8e-c145cd6abb64}</Project>
       <Name>TModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Service\LocationWCF\Location.Service.csproj">
+      <Project>{39D91B65-547F-401A-A2C7-9DF2EE514225}</Project>
+      <Name>Location.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -52,6 +52,8 @@ namespace LocationServices.Converters
             item2.IsCreateAreaByData = item1.IsCreateAreaByData;
             item2.IsOnAlarmArea = item1.IsOnAlarmArea;
             item2.IsOnLocationArea = item1.IsOnLocationArea;
+            item2.IsDynamicArea = item1.IsDynamicArea;
+            item2.ModelName = item1.ModelName;
             return item2;
         }
 
@@ -135,6 +137,8 @@ namespace LocationServices.Converters
             item2.IsCreateAreaByData = item1.IsCreateAreaByData;
             item2.IsOnAlarmArea = item1.IsOnAlarmArea;
             item2.IsOnLocationArea = item1.IsOnLocationArea;
+            item2.IsDynamicArea = item1.IsDynamicArea;
+            item2.ModelName = item1.ModelName;
             return item2;
         }
 

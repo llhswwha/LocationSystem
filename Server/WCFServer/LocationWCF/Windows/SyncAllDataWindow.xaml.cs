@@ -70,16 +70,20 @@ namespace LocationServer.Windows
         }
 
         private string datacaseUrl = "ipms-demo.datacase.io";
-
+        private string ParkName = "";
+        private string suffix = "api";
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 datacaseUrl = AppContext.DatacaseWebApiUrl;
                 Log.Info(LogTags.BaseData, "datacaseUrl:" + datacaseUrl);
-
-
-                client = new BaseDataClient(datacaseUrl, null, "api");
+                ParkName = AppContext.ParkName;
+                if (ParkName == "中山嘉明电厂")
+                {
+                    suffix = "zhongshan";
+                }
+                client = new BaseDataClient(datacaseUrl, null, suffix);
 
                 //Sync();
 

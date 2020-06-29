@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DepartmentInfoBackupList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DepList Abutment_Id="-1" Name="未绑定" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="本厂" />
+  <DepList Abutment_Id="0" Name="本单位" ParentId="-1" Abutment_ParentId="-1" ShowOrder="0" Type="本厂" />
+</DepartmentInfoBackupList>

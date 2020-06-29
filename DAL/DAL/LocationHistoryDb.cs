@@ -2,8 +2,9 @@
 using SQLite.CodeFirst;
 using DbModel.LocationHistory.Work;
 using DbModel.LocationHistory.AreaAndDev;
-using Location.BLL.Tool;
 using System.Diagnostics;
+using LocationServer;
+using DbModel;
 
 namespace DAL
 {
@@ -42,11 +43,21 @@ innodb_buffer_pool_instances = 8
 innodb_buffer_pool_chunk_size = 134217728
 innodb_buffer_pool_size = 16106127360 //15G
         */
-
+        public bool IsCreateDb = true;//固定为true
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<LocationHistoryDb>(null);
+            //this.Database.CreateIfNotExists();
 
+            //Database.SetInitializer<LocationHistoryDb>(null);
+            if (AppSetting.EnableHistoryMigration)
+            {
+                EnableMigration(modelBuilder);
+            }
+            else
+            {
+                Database.SetInitializer<LocationHistoryDb>(null);
+                //Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationHistoryDb>(modelBuilder));
+            }
             //Database.SetInitializer<LocationHistoryDb>(new DropCreateDatabaseIfModelChanges<LocationHistoryDb>());//新数据库用
 
             //if (IsSqlite)
@@ -59,7 +70,26 @@ innodb_buffer_pool_size = 16106127360 //15G
             //    //Database.SetInitializer<LocationHistoryDb>(new MigrateDatabaseToLatestVersion<LocationHistoryDb, DAL.LocationHistoryDbMigrations.Configuration>());//自动数据迁移
             //}
         }
-
+        private void EnableMigration(DbModelBuilder modelBuilder)
+        {
+            if (IsSqlite)
+            {
+                Database.SetInitializer(new SqliteDropCreateDatabaseWhenModelChanges<LocationHistoryDb>(modelBuilder));
+            }
+            else
+            {
+                if (IsCreateDb)
+                {
+                    //Database.SetInitializer<LocationDb>(new DropCreateDatabaseIfModelChanges<LocationDb>());//数据模型发生变化是重新创建数据库
+                    Database.SetInitializer<LocationHistoryDb>(new MigrateDatabaseToLatestVersion<LocationHistoryDb, DAL.LocationHistoryDbMigrations.Configuration>());//自动数据迁移
+                    //从代码来看，这里面会创建LocationDb对象的，
+                }
+                else
+                {
+                    Database.SetInitializer<LocationHistoryDb>(null);
+                }
+            }
+        }
         public DbSet<DbModel.LocationHistory.Alarm.DevAlarmHistory> DevAlarmHistorys { get; set; }
 
         public DbSet<DbModel.LocationHistory.Alarm.LocationAlarmHistory> LocationAlarmHistorys { get; set; }

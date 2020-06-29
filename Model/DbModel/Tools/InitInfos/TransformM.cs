@@ -75,6 +75,12 @@ namespace DbModel.Tools.InitInfos
         [DataMember]
         public bool IsOnLocationArea { get; set; }
 
+        [DataMember]
+        public bool IsDynamicArea { get; set; }
+
+        [DataMember]
+        public string ModelName { get; set; }
+
         public TransformM()
         {
             

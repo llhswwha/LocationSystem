@@ -248,8 +248,7 @@ namespace LocationServices.Locations.Services
 
         private void BindingDev(List<TEntity> devInfoList)
         {
-            BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());
-
+            BindingDevParent(devInfoList, db.Areas.ToList().ToTModel());           
             foreach (var item in devInfoList)
             {
                 item.TypeName = TypeCodeHelper.GetTypeName(item.TypeCode+"");
@@ -281,6 +280,7 @@ namespace LocationServices.Locations.Services
                 }
             }
         }
+
         public static void BindingDevParent(List<TEntity> devInfoList, List<TPEntity> nodeList)
         {
             //if(IsBindingPos==true)return;
@@ -289,14 +289,23 @@ namespace LocationServices.Locations.Services
             {
                 Log.Info("DevInfoList is null");
                 return;
-            }
+            }          
             if (nodeList != null)
+            {
                 foreach (PhysicalTopology node in nodeList)
                 {
                     node.Parent = nodeList.Find(i => i.Id == node.ParentId);
                 }
+            }  
             foreach (var item in devInfoList)
             {
+
+                //if(string.IsNullOrEmpty(item.IP)&&TypeCodeHelper.IsCamera(item.TypeCode.ToString()))
+                //{
+                //    var camTemp = cameraList.Find(i=>i.DevInfoId==item.Id);
+                //    if (camTemp != null) item.IP = camTemp.Ip;
+                //}
+
                 PhysicalTopology node = nodeList.Find(o => o.Id == item.ParentId);
                 if (node == null)
                 {

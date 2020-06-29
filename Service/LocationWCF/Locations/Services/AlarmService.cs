@@ -18,6 +18,7 @@ using DbModel.Location.Alarm;
 using T_LocationAlarm = Location.TModel.Location.Alarm.LocationAlarm;
 using TModel.Tools;
 using DbModel.Tools;
+using SignalRService.Hubs;
 
 namespace LocationServices.Locations.Services
 {
@@ -249,7 +250,8 @@ namespace LocationServices.Locations.Services
         {
             BLL.Bll bll = new BLL.Bll(false, true, true);
             BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
-            return ab.DeleteSpecifiedLocationAlarm(id);
+            List<int> idList = new List<int>() { id };
+            return DeleteLocationAlarm(idList);
         }
         /// <summary>
         /// 批量删除告警
@@ -260,7 +262,15 @@ namespace LocationServices.Locations.Services
         {
             BLL.Bll bll = new BLL.Bll(false, true, true);
             BLL.Buffers.AuthorizationBuffer ab = BLL.Buffers.AuthorizationBuffer.Instance(bll);
-            return ab.DeleteLocationAlarmByIdList(idList);
+            List<DbModel.Location.Alarm.LocationAlarm> reviseAlarms = ab.DeleteSpecifiedLocationAlarm(idList);
+            if (reviseAlarms == null || reviseAlarms.Count == 0) return false;
+            else
+            {
+                //新增，服务端消警后，把消警信息发给客户端
+                var alarms = reviseAlarms.ToTModel().ToArray();
+                AlarmHub.SendLocationAlarms(alarms);
+                return true;
+            }
         }
 
         public Page<DeviceAlarm> GetDeviceAlarmsPage(AlarmSearchArg arg)

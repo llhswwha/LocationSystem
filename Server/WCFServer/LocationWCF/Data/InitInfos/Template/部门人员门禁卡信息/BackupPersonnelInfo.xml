@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PersonnelInfoBackupList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PerList Abutment_Id="0" Name="人员1" BirthDay="2019-04-03T15:08:28" BirthTimeStamp="1554275308037" WorkNumber="-1" Enabled="true" ParentId="1" Pst="" />
+  <PerList Abutment_Id="0" Name="人员2" BirthDay="2019-04-03T15:08:28" BirthTimeStamp="1554275308037" WorkNumber="-1" Enabled="true" ParentId="1" Pst="" />
+</PersonnelInfoBackupList>

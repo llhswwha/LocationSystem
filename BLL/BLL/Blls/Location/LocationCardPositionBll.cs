@@ -24,7 +24,7 @@ namespace BLL.Blls.Location
         protected override void InitDbSet()
         {
             DbSet = Db.LocationCardPositions;
-        }
+        }       
 
         public LocationCardPosition FindByCode(string code)
         {
@@ -144,6 +144,6 @@ namespace BLL.Blls.Location
         public override bool AddOrUpdate(LocationCardPosition item, bool isSave = true)
         {
             return base.AddOrUpdate(item, isSave);
-        }
+        }       
     }
 }

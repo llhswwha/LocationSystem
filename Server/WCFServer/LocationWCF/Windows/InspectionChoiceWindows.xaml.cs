@@ -24,6 +24,13 @@ using LocationServer.Tools;
 using DbModel.BaseData;
 using DbModel.Location.AreaAndDev;
 using Location.TModel.Tools;
+using CommunicationClass.SihuiThermalPowerPlant;
+using WebApiLib;
+using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Linq;
+using DbModel.Tools;
+using WebApiLib.Clients.OpcCliect;
 
 namespace LocationServer.Windows
 {
@@ -111,10 +118,12 @@ namespace LocationServer.Windows
 
         LogTextBoxController controller;
         string strIp;
+        string port;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             strIp = AppContext.DatacaseWebApiUrl;
-            trackClient = new InspectionTrackClient(strIp);
+            port = AppContext.DatacaseWebApiPort;
+            trackClient = new InspectionTrackClient(strIp,port);
             trackClient.ListGot += (TrackList) =>
             {
                 InspectionTrackHub.SendInspectionTracks(TrackList.ToTModel());//发送给客户端
@@ -142,9 +151,15 @@ namespace LocationServer.Windows
 
         private void BtnGetList_Click(object sender, RoutedEventArgs e)
         {
+
             var start = (DateTime)StartTime.SelectedDate;
             var end = (DateTime)EndTime.SelectedDate;
             var list=trackClient.GetPatrolList(start, end);
+            if (list == null)
+            {
+                MessageBox.Show("无数据！");
+                list = new List<patrols>();
+            }
             TbCount.Text = list.Count+"";
             DataGridPatrolList.ItemsSource = list;
 
@@ -477,6 +492,126 @@ namespace LocationServer.Windows
             {
                 MessageBox.Show("完成");
             });
+        }
+
+        private void MenuZhongShan_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //string result = WebApiHelper.GetString("http://127.0.0.1:8080/zhongshan/login");
+                // Log.Info(result);
+
+
+                //List<sis> list=WebApiHelper.GetEntity<List<sis>>("http://127.0.0.1:8080/zhongshan/login/Sis");
+                //sis ss = list[0];
+                //检查项列表
+                // List<results> resultList = WebApiHelper.GetEntity<List<results>>("http://127.0.0.1:8080/zhongshan/Results/list");
+                //results result = resultList[0];
+
+                //两票列表
+                //List<tickets> ticketsList = WebApiHelper.GetEntity<List<tickets>>("http://127.0.0.1:8080/zhongshan/Tickets/list");
+                //int count = ticketsList.Count;
+                //if (count > 0)
+                //{
+                //    tickets ticket = ticketsList[0];
+                //}
+                //Sis列表
+                //string kks = "kks001";
+                // List<sis>  sisList= WebApiHelper.GetEntity<List<sis>>("http://127.0.0.1:8080/zhongshan/Sis/list/kks/"+kks);
+                //if (sisList.Count > 0)
+                //{
+                //    sis sis = sisList[0];
+                //}
+
+                //两票数据
+                string result = WebApiHelper.GetString("http://120.25.195.214:18000/api/tickets?type=1");
+
+                JsonSerializerSettings setting = new JsonSerializerSettings();
+                setting.NullValueHandling = NullValueHandling.Ignore;
+                Message message= JsonConvert.DeserializeObject<Message>(result,setting);
+                int total = message.total;
+                string msg = message.msg;
+                List<TwoTickets> list = message.data;
+                //循环获取DetailsSet
+                if (list != null)
+                {
+                    foreach (TwoTickets ticket in list)
+                    {
+                            string results = ticket.detail;
+                            Details details = JsonConvert.DeserializeObject<Details>(results, setting);
+                            ticket.detail = "";
+                            DetailsSet detalsSet = new DetailsSet();
+                            detalsSet.optTicket = details.optTicket;
+                            List<LinesSet> lineSet = new List<LinesSet>();
+                            List<LinesGet> lineList = details.lines;
+                           
+                            //循环，给LineSet赋值
+                            if (lineList != null)
+                            {
+                                foreach (LinesGet line in lineList)
+                                {
+                                    LinesSet setline = new LinesSet();
+                                    setline.name = line.name;
+                                    List<Dictionary<string, string>> dicList = line.lineContentList;
+                                    List<LineContent> contentList = new List<LineContent>();
+                                        if (dicList != null)
+                                        {
+                                            foreach (Dictionary<string, string> dic in dicList)
+                                            {
+                                                LineContent linecontent = new LineContent();
+                                                List<KeyValue> keyList = new List<KeyValue>();
+                                                if(dic!=null)
+                                                   { 
+                                                foreach (KeyValuePair<string, string> kv in dic)
+                                                {
+                                                    KeyValue keyValue = new KeyValue();
+                                                    keyValue.key = kv.Key;
+                                                    keyValue.value = kv.Value;
+                                                    keyList.Add(keyValue);
+                                                }
+                                                linecontent.Content = keyList;
+                                                contentList.Add(linecontent);
+                                                    }
+                                            }
+                                            setline.lineContentList = contentList;
+                                            lineSet.Add(setline);
+                                        }
+                                }
+                                detalsSet.lines = lineSet;
+                                ticket.detailsSet = detalsSet;
+                            }
+                        
+                    }
+
+                    Message aa = message;
+                     var xml = XmlSerializeHelper.GetXmlText(aa);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
+
+        }
+
+        private void MenuOPC_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+              OPCClient1.GetOPCServers();
+                //Kepware.KEPServerEX.V6
+                OPCClient1.ConnectServer("");
+
+                //OPCClient1.WriteValue("Simulator.Test.k0", "121");
+
+                OPCClient1.ReadValue("Simulator.Test.k0",true);
+                object aa=OPCClient1.ReadValue("Simulator.Test.k0");
+            }
+            catch (Exception ex)
+            {
+                Log.Info("连接opc:"+ex.ToString());
+            }
         }
     }
 }

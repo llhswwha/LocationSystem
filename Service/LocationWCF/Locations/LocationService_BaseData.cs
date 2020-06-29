@@ -31,14 +31,22 @@ namespace LocationServices.Locations
         //public static string url = "";
 
         BaseDataClient client = null;
-
+        private string ParkName = "";
+        private string suffix = "api";
         private BaseDataClient GetClient()
         {
             if (client == null)
             {
                 var url = AppContext.DatacaseWebApiUrl;
                 //return new BaseDataClient("localhost","9347");
-                client = new BaseDataClient(url, null, "api");
+                var port = "";
+                ParkName = AppContext.ParkName;
+                    if (ParkName == "中山嘉明电厂")
+                    {
+                        suffix = "zhongshan";
+                    port = AppContext.DatacaseWebApiPort;
+                    }
+                client = new BaseDataClient(url, port, suffix);  //中山测试（api）
             }
             return client;
         }

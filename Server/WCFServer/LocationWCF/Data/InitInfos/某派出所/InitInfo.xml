@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TopoInfo Name="根节点" Type="区域" IsCommon="false">
+		<TopoInfo Name="某办案中心" Type="园区" IsCommon="false">
+			<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points>
+					<PointInfo X="-7122.499" Y="-5664.999" />
+					<PointInfo X="20072.5" Y="15965" />
+				</Points>
+			</BoundInfo>
+			<TopoInfo Name="大楼1" Type="大楼" IsCommon="false">
+				<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points>
+						<PointInfo X="-323.7495" Y="-257.4995" />
+						<PointInfo X="13273.75" Y="10557.5" />
+					</Points>
+				</BoundInfo>
+				<TopoInfo Name="楼层1" Type="楼层" IsCommon="false">
+					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+						<Points>
+							<PointInfo X="900" Y="0" />
+							<PointInfo X="12950" Y="-5.11063263E-08" />
+							<PointInfo X="12950" Y="9250" />
+							<PointInfo X="8150" Y="9250" />
+							<PointInfo X="8150" Y="10300" />
+							<PointInfo X="1.79861672E-08" Y="10300" />
+							<PointInfo X="0" Y="7500" />
+							<PointInfo X="900" Y="7500" />
+						</Points>
+					</BoundInfo>
+					<TopoInfo Name="候问室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="1100" Y="200" />
+								<PointInfo X="6000" Y="2050" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="讯（询）问室三" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="1100" Y="2150" />
+								<PointInfo X="6000" Y="4500" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="辨认室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="1100" Y="4600" />
+								<PointInfo X="6000" Y="6000" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="信息采集室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="1100" Y="6100" />
+								<PointInfo X="3200.30347" Y="6100" />
+								<PointInfo X="3200.30347" Y="10100" />
+								<PointInfo X="200" Y="10100" />
+								<PointInfo X="200" Y="7700" />
+								<PointInfo X="1100" Y="7700" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="人身检查室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="3300.30347" Y="7700" />
+								<PointInfo X="6000" Y="10100" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="讯（询）问室一" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="8150" Y="6450" />
+								<PointInfo X="12750" Y="9050" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="讯（询）问室二" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="8150" Y="3750" />
+								<PointInfo X="12750" Y="6350" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="作战室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="8150" Y="200" />
+								<PointInfo X="10650" Y="2150" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="缉毒检查区" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="10750" Y="200" />
+								<PointInfo X="12750" Y="2150" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="卫生间" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="11800" Y="2250" />
+								<PointInfo X="12750" Y="3650" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="看管区域" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6200" Y="200" />
+								<PointInfo X="7950" Y="2150" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="门口区域" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6200" Y="8500" />
+								<PointInfo X="7950" Y="10100" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="走廊" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6200" Y="2250" />
+								<PointInfo X="11750" Y="2250" />
+								<PointInfo X="11750" Y="3650" />
+								<PointInfo X="7950" Y="3650" />
+								<PointInfo X="7950" Y="8300" />
+								<PointInfo X="6200" Y="8300" />
+								<PointInfo X="6200" Y="7500" />
+								<PointInfo X="3300.30347" Y="7500" />
+								<PointInfo X="3300.30347" Y="6100" />
+								<PointInfo X="6200" Y="6100" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+				</TopoInfo>
+			</TopoInfo>
+		</TopoInfo>
+	</TopoInfo>
+</InitInfo>

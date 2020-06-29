@@ -405,6 +405,7 @@ namespace WebApiLib.Clients
             return recv.data;
         }
 
+        private string ParkName = "";
         /// <summary>
         /// 获取SIS传感数据
         /// </summary>
@@ -417,22 +418,34 @@ namespace WebApiLib.Clients
             //string[] sArray = BaseUri.Split(new string[] { "api" }, StringSplitOptions.RemoveEmptyEntries);
             //string BaseUri2 = sArray[0];
             // BaseUri2 += "api-viz/";
-
-            BaseTran<sis> recv = new BaseTran<sis>();
-            string url = BaseUri + "rt/sis/" + strTags;
-            int length=url.Length;//max:2083
-            recv = GetEntityList<sis>(url,true);
-
-            //if (recv.data == null)
-            //{
-            //    recv.data = new List<sis>();
-            //}
-            return recv.data;
+            ParkName = AppContext.ParkName;
+            if (ParkName == "中山嘉明电厂")
+            {
+                string url = BaseUri + "Sis/list/kks/" + strTags;
+                int length = url.Length;//max:2083
+                List<sis> list = GetEntityList2<sis>(url);
+                return list;
+            }
+            else
+            {
+                BaseTran<sis> recv = new BaseTran<sis>();
+                //  string url = BaseUri + "rt/sis/" + strTags;
+                string url = BaseUri + "Sis/list";
+                int length = url.Length;//max:2083
+                recv = GetEntityList<sis>(url, true);
+                //if (recv.data == null)
+                //{
+                //    recv.data = new List<sis>();
+                //}
+                return recv.data;
+            }
+           
         }
 
         public string GetSisUrl(string tags)
         {
-            string url = BaseUri + "rt/sis/" + tags;
+            // string url = BaseUri + "rt/sis/" + tags;
+            string url = BaseUri + "Sis/list/kks/";
             return url;
         }
 
@@ -658,17 +671,17 @@ namespace WebApiLib.Clients
 
             try
             {
-                string path = "patrols";
+                string path = "Patrols/list";
                 string url = BaseUri + path;
-                if (byTime)
-                {
-                    url += "?startDate=" + lBegin;
-                    url += "&endDate=" + lEnd;
-                }
+                //if (byTime)
+                //{
+                //    url += "?startDate=" + lBegin;
+                //    url += "&endDate=" + lEnd;
+                //}
                 recv = GetEntityList2<patrols>(url);
                 recv.Sort((a, b) =>
                 {
-                    return b.createTime.CompareTo(a.createTime);
+                    return b.createTimes.CompareTo(a.createTimes);
                 });
             }
             catch (Exception ex)

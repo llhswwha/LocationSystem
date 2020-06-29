@@ -837,5 +837,49 @@ namespace LocationServer.Windows
                 LocationService.RefreshDeviceAlarmBuffer(LogTags.Server);//刷新缓存信息
             },()=> { });                       
         }
+        /// <summary>
+        /// 去除Personnel表中，名字的下划线（庄风\n）
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuModifyPersonnel_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (var db = Bll.NewBllNoRelation())
+            {
+                var personList = db.Personnels.ToList();
+                int num = 0;
+                foreach(var person in personList)
+                {
+                    string nameT = person.Name;
+                    nameT.Trim();
+                    if(nameT.Contains("\n"))
+                    {
+                        num++;
+                        person.Name = nameT.Replace("\n", "");
+                    }           
+                }
+                db.Personnels.EditRange(personList);
+                MessageBox.Show(string.Format("名称去除下划线完成，共修改{0}个异常数据!",num));
+            }
+        }
+
+        private void MenuBackupMySql_Click(object sender, RoutedEventArgs e)
+        {
+            MySqlBackUpWindow window = new MySqlBackUpWindow();
+            window.Show();
+        }
+
+        private void MenuPersonAndCard_Mock_OnClick(object sender, RoutedEventArgs e)
+        {
+            Worker.Run(() =>
+            {
+                DbInitializer initializer = new DbInitializer(new Bll());
+                initializer.InitCardAndPerson_Mock();
+            }, () =>
+            {
+                MessageBox.Show("完成");
+            });
+
+        }
     }
 }

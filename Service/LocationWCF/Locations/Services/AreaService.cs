@@ -364,6 +364,11 @@ namespace LocationServices.Locations.Services
                 {
                     root = roots[0];//根节点
 
+                    if(root.Children==null|| root.Children.Count == 0)//不应该，会有问题
+                    {
+                        Log.Error("AreaService","获取根区域信息有问题:"+root.Name);
+                        return null;
+                    }
                     var park = root.Children[0];//四会热电厂
 
                     //将电厂下的人员移动到其他区域中
@@ -377,6 +382,10 @@ namespace LocationServices.Locations.Services
                             otherArea.AddPerson(person);
                         }
                         park.Persons.Clear();
+                    }
+                    if (park.Children == null)
+                    {
+                        park.Children = new List<AreaNode>();
                     }
                     park.Children.Add(otherArea);
                     //root = park;//将电厂做为根节点

@@ -7,8 +7,9 @@ using DbModel.Location.AreaAndDev;
 using DbModel.Location.Work;
 using DbModel.Location.Manage;
 using DbModel.Location.Alarm;
-using Location.BLL.Tool;
 using System.Diagnostics;
+using LocationServer;
+using DbModel;
 
 namespace DAL
 {
@@ -45,13 +46,21 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-#if SIHUI && SERVER
-    EnableMigration(modelBuilder);
-#elif BAOXIN || WEB
-            Database.SetInitializer<LocationDb>(null);
-#else
-    EnableMigration(modelBuilder);
-#endif
+            if(AppSetting.EnableMigration)
+            {
+                EnableMigration(modelBuilder);
+            }
+            else
+            {
+                Database.SetInitializer<LocationDb>(null);
+            }    
+            //#if SIHUI && SERVER
+            //            EnableMigration(modelBuilder);
+            //#elif BAOXIN || WEB
+            //            Database.SetInitializer<LocationDb>(null);
+            //#else
+            //            EnableMigration(modelBuilder);
+            //#endif
         }
 
         private void EnableMigration(DbModelBuilder modelBuilder)
@@ -122,7 +131,9 @@ namespace DAL
         public DbSet<DbModel.Location.Relation.EntranceGuardCardToPersonnel> EntranceGuardCardToPersonnels { get; set; }
 
         public DbSet<DbModel.Location.Relation.LocationCardToPersonnel> LocationCardToPersonnels { get; set; }
-            
+
+        public DbSet<DbModel.Location.Relation.LocationCardToArea> LocationCardToAreas { get; set; }
+
         public DbSet<DbModel.Location.Work.AreaAuthorization> AreaAuthorizations { get; set; }
 
         public DbSet<DbModel.Location.Work.AreaAuthorizationRecord> AreaAuthorizationRecords { get; set; }

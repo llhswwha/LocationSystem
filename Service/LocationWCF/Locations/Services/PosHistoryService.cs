@@ -700,6 +700,10 @@ namespace LocationServices.Locations.Services
                 DateTime start = DateTime.Now;
 
                 Bll bll = Bll.NewBllNoRelation();
+                if (bll.DbHistory.Database.Exists() == false)
+                {
+                    return allPoslist;
+                }
 
                 //关联人员
                 var personnels = bll.Personnels.ToDictionary();

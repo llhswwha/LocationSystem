@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TopoInfo Name="根节点" Type="区域" IsCommon="false">
+		<TopoInfo Name="某监狱四层" Type="园区" IsCommon="false">
+			<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points>
+					<PointInfo X="-10617.75" Y="-18746.75" />
+					<PointInfo X="29922.75" Y="52831.75" />
+				</Points>
+			</BoundInfo>
+			<TopoInfo Name="大楼1" Type="大楼" IsCommon="false">
+				<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points>
+						<PointInfo X="-482.625" Y="-852.125" />
+						<PointInfo X="19787.625" Y="34937.125" />
+					</Points>
+				</BoundInfo>
+				<TopoInfo Name="楼层1" Type="楼层" IsCommon="false">
+					<BoundInfo Thickness="3600" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+						<Points>
+							<PointInfo X="85" Y="-8.978532E-09" />
+							<PointInfo X="18770" Y="9.954965E-08" />
+							<PointInfo X="18770" Y="22750" />
+							<PointInfo X="19305" Y="22750" />
+							<PointInfo X="19305" Y="25200" />
+							<PointInfo X="18770" Y="25200" />
+							<PointInfo X="18770" Y="34085" />
+							<PointInfo X="12400" Y="34085" />
+							<PointInfo X="12400" Y="25200" />
+							<PointInfo X="6370" Y="25200" />
+							<PointInfo X="6370" Y="34085" />
+							<PointInfo X="7.711613E-06" Y="34085" />
+							<PointInfo X="-1.74622983E-10" Y="6300" />
+							<PointInfo X="85" Y="6300" />
+						</Points>
+					</BoundInfo>
+					<TopoInfo Name="分控室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="285" Y="200" />
+								<PointInfo X="12085" Y="6300.024" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="电梯间" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="12685" Y="200" />
+								<PointInfo X="15485" Y="6300.02246" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="医务室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="15685" Y="200" />
+								<PointInfo X="18585" Y="6300.021" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="监室(16人)" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="370" Y="11085" />
+								<PointInfo X="6000" Y="22750" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="卫生间" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="905" Y="22850" />
+								<PointInfo X="5465" Y="24830" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="室外放风场地" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="370" Y="25200" />
+								<PointInfo X="6000" Y="33715" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="强电井" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6370" Y="11700" />
+								<PointInfo X="9185" Y="14085" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="禁闭室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6370" Y="14985" />
+								<PointInfo X="9015" Y="18515" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="禁闭室" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="6370" Y="18885" />
+								<PointInfo X="9015" Y="22620" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="监室(16人)" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="12770" Y="11085" />
+								<PointInfo X="18400" Y="22750" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="卫生间" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="13305" Y="22850" />
+								<PointInfo X="17865" Y="24830" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="室外放风场地" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="12770" Y="25200" />
+								<PointInfo X="18400" Y="33715" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="巡逻通道" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="-1.74622983E-10" Y="6500" />
+								<PointInfo X="18770" Y="10715" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+					<TopoInfo Name="走廊" Type="机房" IsCommon="false">
+						<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+							<Points>
+								<PointInfo X="9385" Y="10900" />
+								<PointInfo X="12085" Y="10900" />
+								<PointInfo X="12085" Y="25000" />
+								<PointInfo X="6305" Y="25000" />
+								<PointInfo X="6305" Y="22990" />
+								<PointInfo X="9385" Y="22990" />
+							</Points>
+						</BoundInfo>
+					</TopoInfo>
+				</TopoInfo>
+				<TopoInfo Name="楼层2" Type="楼层" IsCommon="false">
+					<BoundInfo Thickness="3300" BottomHeight="3600" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+						<Points>
+							<PointInfo X="85" Y="-8.978532E-09" />
+							<PointInfo X="18770" Y="9.954965E-08" />
+							<PointInfo X="18770" Y="22750" />
+							<PointInfo X="19305" Y="22750" />
+							<PointInfo X="19305" Y="25200" />
+							<PointInfo X="18770" Y="25200" />
+							<PointInfo X="18770" Y="34085" />
+							<PointInfo X="12400" Y="34085" />
+							<PointInfo X="12400" Y="25200" />
+							<PointInfo X="6370" Y="25200" />
+							<PointInfo X="6370" Y="34085" />
+							<PointInfo X="7.711613E-06" Y="34085" />
+							<PointInfo X="-1.74622983E-10" Y="6300" />
+							<PointInfo X="85" Y="6300" />
+						</Points>
+					</BoundInfo>
+				</TopoInfo>
+				<TopoInfo Name="楼层3" Type="楼层" IsCommon="false">
+					<BoundInfo Thickness="3600" BottomHeight="6900" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+						<Points>
+							<PointInfo X="85" Y="-8.978532E-09" />
+							<PointInfo X="18770" Y="9.954965E-08" />
+							<PointInfo X="18770" Y="22750" />
+							<PointInfo X="19305" Y="22750" />
+							<PointInfo X="19305" Y="25200" />
+							<PointInfo X="18770" Y="25200" />
+							<PointInfo X="18770" Y="34085" />
+							<PointInfo X="12400" Y="34085" />
+							<PointInfo X="12400" Y="25200" />
+							<PointInfo X="6370" Y="25200" />
+							<PointInfo X="6370" Y="34085" />
+							<PointInfo X="7.711613E-06" Y="34085" />
+							<PointInfo X="-1.74622983E-10" Y="6300" />
+							<PointInfo X="85" Y="6300" />
+						</Points>
+					</BoundInfo>
+				</TopoInfo>
+				<TopoInfo Name="楼层4" Type="楼层" IsCommon="false">
+					<BoundInfo Thickness="3300" BottomHeight="10500" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+						<Points>
+							<PointInfo X="85" Y="-8.978532E-09" />
+							<PointInfo X="18770" Y="9.954965E-08" />
+							<PointInfo X="18770" Y="22750" />
+							<PointInfo X="19305" Y="22750" />
+							<PointInfo X="19305" Y="25200" />
+							<PointInfo X="18770" Y="25200" />
+							<PointInfo X="18770" Y="34085" />
+							<PointInfo X="12400" Y="34085" />
+							<PointInfo X="12400" Y="25200" />
+							<PointInfo X="6370" Y="25200" />
+							<PointInfo X="6370" Y="34085" />
+							<PointInfo X="7.711613E-06" Y="34085" />
+							<PointInfo X="-1.74622983E-10" Y="6300" />
+							<PointInfo X="85" Y="6300" />
+						</Points>
+					</BoundInfo>
+				</TopoInfo>
+			</TopoInfo>
+		</TopoInfo>
+	</TopoInfo>
+</InitInfo>

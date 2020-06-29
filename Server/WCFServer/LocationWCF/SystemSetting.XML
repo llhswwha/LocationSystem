@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SystemSetting xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <IsDebug>false</IsDebug>
-  <ResolutionSetting Width="1920" High="1080" />
+  <ResolutionSetting Width="1366" High="1080" />
   <VersionSetting VersionNumber="1.0.42" />
-  <IsFullScreen>false</IsFullScreen>
-  <IsShowHomePage>false</IsShowHomePage>
+  <IsFullScreen>True</IsFullScreen>
+  <IsShowHomePage>true</IsShowHomePage>
   <IsShowLeftTopo>true</IsShowLeftTopo>
   <IsShowRightDownAlarm>true</IsShowRightDownAlarm>
   <IsShowRightTopInfo>true</IsShowRightTopInfo>
   <CinemachineSetting CMvcamFollow_X="0" CMvcamFollow_Y="20" CMvcamFollow_Z="-10" />
-  <CommunicationSetting Ip1="172.16.100.26" Port1="8733" Mode="WebApi" SignalingServerUrl="ws://192.168.1.151:8444/player" />
+  <CommunicationSetting Ip1="172.16.100.26" Port1="8733" Mode="WebApi" SignalingServerUrl="ws://192.168.1.150:8444/player" />
   <RefreshSetting TagPos="0.35" PersonTree="5" AreaStatistics="5" DepartmentTree="5" NearCamera="5" ScreenShot="6" GroupPowerState="10" />
   <HoneyWellSetting EnableHoneyWell="false" Ip="192.168.1.3" UserName="sdk3D" PassWord="123456" MaxConnectTime="10" />
   <AssetLoadSetting EnableUnloadFunction="false" UnloadMode="0" CacheCount="0" DeviceCacheCount="15" MaxVertex="1500000" BuildingFromFile="true" DeviceFromFile="true" LoadDeviceAsset="true" DeviceResolution="2048" HttpUrl="" />
   <HistoryPathSetting StartHour="8" StartMinute="3" Duration="8" />
-  <LocationSetting HistoryIntervalTime="10" EnableNavMesh="true">
+  <LocationSetting HistoryIntervalTime="10" EnableNavMesh="true" NavMeshHeightOffset="1">
     <hideTimeHours>72</hideTimeHours>
     <NavMode>0</NavMode>
   </LocationSetting>

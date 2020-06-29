@@ -22,6 +22,7 @@ namespace LocationServices.Locations
         {
             CameraAlarmService service = new CameraAlarmService(db);
             var list = service.GetAllCameraAlarms(merge);
+            //string value = XmlSerializeHelper.GetXmlText(list);测试用，方便找出客户端收不到数据的原因
             return list;
         }
 

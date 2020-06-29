@@ -330,7 +330,14 @@ namespace AutoCADCommands
             }
         }
 
-
+        /// <summary>
+        /// 获取一个机房的坐标
+        /// </summary>
+        [CommandMethod("GetRoom")]
+        public static void GetRoom()
+        {
+            GetRoomsCommand.GetRoomInfo();
+        }
 
         /// <summary>
         /// 获取机房坐标，创建机房区域

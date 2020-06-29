@@ -684,7 +684,22 @@ namespace BLL.Buffers
                 return null;
             }            
         }
-
+        /// <summary>
+        /// 当人从告警区域，进入不确定区域（Area=null）后,消警
+        /// </summary>
+        /// <param name="alarm"></param>
+        /// <param name="posListT"></param>
+        /// <param name="areaAlarms"></param>
+        /// <returns></returns>
+        private bool IsAlarmReviseInUndefinedArea(LocationAlarm alarm,List<Position>posListT, List<LocationAlarm> areaAlarms)
+        {
+            if(areaAlarms==null||areaAlarms.Count==0)
+            {
+                Position p = posListT.Find(i=>i.CardId==alarm.LocationCardId);
+                return p != null;
+            }
+            return false;
+        }
         /// <summary>
         /// 获取新告警
         /// </summary>
@@ -773,12 +788,13 @@ namespace BLL.Buffers
 
                         //当该卡片在数据库中在指定区域是异常告警时,出现正常告警或没有该区域的异常告警，则告警恢复；出现该区域的异常告警，则忽略
                         LocationAlarm item3 = areaAlarms.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
-                        if (item3 != null)
+                        if (item3 != null|| IsAlarmReviseInUndefinedArea(ReviseAlarm, list1,areaAlarms))
                         {
+                            //人从告警区域，走到某个位置（不属于任何区域），则AreaAlarms中不会产生告警和消警。这种情况也要消警
                             ReviseAlarmList.Add(ReviseAlarm);
                             DeleteList.Add(item);
                             hisAlarms.Add(item.RemoveToHistory());
-                            areaAlarms.Remove(item3);//把当前正常的区域移除，把告警恢复的区域添加并发给客户端
+                            if(areaAlarms.Contains(item3)) areaAlarms.Remove(item3);//把当前正常的区域移除，把告警恢复的区域添加并发给客户端
                         }
                         else
                         {
@@ -863,7 +879,7 @@ namespace BLL.Buffers
 
             foreach (Position p in list1)
             {
-                if (p== null || p.IsAreaNull() || p.PersonnelID == null || p.AreaId == null)
+                if (p== null || p.IsAreaNull() || p.PersonnelID == null || p.AreaId == null||p.IsDynamicAreaPos)
                 {
                     continue;
                 }
@@ -975,61 +991,50 @@ namespace BLL.Buffers
 
             return;
         }
-        /// <summary>
-        /// 通过列表删除告警信息
-        /// </summary>
-        /// <param name="idList"></param>
-        /// <returns></returns>
-        public bool DeleteLocationAlarmByIdList(List<int>idList)
-        {
-            bool result = true;
-            foreach(int idTemp in idList)
-            {
-                bool isDelete = DeleteSpecifiedLocationAlarm(idTemp);
-                if (!isDelete) result = false;
-            }
-            return result;
-        }
 
-        public bool DeleteSpecifiedLocationAlarm(int id)
+        public List<LocationAlarm> DeleteSpecifiedLocationAlarm(List<int>LocationIdList)
         {
-            bool bReturn = true;
-
+            //bool bReturn = true;
+            List<LocationAlarm> reviseListT = new List<LocationAlarm>();//恢复的告警
+            if (LocationIdList == null) return null;
             try
             {
                 using (var _bll = Bll.NewBllNoRelation())
                 {
-                    LocationAlarm alarm = _bll.LocationAlarms.Find(p => p.Id == id);
-                    if (alarm == null)
+                    List<LocationAlarm> removeList = new List<LocationAlarm>();
+                    Dictionary<int,LocationAlarm>alarmDic = _bll.LocationAlarms.ToDictionary();                 
+                    if (alarmDic == null) return null;
+                    foreach(var item in LocationIdList)
                     {
-                        bReturn = false;
-                        return bReturn;
+                        LocationAlarm alarm = alarmDic.ContainsKey(item)?alarmDic[item]:null;
+                        if (alarm == null) continue;                       
+                        hisAlarms.Add(alarm.RemoveToHistory());
+                        removeList.Add(alarm);
+                        LocationAlarm revise = alarm.Copy();
+                        revise.AlarmLevel = LocationAlarmLevel.正常;
+                        if (realAlarms != null && realAlarms.Count > 0)
+                        {
+                            LocationAlarm alarm2 = realAlarms.Find(p => p.Id == item);
+                            realAlarms.Remove(alarm2);
+                        }
+                        else
+                        {
+                            realAlarms = _bll.LocationAlarms.ToList();
+                        }
                     }
-
-                    hisAlarms.Add(alarm.RemoveToHistory());
-                    _bll.LocationAlarms.Remove(alarm);
-                    if (realAlarms != null && realAlarms.Count > 0)
+                    if (removeList != null && removeList.Count != 0)
                     {
-                        LocationAlarm alarm2 = realAlarms.Find(p => p.Id == id);
-                        realAlarms.Remove(alarm2);
+                        _bll.LocationAlarms.RemoveList(removeList);
+                        SaveHisAlarms();
                     }
-                    else
-                    {
-                        realAlarms = _bll.LocationAlarms.ToList();
-                    }
-
-                    SaveHisAlarms();
                 }
             }
             catch (Exception ex)
             {
                 string strError = ex.Message;
-                bReturn = false;
+                return null;
             }
-
-            return bReturn;
-
-            
+            return reviseListT;
         }
 
     }

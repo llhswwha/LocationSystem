@@ -208,7 +208,7 @@ namespace BLL
             catch (Exception ex)
             {
                 r = false;
-                ErrorMessage = ex.Message;
+                SetException(ex);
             }
             return r;
         }
@@ -512,8 +512,9 @@ namespace BLL
                             errorCount++;
                             PosDistance dis = new PosDistance(tagPos, position);
                             //这个点就不用来修改实时位置了
-                            Log.Info("ErrorPos",string.Format("发现错误点 {0}:{1}",errorCount, dis));
-
+                            string tagPos1 = tagPos.GetText();
+                            string tagPos2 = position.GetText();
+                            Log.Info("ErrorPos",string.Format("发现错误点:TagPos:{0} Position:{1} ErrorCount:{2} Distance:{3}", tagPos1, tagPos2,errorCount, dis));
                             positions.RemoveAt(i);
                             i--;
                         }
@@ -533,15 +534,13 @@ namespace BLL
                         {
                             changedTagPosList.Add(tagPos);
                         }
-                    }
-                    
-
-
+                    }                   
                 }
                 else
                 {
                     LocationCardPosition newTagPos = new LocationCardPosition(position);
                     newTagPosList.Add(newTagPos);
+                    tagPosDic.Add(newTagPos.Id,newTagPos);//更新缓存               
                 }
             }
 
@@ -576,6 +575,7 @@ namespace BLL
             LocationCardPositions.EditRange(changedTagPosList);//修改位置信息
 
             LocationCardPositions.AddRange(newTagPosList);//增加位置信息
+
         }
 
         public bool EditTagPositionEx(Position position)
@@ -661,6 +661,26 @@ namespace BLL
             }
         }
 
-        public string ErrorMessage { get; set; }
+        public void SetException(Exception ex)
+        {
+            ErrorMessage = ex.Message;
+            stackTrace = ex.StackTrace;
+        }
+
+        private string stackTrace;
+
+
+        private string _errorMessage;
+        public string ErrorMessage 
+        {
+            get
+            {
+                return _errorMessage;
+            }
+            set
+            {
+                _errorMessage = value;
+            }
+        }
     }
 }

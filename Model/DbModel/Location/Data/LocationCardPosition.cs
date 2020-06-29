@@ -252,8 +252,36 @@ namespace DbModel.Location.Data
 
         public LocationCardPosition Clone()
         {
-            LocationCardPosition copy = this.CloneObjectByBinary();
+            LocationCardPosition copy = new LocationCardPosition();
+            copy.CardId = this.CardId;
+            copy.X = this.X;
+            copy.Y = this.Y;
+            copy.Z = this.Z;
+            copy.DateTimeStamp = this.DateTimeStamp;
+            copy.DateTime = this.DateTime;
+            copy.Power = this.Power;
+            copy.Number = this.Number;
+            copy.Flag = this.Flag;
+            copy.Archors = this.Archors;
+            copy.AreaId = this.AreaId;
+            copy.AreaState = this.AreaState;
+            copy.PowerState = this.PowerState;
+            copy.MoveState = this.MoveState;
+            copy.ArchorsText = this.ArchorsText;
+            //copy.AreaPath = this.AreaPath;
+            copy.PersonId = this.PersonId;
             return copy;
+        }
+
+        public string GetText()
+        {
+            string archors = "";
+            if (Archors != null)
+            {
+                archors = string.Join(",", Archors.ToArray());
+            }
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", CardId, X, Y, Z, DateTimeStamp, Power, Number,
+                Flag, archors);
         }
 
         ///// <summary>

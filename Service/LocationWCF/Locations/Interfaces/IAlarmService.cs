@@ -42,6 +42,8 @@ namespace LocationServices.Locations.Interfaces
         [OperationContract]
         bool DeleteLocationAlarmByIdList(List<int> ids);
 
+        [OperationContract]
+        bool DeleteDeviceAlarmsByList(List<int> deviceAlarms);
         ///// <summary>
         ///// 获取定位告警列表（新增事件）
         ///// </summary>

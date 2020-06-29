@@ -170,6 +170,14 @@ namespace DbModel.Location.AreaAndDev
         [DataMember]
         public bool IsCreateAreaByData { get; set; }
 
+        [DataMember]
+        [Display(Name = "是否动态区域")]
+        public bool IsDynamicArea { get; set; }
+
+        [DataMember]
+        [MaxLength(128)]
+        [Display(Name="区域对应模型名称")]
+        public string ModelName { get; set; }
         /// <summary>
         /// 是否是告警区域范围
         /// </summary>
@@ -202,6 +210,8 @@ namespace DbModel.Location.AreaAndDev
             this.IsCreateAreaByData = transform.IsCreateAreaByData;
             this.IsOnAlarmArea = transform.IsOnAlarmArea;
             this.IsOnLocationArea = transform.IsOnLocationArea;
+            //this.IsDynamicArea = transform.IsDynamicArea;
+            //this.ModelName = transform.ModelName;
         }
 
         /// <summary>
@@ -226,6 +236,8 @@ namespace DbModel.Location.AreaAndDev
             transform.IsCreateAreaByData = this.IsCreateAreaByData;
             transform.IsOnAlarmArea = this.IsOnAlarmArea;
             transform.IsOnLocationArea = this.IsOnLocationArea;
+            transform.IsDynamicArea = this.IsDynamicArea;
+            transform.ModelName = this.ModelName;
             return transform;
         }
 
