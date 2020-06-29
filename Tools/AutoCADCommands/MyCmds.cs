@@ -187,59 +187,85 @@ namespace AutoCADCommands
         [CommandMethod("Anchors")]
         public static void GetAnchors()
         {
-            var zero = Interaction.GetPoint("选择原点");
-            //string[] keys = { "1F", "2F", "3F", "4F" };
-            //var key = Interaction.GetKeywords("\n选择楼层", keys);
-            var anchorObjects = Interaction.GetEntitysByLayers("-人员定位");
-            CADShapeList sps = new CADShapeList();
-            for (int i = 0; i < anchorObjects.Length; i++)
+            try
             {
-                ObjectId item = anchorObjects[i];
-                var sp = item.ToCADShape(true);
-                sps.Add(sp);
-                Interaction.WriteLine(string.Format("{0}({1}/{2})", sp, i + 1, anchorObjects.Length));
-            }
-
-            var types = sps.GetTypesEx();
-
-            //var circleList = types["Circle"];
-            //var zeroCircle = circleList[0];
-            //var zeroP = zeroCircle.GetPoint();
-
-            var pZero = zero.ToCADPoint(false);//获取的坐标原本就是用户坐标系的
-            foreach (CADShape sp in sps)
-            {
-                sp.SetZero(pZero);
-            }
-
-            var anchorList = types["BlockReference"];
-            var textList = types["MText"];
-
-            CADAnchorList result = new CADAnchorList();
-
-            for (int i = 0; i < anchorList.Count; i++)
-            {
-                var anchor = anchorList[i];
-                var text= textList.FindCloset(anchor);
-                if (text != null)
+                var zero = Interaction.GetPoint("选择原点");
+                //string[] keys = { "1F", "2F", "3F", "4F" };
+                //var key = Interaction.GetKeywords("\n选择楼层", keys);
+                var anchorObjects = Interaction.GetEntitysByLayers("-人员定位");
+                CADShapeList sps = new CADShapeList();
+                for (int i = 0; i < anchorObjects.Length; i++)
                 {
-                    //if (text.Text.Contains(key))
+                    ObjectId item = anchorObjects[i];
+                    var sp = item.ToCADShape(true);
+                    sps.Add(sp);
+                    Interaction.WriteLine(string.Format("{0}({1}/{2})", sp, i + 1, anchorObjects.Length));
+                }
+
+                var types = sps.GetTypesEx();
+
+                string typesText = "";
+                foreach (var item in types)
+                {
+                    typesText += item.Key + ",";
+                }
+
+                Interaction.Write("Types:" + typesText);
+
+                //var circleList = types["Circle"];
+                //var zeroCircle = circleList[0];
+                //var zeroP = zeroCircle.GetPoint();
+
+                var pZero = zero.ToCADPoint(false);//获取的坐标原本就是用户坐标系的
+                foreach (CADShape sp in sps)
+                {
+                    sp.SetZero(pZero);
+                }
+
+                CADShapeList anchorList = new CADShapeList();
+                if (types.ContainsKey("BlockReference"))
+                {
+                    anchorList = types["BlockReference"];
+                }
+
+                CADShapeList textList = new CADShapeList();
+                if (types.ContainsKey("MText"))
+                {
+                    textList = types["MText"];
+                }
+
+                CADAnchorList result = new CADAnchorList();
+
+                for (int i = 0; i < anchorList.Count; i++)
+                {
+                    var anchor = anchorList[i];
+                    var text = textList.FindCloset(anchor);
+                    if (text != null)
                     {
-                        anchor.Text = text.Text;
-                        anchor.Name = text.Text;
-                        result.Anchors.Add(anchor);
+                        //if (text.Text.Contains(key))
+                        {
+                            anchor.Text = text.Text;
+                            anchor.Name = text.Text;
+                            result.Anchors.Add(anchor);
+                        }
                     }
                 }
-            }
 
-            result.Anchors.Sort();
-            for (int i = 0; i < result.Anchors.Count; i++)
+                result.Anchors.Sort();
+                for (int i = 0; i < result.Anchors.Count; i++)
+                {
+                    result.Anchors[i].Num = i + 1;
+                }
+
+                var txt = result.ToXml();
+                Gui.TextReport("Anchors", txt, 700, 500);
+            }
+            catch (System.Exception ex)
             {
-                result.Anchors[i].Num = i + 1;
-            }
 
-            var txt = result.ToXml();
-            Gui.TextReport("Anchors", txt, 700, 500);
+                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+            }
+            
         }
 
 
