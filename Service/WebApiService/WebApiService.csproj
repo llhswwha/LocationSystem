@@ -202,6 +202,8 @@
     <Compile Include="Controllers\ConfigArgController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DevController.cs" />
+    <Compile Include="Controllers\DoorClickController.cs" />
+    <Compile Include="Controllers\EnergyController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\ExtremeVisionController.cs" />
@@ -289,6 +291,10 @@
     <ProjectReference Include="..\..\WebApi\WebApiComunication\WebApiCommunication.csproj">
       <Project>{474692d2-fc7e-4835-87a0-089bc2f88af0}</Project>
       <Name>WebApiCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApi\WebApiLib\WebApiClients.csproj">
+      <Project>{78DC1103-E23B-423A-A1B3-F7022934DD1C}</Project>
+      <Name>WebApiClients</Name>
     </ProjectReference>
     <ProjectReference Include="..\LocationWCF\Location.Service.csproj">
       <Project>{39d91b65-547f-401a-a2c7-9df2ee514225}</Project>

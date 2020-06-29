@@ -47,8 +47,13 @@ namespace AutoCADCommands.ModelExtensions
 
         public static CADShape AddPoints(this CADShape sp, Entity entity, bool isToUCS)
         {
-            sp.AddPoints(entity.GeometricExtents, isToUCS);
-            sp.Entity = entity;
+            if (entity.GeometricExtents != null)
+            {
+                sp.AddPoints(entity.GeometricExtents, isToUCS);
+                sp.Entity = entity;
+            }
+
+
             return sp;
         }
 
@@ -107,7 +112,7 @@ namespace AutoCADCommands.ModelExtensions
             sp.Name = entity.GetType().Name;
             sp.Type = entity.GetType().Name;
             sp.Layer = entity.Layer;
-            if (entity is BlockReference)
+            if (entity is BlockReference) 
             {
                 sp.Name = "Block";
                 sp.AddPoints(entity as BlockReference, isToUCS);
@@ -119,6 +124,9 @@ namespace AutoCADCommands.ModelExtensions
             else if (entity is Polyline)
             {
                 sp.AddPoints(entity as Polyline, isToUCS);
+
+               // string name = GetRoomsCommand.GetText(entity.Bounds.MinPoint, entity.Bounds.MaxPoint);
+
             }
             else if (entity is MLeader)
             {
@@ -162,6 +170,7 @@ namespace AutoCADCommands.ModelExtensions
                 sp.AddPoints(entity, isToUCS);
             }
 
+           // objId.q
             return sp;
         }
 

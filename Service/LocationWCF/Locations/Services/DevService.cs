@@ -19,6 +19,12 @@ using TEntity = Location.TModel.Location.AreaAndDev.DevInfo;
 using System.ServiceModel.Web;
 using DevInfo = Location.TModel.Location.AreaAndDev.DevInfo;
 using Dev_DoorAccess = Location.TModel.Location.AreaAndDev.Dev_DoorAccess;
+using Newtonsoft.Json;
+using WebApiLib.Clients.OpcCliect;
+using LocationServer;
+using WebApiLib;
+using LocationServices.ObjToData;
+using Newtonsoft.Json.Linq;
 
 namespace LocationServices.Locations.Services
 {
@@ -162,6 +168,12 @@ namespace LocationServices.Locations.Services
         /// <returns></returns>
         IList<Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids);
         /// <summary>
+        /// 通过门名称，获取门下的门禁信息
+        /// </summary>
+        /// <param name="doorName"></param>
+        /// <returns></returns>
+        IList<Dev_DoorAccess> GetDoorAccessByDoorName(string doorName);
+        /// <summary>
         /// 获取所有的门禁信息
         /// </summary>
         /// <returns></returns>
@@ -272,6 +284,8 @@ namespace LocationServices.Locations.Services
         DbModel.Location.AreaAndDev.DevModel GetDevClassByDevModel(string devModelName);
         Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag);
 
+        Dev_Monitor getNowDevMonitorInfoByTags(string tags);
+
         AlarmStatistics GetDevAlarmStatistics(SearchArg arg);
 
         AlarmStatistics GetLocationAlarmStatistics(SearchArg arg);
@@ -303,7 +317,7 @@ namespace LocationServices.Locations.Services
             DbModel.Location.AreaAndDev.Dev_CameraInfo dbCamera = cameraInfo.ToDbModel();
             var result = CameraInfoSet.Add(dbCamera);
             return result ? dbCamera.ToTModel() : null;
-           
+
         }
 
         public bool AddCameraInfoByList(IList<TModel.Location.AreaAndDev.Dev_CameraInfo> cameraInfoList)
@@ -377,6 +391,8 @@ namespace LocationServices.Locations.Services
             bool value = true;
             foreach (Location.TModel.Location.AreaAndDev.Dev_DoorAccess item in doorAccessList)
             {
+                if (item == null) continue;
+
                 var doorAccess = db.Dev_DoorAccess.DeleteById(item.Id);
                 var dev = db.DevInfos.DeleteById(item.DevInfoId);
                 //bool posResult = db.DevPos.DeleteById(item.DevID);
@@ -542,6 +558,22 @@ namespace LocationServices.Locations.Services
         {
             if (dev == null) return null;
             TModel.Location.AreaAndDev.Dev_CameraInfo cameraInfo = db.Dev_CameraInfos.DbSet.FirstOrDefault(item => item.DevInfoId == dev.Id).ToTModel();
+            if (cameraInfo != null && DbModel.AppSetting.ParkName == "中山嘉明电厂")
+            {
+                //dev.Abutment_DevID
+                //string status = getOnlineState(dev.Abutment_DevID);
+                string m3u8Url = "";
+                m3u8Url = getM3u8Url(dev.Abutment_DevID);
+                //if (status == "1")
+                //{
+                //    m3u8Url = getM3u8Url(dev.Abutment_DevID);
+                //}
+                //else if (status == "2")
+                //{
+                //    m3u8Url = "不在线";
+                //}
+                cameraInfo.RtspUrl = m3u8Url;
+            }
             return cameraInfo;
         }
 
@@ -596,17 +628,172 @@ namespace LocationServices.Locations.Services
 
         public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag)
         {
-              DateTime start = DateTime.Now;
-            Dev_Monitor monitor = GetDevMonitor(KKS, bFlag);
-            if (monitor == null) return null;
-            var tags = monitor.GetAllTagList();
-            TimeSpan time = DateTime.Now - start;
+            DateTime start = DateTime.Now;
+            Dev_Monitor monitor = new Dev_Monitor();
+
             //Log.Info(LogTags.KKS, string.Format("[{2}]KKS:{0},测点:{1}", KKS, tags, time));
-            BaseDataService baseservice = new BaseDataService();
-            List<TModel.Location.AreaAndDev.DevMonitorNode> dataList = baseservice.GetSomesisList(tags);//到基础平台获取数据
-            //Log.Info(LogTags.KKS, string.Format("获取sis数据"));
-            monitor = InsertDataToEveryDev(monitor, dataList);
+
+            if (DbModel.AppSetting.ParkName == "四会热电厂")
+            {
+              monitor=GetDevMonitor(KKS, bFlag);
+                if (monitor == null) return null;
+                var tags = monitor.GetAllTagList();
+                TimeSpan time = DateTime.Now - start;
+                BaseDataService baseservice = new BaseDataService();
+                List<TModel.Location.AreaAndDev.DevMonitorNode> dataList = baseservice.GetSomesisList(tags);//到基础平台获取数据
+                //Log.Info(LogTags.KKS, string.Format("获取sis数据"));
+                monitor = InsertDataToEveryDev(monitor, dataList);
+            }
+            else if (DbModel.AppSetting.ParkName == "中山嘉明电厂")
+            {
+                //Todo:根据Tags,获取所有监控点信息，并填入monitor中，发给客户端
+                //SetParentMonitorNodes(tags, monitor);
+                //先从该名字下xml获取测点，再从数据库中查询
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\中山嘉明电厂\\" + KKS + ".xml";
+                List<string> tagNameList = new List<string>();
+                if (File.Exists(dirPath))
+                {
+                    TModel.Location.AreaAndDev.DevMonitorNodeList list = XmlSerializeHelper.LoadFromFile<TModel.Location.AreaAndDev.DevMonitorNodeList>(dirPath);
+                    foreach (TModel.Location.AreaAndDev.DevMonitorNode node in list)
+                    {
+                        tagNameList.Add(node.TagName);
+                    }
+                }
+                string tagnames = "";
+                foreach (string tagname in tagNameList)
+                {
+                    tagnames += "'"+tagname+"',";
+                }
+                string sqlwhere = "";
+                if (tagnames != "")
+                {
+                    tagnames = tagnames.Substring(0, tagnames.Length - 1);
+                    sqlwhere = " and  TagName  in (" + tagnames + ")";
+                    string strsql = string.Format(@"select * from devmonitornodes where 1=1 " + sqlwhere);
+                    List<DbModel.Location.AreaAndDev.DevMonitorNode> nodesList = db.DevMonitorNodes.GetListBySql<DbModel.Location.AreaAndDev.DevMonitorNode>(strsql);
+                    if (nodesList != null && nodesList.Count > 0)
+                    {
+                        monitor.MonitorNodeList = new List<TModel.Location.AreaAndDev.DevMonitorNode>();
+                        monitor.MonitorNodeList.AddRange(nodesList.ToTModel());
+                    }
+                }
+                else
+                {
+                    monitor.MonitorNodeList = null;
+                }
+              
+            }
             return monitor;
+        }
+        /// <summary>
+        /// 实时获取sis数据
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public Dev_Monitor getNowDevMonitorInfoByTags(string tags)
+        {
+            try
+            {
+                //替换特殊字符
+                //   空格    -    %20
+                //    "          -    %22
+                //    #         -    %23
+                //    %        -    %25
+                //    &         -    %26
+                //    (          -    %28
+                //    )          -    %29
+                //    +         -    %2B
+                //    ,          -    %2C
+                //    /          -    %2F
+                //    :          -    %3A
+                //    ;          -    %3B
+                //    <         -    %3C
+                //    =         -    %3D
+                //    >         -    %3E
+                //    ?         -    %3F
+                //    @       -    %40
+                //    \          -    %5C
+                //    |          -    %7C 
+                tags = tags.Replace(" ", "%20").Replace("#", "%23").Replace("+", "%2B").Replace("/", "%2F") ;
+                Dev_Monitor monitor = new Dev_Monitor();
+                List<TModel.Location.AreaAndDev.DevMonitorNode> nodesList = new List<TModel.Location.AreaAndDev.DevMonitorNode>();
+                List<SisData> sisList = WebApiHelper.GetEntity<List<SisData>>("http://10.146.33.9:20080/MIS/GetRtMonTagInfosByNames?tagNames=" + tags);
+                foreach (SisData sisData in sisList)
+                {
+                    TModel.Location.AreaAndDev.DevMonitorNode dev = new TModel.Location.AreaAndDev.DevMonitorNode();
+                    dev.TagName = sisData.Name;
+                    dev.Value = sisData.Value;
+                    dev.Unit = sisData.Unit;
+                    dev.ParentKKS = sisData.Desc;
+                    nodesList.Add(dev);
+                }
+                monitor.MonitorNodeList.AddRange(nodesList);
+                return monitor;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DevService.getNowDevMonitorInfoByTags:"+ex.ToString());
+                return null;
+            }
+        }
+
+
+
+        /// <summary>
+        /// 设置父节点监控值，同时遍历设置子节点的值(暂时不用)
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <param name="parentNode"></param>
+        private void SetParentMonitorNodes(List<string> tags, Dev_Monitor parentNode)
+        {
+            //根据测点列表，返回一个字典（键：测点名称TagName   值： opc对接获取的值）
+            Dictionary<string, string> tagToValueDic = new Dictionary<string, string>();
+         string opcServerIp = AppContext.OPCServerIP;
+          opc = new OPCReadAuto(opcServerIp);
+            foreach (var item in tags)
+            {
+                if (!tagToValueDic.ContainsKey(item))
+                {
+                    string tagNameValue = opc.getOPC(item);
+                    if (tagNameValue.Equals("BAD"))
+                    {
+                        tagToValueDic.Add(item, "*");
+                    }
+                    else
+                    {
+                        tagToValueDic.Add(item, tagNameValue);
+                    }
+                }
+
+            }
+
+
+
+            opc.DisConnected(); //断开opc
+            SetMonitorNodeValue(parentNode, tagToValueDic);
+        }
+        /// <summary>
+        /// 设置监控节点的值
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="tagToValueDic"></param>
+        private void SetMonitorNodeValue(Dev_Monitor parent, Dictionary<string, string> tagToValueDic)
+        {
+            if (tagToValueDic == null || tagToValueDic.Count == 0) return;
+            if (parent.MonitorNodeList != null)
+            {
+                foreach (var node in parent.MonitorNodeList)
+                {
+                    if (tagToValueDic.ContainsKey(node.TagName)) node.Value = tagToValueDic[node.TagName];
+                }
+            }
+            if (parent.ChildrenList != null)
+            {
+                foreach (var child in parent.ChildrenList)
+                {
+                    SetMonitorNodeValue(child, tagToValueDic);
+                }
+            }
         }
 
         public IList<DevPos> GetDevPositions()
@@ -629,6 +816,25 @@ namespace LocationServices.Locations.Services
                 {
                     devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.ParentId != null && item.ParentId == pId).ToList().ToTModel());
                 }
+                return devInfoList.ToWCFList();
+            }
+            catch (Exception e)
+            {
+                Log.Error("LocationService_Dev.GetDoorAccessInfoByParent.Exception:" + e.ToString());
+                return null;
+            }
+        }
+        /// <summary>
+        /// 通过门名称，查找对应门禁设备
+        /// </summary>
+        /// <param name="doorName"></param>
+        /// <returns></returns>
+        public IList<Dev_DoorAccess> GetDoorAccessByDoorName(string doorName)
+        {
+            try
+            {
+                List<Dev_DoorAccess> devInfoList = new List<Dev_DoorAccess>();
+                devInfoList.AddRange(db.Dev_DoorAccess.DbSet.Where(item => item.DoorId==doorName).ToList().ToTModel());
                 return devInfoList.ToWCFList();
             }
             catch (Exception e)
@@ -793,7 +999,7 @@ namespace LocationServices.Locations.Services
 
             return monitor;
         }
-         private List<TModel.Location.AreaAndDev.DevMonitorNode> GetDevMonitorNodeListByKKS(List<string> KKS)
+        private List<TModel.Location.AreaAndDev.DevMonitorNode> GetDevMonitorNodeListByKKS(List<string> KKS)
         {
             List<DbModel.Location.AreaAndDev.DevMonitorNode> lst = DevMonitorNodes.FindAll(p => KKS.Contains(p.ParentKKS));
             if (lst == null || lst.Count == 0)
@@ -993,6 +1199,94 @@ namespace LocationServices.Locations.Services
         public TEntity Put(TEntity item)
         {
             throw new NotImplementedException();
+        }
+
+
+        public OPCReadAuto opc;
+        // opc = new OPCReadAuto(opcServerIp);
+       
+
+        public string getM3u8Url(string devId)
+        {
+            //办公室视频监控
+            //return "rtsp://iom:123456@192.168.1.134:554/cam/realmonitor?channel=1&subtype=0";
+
+            HttpUtillib.SetPlatformInfo("21762820", "yvtbOgoYSPOh2fA1Kvbv", "10.146.33.21", 80, false);
+            string body = "{\"cameraIndexCode\": \"" + devId + "\",\"streamType\": \"1\",\"protocol\": \"rtsp\",\"expand\": \"streamform=rtp\",\"transmode\": \"1\"}";
+            string uri = "/artemis/api/video/v1/cameras/previewURLs";
+            byte[] result = HttpUtillib.HttpPost(uri, body, 15);
+            if (null == result)
+            {
+                Log.Info("/artemis/api/visitor/v1/record/previewURLs: POST fail");
+                return "";
+            }
+            else
+            {
+                string tmp = System.Text.Encoding.UTF8.GetString(result);
+                try
+                {
+                    UrlData obj = JsonConvert.DeserializeObject<UrlData>(tmp);
+                    string m3u8Url = obj.data.url.ToString();
+                    return m3u8Url;
+
+                }
+                catch (Exception e)
+                {
+                    return "";
+                }
+            }
+        }
+
+     
+
+
+        /// <summary>
+        /// 公用方法，根据URL跟参数，获取返回信息
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static string getString(string body, string uri)
+        {
+            try
+            {
+                HttpUtillib.SetPlatformInfo("21762820", "yvtbOgoYSPOh2fA1Kvbv", "10.146.33.21", 80, false);
+                byte[] result = HttpUtillib.HttpPost(uri, body, 15);
+                if (null == result)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine();
+                    return null;
+                }
+                else
+                {
+                    string tmp = System.Text.Encoding.UTF8.GetString(result);
+                    Console.WriteLine(tmp);
+                    //
+                    JObject obj = null;
+                    try
+                    {
+                        obj = (JObject)JsonConvert.DeserializeObject(tmp);
+
+                        // 说明是字符串，并且请求失败了
+                        Console.WriteLine(tmp);
+                    }
+                    catch (Exception e)
+                    {
+                        // 转换成json对象异常说明响应是字节流
+                        File.WriteAllBytes("D://test.jpeg", result);
+                        Console.WriteLine("写入图片成功：D://test.jpeg\n");
+                    }
+                    return tmp;
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
         }
     }
 }

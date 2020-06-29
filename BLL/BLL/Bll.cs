@@ -118,6 +118,8 @@ namespace BLL
 
         public WorkTicketBll WorkTickets { get; set; }
 
+        public OperationTicketSHBll OperationTicketSHs { get; set; }
+
         public PictureBll Pictures { get; set; }
 
         public ArchorSettingBll ArchorSettings { get; set; }
@@ -138,6 +140,8 @@ namespace BLL
 
 
         public CameraAlarmJsonBll CameraAlarmJsons { get; set; }
+
+        public PersonnelFirstInAreaBll PersonnelFirstInAreas { get; set; }
 
         /********************LocationHistory********************************/
 
@@ -185,6 +189,12 @@ namespace BLL
 
         public DevMonitorNodeHistoryBll DevMonitorNodeHistorys { get; set; }
 
+        public OperationTicketHistorySHBll OperationTicketHistorySHs { get; set; }
+
+        public WorkTicketHistorySHBll WorkTicketHistorySHes { get; set; }
+
+        public PointHistoryBll PointHistories { get; set; }
+
         /********************Engine********************************/
         public bus_anchorBll bus_anchors { get; set; }
 
@@ -193,6 +203,8 @@ namespace BLL
         public bus_anchor_configBll bus_anchor_config { get; set; }
 
         public bus_tagBll bus_tags { get; set; }
+
+        public DoorClickBll DoorClicks { get; set; }
 
         public Bll() : this(false, true, true)
         {
@@ -264,6 +276,7 @@ namespace BLL
             Roles = new RoleBll(Db);
             SafetyMeasuress = new SafetyMeasuresBll(Db);
             WorkTickets = new WorkTicketBll(Db);
+            OperationTicketSHs = new OperationTicketSHBll(Db);
             Pictures = new PictureBll(Db);
             ArchorSettings = new ArchorSettingBll(Db);
             CardRoles = new CardRoleBll(Db);
@@ -276,6 +289,8 @@ namespace BLL
             HomePagePictures = new HomePagePictureBll(Db);
             Users = new UserBll(Db);
             CameraAlarmJsons = new CameraAlarmJsonBll(Db);
+            PersonnelFirstInAreas = new PersonnelFirstInAreaBll(Db);
+
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);
             DevEntranceGuardCardActions = new DevEntranceGuardCardActionBll(DbHistory);
@@ -299,13 +314,17 @@ namespace BLL
             PatrolPointHistorys = new PatrolPointHistoryBll(DbHistory);
             PatrolPointItemHistorys = new PatrolPointItemHistoryBll(DbHistory);
             DevMonitorNodeHistorys = new DevMonitorNodeHistoryBll(DbHistory);
-            
+            DoorClicks = new DoorClickBll(DbHistory);
+            OperationTicketHistorySHs = new OperationTicketHistorySHBll(DbHistory);
+            WorkTicketHistorySHes = new WorkTicketHistorySHBll(DbHistory);
+            PointHistories = new PointHistoryBll(DbHistory);
 
             bus_anchors = new bus_anchorBll(DbE);
             bus_tags = new bus_tagBll(DbE);
             bus_anchor_config = new bus_anchor_configBll(DbE);
             bus_anchor_switch_area = new bus_anchor_switch_areaBll(DbE);
 
+            DoorClicks.ToList();
             //LocationCards.ToList();
             //DevEntranceGuardCardActions.ToList();
             //bus_archors.ToList();

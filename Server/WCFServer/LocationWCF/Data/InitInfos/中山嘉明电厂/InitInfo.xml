@@ -1,1276 +1,817 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<InitInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<TopoInfo Name="根结点" Type="区域" IsCommon="false">
-		<TopoInfo Name="中山嘉明电厂" Type="园区" IsCommon="false">
-			<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-				<Points>
-					<PointInfo X="166753.266" Y="954990.5" />
-					<PointInfo X="324908.969" Y="910333.2" />
-					<PointInfo X="355196.438" Y="887190.2" />
-					<PointInfo X="405339.219" Y="887008.438" />
-					<PointInfo X="405266.375" Y="869433.3" />
-					<PointInfo X="517862" Y="830008.9" />
-					<PointInfo X="578450.4" Y="801360.938" />
-					<PointInfo X="791571.5" Y="596350.5" />
-					<PointInfo X="871386.063" Y="380993.6" />
-					<PointInfo X="873059.563" Y="372266.469" />
-					<PointInfo X="937018.8" Y="275979.7" />
-					<PointInfo X="1047929.13" Y="278286.375" />
-					<PointInfo X="1067500" Y="181240.031" />
-					<PointInfo X="1074454.63" Y="146853.031" />
-					<PointInfo X="1083226.63" Y="45369.1055" />
-					<PointInfo X="1075002" Y="-396.292419" />
-					<PointInfo X="392224.6" Y="-506.614471" />
-					<PointInfo X="294791.031" Y="27120.56" />
-					<PointInfo X="248378.9" Y="73583.53" />
-					<PointInfo X="265842.8" Y="120483.766" />
-					<PointInfo X="266681.031" Y="177104.2" />
-					<PointInfo X="239900.047" Y="177569.156" />
-					<PointInfo X="236458.688" Y="169576.766" />
-					<PointInfo X="209398.828" Y="178477.578" />
-					<PointInfo X="156332.969" Y="178819.922" />
-					<PointInfo X="142205" Y="177482.719" />
-					<PointInfo X="130378.945" Y="169077.7" />
-					<PointInfo X="21305.416" Y="143011.141" />
-					<PointInfo X="-5601.84473" Y="148840.984" />
-					<PointInfo X="-29800" Y="168068.516" />
-					<PointInfo X="19798.7969" Y="275451.531" />
-					<PointInfo X="44342.89" Y="298899.9" />
-					<PointInfo X="106031.945" Y="494442" />
-					<PointInfo X="122308.805" Y="570208.438" />
-					<PointInfo X="134241.75" Y="634501" />
-					<PointInfo X="166753.266" Y="954990.5" />
-				</Points>
-			</BoundInfo>
-			<TopoInfo Name="大楼" Type="分组" IsCommon="false">
-				<TopoInfo Name="集水井#1雨水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="702000" Y="49451.5234" />
-							<PointInfo X="720000" Y="49451.5234" />
-							<PointInfo X="720000" Y="31051.5215" />
-							<PointInfo X="702000" Y="31051.5215" />
-							<PointInfo X="702000" Y="49451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1雨水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="720000" Y="53451.5234" />
-							<PointInfo X="727000" Y="53451.5234" />
-							<PointInfo X="727000" Y="27051.5215" />
-							<PointInfo X="720000" Y="27051.5215" />
-							<PointInfo X="720000" Y="53451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="三期生产区" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="277499.969" Y="497451.531" />
-							<PointInfo X="277656.031" Y="516101.281" />
-							<PointInfo X="298999.969" Y="516451.531" />
-							<PointInfo X="298999.969" Y="509451.531" />
-							<PointInfo X="311299.375" Y="509577.1" />
-							<PointInfo X="311505.3" Y="497451.531" />
-							<PointInfo X="359506.2" Y="497533.156" />
-							<PointInfo X="359499.969" Y="516451.531" />
-							<PointInfo X="380999.969" Y="516440.5" />
-							<PointInfo X="381023.469" Y="509959.75" />
-							<PointInfo X="393569.25" Y="509503.3" />
-							<PointInfo X="393473.7" Y="497465.1" />
-							<PointInfo X="438331.6" Y="497451.531" />
-							<PointInfo X="438500.375" Y="452461.969" />
-							<PointInfo X="193957.578" Y="452654.5" />
-							<PointInfo X="194097.266" Y="516778.281" />
-							<PointInfo X="216794.188" Y="516735.9" />
-							<PointInfo X="216721.6" Y="509019.219" />
-							<PointInfo X="229084.4" Y="509019.219" />
-							<PointInfo X="229346.922" Y="509019.656" />
-							<PointInfo X="229299.953" Y="497451.531" />
-							<PointInfo X="277499.969" Y="497451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="生产区废弃区一期" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="550000" Y="245451.516" />
-							<PointInfo X="566000" Y="245451.516" />
-							<PointInfo X="566000" Y="248451.516" />
-							<PointInfo X="578000" Y="248451.516" />
-							<PointInfo X="578000" Y="245451.516" />
-							<PointInfo X="618000" Y="245451.516" />
-							<PointInfo X="618000" Y="248451.516" />
-							<PointInfo X="630000" Y="248451.516" />
-							<PointInfo X="630000" Y="245451.516" />
-							<PointInfo X="638550" Y="245451.516" />
-							<PointInfo X="638550" Y="162201.516" />
-							<PointInfo X="550000" Y="162201.516" />
-							<PointInfo X="550000" Y="244451.516" />
-							<PointInfo X="550000" Y="245451.516" />
-							<PointInfo X="551000" Y="245451.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="二期生产区集控楼压缩机房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="649362.2" Y="233841.516" />
-							<PointInfo X="649362.2" Y="165058.734" />
-							<PointInfo X="673501.4" Y="165292.391" />
-							<PointInfo X="673501.4" Y="156501.047" />
-							<PointInfo X="679999.8" Y="156501.047" />
-							<PointInfo X="679999.8" Y="149243.078" />
-							<PointInfo X="691550.938" Y="149243.078" />
-							<PointInfo X="699363.7" Y="149286.875" />
-							<PointInfo X="699495.1" Y="161787.531" />
-							<PointInfo X="703394.2" Y="161802.141" />
-							<PointInfo X="703394.2" Y="162561.516" />
-							<PointInfo X="712900.9" Y="162561.516" />
-							<PointInfo X="712900.9" Y="165555.25" />
-							<PointInfo X="725760" Y="165561.516" />
-							<PointInfo X="725760" Y="156761.516" />
-							<PointInfo X="732264.75" Y="156749.3" />
-							<PointInfo X="732264.75" Y="149511.516" />
-							<PointInfo X="756506.1" Y="149505.938" />
-							<PointInfo X="756564.5" Y="154281.3" />
-							<PointInfo X="768232.5" Y="154281.3" />
-							<PointInfo X="768495.4" Y="154285.391" />
-							<PointInfo X="768612.2" Y="193623.313" />
-							<PointInfo X="754417.9" Y="193550.281" />
-							<PointInfo X="754417.9" Y="201859.719" />
-							<PointInfo X="743801.3" Y="201859.719" />
-							<PointInfo X="743494.6" Y="201859.719" />
-							<PointInfo X="743494.6" Y="234015.469" />
-							<PointInfo X="743503.9" Y="234089.781" />
-							<PointInfo X="701860.8" Y="234089.781" />
-							<PointInfo X="701582.7" Y="234089.781" />
-							<PointInfo X="701597.938" Y="202195.6" />
-							<PointInfo X="701554.2" Y="201859.719" />
-							<PointInfo X="691492.563" Y="201859.719" />
-							<PointInfo X="691492.563" Y="233841.516" />
-							<PointInfo X="691492" Y="234089.781" />
-							<PointInfo X="649367.25" Y="234089.781" />
-							<PointInfo X="649362.2" Y="233841.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#3雨水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="943733.563" Y="66172.9844" />
-							<PointInfo X="943796.563" Y="60287.875" />
-							<PointInfo X="966666.563" Y="60184.707" />
-							<PointInfo X="966666.563" Y="66172.9844" />
-							<PointInfo X="943733.563" Y="66151.23" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="天然气调压站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="997556.563" Y="31413.668" />
-							<PointInfo X="997556.563" Y="189221.813" />
-							<PointInfo X="987100" Y="189851.5" />
-							<PointInfo X="987100" Y="273262.156" />
-							<PointInfo X="1039946.94" Y="272622.7" />
-							<PointInfo X="1050749.5" Y="252937.078" />
-							<PointInfo X="1059880.88" Y="192851.516" />
-							<PointInfo X="1063952.75" Y="192851.516" />
-							<PointInfo X="1063952.75" Y="121512.156" />
-							<PointInfo X="1064108" Y="113458.6" />
-							<PointInfo X="1067908" Y="113458.6" />
-							<PointInfo X="1067500" Y="31411.5527" />
-							<PointInfo X="997556.563" Y="31413.668" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="空气压房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="566000" Y="120201.523" />
-							<PointInfo X="606000" Y="120201.523" />
-							<PointInfo X="606000" Y="126701.523" />
-							<PointInfo X="632037.9" Y="126701.523" />
-							<PointInfo X="632037.9" Y="131701.516" />
-							<PointInfo X="629020" Y="131701.516" />
-							<PointInfo X="566980" Y="131701.516" />
-							<PointInfo X="566000" Y="131701.516" />
-							<PointInfo X="566000" Y="120201.523" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="启动锅炉房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="755702.3" Y="269701.531" />
-							<PointInfo X="755630.1" Y="251701.516" />
-							<PointInfo X="774700" Y="251701.516" />
-							<PointInfo X="774768.25" Y="269701.531" />
-							<PointInfo X="755702.3" Y="269769.4" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="压缩机房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="763179.75" Y="204941.516" />
-							<PointInfo X="763111.2" Y="234775.531" />
-							<PointInfo X="774361.2" Y="234775.531" />
-							<PointInfo X="774361.2" Y="204941.516" />
-							<PointInfo X="763179.75" Y="204941.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="制氢站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="901650" Y="82251.1953" />
-							<PointInfo X="901650" Y="72151.08" />
-							<PointInfo X="908789.4" Y="72151.08" />
-							<PointInfo X="908789.4" Y="73449.2" />
-							<PointInfo X="923149.1" Y="73449.2" />
-							<PointInfo X="923149.1" Y="72614.17" />
-							<PointInfo X="923648.7" Y="72614.17" />
-							<PointInfo X="923648.7" Y="73449.2" />
-							<PointInfo X="924801" Y="73449.2" />
-							<PointInfo X="924801" Y="74951.52" />
-							<PointInfo X="925600" Y="74951.52" />
-							<PointInfo X="925600" Y="82251.08" />
-							<PointInfo X="916899.063" Y="82251.52" />
-							<PointInfo X="916899.063" Y="81449.42" />
-							<PointInfo X="907268.75" Y="81451.52" />
-							<PointInfo X="904198.438" Y="81452.1953" />
-							<PointInfo X="904198.438" Y="82251.52" />
-							<PointInfo X="901650" Y="82251.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="消防沙池消防沙池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="702200" Y="88501.52" />
-							<PointInfo X="702200" Y="102301.523" />
-							<PointInfo X="715400" Y="102301.523" />
-							<PointInfo X="715400" Y="100301.523" />
-							<PointInfo X="723400" Y="100301.523" />
-							<PointInfo X="723400" Y="97101.52" />
-							<PointInfo X="715400" Y="97101.52" />
-							<PointInfo X="715400" Y="93701.52" />
-							<PointInfo X="723400" Y="93701.52" />
-							<PointInfo X="723400" Y="90501.52" />
-							<PointInfo X="715400" Y="90501.52" />
-							<PointInfo X="715400" Y="88501.52" />
-							<PointInfo X="702200" Y="88501.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2GIS楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="819750" Y="75451.52" />
-							<PointInfo X="783250" Y="75451.52" />
-							<PointInfo X="783246.438" Y="59347.98" />
-							<PointInfo X="819750" Y="59351.5234" />
-							<PointInfo X="819750" Y="75451.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="529520" Y="38951.5234" />
-							<PointInfo X="529520" Y="48951.5234" />
-							<PointInfo X="538020" Y="48951.5234" />
-							<PointInfo X="538020" Y="38951.5234" />
-							<PointInfo X="529520" Y="38951.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1酸碱储藏区" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="528020" Y="58951.5234" />
-							<PointInfo X="528020" Y="76451.52" />
-							<PointInfo X="538020" Y="76451.52" />
-							<PointInfo X="538020" Y="58951.5234" />
-							<PointInfo X="528020" Y="58951.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1水处理中间水池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="524020" Y="76451.52" />
-							<PointInfo X="524020" Y="67451.52" />
-							<PointInfo X="519020" Y="67451.52" />
-							<PointInfo X="519020" Y="76451.52" />
-							<PointInfo X="524020" Y="76451.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1水处理车间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="538020" Y="80451.52" />
-							<PointInfo X="500558.9" Y="80451.52" />
-							<PointInfo X="500392.8" Y="98451.52" />
-							<PointInfo X="538020" Y="98451.52" />
-							<PointInfo X="538020" Y="80451.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1化水楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="488408.719" Y="62451.5234" />
-							<PointInfo X="488408.719" Y="98451.52" />
-							<PointInfo X="497100" Y="98451.52" />
-							<PointInfo X="497500" Y="62451.5234" />
-							<PointInfo X="488408.719" Y="62451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1沉淀池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="371150" Y="36521.5234" />
-							<PointInfo X="383550" Y="36521.5234" />
-							<PointInfo X="383550" Y="22061.1719" />
-							<PointInfo X="371150" Y="22061.1719" />
-							<PointInfo X="371150" Y="36521.53" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="高压消防水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="340530" Y="47621.5234" />
-							<PointInfo X="340530" Y="40121.5234" />
-							<PointInfo X="364530" Y="40121.53" />
-							<PointInfo X="364530" Y="47621.5234" />
-							<PointInfo X="340530" Y="47621.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="综合水池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="340530" Y="55621.5234" />
-							<PointInfo X="340530" Y="80971.52" />
-							<PointInfo X="391260" Y="80971.52" />
-							<PointInfo X="391260" Y="55621.53" />
-							<PointInfo X="340530" Y="55621.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="净水站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="405025" Y="98451.52" />
-							<PointInfo X="413525" Y="98451.52" />
-							<PointInfo X="413525" Y="64951.53" />
-							<PointInfo X="405025" Y="64951.53" />
-							<PointInfo X="405025" Y="98451.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="285511.25" Y="101513.43" />
-							<PointInfo X="287218.563" Y="101510.711" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="320020.1" Y="94431.42" />
-							<PointInfo X="318323.1" Y="94431.4844" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="308664.25" Y="107824.32" />
-							<PointInfo X="306967.219" Y="107824.32" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="292878.125" Y="95856.57" />
-							<PointInfo X="292880.563" Y="94144.11" />
-							<PointInfo X="296824.969" Y="90199.72" />
-							<PointInfo X="298537.719" Y="90202.46" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="355546.844" Y="179618.4" />
-							<PointInfo X="355546.2" Y="174863.063" />
-							<PointInfo X="355546.844" Y="174568.609" />
-							<PointInfo X="355546.844" Y="169814.922" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="员工餐厅" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="355546.844" Y="179616.422" />
-							<PointInfo X="355546.844" Y="184715.719" />
-							<PointInfo X="353510.9" Y="184729.844" />
-							<PointInfo X="353510.9" Y="192670.453" />
-							<PointInfo X="372600" Y="192493.781" />
-							<PointInfo X="372600" Y="195951.516" />
-							<PointInfo X="381400" Y="195951.516" />
-							<PointInfo X="381400" Y="192493.781" />
-							<PointInfo X="397498.281" Y="192493.781" />
-							<PointInfo X="397792.719" Y="192493.781" />
-							<PointInfo X="397796.938" Y="182881.922" />
-							<PointInfo X="396509.75" Y="182777.172" />
-							<PointInfo X="395525.438" Y="182881.922" />
-							<PointInfo X="395474.938" Y="184720.172" />
-							<PointInfo X="386355.25" Y="184720.172" />
-							<PointInfo X="386355.25" Y="169824.938" />
-							<PointInfo X="391066.531" Y="169778.672" />
-							<PointInfo X="391066.531" Y="155695.313" />
-							<PointInfo X="362925.063" Y="155695.313" />
-							<PointInfo X="362596.938" Y="155695.313" />
-							<PointInfo X="362596.938" Y="159481.156" />
-							<PointInfo X="355269.219" Y="159471.484" />
-							<PointInfo X="355269.219" Y="159712.3" />
-							<PointInfo X="355546.844" Y="164455.047" />
-							<PointInfo X="355546.844" Y="164750.422" />
-							<PointInfo X="355546.156" Y="169520.813" />
-							<PointInfo X="355546.156" Y="169815.266" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="生产办公室" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="508448.7" Y="213796.016" />
-							<PointInfo X="507563.375" Y="212910.688" />
-							<PointInfo X="504481.875" Y="215992.172" />
-							<PointInfo X="505367.219" Y="216877.5" />
-							<PointInfo X="505000" Y="217244.7" />
-							<PointInfo X="505000" Y="231182.672" />
-							<PointInfo X="493682.031" Y="231182.672" />
-							<PointInfo X="489720.781" Y="230030.031" />
-							<PointInfo X="489720.781" Y="232451.516" />
-							<PointInfo X="481776.125" Y="232451.516" />
-							<PointInfo X="480505.781" Y="230495.734" />
-							<PointInfo X="477814.875" Y="230030.031" />
-							<PointInfo X="477814.875" Y="231182.672" />
-							<PointInfo X="474000" Y="231182.672" />
-							<PointInfo X="474000" Y="232451.516" />
-							<PointInfo X="470000" Y="232451.516" />
-							<PointInfo X="470000" Y="241451.516" />
-							<PointInfo X="474000" Y="241451.516" />
-							<PointInfo X="474000" Y="253451.516" />
-							<PointInfo X="477136.75" Y="253451.516" />
-							<PointInfo X="477136.75" Y="255186.609" />
-							<PointInfo X="482753.219" Y="255186.609" />
-							<PointInfo X="482753.219" Y="253451.516" />
-							<PointInfo X="488000" Y="253451.516" />
-							<PointInfo X="488000" Y="245812.328" />
-							<PointInfo X="481262.6" Y="245812.328" />
-							<PointInfo X="481262.6" Y="243418.375" />
-							<PointInfo X="486136.6" Y="243418.375" />
-							<PointInfo X="486136.6" Y="241451.516" />
-							<PointInfo X="518368.344" Y="241451.516" />
-							<PointInfo X="518368.344" Y="232451.516" />
-							<PointInfo X="514000" Y="232451.516" />
-							<PointInfo X="514000" Y="218451.516" />
-							<PointInfo X="512793.2" Y="217244.7" />
-							<PointInfo X="508448.7" Y="213796.016" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="贰号楼行政办公室" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="356541.625" Y="233037.938" />
-							<PointInfo X="356541.625" Y="224259.219" />
-							<PointInfo X="398042.031" Y="224259.219" />
-							<PointInfo X="398042.031" Y="222050.063" />
-							<PointInfo X="409600" Y="222050.063" />
-							<PointInfo X="412769.7" Y="225653.078" />
-							<PointInfo X="412769.7" Y="232785.469" />
-							<PointInfo X="414999.875" Y="232785.469" />
-							<PointInfo X="414999.875" Y="236619.922" />
-							<PointInfo X="408688.031" Y="236619.922" />
-							<PointInfo X="408688.031" Y="240464.891" />
-							<PointInfo X="414999.875" Y="240464.891" />
-							<PointInfo X="415000" Y="253451.516" />
-							<PointInfo X="411244.3" Y="253451.516" />
-							<PointInfo X="411244.3" Y="258502.7" />
-							<PointInfo X="403775.3" Y="258502.7" />
-							<PointInfo X="403775.3" Y="253451.516" />
-							<PointInfo X="389500" Y="253451.516" />
-							<PointInfo X="389500" Y="249133.172" />
-							<PointInfo X="380973.75" Y="249133.172" />
-							<PointInfo X="380973.75" Y="232953.781" />
-							<PointInfo X="377128.781" Y="233037.938" />
-							<PointInfo X="377128.781" Y="236619.922" />
-							<PointInfo X="372668.4" Y="236619.922" />
-							<PointInfo X="372668.4" Y="233037.938" />
-							<PointInfo X="356794.1" Y="233037.938" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="汽车库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="460000" Y="348451.531" />
-							<PointInfo X="464500" Y="348451.531" />
-							<PointInfo X="464500" Y="349945.438" />
-							<PointInfo X="507500" Y="349945.438" />
-							<PointInfo X="507500" Y="348451.531" />
-							<PointInfo X="512000" Y="348451.531" />
-							<PointInfo X="512000" Y="360451.531" />
-							<PointInfo X="507500" Y="360451.531" />
-							<PointInfo X="507500" Y="361951.531" />
-							<PointInfo X="464500" Y="361951.531" />
-							<PointInfo X="464500" Y="360451.531" />
-							<PointInfo X="460000" Y="360451.531" />
-							<PointInfo X="460000" Y="348451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#220kv 升压站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="556000" Y="337451.531" />
-							<PointInfo X="556000" Y="310451.531" />
-							<PointInfo X="538000" Y="310451.531" />
-							<PointInfo X="538000" Y="344451.531" />
-							<PointInfo X="548000" Y="344451.531" />
-							<PointInfo X="548000" Y="337451.531" />
-							<PointInfo X="556000" Y="337451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2仓库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="743700" Y="353451.531" />
-							<PointInfo X="743700" Y="313451.531" />
-							<PointInfo X="776700" Y="313451.531" />
-							<PointInfo X="776700" Y="341595.031" />
-							<PointInfo X="767827.063" Y="341595.031" />
-							<PointInfo X="767827.063" Y="353451.531" />
-							<PointInfo X="743700" Y="353451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#水处理中间水池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="373037.125" Y="625829.8" />
-							<PointInfo X="378650" Y="625829.8" />
-							<PointInfo X="378650" Y="608751.5" />
-							<PointInfo X="372950" Y="608851.5" />
-							<PointInfo X="373037.125" Y="625829.8" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#酸碱储罐区" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="410600" Y="630326.5" />
-							<PointInfo X="430800" Y="630326.5" />
-							<PointInfo X="430800" Y="610401.5" />
-							<PointInfo X="410600" Y="610401.5" />
-							<PointInfo X="410600" Y="630326.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2水处理车间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="436500" Y="605451.5" />
-							<PointInfo X="353155.531" Y="605420.938" />
-							<PointInfo X="353294.125" Y="585572.438" />
-							<PointInfo X="436500" Y="585451.5" />
-							<PointInfo X="436500" Y="605451.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#化水楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="336000" Y="585574.1" />
-							<PointInfo X="353074.4" Y="585572.438" />
-							<PointInfo X="353074.4" Y="605572.438" />
-							<PointInfo X="335929.969" Y="605651.5" />
-							<PointInfo X="336000" Y="585574.1" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="314000" Y="624951.5" />
-							<PointInfo X="302000" Y="624951.5" />
-							<PointInfo X="302000" Y="633451.5" />
-							<PointInfo X="314000" Y="633451.5" />
-							<PointInfo X="314000" Y="624951.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#净水站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="300000" Y="633451.5" />
-							<PointInfo X="263000" Y="633451.5" />
-							<PointInfo X="263000" Y="624951.5" />
-							<PointInfo X="300000" Y="624951.5" />
-							<PointInfo X="300000" Y="633451.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2原水提升泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="245000" Y="624451.5" />
-							<PointInfo X="245000" Y="633451.5" />
-							<PointInfo X="260000" Y="633451.5" />
-							<PointInfo X="260000" Y="624451.5" />
-							<PointInfo X="245000" Y="624451.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#化学清水池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="287200" Y="600301.5" />
-							<PointInfo X="287130" Y="604971.5" />
-							<PointInfo X="280336.438" Y="604971.5" />
-							<PointInfo X="280300" Y="613301.5" />
-							<PointInfo X="287200" Y="613301.5" />
-							<PointInfo X="287200" Y="618151.5" />
-							<PointInfo X="310000" Y="618151.5" />
-							<PointInfo X="310000" Y="600301.5" />
-							<PointInfo X="287200" Y="600301.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#沉淀池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="272600" Y="616351.5" />
-							<PointInfo X="254800" Y="616351.5" />
-							<PointInfo X="254800" Y="600851.5" />
-							<PointInfo X="272600" Y="600851.5" />
-							<PointInfo X="272600" Y="616351.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#污泥脱水车间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="245190.047" Y="585451.5" />
-							<PointInfo X="251190.047" Y="585451.5" />
-							<PointInfo X="251190.047" Y="594451.5" />
-							<PointInfo X="245190.047" Y="594451.5" />
-							<PointInfo X="245190.047" Y="585451.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="325119.625" Y="513939.6" />
-							<PointInfo X="325119.625" Y="503451.7" />
-							<PointInfo X="351633.1" Y="503451.7" />
-							<PointInfo X="351586.531" Y="513884.063" />
-							<PointInfo X="325166.2" Y="513884.063" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="9#锅炉辅助间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="246730.2" Y="523889.625" />
-							<PointInfo X="246729.578" Y="554771.8" />
-							<PointInfo X="236073.953" Y="554815.438" />
-							<PointInfo X="236115.734" Y="523838.875" />
-							<PointInfo X="246730.2" Y="523889.625" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="270015.75" Y="503451.7" />
-							<PointInfo X="269965" Y="513884.063" />
-							<PointInfo X="243498.109" Y="513939.6" />
-							<PointInfo X="243498.109" Y="503464.219" />
-							<PointInfo X="270015.75" Y="503451.7" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="集控楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="160899.953" Y="484583.375" />
-							<PointInfo X="160899.953" Y="481451.531" />
-							<PointInfo X="177766.016" Y="481488.719" />
-							<PointInfo X="178999.953" Y="481451.531" />
-							<PointInfo X="178999.953" Y="511451.531" />
-							<PointInfo X="163086.844" Y="511476.781" />
-							<PointInfo X="162840.422" Y="484635.656" />
-							<PointInfo X="160899.953" Y="484623.1" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#循环水泵房2#循环水加药间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="133838.281" Y="441358.1" />
-							<PointInfo X="167000" Y="441345.375" />
-							<PointInfo X="166997.578" Y="443485.625" />
-							<PointInfo X="164895.078" Y="443458.031" />
-							<PointInfo X="164895.078" Y="451232.8" />
-							<PointInfo X="167055.1" Y="451244.563" />
-							<PointInfo X="167055.1" Y="454400.344" />
-							<PointInfo X="178987.172" Y="454400.344" />
-							<PointInfo X="179017.156" Y="443485.625" />
-							<PointInfo X="178999.875" Y="399243.344" />
-							<PointInfo X="172210.109" Y="399228.9" />
-							<PointInfo X="172210.109" Y="399438.8" />
-							<PointInfo X="168242.516" Y="399438.8" />
-							<PointInfo X="168242.516" Y="399228.9" />
-							<PointInfo X="166787.688" Y="399229.25" />
-							<PointInfo X="166787.688" Y="407933.844" />
-							<PointInfo X="133870.734" Y="407966.3" />
-							<PointInfo X="133838.281" Y="441358.1" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#循环水加药间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="161917.391" Y="458656.8" />
-							<PointInfo X="161103.641" Y="458619.563" />
-							<PointInfo X="161140.531" Y="449954.625" />
-							<PointInfo X="147140.531" Y="449991.531" />
-							<PointInfo X="147177.422" Y="458619.563" />
-							<PointInfo X="155107.266" Y="458592.438" />
-							<PointInfo X="155107.266" Y="462810.219" />
-							<PointInfo X="162037.875" Y="462784.344" />
-							<PointInfo X="162112.313" Y="458656.8" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="仓库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="341000" Y="366451.531" />
-							<PointInfo X="353000" Y="366451.531" />
-							<PointInfo X="353000" Y="342051.531" />
-							<PointInfo X="357000" Y="342051.531" />
-							<PointInfo X="357000" Y="336051.531" />
-							<PointInfo X="341000" Y="336051.531" />
-							<PointInfo X="341000" Y="366451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="仓库#1检修楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="341000" Y="324951.531" />
-							<PointInfo X="341000" Y="308451.531" />
-							<PointInfo X="416809.5" Y="308451.531" />
-							<PointInfo X="419131.3" Y="310773.3" />
-							<PointInfo X="419131.3" Y="314451.531" />
-							<PointInfo X="425400" Y="314451.531" />
-							<PointInfo X="425400" Y="344451.531" />
-							<PointInfo X="412400" Y="344451.531" />
-							<PointInfo X="412400" Y="340476.344" />
-							<PointInfo X="405400" Y="340476.344" />
-							<PointInfo X="405400" Y="336051.531" />
-							<PointInfo X="412400" Y="336051.531" />
-							<PointInfo X="412400" Y="324951.531" />
-							<PointInfo X="340747.938" Y="324951.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="应急仓库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="200000" Y="277451.531" />
-							<PointInfo X="204000" Y="277451.531" />
-							<PointInfo X="204000" Y="262451.531" />
-							<PointInfo X="178131.656" Y="262451.531" />
-							<PointInfo X="178000" Y="269451.531" />
-							<PointInfo X="200000" Y="269451.531" />
-							<PointInfo X="200000" Y="277451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="综合水库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="317299.969" Y="137051.516" />
-							<PointInfo X="317299.969" Y="180651.516" />
-							<PointInfo X="301499.969" Y="180651.516" />
-							<PointInfo X="301499.969" Y="137051.516" />
-							<PointInfo X="317299.969" Y="137051.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="消防楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="298500" Y="214451.516" />
-							<PointInfo X="298500" Y="203451.516" />
-							<PointInfo X="318000" Y="203451.516" />
-							<PointInfo X="318000" Y="214451.516" />
-							<PointInfo X="298500" Y="214451.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="升压水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="257010" Y="195451.516" />
-							<PointInfo X="257010" Y="209451.516" />
-							<PointInfo X="264710" Y="209451.516" />
-							<PointInfo X="264710" Y="195451.516" />
-							<PointInfo X="257010" Y="195451.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="5000吨储水池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="247000" Y="205451.516" />
-							<PointInfo X="247000" Y="241051.516" />
-							<PointInfo X="175770" Y="241051.516" />
-							<PointInfo X="175770" Y="205451.516" />
-							<PointInfo X="247000" Y="205451.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2雨水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="75000" Y="198251.516" />
-							<PointInfo X="50000" Y="198251.516" />
-							<PointInfo X="50000" Y="216651.516" />
-							<PointInfo X="75000" Y="216651.516" />
-							<PointInfo X="75000" Y="198251.516" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1循环水加药间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="144500" Y="272451.531" />
-							<PointInfo X="144500" Y="260601.516" />
-							<PointInfo X="162500" Y="260601.516" />
-							<PointInfo X="162500" Y="267801.531" />
-							<PointInfo X="154500" Y="267801.531" />
-							<PointInfo X="154500" Y="272451.531" />
-							<PointInfo X="144500" Y="272451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1循环水泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="127714" Y="292589.531" />
-							<PointInfo X="156604" Y="292589.531" />
-							<PointInfo X="156604" Y="288589.531" />
-							<PointInfo X="158604" Y="288589.531" />
-							<PointInfo X="158604" Y="279089.531" />
-							<PointInfo X="172604" Y="279089.531" />
-							<PointInfo X="172604" Y="288589.531" />
-							<PointInfo X="169604" Y="288589.531" />
-							<PointInfo X="169604" Y="338889.531" />
-							<PointInfo X="156604" Y="338889.531" />
-							<PointInfo X="156604" Y="329389.531" />
-							<PointInfo X="127714" Y="329389.531" />
-							<PointInfo X="127714" Y="292589.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="3#压缩机房3#启动锅炉三期生产区9#锅炉辅助间主机厂房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="229299.328" Y="565451.5" />
-							<PointInfo X="229346.672" Y="509317.25" />
-							<PointInfo X="216999.953" Y="509451.531" />
-							<PointInfo X="216999.953" Y="516451.531" />
-							<PointInfo X="194245.563" Y="516451.531" />
-							<PointInfo X="194139.078" Y="452451.5" />
-							<PointInfo X="439368.4" Y="452451.531" />
-							<PointInfo X="441749.969" Y="452451.531" />
-							<PointInfo X="440999.969" Y="565450.9" />
-							<PointInfo X="229299.328" Y="565451.5" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="308662.4" Y="107826.188" />
-							<PointInfo X="312411.938" Y="104076.656" />
-							<PointInfo X="312977.625" Y="104642.344" />
-							<PointInfo X="314676.781" Y="104640.227" />
-							<PointInfo X="318775.875" Y="100541.125" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="值班宿舍" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="303113.75" Y="106092.2" />
-							<PointInfo X="302201" Y="105179.445" />
-							<PointInfo X="303261.656" Y="104118.789" />
-							<PointInfo X="306967.2" Y="107824.32" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="值班宿舍" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="271628.9" Y="117517.078" />
-							<PointInfo X="280746.156" Y="126634.305" />
-							<PointInfo X="282254.125" Y="125126.344" />
-							<PointInfo X="282251.6" Y="123413.813" />
-							<PointInfo X="281341.375" Y="122503.563" />
-							<PointInfo X="286998.219" Y="116846.711" />
-							<PointInfo X="287910.969" Y="117759.461" />
-							<PointInfo X="289761.281" Y="117591.078" />
-							<PointInfo X="291594.4" Y="115786.047" />
-							<PointInfo X="292507.156" Y="116698.8" />
-							<PointInfo X="294348.375" Y="116543.422" />
-							<PointInfo X="303113.75" Y="107802.227" />
-							<PointInfo X="303113.75" Y="106092.195" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="318323.031" Y="94431.42" />
-							<PointInfo X="317403.8" Y="93512.19" />
-							<PointInfo X="314575.375" Y="96340.61" />
-							<PointInfo X="318775.9" Y="100541.125" />
-							<PointInfo X="318779.344" Y="100544.563" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="313088.4" Y="85249.97" />
-							<PointInfo X="314801.125" Y="85252.65" />
-							<PointInfo X="322000" Y="92451.52" />
-							<PointInfo X="320020.1" Y="94431.43" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="307431.563" Y="85249.96" />
-							<PointInfo X="309144.3" Y="85252.69" />
-							<PointInfo X="311115" Y="87223.375" />
-							<PointInfo X="313088.4" Y="85249.96" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="298535" Y="90199.71" />
-							<PointInfo X="300508.4" Y="92173.125" />
-							<PointInfo X="307431.563" Y="85249.97" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="287221.281" Y="101513.422" />
-							<PointInfo X="289194.7" Y="103486.836" />
-							<PointInfo X="294851.531" Y="97829.98" />
-							<PointInfo X="292938.531" Y="95916.98" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="274904.656" Y="106463.172" />
-							<PointInfo X="276617.4" Y="106465.906" />
-							<PointInfo X="278588.1" Y="108436.578" />
-							<PointInfo X="285511.25" Y="101513.422" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="270957.8" Y="112120.023" />
-							<PointInfo X="270959.375" Y="110408.445" />
-							<PointInfo X="274904.656" Y="106463.164" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="大楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="271628.9" Y="117517.078" />
-							<PointInfo X="273991.9" Y="115154.1" />
-							<PointInfo X="270957.8" Y="112120.023" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="主机厂房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="646250" Y="275451.531" />
-							<PointInfo X="750750" Y="275451.531" />
-							<PointInfo X="750750" Y="235701.516" />
-							<PointInfo X="646250" Y="235701.516" />
-							<PointInfo X="646250" Y="275451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="3#压缩机房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="193999.953" Y="540183.063" />
-							<PointInfo X="217902.219" Y="540183.063" />
-							<PointInfo X="217902.219" Y="529546.5" />
-							<PointInfo X="193999.953" Y="529546.5" />
-							<PointInfo X="193999.953" Y="540183.063" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="3#启动锅炉" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="194100.109" Y="561661" />
-							<PointInfo X="217902.219" Y="561661" />
-							<PointInfo X="217902.219" Y="540280.8" />
-							<PointInfo X="194100.109" Y="540280.8" />
-							<PointInfo X="194100.109" Y="561661" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="综合泵房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="342255" Y="97961.52" />
-							<PointInfo X="397000" Y="97961.52" />
-							<PointInfo X="397000" Y="88971.53" />
-							<PointInfo X="342255" Y="88971.53" />
-							<PointInfo X="342255" Y="97961.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="生产区废弃区一期空气压房" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="525000" Y="295451.531" />
-							<PointInfo X="646250" Y="295451.531" />
-							<PointInfo X="646250" Y="112701.523" />
-							<PointInfo X="525000" Y="112701.523" />
-							<PointInfo X="525000" Y="295451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="2#220kv 升压站废弃区" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="733250" Y="295451.531" />
-							<PointInfo X="525000" Y="295451.531" />
-							<PointInfo X="525000" Y="392451.531" />
-							<PointInfo X="733250" Y="392451.531" />
-							<PointInfo X="733250" Y="295451.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="施工单位临时住所区" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="504822.5" Y="492328.25" />
-							<PointInfo X="600000" Y="492328.25" />
-							<PointInfo X="600000" Y="775451.5" />
-							<PointInfo X="504822.5" Y="775451.5" />
-							<PointInfo X="504822.5" Y="492328.25" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="食堂" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="517738.1" Y="482636.3" />
-							<PointInfo X="572043.25" Y="482636.3" />
-							<PointInfo X="572043.25" Y="421525.375" />
-							<PointInfo X="517738.1" Y="421525.375" />
-							<PointInfo X="517738.1" Y="482636.3" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="3#220kv GIS站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="253420" Y="371972.656" />
-							<PointInfo X="310949.563" Y="371972.656" />
-							<PointInfo X="310949.563" Y="353251.125" />
-							<PointInfo X="253420" Y="353251.125" />
-							<PointInfo X="253420" Y="371972.656" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="仓库" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="228000" Y="329951.531" />
-							<PointInfo X="321000" Y="329951.531" />
-							<PointInfo X="321000" Y="308451.531" />
-							<PointInfo X="228000" Y="308451.531" />
-							<PointInfo X="228000" Y="329951.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="壹号楼" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="458100" Y="327651.531" />
-							<PointInfo X="512100" Y="327651.531" />
-							<PointInfo X="512100" Y="308451.531" />
-							<PointInfo X="458100" Y="308451.531" />
-							<PointInfo X="458100" Y="327651.531" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1污泥水车间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="623250.3" Y="24901.5215" />
-							<PointInfo X="629250.3" Y="24901.5215" />
-							<PointInfo X="629250.3" Y="15901.5205" />
-							<PointInfo X="623250.3" Y="15901.5205" />
-							<PointInfo X="623250.3" Y="24901.5215" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#2工业废水贮存池" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="627200" Y="52451.5234" />
-							<PointInfo X="662000" Y="52451.5234" />
-							<PointInfo X="662000" Y="31251.5215" />
-							<PointInfo X="627200" Y="31251.5215" />
-							<PointInfo X="627200" Y="52451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="存储罐" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="680000" Y="28451.5215" />
-							<PointInfo X="687000" Y="28451.5215" />
-							<PointInfo X="687000" Y="16451.5215" />
-							<PointInfo X="680000" Y="16451.5215" />
-							<PointInfo X="680000" Y="28451.5215" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="工业废水处理站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="668000" Y="52451.5234" />
-							<PointInfo X="677000" Y="52451.5234" />
-							<PointInfo X="677000" Y="16451.5215" />
-							<PointInfo X="668000" Y="16451.5215" />
-							<PointInfo X="668000" Y="52451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="污水排放口" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="740200" Y="31451.5215" />
-							<PointInfo X="752700" Y="31451.5215" />
-							<PointInfo X="752700" Y="23451.5215" />
-							<PointInfo X="740200" Y="23451.5215" />
-							<PointInfo X="740200" Y="31451.5215" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="综合废水处理站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="560000" Y="28951.5215" />
-							<PointInfo X="582600" Y="28951.5215" />
-							<PointInfo X="582600" Y="24451.5215" />
-							<PointInfo X="560000" Y="24451.5215" />
-							<PointInfo X="560000" Y="28951.5215" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="生活废水处理站" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="560000" Y="46451.5234" />
-							<PointInfo X="575000" Y="46451.5234" />
-							<PointInfo X="575000" Y="40451.5234" />
-							<PointInfo X="560000" Y="40451.5234" />
-							<PointInfo X="560000" Y="46451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="二期400V化水段配电室" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="597000" Y="46451.5234" />
-							<PointInfo X="605000" Y="46451.5234" />
-							<PointInfo X="605000" Y="30451.5215" />
-							<PointInfo X="597000" Y="30451.5215" />
-							<PointInfo X="597000" Y="46451.5234" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="存储槽次氯酸钠低位" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="592290" Y="74391.52" />
-							<PointInfo X="601600" Y="74391.52" />
-							<PointInfo X="601600" Y="67931.52" />
-							<PointInfo X="592290" Y="67931.52" />
-							<PointInfo X="592290" Y="74391.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-				<TopoInfo Name="#1反渗透车间" Type="大楼" IsCommon="false">
-					<BoundInfo Thickness="3500" BottomHeight="0" IsRelative="false" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
-						<Points>
-							<PointInfo X="573770" Y="97641.52" />
-							<PointInfo X="601770" Y="97641.52" />
-							<PointInfo X="601770" Y="76451.52" />
-							<PointInfo X="573770" Y="76451.52" />
-							<PointInfo X="573770" Y="97641.52" />
-						</Points>
-					</BoundInfo>
-				</TopoInfo>
-			</TopoInfo>
-		</TopoInfo>
-	</TopoInfo>
+<InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TopoInfo Name="根节点" Type="区域">
+    <TopoInfo Name="中山嘉明电厂" Type="园区">
+      <TopoInfo Name="二期主厂房和集控楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="二期主厂房和集控楼0m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="二期主厂房和集控楼6.45m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="二期主厂房和集控楼11m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="二期主厂房和集控楼17.15m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="二期3#余热锅炉" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="二期4#余热锅炉" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="三期集控楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="三期集控楼0m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期集控楼5m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期集控楼9m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期集控楼13m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期集控楼16.5m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="三期主厂房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="三期主厂房0m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期主厂房6.5m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="三期主厂房13m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="三期余热锅炉1" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="三期余热锅炉2" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="三期余热锅炉3" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2压缩机房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2压缩机房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2压缩机房二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2启动锅炉房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2启动锅炉房0m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2启动锅炉房9.8m层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2GIS楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2GIS楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="制氢站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="制氢站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="天然气调压站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1反渗透车间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1反渗透车间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1化水楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1化水楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#1化水楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#1化水楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="二期400v化水段配电室" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="二期400v化水段配电室一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1酸碱储罐区" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1雨水泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1雨水泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#3雨水泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#3雨水泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1污泥脱水间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1污泥脱水间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1水处理车间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1水处理车间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="工业废水处理站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="工业废水处理站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="生活废水处理站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="生活废水处理站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="综合废水处理站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2工业废水贮存池" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="污水排放口" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="海水升压泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="海水升压泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2雨水泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2雨水泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="循环水加药间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="循环水加药间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="循环水泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="循环水泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="应急仓库" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="应急仓库一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="工业垃圾堆放场" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="工业垃圾堆放场一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="可回收物料堆场" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1净水站加药间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1净水站加药间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="综合泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="综合泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="综合水池" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="高压消防泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="高压消防泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="生产办公楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="生产办公楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="生产办公楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="生产办公楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="生产办公楼四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="生产办公楼五层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="生产办公楼六层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="壹号楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="壹号楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="壹号楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="壹号楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="壹号楼四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="壹号楼五层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="壹号楼六层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="贰号楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="贰号楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="贰号楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="贰号楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#1检修楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#1检修楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#1检修楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#1检修楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="员工餐厅" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="员工餐厅一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="员工餐厅二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="员工餐厅三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="四合院食堂" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="综合仓库" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="综合仓库一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="3#220KV_GIS站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="3#220KV_GIS站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#循环水泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#循环水泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#循环水加药间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#循环水加药间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#3压缩机房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#3压缩机房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#3启动锅炉房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#3启动锅炉房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#污泥脱水间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#污泥脱水间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#污泥脱水间二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2水处理车间" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2水处理车间一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2水处理车间二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#化水楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#化水楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#化水楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#化水楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#净水站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#净水站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#净水站二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2原水提升泵房" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2原水提升泵房一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2原水提升泵房二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#沉淀池" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#化学清水池" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#酸碱储罐区" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="汽车库" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+      <TopoInfo Name="#2仓库" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="#2仓库一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2仓库二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2仓库三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="#2仓库四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="2#220KV升压站" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="2#220KV升压站一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#220KV升压站二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="2#220KV升压站三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="消防楼" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="消防楼一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="消防楼二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="消防楼三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="消防楼四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="消防楼五层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="值班室" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="值班室一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班室二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班室三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班室四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班室五层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="值班宿舍" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+        <TopoInfo Name="值班宿舍一层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班宿舍二层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班宿舍三层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班宿舍四层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+        <TopoInfo Name="值班宿舍五层" Type="楼层" IsCommon="false">
+          <BoundInfo Thickness="1" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+            <Points />
+          </BoundInfo>
+        </TopoInfo>
+      </TopoInfo>
+      <TopoInfo Name="车库" Type="大楼" IsCommon="false">
+        <BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+          <Points />
+        </BoundInfo>
+      </TopoInfo>
+    </TopoInfo>
+  </TopoInfo>
 </InitInfo>

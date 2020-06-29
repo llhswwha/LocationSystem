@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="4119" TagName="40PCB31AA001OP" Describe="水水交换器A开式循环水出口阀打" Unit="" ParentKKS="4号机组B水-水热交换器" Time="0" />
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="开式水母管压力正常" TagName="40PCB21CP301-HI" Id="33131"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器入口开式循环水压力" TagName="40PCB21CP301" Id="3414"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器入口开式循环水温度" TagName="40PCB21CT001" Id="3415"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器B开式循环水出口温度" TagName="40PCB32CT001" Id="3417"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器A开式循环水出口温度" TagName="40PCB31CT001" Id="3416"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器B开式循环水入口阀打" TagName="40PCB22AA001OP" Id="3992"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器B开式循环水出口阀打" TagName="40PCB32AA001OP" Id="3995"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组B水-水热交换器" Unit="" Describe="水水交换器A开式循环水入口阀打" TagName="40PCB21AA002OP" Id="4116"/>
+</DevMonitorNodeList>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="30800" TagName="40S2_BB_MAX" Describe="MaxVibration" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30704" TagName="40S2_BB1X" Describe="Vibration1X-Bearing#1" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30709" TagName="40S2_BB1X_GAP" Describe="Vibration1X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30710" TagName="40S2_BB1Y" Describe="Vibration1Y-Bearing#1" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30715" TagName="40S2_BB1Y_GAP" Describe="Vibration1Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30716" TagName="40S2_BB2X" Describe="Vibration2X-Bearing#2" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30721" TagName="40S2_BB2X_GAP" Describe="Vibration2X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30722" TagName="40S2_BB2Y" Describe="Vibration2Y-Bearing#2" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30727" TagName="40S2_BB2Y_GAP" Describe="Vibration2Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30728" TagName="40S2_BB3X" Describe="Vibration3X-Bearing#3" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30733" TagName="40S2_BB3X_GAP" Describe="Vibration3X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30734" TagName="40S2_BB3Y" Describe="Vibration3Y-Bearing#3" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30739" TagName="40S2_BB3Y_GAP" Describe="Vibration3Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30740" TagName="40S2_BB4X" Describe="Vibration4X-Bearing#4" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30745" TagName="40S2_BB4X_GAP" Describe="Vibration4X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30746" TagName="40S2_BB4Y" Describe="Vibration4Y-Bearing#4" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30751" TagName="40S2_BB4Y_GAP" Describe="Vibration4Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30752" TagName="40S2_BB5X" Describe="Vibration5X-Bearing#5" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30757" TagName="40S2_BB5X_GAP" Describe="Vibration5X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30758" TagName="40S2_BB5Y" Describe="Vibration5Y-Bearing#5" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30763" TagName="40S2_BB5Y_GAP" Describe="Vibration5Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30764" TagName="40S2_BB6X" Describe="Vibration6X-Bearing#6" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30769" TagName="40S2_BB6X_GAP" Describe="Vibration6X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30770" TagName="40S2_BB6Y" Describe="Vibration6Y-Bearing#6" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30775" TagName="40S2_BB6Y_GAP" Describe="Vibration6Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30776" TagName="40S2_BB7X" Describe="Vibration7X-Bearing#7" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30781" TagName="40S2_BB7X_GAP" Describe="Vibration7X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30782" TagName="40S2_BB7Y" Describe="Vibration7Y-Bearing#7" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30787" TagName="40S2_BB7Y_GAP" Describe="Vibration7Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30788" TagName="40S2_BB8X" Describe="Vibration8X-Bearing#8" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30793" TagName="40S2_BB8X_GAP" Describe="Vibration8X-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30794" TagName="40S2_BB8Y" Describe="Vibration8Y-Bearing#8" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30799" TagName="40S2_BB8Y_GAP" Describe="Vibration8Y-probeGAPvalue" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30705" TagName="40S2_BB1X_1X" Describe="Vibration-Bearing#1x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30707" TagName="40S2_BB1X_2X" Describe="Vibration-Bearing#1x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30711" TagName="40S2_BB1Y_1X" Describe="Vibration-Bearing#1y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30713" TagName="40S2_BB1Y_2X" Describe="Vibration-Bearing#1y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30717" TagName="40S2_BB2X_1X" Describe="Vibration-Bearing#2x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30719" TagName="40S2_BB2X_2X" Describe="Vibration-Bearing#2x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30723" TagName="40S2_BB2Y_1X" Describe="Vibration-Bearing#2y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30725" TagName="40S2_BB2Y_2X" Describe="Vibration-Bearing#2y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30729" TagName="40S2_BB3X_1X" Describe="Vibration-Bearing#3x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30731" TagName="40S2_BB3X_2X" Describe="Vibration-Bearing#3x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30735" TagName="40S2_BB3Y_1X" Describe="Vibration-Bearing#3y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30737" TagName="40S2_BB3Y_2X" Describe="Vibration-Bearing#3y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30741" TagName="40S2_BB4X_1X" Describe="Vibration-Bearing#4x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30743" TagName="40S2_BB4X_2X" Describe="Vibration-Bearing#4x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30747" TagName="40S2_BB4Y_1X" Describe="Vibration-Bearing#4y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30749" TagName="40S2_BB4Y_2X" Describe="Vibration-Bearing#4y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30753" TagName="40S2_BB5X_1X" Describe="Vibration-Bearing#5x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30755" TagName="40S2_BB5X_2X" Describe="Vibration-Bearing#5x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30759" TagName="40S2_BB5Y_1X" Describe="Vibration-Bearing#5y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30761" TagName="40S2_BB5Y_2X" Describe="Vibration-Bearing#5y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30765" TagName="40S2_BB6X_1X" Describe="Vibration-Bearing#6x1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30767" TagName="40S2_BB6X_2X" Describe="Vibration-Bearing#6x2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30771" TagName="40S2_BB6Y_1X" Describe="Vibration-Bearing#6y1XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30773" TagName="40S2_BB6Y_2X" Describe="Vibration-Bearing#6y2XAmp" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30777" TagName="40S2_BB7X_1X" Describe="VIBRATION-BEARING#7X1XA" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30783" TagName="40S2_BB7Y_1X" Describe="VIBRATION-BEARING7Y1XAMPL" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30778" TagName="40S2_BB7X_1XPH" Describe="VIBRATION-BRG7X1XPHASE" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30779" TagName="40S2_BB7X_2X" Describe="VIBRATION-BRG7X2XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30784" TagName="40S2_BB7Y_1XPH" Describe="VIBRATION-BRG7Y1XPHASE" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30785" TagName="40S2_BB7Y_2X" Describe="VIBRATION-BRG7Y2XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30789" TagName="40S2_BB8X_1X" Describe="VIBRATION-BRG8X1XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30790" TagName="40S2_BB8X_1XPH" Describe="VIBRATION-BRG8X1XPHASE" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30791" TagName="40S2_BB8X_2X" Describe="VIBRATION-BRG8X2XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30795" TagName="40S2_BB8Y_1X" Describe="VIBRATION-BRG8Y1XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30796" TagName="40S2_BB8Y_1XPH" Describe="VIBRATION-BRG8Y1XPHASE" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30797" TagName="40S2_BB8Y_2X" Describe="VIBRATION-BRG8Y2XAMPLITUD" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30730" TagName="40S2_BB3X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30766" TagName="40S2_BB6X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30732" TagName="40S2_BB3X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30762" TagName="40S2_BB5Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30724" TagName="40S2_BB2Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30772" TagName="40S2_BB6Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30726" TagName="40S2_BB2Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30768" TagName="40S2_BB6X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30760" TagName="40S2_BB5Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30744" TagName="40S2_BB4X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30742" TagName="40S2_BB4X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30750" TagName="40S2_BB4Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30748" TagName="40S2_BB4Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30756" TagName="40S2_BB5X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30736" TagName="40S2_BB3Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30754" TagName="40S2_BB5X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30738" TagName="40S2_BB3Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30712" TagName="40S2_BB1Y_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30786" TagName="40S2_BB7Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30714" TagName="40S2_BB1Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30792" TagName="40S2_BB8X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30706" TagName="40S2_BB1X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30798" TagName="40S2_BB8Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30708" TagName="40S2_BB1X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30718" TagName="40S2_BB2X_1XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30780" TagName="40S2_BB7X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30774" TagName="40S2_BB6Y_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+  <DevMonitorNode Id="30720" TagName="40S2_BB2X_2XPH" Describe="" Unit="" ParentKKS="4号机组汽轮机" Time="0" />
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="ShellExpansion" TagName="40S2_SED" Id="30997"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="RotorExpansion#1" TagName="40S2_ROTOR_EXP1" Id="30980"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="RotorExpansionGENEndProbe" TagName="40S2_ROTOR_EXP1B" Id="30982"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="RotorExpansionTRBEndProbe" TagName="40S2_ROTOR_EXP1A" Id="30981"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="DiffExpansionTrbEndProbe-" TagName="40S2_DIFF_EXP2" Id="30826"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="DiffExpansionTrbEndProbe-" TagName="40S2_DIFF_EXP1" Id="30825"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="AxialPosition#1" TagName="40S2_AXIAL1" Id="30702"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="AxialPosition#2" TagName="40S2_AXIAL2" Id="30703"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="Eccentricity" TagName="40S2_ECCENTRICITY" Id="30832"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组汽轮机" Unit="" Describe="Eccentricity" TagName="40S2_ECCENT" Id="30831"/>
+</DevMonitorNodeList>

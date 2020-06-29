@@ -63,6 +63,12 @@ namespace LocationServer
             set { AppSetting.ParkName = value; }
         }
 
+        public static string OPCServerIP
+        {
+            get { return AppSetting.OPCServerIP; }
+            set { AppSetting.OPCServerIP = value; }
+        }
+
         /// <summary>
         /// 基础平台对接IP 测试用ipms-demo.datacase.io，正式用172.16.100.22，本地模拟用 simulate
         /// </summary>

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="49027" TagName="40CDB01LP" Describe="汽水系统配电箱控制电源消失" Unit="" ParentKKS="4号机组汽轮机汽水系统热力配电箱" Time="0" />
+</DevMonitorNodeList>

@@ -330,30 +330,54 @@ namespace BLL
         /// </summary>
         public void InitDevInfo(bool isUpgradeFireDev=true)
         {
+
             Log.Info(LogTags.DbInit, "导入设备信息");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = basePath + "Data\\设备信息\\DevInfoBackup.xml";
+            string filePath = GetBasicDevBackupDir() + "DevInfoBackup.xml";
             bool value = DevInfoHelper.ImportDevInfoFromFile(filePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入设备信息结果:{0}", value));
 
             Log.Info(LogTags.DbInit, "导入门禁信息");
-            string doorAccessFilePath = basePath + "Data\\设备信息\\DoorAccessBackup.xml";
+            string doorAccessFilePath = GetBasicDevBackupDir() + "DoorAccessBackup.xml";
             bool valueSub = DevInfoHelper.ImportDoorAccessInfoFromFile(doorAccessFilePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入门禁信息结果:{0}", valueSub));
 
             Log.Info(LogTags.DbInit, "导入摄像头信息");
-            string cameraFilePath = basePath + "Data\\设备信息\\CameraInfoBackup.xml";
+            string cameraFilePath = GetBasicDevBackupDir() + "CameraInfoBackup.xml";
             bool valueCamera = DevInfoHelper.ImportCameraInfoFromFile(cameraFilePath, _bll);
             Log.Info(LogTags.DbInit, string.Format("导入摄像头信息结果:{0}", valueCamera));
 
-            if(isUpgradeFireDev)
+            if (isUpgradeFireDev)
             {
                 Log.Info(LogTags.DbInit, "导入消防信息");
-                string FireFightDevfilePath = basePath + "Data\\设备信息\\FireFightInfoBackup.xml";
+                string FireFightDevfilePath = GetBasicDevBackupDir() + "FireFightInfoBackup.xml";
                 bool valueFireFightDev = DevInfoHelper.ImportFireFightDevInfoFromFile(FireFightDevfilePath, _bll);
                 Log.Info(LogTags.DbInit, string.Format("导入设备信息结果:{0}", valueFireFightDev));
-            }            
+            }
         }
+
+        private void DecreasePosYCamera()
+        {
+            Log.Info(LogTags.DbInit, "导入摄像头信息");
+            string cameraFilePath = GetBasicDevBackupDir() + "CameraInfoBackup.xml";
+            var initInfo = XmlSerializeHelper.LoadFromFile<Assets.z_Test.BackUpDevInfo.CameraInfoBackUpList>(cameraFilePath);
+            foreach(var item in initInfo.DevList)
+            {
+                float y=float.Parse(item.YPos);
+                item.YPos = (y - 400).ToString("f2");
+            }
+            XmlSerializeHelper.Save(initInfo,cameraFilePath);
+            //Log.Info(LogTags.DbInit, string.Format("导入摄像头信息结果:{0}", valueCamera));
+        }
+
+        /// <summary>
+        /// 获取设备存放的文件夹
+        /// </summary>
+        /// <returns></returns>
+        private string GetBasicDevBackupDir()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\" + DbModel.AppSetting.ParkName + "\\";
+        }
+
         /// <summary>
         /// 删除重复设备
         /// </summary>
@@ -886,7 +910,7 @@ namespace BLL
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             Log.Info(LogTags.DbInit, "BaseDirectory:" + basePath);
             //string filePath = basePath + "Data\\KKS\\EDOS.xls";
-            string filePath = basePath + "Data\\KKS\\EDOS_New.xls";
+            string filePath = basePath + "Data\\KKS\\"+ DbModel.AppSetting.ParkName + "\\EDOS_New.xls";
             DevInfoHelper.ImportDevMonitorNodeFromFile<DevMonitorNode>(new FileInfo(filePath),false);
         }
     }

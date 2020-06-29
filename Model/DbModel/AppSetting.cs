@@ -26,6 +26,8 @@ namespace DbModel
         /// </summary>
         public static string ParkName { get; set; }
 
+        public static string OPCServerIP { get; set; }
+
         /// <summary>
         /// 基础平台对接ApiURL
         /// </summary>

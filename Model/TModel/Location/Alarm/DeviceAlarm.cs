@@ -126,6 +126,17 @@ namespace Location.TModel.Location.Alarm
         [DataMember]
         public int AreaId { get; set; }
 
+
+        [DataMember]
+        public DateTime? HistoryTime { get; set; }
+
+        /// <summary>
+        /// 历史记录时间戳
+        /// </summary>
+        [DataMember]
+        public long? HistoryTimeStamp { get; set; }
+
+
         public DeviceAlarm Clone()
         {
             DeviceAlarm copy = new DeviceAlarm();

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="52717" TagName="40PAH11AP001RC" Describe="A侧胶球清洗在遥控位（接受DCS控" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="53796" TagName="40PAH11AP001-MOD" Describe="A侧胶球清洗胶球泵" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4086" TagName="40PAH11AP001TP" Describe="A侧胶球清洗胶球泵停止位" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4601" TagName="40PAH11AP001RD" Describe="A侧胶球清洗胶球泵启动" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4085" TagName="40PAH11AP001RP" Describe="A侧胶球清洗胶球泵运行位" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52716" TagName="40PAH11AP001F" Describe="A侧胶球清洗装置故障报警" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52720" TagName="40PAH12AP001RC" Describe="B侧胶球清洗在遥控位（接受DCS控" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52719" TagName="40PAH12AP001F" Describe="B侧胶球清洗泵故障" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="53809" TagName="40PAH12AP001-MOD" Describe="B侧胶球清洗胶球泵" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4540" TagName="40PAH12AP001TD" Describe="B侧胶球清洗胶球泵停止" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4033" TagName="40PAH12AP001TP" Describe="B侧胶球清洗胶球泵停止位" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4538" TagName="40PAH12AP001RD" Describe="B侧胶球清洗胶球泵启动" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4032" TagName="40PAH12AP001RP" Describe="B侧胶球清洗胶球泵运行位" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52718" TagName="40PAH11AP001TD" Describe="DCS停止A侧胶球清洗指令" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4602" TagName="40PAH11AP001SD" Describe="DCS系统中断A侧胶球清洗" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="4539" TagName="40PAH12AP001SD" Describe="DCS系统中断B侧胶球清洗" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52543" TagName="40CRB11F" Describe="二次滤网及胶球清洗PLC控制系统" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52544" TagName="40CRB11PF" Describe="二次滤网及胶球清洗PLC控制系统" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+  <DevMonitorNode Id="52545" TagName="40CRB11PF1" Describe="二次滤网及胶球清洗PLC控制系统" Unit="" ParentKKS="4号机组胶球清洗程控柜" Time="0" />
+</DevMonitorNodeList>

@@ -152,7 +152,7 @@ namespace LocationServer.Windows
             newItem.AlarmTime = alarm.CreateTime;
             newItem.AlarmTimeStamp = alarm.AlarmTimeStamp;
             newItem.HistoryTime = DateTime.Now;
-            newItem.HistoryTimeStamp = TimeConvert.ToStamp(newItem.HistoryTime);
+            newItem.HistoryTimeStamp = TimeConvert.ToStamp((DateTime)newItem.HistoryTime);
             return newItem;
         }
         private DeviceAlarm CreateDevAlarm(DevInfo dev)

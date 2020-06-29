@@ -64,7 +64,7 @@ namespace WebApiService.Controllers
             return service.GetListByPerson(person);
         }
 
-        [Route("")]//search?role=2
+        [Route("search/roleId")]//search?role=2
         public IList<TEntity> GetListByRole(string role)
         {
             return service.GetListByRole(role);
@@ -76,13 +76,14 @@ namespace WebApiService.Controllers
             return service.GetAccessListByRole(role);
         }
 
-        [Route]
+        [Route("add")]
         public TEntity Post(TEntity item)
         {
             return service.Post(item);
         }
 
-        [Route]
+        [Route("Edit")]
+        [HttpPut]
         public TEntity Put(TEntity item)
         {
             return service.Put(item);

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="971" TagName="30BBA00CE104" Describe="6kV#3LCI馈线电流" Unit="" ParentKKS="3号机组LCI隔离变压器" Time="0" />
+</DevMonitorNodeList>

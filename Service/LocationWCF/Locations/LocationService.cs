@@ -605,6 +605,10 @@ namespace LocationServices.Locations
             var time = dt2 - dt1;
 
             hisService.Dispose();
+            if (send!=null&&send.Count == 0)
+            {
+                return null;
+            }
             return send;
         }
 

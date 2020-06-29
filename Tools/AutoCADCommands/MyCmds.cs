@@ -12,6 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TModel.Tools;
 
+using Application = Autodesk.AutoCAD.ApplicationServices.Application;
+using Autodesk.AutoCAD.EditorInput;
+
 namespace AutoCADCommands
 {
     public class MyCmds
@@ -239,6 +242,30 @@ namespace AutoCADCommands
 
         }
 
+
+        /// <summary>
+        /// 厂区 //add by qclei 2020-04-30
+        /// </summary>
+        [CommandMethod("GetBuild")]
+        public static void GetBuildInfo()
+        {
+            GetCADOtherCommands.GetParkBuild("厂区");
+
+            return;
+        }
+                                  
+        /// <summary>
+        /// 获取当前图层下面所有“多边型”图形 //add by qclei 2020-04-30
+        /// </summary>
+        [CommandMethod("GetLayerInfo")]
+        public static void GetLayerInfo()
+        {            
+            GetCADOtherCommands.GetAllShapeByLayer();
+
+            return;
+        }        
+
+
         /// <summary>
         /// 从一个线获取全部的
         /// </summary>
@@ -247,8 +274,27 @@ namespace AutoCADCommands
         {
             var id = Interaction.GetEntity("Select:");
             var sp = id.ToCADShape(true);
-            var xml = sp.ToXml();
-            Gui.TextReport("ShapeInfo", xml, 700, 500);
+
+            //add by qclei 2020-04-29 判断是否是封闭的图形
+            //bool bl = PulicGadget.ifColseShape(sp);
+            //if (bl)
+            {
+                string name = PulicGadget.getShapeName(sp);
+                if (name != "") sp.Name = name;
+                var xml = sp.ToXml();
+
+                Gui.TextReport("ShapeInfo", xml, 700, 500);
+            }
+
+        }
+
+        /// <summary>
+        /// 手动连续获取 封闭多边型 //add by qclei 2020-04-30
+        /// </summary>
+        [CommandMethod("ShapeInfos")]
+        public static void GetShapeInfos()
+        {
+            GetCADOtherCommands.GetAllShapeByManual();
         }
 
         /// <summary>
@@ -365,6 +411,16 @@ namespace AutoCADCommands
         {
             GetRoomsCommand.GetRoomsInfoEx();
         }
+
+        /// <summary>
+        /// 获取整体园区、大楼的关系  //add by qclei 2020-05-04
+        /// </summary>
+        [CommandMethod("GetParkInfoEx")]
+        public static void GetParkInfoEx()
+        {
+            GetCADOtherCommands.GetParkInfoEx();
+        }
+               
 
         /// <summary>
         /// 获取初始化信息，只有一个楼层的简单环境，直接用这个

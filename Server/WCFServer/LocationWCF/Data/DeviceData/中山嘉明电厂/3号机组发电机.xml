@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="271" TagName="M_D_AI04" Describe="发电机电压" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="272" TagName="M_D_AI05" Describe="发电机频率" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="268" TagName="M_D_AI01" Describe="有功功率总和" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="269" TagName="M_D_AI02" Describe="无功功率总和" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="270" TagName="M_D_AI03" Describe="功率因数" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="273" TagName="M_D_AI06" Describe="IGV阀角度" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="274" TagName="M_D_AI07" Describe="凝汽器压力（绝对压力）" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="27314" TagName="M_D_AI07-H" Describe="@OvationControlBuilder@" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="275" TagName="M_D_AI08" Describe="汽机一段金属温度" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="276" TagName="M_D_AI09" Describe="ATS推荐负荷率" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="277" TagName="M_D_AI10" Describe="主控制阀位置反馈" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="278" TagName="M_D_AI11" Describe="ACV阀位置反馈" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="279" TagName="M_D_AI12" Describe="IV1阀位置反馈" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="280" TagName="M_D_AI13" Describe="IV2阀位置反馈" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="281" TagName="M_D_AI14" Describe="燃机排气温度" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="282" TagName="M_D_AI14M" Describe="燃机排气温度(华氏)" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="283" TagName="M_D_AI15" Describe="燃机转速信号" ParentKKS="3号机组发电机" Time="0" />
+  <DevMonitorNode Id="284" TagName="M_D_AI16" Describe="外部负荷设定" ParentKKS="3号机组发电机" Time="0" />
+</DevMonitorNodeList>

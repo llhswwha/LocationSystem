@@ -21,16 +21,16 @@ using WPFClientControlLib;
 using CommunicationClass.SihuiThermalPowerPlant.Models;
 using DbModel.LocationHistory.Work;
 using LocationServer.Tools;
-using DbModel.BaseData;
 using DbModel.Location.AreaAndDev;
 using Location.TModel.Tools;
-using CommunicationClass.SihuiThermalPowerPlant;
 using WebApiLib;
 using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Linq;
 using DbModel.Tools;
-using WebApiLib.Clients.OpcCliect;
+using LocationServices.Locations.Services;
+using TModel.Location.Work;
+using DbModel.Converters;
+using TModel.Tools;
+using System.Data.Entity.Infrastructure;
 
 namespace LocationServer.Windows
 {
@@ -44,12 +44,12 @@ namespace LocationServer.Windows
             InitializeComponent();
         }
 
-        private List<InspectionTrack> trackList;
+        private List<DbModel.Location.Work.InspectionTrack> trackList;
 
         private void SendAllItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (trackList == null || trackList.Count == 0) return;
-            InspectionTrackList TrackList2 = new InspectionTrackList();
+            DbModel.Location.Work.InspectionTrackList TrackList2 = new DbModel.Location.Work.InspectionTrackList();
             TrackList2.ReviseTrack = trackList;
 
             InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
@@ -76,9 +76,9 @@ namespace LocationServer.Windows
 
         private void SendAddByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InspectionTrack it = SendAddByItem.SelectedItem as InspectionTrack;
+            DbModel.Location.Work.InspectionTrack it = SendAddByItem.SelectedItem as DbModel.Location.Work.InspectionTrack;
             if (it == null) return;
-            InspectionTrackList TrackList2 = new InspectionTrackList();
+            DbModel.Location.Work.InspectionTrackList TrackList2 = new DbModel.Location.Work.InspectionTrackList();
             TrackList2.AddTrack.Add(it);
 
             InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
@@ -86,11 +86,11 @@ namespace LocationServer.Windows
 
         private void SendReviseByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InspectionTrack it = SendReviseByItem.SelectedItem as InspectionTrack;
+            DbModel.Location.Work.InspectionTrack it = SendReviseByItem.SelectedItem as DbModel.Location.Work.InspectionTrack;
             if (it == null) return;
 
             it.Name += "这是在测试";
-            InspectionTrackList TrackList2 = new InspectionTrackList();
+            DbModel.Location.Work.InspectionTrackList TrackList2 = new DbModel.Location.Work.InspectionTrackList();
             TrackList2.ReviseTrack.Add(it);
 
             InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
@@ -98,9 +98,9 @@ namespace LocationServer.Windows
 
         private void SendDeleteByItem_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InspectionTrack it = SendDeleteByItem.SelectedItem as InspectionTrack;
+            DbModel.Location.Work.InspectionTrack it = SendDeleteByItem.SelectedItem as DbModel.Location.Work.InspectionTrack;
             if (it == null) return;
-            InspectionTrackList TrackList2 = new InspectionTrackList();
+            DbModel.Location.Work.InspectionTrackList TrackList2 = new DbModel.Location.Work.InspectionTrackList();
             TrackList2.DeleteTrack.Add(it);
 
             InspectionTrackHub.SendInspectionTracks(TrackList2.ToTModel());//发送给客户端
@@ -289,7 +289,7 @@ namespace LocationServer.Windows
 
         private void DataGridPatrolList2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InspectionTrack item = DataGridPatrolList2.SelectedItem as InspectionTrack;
+            DbModel.Location.Work.InspectionTrack item = DataGridPatrolList2.SelectedItem as DbModel.Location.Work.InspectionTrack;
             if (item == null) return;
             Bll bll = Bll.NewBllNoRelation();
             var route = bll.PatrolPoints.FindAll(i => i.ParentId == item.Id);
@@ -300,7 +300,7 @@ namespace LocationServer.Windows
 
         private void DataGridRouteList2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PatrolPoint p = DataGridRouteList2.SelectedItem as PatrolPoint;
+            DbModel.Location.Work.PatrolPoint p = DataGridRouteList2.SelectedItem as DbModel.Location.Work.PatrolPoint;
             if (p == null) return;
             Bll bll = Bll.NewBllNoRelation();
             var checks = bll.PatrolPointItems.FindAll(i => i.ParentId == p.Id);
@@ -528,10 +528,12 @@ namespace LocationServer.Windows
 
                 JsonSerializerSettings setting = new JsonSerializerSettings();
                 setting.NullValueHandling = NullValueHandling.Ignore;
-                Message message= JsonConvert.DeserializeObject<Message>(result,setting);
+                Message<TwoTickets> message = JsonConvert.DeserializeObject<Message<TwoTickets>>(result,setting);
                 int total = message.total;
                 string msg = message.msg;
                 List<TwoTickets> list = message.data;
+
+
                 //循环获取DetailsSet
                 if (list != null)
                 {
@@ -583,13 +585,14 @@ namespace LocationServer.Windows
                         
                     }
 
-                    Message aa = message;
+                    Message<TwoTickets> aa = message;
                      var xml = XmlSerializeHelper.GetXmlText(aa);
 
                 }
             }
             catch (Exception ex)
             {
+                //错误
                 Log.Error(ex.ToString());
             }
 
@@ -599,19 +602,93 @@ namespace LocationServer.Windows
         {
             try
             {
-              OPCClient1.GetOPCServers();
-                //Kepware.KEPServerEX.V6
-                OPCClient1.ConnectServer("");
+                //OPCClient1.GetOPCServers();
+                //  //Kepware.KEPServerEX.V6
+                //  OPCClient1.ConnectServer("");
 
-                //OPCClient1.WriteValue("Simulator.Test.k0", "121");
+                //  //OPCClient1.WriteValue("Simulator.Test.k0", "121");
 
-                OPCClient1.ReadValue("Simulator.Test.k0",true);
-                object aa=OPCClient1.ReadValue("Simulator.Test.k0");
+                //  OPCClient1.ReadValue("Simulator.Test.k0",true);
+                //  object aa=OPCClient1.ReadValue("Simulator.Test.k0");
+                string aa = "";
+                DevService devservice = new DevService();
+                Log.Info("a");
+                // Dev_Monitor dev = dev = devservice.GetDevMonitorInfoByKKS("3号机组凝汽器", false);
+                //string opcServerIp = AppContext.OPCServerIP;
+                //OPCReadAuto opc = new OPCReadAuto(opcServerIp);
+                //string tagNameValue = opc.getOPC("30PAB13AA001CD");
+                Bll db = Bll.NewBllNoRelation();
+                List<DbModel.Location.AreaAndDev.DevMonitorNode> nodeList = db.DevMonitorNodes.ToList();
+                string tags = "";
+                //foreach (DbModel.Location.AreaAndDev.DevMonitorNode node in nodeList)
+                //{
+                //    tags += node.TagName + ",";
+                //}
+                tags = string.Format("NCS_34_AI67,NCS_34_AI71,2NCS_AI190,2NCS_AI198,2NCS_AI230,2NCS_AI238,2NCS_AI266,2NCS_AI274");
+                tags = tags.Substring(0, tags.Length - 1);
+                // string result = WebApiHelper.GetString("http://10.146.33.9:20080/MIS/GetRtMonTagValues?tagNames=COM-LA-006");
+                // List<SisData> sisList = WebApiHelper.GetEntity<List<SisData>>("http://10.146.33.9:20080/MIS/GetRtMonTagInfosByNames?tagNames="+tags);
+
+                
+                    DoorClickService drLockService = new DoorClickService();
+                //List<DoorClick> list = db.DoorClicks.ToList();
+                // List<DoorClick> list = drLockService.GetListByJson();
+                // bool result=db.DoorClicks.AddRange(list);
+                DateTime startTime = new DateTime(2020,5,16,12,00,00);
+                DateTime endTime = new DateTime(2020, 5, 20, 12, 00, 00);
+                string[] personids = { "a0d1304a3aa04cec86132e5a8f15d3e9", "576fa82f4aae429d8463046a34453ed5" };
+                string[] doorindexCodes = null;
+               //  List<DbModel.LocationHistory.Door.DoorClick> list = drLockService.GetListByCondition(startTime,endTime,"1","1000", "198914",personids,doorindexCodes);
+                    Log.Info("b");
+
+                //OPCReadAuto opc = new OPCReadAuto(opcServerIp);
+                // if (opc.IsConnected == true)
+                // {
+                //     aa = opc.GetOpcValueOne("30MAG10CT301");
+                // }
+
+
             }
             catch (Exception ex)
             {
                 Log.Info("连接opc:"+ex.ToString());
             }
         }
+
+        private void TicketIn_Click(object sender, RoutedEventArgs e)
+        {
+            TicketsService service = new TicketsService();
+            //List<TwoTickets> list = service.ListAll();
+            //List<OperationTicketSH> dbList = new List<OperationTicketSH>();
+            //foreach (TwoTickets ticket in list)
+            //{
+            //    OperationTicketSH dbTable = ticket.ToDbModel();
+            //    dbList.Add(dbTable);
+            //}
+            Bll bll = Bll.NewBllNoRelation();
+            //List<OperationTicketHistorySH> OperationHisList = bll.OperationTicketHistorySHs.ToList();
+            //List<OperationTicketHistorySH> newList = new List<OperationTicketHistorySH>();
+            //OperationHisList.Sort((a, b) => { return (int)a.Abutment_Id - (int)b.Abutment_Id; });
+            //int id = (int)OperationHisList.Last().Abutment_Id + 1;
+            //for (int i = 0; i < OperationHisList.Count; i++)
+            //{
+            //    OperationTicketHistorySH ticket = OperationHisList[i];
+            //    ticket.Abutment_Id = id;
+            //    newList.Add(ticket);
+            //    id = id + 1;
+            //}
+            //bool result = bll.OperationTicketHistorySHs.AddRange(newList);
+            //    string sql = "delete from  aa where id  in(99,100)";
+            //  string result= bll.WorkTicketHistorySHes.AddorEditBySql(sql);
+            DateTime now = DateTime.Now;
+            long a= TimeConvert.ToStamp(now);
+         
+        }
+    }
+
+    public class person
+    {
+        public int id { get; set; }
+        public string Name { get; set; }
     }
 }

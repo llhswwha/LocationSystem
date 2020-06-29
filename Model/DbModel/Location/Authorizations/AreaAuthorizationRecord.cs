@@ -176,6 +176,10 @@ namespace DbModel.Location.Work
         [XmlAttribute]
         public int AuthorizationId { get; set; }
 
+        [DataMember]
+        [Display(Name = "是否签到")]
+        [XmlAttribute]
+        public bool SignIn { get; set; }
         public AreaAuthorizationRecord()
         {
 

@@ -36,6 +36,16 @@ using WPFClientControlLib;
 using DbModel.Location.Alarm;
 using DbModel.LocationHistory.Alarm;
 using LocationServices.Locations;
+using WebApiLib;
+using Newtonsoft.Json;
+using DbModel.Location.Work;
+using CommunicationClass.SihuiThermalPowerPlant.Models;
+using TModel.Location.Work;
+using DbModel.LocationHistory.Work;
+using DbModel.Converters;
+using DbModel.LocationHistory.AreaAndDev;
+using Location.TModel.Tools;
+using Newtonsoft.Json.Linq;
 
 namespace LocationServer.Windows
 {
@@ -513,8 +523,14 @@ namespace LocationServer.Windows
         {
             Bll bll = Bll.NewBllNoRelation();
             AreaTreeInitializer initializer = new AreaTreeInitializer(bll);
-            initializer.InitDevs();
-            MessageBox.Show("完成");
+            bool isZhongShanFactory = AppSetting.ParkName == "中山嘉明电厂" ? true : false;
+            if (!isZhongShanFactory)
+            {
+                initializer.InitDevs();
+            }
+            initializer.InitDevInfo(false);
+            string result = isZhongShanFactory ? "中山摄像头、设备信息更新成功（未包含基站、定位卡、设备监控点信息）" : "完成";
+            MessageBox.Show(result);
         }
 
         private void MenuInitTags_Click(object sender, RoutedEventArgs e)
@@ -881,5 +897,419 @@ namespace LocationServer.Windows
             });
 
         }
+
+        /// <summary>
+        /// 根据摄像头Xml，更新摄像头信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateCameraInfoZS_OnClick(object sender, RoutedEventArgs e)
+        {
+            //UpdateCameraInfoByExcel();
+            UpdateAbundentIdByJson();
+        }
+        /// <summary>
+        /// 在海康平台导下来所有摄像头的Json文件，本地有个CameraInfoBackup.xml.根据名称找到对应信息，把json文件中摄像头的cameraIndexCode更新到xml中
+        /// 方便后期用cameraIndexCode跟海康对接
+        /// </summary>
+        private void UpdateAbundentIdByJson()
+        {
+            //string cameraXml = GetBasicDevBackupDir() + "CameraInfoBackup.xml";
+            //var initInfo = XmlSerializeHelper.LoadFromFile<Assets.z_Test.BackUpDevInfo.CameraInfoBackUpList>(cameraXml);
+            using (var db = Bll.NewBllNoRelation())
+            {
+                List<DevInfo> allDevs = db.DevInfos.ToList();
+                List<DevInfo> cameraDevs = allDevs.FindAll(i=>TypeCodeHelper.IsCamera(i.Local_TypeCode.ToString()));
+                string cameraJsonPath = GetBasicDevBackupDir() + "HKCameraList.json";
+                string jsonFile = File.ReadAllText(cameraJsonPath);
+                HKWebApiCameraList cameraJson = Newtonsoft.Json.JsonConvert.DeserializeObject<HKWebApiCameraList>(jsonFile);
+
+                if (cameraJson != null && cameraJson.data != null && cameraJson.data.list != null && cameraDevs != null)
+                {
+                    int updateSuccessIndex = 0;
+                    var cameraInfoList = cameraJson.data.list;
+                    string notFoundDev = "";
+                    foreach (var item in cameraDevs)
+                    {
+                        HKWebApiCameraDevInfo info = cameraInfoList.Find(i => RemoveEmptyChar(i.cameraName) == RemoveEmptyChar(item.Name));
+                        if (info != null)
+                        {
+                            item.Abutment_DevID = info.cameraIndexCode;
+                            updateSuccessIndex++;
+                        }
+                        else
+                        {
+                            notFoundDev += item.Name + "\n";
+                        }
+                    }
+                    bool value= db.DevInfos.EditRange(cameraDevs);
+                    if(value)
+                    {
+                        MessageBox.Show(string.Format("本地共{0}个摄像头，成功更新{1}个，还有{2}个在Json文件中查找不到", cameraDevs.Count, updateSuccessIndex, cameraDevs.Count - updateSuccessIndex));
+                        Log.Info("NotFindDev:" + notFoundDev);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Devinfo 更新失败。");
+                    }                                      
+                    //XmlSerializeHelper.Save(initInfo, cameraXml);
+                }
+            }
+        }
+        private string GetBasicDevBackupDir()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\" + DbModel.AppSetting.ParkName + "\\";
+        }
+        /// <summary>
+        /// 中山给了一个Excel列表，三维客户端建设备时，只输入一个名称。根据名称去excel中更新对应IP端口等
+        /// </summary>
+        private void UpdateCameraInfoByExcel()
+        {
+            bool result = false;
+            int modifyValue = 0;
+            Worker.Run(() =>
+            {
+                //DbInitializer.LoadExcelToList<DevInfo>(baseDir + "DevInfo.xls");
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\DbInfos\\视频统计-信科.xlsx";
+                List<CameraInfoZS> initInfo = DbInitializer.LoadExcelToList<CameraInfoZS>(path);
+                if (initInfo == null) return;
+                List<Dev_CameraInfo> modifyInfoList = new List<Dev_CameraInfo>();
+                using (var db = Bll.NewBllNoRelation())
+                {
+                    var cameraInfos = db.Dev_CameraInfos.ToList();
+                    var devinfos = db.DevInfos.ToList();
+                    //1.DevInfo中找到摄像头基础信息
+                    var cameraDevInfo = devinfos.FindAll(i => !string.IsNullOrEmpty(i.Local_TypeCode.ToString()) && TypeCodeHelper.IsCamera(i.Local_TypeCode.ToString()));
+                    if (cameraDevInfo != null)
+                    {
+                        foreach (var item in cameraDevInfo)
+                        {
+                            //2.根据DevInfo的设备名称，在Excel中找到对应信息             
+                            CameraInfoZS info = initInfo.Find(i => i.CurrentName.Trim() == item.Name.Trim() || i.NormalName.Trim() == item.Name.Trim());
+                            if (info != null)
+                            {
+                                //3.根据DevInfo的Id，找到对应的Dev_CameraInfo
+                                Dev_CameraInfo camInfo = cameraInfos.Find(i => i.DevInfoId == item.Id);
+                                //4.把Excel信息更新到Dev_CamerInfo
+                                if (camInfo != null)
+                                {
+                                    Dev_CameraInfo newInfo = SetCameraInfo(info, camInfo);
+                                    modifyInfoList.Add(newInfo);
+                                }
+                            }
+                        }
+                    }
+                    if (modifyInfoList.Count > 0)
+                    {
+                        result = db.Dev_CameraInfos.EditRange(modifyInfoList);
+                        modifyValue = modifyInfoList.Count;
+                    }
+                }
+            }, () =>
+            {
+                MessageBox.Show(string.Format("数据更新完成，更新数据{0}个 更新结果：{1}", modifyValue, result ? "成功" : "失败"));
+            });
+        }
+        /// <summary>
+        /// 移除空格和换行符
+        /// </summary>
+        /// <param name="nameT"></param>
+        /// <returns></returns>
+        private string RemoveEmptyChar(string nameT)
+        {
+            nameT = nameT.Replace("\n", "").Replace("\t", "").Replace(" ", "");
+            return nameT;
+        }
+        private Dev_CameraInfo SetCameraInfo(CameraInfoZS zsInfo,Dev_CameraInfo camera)
+        {
+            //字符串都加上Trim,去除末尾的 \t 
+            string[] ipPort = zsInfo.IpPort.Split(':');
+            if(ipPort.Length>=2)
+            {
+                camera.Ip = ipPort[0].Trim();
+                string port = ipPort[1].Trim();
+                camera.Port = port.ToInt();
+            }
+            camera.UserName = zsInfo.UserName.Trim();
+            camera.PassWord = zsInfo.PassWord.Trim();
+            //Todo:根据固定的Rtsp协议，完善Rtsp地址
+            return camera;
+        }
+
+        private void UpdateSisDataZS_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //获取数据库测点
+                using (var db = Bll.NewBllNoRelation())
+                {
+                    List<DevMonitorNode> nodesByXml = new List<DevMonitorNode>();
+                    List<DevMonitorNode> addNodes = new List<DevMonitorNode>();
+                    List<DevMonitorNode> updateNodes = new List<DevMonitorNode>();
+                    string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\中山嘉明电厂";
+                    DirectoryInfo dir = new DirectoryInfo(path);
+                    FileInfo[] files = dir.GetFiles("*.xml");
+                    int count = 0;
+                    foreach (FileInfo fileInfo in files)
+                    {
+                        DevMonitorNodeList xmlList = XmlSerializeHelper.LoadFromFile<DevMonitorNodeList>(fileInfo.FullName.ToString());
+                        count += xmlList.Count;
+                        nodesByXml.AddRange(xmlList);
+                    }
+
+                    nodesByXml = nodesByXml.GroupBy(p => p.TagName.Trim()).Select(g => g.First()).ToList();//去重
+
+                    List<DevMonitorNode> nodesBySql = db.DevMonitorNodes.ToList();
+                    foreach (DevMonitorNode nodeByXml in nodesByXml)
+                    {
+                        DevMonitorNode node = nodesBySql.Find(i => i.TagName.Trim() == nodeByXml.TagName.Trim());
+                        if (node == null)//没有
+                        {
+                            nodeByXml.Id = 0;
+                            nodeByXml.ParentKKS = nodeByXml.ParentKKS.Replace("#", "号");
+                            addNodes.Add(nodeByXml);
+                        }
+                        else
+                        {
+                            node.Describe = nodeByXml.Describe;
+                            node.Unit = nodeByXml.Unit;
+                            node.ParentKKS = nodeByXml.ParentKKS;
+                            node.DataType = nodeByXml.DataType;
+                            updateNodes.Add(node);
+                        }
+                    }
+                    bool result1 = true;
+                    bool result2 = true;
+                    int addCount = 0;
+                    int updateCount = 0;
+                    if (addNodes.Count > 0)
+                    {
+                        result1 = db.DevMonitorNodes.AddRange(addNodes);
+                        addCount = addNodes.Count;
+                    }
+                    if (updateNodes.Count > 0)
+                    {
+                        result2 = db.DevMonitorNodes.EditRange(updateNodes);
+                        updateCount = updateNodes.Count;
+                    }
+
+                    MessageBox.Show(string.Format("数据更新完成,新增数据{0}个，结果：{1}，修改数据{2}个，结果:{3}",
+                        addCount.ToString(), result1 ? "成功" : "失败", updateCount.ToString(), result2 ? "成功" : "失败"));
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UpdateDevMonitorNoodeZS_Click:" + ex.ToString());
+            }
+        }
+        /// <summary>
+        /// 四会两票保存历史数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateTicketsSH_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            string strIp = AppContext.DatacaseWebApiUrl;
+            string port = AppContext.DatacaseWebApiPort;
+            //操作票
+            SaveOperationTicketsSH(strIp, port,now);
+            //工作票
+            SaveWorkTicketsSH(strIp,port,now);
+        }
+
+        private void SaveOperationTicketsSH(string IP,string Port,DateTime now)
+        {
+            try
+            {
+                string url = "http://" + IP + ":" + Port + "/api/tickets?type=1";
+                //string result = WebApiHelper.GetString("http://120.25.195.214:18000/api/tickets?type=1");
+                string result = WebApiHelper.GetString(url);
+                JsonSerializerSettings setting = new JsonSerializerSettings();
+                setting.NullValueHandling = NullValueHandling.Ignore;
+                List<OperationTicketHistorySH> saveTicketsHis = new List<OperationTicketHistorySH>();
+                Message<TwoTickets> message = JsonConvert.DeserializeObject<Message<TwoTickets>>(result, setting);
+                if (message.data != null)
+                {
+                    List<TwoTickets> list = message.data;
+                    Bll db = Bll.NewBllNoRelation();
+                    string strsql = string.Format(@"select  Abutment_Id from operationtickethistoryshes where CreateTime>'{0}' ", now.AddDays(-31));
+                    List<int> idList = db.OperationTicketHistorySHs.GetListIntBySql(strsql);
+                    foreach (TwoTickets ticket in list)
+                    {
+                        if (!idList.Contains((int)ticket.id))
+                        {
+                            saveTicketsHis.Add(ticket.ToDbHistoryModel());
+                        } 
+                    }
+                    bool result1 = db.OperationTicketHistorySHs.AddRange(saveTicketsHis);
+                    MessageBox.Show(string.Format("更新操作票{0}条，结果：{1}",saveTicketsHis.Count,result1));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SaveWorkTicketsSH(string IP, string Port,DateTime now)
+        {
+
+            try
+            {
+                string url = "http://" + IP + ":" + Port + "/api/tickets?type=0";
+               // string result = WebApiHelper.GetString("http://120.25.195.214:18000/api/tickets?type=0");
+                string result = WebApiHelper.GetString(url);
+                JsonSerializerSettings setting = new JsonSerializerSettings();
+                setting.NullValueHandling = NullValueHandling.Ignore;
+                Message<TModel.LocationHistory.Work.WorkTicketHistorySH> message = JsonConvert.DeserializeObject<Message<TModel.LocationHistory.Work.WorkTicketHistorySH>>(result, setting);
+                List<TModel.LocationHistory.Work.WorkTicketHistorySH> list = message.data;
+                List<WorkTicketHistorySH> saveList = list.ToDbModelList();
+                List<WorkTicketHistorySH> addList = new List<WorkTicketHistorySH>();
+                if (saveList != null && saveList.Count > 0)
+                {
+                    Bll db = Bll.NewBllNoRelation();
+                    string strsql = string.Format(@"select distinct Abutment_Id from worktickethistoryshes  where CreateTime>'{0}'", now.AddDays(-31));
+                    List<int> idList = db.WorkTicketHistorySHes.GetListIntBySql(strsql);
+                    foreach (WorkTicketHistorySH entity in saveList)
+                    {
+                        if (!idList.Contains((int)entity.Abutment_Id))
+                        {
+                            addList.Add(entity);
+                        }
+                    }
+                    bool result1 = db.WorkTicketHistorySHes.AddRange(addList);
+                    MessageBox.Show(string.Format("更新工作票{0}条，结果：{1}", addList.Count, result1));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        } 
+        /// <summary>
+        /// 四会门禁历史数据保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateDoorClickSH_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DateTime now = DateTime.Now;
+                string strIp = AppContext.DatacaseWebApiUrl;
+                string port = AppContext.DatacaseWebApiPort;
+                JsonSerializerSettings setting = new JsonSerializerSettings();
+                setting.NullValueHandling = NullValueHandling.Ignore;
+                Bll db = Bll.NewBllNoRelation();
+                List<EntranceGuardCard> cardPersons = db.EntranceGuardCards.ToList();
+                string strsql = string.Format(@"select Abutment_Id from deventranceguardcardactions where  OperateTime>'{0}' ", now.AddDays(-31));
+                List<int> cardHisListInt = db.EntranceGuardCardHistorys.GetListIntBySql(strsql);
+                foreach (EntranceGuardCard card in cardPersons)
+                {
+                    string cardId = card.Abutment_Id.ToString();
+
+                    DateTime beginTime = now.AddDays(-30);
+                    string begin_date = beginTime.Year.ToString() + beginTime.Month.ToString() + beginTime.Day.ToString();
+                    string end_date = now.Year.ToString() + now.Month.ToString() + now.Day.ToString();
+                    string url = "http://" + strIp + ":" + port + "/api/cards/" + cardId + "/actions?begin_date=" + begin_date + "&end_date=" + end_date;
+                    // string result = WebApiHelper.GetString("http://120.25.195.214:18000/api/cards/" + cardId + "/actions?begin_date=" + begin_date + "&end_date=" + end_date);
+                    string result = WebApiHelper.GetString(url);
+                    Message<cards_actions> message = JsonConvert.DeserializeObject<Message<cards_actions>>(result, setting);
+                    List<cards_actions> cards_actionsList = message.data;
+                    if (cards_actionsList != null && cards_actionsList.Count > 0)
+                    {
+                        //保存到门禁历史记录里
+                        List<DevEntranceGuardCardAction> AddcardHisList = new List<DevEntranceGuardCardAction>();
+                        List<DevEntranceGuardCardAction> EditcardHisList = new List<DevEntranceGuardCardAction>();
+                        foreach (cards_actions cardAction in cards_actionsList)
+                        {
+                            DevEntranceGuardCardAction cardHis = new DevEntranceGuardCardAction();
+                            cardHis.Abutment_Id = cardAction.id;
+                            cardHis.OperateTimeStamp = cardAction.t;
+                            cardHis.OperateTime = TimeConvert.ToDateTime((long)cardAction.t * 1000);
+                            cardHis.code = cardAction.code;
+                            cardHis.description = cardAction.description;
+                            cardHis.device_id = cardAction.device_id;
+                            cardHis.card_code = cardAction.card_code;
+                            cardHis.EntranceGuardCardId = card.Id;
+                            cardHis.PersonnelAbutment_Id = card.PersonnelAbutment_Id;
+                            if (!cardHisListInt.Contains(cardAction.id))
+                            {
+                                AddcardHisList.Add(cardHis);
+                            }  
+                        }
+                        bool addResult = db.DevEntranceGuardCardActions.AddRange(AddcardHisList);
+                        //  bool editResult = db.DevEntranceGuardCardActions.EditRange(EditcardHisList);
+                        Log.Info(string.Format("保存门禁历史记录结果，门禁卡号：{0}，添加：{1}条，结果：{2}", cardId, AddcardHisList.Count, addResult));
+                    }
+                }
+                MessageBox.Show("保存成功！");
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        /// <summary>
+        /// 获取sisXML
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GetSisDevXmlZS_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\中山嘉明电厂\\设备json";
+                DirectoryInfo dir = new DirectoryInfo(path);
+                FileInfo[] files = dir.GetFiles("*.json");
+                int count = 0;
+                foreach (FileInfo fileInfo in files)
+                {
+                    string jsonfile = path + "\\" + fileInfo.ToString();
+                    StreamReader sr = new StreamReader(jsonfile, Encoding.GetEncoding("gb2312"));
+                    string content = sr.ReadToEnd();
+                    List<string[]> list = JsonConvert.DeserializeObject<List<string[]>>(content);
+                    list = list.GroupBy(p => p[0].Trim()).Select(g => g.First()).ToList();
+                    DevMonitorNodeList devList = new DevMonitorNodeList();
+                    foreach (string[] strings in list)
+                    {
+                        DevMonitorNode dev = new DevMonitorNode();
+                        dev.TagName = strings[0];
+                        dev.Describe = strings[1];
+                        dev.ParentKKS = fileInfo.ToString().Replace(".json","") ;
+                        dev.Id = 0;
+                        devList.Add(dev);
+                    }
+                   
+                    //保存文件
+                    if (devList != null && devList.Count > 0)
+                    {
+                        
+                        writeToXml(fileInfo.ToString().Replace(".json",""),devList);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            }
+
+        private void writeToXml(string fileName,DevMonitorNodeList sr)
+        {
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(typeof(DevMonitorNodeList));
+
+            //  var path = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\中山嘉明电厂\\设备json\\" + fileName+".xml";
+            var path= "d:\\中山\\设备xml\\" + fileName+".xml";
+            System.IO.FileStream file = System.IO.File.Create(path);
+            writer.Serialize(file, sr);
+            file.Close();
+
+        }
+
     }
 }

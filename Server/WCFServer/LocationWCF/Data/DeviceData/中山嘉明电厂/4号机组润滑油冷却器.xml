@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="31110" TagName="40S2_TT_LOCO3" Describe="Lubeoilcooleroutlettempera" Unit="" ParentKKS="4号机组润滑油冷却器" Time="0" />
+  <DevMonitorNode Id="31108" TagName="40S2_TT_LOCO1" Describe="Lubeoilcooleroutlettempera" Unit="" ParentKKS="4号机组润滑油冷却器" Time="0" />
+  <DevMonitorNode Id="31109" TagName="40S2_TT_LOCO2" Describe="Lubeoilcooleroutlettempera" Unit="" ParentKKS="4号机组润滑油冷却器" Time="0" />
+  <DevMonitorNode Id="31107" TagName="40S2_TT_LOCO" Describe="LubeOilCoolerOutletTempera" Unit="" ParentKKS="4号机组润滑油冷却器" Time="0" />
+  <DevMonitorNode Id="31114" TagName="40S2_TT_LUBE" Describe="LubeOilTankTemperature" Unit="" ParentKKS="4号机组润滑油冷却器" Time="0" />
+  <DevMonitorNode Time="0" ParentKKS="4号机组润滑油冷却器" Unit="" Describe="LubeOilTemperatureControlS" TagName="40S2_LOTC_SP_F" Id="30968"/>
+  <DevMonitorNode Time="0" ParentKKS="4号机组润滑油冷却器" Unit="" Describe="LubeOilTemperatureControlS" TagName="40S2_LOTC_CMD_F" Id="30967"/>
+  <DevMonitorNode Time="0" ParentKKS="4号机组润滑油冷却器" Unit="" Describe="LubeOilTemperatureControlV" TagName="40S2_LOTEMP_OUT" Id="30969"/>
+</DevMonitorNodeList>

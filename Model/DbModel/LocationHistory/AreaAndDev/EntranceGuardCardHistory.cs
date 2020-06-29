@@ -65,12 +65,14 @@ namespace DbModel.LocationHistory.AreaAndDev
         [DataMember]
         [Display(Name = "历史记录时间戳")]
         public long HistoryTimeStamp { get; set; }
-
+        [DataMember]
+        [Display(Name = "描述")]
+        public string Description { get; set; }
+       
         public EntranceGuardCardHistory Clone()
         {
             EntranceGuardCardHistory copy = new EntranceGuardCardHistory();
             copy = this.CloneObjectByBinary();
-
             return copy;
         }
     }

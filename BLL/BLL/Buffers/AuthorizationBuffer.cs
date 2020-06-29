@@ -208,9 +208,9 @@ namespace BLL.Buffers
         Dictionary<Position, List<LocationAlarm>> posAlarms = new Dictionary<Position, List<LocationAlarm>>();
         //List<Position> noAlarmPos = new List<Position>();
 
-        private LocationAlarm AddAlarm(Position p,int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level)
+        private LocationAlarm AddAlarm(Position p,int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level, LocationAlarmType alarmType = LocationAlarmType.区域告警)
         {
-            LocationAlarm alarm = new LocationAlarm(p, area, arr, content, level);
+            LocationAlarm alarm = new LocationAlarm(p, area, arr, content, level,alarmType);
             //alarms.Add(alarm);
             return alarm;
         }
@@ -788,13 +788,13 @@ namespace BLL.Buffers
 
                         //当该卡片在数据库中在指定区域是异常告警时,出现正常告警或没有该区域的异常告警，则告警恢复；出现该区域的异常告警，则忽略
                         LocationAlarm item3 = areaAlarms.Find(p => p.LocationCardId == item.LocationCardId && p.AlarmLevel == LocationAlarmLevel.正常);
-                        if (item3 != null|| IsAlarmReviseInUndefinedArea(ReviseAlarm, list1,areaAlarms))
+                        if (item3 != null || IsAlarmReviseInUndefinedArea(ReviseAlarm, list1, areaAlarms))
                         {
                             //人从告警区域，走到某个位置（不属于任何区域），则AreaAlarms中不会产生告警和消警。这种情况也要消警
                             ReviseAlarmList.Add(ReviseAlarm);
                             DeleteList.Add(item);
                             hisAlarms.Add(item.RemoveToHistory());
-                            if(areaAlarms.Contains(item3)) areaAlarms.Remove(item3);//把当前正常的区域移除，把告警恢复的区域添加并发给客户端
+                            if (areaAlarms.Contains(item3)) areaAlarms.Remove(item3);//把当前正常的区域移除，把告警恢复的区域添加并发给客户端
                         }
                         else
                         {
@@ -811,6 +811,10 @@ namespace BLL.Buffers
                             }
                         }
                     }
+                }
+                else if (item.AlarmType == LocationAlarmType.超时告警)
+                {
+                    areaAlarms.RemoveAll(p => p.LocationCardId == item.LocationCardId && p.AlarmType== LocationAlarmType.超时告警&&p.AreaId==item.AreaId);
                 }
                 
             }
@@ -883,7 +887,6 @@ namespace BLL.Buffers
                 {
                     continue;
                 }
-
                 CardRole role = roles.Find(i => i.Id == p.RoleId);
                 if (role == null)
                 {
@@ -891,6 +894,21 @@ namespace BLL.Buffers
                     //RemoveDuplicateAlarms(p, pAreaId, null, "标签未配置区域权限。", LocationAlarmLevel.四级告警, ref newAlarmList);
                     continue;
                 }
+                //清除人员进入区域记录
+                Bll db = Bll.NewBllNoRelation();
+                List<PersonnelFirstInArea> paList = db.PersonnelFirstInAreas.Where(i => i.personId == p.PersonnelID&&i.type==0);
+                List<Area> areaList = p.Areas.ToList();
+                foreach (PersonnelFirstInArea personnelInArea in paList)
+                {
+                    Area area = areaList.Find(i => i.Id == personnelInArea.areaId);
+                    if (area == null)
+                    {
+                        db.PersonnelFirstInAreas.DeleteById(personnelInArea.Id);  
+                    }
+                }
+                
+             
+                                        
                 string personDepartment = GetPersonDepartInfo(p.PersonnelID, p.Code);
                 foreach (var area in p.Areas)
                 {
@@ -914,15 +932,117 @@ namespace BLL.Buffers
                         }
                         else
                         {
+                            DateTime startTime = new DateTime(p.DateTime.Year, p.DateTime.Month, p.DateTime.Day, aar.StartTime.Hour, aar.StartTime.Minute, aar.StartTime.Second);
+                            DateTime endTime = new DateTime(p.DateTime.Year, p.DateTime.Month, p.DateTime.Day, aar.EndTime.Hour, aar.EndTime.Minute, aar.EndTime.Second);
+                            if (aar.TimeType == TimeSettingType.无限制)
+                            {
+                                RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList);
+                            }
+                            else if (aar.TimeType == TimeSettingType.时间长度)
+                            {
+                                //获取
+                                PersonnelFirstInArea getPA = db.PersonnelFirstInAreas.Find(i => i.personId == p.PersonnelID && i.areaId == area.Id && i.type == 0);
+                                if (getPA == null) //不存在表示已经出了这个区域
+                                {
+                                    PersonnelFirstInArea person = new PersonnelFirstInArea();
+                                    DateTime nowTime = DateTime.Now;
+                                    person.personId = p.PersonnelID;
+                                    person.areaId = area.Id;
+                                    person.dateTime = nowTime;
+                                    person.type = 0;
+                                    bool result = db.PersonnelFirstInAreas.Add(person);
+                                    Log.Info("记录人员：" + p.PersonnelName + "进入区域：" + area.Name + "权限：时间长度,结果：" + result);
+                                    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList,LocationAlarmType.超时告警);
+                                }
+                                else//告警
+                                {
+                                    if ((p.DateTime - getPA.dateTime).TotalMinutes > aar.TimeSpan)//超过时长
+                                    {
+                                        string timeOut = ((p.DateTime - getPA.dateTime).TotalMinutes - aar.TimeSpan).ToString();
+                                        RemoveDuplicateAlarms(p, area.Id, aar, string.Format("人员：{0}，在区域:{1}超时停留{2}分", personDepartment, area, timeOut), LocationAlarmLevel.四级告警, ref newAlarmList,LocationAlarmType.超时告警);
+                                    }
+                                    else
+                                    {
+                                        RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList, LocationAlarmType.超时告警);
+                                    }
+                                }
+
+                            }
+
+                            else if (aar.TimeType == TimeSettingType.时间点范围)
+                            {
+                                if (p.DateTime > startTime && p.DateTime < endTime)
+                                {
+                                    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList, LocationAlarmType.超时告警);
+                                }
+                                else
+                                {
+                                    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("告警，人员：{0} 在区域:{1}未设置权限", area), LocationAlarmLevel.四级告警, ref newAlarmList, LocationAlarmType.超时告警);
+                                }
+                            }
+                            else if (aar.TimeType == TimeSettingType.时间长度加范围)
+                            {
+                                if (p.DateTime > startTime && p.DateTime < endTime)  //判断在时间范围内后，再判断时间长度
+                                {
+                                    PersonnelFirstInArea getPA = db.PersonnelFirstInAreas.Find(i => i.personId == p.PersonnelID && i.areaId == area.Id && i.type == 0);
+                                    if (getPA == null) //不存在表示已经出了这个区域
+                                    {
+                                        PersonnelFirstInArea person = new PersonnelFirstInArea();
+                                        DateTime nowTime = DateTime.Now;
+                                        person.personId = p.PersonnelID;
+                                        person.areaId = area.Id;
+                                        person.dateTime = nowTime;
+                                        person.type = 0;
+                                        bool result = db.PersonnelFirstInAreas.Add(person);
+                                        Log.Info("记录人员：" + p.PersonnelName + "进入区域：" + area.Name + "权限：时间长度加范围,结果：" + result);
+                                        RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList, LocationAlarmType.超时告警);
+                                    }
+                                    else//告警
+                                    {
+                                        if ((p.DateTime - getPA.dateTime).TotalMinutes > aar.TimeSpan)//超过时长
+                                        {
+                                            RemoveDuplicateAlarms(p, area.Id, aar, string.Format("人员：{0}，在区域:{1}未设置权限", personDepartment, area), LocationAlarmLevel.四级告警, ref newAlarmList, LocationAlarmType.超时告警);
+                                        }
+                                        else
+                                        {
+                                            RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList, LocationAlarmType.超时告警);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("告警，人员：{0} 在区域:{1}未设置权限", area), LocationAlarmLevel.四级告警, ref newAlarmList);
+                                }
+                            }
+                         
+                                                          
+
+
                             //if (aar.IsTimeValid(dtBegin, dtEnd, nTimeStamp) == false)
                             //{
                             //    RemoveDuplicateAlarms(p, area.Id, aar, string.Format("可以进入区域'{0}',但是未在有效时间范围内。", area), LocationAlarmLevel.四级告警, ref newAlarmList);
                             //}
                             //else
+                            
+                        }
+                        if (aar.SignIn)//有签到限制(添加一条人员进入区域的记录)
+                        {
+                            PersonnelFirstInArea getPA = db.PersonnelFirstInAreas.Find(i => i.personId == p.PersonnelID && i.areaId == area.Id && i.type == 1);
+                            if (getPA == null)
                             {
-                                RemoveDuplicateAlarms(p, area.Id, aar, string.Format("正常，所在区域:{0}", area), LocationAlarmLevel.正常, ref newAlarmList);
+                                PersonnelFirstInArea person = new PersonnelFirstInArea();
+                                DateTime nowTime = DateTime.Now;
+                                person.personId = p.PersonnelID;
+                                person.areaId = area.Id;
+                                person.dateTime = nowTime;
+                                person.type = 1;
+                                bool result = db.PersonnelFirstInAreas.Add(person);
+                                Log.Info("记录人员：" + p.PersonnelName + "进入区域：" + area.Name + "权限：签到,结果：" + result);
                             }
                         }
+                        
+
+
                     }
                     else
                     {
@@ -934,7 +1054,11 @@ namespace BLL.Buffers
                         {
                             RemoveDuplicateAlarms(p, area.Id, null, string.Format("人员：{0}，在区域'{1}'未配置权限。", personDepartment, area), LocationAlarmLevel.四级告警, ref newAlarmList);
                         }
+
+
                     }
+                    
+
                 }
                 
             }
@@ -951,7 +1075,7 @@ namespace BLL.Buffers
         /// <param name="content"></param>
         /// <param name="level"></param>
         /// /// <param name="newAlarmList"></param>
-        private void RemoveDuplicateAlarms(Position p, int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level, ref List<LocationAlarm> newAlarmList)
+        private void RemoveDuplicateAlarms(Position p, int area, AreaAuthorizationRecord arr, string content, LocationAlarmLevel level, ref List<LocationAlarm> newAlarmList, LocationAlarmType alarmType = LocationAlarmType.区域告警)
         {
           
             if (level == LocationAlarmLevel.正常)
@@ -961,7 +1085,7 @@ namespace BLL.Buffers
                 LocationAlarm alarm = newAlarmList.Find(i => i.LocationCardId == p.CardId && i.AlarmLevel == LocationAlarmLevel.正常);
                 if (nCount == 0 && alarm == null)
                 {
-                    alarm = AddAlarm(p, area, arr, content, level);
+                    alarm = AddAlarm(p, area, arr, content, level,alarmType);
                     newAlarmList.Add(alarm);
                 }
                 else if(nCount == 0 && alarm != null)
@@ -985,7 +1109,7 @@ namespace BLL.Buffers
                     newAlarmList.RemoveAll(i => i.LocationCardId == p.CardId && i.AlarmLevel == LocationAlarmLevel.正常);
                 }
 
-                LocationAlarm alarm = AddAlarm(p, area, arr, content, level);
+                LocationAlarm alarm = AddAlarm(p, area, arr, content, level,alarmType);
                 newAlarmList.Add(alarm);
             }
 

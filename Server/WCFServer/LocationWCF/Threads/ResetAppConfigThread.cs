@@ -41,6 +41,7 @@ namespace LocationServer.Threads
 
 
             AppContext.ParkName = ConfigurationHelper.GetValue("ParkName");
+            AppSetting.OPCServerIP = ConfigurationHelper.GetValue("OPCServerIP");
 
             if(isFirst)
                 AppContext.DatacaseWebApiUrl = ConfigurationHelper.GetValue("DatacaseWebApiUrl");
@@ -97,6 +98,7 @@ namespace LocationServer.Threads
 
             AppSetting.EnableMigration= ConfigurationHelper.GetBoolValue("EnableMigration");
             AppSetting.EnableHistoryMigration= ConfigurationHelper.GetBoolValue("EnableHistoryMigration");
+           
         }
 
         protected override void DoBeforeWhile()

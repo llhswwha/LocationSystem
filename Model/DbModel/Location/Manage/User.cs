@@ -27,7 +27,7 @@ namespace DbModel.Location.Manage
         /// 是否加密
         /// </summary>
         [Display(Name = "是否加密")]
-        public bool IsEncrypted { get; set; }
+        public bool IsEncrypted { get; set; }   
 
         [MaxLength(128)]
         [Display(Name = "Session")]

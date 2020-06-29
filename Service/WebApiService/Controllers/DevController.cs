@@ -202,6 +202,7 @@ namespace WebApiService.Controllers
             return service.GetDevInfos(typeList);
         }
         [Route("devMonitor/kks/{KKS}/bFlag/{bFlag}")]
+        [HttpGet]
         public Dev_Monitor GetDevMonitorInfoByKKS(string KKS, bool bFlag)
         {
             return service.GetDevMonitorInfoByKKS(KKS,bFlag);
@@ -211,10 +212,17 @@ namespace WebApiService.Controllers
         {
             return service.GetDevPositions();
         }
+
         [Route("list/doorAccessByParent")]
+        [HttpPost]
         public IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> GetDoorAccessInfoByParent(int[] pids)
         {
             return service.GetDoorAccessInfoByParent(pids);
+        }
+        [Route("list/doorAccessByDoorName")]
+        public IList<Location.TModel.Location.AreaAndDev.Dev_DoorAccess> GetDoorAccessByDoorName(string doorName)
+        {
+            return service.GetDoorAccessByDoorName(doorName);
         }
 
         public Location.TModel.Location.AreaAndDev.DevInfo GetEntity(string id)
@@ -258,6 +266,18 @@ namespace WebApiService.Controllers
         {
             return service.GetNearbyDev_Currency(id,fDis,nFlag);
         }
+
+        /// <summary>
+        /// 实时数据
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        [Route("devMonitor/tags/{tags}")]
+        public Dev_Monitor getNowDevMonitorInfoByTags(string tags)
+        {
+            return service.getNowDevMonitorInfoByTags(tags);
+        }
+
         [Route("")]
         public ObjectAddList GetObjectAddList()
         {
@@ -293,6 +313,7 @@ namespace WebApiService.Controllers
             return service.ModifyDoorAccess(doorAccessList);
         }
         [Route("Edit/posList")]
+        [HttpPut]
         public bool ModifyPosByList(List<DevPos> posList)
         {
             return service.ModifyPosByList(posList);

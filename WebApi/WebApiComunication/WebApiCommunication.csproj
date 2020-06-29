@@ -80,13 +80,10 @@
     <Compile Include="SihuiThermalPowerPlant\Models\cards_actions.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkresults.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\Details.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
+    <Compile Include="SihuiThermalPowerPlant\Models\EntranceGuardCardsApiSH.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\LineContent.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\Lines.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\Message.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\OptTicket.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\position.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\results.cs" />
@@ -94,7 +91,6 @@
     <Compile Include="SihuiThermalPowerPlant\Models\sis_compact.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\sis_sampling.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\tickets.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\TwoTickets.cs" />
     <Compile Include="SihuiThermalPowerPlant\PostMethod.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SihuiThermalPowerPlant\Models\tickets.json" />
+    <None Include="SihuiThermalPowerPlant\Models\Tickets2.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExtremeVision\Readme.txt" />

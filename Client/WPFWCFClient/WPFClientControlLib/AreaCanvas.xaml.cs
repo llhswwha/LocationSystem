@@ -573,8 +573,18 @@ namespace WPFClientControlLib
 
         private double getAutoScale(Location.TModel.Location.AreaAndDev.Bound bound)
         {
-            double scaleX = this.ActualWidth / bound.GetSizeX();
-            double scaleY = this.ActualHeight / bound.GetSizeY();
+            double scaleX = 0;
+            double sizeX = bound.GetSizeX();
+            if (sizeX > 0)
+            {
+                scaleX = this.ActualWidth / sizeX;
+            }
+            double scaleY = 0;
+            double sizeY = bound.GetSizeY();
+            if (sizeY > 0)
+            {
+                scaleY = this.ActualHeight / sizeY;
+            }
             double scale1 = scaleX < scaleY ? scaleX : scaleY;
             double scale = Math.Round(scale1, 2);//四舍五入
             if (scale == 0)

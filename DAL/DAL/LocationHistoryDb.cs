@@ -5,6 +5,9 @@ using DbModel.LocationHistory.AreaAndDev;
 using System.Diagnostics;
 using LocationServer;
 using DbModel;
+using DbModel.LocationHistory.Door;
+using System;
+using DbModel.Others;
 
 namespace DAL
 {
@@ -25,6 +28,7 @@ namespace DAL
 
             this.Database.CommandTimeout = 700000;
         }
+
 
         /* my.ini
 [mysql]
@@ -116,6 +120,12 @@ innodb_buffer_pool_size = 16106127360 //15G
         
         public DbSet<DbModel.LocationHistory.Work.OperationItemHistory> OperationItemHistorys { get; set; }
 
+        public DbSet<OperationTicketHistorySH> OperationTicketHistorySHs { get; set; }
+
+        public DbSet<WorkTicketHistorySH> WorkTicketHistorySHes { get; set; }
+
+        public DbSet<PointHistory> PointHistories { get; set; }
+
         public DbSet<DbModel.LocationHistory.Work.OperationTicketHistory> OperationTicketHistorys { get; set; }
 
         public DbSet<DbModel.LocationHistory.Work.PersonnelMobileInspectionHistory> PersonnelMobileInspectionHistorys { get; set; }
@@ -133,6 +143,8 @@ innodb_buffer_pool_size = 16106127360 //15G
         public DbSet<PatrolPointItemHistory> PatrolPointItemHistorys { get; set; }
 
         public DbSet<DevMonitorNodeHistory> DevMonitorNodeHistorys { get; set; }
-        
+
+        public DbSet<DoorClick> DoorClicks { get; set; }
+
     }
 }

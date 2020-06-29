@@ -17,6 +17,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TModel.Tools;
 
 namespace BLL.Blls
 {
@@ -683,5 +684,97 @@ namespace BLL.Blls
         {
             return QueryPage(pageSize,pageIndex,out total).ToList();
         }
+
+
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="sqlCount">查询列表总数</param>
+        /// <param name="sqlstr">查询列表</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public PageInfo<T1> GetPageList<T1>(string sqlCount,string strsql, int pageIndex, int pageSize)
+        {
+            PageInfo<T1> page = new PageInfo<T1>();
+            DbRawSqlQuery<string> result = Db.Database.SqlQuery<string>(sqlCount);
+            List<string> alist = result.ToList();
+         
+            page.total =Convert.ToInt32(alist[0].ToString());
+            if (page.total == 0)
+            {
+                return page;
+            }
+            if (pageSize == 0)
+            {
+                pageSize = 1000000;
+            }
+            page.pageSize = pageSize;
+            if (pageIndex == 0)
+            {
+                pageIndex = 1;
+            }
+            page.pageIndex = pageIndex;
+            if (page.total % page.pageSize > 0)
+            {
+                page.totalPage = page.total / pageSize + 1;
+            }
+            else
+            {
+                page.totalPage = page.total / pageSize;
+            }
+            //分页sql
+            strsql = strsql + string.Format("  order by id asc limit {0},{1}", pageSize * (pageIndex - 1), pageSize);
+            DbRawSqlQuery<T1> result1 = Db.Database.SqlQuery<T1>(strsql);
+            page.data = result1.ToList();
+            return page;
+        }
+        public List<T1> GetListBySql<T1>(string strsql)
+        {
+            DbRawSqlQuery<T1> result1 = Db.Database.SqlQuery<T1>(strsql);
+            return result1.ToList();
+        }
+
+        public T1 GetDataBySql<T1>(string strsql)
+        {
+            DbRawSqlQuery<T1> result = Db.Database.SqlQuery<T1>(strsql);
+            List<T1> list = result.ToList();
+            if (list.Count == 0)
+            {
+                return default(T1);
+            }
+            return list[0];
+        }
+        public string  AddorEditBySql(string strsql)
+        {
+            string result = "Success";
+            try
+            {
+               int results = Db.Database.ExecuteSqlCommand(strsql);
+                Log.Info(results);  
+            }
+            catch (Exception ex)
+            {
+                result = ex.ToString();
+                Log.Error("BaseBll.AddorEditBySql:"+ex.ToString());
+            }
+            return result;
+
+        }
+
+
+        public List<int> GetListIntBySql(string strsql)
+        {
+            DbRawSqlQuery<int> result = Db.Database.SqlQuery<int>(strsql);
+            return result.ToList();
+        }
+
+        public List<string> GetListStringBySql(string strsql)
+        {
+            DbRawSqlQuery<string> result = Db.Database.SqlQuery<string>(strsql);
+            return result.ToList();
+        }
+
     }
 }

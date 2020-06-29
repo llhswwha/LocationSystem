@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList>
+  <DevMonitorNode Id="0" TagName="N2DCS.20MKA01CE903_PEL" Describe="显示主要参数" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.20MYA01CS901C" Describe="汽机转速" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.HPDRUMLVL" Describe="高包水位" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.HPDRUMCP" Describe="高包压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.IPDRUMLVL" Describe="中包水位" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.IPDRUMCP" Describe="中包压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.LPDRUMLVL" Describe="低包水位" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.LPDRUMCP" Describe="低包压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.20LAA70CP101" Describe="除氧器压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.HPDSTCF" Describe="主蒸汽流量" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.HPDSTCP" Describe="炉侧主汽压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.HPDSTCT" Describe="炉侧主汽温度" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.20LBA10CPX3" Describe="汽机主汽压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.20LBA10CT301" Describe="汽机主汽温度" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.RH2OUTSTCP" Describe="汽机再热蒸汽压力" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.RH2OUTSTCT" Describe="汽机再热蒸汽温度" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.CNSRLVL" Describe="凝水器水位" ParentKKS="3号发电机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.CNSRVACM" Describe="凝水器真空" ParentKKS="3号发电机" Time="0" />
+</DevMonitorNodeList>

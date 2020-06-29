@@ -59,6 +59,11 @@
                 <MenuItem Header="新增设备模型信息" Name="MenuLoadDevTypeModelList" Click="MenuLoadDevTypeModelList_OnClick"></MenuItem>
                 <MenuItem Header="完善设备Ip信息" Name="MenuAddDevInfoIp" Click="MenuAddDevInfoIp_OnClick"></MenuItem>
                 <MenuItem Header="清除Personnel表换行符" Name="MenuModifyPersonnel" Click="MenuModifyPersonnel_OnClick"></MenuItem>
+                <MenuItem Header="更新摄像头数据(ZS)" Name="UpdateCameraInfoZS" Click="UpdateCameraInfoZS_OnClick"></MenuItem>
+                <MenuItem Header="更新sis设备点位数据(ZS)" Name="UpdateSisDataZS" Click="UpdateSisDataZS_Click"></MenuItem>
+                <MenuItem Header="更新两票历史数据(SH)" Name="UpdateTicketsSH" Click="UpdateTicketsSH_Click"></MenuItem>
+                <MenuItem Header="更新门禁历史操作数据(SH)" Name="UpdateDoorClickSH" Click="UpdateDoorClickSH_Click"></MenuItem>
+                <MenuItem Header="整理各设备xml(ZS)" Name="GetSisDevXmlZS" Click="GetSisDevXmlZS_Click" ></MenuItem>
             </MenuItem>
             <MenuItem Header="新数据">
                 <MenuItem Header="照片" Name="MenuInitPic" Click="MenuInitPic_Click"></MenuItem>

@@ -49,6 +49,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\PresentationFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -65,7 +69,12 @@
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
+    <Compile Include="FuncArgs\AlarmSearchArgAll.cs" />
+    <Compile Include="FuncArgs\DoorSearchArgs.cs" />
+    <Compile Include="FuncArgs\DoorSearchArgsSH.cs" />
     <Compile Include="FuncArgs\SearchArg.cs" />
+    <Compile Include="FuncArgs\TicketSearchArgs.cs" />
+    <Compile Include="LocationHistory\AreaAndDev\DevEntranceGuardCardsHistroy.cs" />
     <Compile Include="LocationHistory\AreaAndDev\EntranceGuardActionInfo.cs" />
     <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
@@ -75,11 +84,14 @@
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionHistory.cs" />
     <Compile Include="LocationHistory\Work\PersonnelMobileInspectionItemHistory.cs" />
     <Compile Include="LocationHistory\Work\SafetyMeasuresHistory.cs" />
+    <Compile Include="LocationHistory\Work\workTicketDetail.cs" />
     <Compile Include="LocationHistory\Work\WorkTicketHistory.cs" />
+    <Compile Include="LocationHistory\Work\WorkTicketHistorySH.cs" />
     <Compile Include="Location\Alarm\AlarmGroupCount.cs" />
     <Compile Include="Location\Alarm\AlarmLine.cs" />
     <Compile Include="Location\Alarm\AlarmStatistics.cs" />
     <Compile Include="Location\Alarm\AlarmLinePoint.cs" />
+    <Compile Include="Location\Alarm\AllAlarms.cs" />
     <Compile Include="Location\AreaAndDev\Archor.cs" />
     <Compile Include="Location\AreaAndDev\AreaPoints.cs" />
     <Compile Include="Location\AreaAndDev\DeviceAlarmInformation.cs" />
@@ -123,21 +135,26 @@
     <Compile Include="Location\Person\NearbyPerson.cs" />
     <Compile Include="Location\Person\Personnel.cs" />
     <Compile Include="Location\TransferOfAxesConfig.cs" />
+    <Compile Include="Location\Work\Details.cs" />
     <Compile Include="Location\Work\InspectionTrack.cs" />
     <Compile Include="Location\Work\InspectionTrackList.cs" />
     <Compile Include="Location\Work\JurisDiction.cs" />
     <Compile Include="Location\Work\JurisDictionRecord.cs" />
+    <Compile Include="Location\Work\LineContent.cs" />
+    <Compile Include="Location\Work\Lines.cs" />
     <Compile Include="Location\Work\MobileInspection.cs" />
     <Compile Include="Location\Work\MobileInspectionContent.cs" />
     <Compile Include="Location\Work\MobileInspectionDev.cs" />
     <Compile Include="Location\Work\MobileInspectionItem.cs" />
     <Compile Include="Location\Work\OperationItem.cs" />
     <Compile Include="Location\Work\OperationTicket.cs" />
+    <Compile Include="Location\Work\OptTicket.cs" />
     <Compile Include="Location\Work\PatrolPoint.cs" />
     <Compile Include="Location\Work\PatrolPointItem.cs" />
     <Compile Include="Location\Work\PersonnelMobileInspection.cs" />
     <Compile Include="Location\Work\PersonnelMobileInspectionItem.cs" />
     <Compile Include="Location\Work\SafetyMeasures.cs" />
+    <Compile Include="Location\Work\twoTickets.cs" />
     <Compile Include="Location\Work\WorkTicket.cs" />
     <Compile Include="Models\Settings\AlarmSetting.cs" />
     <Compile Include="Models\Settings\AssetLoadSetting.cs" />
@@ -157,6 +174,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />
     <Compile Include="Tools\DevTypeHelper.cs" />
+    <Compile Include="Tools\PageInfo.cs" />
     <Compile Include="UDPTool\ArchorStatistics.cs" />
     <Compile Include="UDPTool\ServerIpList.cs" />
     <Compile Include="UDPTool\UDPArchor.cs" />

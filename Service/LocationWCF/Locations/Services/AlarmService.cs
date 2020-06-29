@@ -19,6 +19,9 @@ using T_LocationAlarm = Location.TModel.Location.Alarm.LocationAlarm;
 using TModel.Tools;
 using DbModel.Tools;
 using SignalRService.Hubs;
+using TModel.Location.Alarm;
+using TModel.FuncArgs;
+using DbModel.LocationHistory.Alarm;
 
 namespace LocationServices.Locations.Services
 {
@@ -44,6 +47,8 @@ namespace LocationServices.Locations.Services
         bool DeleteSpecifiedLocationAlarm(int id);
 
         bool DeleteLocationAlarm(List<int> idList);
+
+        AllAlarms GetAllAlarmsByPerson(AlarmSearchArgAll args);
     }
 
     public class AlarmService : IAlarmService
@@ -497,6 +502,66 @@ namespace LocationServices.Locations.Services
         public DevAlarm Put(DevAlarm item)
         {
             return null;
+        }
+
+        public AllAlarms GetAllAlarmsByPerson(AlarmSearchArgAll args)
+        {
+            AllAlarms alarms = new AllAlarms();
+            try
+            {
+                string sqlwhere1 = "";
+                string sqlwhere2 = "";
+                string personnels = "";
+                if (args != null)
+                {
+                    if (args.personnels != null)
+                    {
+                        foreach (int person in args.personnels)
+                        {
+                            personnels += person.ToString() + ",";
+                        }
+                        personnels = personnels.Substring(0,personnels.Length-1);
+                        sqlwhere1 += " and PersonnelId in ("+personnels+")";
+                    }
+                    if (args.startTime != null && args.endTime != null)
+                    {
+                        sqlwhere1 += string.Format(@"  and  AlarmTimeStamp>{0} and AlarmTimeStamp<{1}",args.startTime.ToStamp(),args.endTime.ToStamp());
+                        sqlwhere2 += string.Format(@"  and  AlarmTimeStamp>{0} and AlarmTimeStamp<{1}", args.startTime.ToStamp(), args.endTime.ToStamp());
+                    }
+
+                }
+                string sql1 = string.Format(@"select id,AlarmId,AlarmType,AlarmLevel,LocationCardId,PersonnelId,CardRoleId,AreaId,AuzId,AllAuzId,Content,AlarmTime,AlarmTimeStamp,HandleTime,HandleTimeStamp,`Handler`,HandleType from location.locationalarms    where 1=1  " + sqlwhere1);
+                string sql2 = string.Format(@"select id,AlarmId,AlarmType,AlarmLevel,LocationCardId,PersonnelId,CardRoleId,areadid,AuzId,AllAuzId,Content,AlarmTime,AlarmTimeStamp,HandleTime,HandleTimeStamp,`Handler`,HandleType, HistoryTime, HistoryTimeStamp from locationhistory.locationalarmhistories  where 1=1 " +sqlwhere1);
+                string sql3 = string.Format(@"select id,Abutment_Id,Title,Msg,`LEVEL`,`Code`,Src,DevInfoId,Device_desc,AlarmTime,AlarmTimeStamp  from location.devalarms    where 1=1 " + sqlwhere2);
+                string sql4 = string.Format(@"select id,Abutment_Id,Title,Msg,`LEVEL`,`Code`,Src,DevInfoId,Device_desc,AlarmTime,AlarmTimeStamp,historyTime,historyTimeStamp from locationhistory.devalarmhistories where 1=1 "+sqlwhere2);
+                List<DbModel.Location.Alarm.LocationAlarm> list1 = db.LocationAlarms.GetListBySql<DbModel.Location.Alarm.LocationAlarm>(sql1);
+                List<LocationAlarmHistory> list2 = db.LocationAlarmHistorys.GetListBySql<LocationAlarmHistory>(sql2);
+                List<DbModel.Location.Alarm.LocationAlarm> listalarm = new List<DbModel.Location.Alarm.LocationAlarm>();
+                listalarm.AddRange(list1);
+                foreach (LocationAlarmHistory alarmHis in list2)
+                {
+                    DbModel.Location.Alarm.LocationAlarm alarm = alarmHis.ConvertToAlarm();
+                    listalarm.Add(alarm);
+                }
+                List<DevAlarm> list3 = db.DevAlarms.GetListBySql<DevAlarm>(sql3);
+                List<DevAlarmHistory> devalarmHiss = db.DevAlarmHistorys.GetListBySql<DevAlarmHistory>(sql4);
+                List<DevAlarm> devalarms = new List<DevAlarm>();
+                devalarms.AddRange(list3);
+                foreach (DevAlarmHistory devalarmhis in devalarmHiss)
+                {
+                    DevAlarm devalarm = devalarmhis.ConvertToDevAlarm();
+                    devalarms.Add(devalarm);
+                }
+                alarms.alarmList = listalarm.ToTModel() ;
+                alarms.devAlarmList = devalarms.ToTModel();
+            }
+            catch (Exception ex)
+            {
+                alarms.alarmList = new List<T_LocationAlarm>();
+                alarms.devAlarmList = new List<DeviceAlarm>();
+                Log.Error("AlarmService.GetAllAlarmsByPerson:"+ex.ToString());
+            }
+            return alarms;
         }
     }
 }

@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Configuration;
 using TModel.Location.Manage;
 using TEntity = TModel.Location.Manage.LoginInfo;
+using LocationServices.Converters;
+using DbModel.Converters;
 
 namespace LocationServices.Locations.Services
 {
 
-    public interface IUserService
+    public interface IUserService: IEntityService<TEntity>
     {
         TEntity Login(TEntity info);
 
@@ -19,6 +21,9 @@ namespace LocationServices.Locations.Services
         TEntity KeepLive(TEntity info);
 
         VersionInfo GetVersionInfo();
+
+        TEntity Update(DbModel.Location.Manage.User user);
+
     }
   public  class UserService:IUserService
     {
@@ -89,6 +94,43 @@ namespace LocationServices.Locations.Services
             }
             info.Session = "";
             return info;
+        }
+
+        public TEntity Delete(string id)
+        {
+            var user= dbSet.DeleteById(Convert.ToInt32(id));
+            return user.ToTModel();
+        }
+
+        public TEntity GetEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TEntity> GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity Post(TEntity item)
+        {
+            if (item == null) return null;
+            var dbItem = item.ToDbModel();
+            var result = dbSet.Add(dbItem);
+            return result ? item : null;
+        }
+
+        public TEntity Put(TEntity item)
+        {
+            return null;
+        }
+
+        public TEntity Update(DbModel.Location.Manage.User user)
+        {
+            if (user == null) return null;
+            var result = dbSet.Edit(user);
+            return result ? user.ToTModel() : null;
+
         }
     }
 }

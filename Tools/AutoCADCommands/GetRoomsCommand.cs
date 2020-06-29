@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using DbModel.Tools;
 using Location.TModel.Tools;
 using TModel.Tools;
+using Application = Autodesk.AutoCAD.ApplicationServices.Application;
+using Autodesk.AutoCAD.EditorInput;
 
 namespace AutoCADCommands
 {
@@ -268,7 +270,7 @@ namespace AutoCADCommands
             return topoInfo;
         }
 
-        private static BoundInfo NewBoundInfo()
+        public  static BoundInfo NewBoundInfo()
         {
             BoundInfo boundInfo = new BoundInfo();
             boundInfo.Thickness = 3500;
@@ -301,6 +303,10 @@ namespace AutoCADCommands
             double pMinY = double.MaxValue;
             double pMaxX = double.MinValue;
             double pMaxY = double.MinValue;
+
+            int ibegin = 0;
+            Point3d lineBegin = new Point3d();
+
             while (true)
             {
                 pCout++;
@@ -318,6 +324,22 @@ namespace AutoCADCommands
                 }
                 ps.Add(p1);
                 PointInfo pi1 = GetPointInfo(p1);
+
+                if (ibegin == 0)
+                {
+                    lineBegin = p1;
+                    ibegin = 1;
+                }
+                else
+                {
+                    var leftLine = Draw.Line(lineBegin, p1);
+                    lineBegin = p1;
+                   // leftLine.SetLayer("aaa");
+
+                    leftLine.QOpenForWrite<Entity>(line => line.ColorIndex = 3);
+                    var arrow = Modify.Group(new[] { leftLine });   
+                }
+
                 pis.Add(pi1);
 
                 if (p1.X < pMinX)

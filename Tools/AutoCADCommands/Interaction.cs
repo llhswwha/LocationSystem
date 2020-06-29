@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 using ColorDialog = Autodesk.AutoCAD.Windows.ColorDialog;
@@ -428,8 +429,72 @@ namespace Dreambuild.AutoCAD
             var ed = Application.DocumentManager.MdiActiveDocument.Editor;
             var res = ed.SelectCrossingWindow(pt1, pt2, new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, allowedType) }));
             if (res.Status == PromptStatus.OK)
-            {
+            {   
                 return res.Value.GetObjectIds();
+            }
+
+            if(res.Status == PromptStatus.Error)
+            {
+                Point3dCollection p3d = new Point3dCollection();
+
+                p3d.Add(pt1);
+                p3d.Add(pt2);
+
+                for (int i = 1; i< 5; i++)
+                {
+                    res = ed.SelectWindow(pt1, pt2, new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, allowedType) }));
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    res = ed.SelectCrossingPolygon(p3d,new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, allowedType) }));
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+
+                    res = ed.SelectCrossingPolygon(p3d);
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    res = ed.SelectImplied();
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    res = ed.SelectWindowPolygon(p3d);
+
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+
+                    res = ed.SelectWindowPolygon(p3d, new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, allowedType) }));
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    res = ed.SelectFence(p3d);
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    res = ed.SelectFence(p3d, new SelectionFilter(new[] { new TypedValue((int)DxfCode.Start, allowedType) }));
+                    if (res.Status == PromptStatus.OK)
+                    {
+                        return res.Value.GetObjectIds();
+                    }
+
+                    Thread.Sleep(500);
+                }
             }
 
             return Array.Empty<ObjectId>();

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList>
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30065" Describe="1号流量计工况体积流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30067" Describe="1号流量计标况体积流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30069" Describe="1号流量计能量流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30071" Describe="1号流量计工况体积累计量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30073" Describe="1号流量计标况体积累计量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA30075" Describe="1号流量计能量累计量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40043" Describe="2号流量计工况体积流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40045" Describe="2号流量计标况体积流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40047" Describe="2号流量计能量流量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40049" Describe="2号流量计工况体积累计量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40051" Describe="2号流量计标况体积累计量" ParentKKS="调压站" Time="0" />
+  <DevMonitorNode Id="0" TagName="N1DCS.RSTA40053" Describe="2号流量计能量累计量" ParentKKS="调压站" Time="0" />
+</DevMonitorNodeList>

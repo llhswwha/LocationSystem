@@ -36,6 +36,8 @@ namespace LocationServices.Converters
             item2.AlarmTimeStamp = item1.AlarmTimeStamp;
             if (item1.DevInfo != null)
                 item2.AreaId = item1.DevInfo.ParentId ?? 0;
+            item2.HistoryTime = item1.HistoryTime;
+            item2.HistoryTimeStamp = item1.HistoryTimeStamp;
             return item2;
         }
 

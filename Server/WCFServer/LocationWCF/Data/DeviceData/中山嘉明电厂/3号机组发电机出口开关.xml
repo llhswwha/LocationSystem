@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="28823" TagName="30BAC01GS202TD" Describe="#3发电机LCI隔离刀(GS202)分闸" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2261" TagName="30BAC01GS202TP" Describe="#3发电机LCI隔离刀(GS202)分闸位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="28822" TagName="30BAC01GS202RD" Describe="#3发电机LCI隔离刀(GS202)合闸" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4272" TagName="30BAC01GS202LP" Describe="#3发电机LCI隔离刀(GS202)控制电" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2260" TagName="30BAC01GS202RP" Describe="#3发电机LCI隔离刀(GS202)运行位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2140" TagName="30BAC01GS301TP" Describe="#3发电机出口地刀1(GS301)分闸位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2139" TagName="30BAC01GS301RP" Describe="#3发电机出口地刀1(GS301)运行位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2263" TagName="30BAC01GS302TP" Describe="#3发电机出口地刀2(GS302)分闸位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2262" TagName="30BAC01GS302RP" Describe="#3发电机出口地刀2(GS302)运行位" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="28818" TagName="30BAC01GS101TD1" Describe="#3发电机出口断路器分闸（一）" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="28819" TagName="30BAC01GS101TD2" Describe="#3发电机出口断路器分闸（二）" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2279" TagName="30BAC01GS101TP" Describe="#3发电机出口断路器分闸位置" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4242" TagName="30BAC01GS101LP" Describe="#3发电机出口断路器控制电源消失" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2310" TagName="30BAC01GS101RP" Describe="#3发电机出口断路器运行位置" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="28821" TagName="30BAC01GS201TD" Describe="#3发电机出口隔离刀(GS201)分闸" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2138" TagName="30BAC01GS201TP" Describe="#3发电机出口隔离刀(GS201)分闸" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="28820" TagName="30BAC01GS201RD" Describe="#3发电机出口隔离刀(GS201)合闸" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4269" TagName="30BAC01GS201LP" Describe="#3发电机出口隔离刀(GS201)控制" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="2137" TagName="30BAC01GS201RP" Describe="#3发电机出口隔离刀(GS201)运行" Unit="" ParentKKS="3号机组发电机出口开关" Time="0" />
+</DevMonitorNodeList>

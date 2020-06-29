@@ -10,6 +10,8 @@ using TModel.BaseData;
 using TModel.Location.AreaAndDev;
 using LocationServices.Locations.Services;
 using DbModel.Location.Alarm;
+using TModel.FuncArgs;
+using TModel.Location.Alarm;
 
 namespace WebApiService.Controllers
 {
@@ -96,6 +98,12 @@ namespace WebApiService.Controllers
         public DevAlarm Put(DevAlarm item)
         {
             return service.Put(item);
+        }
+        [Route("AllAlarms")]
+        [HttpPost]
+        public AllAlarms GetAllAlarmsByPerson(AlarmSearchArgAll args)
+        {
+            return service.GetAllAlarmsByPerson(args);
         }
     }
 }

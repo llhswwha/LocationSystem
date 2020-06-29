@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="898" TagName="30PCB32CT001" Describe="水水交换器B开式循环水出口温度" Unit="" ParentKKS="3号机组B水-水热交换器" Time="0" />
+</DevMonitorNodeList>

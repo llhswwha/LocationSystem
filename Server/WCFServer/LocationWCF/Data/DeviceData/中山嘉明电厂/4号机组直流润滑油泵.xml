@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="32185" TagName="40S2_L63SE_RUN" Describe="Emerg.SealOilPumpRun-Clo" Unit="" ParentKKS="4号机组直流润滑油泵" Time="0" />
+  <DevMonitorNode Time="0" ParentKKS="4号机组直流润滑油泵" Unit="" Describe="EmergencyLubeOilPumpRunnin" TagName="40S2_L63QE_RUN" Id="32182"/>
+</DevMonitorNodeList>

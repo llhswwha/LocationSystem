@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="30849" TagName="40S2_HYD_PUR1" Describe="H2Analyzer#1Purity" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Id="30850" TagName="40S2_HYD_PUR2" Describe="H2Analyzer#2Purity" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Id="30848" TagName="40S2_HYD" Describe="HydraulicFluidPressure" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Id="30851" TagName="40S2_HYD_PUR_CAS" Describe="HydrogenPurityValueatCasin" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Id="30852" TagName="40S2_HYD_PUR_CE" Describe="HydrogenPurityValueatColle" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Id="30853" TagName="40S2_HYD_PUR_TE" Describe="HydrogenPurityValueatTurbi" Unit="" ParentKKS="4号机组液压油母管1、2号蓄能器" Time="0" />
+  <DevMonitorNode Time="0" ParentKKS="4号机组液压油母管1、2号蓄能器" Unit="" Describe="HydraulicFluidReservoirTemp" TagName="40S2_TT_HYD" Id="31097"/>
+  <DevMonitorNode Time="0" ParentKKS="4号机组液压油母管1、2号蓄能器" Unit="" Describe="HydFluidPump#1Running-Clos" TagName="40S2_L63HQ1_RUN" Id="32168"/>
+  <DevMonitorNode Time="0" ParentKKS="4号机组液压油母管1、2号蓄能器" Unit="" Describe="HydFluidPump#2Running-Clos" TagName="40S2_L63HQ2_RUN" Id="32169"/>
+</DevMonitorNodeList>

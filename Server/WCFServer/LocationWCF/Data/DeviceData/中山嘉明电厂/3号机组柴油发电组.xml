@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="1014" TagName="30XKA01CE101" Describe="#3柴油发电机电流" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2404" TagName="30XKA01GS101P2" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2402" TagName="30XKA01GS101SC" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2400" TagName="30XKA01GS101LP" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="44075" TagName="30XKA01GS101P1" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28889" TagName="30XKA01GS101TD" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28888" TagName="30XKA01GS101RD" Describe="380V保安段柴油发电机进线断路" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28893" TagName="30XKA01TD" Describe="停止柴油发电机" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28891" TagName="30XKA01GS102TD" Describe="停止柴油发电机出口开关" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28892" TagName="30XKA01RD" Describe="启动柴油发电机" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28890" TagName="30XKA01GS102RD" Describe="启动柴油发电机出口开关" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="28887" TagName="30XKA01EH105" Describe="柴油发电机DCS启机灯亮" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2343" TagName="30XKA01TP" Describe="柴油发电机停止" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2344" TagName="30XKA01EH101" Describe="柴油发电机在自动运行方式" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2346" TagName="30XKA01EH103" Describe="柴油发电机机组三次自启动失败报" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="44074" TagName="30XKA01EH104" Describe="柴油发电机机组整体故障" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2345" TagName="30XKA01EH102" Describe="柴油发电机油箱异常" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2342" TagName="30XKA01RP" Describe="柴油发电机运行" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2309" TagName="30XKA01GS101TP" Describe="柴油发电机进线开关分闸位置" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2399" TagName="30XKA01GS101RP" Describe="柴油发电机进线开关合闸位置" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+  <DevMonitorNode Id="2401" TagName="30XKA01GS101RC" Describe="柴油发电机进线开关在遥控位置" Unit="" ParentKKS="3号机组柴油发电组" Time="0" />
+</DevMonitorNodeList>

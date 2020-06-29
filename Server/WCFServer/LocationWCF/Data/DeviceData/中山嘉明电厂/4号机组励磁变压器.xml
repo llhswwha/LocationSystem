@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="2781" TagName="40BBA00CE101" Describe="#4高压厂变6kVA分支工作进线电" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2782" TagName="40BBA00CE102" Describe="#4高压厂变6kVB分支备用进线电" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2785" TagName="40BBA00CE111" Describe="380V1B工作段至MCC1E馈线电流" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2783" TagName="40BBA00CE104" Describe="6kV#4LCI馈线电流" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2784" TagName="40BBA00CE105" Describe="6kV#4励磁馈线电流" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54122" TagName="40BBA00GT301P2" Describe="6kV1A段母线PT低电压保护回路0.5" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54123" TagName="40BBA00GT301P3" Describe="6kV1A段母线PT低电压保护回路9秒" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="33344" TagName="40BBA00GT301P1" Describe="6kV1A段母线PT电压回路断线" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="33345" TagName="40BBA00GT301P6" Describe="6kV1A段母线PT直流回路断线" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54124" TagName="40BBA00GT301P5" Describe="6kV1A段母线PT装置异常告警及消" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4763" TagName="40BBA00GT301P4" Describe="6kV1A段母线过电压" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54377" TagName="40BBA00GS104-MOD" Describe="6kVLCI馈线断路器" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54113" TagName="40BBA00GS104P1" Describe="6kVLCI馈线断路器保护告警" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54114" TagName="40BBA00GS104P2" Describe="6kVLCI馈线断路器保护跳闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4522" TagName="40BBA00GS104TD" Describe="6kVLCI馈线断路器分闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4759" TagName="40BBA00GS104TP" Describe="6kVLCI馈线断路器分闸位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4521" TagName="40BBA00GS104RD" Describe="6kVLCI馈线断路器合闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4585" TagName="40BBA00GS104RP" Describe="6kVLCI馈线断路器合闸位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54115" TagName="40BBA00GS104RC" Describe="6kVLCI馈线断路器在遥控位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54116" TagName="40BBA00GS104SC" Describe="6kVLCI馈线断路器弹簧储能" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54112" TagName="40BBA00GS104LP" Describe="6kVLCI馈线断路器控制电源消失" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54382" TagName="40BBA00GS105-MOD" Describe="6kV励磁变馈线断路器" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54118" TagName="40BBA00GS105P1" Describe="6kV励磁变馈线断路器保护告警" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54119" TagName="40BBA00GS105P2" Describe="6kV励磁变馈线断路器保护跳闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4524" TagName="40BBA00GS105TD" Describe="6kV励磁变馈线断路器分闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4760" TagName="40BBA00GS105TP" Describe="6kV励磁变馈线断路器分闸位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4523" TagName="40BBA00GS105RD" Describe="6kV励磁变馈线断路器合闸" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4588" TagName="40BBA00GS105RP" Describe="6kV励磁变馈线断路器合闸位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54120" TagName="40BBA00GS105RC" Describe="6kV励磁变馈线断路器在遥控位置" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54121" TagName="40BBA00GS105SC" Describe="6kV励磁变馈线断路器弹簧储能" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="54117" TagName="40BBA00GS105LP" Describe="6kV励磁变馈线断路器控制电源消" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="5368" TagName="40BBA00CE202-OK" Describe="6KV工作1A段线电压正常" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2787" TagName="40BBA00CE203" Describe="6kV工作IA段AN相电压" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2788" TagName="40BBA00CE204" Describe="6kV工作IA段BN相电压" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2789" TagName="40BBA00CE205" Describe="6kV工作IA段CN相电压" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2786" TagName="40BBA00CE202" Describe="6kV工作IA段线电压" Unit="" ParentKKS="4号机组励磁变压器" Time="0" />
+</DevMonitorNodeList>

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="31152" TagName="40MGK10CT101" Describe="#4机发电机氢气露点" Unit="" ParentKKS="4号机组吸附式氢气干燥器控制柜" Time="0" />
+</DevMonitorNodeList>

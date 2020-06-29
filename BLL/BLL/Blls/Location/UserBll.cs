@@ -72,6 +72,19 @@ namespace BLL.Blls.Location
             return user;
         }
 
+        public User GetById(int id)
+        {
+            User user = this.FirstOrDefault(i=>i.Id==id);
+            return user;
+        }
+
+        public User DeleteById(int id)
+        {
+            var user = this.GetById(id);
+            if (user == null) return null;
+            return DeleteById(user.Id);
+        }
+
         public void Login(LoginInfo info)
         {
             User user = GetByName(info.UserName);
@@ -117,6 +130,13 @@ namespace BLL.Blls.Location
             user.ClientPort = info.ClientPort;
             user.IsEncrypted = info.IsEncrypted;
             user.Result = info.Result;
+        }
+
+      
+
+        public override bool Add(User item, bool isSave = true)
+        {
+            return base.Add(item, isSave);
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="969" TagName="30BBA00CE101" Describe="#3高压厂变6kVA分支工作进线电" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="970" TagName="30BBA00CE102" Describe="#3高压厂变6kVB分支备用进线电" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="973" TagName="30BBA00CE111" Describe="380V1B工作段至MCC1E馈线电流" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="971" TagName="30BBA00CE104" Describe="6kV#3LCI馈线电流" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="972" TagName="30BBA00CE105" Describe="6kV#3励磁馈线电流" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2280" TagName="30BBA00GT301P2" Describe="6kV1A段母线PT低电压保护回路" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2281" TagName="30BBA00GT301P3" Describe="6kV1A段母线PT低电压保护回路9秒" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4316" TagName="30BBA00GT301P1" Describe="6kV1A段母线PT电压回路断线" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2377" TagName="30BBA00GT301P6" Describe="6kV1A段母线PT直流回路断线" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2376" TagName="30BBA00GT301P5" Describe="6kV1A段母线PT装置异常告警及消" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2282" TagName="30BBA00GT301P4" Describe="6kV1A段母线过电压" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4306" TagName="30BBA00GS104P1" Describe="6kVLCI馈线断路器保护告警" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2383" TagName="30BBA00GS104P2" Describe="6kVLCI馈线断路器保护跳闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="28827" TagName="30BBA00GS104TD" Describe="6kVLCI馈线断路器分闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2283" TagName="30BBA00GS104TP" Describe="6kVLCI馈线断路器分闸位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="28826" TagName="30BBA00GS104RD" Describe="6kVLCI馈线断路器合闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2378" TagName="30BBA00GS104RP" Describe="6kVLCI馈线断路器合闸位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2380" TagName="30BBA00GS104RC" Describe="6kVLCI馈线断路器在遥控位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2381" TagName="30BBA00GS104SC" Describe="6kVLCI馈线断路器弹簧储能" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4303" TagName="30BBA00GS104LP" Describe="6kVLCI馈线断路器控制电源消失" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4314" TagName="30BBA00GS105P1" Describe="6kV励磁变馈线断路器保护告警" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2389" TagName="30BBA00GS105P2" Describe="6kV励磁变馈线断路器保护跳闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="28829" TagName="30BBA00GS105TD" Describe="6kV励磁变馈线断路器分闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2284" TagName="30BBA00GS105TP" Describe="6kV励磁变馈线断路器分闸位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="28828" TagName="30BBA00GS105RD" Describe="6kV励磁变馈线断路器合闸" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2384" TagName="30BBA00GS105RP" Describe="6kV励磁变馈线断路器合闸位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2386" TagName="30BBA00GS105RC" Describe="6kV励磁变馈线断路器在遥控位置" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="2387" TagName="30BBA00GS105SC" Describe="6kV励磁变馈线断路器弹簧储能" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="4312" TagName="30BBA00GS105LP" Describe="6kV励磁变馈线断路器控制电源消" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="975" TagName="30BBA00CE203" Describe="6kV工作IA段AN相电压" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="976" TagName="30BBA00CE204" Describe="6kV工作IA段BN相电压" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="977" TagName="30BBA00CE205" Describe="6kV工作IA段CN相电压" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+  <DevMonitorNode Id="974" TagName="30BBA00CE202" Describe="6kV工作IA段线电压" Unit="" ParentKKS="3号机组励磁变压器" Time="0" />
+</DevMonitorNodeList>

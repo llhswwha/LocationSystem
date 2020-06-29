@@ -42,6 +42,9 @@ namespace DbModel.Location.AreaAndDev
         [Display(Name = "卡状态")]
         public int State { get; set; }
 
+        [DataMember]
+        [Display(Name = "人员对接Id")]
+        public string PersonnelAbutment_Id { get; set; }
         public EntranceGuardCard Clone()
         {
             EntranceGuardCard copy = new EntranceGuardCard();
@@ -57,7 +60,6 @@ namespace DbModel.Location.AreaAndDev
             history.Abutment_Id = this.Abutment_Id;
             history.Code = this.Code;
             history.State = this.State;
-           
             history.HistoryTime = DateTime.Now;
             history.HistoryTimeStamp = TimeConvert.ToStamp(history.HistoryTime);
 

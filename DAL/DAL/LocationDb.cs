@@ -158,6 +158,8 @@ namespace DAL
 
         public DbSet<DbModel.Location.Work.WorkTicket> WorkTickets { get; set; }
 
+        public DbSet<OperationTicketSH> OpeartionTicketSHs { get; set; } 
+
         public DbSet<DbModel.Location.AreaAndDev.Dev_DoorAccess> Dev_DoorAccess { get; set; }
 
         public DbSet<DbModel.Location.AreaAndDev.Dev_CameraInfo> Dev_CameraInfos { get; set; }
@@ -180,5 +182,7 @@ namespace DAL
 
         public DbSet<User> Users { get; set; }
         public DbSet<CameraAlarmJson> CameraAlarmJsonBll { get; set; }
+
+        public DbSet<PersonnelFirstInArea> PersonnelFirstInAreas { get; set; }
     }
 }

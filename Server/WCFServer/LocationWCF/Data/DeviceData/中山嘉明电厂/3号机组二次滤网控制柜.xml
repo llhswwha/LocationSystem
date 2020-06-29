@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="881" TagName="30PAB11CP302" Describe="二次滤网A前后差压" Unit="" ParentKKS="3号机组二次滤网控制柜" Time="0" />
+  <DevMonitorNode Id="6437" TagName="30PAB11CP401_H" Describe="二次滤网A前后差压高" Unit="" ParentKKS="3号机组二次滤网控制柜" Time="0" />
+  <DevMonitorNode Id="885" TagName="30PAB12CP302" Describe="二次滤网B前后差压" Unit="" ParentKKS="3号机组二次滤网控制柜" Time="0" />
+  <DevMonitorNode Id="6447" TagName="30PAB12CP401_H" Describe="二次滤网B前后差压高" Unit="" ParentKKS="3号机组二次滤网控制柜" Time="0" />
+</DevMonitorNodeList>

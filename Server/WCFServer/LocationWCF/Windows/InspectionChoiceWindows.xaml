@@ -19,6 +19,7 @@
             <MenuItem Header="开始接收" Name="MenuStartReceive" Click="MenuStartReceive_Click"></MenuItem>
             <MenuItem Header="模拟数据接收" Name="MenuZhongShan" Click="MenuZhongShan_Click"></MenuItem>
             <MenuItem Header="OPC模拟" Name="MenuOPC" Click="MenuOPC_Click"></MenuItem>
+            <MenuItem Header="四会两票数据导入" Name="TicketIn" Click="TicketIn_Click"></MenuItem>
         </Menu>
         <ScrollViewer DockPanel.Dock="Bottom" Height="100">
             <TextBox Name="TbLogs"></TextBox>

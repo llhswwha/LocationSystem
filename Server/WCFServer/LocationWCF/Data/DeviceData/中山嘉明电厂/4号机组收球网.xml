@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="4072" TagName="40PAH11CP401H" Describe="A侧收球网前后差压高" Unit="" ParentKKS="4号机组收球网" Time="0" />
+  <DevMonitorNode Id="4050" TagName="40PAH12CP401H" Describe="B侧收球网前后差压高" Unit="" ParentKKS="4号机组收球网" Time="0" />
+  <DevMonitorNode Id="3411" TagName="40PAH11CP302" Describe="收球网A前后差压" Unit="" ParentKKS="4号机组收球网" Time="0" />
+  <DevMonitorNode Id="3413" TagName="40PAH12CP302" Describe="收球网B前后差压" Unit="" ParentKKS="4号机组收球网" Time="0" />
+</DevMonitorNodeList>

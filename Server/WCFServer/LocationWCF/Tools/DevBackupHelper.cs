@@ -9,6 +9,7 @@ using Location.TModel.Location.AreaAndDev;
 using LocationServices.Locations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,7 +25,7 @@ namespace LocationServer.Tools
             {
                 LocationService service = new LocationService();
                 var devlist = service.GetAllDevInfos().ToList();
-                Log.Info(LogTags.DbInit, "Init NoramlDev...");
+                Log.Info(LogTags.DbInit, "Init NoramlDev,Path:"+GetSaveDevDirectory());
                 DateTime recordT = DateTime.Now;
                 //1.备份普通设备
                 SaveNormalDev(devlist, service);
@@ -53,6 +54,22 @@ namespace LocationServer.Tools
             thread.Start();          
         }
 
+        /// <summary>
+        /// 获取保存设备的文件夹
+        /// </summary>
+        /// <returns></returns>
+        private string GetSaveDevDirectory()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\" + DbModel.AppSetting.ParkName + "\\";
+        }
+        /// <summary>
+        /// 获取Vs下保存目录
+        /// </summary>
+        /// <returns></returns>
+        private string GetVsSaveDirctory()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory + "..\\..\\"+ "Data\\设备信息\\" + DbModel.AppSetting.ParkName + "\\";
+        }
 
         #region 普通设备备份
         /// <summary>
@@ -96,18 +113,37 @@ namespace LocationServer.Tools
             {
                 backUpList.DevList.AddRange(deleteDevs);
             }
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DevInfoBackup.xml";
+            //string dirctory = GetSaveDevDirectory();
+            //string initFile = dirctory+"DevInfoBackup.xml";
+            //XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            SaveNormalDevXml("DevInfoBackup.xml",backUpList);
+        }
+        private void SaveNormalDevXml(string fileWithExtension,DevInfoBackupList backUpList)
+        {
+            //拷贝到Bin目录下
+            string dirctory = GetSaveDevDirectory();
+            string initFile = dirctory + fileWithExtension;
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+
+            //直接保存到Vs目录
+            string vsDirctory = GetVsSaveDirctory();
+            if(Directory.Exists(vsDirctory))
+            {
+                string vsSaveFile = vsDirctory + fileWithExtension;
+                XmlSerializeHelper.Save(backUpList, vsSaveFile, Encoding.UTF8);
+            }
         }
         private static string DeleteTypeCode = "DeleteDev";
         /// <summary>
-        /// 删除没再使用的设备
+        /// 记录删除的设备（如果有设备被删除，备份时会被记录下来，TypeCode="DeleteDev",还原时这些设备不会被还原）
+        /// 作用（当出现错误删除时，可以利用这些删除记录还原）
         /// </summary>
         /// <param name="devInfoList"></param>
         /// <returns></returns>
         private List<DevInfoBackup> AddDeleteDev(List<Location.TModel.Location.AreaAndDev.DevInfo> devInfoList)
         {
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DevInfoBackup.xml";
+            //1.加载上一次的设备备份信息
+            string filePath = GetSaveDevDirectory()+"DevInfoBackup.xml";
             var initInfo = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
             List<DevInfoBackup> devInfos = initInfo.DevList;
             List<DevInfoBackup> deleteInfos = new List<DevInfoBackup>();
@@ -117,13 +153,14 @@ namespace LocationServer.Tools
                 foreach(var item in devInfos)
                 {
                     if (item.TypeCode == DeleteTypeCode) continue;
+                    //2.如果上一次备份的设备，在现在的数据库找不到。说明被删除了，记录下来。
                     if (!string.IsNullOrEmpty(item.DevId)&&!devDic.ContainsKey(item.DevId))
                     {                        
                         deleteInfos.Add(item);
                     }
                 }
             }
-            string deleteInfoPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DeleteInfoBackup.xml";
+            string deleteInfoPath = GetSaveDevDirectory() + "DeleteInfoBackup.xml";
             if (deleteInfos.Count != 0)
             {
                 var deleteBackup = XmlSerializeHelper.LoadFromFile<DevInfoBackupList>(filePath);
@@ -227,10 +264,25 @@ namespace LocationServer.Tools
 
                 backUpList.DevList.Add(dev);
             }
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\CameraInfoBackup.xml";
-            XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            //string initFile = GetSaveDevDirectory()+"CameraInfoBackup.xml";
+            //XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            SaveCameraDevXml("CameraInfoBackup.xml",backUpList);
         }
+        private void SaveCameraDevXml(string fileWithExtension, CameraInfoBackUpList backUpList)
+        {
+            //拷贝到Bin目录下
+            string dirctory = GetSaveDevDirectory();
+            string initFile = dirctory + fileWithExtension;
+            XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
 
+            //直接保存到Vs目录
+            string vsDirctory = GetVsSaveDirctory();
+            if (Directory.Exists(vsDirctory))
+            {
+                string vsSaveFile = vsDirctory + fileWithExtension;
+                XmlSerializeHelper.Save(backUpList, vsSaveFile, Encoding.UTF8);
+            }
+        }
         #endregion
         #region 基站设备
         /// <summary>
@@ -303,10 +355,25 @@ namespace LocationServer.Tools
                 }
                 areaList.DevList.Add(dev);
             }
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\基站信息\\基站信息.xml";
-            XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            //string initFile = GetSaveDevDirectory() + "基站信息.xml";
+            //XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            SaveArchorDevXml("基站信息.xml",backUpList);
         }
+        private void SaveArchorDevXml(string fileWithExtension, LocationDeviceList backUpList)
+        {
+            //拷贝到Bin目录下
+            string dirctory = GetSaveDevDirectory();
+            string initFile = dirctory + fileWithExtension;
+            XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
 
+            //直接保存到Vs目录
+            string vsDirctory = GetVsSaveDirctory();
+            if (Directory.Exists(vsDirctory))
+            {
+                string vsSaveFile = vsDirctory + fileWithExtension;
+                XmlSerializeHelper.Save(backUpList, vsSaveFile, Encoding.UTF8);
+            }
+        }
 
         #endregion
         #region 门禁设备
@@ -355,11 +422,6 @@ namespace LocationServer.Tools
                 dev.ParentName = GetAreaPath((int)item.ParentId, service);
                 dev.TypeCode = item.DevInfo.TypeCode.ToString();
 
-                if(dev.Name== "集控楼4.5米集控室大门(左)")
-                {
-                    int idc = 0;
-                }
-
                 DevPos pos = item.DevInfo.Pos;
 
                 dev.RotationX = pos.RotationX.ToString();
@@ -378,8 +440,24 @@ namespace LocationServer.Tools
                 dev.Local_DevId = item.DevID;
                 backUpList.DevList.Add(dev);
             }
-            string initFile = AppDomain.CurrentDomain.BaseDirectory + "Data\\设备信息\\DoorAccessBackup.xml";
+            //string initFile = GetSaveDevDirectory() + "DoorAccessBackup.xml";
+            //XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+            SaveDoorAccessDevXml("DoorAccessBackup.xml",backUpList);
+        }
+        private void SaveDoorAccessDevXml(string fileWithExtension, DoorAccessList backUpList)
+        {
+            //拷贝到Bin目录下
+            string dirctory = GetSaveDevDirectory();
+            string initFile = dirctory + fileWithExtension;
             XmlSerializeHelper.Save(backUpList, initFile, Encoding.UTF8);
+
+            //直接保存到Vs目录
+            string vsDirctory = GetVsSaveDirctory();
+            if (Directory.Exists(vsDirctory))
+            {
+                string vsSaveFile = vsDirctory + fileWithExtension;
+                XmlSerializeHelper.Save(backUpList, vsSaveFile, Encoding.UTF8);
+            }
         }
         #endregion
         /// <summary>
@@ -400,5 +478,6 @@ namespace LocationServer.Tools
             }
             return parentName;
         }
+        
     }
 }

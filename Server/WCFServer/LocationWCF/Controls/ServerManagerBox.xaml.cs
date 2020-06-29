@@ -1,8 +1,6 @@
-﻿using LocationWCFService.ServiceHelper;
-using LocationWCFServices;
+﻿using LocationWCFServices;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,10 +12,8 @@ using System.Windows.Threading;
 using DbModel.Tools;
 using LocationServices.LocationCallbacks;
 using LocationServices.Locations;
-using LocationWCFService;
 using System.Web.Http.SelfHost;
 using WebApiService;
-using LocationServices.Tools;
 using Microsoft.Owin.Hosting;
 using SignalRService.Hubs;
 
@@ -25,38 +21,20 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using System.Windows.Controls;
 using BLL;
-using DbModel.LocationHistory.Data;
 using EngineClient;
-using Location.BLL;
-using Location.TModel.Location.Alarm;
-using Location.TModel.Location.AreaAndDev;
-using LocationServer;
-using LocationServer.Windows;
 using LocationServices.Converters;
 using LocationServices.Locations.Interfaces;
-using TModel.Location.Data;
-using TModel.Tools;
 using WebNSQLib;
 using LocationServer.Tools;
-using System.Net;
-using WebApiCommunication.ExtremeVision;
-using Newtonsoft.Json;
 using Location.BLL.Tool;
-using System.Text;
 using WebApiLib.Clients;
 using NsqSharp.Utils;
-using BLL.Blls.Location;
-using BLL.Blls;
-using DbModel.Location.Alarm;
-using DbModel.Others;
 using NVSPlayer;
-using DbModel.Location.AreaAndDev;
 using System.Collections.Concurrent;
 using DbModel;
 using Location.TModel.Tools;
 using LocationServer.Threads;
 using Base.Common.Threads;
-using Base.Common.Tools;
 using ArchorUDPTool.Tools;
 
 namespace LocationServer.Controls
@@ -465,6 +443,22 @@ namespace LocationServer.Controls
 
                 //StartCheckRepeatDev();
                 StartDBBackupThread();
+                //获取sis数据线程
+                StartSaveDevMonitorNodeThread();
+                //启动四会操作票刷新数据
+                StartSaveOperationTicketSH();
+                //保存实时测点数据
+                StartSavePointHistory();
+                //启动四会工作票刷新数据
+                StartSaveWorkTicketSH();
+                //启动四会签到告警产生及处理
+                StartProduceSignInAlarm();
+                //四会保存门禁历史信息
+                StartCardActionsThread();
+                //四会门禁卡信息
+                StartSaveEntranceguardCards();
+                //清除历史数据（需在线程中添加需要清除的表）
+                DeleteHistoryData();
             }
             catch (Exception ex)
             {
@@ -606,6 +600,115 @@ namespace LocationServer.Controls
                 dbBackupThread.Start();
             }
         }
+
+        private DevMonitorNodeThread nodeThread;
+        /// <summary>
+        /// 启动保存sis数据线程（实时更新）
+        /// </summary>
+        private void StartSaveDevMonitorNodeThread()
+        {
+            bool isSaveMonitor = ConfigurationHelper.GetBoolValue("EnableSaveDevMonitorNode");
+            if (!isSaveMonitor) return;
+            nodeThread = new DevMonitorNodeThread();
+            nodeThread.Start();
+        }
+        private OperationTicketSHThread ticketSHThread;
+        /// <summary>
+        /// 启动四会操作票刷新数据
+        /// </summary>
+        private void StartSaveOperationTicketSH()
+        {
+            bool isSaveTicketSH = ConfigurationHelper.GetBoolValue("EnableOperationTicketSH");
+            if (!isSaveTicketSH) return;
+            string strIp = AppContext.DatacaseWebApiUrl;
+            string port = AppContext.DatacaseWebApiPort;
+            ticketSHThread = new OperationTicketSHThread(strIp,port);
+            ticketSHThread.Start();
+        }
+        private WorkTicketSHThread workTicketSHThread;
+        /// <summary>
+        /// 启动四会工作票刷新数据
+        /// </summary>
+        private void StartSaveWorkTicketSH()
+        {
+            // EnableSaveWorkTicketSH
+            bool isSaveWorkTicket = ConfigurationHelper.GetBoolValue("EnableSaveWorkTicketSH");
+            if (!isSaveWorkTicket) return;
+            string strIp = AppContext.DatacaseWebApiUrl;
+            string port = AppContext.DatacaseWebApiPort;
+            workTicketSHThread = new WorkTicketSHThread(strIp,port);
+            workTicketSHThread.Start();
+        }
+
+        private SignInAlarmThread signInAlarmThread;
+        /// <summary>
+        /// 启动四会签到告警产生及处理
+        /// </summary>
+        private void StartProduceSignInAlarm()
+        {
+            bool isProduceAlarm = ConfigurationHelper.GetBoolValue("EnableProduceSignInAlarm");
+            if (!isProduceAlarm) return;
+            signInAlarmThread = new SignInAlarmThread();
+            signInAlarmThread.Start();
+        }
+
+        private CardsActionsThread cardActionsThread;
+        /// <summary>
+        /// 启动四会保存门禁历史信息
+        /// </summary>
+        private void StartCardActionsThread()
+        {
+            bool isStart = ConfigurationHelper.GetBoolValue("EnableCardsActions");
+            if (!isStart) return;
+            string strIp = AppContext.DatacaseWebApiUrl;
+            string port = AppContext.DatacaseWebApiPort;
+            cardActionsThread = new CardsActionsThread(strIp,port);
+            cardActionsThread.Start();
+        }
+        private EntranceguardCardsThread entranceguardCardsThread;
+        /// <summary>
+        /// 启动四会门禁卡信息
+        /// </summary>
+        private void StartSaveEntranceguardCards()
+        {
+            bool isStart = ConfigurationHelper.GetBoolValue("EnableCardsActions");  //跟获取门禁历史信息同步
+            if (!isStart) return;
+            string strIp = AppContext.DatacaseWebApiUrl;
+            string port = AppContext.DatacaseWebApiPort;
+            entranceguardCardsThread = new EntranceguardCardsThread(strIp,port);
+            entranceguardCardsThread.Start();
+        }
+
+        private DeleteHistoryDataThread deleteHistoryDataThread;
+        /// <summary>
+        /// 清除历史数据
+        /// </summary>
+        private void DeleteHistoryData()
+        {
+            bool isStart = ConfigurationHelper.GetBoolValue("EnableDeleteHistoryData");
+            if (!isStart) return;
+            deleteHistoryDataThread = new DeleteHistoryDataThread();
+            deleteHistoryDataThread.Start();
+        }
+
+
+
+
+        private PointHistoryThread pointHistoryThread;
+        /// <summary>
+        /// 保存实时测点数据（嘉明）
+        /// </summary>
+        private void StartSavePointHistory()
+        {
+            bool isSavePoint = ConfigurationHelper.GetBoolValue("EnableSavePoint");
+            if (!isSavePoint) return;
+            pointHistoryThread = new PointHistoryThread();
+            pointHistoryThread.Start();
+        }
+
+
+       
+
         /// <summary>
         /// 停止数据库备份线程
         /// </summary>
@@ -742,6 +845,8 @@ namespace LocationServer.Controls
         {
             string path = string.Format("http://{0}:{1}/", host, port);
             var config = new HttpSelfHostConfiguration(path);
+            config.MaxBufferSize = int.MaxValue;
+            config.MaxReceivedMessageSize = int.MaxValue;//收取数据，如果很大会出异常。设置不限制传输大小 wk 2020.5.19
             WebApiConfiguration.Configure(config);
             httpHost = new HttpSelfHostServer(config);
             httpHost.OpenAsync().Wait();

@@ -1360,7 +1360,7 @@ namespace LocationServices.Locations
             DbModel.Location.AreaAndDev.KKSCode kksCode = KKSCodes.FirstOrDefault(p => p.Code == KKS);
             if (kksCode == null)
             {
-                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\" + KKS + ".xml";
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\" + DbModel.AppSetting.ParkName + "\\" + KKS + ".xml";
                 if (File.Exists(dirPath))
                 {
                     var list = XmlSerializeHelper.LoadFromFile<DevMonitorNodeList>(dirPath);

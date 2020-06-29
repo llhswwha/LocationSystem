@@ -51,7 +51,7 @@ namespace BLL.Tools
                 }
                 if(devInfo.TypeCode== DeleteTypeCode)
                 {
-                    RemoveDeleteDev(devInfo, bll.DevInfos);
+                    //RemoveDeleteDev(devInfo, bll.DevInfos);
                 }
                 else
                 {

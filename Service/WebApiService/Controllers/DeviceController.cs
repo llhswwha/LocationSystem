@@ -103,10 +103,18 @@ namespace WebApiService.Controllers
         {
             return service.GetListByTypes(typeList);
         }
-        [Route("detail/gameName/{gameName}")]
-        public TEntity GetDevByGameName(string nameName)
+        [Route("detail/devInfo")]
+        [HttpPost]
+        public TEntity GetDevByGameName(TEntity devTemp)
         {
-            return service.GetDevByGameName(nameName);
+            string modelName = devTemp.ModelName;
+            return service.GetDevByGameName(modelName);
+        }
+        [Route("detail/devModel")]
+        [HttpGet]
+        public TEntity GetDevByGameName(string modelName)
+        {
+            return service.GetDevByGameName(modelName);
         }
     }
 }

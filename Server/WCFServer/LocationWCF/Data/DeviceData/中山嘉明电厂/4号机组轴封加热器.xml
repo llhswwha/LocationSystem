@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="Auxilliarysteamtemperature" TagName="40S2_TT_AS" Id="31069"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="Auxilliarysteampressure" TagName="40S2_CRHP" Id="30809"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ColdReheatPressure#1" TagName="40S2_CRHP1" Id="30810"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ColdReheatPressure#2" TagName="40S2_CRHP2" Id="30812"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ColdReheatSteamPressure#1" TagName="40S2_CRHP1_P" Id="30811"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ColdReheatSteamPressure#2" TagName="40S2_CRHP2_P" Id="30813"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ColdReheatSteamPressure(in" TagName="40S2_CRHP_P" Id="30814"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="ExhaustVacuumFeedback" TagName="40S2_EV_P" Id="30835"/>
+<DevMonitorNode Id="31003" TagName="40S2_SSM" Describe="SteamSealManifoldPressure" Unit="" ParentKKS="4号机组轴封加热器" Time="0" />
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="SteamSealHeaderTemperature" TagName="40S2_TT_SSH" Id="31124"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="PackingGlandExhaustPressure" TagName="40S2_PGEP" Id="30974"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="SteamSealPressureControlSe" TagName="40S2_SSC_SP_CMD" Id="31000"/>
+<DevMonitorNode Time="0" ParentKKS="4号机组轴封加热器" Unit="" Describe="SteamSealDumpValve4-20mA" TagName="40S2_SSDV_OUT" Id="31001"/>
+</DevMonitorNodeList>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="50207" TagName="40MAJ03AP101TD" Describe="前级泵停止指令" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50205" TagName="40MAJ03AP101RD" Describe="前级泵启动指令" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50203" TagName="40MAJ03AP101CU" Describe="前级泵电流" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50204" TagName="40MAJ03AP101F" Describe="前级泵过载反馈信号" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50206" TagName="40MAJ03AP101RP" Describe="前级泵运行反馈信号" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50211" TagName="40MAJ03AP102RD" Describe="罗茨泵启动指令" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50210" TagName="40MAJ03AP102LO" Describe="罗茨泵就地控制" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50208" TagName="40MAJ03AP102CU" Describe="罗茨泵电流" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50209" TagName="40MAJ03AP102F" Describe="罗茨泵过载反馈信号" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50213" TagName="40MAJ03AP102RP" Describe="罗茨泵运行反馈信号" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+  <DevMonitorNode Id="50212" TagName="40MAJ03AP102RM" Describe="罗茨泵远方控制" Unit="" ParentKKS="4号机组罗茨泵" Time="0" />
+</DevMonitorNodeList>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="3942" TagName="40HAD70AA001OP" Describe="中压汽包至低压汽包管路关断阀已" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="4122" TagName="40HAD85AA001OP" Describe="低压汽包连续排污电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="3986" TagName="40LBA50AA402OP" Describe="低压过热蒸汽疏水电动阀开启" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="3981" TagName="40LBA50AA001OP" Describe="低压过热蒸汽主电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="3989" TagName="40LBA50AA512OP" Describe="低压过热器出口排空电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40MAN19AA001OP" Describe="中压汽机旁路闸阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBB45AA512OD" Describe="二级再热器出口启动排汽电动阀已" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBA60AA002OD" Describe="中压过热蒸汽主电动阀已关" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40HAJ40CL401H2" Describe="冷再热汽管疏水井液位开关高2位" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40HAJ40CL402H1" Describe="冷再热汽管疏水井液位开关高1位" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBA10AA004OP" Describe="高压主蒸汽旁路出口闸阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBA10AA003OP" Describe="高压过热蒸汽主电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBA15AA512OP" Describe="高压过热器出口启动排汽电动阀已" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LBA10AA191OP" Describe="高压过热汽集箱PCV已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40HAD20AA001OP" Describe="高压汽包事故放水电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LAE01AA001OP" Describe="高压过热蒸汽减温水电动阀已开" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LAF10AA101P" Describe="再热减温水调节阀反馈信号" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LAE10AA101P" Describe="高压过热器减温水调节阀反馈信号" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40LAE01CF301" Describe="高压过热器减温水流量" ParentKKS="4号机组余热锅炉" Time="0" />
+  <DevMonitorNode Id="0" TagName="40HAH30CT002" Describe="2级高过入口温度（高过减温器后" ParentKKS="4号机组余热锅炉" Time="0" />
+</DevMonitorNodeList>

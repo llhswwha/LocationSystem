@@ -258,11 +258,19 @@
     <Compile Include="Plugins\NVSPlayer\SDK\NVSSDK.cs" />
     <Compile Include="Threads\AlarmRemoveThread.cs" />
     <Compile Include="Threads\AnchorScanThread.cs" />
+    <Compile Include="Threads\CardsActionsThread.cs" />
     <Compile Include="Threads\DBBackupThread.cs" />
     <Compile Include="Threads\DbUpdateSet.cs" />
+    <Compile Include="Threads\DeleteHistoryDataThread.cs" />
+    <Compile Include="Threads\DevMonitorNodeThread.cs" />
+    <Compile Include="Threads\EntranceguardCardsThread.cs" />
     <Compile Include="Threads\FilterErrorPointThread.cs" />
+    <Compile Include="Threads\OperationTicketSHThread.cs" />
+    <Compile Include="Threads\PointHistoryThread.cs" />
     <Compile Include="Threads\RepeatDevInfoCheckThread.cs" />
     <Compile Include="Threads\ResetAppConfigThread.cs" />
+    <Compile Include="Threads\SignInAlarmThread.cs" />
+    <Compile Include="Threads\WorkTicketSHThread.cs" />
     <Compile Include="Tools\BaseDataInitializer.cs" />
     <Compile Include="Tools\BaseDataSimulator.cs" />
     <Compile Include="Tools\CameraAlarmListener.cs" />
@@ -646,7 +654,42 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Data\DeviceData\中山嘉明电厂\锅炉\高压锅炉.json" />
+    <None Include="Data\DeviceData\中山嘉明电厂\设备json\3号机组燃机.json" />
+    <None Include="Data\DeviceData\中山嘉明电厂\门禁\门禁事件.json" />
+    <None Include="Data\DeviceData\四会热电厂\设备测点列表.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\中山嘉明电厂\DoorAccessBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\InitInfos\中山嘉明电厂\部门人员门禁卡信息\人员和定位卡对应关系.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\中山嘉明电厂\CameraInfoBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\设备信息\中山嘉明电厂\DevInfoBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\设备信息\中山嘉明电厂\HKCameraList.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\四会热电厂\CameraInfoBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\四会热电厂\DeleteInfoBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\四会热电厂\DevInfoBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\四会热电厂\DoorAccessBackup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\设备信息\四会热电厂\FireFightInfoBackup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="SystemSetting.XML">
@@ -2543,6 +2586,193 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组发电机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组发电机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组真空泵排放分离器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组凝汽器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组凝汽器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\1号发电机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\1号机组负荷.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\2号机组负荷.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\2号燃气机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\3号发电机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\4号燃气机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\四会热电厂\调压站.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组真空泵排放分离器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组B水-水热交换器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组B闭式冷却水泵进口滤网.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组LCI隔离变压器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组二次滤网控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组励磁变压器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组励磁间.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组发电机出口开关.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组吸附式氢气干燥器控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组收球网.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组柴油发电机控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组柴油发电组.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组氢油差压控制器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组汽轮机汽水系统热力配电箱.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组管道输水.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组胶球清洗程控柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组自动滤水器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组闭式冷却水泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组集水坑排污泵就地控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组B水-水热交换器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组B闭式冷却水泵进口滤网.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组LCI隔离变压器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组二次滤网控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组励磁变压器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组励磁间.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组发电机出口开关.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组发电机氢气控制盘.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组吸附式氢气干燥器控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组收球网.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组柴油发电机控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组柴油发电组.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组氢油差压控制器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组汽轮机.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组汽轮机汽水系统热力配电箱.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组润滑油冷却器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组液压油母管1、2号蓄能器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组直流密封油泵启动装置.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组直流润滑油泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组直流润滑油泵启动装置.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组管道输水.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组罗茨泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组胶球清洗程控柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组自动滤水器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组轴封加热器.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组闭式冷却水泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组集水坑排污泵就地控制柜.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组余热锅炉.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组余热锅炉.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\3号机组凝结水输送泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\DeviceData\中山嘉明电厂\4号机组凝结水输送泵.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Data\KKS\中电四会部件级KKS编码2017.5.24\电气\中电四会热电有限责任公司KKS项目-电气盘柜系统-B.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2766,6 +2996,7 @@
     </None>
     <None Include="Data\设备信息\DevInfoBackup.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Data\设备模型信息\DevTypeModel.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

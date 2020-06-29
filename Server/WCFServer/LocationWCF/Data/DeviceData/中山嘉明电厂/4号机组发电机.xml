@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="3755" TagName="40M_D_AI04" Describe="发电机电压" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3756" TagName="40M_D_AI05" Describe="发电机频率" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3752" TagName="40M_D_AI01" Describe="有功功率总和" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3753" TagName="40M_D_AI02" Describe="无功功率总和" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3754" TagName="40M_D_AI03" Describe="功率因数" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3757" TagName="40M_D_AI06" Describe="IGV阀角度" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3758" TagName="40M_D_AI07" Describe="凝汽器压力（绝对压力）" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="5962" TagName="40M_D_AI07-H" Describe="@OvationControlBuilder@" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3759" TagName="40M_D_AI08" Describe="汽机一段金属温度" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3760" TagName="40M_D_AI09" Describe="ATS推荐负荷率" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3761" TagName="40M_D_AI10" Describe="主控制阀位置反馈" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3762" TagName="40M_D_AI11" Describe="ACV阀位置反馈" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3763" TagName="40M_D_AI12" Describe="IV1阀位置反馈" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3764" TagName="40M_D_AI13" Describe="IV2阀位置反馈" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3765" TagName="40M_D_AI14" Describe="燃机排气温度" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3766" TagName="40M_D_AI14M" Describe="燃机排气温度(华氏)" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3767" TagName="40M_D_AI15" Describe="燃机转速信号" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3768" TagName="40M_D_AI16" Describe="外部负荷设定" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3769" TagName="40M_D_AO01" Describe="排气温度匹配参考" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3770" TagName="40M_D_AO01M" Describe="排气温度匹配参考(华氏)" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3771" TagName="40M_D_AO02" Describe="排气温度匹配升速率" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3772" TagName="40M_D_AO02M" Describe="排气温度匹配升速率(华氏)" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3773" TagName="40M_D_AO03" Describe="远方有功功率设定" ParentKKS="4号机组发电机" Time="0" />
+  <DevMonitorNode Id="3774" TagName="40M_D_AO04" Describe="联合循环负荷比率" ParentKKS="4号机组发电机" Time="0" />
+</DevMonitorNodeList>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="4474" TagName="40BAC01GS202TD" Describe="#4发电机LCI隔离刀(GS202)分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4771" TagName="40BAC01GS202TP" Describe="#4发电机LCI隔离刀(GS202)分闸位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4473" TagName="40BAC01GS202RD" Describe="#4发电机LCI隔离刀(GS202)合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54107" TagName="40BAC01GS202LP" Describe="#4发电机LCI隔离刀(GS202)控制电" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4770" TagName="40BAC01GS202RP" Describe="#4发电机LCI隔离刀(GS202)运行位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4844" TagName="40BAC01GS301TP" Describe="#4发电机出口地刀1(GS301)分闸位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4843" TagName="40BAC01GS301RP" Describe="#4发电机出口地刀1(GS301)运行位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4773" TagName="40BAC01GS302TP" Describe="#4发电机出口地刀2(GS302)分闸位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4772" TagName="40BAC01GS302RP" Describe="#4发电机出口地刀2(GS302)运行位" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4721" TagName="40BAC01GS101P1" Describe="#4发电机出口断路器SF6气体补充" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4728" TagName="40BAC01GS101P7" Describe="#4发电机出口断路器SF6闭锁" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54101" TagName="40BAC01GS101P10" Describe="#4发电机出口断路器冷却系统故障" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4730" TagName="40BAC01GS101P9" Describe="#4发电机出口断路器冷却系统运行" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4666" TagName="40BAC01GS101TD1" Describe="#4发电机出口断路器分闸（一）" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4472" TagName="40BAC01GS101TD2" Describe="#4发电机出口断路器分闸（二）" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4758" TagName="40BAC01GS101TP" Describe="#4发电机出口断路器分闸位置" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4727" TagName="40BAC01GS101P6" Describe="#4发电机出口断路器合闸/分闸闭" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54103" TagName="40BAC01GS101P4" Describe="#4发电机出口断路器控制电压故障" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54100" TagName="40BAC01GS101LP" Describe="#4发电机出口断路器控制电源消失" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4723" TagName="40BAC01GS101P11" Describe="#4发电机出口断路器油温高" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4724" TagName="40BAC01GS101P2" Describe="#4发电机出口断路器泵永久运行" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54102" TagName="40BAC01GS101P3" Describe="#4发电机出口断路器相序保护" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4731" TagName="40BAC01GS101RP" Describe="#4发电机出口断路器运行位置" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54105" TagName="40BAC01GS101P8" Describe="#4发电机出口断路器远方就地控制" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54104" TagName="40BAC01GS101P5" Describe="#4发电机出口断路器马达保护动作" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4842" TagName="40BAC01GS201TP" Describe="#4发电机出口隔离刀(GS201)分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4668" TagName="40BAC01GS201TD" Describe="#4发电机出口隔离刀(GS201)分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4667" TagName="40BAC01GS201RD" Describe="#4发电机出口隔离刀(GS201)合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54106" TagName="40BAC01GS201LP" Describe="#4发电机出口隔离刀(GS201)控制" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="4841" TagName="40BAC01GS201RP" Describe="#4发电机出口隔离刀(GS201)运行" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54366" TagName="40BAC01GS101-POP" Describe="允许分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54370" TagName="40BAC01GS202-POP" Describe="允许分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54368" TagName="40BAC01GS201-PCL" Describe="允许合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54365" TagName="40BAC01GS101-PCL" Describe="允许合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54369" TagName="40BAC01GS202-AOP" Describe="自动分闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54364" TagName="40BAC01GS101-ACL" Describe="自动合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+  <DevMonitorNode Id="54367" TagName="40BAC01GS201-ACL" Describe="自动合闸" Unit="" ParentKKS="4号机组发电机出口开关" Time="0" />
+</DevMonitorNodeList>

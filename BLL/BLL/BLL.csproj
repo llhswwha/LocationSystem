@@ -60,6 +60,9 @@
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\Third\Projects\ExcelLib\NPOI 2.2.1 binary package\Net20\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -80,9 +83,13 @@
     <Compile Include="Blls\Engine\bus_anchor_configBll.cs" />
     <Compile Include="Blls\Engine\bus_anchor_switch_areaBll.cs" />
     <Compile Include="Blls\LocationHistory\DevMonitorNodeHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\DoorLockBll.cs" />
     <Compile Include="Blls\LocationHistory\InspectionTrackHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\OperationTicketHistorySHBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointHistoryBll.cs" />
     <Compile Include="Blls\LocationHistory\PatrolPointItemHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\PointHistoryBll.cs" />
+    <Compile Include="Blls\LocationHistory\WorkTicketHistorySHBll.cs" />
     <Compile Include="Blls\Location\CameraAlarmJsonBll.cs" />
     <Compile Include="Blls\Location\DevMonitorNodeBll.cs" />
     <Compile Include="Blls\Location\Dev_CameraInfoBll.cs" />
@@ -90,8 +97,10 @@
     <Compile Include="Blls\Location\InspectionTrackBll.cs" />
     <Compile Include="Blls\Location\LocationCardToAreaBll.cs" />
     <Compile Include="Blls\Location\NodeKKSBll.cs" />
+    <Compile Include="Blls\Location\OperationTicketSHBll.cs" />
     <Compile Include="Blls\Location\PatrolPointBll.cs" />
     <Compile Include="Blls\Location\PatrolPointItemBll.cs" />
+    <Compile Include="Blls\Location\PersonnelFirstInAreaBll.cs" />
     <Compile Include="Blls\Location\UserBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
     <Compile Include="Buffers\BaseBuffer.cs" />

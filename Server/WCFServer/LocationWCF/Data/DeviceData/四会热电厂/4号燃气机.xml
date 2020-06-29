@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList>
+  <DevMonitorNode Id="0" TagName="N2DCS.20MBY10CE901YQ01" Describe="燃机负荷" ParentKKS="4号燃气机" Time="0" />
+  <DevMonitorNode Id="0" TagName="N2DCS.20MYA01CS901CA" Describe="燃机转速" ParentKKS="4号燃气机" Time="0" />
+</DevMonitorNodeList>

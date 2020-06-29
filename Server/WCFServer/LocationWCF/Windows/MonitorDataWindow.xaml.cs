@@ -273,7 +273,7 @@ namespace LocationServer.Windows
             try
             {
                 //Dev_Monitor monitor = new Dev_Monitor();
-                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\";
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + "Data\\DeviceData\\" + DbModel.AppSetting.ParkName + "\\";
                 DirectoryInfo di = new DirectoryInfo(dirPath);
                 if (di.Exists == false)
                 {

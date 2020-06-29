@@ -90,20 +90,29 @@
     <Compile Include="Converters\DepartmentConvertHelper.cs" />
     <Compile Include="Converters\DevAlarmConvertHelper.cs" />
     <Compile Include="Converters\DevConverHelper.cs" />
+    <Compile Include="Converters\DoorClickConverHelper.cs" />
     <Compile Include="Converters\LocationAlarmHelper.cs" />
+    <Compile Include="Converters\OperationTicketSHConvertHelper.cs" />
     <Compile Include="Converters\PersonConvertHelper.cs" />
     <Compile Include="Converters\PointConvertHelper.cs" />
     <Compile Include="Converters\TagConvertHelper.cs" />
     <Compile Include="Converters\TransfromConvertHelper.cs" />
+    <Compile Include="Converters\UserConverHelper.cs" />
+    <Compile Include="Converters\WorkTicketSHConvertHelper.cs" />
     <Compile Include="LocationHistory\Data\IPosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosDistance.cs" />
     <Compile Include="LocationHistory\Data\PosHistoryAllInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfo.cs" />
     <Compile Include="LocationHistory\Data\PosInfoList.cs" />
     <Compile Include="LocationHistory\Data\PositionList.cs" />
+    <Compile Include="LocationHistory\Door\DoorClick.cs" />
+    <Compile Include="LocationHistory\Work\OperationTicketHistorySH.cs" />
+    <Compile Include="LocationHistory\Work\WorkTicketHistorySH.cs" />
+    <Compile Include="Location\Alarm\PersonnelFirstInArea.cs" />
     <Compile Include="Location\AreaAndDev\DynamicMonitorAreaUpdate.cs" />
     <Compile Include="Location\Relation\LocationCardToArea.cs" />
     <Compile Include="Location\Work\InspectionTrackList.cs" />
+    <Compile Include="Location\Work\OperationTicketSH.cs" />
     <Compile Include="Others\CidMap.cs" />
     <Compile Include="Engine\bus_anchor.cs" />
     <Compile Include="Engine\bus_anchor_config.cs" />
@@ -129,17 +138,20 @@
     <Compile Include="Location\Work\PatrolPoint.cs" />
     <Compile Include="Location\Work\InspectionTrack.cs" />
     <Compile Include="Location\Work\PatrolPointItem.cs" />
+    <Compile Include="Others\PointHistory.cs" />
     <Compile Include="Tools\ArchorHelper.cs" />
     <Compile Include="Tools\CloneHelper.cs" />
     <Compile Include="Tools\InitInfos\ArchorDevList.cs" />
     <Compile Include="Tools\InitInfos\AuthorizationArea.cs" />
     <Compile Include="Tools\InitInfos\BoundInfo.cs" />
     <Compile Include="Tools\InitInfos\CameraInfoBackUp.cs" />
+    <Compile Include="Tools\InitInfos\CameraInfoZS.cs" />
     <Compile Include="Tools\InitInfos\DepartmentInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\DevInfoBackup.cs" />
     <Compile Include="Tools\InitInfos\DoorAccessList.cs" />
     <Compile Include="Tools\InitInfos\EntranceGuardCardInfoBackup.cs.cs" />
     <Compile Include="Tools\InitInfos\FireFightDevInfoBackup.cs" />
+    <Compile Include="Tools\InitInfos\HKWebApiCameraList.cs" />
     <Compile Include="Tools\InitInfos\InitInfo.cs" />
     <Compile Include="Tools\InitInfos\LocationDevices.cs" />
     <Compile Include="Tools\InitInfos\PersonnelInfoBackup.cs.cs" />
@@ -221,6 +233,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Location\SelectData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

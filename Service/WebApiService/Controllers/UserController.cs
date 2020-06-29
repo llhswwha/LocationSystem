@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TModel.Location.Manage;
+using DbModel.Location.Manage;
 
 namespace WebApiService.Controllers
 {
@@ -19,6 +20,20 @@ namespace WebApiService.Controllers
             service = new UserService();
         }
 
+        public LoginInfo Delete(string id)
+        {
+            return service.Delete(id);
+        }
+
+        public LoginInfo GetEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<LoginInfo> GetList()
+        {
+            throw new NotImplementedException();
+        }
 
         [Route("Version")]
         public VersionInfo GetVersionInfo()
@@ -74,5 +89,19 @@ namespace WebApiService.Controllers
             return service.Logout(info);
         }
 
+        public LoginInfo Post(LoginInfo item)
+        {
+            return service.Post(item);
+        }
+
+        public LoginInfo Put(LoginInfo item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public LoginInfo Update(User user)
+        {
+            return service.Update(user);
+        }
     }
 }

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="890" TagName="30PAB40CL301" Describe="集水坑水位" Unit="" ParentKKS="3号机组集水坑排污泵就地控制柜" Time="0" />
+</DevMonitorNodeList>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="1970" TagName="30PGA30CP401H" Describe="#1闭式泵入口滤网差压高" Unit="" ParentKKS="3号机组B闭式冷却水泵进口滤网" Time="0" />
+  <DevMonitorNode Id="2094" TagName="30PGA30CP402H" Describe="#2闭式泵入口滤网差压高" Unit="" ParentKKS="3号机组B闭式冷却水泵进口滤网" Time="0" />
+</DevMonitorNodeList>

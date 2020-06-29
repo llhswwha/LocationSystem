@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Time="0" ParentKKS="3号机组自动滤水器" Unit="" Describe="水水交换器开式循环水滤水器排污" TagName="30PCB10AA401OP" Id="2009"/>
+<DevMonitorNode Time="0" ParentKKS="3号机组自动滤水器" Unit="" Describe="水水交换器开式循环水滤水器启动" TagName="30PCB10AT001RP" Id="1939"/>
+<DevMonitorNode Time="0" ParentKKS="3号机组自动滤水器" Unit="" Describe="水水交换器开式循环水滤水器入口" TagName="30PCB10AA002OP" Id="1931"/>
+<DevMonitorNode Time="0" ParentKKS="3号机组自动滤水器" Unit="" Describe="水水交换器开式循环水滤水器出口" TagName="30PCB21AA001OP" Id="1935"/>
+<DevMonitorNode Time="0" ParentKKS="3号机组自动滤水器" Unit="" Describe="水水交换器开式循环水滤水器旁路" TagName="30PCB12AA001OP" Id="2005"/>
+</DevMonitorNodeList>

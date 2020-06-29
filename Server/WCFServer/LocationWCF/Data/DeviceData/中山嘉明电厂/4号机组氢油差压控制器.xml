@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="31151" TagName="40LAB10CL301" Describe="#4机浮子油箱液位" Unit="" ParentKKS="4号机组氢油差压控制器" Time="0" />
+</DevMonitorNodeList>

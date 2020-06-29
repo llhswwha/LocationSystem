@@ -37,7 +37,12 @@ namespace WebApiService.Controllers
         [Route("list")]
         public List<TEntity> GetList()
         {
-            return service.GetList();
+            List<TEntity> nList = service.GetList();
+            if (nList == null)
+            {
+                nList = new List<TEntity>();
+            }
+            return nList;
         }
 
         [Route("")]//search/?name=主

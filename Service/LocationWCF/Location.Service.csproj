@@ -84,6 +84,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -165,6 +166,8 @@
     <Compile Include="Locations\Services\CardRoleService.cs" />
     <Compile Include="Locations\Services\ConfigArgService.cs" />
     <Compile Include="Locations\Services\DevService.cs" />
+    <Compile Include="Locations\Services\DoorLockService.cs" />
+    <Compile Include="Locations\Services\EnergyService.cs" />
     <Compile Include="Locations\Services\IEntityService.cs" />
     <Compile Include="Locations\Services\LocationAlarmService.cs" />
     <Compile Include="Locations\Services\PhysicalTopologyService.cs" />
@@ -186,6 +189,11 @@
     <Compile Include="Locations\Services\TicketsService.cs" />
     <Compile Include="Locations\Services\UserService.cs" />
     <Compile Include="Locations\Services\WorkService.cs" />
+    <Compile Include="ObjToData\CameraDetail.cs" />
+    <Compile Include="ObjToData\DoorEvents.cs" />
+    <Compile Include="ObjToData\HttpUtillib.cs" />
+    <Compile Include="ObjToData\SisHistoryByUrl.cs" />
+    <Compile Include="ObjToData\UrlData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHostHelper.cs" />
     <Compile Include="Tools\ConvertHelper.cs" />

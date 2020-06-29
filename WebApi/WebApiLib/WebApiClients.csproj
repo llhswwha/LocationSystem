@@ -84,9 +84,8 @@
     <Compile Include="Clients\LocationClient.cs" />
     <Compile Include="Clients\ApiDocClient.cs" />
     <Compile Include="Clients\OpcCliect\OPCClient1.cs" />
-    <Compile Include="Clients\OpcCliect\OPCClient.cs" />
-    <Compile Include="Clients\OpcCliect\OPCInformation.cs" />
-    <Compile Include="Clients\OpcCliect\OPCItemParameter.cs" />
+    <Compile Include="Clients\OpcCliect\OPCReadAuto.cs" />
+    <Compile Include="Clients\OpcCliect\SisData.cs" />
     <Compile Include="Clients\SisDataSaveClient.cs" />
     <Compile Include="Clients\WebApiClient.cs" />
     <Compile Include="WebApiHelper.cs" />

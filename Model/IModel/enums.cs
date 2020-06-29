@@ -26,10 +26,10 @@ namespace DbModel.Tools
     public enum Sexs { 未知, 男, 女 }
 
     //权限类型
-    public enum TimeSettingType { 时间长度, 时间点范围 }
+    public enum TimeSettingType { 无限制, 时间长度, 时间点范围, 时间长度加范围 }
 
     //定位告警类型
-    public enum LocationAlarmType { 区域告警, 消失告警, 低电告警, 传感器告警, 重启告警, 非法拆卸, 求救信号, 晕倒告警 }
+    public enum LocationAlarmType { 区域告警, 消失告警, 低电告警, 传感器告警, 重启告警, 非法拆卸, 求救信号, 晕倒告警,超时告警,签到告警 }
 
     //定位告警等级
     public enum LocationAlarmLevel { 正常, 一级告警, 二级告警, 三级告警, 四级告警 }
