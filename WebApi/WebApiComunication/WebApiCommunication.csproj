@@ -81,7 +81,6 @@
     <Compile Include="SihuiThermalPowerPlant\Models\checkpoints.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\checkresults.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\devices_actions.cs" />
-    <Compile Include="SihuiThermalPowerPlant\Models\EntranceGuardCardsApiSH.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\events.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\Message.cs" />
     <Compile Include="SihuiThermalPowerPlant\Models\patrols.cs" />

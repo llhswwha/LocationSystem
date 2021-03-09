@@ -44,14 +44,6 @@ namespace LocationServices.Converters
             item2.Pst = item1.Pst;
             item2.TargetModel = item1.TargetModel;
             item2.TargetType = item1.TargetType;
-            if (item2.TargetType == 0)
-            {
-                item2.TargetType = (int)item1.Sex - 1;
-            }
-            else
-            {
-
-            }
             try
             {
                 if ((object)item1.Parent != null)

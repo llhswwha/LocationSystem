@@ -328,6 +328,8 @@ namespace WPFClientControlLib
                         DevSize = 16;
                     }
 
+                    devSizeList = new double[] { 1, 2, 4, 8, 16, 32, 64 };
+
                     if (area.Name == "淄博电厂")
                     {
                         scale = 0.2;
@@ -351,7 +353,7 @@ namespace WPFClientControlLib
                     }
 
                     double[] devSizeList = new double[] { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 };
-                    DevSize = 0.4;
+                    DevSize = 80;
 
                     //if (area.Name == "宝钢园区")
                     //{
@@ -362,7 +364,9 @@ namespace WPFClientControlLib
                     //    devSizeList = new double[] { 1,2,3,4,5,6,7,8,9,10 };
                     //    DevSize = 4;
                     //}
-                    
+
+                    devSizeList = new double[] { 1, 5,10,20,40,80,160,320,640 };
+
                     DrawFloor(area,ref scale, DevSize);
                     InitCbScale(scale);
                     InitCbDevSize(devSizeList, DevSize);
@@ -519,6 +523,55 @@ namespace WPFClientControlLib
             return new Location.TModel.Location.AreaAndDev.Point((float)x, (float)y,0);
         }
 
+        public double[] GetMinMax(AreaEntity area)
+        {
+            double minX = double.MaxValue;
+            double minY = double.MaxValue;
+            double maxX = double.MinValue;
+            double maxY = double.MinValue;
+             var bound = area.InitBound;
+            if (bound != null) {
+                if (bound.MaxX == 0)
+                    bound.SetMinMaxXY();
+                minX = bound.MinX;
+                minY = bound.MinY;
+                maxX = bound.MaxX;
+                maxY = bound.MaxY;
+            }
+
+            if (area.Children != null)
+            {
+                area.Children.Sort();
+                foreach (var level1Item in area.Children) //机房
+                {
+                    var subbound = level1Item.InitBound;
+                    if (subbound != null)
+                    {
+                        if (subbound.MaxX == 0)
+                            subbound.SetMinMaxXY();
+                        if (subbound.MaxX > maxX)
+                        {
+                            maxX = subbound.MaxX;
+                        }
+                        if (subbound.MaxY > maxY)
+                        {
+                            maxY = subbound.MaxY;
+                        }
+                        if (subbound.MinX < minX)
+                        {
+                            minX = subbound.MinX;
+                        }
+                        if (subbound.MinY < minY)
+                        {
+                            minY = subbound.MinY;
+                        }
+                    }
+                }
+            }
+
+            return new double[4] { minX, minY, maxX, maxY };
+        }
+
 
         private void DrawFloor(AreaEntity area,ref double scale,double devSize)
         {
@@ -527,17 +580,26 @@ namespace WPFClientControlLib
             if (bound == null) return;
             if(bound.MaxX==0)
                 bound.SetMinMaxXY();
+
+            var minMax = GetMinMax(area);
+            double minX = minMax[0];
+            double minY = minMax[1];
+            double maxX = minMax[2];
+            double maxY = minMax[3];
+            double sizeX = maxX - minX;
+            double sizeY = maxY - minY;
+
             if (scale == 0)
             {
-                scale = getAutoScale(bound);
+                scale = getAutoScale(sizeX, sizeY);
             }
 
             Scale = scale;
             CanvasMargin = 10;
             OffsetX = -CanvasMargin/2;
             OffsetY = -CanvasMargin/2;
-            Canvas1.Width = (bound.MaxX+ CanvasMargin) * scale ;
-            Canvas1.Height = (bound.MaxY+ CanvasMargin) * scale;
+            Canvas1.Width = (sizeX + CanvasMargin) * scale ;
+            Canvas1.Height = (sizeY + CanvasMargin) * scale;
             DrawMode = 2;
             AddAreaRect(area, null, scale);
             if (area.Children != null)
@@ -571,16 +633,14 @@ namespace WPFClientControlLib
             SelectedArea = null;
         }
 
-        private double getAutoScale(Location.TModel.Location.AreaAndDev.Bound bound)
+        private double getAutoScale(double sizeX, double sizeY)
         {
             double scaleX = 0;
-            double sizeX = bound.GetSizeX();
             if (sizeX > 0)
             {
                 scaleX = this.ActualWidth / sizeX;
             }
             double scaleY = 0;
-            double sizeY = bound.GetSizeY();
             if (sizeY > 0)
             {
                 scaleY = this.ActualHeight / sizeY;
@@ -606,6 +666,13 @@ Math.Round(45.365,2)     //Returns   45.36
 
             SetAutoScale(scale);
             return scale;
+        }
+
+        private double getAutoScale(Location.TModel.Location.AreaAndDev.Bound bound)
+        {
+            double sizeX = bound.GetSizeX();
+            double sizeY = bound.GetSizeY();
+            return getAutoScale(sizeX, sizeY);
         }
 
         private void DrawPark(AreaEntity area,ref double scale,double devSize)

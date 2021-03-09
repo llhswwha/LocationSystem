@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Location.TModel.Tools;
 using Location.IModel;
-using DbModel.Location.Alarm;
 
 namespace DbModel.LocationHistory.Alarm
 {
@@ -102,38 +101,14 @@ namespace DbModel.LocationHistory.Alarm
         /// </summary>
         [DataMember]
         [Display(Name = "历史记录产生时间")]
-        public DateTime? HistoryTime { get; set; }
+        public DateTime HistoryTime { get; set; }
 
         /// <summary>
         /// 历史记录时间戳
         /// </summary>
         [DataMember]
         [Display(Name = "历史记录时间戳")]
-        public long? HistoryTimeStamp { get; set; }
-
-        public DevAlarm ConvertToDevAlarm()
-        {
-            DevAlarm alarm = new DevAlarm();
-            alarm.Id = this.Id;
-            alarm.Abutment_Id = this.Abutment_Id;
-            alarm.Title = this.Title;
-            alarm.Msg = this.Msg;
-            if (this.Level == null)
-            {
-                alarm.Level = Abutment_DevAlarmLevel.无;
-            }
-            alarm.Level = (Abutment_DevAlarmLevel)this.Level;
-            alarm.Code = this.Code;
-            alarm.Src = this.Src;
-            alarm.DevInfoId = this.DevInfoId;
-            alarm.Device_desc = this.Device_desc;
-            alarm.AlarmTime = this.AlarmTime;
-            alarm.AlarmTimeStamp = this.AlarmTimeStamp;
-            alarm.HistoryTime = (DateTime)this.HistoryTime;
-            alarm.HistoryTimeStamp = (long)this.HistoryTimeStamp;
-            return alarm;
-        }
- 
+        public long HistoryTimeStamp { get; set; }
 
 
         public DevAlarmHistory Clone()

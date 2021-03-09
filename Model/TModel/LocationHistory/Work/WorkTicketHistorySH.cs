@@ -34,7 +34,7 @@ namespace TModel.LocationHistory.Work
         public int[] doorIds { get; set; }
         [DataMember]
         public string detail { get; set; }  //json,需转化
-        [DataMember]
+
         public workTicketDetail workTicket { get; set; }
 
         [DataMember]

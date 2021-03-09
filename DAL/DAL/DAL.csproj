@@ -108,6 +108,14 @@
     </Compile>
     <Compile Include="LocationDbMigrations\Configuration.cs" />
     <Compile Include="LocationHistoryDb.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201115277_InitInsert.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201115277_InitInsert.Designer.cs">
+      <DependentUpon>201812201115277_InitInsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocationHistoryDbMigrations\201812201117391_Init.cs" />
+    <Compile Include="LocationHistoryDbMigrations\201812201117391_Init.Designer.cs">
+      <DependentUpon>201812201117391_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocationHistoryDbMigrations\Configuration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,6 +146,12 @@
   <ItemGroup>
     <EmbeddedResource Include="LocationDbMigrations\201910090250070_Init.resx">
       <DependentUpon>201910090250070_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationHistoryDbMigrations\201812201115277_InitInsert.resx">
+      <DependentUpon>201812201115277_InitInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LocationHistoryDbMigrations\201812201117391_Init.resx">
+      <DependentUpon>201812201117391_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

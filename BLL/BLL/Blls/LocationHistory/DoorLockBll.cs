@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Location.TModel.Tools;
 using System.Data.Entity.Infrastructure;
-using TModel.Tools;
 
 namespace BLL.Blls.LocationHistory
 {
@@ -74,61 +73,5 @@ namespace BLL.Blls.LocationHistory
             return list;
         }
 
-        public PageInfo<DoorClick> GetPageByCondition(DateTime startTime, DateTime endTime, string eventType, string[] personIds, string[] doorIndexCodes,string personName, int pageNo, int pageSize)
-        {
-            string sqlwhere = "";
-            if (startTime != null && endTime != null)
-            {
-                //sqlwhere += "and eventTime between  '"+ startTime + "' and  '"+ endTime + "'";
-                sqlwhere += "and eventTime >=  '" + startTime + "' and  eventTime<='" + endTime + "'";
-            }
-            if (!string.IsNullOrEmpty(eventType))
-            {
-                sqlwhere += " and eventType="+eventType;
-            }
-            string personIdss = "";
-            if (personIds != null && personIds.Length > 0)
-            {
-                for(int i=0; i<personIds.Length;i++)
-                {
-                    personIdss += "'" + personIds[i] + "',";
-                }
-                personIdss = personIdss.Substring(0,personIdss.Length-1);
-            }
-            if (personIdss != "")
-            {
-                sqlwhere += "  and personId in ("+personIdss+")";
-            }
-            string doorIndexCodess = "";
-            if (doorIndexCodes != null && doorIndexCodes.Length > 0)
-            {
-              for(int i=0;i<doorIndexCodes.Length;i++)
-                { 
-                    doorIndexCodess += "'"+doorIndexCodes[i]+"',";
-                }
-                doorIndexCodess = doorIndexCodess.Substring(0, doorIndexCodess.Length - 1);
-            }
-            if (doorIndexCodess != "")
-            {
-                sqlwhere += " and  doorIndexCode in ("+doorIndexCodess+")";
-            }
-            if (pageNo == 0)
-            {
-                pageNo = 1;
-            }
-            if (pageSize == 0)
-            {
-                pageSize = 1000000;
-            }
-            if (!string.IsNullOrEmpty(personName))
-            {
-                personName = personName.Replace("/", "").Replace("\"", "").Replace("|", "").Replace("*","");
-                sqlwhere += " and  personName like '%"+personName+"%' ";
-            }
-            string sqlCount = string.Format(@"select count(id) from doorclicks where 1=1 " + sqlwhere);
-            string strsql = string.Format(@" select * from doorclicks  where 1=1  {0} ", sqlwhere);
-            PageInfo<DoorClick> page = GetPageList<DoorClick>(sqlCount, strsql,pageNo, pageSize);
-            return page;
-        }
     }
 }

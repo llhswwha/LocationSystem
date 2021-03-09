@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="1181" TagName="COM-LA-010" Describe="6KV工作30BBA段_#3励磁变_COS" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1177" TagName="COM-LA-006" Describe="6KV工作30BBA段_#3励磁变_IA" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1178" TagName="COM-LA-007" Describe="6KV工作30BBA段_#3励磁变_IB" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1179" TagName="COM-LA-008" Describe="6KV工作30BBA段_#3励磁变_IC" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1180" TagName="COM-LA-009" Describe="6KV工作30BBA段_#3励磁变_P" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29051" TagName="COM-LD-011" Describe="6KV工作30BBA段_#3励磁变_事故总" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29052" TagName="COM-LD-012" Describe="6KV工作30BBA段_#3励磁变_告警总" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29048" TagName="COM-LD-008" Describe="6KV工作30BBA段_#3励磁变_手车工" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29049" TagName="COM-LD-009" Describe="6KV工作30BBA段_#3励磁变_手车试" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29050" TagName="COM-LD-010" Describe="6KV工作30BBA段_#3励磁变_接地刀" ParentKKS="3号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1216" TagName="COM-LAP-002" Describe="6KV工作30BBA段_#3励磁变_正向有" ParentKKS="3号机组励磁变" Time="0" />
+</DevMonitorNodeList>

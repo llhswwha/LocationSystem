@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DepList>
+<DeviceList Name="淄博电厂">
+<Device Name="0AA1" AnchorId="0AA1" XPos="23229" YPos="502" ZPos="14640" IP="172.30.246.8" AbsolutePosX="23229" AbsolutePosY="502" AbsolutePosZ="14640" />
+<Device Name="0A7B" AnchorId="0A7B" XPos="22423" YPos="1731" ZPos="13896" IP="172.30.246.8" AbsolutePosX="22423" AbsolutePosY="1731" AbsolutePosZ="13896" />
+<Device Name="0A6F" AnchorId="0A6F" XPos="21706" YPos="1175" ZPos="13124" IP="172.30.246.8" AbsolutePosX="21706" AbsolutePosY="1175" AbsolutePosZ="13124" />
+<Device Name="09CF" AnchorId="09CF" XPos="8926" YPos="2983" ZPos="13603" IP="172.30.246.8" AbsolutePosX="8926" AbsolutePosY="2983" AbsolutePosZ="13603" />
+<Device Name="09C2" AnchorId="09C2" XPos="162" YPos="4442" ZPos="13363" IP="172.30.246.8" AbsolutePosX="162" AbsolutePosY="4442" AbsolutePosZ="13363" />
+<Device Name="09C3" AnchorId="09C3" XPos="4684" YPos="3785" ZPos="14203" IP="172.30.246.8" AbsolutePosX="4684" AbsolutePosY="3785" AbsolutePosZ="14203" />
+<Device Name="09C8" AnchorId="09C8" XPos="15297" YPos="1794" ZPos="13598" IP="172.30.246.8" AbsolutePosX="15297" AbsolutePosY="1794" AbsolutePosZ="13598" />
+<Device Name="09CB" AnchorId="09CB" XPos="2700" YPos="4175" ZPos="13610" IP="172.30.246.8" AbsolutePosX="2700" AbsolutePosY="4175" AbsolutePosZ="13610" />
+<Device Name="0C37" AnchorId="0C37" XPos="11083" YPos="2584" ZPos="13601" IP="172.30.246.8" AbsolutePosX="11083" AbsolutePosY="2584" AbsolutePosZ="13601" />
+<Device Name="0C3A" AnchorId="0C3A" XPos="6813" YPos="3287" ZPos="13605" IP="172.30.246.8" AbsolutePosX="6813" AbsolutePosY="3287" AbsolutePosZ="13605" />
+<Device Name="0C3C" AnchorId="0C3C" XPos="6815" YPos="3387" ZPos="14201" IP="172.30.246.8" AbsolutePosX="6815" AbsolutePosY="3387" AbsolutePosZ="14201" />
+<Device Name="0C35" AnchorId="0C35" XPos="22392" YPos="414" ZPos="13502" IP="172.30.246.8" AbsolutePosX="22392" AbsolutePosY="414" AbsolutePosZ="13502" />
+<Device Name="0C36" AnchorId="0C36" XPos="17393" YPos="1390" ZPos="13597" IP="172.30.246.8" AbsolutePosX="17393" AbsolutePosY="1390" AbsolutePosZ="13597" />
+<Device Name="0C3D" AnchorId="0C3D" XPos="305" YPos="3692" ZPos="14595" IP="172.30.246.8" AbsolutePosX="305" AbsolutePosY="3692" AbsolutePosZ="14595" />
+<Device Name="0C32" AnchorId="0C32" XPos="839" YPos="3688" ZPos="14588" IP="172.30.246.8" AbsolutePosX="839" AbsolutePosY="3688" AbsolutePosZ="14588" />
+<Device Name="0C38" AnchorId="0C38" XPos="174" YPos="3745" ZPos="8521" IP="172.30.246.8" AbsolutePosX="174" AbsolutePosY="3745" AbsolutePosZ="8521" />
+<Device Name="09D5" AnchorId="09D5" XPos="1420" YPos="3709" ZPos="14507" IP="172.30.246.8" AbsolutePosX="1420" AbsolutePosY="3709" AbsolutePosZ="14507" />
+<Device Name="0C33" AnchorId="0C33" XPos="362" YPos="3689" ZPos="6817" IP="172.30.246.8" AbsolutePosX="362" AbsolutePosY="3689" AbsolutePosZ="6817" />
+<Device Name="09D4" AnchorId="09D4" XPos="1451" YPos="3622" ZPos="2444" IP="172.30.246.8" AbsolutePosX="1451" AbsolutePosY="3622" AbsolutePosZ="2444" />
+<Device Name="0A54" AnchorId="0A54" XPos="195" YPos="3745" ZPos="2395" IP="172.30.246.8" AbsolutePosX="195" AbsolutePosY="3745" AbsolutePosZ="2395" />
+<Device Name="0A68" AnchorId="0A68" XPos="193" YPos="3696" ZPos="89" IP="172.30.246.8" AbsolutePosX="193" AbsolutePosY="3696" AbsolutePosZ="89" />
+<Device Name="0A6B" AnchorId="0A6B" XPos="1422" YPos="3730" ZPos="8528" IP="172.30.246.8" AbsolutePosX="1422" AbsolutePosY="3730" AbsolutePosZ="8528" />
+<Device Name="0A56" AnchorId="0A56" XPos="1471" YPos="3653" ZPos="96" IP="172.30.246.8" AbsolutePosX="1471" AbsolutePosY="3653" AbsolutePosZ="96" />
+<Device Name="0A60" AnchorId="0A60" XPos="1420" YPos="4419" ZPos="14506" IP="172.30.246.8" AbsolutePosX="1420" AbsolutePosY="4419" AbsolutePosZ="14506" />
+<Device Name="0A62" AnchorId="0A62" XPos="8923" YPos="3109" ZPos="14199" IP="172.30.246.8" AbsolutePosX="8923" AbsolutePosY="3109" AbsolutePosZ="14199" />
+<Device Name="0A59" AnchorId="0A59" XPos="17372" YPos="1420" ZPos="14192" IP="172.30.246.8" AbsolutePosX="17372" AbsolutePosY="1420" AbsolutePosZ="14192" />
+<Device Name="0A58" AnchorId="0A58" XPos="2647" YPos="4178" ZPos="14205" IP="172.30.246.8" AbsolutePosX="2647" AbsolutePosY="4178" AbsolutePosZ="14205" />
+<Device Name="0A5A" AnchorId="0A5A" XPos="19462" YPos="1011" ZPos="14176" IP="172.30.246.8" AbsolutePosX="19462" AbsolutePosY="1011" AbsolutePosZ="14176" />
+<Device Name="0A57" AnchorId="0A57" XPos="21491" YPos="692" ZPos="13901" IP="172.30.246.8" AbsolutePosX="21491" AbsolutePosY="692" AbsolutePosZ="13901" />
+<Device Name="0C39" AnchorId="0C39" XPos="22402" YPos="413" ZPos="14311" IP="172.30.246.8" AbsolutePosX="22402" AbsolutePosY="413" AbsolutePosZ="14311" />
+<Device Name="0C3B" AnchorId="0C3B" XPos="19491" YPos="1001" ZPos="13604" IP="172.30.246.8" AbsolutePosX="19491" AbsolutePosY="1001" AbsolutePosZ="13604" />
+<Device Name="0A5E" AnchorId="0A5E" XPos="1571" YPos="4438" ZPos="13899" IP="172.30.246.8" AbsolutePosX="1571" AbsolutePosY="4438" AbsolutePosZ="13899" />
+<Device Name="0C34" AnchorId="0C34" XPos="11043" YPos="2595" ZPos="14197" IP="172.30.246.8" AbsolutePosX="11043" AbsolutePosY="2595" AbsolutePosZ="14197" />
+<Device Name="0A61" AnchorId="0A61" XPos="151" YPos="4468" ZPos="14498" IP="172.30.246.8" AbsolutePosX="151" AbsolutePosY="4468" AbsolutePosZ="14498" />
+<Device Name="0A55" AnchorId="0A55" XPos="1563" YPos="4376" ZPos="14209" IP="172.30.246.8" AbsolutePosX="1563" AbsolutePosY="4376" AbsolutePosZ="14209" />
+<Device Name="0A65" AnchorId="0A65" XPos="161" YPos="4430" ZPos="12211" IP="172.30.246.8" AbsolutePosX="161" AbsolutePosY="4430" AbsolutePosZ="12211" />
+<Device Name="0C31" AnchorId="0C31" XPos="1437" YPos="4425" ZPos="12212" IP="172.30.246.8" AbsolutePosX="1437" AbsolutePosY="4425" AbsolutePosZ="12212" />
+<Device Name="0A6A" AnchorId="0A6A" XPos="15281" YPos="1793" ZPos="14194" IP="172.30.246.8" AbsolutePosX="15281" AbsolutePosY="1793" AbsolutePosZ="14194" />
+<Device Name="0A63" AnchorId="0A63" XPos="1422" YPos="3633" ZPos="10967" IP="172.30.246.8" AbsolutePosX="1422" AbsolutePosY="3633" AbsolutePosZ="10967" />
+<Device Name="0A5B" AnchorId="0A5B" XPos="164" YPos="3742" ZPos="10920" IP="172.30.246.8" AbsolutePosX="164" AbsolutePosY="3742" AbsolutePosZ="10920" />
+<Device Name="0A5D" AnchorId="0A5D" XPos="373" YPos="3694" ZPos="13144" IP="172.30.246.8" AbsolutePosX="373" AbsolutePosY="3694" AbsolutePosZ="13144" />
+<Device Name="0A93" AnchorId="0A93" XPos="359" YPos="3696" ZPos="3675" IP="172.30.246.8" AbsolutePosX="359" AbsolutePosY="3696" AbsolutePosZ="3675" />
+<Device Name="0A64" AnchorId="0A64" XPos="935" YPos="3667" ZPos="13478" IP="172.30.246.8" AbsolutePosX="935" AbsolutePosY="3667" AbsolutePosZ="13478" />
+<Device Name="0A67" AnchorId="0A67" XPos="1446" YPos="3781" ZPos="3630" IP="172.30.246.8" AbsolutePosX="1446" AbsolutePosY="3781" AbsolutePosZ="3630" />
+<Device Name="0A69" AnchorId="0A69" XPos="22534" YPos="1798" ZPos="13105" IP="172.30.246.8" AbsolutePosX="22534" AbsolutePosY="1798" AbsolutePosZ="13105" />
+<Device Name="0A9B" AnchorId="0A9B" XPos="4721" YPos="3789" ZPos="13607" IP="172.30.246.8" AbsolutePosX="4721" AbsolutePosY="3789" AbsolutePosZ="13607" />
+<Device Name="0A5F" AnchorId="0A5F" XPos="1348" YPos="3648" ZPos="12997" IP="172.30.246.8" AbsolutePosX="1348" AbsolutePosY="3648" AbsolutePosZ="12997" />
+<Device Name="0A66" AnchorId="0A66" XPos="13318" YPos="2194" ZPos="13600" IP="172.30.246.8" AbsolutePosX="13318" AbsolutePosY="2194" AbsolutePosZ="13600" />
+<Device Name="0A94" AnchorId="0A94" XPos="13311" YPos="2220" ZPos="14196" IP="172.30.246.8" AbsolutePosX="13311" AbsolutePosY="2220" AbsolutePosZ="14196" />
+<Device Name="0A8C" AnchorId="0A8C" XPos="1561" YPos="4349" ZPos="13621" IP="172.30.246.8" AbsolutePosX="1561" AbsolutePosY="4349" AbsolutePosZ="13621" />
+<Device Name="0A5C" AnchorId="0A5C" XPos="21653" YPos="581" ZPos="13581" IP="172.30.246.8" AbsolutePosX="21653" AbsolutePosY="581" AbsolutePosZ="13581" />
+<Device Name="0A8F" AnchorId="0A8F" XPos="21702" YPos="603" ZPos="14201" IP="172.30.246.8" AbsolutePosX="21702" AbsolutePosY="603" AbsolutePosZ="14201" />
+<Device Name="0A87" AnchorId="0A87" XPos="21678" YPos="436" ZPos="14643" IP="172.30.246.8" AbsolutePosX="21678" AbsolutePosY="436" AbsolutePosZ="14643" />
+<Device Name="0A90" AnchorId="0A90" XPos="21679" YPos="490" ZPos="13165" IP="172.30.246.8" AbsolutePosX="21679" AbsolutePosY="490" AbsolutePosZ="13165" />
+<Device Name="0A95" AnchorId="0A95" XPos="22251" YPos="2432" ZPos="13118" IP="172.30.246.8" AbsolutePosX="22251" AbsolutePosY="2432" AbsolutePosZ="13118" />
+<Device Name="0A8B" AnchorId="0A8B" XPos="23189" YPos="1225" ZPos="13126" IP="172.30.246.8" AbsolutePosX="23189" AbsolutePosY="1225" AbsolutePosZ="13126" />
+<Device Name="0A50" AnchorId="0A50" XPos="23253" YPos="1147" ZPos="13960" IP="172.30.246.8" AbsolutePosX="23253" AbsolutePosY="1147" AbsolutePosZ="13960" />
+<Device Name="0BF6" AnchorId="0BF6" XPos="22247" YPos="654" ZPos="13901" IP="172.30.246.8" AbsolutePosX="22247" AbsolutePosY="654" AbsolutePosZ="13901" />
+<Device Name="0BFA" AnchorId="0BFA" XPos="23205" YPos="1761" ZPos="14299" IP="172.30.246.8" AbsolutePosX="23205" AbsolutePosY="1761" AbsolutePosZ="14299" />
+<Device Name="0BFE" AnchorId="0BFE" XPos="22243" YPos="2428" ZPos="13928" IP="172.30.246.8" AbsolutePosX="22243" AbsolutePosY="2428" AbsolutePosZ="13928" />
+<Device Name="0A7E" AnchorId="0A7E" XPos="23193" YPos="475" ZPos="13582" IP="172.30.246.8" AbsolutePosX="23193" AbsolutePosY="475" AbsolutePosZ="13582" />
+<Device Name="0BF4" AnchorId="0BF4" XPos="23216" YPos="2417" ZPos="13559" IP="172.30.246.8" AbsolutePosX="23216" AbsolutePosY="2417" AbsolutePosZ="13559" />
+<Device Name="0A38" AnchorId="0A38" XPos="23252" YPos="1768" ZPos="13220" IP="172.30.246.8" AbsolutePosX="23252" AbsolutePosY="1768" AbsolutePosZ="13220" />
+<Device Name="0BFD" AnchorId="0BFD" XPos="23254" YPos="2431" ZPos="13196" IP="172.30.246.8" AbsolutePosX="23254" AbsolutePosY="2431" AbsolutePosZ="13196" />
+<Device Name="0A53" AnchorId="0A53" XPos="21698" YPos="1157" ZPos="13883" IP="172.30.246.8" AbsolutePosX="21698" AbsolutePosY="1157" AbsolutePosZ="13883" />
+<Device Name="0A45" AnchorId="0A45" XPos="22973" YPos="1754" ZPos="13910" IP="172.30.246.8" AbsolutePosX="22973" AbsolutePosY="1754" AbsolutePosZ="13910" />
+<Device Name="0BEF" AnchorId="0BEF" XPos="22445" YPos="1714" ZPos="14664" IP="172.30.246.8" AbsolutePosX="22445" AbsolutePosY="1714" AbsolutePosZ="14664" />
+<Device Name="0BF2" AnchorId="0BF2" XPos="23215" YPos="2430" ZPos="14279" IP="172.30.246.8" AbsolutePosX="23215" AbsolutePosY="2430" AbsolutePosZ="14279" />
+<Device Name="0BEA" AnchorId="0BEA" XPos="23261" YPos="2374" ZPos="13915" IP="172.30.246.8" AbsolutePosX="23261" AbsolutePosY="2374" AbsolutePosZ="13915" />
+<Device Name="0A2A" AnchorId="0A2A" XPos="22852" YPos="2445" ZPos="14711" IP="172.30.246.8" AbsolutePosX="22852" AbsolutePosY="2445" AbsolutePosZ="14711" />
+<Device Name="0A06" AnchorId="0A06" XPos="21700" YPos="1166" ZPos="14681" IP="172.30.246.8" AbsolutePosX="21700" AbsolutePosY="1166" AbsolutePosZ="14681" />
+<Device Name="0C1C" AnchorId="0C1C" XPos="22761" YPos="1168" ZPos="14706" IP="172.30.246.8" AbsolutePosX="22761" AbsolutePosY="1168" AbsolutePosZ="14706" />
+<Device Name="0A2D" AnchorId="0A2D" XPos="22274" YPos="2437" ZPos="14696" IP="172.30.246.8" AbsolutePosX="22274" AbsolutePosY="2437" AbsolutePosZ="14696" />
+</DeviceList>
+</DepList>

@@ -151,7 +151,6 @@ namespace DbModel.Tools
         /// <returns></returns>
         public static string GetXmlText(this object obj, Encoding encoding, bool clearNameSpace = false)
         {
-            if (obj == null) return "";
             if (encoding == null)
             {
                 //encoding = EncodingHelper.GetDefault();

@@ -172,10 +172,10 @@ namespace DbModel.Location.Alarm
             HandleTimeStamp = TimeConvert.ToStamp(HandleTime);
         }
 
-        public LocationAlarm(Position p,int area,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level, LocationAlarmType alarmType = LocationAlarmType.区域告警)
+        public LocationAlarm(Position p,int area,AreaAuthorizationRecord aar,string content, LocationAlarmLevel level)
         {
             SetTime();
-            AlarmType = alarmType;
+            AlarmType = LocationAlarmType.区域告警;
             AlarmLevel = level;
             LocationCardId = p.CardId;
             PersonnelId = p.PersonnelID;

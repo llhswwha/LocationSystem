@@ -123,24 +123,6 @@ namespace DbModel.Location.Alarm
                 _alarmTimeStamp = value;
             }
         }
-        /// <summary>
-        /// 历史记录产生时间
-        /// </summary>
-        [DataMember]
-        [Display(Name = "历史记录产生时间")]
-        [NotMapped]
-        public DateTime? HistoryTime { get; set; }
-
-        /// <summary>
-        /// 历史记录时间戳
-        /// </summary>
-        [DataMember]
-        [Display(Name = "历史记录时间戳")]
-        [NotMapped]
-        public long? HistoryTimeStamp { get; set; }
-
-
-
 
         [NotMapped]
         public string DictKey { get; set; }
@@ -185,7 +167,7 @@ namespace DbModel.Location.Alarm
             newItem.AlarmTime = this.AlarmTime;
             newItem.AlarmTimeStamp = this.AlarmTimeStamp;
             newItem.HistoryTime = DateTime.Now;
-            newItem.HistoryTimeStamp = TimeConvert.ToStamp((DateTime)newItem.HistoryTime);
+            newItem.HistoryTimeStamp = TimeConvert.ToStamp(newItem.HistoryTime);
 
             return newItem;
         }

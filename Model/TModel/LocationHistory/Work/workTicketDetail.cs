@@ -85,9 +85,4 @@ namespace TModel.LocationHistory.Work
         [DataMember]
         public List<string> approveLime { get; set; }
     }
-
-    public class WorkTicketDetails
-    {
-        public workTicketDetail workTicket { get; set; }
-    }
 }

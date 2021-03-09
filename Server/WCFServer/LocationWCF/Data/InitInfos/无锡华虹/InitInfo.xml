@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InitInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TopoInfo Name="根节点" Type="区域">
+    <TopoInfo Name="无锡华虹" Type="园区">
+		<TopoInfo Name="芯片生产厂房" Type="大楼" IsCommon="false" Des="安装芯片生产线">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+		<TopoInfo Name="冷冻站" Type="大楼" IsCommon="false" Des="该单元功能包括：制备纯水、冷冻水、冷却水">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+			<TopoInfo Name="冷冻站B1" Type="楼层" IsCommon="false">
+				<BoundInfo Thickness="5" BottomHeight="-5" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points />
+				</BoundInfo>
+			</TopoInfo>
+			<TopoInfo Name="冷冻站1F" Type="楼层" IsCommon="false">
+				<BoundInfo Thickness="7.5" BottomHeight="0" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points />
+				</BoundInfo>
+			</TopoInfo>
+			<TopoInfo Name="冷冻站2F" Type="楼层" IsCommon="false">
+				<BoundInfo Thickness="7.5" BottomHeight="7.5" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points />
+				</BoundInfo>
+			</TopoInfo>
+			<TopoInfo Name="冷冻站3F" Type="楼层" IsCommon="false">
+				<BoundInfo Thickness="8" BottomHeight="15" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points />
+				</BoundInfo>
+			</TopoInfo>
+			<TopoInfo Name="冷冻站RF" Type="楼层" IsCommon="false">
+				<BoundInfo Thickness="2" BottomHeight="23" IsRelative="false" IsCreateAreaByData="false" IsOnAlarmArea="false" IsOnLocationArea="false">
+					<Points />
+				</BoundInfo>
+			</TopoInfo>
+		</TopoInfo>
+		<TopoInfo Name="化学品库" Type="大楼" IsCommon="false" Des="用于一般化学品的储存">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+		<TopoInfo Name="危险品库" Type="大楼" IsCommon="false" Des="用于维修化学品的储存">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+		<TopoInfo Name="硅烷站" Type="大楼" IsCommon="false" Des="用于硅烷的供应">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+		<TopoInfo Name="危废暂存间" Type="大楼" IsCommon="false" Des="用于暂存化学品空桶、化学垃圾、废日光灯管、废过滤芯、空气体钢瓶">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+		<TopoInfo Name="办公楼" Type="大楼" IsCommon="false" Des="">
+			<BoundInfo Thickness="14" BottomHeight="0" IsRelative="true" IsCreateAreaByData="true" IsOnAlarmArea="false" IsOnLocationArea="false">
+				<Points />
+			</BoundInfo>
+		</TopoInfo>
+    </TopoInfo>
+  </TopoInfo>
+</InitInfo>

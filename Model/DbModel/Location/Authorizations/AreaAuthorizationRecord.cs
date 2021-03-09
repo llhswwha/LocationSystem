@@ -179,7 +179,7 @@ namespace DbModel.Location.Work
         [DataMember]
         [Display(Name = "是否签到")]
         [XmlAttribute]
-        public bool SignIn { get; set; }
+        public bool IsSignin { get; set; }
         public AreaAuthorizationRecord()
         {
 

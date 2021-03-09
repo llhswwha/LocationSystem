@@ -141,8 +141,6 @@ namespace BLL
 
         public CameraAlarmJsonBll CameraAlarmJsons { get; set; }
 
-        public PersonnelFirstInAreaBll PersonnelFirstInAreas { get; set; }
-
         /********************LocationHistory********************************/
 
         public DevAlarmHistoryBll DevAlarmHistorys { get; set; }
@@ -289,7 +287,6 @@ namespace BLL
             HomePagePictures = new HomePagePictureBll(Db);
             Users = new UserBll(Db);
             CameraAlarmJsons = new CameraAlarmJsonBll(Db);
-            PersonnelFirstInAreas = new PersonnelFirstInAreaBll(Db);
 
 
             DevAlarmHistorys = new DevAlarmHistoryBll(DbHistory);

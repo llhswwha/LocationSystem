@@ -69,12 +69,8 @@
     <Compile Include="BaseData\Ticket.cs" />
     <Compile Include="ConvertCodes\ByNameAttribute.cs" />
     <Compile Include="ConvertCodes\ConvertCodeGenerator.cs" />
-    <Compile Include="FuncArgs\AlarmSearchArgAll.cs" />
-    <Compile Include="FuncArgs\DoorSearchArgs.cs" />
-    <Compile Include="FuncArgs\DoorSearchArgsSH.cs" />
     <Compile Include="FuncArgs\SearchArg.cs" />
     <Compile Include="FuncArgs\TicketSearchArgs.cs" />
-    <Compile Include="LocationHistory\AreaAndDev\DevEntranceGuardCardsHistroy.cs" />
     <Compile Include="LocationHistory\AreaAndDev\EntranceGuardActionInfo.cs" />
     <Compile Include="LocationHistory\Work\InspectionTrackHistory.cs" />
     <Compile Include="LocationHistory\Work\OperationItemHistory.cs" />
@@ -91,7 +87,6 @@
     <Compile Include="Location\Alarm\AlarmLine.cs" />
     <Compile Include="Location\Alarm\AlarmStatistics.cs" />
     <Compile Include="Location\Alarm\AlarmLinePoint.cs" />
-    <Compile Include="Location\Alarm\AllAlarms.cs" />
     <Compile Include="Location\AreaAndDev\Archor.cs" />
     <Compile Include="Location\AreaAndDev\AreaPoints.cs" />
     <Compile Include="Location\AreaAndDev\DeviceAlarmInformation.cs" />

@@ -19,7 +19,7 @@ namespace CommunicationClass.SihuiThermalPowerPlant.Models
         /// <summary>
         /// 门禁设备标识
         /// </summary>
-        public string device_id { get; set; }
+        public int device_id { get; set; }
 
         /// <summary>
         /// 门禁卡号

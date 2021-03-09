@@ -581,28 +581,50 @@ namespace BLL.Tools
         {
             if (areas == null || areas.Count == 0) return null;
             string[] value = areaPath.Split('|');
-            if (value.Length < 2) return null;
-            string parentName = value[0];
-            List<Area> arealist = areas.FindAll(i => (i.Name == parentName));
-            if (arealist!=null&&arealist.Count > 1)
+            if (value.Length == 2)
             {
-                foreach (var area in arealist)
+                string parentName = value[0];
+                List<Area> arealist = areas.FindAll(i => (i.Name == parentName));
+                if (arealist != null && arealist.Count > 1)
                 {
-                    Area areaParent = areas.Find(i => i.Id == area.ParentId);
-                    if (areaParent.Name == value[1])
+                    foreach (var area in arealist)
                     {
-                        return areaParent.Id;
+                        Area areaParent = areas.Find(i => i.Id == area.ParentId);
+                        if (areaParent.Name == value[1])
+                        {
+                            return areaParent.Id;
+                        }
+                    }
+                }
+                else
+                {
+                    if (arealist == null || arealist.Count == 0) return null;
+                    else
+                    {
+                        var parentId = arealist[0].Id;
+
+                        foreach (var area in areas)
+                        {
+                            if (area.ParentId == parentId && area.Name == value[1])
+                            {
+                                return area.Id;
+                            }
+                        }
+                        return parentId;
                     }
                 }
             }
-            else
+            else if (value.Length == 1)
             {
-                if (arealist == null || arealist.Count == 0) return null;
-                else
+                string parentName = value[0];
+                List<Area> arealist = areas.FindAll(i => (i.Name == parentName));
+                if (arealist != null && arealist.Count == 1)
                 {
-                    return arealist[0].Id;
+                    var parentId = arealist[0].Id;
+                    return parentId;
                 }
             }
+            
             return null;
         }
 

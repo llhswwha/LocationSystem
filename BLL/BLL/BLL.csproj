@@ -60,9 +60,6 @@
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NPOI">
-      <HintPath>..\..\Third\Projects\ExcelLib\NPOI 2.2.1 binary package\Net20\NPOI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -100,7 +97,6 @@
     <Compile Include="Blls\Location\OperationTicketSHBll.cs" />
     <Compile Include="Blls\Location\PatrolPointBll.cs" />
     <Compile Include="Blls\Location\PatrolPointItemBll.cs" />
-    <Compile Include="Blls\Location\PersonnelFirstInAreaBll.cs" />
     <Compile Include="Blls\Location\UserBll.cs" />
     <Compile Include="Buffers\AuthorizationBuffer.cs" />
     <Compile Include="Buffers\BaseBuffer.cs" />

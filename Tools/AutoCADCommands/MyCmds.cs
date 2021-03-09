@@ -231,11 +231,19 @@ namespace AutoCADCommands
                 CADShapeList textList = new CADShapeList();
                 if (types.ContainsKey("MText"))
                 {
-                    textList = types["MText"];
+                    textList.AddRange(types["MText"]);
+                }
+                if (types.ContainsKey("DBText"))
+                {
+                    textList.AddRange(types["DBText"]);
                 }
 
                 CADAnchorList result = new CADAnchorList();
 
+
+                List<string> names = new List<string>();
+                CADShapeList usedText = new CADShapeList();
+                string repeatNames = "";
                 for (int i = 0; i < anchorList.Count; i++)
                 {
                     var anchor = anchorList[i];
@@ -247,14 +255,45 @@ namespace AutoCADCommands
                             anchor.Text = text.Text;
                             anchor.Name = text.Text;
                             result.Anchors.Add(anchor);
+
+                            if(!names.Contains(anchor.Name))
+                            {
+                                names.Add(anchor.Name);
+                            }
+                            else
+                            {
+                                repeatNames += anchor.Name + ";";
+                            }
+                            usedText.Add(text);
                         }
                     }
                 }
 
+                string noUseNames = "";
+                foreach (var item in textList)
+                {
+                    if (!usedText.Contains(item))
+                    {
+                        noUseNames += item.Text + ";";
+                        
+                    }
+                }
+
+                
                 result.Anchors.Sort();
                 for (int i = 0; i < result.Anchors.Count; i++)
                 {
                     result.Anchors[i].Num = i + 1;
+                }
+
+                if(repeatNames != "")
+                {
+                    Gui.TextReport("重复基站", repeatNames, 700, 500);
+                }
+
+                if (noUseNames != "")
+                {
+                    Gui.TextReport("遗漏基站", noUseNames, 700, 500);
                 }
 
                 var txt = result.ToXml();
@@ -384,35 +423,58 @@ namespace AutoCADCommands
         [CommandMethod("LoadPoints")]
         public static void LoadPoints()
         {
-            string txt=Gui.InputBox("输入坐标");
-            double size=Interaction.GetValue("点大小", 2);
-            double height = Interaction.GetValue("文字高度", 2);
-            string key = Interaction.GetString("搜索", "");
-            string[] lines = txt.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
+            try
             {
-                string line = lines[i].Trim();
-                if (string.IsNullOrEmpty(line)) continue;
-                string[] parts = line.Split(',');
-                string name = parts[0];
-                double x = parts[2].ToDouble();
-                double y = parts[3].ToDouble();
-                double z = parts[4].ToDouble();
-
-                if (string.IsNullOrEmpty(key) || name == key)
+                string txt = Gui.InputBox("输入基站坐标");
+                Point3d zero = Interaction.GetPoint("ZeroPoint");
+                double size = Interaction.GetValue("点(基站)大小", 1000);
+                double height = Interaction.GetValue("文字高度", 1000);
+                //string key = Interaction.GetString("搜索", "");
+                string key = "";
+                string[] lines = txt.Split('\n');
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    Point3d point = new Point3d(x, y, z);
-                    Draw.Point(point);
-                    if (size > 0)
+                    string line = lines[i].Trim();
+                    if (string.IsNullOrEmpty(line)) continue;
+                    string[] parts = line.Split(',');
+                    string name = "";
+                    double x = 0, y = 0, z = 0;
+                    if (parts.Length == 5)
                     {
-                        Draw.Circle(point, size);
+                        name = parts[0];
+                        x = parts[2].ToDouble();
+                        y = parts[3].ToDouble();
+                        z = parts[4].ToDouble();
                     }
-                    if (height > 0)
+                    if (parts.Length == 4)
                     {
-                        Draw.Text(name, height, point);
+                        name = parts[0];
+                        x = parts[1].ToDouble();
+                        y = parts[2].ToDouble();
+                        z = parts[3].ToDouble();
+                    }
+
+
+                    if (string.IsNullOrEmpty(key) || name == key)
+                    {
+                        Point3d point = new Point3d(x+ zero.X, y + zero.Y, z + zero.Z);
+                        Draw.Point(point);
+                        if (size > 0)
+                        {
+                            Draw.Circle(point, size);
+                        }
+                        if (height > 0)
+                        {
+                            Draw.Text(name, height, point);
+                        }
                     }
                 }
             }
+            catch (System.Exception ex)
+            {
+                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+            }
+            
         }
 
         /// <summary>

@@ -75,9 +75,7 @@ namespace WebApiLib
             {
                 throw new Exception("404 Not Found");
             }
-            JsonSerializerSettings setting = new JsonSerializerSettings();
-            setting.NullValueHandling = NullValueHandling.Ignore;
-            T obj = JsonConvert.DeserializeObject<T>(result,setting);
+            T obj = JsonConvert.DeserializeObject<T>(result);
             return obj;
         }
 

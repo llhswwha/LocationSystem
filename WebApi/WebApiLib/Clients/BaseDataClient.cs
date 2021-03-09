@@ -1183,7 +1183,7 @@ namespace WebApiLib.Clients
                     }
 
                     DevEntranceGuardCardAction degca = delst.Find(p=>p.Abutment_Id == item.id);
-                    DevInfo devinfo = dlst.Find(p=>p.Abutment_DevID == item.device_id);
+                    DevInfo devinfo = dlst.Find(p=>p.Abutment_Id == item.device_id);
                     if (devinfo == null)
                     {
                         continue;

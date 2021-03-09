@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevBackupList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<DeviceList DevId="1902582" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902582]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902243" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902243]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1901664" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1901664]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1901791" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1901791]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902356" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902356]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1901904" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1901904]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902469" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902469]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902695" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902695]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902130" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902130]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902921" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902921]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902808" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902808]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1885916" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1885916]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902017" TypeCode="水泵" Name="C1-CDW-P-001冷却水泵[1902017]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冷却水泵+金属软接——500X350.C1-CDW-P-001冷却水泵" />
+	<DeviceList DevId="1902719" TypeCode="冷水机组" Name="冰机[1902719]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902606" TypeCode="冷水机组" Name="冰机[1902606]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902832" TypeCode="冷水机组" Name="冰机[1902832]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="719750" TypeCode="冷水机组" Name="冰机[719750]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1901815" TypeCode="冷水机组" Name="冰机[1901815]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1901928" TypeCode="冷水机组" Name="冰机[1901928]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1901575" TypeCode="冷水机组" Name="冰机[1901575]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1901702" TypeCode="冷水机组" Name="冰机[1901702]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902041" TypeCode="冷水机组" Name="冰机[1902041]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902380" TypeCode="冷水机组" Name="冰机[1902380]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902493" TypeCode="冷水机组" Name="冰机[1902493]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902154" TypeCode="冷水机组" Name="冰机[1902154]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1902267" TypeCode="冷水机组" Name="冰机[1902267]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.冰机.冰机" />
+	<DeviceList DevId="1896078" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1896078]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1896043" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1896043]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1896009" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1896009]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="976292" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[976292]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1896148" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1896148]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1896113" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1896113]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1877201" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1877201]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1877160" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1877160]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1877121" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1877121]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1892662" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1892662]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1877279" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1877279]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="1877240" TypeCode="水泵" Name="二次冷冻水变频泵+金属软接 400x300[1877240]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.二次冷冻水变频泵+金属软接 400x300.二次冷冻水变频泵+金属软接 400x300" />
+	<DeviceList DevId="944843" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[944843]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825882" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825882]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825917" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825917]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825952" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825952]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825777" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825777]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825812" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825812]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1825847" TypeCode="水泵" Name="热回收水变频泵+金属软接 350X250[1825847]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.热回收水变频泵+金属软接 350X250.热回收水变频泵+金属软接 350X250" />
+	<DeviceList DevId="1901944" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1901944]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1901831" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1901831]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1901718" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1901718]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902057" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902057]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902735" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902735]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902622" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902622]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1031814" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1031814]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1901591" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1901591]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902848" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902848]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902283" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902283]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902170" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902170]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902396" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902396]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1902509" TypeCode="水泵" Name="一次冷冻水泵+金属软接 350X300[1902509]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="常规模型.一次冷冻水泵+金属软接 350X300.一次冷冻水泵+金属软接 350X300" />
+	<DeviceList DevId="1213150" TypeCode="冷却塔" Name="C1-CDW-CT-001～004[1213150]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-001～004" />
+	<DeviceList DevId="1213301" TypeCode="冷却塔" Name="C1-CDW-CT-005～008[1213301]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-005～008" />
+	<DeviceList DevId="1213309" TypeCode="冷却塔" Name="C1-CDW-CT-009～012[1213309]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-009～012" />
+	<DeviceList DevId="1213455" TypeCode="冷却塔" Name="C1-CDW-CT-013～016[1213455]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-013～016" />
+	<DeviceList DevId="1213463" TypeCode="冷却塔" Name="C1-CDW-CT-017～020[1213463]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-017～020" />
+	<DeviceList DevId="1188356" TypeCode="冷却塔" Name="C1-CDW-CT-021～024[1188356]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-021～024" />
+	<DeviceList DevId="1212273" TypeCode="冷却塔" Name="C1-CDW-CT-025～028[1212273]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-025～028" />
+	<DeviceList DevId="1212823" TypeCode="冷却塔" Name="C1-CDW-CT-029～032[1212823]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-029～032" />
+	<DeviceList DevId="1212979" TypeCode="冷却塔" Name="C1-CDW-CT-033～036[1212979]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.BAC.C1-CDW-CT-033～036" />
+	<DeviceList DevId="1325236" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1325236]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336211" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336211]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336000" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336000]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336066" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336066]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336141" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336141]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336348" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336348]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1336281" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-001[1336281]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-001" />
+	<DeviceList DevId="1330795" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-002[1330795]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-002" />
+	<DeviceList DevId="1335930" TypeCode="旁滤槽罐" Name="C1-CDW-SFR-003[1335930]" ParentName="冷冻站|冷冻站RF" ParentId="716665" ModelName="常规模型.TD-BMF-6D-78P-150T.C1-CDW-SFR-003" />
+	<DeviceList DevId="1168950" TypeCode="板式换热器" Name="AQ14S-PFG[1168950]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14S-PFG.AQ14S-PFG" />
+	<DeviceList DevId="1106917" TypeCode="板式换热器" Name="AQ14S-PFG[1106917]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14S-PFG.AQ14S-PFG" />
+	<DeviceList DevId="1169037" TypeCode="板式换热器" Name="AQ14S-PFG[1169037]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14S-PFG.AQ14S-PFG" />
+	<DeviceList DevId="1168367" TypeCode="板式换热器" Name="AQ14S-PFG[1168367]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14S-PFG.AQ14S-PFG" />
+	<DeviceList DevId="1168282" TypeCode="板式换热器" Name="AQ14S-PFG[1168282]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14S-PFG.AQ14S-PFG" />
+	<DeviceList DevId="1097881" TypeCode="板式换热器" Name="C1-HR-HX-005[1097881]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14-PFM.C1-HR-HX-005" />
+	<DeviceList DevId="1097540" TypeCode="板式换热器" Name="C1-HR-HX-005[1097540]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14-PFM.C1-HR-HX-005" />
+	<DeviceList DevId="1097785" TypeCode="板式换热器" Name="C1-HR-HX-005[1097785]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14-PFM.C1-HR-HX-005" />
+	<DeviceList DevId="1097689" TypeCode="板式换热器" Name="C1-HR-HX-005[1097689]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14-PFM.C1-HR-HX-005" />
+	<DeviceList DevId="1096378" TypeCode="板式换热器" Name="C1-HR-HX-005[1096378]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="机械设备.Alfa-laval_PHE_AQ14-PFM.C1-HR-HX-005" />
+	<DeviceList DevId="1086378" TypeCode="定压补水装置" Name="C1-HW-ET-001[1086378]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086377" TypeCode="定压补水装置" Name="C1-HR-ET-001[1086377]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086376" TypeCode="定压补水装置" Name="C1-HR-ET-001[1086376]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086375" TypeCode="定压补水装置" Name="C1-CHL-ET-001[1086375]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086374" TypeCode="定压补水装置" Name="C1-CHL-ET-001[1086374]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086373" TypeCode="定压补水装置" Name="C1-CHL-ET-001[1086373]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086372" TypeCode="定压补水装置" Name="C1-HR-ET-001[1086372]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086371" TypeCode="定压补水装置" Name="C1-HW-ET-001[1086371]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1086370" TypeCode="定压补水装置" Name="C1-HW-ET-001[1086370]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076370" TypeCode="全自动加药装置" Name="C1-CHL-CF-001[1076370]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076379" TypeCode="全自动加药装置" Name="C1-HR-CF-001[1076379]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076378" TypeCode="全自动加药装置" Name="C1-HW-CF-001[1076378]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076377" TypeCode="全自动加药装置" Name="C1-CDW-CF-001[1076377]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076376" TypeCode="全自动加药装置" Name="C1-CHL-CF-001[1076376]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076375" TypeCode="全自动加药装置" Name="C1-CDW-CF-001[1076375]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076374" TypeCode="全自动加药装置" Name="C1-HW-CF-001[1076374]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076373" TypeCode="全自动加药装置" Name="C1-CHL-CF-001[1076373]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076372" TypeCode="全自动加药装置" Name="C1-CHL-CF-001[1076372]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076371" TypeCode="全自动加药装置" Name="C1-HR-CF-001[1076371]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076367" TypeCode="全自动加药装置" Name="C1-HW-CF-001[1076367]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1076368" TypeCode="全自动加药装置" Name="C1-HW-CF-001[1076368]" ParentName="冷冻站|冷冻站3F" ParentId="716663" ModelName="" />
+	<DeviceList DevId="1175945" TypeCode="管道系统" Name="BY_连通管" ParentName="冷冻站" ParentId="0" ModelName="管道系统.BY_连通管" />
+	<DeviceList DevId="722049" TypeCode="管道系统" Name="CHR_冷冻水回水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.CHR_冷冻水回水" />
+	<DeviceList DevId="721993" TypeCode="管道系统" Name="CHS_冷冻水供水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.CHS_冷冻水供水" />
+	<DeviceList DevId="721323" TypeCode="管道系统" Name="CWR_冷却回水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.CWR_冷却回水" />
+	<DeviceList DevId="721895" TypeCode="管道系统" Name="CWS_冷却水供" ParentName="冷冻站" ParentId="0" ModelName="管道系统.CWS_冷却水供" />
+	<DeviceList DevId="722373" TypeCode="管道系统" Name="HWR_高温热水回水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.HWR_高温热水回水" />
+	<DeviceList DevId="722419" TypeCode="管道系统" Name="HWS_高温热水供水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.HWS_高温热水供水" />
+	<DeviceList DevId="1176124" TypeCode="管道系统" Name="IW_生活上水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.IW_生活上水" />
+	<DeviceList DevId="1176121" TypeCode="管道系统" Name="P_一般排水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.P_一般排水" />
+	<DeviceList DevId="1175571" TypeCode="管道系统" Name="RCW_回收水系统" ParentName="冷冻站" ParentId="0" ModelName="管道系统.RCW_回收水系统" />
+	<DeviceList DevId="1176245" TypeCode="管道系统" Name="SP_沙滤排水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.SP_沙滤排水" />
+	<DeviceList DevId="722279" TypeCode="管道系统" Name="WWR_热回收回水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.WWR_热回收回水" />
+	<DeviceList DevId="722316" TypeCode="管道系统" Name="WWS_热回收供水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.WWS_热回收供水" />
+	<!--<DeviceList DevId="531125" TypeCode="管道系统" Name="干式消防系统" ParentName="冷冻站" ParentId="0" ModelName="管道系统.干式消防系统" />
+	<DeviceList DevId="531123" TypeCode="管道系统" Name="家用冷水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.家用冷水" />
+	<DeviceList DevId="531122" TypeCode="管道系统" Name="家用热水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.家用热水" />
+	<DeviceList DevId="532375" TypeCode="管道系统" Name="其他" ParentName="冷冻站" ParentId="0" ModelName="管道系统.其他" />
+	<DeviceList DevId="531127" TypeCode="管道系统" Name="其他消防系统" ParentName="冷冻站" ParentId="0" ModelName="管道系统.其他消防系统" />
+	<DeviceList DevId="531124" TypeCode="管道系统" Name="湿式消防系统" ParentName="冷冻站" ParentId="0" ModelName="管道系统.湿式消防系统" />
+	<DeviceList DevId="532517" TypeCode="管道系统" Name="通风孔" ParentName="冷冻站" ParentId="0" ModelName="管道系统.通风孔" />
+	<DeviceList DevId="531121" TypeCode="管道系统" Name="卫生设备" ParentName="冷冻站" ParentId="0" ModelName="管道系统.卫生设备" />
+	<DeviceList DevId="531119" TypeCode="管道系统" Name="循环供水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.循环供水" />
+	<DeviceList DevId="531120" TypeCode="管道系统" Name="循环回水" ParentName="冷冻站" ParentId="0" ModelName="管道系统.循环回水" />
+	<DeviceList DevId="531126" TypeCode="管道系统" Name="预作用消防系统" ParentName="冷冻站" ParentId="0" ModelName="管道系统.预作用消防系统" />-->
+</DevBackupList>

@@ -33,7 +33,6 @@ namespace DbModel.LocationHistory.AreaAndDev
         [Display(Name = "设备ID")]
         public int DevInfoId { get; set; }
 
-
         /// <summary>
         /// 门禁卡
         /// </summary>
@@ -76,16 +75,6 @@ namespace DbModel.LocationHistory.AreaAndDev
         [Display(Name = "说明")]
         [MaxLength(128)]
         public string description { get; set; }
-
-        [DataMember]
-        [Display(Name = "人员对接Id")]
-        public string PersonnelAbutment_Id { get; set; }
-        [DataMember]
-        [Display(Name = "门禁设备对接Id")]
-        public string device_id { get; set; }
-        [DataMember]
-        [Display(Name = "门禁卡号")]
-        public string card_code { get; set; }
 
         public DevEntranceGuardCardAction Clone()
         {

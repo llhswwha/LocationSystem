@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DevMonitorNodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DevMonitorNode Id="26309" TagName="COM-LA-063" Describe="6KV工作40BBA段_4号机组励磁变_COS" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="26305" TagName="COM-LA-059" Describe="6KV工作40BBA段_4号机组励磁变_IA" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="26306" TagName="COM-LA-060" Describe="6KV工作40BBA段_4号机组励磁变_IB" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="26307" TagName="COM-LA-061" Describe="6KV工作40BBA段_4号机组励磁变_IC" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="26308" TagName="COM-LA-062" Describe="6KV工作40BBA段_4号机组励磁变_P" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29492" TagName="COM-LD-452" Describe="6KV工作40BBA段_4号机组励磁变_事故总" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29493" TagName="COM-LD-453" Describe="6KV工作40BBA段_4号机组励磁变_告警总" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29489" TagName="COM-LD-449" Describe="6KV工作40BBA段_4号机组励磁变_手车工" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29490" TagName="COM-LD-450" Describe="6KV工作40BBA段_4号机组励磁变_手车试" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="29491" TagName="COM-LD-451" Describe="6KV工作40BBA段_4号机组励磁变_接地刀" ParentKKS="4号机组励磁变" Time="0" />
+  <DevMonitorNode Id="1225" TagName="COM-LAP-019" Describe="6KV工作40BBA段_4号机组励磁变_正向有" ParentKKS="4号机组励磁变" Time="0" />
+</DevMonitorNodeList>
