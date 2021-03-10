@@ -14,11 +14,58 @@ using TModel.Tools;
 
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 using Autodesk.AutoCAD.EditorInput;
+using System.IO;
 
 namespace AutoCADCommands
 {
     public class MyCmds
     {
+        public static void TextReport(string title, string content, double width, double height, bool modal = false,bool writeFile=true)
+        {
+            try
+            {
+                string[] list = new string[] { "D", "E", "F", "G", "H" };//C盘没有权限
+                string path = "";
+                string name = title;
+                name = name.Replace("\\","_");
+                name = name.Replace("/", "_");
+                name = name.Replace(":", "_");
+                name = name.Replace("*", "_");
+                name = name.Replace("?", "_");
+                name = name.Replace("\"", "_");
+                name = name.Replace("<", "_");
+                name = name.Replace(">", "_");
+                name = name.Replace("|", "_");
+                for (int i=0;i<list.Length;i++)
+                {
+                    if(Directory.Exists(list[i] + ":\\"))
+                    {
+                        path = list[i] + ":\\TextReport\\" + name + ".txt";
+                        break;
+                    }
+                }
+
+                FileInfo fi = new FileInfo(path);
+                if (fi.Directory.Exists == false)
+                {
+                    fi.Directory.Create();
+                }
+                
+                if (writeFile)
+                {
+                    File.WriteAllText(path, content);
+                    content = path + "\n" + content;
+                }
+
+                Gui.TextReport(title, content, width, height, modal);
+            }
+            catch (System.Exception ex)
+            {
+                Gui.TextReport("错误", ex.ToString(), width, height, modal);
+            }
+            
+        }
+
         [CommandMethod("MyCmds")]
         public static void Help()
         {
@@ -28,13 +75,13 @@ namespace AutoCADCommands
                          "Anchors:获取基站坐标信息（某一楼层的)\n" +
                          "AllAnchors:获取基站坐标信息（1F,2F,3F,4F)";
             ;
-            Gui.TextReport("Help", txt, 700, 500);
+            TextReport("Help", txt, 700, 500);
         }
 
         [CommandMethod("TextReport")]
         public static void TextReport()
         {
-            Gui.TextReport("title", "content", 200, 300, false);
+            TextReport("title", "content", 200, 300, false);
         }
 
         [CommandMethod("ExtentPoints")]
@@ -45,11 +92,11 @@ namespace AutoCADCommands
             if (shape != null)
             {
                 string xml = shape.ToXml();
-                Gui.TextReport("Points", xml, 700, 500);
+                TextReport("Points", xml, 700, 500);
             }
             else
             {
-                Gui.TextReport("Points", "NULL", 700, 500);
+                TextReport("Points", "NULL", 700, 500);
             }
         }
 
@@ -59,7 +106,7 @@ namespace AutoCADCommands
             var objId = Interaction.GetEntity("Entity");
             var line=objId.QOpenForRead<Line>();
             string xml = string.Format("{0},{1}", line.StartPoint, line.EndPoint);
-            Gui.TextReport("Points", xml, 700, 500);
+            TextReport("Points", xml, 700, 500);
         }
 
         [CommandMethod("EntityPoints")]
@@ -68,7 +115,7 @@ namespace AutoCADCommands
             var objId = Interaction.GetEntity("Entity");
             var sp = objId.ToCADShape(true);
             string xml = sp.ToXml();
-            Gui.TextReport("Points", xml, 700, 500);
+            TextReport("Points", xml, 700, 500);
         }
 
         //[CommandMethod("ColumnPoints")]
@@ -84,7 +131,7 @@ namespace AutoCADCommands
         //    area.Name = "主厂房0m层";
         //    areaList.Add(area);
         //    var txt = areaList.ToXml();
-        //    Gui.TextReport("Points", txt, 700, 500);
+        //    TextReport("Points", txt, 700, 500);
 
         //}
 
@@ -108,11 +155,11 @@ namespace AutoCADCommands
                 area.Name = "主厂房0m层";
                 areaList.Add(area);
                 var txt = areaList.ToXml();
-                Gui.TextReport("Points", txt, 700, 500);
+                TextReport("Points", txt, 700, 500);
             }
             catch (System.Exception ex)
             {
-                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+                TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
@@ -124,7 +171,7 @@ namespace AutoCADCommands
             var p2 = p.ToWCS();
             var p3 = p2.ToUCS();
             string txt = string.Format("P1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}", p, p2, p3);
-            Gui.TextReport("PT", txt, 700, 500);
+            TextReport("PT", txt, 700, 500);
         }
 
         [CommandMethod("PT2")]
@@ -288,21 +335,21 @@ namespace AutoCADCommands
 
                 if(repeatNames != "")
                 {
-                    Gui.TextReport("重复基站", repeatNames, 700, 500);
+                    TextReport("重复基站", repeatNames, 700, 500);
                 }
 
                 if (noUseNames != "")
                 {
-                    Gui.TextReport("遗漏基站", noUseNames, 700, 500);
+                    TextReport("遗漏基站", noUseNames, 700, 500);
                 }
 
                 var txt = result.ToXml();
-                Gui.TextReport("Anchors", txt, 700, 500);
+                TextReport("Anchors", txt, 700, 500);
             }
             catch (System.Exception ex)
             {
 
-                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+                TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
@@ -361,7 +408,7 @@ namespace AutoCADCommands
                 if (name != "") sp.Name = name;
                 var xml = sp.ToXml();
 
-                Gui.TextReport("ShapeInfo", xml, 700, 500);
+                TextReport("ShapeInfo", xml, 700, 500);
             }
 
         }
@@ -472,7 +519,7 @@ namespace AutoCADCommands
             }
             catch (System.Exception ex)
             {
-                Gui.TextReport("Exception", ex.ToString(), 700, 500);
+                TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
@@ -563,7 +610,7 @@ namespace AutoCADCommands
                 name += sp.Text;
             }
 
-            Gui.TextReport("名称:"+ name, txt, 700, 500);
+            TextReport("名称:"+ name, txt, 700, 500);
         }
 
         [CommandMethod("ShowPoints")]
