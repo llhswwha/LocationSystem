@@ -3064,14 +3064,113 @@
             手动获取多个“多边型”图形
             </summary>
         </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.GetAllFloors(System.String,System.Int32,System.String)">
+            <summary>
+            Thickness:厚度，层高
+            IsRelative="true"
+            BottomHeight:离地面高度，0层为0，6.5层为：6500
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.ToPointFromClockwise(System.Collections.Generic.List{Location.Model.InitInfos.PointInfo},System.Collections.Generic.List{Location.Model.InitInfos.PointInfo}@)">
+            <summary>
+            将节点将 顺时针输出
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.solvelist(System.Collections.Generic.List{Location.Model.InitInfos.PointInfo})">
+            <summary>
+            判断是否是顺时针，返回true时，为顺时针
+            </summary>
+            <param name="wise"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.GetCADOtherCommands.toClockwise(System.Collections.Generic.List{Location.Model.InitInfos.PointInfo},System.Collections.Generic.List{Location.Model.InitInfos.PointInfo}@)">
+            <summary>
+            将逆时针转成顺时针
+            </summary>
+            <param name="wise"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.GetRoomsCommand.CreateBuildingInitInfoByFloors(System.String,Location.Model.InitInfos.TopoInfo[])">
+            <summary>
+            获取完整的园区初始化xml
+            </summary>
+            <param name="floor"></param>
+            <param name="parkName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.GetRoomsCommand.CreateParkInitInfoByFloors(System.String,System.String,Location.Model.InitInfos.TopoInfo[])">
+            <summary>
+            获取完整的园区初始化xml
+            </summary>
+            <param name="floor"></param>
+            <param name="parkName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetZero">
+            <summary>
+            获取坐标，测试ToWCS和ToUCS
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetOne">
+            <summary>
+            获取坐标，测试ToWCS和ToUCS
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetPoint1">
+            <summary>
+            获取坐标，测试ToWCS和ToUCS
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetPoint2">
+            <summary>
+            获取坐标，测试ToWCS和ToUCS
+            </summary>
+        </member>
         <member name="M:AutoCADCommands.MyCmds.SetUCS2WCS">
             <summary>
             设置当前用户坐标系为世界坐标系
             </summary>
         </member>
+        <member name="M:AutoCADCommands.MyCmds.GetShapeInfos">
+            <summary>
+            手动连续获取 封闭多边型 //add by qclei 2020-04-30
+            </summary>
+        </member>
         <member name="M:AutoCADCommands.MyCmds.GetBuildInfo">
             <summary>
-            厂区 //add by qclei 2020-04-30
+            厂区（不含大楼的点），只负责整个厂区的边点 //add by qclei 2020-04-30
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetOneFloorWithRoot">
+            <summary>
+            获取楼层内的房间 //add by qclei 2020-07-10
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetOneFloor">
+            <summary>
+            获取楼层内的房间 //add by qclei 2020-07-10
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetAllFloorsWithRoot">
+            <summary>
+            获取楼层内的房间 //add by qclei 2020-07-10
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetAllFloors">
+            <summary>
+            获取楼层内的房间 //add by qclei 2020-07-10
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetParkInfo">
+            <summary>
+            获取整体园区、大楼的关系  //add by qclei 2020-05-04
+            </summary>
+        </member>
+        <member name="M:AutoCADCommands.MyCmds.GetParkInfoEx">
+            <summary>
+            获取整体园区、大楼的关系  //add by qclei 2020-05-04
             </summary>
         </member>
         <member name="M:AutoCADCommands.MyCmds.GetLayerInfo">
@@ -3082,11 +3181,6 @@
         <member name="M:AutoCADCommands.MyCmds.GetShapeInfo">
             <summary>
             从一个线获取全部的
-            </summary>
-        </member>
-        <member name="M:AutoCADCommands.MyCmds.GetShapeInfos">
-            <summary>
-            手动连续获取 封闭多边型 //add by qclei 2020-04-30
             </summary>
         </member>
         <member name="M:AutoCADCommands.MyCmds.GetLineOfPoint">
@@ -3127,11 +3221,6 @@
         <member name="M:AutoCADCommands.MyCmds.GetRoomsEx">
             <summary>
             获取机房坐标，创建机房区域
-            </summary>
-        </member>
-        <member name="M:AutoCADCommands.MyCmds.GetParkInfoEx">
-            <summary>
-            获取整体园区、大楼的关系  //add by qclei 2020-05-04
             </summary>
         </member>
         <member name="M:AutoCADCommands.MyCmds.GetInitInfoEx">

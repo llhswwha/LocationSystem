@@ -20,51 +20,6 @@ namespace AutoCADCommands
 {
     public class MyCmds
     {
-        public static void TextReport(string title, string content, double width, double height, bool modal = false,bool writeFile=true)
-        {
-            try
-            {
-                string[] list = new string[] { "D", "E", "F", "G", "H" };//C盘没有权限
-                string path = "";
-                string name = title;
-                name = name.Replace("\\","_");
-                name = name.Replace("/", "_");
-                name = name.Replace(":", "_");
-                name = name.Replace("*", "_");
-                name = name.Replace("?", "_");
-                name = name.Replace("\"", "_");
-                name = name.Replace("<", "_");
-                name = name.Replace(">", "_");
-                name = name.Replace("|", "_");
-                for (int i=0;i<list.Length;i++)
-                {
-                    if(Directory.Exists(list[i] + ":\\"))
-                    {
-                        path = list[i] + ":\\TextReport\\" + name + ".txt";
-                        break;
-                    }
-                }
-
-                FileInfo fi = new FileInfo(path);
-                if (fi.Directory.Exists == false)
-                {
-                    fi.Directory.Create();
-                }
-                
-                if (writeFile)
-                {
-                    File.WriteAllText(path, content);
-                    content = path + "\n" + content;
-                }
-
-                Gui.TextReport(title, content, width, height, modal);
-            }
-            catch (System.Exception ex)
-            {
-                Gui.TextReport("错误", ex.ToString(), width, height, modal);
-            }
-            
-        }
 
         [CommandMethod("MyCmds")]
         public static void Help()
@@ -74,14 +29,13 @@ namespace AutoCADCommands
                          "ColumnPointsEx:获取柱子坐标信息\n" +
                          "Anchors:获取基站坐标信息（某一楼层的)\n" +
                          "AllAnchors:获取基站坐标信息（1F,2F,3F,4F)";
-            ;
-            TextReport("Help", txt, 700, 500);
+            MyTool.TextReport("Help", txt, 700, 500);
         }
 
-        [CommandMethod("TextReport")]
-        public static void TextReport()
+        [CommandMethod("TestTextReport")]
+        public static void TestTextReport()
         {
-            TextReport("title", "content", 200, 300, false);
+            MyTool.TextReport("title", "content", 200, 300, false);
         }
 
         [CommandMethod("ExtentPoints")]
@@ -92,11 +46,11 @@ namespace AutoCADCommands
             if (shape != null)
             {
                 string xml = shape.ToXml();
-                TextReport("Points", xml, 700, 500);
+                MyTool.TextReport("Points", xml, 700, 500);
             }
             else
             {
-                TextReport("Points", "NULL", 700, 500);
+                MyTool.TextReport("Points", "NULL", 700, 500);
             }
         }
 
@@ -106,7 +60,7 @@ namespace AutoCADCommands
             var objId = Interaction.GetEntity("Entity");
             var line=objId.QOpenForRead<Line>();
             string xml = string.Format("{0},{1}", line.StartPoint, line.EndPoint);
-            TextReport("Points", xml, 700, 500);
+            MyTool.TextReport("Points", xml, 700, 500);
         }
 
         [CommandMethod("EntityPoints")]
@@ -115,7 +69,7 @@ namespace AutoCADCommands
             var objId = Interaction.GetEntity("Entity");
             var sp = objId.ToCADShape(true);
             string xml = sp.ToXml();
-            TextReport("Points", xml, 700, 500);
+            MyTool.TextReport("Points", xml, 700, 500);
         }
 
         //[CommandMethod("ColumnPoints")]
@@ -131,7 +85,7 @@ namespace AutoCADCommands
         //    area.Name = "主厂房0m层";
         //    areaList.Add(area);
         //    var txt = areaList.ToXml();
-        //    TextReport("Points", txt, 700, 500);
+        //    MyTool.TextReport("Points", txt, 700, 500);
 
         //}
 
@@ -155,25 +109,66 @@ namespace AutoCADCommands
                 area.Name = "主厂房0m层";
                 areaList.Add(area);
                 var txt = areaList.ToXml();
-                TextReport("Points", txt, 700, 500);
+                MyTool.TextReport("Points", txt, 700, 500);
             }
             catch (System.Exception ex)
             {
-                TextReport("Exception", ex.ToString(), 700, 500);
+                MyTool.TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
 
-        [CommandMethod("PT")]
+        #region UCS
+        /// <summary>
+        /// 获取坐标，测试ToWCS和ToUCS
+        /// </summary>
+        [CommandMethod("Zero")]
+        public static void GetZero()
+        {
+            var p = new Point3d(0, 0,0);
+            var p2 = p.ToWCS();
+            var p3 = p2.ToUCS();
+            string txt = string.Format("P1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}", p, p2, p3);
+            MyTool.TextReport("Zero", txt, 700, 500);
+        }
+
+        /// <summary>
+        /// 获取坐标，测试ToWCS和ToUCS
+        /// </summary>
+        [CommandMethod("One")]
+        public static void GetOne()
+        {
+            var p = new Point3d(1, 1, 1);
+            var p2 = p.ToWCS();
+            var p3 = p2.ToUCS();
+            string txt = string.Format("P1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}", p, p2, p3);
+            MyTool.TextReport("One", txt, 700, 500);
+        }
+
+        /// <summary>
+        /// 获取坐标，测试ToWCS和ToUCS
+        /// </summary>
+        [CommandMethod("PT1")]
         public static void GetPoint1()
         {
             var p = Interaction.GetPoint("Point");
             var p2 = p.ToWCS();
             var p3 = p2.ToUCS();
-            string txt = string.Format("P1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}", p, p2, p3);
-            TextReport("PT", txt, 700, 500);
+            string txt = string.Format("P1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}\n", p, p2, p3);
+           
+
+            var zero = new Point3d(0, 0, 0);
+            var zero_WCS = zero.ToWCS();
+            var zero_UCS = zero.ToUCS();
+
+            txt += string.Format("------\nP1(Original):{0}\nP2(WCS世界坐标):{1}\nP3(UCS局部坐标):{2}", (p- zero), (p2- zero_WCS), (p3- zero_UCS));
+
+            MyTool.TextReport("PT", txt, 700, 500);
         }
 
+        /// <summary>
+        /// 获取坐标，测试ToWCS和ToUCS
+        /// </summary>
         [CommandMethod("PT2")]
         public static void GetPoint2()
         {
@@ -188,6 +183,23 @@ namespace AutoCADCommands
             var ucs = MyTool.GetUCS();
             Interaction.WriteLine("Origin:" + ucs.Origin);
         }
+
+        /// <summary>
+        /// 设置当前用户坐标系为世界坐标系
+        /// </summary>
+        [CommandMethod("SetUCS2WCS")]
+        public static void SetUCS2WCS()
+        {
+            MyTool.SetUCS2WCS();
+        }
+
+        [CommandMethod("NewUCS")]
+        public static void NewUCS()
+        {
+            MyTool.NewUCS();
+        }
+
+        #endregion
 
         [CommandMethod("CopyCircle")]
         public static void CopyCircle()
@@ -204,21 +216,6 @@ namespace AutoCADCommands
             var cid = Draw.Circle(p, radius.ToInt());
             var zeroSp = cid.ToCADShape(true);
             Interaction.Write(zeroSp.GetPoint().ToString());
-        }
-
-        /// <summary>
-        /// 设置当前用户坐标系为世界坐标系
-        /// </summary>
-        [CommandMethod("SetUCS2WCS")]
-        public static void SetUCS2WCS()
-        {
-            MyTool.SetUCS2WCS();
-        }
-
-        [CommandMethod("NewUCS")]
-        public static void NewUCS()
-        {
-            MyTool.NewUCS();
         }
 
         [CommandMethod("AddCircle")]
@@ -335,21 +332,21 @@ namespace AutoCADCommands
 
                 if(repeatNames != "")
                 {
-                    TextReport("重复基站", repeatNames, 700, 500);
+                    MyTool.TextReport("重复基站", repeatNames, 700, 500);
                 }
 
                 if (noUseNames != "")
                 {
-                    TextReport("遗漏基站", noUseNames, 700, 500);
+                    MyTool.TextReport("遗漏基站", noUseNames, 700, 500);
                 }
 
                 var txt = result.ToXml();
-                TextReport("Anchors", txt, 700, 500);
+                MyTool.TextReport("Anchors", txt, 700, 500);
             }
             catch (System.Exception ex)
             {
 
-                TextReport("Exception", ex.ToString(), 700, 500);
+                MyTool.TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
@@ -367,18 +364,133 @@ namespace AutoCADCommands
 
         }
 
+        /// <summary>
+        /// 手动连续获取 封闭多边型 //add by qclei 2020-04-30
+        /// </summary>
+        [CommandMethod("ShapeInfos")]
+        public static void GetShapeInfos()
+        {
+            GetCADOtherCommands.GetAllShapeByManual();
+        }
 
         /// <summary>
-        /// 厂区 //add by qclei 2020-04-30
+        /// 厂区（不含大楼的点），只负责整个厂区的边点 //add by qclei 2020-04-30
         /// </summary>
         [CommandMethod("GetBuild")]
         public static void GetBuildInfo()
         {
-            GetCADOtherCommands.GetParkBuild("厂区");
+            //string txt = Interaction.GetString("输入当前图层名称");
+            //if (string.IsNullOrEmpty(txt))
+            //{
+            //    txt = "厂区";
+            //}
+            var entityId = Interaction.GetEntity("选择一个大楼");
+            var entity = entityId.QOpenForRead<Entity>();
+
+            GetCADOtherCommands.GetParkBuild(entity.Layer);
 
             return;
         }
-                                  
+               
+        /// <summary>
+        /// 获取楼层内的房间 //add by qclei 2020-07-10
+        /// </summary>
+        [CommandMethod("GetOneFloorWithRoot")]
+        public static void GetOneFloorWithRoot()
+        {
+            string txt = Interaction.GetString("输入厂区名称(默认:厂区A)");
+            if (string.IsNullOrEmpty(txt))
+            {
+                txt = "厂区A";
+            }
+            var entityId = Interaction.GetEntity("选择一个机房(用来获取楼层的Layer)");
+            var entity = entityId.QOpenForRead<Entity>();
+            GetCADOtherCommands.GetOneFloorWithRoot(entity.Layer, txt);
+            return;
+        }
+
+        /// <summary>
+        /// 获取楼层内的房间 //add by qclei 2020-07-10
+        /// </summary>
+        [CommandMethod("GetOneFloor")]
+        public static void GetOneFloor()
+        {
+            var entityId = Interaction.GetEntity("选择一个机房");
+            var entity = entityId.QOpenForRead<Entity>();
+            GetCADOtherCommands.GetOneFloorWithRoot(entity.Layer, "");
+            return;
+        }
+
+        /// <summary>
+        /// 获取楼层内的房间 //add by qclei 2020-07-10
+        /// </summary>
+        [CommandMethod("GetAllFloorsWithRoot")]
+        public static void GetAllFloorsWithRoot()
+        {
+            string parkName = Interaction.GetString("输入厂区名称(默认:厂区A)");
+            if (string.IsNullOrEmpty(parkName))
+            {
+                parkName = "厂区A";
+            }
+
+            string buildingName = Interaction.GetString("输入大楼名称(默认:大楼X)");
+            if (string.IsNullOrEmpty(buildingName))
+            {
+                buildingName = "大楼X";
+            }
+            int count = (int)Interaction.GetValue("输入大楼楼层(默认:5)", 5);
+            GetCADOtherCommands.GetAllFloors(buildingName, count, parkName);
+        }
+
+        /// <summary>
+        /// 获取楼层内的房间 //add by qclei 2020-07-10
+        /// </summary>
+        [CommandMethod("GetAllFloors")]
+        public static void GetAllFloors()
+        {
+            string buildingName = Interaction.GetString("输入大楼名称(默认:大楼X)");
+            if (string.IsNullOrEmpty(buildingName))
+            {
+                buildingName = "大楼X";
+            }
+            int count = (int)Interaction.GetValue("输入大楼楼层(默认:5)", 5);
+            GetCADOtherCommands.GetAllFloors(buildingName, count, "");
+        }
+
+        /// <summary>
+        /// 获取整体园区、大楼的关系  //add by qclei 2020-05-04
+        /// </summary>
+        [CommandMethod("GetParkInfo")]
+        public static void GetParkInfo()
+        {
+            string parkName = Interaction.GetString("输入厂区名称(默认:厂区A)");
+            if (string.IsNullOrEmpty(parkName))
+            {
+                parkName = "厂区A";
+            }
+            GetCADOtherCommands.GetParkInfoEx(parkName, 0);
+        }
+
+        /// <summary>
+        /// 获取整体园区、大楼的关系  //add by qclei 2020-05-04
+        /// </summary>
+        [CommandMethod("GetParkInfoEx")]
+        public static void GetParkInfoEx()
+        {
+            string parkName = Interaction.GetString("输入厂区名称(默认:厂区A)");
+            if (string.IsNullOrEmpty(parkName))
+            {
+                parkName = "厂区A";
+            }
+            int count = (int)Interaction.GetValue("输入最大大楼楼层(默认:10)", 10);
+            GetCADOtherCommands.GetParkInfoEx(parkName, count);
+        }
+
+        //public static void GetOneFloorInitInfo()
+        //{
+        //    InitInfo initInfo = CreateInitInfo(floor, txt);
+        //}
+
         /// <summary>
         /// 获取当前图层下面所有“多边型”图形 //add by qclei 2020-04-30
         /// </summary>
@@ -386,7 +498,6 @@ namespace AutoCADCommands
         public static void GetLayerInfo()
         {            
             GetCADOtherCommands.GetAllShapeByLayer();
-
             return;
         }        
 
@@ -408,18 +519,8 @@ namespace AutoCADCommands
                 if (name != "") sp.Name = name;
                 var xml = sp.ToXml();
 
-                TextReport("ShapeInfo", xml, 700, 500);
+                MyTool.TextReport("ShapeInfo", xml, 700, 500);
             }
-
-        }
-
-        /// <summary>
-        /// 手动连续获取 封闭多边型 //add by qclei 2020-04-30
-        /// </summary>
-        [CommandMethod("ShapeInfos")]
-        public static void GetShapeInfos()
-        {
-            GetCADOtherCommands.GetAllShapeByManual();
         }
 
         /// <summary>
@@ -519,7 +620,7 @@ namespace AutoCADCommands
             }
             catch (System.Exception ex)
             {
-                TextReport("Exception", ex.ToString(), 700, 500);
+                MyTool.TextReport("Exception", ex.ToString(), 700, 500);
             }
             
         }
@@ -559,15 +660,6 @@ namespace AutoCADCommands
         {
             GetRoomsCommand.GetRoomsInfoEx();
         }
-
-        /// <summary>
-        /// 获取整体园区、大楼的关系  //add by qclei 2020-05-04
-        /// </summary>
-        [CommandMethod("GetParkInfoEx")]
-        public static void GetParkInfoEx()
-        {
-            GetCADOtherCommands.GetParkInfoEx();
-        }
                
 
         /// <summary>
@@ -590,6 +682,7 @@ namespace AutoCADCommands
 
             string name = "";
             string txt = "";
+            txt += string.Format("p1:{0},p2:{1}\nobjs:\n", p1, p2);
             ObjectId[] objs=Interaction.GetCrossingSelection(p1, p2);
             CADShapeList sps = new CADShapeList();
             for (int i = 0; i < objs.Length; i++)
@@ -610,7 +703,7 @@ namespace AutoCADCommands
                 name += sp.Text;
             }
 
-            TextReport("名称:"+ name, txt, 700, 500);
+            MyTool.TextReport("名称:"+ name, txt, 700, 500);
         }
 
         [CommandMethod("ShowPoints")]

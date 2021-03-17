@@ -9,13 +9,9 @@ using Autodesk.Windows;
 using Dreambuild.AutoCAD.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using Dreambuild.AutoCAD;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
-using ColorDialog = Autodesk.AutoCAD.Windows.ColorDialog;
-using Polyline = Autodesk.AutoCAD.DatabaseServices.Polyline;
+using System.IO;
 
 namespace AutoCADCommands
 {
@@ -226,6 +222,51 @@ namespace AutoCADCommands
 
                 acTrans.Commit();
             }
+        }
+        public static void TextReport(string title, string content, double width, double height, bool modal = false, bool writeFile = true)
+        {
+            try
+            {
+                string[] list = new string[] { "D", "E", "F", "G", "H" };//C盘没有权限
+                string path = "";
+                string name = title;
+                name = name.Replace("\\", "_");
+                name = name.Replace("/", "_");
+                name = name.Replace(":", "_");
+                name = name.Replace("*", "_");
+                name = name.Replace("?", "_");
+                name = name.Replace("\"", "_");
+                name = name.Replace("<", "_");
+                name = name.Replace(">", "_");
+                name = name.Replace("|", "_");
+                for (int i = 0; i < list.Length; i++)
+                {
+                    if (Directory.Exists(list[i] + ":\\"))
+                    {
+                        path = list[i] + ":\\TextReport\\" + name + ".txt";
+                        break;
+                    }
+                }
+
+                FileInfo fi = new FileInfo(path);
+                if (fi.Directory.Exists == false)
+                {
+                    fi.Directory.Create();
+                }
+
+                if (writeFile)
+                {
+                    File.WriteAllText(path, content);
+                    content = path + "\n" + content;
+                }
+
+                Gui.TextReport(title, content, width, height, modal);
+            }
+            catch (System.Exception ex)
+            {
+                Gui.TextReport("错误", ex.ToString(), width, height, modal);
+            }
+
         }
     }
 

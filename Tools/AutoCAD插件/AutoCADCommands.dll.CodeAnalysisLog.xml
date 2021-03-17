@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2019\enterprise\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
 <FxCopReport Version="16.0">
  <Targets>
-  <Target Name="C:\WorkSpace\GitHub\LocationSystem\Tools\bin\AutoCADCommands.dll">
+  <Target Name="H:\Workspace\GitHub\SVN\Tools\bin\AutoCADCommands.dll">
    <Modules>
     <Module Name="autocadcommands.dll">
      <Namespaces>
@@ -12,36 +12,36 @@
          <Members>
           <Member Name="#acedCmd(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">由于是 P/Invoke 方法，因此，应在名为 NativeMethods、SafeNativeMethods 或 UnsafeNativeMethods 的类中定义 'Arx.acedCmd(IntPtr)'。</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">更改 P/Invoke 'Arx.acedCmd(IntPtr)' 的可访问性，使它在自己的程序集外部不再是可见的。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#acedPostCommand(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">由于是 P/Invoke 方法，因此，应在名为 NativeMethods、SafeNativeMethods 或 UnsafeNativeMethods 的类中定义 'Arx.acedPostCommand(string)'。</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">更改 P/Invoke 'Arx.acedPostCommand(string)' 的可访问性，使它在自己的程序集外部不再是可见的。</Issue>
             </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="NonBreaking">
+            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="NonBreaking">
              <Issue Name="Parameter" Certainty="75" Level="Error">为了降低安全风险，请将参数 'strExpr' 封送为 Unicode，方法是将 DllImport.CharSet 设置为 CharSet.Unicode 或者将该参数显式封送为 UnmanagedType.LPWStr。如果您需要将该字符串封送为 ANSI 或与系统相关的编码，请设置 BestFitMapping=false；为了提高安全性，还可以设置 ThrowOnUnmappableChar=true。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ads_queueexpr(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">由于是 P/Invoke 方法，因此，应在名为 NativeMethods、SafeNativeMethods 或 UnsafeNativeMethods 的类中定义 'Arx.ads_queueexpr(string)'。</Issue>
             </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="50" Level="CriticalError">更改 P/Invoke 'Arx.ads_queueexpr(string)' 的可访问性，使它在自己的程序集外部不再是可见的。</Issue>
             </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="NonBreaking">
+            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="NonBreaking">
              <Issue Name="Parameter" Certainty="75" Level="Error">为了降低安全风险，请将参数 'strExpr' 封送为 Unicode，方法是将 DllImport.CharSet 设置为 CharSet.Unicode 或者将该参数显式封送为 UnmanagedType.LPWStr。如果您需要将该字符串封送为 ANSI 或与系统相关的编码，请设置 BestFitMapping=false；为了提高安全性，还可以设置 ThrowOnUnmappableChar=true。</Issue>
             </Message>
            </Messages>
@@ -52,14 +52,14 @@
          <Members>
           <Member Name="#SetFocus(System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">由于是 P/Invoke 方法，因此，应在名为 NativeMethods、SafeNativeMethods 或 UnsafeNativeMethods 的类中定义 'Interaction.SetFocus(IntPtr)'。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#SetParent(System.IntPtr,System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">由于是 P/Invoke 方法，因此，应在名为 NativeMethods、SafeNativeMethods 或 UnsafeNativeMethods 的类中定义 'Interaction.SetParent(IntPtr, IntPtr)'。</Issue>
             </Message>
            </Messages>
@@ -68,7 +68,7 @@
         </Type>
         <Type Name="PolylineNeedsCleanupException" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2020-07-02 01:55:30Z" FixCategory="NonBreaking">
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2021-03-17 08:00:04Z" FixCategory="NonBreaking">
            <Issue Certainty="95" Level="Error">将 [Serializable] 添加到 'PolylineNeedsCleanupException'，原因是此类型实现了 ISerializable。</Issue>
           </Message>
          </Messages>

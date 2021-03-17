@@ -34,13 +34,13 @@ namespace AutoCADCommands
 
             TopoInfo floor = GetFloorInfoEx();
 
-            InitInfo initInfo = CreateInitInfo(floor, txt);
+            InitInfo initInfo = CreateParkInitInfoByFloors(txt,"大楼1",floor);
 
             DateTime end = DateTime.Now;
             TimeSpan t = end - start;
 
             string xml = XmlSerializeHelper.GetXmlText(initInfo);
-            Gui.TextReport(floor.Name + "|" + t, xml, 700, 500);
+            MyTool.TextReport(floor.Name + "|" + t, xml, 700, 500);
         }
 
         public static void GetInitInfo()
@@ -55,16 +55,60 @@ namespace AutoCADCommands
 
             TopoInfo floor = GetFloorInfo();
 
-            InitInfo initInfo = CreateInitInfo(floor, txt);
+            InitInfo initInfo = CreateParkInitInfoByFloors(txt,"大楼1",floor);
 
             DateTime end = DateTime.Now;
             TimeSpan t = end - start;
 
             string xml = XmlSerializeHelper.GetXmlText(initInfo);
-            Gui.TextReport(floor.Name + "|" + t, xml, 700, 500);
+            MyTool.TextReport(floor.Name + "|" + t, xml, 700, 500);
         }
 
-        private static InitInfo CreateInitInfo(TopoInfo floor,string parkName)
+        /// <summary>
+        /// 获取完整的园区初始化xml
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <param name="parkName"></param>
+        /// <returns></returns>
+        public static TopoInfo CreateBuildingInitInfoByFloors(string buildingName, params TopoInfo[] floors)
+        {
+            TopoInfo building = new TopoInfo(buildingName, AreaTypes.大楼);
+            //park.AddChild(building);
+
+            if (floors.Length > 0)
+            {
+                TopoInfo firstFloor = null;
+                foreach (var floor in floors)
+                {
+                    if (firstFloor == null)
+                    {
+                        firstFloor = floor;
+                    }
+                    building.AddChild(floor);
+                }
+
+                BoundInfo buildBound = firstFloor.BoundInfo.CloneByXml();
+                buildBound.SetRectangle();//比例调整
+                buildBound.Scale(1.05f);//比例调整
+                building.BoundInfo = buildBound;//大楼默认和楼层一致
+                building.BoundInfo.IsRelative = false;
+                //BoundInfo parkBound = building.BoundInfo.CloneByXml();
+                //parkBound.SetRectangle();
+                //parkBound.Scale(2);//园区默认是比大楼周围一圈
+                //park.BoundInfo = parkBound;
+            }
+
+
+            return building;
+        }
+
+        /// <summary>
+        /// 获取完整的园区初始化xml
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <param name="parkName"></param>
+        /// <returns></returns>
+        public static InitInfo CreateParkInitInfoByFloors(string parkName,string buildingName,params TopoInfo[] floors)
         {
             InitInfo initInfo = new InitInfo();
             TopoInfo root = new TopoInfo("根节点", AreaTypes.区域);
@@ -73,23 +117,17 @@ namespace AutoCADCommands
             TopoInfo park = new TopoInfo(parkName, AreaTypes.园区);//todo:可以扩展成园区、大楼手动设置
             root.AddChild(park);
 
-            //TopoInfo group = new TopoInfo("分组1", AreaTypes.分组);
-            //park.AddChild(group);
+            TopoInfo group = new TopoInfo("生产区域", AreaTypes.分组);//todo:可以扩展成园区、大楼手动设置
+            park.AddChild(group);
 
-            TopoInfo building = new TopoInfo("大楼1", AreaTypes.大楼);
-            park.AddChild(building);
-
-            building.AddChild(floor);
-
-            BoundInfo buildBound= floor.BoundInfo.CloneByXml();
-            buildBound.SetRectangle();//比例调整
-            buildBound.Scale(1.05f);//比例调整
-            building.BoundInfo = buildBound;//大楼默认和楼层一致
+            TopoInfo building = CreateBuildingInitInfoByFloors(buildingName, floors);
+            group.AddChild(building);
 
             BoundInfo parkBound= building.BoundInfo.CloneByXml();
             parkBound.SetRectangle();
             parkBound.Scale(2);//园区默认是比大楼周围一圈
             park.BoundInfo = parkBound;
+            park.BoundInfo.IsRelative = false;
 
             return initInfo;
         }
@@ -105,7 +143,7 @@ namespace AutoCADCommands
             string xml = "";
             if(topoInfo!=null)
                 xml = XmlSerializeHelper.GetXmlText(topoInfo,true);
-            Gui.TextReport(topoInfo.Name + "|" + t, xml, 700, 500);
+            MyTool.TextReport(topoInfo.Name + "|" + t, xml, 700, 500);
         }
 
         public static void GetRoomsInfo()
@@ -117,7 +155,7 @@ namespace AutoCADCommands
             DateTime end = DateTime.Now;
             TimeSpan t = end - start;
             string xml = XmlSerializeHelper.GetXmlText(floor);
-            Gui.TextReport(floor.Name + "|" + t, xml, 700, 500);
+            MyTool.TextReport(floor.Name + "|" + t, xml, 700, 500);
         }
 
         public static void GetRoomsInfoEx()
@@ -129,7 +167,7 @@ namespace AutoCADCommands
             DateTime end = DateTime.Now;
             TimeSpan t = end - start;
             string xml = XmlSerializeHelper.GetXmlText(floor);
-            Gui.TextReport(floor.Name + "|" + t, xml, 700, 500);
+            MyTool.TextReport(floor.Name + "|" + t, xml, 700, 500);
         }
 
         public static TopoInfo GetFloorInfo()
@@ -153,7 +191,7 @@ namespace AutoCADCommands
             roomCount = 0;
             TopoInfo floor = GetFloorEx();
             //string xml1 = XmlSerializeHelper.GetXmlText(floor);
-            //Gui.TextReport("楼层", xml1, 700, 500);
+            //MyTool.TextReport("楼层", xml1, 700, 500);
             string txt = "";
             do
             {
@@ -167,7 +205,7 @@ namespace AutoCADCommands
             return floor;
         }
 
-        public static string GetText(Point3d pt1, Point3d pt2)
+        public static string GetText(Point3d pt1, Point3d pt2,string layer)
         {
             //var p1 = Interaction.GetPoint("坐标1");
             //var p2 = Interaction.GetPoint("坐标2");
@@ -182,19 +220,33 @@ namespace AutoCADCommands
                 var sp = item.ToCADShape(true);
                 sps.Add(sp);
                 //txt += string.Format("{0}\n", sp);
+                
             }
 
             sps.SortByXY();//按坐标排序
             foreach (CADShape sp in sps)
             {
+                if(string.IsNullOrEmpty(sp.Text))
+                {
+                    continue;
+                }
                 if (sp.Text == "AC")
                 {
                     continue; ;
                 }
                 name += sp.Text;
+                if (sp.Layer == layer)
+                {
+                    name = sp.Text;
+                    break;
+                }
+            }
+            if (name == null)
+            {
+                name = "";
             }
 
-            //Gui.TextReport("名称:" + name, txt, 700, 500);
+            //MyTool.TextReport("名称:" + name, txt, 700, 500);
             return name.Trim();
         }
 
@@ -375,7 +427,7 @@ namespace AutoCADCommands
                 pMax=new Point3d(pMaxX,pMaxY,0);
             }
 
-            string room = GetText(pMin, pMax);
+            string room = GetText(pMin, pMax,"");
             if (string.IsNullOrEmpty(room))
             {
                 room = Interaction.GetString("输入房间名称");
@@ -391,7 +443,7 @@ namespace AutoCADCommands
             Interaction.WriteLine("");
 
             //string xml = XmlSerializeHelper.GetXmlText(topoInfo);
-            //Gui.TextReport("房间:" + txt, xml, 700, 500);
+            //MyTool.TextReport("房间:" + txt, xml, 700, 500);
 
             return topoInfo;
         }
@@ -405,7 +457,7 @@ namespace AutoCADCommands
             var p2 = Interaction.GetPoint("房间坐标2");
             if (double.IsNaN(p2.X)) return null;//这里是出口
 
-            string room = GetText(p1, p2);
+            string room = GetText(p1, p2,"");
             if (string.IsNullOrEmpty(room))
             {
                 room = Interaction.GetString("输入房间名称");
@@ -423,7 +475,7 @@ namespace AutoCADCommands
             Interaction.WriteLine("");
 
             //string xml = XmlSerializeHelper.GetXmlText(topoInfo);
-            //Gui.TextReport("房间:" + txt, xml, 700, 500);
+            //MyTool.TextReport("房间:" + txt, xml, 700, 500);
 
             return topoInfo;
         }

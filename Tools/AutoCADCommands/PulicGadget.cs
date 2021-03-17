@@ -134,12 +134,7 @@ namespace AutoCADCommands
                 pMin = new Point3d(sp.Points[0].X, sp.Points[0].Y, 0);
                 pMax = new Point3d(sp.Points[1].X, sp.Points[1].Y, 0);
             }
-            
-
-
-            name = GetRoomsCommand.GetText(pMin, pMax);
-
-
+            name = GetRoomsCommand.GetText(pMin, pMax,sp.Layer);
             return name;
         }
     }

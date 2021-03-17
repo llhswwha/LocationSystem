@@ -107,70 +107,87 @@ namespace AutoCADCommands.ModelExtensions
         public static CADShape ToCADShape(this ObjectId objId,bool isToUCS)
         {
             CADShape sp = new CADShape();
-            //var dbObject = objId.QOpenForRead();
-            var entity = objId.QOpenForRead<Entity>();
-            sp.Name = entity.GetType().Name;
-            sp.Type = entity.GetType().Name;
-            sp.Layer = entity.Layer;
-            if (entity is BlockReference) 
+            try
             {
-                sp.Name = "Block";
-                sp.AddPoints(entity as BlockReference, isToUCS);
-            }
-            else if (entity is Line)
-            {
-                sp.AddPoints(entity as Line, isToUCS);
-            }
-            else if (entity is Polyline)
-            {
-                sp.AddPoints(entity as Polyline, isToUCS);
+                //var dbObject = objId.QOpenForRead();
+                var entity = objId.QOpenForRead<Entity>();
+                sp.Name = entity.GetType().Name;
+                sp.Type = entity.GetType().Name;
+                sp.Layer = entity.Layer;
+                if (entity is BlockReference)
+                {
+                    sp.Name = "Block";
+                    sp.AddPoints(entity as BlockReference, isToUCS);
+                }
+                else if (entity is Line)
+                {
+                    sp.AddPoints(entity as Line, isToUCS);
+                }
+                else if (entity is Polyline)
+                {
+                    sp.AddPoints(entity as Polyline, isToUCS);
 
-               // string name = GetRoomsCommand.GetText(entity.Bounds.MinPoint, entity.Bounds.MaxPoint);
+                    // string name = GetRoomsCommand.GetText(entity.Bounds.MinPoint, entity.Bounds.MaxPoint);
 
+                }
+                else if (entity is MLeader)
+                {
+                    MLeader mleader = entity as MLeader;
+                    if (mleader.MText != null)
+                        sp.Text = mleader.MText.Text;
+                    //sp.AddPoints(entity as MLeader);
+                }
+                else if (entity is Circle)
+                {
+                    Circle circle = entity as Circle;
+                    //if (mleader.MText != null)
+                    //    sp.Text = mleader.MText.Text;
+                    sp.AddPoints(circle, isToUCS);
+                }
+                else if (entity is MText)
+                {
+                    MText text = entity as MText;
+                    sp.Text = text.Text;
+                    //text.InsertionPoint(0);
+                    sp.AddPoints(text, isToUCS);
+                }
+                else if (entity is DBText)
+                {
+                    DBText text = entity as DBText;
+                    sp.Text = text.TextString;
+                    //text.InsertionPoint(0);
+                    sp.AddPoints(text, isToUCS);
+                }
+
+                else if (entity is Hatch)
+                {
+                    Hatch hatch = entity as Hatch;
+                    //sp.Text = text.Text;
+                    //text.InsertionPoint(0);
+                    sp.AddPoints(hatch, isToUCS);
+                }
+                else if (entity is ProxyEntity)
+                {
+                    ProxyEntity pe = entity as ProxyEntity;
+                    sp.Name = pe.OriginalDxfName;
+                    sp.Type = "ProxyEntity";
+                    sp.Text = pe.OriginalClassName;
+                }
+                else
+                {
+                    //sp = null;
+                    sp.AddPoints(entity, isToUCS);
+                }
+
+                // objId.q
+                
             }
-            else if (entity is MLeader)
+            catch (Exception ex)
             {
-                MLeader mleader= entity as  MLeader;
-                if(mleader.MText!=null)
-                    sp.Text = mleader.MText.Text;
-                //sp.AddPoints(entity as MLeader);
-            }
-            else if (entity is Circle)
-            {
-                Circle circle = entity as Circle;
-                //if (mleader.MText != null)
-                //    sp.Text = mleader.MText.Text;
-                sp.AddPoints(circle, isToUCS);
-            }
-            else if (entity is MText)
-            {
-                MText text = entity as MText;
-                sp.Text = text.Text;
-                //text.InsertionPoint(0);
-                sp.AddPoints(text, isToUCS);
-            }
-            else if (entity is DBText)
-            {
-                DBText text = entity as DBText;
-                sp.Text = text.TextString;
-                //text.InsertionPoint(0);
-                sp.AddPoints(text, isToUCS);
+                sp.Name = "Exception";
+                sp.Text = ex.Message;
             }
 
-            else if (entity is Hatch)
-            {
-                Hatch hatch = entity as Hatch;
-                //sp.Text = text.Text;
-                //text.InsertionPoint(0);
-                sp.AddPoints(hatch, isToUCS);
-            }
-            else
-            {
-                //sp = null;
-                sp.AddPoints(entity, isToUCS);
-            }
-
-           // objId.q
             return sp;
         }
 
